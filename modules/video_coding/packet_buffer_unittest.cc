@@ -37,6 +37,8 @@ using ::testing::SizeIs;
 
 constexpr int kStartSize = 16;
 constexpr int kMaxSize = 64;
+constexpr uint32_t kSsrc = 6667;
+constexpr uint32_t kCsrc = 1234;
 
 void IgnoreResult(PacketBuffer::InsertResult /*result*/) {}
 
@@ -827,6 +829,94 @@ TEST_F(PacketBufferTest, TooManyNalusInPacket) {
   packet.size_bytes = 0;
   packet.data = nullptr;
   EXPECT_THAT(packet_buffer_.InsertPacket(&packet).frames, IsEmpty());
+}
+
+TEST_F(PacketBufferTest, PacketInfoIsPreserved) {
+  constexpr uint32_t kRtpTimestamp0 = 1020300000;
+  const uint16_t seq_num = Rand();
+
+  RtpPacketInfo packet_info_0;
+  packet_info_0.set_ssrc(kSsrc);
+  packet_info_0.set_csrcs({kCsrc});
+  packet_info_0.set_rtp_timestamp(kRtpTimestamp0);
+
+  PacketBuffer::Packet packet;
+  packet.video_header.codec = kVideoCodecGeneric;
+  packet.seq_num = seq_num;
+  packet.video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  packet.video_header.is_first_packet_in_frame = true;
+  packet.video_header.is_last_packet_in_frame = false;
+  packet.packet_info = packet_info_0;
+
+  IgnoreResult(packet_buffer_.InsertPacket(&packet));
+
+  packet.seq_num++;
+  packet.video_header.is_first_packet_in_frame = false;
+  packet.video_header.is_last_packet_in_frame = true;
+  RtpPacketInfo packet_info_1 = packet_info_0;
+
+  packet_info_1.set_rtp_timestamp(kRtpTimestamp0 + 1280);
+  packet.packet_info = packet_info_1;
+
+  auto frames = packet_buffer_.InsertPacket(&packet).frames;
+
+  ASSERT_THAT(frames, SizeIs(1));
+  auto packet_infos = frames.front()->PacketInfos();
+  EXPECT_THAT(packet_infos, ElementsAre(packet_info_0, packet_info_1));
+}
+
+TEST_F(PacketBufferTest, AbsoluteCaptureTimeIsExtrapolated) {
+  constexpr uint32_t kRtpTimestamp0 = 1020300000;
+  constexpr uint64_t kAbsoluteCaptureTimestamp = 12;
+  constexpr absl::optional<uint64_t> kEstimatedCaptureClockOffset = 12;
+  const uint16_t seq_num = Rand();
+
+  RtpPacketInfo packet_info;
+  packet_info.set_ssrc(kSsrc);
+  packet_info.set_csrcs({kCsrc});
+  packet_info.set_rtp_timestamp(kRtpTimestamp0);
+  packet_info.set_absolute_capture_time(AbsoluteCaptureTime{
+      kAbsoluteCaptureTimestamp, kEstimatedCaptureClockOffset});
+
+  PacketBuffer::Packet packet;
+  packet.video_header.codec = kVideoCodecGeneric;
+  packet.seq_num = seq_num;
+  packet.video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  packet.video_header.is_first_packet_in_frame = true;
+  packet.video_header.is_last_packet_in_frame = false;
+  // We have to copy it as InserPacket moves |packet| internally.
+  packet.packet_info = packet_info;
+
+  IgnoreResult(packet_buffer_.InsertPacket(&packet));
+
+  packet.seq_num++;
+  packet.video_header.is_first_packet_in_frame = false;
+  packet.video_header.is_last_packet_in_frame = true;
+  // We have to copy it as InserPacket moves |packet| internally.
+  packet.packet_info = packet_info;
+  packet.packet_info.set_rtp_timestamp(kRtpTimestamp0 + 1280);
+  packet.packet_info.set_absolute_capture_time(absl::nullopt);
+
+  auto frames = packet_buffer_.InsertPacket(&packet).frames;
+
+  ASSERT_THAT(frames, SizeIs(1));
+
+  auto packet_infos = frames.front()->PacketInfos();
+  ASSERT_THAT(packet_infos, SizeIs(2));
+
+  auto absolute_capture_time_0 = packet_infos[0].absolute_capture_time();
+  auto absolute_capture_time_1 = packet_infos[1].absolute_capture_time();
+
+  ASSERT_TRUE(absolute_capture_time_0);
+  EXPECT_EQ(absolute_capture_time_0->absolute_capture_timestamp,
+            kAbsoluteCaptureTimestamp);
+  //  Estimated capture clock offset currently is not supported.
+  EXPECT_FALSE(absolute_capture_time_0->estimated_capture_clock_offset);
+
+  // Capture time is extrapolated for the missing value in the second packet.
+  EXPECT_TRUE(absolute_capture_time_1.has_value());
+  //  Estimated capture clock offset currently is not supported.
+  EXPECT_FALSE(absolute_capture_time_1->estimated_capture_clock_offset);
 }
 
 TEST_P(PacketBufferH264ParameterizedTest, OneFrameFillBuffer) {

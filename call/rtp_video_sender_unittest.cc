@@ -437,7 +437,7 @@ TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
       EncodedImageCallback::Result::OK,
       test.router()->OnEncodedImage(encoded_image, nullptr, nullptr).error);
 
-  test.clock().AdvanceTimeMilliseconds(33);
+  test.clock().AdvanceTimeMilliseconds(100);
 
   ASSERT_TRUE(event.Wait(kTimeoutMs));
 
@@ -466,6 +466,7 @@ TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
         return true;
       });
   test.router()->DeliverRtcp(nack_buffer.data(), nack_buffer.size());
+  test.clock().AdvanceTimeMilliseconds(100);
   ASSERT_TRUE(event.Wait(kTimeoutMs));
 
   // Verify that both packets were retransmitted.
@@ -491,7 +492,7 @@ TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
   // the history has been notified of the ack and removed the packet. The
   // second packet, included in the feedback but not marked as received, should
   // still be retransmitted.
-  test.clock().AdvanceTimeMilliseconds(33);
+  test.clock().AdvanceTimeMilliseconds(100);
   EXPECT_CALL(test.transport(), SendRtp)
       .WillOnce([&event, &lost_packet_feedback](const uint8_t* packet,
                                                 size_t length,
@@ -507,6 +508,7 @@ TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
         return true;
       });
   test.router()->DeliverRtcp(nack_buffer.data(), nack_buffer.size());
+  test.clock().AdvanceTimeMilliseconds(100);
   ASSERT_TRUE(event.Wait(kTimeoutMs));
 }
 

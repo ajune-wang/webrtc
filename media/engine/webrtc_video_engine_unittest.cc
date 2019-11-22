@@ -27,6 +27,7 @@
 #include "api/test/mock_video_bitrate_allocator_factory.h"
 #include "api/test/mock_video_decoder_factory.h"
 #include "api/test/mock_video_encoder_factory.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/transport/media/media_transport_config.h"
 #include "api/units/time_delta.h"
 #include "api/video/builtin_video_bitrate_allocator_factory.h"
@@ -238,6 +239,7 @@ class WebRtcVideoEngineTest : public ::testing::Test {
         call_(webrtc::Call::Create([&] {
           webrtc::Call::Config call_config(&event_log_);
           call_config.task_queue_factory = task_queue_factory_.get();
+          call_config.trials = &field_trials_;
           return call_config;
         }())),
         encoder_factory_(new cricket::FakeWebRtcVideoEncoderFactory),
@@ -276,6 +278,7 @@ class WebRtcVideoEngineTest : public ::testing::Test {
   // race condition in the clock access.
   rtc::ScopedFakeClock fake_clock_;
   std::unique_ptr<webrtc::test::ScopedFieldTrials> override_field_trials_;
+  webrtc::FieldTrialBasedConfig field_trials_;
   webrtc::RtcEventLogNull event_log_;
   std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory_;
   // Used in WebRtcVideoEngineVoiceTest, but defined here so it's properly
@@ -1153,6 +1156,8 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
   webrtc::RtcEventLogNull event_log;
   auto task_queue_factory = webrtc::CreateDefaultTaskQueueFactory();
   webrtc::Call::Config call_config(&event_log);
+  webrtc::FieldTrialBasedConfig field_trials;
+  call_config.trials = &field_trials;
   call_config.task_queue_factory = task_queue_factory.get();
   const auto call = absl::WrapUnique(webrtc::Call::Create(call_config));
 
@@ -1223,6 +1228,8 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, NullDecoder) {
   webrtc::RtcEventLogNull event_log;
   auto task_queue_factory = webrtc::CreateDefaultTaskQueueFactory();
   webrtc::Call::Config call_config(&event_log);
+  webrtc::FieldTrialBasedConfig field_trials;
+  call_config.trials = &field_trials;
   call_config.task_queue_factory = task_queue_factory.get();
   const auto call = absl::WrapUnique(webrtc::Call::Create(call_config));
 
@@ -1315,6 +1322,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
     if (!call_) {
       webrtc::Call::Config call_config(&event_log_);
       call_config.task_queue_factory = task_queue_factory_.get();
+      call_config.trials = &field_trials_;
       call_.reset(webrtc::Call::Create(call_config));
     }
     cricket::MediaConfig media_config;
@@ -1496,6 +1504,7 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
   }
 
   webrtc::RtcEventLogNull event_log_;
+  webrtc::FieldTrialBasedConfig field_trials_;
   std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory_;
   std::unique_ptr<webrtc::Call> call_;
   std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>

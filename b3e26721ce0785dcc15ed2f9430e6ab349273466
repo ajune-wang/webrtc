@@ -16,6 +16,24 @@
       "revId": "b3e26721ce0785dcc15ed2f9430e6ab349273466",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ae9817_8c554b30",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-11-22T22:14:47Z",
+      "side": 1,
+      "message": "Thanks!\nDone.",
+      "parentUuid": "7fc72b11_852e8203",
+      "revId": "b3e26721ce0785dcc15ed2f9430e6ab349273466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

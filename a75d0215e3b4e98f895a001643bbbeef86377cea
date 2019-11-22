@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d9714ed_2fc86a92",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-22T13:10:10Z",
+      "side": 1,
+      "message": "On what thread is this called. Can you add thread checker?",
+      "range": {
+        "startLine": 250,
+        "startChar": 44,
+        "endLine": 250,
+        "endChar": 45
+      },
+      "revId": "a75d0215e3b4e98f895a001643bbbeef86377cea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f2885a_5e45eb9b",
+        "filename": "pc/video_rtp_track_source.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-22T13:10:10Z",
+      "side": 1,
+      "message": "Document on what thread this must happens on, or that it can be done on any thread if we can not know.",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 38
+      },
+      "revId": "a75d0215e3b4e98f895a001643bbbeef86377cea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

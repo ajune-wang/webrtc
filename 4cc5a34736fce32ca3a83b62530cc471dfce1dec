@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39f2e01f_f089fcd5",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-22T14:18:49Z",
+      "side": 1,
+      "message": "Lots of manual memory management here. Add comments?",
+      "revId": "4cc5a34736fce32ca3a83b62530cc471dfce1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33586411_4671de02",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-22T14:18:49Z",
+      "side": 1,
+      "message": "Why is this needed?",
+      "range": {
+        "startLine": 339,
+        "startChar": 4,
+        "endLine": 339,
+        "endChar": 44
+      },
+      "revId": "4cc5a34736fce32ca3a83b62530cc471dfce1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dae0b05_fb3f7a14",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-22T14:18:49Z",
+      "side": 1,
+      "message": "\"and\"?",
+      "range": {
+        "startLine": 398,
+        "startChar": 38,
+        "endLine": 398,
+        "endChar": 40
+      },
+      "revId": "4cc5a34736fce32ca3a83b62530cc471dfce1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0561f608_8822e01a",
+        "filename": "rtc_base/thread_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-22T14:18:49Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "4cc5a34736fce32ca3a83b62530cc471dfce1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

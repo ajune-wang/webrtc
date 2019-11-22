@@ -213,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "abe783ef_2deccdd3",
+        "filename": "test/testsupport/video_frame_reader.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-22T11:25:22Z",
+      "side": 1,
+      "message": "Look at YuvFileGenerator.\nWorks everywhere, and doesn\u0027t support resize.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/test/frame_generator.cc?rcl\u003d4995f872ca2f06069af169a2cb7a1eb3b90fe0d0\u0026l\u003d180\n\nIf resize would be needed in the future, it\u0027s not that difficult to add scaling before returning VideoFrame.",
+      "parentUuid": "92cd891a_9a59a05e",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 22
+      },
+      "revId": "4123f2ab0b6b4013fdd82e7ddf2f86bf8ef8e2f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff1e28d4_a96f25b6",
         "filename": "test/testsupport/video_frame_reader.h",
         "patchSetId": 3

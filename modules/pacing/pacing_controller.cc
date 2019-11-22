@@ -348,12 +348,18 @@ Timestamp PacingController::NextSendTime() const {
                     last_process_time_ + padding_debt_ / padding_rate_);
   }
 
-  return last_send_time_ + kPausedProcessInterval;
+  if (send_padding_if_silent_) {
+    return last_send_time_ + kPausedProcessInterval;
+  }
+  return last_process_time_ + kPausedProcessInterval;
 }
 
 void PacingController::ProcessPackets() {
   Timestamp now = CurrentTime();
-  RTC_DCHECK_GE(now, last_process_time_);
+  if (now < last_process_time_) {
+    // We processed early last time, don't try until time has caught up.
+    return;
+  }
   Timestamp target_send_time = now;
   if (mode_ == ProcessMode::kDynamic) {
     target_send_time = NextSendTime();

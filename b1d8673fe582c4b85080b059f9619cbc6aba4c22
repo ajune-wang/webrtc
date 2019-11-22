@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4036ca7_113616dd",
+        "filename": "audio/utility/channel_mixing_matrix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-22T10:19:01Z",
+      "side": 1,
+      "message": "Since this populates the entire matrix, why not place it before all the other code?\n\nGets rid of the extra nesting as well as |transformation_is_a_simple_remapping|",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 3
+      },
+      "revId": "b1d8673fe582c4b85080b059f9619cbc6aba4c22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc01e619_28229676",
+        "filename": "audio/utility/channel_mixing_matrix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-22T10:19:01Z",
+      "side": 1,
+      "message": "This is only for tests, right? Can you replace it with setting the field trial inside the test?\nSeems to be possible, see here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/audio/audio_send_stream_unittest.cc?l\u003d401\u0026rcl\u003d0174ffe70018e85681721ae2c9a82159b7c1ee0a\n\nMore examples\nhttps://cs.chromium.org/search/?q\u003d%22field_trial.h%22+file:webrtc.*unittest.cc\u0026sq\u003dpackage:chromium\u0026type\u003dcs",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "b1d8673fe582c4b85080b059f9619cbc6aba4c22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -846,7 +846,7 @@ TEST_P(MAYBE_AudioDeviceTest, StartStopRecordingWithRealDevice) {
   }
   EXPECT_GT(num_devices, 0);
   // Verify that all available recording devices can be set and used.
-  for (int i = 0; i < num_devices; ++i) {
+  for (int i = 2; i < num_devices; ++i) {
     EXPECT_EQ(0, audio_device()->SetRecordingDevice(i));
     StartRecording();
     StopRecording();
@@ -1238,8 +1238,9 @@ TEST_P(MAYBE_AudioDeviceTest, DISABLED_MeasureLoopbackLatency) {
 INSTANTIATE_TEST_SUITE_P(
     AudioLayerWin,
     MAYBE_AudioDeviceTest,
-    ::testing::Values(AudioDeviceModule::kPlatformDefaultAudio,
-                      AudioDeviceModule::kWindowsCoreAudio2));
+    ::testing::Values(AudioDeviceModule::kWindowsCoreAudio2));
+// ::testing::Values(AudioDeviceModule::kPlatformDefaultAudio,
+//                   AudioDeviceModule::kWindowsCoreAudio2));
 #else
 // For all platforms but Windows, only test the default audio layer.
 INSTANTIATE_TEST_SUITE_P(

@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "13fa97e4_59785d5d",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-22T15:23:31Z",
+      "side": 1,
+      "message": "lgtm",
+      "parentUuid": "041eee51_f7079098",
+      "range": {
+        "startLine": 436,
+        "startChar": 8,
+        "endLine": 436,
+        "endChar": 26
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "545aa7e7_2ee3fbf6",
         "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
         "patchSetId": 4
@@ -516,6 +540,30 @@
       "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11b5124_6dbed4ae",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-22T15:23:31Z",
+      "side": 1,
+      "message": "Discussed elsewhere: No, it cannot be done in a bitexact way. Thanks for looking!",
+      "parentUuid": "716f8e6a_bf0e78a2",
+      "range": {
+        "startLine": 492,
+        "startChar": 4,
+        "endLine": 492,
+        "endChar": 42
+      },
+      "revId": "273797661c4c0a26269aa426f57033a3cd40eef6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

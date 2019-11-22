@@ -30,6 +30,7 @@ rtc_library("audio_frame_operations") {
     "../../rtc_base:checks",
     "../../rtc_base:deprecation",
     "../../rtc_base:rtc_base_approved",
+    "../../system_wrappers:field_trial",
   ]
 }
 

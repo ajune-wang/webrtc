@@ -35,7 +35,14 @@ class ChannelMixingMatrix {
   // This file is derived from Chromium's media/base/channel_mixing_matrix.h.
   bool CreateTransformationMatrix(std::vector<std::vector<float>>* matrix);
 
+  // Specify whether WebRTC VoIP channel mapping adjustments should be used.
+  void UseVoIPMappingAdjustment(bool use_adjustment) {
+    use_voip_channel_mapping_adjustments_ = use_adjustment;
+  }
+
  private:
+  bool use_voip_channel_mapping_adjustments_;
+
   // Result transformation of input channels to output channels
   std::vector<std::vector<float>>* matrix_;
 

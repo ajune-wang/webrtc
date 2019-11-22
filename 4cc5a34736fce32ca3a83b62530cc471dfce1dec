@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bc2d80de_b59758c4",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-22T14:57:26Z",
+      "side": 1,
+      "message": "Added comments.\ntwo interfaces each with own manual memory management got in here.\nOne them predates c++11 and thus uses raw pointer while passing ownership.\nanother one is bool webrtc::QueuedTask::Run();",
+      "parentUuid": "39f2e01f_f089fcd5",
+      "revId": "4cc5a34736fce32ca3a83b62530cc471dfce1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33586411_4671de02",
         "filename": "rtc_base/thread.h",
         "patchSetId": 6
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "b1150d97_648847fd",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-22T14:57:26Z",
+      "side": 1,
+      "message": "not needed, removed.\n(I just have a habbit to mention destructor explicitly. but for a class this small it doesn\u0027t help)",
+      "parentUuid": "33586411_4671de02",
+      "range": {
+        "startLine": 339,
+        "startChar": 4,
+        "endLine": 339,
+        "endChar": 44
+      },
+      "revId": "4cc5a34736fce32ca3a83b62530cc471dfce1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6dae0b05_fb3f7a14",
         "filename": "rtc_base/thread.h",
         "patchSetId": 6
@@ -62,6 +104,30 @@
       "revId": "4cc5a34736fce32ca3a83b62530cc471dfce1dec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4143203_69a6e061",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-22T14:57:26Z",
+      "side": 1,
+      "message": "i.e. when Thread is used as TaskQueue,  ia TaskQueueBase interface.\ninstead rephrased in terms of the webrtc::QueuedTask.",
+      "parentUuid": "6dae0b05_fb3f7a14",
+      "range": {
+        "startLine": 398,
+        "startChar": 38,
+        "endLine": 398,
+        "endChar": 40
+      },
+      "revId": "4cc5a34736fce32ca3a83b62530cc471dfce1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

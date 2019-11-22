@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a044d149_e21097bf",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-22T13:09:17Z",
+      "side": 1,
+      "message": "nit: Should this be \"set_m_section_if_unset\"?",
+      "revId": "e19342850ef7b51a1124cd75c73c438fb46a6d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f214747_025772df",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-22T13:09:17Z",
+      "side": 1,
+      "message": "nit: set_remote_stream_ids_if_unset()?",
+      "revId": "e19342850ef7b51a1124cd75c73c438fb46a6d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a96e143a_ccb096a3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 8053,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-22T13:09:17Z",
+      "side": 1,
+      "message": "This comment is not true: \"Once all processing has finished, fire off callbacks.\"\nBut it should be.\n\nWe don\u0027t want callbacks to be fired while we are still processing state changes, because the callback would then be able to inspect the PC when it is in an incomplete state. It would also be able to do weird things, like perform AddTrack() or SetLocalDescription() in the middle of existing algorithms executing.\n\nInstead, move out the added_streams and removed_streams lists and iterate and inform the Observer() at the end of Rollback(). Per-spec, fire these events after ChangeSignalingState() below (line 8095).",
+      "revId": "e19342850ef7b51a1124cd75c73c438fb46a6d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69a99711_0820d230",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-22T13:09:17Z",
+      "side": 1,
+      "message": "nit: RollbackKeepsTransceiverAfterAddTrackEvenWhenTrackIsNulled",
+      "revId": "e19342850ef7b51a1124cd75c73c438fb46a6d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e5ae226_e6d99f47",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-11-22T13:09:17Z",
+      "side": 1,
+      "message": "nit: SetTrack(nullptr)",
+      "revId": "e19342850ef7b51a1124cd75c73c438fb46a6d2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

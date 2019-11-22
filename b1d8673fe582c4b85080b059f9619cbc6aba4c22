@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56208f05_50775194",
+        "filename": "audio/utility/channel_mixing_matrix.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T12:11:46Z",
+      "side": 1,
+      "message": "Good point!\nDone.",
+      "parentUuid": "c4036ca7_113616dd",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 3
+      },
+      "revId": "b1d8673fe582c4b85080b059f9619cbc6aba4c22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc01e619_28229676",
         "filename": "audio/utility/channel_mixing_matrix.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b1d8673fe582c4b85080b059f9619cbc6aba4c22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c39693a_ffec4eb7",
+        "filename": "audio/utility/channel_mixing_matrix.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-22T12:11:46Z",
+      "side": 1,
+      "message": "Great suggestion!\nDone.",
+      "parentUuid": "bc01e619_28229676",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "b1d8673fe582c4b85080b059f9619cbc6aba4c22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

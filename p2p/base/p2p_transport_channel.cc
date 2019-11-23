@@ -180,6 +180,7 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
   connection->set_unwritable_timeout(config_.ice_unwritable_timeout);
   connection->set_unwritable_min_checks(config_.ice_unwritable_min_checks);
   connection->set_inactive_timeout(config_.ice_inactive_timeout);
+  connection->SetIceFieldFtrials(&field_trials_);
   connection->SignalReadPacket.connect(this,
                                        &P2PTransportChannel::OnReadPacket);
   connection->SignalReadyToSend.connect(this,

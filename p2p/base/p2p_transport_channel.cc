@@ -180,6 +180,7 @@ void P2PTransportChannel::AddConnection(Connection* connection) {
   connection->set_unwritable_timeout(config_.ice_unwritable_timeout);
   connection->set_unwritable_min_checks(config_.ice_unwritable_min_checks);
   connection->set_inactive_timeout(config_.ice_inactive_timeout);
+  connection->SetIceFieldFtrials(&field_trials_);
   connection->SignalReadPacket.connect(this,
                                        &P2PTransportChannel::OnReadPacket);
   connection->SignalReadyToSend.connect(this,
@@ -632,7 +633,8 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
       "max_outstanding_pings", &field_trials_.max_outstanding_pings,
       "initial_select_dampening", &field_trials_.initial_select_dampening,
       "initial_select_dampening_ping_received",
-      &field_trials_.initial_select_dampening_ping_received)
+      &field_trials_.initial_select_dampening_ping_received, "goog_ping",
+      &field_trials_.enable_goog_ping)
       ->Parse(webrtc::field_trial::FindFullName("WebRTC-IceFieldTrials"));
 
   if (field_trials_.skip_relay_to_non_relay_connections) {

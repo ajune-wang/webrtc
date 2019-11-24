@@ -11,6 +11,7 @@
 #ifndef P2P_BASE_CONNECTION_H_
 #define P2P_BASE_CONNECTION_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -20,6 +21,7 @@
 #include "logging/rtc_event_log/ice_logger.h"
 #include "p2p/base/candidate_pair_interface.h"
 #include "p2p/base/connection_info.h"
+#include "p2p/base/p2p_transport_channel_ice_field_trials.h"
 #include "p2p/base/stun_request.h"
 #include "p2p/base/transport_description.h"
 #include "rtc_base/async_packet_socket.h"
@@ -128,6 +130,10 @@ class Connection : public CandidatePairInterface,
   int inactive_timeout() const;
   void set_inactive_timeout(const absl::optional<int>& value) {
     inactive_timeout_ = value;
+  }
+
+  void SetIceFieldFtrials(const IceFieldTrials* ice_field_trials) {
+    ice_field_trials_ = ice_field_trials;
   }
 
   // Gets the |ConnectionInfo| stats, where |best_connection| has not been
@@ -349,6 +355,10 @@ class Connection : public CandidatePairInterface,
   void LogCandidatePairEvent(webrtc::IceCandidatePairEventType type,
                              uint32_t transaction_id);
 
+  // Check if this IceMessage is identical
+  // to last message ack:ed STUN_BINDING_REQUEST.
+  bool IsStunBindingUnchanged(IceMessage* message);
+
   WriteState write_state_;
   bool receiving_;
   bool connected_;
@@ -404,6 +414,14 @@ class Connection : public CandidatePairInterface,
 
   absl::optional<webrtc::IceCandidatePairDescription> log_description_;
   webrtc::IceEventLog* ice_event_log_ = nullptr;
+  const IceFieldTrials* ice_field_trials_ = nullptr;
+
+  // GOOG_PING_REQUEST.
+  // - if enabled (field trial)
+  // - does remote support it ?
+  // - cached STUN_BINDING_REQUEST
+  absl::optional<bool> remote_support_goog_ping_;
+  std::unique_ptr<IceMessage> cached_stun_binding_;
 
   friend class Port;
   friend class ConnectionRequest;

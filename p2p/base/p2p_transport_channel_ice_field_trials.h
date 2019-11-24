@@ -31,6 +31,9 @@ struct IceFieldTrials {
   // maximum this delay. This will make media slower, but will
   // give us chance to find a better connection before starting.
   absl::optional<int> initial_select_dampening_ping_received;
+
+  // Enable GOOG_PING
+  bool enable_goog_ping = false;
 };
 
 }  // namespace cricket

@@ -21,6 +21,7 @@
 #include "api/rtp_parameters.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/default_task_queue_factory.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/transport/media/media_transport_config.h"
 #include "call/call.h"
 #include "media/base/fake_media_engine.h"
@@ -3466,6 +3467,8 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
   engine.Init();
   webrtc::RtcEventLogNull event_log;
   webrtc::Call::Config call_config(&event_log);
+  webrtc::FieldTrialBasedConfig field_trials;
+  call_config.trials = &field_trials;
   call_config.task_queue_factory = task_queue_factory.get();
   auto call = absl::WrapUnique(webrtc::Call::Create(call_config));
   cricket::VoiceMediaChannel* channel = engine.CreateMediaChannel(
@@ -3494,6 +3497,8 @@ TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
     engine.Init();
     webrtc::RtcEventLogNull event_log;
     webrtc::Call::Config call_config(&event_log);
+    webrtc::FieldTrialBasedConfig field_trials;
+    call_config.trials = &field_trials;
     call_config.task_queue_factory = task_queue_factory.get();
     auto call = absl::WrapUnique(webrtc::Call::Create(call_config));
     cricket::VoiceMediaChannel* channel = engine.CreateMediaChannel(
@@ -3568,6 +3573,8 @@ TEST(WebRtcVoiceEngineTest, Has32Channels) {
   engine.Init();
   webrtc::RtcEventLogNull event_log;
   webrtc::Call::Config call_config(&event_log);
+  webrtc::FieldTrialBasedConfig field_trials;
+  call_config.trials = &field_trials;
   call_config.task_queue_factory = task_queue_factory.get();
   auto call = absl::WrapUnique(webrtc::Call::Create(call_config));
 
@@ -3611,6 +3618,8 @@ TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
   engine.Init();
   webrtc::RtcEventLogNull event_log;
   webrtc::Call::Config call_config(&event_log);
+  webrtc::FieldTrialBasedConfig field_trials;
+  call_config.trials = &field_trials;
   call_config.task_queue_factory = task_queue_factory.get();
   auto call = absl::WrapUnique(webrtc::Call::Create(call_config));
   cricket::WebRtcVoiceMediaChannel channel(&engine, cricket::MediaConfig(),

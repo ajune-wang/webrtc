@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "528d8559_7616088a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-25T18:21:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c910eba6_fa740ec3",
+      "revId": "fc16cf3b53035528929ad8aaf493ab21ea507b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23e4e2d2_12fd2cd8",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7788e559_c4f0469a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-25T18:21:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23e4e2d2_12fd2cd8",
+      "revId": "fc16cf3b53035528929ad8aaf493ab21ea507b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3566d3c7_6602e607",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7
@@ -50,6 +86,24 @@
       "revId": "fc16cf3b53035528929ad8aaf493ab21ea507b4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dd604bc_5f11e1a2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 8052,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2019-11-25T18:21:30Z",
+      "side": 1,
+      "message": "I was thinking about the DCHECK too but there wasn\u0027t elegant way to do it. Got rid of the assumption all together.",
+      "parentUuid": "3566d3c7_6602e607",
+      "revId": "fc16cf3b53035528929ad8aaf493ab21ea507b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

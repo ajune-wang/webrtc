@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8540e900_4c910122",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Making a struct instead.",
+      "parentUuid": "ea3fceef_534c186c",
+      "range": {
+        "startLine": 185,
+        "startChar": 6,
+        "endLine": 185,
+        "endChar": 34
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4ba77cd_b9fdc1b3",
         "filename": "api/audio/echo_canceller3_config.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "810c3c8f_e9df166e",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4ba77cd_b9fdc1b3",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 51
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3e330ba1_5b431bbc",
+        "filename": "modules/audio_processing/aec3/dominant_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2792f9f8_1cae2dea",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 56
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ef874e3_7210694c",
         "filename": "modules/audio_processing/aec3/dominant_nearend_detector.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333a0ae8_655dbaae",
+        "filename": "modules/audio_processing/aec3/dominant_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ef874e3_7210694c",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "2dc6e428_dd675969",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87bcf9d5_e6c0ca93",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 71
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7332258_dc97b154",
         "filename": "modules/audio_processing/aec3/power_based_nearend_detector.cc",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab875c04_74ade277",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7332258_dc97b154",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 66
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "6130d298_ce9c6099",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Renaming to SubbandNearendDetector.",
+      "parentUuid": "5f3f6154_e13e5437",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86314644_770e0e85",
         "filename": "modules/audio_processing/aec3/power_based_nearend_detector.h",
         "patchSetId": 2
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "d1614131_6d73d098",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86314644_770e0e85",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 56
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "153e9448_8cf0b470",
         "filename": "modules/audio_processing/aec3/power_based_nearend_detector.h",
         "patchSetId": 2
@@ -206,6 +398,30 @@
       "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78e9be68_15098c90",
+        "filename": "modules/audio_processing/aec3/power_based_nearend_detector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T14:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "153e9448_8cf0b470",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "c7fad60b99f8b56c3e933512c70cccacee584d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

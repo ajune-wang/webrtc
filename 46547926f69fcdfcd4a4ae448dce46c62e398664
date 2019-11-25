@@ -46,6 +46,30 @@
       "revId": "46547926f69fcdfcd4a4ae448dce46c62e398664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75df9add_93f06a42",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-25T11:30:11Z",
+      "side": 1,
+      "message": "I\u0027m a bit confused by the numerics. I was sure that with mean(x) !\u003d 0, accuracy would degrade with growing n. But after trying some basic error analysis, it looks like the cancellation will give poor accuracy only if mean(x) is much larger than stddev(x).",
+      "parentUuid": "9335f2ae_ff9ce7d2",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 47
+      },
+      "revId": "46547926f69fcdfcd4a4ae448dce46c62e398664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

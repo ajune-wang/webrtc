@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c910eba6_fa740ec3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-25T11:57:15Z",
+      "side": 1,
+      "message": "Naming nit: SetMSectionIfUnset (this is not a simple setter).",
+      "revId": "fc16cf3b53035528929ad8aaf493ab21ea507b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23e4e2d2_12fd2cd8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-25T11:57:15Z",
+      "side": 1,
+      "message": "As above.",
+      "revId": "fc16cf3b53035528929ad8aaf493ab21ea507b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3566d3c7_6602e607",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 8052,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-25T11:57:15Z",
+      "side": 1,
+      "message": "Well, either they are or they aren\u0027t. Can you delete \"Assumption is\"?\nIs it possible to do an RTC_DCHECK that the assumption is true?",
+      "revId": "fc16cf3b53035528929ad8aaf493ab21ea507b4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

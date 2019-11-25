@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24accfab_f6e5ae95",
+        "filename": "pc/video_rtp_track_source.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-25T09:47:53Z",
+      "side": 1,
+      "message": "Callback does not need the mutex. add a webrtc::SequenceChecker instead and make sure |callback_| does  not hold the lock. See how SequenceChecker is used for documenting that something is only used/called on a certain thread or queue.",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 15
+      },
+      "revId": "cb245f76ce18f379a660a626c00321d8438ec62c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

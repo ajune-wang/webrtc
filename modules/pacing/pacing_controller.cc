@@ -276,6 +276,7 @@ TimeDelta PacingController::UpdateTimeAndGetElapsed(Timestamp now) {
   if (last_process_time_.IsMinusInfinity()) {
     return TimeDelta::Zero();
   }
+  RTC_DCHECK_GE(now, last_process_time_);
   TimeDelta elapsed_time = now - last_process_time_;
   last_process_time_ = now;
   if (elapsed_time > kMaxElapsedTime) {
@@ -336,7 +337,8 @@ Timestamp PacingController::NextSendTime() const {
 
   // If there are pending packets, check how long it will take until buffers
   // have emptied.
-  if (media_rate_ > DataRate::Zero() && !packet_queue_.Empty()) {
+  if (media_rate_ > DataRate::Zero() &&
+      (!packet_queue_.Empty() || !media_debt_.IsZero())) {
     return std::min(last_send_time_ + kPausedProcessInterval,
                     last_process_time_ + media_debt_ / media_rate_);
   }
@@ -348,20 +350,27 @@ Timestamp PacingController::NextSendTime() const {
                     last_process_time_ + padding_debt_ / padding_rate_);
   }
 
-  return last_send_time_ + kPausedProcessInterval;
+  if (send_padding_if_silent_) {
+    return last_send_time_ + kPausedProcessInterval;
+  }
+  return last_process_time_ + kPausedProcessInterval;
 }
 
 void PacingController::ProcessPackets() {
   Timestamp now = CurrentTime();
-  RTC_DCHECK_GE(now, last_process_time_);
   Timestamp target_send_time = now;
   if (mode_ == ProcessMode::kDynamic) {
     target_send_time = NextSendTime();
     if (target_send_time.IsMinusInfinity()) {
       target_send_time = now;
-    } else if (now + kMinSleepTime < target_send_time) {
+    } else if (now < target_send_time) {
       // We are too early, abort and regroup!
       return;
+    }
+
+    if (target_send_time < last_process_time_) {
+      UpdateBudgetWithElapsedTime(last_process_time_ - target_send_time);
+      target_send_time = last_process_time_;
     }
   }
 
@@ -585,6 +594,7 @@ std::unique_ptr<RtpPacketToSend> PacingController::GetPendingPacket(
         return nullptr;
       }
     } else {
+      // Dynamic processing mode.
       if (now <= target_send_time) {
         // We allow sending slightly early if we think that we would actually
         // had been able to, had we been right on time - i.e. the current debt
@@ -593,11 +603,6 @@ std::unique_ptr<RtpPacketToSend> PacingController::GetPendingPacket(
         if (now + flush_time > target_send_time) {
           return nullptr;
         }
-      } else {
-        // In dynamic mode we should never try get a non-probe packet until
-        // the media debt is actually zero. Since there can be rounding errors,
-        // allow some discrepancy.
-        RTC_DCHECK_LE(media_debt_, media_rate_ * kMinSleepTime);
       }
     }
   }

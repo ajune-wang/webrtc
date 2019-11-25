@@ -22,6 +22,30 @@
       "revId": "24b026101ad7a557e6fa08844fa112dae44d7715",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03139e16_cfe996a3",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-11-25T13:30:09Z",
+      "side": 1,
+      "message": "Yes as the current design has the framerates in the VideoCodec struct which is only updated when we initialize it.",
+      "parentUuid": "c80bea22_bacf0acf",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 62
+      },
+      "revId": "24b026101ad7a557e6fa08844fa112dae44d7715",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

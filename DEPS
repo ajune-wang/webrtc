@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '0ec8ef3c9f4ffdd84579d791e2684fe2c705bc75',
+  'chromium_revision': '0185a7eb6de89a574c3ea740ab3a0699730b48bf',
 }
 
 deps = {
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@077d1acbe376cf20f85f130ee40442b47489c8f4',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@00544f5296484a198966b5deb14d0a0a5347c3cd',
+    'https://chromium.googlesource.com/chromium/src/third_party@63e174c25acfda9822d31a4b22e1b4eb57dff715',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -107,7 +107,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@6ba98ff60144f60aba589b4d6121689528fbae76',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@5459c3891e2c1e3b0cb1a24d68bf33c798191852',
+    'https://chromium.googlesource.com/catapult.git@4ec3efef499f9379d2b6a983ff6c89756ff5a2ef',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',

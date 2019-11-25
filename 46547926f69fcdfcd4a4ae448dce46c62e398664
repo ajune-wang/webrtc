@@ -22,6 +22,30 @@
       "revId": "46547926f69fcdfcd4a4ae448dce46c62e398664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9335f2ae_ff9ce7d2",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-11-25T09:33:59Z",
+      "side": 1,
+      "message": "Done. I\u0027ve added a comment.\n\nThanks for catching the typo in the spec, I\u0027ll update it ASAP.\n\nRegarding the numerical accuracy, I think it\u0027s good enough for the intended purpose of this.",
+      "parentUuid": "f7c93619_d72e91b3",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 47
+      },
+      "revId": "46547926f69fcdfcd4a4ae448dce46c62e398664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

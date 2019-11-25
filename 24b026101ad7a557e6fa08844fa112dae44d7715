@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c80bea22_bacf0acf",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-11-25T12:16:37Z",
+      "side": 1,
+      "message": "is encoder reset needed?",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 62
+      },
+      "revId": "24b026101ad7a557e6fa08844fa112dae44d7715",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

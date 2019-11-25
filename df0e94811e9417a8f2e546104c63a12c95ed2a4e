@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "94925542_806bbc5a",
+        "filename": "api/audio/echo_canceller3_config.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T15:16:06Z",
+      "side": 1,
+      "message": "Ah, thanks for the explanation. Done.",
+      "parentUuid": "b4fa1c86_1d2f8548",
+      "range": {
+        "startLine": 91,
+        "startChar": 10,
+        "endLine": 113,
+        "endChar": 75
+      },
+      "revId": "df0e94811e9417a8f2e546104c63a12c95ed2a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d07384ff_da612ea6",
         "filename": "api/audio/echo_canceller3_config.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "df0e94811e9417a8f2e546104c63a12c95ed2a4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93657a98_d6502003",
+        "filename": "api/audio/echo_canceller3_config.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-11-25T15:16:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d07384ff_da612ea6",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 13
+      },
+      "revId": "df0e94811e9417a8f2e546104c63a12c95ed2a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

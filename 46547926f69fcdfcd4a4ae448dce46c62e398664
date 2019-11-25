@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7c93619_d72e91b3",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-25T09:17:36Z",
+      "side": 1,
+      "message": "Spec says that unit is seconds (and implicitly seconds square). Please mention unit in a comment, or add unit suffixes.\n\nAlso, the spec says that variance can be computed as\n\n (totalSquaredInterFrameDelay + totalInterFrameDelay^2/ framesDecoded)/framesDecoded\n\nI don\u0027t think this is correct, it ought to involve the *difference*\n\n  totalSquaredInterFrameDelay - totalInterFrameDelay^2 / framesDecoded\n\nWhich is mathematically correct, but numerically it\u0027s not a very good way to compute the variance.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 47
+      },
+      "revId": "46547926f69fcdfcd4a4ae448dce46c62e398664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "376de95b_61ff372e",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 33
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T11:51:28Z",
+      "side": 1,
+      "message": "nit:Looks like this one should be kMax, and the other one kMin, not like they are now.",
+      "range": {
+        "startLine": 24,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "5aea07c558555ef05712c7e6ea969e551a3bbd43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46d89e3b_d0cef07e",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 33
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T11:51:28Z",
+      "side": 1,
+      "message": "typo: maybSeupdate",
+      "range": {
+        "startLine": 127,
+        "startChar": 7,
+        "endLine": 127,
+        "endChar": 24
+      },
+      "revId": "5aea07c558555ef05712c7e6ea969e551a3bbd43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

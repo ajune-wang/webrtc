@@ -16,6 +16,24 @@
       "revId": "9a7422836a708e4a05b084df57deeaf9cffa988d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c56cd117_f4e1dcba",
+        "filename": "modules/audio_coding/acm2/acm_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-11-26T10:29:46Z",
+      "side": 1,
+      "message": "I think DefaultNetEqFactory will be useful in many tests, instead of CustomNetEqFactory. It could be moved out of the API directory though, should I do that?",
+      "parentUuid": "81511f8d_b05a8be9",
+      "revId": "9a7422836a708e4a05b084df57deeaf9cffa988d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

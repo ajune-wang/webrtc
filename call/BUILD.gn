@@ -294,6 +294,7 @@ rtc_library("video_stream_api") {
     "../api/crypto:options",
     "../api/transport/media:media_transport_interface",
     "../api/transport/rtp:rtp_source",
+    "../api/video:recordable_encoded_frame",
     "../api/video:video_frame",
     "../api/video:video_rtp_headers",
     "../api/video:video_stream_encoder",

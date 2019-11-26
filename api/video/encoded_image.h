@@ -78,7 +78,7 @@ class RTC_EXPORT EncodedImage {
   EncodedImage(const EncodedImage&);
   EncodedImage(uint8_t* buffer, size_t length, size_t capacity);
 
-  ~EncodedImage();
+  virtual ~EncodedImage();
 
   EncodedImage& operator=(EncodedImage&&);
   // Discouraged: potentially expensive.

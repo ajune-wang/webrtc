@@ -2678,8 +2678,12 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetRecvParameters(
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateWebRtcVideoStream() {
   absl::optional<int> base_minimum_playout_delay_ms;
+  VideoMediaChannel::RecordableEncodedFrameFunction
+      encoded_frame_buffer_function;
   if (stream_) {
     base_minimum_playout_delay_ms = stream_->GetBaseMinimumPlayoutDelayMs();
+    encoded_frame_buffer_function =
+        stream_->ReleaseEncodedFrameBufferFunction();
     MaybeDissociateFlexfecFromVideo();
     call_->DestroyVideoReceiveStream(stream_);
     stream_ = nullptr;
@@ -2692,6 +2696,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateWebRtcVideoStream() {
     stream_->SetBaseMinimumPlayoutDelayMs(
         base_minimum_playout_delay_ms.value());
   }
+  stream_->SetEncodedFrameBufferFunction(
+      std::move(encoded_frame_buffer_function));
   MaybeAssociateFlexfecWithVideo();
   stream_->Start();
 
@@ -2868,6 +2874,36 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   return info;
 }
 
+void WebRtcVideoChannel::WebRtcVideoReceiveStream::
+    SetEncodedFrameBufferFunction(
+        VideoMediaChannel::RecordableEncodedFrameFunction callback) {
+  if (stream_) {
+    stream_->SetEncodedFrameBufferFunction(std::move(callback));
+  } else {
+    RTC_LOG(LS_ERROR) << "Absent receive stream; ignoring setting encoded "
+                         "frame sink";
+  }
+}
+
+void WebRtcVideoChannel::WebRtcVideoReceiveStream::
+    ClearEncodedFrameBufferFunction() {
+  if (stream_) {
+    stream_->ReleaseEncodedFrameBufferFunction();
+  } else {
+    RTC_LOG(LS_ERROR) << "Absent receive stream; ignoring clearing encoded "
+                         "frame sink";
+  }
+}
+
+void WebRtcVideoChannel::WebRtcVideoReceiveStream::GenerateKeyFrame() {
+  if (stream_) {
+    stream_->GenerateKeyFrame();
+  } else {
+    RTC_LOG(LS_ERROR)
+        << "Absent receive stream; ignoring key frame generation request.";
+  }
+}
+
 WebRtcVideoChannel::VideoCodecSettings::VideoCodecSettings()
     : flexfec_payload_type(-1), rtx_payload_type(-1) {}
 
@@ -3012,6 +3048,60 @@ WebRtcVideoChannel::MapCodecs(const std::vector<VideoCodec>& codecs) {
   }
 
   return video_codecs;
+}
+
+WebRtcVideoChannel::WebRtcVideoReceiveStream*
+WebRtcVideoChannel::FindReceiveStream(uint32_t ssrc) {
+  if (ssrc == 0) {
+    absl::optional<uint32_t> default_ssrc = GetDefaultReceiveStreamSsrc();
+    if (!default_ssrc) {
+      return nullptr;
+    }
+    ssrc = *default_ssrc;
+  }
+  auto it = receive_streams_.find(ssrc);
+  if (it != receive_streams_.end()) {
+    return it->second;
+  }
+  return nullptr;
+}
+
+void WebRtcVideoChannel::SetEncodedFrameBufferFunction(
+    uint32_t ssrc,
+    RecordableEncodedFrameFunction function) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  WebRtcVideoReceiveStream* stream = FindReceiveStream(ssrc);
+  if (stream) {
+    stream->SetEncodedFrameBufferFunction(std::move(function));
+  } else {
+    RTC_LOG(LS_ERROR) << "Absent receive stream; ignoring setting encoded "
+                         "frame sink for ssrc "
+                      << ssrc;
+  }
+}
+
+void WebRtcVideoChannel::ClearEncodedFrameBufferFunction(uint32_t ssrc) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  WebRtcVideoReceiveStream* stream = FindReceiveStream(ssrc);
+  if (stream) {
+    stream->ClearEncodedFrameBufferFunction();
+  } else {
+    RTC_LOG(LS_ERROR) << "Absent receive stream; ignoring clearing encoded "
+                         "frame sink for ssrc "
+                      << ssrc;
+  }
+}
+
+void WebRtcVideoChannel::GenerateKeyFrame(uint32_t ssrc) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  WebRtcVideoReceiveStream* stream = FindReceiveStream(ssrc);
+  if (stream) {
+    stream->GenerateKeyFrame();
+  } else {
+    RTC_LOG(LS_ERROR)
+        << "Absent receive stream; ignoring key frame generation for ssrc "
+        << ssrc;
+  }
 }
 
 // TODO(bugs.webrtc.org/8785): Consider removing max_qp as member of

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f248daeb_98d7c0a9",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2019-11-26T09:06:08Z",
+      "side": 1,
+      "message": "This is not correct, it needs to have \"$build/goma\", e.g. :\nhttps://chromium-review.googlesource.com/c/chromium/src/+/1928386",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 0
+      },
+      "revId": "a3a0b6f7e0c45f3371b192efb3b55072b6c6aab2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

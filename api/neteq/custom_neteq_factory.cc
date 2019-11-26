@@ -31,4 +31,13 @@ std::unique_ptr<NetEq> CustomNetEqFactory::CreateNetEq(
                                       *controller_factory_));
 }
 
+std::unique_ptr<NetEq> CustomNetEqFactory::CreateNetEq(
+    const NetEq::Config& config,
+    const rtc::scoped_refptr<AudioDecoderFactory>& decoder_factory,
+    Clock* clock) const {
+  return std::make_unique<NetEqImpl>(
+      config, NetEqImpl::Dependencies(config, clock, decoder_factory,
+                                      *controller_factory_));
+}
+
 }  // namespace webrtc

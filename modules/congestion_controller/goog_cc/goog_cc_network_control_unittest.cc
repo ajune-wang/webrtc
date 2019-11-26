@@ -555,25 +555,6 @@ DataRate AverageBitrateAfterCrossInducedLoss(std::string name) {
          s.TimeSinceStart();
 }
 
-TEST_F(GoogCcNetworkControllerTest,
-       NoLossBasedRecoversSlowerAfterCrossInducedLoss) {
-  // This test acts as a reference for the test below, showing that wihtout the
-  // trial, we have worse behavior.
-  DataRate average_bitrate =
-      AverageBitrateAfterCrossInducedLoss("googcc_unit/no_cross_loss_based");
-  RTC_DCHECK_LE(average_bitrate, DataRate::kbps(650));
-}
-
-TEST_F(GoogCcNetworkControllerTest,
-       LossBasedRecoversFasterAfterCrossInducedLoss) {
-  // We recover bitrate better when subject to loss spikes from cross traffic
-  // when loss based controller is used.
-  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
-  DataRate average_bitrate =
-      AverageBitrateAfterCrossInducedLoss("googcc_unit/cross_loss_based");
-  RTC_DCHECK_GE(average_bitrate, DataRate::kbps(750));
-}
-
 TEST_F(GoogCcNetworkControllerTest, LossBasedEstimatorCapsRateAtModerateLoss) {
   ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
   Scenario s("googcc_unit/moderate_loss_channel", false);

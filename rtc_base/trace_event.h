@@ -143,8 +143,12 @@
 
 // By default, const char* argument values are assumed to have long-lived scope
 // and will not be copied. Use this macro to force a const char* to be copied.
+#if !defined(RTC_DISABLE_TRACE_EVENTS)
+#define TRACE_STR_COPY(str) 0
+#else
 #define TRACE_STR_COPY(str) \
     webrtc::trace_event_internal::TraceStringWithCopy(str)
+#endif
 
 // This will mark the trace event as disabled by default. The user will need
 // to explicitly enable the event.
@@ -152,8 +156,12 @@
 
 // By default, uint64 ID argument values are not mangled with the Process ID in
 // TRACE_EVENT_ASYNC macros. Use this macro to force Process ID mangling.
+#if !defined(RTC_DISABLE_TRACE_EVENTS)
+#define TRACE_ID_MANGLE(id) 0
+#else
 #define TRACE_ID_MANGLE(id) \
     webrtc::trace_event_internal::TraceID::ForceMangle(id)
+#endif
 
 // Records a pair of begin and end events called "name" for the current
 // scope, with 0, 1 or 2 associated arguments. If the category is not
@@ -558,6 +566,9 @@
 
 // Implementation detail: internal macro to create static category and add
 // event if the category is enabled.
+#if !defined(RTC_DISABLE_TRACE_EVENTS)
+#define INTERNAL_TRACE_EVENT_ADD(phase, category, name, flags, ...) 0
+#else
 #define INTERNAL_TRACE_EVENT_ADD(phase, category, name, flags, ...) \
     do { \
       INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category); \
@@ -567,10 +578,14 @@
             webrtc::trace_event_internal::kNoEventId, flags, ##__VA_ARGS__); \
       } \
     } while (0)
+#endif
 
 // Implementation detail: internal macro to create static category and add begin
 // event if the category is enabled. Also adds the end event when the scope
 // ends.
+#if !defined(RTC_DISABLE_TRACE_EVENTS)
+#define INTERNAL_TRACE_EVENT_ADD_SCOPED(...) 0
+#else
 #define INTERNAL_TRACE_EVENT_ADD_SCOPED(category, name, ...) \
     INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category); \
     webrtc::trace_event_internal::TraceEndOnScopeClose  \
@@ -584,9 +599,13 @@
       INTERNAL_TRACE_EVENT_UID(profileScope).Initialize( \
           INTERNAL_TRACE_EVENT_UID(catstatic), name); \
     }
+#endif
 
 // Implementation detail: internal macro to create static category and add
 // event if the category is enabled.
+#if !defined(RTC_DISABLE_TRACE_EVENTS)
+#define INTERNAL_TRACE_EVENT_ADD_WITH_ID(...) 0
+#else
 #define INTERNAL_TRACE_EVENT_ADD_WITH_ID(phase, category, name, id, flags, \
                                          ...) \
     do { \
@@ -601,6 +620,7 @@
             ##__VA_ARGS__); \
       } \
     } while (0)
+#endif
 
 // Notes regarding the following definitions:
 // New values can be added and propagated to third party libraries, but existing
@@ -634,6 +654,8 @@
 #define TRACE_VALUE_TYPE_POINTER      (static_cast<unsigned char>(5))
 #define TRACE_VALUE_TYPE_STRING       (static_cast<unsigned char>(6))
 #define TRACE_VALUE_TYPE_COPY_STRING  (static_cast<unsigned char>(7))
+
+#if defined(RTC_DISABLE_TRACE_EVENTS)
 
 namespace webrtc {
 namespace trace_event_internal {
@@ -882,5 +904,7 @@ class TraceEndOnScopeClose {
 
 }  // namespace trace_event_internal
 }  // namespace webrtc
+
+#endif  // defined(RTC_DISABLE_TRACE_EVENTS)
 
 #endif  // RTC_BASE_TRACE_EVENT_H_

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e937bfc5_c1ecc011",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-26T13:00:07Z",
+      "side": 1,
+      "message": "For every packet in the frame you will acquire and release the lock inside the AbsoluteCaptureTimeReceiver class, maybe remove the lock from there and just declare it as   |AbsoluteCaptureTimeReceiver absolute_capture_time_receiver_ RTC_GUARDED_BY(crit_);| in the packet_buffer.h file?\n\nAlso, is OnReceivePacket meant to be called for every packet that we receive? Because if you do it here it will only be call for packets that form a full frame.",
+      "range": {
+        "startLine": 445,
+        "startChar": 40,
+        "endLine": 445,
+        "endChar": 55
+      },
+      "revId": "bdcfa7b2837bcbd2541294a7ac7b7cc9a0eb62db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a43dc745_6c066034",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-26T13:00:07Z",
+      "side": 1,
+      "message": "WDYT about moving this to the RtpVideoStreamReceiver? In the RtpVideoStreamReceiver::OnReceivedPayloadData function a PacketBuffer::Packet is created. Before calling PacketBuffer::InsertPacket you could interpolate and set_absolute_capture_time on the packet. In PacketBuffer::AssembleFrame you could then simply copy (or move) all the RtpPacketInfo into a RtpPacketInfos::vector_type.\n\nI think that would be cleaner, to keep concerns as separate as possible.",
+      "range": {
+        "startLine": 178,
+        "startChar": 30,
+        "endLine": 178,
+        "endChar": 61
+      },
+      "revId": "bdcfa7b2837bcbd2541294a7ac7b7cc9a0eb62db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

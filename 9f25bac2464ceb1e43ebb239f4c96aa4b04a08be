@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ed09315_7f816ab8",
+        "filename": "test/fuzzers/aec3_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-11-26T16:21:48Z",
+      "side": 1,
+      "message": "what about adding this line also in the else statement and leaving it unused?\nit should help the fuzzer to make better sense of the passed input",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 62
+      },
+      "revId": "9f25bac2464ceb1e43ebb239f4c96aa4b04a08be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

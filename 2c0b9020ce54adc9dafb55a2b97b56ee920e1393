@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45fae906_b21096d4",
+        "filename": "pc/video_rtp_track_source.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-26T07:20:50Z",
+      "side": 1,
+      "message": "I would recommend that you cache encoded_sinks_.size() while holding the lock and only use the callback_ after releasing the lock. \nThat is safe since you only modify encoded_sinks_ on the worker thread.",
+      "range": {
+        "startLine": 56,
+        "startChar": 9,
+        "endLine": 56,
+        "endChar": 18
+      },
+      "revId": "2c0b9020ce54adc9dafb55a2b97b56ee920e1393",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edb58392_46542adc",
+        "filename": "pc/video_rtp_track_source.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-11-26T07:20:50Z",
+      "side": 1,
+      "message": "dito",
+      "range": {
+        "startLine": 74,
+        "startChar": 5,
+        "endLine": 74,
+        "endChar": 6
+      },
+      "revId": "2c0b9020ce54adc9dafb55a2b97b56ee920e1393",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

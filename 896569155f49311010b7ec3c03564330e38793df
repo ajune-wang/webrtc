@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e45b308_809ff4f6",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-26T15:30:15Z",
+      "side": 1,
+      "message": "Please use absl::optional\u003cint\u003e instead",
+      "range": {
+        "startLine": 485,
+        "startChar": 6,
+        "endLine": 485,
+        "endChar": 35
+      },
+      "revId": "896569155f49311010b7ec3c03564330e38793df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

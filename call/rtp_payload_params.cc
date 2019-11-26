@@ -267,7 +267,9 @@ void RtpPayloadParams::SetGeneric(const CodecSpecificInfo* codec_specific_info,
       }
       return;
     case VideoCodecType::kVideoCodecVP9:
-      // TODO(philipel): Implement VP9 to new generic descriptor.
+      // TODO(philipel): Implement VP9 to generic descriptor.
+    case VideoCodecType::kVideoCodecAV1:
+      // TODO(philipel): Implement AV1 to generic descriptor.
       return;
     case VideoCodecType::kVideoCodecH264:
       if (codec_specific_info) {

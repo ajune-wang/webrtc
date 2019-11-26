@@ -52,6 +52,24 @@
       "revId": "9a7422836a708e4a05b084df57deeaf9cffa988d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5005ea5_1047f43d",
+        "filename": "modules/audio_coding/acm2/acm_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-11-26T11:30:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90ac0e19_f72fd9f3",
+      "revId": "9a7422836a708e4a05b084df57deeaf9cffa988d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

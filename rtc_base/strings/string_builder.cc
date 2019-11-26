@@ -26,16 +26,12 @@ SimpleStringBuilder::SimpleStringBuilder(rtc::ArrayView<char> buffer)
   RTC_DCHECK(IsConsistent());
 }
 
-SimpleStringBuilder& SimpleStringBuilder::operator<<(const char* str) {
-  return Append(str, strlen(str));
+SimpleStringBuilder& SimpleStringBuilder::operator<<(absl::string_view str) {
+  return Append(str.data(), str.size());
 }
 
 SimpleStringBuilder& SimpleStringBuilder::operator<<(char ch) {
   return Append(&ch, 1);
-}
-
-SimpleStringBuilder& SimpleStringBuilder::operator<<(const std::string& str) {
-  return Append(str.c_str(), str.length());
 }
 
 // Numeric conversion routines.

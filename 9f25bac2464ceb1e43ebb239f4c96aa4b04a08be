@@ -22,6 +22,30 @@
       "revId": "9f25bac2464ceb1e43ebb239f4c96aa4b04a08be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aec9602_f7644e2e",
+        "filename": "test/fuzzers/aec3_fuzzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-11-26T16:57:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ed09315_7f816ab8",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 62
+      },
+      "revId": "9f25bac2464ceb1e43ebb239f4c96aa4b04a08be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -5,16 +5,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'bdce34606404d9bcac210bb435937fead9540368',
+  'chromium_revision': '92fe999ae056b0d2a842f087ae176232d535241b',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@37d11e4a04a1e1dae4be5c8f15cfc3e99e84165b',
+    'https://chromium.googlesource.com/chromium/src/base@6f84c5593437c7e6d51d2fb6a4bedee5e21e8e05',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@52927f5a119615413126d8bbacb53057103f3191',
+    'https://chromium.googlesource.com/chromium/src/build@4a770c7681c4a5d4cfc4d708d6086a5fc23e0a54',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@6b3e658d6fe8cd9c2588796d296f07312b776054',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@16af6cb6503445688c9e2eeb1f29eb9e7d4dcbdb',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@34f4641a200e88eeae349a32905544da7ae18cc7',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@adf8e569d7e931f5daedd53e157f7fc20c717d47',
+    'https://chromium.googlesource.com/chromium/src/testing@bed6128e4e02de6f578301dd5b19c7c6527c4cc8',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@3bf3ce1c9094f384ef889042709e75c8ee6e6a7e',
+    'https://chromium.googlesource.com/chromium/src/third_party@57c7a84c0043c5e327842cb38b87222f560c40b6',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -107,7 +107,7 @@ deps = {
   'src/third_party/boringssl/src':
     'https://boringssl.googlesource.com/boringssl.git@6ba98ff60144f60aba589b4d6121689528fbae76',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@731aba0ef8897570198ffd19c60e9a2a40acdd98',
+    'https://chromium.googlesource.com/catapult.git@bee6bf4cd336206c9ecbdacd6775a35822a13322',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
     'condition': 'checkout_android',
@@ -115,7 +115,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@800129711d28549962e99dfa08007d9d79e4f7a3',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@83aafc979fa6536d4d38b18b51e972bdeccdf1d3',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@fa04e15e1ad61052e85f42413d4b841d2a496ec0',
   'src/third_party/findbugs': {
@@ -237,7 +237,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@c056626c3484e351607d5e718d4dfe5a246104d4',
+    'https://chromium.googlesource.com/chromium/src/tools@2c7b0ec53239ff573b73de51f5adc40ed36cafb1',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 
@@ -387,7 +387,7 @@ deps = {
           },
           {
               'package': 'chromium/third_party/android_sdk/public/platform-tools',
-              'version': 'n5NRtk1IRM87UHkSNPKGfMf6VL_BfjEOBXhD9uqynhIC',
+              'version': 'Jxtur3_L9RzY4q79K-AwIahwFW4oi5uYVD5URx9h62wC',
           },
           {
               'package': 'chromium/third_party/android_sdk/public/platforms/android-29',

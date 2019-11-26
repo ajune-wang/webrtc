@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "512d3c05_f814203f",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 37
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T16:03:00Z",
+      "side": 1,
+      "message": "now + PacingController::kMinSleepTime",
+      "range": {
+        "startLine": 183,
+        "startChar": 15,
+        "endLine": 183,
+        "endChar": 18
+      },
+      "revId": "85e3f5d395afa0226fdddc7937c78da3a06f4161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9d200bd_840a1705",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 37
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T16:03:00Z",
+      "side": 1,
+      "message": "next_process_time - now;",
+      "range": {
+        "startLine": 185,
+        "startChar": 6,
+        "endLine": 185,
+        "endChar": 73
+      },
+      "revId": "85e3f5d395afa0226fdddc7937c78da3a06f4161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "388cb1f2_83014122",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 37
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T16:03:00Z",
+      "side": 1,
+      "message": "next_process_time",
+      "range": {
+        "startLine": 187,
+        "startChar": 6,
+        "endLine": 187,
+        "endChar": 22
+      },
+      "revId": "85e3f5d395afa0226fdddc7937c78da3a06f4161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52323da0_3376590b",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T11:07:00Z",
+      "side": 1,
+      "message": "nit: Isn\u0027t this too long update period for stats like OldestPacketWaitTime?",
+      "range": {
+        "startLine": 24,
+        "startChar": 68,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5387b7b1_c3f7b042",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T11:07:00Z",
+      "side": 1,
+      "message": "Should this check for is_shutdown?",
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09eec0c8_0c8999ef",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T11:07:00Z",
+      "side": 1,
+      "message": "How will the queue drain if nothing is processed?",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 10
+      },
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78ed4132_40f856f9",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T11:07:00Z",
+      "side": 1,
+      "message": "no?",
+      "range": {
+        "startLine": 167,
+        "startChar": 5,
+        "endLine": 167,
+        "endChar": 8
+      },
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e750b02_8d8bc900",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T11:07:00Z",
+      "side": 1,
+      "message": "Note, this can still schedule a task arbitrary close to an already scheduled at next_process_time.\ne.g. kMinSleepTime\u003d0.1, now\u003d0.89, next_process_time\u003d0.891 next_process_time_\u003d1.0\n\nIt seems that there still is some limit to how often tasks are scheduled, but please consider to add an extra check here to not schedule a task too close to already existing one.",
+      "range": {
+        "startLine": 200,
+        "startChar": 13,
+        "endLine": 200,
+        "endChar": 23
+      },
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd2c594_f6442278",
+        "filename": "modules/pacing/task_queue_paced_sender_unittest.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-11-26T11:07:00Z",
+      "side": 1,
+      "message": "ASSERT_TRUE(third_packet_time.IsFinite());",
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

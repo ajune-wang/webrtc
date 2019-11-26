@@ -290,16 +290,27 @@ class FatalLogCall final {
 
   // This can be any binary operator with precedence lower than <<.
   template <typename... Ts>
-  RTC_NORETURN RTC_FORCE_INLINE void operator&(
+  RTC_NORETURN RTC_FORCE_INLINE bool operator&(
       const LogStreamer<Ts...>& streamer) {
     isCheckOp ? streamer.CallCheckOp(file_, line_, message_)
               : streamer.Call(file_, line_, message_);
+    return true;
   }
 
  private:
   const char* file_;
   int line_;
   const char* message_;
+};
+
+class LogEater final {
+ public:
+  // This can be any binary operator with precedence lower than << and higher
+  // &&.
+  template <typename... Ts>
+  RTC_FORCE_INLINE bool operator&(const LogStreamer<Ts...>& streamer) {
+    return false;
+  }
 };
 }  // namespace webrtc_checks_impl
 
@@ -310,7 +321,7 @@ class FatalLogCall final {
 // condition being unused).
 #define RTC_EAT_STREAM_PARAMETERS(ignored)                        \
   (true ? true : ((void)(ignored), true))                         \
-      ? static_cast<void>(0)                                      \
+      ? false                                                     \
       : rtc::webrtc_checks_impl::FatalLogCall<false>("", 0, "") & \
             rtc::webrtc_checks_impl::LogStreamer<>()
 
@@ -320,25 +331,39 @@ class FatalLogCall final {
 #define RTC_EAT_STREAM_PARAMETERS_OP(op, a, b) \
   RTC_EAT_STREAM_PARAMETERS(((void)rtc::Safe##op(a, b)))
 
+#if defined(RTC_NO_CHECK_MSG)
+#define RTC_CHECK_EVAL_MESSAGE(message) ""
+#define RTC_CHECK_WRAPPER_START() (true) ?
+#define RTC_CHECK_WRAPPER_END() : 0 && rtc::webrtc_checks_impl::LogEater() & \
+  rtc::webrtc_checks_impl::LogStreamer<>()
+#else
+#define RTC_CHECK_EVAL_MESSAGE(message) message
+#define RTC_CHECK_WRAPPER_START()
+#define RTC_CHECK_WRAPPER_END()
+#endif
+
 // RTC_CHECK dies with a fatal error if condition is not true. It is *not*
 // controlled by NDEBUG or anything else, so the check will be executed
 // regardless of compilation mode.
 //
 // We make sure RTC_CHECK et al. always evaluates |condition|, as
 // doing RTC_CHECK(FunctionWithSideEffect()) is a common idiom.
-#define RTC_CHECK(condition)                                       \
-  while (!(condition))                                             \
-  rtc::webrtc_checks_impl::FatalLogCall<false>(__FILE__, __LINE__, \
-                                               #condition) &       \
-      rtc::webrtc_checks_impl::LogStreamer<>()
+#define RTC_CHECK(condition)                                    \
+  while (!(condition))                                          \
+    RTC_CHECK_WRAPPER_START()                                   \
+  rtc::webrtc_checks_impl::FatalLogCall<false>(                 \
+      __FILE__, __LINE__, RTC_CHECK_EVAL_MESSAGE(#condition)) & \
+      rtc::webrtc_checks_impl::LogStreamer<>() RTC_CHECK_WRAPPER_END()
 
 // Helper macro for binary operators.
 // Don't use this macro directly in your code, use RTC_CHECK_EQ et al below.
-#define RTC_CHECK_OP(name, op, val1, val2)                               \
-  while (!rtc::Safe##name((val1), (val2)))                               \
-  rtc::webrtc_checks_impl::FatalLogCall<true>(__FILE__, __LINE__,        \
-                                              #val1 " " #op " " #val2) & \
-      rtc::webrtc_checks_impl::LogStreamer<>() << (val1) << (val2)
+#define RTC_CHECK_OP(name, op, val1, val2)                                   \
+  while (!rtc::Safe##name((val1), (val2)))                                   \
+    RTC_CHECK_WRAPPER_START()                                                \
+  rtc::webrtc_checks_impl::FatalLogCall<true>(                               \
+      __FILE__, __LINE__, RTC_CHECK_EVAL_MESSAGE(#val1 " " #op " " #val2)) & \
+      rtc::webrtc_checks_impl::LogStreamer<>()                               \
+          << (val1) << (val2)RTC_CHECK_WRAPPER_END()
 
 #define RTC_CHECK_EQ(val1, val2) RTC_CHECK_OP(Eq, ==, val1, val2)
 #define RTC_CHECK_NE(val1, val2) RTC_CHECK_OP(Ne, !=, val1, val2)

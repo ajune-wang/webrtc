@@ -51,6 +51,10 @@ int AugmentedVideoFrameBuffer::height() const {
   return video_frame_buffer_->height();
 }
 
+int AugmentedVideoFrameBuffer::bit_depth() const {
+  return video_frame_buffer_->bit_depth();
+}
+
 rtc::scoped_refptr<I420BufferInterface> AugmentedVideoFrameBuffer::ToI420() {
   return video_frame_buffer_->ToI420();
 }

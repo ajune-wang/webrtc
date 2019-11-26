@@ -101,6 +101,7 @@ class FakeNativeBuffer : public webrtc::VideoFrameBuffer {
   webrtc::VideoFrameBuffer::Type type() const override { return Type::kNative; }
   int width() const override { return width_; }
   int height() const override { return height_; }
+  int bit_depth() const override { return 8; }
   rtc::scoped_refptr<webrtc::I420BufferInterface> ToI420() override {
     return nullptr;
   }

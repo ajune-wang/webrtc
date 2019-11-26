@@ -900,6 +900,7 @@ class FakeNativeBufferNoI420 : public VideoFrameBuffer {
   Type type() const override { return Type::kNative; }
   int width() const override { return width_; }
   int height() const override { return height_; }
+  int bit_depth() const override { return 8; }
 
   rtc::scoped_refptr<I420BufferInterface> ToI420() override {
     RTC_NOTREACHED();

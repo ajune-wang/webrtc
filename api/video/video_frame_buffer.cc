@@ -14,6 +14,14 @@
 
 namespace webrtc {
 
+int PlanarYuv8Buffer::bit_depth() const {
+  return 8;
+}
+
+int PlanarYuv16BBuffer::bit_depth() const {
+  return 10;
+}
+
 const I420BufferInterface* VideoFrameBuffer::GetI420() const {
   // Overridden by subclasses that can return an I420 buffer without any
   // conversion, in particular, I420BufferInterface.

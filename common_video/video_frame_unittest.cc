@@ -365,29 +365,41 @@ TEST(TestVideoFrame, TextureInitialValues) {
 class TestPlanarYuvBuffer
     : public ::testing::TestWithParam<VideoFrameBuffer::Type> {};
 
-rtc::scoped_refptr<I420Buffer> CreateAndFillBuffer() {
-  auto buf = I420Buffer::Create(20, 10);
+template <class T>
+rtc::scoped_refptr<T> FillBuffer(rtc::scoped_refptr<T> buf) {
   memset(buf->MutableDataY(), 1, 200);
   memset(buf->MutableDataU(), 2, 50);
   memset(buf->MutableDataV(), 3, 50);
   return buf;
 }
 
-TEST_P(TestPlanarYuvBuffer, Copy) {
-  rtc::scoped_refptr<PlanarYuvBuffer> buf1;
-  switch (GetParam()) {
+rtc::scoped_refptr<PlanarYuvBuffer> CreateAndFillBuffer(
+    VideoFrameBuffer::Type type) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf;
+  switch (type) {
     case VideoFrameBuffer::Type::kI420: {
-      buf1 = CreateAndFillBuffer();
+      buf = FillBuffer(I420Buffer::Create(20, 10));
       break;
     }
     case VideoFrameBuffer::Type::kI010: {
-      buf1 = I010Buffer::Copy(*CreateAndFillBuffer());
+      buf = FillBuffer(I010Buffer::Create(20, 10));
       break;
     }
     default:
       RTC_NOTREACHED();
   }
+  return buf;
+}
 
+TEST_P(TestPlanarYuvBuffer, BitDepth) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf = CreateAndFillBuffer(GetParam());
+  const int expected_bit_depth =
+      GetParam() == VideoFrameBuffer::Type::kI010 ? 10 : 8;
+  EXPECT_EQ(buf->bit_depth(), expected_bit_depth);
+}
+
+TEST_P(TestPlanarYuvBuffer, Copy) {
+  rtc::scoped_refptr<PlanarYuvBuffer> buf1 = CreateAndFillBuffer(GetParam());
   rtc::scoped_refptr<PlanarYuvBuffer> buf2 =
       PlanarYuvBufferFactory::Copy(*buf1);
   EXPECT_TRUE(test::FrameBufsEqual(buf1->ToI420(), buf2->ToI420()));

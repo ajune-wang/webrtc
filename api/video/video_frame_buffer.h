@@ -59,6 +59,8 @@ class RTC_EXPORT VideoFrameBuffer : public rtc::RefCountInterface {
   // subsampled, this is the highest-resolution plane.
   virtual int width() const = 0;
   virtual int height() const = 0;
+  // The bit depth per color channel.
+  virtual int bit_depth() const = 0;
 
   // Returns a memory-backed frame buffer in I420 format. If the pixel data is
   // in another format, a conversion will take place. All implementations must
@@ -104,6 +106,7 @@ class PlanarYuvBuffer : public VideoFrameBuffer {
 // Type::kI420A and Type::kI444.
 class PlanarYuv8Buffer : public PlanarYuvBuffer {
  public:
+  int bit_depth() const final;
   // Returns pointer to the pixel data for a given plane. The memory is owned by
   // the VideoFrameBuffer object and must not be freed by the caller.
   virtual const uint8_t* DataY() const = 0;
@@ -152,6 +155,7 @@ class I444BufferInterface : public PlanarYuv8Buffer {
 // This interface represents 8-bit to 16-bit color depth formats: Type::kI010.
 class PlanarYuv16BBuffer : public PlanarYuvBuffer {
  public:
+  int bit_depth() const final;
   // Returns pointer to the pixel data for a given plane. The memory is owned by
   // the VideoFrameBuffer object and must not be freed by the caller.
   virtual const uint16_t* DataY() const = 0;

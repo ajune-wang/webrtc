@@ -42,6 +42,10 @@ int FakeNativeBuffer::height() const {
   return height_;
 }
 
+int FakeNativeBuffer::bit_depth() const {
+  return 8;
+}
+
 rtc::scoped_refptr<I420BufferInterface> FakeNativeBuffer::ToI420() {
   rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(width_, height_);
   I420Buffer::SetBlack(buffer);

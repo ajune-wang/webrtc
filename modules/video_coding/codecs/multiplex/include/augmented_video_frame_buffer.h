@@ -43,6 +43,9 @@ class AugmentedVideoFrameBuffer : public VideoFrameBuffer {
   // Returns the height of the underlying VideoFrameBuffer
   int height() const final;
 
+  // Returns the bit depth of the underlying VideoFrameBuffer
+  int bit_depth() const final;
+
   // Get the I140 Buffer from the underlying frame buffer
   rtc::scoped_refptr<I420BufferInterface> ToI420() final;
 

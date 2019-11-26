@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a18b1d82_dcdb8363",
+        "filename": "api/neteq/neteq_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-26T09:26:56Z",
+      "side": 1,
+      "message": "Add comment saying that this method is deprecated and will go away?",
+      "revId": "3525e9641933a3e0b6c34f5e4c8f0d2179b4e78c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

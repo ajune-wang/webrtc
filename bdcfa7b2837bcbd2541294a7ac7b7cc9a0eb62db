@@ -93,6 +93,30 @@
       "revId": "bdcfa7b2837bcbd2541294a7ac7b7cc9a0eb62db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58c8e7d4_cb03739e",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-26T13:17:24Z",
+      "side": 1,
+      "message": "I don\u0027t have deep understanding of the design, but AFAICT all we try to do is to estimate the RTP time with the NTP time of the sender. In that case the concept of frames are not really relevant right?",
+      "parentUuid": "fe8946c1_d01c842e",
+      "range": {
+        "startLine": 178,
+        "startChar": 30,
+        "endLine": 178,
+        "endChar": 61
+      },
+      "revId": "bdcfa7b2837bcbd2541294a7ac7b7cc9a0eb62db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

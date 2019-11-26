@@ -245,6 +245,10 @@ declare_args() {
 
   # Set this to true to fully remove logging from WebRTC.
   rtc_disable_logging = false
+
+  # Set this to true to disable detailed error message and logging for
+  # RTC_CHECKs.
+  rtc_no_check_msg = false
 }
 
 # Make it possible to provide custom locations for some libraries (move these

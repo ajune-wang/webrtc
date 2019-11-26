@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23fdfb5f_430e043f",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-26T22:53:14Z",
+      "side": 1,
+      "message": "Will flip it before landing.",
+      "range": {
+        "startLine": 339,
+        "startChar": 4,
+        "endLine": 339,
+        "endChar": 5
+      },
+      "revId": "c0092e2c997038530ecd2a46a2fd58090550c8f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

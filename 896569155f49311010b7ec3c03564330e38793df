@@ -22,6 +22,30 @@
       "revId": "896569155f49311010b7ec3c03564330e38793df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02475988_50dce40a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-11-26T18:37:58Z",
+      "side": 1,
+      "message": "I agree that that is better than to rely on magic values for the stream_analog_level.\n\nI changed to using a bool and an int for this (instead of an optional) as I think that more clearly shows the intention of the code. (Using an optional as a bool is kind relying on using the optional as a bool).",
+      "parentUuid": "7e45b308_809ff4f6",
+      "range": {
+        "startLine": 485,
+        "startChar": 6,
+        "endLine": 485,
+        "endChar": 35
+      },
+      "revId": "896569155f49311010b7ec3c03564330e38793df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

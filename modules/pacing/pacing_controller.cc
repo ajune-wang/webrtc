@@ -228,9 +228,20 @@ void PacingController::SetAccountForAudioPackets(bool account_for_audio) {
 
 TimeDelta PacingController::ExpectedQueueTime() const {
   RTC_DCHECK_GT(pacing_bitrate_, DataRate::Zero());
-  return TimeDelta::ms(
-      (QueueSizeData().bytes() * 8 * rtc::kNumMillisecsPerSec) /
-      pacing_bitrate_.bps());
+  TimeDelta expected_queue_time =
+      TimeDelta::ms((QueueSizeData().bytes() * 8 * rtc::kNumMillisecsPerSec) /
+                    pacing_bitrate_.bps());
+  if (mode_ == ProcessMode::kPeriodic) {
+    // Return early to preserve legacy behavior.
+    return expected_queue_time;
+  }
+
+  TimeDelta media_drain_time =
+      media_rate_.IsZero() ? TimeDelta::Zero() : media_debt_ / media_rate_;
+  TimeDelta padding_drain_time = padding_rate_.IsZero()
+                                     ? TimeDelta::Zero()
+                                     : padding_debt_ / padding_rate_;
+  return expected_queue_time + std::max(media_drain_time, padding_drain_time);
 }
 
 size_t PacingController::QueueSizePackets() const {

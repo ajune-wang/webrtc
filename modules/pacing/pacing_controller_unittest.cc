@@ -1339,7 +1339,7 @@ TEST_P(PacingControllerTest, ExpectedQueueTimeMs) {
   EXPECT_EQ(queue_time, pacer_->ExpectedQueueTime());
 
   const Timestamp time_start = clock_.CurrentTime();
-  while (pacer_->QueueSizePackets() > 0) {
+  while (!pacer_->ExpectedQueueTime().IsZero()) {
     clock_.AdvanceTime(TimeUntilNextProcess());
     pacer_->ProcessPackets();
   }

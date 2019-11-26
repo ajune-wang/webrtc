@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "312336f8_1c200049",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-26T12:15:13Z",
+      "side": 1,
+      "message": "I think we only trigger on this oldest packet and expected queue time being very long, so shuold be fine. It\u0027s really only used when there\u0027s not calls going to ProcessPackets() that this will be used.",
+      "parentUuid": "52323da0_3376590b",
+      "range": {
+        "startLine": 24,
+        "startChar": 68,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5387b7b1_c3f7b042",
         "filename": "modules/pacing/task_queue_paced_sender.cc",
         "patchSetId": 32
@@ -39,6 +63,24 @@
       "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91971b0f_e097c502",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-26T12:15:13Z",
+      "side": 1,
+      "message": "It doesn\u0027t really need to. As long as we don\u0027t post new tasks from _within_ a task then we\u0027re fine.",
+      "parentUuid": "5387b7b1_c3f7b042",
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "3cf7df5d_c28b1993",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-26T12:15:13Z",
+      "side": 1,
+      "message": "If by queue you mean the packet queue, then it doesn\u0027t actually need to drain after shutdown. Me just need to drain the pending tasks from the task queue and then we can destroy both this class and the packet queue.",
+      "parentUuid": "09eec0c8_0c8999ef",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 10
+      },
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78ed4132_40f856f9",
         "filename": "modules/pacing/task_queue_paced_sender.cc",
         "patchSetId": 32
@@ -85,6 +151,30 @@
       "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "008f9d03_82b20a39",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-26T12:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78ed4132_40f856f9",
+      "range": {
+        "startLine": 167,
+        "startChar": 5,
+        "endLine": 167,
+        "endChar": 8
+      },
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "78c923e5_3035dd3c",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-26T12:15:13Z",
+      "side": 1,
+      "message": "Not sure what you mean, that\u0027s exactly what the check on L196 does..? We don\u0027t allow scheduling a new within kMinSleepTime from an existing one.",
+      "parentUuid": "7e750b02_8d8bc900",
+      "range": {
+        "startLine": 200,
+        "startChar": 13,
+        "endLine": 200,
+        "endChar": 23
+      },
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fcd2c594_f6442278",
         "filename": "modules/pacing/task_queue_paced_sender_unittest.cc",
         "patchSetId": 32
@@ -125,6 +239,24 @@
       "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add61dce_73df5f61",
+        "filename": "modules/pacing/task_queue_paced_sender_unittest.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-11-26T12:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcd2c594_f6442278",
+      "revId": "e8e72bf4dbb620210f48a660f8f5c2f05ef74bd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

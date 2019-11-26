@@ -37,8 +37,32 @@ using ::testing::SizeIs;
 
 constexpr int kStartSize = 16;
 constexpr int kMaxSize = 64;
+constexpr uint32_t kSsrc = 6667;
 
 void IgnoreResult(PacketBuffer::InsertResult /*result*/) {}
+
+std::vector<RtpPacketInfo> GetPacketInfos(
+    rtc::ArrayView<const std::unique_ptr<RtpFrameObject>> frames) {
+  std::vector<RtpPacketInfo> result;
+  for (const auto& frame : frames) {
+    const auto& packet_infos = frame->PacketInfos();
+    result.insert(result.end(), packet_infos.begin(), packet_infos.end());
+  }
+  return result;
+}
+
+std::vector<uint64_t> GetAbsoluteCaptureTimestamps(
+    rtc::ArrayView<const std::unique_ptr<RtpFrameObject>> frames) {
+  auto packet_infos = GetPacketInfos(frames);
+  std::vector<uint64_t> result;
+  for (const auto& packet_info : packet_infos) {
+    if (packet_info.absolute_capture_time()) {
+      result.push_back(
+          packet_info.absolute_capture_time()->absolute_capture_timestamp);
+    }
+  }
+  return result;
+}
 
 std::vector<uint16_t> StartSeqNums(
     rtc::ArrayView<const std::unique_ptr<RtpFrameObject>> frames) {
@@ -827,6 +851,70 @@ TEST_F(PacketBufferTest, TooManyNalusInPacket) {
   packet.size_bytes = 0;
   packet.data = nullptr;
   EXPECT_THAT(packet_buffer_.InsertPacket(&packet).frames, IsEmpty());
+}
+
+TEST_F(PacketBufferTest, PacketInfoIsPropagatedIntoVideoFrames) {
+  constexpr uint64_t kAbsoluteCaptureTimestamp = 12;
+
+  PacketBuffer::Packet packet;
+
+  packet.video_header.codec = kVideoCodecGeneric;
+  packet.timestamp = 1;
+  packet.seq_num = 1;
+  packet.video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  packet.video_header.is_first_packet_in_frame = true;
+  packet.video_header.is_last_packet_in_frame = true;
+
+  RtpPacketInfo packet_info;
+  packet_info.set_ssrc(kSsrc);
+  packet_info.set_rtp_timestamp(1);
+  packet_info.set_absolute_capture_time(
+      AbsoluteCaptureTime{kAbsoluteCaptureTimestamp,
+                          /*estimated_capture_clock_offset=*/absl::nullopt});
+  packet.packet_info = packet_info;
+
+  EXPECT_THAT(GetPacketInfos(packet_buffer_.InsertPacket(&packet).frames),
+              ElementsAre(packet_info));
+}
+
+TEST_F(PacketBufferTest,
+       MissingAbsoluteCaptureTimeIsFilledWithExtrapolatedValue) {
+  constexpr uint64_t kAbsoluteCaptureTimestamp = 12;
+  constexpr absl::optional<uint64_t> kEstimatedCaptureClockOffset =
+      absl::nullopt;
+
+  RtpPacketInfo packet_info;
+  packet_info.set_ssrc(kSsrc);
+  packet_info.set_rtp_timestamp(1);
+  packet_info.set_absolute_capture_time(AbsoluteCaptureTime{
+      kAbsoluteCaptureTimestamp, kEstimatedCaptureClockOffset});
+
+  PacketBuffer::Packet packet;
+  packet.timestamp = 1;
+  packet.seq_num = 1;
+
+  packet.video_header.codec = kVideoCodecGeneric;
+  packet.video_header.frame_type = VideoFrameType::kVideoFrameKey;
+  packet.video_header.is_first_packet_in_frame = true;
+  packet.video_header.is_last_packet_in_frame = true;
+  // Copy |packet_info| because InsertPacket moves |packet| internally.
+  packet.packet_info = packet_info;
+
+  IgnoreResult(packet_buffer_.InsertPacket(&packet));
+
+  packet.timestamp = 2;
+  packet.seq_num = 2;
+  // Copy |packet_info| because InsertPacket moves |packet| internally.
+  packet.packet_info = packet_info;
+  packet.packet_info.set_rtp_timestamp(2);
+
+  // Set no absolute capture time for the second packet.
+  // Expect PacketBuffer to extrapolate it for the resulting video frame using
+  // absolute capture time from the previous packet.
+  packet.packet_info.set_absolute_capture_time(absl::nullopt);
+  auto absolute_capture_timestamps =
+      GetAbsoluteCaptureTimestamps(packet_buffer_.InsertPacket(&packet).frames);
+  EXPECT_THAT(absolute_capture_timestamps, SizeIs(1));
 }
 
 TEST_P(PacketBufferH264ParameterizedTest, OneFrameFillBuffer) {

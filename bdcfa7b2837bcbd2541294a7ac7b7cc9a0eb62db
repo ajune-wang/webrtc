@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95414753_f6cbf081",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-26T13:12:06Z",
+      "side": 1,
+      "message": "is it possible to call this OnReceivePacket per frame rather than per packet, i.e. outside the for loop. (is the extension attached to 1st, last or all packets of a video frame?)",
+      "parentUuid": "e937bfc5_c1ecc011",
+      "range": {
+        "startLine": 445,
+        "startChar": 40,
+        "endLine": 445,
+        "endChar": 55
+      },
+      "revId": "bdcfa7b2837bcbd2541294a7ac7b7cc9a0eb62db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a43dc745_6c066034",
         "filename": "modules/video_coding/packet_buffer.h",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2019-11-26T13:00:07Z",
       "side": 1,
       "message": "WDYT about moving this to the RtpVideoStreamReceiver? In the RtpVideoStreamReceiver::OnReceivedPayloadData function a PacketBuffer::Packet is created. Before calling PacketBuffer::InsertPacket you could interpolate and set_absolute_capture_time on the packet. In PacketBuffer::AssembleFrame you could then simply copy (or move) all the RtpPacketInfo into a RtpPacketInfos::vector_type.\n\nI think that would be cleaner, to keep concerns as separate as possible.",
+      "range": {
+        "startLine": 178,
+        "startChar": 30,
+        "endLine": 178,
+        "endChar": 61
+      },
+      "revId": "bdcfa7b2837bcbd2541294a7ac7b7cc9a0eb62db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe8946c1_d01c842e",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-26T13:12:06Z",
+      "side": 1,
+      "message": "absolute capture time is really a frame property rather than packet property,\nthat why I suggested to interpolate it in the AssembleFrame rather than when Packet is created.\n\nIn future refactoring I hope to move most of the AssembleFrame logic from PacketBuffer to RtpVideoStreamReceiver, including this interpolater.\n(feel free to create TODO assigned to me about it)",
+      "parentUuid": "a43dc745_6c066034",
       "range": {
         "startLine": 178,
         "startChar": 30,

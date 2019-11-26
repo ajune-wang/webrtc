@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e966b9c1_75bcfd25",
+        "filename": "rtc_base/trace_event.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-26T19:52:29Z",
+      "side": 1,
+      "message": "This file is almost 1000 lines long -\u003e it\u0027s hard work to verify that you\u0027ve successfully managed to turn all macros used outside this file into no-ops. An alternative that would be easier to verify is\n\n  #if RTC_TRACE_EVENTS_ENABLED\n  ... original contents of the file ...\n  #else\n  ... no-op variants of all macros used outside this file ...\n  #endif",
+      "revId": "853699f9d78c470633b708be2ba87d148ea3825a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

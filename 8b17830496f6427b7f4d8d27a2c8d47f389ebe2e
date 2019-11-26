@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "521fab3b_38293cbc",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-26T19:52:29Z",
+      "side": 1,
+      "message": "Would it be better to build this #if into the macro, so that you don\u0027t have to repeat it? And so that callers won\u0027t have to remember to add it...",
+      "revId": "8b17830496f6427b7f4d8d27a2c8d47f389ebe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d8bc08b_648c51a8",
+        "filename": "rtc_base/trace_event.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-26T19:52:29Z",
+      "side": 1,
+      "message": "I\u0027m guessing these should not both be 0?",
+      "revId": "8b17830496f6427b7f4d8d27a2c8d47f389ebe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b4537a7_09c7fe8c",
+        "filename": "rtc_base/trace_event.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-26T19:52:29Z",
+      "side": 1,
+      "message": "Better to say\n\n  #if RTC_TRACE_EVENTS_ENABLED\n\neverywhere in this file?",
+      "revId": "8b17830496f6427b7f4d8d27a2c8d47f389ebe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83270d5c_2824d56d",
+        "filename": "rtc_base/trace_event.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-26T19:52:29Z",
+      "side": 1,
+      "message": "Better to let no-op macros expand to `do {} while (0)`. That\u0027s a no-op statement that syntactically requires a semicolon after it.",
+      "range": {
+        "startLine": 153,
+        "startChar": 28,
+        "endLine": 153,
+        "endChar": 29
+      },
+      "revId": "8b17830496f6427b7f4d8d27a2c8d47f389ebe2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

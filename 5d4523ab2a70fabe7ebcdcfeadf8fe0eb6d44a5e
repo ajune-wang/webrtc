@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb1eab10_162415c7",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-26T13:46:43Z",
+      "side": 1,
+      "message": "nit: Either add a return statement for the first case label, or move the comment so that the two case labels are on adjacent lines.",
+      "range": {
+        "startLine": 269,
+        "startChar": 1,
+        "endLine": 273,
+        "endChar": 13
+      },
+      "revId": "5d4523ab2a70fabe7ebcdcfeadf8fe0eb6d44a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

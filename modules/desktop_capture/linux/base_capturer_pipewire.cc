@@ -10,8 +10,6 @@
 
 #include "modules/desktop_capture/linux/base_capturer_pipewire.h"
 
-#include <gio/gunixfdlist.h>
-#include <glib-object.h>
 #include <spa/param/format-utils.h>
 #include <spa/param/props.h>
 #include <spa/param/video/raw-utils.h>
@@ -35,14 +33,6 @@ using modules_desktop_capture_linux::StubPathMap;
 #endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
 
 namespace webrtc {
-
-const char kDesktopBusName[] = "org.freedesktop.portal.Desktop";
-const char kDesktopObjectPath[] = "/org/freedesktop/portal/desktop";
-const char kDesktopRequestObjectPath[] =
-    "/org/freedesktop/portal/desktop/request";
-const char kSessionInterfaceName[] = "org.freedesktop.portal.Session";
-const char kRequestInterfaceName[] = "org.freedesktop.portal.Request";
-const char kScreenCastInterfaceName[] = "org.freedesktop.portal.ScreenCast";
 
 const int kBytesPerPixel = 4;
 
@@ -175,10 +165,14 @@ void BaseCapturerPipeWire::OnStreamProcess(void* data) {
   pw_stream_queue_buffer(that->pw_stream_, buf);
 }
 
-BaseCapturerPipeWire::BaseCapturerPipeWire(CaptureSourceType source_type)
-    : capture_source_type_(source_type) {}
+BaseCapturerPipeWire::BaseCapturerPipeWire() {}
 
 BaseCapturerPipeWire::~BaseCapturerPipeWire() {
+  if (connection_id_) {
+    webrtc::XdgDesktopPortalBase* xdpBase = options_.xdp_base();
+    xdpBase->CloseConnection(connection_id_);
+  }
+
   if (pw_main_loop_) {
     pw_thread_loop_stop(pw_main_loop_);
   }
@@ -277,7 +271,7 @@ void BaseCapturerPipeWire::InitPipeWire() {
   paths[kModulePipewire].push_back(kPipeWireLib);
   if (!InitializeStubs(paths)) {
     RTC_LOG(LS_ERROR) << "Failed to load the PipeWire library and symbols.";
-    portal_init_failed_ = true;
+    pipewire_init_failed_ = true;
     return;
   }
 #endif  // defined(WEBRTC_DLOPEN_PIPEWIRE)
@@ -308,7 +302,7 @@ void BaseCapturerPipeWire::InitPipeWire() {
 
   if (pw_thread_loop_start(pw_main_loop_) < 0) {
     RTC_LOG(LS_ERROR) << "Failed to start main PipeWire loop";
-    portal_init_failed_ = true;
+    pipewire_init_failed_ = true;
   }
 
   RTC_LOG(LS_INFO) << "PipeWire remote opened.";
@@ -374,7 +368,7 @@ void BaseCapturerPipeWire::CreateReceivingStream() {
                         flags, params,
                         /*n_params=*/1) != 0) {
     RTC_LOG(LS_ERROR) << "Could not connect receiving stream.";
-    portal_init_failed_ = true;
+    pipewire_init_failed_ = true;
     return;
   }
 }
@@ -393,7 +387,7 @@ void BaseCapturerPipeWire::HandleBuffer(pw_buffer* buffer) {
     RTC_LOG(LS_ERROR) << "Got buffer with stride different from screen stride: "
                       << srcStride
                       << " != " << (desktop_size_.width() * kBytesPerPixel);
-    portal_init_failed_ = true;
+    pipewire_init_failed_ = true;
     return;
   }
 
@@ -425,431 +419,28 @@ void BaseCapturerPipeWire::ConvertRGBxToBGRx(uint8_t* frame, uint32_t size) {
   }
 }
 
-guint BaseCapturerPipeWire::SetupRequestResponseSignal(
-    const gchar* object_path,
-    GDBusSignalCallback callback) {
-  return g_dbus_connection_signal_subscribe(
-      connection_, kDesktopBusName, kRequestInterfaceName, "Response",
-      object_path, /*arg0=*/nullptr, G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE,
-      callback, this, /*user_data_free_func=*/nullptr);
-}
-
-// static
-void BaseCapturerPipeWire::OnProxyRequested(GObject* /*object*/,
-                                            GAsyncResult* result,
-                                            gpointer user_data) {
-  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
-  RTC_DCHECK(that);
-
-  GError* error = nullptr;
-  GDBusProxy *proxy = g_dbus_proxy_new_finish(result, &error);
-  if (!proxy) {
-    if (g_error_matches(error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-      return;
-    RTC_LOG(LS_ERROR) << "Failed to create a proxy for the screen cast portal: "
-                      << error->message;
-    g_error_free(error);
-    that->portal_init_failed_ = true;
-    return;
-  }
-  that->proxy_ = proxy;
-  that->connection_ = g_dbus_proxy_get_connection(that->proxy_);
-
-  RTC_LOG(LS_INFO) << "Created proxy for the screen cast portal.";
-  that->SessionRequest();
-}
-
-// static
-gchar* BaseCapturerPipeWire::PrepareSignalHandle(GDBusConnection* connection,
-                                                 const gchar* token) {
-  gchar* sender = g_strdup(g_dbus_connection_get_unique_name(connection) + 1);
-  for (int i = 0; sender[i]; i++) {
-    if (sender[i] == '.') {
-      sender[i] = '_';
-    }
-  }
-
-  gchar* handle = g_strconcat(kDesktopRequestObjectPath, "/", sender, "/",
-                              token, /*end of varargs*/ nullptr);
-  g_free(sender);
-
-  return handle;
-}
-
-void BaseCapturerPipeWire::SessionRequest() {
-  GVariantBuilder builder;
-  gchar* variant_string;
-
-  g_variant_builder_init(&builder, G_VARIANT_TYPE_VARDICT);
-  variant_string =
-      g_strdup_printf("webrtc_session%d", g_random_int_range(0, G_MAXINT));
-  g_variant_builder_add(&builder, "{sv}", "session_handle_token",
-                        g_variant_new_string(variant_string));
-  g_free(variant_string);
-  variant_string = g_strdup_printf("webrtc%d", g_random_int_range(0, G_MAXINT));
-  g_variant_builder_add(&builder, "{sv}", "handle_token",
-                        g_variant_new_string(variant_string));
-
-  portal_handle_ = PrepareSignalHandle(connection_, variant_string);
-  session_request_signal_id_ = SetupRequestResponseSignal(
-      portal_handle_, OnSessionRequestResponseSignal);
-  g_free(variant_string);
-
-  RTC_LOG(LS_INFO) << "Screen cast session requested.";
-  g_dbus_proxy_call(
-      proxy_, "CreateSession", g_variant_new("(a{sv})", &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
-      reinterpret_cast<GAsyncReadyCallback>(OnSessionRequested), this);
-}
-
-// static
-void BaseCapturerPipeWire::OnSessionRequested(GDBusProxy *proxy,
-                                              GAsyncResult* result,
-                                              gpointer user_data) {
-  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
-  RTC_DCHECK(that);
-
-  GError* error = nullptr;
-  GVariant* variant = g_dbus_proxy_call_finish(proxy, result, &error);
-  if (!variant) {
-    if (g_error_matches(error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-      return;
-    RTC_LOG(LS_ERROR) << "Failed to create a screen cast session: "
-                      << error->message;
-    g_error_free(error);
-    that->portal_init_failed_ = true;
-    return;
-  }
-  RTC_LOG(LS_INFO) << "Initializing the screen cast session.";
-
-  gchar* handle = nullptr;
-  g_variant_get_child(variant, 0, "o", &handle);
-  g_variant_unref(variant);
-  if (!handle) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize the screen cast session.";
-    if (that->session_request_signal_id_) {
-      g_dbus_connection_signal_unsubscribe(that->connection_,
-                                           that->session_request_signal_id_);
-      that->session_request_signal_id_ = 0;
-    }
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  g_free(handle);
-
-  RTC_LOG(LS_INFO) << "Subscribing to the screen cast session.";
-}
-
-// static
-void BaseCapturerPipeWire::OnSessionRequestResponseSignal(
-    GDBusConnection* connection,
-    const gchar* sender_name,
-    const gchar* object_path,
-    const gchar* interface_name,
-    const gchar* signal_name,
-    GVariant* parameters,
-    gpointer user_data) {
-  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
-  RTC_DCHECK(that);
-
-  RTC_LOG(LS_INFO)
-      << "Received response for the screen cast session subscription.";
-
-  guint32 portal_response;
-  GVariant* response_data;
-  g_variant_get(parameters, "(u@a{sv})", &portal_response, &response_data);
-  g_variant_lookup(response_data, "session_handle", "s",
-                   &that->session_handle_);
-  g_variant_unref(response_data);
-
-  if (!that->session_handle_ || portal_response) {
-    RTC_LOG(LS_ERROR)
-        << "Failed to request the screen cast session subscription.";
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  that->SourcesRequest();
-}
-
-void BaseCapturerPipeWire::SourcesRequest() {
-  GVariantBuilder builder;
-  gchar* variant_string;
-
-  g_variant_builder_init(&builder, G_VARIANT_TYPE_VARDICT);
-  // We want to record monitor content.
-  g_variant_builder_add(&builder, "{sv}", "types",
-                        g_variant_new_uint32(capture_source_type_));
-  // We don't want to allow selection of multiple sources.
-  g_variant_builder_add(&builder, "{sv}", "multiple",
-                        g_variant_new_boolean(false));
-  variant_string = g_strdup_printf("webrtc%d", g_random_int_range(0, G_MAXINT));
-  g_variant_builder_add(&builder, "{sv}", "handle_token",
-                        g_variant_new_string(variant_string));
-
-  sources_handle_ = PrepareSignalHandle(connection_, variant_string);
-  sources_request_signal_id_ = SetupRequestResponseSignal(
-      sources_handle_, OnSourcesRequestResponseSignal);
-  g_free(variant_string);
-
-  RTC_LOG(LS_INFO) << "Requesting sources from the screen cast session.";
-  g_dbus_proxy_call(
-      proxy_, "SelectSources",
-      g_variant_new("(oa{sv})", session_handle_, &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
-      reinterpret_cast<GAsyncReadyCallback>(OnSourcesRequested), this);
-}
-
-// static
-void BaseCapturerPipeWire::OnSourcesRequested(GDBusProxy *proxy,
-                                              GAsyncResult* result,
-                                              gpointer user_data) {
-  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
-  RTC_DCHECK(that);
-
-  GError* error = nullptr;
-  GVariant* variant = g_dbus_proxy_call_finish(proxy, result, &error);
-  if (!variant) {
-    if (g_error_matches(error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-      return;
-    RTC_LOG(LS_ERROR) << "Failed to request the sources: " << error->message;
-    g_error_free(error);
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  RTC_LOG(LS_INFO) << "Sources requested from the screen cast session.";
-
-  gchar* handle = nullptr;
-  g_variant_get_child(variant, 0, "o", &handle);
-  g_variant_unref(variant);
-  if (!handle) {
-    RTC_LOG(LS_ERROR) << "Failed to initialize the screen cast session.";
-    if (that->sources_request_signal_id_) {
-      g_dbus_connection_signal_unsubscribe(that->connection_,
-                                           that->sources_request_signal_id_);
-      that->sources_request_signal_id_ = 0;
-    }
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  g_free(handle);
-
-  RTC_LOG(LS_INFO) << "Subscribed to sources signal.";
-}
-
-// static
-void BaseCapturerPipeWire::OnSourcesRequestResponseSignal(
-    GDBusConnection* connection,
-    const gchar* sender_name,
-    const gchar* object_path,
-    const gchar* interface_name,
-    const gchar* signal_name,
-    GVariant* parameters,
-    gpointer user_data) {
-  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
-  RTC_DCHECK(that);
-
-  RTC_LOG(LS_INFO) << "Received sources signal from session.";
-
-  guint32 portal_response;
-  g_variant_get(parameters, "(u@a{sv})", &portal_response, nullptr);
-  if (portal_response) {
-    RTC_LOG(LS_ERROR)
-        << "Failed to select sources for the screen cast session.";
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  that->StartRequest();
-}
-
-void BaseCapturerPipeWire::StartRequest() {
-  GVariantBuilder builder;
-  gchar* variant_string;
-
-  g_variant_builder_init(&builder, G_VARIANT_TYPE_VARDICT);
-  variant_string = g_strdup_printf("webrtc%d", g_random_int_range(0, G_MAXINT));
-  g_variant_builder_add(&builder, "{sv}", "handle_token",
-                        g_variant_new_string(variant_string));
-
-  start_handle_ = PrepareSignalHandle(connection_, variant_string);
-  start_request_signal_id_ =
-      SetupRequestResponseSignal(start_handle_, OnStartRequestResponseSignal);
-  g_free(variant_string);
-
-  // "Identifier for the application window", this is Wayland, so not "x11:...".
-  const gchar parent_window[] = "";
-
-  RTC_LOG(LS_INFO) << "Starting the screen cast session.";
-  g_dbus_proxy_call(
-      proxy_, "Start",
-      g_variant_new("(osa{sv})", session_handle_, parent_window, &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, cancellable_,
-      reinterpret_cast<GAsyncReadyCallback>(OnStartRequested), this);
-}
-
-// static
-void BaseCapturerPipeWire::OnStartRequested(GDBusProxy *proxy,
-                                            GAsyncResult* result,
-                                            gpointer user_data) {
-  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
-  RTC_DCHECK(that);
-
-  GError* error = nullptr;
-  GVariant* variant = g_dbus_proxy_call_finish(proxy, result, &error);
-  if (!variant) {
-    if (g_error_matches(error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-      return;
-    RTC_LOG(LS_ERROR) << "Failed to start the screen cast session: "
-                      << error->message;
-    g_error_free(error);
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  RTC_LOG(LS_INFO) << "Initializing the start of the screen cast session.";
-
-  gchar* handle = nullptr;
-  g_variant_get_child(variant, 0, "o", &handle);
-  g_variant_unref(variant);
-  if (!handle) {
-    RTC_LOG(LS_ERROR)
-        << "Failed to initialize the start of the screen cast session.";
-    if (that->start_request_signal_id_) {
-      g_dbus_connection_signal_unsubscribe(that->connection_,
-                                           that->start_request_signal_id_);
-      that->start_request_signal_id_ = 0;
-    }
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  g_free(handle);
-
-  RTC_LOG(LS_INFO) << "Subscribed to the start signal.";
-}
-
-// static
-void BaseCapturerPipeWire::OnStartRequestResponseSignal(
-    GDBusConnection* connection,
-    const gchar* sender_name,
-    const gchar* object_path,
-    const gchar* interface_name,
-    const gchar* signal_name,
-    GVariant* parameters,
-    gpointer user_data) {
-  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
-  RTC_DCHECK(that);
-
-  RTC_LOG(LS_INFO) << "Start signal received.";
-  guint32 portal_response;
-  GVariant* response_data;
-  GVariantIter* iter = nullptr;
-  g_variant_get(parameters, "(u@a{sv})", &portal_response, &response_data);
-  if (portal_response || !response_data) {
-    RTC_LOG(LS_ERROR) << "Failed to start the screen cast session.";
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  // Array of PipeWire streams. See
-  // https://github.com/flatpak/xdg-desktop-portal/blob/master/data/org.freedesktop.portal.ScreenCast.xml
-  // documentation for <method name="Start">.
-  if (g_variant_lookup(response_data, "streams", "a(ua{sv})", &iter)) {
-    GVariant* variant;
-
-    while (g_variant_iter_next(iter, "@(ua{sv})", &variant)) {
-      guint32 stream_id;
-      gint32 width;
-      gint32 height;
-      GVariant* options;
-
-      g_variant_get(variant, "(u@a{sv})", &stream_id, &options);
-      RTC_DCHECK(options != nullptr);
-
-      g_variant_lookup(options, "size", "(ii)", &width, &height);
-
-      that->desktop_size_.set(width, height);
-
-      g_variant_unref(options);
-      g_variant_unref(variant);
-    }
-  }
-  g_variant_iter_free(iter);
-  g_variant_unref(response_data);
-
-  that->OpenPipeWireRemote();
-}
-
-void BaseCapturerPipeWire::OpenPipeWireRemote() {
-  GVariantBuilder builder;
-  g_variant_builder_init(&builder, G_VARIANT_TYPE_VARDICT);
-
-  RTC_LOG(LS_INFO) << "Opening the PipeWire remote.";
-
-  g_dbus_proxy_call_with_unix_fd_list(
-      proxy_, "OpenPipeWireRemote",
-      g_variant_new("(oa{sv})", session_handle_, &builder),
-      G_DBUS_CALL_FLAGS_NONE, /*timeout=*/-1, /*fd_list=*/nullptr,
-      cancellable_,
-      reinterpret_cast<GAsyncReadyCallback>(OnOpenPipeWireRemoteRequested),
-      this);
-}
-
-// static
-void BaseCapturerPipeWire::OnOpenPipeWireRemoteRequested(
-    GDBusProxy *proxy,
-    GAsyncResult* result,
-    gpointer user_data) {
-  BaseCapturerPipeWire* that = static_cast<BaseCapturerPipeWire*>(user_data);
-  RTC_DCHECK(that);
-
-  GError* error = nullptr;
-  GUnixFDList* outlist = nullptr;
-  GVariant* variant = g_dbus_proxy_call_with_unix_fd_list_finish(
-      proxy, &outlist, result, &error);
-  if (!variant) {
-    if (g_error_matches(error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
-      return;
-    RTC_LOG(LS_ERROR) << "Failed to open the PipeWire remote: "
-                      << error->message;
-    g_error_free(error);
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  gint32 index;
-  g_variant_get(variant, "(h)", &index);
-
-  if ((that->pw_fd_ = g_unix_fd_list_get(outlist, index, &error)) == -1) {
-    RTC_LOG(LS_ERROR) << "Failed to get file descriptor from the list: "
-                      << error->message;
-    g_error_free(error);
-    g_variant_unref(variant);
-    that->portal_init_failed_ = true;
-    return;
-  }
-
-  g_variant_unref(variant);
-  g_object_unref(outlist);
-
-  that->InitPipeWire();
-}
-
 void BaseCapturerPipeWire::Start(Callback* callback) {
   RTC_DCHECK(!callback_);
   RTC_DCHECK(callback);
 
-  InitPortal();
-
   callback_ = callback;
+
+  auto lambda = [this](bool result) {
+    if (result) {
+      connection_id_ = id;
+      pw_fd_ = options_.xdp_base()->GetPipeWireFd();
+      desktop_size_ = options_.xdp_base()->GetDesktopSize();
+      InitPipeWire();
+    }
+  };
+
+  webrtc::XdgDesktopPortalBase* xdpBase = options_.xdp_base();
+  rtc::Callback2<void, bool, int32_t> cb = lambda;
+  xdpBase->OpenPipeWireRemote(cb);
 }
 
 void BaseCapturerPipeWire::CaptureFrame() {
-  if (portal_init_failed_) {
+  if (pipewire_init_failed_) {
     callback_->OnCaptureResult(Result::ERROR_PERMANENT, nullptr);
     return;
   }
@@ -885,6 +476,34 @@ bool BaseCapturerPipeWire::GetSourceList(SourceList* sources) {
 bool BaseCapturerPipeWire::SelectSource(SourceId id) {
   // Screen selection is handled by the xdg-desktop-portal.
   return true;
+}
+
+// static
+std::unique_ptr<DesktopCapturer> BaseCapturerPipeWire::CreateRawScreenCapturer(
+    const DesktopCaptureOptions& options) {
+  if (!options.xdp_base())
+    return nullptr;
+
+  std::unique_ptr<BaseCapturerPipeWire> capturer(new BaseCapturerPipeWire());
+  if (!capturer.get()->Init(options)) {
+    return nullptr;
+  }
+
+  return std::move(capturer);
+}
+
+// static
+std::unique_ptr<DesktopCapturer> BaseCapturerPipeWire::CreateRawWindowCapturer(
+    const DesktopCaptureOptions& options) {
+  if (!options.xdp_base())
+    return nullptr;
+
+  std::unique_ptr<BaseCapturerPipeWire> capturer(new BaseCapturerPipeWire());
+  if (!capturer.get()->Init(options)) {
+    return nullptr;
+  }
+
+  return std::move(capturer);
 }
 
 }  // namespace webrtc

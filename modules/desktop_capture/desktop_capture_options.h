@@ -22,6 +22,10 @@
 #include "modules/desktop_capture/mac/full_screen_chrome_window_detector.h"
 #endif
 
+#if defined(WEBRTC_USE_PIPEWIRE)
+#include "modules/desktop_capture/linux/xdg_desktop_portal_base.h"
+#endif
+
 namespace webrtc {
 
 // An object that stores initialization parameters for screen and window
@@ -133,13 +137,20 @@ class RTC_EXPORT DesktopCaptureOptions {
 #if defined(WEBRTC_USE_PIPEWIRE)
   bool allow_pipewire() const { return allow_pipewire_; }
   void set_allow_pipewire(bool allow) { allow_pipewire_ = allow; }
+
+  XdgDesktopPortalBase* xdp_base() const { return xdp_base_; }
+  void set_xdp_base(rtc::scoped_refptr<XdgDesktopPortalBase> xdp_base) {
+    xdp_base_ = xdp_base;
+  }
 #endif
 
  private:
 #if defined(USE_X11)
   rtc::scoped_refptr<SharedXDisplay> x_display_;
 #endif
-
+#if defined(WEBRTC_USE_PIPEWIRE)
+  rtc::scoped_refptr<XdgDesktopPortalBase> xdp_base_;
+#endif
 #if defined(WEBRTC_MAC) && !defined(WEBRTC_IOS)
   rtc::scoped_refptr<DesktopConfigurationMonitor> configuration_monitor_;
   rtc::scoped_refptr<FullScreenChromeWindowDetector>

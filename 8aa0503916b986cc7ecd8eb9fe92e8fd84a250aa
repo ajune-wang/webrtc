@@ -22,6 +22,30 @@
       "revId": "8aa0503916b986cc7ecd8eb9fe92e8fd84a250aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59d932ca_6a468e58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 10273
+      },
+      "writtenOn": "2019-11-26T01:39:48Z",
+      "side": 1,
+      "message": "Hi, Niels Moller.\n\nSorry for not reporting the bug.\nI\u0027m not familiar with this kinds of system.\nI\u0027ll explain this issue.\n\nThis log should print removed elements in \u0027networks\u0027 which pointer to vector\u003cNetwork*\u003e really.\nBut it was printing just tailing elements of the vector.\n\nFor example, assume that there are 4 elements in \u0027networks\u0027, and 1st and 3rd elements are removed. Then \u0027networks\u0027 will be changed like this.\n\n\u003cBefore\u003e\n[0] id \u003d 1\n[1] id \u003d 2\n[2] id \u003d 3\n[3] id \u003d 4\n\n\u003cAfter\u003e\n[0] id \u003d 2\n[1] id \u003d 4\n\nThen this log should print the elements with id\u003d1 and id\u003d3 which removed. \nBut currently it is printing the elements with id\u003d3 and id\u003d4 which tailing 2 elements of the vector.\nIt\u0027s related with how std::remove_if works.\nhttp://www.cplusplus.com/reference/algorithm/remove_if/?kw\u003dremove_if\n\nI hope this explanation will help you.\nThanks!",
+      "parentUuid": "f5a7e344_77b62514",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "8aa0503916b986cc7ecd8eb9fe92e8fd84a250aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

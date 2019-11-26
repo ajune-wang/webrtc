@@ -22,6 +22,30 @@
       "revId": "a3a0b6f7e0c45f3371b192efb3b55072b6c6aab2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f752711d_70a5c645",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-26T09:10:34Z",
+      "side": 1,
+      "message": "Ah, right. And it is one properties_j as well:\n\nproperties_j: \"$build/goma:{\\\"rpc_extra_params\\\":\\\"?prod\\\",\\\"server_host\\\":\\\"goma.chromium.org\\\"}\"",
+      "parentUuid": "f248daeb_98d7c0a9",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 0
+      },
+      "revId": "a3a0b6f7e0c45f3371b192efb3b55072b6c6aab2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -117,6 +117,30 @@
       "revId": "bdcfa7b2837bcbd2541294a7ac7b7cc9a0eb62db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82637c0b_dae96eab",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 10209
+      },
+      "writtenOn": "2019-11-27T14:19:44Z",
+      "side": 1,
+      "message": "In response to our offline discussion, I have moved mounting point to the rtp_video_stream_receiver.\n\nRegarding additional and redundant locking inside AbsoluteCaptureTimeReceiver. I have discussed it offline with its creator chxg@. It has distinguished lock because there is an intention to use separately as part of webrtc library (not only WebRTC own audio and video streams implementations). Additional performance cost of acquiring lock in the rtp_video_stream_receiver should be negligible as blocking never happens in practice and the cost goes down to 1-2 atomic operations.",
+      "parentUuid": "58c8e7d4_cb03739e",
+      "range": {
+        "startLine": 178,
+        "startChar": 30,
+        "endLine": 178,
+        "endChar": 61
+      },
+      "revId": "bdcfa7b2837bcbd2541294a7ac7b7cc9a0eb62db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

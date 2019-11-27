@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fbbf1366_63053f48",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-27T14:38:33Z",
+      "side": 1,
+      "message": "nit: use clock_\n\nBTW, I don\u0027t think we need to pass clock anymore, correct me if I am wrong. but since this is unrelated to this CL, you don\u0027t need to take any actions.",
+      "range": {
+        "startLine": 218,
+        "startChar": 38,
+        "endLine": 218,
+        "endChar": 43
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6b52e91_2bda7b12",
         "filename": "video/rtp_video_stream_receiver.h",
         "patchSetId": 10
@@ -42,6 +65,92 @@
         "startChar": 61,
         "endLine": 323,
         "endChar": 62
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82c904b4_c4be35c1",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-27T14:38:33Z",
+      "side": 1,
+      "message": "add\nconstexpr int kAbsoluteCaptureTimeExtensionId \u003d 1;\n\nyou can also use AbsoluteCaptureTimeExtension::kId, but I like the former more.",
+      "range": {
+        "startLine": 362,
+        "startChar": 55,
+        "endLine": 362,
+        "endChar": 56
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e79cf621_6b9499e1",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-27T14:38:33Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 394,
+        "startChar": 55,
+        "endLine": 394,
+        "endChar": 56
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c7340a_79afbfff",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-27T14:38:33Z",
+      "side": 1,
+      "message": "add\n\nint sequence_num \u003d 1;\n\nthen rtp_packet.SetSequenceNumber(sequence_num++) in the following\n\nalso add \n\nint timestamp \u003d 1\n\nand rtp_packet.SetTimestamp(timestamp++)\n\nbut to be honest, I don\u0027t see why timestamp increment by 1.",
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ed8c02f_f1777009",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-11-27T14:38:33Z",
+      "side": 1,
+      "message": "I would add Check/Expect that the extension is in fact removed.",
+      "range": {
+        "startLine": 418,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 64
       },
       "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

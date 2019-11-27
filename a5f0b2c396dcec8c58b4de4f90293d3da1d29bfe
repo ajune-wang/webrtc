@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6b52e91_2bda7b12",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-11-27T14:29:15Z",
+      "side": 1,
+      "message": "Please add RTC_GUARDED_BY(worker_task_checker_) so that the inner lock can be removed in a later CL.",
+      "range": {
+        "startLine": 323,
+        "startChar": 61,
+        "endLine": 323,
+        "endChar": 62
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

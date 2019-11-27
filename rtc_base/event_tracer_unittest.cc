@@ -45,6 +45,7 @@ class TestStatistics {
   int events_logged_ RTC_GUARDED_BY(crit_) = 0;
 };
 
+#if RTC_TRACE_EVENTS_ENABLED
 const unsigned char* GetCategoryEnabledHandler(const char* /*name*/) {
   return reinterpret_cast<const unsigned char*>("test");
 }
@@ -60,6 +61,7 @@ void TraceEventHandler(char /*phase*/,
                        unsigned char /*flags*/) {
   TestStatistics::Get()->Increment();
 }
+#endif
 
 }  // namespace
 
@@ -71,11 +73,13 @@ TEST(EventTracerTest, EventTracerDisabled) {
   TestStatistics::Get()->Reset();
 }
 
+#if RTC_TRACE_EVENTS_ENABLED
 TEST(EventTracerTest, ScopedTraceEvent) {
   SetupEventTracer(&GetCategoryEnabledHandler, &TraceEventHandler);
   { TRACE_EVENT0("test", "ScopedTraceEvent"); }
   EXPECT_EQ(2, TestStatistics::Get()->Count());
   TestStatistics::Get()->Reset();
 }
+#endif
 
 }  // namespace webrtc

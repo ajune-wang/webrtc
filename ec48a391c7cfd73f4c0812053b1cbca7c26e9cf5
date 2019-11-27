@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "156e787c_5d167b73",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-27T10:29:44Z",
+      "side": 1,
+      "message": "Can we avoid the double negation, and the use of defined() ? I.e.,\n\n#if RTC_CHECK_MSG\n\nIf we want to handle undef case, I\u0027d prefer to have an\n\n#ifndef RTC_CHECK_MSG\n#define RTC_CHECK_MSG 1\n#endif\n\nat the top of the file.",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 30
+      },
+      "revId": "ec48a391c7cfd73f4c0812053b1cbca7c26e9cf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def3dd48_c5a014aa",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-27T10:29:44Z",
+      "side": 1,
+      "message": "If we can\u0027t do this with a single easy-to-understand additional macro, I think it\u0027s clearer to have separate definitions of RTC_CHECK and RTC_CHECK_OP.",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 342,
+        "endChar": 6
+      },
+      "revId": "ec48a391c7cfd73f4c0812053b1cbca7c26e9cf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede39f5e_94f1594d",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-27T10:29:44Z",
+      "side": 1,
+      "message": "This use of while is a bit strange. I guess the point is to \n\n(1) enable RTC_CHECK \u003c\u003c \"msg\", which rules out using the standard form of a statement-style-macro\n\ndo { if (!(condition)) ... } while (0)\n\n(2) do it in a way so that the \u003c\u003c expressions aren\u0027t evaluated when the check is false. Which seems to rule out an expresison-style macro like\n\n  ((condition)? LogEater : LogFatal) \n\nIf that feature is important, we should have a testcase like\n\nint i \u003d 0;\nRTC_CHECK(true) \u003c\u003c \"i \" \u003c\u003c ++i;\nRTC_CHECK_EQ(i, 0);",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 23
+      },
+      "revId": "ec48a391c7cfd73f4c0812053b1cbca7c26e9cf5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

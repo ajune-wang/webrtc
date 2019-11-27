@@ -213,9 +213,20 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   void RequestEncoderFallback() override;
   void RequestEncoderSwitch(
       const EncoderSwitchRequestCallback::Config& conf) override;
+  void SetEncodedFrameBufferFunction(
+      uint32_t ssrc,
+      RecordableEncodedFrameFunction function) override;
+  void ClearEncodedFrameBufferFunction(uint32_t ssrc) override;
+  void GenerateKeyFrame(uint32_t ssrc) override;
 
  private:
   class WebRtcVideoReceiveStream;
+
+  // Finds VideoReceiveStream corresponding to ssrc. Aware of unsignalled
+  // ssrc handling.
+  WebRtcVideoReceiveStream* FindReceiveStream(uint32_t ssrc)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(thread_checker_);
+
   struct VideoCodecSettings {
     VideoCodecSettings();
 
@@ -432,6 +443,11 @@ class WebRtcVideoChannel : public VideoMediaChannel,
     void SetSink(rtc::VideoSinkInterface<webrtc::VideoFrame>* sink);
 
     VideoReceiverInfo GetVideoReceiverInfo(bool log_stats);
+
+    void SetEncodedFrameBufferFunction(
+        VideoMediaChannel::RecordableEncodedFrameFunction callback);
+    void ClearEncodedFrameBufferFunction();
+    void GenerateKeyFrame();
 
    private:
     void RecreateWebRtcVideoStream();

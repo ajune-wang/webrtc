@@ -400,10 +400,19 @@ bool FakeVideoMediaChannel::SetOptions(const VideoOptions& options) {
   options_ = options;
   return true;
 }
+
 bool FakeVideoMediaChannel::SetMaxSendBandwidth(int bps) {
   max_bps_ = bps;
   return true;
 }
+
+void FakeVideoMediaChannel::SetEncodedFrameBufferFunction(
+    uint32_t ssrc,
+    RecordableEncodedFrameFunction callback) {}
+
+void FakeVideoMediaChannel::ClearEncodedFrameBufferFunction(uint32_t ssrc) {}
+
+void FakeVideoMediaChannel::GenerateKeyFrame(uint32_t ssrc) {}
 
 FakeDataMediaChannel::FakeDataMediaChannel(void* unused,
                                            const DataOptions& options)

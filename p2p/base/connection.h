@@ -19,6 +19,7 @@
 #include "api/transport/stun.h"
 #include "logging/rtc_event_log/ice_logger.h"
 #include "p2p/base/candidate_pair_interface.h"
+#include "p2p/base/connection_ice_controller_interface.h"
 #include "p2p/base/connection_info.h"
 #include "p2p/base/stun_request.h"
 #include "p2p/base/transport_description.h"
@@ -35,16 +36,6 @@ class Port;
 
 // Forward declaration so that a ConnectionRequest can contain a Connection.
 class Connection;
-
-struct CandidatePair final : public CandidatePairInterface {
-  ~CandidatePair() override = default;
-
-  const Candidate& local_candidate() const override { return local; }
-  const Candidate& remote_candidate() const override { return remote; }
-
-  Candidate local;
-  Candidate remote;
-};
 
 // A ConnectionRequest is a simple STUN ping used to determine writability.
 class ConnectionRequest : public StunRequest {
@@ -63,7 +54,7 @@ class ConnectionRequest : public StunRequest {
 
 // Represents a communication link between a port on the local client and a
 // port on the remote client.
-class Connection : public CandidatePairInterface,
+class Connection : public ConnectionIceControllerInterface,
                    public rtc::MessageHandler,
                    public sigslot::has_slots<> {
  public:
@@ -88,12 +79,12 @@ class Connection : public CandidatePairInterface,
   const Candidate& remote_candidate() const override;
 
   // Return local network for this connection.
-  virtual const rtc::Network* network() const;
+  const rtc::Network* network() const override;
   // Return generation for this connection.
-  virtual int generation() const;
+  int generation() const override;
 
   // Returns the pair priority.
-  virtual uint64_t priority() const;
+  uint64_t priority() const override;
 
   enum WriteState {
     STATE_WRITABLE = 0,          // we have received ping responses recently
@@ -173,7 +164,7 @@ class Connection : public CandidatePairInterface,
 
   void set_nomination(uint32_t value) { nomination_ = value; }
 
-  uint32_t remote_nomination() const { return remote_nomination_; }
+  uint32_t remote_nomination() const override { return remote_nomination_; }
   // One or several pairs may be nominated based on if Regular or Aggressive
   // Nomination is used. https://tools.ietf.org/html/rfc5245#section-8
   // |nominated| is defined both for the controlling or controlled agent based

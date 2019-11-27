@@ -29,6 +29,7 @@ rtc_library("rtc_p2p") {
     "base/candidate_pair_interface.h",
     "base/connection.cc",
     "base/connection.h",
+    "base/connection_ice_controller_interface.h",
     "base/connection_info.cc",
     "base/connection_info.h",
     "base/default_ice_transport_factory.cc",

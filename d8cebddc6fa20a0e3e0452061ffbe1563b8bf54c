@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05a47cd7_653ef544",
+        "filename": "p2p/base/candidate_pair_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-27T16:21:38Z",
+      "side": 1,
+      "message": "argh. using a struct is bad for your mental health. It means you\u0027re exposing member variables by default - and in this case, it\u0027s member variables you already have accessors for.\n\nIt doesn\u0027t make sense to me to do it this way. Destroys encapsulation.",
+      "revId": "d8cebddc6fa20a0e3e0452061ffbe1563b8bf54c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62027c53_e2810ab4",
+        "filename": "p2p/base/connection_ice_controller_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-27T16:21:38Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t tell me anything about what the class is for, and the class name is equally meaningless.\nFrom the functions defined for it, I can tell that it represents methods that make sense for a candidate pair. What\u0027s the reason to have this separate layer of abstraction, and not modify candidate_pair_interface?",
+      "revId": "d8cebddc6fa20a0e3e0452061ffbe1563b8bf54c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

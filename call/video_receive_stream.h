@@ -23,6 +23,7 @@
 #include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
 #include "api/transport/rtp/rtp_source.h"
+#include "api/video/recordable_encoded_frame.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
@@ -39,6 +40,9 @@ class VideoDecoderFactory;
 
 class VideoReceiveStream {
  public:
+  using RecordableEncodedFrameFunction =
+      std::function<void(const RecordableEncodedFrame&)>;
+
   // TODO(mflodman) Move all these settings to VideoDecoder and move the
   // declaration to common_types.h.
   struct Decoder {
@@ -274,6 +278,20 @@ class VideoReceiveStream {
   // creation without resetting the decoder state.
   virtual void SetFrameDecryptor(
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) = 0;
+
+  // Set |function| to be called with encoded frame buffer output as
+  // it becomes available in the receive stream.
+  virtual void SetEncodedFrameBufferFunction(
+      RecordableEncodedFrameFunction function) = 0;
+
+  // Release any set encoded frame buffer function by moving it out of this
+  // object. When this method returns, it's guaranteed that all encoded frame
+  // dispatch has ceased and no dispatch is currently happening.
+  virtual RecordableEncodedFrameFunction
+  ReleaseEncodedFrameBufferFunction() = 0;
+
+  // Cause eventual generation of a key frame from the sender.
+  virtual void GenerateKeyFrame() = 0;
 
  protected:
   virtual ~VideoReceiveStream() {}

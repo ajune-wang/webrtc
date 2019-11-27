@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "8ea3b052_794c3a78",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2019-11-27T14:53:22Z",
+      "side": 1,
+      "message": "`AbsoluteCaptureTimeReceiver` will also be used by other callers that are not as thread safe as this caller. To make life easier for them, there\u0027s a strong preference for keeping the inner lock in that class. The overhead from locking and unlocking an uncontended critical section should be minimal (e.g. ~50 cycles or so).",
+      "parentUuid": "8c2ca2db_80fe4f7e",
+      "range": {
+        "startLine": 323,
+        "startChar": 61,
+        "endLine": 323,
+        "endChar": 62
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82c904b4_c4be35c1",
         "filename": "video/rtp_video_stream_receiver_unittest.cc",
         "patchSetId": 10

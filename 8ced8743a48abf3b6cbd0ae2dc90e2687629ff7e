@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "520c1521_de344058",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-27T08:56:32Z",
+      "side": 1,
+      "message": "can you file a bug (probably P3) for this and reference that in the TODO?",
+      "revId": "8ced8743a48abf3b6cbd0ae2dc90e2687629ff7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

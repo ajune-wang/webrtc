@@ -16,6 +16,24 @@
       "revId": "7e89aea361b5b19262a7cddc262896ef6cf35a1c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "971e5b88_4264cdc1",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-11-27T08:50:51Z",
+      "side": 1,
+      "message": "i added a PortForTest() and removed the P2PTransportChannelTestBase.\nHowever, I still need the P2PTransportChannel 😞\nIt is used in one place to check if the local-port of this connection has been\npruned. Currently this is \"known\" by P2PTransportChannel which keeps a list of\nports (and pruned ports). A refactoring would be to add a member variable/function on Port,\ni.e Port::IsPruned()...but that will be next cl/, wdyt?",
+      "parentUuid": "035ff4ab_2f631c80",
+      "revId": "7e89aea361b5b19262a7cddc262896ef6cf35a1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

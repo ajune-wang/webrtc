@@ -32,7 +32,7 @@ namespace cricket {
 
 struct IceTransportStats {
   CandidateStatsList candidate_stats_list;
-  ConnectionInfos connection_infos;
+  std::vector<ConnectionStats> connection_stats;
   // Number of times the selected candidate pair has changed
   // Initially 0 and 1 once the first candidate pair has been selected.
   // The counter is increase also when "unselecting" a connection.

@@ -45,7 +45,7 @@
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
 
-using cricket::ConnectionInfo;
+using cricket::ConnectionStats;
 using cricket::SsrcReceiverInfo;
 using cricket::TransportChannelStats;
 using cricket::VideoMediaInfo;
@@ -1303,11 +1303,11 @@ TEST_F(StatsCollectorTest, IceCandidateReport) {
   remote.set_priority(kPriority);
   remote.set_network_type(kNetworkType);
 
-  ConnectionInfo connection_info;
+  ConnectionStats connection_info;
   connection_info.local_candidate = local;
   connection_info.remote_candidate = remote;
   TransportChannelStats channel_stats;
-  channel_stats.ice_transport_stats.connection_infos.push_back(connection_info);
+  channel_stats.ice_transport_stats.connection_stats.push_back(connection_info);
 
   pc->AddVoiceChannel("audio", kTransportName);
   pc->SetTransportStats(kTransportName, channel_stats);

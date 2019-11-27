@@ -1135,34 +1135,34 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidateStats) {
 
   // Add candidate pairs to connection.
   cricket::TransportChannelStats a_transport_channel_stats;
-  a_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
-      cricket::ConnectionInfo());
-  a_transport_channel_stats.ice_transport_stats.connection_infos[0]
+  a_transport_channel_stats.ice_transport_stats.connection_stats.push_back(
+      cricket::ConnectionStats());
+  a_transport_channel_stats.ice_transport_stats.connection_stats[0]
       .local_candidate = *a_local_host.get();
-  a_transport_channel_stats.ice_transport_stats.connection_infos[0]
+  a_transport_channel_stats.ice_transport_stats.connection_stats[0]
       .remote_candidate = *a_remote_srflx.get();
-  a_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
-      cricket::ConnectionInfo());
-  a_transport_channel_stats.ice_transport_stats.connection_infos[1]
+  a_transport_channel_stats.ice_transport_stats.connection_stats.push_back(
+      cricket::ConnectionStats());
+  a_transport_channel_stats.ice_transport_stats.connection_stats[1]
       .local_candidate = *a_local_prflx.get();
-  a_transport_channel_stats.ice_transport_stats.connection_infos[1]
+  a_transport_channel_stats.ice_transport_stats.connection_stats[1]
       .remote_candidate = *a_remote_relay.get();
-  a_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
-      cricket::ConnectionInfo());
-  a_transport_channel_stats.ice_transport_stats.connection_infos[2]
+  a_transport_channel_stats.ice_transport_stats.connection_stats.push_back(
+      cricket::ConnectionStats());
+  a_transport_channel_stats.ice_transport_stats.connection_stats[2]
       .local_candidate = *a_local_relay.get();
-  a_transport_channel_stats.ice_transport_stats.connection_infos[2]
+  a_transport_channel_stats.ice_transport_stats.connection_stats[2]
       .remote_candidate = *a_remote_relay.get();
 
   pc_->AddVoiceChannel("audio", "a");
   pc_->SetTransportStats("a", a_transport_channel_stats);
 
   cricket::TransportChannelStats b_transport_channel_stats;
-  b_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
-      cricket::ConnectionInfo());
-  b_transport_channel_stats.ice_transport_stats.connection_infos[0]
+  b_transport_channel_stats.ice_transport_stats.connection_stats.push_back(
+      cricket::ConnectionStats());
+  b_transport_channel_stats.ice_transport_stats.connection_stats[0]
       .local_candidate = *b_local.get();
-  b_transport_channel_stats.ice_transport_stats.connection_infos[0]
+  b_transport_channel_stats.ice_transport_stats.connection_stats[0]
       .remote_candidate = *b_remote.get();
 
   pc_->AddVideoChannel("video", "b");
@@ -1205,28 +1205,28 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidatePairStats) {
       "42.42.42.42", 42, "protocol", rtc::ADAPTER_TYPE_UNKNOWN,
       cricket::LOCAL_PORT_TYPE, 42);
 
-  cricket::ConnectionInfo connection_info;
-  connection_info.best_connection = false;
-  connection_info.local_candidate = *local_candidate.get();
-  connection_info.remote_candidate = *remote_candidate.get();
-  connection_info.writable = true;
-  connection_info.sent_total_bytes = 42;
-  connection_info.recv_total_bytes = 1234;
-  connection_info.total_round_trip_time_ms = 0;
-  connection_info.current_round_trip_time_ms = absl::nullopt;
-  connection_info.recv_ping_requests = 2020;
-  connection_info.sent_ping_requests_total = 2020;
-  connection_info.sent_ping_requests_before_first_response = 2000;
-  connection_info.recv_ping_responses = 4321;
-  connection_info.sent_ping_responses = 1000;
-  connection_info.state = cricket::IceCandidatePairState::IN_PROGRESS;
-  connection_info.priority = 5555;
-  connection_info.nominated = false;
+  cricket::ConnectionStats connection_stats;
+  connection_stats.best_connection = false;
+  connection_stats.local_candidate = *local_candidate.get();
+  connection_stats.remote_candidate = *remote_candidate.get();
+  connection_stats.writable = true;
+  connection_stats.sent_total_bytes = 42;
+  connection_stats.recv_total_bytes = 1234;
+  connection_stats.total_round_trip_time_ms = 0;
+  connection_stats.current_round_trip_time_ms = absl::nullopt;
+  connection_stats.recv_ping_requests = 2020;
+  connection_stats.sent_ping_requests_total = 2020;
+  connection_stats.sent_ping_requests_before_first_response = 2000;
+  connection_stats.recv_ping_responses = 4321;
+  connection_stats.sent_ping_responses = 1000;
+  connection_stats.state = cricket::IceCandidatePairState::IN_PROGRESS;
+  connection_stats.priority = 5555;
+  connection_stats.nominated = false;
 
   cricket::TransportChannelStats transport_channel_stats;
   transport_channel_stats.component = cricket::ICE_CANDIDATE_COMPONENT_RTP;
-  transport_channel_stats.ice_transport_stats.connection_infos.push_back(
-      connection_info);
+  transport_channel_stats.ice_transport_stats.connection_stats.push_back(
+      connection_stats);
 
   pc_->AddVideoChannel("video", kTransportName);
   pc_->SetTransportStats(kTransportName, transport_channel_stats);
@@ -1267,7 +1267,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidatePairStats) {
   EXPECT_TRUE(report->Get(*expected_pair.transport_id));
 
   // Set nominated and "GetStats" again.
-  transport_channel_stats.ice_transport_stats.connection_infos[0].nominated =
+  transport_channel_stats.ice_transport_stats.connection_stats[0].nominated =
       true;
   pc_->SetTransportStats(kTransportName, transport_channel_stats);
   report = stats_->GetFreshStatsReport();
@@ -1279,9 +1279,9 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidatePairStats) {
   EXPECT_TRUE(report->Get(*expected_pair.transport_id));
 
   // Set round trip times and "GetStats" again.
-  transport_channel_stats.ice_transport_stats.connection_infos[0]
+  transport_channel_stats.ice_transport_stats.connection_stats[0]
       .total_round_trip_time_ms = 7331;
-  transport_channel_stats.ice_transport_stats.connection_infos[0]
+  transport_channel_stats.ice_transport_stats.connection_stats[0]
       .current_round_trip_time_ms = 1337;
   pc_->SetTransportStats(kTransportName, transport_channel_stats);
   report = stats_->GetFreshStatsReport();
@@ -1294,7 +1294,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCIceCandidatePairStats) {
   EXPECT_TRUE(report->Get(*expected_pair.transport_id));
 
   // Make pair the current pair, clear bandwidth and "GetStats" again.
-  transport_channel_stats.ice_transport_stats.connection_infos[0]
+  transport_channel_stats.ice_transport_stats.connection_stats[0]
       .best_connection = true;
   pc_->SetTransportStats(kTransportName, transport_channel_stats);
   report = stats_->GetFreshStatsReport();
@@ -2084,16 +2084,16 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
                           rtc::ADAPTER_TYPE_UNKNOWN, cricket::LOCAL_PORT_TYPE,
                           42);
 
-  cricket::ConnectionInfo rtp_connection_info;
-  rtp_connection_info.best_connection = false;
-  rtp_connection_info.local_candidate = *rtp_local_candidate.get();
-  rtp_connection_info.remote_candidate = *rtp_remote_candidate.get();
-  rtp_connection_info.sent_total_bytes = 42;
-  rtp_connection_info.recv_total_bytes = 1337;
+  cricket::ConnectionStats rtp_connection_stats;
+  rtp_connection_stats.best_connection = false;
+  rtp_connection_stats.local_candidate = *rtp_local_candidate.get();
+  rtp_connection_stats.remote_candidate = *rtp_remote_candidate.get();
+  rtp_connection_stats.sent_total_bytes = 42;
+  rtp_connection_stats.recv_total_bytes = 1337;
   cricket::TransportChannelStats rtp_transport_channel_stats;
   rtp_transport_channel_stats.component = cricket::ICE_CANDIDATE_COMPONENT_RTP;
-  rtp_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
-      rtp_connection_info);
+  rtp_transport_channel_stats.ice_transport_stats.connection_stats.push_back(
+      rtp_connection_stats);
   rtp_transport_channel_stats.dtls_state = cricket::DTLS_TRANSPORT_NEW;
   rtp_transport_channel_stats.ice_transport_stats
       .selected_candidate_pair_changes = 1;
@@ -2116,17 +2116,17 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
       expected_rtp_transport,
       report->Get(expected_rtp_transport.id())->cast_to<RTCTransportStats>());
 
-  cricket::ConnectionInfo rtcp_connection_info;
-  rtcp_connection_info.best_connection = false;
-  rtcp_connection_info.local_candidate = *rtcp_local_candidate.get();
-  rtcp_connection_info.remote_candidate = *rtcp_remote_candidate.get();
-  rtcp_connection_info.sent_total_bytes = 1337;
-  rtcp_connection_info.recv_total_bytes = 42;
+  cricket::ConnectionStats rtcp_connection_stats;
+  rtcp_connection_stats.best_connection = false;
+  rtcp_connection_stats.local_candidate = *rtcp_local_candidate.get();
+  rtcp_connection_stats.remote_candidate = *rtcp_remote_candidate.get();
+  rtcp_connection_stats.sent_total_bytes = 1337;
+  rtcp_connection_stats.recv_total_bytes = 42;
   cricket::TransportChannelStats rtcp_transport_channel_stats;
   rtcp_transport_channel_stats.component =
       cricket::ICE_CANDIDATE_COMPONENT_RTCP;
-  rtcp_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
-      rtcp_connection_info);
+  rtcp_transport_channel_stats.ice_transport_stats.connection_stats.push_back(
+      rtcp_connection_stats);
   rtcp_transport_channel_stats.dtls_state = cricket::DTLS_TRANSPORT_CONNECTING;
   pc_->SetTransportStats(kTransportName, {rtp_transport_channel_stats,
                                           rtcp_transport_channel_stats});
@@ -2154,7 +2154,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
       report->Get(expected_rtcp_transport.id())->cast_to<RTCTransportStats>());
 
   // Get stats with an active connection (selected candidate pair).
-  rtcp_transport_channel_stats.ice_transport_stats.connection_infos[0]
+  rtcp_transport_channel_stats.ice_transport_stats.connection_stats[0]
       .best_connection = true;
   pc_->SetTransportStats(kTransportName, {rtp_transport_channel_stats,
                                           rtcp_transport_channel_stats});
@@ -2227,16 +2227,16 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStatsWithCrypto) {
                           rtc::ADAPTER_TYPE_UNKNOWN, cricket::LOCAL_PORT_TYPE,
                           42);
 
-  cricket::ConnectionInfo rtp_connection_info;
-  rtp_connection_info.best_connection = false;
-  rtp_connection_info.local_candidate = *rtp_local_candidate.get();
-  rtp_connection_info.remote_candidate = *rtp_remote_candidate.get();
-  rtp_connection_info.sent_total_bytes = 42;
-  rtp_connection_info.recv_total_bytes = 1337;
+  cricket::ConnectionStats rtp_connection_stats;
+  rtp_connection_stats.best_connection = false;
+  rtp_connection_stats.local_candidate = *rtp_local_candidate.get();
+  rtp_connection_stats.remote_candidate = *rtp_remote_candidate.get();
+  rtp_connection_stats.sent_total_bytes = 42;
+  rtp_connection_stats.recv_total_bytes = 1337;
   cricket::TransportChannelStats rtp_transport_channel_stats;
   rtp_transport_channel_stats.component = cricket::ICE_CANDIDATE_COMPONENT_RTP;
-  rtp_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
-      rtp_connection_info);
+  rtp_transport_channel_stats.ice_transport_stats.connection_stats.push_back(
+      rtp_connection_stats);
   // The state must be connected in order for crypto parameters to show up.
   rtp_transport_channel_stats.dtls_state = cricket::DTLS_TRANSPORT_CONNECTED;
   rtp_transport_channel_stats.ice_transport_stats

@@ -486,10 +486,8 @@ rtc_library("desktop_capture_generic") {
     sources += [
       "linux/base_capturer_pipewire.cc",
       "linux/base_capturer_pipewire.h",
-      "linux/screen_capturer_pipewire.cc",
-      "linux/screen_capturer_pipewire.h",
-      "linux/window_capturer_pipewire.cc",
-      "linux/window_capturer_pipewire.h",
+      "linux/xdg_desktop_portal_base.cc",
+      "linux/xdg_desktop_portal_base.h",
     ]
 
     configs += [

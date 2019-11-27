@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe91a65c_e0c2cf9d",
+        "filename": "rtc_base/bind.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-27T02:46:51Z",
+      "side": 1,
+      "message": "Update the comment too. Or remove it---it\u0027s well known how to look up what std::index_sequence does.",
+      "range": {
+        "startLine": 166,
+        "startChar": 5,
+        "endLine": 166,
+        "endChar": 49
+      },
+      "revId": "1792703ce610c69f424e85b639237b6db8a76faf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

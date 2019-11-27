@@ -16,6 +16,24 @@
       "revId": "853699f9d78c470633b708be2ba87d148ea3825a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a644c0d_8d214f0b",
+        "filename": "rtc_base/trace_event.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 9865
+      },
+      "writtenOn": "2019-11-27T16:22:21Z",
+      "side": 1,
+      "message": "This changes only the internal macros that all the others depend on. I\u0027ve changed to the suggested alternative, and there\u0027s still a lot of macros to verify :)",
+      "parentUuid": "e966b9c1_75bcfd25",
+      "revId": "853699f9d78c470633b708be2ba87d148ea3825a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

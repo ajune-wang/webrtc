@@ -7502,14 +7502,14 @@ void PeerConnection::ReportTransportStats() {
     }
   }
 }
-// Walk through the ConnectionInfos to gather best connection usage
+// Walk through the ConnectionStats to gather best connection usage
 // for IPv4 and IPv6.
 void PeerConnection::ReportBestConnectionState(
     const cricket::TransportStats& stats) {
   for (const cricket::TransportChannelStats& channel_stats :
        stats.channel_stats) {
-    for (const cricket::ConnectionInfo& connection_info :
-         channel_stats.ice_transport_stats.connection_infos) {
+    for (const cricket::ConnectionStats& connection_info :
+         channel_stats.ice_transport_stats.connection_stats) {
       if (!connection_info.best_connection) {
         continue;
       }

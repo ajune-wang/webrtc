@@ -1487,7 +1487,7 @@ bool P2PTransportChannel::GetStats(IceTransportStats* ice_transport_stats) {
   RTC_DCHECK_RUN_ON(network_thread_);
   // Gather candidate and candidate pair stats.
   ice_transport_stats->candidate_stats_list.clear();
-  ice_transport_stats->connection_infos.clear();
+  ice_transport_stats->connection_stats.clear();
 
   if (!allocator_sessions_.empty()) {
     allocator_session()->GetCandidateStatsFromReadyPorts(
@@ -1496,11 +1496,11 @@ bool P2PTransportChannel::GetStats(IceTransportStats* ice_transport_stats) {
 
   // TODO(qingsi): Remove naming inconsistency for candidate pair/connection.
   for (Connection* connection : connections()) {
-    ConnectionInfo stats = connection->stats();
+    ConnectionStats stats = connection->stats();
     stats.local_candidate = SanitizeLocalCandidate(stats.local_candidate);
     stats.remote_candidate = SanitizeRemoteCandidate(stats.remote_candidate);
     stats.best_connection = (selected_connection_ == connection);
-    ice_transport_stats->connection_infos.push_back(std::move(stats));
+    ice_transport_stats->connection_stats.push_back(std::move(stats));
     connection->set_reported(true);
   }
 

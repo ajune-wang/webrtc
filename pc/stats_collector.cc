@@ -711,7 +711,7 @@ StatsReport* StatsCollector::AddConnectionInfoReport(
     int component,
     int connection_id,
     const StatsReport::Id& channel_report_id,
-    const cricket::ConnectionInfo& info) {
+    const cricket::ConnectionStats& info) {
   StatsReport::Id id(
       StatsReport::NewCandidatePairId(content_name, component, connection_id));
   StatsReport* report = reports_.ReplaceOrAddNew(id);
@@ -899,8 +899,8 @@ void StatsCollector::ExtractSessionInfo() {
       }
 
       int connection_id = 0;
-      for (const cricket::ConnectionInfo& info :
-           channel_iter.ice_transport_stats.connection_infos) {
+      for (const cricket::ConnectionStats& info :
+           channel_iter.ice_transport_stats.connection_stats) {
         StatsReport* connection_report = AddConnectionInfoReport(
             transport_name, channel_iter.component, connection_id++,
             channel_report->id(), info);

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddb5d2cc_6655a29f",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 2357,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-27T10:56:37Z",
+      "side": 1,
+      "message": "I guess this will just be ignored since we use_goma\u003dfalse?",
+      "range": {
+        "startLine": 2357,
+        "startChar": 7,
+        "endLine": 2357,
+        "endChar": 106
+      },
+      "revId": "1f50fc155f57384823ff649554302f8722a4830a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

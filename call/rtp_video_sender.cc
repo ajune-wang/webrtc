@@ -80,11 +80,6 @@ bool ShouldDisableRedAndUlpfec(bool flexfec_enabled,
 
   bool should_disable_red_and_ulpfec = false;
 
-  if (webrtc::field_trial::IsEnabled("WebRTC-DisableUlpFecExperiment")) {
-    RTC_LOG(LS_INFO) << "Experiment to disable sending ULPFEC is enabled.";
-    should_disable_red_and_ulpfec = true;
-  }
-
   // If enabled, FlexFEC takes priority over RED+ULPFEC.
   if (flexfec_enabled) {
     if (IsUlpfecEnabled()) {
@@ -555,9 +550,7 @@ void RtpVideoSender::OnBitrateAllocationUpdated(
 
 bool RtpVideoSender::FecEnabled() const {
   const bool flexfec_enabled = (flexfec_sender_ != nullptr);
-  const bool ulpfec_enabled =
-      !webrtc::field_trial::IsEnabled("WebRTC-DisableUlpFecExperiment") &&
-      (rtp_config_.ulpfec.ulpfec_payload_type >= 0);
+  const bool ulpfec_enabled = (rtp_config_.ulpfec.ulpfec_payload_type >= 0);
   return flexfec_enabled || ulpfec_enabled;
 }
 

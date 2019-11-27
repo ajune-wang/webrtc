@@ -22,6 +22,30 @@
       "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "322adf82_c360e234",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 10209
+      },
+      "writtenOn": "2019-11-27T14:37:34Z",
+      "side": 1,
+      "message": "Added guard. If necessary inner locking can be safely removed in separate CL. chxg@ please give us your opinion regarding that.",
+      "parentUuid": "b6b52e91_2bda7b12",
+      "range": {
+        "startLine": 323,
+        "startChar": 61,
+        "endLine": 323,
+        "endChar": 62
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

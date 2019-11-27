@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3284f9c_9c7ab473",
+        "filename": "webrtc.gni",
+        "patchSetId": 8
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-11-27T10:57:17Z",
+      "side": 1,
+      "message": "Will flip it before landing",
+      "range": {
+        "startLine": 251,
+        "startChar": 26,
+        "endLine": 251,
+        "endChar": 30
+      },
+      "revId": "dac8f0c2c63df69f3e20ee082f395c58367ac330",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

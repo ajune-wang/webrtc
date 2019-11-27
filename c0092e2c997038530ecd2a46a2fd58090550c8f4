@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "47263522_47d11f75",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-27T04:09:11Z",
+      "side": 1,
+      "message": "You could replace this with\n\n  #ifdef RTC_NO_CHECK_MSG\n  FatalLog(file, line);\n  #else\n  static constexpr CheckArgType t[] \u003d {Us::Type()..., CheckArgType::kEnd};\n  FatalLog(file, line, message, t, args.GetVal()...);\n  #endif\n\nand modify FatalLog to take just those two arguments, which will allow you to #ifdef out a large amount of code in the .cc file---the compiler generates a lot of instructions when you write a vararg function.\n\nYou\u0027d still need the changes you\u0027ve already made in order to prevent the stream arguments from being evaluated, which is probably desirable.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 55
+      },
+      "revId": "c0092e2c997038530ecd2a46a2fd58090550c8f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70fa9ef_d7561650",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-27T04:09:11Z",
+      "side": 1,
+      "message": "And the same thing here.",
+      "range": {
+        "startLine": 231,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 55
+      },
+      "revId": "c0092e2c997038530ecd2a46a2fd58090550c8f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a55c848_620db1e0",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-27T04:09:11Z",
+      "side": 1,
+      "message": "grammar",
+      "revId": "c0092e2c997038530ecd2a46a2fd58090550c8f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23fdfb5f_430e043f",
         "filename": "rtc_base/checks.h",
         "patchSetId": 6
@@ -19,6 +82,69 @@
         "endLine": 339,
         "endChar": 5
       },
+      "revId": "c0092e2c997038530ecd2a46a2fd58090550c8f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d1beb90_e93e1bc2",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-27T04:09:11Z",
+      "side": 1,
+      "message": "You don\u0027t need the parentheses, right?",
+      "range": {
+        "startLine": 341,
+        "startChar": 34,
+        "endLine": 341,
+        "endChar": 40
+      },
+      "revId": "c0092e2c997038530ecd2a46a2fd58090550c8f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35e99e68_fbfc74d4",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-27T04:09:11Z",
+      "side": 1,
+      "message": "Can you get rid of this if you simply let LogEater::operator\u0026 return void? It seems like it should work...",
+      "range": {
+        "startLine": 342,
+        "startChar": 34,
+        "endLine": 342,
+        "endChar": 79
+      },
+      "revId": "c0092e2c997038530ecd2a46a2fd58090550c8f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a1cb831_1c36ecd0",
+        "filename": "webrtc.gni",
+        "patchSetId": 6
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-27T04:09:11Z",
+      "side": 1,
+      "message": "`rtc_disable_check_msg`, for consistency with `rtc_disable_logging`?",
       "revId": "c0092e2c997038530ecd2a46a2fd58090550c8f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

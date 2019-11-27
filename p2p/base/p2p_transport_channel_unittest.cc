@@ -240,6 +240,10 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     webrtc::metrics::Reset();
   }
 
+  static const Port* GetPort(const Connection* con) { return con->port(); }
+
+  static Port* GetPort(Connection* con) { return con->port(); }
+
  protected:
   enum Config {
     OPEN,                         // Open to the Internet
@@ -2067,9 +2071,9 @@ TEST_F(P2PTransportChannelTest, TestUsingPooledSessionBeforeDoneGathering) {
   auto pooled_ports_1 = pooled_session_1->ReadyPorts();
   auto pooled_ports_2 = pooled_session_2->ReadyPorts();
   EXPECT_THAT(pooled_ports_1,
-              Contains(ep1_ch1()->selected_connection()->port()));
+              Contains(GetPort(ep1_ch1()->selected_connection())));
   EXPECT_THAT(pooled_ports_2,
-              Contains(ep2_ch1()->selected_connection()->port()));
+              Contains(GetPort(ep2_ch1()->selected_connection())));
 }
 
 // Test that a connection succeeds when the P2PTransportChannel uses a pooled
@@ -2109,9 +2113,9 @@ TEST_F(P2PTransportChannelTest, TestUsingPooledSessionAfterDoneGathering) {
   auto pooled_ports_1 = pooled_session_1->ReadyPorts();
   auto pooled_ports_2 = pooled_session_2->ReadyPorts();
   EXPECT_THAT(pooled_ports_1,
-              Contains(ep1_ch1()->selected_connection()->port()));
+              Contains(GetPort(ep1_ch1()->selected_connection())));
   EXPECT_THAT(pooled_ports_2,
-              Contains(ep2_ch1()->selected_connection()->port()));
+              Contains(GetPort(ep2_ch1()->selected_connection())));
 }
 
 // Test that when the "presume_writable_when_fully_relayed" flag is set to
@@ -3152,7 +3156,7 @@ class P2PTransportChannelPingTest : public ::testing::Test,
     return GetConnectionTo(ch, ip, port_num);
   }
 
-  Port* GetPort(P2PTransportChannel* ch) {
+  Port* GetPortFromChannel(P2PTransportChannel* ch) {
     if (ch->ports().empty()) {
       return nullptr;
     }
@@ -3169,7 +3173,7 @@ class P2PTransportChannelPingTest : public ::testing::Test,
   Connection* GetConnectionTo(P2PTransportChannel* ch,
                               const std::string& ip,
                               int port_num) {
-    Port* port = GetPort(ch);
+    Port* port = GetPortFromChannel(ch);
     if (!port) {
       return nullptr;
     }
@@ -3482,7 +3486,7 @@ TEST_F(P2PTransportChannelPingTest, PingingStartedAsSoonAsPossible) {
   uint32_t prflx_priority = ICE_TYPE_PREFERENCE_PRFLX << 24;
   request.AddAttribute(std::make_unique<StunUInt32Attribute>(STUN_ATTR_PRIORITY,
                                                              prflx_priority));
-  Port* port = GetPort(&ch);
+  Port* port = GetPortFromChannel(&ch);
   ASSERT_NE(nullptr, port);
   port->SignalUnknownAddress(port, rtc::SocketAddress("1.1.1.1", 1), PROTO_UDP,
                              &request, kIceUfrag[1], false);
@@ -3653,7 +3657,7 @@ TEST_F(P2PTransportChannelPingTest, ConnectionResurrection) {
                                                              prflx_priority));
   EXPECT_NE(prflx_priority, remote_priority);
 
-  Port* port = GetPort(&ch);
+  Port* port = GetPortFromChannel(&ch);
   // conn1 should be resurrected with original priority.
   port->SignalUnknownAddress(port, rtc::SocketAddress("1.1.1.1", 1), PROTO_UDP,
                              &request, kIceUfrag[1], false);
@@ -3803,7 +3807,7 @@ TEST_F(P2PTransportChannelPingTest, TestSelectConnectionFromUnknownAddress) {
   uint32_t prflx_priority = ICE_TYPE_PREFERENCE_PRFLX << 24;
   request.AddAttribute(std::make_unique<StunUInt32Attribute>(STUN_ATTR_PRIORITY,
                                                              prflx_priority));
-  TestUDPPort* port = static_cast<TestUDPPort*>(GetPort(&ch));
+  TestUDPPort* port = static_cast<TestUDPPort*>(GetPortFromChannel(&ch));
   port->SignalUnknownAddress(port, rtc::SocketAddress("1.1.1.1", 1), PROTO_UDP,
                              &request, kIceUfrag[1], false);
   Connection* conn1 = WaitForConnectionTo(&ch, "1.1.1.1", 1);
@@ -3903,7 +3907,7 @@ TEST_F(P2PTransportChannelPingTest, TestSelectConnectionBasedOnMediaReceived) {
                                                              prflx_priority));
   request.AddAttribute(
       std::make_unique<StunByteStringAttribute>(STUN_ATTR_USE_CANDIDATE));
-  Port* port = GetPort(&ch);
+  Port* port = GetPortFromChannel(&ch);
   port->SignalUnknownAddress(port, rtc::SocketAddress("3.3.3.3", 3), PROTO_UDP,
                              &request, kIceUfrag[1], false);
   Connection* conn3 = WaitForConnectionTo(&ch, "3.3.3.3", 3);
@@ -4389,10 +4393,12 @@ TEST_F(P2PTransportChannelPingTest, TestIceRoleUpdatedOnRemovedPort) {
 
   // Make a fake signal to remove the ports in the p2ptransportchannel. then
   // change the ICE role and expect it to be updated.
-  std::vector<PortInterface*> ports(1, conn->port());
+  std::vector<PortInterface*> ports(1,
+                                    P2PTransportChannelTestBase::GetPort(conn));
   ch.allocator_session()->SignalPortsPruned(ch.allocator_session(), ports);
   ch.SetIceRole(ICEROLE_CONTROLLED);
-  EXPECT_EQ(ICEROLE_CONTROLLED, conn->port()->GetIceRole());
+  EXPECT_EQ(ICEROLE_CONTROLLED,
+            P2PTransportChannelTestBase::GetPort(conn)->GetIceRole());
 }
 
 // Test that the ICE role is updated even on ports with inactive networks.
@@ -4415,7 +4421,8 @@ TEST_F(P2PTransportChannelPingTest, TestIceRoleUpdatedOnPortAfterIceRestart) {
   ch.SetIceParameters(kIceParams[1]);
   ch.MaybeStartGathering();
   ch.SetIceRole(ICEROLE_CONTROLLED);
-  EXPECT_EQ(ICEROLE_CONTROLLED, conn->port()->GetIceRole());
+  EXPECT_EQ(ICEROLE_CONTROLLED,
+            P2PTransportChannelTestBase::GetPort(conn)->GetIceRole());
 }
 
 // Test that after some amount of time without receiving data, the connection
@@ -4441,12 +4448,12 @@ TEST_F(P2PTransportChannelPingTest, TestPortDestroyedAfterTimeoutAndPruned) {
   }
   EXPECT_EQ(nullptr, GetConnectionTo(&ch, "1.1.1.1", 1));
   // Port will not be removed because it is not pruned yet.
-  PortInterface* port = GetPort(&ch);
+  PortInterface* port = GetPortFromChannel(&ch);
   ASSERT_NE(nullptr, port);
 
   // If the session prunes all ports, the port will be destroyed.
   ch.allocator_session()->PruneAllPorts();
-  EXPECT_EQ_SIMULATED_WAIT(nullptr, GetPort(&ch), 1, fake_clock);
+  EXPECT_EQ_SIMULATED_WAIT(nullptr, GetPortFromChannel(&ch), 1, fake_clock);
   EXPECT_EQ_SIMULATED_WAIT(nullptr, GetPrunedPort(&ch), 1, fake_clock);
 }
 

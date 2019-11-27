@@ -355,9 +355,9 @@ IceTransportState P2PTransportChannel::ComputeState() const {
     return IceTransportState::STATE_FAILED;
   }
 
-  std::set<rtc::Network*> networks;
+  std::set<const rtc::Network*> networks;
   for (Connection* connection : active_connections) {
-    rtc::Network* network = connection->port()->Network();
+    const rtc::Network* network = connection->network();
     if (networks.find(network) == networks.end()) {
       networks.insert(network);
     } else {

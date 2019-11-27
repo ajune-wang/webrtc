@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "db6e7766_b5d7a821",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-27T14:48:44Z",
+      "side": 1,
+      "message": "please do not use AbsoluteCaptureTimeExtension::kId - that has different meaning than value 1\n(and different type)\n\nAbsoluteCaptureTimeExtension::kId is actually a enum type of the extension (with irrelevant value).\n1 here is the id to be stored in the packet [with prefered valid range 1-14]",
+      "parentUuid": "82c904b4_c4be35c1",
+      "range": {
+        "startLine": 362,
+        "startChar": 55,
+        "endLine": 362,
+        "endChar": 56
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e79cf621_6b9499e1",
         "filename": "video/rtp_video_stream_receiver_unittest.cc",
         "patchSetId": 10
@@ -159,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "343dafe4_731df69f",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-27T14:48:44Z",
+      "side": 1,
+      "message": "if you decide to have sequence_num and timestamp variables, prefer uint16_t and uint32_t for them respectively.",
+      "parentUuid": "46c7340a_79afbfff",
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ed8c02f_f1777009",
         "filename": "video/rtp_video_stream_receiver_unittest.cc",
         "patchSetId": 10
@@ -170,6 +212,30 @@
       "writtenOn": "2019-11-27T14:38:33Z",
       "side": 1,
       "message": "I would add Check/Expect that the extension is in fact removed.",
+      "range": {
+        "startLine": 418,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 64
+      },
+      "revId": "a5f0b2c396dcec8c58b4de4f90293d3da1d29bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "659a6028_c2219857",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-11-27T14:48:44Z",
+      "side": 1,
+      "message": "it might be better (though slightly more wordy) to instead create another rtp_packet, where the extension is not Set.\n(RemoveExtension exists for some edge case, not for common use.)",
+      "parentUuid": "1ed8c02f_f1777009",
       "range": {
         "startLine": 418,
         "startChar": 0,

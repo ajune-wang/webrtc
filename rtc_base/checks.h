@@ -37,6 +37,12 @@ RTC_NORETURN void rtc_FatalMessage(const char* file, int line, const char* msg);
 }  // extern "C"
 #endif
 
+#if defined(RTC_DISABLE_CHECK_MSG)
+#define RTC_CHECK_EVAL_MESSAGE(message) ""
+#else
+#define RTC_CHECK_EVAL_MESSAGE(message) message
+#endif
+
 #ifdef __cplusplus
 // C++ version.
 
@@ -109,11 +115,15 @@ enum class CheckArgType : int8_t {
   kCheckOp,
 };
 
+#if defined(RTC_DISABLE_CHECK_MSG)
+RTC_NORETURN RTC_EXPORT void FatalLog(const char* file, int line);
+#else
 RTC_NORETURN RTC_EXPORT void FatalLog(const char* file,
                                       int line,
                                       const char* message,
                                       const CheckArgType* fmt,
                                       ...);
+#endif
 
 // Wrapper for log arguments. Only ever make values of this type with the
 // MakeVal() functions.
@@ -219,8 +229,12 @@ class LogStreamer<> final {
                                                  const int line,
                                                  const char* message,
                                                  const Us&... args) {
+#if defined(RTC_DISABLE_CHECK_MSG)
+    FatalLog(file, line);
+#else
     static constexpr CheckArgType t[] = {Us::Type()..., CheckArgType::kEnd};
     FatalLog(file, line, message, t, args.GetVal()...);
+#endif
   }
 
   template <typename... Us>
@@ -228,9 +242,13 @@ class LogStreamer<> final {
                                                         const int line,
                                                         const char* message,
                                                         const Us&... args) {
+#if defined(RTC_DISABLE_CHECK_MSG)
+    FatalLog(file, line);
+#else
     static constexpr CheckArgType t[] = {CheckArgType::kCheckOp, Us::Type()...,
                                          CheckArgType::kEnd};
     FatalLog(file, line, message, t, args.GetVal()...);
+#endif
   }
 };
 
@@ -301,6 +319,16 @@ class FatalLogCall final {
   int line_;
   const char* message_;
 };
+
+class LogEater final {
+ public:
+  // This can be any binary operator with precedence lower than <<.
+  template <typename... Ts>
+  RTC_FORCE_INLINE void operator&(const LogStreamer<Ts...>& streamer) {
+    // Do nothing. Eat logs.
+  }
+};
+
 }  // namespace webrtc_checks_impl
 
 // The actual stream used isn't important. We reference |ignored| in the code
@@ -320,25 +348,37 @@ class FatalLogCall final {
 #define RTC_EAT_STREAM_PARAMETERS_OP(op, a, b) \
   RTC_EAT_STREAM_PARAMETERS(((void)rtc::Safe##op(a, b)))
 
+#if defined(RTC_DISABLE_CHECK_MSG)
+#define RTC_CHECK_WRAPPER_START() true ?
+#define RTC_CHECK_WRAPPER_END() : rtc::webrtc_checks_impl::LogEater() & \
+  rtc::webrtc_checks_impl::LogStreamer<>()
+#else
+#define RTC_CHECK_WRAPPER_START()
+#define RTC_CHECK_WRAPPER_END()
+#endif
+
 // RTC_CHECK dies with a fatal error if condition is not true. It is *not*
 // controlled by NDEBUG or anything else, so the check will be executed
 // regardless of compilation mode.
 //
 // We make sure RTC_CHECK et al. always evaluates |condition|, as
 // doing RTC_CHECK(FunctionWithSideEffect()) is a common idiom.
-#define RTC_CHECK(condition)                                       \
-  while (!(condition))                                             \
-  rtc::webrtc_checks_impl::FatalLogCall<false>(__FILE__, __LINE__, \
-                                               #condition) &       \
-      rtc::webrtc_checks_impl::LogStreamer<>()
+#define RTC_CHECK(condition)                                    \
+  while (!(condition))                                          \
+    RTC_CHECK_WRAPPER_START()                                   \
+  rtc::webrtc_checks_impl::FatalLogCall<false>(                 \
+      __FILE__, __LINE__, RTC_CHECK_EVAL_MESSAGE(#condition)) & \
+      rtc::webrtc_checks_impl::LogStreamer<>() RTC_CHECK_WRAPPER_END()
 
 // Helper macro for binary operators.
 // Don't use this macro directly in your code, use RTC_CHECK_EQ et al below.
-#define RTC_CHECK_OP(name, op, val1, val2)                               \
-  while (!rtc::Safe##name((val1), (val2)))                               \
-  rtc::webrtc_checks_impl::FatalLogCall<true>(__FILE__, __LINE__,        \
-                                              #val1 " " #op " " #val2) & \
-      rtc::webrtc_checks_impl::LogStreamer<>() << (val1) << (val2)
+#define RTC_CHECK_OP(name, op, val1, val2)                                   \
+  while (!rtc::Safe##name((val1), (val2)))                                   \
+    RTC_CHECK_WRAPPER_START()                                                \
+  rtc::webrtc_checks_impl::FatalLogCall<true>(                               \
+      __FILE__, __LINE__, RTC_CHECK_EVAL_MESSAGE(#val1 " " #op " " #val2)) & \
+      rtc::webrtc_checks_impl::LogStreamer<>()                               \
+          << (val1) << (val2)RTC_CHECK_WRAPPER_END()
 
 #define RTC_CHECK_EQ(val1, val2) RTC_CHECK_OP(Eq, ==, val1, val2)
 #define RTC_CHECK_NE(val1, val2) RTC_CHECK_OP(Ne, !=, val1, val2)
@@ -391,11 +431,12 @@ inline T CheckedDivExact(T a, T b) {
 // C version. Lacks many features compared to the C++ version, but usage
 // guidelines are the same.
 
-#define RTC_CHECK(condition)                                             \
-  do {                                                                   \
-    if (!(condition)) {                                                  \
-      rtc_FatalMessage(__FILE__, __LINE__, "CHECK failed: " #condition); \
-    }                                                                    \
+#define RTC_CHECK(condition)                                                 \
+  do {                                                                       \
+    if (!(condition)) {                                                      \
+      rtc_FatalMessage(__FILE__, __LINE__,                                   \
+                       RTC_CHECK_EVAL_MESSAGE("CHECK failed: " #condition)); \
+    }                                                                        \
   } while (0)
 
 #define RTC_CHECK_EQ(a, b) RTC_CHECK((a) == (b))
@@ -405,11 +446,12 @@ inline T CheckedDivExact(T a, T b) {
 #define RTC_CHECK_GE(a, b) RTC_CHECK((a) >= (b))
 #define RTC_CHECK_GT(a, b) RTC_CHECK((a) > (b))
 
-#define RTC_DCHECK(condition)                                             \
-  do {                                                                    \
-    if (RTC_DCHECK_IS_ON && !(condition)) {                               \
-      rtc_FatalMessage(__FILE__, __LINE__, "DCHECK failed: " #condition); \
-    }                                                                     \
+#define RTC_DCHECK(condition)                                                 \
+  do {                                                                        \
+    if (RTC_DCHECK_IS_ON && !(condition)) {                                   \
+      rtc_FatalMessage(__FILE__, __LINE__,                                    \
+                       RTC_CHECK_EVAL_MESSAGE("DCHECK failed: " #condition)); \
+    }                                                                         \
   } while (0)
 
 #define RTC_DCHECK_EQ(a, b) RTC_DCHECK((a) == (b))

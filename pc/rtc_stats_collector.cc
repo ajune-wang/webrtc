@@ -48,8 +48,8 @@ std::string RTCCodecStatsIDFromMidDirectionAndPayload(const std::string& mid,
   return sb.str();
 }
 
-std::string RTCIceCandidatePairStatsIDFromConnectionInfo(
-    const cricket::ConnectionInfo& info) {
+std::string RTCIceCandidatePairStatsIDFromConnectionStats(
+    const cricket::ConnectionStats& info) {
   char buf[4096];
   rtc::SimpleStringBuilder sb(buf);
   sb << "RTCIceCandidatePair_" << info.local_candidate.id() << "_"
@@ -1274,11 +1274,11 @@ void RTCStatsCollector::ProduceIceCandidateAndPairStats_n(
     for (const auto& channel_stats : transport_stats.channel_stats) {
       std::string transport_id = RTCTransportStatsIDFromTransportChannel(
           transport_name, channel_stats.component);
-      for (const cricket::ConnectionInfo& info :
-           channel_stats.ice_transport_stats.connection_infos) {
+      for (const cricket::ConnectionStats& info :
+           channel_stats.ice_transport_stats.connection_stats) {
         std::unique_ptr<RTCIceCandidatePairStats> candidate_pair_stats(
             new RTCIceCandidatePairStats(
-                RTCIceCandidatePairStatsIDFromConnectionInfo(info),
+                RTCIceCandidatePairStatsIDFromConnectionStats(info),
                 timestamp_us));
 
         candidate_pair_stats->transport_id = transport_id;
@@ -1708,13 +1708,13 @@ void RTCStatsCollector::ProduceTransportStats_n(
           DtlsTransportStateToRTCDtlsTransportState(channel_stats.dtls_state);
       transport_stats->selected_candidate_pair_changes =
           channel_stats.ice_transport_stats.selected_candidate_pair_changes;
-      for (const cricket::ConnectionInfo& info :
-           channel_stats.ice_transport_stats.connection_infos) {
-        *transport_stats->bytes_sent += info.sent_total_bytes;
-        *transport_stats->bytes_received += info.recv_total_bytes;
-        if (info.best_connection) {
+      for (const cricket::ConnectionStats& stats :
+           channel_stats.ice_transport_stats.connection_stats) {
+        *transport_stats->bytes_sent += stats.sent_total_bytes;
+        *transport_stats->bytes_received += stats.recv_total_bytes;
+        if (stats.best_connection) {
           transport_stats->selected_candidate_pair_id =
-              RTCIceCandidatePairStatsIDFromConnectionInfo(info);
+              RTCIceCandidatePairStatsIDFromConnectionStats(stats);
         }
       }
       if (channel_stats.component != cricket::ICE_CANDIDATE_COMPONENT_RTCP &&

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e0ded5a_fa7be4bc",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-27T15:24:48Z",
+      "side": 1,
+      "message": "I still prefer #if RTC_DISABLE_CHECK_MSG over #if defined(...) or #ifdef, since that lets -Wundef warn about misspelled symbols.\n\nHave a single #ifndef #define #endif at the top of the file is ok, if you want to make defining the symbol optional for the build system.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 34
+      },
+      "revId": "220a74f50728298da67ffbf385b40eca4c1fce12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27bfde86_82654273",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-27T15:24:48Z",
+      "side": 1,
+      "message": "Move the docs outside of the #if, to not duplicate it. For both this and RTC_CHECK_OP",
+      "range": {
+        "startLine": 355,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 63
+      },
+      "revId": "220a74f50728298da67ffbf385b40eca4c1fce12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

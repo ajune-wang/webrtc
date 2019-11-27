@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "035ff4ab_2f631c80",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-27T08:29:56Z",
+      "side": 1,
+      "message": "Friend classes touch each others\u0027 private parts .... are you sure you want to deencapsulate Connection() in this manner?\n\nIf the purpose is to expose for testing, you can name the public Port() method PortForTesting; if the purpose is to give access to these classes, you can make a subclass ConnectionWithExposedPort with a port accessor ... \"friend\" classes make me nervous; they solve certain special cases, and may be appropriate when the classes \"really\" are an implmenentation detail of a larger conceptual structure - but here ... I\u0027m nervois.",
+      "revId": "7e89aea361b5b19262a7cddc262896ef6cf35a1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

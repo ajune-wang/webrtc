@@ -1020,7 +1020,7 @@ int64_t Connection::last_received() const {
                   std::max(last_ping_received_, last_ping_response_received_));
 }
 
-ConnectionInfo Connection::stats() {
+ConnectionStats Connection::stats() {
   stats_.recv_bytes_second = round(recv_rate_tracker_.ComputeRate());
   stats_.recv_total_bytes = recv_rate_tracker_.TotalSampleCount();
   stats_.sent_bytes_second = round(send_rate_tracker_.ComputeRate());

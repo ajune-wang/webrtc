@@ -8,11 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "p2p/base/connection_info.h"
+#include "p2p/base/connection_stats.h"
 
 namespace cricket {
 
-ConnectionInfo::ConnectionInfo()
+ConnectionStats::ConnectionStats()
     : best_connection(false),
       writable(false),
       receiving(false),
@@ -36,8 +36,8 @@ ConnectionInfo::ConnectionInfo()
       nominated(false),
       total_round_trip_time_ms(0) {}
 
-ConnectionInfo::ConnectionInfo(const ConnectionInfo&) = default;
+ConnectionStats::ConnectionStats(const ConnectionStats&) = default;
 
-ConnectionInfo::~ConnectionInfo() = default;
+ConnectionStats::~ConnectionStats() = default;
 
 }  // namespace cricket

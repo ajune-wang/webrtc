@@ -28,7 +28,6 @@
 #include "logging/rtc_event_log/ice_logger.h"
 #include "p2p/base/candidate_pair_interface.h"
 #include "p2p/base/connection.h"
-#include "p2p/base/connection_info.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/port_interface.h"
 #include "p2p/base/stun_request.h"

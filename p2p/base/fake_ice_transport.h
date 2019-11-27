@@ -197,11 +197,11 @@ class FakeIceTransport : public IceTransportInternal {
 
   bool GetStats(IceTransportStats* ice_transport_stats) override {
     CandidateStats candidate_stats;
-    ConnectionInfo candidate_pair_stats;
+    ConnectionStats candidate_pair_stats;
     ice_transport_stats->candidate_stats_list.clear();
     ice_transport_stats->candidate_stats_list.push_back(candidate_stats);
-    ice_transport_stats->connection_infos.clear();
-    ice_transport_stats->connection_infos.push_back(candidate_pair_stats);
+    ice_transport_stats->connection_stats.clear();
+    ice_transport_stats->connection_stats.push_back(candidate_pair_stats);
     return true;
   }
 

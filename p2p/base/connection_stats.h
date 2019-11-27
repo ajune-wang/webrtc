@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_CONNECTION_INFO_H_
-#define P2P_BASE_CONNECTION_INFO_H_
+#ifndef P2P_BASE_CONNECTION_STATS_H_
+#define P2P_BASE_CONNECTION_STATS_H_
 
 #include <vector>
 
@@ -29,11 +29,10 @@ enum class IceCandidatePairState {
 };
 
 // Stats that we can return about the connections for a transport channel.
-// TODO(hta): Rename to ConnectionStats
-struct ConnectionInfo {
-  ConnectionInfo();
-  ConnectionInfo(const ConnectionInfo&);
-  ~ConnectionInfo();
+struct ConnectionStats {
+  ConnectionStats();
+  ConnectionStats(const ConnectionStats&);
+  ~ConnectionStats();
 
   bool best_connection;      // Is this the best connection we have?
   bool writable;             // Has this connection received a STUN response?
@@ -72,8 +71,8 @@ struct ConnectionInfo {
 };
 
 // Information about all the candidate pairs of a channel.
-typedef std::vector<ConnectionInfo> ConnectionInfos;
+typedef std::vector<ConnectionStats> ConnectionStatsVector;
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_CONNECTION_INFO_H_
+#endif  // P2P_BASE_CONNECTION_STATS_H_

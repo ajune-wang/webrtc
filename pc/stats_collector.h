@@ -119,7 +119,7 @@ class StatsCollector {
                                        int component,
                                        int connection_id,
                                        const StatsReport::Id& channel_report_id,
-                                       const cricket::ConnectionInfo& info);
+                                       const cricket::ConnectionStats& info);
 
   void ExtractDataInfo();
   void ExtractSessionInfo();

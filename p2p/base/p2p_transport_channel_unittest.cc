@@ -1269,11 +1269,11 @@ TEST_F(P2PTransportChannelTest, GetStats) {
   TestSendRecv(&clock);
   IceTransportStats ice_transport_stats;
   ASSERT_TRUE(ep1_ch1()->GetStats(&ice_transport_stats));
-  ASSERT_GE(ice_transport_stats.connection_infos.size(), 1u);
+  ASSERT_GE(ice_transport_stats.connection_stats.size(), 1u);
   ASSERT_GE(ice_transport_stats.candidate_stats_list.size(), 1u);
   EXPECT_EQ(ice_transport_stats.selected_candidate_pair_changes, 1u);
-  ConnectionInfo* best_conn_info = nullptr;
-  for (ConnectionInfo& info : ice_transport_stats.connection_infos) {
+  ConnectionStats* best_conn_info = nullptr;
+  for (ConnectionStats& info : ice_transport_stats.connection_stats) {
     if (info.best_connection) {
       best_conn_info = &info;
       break;
@@ -1609,10 +1609,10 @@ TEST_F(P2PTransportChannelTest, PeerReflexiveRemoteCandidateIsSanitized) {
   IceTransportStats ice_transport_stats;
   ep1_ch1()->GetStats(&ice_transport_stats);
   // Check the candidate pair stats.
-  ASSERT_EQ(1u, ice_transport_stats.connection_infos.size());
+  ASSERT_EQ(1u, ice_transport_stats.connection_stats.size());
   EXPECT_EQ(PRFLX_PORT_TYPE,
-            ice_transport_stats.connection_infos[0].remote_candidate.type());
-  EXPECT_TRUE(ice_transport_stats.connection_infos[0]
+            ice_transport_stats.connection_stats[0].remote_candidate.type());
+  EXPECT_TRUE(ice_transport_stats.connection_stats[0]
                   .remote_candidate.address()
                   .ipaddr()
                   .IsNil());
@@ -1637,10 +1637,10 @@ TEST_F(P2PTransportChannelTest, PeerReflexiveRemoteCandidateIsSanitized) {
 
   ep1_ch1()->GetStats(&ice_transport_stats);
   // Check the candidate pair stats.
-  ASSERT_EQ(1u, ice_transport_stats.connection_infos.size());
+  ASSERT_EQ(1u, ice_transport_stats.connection_stats.size());
   EXPECT_EQ(LOCAL_PORT_TYPE,
-            ice_transport_stats.connection_infos[0].remote_candidate.type());
-  EXPECT_TRUE(ice_transport_stats.connection_infos[0]
+            ice_transport_stats.connection_stats[0].remote_candidate.type());
+  EXPECT_TRUE(ice_transport_stats.connection_stats[0]
                   .remote_candidate.address()
                   .EqualIPs(kPublicAddrs[1]));
 
@@ -4988,11 +4988,11 @@ TEST_F(P2PTransportChannelTest,
   IceTransportStats ice_transport_stats2;
   ep1_ch1()->GetStats(&ice_transport_stats1);
   ep2_ch1()->GetStats(&ice_transport_stats2);
-  EXPECT_EQ(3u, ice_transport_stats1.connection_infos.size());
+  EXPECT_EQ(3u, ice_transport_stats1.connection_stats.size());
   EXPECT_EQ(3u, ice_transport_stats1.candidate_stats_list.size());
-  EXPECT_EQ(3u, ice_transport_stats2.connection_infos.size());
+  EXPECT_EQ(3u, ice_transport_stats2.connection_stats.size());
   // Check the stats of ep1 seen by ep1.
-  for (const auto& connection_info : ice_transport_stats1.connection_infos) {
+  for (const auto& connection_info : ice_transport_stats1.connection_stats) {
     const auto& local_candidate = connection_info.local_candidate;
     if (local_candidate.type() == LOCAL_PORT_TYPE) {
       EXPECT_TRUE(local_candidate.address().IsUnresolvedIP());
@@ -5009,7 +5009,7 @@ TEST_F(P2PTransportChannelTest,
     }
   }
   // Check the stats of ep1 seen by ep2.
-  for (const auto& connection_info : ice_transport_stats2.connection_infos) {
+  for (const auto& connection_info : ice_transport_stats2.connection_stats) {
     const auto& remote_candidate = connection_info.remote_candidate;
     if (remote_candidate.type() == LOCAL_PORT_TYPE) {
       EXPECT_TRUE(remote_candidate.address().IsUnresolvedIP());

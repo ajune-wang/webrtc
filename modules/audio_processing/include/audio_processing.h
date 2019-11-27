@@ -260,10 +260,6 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       bool multi_channel_render = false;
       // Allow multi-channel processing of capture audio.
       bool multi_channel_capture = false;
-
-      // Deprecated.
-      // TODO(peah): Remove.
-      bool experimental_multi_channel = false;
     } pipeline;
 
     // Enabled the pre-amplifier. It amplifies the capture signal

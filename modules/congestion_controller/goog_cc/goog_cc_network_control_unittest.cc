@@ -380,8 +380,7 @@ TEST_F(GoogCcNetworkControllerTest,
 
 TEST_F(GoogCcNetworkControllerTest, CongestionWindowPushBackOnSendDelaySpike) {
   ScopedFieldTrials trial(
-      "WebRTC-CongestionWindow/QueueSize:800,MinBitrate:30000/"
-      "WebRTC-Bwe-CongestionWindowDownlinkDelay/Enabled/");
+      "WebRTC-CongestionWindow/QueueSize:800,MinBitrate:30000/");
   Scenario s("googcc_unit/cwnd_actives_no_feedback", false);
   NetworkSimulationConfig net_conf;
   net_conf.bandwidth = DataRate::kbps(1000);

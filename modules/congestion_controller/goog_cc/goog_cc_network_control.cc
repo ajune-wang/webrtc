@@ -67,9 +67,6 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
       packet_feedback_only_(goog_cc_config.feedback_only),
       safe_reset_on_route_change_("Enabled"),
       safe_reset_acknowledged_rate_("ack"),
-      use_downlink_delay_for_congestion_window_(
-          IsEnabled(key_value_config_,
-                    "WebRTC-Bwe-CongestionWindowDownlinkDelay")),
       use_min_allocatable_as_lower_bound_(
           IsNotDisabled(key_value_config_, "WebRTC-Bwe-MinAllocAsLowerBound")),
       ignore_probes_lower_than_network_estimate_(
@@ -199,7 +196,6 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
                                       probes.begin(), probes.end());
 
   if (rate_control_settings_.UseCongestionWindow() &&
-      use_downlink_delay_for_congestion_window_ &&
       last_packet_received_time_.IsFinite() && !feedback_max_rtts_.empty()) {
     UpdateCongestionWindowSize(msg.at_time - last_packet_received_time_);
   }
@@ -381,10 +377,6 @@ void GoogCcNetworkController::UpdateCongestionWindowSize(
       min_feedback_max_rtt +
       TimeDelta::ms(
           rate_control_settings_.GetCongestionWindowAdditionalTimeMs());
-
-  if (use_downlink_delay_for_congestion_window_) {
-    time_window += time_since_last_packet;
-  }
 
   DataSize data_window = last_loss_based_target_rate_ * time_window;
   if (current_data_window_) {

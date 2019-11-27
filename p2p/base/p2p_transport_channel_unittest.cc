@@ -19,6 +19,7 @@
 #include "p2p/base/fake_port_allocator.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/mock_async_resolver.h"
+#include "p2p/base/mock_connection_ice_controller_interface.h"
 #include "p2p/base/packet_transport_internal.h"
 #include "p2p/base/test_stun_server.h"
 #include "p2p/base/test_turn_server.h"
@@ -181,6 +182,8 @@ class MockIceControllerFactory : public cricket::IceControllerFactoryInterface {
   std::unique_ptr<cricket::IceControllerInterface> Create(
       const cricket::IceControllerFactoryArgs& args) {
     RecordIceControllerCreated();
+    // Test instantiate to see that all methods are correct.
+    cricket::MockConnectionIceControllerInterface mock_connection;
     return std::make_unique<cricket::BasicIceController>(args);
   }
 

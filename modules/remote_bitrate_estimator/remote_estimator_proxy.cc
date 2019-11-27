@@ -38,18 +38,17 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
     NetworkStateEstimator* network_state_estimator)
     : clock_(clock),
       feedback_sender_(feedback_sender),
-      send_config_(key_value_config),
       last_process_time_ms_(-1),
       network_state_estimator_(network_state_estimator),
       media_ssrc_(0),
       feedback_packet_count_(0),
-      send_interval_ms_(send_config_.default_interval->ms()),
+      send_interval_ms_(send_config_.default_interval.ms()),
       send_periodic_feedback_(true),
       previous_abs_send_time_(0),
       abs_send_timestamp_(clock->CurrentTime()) {
   RTC_LOG(LS_INFO)
       << "Maximum interval between transport feedback RTCP messages (ms): "
-      << send_config_.max_interval->ms();
+      << send_config_.max_interval.ms();
 }
 
 RemoteEstimatorProxy::~RemoteEstimatorProxy() {}
@@ -75,7 +74,7 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
         // Start new feedback packet, cull old packets.
         for (auto it = packet_arrival_times_.begin();
              it != packet_arrival_times_.end() && it->first < seq &&
-             arrival_time_ms - it->second >= send_config_.back_window->ms();) {
+             arrival_time_ms - it->second >= send_config_.back_window.ms();) {
           it = packet_arrival_times_.erase(it);
         }
       }
@@ -164,9 +163,9 @@ void RemoteEstimatorProxy::OnBitrateChanged(int bitrate_bps) {
   // AverageTwccReport = (TwccReport(50ms) + TwccReport(250ms)) / 2
   constexpr int kTwccReportSize = 20 + 8 + 10 + 30;
   const double kMinTwccRate =
-      kTwccReportSize * 8.0 * 1000.0 / send_config_.max_interval->ms();
+      kTwccReportSize * 8.0 * 1000.0 / send_config_.max_interval.ms();
   const double kMaxTwccRate =
-      kTwccReportSize * 8.0 * 1000.0 / send_config_.min_interval->ms();
+      kTwccReportSize * 8.0 * 1000.0 / send_config_.min_interval.ms();
 
   // Let TWCC reports occupy 5% of total bandwidth.
   rtc::CritScope cs(&lock_);

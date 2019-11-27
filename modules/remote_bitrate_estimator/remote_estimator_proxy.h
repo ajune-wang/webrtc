@@ -56,18 +56,11 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
 
  private:
   struct TransportWideFeedbackConfig {
-    FieldTrialParameter<TimeDelta> back_window{"wind", TimeDelta::ms(500)};
-    FieldTrialParameter<TimeDelta> min_interval{"min", TimeDelta::ms(50)};
-    FieldTrialParameter<TimeDelta> max_interval{"max", TimeDelta::ms(250)};
-    FieldTrialParameter<TimeDelta> default_interval{"def", TimeDelta::ms(100)};
-    FieldTrialParameter<double> bandwidth_fraction{"frac", 0.05};
-    explicit TransportWideFeedbackConfig(
-        const WebRtcKeyValueConfig* key_value_config) {
-      ParseFieldTrial({&back_window, &min_interval, &max_interval,
-                       &default_interval, &bandwidth_fraction},
-                      key_value_config->Lookup(
-                          "WebRTC-Bwe-TransportWideFeedbackIntervals"));
-    }
+    TimeDelta back_window = TimeDelta::ms(500);
+    TimeDelta min_interval = TimeDelta::ms(50);
+    TimeDelta max_interval = TimeDelta::ms(250);
+    TimeDelta default_interval = TimeDelta::ms(100);
+    double bandwidth_fraction = 0.05;
   };
 
   static const int kMaxNumberOfPackets;

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d287159f_e7e75274",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-11-28T09:59:30Z",
+      "side": 0,
+      "message": "also remove time_since_last_packet? It is only used with this field trial.",
+      "range": {
+        "startLine": 386,
+        "startChar": 19,
+        "endLine": 386,
+        "endChar": 41
+      },
+      "revId": "c363982eeab3445ec960f26eea8653d3eb8c9fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7eb8809_5f78280f",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-11-28T09:59:30Z",
+      "side": 0,
+      "message": "we can remove this test.",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 79
+      },
+      "revId": "c363982eeab3445ec960f26eea8653d3eb8c9fed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

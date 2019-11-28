@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "789412ba_6ba57484",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-28T07:48:26Z",
+      "side": 1,
+      "message": "Is the true ? : construction really needed here and below?\n\nAlso it looks like the RTC_CHECK_EVAL_MESSAGE will always expand to \"\"?",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 53
+      },
+      "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

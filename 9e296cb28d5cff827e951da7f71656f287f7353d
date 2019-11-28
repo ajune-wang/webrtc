@@ -190,6 +190,30 @@
       "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7310cd90_9a79e72c",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-28T10:39:51Z",
+      "side": 1,
+      "message": "Ouch! If a hack like that is required to support the CHECK() \u003c\u003c \"msg\"; syntax, I\u0027d rather kill that syntax. But that\u0027s far out of scope for this cl.",
+      "parentUuid": "9d909943_ed6d78a0",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 53
+      },
+      "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

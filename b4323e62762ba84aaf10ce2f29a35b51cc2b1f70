@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b677167_58f0dee9",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-28T11:35:58Z",
+      "side": 1,
+      "message": "Suggestion: It would be more convenient to have RTC_CHECK_MSG_ENABLED, because double negatives are hard to think about.\n\n(If you do change, make sure to also swap if and else clauses, so that we get #if RTC_CHECK_MSG_ENABLED ... #else ... #endif.)",
+      "revId": "b4323e62762ba84aaf10ce2f29a35b51cc2b1f70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc8f5fea_acc538ee",
+        "filename": "rtc_base/checks_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-28T11:35:58Z",
+      "side": 1,
+      "message": "Nice addition, but the other CHECK unit tests appear to be in logging_unittest.c.",
+      "revId": "b4323e62762ba84aaf10ce2f29a35b51cc2b1f70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

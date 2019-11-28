@@ -201,6 +201,33 @@ TEST(LogTest, SingleStream) {
 }
 
 #if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+#if RTC_CHECK_MSG_DISABLED
+TEST(LogTest, Checks) {
+  EXPECT_DEATH(FATAL() << "message",
+               "\n\n#\n"
+               "# Fatal error in: \\S+, line \\w+\n"
+               "# last system error: \\w+\n"
+               "# Check failed.\n"
+               "# ");
+
+  int a = 1, b = 2;
+  EXPECT_DEATH(RTC_CHECK_EQ(a, b) << 1 << 2u,
+               "\n\n#\n"
+               "# Fatal error in: \\S+, line \\w+\n"
+               "# last system error: \\w+\n"
+               "# Check failed.\n"
+               "# ");
+  RTC_CHECK_EQ(5, 5);
+
+  RTC_CHECK(true) << "Shouldn't crash" << 1;
+  EXPECT_DEATH(RTC_CHECK(false) << "Hi there!",
+               "\n\n#\n"
+               "# Fatal error in: \\S+, line \\w+\n"
+               "# last system error: \\w+\n"
+               "# Check failed.\n"
+               "# ");
+}
+#else
 TEST(LogTest, Checks) {
   EXPECT_DEATH(FATAL() << "message",
                "\n\n#\n"
@@ -226,7 +253,8 @@ TEST(LogTest, Checks) {
                "# Check failed: false\n"
                "# Hi there!");
 }
-#endif
+#endif  // RTC_CHECK_MSG_DISABLED
+#endif  // GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 
 // Test using multiple log streams. The INFO stream should get the INFO message,
 // the VERBOSE stream should get the INFO and the VERBOSE.

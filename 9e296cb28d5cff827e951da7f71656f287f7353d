@@ -94,6 +94,30 @@
       "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6de29a88_a23fc717",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-28T09:54:41Z",
+      "side": 1,
+      "message": "\u003e We can\u0027t shorter that part for rtc::webrtc_checks_impl::LogStreamer\u003c\u003e() only because we need type void, not LogStreamer.\n\nI don\u0027t quite get the involved types, and the use of bitwise and operator. I guess it is ok as is, but you could consider other variants, e.g.,\n\n(rtc::webrtc_checks_impl::FatalLogCall\u003cfalse\u003e(__FILE__, __LINE__, \"\"), true) //  comma operator\n|| rtc::webrtc_checks_impl::LogStreamer\u003c\u003e() //  never evaluated, since left-hand of || is true\n\nIt\u0027s a bit tricky, since one also needs to take operator precedence order, including the \u003c\u003c operator, into account.",
+      "parentUuid": "bad09e75_a494daf5",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 53
+      },
+      "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

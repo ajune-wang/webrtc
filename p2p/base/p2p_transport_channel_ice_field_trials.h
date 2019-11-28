@@ -32,6 +32,9 @@ struct IceFieldTrials {
   // give us chance to find a better connection before starting.
   absl::optional<int> initial_select_dampening_ping_received;
 
+  // Enable GOOG_PING
+  bool enable_goog_ping = false;
+
   // Decay rate for RTT estimate using EventBasedExponentialMovingAverage
   // expressed as halving time.
   int rtt_estimate_halftime_ms = 500;

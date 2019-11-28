@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3a54118_5138b588",
+        "filename": "rtc_base/event_tracer_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-28T09:55:52Z",
+      "side": 1,
+      "message": "Optional: Turn these two into captureless lambdas in the test function. That way you don\u0027t have to #if two separate regions, and you get better code locality.",
+      "revId": "ca847e3f5ccac78a6010e7924a4330657776646f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f80643ce_eec51615",
+        "filename": "rtc_base/trace_event.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-28T09:55:52Z",
+      "side": 1,
+      "message": "#if RTC_TRACE_EVENTS_ENABLED",
+      "revId": "ca847e3f5ccac78a6010e7924a4330657776646f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

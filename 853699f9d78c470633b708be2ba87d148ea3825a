@@ -34,6 +34,24 @@
       "revId": "853699f9d78c470633b708be2ba87d148ea3825a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fb03602_58d55166",
+        "filename": "rtc_base/trace_event.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-28T09:55:52Z",
+      "side": 1,
+      "message": "Yes, but in the new patch set, the compiler is the one doing the verifying---it will complain if you\u0027ve forgotten a macro. It\u0027s easy for a human to verify with a glance that we get tracing if RTC_TRACE_EVENTS_ENABLED and that we don\u0027t get tracing if !RTC_TRACE_EVENTS_ENABLED.\n\nIn this old patch set, the human needs to read all those lines and verify that they all do or don\u0027t trace depending on whether RTC_TRACE_EVENTS_ENABLED. I noticed this immediately because I was the one having to do all the reading. :-)",
+      "parentUuid": "3a644c0d_8d214f0b",
+      "revId": "853699f9d78c470633b708be2ba87d148ea3825a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

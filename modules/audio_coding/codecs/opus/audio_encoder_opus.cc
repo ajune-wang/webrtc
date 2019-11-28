@@ -209,27 +209,6 @@ float ToFraction(int percent) {
   return static_cast<float>(percent) / 100;
 }
 
-float GetMinPacketLossRate() {
-  constexpr char kPacketLossFieldTrial[] = "WebRTC-Audio-OpusMinPacketLossRate";
-  const bool use_opus_min_packet_loss_rate =
-      webrtc::field_trial::IsEnabled(kPacketLossFieldTrial);
-  if (use_opus_min_packet_loss_rate) {
-    const std::string field_trial_string =
-        webrtc::field_trial::FindFullName(kPacketLossFieldTrial);
-    constexpr int kDefaultMinPacketLossRate = 1;
-    int value = kDefaultMinPacketLossRate;
-    if (sscanf(field_trial_string.c_str(), "Enabled-%d", &value) == 1 &&
-        !IsValidPacketLossRate(value)) {
-      RTC_LOG(LS_WARNING) << "Invalid parameter for " << kPacketLossFieldTrial
-                          << ", using default value: "
-                          << kDefaultMinPacketLossRate;
-      value = kDefaultMinPacketLossRate;
-    }
-    return ToFraction(value);
-  }
-  return 0.0;
-}
-
 std::unique_ptr<AudioEncoderOpusImpl::NewPacketLossRateOptimizer>
 GetNewPacketLossRateOptimizer() {
   constexpr char kPacketLossOptimizationName[] =
@@ -473,7 +452,7 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(
       bitrate_changed_(true),
       bitrate_multipliers_(GetBitrateMultipliers()),
       packet_loss_rate_(0.0),
-      min_packet_loss_rate_(GetMinPacketLossRate()),
+      min_packet_loss_rate_(0.0),
       new_packet_loss_optimizer_(GetNewPacketLossRateOptimizer()),
       inst_(nullptr),
       packet_loss_fraction_smoother_(new PacketLossFractionSmoother()),

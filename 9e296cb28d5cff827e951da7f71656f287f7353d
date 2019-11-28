@@ -46,6 +46,30 @@
       "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4cacd52_b8abba78",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-28T08:05:15Z",
+      "side": 1,
+      "message": "\u003e RTC_CHECK_EVAL_MESSAGE - this one will remove condition description that was passed to RTC_CHECK. For example if we cal RTC_CHECK(a \u003d\u003d b), it will remove \"a \u003d\u003d b\" from output message. \n\nBut since this is inside #if RTC_CHECK_MSG_DISABLED, can\u0027t you just write \"\" instead of RTC_CHECK_EVAL_MESSAGE(...) ?\n\n\u003e \"true ? ... : ...\" will remove the logs passed to RTC_CHECK, like if RTC_CHECK(cond) \u003c\u003c \"Log1\" \u003c\u003c \" Log2\" was called, \"Log1 Log2\" will be removed from output.\n\nOk, so the false clause (after : ) needs something to eat the stream arguments. Can it be shortened to just\n\n   : rtc::webrtc_checks_impl::LogStreamer\u003c\u003e()\n\n?\n\nIt\u0027s a fairly complex expression, and it would be nice to cut out the unneeded parts.",
+      "parentUuid": "629b9b7e_1f1d21d0",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 53
+      },
+      "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

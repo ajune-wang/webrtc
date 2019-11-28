@@ -142,6 +142,30 @@
       "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c39f1f87_c8254aa7",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-11-28T10:25:18Z",
+      "side": 1,
+      "message": "Hmm. I guess one could add a conversion from LogStreamer to bool, but I don\u0027t think that\u0027s an improvement.\n\nDo you understand how the bitwise and operator (\u0026) works in this context? I\u0027ve seen that used only on integers and bools, so I\u0027m a bit surprised the compiler accepts that.",
+      "parentUuid": "b97e21cf_c1265f90",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 53
+      },
+      "revId": "9e296cb28d5cff827e951da7f71656f287f7353d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

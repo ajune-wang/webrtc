@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '26d09951060c9f0ab11fe5e7ee30977a2f535467',
+  'chromium_revision': 'd17ec04aa6ea06ac9c4335f72d04527aa0637fea',
 }
 
 deps = {
@@ -14,7 +14,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@c24bb2140422b826ec3431a96ed8c06c55b8c11d',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@586d50f8114770c96eda44ff1e155fe277491cf3',
+    'https://chromium.googlesource.com/chromium/src/build@2fc048cf259c2f0d26112b29311a693dc1711fbc',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@6b3e658d6fe8cd9c2588796d296f07312b776054',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -29,7 +29,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@a33380acd46340d3f4d713bcbd0f18bd11b78789',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@2b7c0d1b0ea31e92ab5a8bbdce2279f2eee2b7e5',
+    'https://chromium.googlesource.com/chromium/src/third_party@bf23f09567f5e49c59a8938ee2395765810110bc',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -237,7 +237,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@1e52da63744988711789def78f30b9807da781ec',
+    'https://chromium.googlesource.com/chromium/src/tools@8ab27919c1c4279ea860e28b8357dc82b7529423',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

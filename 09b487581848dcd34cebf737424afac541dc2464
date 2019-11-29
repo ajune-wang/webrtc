@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "059d561d_02b76104",
+        "filename": "rtc_base/location.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-29T09:19:22Z",
+      "side": 1,
+      "message": "We have a bunch of callers of this method. They will no longer get the line number after this change. How costly would it be to store that in an int, and include it here?",
+      "revId": "09b487581848dcd34cebf737424afac541dc2464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "035740fd_8ebce8f3",
+        "filename": "rtc_base/location.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-11-29T09:19:22Z",
+      "side": 1,
+      "message": "There appear to be a few in-tree callers. Can you fix them in this CL?",
+      "revId": "09b487581848dcd34cebf737424afac541dc2464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "51e2e6e27c13a23f1651b57a456ff2431bebe51e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54402ceb_874fbd27",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-11-29T14:38:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fa527c0_3f615e3f",
+      "revId": "51e2e6e27c13a23f1651b57a456ff2431bebe51e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

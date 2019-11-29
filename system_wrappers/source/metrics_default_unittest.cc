@@ -62,6 +62,7 @@ class MetricsDefaultTest : public ::testing::Test {
   void SetUp() override { metrics::Reset(); }
 };
 
+#if RTC_METRICS_ENABLED
 TEST_F(MetricsDefaultTest, Reset) {
   RTC_HISTOGRAM_PERCENTAGE(kName, kSample);
   EXPECT_EQ(1, metrics::NumSamples(kName));
@@ -162,5 +163,6 @@ TEST_F(MetricsDefaultTest, TestMinMaxBucket) {
   EXPECT_EQ(50u, histograms.begin()->second->bucket_count);
   EXPECT_EQ(1u, histograms.begin()->second->samples.size());
 }
+#endif
 
 }  // namespace webrtc

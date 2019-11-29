@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65f05cf3_33d23a8d",
+        "filename": "webrtc.gni",
+        "patchSetId": 4
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-29T12:35:17Z",
+      "side": 1,
+      "message": "Ah, sorry about the incomplete review. We also need something like:\n\nhttps://webrtc-review.googlesource.com/c/src/+/160653/20/BUILD.gn\n\nTo define the macro globally.",
+      "range": {
+        "startLine": 257,
+        "startChar": 2,
+        "endLine": 257,
+        "endChar": 28
+      },
+      "revId": "84cb3f8f62ce1ebfa69ba6f1d5baed5acd76ab3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -51,7 +51,6 @@
 #include "pc/stream_collection.h"
 #include "pc/video_rtp_receiver.h"
 #include "pc/video_track.h"
-#include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/string_encode.h"
@@ -1181,9 +1180,10 @@ bool PeerConnection::Initialize(
   // there.
   const auto pa_result =
       network_thread()->Invoke<InitializePortAllocatorResult>(
-          RTC_FROM_HERE,
-          rtc::Bind(&PeerConnection::InitializePortAllocator_n, this,
-                    stun_servers, turn_servers, configuration));
+          RTC_FROM_HERE, [&] {
+            return InitializePortAllocator_n(stun_servers, turn_servers,
+                                             configuration);
+          });
 
   // If initialization was successful, note if STUN or TURN servers
   // were supplied.
@@ -2607,8 +2607,7 @@ void PeerConnection::DoSetLocalDescription(
     // TODO(deadbeef): We already had to hop to the network thread for
     // MaybeStartGathering...
     network_thread()->Invoke<void>(
-        RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
-                                 port_allocator_.get()));
+        RTC_FROM_HERE, [this] { port_allocator_->DiscardCandidatePool(); });
     // Make UMA notes about what was agreed to.
     ReportNegotiatedSdpSemantics(*local_description());
   }
@@ -3060,8 +3059,7 @@ void PeerConnection::DoSetRemoteDescription(
     // TODO(deadbeef): We already had to hop to the network thread for
     // MaybeStartGathering...
     network_thread()->Invoke<void>(
-        RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
-                                 port_allocator_.get()));
+        RTC_FROM_HERE, [this] { port_allocator_->DiscardCandidatePool(); });
     // Make UMA notes about what was agreed to.
     ReportNegotiatedSdpSemantics(*remote_description());
   }
@@ -4054,15 +4052,15 @@ RTCError PeerConnection::SetConfiguration(
   }
 
   // In theory this shouldn't fail.
-  if (!network_thread()->Invoke<bool>(
-          RTC_FROM_HERE,
-          rtc::Bind(&PeerConnection::ReconfigurePortAllocator_n, this,
-                    stun_servers, turn_servers, modified_config.type,
-                    modified_config.ice_candidate_pool_size,
-                    modified_config.GetTurnPortPrunePolicy(),
-                    modified_config.turn_customizer,
-                    modified_config.stun_candidate_keepalive_interval,
-                    static_cast<bool>(local_description())))) {
+  if (!network_thread()->Invoke<bool>(RTC_FROM_HERE, [&] {
+        return PeerConnection::ReconfigurePortAllocator_n(
+            stun_servers, turn_servers, modified_config.type,
+            modified_config.ice_candidate_pool_size,
+            modified_config.GetTurnPortPrunePolicy(),
+            modified_config.turn_customizer,
+            modified_config.stun_candidate_keepalive_interval,
+            static_cast<bool>(local_description()));
+      })) {
     LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                          "Failed to apply configuration to PortAllocator.");
   }
@@ -4279,8 +4277,7 @@ RTCError PeerConnection::SetBitrate(const BitrateSettings& bitrate) {
 void PeerConnection::SetAudioPlayout(bool playout) {
   if (!worker_thread()->IsCurrent()) {
     worker_thread()->Invoke<void>(
-        RTC_FROM_HERE,
-        rtc::Bind(&PeerConnection::SetAudioPlayout, this, playout));
+        RTC_FROM_HERE, [this, playout] { SetAudioPlayout(playout); });
     return;
   }
   auto audio_state =
@@ -4291,8 +4288,7 @@ void PeerConnection::SetAudioPlayout(bool playout) {
 void PeerConnection::SetAudioRecording(bool recording) {
   if (!worker_thread()->IsCurrent()) {
     worker_thread()->Invoke<void>(
-        RTC_FROM_HERE,
-        rtc::Bind(&PeerConnection::SetAudioRecording, this, recording));
+        RTC_FROM_HERE, [this, recording] { SetAudioRecording(recording); });
     return;
   }
   auto audio_state =
@@ -4349,8 +4345,7 @@ bool PeerConnection::StartRtcEventLog(
 }
 
 void PeerConnection::StopRtcEventLog() {
-  worker_thread()->Invoke<void>(
-      RTC_FROM_HERE, rtc::Bind(&PeerConnection::StopRtcEventLog_w, this));
+  worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] { StopRtcEventLog_w(); });
 }
 
 rtc::scoped_refptr<DtlsTransportInterface>
@@ -4443,8 +4438,7 @@ void PeerConnection::Close() {
   transport_controller_.reset();
 
   network_thread()->Invoke<void>(
-      RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
-                               port_allocator_.get()));
+      RTC_FROM_HERE, [this] { port_allocator_->DiscardCandidatePool(); });
 
   worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
     RTC_DCHECK_RUN_ON(worker_thread());
@@ -4891,8 +4885,7 @@ void PeerConnection::GetOptionsForOffer(
   session_options->pooled_ice_credentials =
       network_thread()->Invoke<std::vector<cricket::IceParameters>>(
           RTC_FROM_HERE,
-          rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
-                    port_allocator_.get()));
+          [this] { return port_allocator_->GetPooledIceCredentials(); });
   session_options->offer_extmap_allow_mixed =
       configuration_.offer_extmap_allow_mixed;
 
@@ -5210,8 +5203,7 @@ void PeerConnection::GetOptionsForAnswer(
   session_options->pooled_ice_credentials =
       network_thread()->Invoke<std::vector<cricket::IceParameters>>(
           RTC_FROM_HERE,
-          rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
-                    port_allocator_.get()));
+          [this] { return port_allocator_->GetPooledIceCredentials(); });
 
   // If datagram transport is in use, add opaque transport parameters.
   if (use_datagram_transport_ || use_datagram_transport_for_data_channels_) {
@@ -6573,10 +6565,10 @@ absl::optional<std::string> PeerConnection::sctp_transport_name() const {
 
 cricket::CandidateStatsList PeerConnection::GetPooledCandidateStats() const {
   cricket::CandidateStatsList candidate_states_list;
-  network_thread()->Invoke<void>(
-      RTC_FROM_HERE,
-      rtc::Bind(&cricket::PortAllocator::GetCandidateStatsFromPooledSessions,
-                port_allocator_.get(), &candidate_states_list));
+  network_thread()->Invoke<void>(RTC_FROM_HERE, [&] {
+    port_allocator_->GetCandidateStatsFromPooledSessions(
+        &candidate_states_list);
+  });
   return candidate_states_list;
 }
 
@@ -7028,10 +7020,10 @@ bool PeerConnection::CreateDataChannel(const std::string& mid) {
     case cricket::DCT_SCTP:
     case cricket::DCT_DATA_CHANNEL_TRANSPORT_SCTP:
     case cricket::DCT_DATA_CHANNEL_TRANSPORT:
-      if (!network_thread()->Invoke<bool>(
-              RTC_FROM_HERE,
-              rtc::Bind(&PeerConnection::SetupDataChannelTransport_n, this,
-                        mid))) {
+      if (!network_thread()->Invoke<bool>(RTC_FROM_HERE, [&] {
+            RTC_DCHECK_RUN_ON(network_thread());
+            return SetupDataChannelTransport_n(mid);
+          })) {
         return false;
       }
 
@@ -7062,7 +7054,7 @@ bool PeerConnection::CreateDataChannel(const std::string& mid) {
 Call::Stats PeerConnection::GetCallStats() {
   if (!worker_thread()->IsCurrent()) {
     return worker_thread()->Invoke<Call::Stats>(
-        RTC_FROM_HERE, rtc::Bind(&PeerConnection::GetCallStats, this));
+        RTC_FROM_HERE, [this] { return GetCallStats(); });
   }
   RTC_DCHECK_RUN_ON(worker_thread());
   if (call_) {
@@ -7656,12 +7648,6 @@ void PeerConnection::DestroyDataChannelTransport() {
     DestroyChannelInterface(rtp_data_channel_);
     rtp_data_channel_ = nullptr;
   }
-
-  // Note: Cannot use rtc::Bind to create a functor to invoke because it will
-  // grab a reference to this PeerConnection. If this is called from the
-  // PeerConnection destructor, the RefCountedObject vtable will have already
-  // been destroyed (since it is a subclass of PeerConnection) and using
-  // rtc::Bind will cause "Pure virtual function called" error to appear.
 
   if (sctp_mid_) {
     OnTransportChannelClosed();

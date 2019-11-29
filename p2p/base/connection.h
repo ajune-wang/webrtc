@@ -309,6 +309,9 @@ class Connection : public CandidatePairInterface,
     return rtt_estimate_;
   }
 
+  void SendBindingResponse(StunMessage* request,
+                           const rtc::SocketAddress& addr);
+
  protected:
   enum { MSG_DELETE = 0, MSG_FIRST_AVAILABLE };
 

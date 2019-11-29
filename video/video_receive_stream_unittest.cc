@@ -31,6 +31,7 @@
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/time_controller/simulated_time_controller.h"
 #include "test/video_decoder_proxy_factory.h"
 #include "video/call_stats.h"
 
@@ -389,6 +390,60 @@ TEST_F(VideoReceiveStreamTestWithFakeDecoder, RenderedFrameUpdatesGetSources) {
     EXPECT_GE(it->timestamp_ms(), timestamp_ms_min);
     EXPECT_LE(it->timestamp_ms(), timestamp_ms_max);
   }
+}
+
+class VideoReceiveStreamTestForEncodedFrames : public ::testing::Test {
+ public:
+  static VideoReceiveStream::Config GetConfig(
+      Transport* transport,
+      VideoDecoderFactory* decoder_factory,
+      rtc::VideoSinkInterface<webrtc::VideoFrame>* renderer) {
+    VideoReceiveStream::Config config(transport);
+    config.rtp.remote_ssrc = 1111;
+    config.rtp.local_ssrc = 2222;
+    config.renderer = renderer;
+    VideoReceiveStream::Decoder fake_decoder;
+    fake_decoder.payload_type = 99;
+    fake_decoder.video_format = SdpVideoFormat("VP8");
+    fake_decoder.decoder_factory = decoder_factory;
+    config.decoders.push_back(fake_decoder);
+    return config.Copy();
+  }
+
+  VideoReceiveStreamTestForEncodedFrames()
+      : time_controller_(Timestamp::ms(4711)),
+        fake_decoder_factory_(
+            []() { return std::make_unique<test::FakeDecoder>(); }),
+        config_(GetConfig(&mock_transport_,
+                          &fake_decoder_factory_,
+                          &fake_renderer_)),
+        process_thread_(time_controller_.CreateProcessThread("ProcessThread")),
+        call_stats_(time_controller_.GetClock(), process_thread_.get()),
+        video_receive_stream_(time_controller_.GetTaskQueueFactory(),
+                              &rtp_stream_receiver_controller_,
+                              /*num_cores=*/2,
+                              &packet_router_,
+                              config_.Copy(),
+                              process_thread_.get(),
+                              &call_stats_,
+                              time_controller_.GetClock(),
+                              new VCMTiming(time_controller_.GetClock())) {}
+
+ protected:
+  GlobalSimulatedTimeController time_controller_;
+  test::FunctionVideoDecoderFactory fake_decoder_factory_;
+  MockTransport mock_transport_;
+  VideoReceiveStream::Config config_;
+  std::unique_ptr<ProcessThread> process_thread_;
+  CallStats call_stats_;
+  cricket::FakeVideoRenderer fake_renderer_;
+  PacketRouter packet_router_;
+  RtpStreamReceiverController rtp_stream_receiver_controller_;
+  internal::VideoReceiveStream video_receive_stream_;
+};
+
+TEST_F(VideoReceiveStreamTestForEncodedFrames, DoIt) {
+  EXPECT_TRUE(true);
 }
 
 }  // namespace webrtc

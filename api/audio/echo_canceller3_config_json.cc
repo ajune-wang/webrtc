@@ -92,6 +92,26 @@ void ReadParam(const Json::Value& root,
   }
 }
 
+void ReadParam(const Json::Value& root,
+               std::string param_name,
+               EchoCanceller3Config::Delay::AlignmentMixing* param) {
+  RTC_DCHECK(param);
+  Json::Value json_array;
+  if (rtc::GetValueFromJsonObject(root, param_name, &json_array)) {
+    std::vector<double> v;
+    rtc::JsonArrayToDoubleVector(json_array, &v);
+    if (v.size() != 4) {
+      RTC_LOG(LS_ERROR) << "Incorrect array size for " << param_name;
+      return;
+    }
+
+    param->downmix = static_cast<bool>(v[0]);
+    param->adaptive_selection = static_cast<bool>(v[1]);
+    param->excitation_limit = static_cast<float>(v[2]);
+    param->prefer_first_two_channels = static_cast<bool>(v[3]);
+  }
+}
+
 void ReadParam(
     const Json::Value& root,
     std::string param_name,
@@ -189,10 +209,13 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
 
     ReadParam(section, "use_external_delay_estimator",
               &cfg.delay.use_external_delay_estimator);
-    ReadParam(section, "downmix_before_delay_estimation",
-              &cfg.delay.downmix_before_delay_estimation);
     ReadParam(section, "log_warning_on_delay_changes",
               &cfg.delay.log_warning_on_delay_changes);
+
+    ReadParam(section, "render_alignment_mixing",
+              &cfg.delay.render_alignment_mixing);
+    ReadParam(section, "capture_alignment_mixing",
+              &cfg.delay.capture_alignment_mixing);
   }
 
   if (rtc::GetValueFromJsonObject(aec3_root, "filter", &section)) {
@@ -403,11 +426,20 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
 
   ost << "\"use_external_delay_estimator\": "
       << (config.delay.use_external_delay_estimator ? "true" : "false") << ",";
-  ost << "\"downmix_before_delay_estimation\": "
-      << (config.delay.downmix_before_delay_estimation ? "true" : "false")
-      << ",";
   ost << "\"log_warning_on_delay_changes\": "
-      << (config.delay.log_warning_on_delay_changes ? "true" : "false");
+      << (config.delay.log_warning_on_delay_changes ? "true" : "false") << ",";
+  ost << "\"render_alignment_mixing\": [";
+  ost << config.delay.render_alignment_mixing.downmix << ",";
+  ost << config.delay.render_alignment_mixing.adaptive_selection << ",";
+  ost << config.delay.render_alignment_mixing.excitation_limit << ",";
+  ost << config.delay.render_alignment_mixing.prefer_first_two_channels;
+  ost << "],";
+  ost << "\"capture_alignment_mixing\": [";
+  ost << config.delay.capture_alignment_mixing.downmix << ",";
+  ost << config.delay.capture_alignment_mixing.adaptive_selection << ",";
+  ost << config.delay.capture_alignment_mixing.excitation_limit << ",";
+  ost << config.delay.capture_alignment_mixing.prefer_first_two_channels;
+  ost << "]";
   ost << "},";
 
   ost << "\"filter\": {";

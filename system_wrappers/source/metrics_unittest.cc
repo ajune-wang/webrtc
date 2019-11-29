@@ -37,6 +37,7 @@ class MetricsTest : public ::testing::Test {
   void SetUp() override { metrics::Reset(); }
 };
 
+#if RTC_METRICS_ENABLED
 TEST_F(MetricsTest, InitiallyNoSamples) {
   EXPECT_EQ(0, metrics::NumSamples("NonExisting"));
   EXPECT_EQ(0, metrics::NumEvents("NonExisting", kSample));
@@ -128,5 +129,6 @@ TEST_F(MetricsTest, RtcHistogramSparse_NonConstantNameWorks) {
   EXPECT_THAT(metrics::Samples("Sparse1"), ElementsAre(Pair(kSample, 1)));
   EXPECT_THAT(metrics::Samples("Sparse2"), ElementsAre(Pair(kSample, 1)));
 }
+#endif
 
 }  // namespace webrtc

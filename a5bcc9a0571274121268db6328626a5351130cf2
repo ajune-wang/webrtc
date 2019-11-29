@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df1ef00f_998bcf54",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-11-29T11:00:12Z",
+      "side": 1,
+      "message": "Nice!\n\nCan you trigger a CQ dry-run with this one set to true? So we can get some numbers?",
+      "range": {
+        "startLine": 257,
+        "startChar": 24,
+        "endLine": 257,
+        "endChar": 29
+      },
+      "revId": "a5bcc9a0571274121268db6328626a5351130cf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

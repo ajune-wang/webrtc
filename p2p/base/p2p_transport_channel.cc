@@ -647,8 +647,9 @@ void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
       "max_outstanding_pings", &field_trials_.max_outstanding_pings,
       "initial_select_dampening", &field_trials_.initial_select_dampening,
       "initial_select_dampening_ping_received",
-      &field_trials_.initial_select_dampening_ping_received,
-      "rtt_estimate_halftime_ms", &field_trials_.rtt_estimate_halftime_ms)
+      &field_trials_.initial_select_dampening_ping_received, "goog_ping",
+      &field_trials_.enable_goog_ping, "rtt_estimate_halftime_ms",
+      &field_trials_.rtt_estimate_halftime_ms)
       ->Parse(webrtc::field_trial::FindFullName("WebRTC-IceFieldTrials"));
 
   if (field_trials_.skip_relay_to_non_relay_connections) {

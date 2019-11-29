@@ -11,6 +11,7 @@
 #ifndef P2P_BASE_CONNECTION_H_
 #define P2P_BASE_CONNECTION_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -365,6 +366,10 @@ class Connection : public CandidatePairInterface,
   void LogCandidatePairEvent(webrtc::IceCandidatePairEventType type,
                              uint32_t transaction_id);
 
+  // Check if this IceMessage is identical
+  // to last message ack:ed STUN_BINDING_REQUEST.
+  bool IsStunBindingUnchanged(const StunMessage* message);
+
   WriteState write_state_;
   bool receiving_;
   bool connected_;
@@ -420,6 +425,13 @@ class Connection : public CandidatePairInterface,
 
   absl::optional<webrtc::IceCandidatePairDescription> log_description_;
   webrtc::IceEventLog* ice_event_log_ = nullptr;
+
+  // GOOG_PING_REQUEST.
+  // - if enabled (field trial)
+  // - does remote support it ?
+  // - cached STUN_BINDING_REQUEST
+  absl::optional<bool> remote_support_goog_ping_;
+  std::unique_ptr<StunMessage> cached_stun_binding_;
 
   const IceFieldTrials* field_trials_;
   rtc::EventBasedExponentialMovingAverage rtt_estimate_;

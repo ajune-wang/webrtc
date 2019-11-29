@@ -296,6 +296,9 @@ class Port : public PortInterface,
                                 const rtc::SocketAddress& addr,
                                 int error_code,
                                 const std::string& reason) override;
+  void SendPingResponse(StunMessage* request,
+                        const rtc::SocketAddress& addr,
+                        const std::string& password);
 
   void set_proxy(const std::string& user_agent, const rtc::ProxyInfo& proxy) {
     user_agent_ = user_agent;

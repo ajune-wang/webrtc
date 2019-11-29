@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fa527c0_3f615e3f",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-11-29T14:22:04Z",
+      "side": 1,
+      "message": "Why does SendBindingResponse have an address argument? Doesn\u0027t a Connection (being the instantiation of a candidate pair) know what its remote address is?\n\nWhile we\u0027re here - can you move the *ForTest methods last in the public section? I think that\u0027s tidier.",
+      "revId": "51e2e6e27c13a23f1651b57a456ff2431bebe51e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -204,8 +204,6 @@ bool StunMessage::ValidateMessageIntegrity32(const char* data,
                                         password);
 }
 
-// Verifies a STUN message has a valid MESSAGE-INTEGRITY attribute, using the
-// procedure outlined in RFC 5389, section 15.4.
 bool StunMessage::ValidateMessageIntegrityOfType(int mi_attr_type,
                                                  size_t mi_attr_size,
                                                  const char* data,
@@ -295,11 +293,6 @@ bool StunMessage::AddMessageIntegrity(const std::string& password) {
                                    password.size());
 }
 
-bool StunMessage::AddMessageIntegrity(const char* key, size_t keylen) {
-  return AddMessageIntegrityOfType(STUN_ATTR_MESSAGE_INTEGRITY,
-                                   kStunMessageIntegritySize, key, keylen);
-}
-
 bool StunMessage::AddMessageIntegrity32(absl::string_view password) {
   return AddMessageIntegrityOfType(STUN_ATTR_GOOG_MESSAGE_INTEGRITY_32,
                                    kStunMessageIntegrity32Size, password.data(),
@@ -313,6 +306,7 @@ bool StunMessage::AddMessageIntegrityOfType(int attr_type,
   // Add the attribute with a dummy value. Since this is a known attribute, it
   // can't fail.
   RTC_DCHECK(attr_size <= kStunMessageIntegritySize);
+
   auto msg_integrity_attr_ptr = std::make_unique<StunByteStringAttribute>(
       attr_type, std::string(attr_size, '0'));
   auto* msg_integrity_attr = msg_integrity_attr_ptr.get();

@@ -1204,8 +1204,8 @@ class PeerConnectionObserver {
 
   // Gathering of an ICE candidate failed.
   // See https://w3c.github.io/webrtc-pc/#event-icecandidateerror
-  // |host_candidate| is a stringified socket address.
-  virtual void OnIceCandidateError(const std::string& host_candidate,
+  virtual void OnIceCandidateError(const std::string& address,
+                                   int port,
                                    const std::string& url,
                                    int error_code,
                                    const std::string& error_text) {}

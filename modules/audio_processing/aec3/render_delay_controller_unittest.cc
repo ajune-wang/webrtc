@@ -60,7 +60,8 @@ TEST(RenderDelayController, NoRenderSignal) {
           std::unique_ptr<RenderDelayBuffer> delay_buffer(
               RenderDelayBuffer::Create(config, rate, num_render_channels));
           std::unique_ptr<RenderDelayController> delay_controller(
-              RenderDelayController::Create(config, rate));
+              RenderDelayController::Create(config, rate,
+                                            /*num_capture_channels*/ 1));
           for (size_t k = 0; k < 100; ++k) {
             auto delay = delay_controller->GetDelay(
                 delay_buffer->GetDownsampledRenderBuffer(),
@@ -94,7 +95,8 @@ TEST(RenderDelayController, BasicApiCalls) {
             std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
                 RenderDelayBuffer::Create(config, rate, num_render_channels));
             std::unique_ptr<RenderDelayController> delay_controller(
-                RenderDelayController::Create(EchoCanceller3Config(), rate));
+                RenderDelayController::Create(EchoCanceller3Config(), rate,
+                                              /*num_capture_channels*/ 1));
             for (size_t k = 0; k < 10; ++k) {
               render_delay_buffer->Insert(render_block);
               render_delay_buffer->PrepareCaptureProcessing();
@@ -139,7 +141,8 @@ TEST(RenderDelayController, Alignment) {
               std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
                   RenderDelayBuffer::Create(config, rate, num_render_channels));
               std::unique_ptr<RenderDelayController> delay_controller(
-                  RenderDelayController::Create(config, rate));
+                  RenderDelayController::Create(config, rate,
+                                                /*num_capture_channels*/ 1));
               DelayBuffer<float> signal_delay_buffer(delay_samples);
               for (size_t k = 0; k < (400 + delay_samples / kBlockSize); ++k) {
                 for (size_t band = 0; band < render_block.size(); ++band) {
@@ -200,7 +203,8 @@ TEST(RenderDelayController, NonCausalAlignment) {
               std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
                   RenderDelayBuffer::Create(config, rate, num_render_channels));
               std::unique_ptr<RenderDelayController> delay_controller(
-                  RenderDelayController::Create(EchoCanceller3Config(), rate));
+                  RenderDelayController::Create(EchoCanceller3Config(), rate,
+                                                /*num_capture_channels*/ 1));
               DelayBuffer<float> signal_delay_buffer(-delay_samples);
               for (int k = 0;
                    k < (400 - delay_samples / static_cast<int>(kBlockSize));
@@ -249,7 +253,8 @@ TEST(RenderDelayController, AlignmentWithJitter) {
               std::unique_ptr<RenderDelayBuffer> render_delay_buffer(
                   RenderDelayBuffer::Create(config, rate, num_render_channels));
               std::unique_ptr<RenderDelayController> delay_controller(
-                  RenderDelayController::Create(config, rate));
+                  RenderDelayController::Create(config, rate,
+                                                /*num_capture_channels*/ 1));
               DelayBuffer<float> signal_delay_buffer(delay_samples);
               constexpr size_t kMaxTestJitterBlocks = 26;
               for (size_t j = 0; j < (1000 + delay_samples / kBlockSize) /
@@ -304,7 +309,7 @@ TEST(RenderDelayController, WrongCaptureSize) {
         RenderDelayBuffer::Create(config, rate, 1));
     EXPECT_DEATH(
         std::unique_ptr<RenderDelayController>(
-            RenderDelayController::Create(EchoCanceller3Config(), rate))
+            RenderDelayController::Create(EchoCanceller3Config(), rate, 1))
             ->GetDelay(render_delay_buffer->GetDownsampledRenderBuffer(),
                        render_delay_buffer->Delay(), block),
         "");
@@ -322,7 +327,7 @@ TEST(RenderDelayController, DISABLED_WrongSampleRate) {
         RenderDelayBuffer::Create(config, rate, 1));
     EXPECT_DEATH(
         std::unique_ptr<RenderDelayController>(
-            RenderDelayController::Create(EchoCanceller3Config(), rate)),
+            RenderDelayController::Create(EchoCanceller3Config(), rate, 1)),
         "");
   }
 }

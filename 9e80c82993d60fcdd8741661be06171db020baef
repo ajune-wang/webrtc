@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2e18a4a_7716e165",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "This looks off, like `X \u003d k * X * X`. Is one limit an amplitude and the other a power? Or an energy? How does it work?",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 73
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "320b27f9_9ff1a2ee",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "This should only be a special case if prefer_first_two_channels_ \u003d\u003d true, right?",
+      "range": {
+        "startLine": 153,
+        "startChar": 6,
+        "endLine": 153,
+        "endChar": 30
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5f228d_8d123a00",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "(Assuming prefer_first_two_channels_ \u003d\u003d true, see comment above)\n\nJust to make sure. Am I reading this correctly:\nWe will quickly jump between channels (no sticky) until we land on channel 0 or 1?\nIf we are on channel 0 or 1, we can still leave, but it will require a 2x energy advantage?",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 58
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55f08847_402dd4ff",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "Please add a brief comment about the use case of the class (i.e. that it is used to reduce N channels down to mono, for alignment computations).",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 1
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15c2f7ee_43777ac2",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "I thought `AlignmentMixer` refers to that the mixer is a (pre)computation used for alignment, rather than that the mixer itself aligns anything. These are rather mixing variants than alignment variants.\nConsider renaming to MixingVariant, MixingMethod, or similar.",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32bb7fec_5cf96faf",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "I suggest storing this as a std::array\u003csize_t, 2\u003e:\n - The storage savings of a 2 elements long vector are negligible (won\u0027t it need two variables anyway? A nullptr for its content and a size \u003d 0 for its size?)\n - We do not have to worry about, and check for, correct initialization",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 45
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea5c5508_0daa4453",
+        "filename": "modules/audio_processing/aec3/alignment_mixer_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "Consider picking up ProduceDebugText from another unit test, to ease debugging.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2abc0050_b59645cc",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "Side note: This should probably have been extended to print the channels as well, when multi channel was implemented.",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333dce9a_9323945c",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "not num_capture_channels?\n\nIf yes - are these tests passing as they currently look? Can we make sure some test crashes when channels are not matching?",
+      "range": {
+        "startLine": 99,
+        "startChar": 71,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6fcfc42_47992e0b",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "not num_capture_channels?",
+      "range": {
+        "startLine": 145,
+        "startChar": 73,
+        "endLine": 145,
+        "endChar": 74
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "964e0f51_ca3fd0cc",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "not num_capture_channels?",
+      "range": {
+        "startLine": 207,
+        "startChar": 73,
+        "endLine": 207,
+        "endChar": 74
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edf6be39_81488aec",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-02T16:31:41Z",
+      "side": 1,
+      "message": "not num_capture_channels?",
+      "range": {
+        "startLine": 257,
+        "startChar": 73,
+        "endLine": 257,
+        "endChar": 74
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -168,6 +168,7 @@ void ResidualEchoDetector::AnalyzeCaptureAudio(
   // TODO(ivoc): Find the root cause of this issue and fix it.
   echo_likelihood_ = std::min(echo_likelihood_, 1.0f);
   int echo_percentage = static_cast<int>(echo_likelihood_ * 100);
+  RTCIMPL_ALLOW_UNUSED(echo_percentage);
   RTC_HISTOGRAM_COUNTS("WebRTC.Audio.ResidualEchoDetector.EchoLikelihood",
                        echo_percentage, 0, 100, 100 /* number of bins */);
 

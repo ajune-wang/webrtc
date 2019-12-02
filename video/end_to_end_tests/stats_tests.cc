@@ -589,18 +589,19 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
   });
 
   // Verify that stats have been updated for both screenshare and video.
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.EndToEndDelayInMs"));
+  EXPECT_METRIC_EQ(1, metrics::NumSamples("WebRTC.Video.EndToEndDelayInMs"));
   EXPECT_EQ(1,
             metrics::NumSamples("WebRTC.Video.Screenshare.EndToEndDelayInMs"));
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.EndToEndDelayMaxInMs"));
+  EXPECT_METRIC_EQ(1, metrics::NumSamples("WebRTC.Video.EndToEndDelayMaxInMs"));
   EXPECT_EQ(
       1, metrics::NumSamples("WebRTC.Video.Screenshare.EndToEndDelayMaxInMs"));
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.InterframeDelayInMs"));
+  EXPECT_METRIC_EQ(1, metrics::NumSamples("WebRTC.Video.InterframeDelayInMs"));
   EXPECT_EQ(
       1, metrics::NumSamples("WebRTC.Video.Screenshare.InterframeDelayInMs"));
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.InterframeDelayMaxInMs"));
-  EXPECT_EQ(1, metrics::NumSamples(
-                   "WebRTC.Video.Screenshare.InterframeDelayMaxInMs"));
+  EXPECT_METRIC_EQ(1,
+                   metrics::NumSamples("WebRTC.Video.InterframeDelayMaxInMs"));
+  EXPECT_METRIC_EQ(1, metrics::NumSamples(
+                          "WebRTC.Video.Screenshare.InterframeDelayMaxInMs"));
 }
 
 TEST_F(StatsEndToEndTest, VerifyNackStats) {
@@ -711,8 +712,8 @@ TEST_F(StatsEndToEndTest, VerifyNackStats) {
 
   EXPECT_EQ(
       1, metrics::NumSamples("WebRTC.Video.UniqueNackRequestsSentInPercent"));
-  EXPECT_EQ(1, metrics::NumSamples(
-                   "WebRTC.Video.UniqueNackRequestsReceivedInPercent"));
+  EXPECT_METRIC_EQ(1, metrics::NumSamples(
+                          "WebRTC.Video.UniqueNackRequestsReceivedInPercent"));
   EXPECT_GT(metrics::MinSample("WebRTC.Video.NackPacketsSentPerMinute"), 0);
 }
 

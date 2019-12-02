@@ -219,6 +219,7 @@ void CallStats::UpdateHistograms() {
         (clock_->TimeInMilliseconds() - time_of_first_rtt_ms_) / 1000;
     if (elapsed_sec >= metrics::kMinRunTimeInSeconds) {
       int64_t avg_rtt_ms = (sum_avg_rtt_ms_ + num_avg_rtt_ / 2) / num_avg_rtt_;
+      RTCIMPL_ALLOW_UNUSED(avg_rtt_ms);
       RTC_HISTOGRAM_COUNTS_10000(
           "WebRTC.Video.AverageRoundTripTimeInMilliseconds", avg_rtt_ms);
     }

@@ -300,6 +300,7 @@ void StatisticsCalculator::RelativePacketArrivalDelay(size_t delay_ms) {
 void StatisticsCalculator::LogDelayedPacketOutageEvent(int num_samples,
                                                        int fs_hz) {
   int outage_duration_ms = num_samples / (fs_hz / 1000);
+  RTCIMPL_ALLOW_UNUSED(outage_duration_ms);
   RTC_HISTOGRAM_COUNTS("WebRTC.Audio.DelayedPacketOutageEventMs",
                        outage_duration_ms, 1 /* min */, 2000 /* max */,
                        100 /* bucket count */);

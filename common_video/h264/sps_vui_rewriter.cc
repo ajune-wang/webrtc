@@ -94,6 +94,7 @@ bool CopyRemainingBits(rtc::BitBuffer* source,
 }  // namespace
 
 void SpsVuiRewriter::UpdateStats(ParseResult result, Direction direction) {
+  RTCIMPL_ALLOW_UNUSED(kSpsValidHistogramName);
   switch (result) {
     case SpsVuiRewriter::ParseResult::kVuiRewritten:
       RTC_HISTOGRAM_ENUMERATION(

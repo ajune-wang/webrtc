@@ -80,7 +80,10 @@ void EchoRemoverMetrics::Update(
     // Report the metrics over several frames in order to lower the impact of
     // the logarithms involved on the computational complexity.
     constexpr int kMetricsCollectionBlocksBy2 = kMetricsCollectionBlocks / 2;
+    RTCIMPL_ALLOW_UNUSED(kMetricsCollectionBlocksBy2);
     constexpr float kComfortNoiseScaling = 1.f / (kBlockSize * kBlockSize);
+    RTCIMPL_ALLOW_UNUSED(kComfortNoiseScaling);
+    RTCIMPL_ALLOW_UNUSED(kOneByMetricsCollectionBlocks);
     switch (block_counter_) {
       case kMetricsCollectionBlocks + 1:
         RTC_HISTOGRAM_COUNTS_LINEAR(

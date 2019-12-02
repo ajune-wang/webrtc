@@ -35,11 +35,11 @@ struct BindTester {
   int b(int x) const { return x * x; }
 };
 
-class RefCountedBindTester : public RefCountInterface {
+class RefCountedBindTester {
  public:
   RefCountedBindTester() : count_(0) {}
-  void AddRef() const override { ++count_; }
-  RefCountReleaseStatus Release() const override {
+  void AddRef() const { ++count_; }
+  RefCountReleaseStatus Release() const {
     --count_;
     return count_ == 0 ? RefCountReleaseStatus::kDroppedLastRef
                        : RefCountReleaseStatus::kOtherRefsRemained;

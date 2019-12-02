@@ -22,6 +22,30 @@
       "revId": "00799a8e68be58d54a301af54a096b9335ae2575",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0554957c_c9bfb698",
+        "filename": "rtc_base/message_queue_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-02T08:52:52Z",
+      "side": 1,
+      "message": "there is a PostTask version that takes functor, but there is no similar PostDelayedTask,\nso when there is PostDelayed usage, I switched  to TaskQueueBase interface (thus ToQueuedTask),\nwhen there is no PostDelayed, I keep change smaller and use Thread\u0027s own PostTask helper.",
+      "parentUuid": "ccabaffd_0bc87b21",
+      "range": {
+        "startLine": 155,
+        "startChar": 21,
+        "endLine": 155,
+        "endChar": 33
+      },
+      "revId": "00799a8e68be58d54a301af54a096b9335ae2575",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

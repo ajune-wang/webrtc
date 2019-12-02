@@ -1245,6 +1245,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   if (log_rms) {
     capture_rms_interval_counter_ = 0;
     RmsLevel::Levels levels = capture_input_rms_.AverageAndPeak();
+    RTCIMPL_ALLOW_UNUSED(levels);
     RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.ApmCaptureInputLevelAverageRms",
                                 levels.average, 1, RmsLevel::kMinLevelDb, 64);
     RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.ApmCaptureInputLevelPeakRms",
@@ -1448,6 +1449,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       capture_nonlocked_.capture_processing_format.num_frames()));
   if (log_rms) {
     RmsLevel::Levels levels = capture_output_rms_.AverageAndPeak();
+    RTCIMPL_ALLOW_UNUSED(levels);
     RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.ApmCaptureOutputLevelAverageRms",
                                 levels.average, 1, RmsLevel::kMinLevelDb, 64);
     RTC_HISTOGRAM_COUNTS_LINEAR("WebRTC.Audio.ApmCaptureOutputLevelPeakRms",

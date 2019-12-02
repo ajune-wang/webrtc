@@ -655,7 +655,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     frame_buffer_controller_->OnRatesUpdated(
         stream_idx_cfg_0,
         allocation.GetTemporalLayerAllocation(stream_idx_cfg_0),
-        inst->maxFramerate);
+        inst->simulcastStream[stream_idx_cfg_0].maxFramerate);
   }
   frame_buffer_controller_->SetQpLimits(stream_idx_cfg_0,
                                         vpx_configs_[0].rc_min_quantizer,
@@ -687,7 +687,7 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     if (stream_bitrates[stream_idx] > 0) {
       frame_buffer_controller_->OnRatesUpdated(
           stream_idx, allocation.GetTemporalLayerAllocation(stream_idx),
-          inst->maxFramerate);
+          inst->simulcastStream[stream_idx].maxFramerate);
     }
     frame_buffer_controller_->SetQpLimits(stream_idx,
                                           vpx_configs_[i].rc_min_quantizer,

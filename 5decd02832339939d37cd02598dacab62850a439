@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc0cc875_65b12790",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-02T13:50:00Z",
+      "side": 1,
+      "message": "Sorry, I think this should be\n  rtc::scoped_refptr\u003cEncodedImageBufferInterface\u003e\u0026 GetEncodedImageBuffer()",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 66
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99c75d94_6dc2686b",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-02T13:50:00Z",
+      "side": 1,
+      "message": "RecordableEncodedFrameCallback",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 38
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b9b5c1_3b3973dc",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-02T13:50:00Z",
+      "side": 1,
+      "message": "RecordingState",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 33
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "872d4dc2_e7d6e632",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-02T13:50:00Z",
+      "side": 1,
+      "message": "\u003e\u0026",
+      "range": {
+        "startLine": 86,
+        "startChar": 54,
+        "endLine": 86,
+        "endChar": 55
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55c342e6_d46bb415",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-02T13:50:00Z",
+      "side": 1,
+      "message": "Search replace error?",
+      "range": {
+        "startLine": 550,
+        "startChar": 2,
+        "endLine": 550,
+        "endChar": 53
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fd9938e_6f3ac55d",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-02T13:50:00Z",
+      "side": 1,
+      "message": "Remove this function, just inline the logic here",
+      "range": {
+        "startLine": 675,
+        "startChar": 2,
+        "endLine": 675,
+        "endChar": 22
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57eb02d9_b58606e3",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-02T13:50:00Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 74
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

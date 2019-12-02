@@ -140,6 +140,30 @@
       "revId": "8cf74e5430d1888bc72ad9eada60c19dc40cfe09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72308778_8598aea6",
+        "filename": "modules/video_coding/encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-02T16:28:47Z",
+      "side": 1,
+      "message": "Public inheritance was required in a prior incarnation of the CL. PTAL on the new iteration, I managed to retain protected inheritance.\n\nI think these classes would really need some well executed refactoring, it seems there are several halted efforts to clean them up.",
+      "parentUuid": "aa8fc95c_bcebd8c6",
+      "range": {
+        "startLine": 23,
+        "startChar": 24,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "8cf74e5430d1888bc72ad9eada60c19dc40cfe09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

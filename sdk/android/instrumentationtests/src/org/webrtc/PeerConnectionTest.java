@@ -1157,7 +1157,6 @@ public class PeerConnectionTest {
     offeringPC = null;
     shutdownPC(answeringPC, answeringExpectations);
     answeringPC = null;
-    getMetrics();
     videoCapturer.stopCapture();
     videoCapturer.dispose();
     videoSource.dispose();
@@ -1870,16 +1869,6 @@ public class PeerConnectionTest {
     offeringPC.setRemoteDescription(sdpLatch, answerSdp);
     assertTrue(sdpLatch.await());
     assertNull(sdpLatch.getSdp());
-  }
-
-  private static void getMetrics() {
-    Metrics metrics = Metrics.getAndReset();
-    assertTrue(metrics.map.size() > 0);
-    // Test for example that the lifetime of a Call is recorded.
-    String name = "WebRTC.Call.LifetimeInSeconds";
-    assertTrue(metrics.map.containsKey(name));
-    HistogramInfo info = metrics.map.get(name);
-    assertTrue(info.samples.size() > 0);
   }
 
   @SuppressWarnings("deprecation") // TODO(sakal): getStats is deprecated

@@ -32,13 +32,13 @@ class CongestionWindowPushbackControllerTest : public ::testing::Test {
 
 TEST_F(CongestionWindowPushbackControllerTest, FullCongestionWindow) {
   cwnd_controller_.UpdateOutstandingData(100000);
-  cwnd_controller_.UpdateMaxOutstandingData(50000);
+  cwnd_controller_.SetDataWindow(DataSize::bytes(50000));
 
   uint32_t bitrate_bps = 80000;
   bitrate_bps = cwnd_controller_.UpdateTargetBitrate(bitrate_bps);
   EXPECT_EQ(72000u, bitrate_bps);
 
-  cwnd_controller_.UpdateMaxOutstandingData(50000);
+  cwnd_controller_.SetDataWindow(DataSize::bytes(50000));
   bitrate_bps = cwnd_controller_.UpdateTargetBitrate(bitrate_bps);
   EXPECT_EQ(static_cast<uint32_t>(72000 * 0.9 * 0.9), bitrate_bps);
 }
@@ -51,7 +51,7 @@ TEST_F(CongestionWindowPushbackControllerTest, NormalCongestionWindow) {
   bitrate_bps = cwnd_controller_.UpdateTargetBitrate(bitrate_bps);
   EXPECT_EQ(80000u, bitrate_bps);
 
-  cwnd_controller_.UpdateMaxOutstandingData(20000);
+  cwnd_controller_.SetDataWindow(DataSize::bytes(20000));
   bitrate_bps = cwnd_controller_.UpdateTargetBitrate(bitrate_bps);
   EXPECT_EQ(80000u, bitrate_bps);
 }
@@ -64,7 +64,7 @@ TEST_F(CongestionWindowPushbackControllerTest, LowBitrate) {
   bitrate_bps = cwnd_controller_.UpdateTargetBitrate(bitrate_bps);
   EXPECT_EQ(static_cast<uint32_t>(35000 * 0.9), bitrate_bps);
 
-  cwnd_controller_.UpdateMaxOutstandingData(20000);
+  cwnd_controller_.SetDataWindow(DataSize::bytes(20000));
   bitrate_bps = cwnd_controller_.UpdateTargetBitrate(bitrate_bps);
   EXPECT_EQ(30000u, bitrate_bps);
 }

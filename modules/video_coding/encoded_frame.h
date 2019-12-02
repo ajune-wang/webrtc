@@ -54,6 +54,7 @@ class VCMEncodedFrame : protected EncodedImage {
 
   using EncodedImage::ColorSpace;
   using EncodedImage::data;
+  using EncodedImage::GetEncodedData;
   using EncodedImage::PacketInfos;
   using EncodedImage::set_size;
   using EncodedImage::SetColorSpace;
@@ -75,6 +76,12 @@ class VCMEncodedFrame : protected EncodedImage {
    *   Get frame type
    */
   webrtc::VideoFrameType FrameType() const { return _frameType; }
+  /**
+   *   Set frame type
+   */
+  void SetFrameType(webrtc::VideoFrameType frame_type) {
+    _frameType = frame_type;
+  }
   /**
    *   Get frame rotation
    */

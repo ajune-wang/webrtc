@@ -15,6 +15,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "api/call/transport.h"
@@ -23,6 +24,7 @@
 #include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
 #include "api/transport/rtp/rtp_source.h"
+#include "api/video/recordable_encoded_frame.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
@@ -39,6 +41,17 @@ class VideoDecoderFactory;
 
 class VideoReceiveStream {
  public:
+  // Class for handling moving in/out recording state.
+  class RecordingState {
+   public:
+    RecordingState() : keyframe_generation_requested(false) {}
+    explicit RecordingState(
+        std::function<void(const RecordableEncodedFrame&)> callback)
+        : callback(std::move(callback)), keyframe_generation_requested(false) {}
+    std::function<void(const RecordableEncodedFrame&)> callback;
+    bool keyframe_generation_requested;
+  };
+
   // TODO(mflodman) Move all these settings to VideoDecoder and move the
   // declaration to common_types.h.
   struct Decoder {
@@ -274,6 +287,19 @@ class VideoReceiveStream {
   // creation without resetting the decoder state.
   virtual void SetFrameDecryptor(
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) = 0;
+
+  // Sets and returns recording state. The old state is moved out
+  // of the video receive stream and returned to the caller, and |state|
+  // is moved in. If the state's callback is set, it will be called with
+  // recordable encoded frames as they arrive.
+  // If |generate_key_frame| is true, the method will generate a key frame.
+  // When the function returns, it's guaranteed that all old callouts
+  // to the returned callback has ceased.
+  virtual RecordingState SetAndGetRecordingState(RecordingState state,
+                                                 bool generate_key_frame) = 0;
+
+  // Cause eventual generation of a key frame from the sender.
+  virtual void GenerateKeyFrame() = 0;
 
  protected:
   virtual ~VideoReceiveStream() {}

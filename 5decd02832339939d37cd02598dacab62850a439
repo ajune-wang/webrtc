@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "87242ce3_6b88ecd1",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-02T14:24:16Z",
+      "side": 1,
+      "message": "OK, but why? The reference is anyway taken in the consumer.",
+      "parentUuid": "bc0cc875_65b12790",
+      "range": {
+        "startLine": 156,
+        "startChar": 2,
+        "endLine": 156,
+        "endChar": 66
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99c75d94_6dc2686b",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "efa6c71d_b79cd82a",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-02T14:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99c75d94_6dc2686b",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 38
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21b9b5c1_3b3973dc",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "5decd02832339939d37cd02598dacab62850a439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26a75c51_f8731c75",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-02T14:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21b9b5c1_3b3973dc",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 33
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "b7253e7d_6c3324d9",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-02T14:24:16Z",
+      "side": 1,
+      "message": "This is a little late to the party, it\u0027s part of an interface now used by chrome.",
+      "parentUuid": "872d4dc2_e7d6e632",
+      "range": {
+        "startLine": 86,
+        "startChar": 54,
+        "endLine": 86,
+        "endChar": 55
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55c342e6_d46bb415",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 1
@@ -137,6 +233,30 @@
       "revId": "5decd02832339939d37cd02598dacab62850a439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37274c19_e83a292f",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-02T14:24:16Z",
+      "side": 1,
+      "message": "No, the rest of the code uses clock_ but this site didn\u0027t. Is it a problem unifying?",
+      "parentUuid": "55c342e6_d46bb415",
+      "range": {
+        "startLine": 550,
+        "startChar": 2,
+        "endLine": 550,
+        "endChar": 53
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "7ac9a8cb_93de6c00",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-02T14:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fd9938e_6f3ac55d",
+      "range": {
+        "startLine": 675,
+        "startChar": 2,
+        "endLine": 675,
+        "endChar": 22
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57eb02d9_b58606e3",
         "filename": "video/video_receive_stream.h",
         "patchSetId": 1
@@ -183,6 +327,30 @@
       "revId": "5decd02832339939d37cd02598dacab62850a439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f3b6ef7_3188ada0",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-02T14:24:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57eb02d9_b58606e3",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 74
+      },
+      "revId": "5decd02832339939d37cd02598dacab62850a439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

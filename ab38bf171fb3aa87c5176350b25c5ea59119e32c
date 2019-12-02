@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46e2fc31_8679acb7",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-12-02T15:15:19Z",
+      "side": 1,
+      "message": "nit: Should it be called RequestKeyFrame() then?\nugh... collides with the other VideoReceiveStream though. WHY did we need two? The other one sounds like it should be named SendKeyFrameRequest() or something, but I digress. I don\u0027t feel strongly about this.",
+      "range": {
+        "startLine": 304,
+        "startChar": 15,
+        "endLine": 304,
+        "endChar": 31
+      },
+      "revId": "ab38bf171fb3aa87c5176350b25c5ea59119e32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7e2d57_8e1d72e6",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-12-02T15:15:19Z",
+      "side": 1,
+      "message": "Do we really need this to be an enum?",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 25
+      },
+      "revId": "ab38bf171fb3aa87c5176350b25c5ea59119e32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74b29212_4b541494",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-12-02T15:15:19Z",
+      "side": 1,
+      "message": "I thought this was a notification method first, maybe IsReceivingKeyFrame() ?",
+      "range": {
+        "startLine": 147,
+        "startChar": 7,
+        "endLine": 147,
+        "endChar": 24
+      },
+      "revId": "ab38bf171fb3aa87c5176350b25c5ea59119e32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -78,7 +78,7 @@ class RTC_EXPORT EncodedImage {
   EncodedImage(const EncodedImage&);
   EncodedImage(uint8_t* buffer, size_t length, size_t capacity);
 
-  ~EncodedImage();
+  virtual ~EncodedImage();
 
   EncodedImage& operator=(EncodedImage&&);
   // Discouraged: potentially expensive.
@@ -151,6 +151,11 @@ class RTC_EXPORT EncodedImage {
     size_ = 0;
     buffer_ = nullptr;
     capacity_ = 0;
+  }
+
+  const rtc::scoped_refptr<EncodedImageBufferInterface>& GetEncodedData() {
+    Retain();
+    return encoded_data_;
   }
 
   // TODO(nisse): Delete, provide only read-only access to the buffer.

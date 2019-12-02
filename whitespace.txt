@@ -1,4 +1,6 @@
 You can modify this file to create no-op changelists.
 Try to write something funny. And please don't add trailing whitespace.
 
+Something
+
 Once upon a time there was an elephant in Stockholm.

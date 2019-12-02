@@ -1310,16 +1310,16 @@ TEST_F(P2PTransportChannelTest, TestUMAIceRestartWhileDisconnected) {
   ep1_ch1()->SetIceParameters(kIceParams[2]);
   ep1_ch1()->SetRemoteIceParameters(kIceParams[3]);
   ep1_ch1()->MaybeStartGathering();
-  EXPECT_EQ(1, webrtc::metrics::NumEvents(
-                   "WebRTC.PeerConnection.IceRestartState",
-                   static_cast<int>(IceRestartState::DISCONNECTED)));
+  EXPECT_METRIC_EQ(1, webrtc::metrics::NumEvents(
+                          "WebRTC.PeerConnection.IceRestartState",
+                          static_cast<int>(IceRestartState::DISCONNECTED)));
 
   ep2_ch1()->SetIceParameters(kIceParams[3]);
   ep2_ch1()->SetRemoteIceParameters(kIceParams[2]);
   ep2_ch1()->MaybeStartGathering();
-  EXPECT_EQ(2, webrtc::metrics::NumEvents(
-                   "WebRTC.PeerConnection.IceRestartState",
-                   static_cast<int>(IceRestartState::DISCONNECTED)));
+  EXPECT_METRIC_EQ(2, webrtc::metrics::NumEvents(
+                          "WebRTC.PeerConnection.IceRestartState",
+                          static_cast<int>(IceRestartState::DISCONNECTED)));
 
   DestroyChannels();
 }
@@ -1337,16 +1337,16 @@ TEST_F(P2PTransportChannelTest, TestUMAIceRestartWhileConnected) {
   ep1_ch1()->SetIceParameters(kIceParams[2]);
   ep1_ch1()->SetRemoteIceParameters(kIceParams[3]);
   ep1_ch1()->MaybeStartGathering();
-  EXPECT_EQ(1, webrtc::metrics::NumEvents(
-                   "WebRTC.PeerConnection.IceRestartState",
-                   static_cast<int>(IceRestartState::CONNECTED)));
+  EXPECT_METRIC_EQ(1, webrtc::metrics::NumEvents(
+                          "WebRTC.PeerConnection.IceRestartState",
+                          static_cast<int>(IceRestartState::CONNECTED)));
 
   ep2_ch1()->SetIceParameters(kIceParams[3]);
   ep2_ch1()->SetRemoteIceParameters(kIceParams[2]);
   ep2_ch1()->MaybeStartGathering();
-  EXPECT_EQ(2, webrtc::metrics::NumEvents(
-                   "WebRTC.PeerConnection.IceRestartState",
-                   static_cast<int>(IceRestartState::CONNECTED)));
+  EXPECT_METRIC_EQ(2, webrtc::metrics::NumEvents(
+                          "WebRTC.PeerConnection.IceRestartState",
+                          static_cast<int>(IceRestartState::CONNECTED)));
 
   DestroyChannels();
 }
@@ -1363,16 +1363,16 @@ TEST_F(P2PTransportChannelTest, TestUMAIceRestartWhileConnecting) {
   ep1_ch1()->SetIceParameters(kIceParams[2]);
   ep1_ch1()->SetRemoteIceParameters(kIceParams[3]);
   ep1_ch1()->MaybeStartGathering();
-  EXPECT_EQ(1, webrtc::metrics::NumEvents(
-                   "WebRTC.PeerConnection.IceRestartState",
-                   static_cast<int>(IceRestartState::CONNECTING)));
+  EXPECT_METRIC_EQ(1, webrtc::metrics::NumEvents(
+                          "WebRTC.PeerConnection.IceRestartState",
+                          static_cast<int>(IceRestartState::CONNECTING)));
 
   ep2_ch1()->SetIceParameters(kIceParams[3]);
   ep2_ch1()->SetRemoteIceParameters(kIceParams[2]);
   ep2_ch1()->MaybeStartGathering();
-  EXPECT_EQ(2, webrtc::metrics::NumEvents(
-                   "WebRTC.PeerConnection.IceRestartState",
-                   static_cast<int>(IceRestartState::CONNECTING)));
+  EXPECT_METRIC_EQ(2, webrtc::metrics::NumEvents(
+                          "WebRTC.PeerConnection.IceRestartState",
+                          static_cast<int>(IceRestartState::CONNECTING)));
 
   DestroyChannels();
 }

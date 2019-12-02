@@ -597,6 +597,7 @@ void ScreenshareLayers::UpdateHistograms() {
         "WebRTC.Video.Screenshare.Layer1.FrameRate",
         (stats_.num_tl1_frames_ + (duration_sec / 2)) / duration_sec);
     int total_frames = stats_.num_tl0_frames_ + stats_.num_tl1_frames_;
+    RTCIMPL_ALLOW_UNUSED(total_frames);
     RTC_HISTOGRAM_COUNTS_10000(
         "WebRTC.Video.Screenshare.FramesPerDrop",
         (stats_.num_dropped_frames_ == 0

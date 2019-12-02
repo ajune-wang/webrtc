@@ -1768,6 +1768,7 @@ PeerConnection::AddTransceiver(
                        : cricket::MEDIA_TYPE_VIDEO));
   }
 
+  RTCIMPL_ALLOW_UNUSED(kSimulcastNumberOfEncodings);
   RTC_HISTOGRAM_COUNTS_LINEAR(kSimulcastNumberOfEncodings,
                               init.send_encodings.size(), 0, 7, 8);
 
@@ -3779,6 +3780,7 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
     // Check if the offer indicated simulcast but the answer rejected it.
     // This can happen when simulcast is not supported on the remote party.
     if (SimulcastIsRejected(old_local_content, *media_desc)) {
+      RTCIMPL_ALLOW_UNUSED(kSimulcastDisabled);
       RTC_HISTOGRAM_BOOLEAN(kSimulcastDisabled, true);
       RTCError error =
           DisableSimulcastInSender(transceiver->internal()->sender_internal());
@@ -7516,11 +7518,13 @@ void PeerConnection::ReportBestConnectionState(
 
       const cricket::Candidate& local = connection_info.local_candidate;
       const cricket::Candidate& remote = connection_info.remote_candidate;
+      RTCIMPL_ALLOW_UNUSED(remote);
 
       // Increment the counter for IceCandidatePairType.
       if (local.protocol() == cricket::TCP_PROTOCOL_NAME ||
           (local.type() == RELAY_PORT_TYPE &&
            local.relay_protocol() == cricket::TCP_PROTOCOL_NAME)) {
+        RTCIMPL_ALLOW_UNUSED(GetIceCandidatePairCounter(local, remote));
         RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.CandidatePairType_TCP",
                                   GetIceCandidatePairCounter(local, remote),
                                   kIceCandidatePairMax);

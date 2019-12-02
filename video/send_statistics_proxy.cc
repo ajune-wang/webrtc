@@ -80,6 +80,7 @@ HistogramCodecType PayloadNameToHistogramCodecType(
 }
 
 void UpdateCodecTypeHistogram(const std::string& payload_name) {
+  RTCIMPL_ALLOW_UNUSED(PayloadNameToHistogramCodecType(payload_name));
   RTC_HISTOGRAM_ENUMERATION("WebRTC.Video.Encoder.CodecType",
                             PayloadNameToHistogramCodecType(payload_name),
                             kVideoMax);
@@ -289,6 +290,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
     const VideoSendStream::Stats& current_stats) {
   RTC_DCHECK(uma_prefix_ == kRealtimePrefix || uma_prefix_ == kScreenPrefix);
   const int kIndex = uma_prefix_ == kScreenPrefix ? 1 : 0;
+  RTCIMPL_ALLOW_UNUSED(kIndex);
   const int kMinRequiredPeriodicSamples = 6;
   char log_stream_buf[8 * 1024];
   rtc::SimpleStringBuilder log_stream(log_stream_buf);
@@ -491,6 +493,7 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
     if (elapsed_sec >= metrics::kMinRunTimeInSeconds) {
       int cpu_changes = current_stats.number_of_cpu_adapt_changes -
                         start_stats_.number_of_cpu_adapt_changes;
+      RTCIMPL_ALLOW_UNUSED(cpu_changes);
       RTC_HISTOGRAMS_COUNTS_100(kIndex,
                                 uma_prefix_ + "AdaptChangesPerMinute.Cpu",
                                 cpu_changes * 60 / elapsed_sec);

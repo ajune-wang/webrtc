@@ -148,6 +148,7 @@ bool SrtpSession::UnprotectRtp(void* p, int in_len, int* out_len) {
                           << decryption_failure_count_;
     }
     ++decryption_failure_count_;
+    RTCIMPL_ALLOW_UNUSED(kSrtpErrorCodeBoundary);
     RTC_HISTOGRAM_ENUMERATION("WebRTC.PeerConnection.SrtpUnprotectError",
                               static_cast<int>(err), kSrtpErrorCodeBoundary);
     return false;

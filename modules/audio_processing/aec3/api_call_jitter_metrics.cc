@@ -89,6 +89,7 @@ void ApiCallJitterMetrics::ReportCaptureCall() {
       TimeToReportMetrics(++frames_since_last_report_)) {
     // Report jitter, where the base basic unit is frames.
     constexpr int kMaxJitterToReport = 50;
+    RTCIMPL_ALLOW_UNUSED(kMaxJitterToReport);
 
     // Report max and min jitter for render and capture, in units of 20 ms.
     RTC_HISTOGRAM_COUNTS_LINEAR(

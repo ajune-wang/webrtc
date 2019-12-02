@@ -685,7 +685,8 @@ TEST_F(PeerConnectionSimulcastMetricsTests, SimulcastDisabledIsLogged) {
   auto answer = remote->CreateAnswerAndSetAsLocal();
   EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
 
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
+  EXPECT_METRIC_EQ(
+      1, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
   EXPECT_EQ(1,
             metrics::NumEvents("WebRTC.PeerConnection.Simulcast.Disabled", 1));
 }
@@ -698,7 +699,8 @@ TEST_F(PeerConnectionSimulcastMetricsTests, SimulcastDisabledIsNotLogged) {
   AddTransceiver(local.get(), layers);
   ExchangeOfferAnswer(local.get(), remote.get(), layers);
 
-  EXPECT_EQ(0, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
+  EXPECT_METRIC_EQ(
+      0, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
 }
 
 const int kMaxLayersInMetricsTest = 8;
@@ -709,11 +711,13 @@ TEST_P(PeerConnectionSimulcastMetricsTests, NumberOfSendEncodingsIsLogged) {
   auto num_layers = GetParam();
   auto layers = CreateLayers(num_layers, true);
   AddTransceiver(local.get(), layers);
-  EXPECT_EQ(1, metrics::NumSamples(
-                   "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings"));
-  EXPECT_EQ(1, metrics::NumEvents(
-                   "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings",
-                   num_layers));
+  EXPECT_METRIC_EQ(
+      1, metrics::NumSamples(
+             "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings"));
+  EXPECT_METRIC_EQ(
+      1,
+      metrics::NumEvents(
+          "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings", num_layers));
 }
 
 INSTANTIATE_TEST_SUITE_P(NumberOfSendEncodings,

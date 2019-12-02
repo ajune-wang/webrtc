@@ -215,7 +215,7 @@ void FrameCombiner::LogMixingStats(const std::vector<AudioFrame*>& mix_list,
         NativeRate::kSampleRate32kHz, NativeRate::kSampleRate48kHz};
     const auto* rate_position = std::lower_bound(
         std::begin(native_rates), std::end(native_rates), sample_rate);
-
+    RTCIMPL_ALLOW_UNUSED(rate_position);
     RTC_HISTOGRAM_ENUMERATION(
         "WebRTC.Audio.AudioMixer.MixingRate",
         std::distance(std::begin(native_rates), rate_position),

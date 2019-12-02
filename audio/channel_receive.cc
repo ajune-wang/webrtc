@@ -383,6 +383,7 @@ AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
     RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.TargetJitterBufferDelayMs",
                               acm_receiver_.TargetDelayMs());
     const int jitter_buffer_delay = acm_receiver_.FilteredCurrentDelayMs();
+    RTCIMPL_ALLOW_UNUSED(jitter_buffer_delay);
     rtc::CritScope lock(&video_sync_lock_);
     RTC_HISTOGRAM_COUNTS_1000("WebRTC.Audio.ReceiverDelayEstimateMs",
                               jitter_buffer_delay + playout_delay_ms_);

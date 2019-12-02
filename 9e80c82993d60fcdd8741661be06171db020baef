@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65cab6d4_5534077a",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-02T17:50:21Z",
+      "side": 1,
+      "message": "This one is a bit non intuitive. I made it like this to comply with the other similar parameters, but on a second thought I think it is better to take the opportunity and change it now.\n\nPTAL",
+      "parentUuid": "b2e18a4a_7716e165",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 73
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "320b27f9_9ff1a2ee",
         "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2019-12-02T16:31:41Z",
       "side": 1,
       "message": "This should only be a special case if prefer_first_two_channels_ \u003d\u003d true, right?",
+      "range": {
+        "startLine": 153,
+        "startChar": 6,
+        "endLine": 153,
+        "endChar": 30
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "674d261c_1f10d9ea",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-02T17:50:21Z",
+      "side": 1,
+      "message": "Not sure I follow that comment.\nThe block is intended to choose the strongest channel. \nIf  prefer_first_two_channels_ is false, it should do so for any of the channels, \notherwise, it should only do so for any of the num_ch_to_analyze channels (which can be smaller than the total number of channels).\n\nThe \"if (selected_channel_ \u003e 1\" part is needed for the case when the selected channel is above the first 2 channels, but num_ch_to_analyze is 2 (which can happen).\nFor that case, the cumulative_energies_ for the channels beyond 2 have not been computed.",
+      "parentUuid": "320b27f9_9ff1a2ee",
       "range": {
         "startLine": 153,
         "startChar": 6,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c96e99af_8d983ad2",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-02T17:50:21Z",
+      "side": 1,
+      "message": "Both yes and no. \nWhat you describe happens initially. But when either the left of right channels have been found to have sufficiently strong activity for a sufficient amount of time ( (strong_block_counters_[0] \u003e kBlocksToChooseLeftOrRight ||\n       strong_block_counters_[1] \u003e kBlocksToChooseLeftOrRight);\n\nthe only the left and right channels can be chosen and it is no longer possible to end up in a choice of any of the other channels.\n\nThe stickiness is ensured by limiting the value of num_ch_to_analyze.",
+      "parentUuid": "9d5f228d_8d123a00",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 58
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55f08847_402dd4ff",
         "filename": "modules/audio_processing/aec3/alignment_mixer.h",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "9e80c82993d60fcdd8741661be06171db020baef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74ba4bd1_f3e8c184",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-02T17:50:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55f08847_402dd4ff",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 1
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f2f49adb_b3f9ae1e",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-02T17:50:21Z",
+      "side": 1,
+      "message": "Good point!\nDone",
+      "parentUuid": "15c2f7ee_43777ac2",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32bb7fec_5cf96faf",
         "filename": "modules/audio_processing/aec3/alignment_mixer.h",
         "patchSetId": 10
@@ -137,6 +257,30 @@
       "revId": "9e80c82993d60fcdd8741661be06171db020baef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d879927_e531b94c",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-02T17:50:21Z",
+      "side": 1,
+      "message": "Great! I like that!\nDone.",
+      "parentUuid": "32bb7fec_5cf96faf",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 45
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

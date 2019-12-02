@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83213b1d_b100fc7e",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-02T11:47:22Z",
+      "side": 1,
+      "message": "This is a pattern we avoid using, it can cause hangs depending on the available number of threads available for the task queues.",
+      "range": {
+        "startLine": 771,
+        "startChar": 0,
+        "endLine": 785,
+        "endChar": 35
+      },
+      "revId": "3d6fcfbb9e8f932a364c879a0d0174e2e0002659",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

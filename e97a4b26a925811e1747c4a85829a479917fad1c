@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24da8ea7_8be2baab",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-12-03T16:25:44Z",
+      "side": 1,
+      "message": "These can be removed, because is_screencast would be forced to true in pc/rtp_sender.cc",
+      "range": {
+        "startLine": 1925,
+        "startChar": 16,
+        "endLine": 1928,
+        "endChar": 66
+      },
+      "revId": "e97a4b26a925811e1747c4a85829a479917fad1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b9ebce8_54e241cf",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1938,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-12-03T16:25:44Z",
+      "side": 1,
+      "message": "This should also check for content hint and is_screenshare() as in lines 1924-1928.\n\nIn screenshare BALANCED should be enabled without any experiment.",
+      "revId": "e97a4b26a925811e1747c4a85829a479917fad1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

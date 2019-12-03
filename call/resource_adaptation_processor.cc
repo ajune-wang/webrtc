@@ -1,0 +1,142 @@
+/*
+ *  Copyright 2019 The WebRTC Project Authors. All rights reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "call/resource_adaptation_processor.h"
+
+#include <limits>
+#include <utility>
+
+#include "rtc_base/checks.h"
+
+namespace webrtc {
+namespace adaptation {
+
+namespace {
+
+ResourceConsumerConfiguration* FindMostPreferredConfiguration(
+    const std::vector<ResourceConsumerConfiguration*>& configurations) {
+  ResourceConsumerConfiguration* most_preferred_configuration = nullptr;
+  double most_preferred_configuration_preference = -1.0;
+  for (auto* configuration : configurations) {
+    double preference = configuration->Preference();
+    if (most_preferred_configuration_preference < preference) {
+      most_preferred_configuration = configuration;
+      most_preferred_configuration_preference = preference;
+    }
+  }
+  return most_preferred_configuration;
+}
+
+}  // namespace
+
+NextConfiguration::NextConfiguration(
+    ResourceConsumer* consumer,
+    ResourceConsumerConfiguration* configuration)
+    : consumer(consumer), configuration(configuration) {}
+
+const std::vector<std::unique_ptr<Resource>>&
+ResourceAdaptationProcessor::resources() const {
+  return resources_;
+}
+
+const std::vector<std::unique_ptr<ResourceConsumerConfiguration>>&
+ResourceAdaptationProcessor::configurations() const {
+  return configurations_;
+}
+
+const std::vector<std::unique_ptr<ResourceConsumer>>&
+ResourceAdaptationProcessor::consumers() const {
+  return consumers_;
+}
+
+ResourceConsumer* ResourceAdaptationProcessor::AddConsumer(
+    std::unique_ptr<ResourceConsumer> consumer) {
+  consumers_.push_back(std::move(consumer));
+  return consumers_.back().get();
+}
+
+NextConfiguration ResourceAdaptationProcessor::FindNextConfiguration() {
+  ResourceUsageState current_usage = ResourceUsageState::kUnderuse;
+  for (auto& resource : resources_) {
+    ResourceUsageState resource_usage = resource->CurrentUsageState();
+    if (resource_usage == ResourceUsageState::kStable) {
+      // If any resource is "stable", we are not underusing.
+      if (current_usage == ResourceUsageState::kUnderuse)
+        current_usage = ResourceUsageState::kStable;
+    } else if (resource_usage == ResourceUsageState::kOveruse) {
+      // If any resource is "overuse", we are overusing.
+      current_usage = ResourceUsageState::kOveruse;
+      break;
+    }
+  }
+  // If we are stable we should neither adapt up or down: stay where we are.
+  if (current_usage == ResourceUsageState::kStable)
+    return NextConfiguration(nullptr, nullptr);
+  if (current_usage == ResourceUsageState::kOveruse) {
+    // If we are overusing, we adapt down the most expensive consumer to its
+    // most preferred lower neighbor.
+    ResourceConsumer* max_cost_consumer =
+        FindMostExpensiveConsumerThatCanBeAdaptedDown();
+    if (!max_cost_consumer)
+      return NextConfiguration(nullptr, nullptr);
+    ResourceConsumerConfiguration* next_configuration =
+        FindMostPreferredConfiguration(
+            max_cost_consumer->configuration()->lower_neighbors());
+    RTC_DCHECK(next_configuration);
+    return NextConfiguration(max_cost_consumer, next_configuration);
+  } else {
+    // If we are underusing, we adapt up the least expensive consumer to its
+    // most preferred upper neighbor.
+    ResourceConsumer* min_cost_consumer =
+        FindLeastExpensiveConsumerThatCanBeAdaptedUp();
+    if (!min_cost_consumer)
+      return NextConfiguration(nullptr, nullptr);
+    ResourceConsumerConfiguration* next_configuration =
+        FindMostPreferredConfiguration(
+            min_cost_consumer->configuration()->upper_neighbors());
+    RTC_DCHECK(next_configuration);
+    return NextConfiguration(min_cost_consumer, next_configuration);
+  }
+}
+
+ResourceConsumer*
+ResourceAdaptationProcessor::FindMostExpensiveConsumerThatCanBeAdaptedDown() {
+  ResourceConsumer* max_cost_consumer = nullptr;
+  double max_cost = -1.0;
+  for (auto& consumer : consumers_) {
+    if (consumer->configuration()->lower_neighbors().empty())
+      continue;
+    double cost = consumer->configuration()->Cost();
+    if (max_cost < cost) {
+      max_cost_consumer = consumer.get();
+      max_cost = cost;
+    }
+  }
+  return max_cost_consumer;
+}
+
+ResourceConsumer*
+ResourceAdaptationProcessor::FindLeastExpensiveConsumerThatCanBeAdaptedUp() {
+  ResourceConsumer* min_cost_consumer = nullptr;
+  double min_cost = std::numeric_limits<double>::infinity();
+  for (auto& consumer : consumers_) {
+    if (consumer->configuration()->upper_neighbors().empty())
+      continue;
+    double cost = consumer->configuration()->Cost();
+    if (min_cost > cost) {
+      min_cost_consumer = consumer.get();
+      min_cost = cost;
+    }
+  }
+  return min_cost_consumer;
+}
+
+}  // namespace adaptation
+}  // namespace webrtc

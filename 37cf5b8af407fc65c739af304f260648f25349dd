@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04402d40_a5d602f8",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 8409
+      },
+      "writtenOn": "2019-12-03T09:39:59Z",
+      "side": 1,
+      "message": "nit: \n\nSuggest to rename this function to the new meaning, it\u0027s fairly confusing now. \n(the \"Is...FieldTrialEnabled\" part - whereas the function then checks !disabled). \n\nMaybe just call it \"KeepAbsSendTimeExtension()\"? Or actually invert the bool and call it \"ShouldFilterAbsSendTimeExtension()\"?",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 48
+      },
+      "revId": "37cf5b8af407fc65c739af304f260648f25349dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a14d730_184192fb",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8409
+      },
+      "writtenOn": "2019-12-03T09:39:59Z",
+      "side": 1,
+      "message": "... and you can save you some time and frustration by running the importer tests before submitting, if you have not done so yet.",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 16
+      },
+      "revId": "37cf5b8af407fc65c739af304f260648f25349dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e9d1d29_0fac379c",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8409
+      },
+      "writtenOn": "2019-12-03T09:39:59Z",
+      "side": 1,
+      "message": "Please update CL description also (re \"To get the previous behavior...\").",
+      "range": {
+        "startLine": 52,
+        "startChar": 31,
+        "endLine": 52,
+        "endChar": 42
+      },
+      "revId": "37cf5b8af407fc65c739af304f260648f25349dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

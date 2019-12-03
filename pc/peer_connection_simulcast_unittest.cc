@@ -77,6 +77,7 @@ std::vector<SimulcastLayer> CreateLayers(const std::vector<std::string>& rids,
   return CreateLayers(rids, std::vector<bool>(rids.size(), active));
 }
 
+#if RTC_METRICS_ENABLED
 std::vector<SimulcastLayer> CreateLayers(int num_layers, bool active) {
   rtc::UniqueStringGenerator rid_generator;
   std::vector<std::string> rids;
@@ -85,8 +86,10 @@ std::vector<SimulcastLayer> CreateLayers(int num_layers, bool active) {
   }
   return CreateLayers(rids, active);
 }
+#endif
 
 }  // namespace
+
 namespace webrtc {
 
 class PeerConnectionSimulcastTests : public ::testing::Test {
@@ -193,6 +196,7 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
 };
 
+#if RTC_METRICS_ENABLED
 // This class is used to test the metrics emitted for simulcast.
 class PeerConnectionSimulcastMetricsTests
     : public PeerConnectionSimulcastTests,
@@ -209,6 +213,7 @@ class PeerConnectionSimulcastMetricsTests
         "WebRTC.PeerConnection.Simulcast.ApplyRemoteDescription");
   }
 };
+#endif
 
 // Validates that RIDs are supported arguments when adding a transceiver.
 TEST_F(PeerConnectionSimulcastTests, CanCreateTransceiverWithRid) {
@@ -550,6 +555,8 @@ TEST_F(PeerConnectionSimulcastTests, NegotiationDoesNotHaveRidExtension) {
   EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &err)) << err;
   ValidateTransceiverParameters(transceiver, expected_layers);
 }
+
+#if RTC_METRICS_ENABLED
 //
 // Checks the logged metrics when simulcast is not used.
 TEST_F(PeerConnectionSimulcastMetricsTests, NoSimulcastUsageIsLogged) {
@@ -685,7 +692,8 @@ TEST_F(PeerConnectionSimulcastMetricsTests, SimulcastDisabledIsLogged) {
   auto answer = remote->CreateAnswerAndSetAsLocal();
   EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
 
-  EXPECT_EQ(1, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
+  EXPECT_METRIC_EQ(
+      1, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
   EXPECT_EQ(1,
             metrics::NumEvents("WebRTC.PeerConnection.Simulcast.Disabled", 1));
 }
@@ -698,7 +706,8 @@ TEST_F(PeerConnectionSimulcastMetricsTests, SimulcastDisabledIsNotLogged) {
   AddTransceiver(local.get(), layers);
   ExchangeOfferAnswer(local.get(), remote.get(), layers);
 
-  EXPECT_EQ(0, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
+  EXPECT_METRIC_EQ(
+      0, metrics::NumSamples("WebRTC.PeerConnection.Simulcast.Disabled"));
 }
 
 const int kMaxLayersInMetricsTest = 8;
@@ -709,15 +718,17 @@ TEST_P(PeerConnectionSimulcastMetricsTests, NumberOfSendEncodingsIsLogged) {
   auto num_layers = GetParam();
   auto layers = CreateLayers(num_layers, true);
   AddTransceiver(local.get(), layers);
-  EXPECT_EQ(1, metrics::NumSamples(
-                   "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings"));
-  EXPECT_EQ(1, metrics::NumEvents(
-                   "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings",
-                   num_layers));
+  EXPECT_METRIC_EQ(
+      1, metrics::NumSamples(
+             "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings"));
+  EXPECT_METRIC_EQ(
+      1,
+      metrics::NumEvents(
+          "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings", num_layers));
 }
 
 INSTANTIATE_TEST_SUITE_P(NumberOfSendEncodings,
                          PeerConnectionSimulcastMetricsTests,
                          ::testing::Range(0, kMaxLayersInMetricsTest));
-
+#endif
 }  // namespace webrtc

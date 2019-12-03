@@ -20,6 +20,38 @@
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 
+#if defined(RTC_DISABLE_METRICS)
+#define EXPECT_METRIC_EQ(x, y) EXPECT_EQ(0, 0)
+#define EXPECT_METRIC_EQ_WAIT(x, y, timeout) EXPECT_EQ_WAIT(0, 0, 0)
+#define EXPECT_METRIC_GT(x, y) EXPECT_GT(1, 0)
+#define EXPECT_METRIC_LE(x, y) EXPECT_LE(0, 1)
+#define EXPECT_METRIC_TRUE(x) EXPECT_TRUE(true)
+#define EXPECT_METRIC_FALSE(x) EXPECT_FALSE(false)
+#define EXPECT_METRIC_THAT(x, matcher) EXPECT_THAT(x, testing::_)
+#else
+#define EXPECT_METRIC_EQ(x, y) EXPECT_EQ(x, y)
+#define EXPECT_METRIC_EQ_WAIT(x, y, timeout) EXPECT_EQ_WAIT(x, y, timeout)
+#define EXPECT_METRIC_GT(x, y) EXPECT_GT(x, y)
+#define EXPECT_METRIC_LE(x, y) EXPECT_LE(x, y)
+#define EXPECT_METRIC_TRUE(x) EXPECT_TRUE(x)
+#define EXPECT_METRIC_FALSE(x) EXPECT_FALSE(x)
+#define EXPECT_METRIC_THAT(x, matcher) EXPECT_THAT(x, matcher)
+#endif
+
+#define RTCIMPL_ALLOW_UNUSED(x) \
+  do {                          \
+    if (0) {                    \
+      static_cast<void>(x);     \
+    }                           \
+  } while (0)
+
+#if defined(RTC_DISABLE_METRICS)
+#define RTC_METRICS_ENABLED 0
+#else
+#define RTC_METRICS_ENABLED 1
+#endif
+
+#if RTC_METRICS_ENABLED
 // Macros for allowing WebRTC clients (e.g. Chrome) to gather and aggregate
 // statistics.
 //
@@ -240,6 +272,87 @@
         RTC_NOTREACHED();                                            \
     }                                                                \
   } while (0)
+
+#else
+
+////////////////////////////////////////////////////////////////////////////////
+// This section defines no-op alternatives to the metrics macros when
+// RTC_METRICS_ENABLED is defined.
+
+#define RTC_NOOP() \
+  do {             \
+  } while (0)
+
+#define RTC_HISTOGRAM_COUNTS_100(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_200(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_500(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_1000(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_10000(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_100000(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS(name, sample, min, max, bucket_count) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_LINEAR(name, sample, min, max, bucket_count) \
+  RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_100(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_200(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_500(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_1000(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_10000(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_100000(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE(name, sample, min, max, bucket_count) \
+  RTC_NOOP()
+
+#define RTC_HISTOGRAM_PERCENTAGE_SPARSE(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_BOOLEAN_SPARSE(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_ENUMERATION_SPARSE(name, sample, boundary) RTC_NOOP()
+
+#define RTC_HISTOGRAM_PERCENTAGE(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_BOOLEAN(name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAM_ENUMERATION(name, sample, boundary) RTC_NOOP()
+
+#define RTC_HISTOGRAM_COMMON_BLOCK(constant_name, sample,  \
+                                   factory_get_invocation) \
+  RTC_NOOP()
+
+#define RTC_HISTOGRAM_COMMON_BLOCK_SLOW(name, sample, factory_get_invocation) \
+  RTC_NOOP()
+
+#define RTC_HISTOGRAMS_COUNTS_100(index, name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAMS_COUNTS_200(index, name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAMS_COUNTS_500(index, name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAMS_COUNTS_1000(index, name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAMS_COUNTS_10000(index, name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAMS_COUNTS_100000(index, name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAMS_ENUMERATION(index, name, sample, boundary) RTC_NOOP()
+
+#define RTC_HISTOGRAMS_PERCENTAGE(index, name, sample) RTC_NOOP()
+
+#define RTC_HISTOGRAMS_COMMON(index, name, sample, macro_invocation) RTC_NOOP()
+
+#endif  // RTC_METRICS_ENABLED
 
 namespace webrtc {
 namespace metrics {

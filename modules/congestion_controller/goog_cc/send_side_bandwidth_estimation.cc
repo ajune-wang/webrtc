@@ -396,6 +396,7 @@ void SendSideBandwidthEstimation::UpdateUmaStatsPacketsLost(Timestamp at_time,
     uma_update_state_ = kDone;
     int bitrate_diff_kbps = std::max(
         bitrate_at_2_seconds_.kbps<int>() - bitrate_kbps.kbps<int>(), 0);
+    RTCIMPL_ALLOW_UNUSED(bitrate_diff_kbps);
     RTC_HISTOGRAM_COUNTS("WebRTC.BWE.InitialVsConvergedDiff", bitrate_diff_kbps,
                          0, 2000, 50);
   }

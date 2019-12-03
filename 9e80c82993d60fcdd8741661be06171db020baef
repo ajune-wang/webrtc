@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "8d7b27d7_a15b9618",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-03T09:32:14Z",
+      "side": 1,
+      "message": "As discussed offline, the code clearly does not what I described in the comment above. This has now been corrected.",
+      "parentUuid": "674d261c_1f10d9ea",
+      "range": {
+        "startLine": 153,
+        "startChar": 6,
+        "endLine": 153,
+        "endChar": 30
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d5f228d_8d123a00",
         "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
         "patchSetId": 10
@@ -140,6 +164,30 @@
       "revId": "9e80c82993d60fcdd8741661be06171db020baef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1339af3a_2ba18fe4",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-03T09:32:14Z",
+      "side": 1,
+      "message": "As discussed offline, the code clearly does not what I described in the comment above. This has now been corrected.",
+      "parentUuid": "c96e99af_8d983ad2",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 58
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -330,6 +378,30 @@
     },
     {
       "key": {
+        "uuid": "69fb0521_1ed11b21",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-03T09:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2abc0050_b59645cc",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "333dce9a_9323945c",
         "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
         "patchSetId": 10
@@ -350,6 +422,30 @@
       "revId": "9e80c82993d60fcdd8741661be06171db020baef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a77e9862_ceef5779",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-03T09:32:14Z",
+      "side": 1,
+      "message": "Supergood find!\nIt turned out that the tests passed regardless as the code in question was not run due to an error in the test loops.\n\nThe error has now been corrected, but for now the tests are explicitly disabled as they fail for other reasons.",
+      "parentUuid": "333dce9a_9323945c",
+      "range": {
+        "startLine": 99,
+        "startChar": 71,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -376,6 +472,30 @@
     },
     {
       "key": {
+        "uuid": "a7125df1_604d8935",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-03T09:32:14Z",
+      "side": 1,
+      "message": "As above.",
+      "parentUuid": "f6fcfc42_47992e0b",
+      "range": {
+        "startLine": 145,
+        "startChar": 73,
+        "endLine": 145,
+        "endChar": 74
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "964e0f51_ca3fd0cc",
         "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
         "patchSetId": 10
@@ -399,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "4cad023f_ce625ac6",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-03T09:32:14Z",
+      "side": 1,
+      "message": "As above.",
+      "parentUuid": "964e0f51_ca3fd0cc",
+      "range": {
+        "startLine": 207,
+        "startChar": 73,
+        "endLine": 207,
+        "endChar": 74
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edf6be39_81488aec",
         "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
         "patchSetId": 10
@@ -419,6 +563,30 @@
       "revId": "9e80c82993d60fcdd8741661be06171db020baef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee89e073_9bc7f276",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-03T09:32:14Z",
+      "side": 1,
+      "message": "As above.",
+      "parentUuid": "edf6be39_81488aec",
+      "range": {
+        "startLine": 257,
+        "startChar": 73,
+        "endLine": 257,
+        "endChar": 74
+      },
+      "revId": "9e80c82993d60fcdd8741661be06171db020baef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

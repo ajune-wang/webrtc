@@ -22,6 +22,30 @@
       "revId": "ce1773201776242dd91e5374bd8641e0f8e9b062",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f170aa64_c74041ff",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T18:25:01Z",
+      "side": 1,
+      "message": "PostTask documentation says:\n\n  // Destruction of the functor/task mimics what TaskQueue::PostTask does: If\n  // the task is run, it will be destroyed on |this| thread. However, if there\n  // are pending tasks by the time the Thread is destroyed, or a task is posted\n  // to a thread that is quitting, the task is destroyed immediately, on the\n  // calling thread.\n\nI don\u0027t care where this particular functor is destroyed, as long as it is either called while |this| is valid or not called at all. Do I need to pass a weak pointer to |this| rather than just capturing it in the lambda?",
+      "parentUuid": "56657db1_93777107",
+      "range": {
+        "startLine": 352,
+        "startChar": 36,
+        "endLine": 352,
+        "endChar": 40
+      },
+      "revId": "ce1773201776242dd91e5374bd8641e0f8e9b062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

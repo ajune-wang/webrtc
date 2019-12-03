@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "04c3d23f_faab316c",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-03T12:55:14Z",
+      "side": 1,
+      "message": "Hope you\u0027re satisfied with my alternative.\nActually both RTC_DCHECK_EQ(buffer_, nullptr) and RTC_DCHECK_EQ(buffer_.get(), nullptr) gives compiler errors.",
+      "parentUuid": "f93d1d00_31b7617b",
+      "range": {
+        "startLine": 157,
+        "startChar": 1,
+        "endLine": 157,
+        "endChar": 25
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69dcd0e6_fa205f78",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "5a64639850477bd2f137162041210699499e5879",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a396cab_bc850c0c",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-03T12:55:14Z",
+      "side": 1,
+      "message": "Not without heap allocation and virtual calls which is overkill. I spoke to Danil over lunch and what you see in the new iteration is acceptable to him, would you agree?\nFriend declaration is not okay to him in this case because call/VRS.h and video/VRS.cc are in different build targets.",
+      "parentUuid": "69dcd0e6_fa205f78",
+      "range": {
+        "startLine": 57,
+        "startChar": 50,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "792b8a0f_08e69fe9",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-03T12:55:14Z",
+      "side": 1,
+      "message": "If |generate_key_frame| is true, this attribute isn\u0027t used.\nIf |generate_key_frame| is false, this attribute is used to initialize internal::VRS::keyframe_generation_requested_.\n\nBut this an internal detail in the VRS::GetAndSet method.",
+      "parentUuid": "5ec971c5_8a071d4f",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe5b8ee8_6a9773bb",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "5a64639850477bd2f137162041210699499e5879",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a53d03b_b4214a63",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-03T12:55:14Z",
+      "side": 1,
+      "message": "Oops. Sorry about that. Fixing.",
+      "parentUuid": "fe5b8ee8_6a9773bb",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 34
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

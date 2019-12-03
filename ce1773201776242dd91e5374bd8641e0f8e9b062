@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56657db1_93777107",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-12-03T18:07:44Z",
+      "side": 1,
+      "message": "A difference between the Message/MessageHandler and PostTask is that the MessageHandler will delete any pending tasks targeting that handler when it destructs. PostTask doesn\u0027t have that feature so you need some way to guarantee the object will live long enough, or a way to signal to tasks that the object was deleted. A common pattern in Chrome is to use a WeakPtr for these kinds of tasks.",
+      "range": {
+        "startLine": 352,
+        "startChar": 36,
+        "endLine": 352,
+        "endChar": 40
+      },
+      "revId": "ce1773201776242dd91e5374bd8641e0f8e9b062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

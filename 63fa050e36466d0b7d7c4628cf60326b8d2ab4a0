@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ba7fa56_8825c231",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T19:41:42Z",
+      "side": 1,
+      "message": "imo this method does not add any value. Just remove it and call  media_channel_-\u003eSetSink(ssrc_.value_or(0), sink) directly wherever you use it.",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 16
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4b47d79_5a685b62",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T19:41:42Z",
+      "side": 1,
+      "message": "ssrc_ is used on the worker thread. So why not set it there too.? Invoke is blocking so even even if it is also used on the signaling thread, it is safe.",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 15
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e49219_67d59b36",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T19:41:42Z",
+      "side": 1,
+      "message": "dito, seems pointless to not set media_channel on the worker thread and avoid this thread jumping. Invoke is blocking.",
+      "range": {
+        "startLine": 261,
+        "startChar": 2,
+        "endLine": 261,
+        "endChar": 16
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c042886e_c0e5d623",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T19:41:42Z",
+      "side": 1,
+      "message": "I am not sure I understand this comment. Why do you need to request a keyframe again? Shouldnt there be a new call to OnGenerateKeyFrame if another keyframe is requested? \nKeyframe requests are sent using RTCP  over UDP so there is never any guarantes that the sending client receive a requests.",
+      "range": {
+        "startLine": 296,
+        "startChar": 24,
+        "endLine": 296,
+        "endChar": 32
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec23a07_0c794c1f",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T19:41:42Z",
+      "side": 1,
+      "message": "no need,  worker_thread_-\u003eInvoke is blocking.",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 61,
+        "endChar": 32
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c30bb91_e359e172",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T19:41:42Z",
+      "side": 1,
+      "message": "nit /*ssrc\u003d*/ 0",
+      "range": {
+        "startLine": 107,
+        "startChar": 58,
+        "endLine": 107,
+        "endChar": 59
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e3e102a_8071a68b",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T19:41:42Z",
+      "side": 1,
+      "message": "nit: /*ssrc\u003d*/ 0",
+      "range": {
+        "startLine": 115,
+        "startChar": 61,
+        "endLine": 115,
+        "endChar": 62
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f4b21b_31a38566",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T19:41:42Z",
+      "side": 1,
+      "message": "Move to where it is used.",
+      "range": {
+        "startLine": 151,
+        "startChar": 29,
+        "endLine": 151,
+        "endChar": 34
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

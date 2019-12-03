@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f93d1d00_31b7617b",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T11:39:37Z",
+      "side": 1,
+      "message": "Consider adding RTC_DCHECK_EQ(buffer_, nullptr);",
+      "range": {
+        "startLine": 157,
+        "startChar": 1,
+        "endLine": 157,
+        "endChar": 25
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69dcd0e6_fa205f78",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T11:39:37Z",
+      "side": 1,
+      "message": "You probably considered that already, but does it work to make this (and the below) member private (without friend declarations or the like)?",
+      "range": {
+        "startLine": 57,
+        "startChar": 50,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ec971c5_8a071d4f",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T11:39:37Z",
+      "side": 1,
+      "message": "And expected to be false on the first call to SetAndGetRecordingState?\n\nCould setting this on first call replace the additional |generate_key_frame| argument? In the input to SetAndGetRecordingState, there are for possible combinations for key_frame_needed and generate_key_frame. Is that reasonable? It\u0027s not obvious to me what the intended behavior is in each of the four cases.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe5b8ee8_6a9773bb",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T11:39:37Z",
+      "side": 1,
+      "message": "Type looks odd. I had expected absl::optional\u003cint64_t\u003e or so.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 34
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

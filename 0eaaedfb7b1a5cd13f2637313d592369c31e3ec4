@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "28880665_d4744c26",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T11:39:37Z",
+      "side": 1,
+      "message": "Ah, we have subclasses with virtual methods. That makes me a bit confused. Maybe it ought to be virtual after all (but no need to change in this cl).",
+      "parentUuid": "ff94b279_5e173ce9",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "0eaaedfb7b1a5cd13f2637313d592369c31e3ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82f3245a_997800c1",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 9

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "07c108a4_bd3d0d7e",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T13:04:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34fa4edc_2c99930b",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 33
+      },
+      "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dffe77d7_e141aa3f",
         "filename": "pc/data_channel_controller.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ebd7db7_dec6623c",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T13:04:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dffe77d7_e141aa3f",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 51
+      },
+      "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6847efb1_ad14c8e1",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T13:04:54Z",
+      "side": 1,
+      "message": "Code was copied from peer_connection.h - I guessed that it was supposed to indicate need for explicit control over invoker lifetime. I\u0027ll run the tests without the destructor; if they pass, let\u0027s try it.",
+      "parentUuid": "c0d2cbe5_23f12a9a",
+      "range": {
+        "startLine": 30,
+        "startChar": 29,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d5910948_15542392",
         "filename": "pc/data_channel_controller.h",
         "patchSetId": 6
@@ -82,6 +154,24 @@
       "writtenOn": "2019-12-03T12:44:41Z",
       "side": 1,
       "message": "It look like this sentence was cut short.",
+      "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fa858d5_898bbc7c",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T13:04:54Z",
+      "side": 1,
+      "message": "It was actually a copy that copied one line too much. Deleted.\n(Original is still in peer_connection.h)",
+      "parentUuid": "d5910948_15542392",
       "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

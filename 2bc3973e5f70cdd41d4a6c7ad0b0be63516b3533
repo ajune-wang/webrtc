@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f722364_b89515f5",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-03T08:01:48Z",
+      "side": 1,
+      "message": "This looks like a race. This variable is now written on the worker thread and read on the signalling thread.\n\nIt looks to me like media_channel_  should always only be modified or used on the worker thread. So can you refactor SetmediaChannel to to invoke the worker thread and then set media_channel_ \u003d and do all of that work on the worker thread. You then dont need GenerateKeyFrame or SetEncodedSinksEnabled.\nYou can add thread annotations to saved_encoded_sink_enabled.",
+      "range": {
+        "startLine": 295,
+        "startChar": 2,
+        "endLine": 295,
+        "endChar": 29
+      },
+      "revId": "2bc3973e5f70cdd41d4a6c7ad0b0be63516b3533",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

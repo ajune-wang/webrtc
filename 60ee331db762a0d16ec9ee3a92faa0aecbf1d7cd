@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93ae547f_b80f0945",
+        "filename": "rtc_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-03T09:20:44Z",
+      "side": 1,
+      "message": "Both of these constructors just fill a small number of trivial fields with constants. I suspect you may save space by inlining them.",
+      "revId": "60ee331db762a0d16ec9ee3a92faa0aecbf1d7cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94ebc771_d7fe4966",
+        "filename": "rtc_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-03T09:20:44Z",
+      "side": 1,
+      "message": "If you remove these two, the type will be trivially copyable. Again, there\u0027s a good chance that this will save space.",
+      "revId": "60ee331db762a0d16ec9ee3a92faa0aecbf1d7cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67d31a71_ce9047e8",
+        "filename": "rtc_base/location.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-03T09:20:44Z",
+      "side": 1,
+      "message": "This one should stay non-inlined, though.",
+      "revId": "60ee331db762a0d16ec9ee3a92faa0aecbf1d7cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

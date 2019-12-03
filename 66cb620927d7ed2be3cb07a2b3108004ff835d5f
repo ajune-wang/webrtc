@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe244ce8_7e07933a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-03T09:41:43Z",
+      "side": 1,
+      "message": "Please mention that we also explicitly disable some unittests",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "66cb620927d7ed2be3cb07a2b3108004ff835d5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ec8bfc_7649c965",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-03T09:41:43Z",
+      "side": 1,
+      "message": "Maybe also refer to bugs.webrtc.org/11161",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 4
+      },
+      "revId": "66cb620927d7ed2be3cb07a2b3108004ff835d5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31b5669d_fd2aa888",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-03T09:41:43Z",
+      "side": 1,
+      "message": "nit since you seem to do this elsewhere: consider making it const\n(up to personal preference, feel free to ignore)",
+      "range": {
+        "startLine": 103,
+        "startChar": 2,
+        "endLine": 103,
+        "endChar": 6
+      },
+      "revId": "66cb620927d7ed2be3cb07a2b3108004ff835d5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aa438e8_af1e8f2d",
+        "filename": "modules/audio_processing/aec3/alignment_mixer.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-03T09:41:43Z",
+      "side": 1,
+      "message": "I think a word is missing here",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 27
+      },
+      "revId": "66cb620927d7ed2be3cb07a2b3108004ff835d5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cde0fa9_85bd0469",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-03T09:41:43Z",
+      "side": 1,
+      "message": "Maybe refer to bugs.webrtc.org/11161 instead of LDAP",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 12
+      },
+      "revId": "66cb620927d7ed2be3cb07a2b3108004ff835d5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

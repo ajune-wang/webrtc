@@ -13,7 +13,6 @@
 #include <iostream>
 #include <memory>
 
-#include "modules/audio_processing/echo_cancellation_impl.h"
 #include "modules/audio_processing/echo_control_mobile_impl.h"
 #include "modules/audio_processing/test/protobuf_utils.h"
 #include "rtc_base/checks.h"
@@ -330,24 +329,6 @@ void AecDumpBasedSimulator::HandleMessage(
       if (settings_.use_verbose_logging) {
         std::cout << " aec_extended_filter_enabled: "
                   << (enable ? "true" : "false") << std::endl;
-      }
-    }
-
-    if (msg.has_aec_suppression_level() || settings_.aec_suppression_level) {
-      auto level = static_cast<webrtc::EchoCancellationImpl::SuppressionLevel>(
-          settings_.aec_suppression_level ? *settings_.aec_suppression_level
-                                          : msg.aec_suppression_level());
-      if (level ==
-          webrtc::EchoCancellationImpl::SuppressionLevel::kLowSuppression) {
-        RTC_LOG(LS_ERROR)
-            << "Ignoring deprecated setting: AEC2 low suppression";
-      } else {
-        apm_config.echo_canceller.legacy_moderate_suppression_level =
-            (level == webrtc::EchoCancellationImpl::SuppressionLevel::
-                          kModerateSuppression);
-        if (settings_.use_verbose_logging) {
-          std::cout << " aec_suppression_level: " << level << std::endl;
-        }
       }
     }
 

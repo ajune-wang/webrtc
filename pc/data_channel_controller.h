@@ -77,12 +77,6 @@ class DataChannelController : public DataChannelProviderInterface,
     return !rtp_data_channels_.empty();
   }
 
-  // Called when it's appropriate to delete released datachannels.
-  void FreeDataChannels() {
-    RTC_DCHECK_RUN_ON(signaling_thread());
-    sctp_data_channels_to_free_.clear();
-  }
-
   void UpdateLocalRtpDataChannels(const cricket::StreamParamsVec& streams);
   void UpdateRemoteRtpDataChannels(const cricket::StreamParamsVec& streams);
 

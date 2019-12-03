@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2318e96_51e51781",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-12-03T20:34:00Z",
+      "side": 1,
+      "message": "nit: self \u003d weak_factory_.GetWeakPtr()",
+      "range": {
+        "startLine": 352,
+        "startChar": 51,
+        "endLine": 352,
+        "endChar": 55
+      },
+      "revId": "699ff8b8aca4f67049268a4331ea3ee51d412881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f61e79_3a096ae7",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-12-03T20:34:00Z",
+      "side": 1,
+      "message": "nit: weak_factory_{this};",
+      "revId": "699ff8b8aca4f67049268a4331ea3ee51d412881",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

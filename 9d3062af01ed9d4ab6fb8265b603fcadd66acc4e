@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12093522_af5cb740",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Can you add some documentation here. What kind of abstraction is it?",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19212379_0978339c",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Please add a doc, how the instance of this interface can be created.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 65
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac8d4e73_eb1df49a",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Do we want to expose stats?\nEmulatedNetworkStats stats();",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9342cc83_53a6b594",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Please document an ownership",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 30
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a114459_7efe6024",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Emulated or SimulatedNetwork to be consistent?",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 15
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "413e71e4_d04ef540",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Why do we need this method?",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 35
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53b572e1_d44d3638",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Should it be private and created inside manager?",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 62
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b51e5a1_fb4e7cfe",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Why do we need this method?",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 67
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d62ce38c_0891869b",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "EmulatedNode? To be consistent",
+      "range": {
+        "startLine": 140,
+        "startChar": 29,
+        "endLine": 140,
+        "endChar": 33
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714eee99_9f693892",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Please add documentation for this method and what is a use case for it",
+      "range": {
+        "startLine": 177,
+        "startChar": 25,
+        "endLine": 177,
+        "endChar": 36
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e6255d8_0169e0aa",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Please add documentation about routes and how they will be used. Also what if they will be cleared?",
+      "range": {
+        "startLine": 185,
+        "startChar": 27,
+        "endLine": 185,
+        "endChar": 41
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18142b8_7f42dcd6",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-03T15:18:38Z",
+      "side": 1,
+      "message": "Do we really need it? Adding one more entity can actually decrease code readability, because you need to remember that it is the same things.",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 14
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

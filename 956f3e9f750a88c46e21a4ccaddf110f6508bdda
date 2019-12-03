@@ -1,0 +1,259 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ef4dc59_ea7de6d6",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "These comments just repeat the code, so you can delete them while you\u0027re here.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48b69c73_5af84196",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "DCHECK(msg-\u003etype() \u003d\u003d GOOG_PING_REQUEST)?",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "354b8a54_48ab17f4",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "Shouldn\u0027t adding this attribute be behind a field trial of some sort?\nWe don\u0027t think anyone is going to crash and burn on extra attributes, but it seems prudent (even if the field trial starts out by defaulting to 100% on).",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98cec77e_c0621e32",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "This code actually calls out for a type-to-string converter to be used instead.\nThere\u0027s nothing in this function that guarantees that it\u0027s either BIND or PING.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee595dd_54d8e65a",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "If we get here and type() is GOOG_PING, and the peer doesn\u0027t support it, what\u0027s supposed to happen?\nDCHECK, error return, or just send GOOG_PING_RESPONSE to someone who doesn\u0027t support it?\n(DCHECK might be bad; an attacker could indicate non-support and send you a GOOG_PING_REQUEST anyway just to mess with you.)",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aee824e_c74e6d08",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "The resulting log will be \"Received STUN PING error response\".\nWould be clearer if it said \"Received error response to STUN PING request\".",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e3c77d9_197b0751",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "Dangerous. If you\u0027re sending GOOG_PING_REQUEST down a dead connection, or other unexpected errors, you\u0027re forcing retries here. Retries should be sharply limited to cases where you\u0027re positive that there\u0027s a reason to think the error is not fatal.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3be07daf_1c33e8a1",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "Umpteenth time you do a ?: on the type in a LOG. Bad code. Encapsulate.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95e2c0be_b9c9b085",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "The code and the comment are inconsistent. If you make the comment \"Compare all attributes except the ones listed below\", consistency will survive longer.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b20090_be73b3d9",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "Please write the comment in such a form that you can parse it a month from now. This is too telegrammatic.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "199e31ab_6669e154",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "This formatting *really* hurts the eyes - it\u0027s a two-column layout that has been garbled.\nIt\u0027s probably far beyond the scope of this CL, but Create() should really have taken a list of pairs, not a list of string / arg.\n\nI\u0027ve seen claims that clang-format will leave your list alone if you terminate the last element with a comma. I haven\u0027t tried it for this kind of thing.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41b3987e_f3a5e796",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "Are we doubling the runtime of p2p_transport_channel_unittest.c here?\nHow long will it take to execute these tests?\n\nSlow tests slow down development; if it\u0027s seconds, it\u0027s probably worth it; if it\u0027s +1 min, find a sharper way to test.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86adf09d_1331f0f1",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "The comment is wrong. (And take out that extra comma).",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "306baa6c_addf17d6",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "The comment is wrong.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c01449c_4a9acba4",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-03T09:19:39Z",
+      "side": 1,
+      "message": "With the amount of if(type) going on in this function, I wonder if 2 functions isn\u0027t more readable.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

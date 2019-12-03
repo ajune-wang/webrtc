@@ -46,6 +46,30 @@
       "revId": "ce1773201776242dd91e5374bd8641e0f8e9b062",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "053416b6_14534cc4",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-12-03T18:27:19Z",
+      "side": 1,
+      "message": "Yes, you want WeakPtr\u003cDataChannelController\u003e here.",
+      "parentUuid": "f170aa64_c74041ff",
+      "range": {
+        "startLine": 352,
+        "startChar": 36,
+        "endLine": 352,
+        "endChar": 40
+      },
+      "revId": "ce1773201776242dd91e5374bd8641e0f8e9b062",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

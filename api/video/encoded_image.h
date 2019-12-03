@@ -153,6 +153,10 @@ class RTC_EXPORT EncodedImage {
     capacity_ = 0;
   }
 
+  rtc::scoped_refptr<EncodedImageBufferInterface> GetEncodedData() const {
+    return encoded_data_;
+  }
+
   // TODO(nisse): Delete, provide only read-only access to the buffer.
   uint8_t* data() {
     return buffer_ ? buffer_

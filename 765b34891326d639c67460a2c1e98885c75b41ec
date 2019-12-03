@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "851d4c86_501acba3",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2019-12-03T00:03:25Z",
+      "side": 1,
+      "message": "I realize you\u0027ve just copied this from the previous code, but I think it could use a little clarification. Specifically, I had to look up the implementation of IsWindowOwned() to realize that (a) it was defined on the SelectedWindowContext, and (b) it means \"owned *by the selected window*\". That\u0027s an important point, because if the window was owned by any other window, it would not be correct to ignore it here, I think.",
+      "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c919c0_087f6bf5",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2019-12-03T00:03:25Z",
+      "side": 1,
+      "message": "Is this behaviour documented anywhere? I couldn\u0027t see anything in the official documentation. I would expect some sort of \"not-found\" error.",
+      "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1c8bddd_cfc8b963",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2019-12-03T00:03:25Z",
+      "side": 1,
+      "message": "What guarantee do you have that this error is temporary? You\u0027re going to loop forever if it\u0027s permanent.",
+      "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

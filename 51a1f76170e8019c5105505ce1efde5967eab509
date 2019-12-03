@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34fa4edc_2c99930b",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-03T12:44:41Z",
+      "side": 1,
+      "message": "You don\u0027t need to say this anymore, not that you\u0027re doing things by the book.",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 33
+      },
+      "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dffe77d7_e141aa3f",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-03T12:44:41Z",
+      "side": 1,
+      "message": "Obsolete.",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 51
+      },
+      "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d2cbe5_23f12a9a",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-03T12:44:41Z",
+      "side": 1,
+      "message": "The transport invoker will be deleted automatically when the unique_ptr goes out of scope. So no need for a manually defined destructor.",
+      "range": {
+        "startLine": 30,
+        "startChar": 29,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5910948_15542392",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-03T12:44:41Z",
+      "side": 1,
+      "message": "It look like this sentence was cut short.",
+      "revId": "51a1f76170e8019c5105505ce1efde5967eab509",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -188,6 +188,23 @@ TEST(RtxReceiveStreamTest, CopiesRtpHeaderExtensions) {
   rtx_sink.OnRtpPacket(rtx_packet);
 }
 
+TEST(RtxReceiveStreamTest, PropagatesArrivalTime) {
+  StrictMock<MockRtpPacketSink> media_sink;
+  RtxReceiveStream rtx_sink(&media_sink, PayloadTypeMapping(), kMediaSSRC);
+  RtpHeaderExtensionMap extension_map;
+  extension_map.RegisterByType(3, kRtpExtensionVideoRotation);
+  RtpPacketReceived rtx_packet(&extension_map);
+  EXPECT_TRUE(
+      rtx_packet.Parse(rtc::ArrayView<const uint8_t>(kRtxPacketWithCVO)));
+  rtx_packet.set_arrival_time_ms(123);
+
+  EXPECT_CALL(media_sink, OnRtpPacket)
+      .WillOnce([](const RtpPacketReceived& packet) {
+        EXPECT_EQ(packet.arrival_time_ms(), 123);
+      });
+  rtx_sink.OnRtpPacket(rtx_packet);
+}
+
 TEST(RtxReceiveStreamTest, SupportsLargePacket) {
   StrictMock<MockRtpPacketSink> media_sink;
   RtxReceiveStream rtx_sink(&media_sink, PayloadTypeMapping(), kMediaSSRC);

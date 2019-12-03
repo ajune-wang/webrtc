@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aa70eeb_cb624c04",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2618,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-12-03T15:20:32Z",
+      "side": 1,
+      "message": "please add a param or constant for this",
+      "range": {
+        "startLine": 2618,
+        "startChar": 56,
+        "endLine": 2618,
+        "endChar": 58
+      },
+      "revId": "e3245789e2525dea8b61a4657cd5156383f46d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ca9c18_f6846895",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-12-03T15:20:32Z",
+      "side": 1,
+      "message": "Does prefixing these with expect/expected really help?\nWould rather take a comment here indicating what the states represent.",
+      "range": {
+        "startLine": 360,
+        "startChar": 13,
+        "endLine": 360,
+        "endChar": 19
+      },
+      "revId": "e3245789e2525dea8b61a4657cd5156383f46d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a86df1f4_4505e585",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-12-03T15:20:32Z",
+      "side": 1,
+      "message": "nit: kConstant or CONSTANT",
+      "range": {
+        "startLine": 361,
+        "startChar": 4,
+        "endLine": 363,
+        "endChar": 31
+      },
+      "revId": "e3245789e2525dea8b61a4657cd5156383f46d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e7a0039_177837dc",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-12-03T15:20:32Z",
+      "side": 1,
+      "message": "You could also give the defaults here, and parse overrides using the struct parser. see eg rtc_base/experiments/struct_parameters_parser_unittest.cc",
+      "range": {
+        "startLine": 451,
+        "startChar": 4,
+        "endLine": 451,
+        "endChar": 8
+      },
+      "revId": "e3245789e2525dea8b61a4657cd5156383f46d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

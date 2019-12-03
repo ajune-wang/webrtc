@@ -45,11 +45,11 @@ std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
 }
 
 namespace {
-// If this FieldTrial is enabled, we will not filter out the abs-send-time
-// header extension when the TWCC extensions were also negotiated, but keep
-// kAbsSendTimeUri also if kTransportSequenceNumberUri is present.
+// If this FieldTrial is disabled, we will filter out the abs-send-time
+// header extension when the TWCC extensions were also negotiated: removing
+// kAbsSendTimeUri if kTransportSequenceNumberUri is present.
 bool IsKeepAbsSendTimeExtensionFieldTrialEnabled() {
-  return webrtc::field_trial::IsEnabled("WebRTC-KeepAbsSendTimeExtension");
+  return !webrtc::field_trial::IsDisabled("WebRTC-KeepAbsSendTimeExtension");
 }
 
 // Remove mutually exclusive extensions with lower priority.

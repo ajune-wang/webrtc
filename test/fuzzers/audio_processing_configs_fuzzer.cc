@@ -108,9 +108,6 @@ std::unique_ptr<AudioProcessing> CreateApm(test::FuzzDataHelper* fuzz_data,
 
   config.Set<ExperimentalAgc>(new ExperimentalAgc(exp_agc));
   config.Set<ExperimentalNs>(new ExperimentalNs(exp_ns));
-  config.Set<ExtendedFilter>(new ExtendedFilter(ef));
-  config.Set<RefinedAdaptiveFilter>(new RefinedAdaptiveFilter(raf));
-  config.Set<DelayAgnostic>(new DelayAgnostic(true));
 
   std::unique_ptr<AudioProcessing> apm(
       AudioProcessingBuilder()

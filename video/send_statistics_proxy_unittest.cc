@@ -27,6 +27,7 @@
 #include "test/field_trial.h"
 #include "test/gtest.h"
 
+#if RTC_METRICS_ENABLED
 namespace webrtc {
 namespace {
 const uint32_t kFirstSsrc = 17;
@@ -2839,3 +2840,4 @@ TEST_F(ForcedFallbackEnabled, FallbackIfAtMaxPixels) {
 }
 
 }  // namespace webrtc
+#endif

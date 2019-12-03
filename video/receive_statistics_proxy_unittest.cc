@@ -26,6 +26,7 @@
 #include "test/field_trial.h"
 #include "test/gtest.h"
 
+#if RTC_METRICS_ENABLED
 namespace webrtc {
 namespace {
 const int64_t kFreqOffsetProcessIntervalInMs = 40000;
@@ -1771,3 +1772,4 @@ INSTANTIATE_TEST_SUITE_P(KillswitchEffective,
                                            kKillswitchEnabled));
 
 }  // namespace webrtc
+#endif

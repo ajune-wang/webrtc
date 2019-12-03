@@ -50,53 +50,6 @@ class EchoDetector;
 class CustomAudioAnalyzer;
 class CustomProcessing;
 
-// Use to enable the extended filter mode in the AEC, along with robustness
-// measures around the reported system delays. It comes with a significant
-// increase in AEC complexity, but is much more robust to unreliable reported
-// delays.
-//
-// Detailed changes to the algorithm:
-// - The filter length is changed from 48 to 128 ms. This comes with tuning of
-//   several parameters: i) filter adaptation stepsize and error threshold;
-//   ii) non-linear processing smoothing and overdrive.
-// - Option to ignore the reported delays on platforms which we deem
-//   sufficiently unreliable. See WEBRTC_UNTRUSTED_DELAY in echo_cancellation.c.
-// - Faster startup times by removing the excessive "startup phase" processing
-//   of reported delays.
-// - Much more conservative adjustments to the far-end read pointer. We smooth
-//   the delay difference more heavily, and back off from the difference more.
-//   Adjustments force a readaptation of the filter, so they should be avoided
-//   except when really necessary.
-struct ExtendedFilter {
-  ExtendedFilter() : enabled(false) {}
-  explicit ExtendedFilter(bool enabled) : enabled(enabled) {}
-  static const ConfigOptionID identifier = ConfigOptionID::kExtendedFilter;
-  bool enabled;
-};
-
-// Enables the refined linear filter adaptation in the echo canceller.
-// This configuration only applies to non-mobile echo cancellation.
-// It can be set in the constructor or using AudioProcessing::SetExtraOptions().
-struct RefinedAdaptiveFilter {
-  RefinedAdaptiveFilter() : enabled(false) {}
-  explicit RefinedAdaptiveFilter(bool enabled) : enabled(enabled) {}
-  static const ConfigOptionID identifier =
-      ConfigOptionID::kAecRefinedAdaptiveFilter;
-  bool enabled;
-};
-
-// Enables delay-agnostic echo cancellation. This feature relies on internally
-// estimated delays between the process and reverse streams, thus not relying
-// on reported system delays. This configuration only applies to non-mobile echo
-// cancellation. It can be set in the constructor or using
-// AudioProcessing::SetExtraOptions().
-struct DelayAgnostic {
-  DelayAgnostic() : enabled(false) {}
-  explicit DelayAgnostic(bool enabled) : enabled(enabled) {}
-  static const ConfigOptionID identifier = ConfigOptionID::kDelayAgnostic;
-  bool enabled;
-};
-
 // Use to enable experimental gain control (AGC). At startup the experimental
 // AGC moves the microphone volume up to |startup_min_volume| if the current
 // microphone volume is set too low. The value is clamped to its operating range

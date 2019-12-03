@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/test/network_emulation/network_emulation_interfaces.h"
 #include "api/test/simulated_network.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
@@ -36,8 +37,7 @@ namespace webrtc {
 // Multiple networks can be joined into chain emulating a network path from
 // one peer to another.
 class EmulatedNetworkNode;
-// EmulatedEndpoint is and abstraction for network interface on device.
-class EmulatedEndpoint;
+
 // EmulatedRoute is handle for single route from one network interface on one
 // peer device to another network interface on another peer device.
 class EmulatedRoute;
@@ -106,6 +106,28 @@ class EmulatedNetworkManagerInterface {
 // and will be deleted when manager will be deleted.
 class NetworkEmulationManager {
  public:
+  // Helper struct to simplify creation and control of simulated network
+  // behaviors.
+  struct SimulatedNetworkNode {
+    SimulatedNetworkInterface* simulation;
+    EmulatedNetworkNode* node;
+  };
+  class NetworkNodeBuilder {
+   public:
+    NetworkNodeBuilder() = default;
+    explicit NetworkNodeBuilder(NetworkEmulationManager* net);
+    NetworkNodeBuilder& config(SimulatedNetworkInterface::Config config);
+    NetworkNodeBuilder& delay_ms(int queue_delay_ms);
+    NetworkNodeBuilder& capacity_kbps(int link_capacity_kbps);
+    NetworkNodeBuilder& capacity_Mbps(int link_capacity_Mbps);
+    NetworkNodeBuilder& loss(double loss_rate);
+    SimulatedNetworkNode Build() const;
+    SimulatedNetworkNode Build(NetworkEmulationManager* net) const;
+
+   private:
+    NetworkEmulationManager* const net_ = nullptr;
+    SimulatedNetworkInterface::Config config_;
+  };
   virtual ~NetworkEmulationManager() = default;
 
   // Creates an emulated network node, which represents single network in
@@ -114,6 +136,8 @@ class NetworkEmulationManager {
       BuiltInNetworkBehaviorConfig config) = 0;
   virtual EmulatedNetworkNode* CreateEmulatedNode(
       std::unique_ptr<NetworkBehaviorInterface> network_behavior) = 0;
+
+  virtual NetworkNodeBuilder NodeBuilder() = 0;
 
   // Creates an emulated endpoint, which represents single network interface on
   // the peer's device.
@@ -149,10 +173,17 @@ class NetworkEmulationManager {
       EmulatedEndpoint* from,
       const std::vector<EmulatedNetworkNode*>& via_nodes,
       EmulatedEndpoint* to) = 0;
+
+  virtual EmulatedRoute* CreateRoute(
+      const std::vector<EmulatedNetworkNode*>& via_nodes) = 0;
+
   // Removes route previously created by CreateRoute(...).
   // Caller mustn't call this function with route, that have been already
   // removed earlier.
   virtual void ClearRoute(EmulatedRoute* route) = 0;
+
+  virtual TcpMessageRoute* CreateTcpRoute(EmulatedRoute* send_route,
+                                          EmulatedRoute* ret_route) = 0;
 
   // Creates EmulatedNetworkManagerInterface which can be used then to inject
   // network emulation layer into PeerConnection. |endpoints| - are available

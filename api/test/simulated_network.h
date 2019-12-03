@@ -80,6 +80,17 @@ class NetworkBehaviorInterface {
   virtual ~NetworkBehaviorInterface() = default;
 };
 
+// Class simulating a network link. This is a simple and naive solution just
+// faking capacity and adding an extra transport delay in addition to the
+// capacity introduced delay.
+class SimulatedNetworkInterface : public NetworkBehaviorInterface {
+ public:
+  using Config = BuiltInNetworkBehaviorConfig;
+  // Sets a new configuration. This won't affect packets already in the pipe.
+  virtual void SetConfig(const Config& config) = 0;
+  virtual void PauseTransmissionUntil(int64_t until_us) = 0;
+};
+
 }  // namespace webrtc
 
 #endif  // API_TEST_SIMULATED_NETWORK_H_

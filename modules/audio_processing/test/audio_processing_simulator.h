@@ -61,11 +61,9 @@ struct SimulationSettings {
   absl::optional<bool> use_vad;
   absl::optional<bool> use_le;
   absl::optional<bool> use_all;
-  absl::optional<int> aec_suppression_level;
   absl::optional<bool> use_delay_agnostic;
   absl::optional<bool> use_extended_filter;
   absl::optional<bool> use_drift_compensation;
-  absl::optional<bool> use_legacy_aec;
   absl::optional<bool> use_legacy_ns;
   absl::optional<bool> use_experimental_agc;
   absl::optional<bool> use_experimental_agc_agc2_level_estimator;

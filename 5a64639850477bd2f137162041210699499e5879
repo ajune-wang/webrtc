@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e109161b_c733822d",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T13:07:20Z",
+      "side": 1,
+      "message": "That\u0027s fine. (I forgot that the _EQ versions don\u0027t work well with ponters).",
+      "parentUuid": "04c3d23f_faab316c",
+      "range": {
+        "startLine": 157,
+        "startChar": 1,
+        "endLine": 157,
+        "endChar": 25
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69dcd0e6_fa205f78",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 10
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "315b6324_2a14af45",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T13:07:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5a396cab_bc850c0c",
+      "range": {
+        "startLine": 57,
+        "startChar": 50,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ec971c5_8a071d4f",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 10
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "If |generate_key_frame| is true, this attribute isn\u0027t used.\nIf |generate_key_frame| is false, this attribute is used to initialize internal::VRS::keyframe_generation_requested_.\n\nBut this an internal detail in the VRS::GetAndSet method.",
       "parentUuid": "5ec971c5_8a071d4f",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "5a64639850477bd2f137162041210699499e5879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a2f4dbd_5d207540",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T13:07:20Z",
+      "side": 1,
+      "message": "Ok, thanks for the clarification. I think this could be made slightly cleaner without the |generate_key_frame| argument, but it\u0027s good enough as is.",
+      "parentUuid": "792b8a0f_08e69fe9",
       "range": {
         "startLine": 59,
         "startChar": 0,

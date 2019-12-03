@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2e9a1bb_49d129be",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T13:07:20Z",
+      "side": 1,
+      "message": "nit: Prefer optional over magic value.",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "b8ed6e5a9c7a34599fb908f07c737a36822f11d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

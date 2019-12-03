@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8250326f_898e083b",
+        "filename": "call/rtx_receive_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-03T13:15:23Z",
+      "side": 1,
+      "message": "might as well use kRtxPacket\n(instead of the rtx packet with the video orientation)",
+      "range": {
+        "startLine": 197,
+        "startChar": 63,
+        "endLine": 197,
+        "endChar": 70
+      },
+      "revId": "f31ec1d6f20c3648f6194baba87247388b7189e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

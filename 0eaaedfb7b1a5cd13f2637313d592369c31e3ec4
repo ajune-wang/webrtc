@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b50a2a0_4439c019",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T08:03:01Z",
+      "side": 1,
+      "message": "Not needed, as long as there are no other virtual methods.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "0eaaedfb7b1a5cd13f2637313d592369c31e3ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82f3245a_997800c1",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T08:03:01Z",
+      "side": 1,
+      "message": "Please rephrase, I\u0027m having some difficulty understanding this, in particular \"we inherit from EncodedImageBufferInterface\".",
+      "range": {
+        "startLine": 68,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 21
+      },
+      "revId": "0eaaedfb7b1a5cd13f2637313d592369c31e3ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c59a5f41_bcaedb83",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-03T08:03:01Z",
+      "side": 1,
+      "message": "const, please (and const ref is probably more consistent with other code than const pointer).",
+      "range": {
+        "startLine": 74,
+        "startChar": 40,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "0eaaedfb7b1a5cd13f2637313d592369c31e3ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

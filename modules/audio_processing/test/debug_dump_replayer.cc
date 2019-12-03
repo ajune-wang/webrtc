@@ -10,7 +10,6 @@
 
 #include "modules/audio_processing/test/debug_dump_replayer.h"
 
-#include "modules/audio_processing/echo_cancellation_impl.h"
 #include "modules/audio_processing/test/protobuf_utils.h"
 #include "modules/audio_processing/test/runtime_setting_util.h"
 #include "rtc_base/checks.h"
@@ -211,12 +210,6 @@ void DebugDumpReplayer::ConfigureApm(const audioproc::Config& msg) {
   RTC_CHECK(msg.has_aecm_enabled());
   apm_config.echo_canceller.enabled = msg.aec_enabled() || msg.aecm_enabled();
   apm_config.echo_canceller.mobile_mode = msg.aecm_enabled();
-
-  RTC_CHECK(msg.has_aec_suppression_level());
-  apm_config.echo_canceller.legacy_moderate_suppression_level =
-      static_cast<EchoCancellationImpl::SuppressionLevel>(
-          msg.aec_suppression_level()) ==
-      EchoCancellationImpl::SuppressionLevel::kModerateSuppression;
 
   // HPF configs.
   RTC_CHECK(msg.has_hpf_enabled());

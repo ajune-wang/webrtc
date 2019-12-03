@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ff94b279_5e173ce9",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-03T11:04:51Z",
+      "side": 1,
+      "message": "Because of non-virtual destructor, in a prior incarnation of the CL, I managed to cause mid-block freeing due to it not being virtual. It was also strange that I never got any warning about causing that.\n\nThat way of using EncodedImage was now changed back to protected inheritance so I\u0027ll follow your recommendation.",
+      "parentUuid": "8b50a2a0_4439c019",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "0eaaedfb7b1a5cd13f2637313d592369c31e3ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82f3245a_997800c1",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b3fe134b_e1d1772f",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-03T11:04:51Z",
+      "side": 1,
+      "message": "Unsynced comment after code updates. I\u0027ve deleted the note.",
+      "parentUuid": "82f3245a_997800c1",
+      "range": {
+        "startLine": 68,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 21
+      },
+      "revId": "0eaaedfb7b1a5cd13f2637313d592369c31e3ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c59a5f41_bcaedb83",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 9
@@ -68,6 +116,30 @@
       "revId": "0eaaedfb7b1a5cd13f2637313d592369c31e3ec4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "380249d3_e434fa57",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-03T11:04:51Z",
+      "side": 1,
+      "message": "As per offline discussion:\nGetEncodedData() was calling Retain which requires nonconst. I changed the code to Retain the buffer before creating the WebRtcRecordableEncodedFrame.",
+      "parentUuid": "c59a5f41_bcaedb83",
+      "range": {
+        "startLine": 74,
+        "startChar": 40,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "0eaaedfb7b1a5cd13f2637313d592369c31e3ec4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

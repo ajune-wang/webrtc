@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dfbfe0e_e4a15a9c",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-04T10:17:44Z",
+      "side": 1,
+      "message": "nit: I prefer to remove this method and just call \nmedia_channel_-\u003eGenerateKeyFrame(ssrc_.value_or(0)) directly.",
+      "range": {
+        "startLine": 277,
+        "startChar": 23,
+        "endLine": 277,
+        "endChar": 39
+      },
+      "revId": "c83e751397ff86c4d87c25c3fd4048c632fda4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30d0a3f5_843ac3bf",
+        "filename": "pc/video_rtp_receiver.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-04T10:17:44Z",
+      "side": 1,
+      "message": "nit |media_channel_|",
+      "range": {
+        "startLine": 141,
+        "startChar": 50,
+        "endLine": 141,
+        "endChar": 64
+      },
+      "revId": "c83e751397ff86c4d87c25c3fd4048c632fda4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

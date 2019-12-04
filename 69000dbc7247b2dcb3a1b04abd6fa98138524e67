@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92a7382f_a450541d",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "nit: it feels unconventional to have qualified enum in this form instead of just using enum class.",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 681,
+        "endChar": 9
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ab17f35_e8d096bf",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "StunMethodToString(msg-\u003etype())?",
+      "range": {
+        "startLine": 458,
+        "startChar": 52,
+        "endLine": 458,
+        "endChar": 64
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075ec4e0_d39b47bf",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "Could use a constant and add a test to cover we negotiate the correct version in case we forget to change it for breaking changes.",
+      "range": {
+        "startLine": 653,
+        "startChar": 8,
+        "endLine": 653,
+        "endChar": 9
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "665db152_17a58cf6",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "We have an existing method called SendBindingResponse. I feel SendGoogPingResponse is less confusing. I also find the two methods have quite some overlap in message construction and sending process, so I\u0027d suggest we merge the diff to the existing one as other message handling in this patch if you agree.",
+      "range": {
+        "startLine": 687,
+        "startChar": 17,
+        "endLine": 687,
+        "endChar": 33
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ca7953_41c62bef",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "Should we also compare with the version number supported by this endpoint? There can be version mismatch.",
+      "range": {
+        "startLine": 1082,
+        "startChar": 58,
+        "endLine": 1082,
+        "endChar": 61
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0530ea9b_9bd8968c",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "nit: not necessary",
+      "range": {
+        "startLine": 1315,
+        "startChar": 32,
+        "endLine": 1315,
+        "endChar": 39
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0efea20_17fb26e5",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "nit: supports",
+      "range": {
+        "startLine": 434,
+        "startChar": 52,
+        "endLine": 434,
+        "endChar": 59
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f91d5bfe_1036c209",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "I am wondering what the circumstance would be for us to not announce the support if we can. I\u0027d imagine we respond based on the capability given below by enable_goog_ping (if its definition is given by the one in the field trial file instead of the comment below). IOW, I feel this switch is unnecessary.",
+      "range": {
+        "startLine": 654,
+        "startChar": 9,
+        "endLine": 654,
+        "endChar": 40
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b56f2778_8d647376",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "This seems inconsistent with the definition of enable_goog_ping in the field trial file.",
+      "range": {
+        "startLine": 656,
+        "startChar": 9,
+        "endLine": 656,
+        "endChar": 43
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e05211c7_e6b00955",
+        "filename": "p2p/base/p2p_transport_channel_ice_field_trials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-12-04T19:01:08Z",
+      "side": 1,
+      "message": "nit: the style guide favors a period at the end.",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 4
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

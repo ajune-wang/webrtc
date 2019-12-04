@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f29c11b_98c0afcd",
+        "filename": "call/resource_consumer_configuration.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-12-04T12:38:11Z",
+      "side": 1,
+      "message": "Self-review: Add a test for when there are multiple neighbors to choose from, verifying that the highest preference is used.",
+      "revId": "c3f04e2102d6b01d4f00a97b6c858babe41b193b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

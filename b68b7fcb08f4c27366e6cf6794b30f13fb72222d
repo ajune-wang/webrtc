@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6582b77b_f1d94620",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-04T11:37:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "678001eb_e9098e64",
+      "range": {
+        "startLine": 451,
+        "startChar": 37,
+        "endLine": 451,
+        "endChar": 41
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "754a8cad_d9d7d76a",
         "filename": "api/test/create_frame_generator.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "402481b9_8d352fd1",
+        "filename": "api/test/create_frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-04T11:37:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "754a8cad_d9d7d76a",
+      "range": {
+        "startLine": 29,
+        "startChar": 41,
+        "endLine": 29,
+        "endChar": 62
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "54f5f05a_af7c3c26",
+        "filename": "api/test/create_frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-04T11:37:25Z",
+      "side": 1,
+      "message": "Indeed, all this refactoring is initiated to provide IVF frame generator support. I\u0027ll add factory method for it in next CL.",
+      "parentUuid": "07f1f48b_486a78ae",
+      "range": {
+        "startLine": 38,
+        "startChar": 41,
+        "endLine": 38,
+        "endChar": 58
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b349875_bbaa192b",
         "filename": "api/test/create_frame_generator.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2df7a940_e18bb895",
+        "filename": "api/test/create_frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-04T11:37:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b349875_bbaa192b",
+      "range": {
+        "startLine": 62,
+        "startChar": 43,
+        "endLine": 62,
+        "endChar": 68
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ec0fb538_7d019f30",
+        "filename": "api/test/frame_generator_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-04T11:37:25Z",
+      "side": 1,
+      "message": "I rechecked implementations and yep, this comment can be removed. But looks like we need to cleanup impls a bit to not return any private fields as a buffer here.",
+      "parentUuid": "9b1cc9f4_6b4d040d",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 69
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25cd42e6_05e787c5",
         "filename": "test/frame_generator.h",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73f7fe8b_2e2fdc2d",
+        "filename": "test/frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-04T11:37:25Z",
+      "side": 1,
+      "message": "Not yet. There are some deps on this one. I\u0027ll fix that in next CLs.",
+      "parentUuid": "25cd42e6_05e787c5",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 55
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

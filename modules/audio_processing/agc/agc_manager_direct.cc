@@ -61,6 +61,9 @@ const int kMaxResidualGainChange = 15;
 // restrictions from clipping events.
 const int kSurplusCompressionGain = 6;
 
+// Gain to apply on raw signal before VAD computation
+const float kDefaultRawGainLevel = 256.0f;
+
 // Maximum number of channels and number of samples per channel supported.
 constexpr size_t kMaxNumSamplesPerChannel = 1920;
 constexpr size_t kMaxNumChannels = 4;
@@ -200,7 +203,8 @@ AgcManagerDirect::AgcManagerDirect(GainControl* gctrl,
       min_mic_level_(GetMinMicLevel()),
       disable_digital_adaptive_(disable_digital_adaptive),
       startup_min_level_(ClampLevel(startup_min_level, min_mic_level_)),
-      clipped_level_min_(clipped_level_min) {
+      clipped_level_min_(clipped_level_min),
+      raw_gain_(kDefaultRawGainLevel) {
   instance_counter_++;
   if (use_agc2_level_estimation) {
     agc_ = std::make_unique<AdaptiveModeLevelEstimatorAgc>(data_dumper_.get());
@@ -285,7 +289,7 @@ void AgcManagerDirect::Process(const float* audio,
   if (audio) {
     audio_fix = audio_data.data();
     safe_length = std::min(audio_data.size(), length);
-    FloatS16ToS16(audio, length, audio_data.data());
+    FloatS16ToS16(audio, raw_gain_, length, audio_data.data());
   } else {
     audio_fix = nullptr;
     safe_length = length;
@@ -420,7 +424,7 @@ int AgcManagerDirect::CheckVolumeAndReset() {
 // it, in which case we take no action and cache the updated level.
 void AgcManagerDirect::UpdateGain() {
   int rms_error = 0;
-  if (!agc_->GetRmsErrorDb(&rms_error)) {
+  if (!agc_->GetRmsErrorDb(&rms_error, raw_gain_)) {
     // No error update ready.
     return;
   }
@@ -428,6 +432,9 @@ void AgcManagerDirect::UpdateGain() {
   // this adjusts our target gain upward by the same amount and rms_error
   // needs to reflect that.
   rms_error += kMinCompressionGain;
+
+  // compensate for raw gain applied
+  // rms_error += raw_gain_db_;
 
   // Handle as much error as possible with the compressor first.
   int raw_compression =
@@ -454,7 +461,7 @@ void AgcManagerDirect::UpdateGain() {
   const int residual_gain =
       rtc::SafeClamp(rms_error - raw_compression, -kMaxResidualGainChange,
                      kMaxResidualGainChange);
-  RTC_DLOG(LS_INFO) << "[agc] rms_error=" << rms_error
+  RTC_LOG(LS_INFO) << "[agc] rms_error=" << rms_error
                     << ", target_compression=" << target_compression_
                     << ", residual_gain=" << residual_gain;
   if (residual_gain == 0)

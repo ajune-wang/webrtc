@@ -1372,6 +1372,9 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   if (constants_.use_experimental_agc &&
       submodules_.gain_control->is_enabled()) {
+    data_dumper_->DumpRaw("temp_preagc_audio_raw",
+    capture_buffer->num_frames_per_band(),
+    capture_buffer->split_bands_const_f(0)[kBand0To8kHz]);
     submodules_.agc_manager->Process(
         capture_buffer->split_bands_const_f(0)[kBand0To8kHz],
         capture_buffer->num_frames_per_band(), capture_nonlocked_.split_rate);

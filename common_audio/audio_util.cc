@@ -32,6 +32,11 @@ void FloatS16ToS16(const float* src, size_t size, int16_t* dest) {
     dest[i] = FloatS16ToS16(src[i]);
 }
 
+void FloatS16ToS16(const float* src, const float gain, size_t size, int16_t* dest) {
+  for (size_t i = 0; i < size; ++i)
+    dest[i] = FloatS16ToS16(src[i]*gain);
+}
+
 void FloatToFloatS16(const float* src, size_t size, float* dest) {
   for (size_t i = 0; i < size; ++i)
     dest[i] = FloatToFloatS16(src[i]);

@@ -32,6 +32,7 @@ class Agc {
   // signal RMS level in dB. Returns true if an update is available and false
   // otherwise, in which case |error| should be ignored and no action taken.
   virtual bool GetRmsErrorDb(int* error);
+  virtual bool GetRmsErrorDb(int* error, float rms_compensation);
   virtual void Reset();
 
   virtual int set_target_level_dbfs(int level);

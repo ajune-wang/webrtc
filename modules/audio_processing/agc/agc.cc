@@ -17,7 +17,6 @@
 #include "modules/audio_processing/agc/loudness_histogram.h"
 #include "modules/audio_processing/agc/utility.h"
 #include "rtc_base/checks.h"
-
 namespace webrtc {
 namespace {
 
@@ -47,6 +46,10 @@ void Agc::Process(const int16_t* audio, size_t length, int sample_rate_hz) {
 }
 
 bool Agc::GetRmsErrorDb(int* error) {
+  return GetRmsErrorDb(error, 1.0f);
+}
+
+bool Agc::GetRmsErrorDb(int* error, float rms_compensation) {
   if (!error) {
     RTC_NOTREACHED();
     return false;
@@ -62,7 +65,7 @@ bool Agc::GetRmsErrorDb(int* error) {
     return false;
   }
 
-  double loudness = Linear2Loudness(histogram_->CurrentRms());
+  double loudness = Linear2Loudness(histogram_->CurrentRms()/rms_compensation);
   *error = std::floor(Loudness2Db(target_level_loudness_ - loudness) + 0.5);
   histogram_->Reset();
   return true;

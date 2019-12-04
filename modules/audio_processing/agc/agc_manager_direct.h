@@ -123,6 +123,9 @@ class AgcManagerDirect final {
   const int clipped_level_min_;
   int calls_since_last_gain_log_ = 0;
 
+  float raw_gain_;
+  //int raw_gain_db_;
+
   RTC_DISALLOW_COPY_AND_ASSIGN(AgcManagerDirect);
 };
 

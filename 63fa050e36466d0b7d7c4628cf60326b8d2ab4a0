@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d18acbef_cfb217ba",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-04T09:40:17Z",
+      "side": 1,
+      "message": "I shortened it. I don\u0027t feel good about duplicating that TODO comment everywhere. PTAL if you like the new iteration, less text and less vert space wasted.",
+      "parentUuid": "4ba7fa56_8825c231",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 16
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4b47d79_5a685b62",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3761d46c_1f59f009",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-04T09:40:17Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d4b47d79_5a685b62",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 15
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "762852cd_7f6ab1fa",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-04T09:40:17Z",
+      "side": 1,
+      "message": "Dito, check.",
+      "parentUuid": "96e49219_67d59b36",
+      "range": {
+        "startLine": 261,
+        "startChar": 2,
+        "endLine": 261,
+        "endChar": 16
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c042886e_c0e5d623",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7451102_934598bf",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-04T09:40:17Z",
+      "side": 1,
+      "message": "GenerateKeyFrame happens down in VideoStreamReceiver, and is more logic than just \"send 1 RTCP\". We don\u0027t know up here if the VRS has received a keyframe, therefore I have to remember that we once got a call to OnGenerateKeyFrame so I can call it again on the new channel.",
+      "parentUuid": "c042886e_c0e5d623",
+      "range": {
+        "startLine": 296,
+        "startChar": 24,
+        "endLine": 296,
+        "endChar": 32
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "65dc1c8a_2511a192",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-04T09:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dec23a07_0c794c1f",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 61,
+        "endChar": 32
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c30bb91_e359e172",
         "filename": "pc/video_rtp_receiver_unittest.cc",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0da3d1e_8b5d960d",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-04T09:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c30bb91_e359e172",
+      "range": {
+        "startLine": 107,
+        "startChar": 58,
+        "endLine": 107,
+        "endChar": 59
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "e7e69c03_faafce45",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-04T09:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e3e102a_8071a68b",
+      "range": {
+        "startLine": 115,
+        "startChar": 61,
+        "endLine": 115,
+        "endChar": 62
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9f4b21b_31a38566",
         "filename": "pc/video_rtp_receiver_unittest.cc",
         "patchSetId": 5
@@ -183,6 +351,30 @@
       "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0206f61_f569b4fc",
+        "filename": "pc/video_rtp_receiver_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2019-12-04T09:40:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9f4b21b_31a38566",
+      "range": {
+        "startLine": 151,
+        "startChar": 29,
+        "endLine": 151,
+        "endChar": 34
+      },
+      "revId": "63fa050e36466d0b7d7c4628cf60326b8d2ab4a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -20,6 +20,63 @@
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
 
+#if defined(RTC_DISABLE_METRICS)
+#define RTC_METRICS_ENABLED 0
+#else
+#define RTC_METRICS_ENABLED 1
+#endif
+
+#if RTC_METRICS_ENABLED
+#define EXPECT_METRIC_EQ(val1, val2) EXPECT_EQ(val1, val2)
+#define EXPECT_METRIC_EQ_WAIT(val1, val2, timeout) \
+  EXPECT_EQ_WAIT(val1, val2, timeout)
+#define EXPECT_METRIC_GT(val1, val2) EXPECT_GT(val1, val2)
+#define EXPECT_METRIC_LE(val1, val2) EXPECT_LE(val1, val2)
+#define EXPECT_METRIC_TRUE(conditon) EXPECT_TRUE(conditon)
+#define EXPECT_METRIC_FALSE(conditon) EXPECT_FALSE(conditon)
+#define EXPECT_METRIC_THAT(value, matcher) EXPECT_THAT(value, matcher)
+#else
+#define RTC_NOOP2(val1, val2) \
+  do {                        \
+    static_cast<void>(val1);  \
+    static_cast<void>(val2);  \
+  } while (0)
+
+#define RTC_NOOP3(val1, val2, val3) \
+  do {                              \
+    static_cast<void>(val1);        \
+    static_cast<void>(val2);        \
+    static_cast<void>(val3);        \
+  } while (0)
+
+#define RTC_NOOP4(val1, val2, val3, val4) \
+  do {                                    \
+    static_cast<void>(val1);              \
+    static_cast<void>(val2);              \
+    static_cast<void>(val3);              \
+    static_cast<void>(val4);              \
+  } while (0)
+
+#define RTC_NOOP5(val1, val2, val3, val4, val5) \
+  do {                                          \
+    static_cast<void>(val1);                    \
+    static_cast<void>(val2);                    \
+    static_cast<void>(val3);                    \
+    static_cast<void>(val4);                    \
+    static_cast<void>(val5);                    \
+  } while (0)
+
+#define EXPECT_METRIC_EQ(val1, val2) RTC_NOOP2(val1, val2)
+#define EXPECT_METRIC_EQ_WAIT(val1, val2, timeout) \
+  RTC_NOOP3(val1, val2, timeout)
+#define EXPECT_METRIC_GT(val1, val2) RTC_NOOP2(val1, val2)
+#define EXPECT_METRIC_LE(val1, val2) RTC_NOOP2(val1, val2)
+#define EXPECT_METRIC_TRUE(condition) EXPECT_TRUE(condition || true)
+#define EXPECT_METRIC_FALSE(condition) EXPECT_FALSE(condition && false)
+#define EXPECT_METRIC_THAT(value, matcher) EXPECT_THAT(value, testing::_)
+#endif
+
+#if RTC_METRICS_ENABLED
 // Macros for allowing WebRTC clients (e.g. Chrome) to gather and aggregate
 // statistics.
 //
@@ -240,6 +297,95 @@
         RTC_NOTREACHED();                                            \
     }                                                                \
   } while (0)
+
+#else
+
+////////////////////////////////////////////////////////////////////////////////
+// This section defines no-op alternatives to the metrics macros when
+// RTC_METRICS_ENABLED is defined.
+
+#define RTC_HISTOGRAM_COUNTS_100(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_200(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_500(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_1000(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_10000(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_100000(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS(name, sample, min, max, bucket_count) \
+  RTC_NOOP5(name, sample, min, max, bucket_count)
+
+#define RTC_HISTOGRAM_COUNTS_LINEAR(name, sample, min, max, bucket_count) \
+  RTC_NOOP5(name, sample, min, max, bucket_count)
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_100(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_200(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_500(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_1000(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_10000(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE_100000(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_COUNTS_SPARSE(name, sample, min, max, bucket_count) \
+  RTC_NOOP5(name, sample, min, max, bucket_count)
+
+#define RTC_HISTOGRAM_PERCENTAGE_SPARSE(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_BOOLEAN_SPARSE(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_ENUMERATION_SPARSE(name, sample, boundary) \
+  RTC_NOOP3(name, sample, boundary)
+
+#define RTC_HISTOGRAM_PERCENTAGE(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_BOOLEAN(name, sample) RTC_NOOP2(name, sample)
+
+#define RTC_HISTOGRAM_ENUMERATION(name, sample, boundary) \
+  RTC_NOOP3(name, sample, boundary)
+
+#define RTC_HISTOGRAM_COMMON_BLOCK(constant_name, sample,  \
+                                   factory_get_invocation) \
+  RTC_NOOP3(constant_name, sample, factory_get_invocation)
+
+#define RTC_HISTOGRAM_COMMON_BLOCK_SLOW(name, sample, factory_get_invocation) \
+  RTC_NOOP3(name, sample, factory_get_invocation)
+
+#define RTC_HISTOGRAMS_COUNTS_100(index, name, sample) \
+  RTC_NOOP3(index, name, sample)
+
+#define RTC_HISTOGRAMS_COUNTS_200(index, name, sample) \
+  RTC_NOOP3(index, name, sample)
+
+#define RTC_HISTOGRAMS_COUNTS_500(index, name, sample) \
+  RTC_NOOP3(index, name, sample)
+
+#define RTC_HISTOGRAMS_COUNTS_1000(index, name, sample) \
+  RTC_NOOP3(index, name, sample)
+
+#define RTC_HISTOGRAMS_COUNTS_10000(index, name, sample) \
+  RTC_NOOP3(index, name, sample)
+
+#define RTC_HISTOGRAMS_COUNTS_100000(index, name, sample) \
+  RTC_NOOP3(index, name, sample)
+
+#define RTC_HISTOGRAMS_ENUMERATION(index, name, sample, boundary) \
+  RTC_NOOP4(index, name, sample, boundary)
+
+#define RTC_HISTOGRAMS_PERCENTAGE(index, name, sample) \
+  RTC_NOOP3(index, name, sample)
+
+#define RTC_HISTOGRAMS_COMMON(index, name, sample, macro_invocation) \
+  RTC_NOOP4(index, name, sample, macro_invocation)
+
+#endif  // RTC_METRICS_ENABLED
 
 namespace webrtc {
 namespace metrics {

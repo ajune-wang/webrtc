@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "05432a05_478f6f37",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-04T12:43:27Z",
+      "side": 1,
+      "message": "I also prefer not to keep that version. (smaller api is easier to maintain)\n\nThen you also do not need to test it (and actually can\u0027t test it:\nfunctions marked as RTC_DEPRECATED can\u0027t be used by the webrtc itself)",
+      "parentUuid": "f3883a3f_2e66e72d",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 27
+      },
+      "revId": "5f7606b80ff590ab810508782c5977aea41b0271",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3be80b35_61cb3f43",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 3

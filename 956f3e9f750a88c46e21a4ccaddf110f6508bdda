@@ -265,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "23b9f66a_50c858f4",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T09:50:26Z",
+      "side": 1,
+      "message": "The sequence is like this then:\n1) STUN BINDING \u003d\u003e STUN BINDING RESPONSE\n2) GOOG PING \u003d\u003e GOOG PING ERROR RESPONSE\n3) STUN BINDING...\n\nI.e the retry here means that P2P next time it pings this connection\nwill send a STUN BINDING...that it already must have at least once.\n\nThe only real case for looking at error here that I can see is if the\n\"the other guy\" is someone I trust that want\u0027s to \"say something\"...\nbut I can\u0027t think of anything to say right now.\n\nWDYT ?",
+      "parentUuid": "2ccf2319_b0907768",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3be07daf_1c33e8a1",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15

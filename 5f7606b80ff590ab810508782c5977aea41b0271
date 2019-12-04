@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9f66de4_32f37a83",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-04T10:41:49Z",
+      "side": 1,
+      "message": "any good reason to keep this function in the future?\nif not, may be mark it as RTC_DEPRECATED",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 27
+      },
+      "revId": "5f7606b80ff590ab810508782c5977aea41b0271",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3be80b35_61cb3f43",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-04T10:41:49Z",
+      "side": 1,
+      "message": "for local consistency (see if few lines above), do not use {} around simple single-line statement.",
+      "range": {
+        "startLine": 211,
+        "startChar": 21,
+        "endLine": 211,
+        "endChar": 22
+      },
+      "revId": "5f7606b80ff590ab810508782c5977aea41b0271",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c71e1e85_f636a986",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-04T10:41:49Z",
+      "side": 1,
+      "message": "it is good practice to avoid double lookup.\nmay be\nuint8_t\u0026 command_seq_num \u003d remote_senders_[media_ssrc].fir_sequence_number;\nif (new_requests)\n  ++command_seq_num;\nfir.AddRequestTo(media_ssrc, command_seq_num);",
+      "range": {
+        "startLine": 212,
+        "startChar": 6,
+        "endLine": 212,
+        "endChar": 33
+      },
+      "revId": "5f7606b80ff590ab810508782c5977aea41b0271",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93a07647_9dd16aad",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-04T10:41:49Z",
+      "side": 1,
+      "message": "[if you plan to keep the behavior this test checking]\n\ninstead you can merge EXPECT_CALL into one statment:\nEXPECT_CALL(outgoing_tranpsort, SendRtcp)\n    .WillOnce([] { first one; })\n    .WillOnce([] { second one; });",
+      "range": {
+        "startLine": 310,
+        "startChar": 2,
+        "endLine": 311,
+        "endChar": 28
+      },
+      "revId": "5f7606b80ff590ab810508782c5977aea41b0271",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

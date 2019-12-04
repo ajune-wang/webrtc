@@ -104,6 +104,24 @@
       "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "703d69ff_e605800e",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2019-12-04T18:19:16Z",
+      "side": 1,
+      "message": "I\u0027d be more comfortable with a limit on retries (or perhaps stop if the same HWND fails twice, although it\u0027s less obvious to me that that algorithm can never loop forever). It can be a high limit if you\u0027re concerned about determinism (although if it really is expected to be rare then a smaller limit makes sense to me),",
+      "parentUuid": "2d4d38c8_a1ed8bfd",
+      "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

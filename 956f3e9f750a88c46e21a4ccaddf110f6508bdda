@@ -283,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "546dddcb_7704852d",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-04T10:39:58Z",
+      "side": 1,
+      "message": "OK, so the critical part is that retry will be done with a different code, so if the same failure happens, you won\u0027t hit the same codepath.\nThat\u0027s very far from obvious from the code, I think the code that triggers this downgrading is somewhere else - the comment ought to point out where it is.\n\nYou ought to have a test that exercises this scenario specifically.\n\nIn fact, now that you call my attention to it - there are *zero* unittests for Connection. That\u0027s a bad thing in itself. The change you did - calling a bunch of tests with googPing enabled - would pass 100% of the time if the flag was simply ignored. I think you need more testing to verify that things actually happen as you expect them to.\n\nAlso I see that port_unittest is unchanged, while there are changes in behavior to functions in port.cc. This is also a bad sign.\n\nPlease test!",
+      "parentUuid": "23b9f66a_50c858f4",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3be07daf_1c33e8a1",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15

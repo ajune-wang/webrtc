@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d09ac661_3dd91214",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-04T09:53:34Z",
+      "side": 1,
+      "message": "Does this become unused when metrics are excluded?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a60af2a9_512c17c0",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-04T09:53:34Z",
+      "side": 1,
+      "message": "Some code wrapped into this is using the new macros EXPECT_METRIC_*. Does it mean we can maybe remove this?",
+      "range": {
+        "startLine": 559,
+        "startChar": 0,
+        "endLine": 559,
+        "endChar": 23
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3939796_883fc5a8",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-04T09:53:34Z",
+      "side": 1,
+      "message": "Can tests in this file be kept alive with usage of EXPECT_METRIC_* macros?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41361381_4ad60dc8",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-04T09:53:34Z",
+      "side": 1,
+      "message": "Same here, is this needed of EXPECT_METRICS_* helps?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

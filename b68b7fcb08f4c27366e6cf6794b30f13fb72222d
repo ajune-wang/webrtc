@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "678001eb_e9098e64",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-04T07:44:24Z",
+      "side": 1,
+      "message": "Maybe strike \"api\" from this target name.\n\nI think it\u0027s a bit unfortunate to have test targets in this file. I\u0027d prefer to move them all to api/test/BUILD.gn, but that\u0027s for some other cl.",
+      "range": {
+        "startLine": 451,
+        "startChar": 37,
+        "endLine": 451,
+        "endChar": 41
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "754a8cad_d9d7d76a",
+        "filename": "api/test/create_frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-04T07:44:24Z",
+      "side": 1,
+      "message": "Since these create functions are at top-level (in the namespace), I think it would be good if they all had FrameGenerator in the name.",
+      "range": {
+        "startLine": 29,
+        "startChar": 41,
+        "endLine": 29,
+        "endChar": 62
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07f1f48b_486a78ae",
+        "filename": "api/test/create_frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-04T07:44:24Z",
+      "side": 1,
+      "message": "Maybe it would be more useful to read some container format (IVF?) including width and height in the file? But also not for this cl.",
+      "range": {
+        "startLine": 38,
+        "startChar": 41,
+        "endLine": 38,
+        "endChar": 58
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b349875_bbaa192b",
+        "filename": "api/test/create_frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-04T07:44:24Z",
+      "side": 1,
+      "message": "Can you say something more about what the generated slides look like?",
+      "range": {
+        "startLine": 62,
+        "startChar": 43,
+        "endLine": 62,
+        "endChar": 68
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b1cc9f4_6b4d040d",
+        "filename": "api/test/frame_generator_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-04T07:44:24Z",
+      "side": 1,
+      "message": "I think this is a bit confusing. I hope it means that the same VideoFrameBuffer object can be returned multiple times, but only unchanged. After a VideoFrameBuffer is returned by this method, the FrameGenerator is not allowed to modify the pixel data in that VideoFrameBuffer.\n\nWhich I think is the normal convention for refcounted objects, so maybe this part of the comment can just be deleted?",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 69
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25cd42e6_05e787c5",
+        "filename": "test/frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-04T07:44:24Z",
+      "side": 1,
+      "message": "Can we delete this class? I think we should only need the new interface class and the new top-level create functions.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 55
+      },
+      "revId": "b68b7fcb08f4c27366e6cf6794b30f13fb72222d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

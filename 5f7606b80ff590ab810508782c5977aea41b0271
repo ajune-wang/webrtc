@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f3883a3f_2e66e72d",
+        "filename": "modules/rtp_rtcp/source/rtcp_transceiver.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-12-04T12:36:13Z",
+      "side": 1,
+      "message": "After consulting sprang I think marking the old one as deprecated actually makes sense. Changing that.",
+      "parentUuid": "d59b09c8_ad5458ea",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 27
+      },
+      "revId": "5f7606b80ff590ab810508782c5977aea41b0271",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3be80b35_61cb3f43",
         "filename": "modules/rtp_rtcp/source/rtcp_transceiver_impl.cc",
         "patchSetId": 3

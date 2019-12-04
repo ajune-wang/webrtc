@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eaab2692_4bb23156",
+        "filename": "modules/audio_processing/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-04T07:28:52Z",
+      "side": 1,
+      "message": "Might as well remove this piece, too.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 1
+      },
+      "revId": "edf70def499bfa1f7744186f86117a8a435b476c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f30a63b4_707e193e",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-04T07:28:52Z",
+      "side": 1,
+      "message": "Is this still necessary?",
+      "range": {
+        "startLine": 554,
+        "startChar": 0,
+        "endLine": 556,
+        "endChar": 32
+      },
+      "revId": "edf70def499bfa1f7744186f86117a8a435b476c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4517364c_880d19cf",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-04T07:28:52Z",
+      "side": 1,
+      "message": "Please add a TODO to delete these two parameters, and (if possible) DCHECK that they are false in ApplyConfig. Or can they be removed already?",
+      "range": {
+        "startLine": 233,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 34
+      },
+      "revId": "edf70def499bfa1f7744186f86117a8a435b476c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a2be4a_218de26d",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-04T07:28:52Z",
+      "side": 1,
+      "message": "Please delete this, too",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 79
+      },
+      "revId": "edf70def499bfa1f7744186f86117a8a435b476c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "344967eb_c462a2a6",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-04T07:28:52Z",
+      "side": 1,
+      "message": "Unintentional newline?",
+      "range": {
+        "startLine": 381,
+        "startChar": 65,
+        "endLine": 383,
+        "endChar": 1
+      },
+      "revId": "edf70def499bfa1f7744186f86117a8a435b476c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

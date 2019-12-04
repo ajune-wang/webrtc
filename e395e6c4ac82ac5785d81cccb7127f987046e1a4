@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff9cb21f_2aa6967d",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2019-12-04T21:30:06Z",
+      "side": 1,
+      "message": "success here could be disabling audio activation\n\nI think we only want to reset interrupted when audio activation is enabled?",
+      "range": {
+        "startLine": 382,
+        "startChar": 15,
+        "endLine": 382,
+        "endChar": 28
+      },
+      "revId": "e395e6c4ac82ac5785d81cccb7127f987046e1a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

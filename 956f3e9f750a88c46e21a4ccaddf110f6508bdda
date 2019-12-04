@@ -247,6 +247,24 @@
     },
     {
       "key": {
+        "uuid": "2ccf2319_b0907768",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-04T09:12:30Z",
+      "side": 1,
+      "message": "It\u0027s not dangerous if everyone behaves as you expect them to, but it\u0027s dangerous when changes are made later, or when you talk to some peer that behaves in an unexpected fashion.\n\nConsider a server that somehow tricks you into sending a GOOG_PING (perhaps you have a logic error in your negotiation code, or the other guy just puts junk into his reply that he got off a packet capture from a Google server), and then replies with an error code of STUN_ERROR_IHAVENOTHEARDABOUTHSISBEFORE (an error code you have never seen).\n\nWill you retry? If so, what\u0027s the consequence?",
+      "parentUuid": "ac9cfe3a_fc9548f1",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3be07daf_1c33e8a1",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15
@@ -419,6 +437,24 @@
       "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31ad3b1a_e8d13408",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-04T09:12:30Z",
+      "side": 1,
+      "message": "Ack. It\u0027s \"only\" half a second.",
+      "parentUuid": "eef0d15e_92ab0e73",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

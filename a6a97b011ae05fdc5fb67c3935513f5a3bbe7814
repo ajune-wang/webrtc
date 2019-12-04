@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac3463dc_7f96adf9",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-04T09:12:30Z",
+      "side": 1,
+      "message": "Nit: it configured vai -\u003e if configured via\nNit: remote peer support it -\u003e the remote peer supports it\nNit: last STUN BINDING -\u003e the last STUN BIND request (I don\u0027t thin BINDING is a term).",
+      "revId": "a6a97b011ae05fdc5fb67c3935513f5a3bbe7814",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

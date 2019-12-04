@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1406f413_5e89c3d1",
+        "filename": "call/resource_consumer_configuration.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-12-04T14:06:45Z",
+      "side": 1,
+      "message": "Are there restrictions on the values for cost? Non-negative? Non-zero?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "c3f04e2102d6b01d4f00a97b6c858babe41b193b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f29c11b_98c0afcd",
         "filename": "call/resource_consumer_configuration.h",
         "patchSetId": 4

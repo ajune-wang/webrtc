@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "5f5d468d_5499f574",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-04T11:08:59Z",
+      "side": 1,
+      "message": "This one a bit special, because it will override all previously set fields.",
+      "parentUuid": "875d8dea_6d21380e",
+      "range": {
+        "startLine": 87,
+        "startChar": 15,
+        "endLine": 87,
+        "endChar": 21
+      },
+      "revId": "7d42679aac85486c6e0e0f1dd6648f30f6005875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93b3d8a1_8436fe1c",
         "filename": "api/test/network_emulation_manager.h",
         "patchSetId": 3

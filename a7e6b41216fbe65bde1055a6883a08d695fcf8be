@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f35a39a4_76d7e9d8",
+        "filename": "p2p/client/basic_port_allocator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-04T08:47:44Z",
+      "side": 1,
+      "message": "If I understand https://en.cppreference.com/w/cpp/utility/functional/not1 correctly, std::not1 is deprecated in C++. Not sure what the replacement is, maybe a lambda like\n\n  [pred](rtc::Network* network) {return !pred(network);}",
+      "range": {
+        "startLine": 98,
+        "startChar": 19,
+        "endLine": 98,
+        "endChar": 28
+      },
+      "revId": "a7e6b41216fbe65bde1055a6883a08d695fcf8be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "98309687_05c15236",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ef4dc59_ea7de6d6",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48b69c73_5af84196",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15
@@ -33,6 +51,24 @@
       "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daff6d08_e8b5744d",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48b69c73_5af84196",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "240396aa_f15f295d",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "354b8a54_48ab17f4",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98cec77e_c0621e32",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15
@@ -67,6 +121,24 @@
       "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76098f8b_48d12447",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98cec77e_c0621e32",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "d8b5f46f_ff4323a6",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ee595dd_54d8e65a",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0aee824e_c74e6d08",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "457106d0_bdedd086",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aee824e_c74e6d08",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e3c77d9_197b0751",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15
@@ -115,6 +223,24 @@
       "writtenOn": "2019-12-03T09:19:39Z",
       "side": 1,
       "message": "Dangerous. If you\u0027re sending GOOG_PING_REQUEST down a dead connection, or other unexpected errors, you\u0027re forcing retries here. Retries should be sharply limited to cases where you\u0027re positive that there\u0027s a reason to think the error is not fatal.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac9cfe3a_fc9548f1",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "not that bad.\nthese requests are not resent by the StunRequestManager, they are anyway only sent once.\nsee https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/connection.cc?rcl\u003d89313451d8e2338845716b0ab8760ed0552580f9\u0026l\u003d243\n\nthe \"real\" resends are made by P2PTransportChannel.\nso the only interesting part of goog-ping here is that we\nreset the cached_binding, which will make sure that a real binding\nis sent next time.",
+      "parentUuid": "8e3c77d9_197b0751",
       "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "05b61c2f_89e96ee4",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3be07daf_1c33e8a1",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95e2c0be_b9c9b085",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 15
@@ -152,6 +296,24 @@
       "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c512eeab_8946c5bf",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95e2c0be_b9c9b085",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "0978fd05_9f43b2fc",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5b20090_be73b3d9",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "199e31ab_6669e154",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 15
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "b6a917b7_720f29fb",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "199e31ab_6669e154",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41b3987e_f3a5e796",
         "filename": "p2p/base/p2p_transport_channel_unittest.cc",
         "patchSetId": 15
@@ -200,6 +398,24 @@
       "writtenOn": "2019-12-03T09:19:39Z",
       "side": 1,
       "message": "Are we doubling the runtime of p2p_transport_channel_unittest.c here?\nHow long will it take to execute these tests?\n\nSlow tests slow down development; if it\u0027s seconds, it\u0027s probably worth it; if it\u0027s +1 min, find a sharper way to test.",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef0d15e_92ab0e73",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "BEFORE:\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 249 tests from 9 test suites ran. (6451 ms total)\nAFTER:\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 393 tests from 9 test suites ran. (7166 ms total)",
+      "parentUuid": "41b3987e_f3a5e796",
       "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "acfb7d85_356a4e29",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86adf09d_1331f0f1",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "306baa6c_addf17d6",
         "filename": "p2p/base/port.cc",
         "patchSetId": 15
@@ -240,6 +474,24 @@
     },
     {
       "key": {
+        "uuid": "40cd1a45_da3a090a",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "306baa6c_addf17d6",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c01449c_4a9acba4",
         "filename": "p2p/base/port.cc",
         "patchSetId": 15
@@ -254,6 +506,24 @@
       "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49815b29_d5457060",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-04T08:06:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7c01449c_4a9acba4",
+      "revId": "956f3e9f750a88c46e21a4ccaddf110f6508bdda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -95,15 +95,15 @@ int ComparePort(const cricket::Port* a, const cricket::Port* b) {
 struct NetworkFilter {
   using Predicate = std::function<bool(rtc::Network*)>;
   NetworkFilter(Predicate pred, const std::string& description)
-      : pred(pred), description(description) {}
-  Predicate pred;
+      : predRemain(std::not1(pred)), description(description) {}
+  Predicate predRemain;
   const std::string description;
 };
 
 using NetworkList = rtc::NetworkManager::NetworkList;
 void FilterNetworks(NetworkList* networks, NetworkFilter filter) {
   auto start_to_remove =
-      std::remove_if(networks->begin(), networks->end(), filter.pred);
+      std::partition(networks->begin(), networks->end(), filter.predRemain);
   if (start_to_remove == networks->end()) {
     return;
   }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1d2017a8_d0308306",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-12-04T02:37:23Z",
+      "side": 1,
+      "message": "Yes, this seems to have become a bit less clear with the removal of the \u0027context-\u003e\u0027, and wasn\u0027t great to begin with. I\u0027ve updated this comment \u0026 the name of this method \u0026 a related one to try to make things clearer.",
+      "parentUuid": "851d4c86_501acba3",
+      "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96c919c0_087f6bf5",
         "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "01dc2c6f_8d9bb69f",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-12-04T02:37:23Z",
+      "side": 1,
+      "message": "No, I haven\u0027t found any official documentation of this behavior. It seems that failure to find a matching window (or a next window in the enumeration) is treated as non-exceptional. I\u0027ve filed a doc bug to request updating the FindWindow* API docs to describe this.\n\nI found mention in a 7-year old post here that the community additions for the FindWindow doc on MSDN at the time noted this behavior: https://jpsoft.com/forums/threads/the-operation-completed-successfully.4311/#post-24610 . That doesn\u0027t seem to have been rolled back into the official doc before community additions were retired.\n\nI\u0027ve observed this behavior empirically on the latest Win10 release \u0026 on a Win7 VM. The teams working on Windows generally go to great lengths to avoid breaking changes around API behavior that might introduce app-compatibility regressions. In the unlikely event that this old API\u0027s behavior changed to set some \"not-found\" error in this case, I think this code would fall into the final else branch below, which is functionally equivalent from the caller\u0027s perspective (just more noisy around logging \u0026 assert side-effects).",
+      "parentUuid": "96c919c0_087f6bf5",
+      "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1c8bddd_cfc8b963",
         "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2019-12-03T00:03:25Z",
       "side": 1,
       "message": "What guarantee do you have that this error is temporary? You\u0027re going to loop forever if it\u0027s permanent.",
+      "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d4d38c8_a1ed8bfd",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-12-04T02:37:23Z",
+      "side": 1,
+      "message": "I\u0027m expecting this race (the window enumerated by one FindWindow call is closed before the next call) to be quite rare. Even in some rare degenerate case where top-level windows were being created then closed in a tight loop, I\u0027d expect the retried enumerations to miss the short-lived window or win the race in fairly short order.\n\nI\u0027ve added some logging that may help diagnose this if it ever leads to perceptible capture delays / hangs.\n\nIf you\u0027d like, I can limit the number of retries, then log an error, fire an assert, and return false if reached. I\u0027m not sure the extra complexity \u0026 non-determinism are warranted, but could be convinced -- perhaps this is a better-safe-than-sorry thing.",
+      "parentUuid": "d1c8bddd_cfc8b963",
       "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

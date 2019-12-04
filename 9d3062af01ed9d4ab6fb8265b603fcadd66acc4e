@@ -539,6 +539,30 @@
       "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54c012fc_9ca96822",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-12-04T12:05:48Z",
+      "side": 1,
+      "message": "This was simply moved from the SimulatedNetwork class and is used in many places already, I don\u0027t want to change those now.",
+      "parentUuid": "e18142b8_7f42dcd6",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 14
+      },
+      "revId": "9d3062af01ed9d4ab6fb8265b603fcadd66acc4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

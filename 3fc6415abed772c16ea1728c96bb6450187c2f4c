@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f9ad51fe_f9084653",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-04T15:00:24Z",
+      "side": 1,
+      "message": "Yes, it is.",
+      "parentUuid": "d09ac661_3dd91214",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 23
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a60af2a9_512c17c0",
         "filename": "pc/peer_connection_simulcast_unittest.cc",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d1b8bc_e9a933fd",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-04T15:00:24Z",
+      "side": 1,
+      "message": "Thanks for pointing this out, I changed those back to EXPECT_* and kept the metrics test under #ifdef, as those metrics tests won\u0027t be useful when metrics are disabled.",
+      "parentUuid": "a60af2a9_512c17c0",
+      "range": {
+        "startLine": 559,
+        "startChar": 0,
+        "endLine": 559,
+        "endChar": 23
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "102ebc36_30fca78e",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-04T15:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c88e800_1348185a",
+      "range": {
+        "startLine": 24,
+        "startChar": 37,
+        "endLine": 24,
+        "endChar": 57
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28fff57d_3b08e701",
         "filename": "system_wrappers/include/metrics.h",
         "patchSetId": 16
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1c7446e6_72b81d9a",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-04T15:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28fff57d_3b08e701",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 6
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f41ea9a_c295ee11",
         "filename": "system_wrappers/include/metrics.h",
         "patchSetId": 16
@@ -105,6 +201,24 @@
       "writtenOn": "2019-12-04T10:18:52Z",
       "side": 1,
       "message": "You can replace these with a single template function:\n\n  // Takes any number of arguments and ignores them.\n  template \u003ctypename... Ts\u003e\n  void NoOp(const Ts\u0026...) {}",
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "788e47d7_68721358",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-04T15:00:24Z",
+      "side": 1,
+      "message": "That looks very nice, but I got some linker error when trying something like:\ntemplate \u003ctypename... Ts\u003e void NoOp(const Ts\u0026...) \n#define RTC_HISTOGRAM_COUNTS_100(name, sample) NoOp(name, sample)\n\nThese errors complain about undefined symbols, e.g.:\nld.lld: error: undefined symbol: webrtc::RmsLevel::kMinLevelDb\n\u003e\u003e\u003e referenced by audio_processing_impl.cc:1460 (../../modules/audio_processing/audio_processing_impl.cc:1460)\n\nThese constants seems only used in the MACRO functions, so maybe they got stripped by compiler?",
+      "parentUuid": "7f41ea9a_c295ee11",
       "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "7d216527_a7831640",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-04T15:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3939796_883fc5a8",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41361381_4ad60dc8",
         "filename": "video/send_statistics_proxy_unittest.cc",
         "patchSetId": 16
@@ -154,6 +292,30 @@
       "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8558c275_bd7e3431",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-04T15:00:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41361381_4ad60dc8",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

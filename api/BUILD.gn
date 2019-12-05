@@ -457,9 +457,9 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":frame_generator_api",
+      "../rtc_base:checks",
       "../system_wrappers",
-      "../test:video_test_common",
-      "../test:video_test_support",
+      "../test:frame_generator_impl",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
   }

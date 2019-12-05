@@ -513,6 +513,9 @@ class StunUInt16ListAttribute : public StunAttribute {
   std::vector<uint16_t>* attr_types_;
 };
 
+// Return a string e.g "STUN BINDING request".
+std::string StunMethodToString(int msg_type);
+
 // Returns the (successful) response type for the given request type.
 // Returns -1 if |request_type| is not a valid request type.
 int GetStunSuccessResponseType(int request_type);
@@ -673,7 +676,11 @@ enum IceAttributeType {
 // consistent with those used in ConnectionRequest::Prepare when forming a STUN
 // message for the ICE connectivity check, and they are used when parsing a
 // received STUN message.
-enum class IceGoogMiscInfoAttributeIndex {};
+enum class IceGoogMiscInfoBindingRequestAttributeIndex {};
+
+enum class IceGoogMiscInfoBindingResponseAttributeIndex {
+  SUPPORT_GOOG_PING_VERSION = 0,
+};
 
 // RFC 5245-defined errors.
 enum IceErrorCode {

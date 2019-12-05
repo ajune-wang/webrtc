@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "56d96d43_643a46af",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-05T09:41:07Z",
+      "side": 1,
+      "message": "I don\u0027t remember the background to this. I definitely agree that the default assignment operator should be good. \n\nNote that this has been there for a long while (but was moved within the file in this CL)",
+      "parentUuid": "2d75b177_0883c536",
+      "range": {
+        "startLine": 252,
+        "startChar": 2,
+        "endLine": 254,
+        "endChar": 2
+      },
+      "revId": "840c606608e0a74a07169a630ee3decdeb1875a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b7f7f1c4_2ecbe0ca",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-12-05T09:28:21Z",
       "side": 1,
       "message": "Wait, what? If there is a real issue, that should remain for all builds!",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 24
+      },
+      "revId": "840c606608e0a74a07169a630ee3decdeb1875a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "512cb327_8558a16f",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-05T09:41:07Z",
+      "side": 1,
+      "message": "I agree. However, I don\u0027t see how this not should be fine for all builds.",
+      "parentUuid": "b7f7f1c4_2ecbe0ca",
       "range": {
         "startLine": 254,
         "startChar": 0,

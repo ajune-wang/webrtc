@@ -69,9 +69,9 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
       safe_reset_acknowledged_rate_("ack"),
       use_min_allocatable_as_lower_bound_(
           IsNotDisabled(key_value_config_, "WebRTC-Bwe-MinAllocAsLowerBound")),
-      ignore_probes_lower_than_network_estimate_(
-          IsEnabled(key_value_config_,
-                    "WebRTC-Bwe-IgnoreProbesLowerThanNetworkStateEstimate")),
+      ignore_probes_lower_than_network_estimate_(IsNotDisabled(
+          key_value_config_,
+          "WebRTC-Bwe-IgnoreProbesLowerThanNetworkStateEstimate")),
       rate_control_settings_(
           RateControlSettings::ParseFromKeyValueConfig(key_value_config_)),
       probe_controller_(

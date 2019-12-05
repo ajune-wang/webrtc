@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c29020b_726ef82f",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-05T13:54:24Z",
+      "side": 1,
+      "message": "Why was it moved out of the if (rtc_include_tests) ?\n\nI\u0027m not entirely sure what\u0027s the purpose of the rtc_include_tests flag is. Maybe it should be applied only to top-level targets? But, e.g., create_network_emulation_manager seem to be on a similar level as this target.",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 453,
+        "endChar": 39
+      },
+      "revId": "5a230fee15147d5b6b547c6301e383d1f675b8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e58641b1_1c47cc14",
+        "filename": "api/test/create_frame_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-05T13:54:24Z",
+      "side": 1,
+      "message": "Can you use std::make_unique\u003cSquareGenerator\u003e(...), and rely on implicit conversion to the right return type?",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "5a230fee15147d5b6b547c6301e383d1f675b8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edfa0567_84411211",
+        "filename": "api/test/create_frame_generator.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-05T13:54:24Z",
+      "side": 1,
+      "message": "Note that with the deletion of the FrameGenerator class, you don\u0027t need to have all the generators in the same build target. \n\nMight make sense to move all of the IVF generator to its own build target.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 73
+      },
+      "revId": "5a230fee15147d5b6b547c6301e383d1f675b8e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

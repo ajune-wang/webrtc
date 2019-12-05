@@ -22,6 +22,30 @@
       "revId": "810006f805fee18e7687ba20831f2c4e258ec95a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "626c190e_6e119e40",
+        "filename": "test/frame_forwarder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-05T14:59:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2343af7_5e8182b0",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "810006f805fee18e7687ba20831f2c4e258ec95a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

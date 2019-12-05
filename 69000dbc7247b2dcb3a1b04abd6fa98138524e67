@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0d17703_fbfc68fb",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-05T09:05:16Z",
+      "side": 1,
+      "message": "it has the nice benifit that converting from/to int is transparent,\notherwise i need to add static_cast\u003c\u003e...which ofcourse also is ok.\n\nwdyt ?",
+      "parentUuid": "92a7382f_a450541d",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 681,
+        "endChar": 9
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ab17f35_e8d096bf",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 17
@@ -45,6 +69,30 @@
       "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4107271f_c59f0223",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-05T09:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ab17f35_e8d096bf",
+      "range": {
+        "startLine": 458,
+        "startChar": 52,
+        "endLine": 458,
+        "endChar": 64
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "c0727fe0_ef286cf6",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-05T09:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "665db152_17a58cf6",
+      "range": {
+        "startLine": 687,
+        "startChar": 17,
+        "endLine": 687,
+        "endChar": 33
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4ca7953_41c62bef",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 17
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "217813e0_589a541b",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-05T09:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0530ea9b_9bd8968c",
+      "range": {
+        "startLine": 1315,
+        "startChar": 32,
+        "endLine": 1315,
+        "endChar": 39
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0efea20_17fb26e5",
         "filename": "p2p/base/connection.h",
         "patchSetId": 17
@@ -163,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "29a10589_7afbb15d",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-05T09:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0efea20_17fb26e5",
+      "range": {
+        "startLine": 434,
+        "startChar": 52,
+        "endLine": 434,
+        "endChar": 59
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f91d5bfe_1036c209",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 17
@@ -174,6 +294,30 @@
       "writtenOn": "2019-12-04T19:01:08Z",
       "side": 1,
       "message": "I am wondering what the circumstance would be for us to not announce the support if we can. I\u0027d imagine we respond based on the capability given below by enable_goog_ping (if its definition is given by the one in the field trial file instead of the comment below). IOW, I feel this switch is unnecessary.",
+      "range": {
+        "startLine": 654,
+        "startChar": 9,
+        "endLine": 654,
+        "endChar": 40
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1be74f7e_1fbf1390",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-05T09:05:16Z",
+      "side": 1,
+      "message": "i\u0027m torn.\nputting it behind 1 field trial would mean that the trial would 2 things\nbut i agree usecase for splitting them is unclear...\n\nwdyt ?\nwhat does hta think ?",
+      "parentUuid": "f91d5bfe_1036c209",
       "range": {
         "startLine": 654,
         "startChar": 9,
@@ -209,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "6e10a36a_0a03a740",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-05T09:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b56f2778_8d647376",
+      "range": {
+        "startLine": 656,
+        "startChar": 9,
+        "endLine": 656,
+        "endChar": 43
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e05211c7_e6b00955",
         "filename": "p2p/base/p2p_transport_channel_ice_field_trials.h",
         "patchSetId": 17
@@ -229,6 +397,30 @@
       "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1079137b_9473b4b6",
+        "filename": "p2p/base/p2p_transport_channel_ice_field_trials.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-05T09:05:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e05211c7_e6b00955",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 4
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

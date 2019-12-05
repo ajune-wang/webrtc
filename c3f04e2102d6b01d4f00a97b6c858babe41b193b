@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e6cdf89_59c729b3",
+        "filename": "call/resource_consumer_configuration.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-12-05T16:55:39Z",
+      "side": 1,
+      "message": "I\u0027ve assumed it\u0027s non-negative in the algorithm. Added a comment saying it must be so. I also added that Preference() needs to be non-negative even though so far I don\u0027t think it matters if it is negative.",
+      "parentUuid": "1406f413_5e89c3d1",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "c3f04e2102d6b01d4f00a97b6c858babe41b193b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f29c11b_98c0afcd",
         "filename": "call/resource_consumer_configuration.h",
         "patchSetId": 4
@@ -39,6 +63,24 @@
       "revId": "c3f04e2102d6b01d4f00a97b6c858babe41b193b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4484408a_9db6e4dc",
+        "filename": "call/resource_consumer_configuration.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-12-05T16:55:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f29c11b_98c0afcd",
+      "revId": "c3f04e2102d6b01d4f00a97b6c858babe41b193b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

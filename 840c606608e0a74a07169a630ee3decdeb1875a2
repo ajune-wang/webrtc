@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d75b177_0883c536",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-12-05T09:28:21Z",
+      "side": 1,
+      "message": "Is it still topical? Maybe it was a false positive that have been fixed?\nI don\u0027t see how the default assignment operator isn\u0027t good enough, since all members are POD.",
+      "range": {
+        "startLine": 252,
+        "startChar": 2,
+        "endLine": 254,
+        "endChar": 2
+      },
+      "revId": "840c606608e0a74a07169a630ee3decdeb1875a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f7f1c4_2ecbe0ca",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-12-05T09:28:21Z",
+      "side": 1,
+      "message": "Wait, what? If there is a real issue, that should remain for all builds!",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 24
+      },
+      "revId": "840c606608e0a74a07169a630ee3decdeb1875a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

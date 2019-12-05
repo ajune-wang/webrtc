@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8c091a1_4873d330",
+        "filename": "api/test/create_frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-05T10:15:45Z",
+      "side": 1,
+      "message": "Should IVF be in the name?\n\nLooking at the IvfVideoFrameGenerator it seems it supports compressed files (e.g., VP8) too, not just YUV with a an IVF header?\n\nI think the comment should say something on what codecs are supported inside the IVF file.",
+      "range": {
+        "startLine": 45,
+        "startChar": 41,
+        "endLine": 45,
+        "endChar": 72
+      },
+      "revId": "fd76b5fe8616cab2d1f0498c2a57333a0c930ed9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

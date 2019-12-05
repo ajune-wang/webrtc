@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c33fdde8_97dbc8e4",
+        "filename": "BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-12-05T13:51:05Z",
+      "side": 1,
+      "message": "I think you can remove these 2 too, the central build config sets this too (or at least the first one)",
+      "revId": "a9a7be280542ce66c43461870b3fd82d9414e009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

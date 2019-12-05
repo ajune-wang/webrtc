@@ -19,6 +19,7 @@
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_factory.h"
+#include "api/test/frame_generator_interface.h"
 #include "api/test/video/function_video_decoder_factory.h"
 #include "api/test/video/function_video_encoder_factory.h"
 #include "api/transport/field_trial_based_config.h"

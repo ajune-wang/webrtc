@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f00b7da_8e79c2b9",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "Leftover debug?",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4815bf_206c7e25",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "This comment is both superfluous and ungrammatical :-) (\"the this\")",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3372be8e_1ce11904",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2714,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "Comment says the same thing as the code.",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d205be21_4b9b3d9f",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2717,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "This comment no English. What are you trying to say?",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65df78e6_00cdb51f",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2736,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "Style nit: acronymisms like \"msg\" are discouraged. full words are better.",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1712e36_103eb5b1",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2768,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "Grammar: Either \"This test checks that...\" or \"This is a test that checks that...\"",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd43d1bb_5e1be258",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2790,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "Is it safe to use EQ here? Might two candidates be completed before the loop checks?",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1732ed1a_0051a827",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2794,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "Don\u0027t need !\u003d NULL here. And use nullptr, not NULL.",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e897db9e_ac2df16e",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2839,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "Does reset send pings?",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8571116d_3e4b466c",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2857,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T10:44:35Z",
+      "side": 1,
+      "message": "s/Fallsback/FallBack/ (Fallsback isn\u0027t a word)",
+      "revId": "3b8176a2c312da393d522ee34bdf2136fbe215cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

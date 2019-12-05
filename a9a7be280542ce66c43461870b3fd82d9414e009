@@ -16,6 +16,24 @@
       "revId": "a9a7be280542ce66c43461870b3fd82d9414e009",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9815c6f9_1d90d2a7",
+        "filename": "BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-05T14:30:26Z",
+      "side": 1,
+      "message": "Yes, it sets both of them (https://cs.chromium.org/chromium/src/build/config/compiler/BUILD.gn?l\u003d1480-1481\u0026rcl\u003d983a9e48096870897c5aaff313d7306bd3172ba1). Thanks.",
+      "parentUuid": "c33fdde8_97dbc8e4",
+      "revId": "a9a7be280542ce66c43461870b3fd82d9414e009",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

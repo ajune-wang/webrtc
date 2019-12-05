@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2d5ad897_ae0e57c5",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T13:22:50Z",
+      "side": 1,
+      "message": "it\u0027s an enum by nature, so static_cast feels like the right price to pay.",
+      "parentUuid": "a0d17703_fbfc68fb",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 681,
+        "endChar": 9
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ab17f35_e8d096bf",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 17
@@ -318,6 +342,30 @@
       "side": 1,
       "message": "i\u0027m torn.\nputting it behind 1 field trial would mean that the trial would 2 things\nbut i agree usecase for splitting them is unclear...\n\nwdyt ?\nwhat does hta think ?",
       "parentUuid": "f91d5bfe_1036c209",
+      "range": {
+        "startLine": 654,
+        "startChar": 9,
+        "endLine": 654,
+        "endChar": 40
+      },
+      "revId": "69000dbc7247b2dcb3a1b04abd6fa98138524e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6a4440f_986e976b",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-05T13:22:50Z",
+      "side": 1,
+      "message": "Having 2 field trials does make testing the interworking case easier (one has it enabled, the other one hasn\u0027t).",
+      "parentUuid": "1be74f7e_1fbf1390",
       "range": {
         "startLine": 654,
         "startChar": 9,

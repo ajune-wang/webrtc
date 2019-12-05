@@ -122,6 +122,24 @@
       "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5cf65eb_c2c44ffb",
+        "filename": "modules/desktop_capture/cropping_window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9572
+      },
+      "writtenOn": "2019-12-05T02:18:04Z",
+      "side": 1,
+      "message": "Makes sense, added a retry limit. I guess the concern about non-determinism is somewhat at odds with expecting this to be extremely rare.\n\n(Re: checking if the same HWND fails twice -- I think this\u0027d only happen in the case of HWND reuse between the window closed the previous time \u0026 the new one closed this time.)",
+      "parentUuid": "703d69ff_e605800e",
+      "revId": "765b34891326d639c67460a2c1e98885c75b41ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

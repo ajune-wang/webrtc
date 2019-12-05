@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2343af7_5e8182b0",
+        "filename": "test/frame_forwarder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-05T13:51:14Z",
+      "side": 1,
+      "message": "I\u0027ll change a year here",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "810006f805fee18e7687ba20831f2c4e258ec95a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

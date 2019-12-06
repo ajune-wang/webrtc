@@ -390,26 +390,13 @@ void AsyncHttpsProxySocket::ProcessLine(char* data, size_t len) {
       if (!unknown_mechanisms_.empty() && !report) {
         report = true;
         std::string msg(
-            "Unable to connect to the Google Talk service due to an "
-            "incompatibility "
-            "with your proxy.\r\nPlease help us resolve this issue by "
-            "submitting the "
-            "following information to us using our technical issue submission "
-            "form "
-            "at:\r\n\r\n"
-            "http://www.google.com/support/talk/bin/request.py\r\n\r\n"
-            "We apologize for the inconvenience.\r\n\r\n"
-            "Information to submit to Google: ");
-        // std::string msg("Please report the following information to
-        // foo@bar.com:\r\nUnknown methods: ");
+            "Unable to connect to due to an incompatibility with the "
+            "HTTP proxy. The proxy requires the following unsupported "
+            "authentication methods: ");
         msg.append(unknown_mechanisms_);
-#if defined(WEBRTC_WIN) && !defined(WINUWP)
-        MessageBoxA(0, msg.c_str(), "Oops!", MB_OK);
-#endif
-#if defined(WEBRTC_POSIX)
+
         // TODO: Raise a signal so the UI can be separated.
         RTC_LOG(LS_ERROR) << "Oops!\n\n" << msg;
-#endif
       }
       // Unexpected end of headers
       Error(0);

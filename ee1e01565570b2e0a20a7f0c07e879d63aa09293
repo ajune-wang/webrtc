@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73978ef1_c40cef54",
+        "filename": "sdk/android/src/java/org/webrtc/CameraCapturer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-12-06T13:55:23Z",
+      "side": 0,
+      "message": "These are still @Nullable before initialization.",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "ee1e01565570b2e0a20a7f0c07e879d63aa09293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19dba61f_e69822de",
+        "filename": "sdk/android/src/java/org/webrtc/CameraCapturer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-12-06T13:55:23Z",
+      "side": 0,
+      "message": "I think we should probably still keep these null check in case this is called before initialization.",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 346,
+        "endChar": 38
+      },
+      "revId": "ee1e01565570b2e0a20a7f0c07e879d63aa09293",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

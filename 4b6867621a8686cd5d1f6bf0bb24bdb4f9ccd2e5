@@ -22,6 +22,30 @@
       "revId": "4b6867621a8686cd5d1f6bf0bb24bdb4f9ccd2e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0015bd_179e1271",
+        "filename": "test/testsupport/ivf_video_frame_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-12-06T14:59:06Z",
+      "side": 1,
+      "message": "Yep, but I think I actually want this check, because if encoder fail there is no reason to wait for this frame anyway.",
+      "parentUuid": "90c2d959_4f3c44c2",
+      "range": {
+        "startLine": 78,
+        "startChar": 15,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "4b6867621a8686cd5d1f6bf0bb24bdb4f9ccd2e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

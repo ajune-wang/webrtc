@@ -34,6 +34,7 @@
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/source/rtp_format.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/codecs/vp8/include/vp8_globals.h"
 #include "rtc_base/constructor_magic.h"
 
@@ -74,6 +75,11 @@ class RtpPacketizerVp8 : public RtpPacketizer {
 class RtpDepacketizerVp8 : public RtpDepacketizer {
  public:
   ~RtpDepacketizerVp8() override = default;
+
+  // Returns size of the vp8 descriptor aka offset to the video payload,
+  // or 0 on failure.
+  static size_t ParseRtpPayload(rtc::ArrayView<const uint8_t> rtp_payload,
+                                RTPVideoHeader* video_header);
 
   bool Parse(ParsedPayload* parsed_payload,
              const uint8_t* payload_data,

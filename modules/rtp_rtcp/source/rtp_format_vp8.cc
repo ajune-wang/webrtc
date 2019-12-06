@@ -32,118 +32,57 @@ constexpr int kLBit = 0x40;
 constexpr int kTBit = 0x20;
 constexpr int kKBit = 0x10;
 constexpr int kYBit = 0x20;
+constexpr size_t kParsingFailed = 0;
 
-int ParseVP8PictureID(RTPVideoHeaderVP8* vp8,
-                      const uint8_t** data,
-                      size_t* data_length,
-                      size_t* parsed_bytes) {
-  if (*data_length == 0)
-    return -1;
-
-  vp8->pictureId = (**data & 0x7F);
-  if (**data & 0x80) {
-    (*data)++;
-    (*parsed_bytes)++;
-    if (--(*data_length) == 0)
-      return -1;
-    // PictureId is 15 bits
-    vp8->pictureId = (vp8->pictureId << 8) + **data;
-  }
-  (*data)++;
-  (*parsed_bytes)++;
-  (*data_length)--;
-  return 0;
-}
-
-int ParseVP8Tl0PicIdx(RTPVideoHeaderVP8* vp8,
-                      const uint8_t** data,
-                      size_t* data_length,
-                      size_t* parsed_bytes) {
-  if (*data_length == 0)
-    return -1;
-
-  vp8->tl0PicIdx = **data;
-  (*data)++;
-  (*parsed_bytes)++;
-  (*data_length)--;
-  return 0;
-}
-
-int ParseVP8TIDAndKeyIdx(RTPVideoHeaderVP8* vp8,
-                         const uint8_t** data,
-                         size_t* data_length,
-                         size_t* parsed_bytes,
-                         bool has_tid,
-                         bool has_key_idx) {
-  if (*data_length == 0)
-    return -1;
-
-  if (has_tid) {
-    vp8->temporalIdx = ((**data >> 6) & 0x03);
-    vp8->layerSync = (**data & 0x20) ? true : false;  // Y bit
-  }
-  if (has_key_idx) {
-    vp8->keyIdx = (**data & 0x1F);
-  }
-  (*data)++;
-  (*parsed_bytes)++;
-  (*data_length)--;
-  return 0;
-}
-
-int ParseVP8Extension(RTPVideoHeaderVP8* vp8,
-                      const uint8_t* data,
-                      size_t data_length) {
-  RTC_DCHECK_GT(data_length, 0);
-  size_t parsed_bytes = 0;
+size_t ParseVP8Descriptor(rtc::ArrayView<const uint8_t> rtp_payload,
+                          RTPVideoHeaderVP8* vp8) {
+  RTC_DCHECK_GE(rtp_payload.size(), 2);
+  RTC_DCHECK(rtp_payload[0] & kXBit);
   // Optional X field is present.
-  bool has_picture_id = (*data & 0x80) ? true : false;   // I bit
-  bool has_tl0_pic_idx = (*data & 0x40) ? true : false;  // L bit
-  bool has_tid = (*data & 0x20) ? true : false;          // T bit
-  bool has_key_idx = (*data & 0x10) ? true : false;      // K bit
+  uint8_t extension = rtp_payload[1];
+  bool has_picture_id = (extension & 0x80) != 0;   // I bit
+  bool has_tl0_pic_idx = (extension & 0x40) != 0;  // L bit
+  bool has_tid = (extension & 0x20) != 0;          // T bit
+  bool has_key_idx = (extension & 0x10) != 0;      // K bit
 
-  // Advance data and decrease remaining payload size.
-  data++;
-  parsed_bytes++;
-  data_length--;
-
+  size_t offset = 2;
   if (has_picture_id) {
-    if (ParseVP8PictureID(vp8, &data, &data_length, &parsed_bytes) != 0) {
-      return -1;
+    if (rtp_payload.size() == offset)
+      return kParsingFailed;
+
+    vp8->pictureId = (rtp_payload[offset] & 0x7F);
+    if (rtp_payload[offset] & 0x80) {
+      offset++;
+      if (rtp_payload.size() == offset)
+        return kParsingFailed;
+      // PictureId is 15 bits
+      vp8->pictureId = (vp8->pictureId << 8) + rtp_payload[offset];
     }
+    offset++;
   }
 
   if (has_tl0_pic_idx) {
-    if (ParseVP8Tl0PicIdx(vp8, &data, &data_length, &parsed_bytes) != 0) {
-      return -1;
-    }
+    if (rtp_payload.size() == offset)
+      return kParsingFailed;
+
+    vp8->tl0PicIdx = rtp_payload[offset];
+    offset++;
   }
 
   if (has_tid || has_key_idx) {
-    if (ParseVP8TIDAndKeyIdx(vp8, &data, &data_length, &parsed_bytes, has_tid,
-                             has_key_idx) != 0) {
-      return -1;
-    }
-  }
-  return static_cast<int>(parsed_bytes);
-}
+    if (rtp_payload.size() == offset)
+      return kParsingFailed;
 
-int ParseVP8FrameSize(RtpDepacketizer::ParsedPayload* parsed_payload,
-                      const uint8_t* data,
-                      size_t data_length) {
-  if (parsed_payload->video_header().frame_type !=
-      VideoFrameType::kVideoFrameKey) {
-    // Included in payload header for I-frames.
-    return 0;
+    if (has_tid) {
+      vp8->temporalIdx = ((rtp_payload[offset] >> 6) & 0x03);
+      vp8->layerSync = (rtp_payload[offset] & 0x20) != 0;  // Y bit
+    }
+    if (has_key_idx) {
+      vp8->keyIdx = (rtp_payload[offset] & 0x1F);
+    }
+    offset++;
   }
-  if (data_length < 10) {
-    // For an I-frame we should always have the uncompressed VP8 header
-    // in the beginning of the partition.
-    return -1;
-  }
-  parsed_payload->video_header().width = ((data[7] << 8) + data[6]) & 0x3FFF;
-  parsed_payload->video_header().height = ((data[9] << 8) + data[8]) & 0x3FFF;
-  return 0;
+  return offset;
 }
 
 bool ValidateHeader(const RTPVideoHeaderVP8& hdr_info) {
@@ -299,80 +238,88 @@ RtpPacketizerVp8::RawHeader RtpPacketizerVp8::BuildHeader(
 //      +-+-+-+-+-+-+-+-+
 //      |      ...      |
 //      +               +
-bool RtpDepacketizerVp8::Parse(ParsedPayload* parsed_payload,
-                               const uint8_t* payload_data,
-                               size_t payload_data_length) {
-  RTC_DCHECK(parsed_payload);
-  if (payload_data_length == 0) {
+size_t RtpDepacketizerVp8::ParseRtpPayload(
+    rtc::ArrayView<const uint8_t> rtp_payload,
+    RTPVideoHeader* video_header) {
+  if (rtp_payload.empty()) {
     RTC_LOG(LS_ERROR) << "Empty payload.";
-    return false;
+    return kParsingFailed;
   }
 
-  // Parse mandatory first byte of payload descriptor.
-  bool extension = (*payload_data & 0x80) ? true : false;               // X bit
-  bool beginning_of_partition = (*payload_data & 0x10) ? true : false;  // S bit
-  int partition_id = (*payload_data & 0x0F);  // PartID field
+  auto& vp8_header =
+      video_header->video_type_header.emplace<RTPVideoHeaderVP8>();
 
-  parsed_payload->video_header().width = 0;
-  parsed_payload->video_header().height = 0;
-  parsed_payload->video_header().is_first_packet_in_frame =
-      beginning_of_partition && (partition_id == 0);
-  parsed_payload->video_header().simulcastIdx = 0;
-  parsed_payload->video_header().codec = kVideoCodecVP8;
-  auto& vp8_header = parsed_payload->video_header()
-                         .video_type_header.emplace<RTPVideoHeaderVP8>();
-  vp8_header.nonReference = (*payload_data & 0x20) ? true : false;  // N bit
-  vp8_header.partitionId = partition_id;
-  vp8_header.beginningOfPartition = beginning_of_partition;
+  // Parse mandatory first byte of payload descriptor.
+  bool extension = (rtp_payload[0] & 0x80) != 0;                   // X bit
+  vp8_header.nonReference = (rtp_payload[0] & 0x20) != 0;          // N bit
+  vp8_header.beginningOfPartition = (rtp_payload[0] & 0x10) != 0;  // S bit
+  vp8_header.partitionId = rtp_payload[0] & 0x0F;  // PartID field
+
+  if (vp8_header.partitionId > 8) {
+    // Weak check for corrupt payload_data: PartID MUST NOT be larger than 8.
+    return kParsingFailed;
+  }
+
+  video_header->is_first_packet_in_frame =
+      vp8_header.beginningOfPartition && vp8_header.partitionId == 0;
+  video_header->simulcastIdx = 0;
+  video_header->codec = kVideoCodecVP8;
+
   vp8_header.pictureId = kNoPictureId;
   vp8_header.tl0PicIdx = kNoTl0PicIdx;
   vp8_header.temporalIdx = kNoTemporalIdx;
   vp8_header.layerSync = false;
   vp8_header.keyIdx = kNoKeyIdx;
 
-  if (partition_id > 8) {
-    // Weak check for corrupt payload_data: PartID MUST NOT be larger than 8.
-    return false;
-  }
-
-  // Advance payload_data and decrease remaining payload size.
-  payload_data++;
-  if (payload_data_length <= 1) {
+  // Advance payload_data.
+  size_t offset = 1;
+  if (rtp_payload.size() <= offset) {
     RTC_LOG(LS_ERROR) << "Error parsing VP8 payload descriptor!";
-    return false;
+    return kParsingFailed;
   }
-  payload_data_length--;
 
   if (extension) {
-    const int parsed_bytes =
-        ParseVP8Extension(&vp8_header, payload_data, payload_data_length);
-    if (parsed_bytes < 0)
-      return false;
-    payload_data += parsed_bytes;
-    payload_data_length -= parsed_bytes;
-    if (payload_data_length == 0) {
+    offset = ParseVP8Descriptor(rtp_payload, &vp8_header);
+    if (offset == kParsingFailed || offset >= rtp_payload.size()) {
       RTC_LOG(LS_ERROR) << "Error parsing VP8 payload descriptor!";
-      return false;
+      return kParsingFailed;
     }
   }
 
   // Read P bit from payload header (only at beginning of first partition).
-  if (beginning_of_partition && partition_id == 0) {
-    parsed_payload->video_header().frame_type =
-        (*payload_data & 0x01) ? VideoFrameType::kVideoFrameDelta
-                               : VideoFrameType::kVideoFrameKey;
+  if (video_header->is_first_packet_in_frame &&
+      (rtp_payload[offset] & 0x01) == 0) {
+    video_header->frame_type = VideoFrameType::kVideoFrameKey;
+
+    if (rtp_payload.size() < offset + 10) {
+      // For an I-frame we should always have the uncompressed VP8 header
+      // in the beginning of the partition.
+      return kParsingFailed;
+    }
+    const uint8_t* data = rtp_payload.data() + offset;
+    video_header->width = ((data[7] << 8) + data[6]) & 0x3FFF;
+    video_header->height = ((data[9] << 8) + data[8]) & 0x3FFF;
   } else {
-    parsed_payload->video_header().frame_type =
-        VideoFrameType::kVideoFrameDelta;
+    video_header->frame_type = VideoFrameType::kVideoFrameDelta;
+    video_header->width = 0;
+    video_header->height = 0;
   }
 
-  if (ParseVP8FrameSize(parsed_payload, payload_data, payload_data_length) !=
-      0) {
+  return offset;
+}
+
+bool RtpDepacketizerVp8::Parse(ParsedPayload* parsed_payload,
+                               const uint8_t* payload_data,
+                               size_t payload_data_length) {
+  RTC_DCHECK(parsed_payload);
+  size_t offset =
+      ParseRtpPayload(rtc::MakeArrayView(payload_data, payload_data_length),
+                      &parsed_payload->video);
+  if (offset == kParsingFailed)
     return false;
-  }
-
-  parsed_payload->payload = payload_data;
-  parsed_payload->payload_length = payload_data_length;
+  parsed_payload->payload = payload_data + offset;
+  parsed_payload->payload_length = payload_data_length - offset;
   return true;
 }
+
 }  // namespace webrtc

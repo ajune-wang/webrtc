@@ -61,6 +61,7 @@ if (!build_with_chromium) {
         "stats:rtc_stats_unittests",
         "system_wrappers:system_wrappers_unittests",
         "test",
+        "test:ivf_converter",
         "video:screenshare_loopback",
         "video:sv_loopback",
         "video:video_loopback",

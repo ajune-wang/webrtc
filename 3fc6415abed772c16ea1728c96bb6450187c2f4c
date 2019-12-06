@@ -225,6 +225,24 @@
     },
     {
       "key": {
+        "uuid": "94b9acbe_86c62fe8",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-06T02:28:20Z",
+      "side": 1,
+      "message": "It\u0027s because my function takes its arguments by reference (which it does so that there will be no copy)---when you do that, constants like this one need to be defined somewhere, not just declared. (Technically, this was always required; the toolchain just didn\u0027t notice.)\n\nThe easiest solution for integer constants, which I recommend, is to replace\n\n  static constexpr int kMinLevelDb \u003d 127;\n\nwith\n\n  enum : int { kMinLevelDb \u003d 127 };\n\nin modules/audio_processing/rms_level.h. (This is called the \"enum hack\", and has been with us for a long time; it was finally made obsolete in C++17 by inline variables.)",
+      "parentUuid": "788e47d7_68721358",
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3939796_883fc5a8",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 16

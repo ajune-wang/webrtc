@@ -243,6 +243,24 @@
     },
     {
       "key": {
+        "uuid": "bead448f_e99b5ca2",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-06T12:45:18Z",
+      "side": 1,
+      "message": "Thanks for the thorough explanation, it feels good to remove all those RTC_NOOPx :).",
+      "parentUuid": "94b9acbe_86c62fe8",
+      "revId": "3fc6415abed772c16ea1728c96bb6450187c2f4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3939796_883fc5a8",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 16

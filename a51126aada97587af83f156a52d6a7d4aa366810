@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dc0721a_4bb8415d",
+        "filename": "rtc_base/synchronization/rw_lock_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-08T02:14:30Z",
+      "side": 1,
+      "message": "This sort of comment (explaining how the code used to work) is rarely useful; most readers won\u0027t care, and those interested in history can browse the version control system. Please remove.\n\n(This works well largely because of the very informative commit message you wrote.)",
+      "revId": "a51126aada97587af83f156a52d6a7d4aa366810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82fc2d23_f3141f2e",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-08T02:00:48Z",
+      "side": 1,
+      "message": "Now that the message is always going to RTC_LOG, you can turn lines 392-399 into one big RTC_LOG statement.",
+      "revId": "c8b65a131d1dbecea64472c7cee7aba7cbc6d63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

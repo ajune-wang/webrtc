@@ -16,6 +16,24 @@
       "revId": "80bc1acb9c2b9d8096f356c748ec9b57e02759c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdc79c39_34e3d163",
+        "filename": "rtc_base/synchronization/rw_lock_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 10430
+      },
+      "writtenOn": "2019-12-09T17:36:40Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "95b35f99_835626dd",
+      "revId": "80bc1acb9c2b9d8096f356c748ec9b57e02759c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

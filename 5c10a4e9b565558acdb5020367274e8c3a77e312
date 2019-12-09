@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29b59fa3_eef929e8",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-09T09:29:57Z",
+      "side": 1,
+      "message": "I notice this comment is a bit outdated, and it will likely work fine to pass frame instead of frame_copy (there\u0027s no CopyOnWriteBuffer involved anymore). but I want no further changes in this cl.",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 23
+      },
+      "revId": "5c10a4e9b565558acdb5020367274e8c3a77e312",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

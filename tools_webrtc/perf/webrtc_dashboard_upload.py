@@ -57,30 +57,17 @@ def _SendHistogramSetJson(url, histogram_json, oauth_token):
     oauth_token: An oauth token to use for authorization.
   """
   headers = {'Authorization': 'Bearer %s' % oauth_token}
-  serialized = json.dumps(histogram_json.AsDicts(), indent=4)
-  data = zlib.compress(serialized)
+  serialized = json.dumps(histogram_json, indent=4)
 
   http = httplib2.Http()
   response, content = http.request(url + '/add_histograms', method='POST',
-                                   body=data, headers=headers)
+                                   body=serialized, headers=headers)
   return response, content
 
 
 def _LoadHistogramSetJson(options):
   with options.input_results_file as f:
-    json_data = json.load(f)
-
-  histograms = histogram_util.LoadHistograms(json_data)
-  hs = histogram_util.MakeWebRtcHistogramSet(
-      stats=histograms,
-      commit_pos=options.commit_position,
-      commit_hash=options.webrtc_git_hash,
-      master=options.perf_dashboard_machine_group,
-      bot=options.bot,
-      test_suite=options.test_suite,
-      build_url=options.build_page_url)
-
-  return hs
+    return json.load(f)
 
 
 def _CreateParser():
@@ -119,8 +106,7 @@ def main(args):
   histogram_json = _LoadHistogramSetJson(options)
 
   if options.output_json_file:
-    with options.output_json_file as output_file:
-      json.dump(histogram_json.AsDicts(), output_file, indent=4)
+    pass
 
   oauth_token = _GenerateOauthToken()
   response, content = _SendHistogramSetJson(

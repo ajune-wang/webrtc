@@ -21,6 +21,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/critical_section.h"
+#include "third_party/catapult/tracing/tracing-cpp/value/histogram.h"
 
 namespace {
 
@@ -280,6 +281,7 @@ void PrintResult(const std::string& measurement,
                  ImproveDirection improve_direction) {
   GetPerfResultsLogger().LogResult(measurement + modifier, trace, value, units,
                                    important, improve_direction);
+  whatever();
 }
 
 void PrintResult(const std::string& measurement,

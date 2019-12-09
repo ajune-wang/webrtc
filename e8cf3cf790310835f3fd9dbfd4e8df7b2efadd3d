@@ -22,6 +22,30 @@
       "revId": "e8cf3cf790310835f3fd9dbfd4e8df7b2efadd3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb3611c2_85ef58b9",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-09T11:21:36Z",
+      "side": 1,
+      "message": "Thanks!\nI added a link to the bug. Let\u0027s remove the one in audio_processing.cc in the CL that removes the flag.",
+      "parentUuid": "e5c0cf76_ba3c035a",
+      "range": {
+        "startLine": 232,
+        "startChar": 9,
+        "endLine": 232,
+        "endChar": 28
+      },
+      "revId": "e8cf3cf790310835f3fd9dbfd4e8df7b2efadd3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

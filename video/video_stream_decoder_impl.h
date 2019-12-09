@@ -45,10 +45,8 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
  private:
   enum DecodeResult {
     kOk,
+    kOkRequestKeyframe,
     kDecodeFailure,
-    kNoFrame,
-    kNoDecoder,
-    kShutdown,
   };
 
   struct FrameTimestamps {
@@ -57,10 +55,9 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
     int64_t render_time_us;
   };
 
-  VideoDecoder* GetDecoder(int payload_type);
-  static void DecodeLoop(void* ptr);
-  DecodeResult DecodeNextFrame(int max_wait_time_ms, bool keyframe_required);
-
+  VideoDecoder* GetDecoder(int payload_type) RTC_RUN_ON(decode_queue_);
+  void SaveFrameTimestamps(const video_coding::EncodedFrame& frame)
+      RTC_RUN_ON(bookkeeping_queue_);
   FrameTimestamps* GetFrameTimestamps(int64_t timestamp);
 
   // Implements DecodedImageCallback interface
@@ -79,14 +76,27 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
   //  - Make |callbacks_|.
   //  - Insert/extract frames from the |frame_buffer_|
   //  - Synchronize with whatever thread that makes the Decoded callback.
+  // TODO: Comments about destruction order being important!
   rtc::TaskQueue bookkeeping_queue_;
+  rtc::TaskQueue decode_queue_;
+  bool shut_down_ RTC_GUARDED_BY(decode_queue_) = false;
+  std::unique_ptr<VideoDecoder> decoder_ RTC_GUARDED_BY(decode_queue_);
 
-  rtc::PlatformThread decode_thread_;
   VCMTiming timing_;
   video_coding::FrameBuffer frame_buffer_;
   video_coding::VideoLayerFrameId last_continuous_id_;
   absl::optional<int> current_payload_type_;
-  std::unique_ptr<VideoDecoder> decoder_;
+
+  bool keyframe_required_ = true;
+  void StartNextDecode();
+  void OnNextFrameCallback(std::unique_ptr<video_coding::EncodedFrame> frame,
+                           video_coding::FrameBuffer::ReturnReason res);
+  void RequestKeyframe();
+
+  // int64_t GetWaitMs() const;
+  VideoStreamDecoderImpl::DecodeResult DecodeFrame(
+      std::unique_ptr<video_coding::EncodedFrame> frame);
+  // now_ms); void HandleFrameBufferTimeout();
 
   // Some decoders are pipelined so it is not sufficient to save frame info
   // for the last frame only.

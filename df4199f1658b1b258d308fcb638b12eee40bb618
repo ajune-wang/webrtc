@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "83c02b70_28f48be4",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-09T12:24:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6673c67_20487495",
+      "revId": "df4199f1658b1b258d308fcb638b12eee40bb618",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4eaf60d5_e9745af8",
         "filename": "system_wrappers/include/metrics.h",
         "patchSetId": 19
@@ -69,6 +87,30 @@
         "id": 5126
       },
       "writtenOn": "2019-12-09T12:23:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eaf60d5_e9745af8",
+      "range": {
+        "startLine": 42,
+        "startChar": 37,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "df4199f1658b1b258d308fcb638b12eee40bb618",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "341c1d40_41a2aa21",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2019-12-09T12:24:51Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "4eaf60d5_e9745af8",

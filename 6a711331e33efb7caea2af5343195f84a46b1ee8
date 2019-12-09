@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0ecbecc_6f3c8516",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-09T13:49:59Z",
+      "side": 1,
+      "message": "Is it ok to keep this one on the old backend?",
+      "range": {
+        "startLine": 607,
+        "startChar": 0,
+        "endLine": 607,
+        "endChar": 28
+      },
+      "revId": "6a711331e33efb7caea2af5343195f84a46b1ee8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

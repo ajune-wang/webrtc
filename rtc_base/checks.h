@@ -368,7 +368,7 @@ class FatalLogCall final {
 // Don't use this macro directly in your code, use RTC_CHECK_EQ et al below.
 #if RTC_CHECK_MSG_ENABLED
 #define RTC_CHECK(condition)                                       \
-  while (!(condition))                                             \
+  if (!(condition))                                                \
   rtc::webrtc_checks_impl::FatalLogCall<false>(__FILE__, __LINE__, \
                                                #condition) &       \
       rtc::webrtc_checks_impl::LogStreamer<>()

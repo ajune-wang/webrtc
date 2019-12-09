@@ -18,6 +18,18 @@ TEST(ChecksTest, ExpressionNotEvaluatedWhenCheckPassing) {
   RTC_CHECK_EQ(i, 0) << "Previous check passed, but i was incremented!";
 }
 
+TEST(ChecksTest, CanBeUsedInConstexprWhenTrue) {
+  struct A {
+    static constexpr int ConstexprFunction(int i) {
+      RTC_CHECK(i == 0);
+      return i;
+    }
+  };
+
+  static constexpr int i = A::ConstexprFunction(0);
+  EXPECT_EQ(i, 0);
+}
+
 #if GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 TEST(ChecksTest, Checks) {
 #if RTC_CHECK_MSG_ENABLED

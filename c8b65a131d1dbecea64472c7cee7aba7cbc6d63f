@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "4d0004c4_90344b8c",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-12-09T08:15:29Z",
+      "side": 1,
+      "message": "Should we get rid of this static too?",
+      "revId": "c8b65a131d1dbecea64472c7cee7aba7cbc6d63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82fc2d23_f3141f2e",
         "filename": "rtc_base/socket_adapters.cc",
         "patchSetId": 1
@@ -13,6 +30,24 @@
       "writtenOn": "2019-12-08T02:00:48Z",
       "side": 1,
       "message": "Now that the message is always going to RTC_LOG, you can turn lines 392-399 into one big RTC_LOG statement.",
+      "revId": "c8b65a131d1dbecea64472c7cee7aba7cbc6d63f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4504f19_1e56f0da",
+        "filename": "rtc_base/socket_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-12-09T08:15:29Z",
+      "side": 1,
+      "message": "+1\n\nbtw, no need for the \"oops\" part, since it\u0027s clear that we\u0027re logging an error. The error string could also be made to be a lot less verbose. E.g.\n\nRTC_LOG(LS_ERROR) \u003c\u003c \"Unsupported authentication methods:\" \u003c\u003c unknown_mechanisms_;",
+      "parentUuid": "82fc2d23_f3141f2e",
       "revId": "c8b65a131d1dbecea64472c7cee7aba7cbc6d63f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

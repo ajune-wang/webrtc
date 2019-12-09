@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5c0cf76_ba3c035a",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-12-09T09:01:52Z",
+      "side": 1,
+      "message": "Please link TODO item to bug. When can this be deleted? It seems it\u0027s also mentioned in \nmodules/audio_processing/include/audio_processing.cc",
+      "range": {
+        "startLine": 232,
+        "startChar": 9,
+        "endLine": 232,
+        "endChar": 28
+      },
+      "revId": "e8cf3cf790310835f3fd9dbfd4e8df7b2efadd3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

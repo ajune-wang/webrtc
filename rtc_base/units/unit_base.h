@@ -13,6 +13,7 @@
 #include <stdint.h>
 
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <limits>
 #include <type_traits>
@@ -69,89 +70,71 @@ class UnitBase {
     return value_ < other.value_;
   }
   Unit_T RoundTo(const Unit_T& resolution) const {
-    RTC_DCHECK(IsFinite());
-    RTC_DCHECK(resolution.IsFinite());
-    RTC_DCHECK_GT(resolution.value_, 0);
+    assert(IsFinite());
+    assert(resolution.IsFinite());
+    assert(resolution.value_ > 0);
     return Unit_T((value_ + resolution.value_ / 2) / resolution.value_) *
            resolution.value_;
   }
   Unit_T RoundUpTo(const Unit_T& resolution) const {
-    RTC_DCHECK(IsFinite());
-    RTC_DCHECK(resolution.IsFinite());
-    RTC_DCHECK_GT(resolution.value_, 0);
+    assert(IsFinite());
+    assert(resolution.IsFinite());
+    assert(resolution.value_ > 0);
     return Unit_T((value_ + resolution.value_ - 1) / resolution.value_) *
            resolution.value_;
   }
   Unit_T RoundDownTo(const Unit_T& resolution) const {
-    RTC_DCHECK(IsFinite());
-    RTC_DCHECK(resolution.IsFinite());
-    RTC_DCHECK_GT(resolution.value_, 0);
+    assert(IsFinite());
+    assert(resolution.IsFinite());
+    assert(resolution.value_ > 0);
     return Unit_T(value_ / resolution.value_) * resolution.value_;
   }
 
  protected:
-  template <int64_t value>
-  static constexpr Unit_T FromStaticValue() {
-    static_assert(value >= 0 || !Unit_T::one_sided, "");
-    static_assert(value > MinusInfinityVal(), "");
-    static_assert(value < PlusInfinityVal(), "");
-    return Unit_T(value);
-  }
-
-  template <int64_t fraction_value, int64_t Denominator>
-  static constexpr Unit_T FromStaticFraction() {
-    static_assert(fraction_value >= 0 || !Unit_T::one_sided, "");
-    static_assert(fraction_value > MinusInfinityVal() / Denominator, "");
-    static_assert(fraction_value < PlusInfinityVal() / Denominator, "");
-    return Unit_T(fraction_value * Denominator);
-  }
-
   template <
       typename T,
       typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
-  static Unit_T FromValue(T value) {
+  static constexpr Unit_T FromValue(T value) {
     if (Unit_T::one_sided)
-      RTC_DCHECK_GE(value, 0);
-    RTC_DCHECK_GT(value, MinusInfinityVal());
-    RTC_DCHECK_LT(value, PlusInfinityVal());
+      assert(value >= 0);
+    assert((int64_t)value != MinusInfinityVal());
+    assert(value != PlusInfinityVal());
     return Unit_T(rtc::dchecked_cast<int64_t>(value));
   }
   template <typename T,
             typename std::enable_if<std::is_floating_point<T>::value>::type* =
                 nullptr>
-  static Unit_T FromValue(T value) {
+  static constexpr Unit_T FromValue(T value) {
     if (value == std::numeric_limits<T>::infinity()) {
       return PlusInfinity();
     } else if (value == -std::numeric_limits<T>::infinity()) {
       return MinusInfinity();
     } else {
-      RTC_DCHECK(!std::isnan(value));
+      assert(!std::isnan(value));
       return FromValue(rtc::dchecked_cast<int64_t>(value));
     }
   }
 
   template <
-      int64_t Denominator,
       typename T,
       typename std::enable_if<std::is_integral<T>::value>::type* = nullptr>
-  static Unit_T FromFraction(T value) {
+  static constexpr Unit_T FromFraction(int64_t denominator, T value) {
     if (Unit_T::one_sided)
-      RTC_DCHECK_GE(value, 0);
-    RTC_DCHECK_GT(value, MinusInfinityVal() / Denominator);
-    RTC_DCHECK_LT(value, PlusInfinityVal() / Denominator);
-    return Unit_T(rtc::dchecked_cast<int64_t>(value * Denominator));
+      assert(value >= 0);
+    assert((int64_t)value > MinusInfinityVal() / denominator);
+    assert((int64_t)value < PlusInfinityVal() / denominator);
+    return Unit_T(rtc::dchecked_cast<int64_t>(value * denominator));
   }
-  template <int64_t Denominator,
-            typename T,
+  template <typename T,
             typename std::enable_if<std::is_floating_point<T>::value>::type* =
                 nullptr>
-  static Unit_T FromFraction(T value) {
-    return FromValue(value * Denominator);
+  static constexpr Unit_T FromFraction(int64_t denominator, T value) {
+    return FromValue(value * denominator);
   }
 
   template <typename T = int64_t>
   typename std::enable_if<std::is_integral<T>::value, T>::type ToValue() const {
-    RTC_DCHECK(IsFinite());
+    assert(IsFinite());
     return rtc::dchecked_cast<T>(value_);
   }
   template <typename T>
@@ -170,7 +153,7 @@ class UnitBase {
   template <int64_t Denominator, typename T = int64_t>
   typename std::enable_if<std::is_integral<T>::value, T>::type ToFraction()
       const {
-    RTC_DCHECK(IsFinite());
+    assert(IsFinite());
     if (Unit_T::one_sided) {
       return rtc::dchecked_cast<T>(
           DivRoundPositiveToNearest(value_, Denominator));
@@ -195,8 +178,8 @@ class UnitBase {
   template <int64_t Factor, typename T = int64_t>
   typename std::enable_if<std::is_integral<T>::value, T>::type ToMultiple()
       const {
-    RTC_DCHECK_GE(ToValue(), std::numeric_limits<T>::min() / Factor);
-    RTC_DCHECK_LE(ToValue(), std::numeric_limits<T>::max() / Factor);
+    assert(ToValue() >= std::numeric_limits<T>::min() / Factor);
+    assert(ToValue() <= std::numeric_limits<T>::max() / Factor);
     return rtc::dchecked_cast<T>(ToValue() * Factor);
   }
   template <int64_t Factor, typename T>
@@ -249,24 +232,24 @@ class RelativeUnit : public UnitBase<Unit_T> {
   }
   Unit_T operator+(const Unit_T other) const {
     if (this->IsPlusInfinity() || other.IsPlusInfinity()) {
-      RTC_DCHECK(!this->IsMinusInfinity());
-      RTC_DCHECK(!other.IsMinusInfinity());
+      assert(!this->IsMinusInfinity());
+      assert(!other.IsMinusInfinity());
       return this->PlusInfinity();
     } else if (this->IsMinusInfinity() || other.IsMinusInfinity()) {
-      RTC_DCHECK(!this->IsPlusInfinity());
-      RTC_DCHECK(!other.IsPlusInfinity());
+      assert(!this->IsPlusInfinity());
+      assert(!other.IsPlusInfinity());
       return this->MinusInfinity();
     }
     return UnitBase<Unit_T>::FromValue(this->ToValue() + other.ToValue());
   }
   Unit_T operator-(const Unit_T other) const {
     if (this->IsPlusInfinity() || other.IsMinusInfinity()) {
-      RTC_DCHECK(!this->IsMinusInfinity());
-      RTC_DCHECK(!other.IsPlusInfinity());
+      assert(!this->IsMinusInfinity());
+      assert(!other.IsPlusInfinity());
       return this->PlusInfinity();
     } else if (this->IsMinusInfinity() || other.IsPlusInfinity()) {
-      RTC_DCHECK(!this->IsPlusInfinity());
-      RTC_DCHECK(!other.IsMinusInfinity());
+      assert(!this->IsPlusInfinity());
+      assert(!other.IsMinusInfinity());
       return this->MinusInfinity();
     }
     return UnitBase<Unit_T>::FromValue(this->ToValue() - other.ToValue());

@@ -13,6 +13,7 @@
 #ifndef RTC_BASE_NUMERICS_SAFE_CONVERSIONS_H_
 #define RTC_BASE_NUMERICS_SAFE_CONVERSIONS_H_
 
+#include <cassert>
 #include <limits>
 
 #include "rtc_base/checks.h"
@@ -33,12 +34,12 @@ inline constexpr bool IsValueInRangeForNumericType(Src value) {
 // the [D]CHECK.
 template <typename Dst, typename Src>
 inline constexpr Dst checked_cast(Src value) {
-  RTC_CHECK(IsValueInRangeForNumericType<Dst>(value));
+  assert(IsValueInRangeForNumericType<Dst>(value));
   return static_cast<Dst>(value);
 }
 template <typename Dst, typename Src>
 inline constexpr Dst dchecked_cast(Src value) {
-  RTC_DCHECK(IsValueInRangeForNumericType<Dst>(value));
+  assert(IsValueInRangeForNumericType<Dst>(value));
   return static_cast<Dst>(value);
 }
 

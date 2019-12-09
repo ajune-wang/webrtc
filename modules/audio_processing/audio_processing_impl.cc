@@ -75,6 +75,11 @@ bool DetectLegacyNsEnforcement() {
   return field_trial::IsEnabled("WebRTC-NewNoiseSuppressionKillSwitch");
 }
 
+// Checks whether the high-pass filter should be done in the full-band.
+bool EnforceSplitBandHpf() {
+  return field_trial::IsEnabled("WebRTC-FullBandHpfKillSwitch");
+}
+
 // Checks whether AEC3 should be allowed to decide what the default
 // configuration should be based on the render and capture channel configuration
 // at hand.
@@ -348,7 +353,8 @@ AudioProcessingImpl::AudioProcessingImpl(
                  !field_trial::IsEnabled(
                      "WebRTC-ApmExperimentalMultiChannelRenderKillSwitch"),
                  !field_trial::IsEnabled(
-                     "WebRTC-ApmExperimentalMultiChannelCaptureKillSwitch")),
+                     "WebRTC-ApmExperimentalMultiChannelCaptureKillSwitch"),
+                 EnforceSplitBandHpf()),
 #if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
       capture_(false),
 #else
@@ -1242,6 +1248,13 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
   AudioBuffer* capture_buffer = capture_.capture_audio.get();  // For brevity.
 
+  if (submodules_.high_pass_filter &&
+      config_.high_pass_filter.apply_in_full_band &&
+      !constants_.enforce_split_band_hpf) {
+    submodules_.high_pass_filter->Process(capture_buffer,
+                                          /*use_split_band_data=*/false);
+  }
+
   if (submodules_.pre_amplifier) {
     submodules_.pre_amplifier->ApplyGain(AudioFrameView<float>(
         capture_buffer->channels(), capture_buffer->num_channels(),
@@ -1310,8 +1323,11 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     capture_buffer->set_num_channels(1);
   }
 
-  if (submodules_.high_pass_filter) {
-    submodules_.high_pass_filter->Process(capture_buffer);
+  if (submodules_.high_pass_filter &&
+      (config_.high_pass_filter.apply_in_full_band ||
+       constants_.enforce_split_band_hpf)) {
+    submodules_.high_pass_filter->Process(capture_buffer,
+                                          /*use_split_band_data=*/true);
   }
 
   RETURN_ON_ERR(submodules_.gain_control->AnalyzeCaptureAudio(*capture_buffer));
@@ -1814,7 +1830,14 @@ void AudioProcessingImpl::InitializeHighPassFilter() {
       !config_.echo_canceller.mobile_mode;
   if (submodule_states_.HighPassFilteringRequired() ||
       high_pass_filter_needed_by_aec) {
-    submodules_.high_pass_filter.reset(new HighPassFilter(num_proc_channels()));
+    bool use_full_band = config_.high_pass_filter.apply_in_full_band &&
+                         !constants_.enforce_split_band_hpf;
+    int rate = use_full_band ? proc_fullband_sample_rate_hz()
+                             : proc_split_sample_rate_hz();
+    size_t num_channels =
+        use_full_band ? num_output_channels() : num_proc_channels();
+
+    submodules_.high_pass_filter.reset(new HighPassFilter(rate, num_channels));
   } else {
     submodules_.high_pass_filter.reset();
   }

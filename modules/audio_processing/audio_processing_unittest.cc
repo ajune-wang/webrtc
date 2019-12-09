@@ -432,6 +432,9 @@ ApmTest::ApmTest()
   Config config;
   config.Set<ExperimentalAgc>(new ExperimentalAgc(false));
   apm_.reset(AudioProcessingBuilder().Create(config));
+  AudioProcessing::Config apm_config = apm_->GetConfig();
+  apm_config.pipeline.maximum_internal_processing_rate = 48000;
+  apm_->ApplyConfig(apm_config);
 }
 
 void ApmTest::SetUp() {
@@ -2087,9 +2090,9 @@ INSTANTIATE_TEST_SUITE_P(
                       std::make_tuple(44100, 16000, 32000, 16000, 25, 20),
                       std::make_tuple(44100, 16000, 16000, 16000, 25, 0),
 
-                      std::make_tuple(32000, 48000, 48000, 48000, 30, 0),
-                      std::make_tuple(32000, 48000, 32000, 48000, 32, 30),
-                      std::make_tuple(32000, 48000, 16000, 48000, 30, 20),
+                      std::make_tuple(32000, 48000, 48000, 48000, 15, 0),
+                      std::make_tuple(32000, 48000, 32000, 48000, 15, 30),
+                      std::make_tuple(32000, 48000, 16000, 48000, 15, 20),
                       std::make_tuple(32000, 44100, 48000, 44100, 19, 20),
                       std::make_tuple(32000, 44100, 32000, 44100, 19, 15),
                       std::make_tuple(32000, 44100, 16000, 44100, 19, 15),
@@ -2100,9 +2103,9 @@ INSTANTIATE_TEST_SUITE_P(
                       std::make_tuple(32000, 16000, 32000, 16000, 25, 20),
                       std::make_tuple(32000, 16000, 16000, 16000, 25, 0),
 
-                      std::make_tuple(16000, 48000, 48000, 48000, 23, 0),
-                      std::make_tuple(16000, 48000, 32000, 48000, 24, 30),
-                      std::make_tuple(16000, 48000, 16000, 48000, 24, 20),
+                      std::make_tuple(16000, 48000, 48000, 48000, 9, 0),
+                      std::make_tuple(16000, 48000, 32000, 48000, 9, 30),
+                      std::make_tuple(16000, 48000, 16000, 48000, 9, 20),
                       std::make_tuple(16000, 44100, 48000, 44100, 15, 20),
                       std::make_tuple(16000, 44100, 32000, 44100, 15, 15),
                       std::make_tuple(16000, 44100, 16000, 44100, 15, 15),

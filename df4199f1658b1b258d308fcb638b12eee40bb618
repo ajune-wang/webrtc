@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6673c67_20487495",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-09T10:14:20Z",
+      "side": 1,
+      "message": "You\u0027re putting this in the global namespace. Please put it in e.g. webrtc::metrics_impl instead.",
+      "revId": "df4199f1658b1b258d308fcb638b12eee40bb618",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eaf60d5_e9745af8",
+        "filename": "system_wrappers/include/metrics.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-09T10:14:20Z",
+      "side": 1,
+      "message": "When calling a function from a macro, specify the namespace explicitly; the lookup will take place in the namespace of the calling code. So e.g. webrtc::metrics_impl::NoOp(...)",
+      "range": {
+        "startLine": 42,
+        "startChar": 37,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "df4199f1658b1b258d308fcb638b12eee40bb618",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

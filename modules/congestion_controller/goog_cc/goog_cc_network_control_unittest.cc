@@ -458,14 +458,12 @@ TEST_F(GoogCcNetworkControllerTest, StableEstimateDoesNotVaryInSteadyState) {
 
 TEST_F(GoogCcNetworkControllerTest,
        LossBasedControlUpdatesTargetRateBasedOnLinkCapacity) {
-  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
   // TODO(srte): Should the behavior be unaffected at low loss rates?
   UpdatesTargetRateBasedOnLinkCapacity("_loss_based");
 }
 
 TEST_F(GoogCcNetworkControllerTest,
        LossBasedControlDoesModestBackoffToHighLoss) {
-  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
   Scenario s("googcc_unit/high_loss_channel", false);
   CallClientConfig config;
   config.transport.rates.min_rate = DataRate::kbps(10);
@@ -520,26 +518,15 @@ DataRate AverageBitrateAfterCrossInducedLoss(std::string name) {
 }
 
 TEST_F(GoogCcNetworkControllerTest,
-       NoLossBasedRecoversSlowerAfterCrossInducedLoss) {
-  // This test acts as a reference for the test below, showing that wihtout the
-  // trial, we have worse behavior.
-  DataRate average_bitrate =
-      AverageBitrateAfterCrossInducedLoss("googcc_unit/no_cross_loss_based");
-  RTC_DCHECK_LE(average_bitrate, DataRate::kbps(650));
-}
-
-TEST_F(GoogCcNetworkControllerTest,
        LossBasedRecoversFasterAfterCrossInducedLoss) {
   // We recover bitrate better when subject to loss spikes from cross traffic
   // when loss based controller is used.
-  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
   DataRate average_bitrate =
       AverageBitrateAfterCrossInducedLoss("googcc_unit/cross_loss_based");
-  RTC_DCHECK_GE(average_bitrate, DataRate::kbps(750));
+  RTC_DCHECK_GE(average_bitrate, DataRate::bps(724687));
 }
 
 TEST_F(GoogCcNetworkControllerTest, LossBasedEstimatorCapsRateAtModerateLoss) {
-  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
   Scenario s("googcc_unit/moderate_loss_channel", false);
   CallClientConfig config;
   config.transport.rates.min_rate = DataRate::kbps(10);
@@ -695,7 +682,6 @@ TEST_F(GoogCcNetworkControllerTest,
 }
 
 TEST_F(GoogCcNetworkControllerTest, NoBandwidthTogglingInLossControlTrial) {
-  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
   Scenario s("googcc_unit/no_toggling");
   auto* send_net = s.CreateSimulationNode([&](NetworkSimulationConfig* c) {
     c->bandwidth = DataRate::kbps(2000);

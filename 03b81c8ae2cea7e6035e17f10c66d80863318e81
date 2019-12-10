@@ -46,6 +46,30 @@
       "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c822face_bb182ad5",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-10T16:48:01Z",
+      "side": 1,
+      "message": "I was thinking something like:\n\n  packet 1: rtp_ts\u003d0 seq_num\u003d0 (KF)\n  packet 2: rtp_ts\u003d0 seq_num\u003d1 (KF)\n  packet 3: rtp_ts\u003d1 seq_num\u003d3 (KF)\n  packet 4: rtp_ts\u003d0 seq_num\u003d0 (KF) \u003c-- old\n\nWhen we receive the old packet we will |last_received_keyframe_packet_ms_ \u003d now_ms|, but it might have been re-sent because of probing or some other reason. If we use the check I propose we won\u0027t update |last_received_keyframe_packet_ms_|.",
+      "parentUuid": "aa457ffc_2e6ce920",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

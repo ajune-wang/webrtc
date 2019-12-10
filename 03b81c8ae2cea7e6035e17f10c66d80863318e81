@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07f6d131_17bd17c5",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-10T16:14:48Z",
+      "side": 1,
+      "message": "This is a good idea, I think we can improve it a bit by checking it this way:\n\n  AheadOrAt(packet-\u003etimestamp, last_received_keyframe_rtp_timestamp_);\n\nThis way we will ignore old re-sent packets belonging to a keyframe.",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

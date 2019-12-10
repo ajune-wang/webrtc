@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "724bf1b0_36fad35d",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-10T21:06:11Z",
+      "side": 1,
+      "message": "We create one of these per template instantiation---which is essentially once per call site, since the template parameter is a functor class---but IIUC once would be enough. Could you make a helper function for that? (And then also call it from PostTask?)\n\nActually, that should make it possible to move that entire class to the .cc file.",
+      "range": {
+        "startLine": 282,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 56
+      },
+      "revId": "928097aa04ea05f797c5a76ae7db0ce0993dd2b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

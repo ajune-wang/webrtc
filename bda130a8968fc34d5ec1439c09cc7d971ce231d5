@@ -22,6 +22,30 @@
       "revId": "bda130a8968fc34d5ec1439c09cc7d971ce231d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfad4ab4_2516cbd5",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 10460
+      },
+      "writtenOn": "2019-12-10T08:41:09Z",
+      "side": 1,
+      "message": "A presubmit hook got angry if rtc_base/constructor_magic.h is included in this file, which is in api directory.",
+      "parentUuid": "e7b6af93_10eb537c",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 66
+      },
+      "revId": "bda130a8968fc34d5ec1439c09cc7d971ce231d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

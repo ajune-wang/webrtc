@@ -203,6 +203,7 @@ rtc_library("rtc_encoder_simulcast_proxy") {
     "../api/video:video_rtp_headers",
     "../api/video_codecs:video_codecs_api",
     "../modules/video_coding:video_codec_interface",
+    "../rtc_base:macromagic",
     "../rtc_base/system:rtc_export",
   ]
 }

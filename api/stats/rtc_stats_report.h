@@ -61,6 +61,7 @@ class RTC_EXPORT RTCStatsReport : public rtc::RefCountInterface {
 
   explicit RTCStatsReport(int64_t timestamp_us);
   RTCStatsReport(const RTCStatsReport& other) = delete;
+  RTCStatsReport& operator=(const RTCStatsReport& other) = delete;
   rtc::scoped_refptr<RTCStatsReport> Copy() const;
 
   int64_t timestamp_us() const { return timestamp_us_; }

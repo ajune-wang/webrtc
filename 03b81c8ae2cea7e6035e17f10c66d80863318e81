@@ -94,6 +94,30 @@
       "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb9f71a7_61fdd266",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-12-10T17:54:48Z",
+      "side": 1,
+      "message": "I haven\u0027t looked at this in detail, but I think there is a way for this to happen if we don\u0027t decode frames. Something like:\n\n1) Decode a few frames\n2) Receive a keyframe\n2) Fail to decode it (meaning we don\u0027t call PacketBuffer::ClearTo).\n3) Receive packets of a new keyframe and the keyframe from 2) (probing or whatever reason).\n4) Packets from keyframe 2 will now not be old (line 92) and not be used (line 104), so they will update the |last_received_keyframe_packet_ms_|.\n\nI think this is very unlikely though...",
+      "parentUuid": "232706c0_53d4ee77",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

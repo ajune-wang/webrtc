@@ -562,6 +562,7 @@ rtc_library("rtc_task_queue_stdlib") {
 }
 
 rtc_library("weak_ptr") {
+  visibility = [ "*" ]
   sources = [
     "weak_ptr.cc",
     "weak_ptr.h",

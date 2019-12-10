@@ -15,7 +15,7 @@
 
 #include <memory>
 
-#include "absl/container/inlined_vector.h"
+#include "api/array_view.h"
 #include "common_audio/include/audio_util.h"
 #include "common_audio/resampler/push_sinc_resampler.h"
 #include "rtc_base/checks.h"
@@ -56,6 +56,8 @@ void CheckExpectedBufferSizes(size_t src_length,
   RTC_DCHECK_GE(dst_capacity, dst_size_10ms);
 #endif
 }
+
+constexpr int kMaxStackAllocatedChannels = 8;
 }  // namespace
 
 template <typename T>
@@ -100,6 +102,9 @@ int PushResampler<T>::InitializeIfNeeded(int src_sample_rate_hz,
     channel_resampler->destination.resize(dst_size_10ms_mono);
   }
 
+  channel_data_heap_array_.resize(
+      num_channels_ > kMaxStackAllocatedChannels ? num_channels_ : 0);
+
   return 0;
 }
 
@@ -121,12 +126,16 @@ int PushResampler<T>::Resample(const T* src,
   const size_t src_length_mono = src_length / num_channels_;
   const size_t dst_capacity_mono = dst_capacity / num_channels_;
 
-  absl::InlinedVector<T*, 8> source_pointers;
-  for (auto& resampler : channel_resamplers_) {
-    source_pointers.push_back(resampler.source.data());
-  }
+  std::array<T*, kMaxStackAllocatedChannels> channel_data_stack_array;
+  T** array_data = num_channels_ <= kMaxStackAllocatedChannels
+                       ? channel_data_stack_array.data()
+                       : channel_data_heap_array_.data();
+  rtc::ArrayView<T*> channel_data_array(array_data, num_channels_);
 
-  Deinterleave(src, src_length_mono, num_channels_, source_pointers.data());
+  for (size_t ch = 0; ch < num_channels_; ++ch) {
+    channel_data_array[ch] = channel_resamplers_[ch].source.data();
+  }
+  Deinterleave(src, src_length_mono, num_channels_, channel_data_array.data());
 
   size_t dst_length_mono = 0;
 
@@ -136,12 +145,11 @@ int PushResampler<T>::Resample(const T* src,
         dst_capacity_mono);
   }
 
-  absl::InlinedVector<T*, 8> destination_pointers;
-  for (auto& resampler : channel_resamplers_) {
-    destination_pointers.push_back(resampler.destination.data());
+  for (size_t ch = 0; ch < num_channels_; ++ch) {
+    channel_data_array[ch] = channel_resamplers_[ch].destination.data();
   }
 
-  Interleave(destination_pointers.data(), dst_length_mono, num_channels_, dst);
+  Interleave(channel_data_array.data(), dst_length_mono, num_channels_, dst);
   return static_cast<int>(dst_length_mono * num_channels_);
 }
 

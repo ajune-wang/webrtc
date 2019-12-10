@@ -435,6 +435,9 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     CandidateNetworkPolicy candidate_network_policy =
         kCandidateNetworkPolicyAll;
 
+    // Whether to use the NetEq post decode VAD
+    bool audio_jitter_buffer_enable_post_decode_vad = false;
+
     // The maximum number of packets that can be stored in the NetEq audio
     // jitter buffer. Can be reduced to lower tolerated audio latency.
     int audio_jitter_buffer_max_packets = kAudioJitterBufferMaxPackets;
@@ -442,6 +445,9 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // Whether to use the NetEq "fast mode" which will accelerate audio quicker
     // if it falls behind.
     bool audio_jitter_buffer_fast_accelerate = false;
+
+    // The maximum delay in milliseconds for the audio jitter buffer.
+    int audio_jitter_buffer_max_delay_ms = 0;
 
     // The minimum delay in milliseconds for the audio jitter buffer.
     int audio_jitter_buffer_min_delay_ms = 0;

@@ -52,10 +52,14 @@ struct RTC_EXPORT AudioOptions {
   absl::optional<bool> highpass_filter;
   // Audio processing to swap the left and right channels.
   absl::optional<bool> stereo_swapping;
+  // Audio receiver jitter buffer (NetEq) enable post decode VAD.
+  absl::optional<bool> audio_jitter_buffer_enable_post_decode_vad;
   // Audio receiver jitter buffer (NetEq) max capacity in number of packets.
   absl::optional<int> audio_jitter_buffer_max_packets;
   // Audio receiver jitter buffer (NetEq) fast accelerate mode.
   absl::optional<bool> audio_jitter_buffer_fast_accelerate;
+  // Audio receiver jitter buffer (NetEq) maximum target delay in milliseconds.
+  absl::optional<int> audio_jitter_buffer_max_delay_ms;
   // Audio receiver jitter buffer (NetEq) minimum target delay in milliseconds.
   absl::optional<int> audio_jitter_buffer_min_delay_ms;
   // Audio receiver jitter buffer (NetEq) should handle retransmitted packets.

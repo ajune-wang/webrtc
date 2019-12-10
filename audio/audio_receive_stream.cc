@@ -79,8 +79,9 @@ std::unique_ptr<voe::ChannelReceiveInterface> CreateChannelReceive(
       clock, module_process_thread, neteq_factory,
       internal_audio_state->audio_device_module(), config.rtcp_send_transport,
       event_log, config.rtp.local_ssrc, config.rtp.remote_ssrc,
+      config.jitter_buffer_enable_post_decode_vad,
       config.jitter_buffer_max_packets, config.jitter_buffer_fast_accelerate,
-      config.jitter_buffer_min_delay_ms,
+      config.jitter_buffer_max_delay_ms, config.jitter_buffer_min_delay_ms,
       config.jitter_buffer_enable_rtx_handling, config.decoder_factory,
       config.codec_pair_id, config.frame_decryptor, config.crypto_options);
 }

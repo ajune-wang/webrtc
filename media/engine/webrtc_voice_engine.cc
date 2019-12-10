@@ -432,6 +432,12 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
     audio_state()->SetStereoChannelSwapping(*options.stereo_swapping);
   }
 
+  if (options.audio_jitter_buffer_enable_post_decode_vad) {
+    RTC_LOG(LS_INFO) << "NetEq post decode vad enabled?"
+                     << *options.audio_jitter_buffer_enable_post_decode_vad;
+    audio_jitter_buffer_enable_post_decode_vad_ =
+        *options.audio_jitter_buffer_enable_post_decode_vad;
+  }
   if (options.audio_jitter_buffer_max_packets) {
     RTC_LOG(LS_INFO) << "NetEq capacity is "
                      << *options.audio_jitter_buffer_max_packets;
@@ -443,6 +449,12 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
                      << *options.audio_jitter_buffer_fast_accelerate;
     audio_jitter_buffer_fast_accelerate_ =
         *options.audio_jitter_buffer_fast_accelerate;
+  }
+  if (options.audio_jitter_buffer_max_delay_ms) {
+    RTC_LOG(LS_INFO) << "NetEq maximum delay is "
+                     << *options.audio_jitter_buffer_max_delay_ms;
+    audio_jitter_buffer_max_delay_ms_ =
+        *options.audio_jitter_buffer_max_delay_ms;
   }
   if (options.audio_jitter_buffer_min_delay_ms) {
     RTC_LOG(LS_INFO) << "NetEq minimum delay is "
@@ -1052,8 +1064,10 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       const rtc::scoped_refptr<webrtc::AudioDecoderFactory>& decoder_factory,
       const std::map<int, webrtc::SdpAudioFormat>& decoder_map,
       absl::optional<webrtc::AudioCodecPairId> codec_pair_id,
+      bool jitter_buffer_enable_post_decode_vad,
       size_t jitter_buffer_max_packets,
       bool jitter_buffer_fast_accelerate,
+      int jitter_buffer_max_delay_ms,
       int jitter_buffer_min_delay_ms,
       bool jitter_buffer_enable_rtx_handling,
       rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor,
@@ -1850,15 +1864,18 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
 
   // Create a new channel for receiving audio data.
   recv_streams_.insert(std::make_pair(
-      ssrc, new WebRtcAudioReceiveStream(
-                ssrc, receiver_reports_ssrc_, recv_transport_cc_enabled_,
-                recv_nack_enabled_, sp.stream_ids(), recv_rtp_extensions_,
-                call_, this, engine()->decoder_factory_, decoder_map_,
-                codec_pair_id_, engine()->audio_jitter_buffer_max_packets_,
-                engine()->audio_jitter_buffer_fast_accelerate_,
-                engine()->audio_jitter_buffer_min_delay_ms_,
-                engine()->audio_jitter_buffer_enable_rtx_handling_,
-                unsignaled_frame_decryptor_, crypto_options_)));
+      ssrc,
+      new WebRtcAudioReceiveStream(
+          ssrc, receiver_reports_ssrc_, recv_transport_cc_enabled_,
+          recv_nack_enabled_, sp.stream_ids(), recv_rtp_extensions_, call_,
+          this, engine()->decoder_factory_, decoder_map_, codec_pair_id_,
+          engine()->audio_jitter_buffer_enable_post_decode_vad_,
+          engine()->audio_jitter_buffer_max_packets_,
+          engine()->audio_jitter_buffer_fast_accelerate_,
+          engine()->audio_jitter_buffer_max_delay_ms_,
+          engine()->audio_jitter_buffer_min_delay_ms_,
+          engine()->audio_jitter_buffer_enable_rtx_handling_,
+          unsignaled_frame_decryptor_, crypto_options_)));
   recv_streams_[ssrc]->SetPlayout(playout_);
 
   return true;

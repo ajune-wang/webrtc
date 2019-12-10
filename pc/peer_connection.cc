@@ -871,8 +871,10 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     absl::optional<bool> enable_dtls_srtp;
     TcpCandidatePolicy tcp_candidate_policy;
     CandidateNetworkPolicy candidate_network_policy;
+    bool audio_jitter_buffer_enable_post_decode_vad;
     int audio_jitter_buffer_max_packets;
     bool audio_jitter_buffer_fast_accelerate;
+    int audio_jitter_buffer_max_delay_ms;
     int audio_jitter_buffer_min_delay_ms;
     bool audio_jitter_buffer_enable_rtx_handling;
     int ice_connection_receiving_timeout;
@@ -917,9 +919,13 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          rtcp_mux_policy == o.rtcp_mux_policy &&
          tcp_candidate_policy == o.tcp_candidate_policy &&
          candidate_network_policy == o.candidate_network_policy &&
+         audio_jitter_buffer_enable_post_decode_vad ==
+             o.audio_jitter_buffer_enable_post_decode_vad &&
          audio_jitter_buffer_max_packets == o.audio_jitter_buffer_max_packets &&
          audio_jitter_buffer_fast_accelerate ==
              o.audio_jitter_buffer_fast_accelerate &&
+         audio_jitter_buffer_max_delay_ms ==
+             o.audio_jitter_buffer_max_delay_ms &&
          audio_jitter_buffer_min_delay_ms ==
              o.audio_jitter_buffer_min_delay_ms &&
          audio_jitter_buffer_enable_rtx_handling ==
@@ -1361,13 +1367,15 @@ bool PeerConnection::Initialize(
       configuration.screencast_min_bitrate;
   audio_options_.combined_audio_video_bwe =
       configuration.combined_audio_video_bwe;
-
+  audio_options_.audio_jitter_buffer_enable_post_decode_vad =
+      configuration.audio_jitter_buffer_enable_post_decode_vad;
   audio_options_.audio_jitter_buffer_max_packets =
       configuration.audio_jitter_buffer_max_packets;
 
   audio_options_.audio_jitter_buffer_fast_accelerate =
       configuration.audio_jitter_buffer_fast_accelerate;
-
+  audio_options_.audio_jitter_buffer_max_delay_ms =
+      configuration.audio_jitter_buffer_max_delay_ms;
   audio_options_.audio_jitter_buffer_min_delay_ms =
       configuration.audio_jitter_buffer_min_delay_ms;
 

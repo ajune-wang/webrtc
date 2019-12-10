@@ -46,10 +46,14 @@ void AudioOptions::SetAll(const AudioOptions& change) {
   SetFrom(&noise_suppression, change.noise_suppression);
   SetFrom(&highpass_filter, change.highpass_filter);
   SetFrom(&stereo_swapping, change.stereo_swapping);
+  SetFrom(&audio_jitter_buffer_enable_post_decode_vad,
+          change.audio_jitter_buffer_enable_post_decode_vad);
   SetFrom(&audio_jitter_buffer_max_packets,
           change.audio_jitter_buffer_max_packets);
   SetFrom(&audio_jitter_buffer_fast_accelerate,
           change.audio_jitter_buffer_fast_accelerate);
+  SetFrom(&audio_jitter_buffer_max_delay_ms,
+          change.audio_jitter_buffer_max_delay_ms);
   SetFrom(&audio_jitter_buffer_min_delay_ms,
           change.audio_jitter_buffer_min_delay_ms);
   SetFrom(&audio_jitter_buffer_enable_rtx_handling,
@@ -76,9 +80,13 @@ bool AudioOptions::operator==(const AudioOptions& o) const {
          noise_suppression == o.noise_suppression &&
          highpass_filter == o.highpass_filter &&
          stereo_swapping == o.stereo_swapping &&
+         audio_jitter_buffer_enable_post_decode_vad ==
+             o.audio_jitter_buffer_enable_post_decode_vad &&
          audio_jitter_buffer_max_packets == o.audio_jitter_buffer_max_packets &&
          audio_jitter_buffer_fast_accelerate ==
              o.audio_jitter_buffer_fast_accelerate &&
+         audio_jitter_buffer_max_delay_ms ==
+             o.audio_jitter_buffer_max_delay_ms &&
          audio_jitter_buffer_min_delay_ms ==
              o.audio_jitter_buffer_min_delay_ms &&
          audio_jitter_buffer_enable_rtx_handling ==
@@ -108,10 +116,14 @@ std::string AudioOptions::ToString() const {
   ToStringIfSet(&result, "ns", noise_suppression);
   ToStringIfSet(&result, "hf", highpass_filter);
   ToStringIfSet(&result, "swap", stereo_swapping);
+  ToStringIfSet(&result, "audio_jitter_buffer_enable_post_decode_vad",
+                audio_jitter_buffer_enable_post_decode_vad);
   ToStringIfSet(&result, "audio_jitter_buffer_max_packets",
                 audio_jitter_buffer_max_packets);
   ToStringIfSet(&result, "audio_jitter_buffer_fast_accelerate",
                 audio_jitter_buffer_fast_accelerate);
+  ToStringIfSet(&result, "audio_jitter_buffer_max_delay_ms",
+                audio_jitter_buffer_max_delay_ms);
   ToStringIfSet(&result, "audio_jitter_buffer_min_delay_ms",
                 audio_jitter_buffer_min_delay_ms);
   ToStringIfSet(&result, "audio_jitter_buffer_enable_rtx_handling",

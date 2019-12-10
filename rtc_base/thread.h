@@ -274,6 +274,17 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public MessageQueue,
          new rtc_thread_internal::MessageWithFunctor<FunctorT>(
              std::forward<FunctorT>(functor)));
   }
+  template <class FunctorT>
+  void PostDelayedTask(const Location& posted_from,
+                       FunctorT&& functor,
+                       uint32_t milliseconds) {
+    // Allocate at first call, never deallocate.
+    static auto* const handler =
+        new rtc_thread_internal::MessageHandlerWithTask;
+    PostDelayed(posted_from, milliseconds, handler, 0,
+                new rtc_thread_internal::MessageWithFunctor<FunctorT>(
+                    std::forward<FunctorT>(functor)));
+  }
 
   // From TaskQueueBase
   void PostTask(std::unique_ptr<webrtc::QueuedTask> task) override;

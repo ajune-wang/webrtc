@@ -22,6 +22,30 @@
       "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa457ffc_2e6ce920",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-10T16:32:56Z",
+      "side": 1,
+      "message": "sorry, I do not understand this idea.\nwhat scenario do you want to prevent?\nKF packet1 -\u003e return now\nKF packet3 -\u003e return now\nDF packet1 -\u003e return packet3 arrival time\nKF packet2 -\u003e ??? (do we want to return now or KF packet3 arrival time here? I think now is better, even if packet arrived delayed over rtx channel. otherwise there is a risk of sending FIR instead of NACKing few packets)\nKF packet3 -\u003e resent, discarded earlier in this function (lines 104-105 or lines 92-96)",
+      "parentUuid": "07f6d131_17bd17c5",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

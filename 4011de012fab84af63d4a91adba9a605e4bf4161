@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e070994a_19b7b780",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2019-12-10T01:07:20Z",
+      "side": 0,
+      "message": "Is there a comment anywhere summarizing what goog ping is?",
+      "revId": "4011de012fab84af63d4a91adba9a605e4bf4161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

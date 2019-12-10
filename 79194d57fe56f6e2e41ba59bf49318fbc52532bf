@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95f53e6d_c4192fcc",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2019-12-10T01:07:20Z",
+      "side": 1,
+      "message": "Don\u0027t you need to check if goog ping is enabled here? Or I guess IsStunBindingUnchanged does that. If that\u0027s the expectation, rename it to \"Should SSendGoogPing\"?",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b6f0af7_946ed2ab",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2019-12-10T01:07:20Z",
+      "side": 1,
+      "message": "May want to rename this and/or add a comment since it handles goog pings too now.",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0043fc12_245c7751",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2019-12-10T01:07:20Z",
+      "side": 1,
+      "message": "This is probably already explained somewhere, but why signal support via STUN BINDING rather than ice-options in SDP?",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba6b46fc_0268883a",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2019-12-10T01:07:20Z",
+      "side": 1,
+      "message": "Should this be inside the above if block?",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b139805f_e76d8f00",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2019-12-10T01:07:20Z",
+      "side": 1,
+      "message": "I think there\u0027s some way to get the parameters to display in human readable format in the test name, though not a big deal",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aff3d566_3baac903",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 2730,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2019-12-10T01:07:20Z",
+      "side": 1,
+      "message": "Can remove if this was just for debugging",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

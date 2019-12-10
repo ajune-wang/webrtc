@@ -26,6 +26,7 @@
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/time_controller/simulated_time_controller.h"
 
 using ::testing::_;
 using ::testing::Return;
@@ -134,20 +135,16 @@ class TestFrameBuffer2 : public ::testing::Test {
 
   TestFrameBuffer2()
       : trial_("WebRTC-AddRttToPlayoutDelay/Enabled/"),
-        clock_(0),
-        timing_(&clock_),
-        buffer_(new FrameBuffer(&clock_, &timing_, &stats_callback_)),
-        rand_(0x34678213),
-        tear_down_(false),
-        extract_thread_(&ExtractLoop, this, "Extract Thread") {}
-
-  void SetUp() override { extract_thread_.Start(); }
-
-  void TearDown() override {
-    tear_down_ = true;
-    trigger_extract_event_.Set();
-    extract_thread_.Stop();
-  }
+        sim_time_controller_(Timestamp::seconds(0)),
+        sim_time_task_queue_(
+            sim_time_controller_.GetTaskQueueFactory()->CreateTaskQueue(
+                "extract queue",
+                TaskQueueFactory::Priority::NORMAL)),
+        timing_(sim_time_controller_.GetClock()),
+        buffer_(new FrameBuffer(sim_time_controller_.GetClock(),
+                                &timing_,
+                                &stats_callback_)),
+        rand_(0x34678213) {}
 
   template <typename... T>
   std::unique_ptr<FrameObjectFake> CreateFrame(uint16_t picture_id,
@@ -198,25 +195,24 @@ class TestFrameBuffer2 : public ::testing::Test {
   }
 
   void ExtractFrame(int64_t max_wait_time = 0, bool keyframe_required = false) {
-    crit_.Enter();
-    if (max_wait_time == 0) {
-      std::unique_ptr<EncodedFrame> frame;
-      FrameBuffer::ReturnReason res =
-          buffer_->NextFrame(0, &frame, keyframe_required);
-      if (res != FrameBuffer::ReturnReason::kStopped)
-        frames_.emplace_back(std::move(frame));
-      crit_.Leave();
-    } else {
-      max_wait_time_ = max_wait_time;
-      trigger_extract_event_.Set();
-      crit_.Leave();
-      // Make sure |crit_| is aquired by |extract_thread_| before returning.
-      crit_acquired_event_.Wait(rtc::Event::kForever);
-    }
+    // crit_.Enter();
+    rtc::Event event;
+    sim_time_task_queue_.PostTask(
+        [this, &event, max_wait_time, keyframe_required]() {
+          buffer_->NextFrame(
+              max_wait_time, keyframe_required, &sim_time_task_queue_,
+              [this](std::unique_ptr<video_coding::EncodedFrame> frame,
+                     video_coding::FrameBuffer::ReturnReason reason) {
+                if (reason != FrameBuffer::ReturnReason::kStopped) {
+                  frames_.emplace_back(std::move(frame));
+                }
+              });
+          event.Set();
+        });
+    event.Wait(rtc::Event::kForever);
   }
 
   void CheckFrame(size_t index, int picture_id, int spatial_layer) {
-    rtc::CritScope lock(&crit_);
     ASSERT_LT(index, frames_.size());
     ASSERT_TRUE(frames_[index]);
     ASSERT_EQ(picture_id, frames_[index]->id.picture_id);
@@ -224,54 +220,28 @@ class TestFrameBuffer2 : public ::testing::Test {
   }
 
   void CheckFrameSize(size_t index, size_t size) {
-    rtc::CritScope lock(&crit_);
     ASSERT_LT(index, frames_.size());
     ASSERT_TRUE(frames_[index]);
     ASSERT_EQ(frames_[index]->size(), size);
   }
 
   void CheckNoFrame(size_t index) {
-    rtc::CritScope lock(&crit_);
     ASSERT_LT(index, frames_.size());
     ASSERT_FALSE(frames_[index]);
-  }
-
-  static void ExtractLoop(void* obj) {
-    TestFrameBuffer2* tfb = static_cast<TestFrameBuffer2*>(obj);
-    while (true) {
-      tfb->trigger_extract_event_.Wait(rtc::Event::kForever);
-      {
-        rtc::CritScope lock(&tfb->crit_);
-        tfb->crit_acquired_event_.Set();
-        if (tfb->tear_down_)
-          return;
-
-        std::unique_ptr<EncodedFrame> frame;
-        FrameBuffer::ReturnReason res =
-            tfb->buffer_->NextFrame(tfb->max_wait_time_, &frame, false);
-        if (res != FrameBuffer::ReturnReason::kStopped)
-          tfb->frames_.emplace_back(std::move(frame));
-      }
-    }
   }
 
   uint32_t Rand() { return rand_.Rand<uint32_t>(); }
 
   // The ProtectionMode tests depends on rtt-multiplier experiment.
   test::ScopedFieldTrials trial_;
-  SimulatedClock clock_;
+  webrtc::GlobalSimulatedTimeController sim_time_controller_;
+  rtc::TaskQueue sim_time_task_queue_;
+  // SimulatedClock clock_;
   VCMTimingFake timing_;
   std::unique_ptr<FrameBuffer> buffer_;
   std::vector<std::unique_ptr<EncodedFrame>> frames_;
   Random rand_;
   ::testing::NiceMock<VCMReceiveStatisticsCallbackMock> stats_callback_;
-
-  int64_t max_wait_time_;
-  bool tear_down_;
-  rtc::PlatformThread extract_thread_;
-  rtc::Event trigger_extract_event_;
-  rtc::Event crit_acquired_event_;
-  rtc::CriticalSection crit_;
 };
 
 // From https://en.cppreference.com/w/cpp/language/static: "If ... a constexpr
@@ -293,6 +263,7 @@ TEST_F(TestFrameBuffer2, WaitForFrame) {
 
   ExtractFrame(50);
   InsertFrame(pid, 0, ts, false, true, kFrameSize);
+  sim_time_controller_.AdvanceTime(TimeDelta::ms(50));
   CheckFrame(0, pid, 0);
 }
 
@@ -308,8 +279,9 @@ TEST_F(TestFrameBuffer2, OneSuperFrame) {
 }
 
 TEST_F(TestFrameBuffer2, ZeroPlayoutDelay) {
-  VCMTiming timing(&clock_);
-  buffer_.reset(new FrameBuffer(&clock_, &timing, &stats_callback_));
+  VCMTiming timing(sim_time_controller_.GetClock());
+  buffer_.reset(new FrameBuffer(sim_time_controller_.GetClock(), &timing,
+                                &stats_callback_));
   const PlayoutDelay kPlayoutDelayMs = {0, 0};
   std::unique_ptr<FrameObjectFake> test_frame(new FrameObjectFake());
   test_frame->id.picture_id = 0;
@@ -345,10 +317,10 @@ TEST_F(TestFrameBuffer2, DISABLED_OneLayerStreamReordered) {
     ExtractFrame(50);
     InsertFrame(pid + i + 1, 0, ts + (i + 1) * kFps10, false, true, kFrameSize,
                 pid + i);
-    clock_.AdvanceTimeMilliseconds(kFps10);
+    sim_time_controller_.AdvanceTime(TimeDelta::ms(kFps10));
     InsertFrame(pid + i, 0, ts + i * kFps10, false, true, kFrameSize,
                 pid + i - 1);
-    clock_.AdvanceTimeMilliseconds(kFps10);
+    sim_time_controller_.AdvanceTime(TimeDelta::ms(kFps10));
     ExtractFrame();
     CheckFrame(i, pid + i, 0);
     CheckFrame(i + 1, pid + i + 1, 0);
@@ -388,7 +360,7 @@ TEST_F(TestFrameBuffer2, OneLayerStream) {
     InsertFrame(pid + i, 0, ts + i * kFps10, false, true, kFrameSize,
                 pid + i - 1);
     ExtractFrame();
-    clock_.AdvanceTimeMilliseconds(kFps10);
+    sim_time_controller_.AdvanceTime(TimeDelta::ms(kFps10));
     CheckFrame(i, pid + i, 0);
   }
 }
@@ -410,7 +382,7 @@ TEST_F(TestFrameBuffer2, DropTemporalLayerSlowDecoder) {
 
   for (int i = 0; i < 10; ++i) {
     ExtractFrame();
-    clock_.AdvanceTimeMilliseconds(70);
+    sim_time_controller_.AdvanceTime(TimeDelta::ms(70));
   }
 
   CheckFrame(0, pid, 0);
@@ -436,7 +408,7 @@ TEST_F(TestFrameBuffer2, DropFramesIfSystemIsStalled) {
 
   ExtractFrame();
   // Jump forward in time, simulating the system being stalled for some reason.
-  clock_.AdvanceTimeMilliseconds(3 * kFps10);
+  sim_time_controller_.AdvanceTime(TimeDelta::ms(3) * kFps10);
   // Extract one more frame, expect second and third frame to be dropped.
   EXPECT_CALL(stats_callback_, OnDroppedFrames(2)).Times(1);
   ExtractFrame();
@@ -719,7 +691,7 @@ TEST_F(TestFrameBuffer2, HigherSpatialLayerNonDecodable) {
   InsertFrame(pid + 2, 0, ts + kFps10, false, false, kFrameSize, pid);
   InsertFrame(pid + 2, 1, ts + kFps10, true, true, kFrameSize, pid + 1);
 
-  clock_.AdvanceTimeMilliseconds(1000);
+  sim_time_controller_.AdvanceTime(TimeDelta::ms(1000));
   // Frame pid+1 is decodable but too late.
   // In superframe pid+2 frame sid=0 is decodable, but frame sid=1 is not.
   // Incorrect implementation might skip pid+1 frame and output undecodable

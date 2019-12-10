@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1e69121_902498b7",
+        "filename": "rtc_tools/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-10T08:22:20Z",
+      "side": 1,
+      "message": "I know this has been just copied but since you are here, can you remove this comment?",
+      "range": {
+        "startLine": 428,
+        "startChar": 7,
+        "endLine": 428,
+        "endChar": 20
+      },
+      "revId": "23de4f39ac86d82d0336e27f8f778384761d4de5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -70,6 +70,30 @@
       "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "232706c0_53d4ee77",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-10T17:01:25Z",
+      "side": 1,
+      "message": "Packets with the same rtp sequence numbers are discarded earlier in this function.\n\n(packets that already formed a frame discarded lines 92-96, re-transmitted packets that haven\u0027t yet made a frame discarded lines 104-105)",
+      "parentUuid": "c822face_bb182ad5",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

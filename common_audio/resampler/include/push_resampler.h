@@ -40,6 +40,7 @@ class PushResampler {
   int src_sample_rate_hz_;
   int dst_sample_rate_hz_;
   size_t num_channels_;
+  std::vector<T*> channel_data_array_;
 
   struct ChannelResampler {
     std::unique_ptr<PushSincResampler> resampler;

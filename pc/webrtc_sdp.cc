@@ -1111,9 +1111,9 @@ bool ParseCandidate(const std::string& message,
   switch (protocol) {
     case cricket::PROTO_UDP:
     case cricket::PROTO_TCP:
-    case cricket::PROTO_SSLTCP:
       // Supported protocol.
       break;
+    case cricket::PROTO_SSLTCP:
     default:
       return ParseFailed(first_line, "Unsupported transport type.", error);
   }

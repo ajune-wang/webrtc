@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7b6af93_10eb537c",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-10T08:33:57Z",
+      "side": 1,
+      "message": "kwiberg@: Should we use RTC_DISALLOW_COPY_AND_ASSIGN here as well?",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 66
+      },
+      "revId": "bda130a8968fc34d5ec1439c09cc7d971ce231d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

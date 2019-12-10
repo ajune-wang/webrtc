@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41d3115a_9b23459d",
+        "filename": "common_audio/resampler/push_resampler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-10T21:34:34Z",
+      "side": 1,
+      "message": "Less verbose:\n\n  channel_data_heap_array_.resize(\n      num_channels_ \u003e kMaxStackAllocatedChannels ? num_channels_ : 0);",
+      "revId": "543fdb7b5db53fd28535af10beedc93db53adf2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4e6a069b_0c194746",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-10T07:09:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95f53e6d_c4192fcc",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b6f0af7_946ed2ab",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 20
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "25437f82_bb1b1fdf",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-10T07:09:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b6f0af7_946ed2ab",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0043fc12_245c7751",
         "filename": "p2p/base/connection.h",
         "patchSetId": 20
@@ -47,6 +83,24 @@
       "writtenOn": "2019-12-10T01:07:20Z",
       "side": 1,
       "message": "This is probably already explained somewhere, but why signal support via STUN BINDING rather than ice-options in SDP?",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc259b5a_c45c544f",
+        "filename": "p2p/base/connection.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-10T07:09:34Z",
+      "side": 1,
+      "message": "see above.",
+      "parentUuid": "0043fc12_245c7751",
       "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "c45603fe_4e61ec14",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-10T07:09:34Z",
+      "side": 1,
+      "message": "no, that was deliberate",
+      "parentUuid": "ba6b46fc_0268883a",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b139805f_e76d8f00",
         "filename": "p2p/base/port_unittest.cc",
         "patchSetId": 20
@@ -81,6 +153,24 @@
       "writtenOn": "2019-12-10T01:07:20Z",
       "side": 1,
       "message": "I think there\u0027s some way to get the parameters to display in human readable format in the test name, though not a big deal",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c9ee26b_ef1e4f59",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-10T07:09:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b139805f_e76d8f00",
       "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -101,6 +191,24 @@
       "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a4eff5f_fed1fc15",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 2730,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-10T07:09:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aff3d566_3baac903",
+      "revId": "79194d57fe56f6e2e41ba59bf49318fbc52532bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

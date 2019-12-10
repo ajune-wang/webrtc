@@ -70,6 +70,30 @@
       "revId": "bda130a8968fc34d5ec1439c09cc7d971ce231d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b6d4202_a4b2a68d",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-10T10:30:31Z",
+      "side": 1,
+      "message": "No, I\u0027d say that doing it manually is best. The style guide also take this position:\nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++-dos-and-donts.md#explicitly-declare-class-copyability_movability\n\nWe should probably get rid of those macros at some point...",
+      "parentUuid": "8db5ee47_4926b5c7",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 66
+      },
+      "revId": "bda130a8968fc34d5ec1439c09cc7d971ce231d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

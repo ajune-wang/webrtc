@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b27e299_60a85287",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-10T06:51:14Z",
+      "side": 1,
+      "message": "Is this something that makes sense to move to api/ (as we did for https://cs.chromium.org/chromium/src/third_party/webrtc/api/scoped_refptr.h)?",
+      "range": {
+        "startLine": 565,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 22
+      },
+      "revId": "d0c53048dfcf68d964d1d7a2af779efe698e9342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

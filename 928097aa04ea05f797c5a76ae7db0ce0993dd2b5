@@ -22,6 +22,30 @@
       "revId": "928097aa04ea05f797c5a76ae7db0ce0993dd2b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3446fc24_8213d2a2",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-12-11T19:23:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "724bf1b0_36fad35d",
+      "range": {
+        "startLine": 282,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 56
+      },
+      "revId": "928097aa04ea05f797c5a76ae7db0ce0993dd2b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

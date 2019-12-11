@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db9b0b9c_c9af77a9",
+        "filename": "common_audio/resampler/include/push_resampler.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-11T08:26:53Z",
+      "side": 1,
+      "message": "Add a comment that explains what this is, and why it needs to be a member variable when it could seemingly have been allocated on the stack?",
+      "revId": "2676a422da3d3c671e0820b6ccb45fe8e75e0321",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

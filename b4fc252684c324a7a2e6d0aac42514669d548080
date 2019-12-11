@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a4cda5b9_d09368f5",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T10:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25a5bf08_7694b961",
+      "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e6c4e79_43197d97",
         "filename": "style-guide.md",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58ebfd9_999a6bec",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T10:50:34Z",
+      "side": 1,
+      "message": "good idea!\nalso can use example to promote format \u0027Do A When B happened\u0027",
+      "parentUuid": "9e6c4e79_43197d97",
+      "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

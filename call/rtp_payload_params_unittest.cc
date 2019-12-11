@@ -366,7 +366,7 @@ TEST(RtpPayloadParamsTest, GenericDescriptorForGenericCodec) {
   EXPECT_EQ(1, header.generic->frame_id);
   EXPECT_THAT(header.generic->dependencies, ElementsAre(0));
 }
-
+#if 0
 class RtpPayloadParamsVp8ToGenericTest : public ::testing::Test {
  public:
   enum LayerSync { kNoSync, kSync };
@@ -463,7 +463,7 @@ TEST_F(RtpPayloadParamsVp8ToGenericTest, FrameIdGaps) {
   ConvertAndCheck(0, 15, VideoFrameType::kVideoFrameDelta, kNoSync, {5});
   ConvertAndCheck(1, 20, VideoFrameType::kVideoFrameDelta, kNoSync, {10, 15});
 }
-
+#endif
 class RtpPayloadParamsH264ToGenericTest : public ::testing::Test {
  public:
   enum LayerSync { kNoSync, kSync };

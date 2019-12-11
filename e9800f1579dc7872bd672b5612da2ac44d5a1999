@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03ab3f15_83b17036",
+        "filename": "modules/pacing/packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-12-11T15:13:16Z",
+      "side": 1,
+      "message": "I wonder if we really need to maintain two lists, seems like we could maintain the priority order when inserting to reduce overall complexity (that\u0027s also the place where we define the insertion order as priority order, so it makes sense to keep the priority choice there)\n\nA really simple (maybe too clever/hacky) way to do it would be to use push_front for audio and push_back for video. Otherwise, we can use something like absl::c_find(list, [](const auto\u0026 e){ return IsVideo(); }) to find the point of insertion for video modules.",
+      "range": {
+        "startLine": 100,
+        "startChar": 1,
+        "endLine": 101,
+        "endChar": 77
+      },
+      "revId": "e9800f1579dc7872bd672b5612da2ac44d5a1999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "993f97d0_31edb418",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-12-11T18:11:59Z",
+      "side": 1,
+      "message": "nit: if (!link_capacity_fix_ \u0026\u0026 new_bitrate \u003e current_bitrate_) {\n\nThe keep the rest the same.",
+      "range": {
+        "startLine": 317,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 44
+      },
+      "revId": "4221d178df05b6fd87b0d92af33051d524680ac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

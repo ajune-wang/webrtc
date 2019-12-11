@@ -416,6 +416,7 @@ if (rtc_include_tests) {
     sources = [
       "peer_connection_wrapper.cc",
       "peer_connection_wrapper.h",
+      "test/peer_connection_wrapper_with_candidates.h",
     ]
     deps = [
       ":pc_test_utils",
@@ -532,8 +533,6 @@ if (rtc_include_tests) {
       "peer_connection_rtp_unittest.cc",
       "peer_connection_signaling_unittest.cc",
       "peer_connection_simulcast_unittest.cc",
-      "peer_connection_wrapper.cc",
-      "peer_connection_wrapper.h",
       "proxy_unittest.cc",
       "rtc_stats_collector_unittest.cc",
       "rtc_stats_integrationtest.cc",
@@ -559,6 +558,7 @@ if (rtc_include_tests) {
 
     deps = [
       ":peerconnection",
+      ":peerconnection_wrapper",
       ":rtc_pc_base",
       "../api:array_view",
       "../api:audio_options_api",

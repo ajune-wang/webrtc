@@ -18,6 +18,7 @@
 
 #include "absl/strings/string_view.h"
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
+#include "modules/rtp_rtcp/source/absolute_capture_time_sender.h"
 #include "modules/rtp_rtcp/source/dtmf_queue.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
 #include "rtc_base/constructor_magic.h"
@@ -43,7 +44,9 @@ class RTPSenderAudio {
                  int8_t payload_type,
                  uint32_t capture_timestamp,
                  const uint8_t* payload_data,
-                 size_t payload_size);
+                 size_t payload_size,
+                 int64_t absolute_capture_timestamp_ms,
+                 uint32_t rtp_clock_frequency);
 
   // Store the audio level in dBov for
   // header-extension-for-audio-level-indication.
@@ -92,6 +95,8 @@ class RTPSenderAudio {
   // (https://datatracker.ietf.org/doc/draft-lennox-avt-rtp-audio-level-exthdr/)
   uint8_t audio_level_dbov_ RTC_GUARDED_BY(send_audio_critsect_) = 0;
   OneTimeEvent first_packet_sent_;
+
+  AbsoluteCaptureTimeSender absolute_capture_time_sender_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RTPSenderAudio);
 };

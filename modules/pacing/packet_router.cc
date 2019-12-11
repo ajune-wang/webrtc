@@ -45,7 +45,8 @@ PacketRouter::PacketRouter(uint16_t start_transport_seq)
 
 PacketRouter::~PacketRouter() {
   RTC_DCHECK(send_modules_map_.empty());
-  RTC_DCHECK(send_modules_list_.empty());
+  RTC_DCHECK(video_send_modules_list_.empty());
+  RTC_DCHECK(audio_send_modules_list_.empty());
   RTC_DCHECK(rtcp_feedback_senders_.empty());
   RTC_DCHECK(sender_remb_candidates_.empty());
   RTC_DCHECK(receiver_remb_candidates_.empty());
@@ -74,15 +75,23 @@ void PacketRouter::AddSendRtpModule(RtpRtcp* rtp_module, bool remb_candidate) {
 
 void PacketRouter::AddSendRtpModuleToMap(RtpRtcp* rtp_module, uint32_t ssrc) {
   RTC_DCHECK(send_modules_map_.find(ssrc) == send_modules_map_.end());
-  send_modules_list_.push_front(rtp_module);
-  send_modules_map_[ssrc] = std::pair<RtpRtcp*, std::list<RtpRtcp*>::iterator>(
-      rtp_module, send_modules_list_.begin());
+  if (rtp_module->IsAudioConfigured()) {
+    audio_send_modules_list_.push_front(rtp_module);
+  } else {
+    video_send_modules_list_.push_front(rtp_module);
+  }
+  send_modules_map_[ssrc] = rtp_module;
 }
 
 void PacketRouter::RemoveSendRtpModuleFromMap(uint32_t ssrc) {
   auto kv = send_modules_map_.find(ssrc);
   RTC_DCHECK(kv != send_modules_map_.end());
-  send_modules_list_.erase(kv->second.second);
+  RtpRtcp* rtp_module = kv->second;
+  if (rtp_module->IsAudioConfigured()) {
+    audio_send_modules_list_.remove(rtp_module);
+  } else {
+    video_send_modules_list_.remove(rtp_module);
+  }
   send_modules_map_.erase(kv);
 }
 
@@ -146,7 +155,7 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
     return;
   }
 
-  RtpRtcp* rtp_module = kv->second.first;
+  RtpRtcp* rtp_module = kv->second;
   if (!rtp_module->TrySendPacket(packet.get(), cluster_info)) {
     RTC_LOG(LS_WARNING) << "Failed to send packet, rejected by RTP module.";
     return;
@@ -177,12 +186,17 @@ std::vector<std::unique_ptr<RtpPacketToSend>> PacketRouter::GeneratePadding(
     }
   }
 
-  for (RtpRtcp* rtp_module : send_modules_list_) {
-    if (rtp_module->SupportsPadding()) {
-      padding_packets = rtp_module->GeneratePadding(target_size_bytes);
-      if (!padding_packets.empty()) {
-        last_send_module_ = rtp_module;
-        break;
+  // Iterate first over video modules, since audio media not be taking into
+  // account by the bandwidth estimator, e.g. in FF.
+  for (auto& modules_list :
+       {video_send_modules_list_, audio_send_modules_list_}) {
+    for (RtpRtcp* rtp_module : modules_list) {
+      if (rtp_module->SupportsPadding()) {
+        padding_packets = rtp_module->GeneratePadding(target_size_bytes);
+        if (!padding_packets.empty()) {
+          last_send_module_ = rtp_module;
+          return padding_packets;
+        }
       }
     }
   }
@@ -270,12 +284,15 @@ bool PacketRouter::SendCombinedRtcpPacket(
   rtc::CritScope cs(&modules_crit_);
 
   // Prefer send modules.
-  for (RtpRtcp* rtp_module : send_modules_list_) {
-    if (rtp_module->RTCP() == RtcpMode::kOff) {
-      continue;
+  for (auto& modules_list :
+       {video_send_modules_list_, audio_send_modules_list_}) {
+    for (RtpRtcp* rtp_module : modules_list) {
+      if (rtp_module->RTCP() == RtcpMode::kOff) {
+        continue;
+      }
+      rtp_module->SendCombinedRtcpPacket(std::move(packets));
+      return true;
     }
-    rtp_module->SendCombinedRtcpPacket(std::move(packets));
-    return true;
   }
 
   if (rtcp_feedback_senders_.empty()) {

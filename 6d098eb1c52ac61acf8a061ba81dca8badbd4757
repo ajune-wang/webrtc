@@ -95,6 +95,53 @@
     },
     {
       "key": {
+        "uuid": "fc8677d4_da966dbc",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T15:06:17Z",
+      "side": 1,
+      "message": "since channel_send uses a constant lowcase string, you might as well use regular compare:\nelse if (payload_name \u003d\u003d \"audio\") {",
+      "range": {
+        "startLine": 94,
+        "startChar": 13,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "6d098eb1c52ac61acf8a061ba81dca8badbd4757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a827588_6778d419",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T15:06:17Z",
+      "side": 1,
+      "message": "Aha, I see, I\u0027m surprised by channel_send behaviour.\nit uses \u0027audio\u0027 instead of real rtp payload name and re-registers audio payload type when encoder is reconfigured.\n\nBut then this block makes sense.",
+      "parentUuid": "2700bf86_bc8c33d1",
+      "range": {
+        "startLine": 94,
+        "startChar": 51,
+        "endLine": 94,
+        "endChar": 56
+      },
+      "revId": "6d098eb1c52ac61acf8a061ba81dca8badbd4757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d654103_8cce909f",
         "filename": "modules/rtp_rtcp/source/rtp_sender_audio.h",
         "patchSetId": 6

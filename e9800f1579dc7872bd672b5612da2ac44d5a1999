@@ -22,6 +22,30 @@
       "revId": "e9800f1579dc7872bd672b5612da2ac44d5a1999",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "766e4242_5b05a262",
+        "filename": "modules/pacing/packet_router.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-12-11T15:42:49Z",
+      "side": 1,
+      "message": "Sure, we can do that. I just though being more explicit, so the expectations are clear, was fine for the added verbosity. But maybe just commenting well is enough.\nDon\u0027t think it\u0027s worth the extra complexity for keeping insert order the same for audio and video. We really only need them to be partitioned and in a deterministic order.",
+      "parentUuid": "03ab3f15_83b17036",
+      "range": {
+        "startLine": 100,
+        "startChar": 1,
+        "endLine": 101,
+        "endChar": 77
+      },
+      "revId": "e9800f1579dc7872bd672b5612da2ac44d5a1999",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -444,7 +444,9 @@ int32_t ChannelSend::SendRtpAudio(AudioFrameType frameType,
   const uint32_t rtp_timestamp = timeStamp + _rtpRtcpModule->StartTimestamp();
   // This call will trigger Transport::SendPacket() from the RTP/RTCP module.
   if (!rtp_sender_audio_->SendAudio(frameType, payloadType, rtp_timestamp,
-                                    payload.data(), payload.size())) {
+                                    payload.data(), payload.size(),
+                                    // TODO(webrtc:10739) replace once plumbed.
+                                    /*absolute_capture_timestamp_ms=*/0)) {
     RTC_DLOG(LS_ERROR)
         << "ChannelSend::SendData() failed to send data to RTP/RTCP module";
     return -1;

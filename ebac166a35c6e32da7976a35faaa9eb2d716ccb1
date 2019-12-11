@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28f2ef4f_4277a1ed",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-12-11T14:15:48Z",
+      "side": 1,
+      "message": "what does this comment mean? if encoder_rtp_timestamp_frequency is nullopt, it always sends absolute capture time?",
+      "range": {
+        "startLine": 268,
+        "startChar": 59,
+        "endLine": 269,
+        "endChar": 39
+      },
+      "revId": "ebac166a35c6e32da7976a35faaa9eb2d716ccb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

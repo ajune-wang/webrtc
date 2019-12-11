@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2886cb03_f23649d8",
+        "filename": "modules/audio_processing/legacy_ns/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-12-11T12:10:03Z",
+      "side": 1,
+      "message": "Do we need/want the \"_c\"-suffix here?",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "ec5b92df4310116fe72c1912645c3db0db998aa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1b85461_fd195af5",
+        "filename": "modules/audio_processing/legacy_ns/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-12-11T12:10:03Z",
+      "side": 1,
+      "message": "Do we support MIPS? We have no MIPS build bots as far as I can tell. Maybe we should delete this file and use nsx_core_c.c on MIPS instead?",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 50,
+        "endChar": 38
+      },
+      "revId": "ec5b92df4310116fe72c1912645c3db0db998aa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7e057df_99764f42",
+        "filename": "modules/audio_processing/legacy_ns/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-12-11T12:10:03Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 79,
+        "endChar": 27
+      },
+      "revId": "ec5b92df4310116fe72c1912645c3db0db998aa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

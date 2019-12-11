@@ -736,6 +736,7 @@ void WebRtcVideoChannel::RequestEncoderSwitch(
     if (!allow_codec_switching_) {
       RTC_LOG(LS_INFO) << "Encoder switch requested but codec switching has"
                        << " not been enabled.";
+      requested_encoder_switch_ = conf;
       return;
     }
 
@@ -1642,6 +1643,9 @@ void WebRtcVideoChannel::SetVideoCodecSwitchingEnabled(bool enabled) {
   invoker_.AsyncInvoke<void>(RTC_FROM_HERE, worker_thread_, [this, enabled] {
     RTC_DCHECK_RUN_ON(&thread_checker_);
     allow_codec_switching_ = enabled;
+    if (requested_encoder_switch_) {
+      RequestEncoderSwitch(*requested_encoder_switch_);
+    }
   });
 }
 

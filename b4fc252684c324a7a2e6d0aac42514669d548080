@@ -87,6 +87,24 @@
       "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67365998_475dcbcc",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T11:47:18Z",
+      "side": 1,
+      "message": "Done and double checked:\nhttps://webrtc.googlesource.com/src/+/0c41c3260c13f658253e0f580a2cd9e11605a983/style-guide.md",
+      "parentUuid": "b93c91f3_f3204480",
+      "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

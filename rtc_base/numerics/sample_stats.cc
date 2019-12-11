@@ -149,4 +149,52 @@ int SampleStats<DataRate>::Count() {
   return stats_.Count();
 }
 
+void SampleStats<Frequency>::AddSample(Frequency delta) {
+  RTC_DCHECK(delta.IsFinite());
+  stats_.AddSample(delta.hertz<double>());
+}
+
+void SampleStats<Frequency>::AddSampleHertz(double rate_hertz) {
+  stats_.AddSample(rate_hertz);
+}
+
+void SampleStats<Frequency>::AddSamples(const SampleStats<Frequency>& other) {
+  stats_.AddSamples(other.stats_);
+}
+
+bool SampleStats<Frequency>::IsEmpty() {
+  return stats_.IsEmpty();
+}
+
+Frequency SampleStats<Frequency>::Max() {
+  return Frequency::hertz(stats_.Max());
+}
+
+Frequency SampleStats<Frequency>::Mean() {
+  return Frequency::hertz(stats_.Mean());
+}
+
+Frequency SampleStats<Frequency>::Median() {
+  return Quantile(0.5);
+}
+
+Frequency SampleStats<Frequency>::Quantile(double quantile) {
+  return Frequency::hertz(stats_.Quantile(quantile));
+}
+
+Frequency SampleStats<Frequency>::Min() {
+  return Frequency::hertz(stats_.Min());
+}
+
+Frequency SampleStats<Frequency>::Variance() {
+  return Frequency::hertz(stats_.Variance());
+}
+
+Frequency SampleStats<Frequency>::StandardDeviation() {
+  return Frequency::hertz(stats_.StandardDeviation());
+}
+
+int SampleStats<Frequency>::Count() {
+  return stats_.Count();
+}
 }  // namespace webrtc

@@ -72,6 +72,26 @@ class SampleStats<DataRate> {
  private:
   SampleStats<double> stats_;
 };
+
+template <>
+class SampleStats<Frequency> {
+ public:
+  void AddSample(Frequency delta);
+  void AddSampleHertz(double rate_hertz);
+  void AddSamples(const SampleStats<Frequency>& other);
+  bool IsEmpty();
+  Frequency Max();
+  Frequency Mean();
+  Frequency Median();
+  Frequency Quantile(double quantile);
+  Frequency Min();
+  Frequency Variance();
+  Frequency StandardDeviation();
+  int Count();
+
+ private:
+  SampleStats<double> stats_;
+};
 }  // namespace webrtc
 
 #endif  // RTC_BASE_NUMERICS_SAMPLE_STATS_H_

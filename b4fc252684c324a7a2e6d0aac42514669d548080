@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25a5bf08_7694b961",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-11T10:05:35Z",
+      "side": 1,
+      "message": "Follow the\n\nWebRTC\n\nprefer the form",
+      "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e6c4e79_43197d97",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-11T10:05:35Z",
+      "side": 1,
+      "message": "Give a complete example? E.g.\n\n  ```\n  // TODO(bugs.webrtc.org/12345): Make sure the witnesses don\u0027t talk.\n  ```",
+      "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "260d5c07_e3a89dc9",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-11T10:36:10Z",
+      "side": 1,
+      "message": "This is taken from the today existing printouts in Connection.cc and Port.cc.\nI got used to it, and has does not change it in this patch.",
+      "parentUuid": "7c1b56d4_d4dde7b0",
+      "range": {
+        "startLine": 1121,
+        "startChar": 0,
+        "endLine": 1121,
+        "endChar": 36
+      },
+      "revId": "ae6b0e17d230c6df4158826e91bc96a6e9c297d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b89037e4_2b642eb9",
         "filename": "api/transport/stun.cc",
         "patchSetId": 21
@@ -45,6 +69,30 @@
       "revId": "ae6b0e17d230c6df4158826e91bc96a6e9c297d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b63a59b_358cce38",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-11T10:36:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b89037e4_2b642eb9",
+      "range": {
+        "startLine": 1161,
+        "startChar": 32,
+        "endLine": 1161,
+        "endChar": 46
+      },
+      "revId": "ae6b0e17d230c6df4158826e91bc96a6e9c297d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0998fc9c_23aaf3c6",
+        "filename": "api/transport/stun.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-11T10:36:10Z",
+      "side": 1,
+      "message": "The input is an int (as the methods are put into different enums).\nDone",
+      "parentUuid": "b8480bd8_30674b9f",
+      "range": {
+        "startLine": 1163,
+        "startChar": 14,
+        "endLine": 1163,
+        "endChar": 21
+      },
+      "revId": "ae6b0e17d230c6df4158826e91bc96a6e9c297d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a01125c_46706f5d",
         "filename": "api/transport/stun.h",
         "patchSetId": 21
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "05d22b8c_fc98d639",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-11T10:36:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a01125c_46706f5d",
+      "range": {
+        "startLine": 39,
+        "startChar": 5,
+        "endLine": 39,
+        "endChar": 9
+      },
+      "revId": "ae6b0e17d230c6df4158826e91bc96a6e9c297d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88f615bb_36f84819",
         "filename": "api/transport/stun.h",
         "patchSetId": 21
@@ -114,6 +210,30 @@
       "revId": "ae6b0e17d230c6df4158826e91bc96a6e9c297d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39992fba_120e3743",
+        "filename": "api/transport/stun.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2019-12-11T10:36:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88f615bb_36f84819",
+      "range": {
+        "startLine": 677,
+        "startChar": 25,
+        "endLine": 677,
+        "endChar": 34
+      },
+      "revId": "ae6b0e17d230c6df4158826e91bc96a6e9c297d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

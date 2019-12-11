@@ -22,6 +22,30 @@
       "revId": "ebac166a35c6e32da7976a35faaa9eb2d716ccb1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e546f2b9_945a1a36",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 10209
+      },
+      "writtenOn": "2019-12-11T14:23:05Z",
+      "side": 1,
+      "message": "Yes, encoder_rtp_timestamp_frequency should never be nullopt when SendAudio is called. It can be seen from RegisterAudioPayload usage. However when it is theoretically not given, it is unclear to me what should I do. I have reused the decision from Chen\u0027s code, where he sends extension when frequency is invalid (which means it is 0).\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/absolute_capture_time_sender.cc?l\u003d101\u0026rcl\u003d3c4fda2ed8140a330634c0a2704a3cf0311a89de\n\nLikewise, we can change the decision on opposite one and not send extension when we have an invalid frequency. But it would be different from AbsoluteCaptureTimeSender logic.\n\nShould invite Chen to discussion as well?",
+      "parentUuid": "28f2ef4f_4277a1ed",
+      "range": {
+        "startLine": 268,
+        "startChar": 59,
+        "endLine": 269,
+        "endChar": 39
+      },
+      "revId": "ebac166a35c6e32da7976a35faaa9eb2d716ccb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

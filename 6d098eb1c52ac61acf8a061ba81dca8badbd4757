@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "2700bf86_bc8c33d1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 10209
+      },
+      "writtenOn": "2019-12-11T14:23:05Z",
+      "side": 1,
+      "message": "I am not 100% sure, I have used it from here\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/audio/channel_send.cc?l\u003d583\u0026rcl\u003d3c4fda2ed8140a330634c0a2704a3cf0311a89de\n\nIn my prototype originally I passed encoder frequency as SendAudio method argument (together with absolute_capture_timestamp_ms)\nhttps://webrtc-review.googlesource.com/c/src/+/158520/8/audio/channel_send.cc#535\nhttps://webrtc-review.googlesource.com/c/src/+/158520/8/modules/audio_coding/acm2/audio_coding_module.cc#393\n\nBut it felt wrong to pass essentially static parameter on each invocation and then I discovered the code above for real audio. That is why I decided to reuse it.\n\nBy \"different audio payload types may have different frequencies\" did you mean that depending on encoder type RtpTimestampRateHz may be different from SampleRate? \nI find these differences between audio Encoder/Decoder RtpTimestampRateHz a bit confusing. It is much easier for video with one RtpTimestamp frequency :) \nBut I have tested it end-to-end with \"opus\" codec at least.",
+      "parentUuid": "89d5a8b8_dc341059",
+      "range": {
+        "startLine": 94,
+        "startChar": 51,
+        "endLine": 94,
+        "endChar": 56
+      },
+      "revId": "6d098eb1c52ac61acf8a061ba81dca8badbd4757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d654103_8cce909f",
         "filename": "modules/rtp_rtcp/source/rtp_sender_audio.h",
         "patchSetId": 6

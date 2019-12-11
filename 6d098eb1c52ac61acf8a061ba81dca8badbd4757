@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc3b35cd_a31d5eed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T09:40:50Z",
+      "side": 1,
+      "message": "this message is good in a comment, but doesn\u0027t look good in long-term change description\n\nhttps://google.github.io/eng-practices/review/developer/cl-descriptions.html",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "6d098eb1c52ac61acf8a061ba81dca8badbd4757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b55a43d2_682638a0",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T09:40:50Z",
+      "side": 1,
+      "message": "please refer bugs in TODO as TODO(bugs.webrtc.org/10739)\n\n(so that people who do not work on webrtc would have a good guess where to find more information)",
+      "range": {
+        "startLine": 448,
+        "startChar": 44,
+        "endLine": 448,
+        "endChar": 56
+      },
+      "revId": "6d098eb1c52ac61acf8a061ba81dca8badbd4757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89d5a8b8_dc341059",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T09:40:50Z",
+      "side": 1,
+      "message": "what payload format is it? (payload name often match codec name)\n\ndifferent audio payload types may have different frequencies. is that supported?\ne.g.\na\u003drtpmap:103 ISAC/16000\na\u003drtpmap:104 ISAC/32000",
+      "range": {
+        "startLine": 94,
+        "startChar": 51,
+        "endLine": 94,
+        "endChar": 56
+      },
+      "revId": "6d098eb1c52ac61acf8a061ba81dca8badbd4757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d654103_8cce909f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-11T09:40:50Z",
+      "side": 1,
+      "message": "for backward compatibility you need to leave old signature for a [short] while.\neither with default argument or with overloading.",
+      "range": {
+        "startLine": 48,
+        "startChar": 17,
+        "endLine": 48,
+        "endChar": 54
+      },
+      "revId": "6d098eb1c52ac61acf8a061ba81dca8badbd4757",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

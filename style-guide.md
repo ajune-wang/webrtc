@@ -61,6 +61,13 @@ declare.
 
 [Examples and exceptions](style-guide/h-cc-pairs.md).
 
+### TODO comments
+
+Follow [Google style][goog-style-todo]. When referencing a webrtc bug, prefer form
+TODO(bugs.webrtc.org/12345)
+
+[goog-style-todo]: https://google.github.io/styleguide/cppguide.html#TODO_Comments
+
 ### ArrayView
 
 When passing an array of values to a function, use `rtc::ArrayView`

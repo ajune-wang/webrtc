@@ -69,6 +69,24 @@
       "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b93c91f3_f3204480",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-11T11:27:01Z",
+      "side": 1,
+      "message": "You forgot the backticks. Without them, this isn\u0027t formatted as code.",
+      "parentUuid": "d58ebfd9_999a6bec",
+      "revId": "b4fc252684c324a7a2e6d0aac42514669d548080",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

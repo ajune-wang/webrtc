@@ -1627,6 +1627,17 @@ void WebRtcVideoChannel::SetFrameDecryptor(
   }
 }
 
+void WebRtcVideoChannel::RegisterReceivedFrameTransformer(
+    uint32_t ssrc,
+    webrtc::ReceivedFrameTransformInterface* frame_transformer) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  auto matching_stream = receive_streams_.find(ssrc);
+  if (matching_stream != receive_streams_.end()) {
+    matching_stream->second->RegisterReceivedFrameTransformer(
+        frame_transformer);
+  }
+}
+
 void WebRtcVideoChannel::SetFrameEncryptor(
     uint32_t ssrc,
     rtc::scoped_refptr<webrtc::FrameEncryptorInterface> frame_encryptor) {
@@ -2726,6 +2737,13 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::OnFrame(
 
 bool WebRtcVideoChannel::WebRtcVideoReceiveStream::IsDefaultStream() const {
   return default_stream_;
+}
+
+void WebRtcVideoChannel::WebRtcVideoReceiveStream::
+    RegisterReceivedFrameTransformer(
+        webrtc::ReceivedFrameTransformInterface* frame_transformer) {
+  config_.frame_transformer = frame_transformer;
+  // TODO
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFrameDecryptor(

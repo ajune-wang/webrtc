@@ -88,6 +88,18 @@ RtpParameters VideoRtpReceiver::GetParameters() const {
   });
 }
 
+void VideoRtpReceiver::RegisterReceivedFrameTransformer(
+    ReceivedFrameTransformInterface* frame_transformer) {
+  frame_transformer_ = std::move(frame_transformer);
+  // Special Case: Set the frame decryptor to any value on any existing channel.
+  if (media_channel_ && ssrc_.has_value() && !stopped_) {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      media_channel_->RegisterReceivedFrameTransformer(*ssrc_,
+                                                       frame_transformer_);
+    });
+  }
+}
+
 void VideoRtpReceiver::SetFrameDecryptor(
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) {
   frame_decryptor_ = std::move(frame_decryptor);

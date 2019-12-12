@@ -25,6 +25,9 @@ std::vector<RtpSource> RtpReceiverInterface::GetSources() const {
   return {};
 }
 
+void RtpReceiverInterface::RegisterReceivedFrameTransformer(
+    ReceivedFrameTransformInterface* frame_transformer) {}
+
 void RtpReceiverInterface::SetFrameDecryptor(
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) {}
 

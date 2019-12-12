@@ -18,6 +18,7 @@
 
 #include "absl/types/optional.h"
 #include "api/crypto/frame_decryptor_interface.h"
+#include "api/encoded_frame_transform_interface.h"
 #include "api/media_stream_interface.h"
 #include "api/media_types.h"
 #include "api/rtp_parameters.h"
@@ -77,6 +78,9 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
 
   RtpParameters GetParameters() const override;
 
+  void RegisterReceivedFrameTransformer(
+      ReceivedFrameTransformInterface* frame_transformer) override;
+
   void SetFrameDecryptor(
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) override;
 
@@ -132,6 +136,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
   RtpReceiverObserverInterface* observer_ = nullptr;
   bool received_first_packet_ = false;
   int attachment_id_ = 0;
+  ReceivedFrameTransformInterface* frame_transformer_;
   rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor_;
   rtc::scoped_refptr<DtlsTransportInterface> dtls_transport_;
   // Allows to thread safely change jitter buffer delay. Handles caching cases

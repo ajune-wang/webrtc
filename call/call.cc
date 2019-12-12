@@ -1044,8 +1044,8 @@ void Call::UpdateAggregateNetworkState() {
       ((have_video && video_network_state_ == kNetworkUp) ||
        (have_audio && audio_network_state_ == kNetworkUp));
 
-  RTC_LOG(LS_INFO) << "UpdateAggregateNetworkState: aggregate_state="
-                   << (aggregate_network_up ? "up" : "down");
+  RTC_LOG(LS_VERBOSE) << "UpdateAggregateNetworkState: aggregate_state="
+                      << (aggregate_network_up ? "up" : "down");
   aggregate_network_up_ = aggregate_network_up;
 
   transport_send_ptr_->OnNetworkAvailability(aggregate_network_up);

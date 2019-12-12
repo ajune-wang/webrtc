@@ -22,6 +22,30 @@
       "revId": "bcc1a765fb6f5be36e4c3c84d0229a0458706119",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "878f5773_3f99f269",
+        "filename": "rtc_base/thread_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-12-12T21:52:30Z",
+      "side": 1,
+      "message": "Thanks for catching this. I changed the test to use a fake clock: https://webrtc-review.googlesource.com/c/src/+/162100",
+      "parentUuid": "77d1705c_0efdaa1d",
+      "range": {
+        "startLine": 934,
+        "startChar": 0,
+        "endLine": 939,
+        "endChar": 58
+      },
+      "revId": "bcc1a765fb6f5be36e4c3c84d0229a0458706119",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

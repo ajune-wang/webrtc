@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2008b350_6b628e36",
+        "filename": "modules/audio_coding/neteq/tools/packet.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-12T08:34:05Z",
+      "side": 1,
+      "message": "kwiberg@: What do you think about a mass replacement of assert() with RTC_DCHECK?",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 12
+      },
+      "revId": "2cd64aa1893007e932a47bce3f1bdbc86104a000",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

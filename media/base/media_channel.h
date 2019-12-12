@@ -230,6 +230,9 @@ class MediaChannel : public sigslot::has_slots<> {
   virtual void ResetUnsignaledRecvStream() = 0;
   // Returns the absoulte sendtime extension id value from media channel.
   virtual int GetRtpSendTimeExtnId() const;
+  virtual void RegisterReceivedFrameTransformer(
+      uint32_t ssrc,
+      webrtc::ReceivedFrameTransformInterface* frame_transformer);
   // Set the frame encryptor to use on all outgoing frames. This is optional.
   // This pointers lifetime is managed by the set of RtpSender it is attached
   // to.

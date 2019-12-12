@@ -19,6 +19,7 @@
 
 #include "api/crypto/frame_decryptor_interface.h"
 #include "api/dtls_transport_interface.h"
+#include "api/encoded_frame_transform_interface.h"
 #include "api/media_stream_interface.h"
 #include "api/media_types.h"
 #include "api/proxy.h"
@@ -96,6 +97,9 @@ class RTC_EXPORT RtpReceiverInterface : public rtc::RefCountInterface {
   // content::FakeRtpReceiver in Chromium.
   virtual std::vector<RtpSource> GetSources() const;
 
+  virtual void RegisterReceivedFrameTransformer(
+      ReceivedFrameTransformInterface* frame_transformer);
+
   // Sets a user defined frame decryptor that will decrypt the entire frame
   // before it is sent across the network. This will decrypt the entire frame
   // using the user provided decryption mechanism regardless of whether SRTP is
@@ -127,6 +131,9 @@ PROXY_CONSTMETHOD0(RtpParameters, GetParameters)
 PROXY_METHOD1(void, SetObserver, RtpReceiverObserverInterface*)
 PROXY_METHOD1(void, SetJitterBufferMinimumDelay, absl::optional<double>)
 PROXY_CONSTMETHOD0(std::vector<RtpSource>, GetSources)
+PROXY_METHOD1(void,
+              RegisterReceivedFrameTransformer,
+              ReceivedFrameTransformInterface*)
 PROXY_METHOD1(void,
               SetFrameDecryptor,
               rtc::scoped_refptr<FrameDecryptorInterface>)

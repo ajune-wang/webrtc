@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77d1705c_0efdaa1d",
+        "filename": "rtc_base/thread_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-12-12T20:02:35Z",
+      "side": 1,
+      "message": "This relies on the assumption that less than 1 millisecond has passed since the first invocation.\nIt\u0027s not always the case, and then the tasks are out of order.\nSee https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11208\n\nThe best solution would be to be able to plug simulated clock.\nA workaround would be to give more room between scheduled tasks. \nI\u0027ll make some measurements to get an upper bound.",
+      "range": {
+        "startLine": 934,
+        "startChar": 0,
+        "endLine": 939,
+        "endChar": 58
+      },
+      "revId": "bcc1a765fb6f5be36e4c3c84d0229a0458706119",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

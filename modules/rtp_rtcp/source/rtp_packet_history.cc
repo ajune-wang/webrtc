@@ -216,6 +216,10 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndMarkAsPending(
     return nullptr;
   }
 
+  if (packet->packet_ == nullptr) {
+    return nullptr;
+  }
+
   if (packet->pending_transmission_) {
     // Packet already in pacer queue, ignore this request.
     return nullptr;

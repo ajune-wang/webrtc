@@ -186,6 +186,10 @@ rtc_library("video_stream_encoder_impl") {
     "overuse_frame_detector.h",
     "video_stream_encoder.cc",
     "video_stream_encoder.h",
+    # TODO(hbos): Should this be here or do we move all of the overuse detector
+    # stuff to a separate call/adaptation target?
+    "overuse_frame_detector_resource_adaptation_module.cc",
+    "overuse_frame_detector_resource_adaptation_module.h",
   ]
 
   deps = [
@@ -200,6 +204,7 @@ rtc_library("video_stream_encoder_impl") {
     "../api/video:video_rtp_headers",
     "../api/video:video_stream_encoder",
     "../api/video_codecs:video_codecs_api",
+    "../call/adaptation:resource_adaptation",
     "../common_video",
     "../modules:module_api_public",
     "../modules/video_coding",

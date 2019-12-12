@@ -10,10 +10,12 @@ import("../../webrtc.gni")
 
 rtc_library("resource_adaptation") {
   sources = [
-    "resource.cc",
-    "resource.h",
+    "resource_adaptation_module_interface.cc",
+    "resource_adaptation_module_interface.h",
     "resource_adaptation_processor.cc",
     "resource_adaptation_processor.h",
+    "resource.cc",
+    "resource.h",
     "resource_consumer.cc",
     "resource_consumer.h",
     "resource_consumer_configuration.cc",

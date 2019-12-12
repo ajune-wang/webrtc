@@ -32,6 +32,7 @@
 #include "pc/peer_connection_wrapper.h"
 #include "pc/sdp_utils.h"
 #include "pc/test/mock_peer_connection_observers.h"
+#include "pc/test/peer_connection_wrapper_with_candidates.h"
 #include "pc/webrtc_sdp.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
@@ -100,18 +101,11 @@ class PeerConnectionFactoryForUsageHistogramTest
 
 class PeerConnectionWrapperForUsageHistogramTest;
 
-typedef PeerConnectionWrapperForUsageHistogramTest* RawWrapperPtr;
-
-class ObserverForUsageHistogramTest : public MockPeerConnectionObserver {
+class ObserverForUsageHistogramTest
+    : public PeerConnectionObserverWithCandidateHandler {
  public:
-  void OnIceCandidate(const webrtc::IceCandidateInterface* candidate) override;
-
   void OnInterestingUsage(int usage_pattern) override {
     interesting_usage_detected_ = usage_pattern;
-  }
-
-  void PrepareToExchangeCandidates(RawWrapperPtr other) {
-    candidate_target_ = other;
   }
 
   bool HaveDataChannel() { return last_datachannel_; }
@@ -124,18 +118,15 @@ class ObserverForUsageHistogramTest : public MockPeerConnectionObserver {
     interesting_usage_detected_ = absl::optional<int>();
   }
 
-  bool candidate_gathered() const { return candidate_gathered_; }
-
  private:
   absl::optional<int> interesting_usage_detected_;
-  bool candidate_gathered_ = false;
-  RawWrapperPtr candidate_target_;  // Note: Not thread-safe against deletions.
 };
 
 class PeerConnectionWrapperForUsageHistogramTest
-    : public PeerConnectionWrapper {
+    : public PeerConnectionWrapperWithCandidateHandler {
  public:
-  using PeerConnectionWrapper::PeerConnectionWrapper;
+  using PeerConnectionWrapperWithCandidateHandler::
+      PeerConnectionWrapperWithCandidateHandler;
 
   PeerConnection* GetInternalPeerConnection() {
     auto* pci =
@@ -148,64 +139,6 @@ class PeerConnectionWrapperForUsageHistogramTest
   ObserverForUsageHistogramTest* observer() {
     return static_cast<ObserverForUsageHistogramTest*>(
         PeerConnectionWrapper::observer());
-  }
-
-  void PrepareToExchangeCandidates(
-      PeerConnectionWrapperForUsageHistogramTest* other) {
-    observer()->PrepareToExchangeCandidates(other);
-    other->observer()->PrepareToExchangeCandidates(this);
-  }
-
-  bool IsConnected() {
-    return pc()->ice_connection_state() ==
-               PeerConnectionInterface::kIceConnectionConnected ||
-           pc()->ice_connection_state() ==
-               PeerConnectionInterface::kIceConnectionCompleted;
-  }
-
-  bool HaveDataChannel() {
-    return static_cast<ObserverForUsageHistogramTest*>(observer())
-        ->HaveDataChannel();
-  }
-  void BufferIceCandidate(const webrtc::IceCandidateInterface* candidate) {
-    std::string sdp;
-    EXPECT_TRUE(candidate->ToString(&sdp));
-    std::unique_ptr<webrtc::IceCandidateInterface> candidate_copy(
-        CreateIceCandidate(candidate->sdp_mid(), candidate->sdp_mline_index(),
-                           sdp, nullptr));
-    buffered_candidates_.push_back(std::move(candidate_copy));
-  }
-
-  void AddBufferedIceCandidates() {
-    for (const auto& candidate : buffered_candidates_) {
-      EXPECT_TRUE(pc()->AddIceCandidate(candidate.get()));
-    }
-    buffered_candidates_.clear();
-  }
-
-  // This method performs the following actions in sequence:
-  // 1. Exchange Offer and Answer.
-  // 2. Exchange ICE candidates after both caller and callee complete
-  // gathering.
-  // 3. Wait for ICE to connect.
-  //
-  // This guarantees a deterministic sequence of events and also rules out the
-  // occurrence of prflx candidates if the offer/answer signaling and the
-  // candidate trickling race in order. In case prflx candidates need to be
-  // simulated, see the approach used by tests below for that.
-  bool ConnectTo(PeerConnectionWrapperForUsageHistogramTest* callee) {
-    PrepareToExchangeCandidates(callee);
-    if (!ExchangeOfferAnswerWith(callee)) {
-      return false;
-    }
-    // Wait until the gathering completes before we signal the candidate.
-    WAIT(observer()->ice_gathering_complete_, kDefaultTimeout);
-    WAIT(callee->observer()->ice_gathering_complete_, kDefaultTimeout);
-    AddBufferedIceCandidates();
-    callee->AddBufferedIceCandidates();
-    WAIT(IsConnected(), kDefaultTimeout);
-    WAIT(callee->IsConnected(), kDefaultTimeout);
-    return IsConnected() && callee->IsConnected();
   }
 
   bool GenerateOfferAndCollectCandidates() {
@@ -226,22 +159,7 @@ class PeerConnectionWrapperForUsageHistogramTest
   webrtc::PeerConnectionInterface::IceGatheringState ice_gathering_state() {
     return pc()->ice_gathering_state();
   }
-
- private:
-  // Candidates that have been sent but not yet configured
-  std::vector<std::unique_ptr<webrtc::IceCandidateInterface>>
-      buffered_candidates_;
 };
-
-// Buffers candidates until we add them via AddBufferedIceCandidates.
-void ObserverForUsageHistogramTest::OnIceCandidate(
-    const webrtc::IceCandidateInterface* candidate) {
-  // If target is not set, ignore. This happens in one-ended unit tests.
-  if (candidate_target_) {
-    this->candidate_target_->BufferIceCandidate(candidate);
-  }
-  candidate_gathered_ = true;
-}
 
 class PeerConnectionUsageHistogramTest : public ::testing::Test {
  protected:

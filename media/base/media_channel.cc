@@ -35,6 +35,10 @@ int MediaChannel::GetRtpSendTimeExtnId() const {
   return -1;
 }
 
+void MediaChannel::RegisterReceivedFrameTransformer(
+    uint32_t ssrc,
+    webrtc::ReceivedFrameTransformInterface* frame_transformer) {}
+
 void MediaChannel::SetFrameEncryptor(
     uint32_t ssrc,
     rtc::scoped_refptr<webrtc::FrameEncryptorInterface> frame_encryptor) {

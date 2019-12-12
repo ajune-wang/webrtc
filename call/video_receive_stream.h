@@ -36,6 +36,7 @@
 
 namespace webrtc {
 
+class ReceivedFrameTransformInterface;
 class RtpPacketSinkInterface;
 class VideoDecoderFactory;
 
@@ -254,6 +255,8 @@ class VideoReceiveStream {
     // TODO(nisse): Used with VideoDecoderFactory::LegacyCreateVideoDecoder.
     // Delete when that method is retired.
     std::string stream_id;
+
+    webrtc::ReceivedFrameTransformInterface* frame_transformer = nullptr;
 
     // An optional custom frame decryptor that allows the entire frame to be
     // decrypted in whatever way the caller choses. This is not required by

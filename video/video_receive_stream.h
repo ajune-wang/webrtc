@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/encoded_frame_transform_interface.h"
 #include "api/task_queue/task_queue_factory.h"
 #include "api/transport/media/media_transport_interface.h"
 #include "api/video/recordable_encoded_frame.h"
@@ -44,6 +45,18 @@ class RtxReceiveStream;
 class VCMTiming;
 
 namespace internal {
+
+class VideoReceiveStream;
+
+class TransformedFrameVideoReceiver : public TransformedReceivedFrameCallback {
+ public:
+  TransformedFrameVideoReceiver(VideoReceiveStream* receiver);
+  void OnTransformedFrame(
+      std::unique_ptr<video_coding::EncodedFrame> frame) override;
+
+ private:
+  VideoReceiveStream* receiver_;
+};
 
 class VideoReceiveStream : public webrtc::VideoReceiveStream,
                            public rtc::VideoSinkInterface<VideoFrame>,
@@ -97,6 +110,9 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   bool SetBaseMinimumPlayoutDelayMs(int delay_ms) override;
   int GetBaseMinimumPlayoutDelayMs() const override;
 
+  void RegisterReceivedFrameTransformer(
+      webrtc::ReceivedFrameTransformInterface* frame_transformer);
+
   void SetFrameDecryptor(
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) override;
 
@@ -132,11 +148,15 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   RecordingState SetAndGetRecordingState(RecordingState state,
                                          bool generate_key_frame) override;
   void GenerateKeyFrame() override;
+  void HandleTransformedFrame(
+      std::unique_ptr<video_coding::EncodedFrame> transformed_frame);
 
  private:
   int64_t GetWaitMs() const;
   void StartNextDecode() RTC_RUN_ON(decode_queue_);
   void HandleEncodedFrame(std::unique_ptr<video_coding::EncodedFrame> frame)
+      RTC_RUN_ON(decode_queue_);
+  void DoHandleEncodedFrame(std::unique_ptr<video_coding::EncodedFrame> frame)
       RTC_RUN_ON(decode_queue_);
   void HandleFrameBufferTimeout() RTC_RUN_ON(decode_queue_);
   void UpdatePlayoutDelays() const
@@ -203,6 +223,10 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   // Keyframe request intervals are configurable through field trials.
   const int max_wait_for_keyframe_ms_;
   const int max_wait_for_frame_ms_;
+
+  ReceivedFrameTransformInterface* frame_transformer_ = nullptr;
+  std::unique_ptr<TransformedFrameVideoReceiver> transformed_frame_callback_ =
+      nullptr;
 
   rtc::CriticalSection playout_delay_lock_;
 

@@ -182,6 +182,15 @@ constexpr int kInactiveStreamThresholdMs = 600000;  //  10 minutes.
 
 namespace internal {
 
+TransformedFrameVideoReceiver::TransformedFrameVideoReceiver(
+    VideoReceiveStream* receiver)
+    : receiver_(receiver) {}
+
+void TransformedFrameVideoReceiver::OnTransformedFrame(
+    std::unique_ptr<EncodedFrame> frame) {
+  receiver_->HandleTransformedFrame(std::move(frame));
+}
+
 VideoReceiveStream::VideoReceiveStream(
     TaskQueueFactory* task_queue_factory,
     RtpStreamReceiverControllerInterface* receiver_controller,
@@ -223,6 +232,9 @@ VideoReceiveStream::VideoReceiveStream(
       max_wait_for_frame_ms_(KeyframeIntervalSettings::ParseFromFieldTrials()
                                  .MaxWaitForFrameMs()
                                  .value_or(kMaxWaitForFrameMs)),
+      frame_transformer_(config_.frame_transformer),
+      transformed_frame_callback_(
+          std::make_unique<TransformedFrameVideoReceiver>(this)),
       decode_queue_(task_queue_factory_->CreateTaskQueue(
           "DecodingQueue",
           TaskQueueFactory::Priority::HIGH)) {
@@ -247,6 +259,12 @@ VideoReceiveStream::VideoReceiveStream(
   }
 
   timing_->set_render_delay(config_.render_delay_ms);
+
+  if (frame_transformer_) {
+    frame_transformer_->RegisterTransformedFrameCallback(
+        transformed_frame_callback_.get());
+    RTC_LOG(LS_ERROR) << "[webrtc] registered transformed frame cb.";
+  }
 
   frame_buffer_.reset(
       new video_coding::FrameBuffer(clock_, timing_.get(), &stats_proxy_));
@@ -529,6 +547,18 @@ void VideoReceiveStream::OnFrame(const VideoFrame& video_frame) {
   stats_proxy_.OnRenderedFrame(video_frame);
 }
 
+void VideoReceiveStream::RegisterReceivedFrameTransformer(
+    webrtc::ReceivedFrameTransformInterface* frame_transformer) {
+  if (frame_transformer_) {
+    RTC_LOG(LS_ERROR) << "[webrtc] frame transformer already registered.";
+    return;
+  }
+  RTC_LOG(LS_ERROR) << "[webrtc] register frame transformer.";
+  frame_transformer_ = frame_transformer;
+  frame_transformer_->RegisterTransformedFrameCallback(
+      transformed_frame_callback_.get());
+}
+
 void VideoReceiveStream::SetFrameDecryptor(
     rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor) {
   rtp_video_stream_receiver_.SetFrameDecryptor(std::move(frame_decryptor));
@@ -643,8 +673,32 @@ void VideoReceiveStream::StartNextDecode() {
       });
 }
 
+void VideoReceiveStream::HandleTransformedFrame(
+    std::unique_ptr<video_coding::EncodedFrame> transformed_frame) {
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RTC_LOG(LS_ERROR) << "[webrtc] handle transformed frame.";
+  decode_queue_.PostTask(
+      [this, transformed_frame = std::move(transformed_frame)]() mutable {
+        RTC_DCHECK_RUN_ON(&decode_queue_);
+        RTC_LOG(LS_ERROR) << "[webrtc] post transformed frame.";
+        DoHandleEncodedFrame(std::move(transformed_frame));
+      });
+}
+
 void VideoReceiveStream::HandleEncodedFrame(
     std::unique_ptr<EncodedFrame> frame) {
+  RTC_LOG(LS_ERROR) << "[webrtc] handle received frame.";
+  if (frame_transformer_) {
+    RTC_LOG(LS_ERROR) << "[webrtc] transform frame.";
+    frame_transformer_->TransformFrame(std::move(frame));
+    return;
+  }
+  DoHandleEncodedFrame(std::move(frame));
+}
+
+void VideoReceiveStream::DoHandleEncodedFrame(
+    std::unique_ptr<EncodedFrame> frame) {
+  RTC_LOG(LS_ERROR) << "[webrtc] handle posted transformed frame.";
   int64_t now_ms = clock_->TimeInMilliseconds();
 
   // Current OnPreDecode only cares about QP for VP8.

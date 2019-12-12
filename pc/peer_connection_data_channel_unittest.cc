@@ -29,6 +29,7 @@
 #include "media/sctp/sctp_transport_internal.h"
 #include "p2p/base/p2p_constants.h"
 #include "p2p/base/port_allocator.h"
+#include "p2p/client/basic_port_allocator.h"
 #include "pc/media_session.h"
 #include "pc/peer_connection.h"
 #include "pc/peer_connection_factory.h"
@@ -36,7 +37,10 @@
 #include "pc/sdp_utils.h"
 #include "pc/session_description.h"
 #include "pc/test/mock_peer_connection_observers.h"
+#include "pc/test/peer_connection_wrapper_with_candidates.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/fake_network.h"
+#include "rtc_base/gunit.h"
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/thread.h"
@@ -57,6 +61,11 @@ using ::testing::Not;
 using ::testing::Values;
 
 namespace {
+
+static const rtc::SocketAddress kLocalAddrs[2] = {
+    rtc::SocketAddress("1.1.1.1", 0), rtc::SocketAddress("2.2.2.2", 0)};
+
+constexpr int64_t kWaitTimeout = 10000;
 
 PeerConnectionFactoryDependencies CreatePeerConnectionFactoryDependencies(
     rtc::Thread* network_thread,
@@ -89,18 +98,25 @@ class PeerConnectionFactoryForDataChannelTest
                 CreateCallFactory())) {}
 
   std::unique_ptr<cricket::SctpTransportInternalFactory>
-  CreateSctpTransportInternalFactory() {
-    auto factory = std::make_unique<FakeSctpTransportFactory>();
-    last_fake_sctp_transport_factory_ = factory.get();
-    return factory;
+  CreateSctpTransportInternalFactory() override {
+    if (use_real_sctp_) {
+      return PeerConnectionFactory::CreateSctpTransportInternalFactory();
+    } else {
+      auto factory = std::make_unique<FakeSctpTransportFactory>();
+      last_fake_sctp_transport_factory_ = factory.get();
+      return factory;
+    }
   }
-
+  std::unique_ptr<rtc::VirtualSocketServer> vss_;
+  bool use_real_sctp_ = false;
   FakeSctpTransportFactory* last_fake_sctp_transport_factory_ = nullptr;
 };
 
-class PeerConnectionWrapperForDataChannelTest : public PeerConnectionWrapper {
+class PeerConnectionWrapperForDataChannelTest
+    : public PeerConnectionWrapperWithCandidateHandler {
  public:
-  using PeerConnectionWrapper::PeerConnectionWrapper;
+  using PeerConnectionWrapperWithCandidateHandler::
+      PeerConnectionWrapperWithCandidateHandler;
 
   FakeSctpTransportFactory* sctp_transport_factory() {
     return sctp_transport_factory_;
@@ -155,11 +171,20 @@ class PeerConnectionDataChannelBaseTest : public ::testing::Test {
   WrapperPtr CreatePeerConnection(
       const RTCConfiguration& config,
       const PeerConnectionFactoryInterface::Options factory_options) {
+    return CreatePeerConnection(config, factory_options,
+                                /* use_real_sctp */ false);
+  }
+  WrapperPtr CreatePeerConnection(
+      const RTCConfiguration& config,
+      const PeerConnectionFactoryInterface::Options factory_options,
+      bool use_real_sctp) {
     rtc::scoped_refptr<PeerConnectionFactoryForDataChannelTest> pc_factory(
         new PeerConnectionFactoryForDataChannelTest());
     pc_factory->SetOptions(factory_options);
+    pc_factory->use_real_sctp_ = use_real_sctp;
     RTC_CHECK(pc_factory->Initialize());
-    auto observer = std::make_unique<MockPeerConnectionObserver>();
+    auto observer =
+        std::make_unique<PeerConnectionObserverWithCandidateHandler>();
     RTCConfiguration modified_config = config;
     modified_config.sdp_semantics = sdp_semantics_;
     auto pc = pc_factory->CreatePeerConnection(modified_config, nullptr,
@@ -171,10 +196,18 @@ class PeerConnectionDataChannelBaseTest : public ::testing::Test {
     observer->SetPeerConnectionInterface(pc.get());
     auto wrapper = std::make_unique<PeerConnectionWrapperForDataChannelTest>(
         pc_factory, pc, std::move(observer));
-    RTC_DCHECK(pc_factory->last_fake_sctp_transport_factory_);
-    wrapper->set_sctp_transport_factory(
-        pc_factory->last_fake_sctp_transport_factory_);
+    if (!use_real_sctp) {
+      RTC_DCHECK(pc_factory->last_fake_sctp_transport_factory_);
+      wrapper->set_sctp_transport_factory(
+          pc_factory->last_fake_sctp_transport_factory_);
+    }
     return wrapper;
+  }
+
+  WrapperPtr CreatePeerConnectionWithRealSctp() {
+    return CreatePeerConnection(RTCConfiguration(),
+                                PeerConnectionFactoryInterface::Options(),
+                                /* use_real_sctp */ true);
   }
 
   // Accepts the same arguments as CreatePeerConnection and adds a default data
@@ -405,6 +438,21 @@ TEST_P(PeerConnectionDataChannelTest, ObsoleteSdpSyntaxIfSet) {
   EXPECT_THAT(sdp, Not(HasSubstr(" UDP/DTLS/SCTP webrtc-datachannel")));
   EXPECT_THAT(sdp, HasSubstr("a=sctpmap:"));
 }
+
+#ifdef HAVE_SCTP
+TEST_P(PeerConnectionDataChannelTest, DataChannelOpensWhenConnected) {
+  auto caller = CreatePeerConnectionWithRealSctp();
+  auto callee = CreatePeerConnectionWithRealSctp();
+  caller->CreateDataChannel("foodata");
+  ASSERT_TRUE(caller->ConnectTo(callee.get()));
+  ASSERT_TRUE_WAIT(caller->pc()->GetSctpTransport(), kWaitTimeout);
+  ASSERT_EQ_WAIT(SctpTransportState::kConnected,
+                 caller->pc()->GetSctpTransport()->Information().state(),
+                 kWaitTimeout);
+  // Wait for OnDataChannel to fire on callee
+  ASSERT_TRUE_WAIT(callee->observer()->last_datachannel_, kWaitTimeout);
+}
+#endif
 
 INSTANTIATE_TEST_SUITE_P(PeerConnectionDataChannelTest,
                          PeerConnectionDataChannelTest,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ec2f83a_97affb7d",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-13T13:45:08Z",
+      "side": 1,
+      "message": "This is already part of another target (https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/BUILD.gn?l\u003d576-607\u0026rcl\u003db877e71c4108baa6dd2b22bc4ebb370bd9231dd7) and exporting headers from 2 targets confuses automation tools (on top of that .h and .cc should go together to avoid brittle builds and surprising linker errors).\n\nCan we just duplicate the code? 😊\n\nWe can also make it public API but we are trying to go in the other direction.",
+      "range": {
+        "startLine": 923,
+        "startChar": 6,
+        "endLine": 923,
+        "endChar": 58
+      },
+      "revId": "82c56235fde552986892e44c1554d5ad41d706a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

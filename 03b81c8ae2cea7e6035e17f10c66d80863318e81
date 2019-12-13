@@ -118,6 +118,30 @@
       "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9c482ed_ae8581cd",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-12-13T10:28:47Z",
+      "side": 1,
+      "message": "summary of the offline discussion:\nThat scenarios is possible, but very rare to worry about.\nsuggested solution \u0027AheadOrAt\u0027 would trigger on every [delta] frame after the keyframe, while current solution triggers updating last_key_frame only on every packet of the keyframe\n(it would also trigger on all packets of the same picture in case of spatial layering, but that\u0027s ok.)",
+      "parentUuid": "eb9f71a7_61fdd266",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 64
+      },
+      "revId": "03b81c8ae2cea7e6035e17f10c66d80863318e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

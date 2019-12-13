@@ -46,6 +46,30 @@
       "revId": "82c56235fde552986892e44c1554d5ad41d706a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d51c13f4_bcf7c3af",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-12-13T14:29:02Z",
+      "side": 1,
+      "message": "Correct, in that case it should just be publicly visible and that would be fine.\n\nWe talked offline and this is resolved. 😊",
+      "parentUuid": "264e73cb_c4c1f060",
+      "range": {
+        "startLine": 923,
+        "startChar": 6,
+        "endLine": 923,
+        "endChar": 58
+      },
+      "revId": "82c56235fde552986892e44c1554d5ad41d706a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

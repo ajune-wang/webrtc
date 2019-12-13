@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab352246_08237478",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-12-13T11:12:19Z",
+      "side": 0,
+      "message": "Could you add a TODO on the definition of |useExplicitDependencies| for its removal, pending on its removal from the internal project that uses it?",
+      "range": {
+        "startLine": 354,
+        "startChar": 13,
+        "endLine": 354,
+        "endChar": 36
+      },
+      "revId": "3927298c2203b8513ad09d9676ae3ed37d6a6cd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

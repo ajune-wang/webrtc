@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd471b7b_199412ad",
+        "filename": "modules/video_coding/codecs/vp9/vp9_frame_buffer_pool.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-12-13T13:56:47Z",
+      "side": 1,
+      "message": "Remove, since you\u0027ve moved the comment above.",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 11
+      },
+      "revId": "86c029c9324212109e61af6a059b99385f03097e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94147d01_59988aa5",
+        "filename": "test/testsupport/ivf_video_frame_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-12-13T13:56:47Z",
+      "side": 1,
+      "message": "Please add a comment here, that it\u0027s needed because arbitrary amount of buffers might be retained by potential user (test frame-work).",
+      "revId": "86c029c9324212109e61af6a059b99385f03097e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

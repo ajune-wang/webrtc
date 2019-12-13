@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3ae2b772_c91cf366",
+        "filename": "modules/audio_processing/legacy_ns/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-12-13T14:04:39Z",
+      "side": 1,
+      "message": "I changed my mind on that.\n\nThe reason for the _c suffix is that it is not allowed to mix c++ and c code in one single build target.\nMy suggestion is to keep it like that for now.\nWDYT?",
+      "parentUuid": "7390fa0f_c892f36c",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "ec5b92df4310116fe72c1912645c3db0db998aa7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1b85461_fd195af5",
         "filename": "modules/audio_processing/legacy_ns/BUILD.gn",
         "patchSetId": 4

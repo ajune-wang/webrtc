@@ -920,6 +920,7 @@ rtc_library("rtc_base") {
       "callback.h",
       "log_sinks.cc",
       "log_sinks.h",
+      "numerics/event_based_exponential_moving_average.h",
       "numerics/math_utils.h",
       "rolling_accumulator.h",
       "ssl_roots.h",

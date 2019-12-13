@@ -22,6 +22,30 @@
       "revId": "82c56235fde552986892e44c1554d5ad41d706a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "264e73cb_c4c1f060",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-12-13T14:05:54Z",
+      "side": 1,
+      "message": "As far as I understand Jonas, he\u0027s trying to make the function publicly available (as in \"outside webrtc\"). It should be in one target only, but that target will want to be public, or depended on by a public target.",
+      "parentUuid": "0ec2f83a_97affb7d",
+      "range": {
+        "startLine": 923,
+        "startChar": 6,
+        "endLine": 923,
+        "endChar": 58
+      },
+      "revId": "82c56235fde552986892e44c1554d5ad41d706a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

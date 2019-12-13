@@ -63,11 +63,14 @@ class IvfVideoFrameGenerator : public FrameGeneratorInterface {
   size_t width_;
   size_t height_;
 
-  rtc::Event next_frame_decoded_;
-  SequenceChecker sequence_checker_;
-
+  // We need to ensure that frame generator won't be destroyed while another
+  // thread is reading frames from it.
   rtc::CriticalSection lock_;
-  absl::optional<VideoFrame> next_frame_ RTC_GUARDED_BY(lock_);
+
+  rtc::Event next_frame_decoded_;
+
+  rtc::CriticalSection frame_decode_lock_;
+  absl::optional<VideoFrame> next_frame_ RTC_GUARDED_BY(frame_decode_lock_);
 };
 
 }  // namespace test

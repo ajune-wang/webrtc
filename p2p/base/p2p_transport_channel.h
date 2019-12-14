@@ -173,6 +173,10 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   int check_receiving_interval() const;
   absl::optional<rtc::NetworkRoute> network_route() const override;
 
+  rtc::scoped_refptr<IceGatherer> gatherer() override;
+  rtc::scoped_refptr<IceGatherer> ShareGatherer() override;
+  void SetGatherer(rtc::scoped_refptr<IceGatherer> gatherer) override;
+
   // Helper method used only in unittest.
   rtc::DiffServCodePoint DefaultDscpValue() const;
 
@@ -186,10 +190,21 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // Public for unit tests.
   PortAllocatorSession* allocator_session() const {
     RTC_DCHECK_RUN_ON(network_thread_);
-    if (allocator_sessions_.empty()) {
-      return nullptr;
+    // Owned allocator sessions take precedent over shared ones so that ICE
+    // restarts after forking work properly.
+    if (!owned_allocator_sessions_.empty()) {
+      return owned_allocator_sessions_.back().get();
     }
-    return allocator_sessions_.back().get();
+    if (gatherer_) {
+      return gatherer_->session();
+    }
+    return nullptr;
+  }
+
+  // Public for unit tests.
+  IceParameters ice_parameters() {
+    RTC_DCHECK_RUN_ON(network_thread_);
+    return ice_parameters_;
   }
 
   // Public for unit tests.
@@ -253,6 +268,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
                                PortInterface* origin_port);
   void PingConnection(Connection* conn);
   void AddAllocatorSession(std::unique_ptr<PortAllocatorSession> session);
+  void ListenToAllocatorSession(PortAllocatorSession* session);
   void AddConnection(Connection* connection);
 
   void OnPortReady(PortAllocatorSession* session, PortInterface* port);
@@ -356,8 +372,13 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   rtc::Thread* network_thread_;
   bool incoming_only_ RTC_GUARDED_BY(network_thread_);
   int error_ RTC_GUARDED_BY(network_thread_);
-  std::vector<std::unique_ptr<PortAllocatorSession>> allocator_sessions_
+  std::vector<std::unique_ptr<PortAllocatorSession>> owned_allocator_sessions_
       RTC_GUARDED_BY(network_thread_);
+  rtc::scoped_refptr<IceGatherer> gatherer_;
+  // We remember the shared allocator session generation, if there was one,
+  // to make sure ICE restarts after a fork get bigger generations
+  // and thus shared and owned generations do not get confused.
+  uint32_t gatherer_generation_ = 0;
   // |ports_| contains ports that are used to form new connections when
   // new remote candidates are added.
   std::vector<PortInterface*> ports_ RTC_GUARDED_BY(network_thread_);

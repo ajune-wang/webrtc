@@ -232,6 +232,26 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
     return cricket::ICEROLE_UNKNOWN;
   }
 
+  PeerConnection* GetInternalPeerConnection(const WrapperPtr& pc_wrapper_ptr) {
+    auto* pc_proxy =
+        static_cast<PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
+            pc_wrapper_ptr->pc());
+    return static_cast<PeerConnection*>(pc_proxy->internal());
+  }
+
+  cricket::IceTransportInternal* GetFirstIceTransport(PeerConnection* pc) {
+    for (const auto& transceiver : pc->GetTransceiversInternal()) {
+      if (transceiver->internal() && transceiver->internal()->channel()) {
+        auto dtls_transport = pc->LookupDtlsTransportByMidInternal(
+            transceiver->internal()->channel()->content_name());
+        if (dtls_transport && dtls_transport->ice_transport()) {
+          return dtls_transport->ice_transport()->internal();
+        }
+      }
+    }
+    return nullptr;
+  }
+
   // Returns a list of (ufrag, pwd) pairs in the order that they appear in
   // |description|, or the empty list if |description| is null.
   std::vector<std::pair<std::string, std::string>> GetIceCredentials(
@@ -1402,6 +1422,40 @@ TEST_P(PeerConnectionIceTest, IceCredentialsCreateAnswer) {
     EXPECT_EQ(transport_info->description.ice_ufrag, credentials[0].ufrag);
     EXPECT_EQ(transport_info->description.ice_pwd, credentials[0].pwd);
   }
+}
+
+TEST_P(PeerConnectionIceTest, IceForking) {
+  RTCConfiguration config;
+  config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
+  auto parent = CreatePeerConnectionWithAudioVideo(config);
+  auto parent_internal = GetInternalPeerConnection(parent);
+  parent->SetLocalDescription(parent->CreateOffer());
+  EXPECT_TRUE_WAIT(parent->IsIceGatheringDone(), kIceCandidatesTimeout);
+  auto* parent_transport =
+      GetFirstTransportDescription(parent_internal->local_description());
+  ASSERT_TRUE(parent_transport);
+  auto gatherer = parent_internal->ShareIceGatherer();
+  ASSERT_TRUE(gatherer);
+  EXPECT_EQ(parent_transport->ice_ufrag, gatherer->local_parameters().ufrag);
+  EXPECT_EQ(parent_transport->ice_pwd, gatherer->local_parameters().pwd);
+
+  auto child = CreatePeerConnectionWithAudioVideo(config);
+  auto child_internal = GetInternalPeerConnection(parent);
+  child_internal->SetIceGatherer(gatherer);
+  EXPECT_EQ(gatherer, child_internal->ShareIceGatherer());
+  rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
+      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+  child_internal->CreateOffer(observer, RTCOfferAnswerOptions());
+  EXPECT_EQ_WAIT(true, observer->called(), 1000);
+  auto child_offer = observer->MoveDescription();
+  auto* child_transport = GetFirstTransportDescription(child_offer.get());
+  EXPECT_EQ(child_transport->ice_ufrag, gatherer->local_parameters().ufrag);
+  rtc::scoped_refptr<MockSetSessionDescriptionObserver> set_observer(
+      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+  child_internal->SetLocalDescription(set_observer, child_offer.release());
+  auto* ice_transport = GetFirstIceTransport(child_internal);
+  ASSERT_TRUE(ice_transport);
+  EXPECT_EQ(gatherer, ice_transport->gatherer());
 }
 
 }  // namespace webrtc

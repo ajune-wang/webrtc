@@ -325,6 +325,9 @@ class PeerConnection : public PeerConnectionInternal,
   }
   void RequestUsagePatternReportForTesting();
 
+  rtc::scoped_refptr<cricket::IceGatherer> ShareIceGatherer();
+  void SetIceGatherer(rtc::scoped_refptr<cricket::IceGatherer> ice_gatherer);
+
  protected:
   ~PeerConnection() override;
 
@@ -1387,6 +1390,8 @@ class PeerConnection : public PeerConnectionInternal,
   DataChannelController data_channel_controller_;
   rtc::WeakPtrFactory<PeerConnection> weak_ptr_factory_
       RTC_GUARDED_BY(signaling_thread());
+
+  absl::optional<cricket::IceParameters> ice_gatherer_parameters_;
 };
 
 }  // namespace webrtc

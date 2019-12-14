@@ -4898,6 +4898,12 @@ void PeerConnection::GetOptionsForOffer(
           RTC_FROM_HERE,
           rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
                     port_allocator_.get()));
+  if (ice_gatherer_parameters_) {
+    session_options->pooled_ice_credentials.insert(
+        session_options->pooled_ice_credentials.begin(),
+        *ice_gatherer_parameters_);
+  }
+
   session_options->offer_extmap_allow_mixed =
       configuration_.offer_extmap_allow_mixed;
 
@@ -5218,7 +5224,11 @@ void PeerConnection::GetOptionsForAnswer(
           RTC_FROM_HERE,
           rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
                     port_allocator_.get()));
-
+  if (ice_gatherer_parameters_) {
+    session_options->pooled_ice_credentials.insert(
+        session_options->pooled_ice_credentials.begin(),
+        *ice_gatherer_parameters_);
+  }
   // If datagram transport is in use, add opaque transport parameters.
   if (use_datagram_transport_ || use_datagram_transport_for_data_channels_) {
     for (auto& options : session_options->media_description_options) {
@@ -7352,6 +7362,20 @@ void PeerConnection::ClearStatsCache() {
   if (stats_collector_) {
     stats_collector_->ClearCachedStatsReport();
   }
+}
+
+rtc::scoped_refptr<cricket::IceGatherer> PeerConnection::ShareIceGatherer() {
+  // TODO: Make this async.
+  return transport_controller_->ShareIceGatherer();
+}
+
+void PeerConnection::SetIceGatherer(
+    rtc::scoped_refptr<cricket::IceGatherer> ice_gatherer) {
+  RTC_DCHECK(ice_gatherer);
+  // Remember these so we can use them in CreateOffer and CreateAnswer.
+  ice_gatherer_parameters_ = ice_gatherer->local_parameters();
+  // Pass this to the TransportController so future ICE transports will use it.
+  transport_controller_->SetIceGatherer(std::move(ice_gatherer));
 }
 
 void PeerConnection::RequestUsagePatternReportForTesting() {

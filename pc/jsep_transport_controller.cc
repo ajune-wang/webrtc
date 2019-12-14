@@ -208,13 +208,37 @@ rtc::scoped_refptr<SctpTransport> JsepTransportController::GetSctpTransport(
 void JsepTransportController::SetIceConfig(const cricket::IceConfig& config) {
   if (!network_thread_->IsCurrent()) {
     network_thread_->Invoke<void>(RTC_FROM_HERE, [&] { SetIceConfig(config); });
-    return;
-  }
 
   ice_config_ = config;
   for (auto& dtls : GetDtlsTransports()) {
     dtls->ice_transport()->SetIceConfig(ice_config_);
   }
+}
+
+rtc::scoped_refptr<IceGatherer> JsepTransportController::SharedIceGatherer() {
+  if (!network_thread_->IsCurrent()) {
+    network_thread_->Invoke<rtc::scoped_refptr<IceGatherer>>(
+      RTC_FROM_HERE, [&] {ShareIceGatherer(); });
+
+  for (auto& dtls : GetDtlsTransports()) {
+    auto ice_gatherer = dtls->ice_transport()->ShareIceGatherer();
+    if (ice_gatherer) {
+      return ice_gatherer;
+    }
+  }
+  return ice_gatherer;
+}
+
+void JsepTransportController::SetIceGatherer(
+    rtc::scoped_refptr<IceGatherer> ice_gatherer) {
+  if (!network_thread_->IsCurrent()) {
+    network_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      SetIceGatherer(std::move(ice_gatherer));
+    });
+    return;
+  }
+
+  ice_gatherer_ = ice_gatherer;
 }
 
 void JsepTransportController::SetNeedsIceRestartFlag() {
@@ -461,8 +485,12 @@ JsepTransportController::CreateIceTransport(const std::string& transport_name,
   init.set_port_allocator(port_allocator_);
   init.set_async_resolver_factory(async_resolver_factory_);
   init.set_event_log(config_.event_log);
-  return config_.ice_transport_factory->CreateIceTransport(
+  auto ice_transport = config_.ice_transport_factory->CreateIceTransport(
       transport_name, component, std::move(init));
+  if (ice_gatherer_ && ice_transport) {
+    ice_transport->internal()->SetGatherer(ice_gatherer_);
+  }
+  return ice_transport;
 }
 
 std::unique_ptr<cricket::DtlsTransportInternal>

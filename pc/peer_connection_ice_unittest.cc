@@ -252,6 +252,20 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
     return ice_credentials;
   }
 
+  IceGather* GetFirstIceGatherer(const WrapperPtr& pc_wrapper_ptr) {
+    auto* pc_proxy =
+        static_cast<PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
+            pc_wrapper_ptr->pc());
+    PeerConnection* pc = static_cast<PeerConnection*>(pc_proxy->internal());
+    for (const auto& transceiver : pc->GetTransceiversInternal()) {
+      auto dtls_transport = pc->LookupDtlsTransportByMidInternal(
+          transceiver->internal()->channel()->content_name());
+      return dtls_transport->ice_transport()->internal()->gatherer();
+    }
+    RTC_NOTREACHED();
+    return nullptr;
+  }
+
   bool AddCandidateToFirstTransport(cricket::Candidate* candidate,
                                     SessionDescriptionInterface* sdesc) {
     auto* desc = sdesc->description();
@@ -1404,4 +1418,46 @@ TEST_P(PeerConnectionIceTest, IceCredentialsCreateAnswer) {
   }
 }
 
+TEST_P(PeerConnectionIceTest, IceForking) {
+  auto parent = CreatePeerConnectionWithAudioVideo();
+  parent->SetLocalDescription(parent->CreateOffer());
+  EXPECT_TRUE_WAIT(parent->IsIceGatheringDone(), kIceCandidatesTimeout);
+
+  auto child1 = CreatePeerConnectionWithAudioVideo();
+  child1->ForkIceFrom(parent);
+  EXPECT_EQ(GetFirstIceGatherer(parent), GetFirstIceGatherer(child1))
+  auto child1_offer = child1->CreateOffer();
+  parent->SetLocalDescription(child->CreateOffer());
+  auto* parent_offer_desc = parent->local_description();
+  auto* child1_offer_desc = child1->local_description();
+  for (const auto& content : parent_offer_desc->contents()) {
+    auto* parent_transport_info = parent_offer_desc->GetTransportInfoByName(
+      content.name);
+    auto* child1_transport_info = child1_offer_desc->GetTransportInfoByName(
+      content.name);
+    EXPECT_EQ(parent_transport_info->description.ice_ufrag,
+              child1_transport_info->description.ice_ufrag);
+    EXPECT_EQ(parent_transport_info->description.ice_pwd,
+              child1_transport_info->description.ice_pwd);
+  }
+
+  auto child2 = CreatePeerConnectionWithAudioVideo();
+  child1->ForkIceFrom(parent);
+  child2->SetRemoteDescription(parent->CreateOffer());
+  parent->SetLocalDescription(child->CreateAnswer());
+  EXPECT_EQ(GetFirstIceGatherer(parent), GetFirstIceGatherer(child));
+  auto* child2_offer_desc = child2->local_description();
+  for (const auto& content : parent_offer_desc->contents()) {
+    auto* parent_transport_info = parent_offer_desc->GetTransportInfoByName(
+      content.name);
+    auto* child2_transport_info = child2_offer_desc->GetTransportInfoByName(
+      content.name);
+    EXPECT_EQ(parent_transport_info->description.ice_ufrag,
+              child2_transport_info->description.ice_ufrag);
+    EXPECT_EQ(parent_transport_info->description.ice_pwd,
+              child2_transport_info->description.ice_pwd);
+  }
+}
+
 }  // namespace webrtc
+

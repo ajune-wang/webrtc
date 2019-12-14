@@ -5631,4 +5631,82 @@ TEST(P2PTransportChannel, InjectIceController) {
       /* event_log = */ nullptr, &factory);
 }
 
+TEST_F(P2PTransportChannelPingTest, Forking) {
+  rtc::ScopedFakeClock clock;
+  FakePortAllocator pa(rtc::Thread::Current(), nullptr);
+
+  auto parent = std::make_unique<P2PTransportChannel>("parent", 1, &pa);
+  parent->SetIceParameters(kIceParams[0]);
+  PrepareChannel(parent.get());
+  parent->MaybeStartGathering();
+  SIMULATED_WAIT(
+      IceGatheringState::kIceGatheringComplete == parent->gathering_state(),
+      kShortTimeout, clock);
+
+  parent->SetRemoteIceParameters(kIceParams[1]);
+  parent->AddRemoteCandidate(
+      CreateUdpCandidate(LOCAL_PORT_TYPE, "1.1.1.1", 1, 1));
+  SIMULATED_WAIT(
+      IceGatheringState::kIceGatheringComplete == parent->gathering_state(),
+      kShortTimeout, clock);
+  ASSERT_EQ(1u, parent->connections().size());
+  Connection* parent_conn =
+      WaitForConnectionTo(parent.get(), "1.1.1.1", 1, &clock);
+  ASSERT_TRUE(parent_conn);
+  EXPECT_EQ(kIceParams[1].ufrag, parent_conn->remote_candidate().username());
+  EXPECT_EQ(kIceParams[1].pwd, parent_conn->remote_candidate().password());
+
+  auto child = std::make_unique<P2PTransportChannel>("child", 1, &pa);
+  PrepareChannel(child.get());
+  child->SetGatherer(parent->ShareGatherer());
+  EXPECT_EQ(child->local_ice(), parent->local_ice());
+  EXPECT_EQ(kIceGatheringComplete, child->gathering_state());
+  child->SetRemoteIceParameters(kIceParams[2]);
+  unsigned int shared_generation = child->allocator_session()->generation();
+
+  child->AddRemoteCandidate(
+      CreateUdpCandidate(LOCAL_PORT_TYPE, "2.2.2.2", 2, 2));
+  EXPECT_EQ(IceTransportState::STATE_COMPLETED, child->GetState());
+  ASSERT_EQ(1u, child->connections().size());
+  Connection* child_conn =
+      WaitForConnectionTo(child.get(), "2.2.2.2", 2, &clock);
+  ASSERT_TRUE(child_conn);
+
+  EXPECT_EQ(kIceParams[2].ufrag, child_conn->remote_candidate().username());
+  EXPECT_EQ(kIceParams[2].pwd, child_conn->remote_candidate().password());
+
+  EXPECT_EQ(parent_conn->local_candidate().username(),
+            child_conn->local_candidate().username());
+  EXPECT_EQ(parent_conn->local_candidate().password(),
+            child_conn->local_candidate().password());
+
+  ASSERT_EQ(1u, child->connections().size());
+
+  parent->SetIceParameters(kIceParams[3]);
+  parent->SetRemoteIceParameters(kIceParams[3]);
+  parent->MaybeStartGathering();
+
+  child->MaybeStartGathering();
+  EXPECT_EQ(shared_generation, child->allocator_session()->generation());
+
+  parent.reset();
+  // Make sure the signals are disconnected and this doesn't blow up.
+  child->allocator_session()->SignalCandidatesAllocationDone(
+      child->allocator_session());
+
+  // Make sure destroying the parent doesn't close the child's ports.
+  EXPECT_TRUE(child->allocator_session()->IsGettingPorts());
+
+  child->SetIceParameters(kIceParams[3]);
+  child->SetRemoteIceParameters(kIceParams[3]);
+  child->MaybeStartGathering();
+  child->AddRemoteCandidate(
+      CreateUdpCandidate(LOCAL_PORT_TYPE, "3.3.3.3", 3, 3));
+
+  Connection* child_conn2 =
+      WaitForConnectionTo(child.get(), "3.3.3.3", 3, &clock);
+  ASSERT_TRUE(child_conn2);
+  EXPECT_LT(shared_generation, child->allocator_session()->generation());
+}
+
 }  // namespace cricket

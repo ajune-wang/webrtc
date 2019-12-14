@@ -172,6 +172,7 @@ class JsepTransportController : public sigslot::has_slots<> {
   // This method is public to allow PeerConnection to update it from
   // SetConfiguration.
   void SetIceConfig(const cricket::IceConfig& config);
+  void SetIceGatherer(rtc::scoped_refptr<IceGatherer> ice_gatherer);
   // Set the "needs-ice-restart" flag as described in JSEP. After the flag is
   // set, offers should generate new ufrags/passwords until an ICE restart
   // occurs.
@@ -465,6 +466,7 @@ class JsepTransportController : public sigslot::has_slots<> {
   cricket::IceConfig ice_config_;
   cricket::IceRole ice_role_ = cricket::ICEROLE_CONTROLLING;
   uint64_t ice_tiebreaker_ = rtc::CreateRandomId64();
+  rtc::scoped_refptr<IceGatherer> ice_gatherer_;
   rtc::scoped_refptr<rtc::RTCCertificate> certificate_;
   rtc::AsyncInvoker invoker_;
 

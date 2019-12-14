@@ -13,7 +13,9 @@
 
 #include <stdint.h>
 
+#include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -22,6 +24,8 @@
 #include "p2p/base/connection.h"
 #include "p2p/base/packet_transport_internal.h"
 #include "p2p/base/port.h"
+// For PortAllocatorSession
+#include "p2p/base/port_allocator.h"
 #include "p2p/base/transport_description.h"
 #include "rtc_base/network_constants.h"
 #include "rtc_base/system/rtc_export.h"
@@ -210,6 +214,21 @@ enum IceProtocolType {
   ICEPROTO_RFC5245  // Standard RFC 5245 version of ICE.
 };
 
+// Wraps a PortAllocatorSession so it can be shared amongst
+// different ICE transports for ICE forking
+class IceGatherer : public rtc::RefCountInterface {
+ public:
+  IceGatherer(IceParameters local_parameters,
+              std::unique_ptr<PortAllocatorSession> session)
+      : local_parameters_(local_parameters), session_(std::move(session)) {}
+  IceParameters local_parameters() const { return local_parameters_; }
+  PortAllocatorSession* session() const { return session_.get(); }
+
+ private:
+  IceParameters local_parameters_;
+  std::unique_ptr<PortAllocatorSession> session_;
+};
+
 // IceTransportInternal is an internal abstract class that does ICE.
 // Once the public interface is supported,
 // (https://www.w3.org/TR/webrtc/#rtcicetransport)
@@ -241,6 +260,15 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
 
   virtual void SetRemoteIceCredentials(const std::string& ice_ufrag,
                                        const std::string& ice_pwd);
+
+  // SetGatherer with the same IceGatherer on many ICE transports to get
+  // ICE forking behavior.  For example, like so:
+  // child->UseSharedGatherer(parent->ShareGatherer());
+  virtual void SetGatherer(rtc::scoped_refptr<IceGatherer> ice_gatherer) {}
+  virtual rtc::scoped_refptr<IceGatherer> gatherer() { return nullptr; }
+  // Convert the last owned (unshared) port allocator session to an ICE gatherer
+  // and return it.
+  virtual rtc::scoped_refptr<IceGatherer> ShareGatherer() { return nullptr; }
 
   // The ufrag and pwd in |ice_params| must be set
   // before candidate gathering can start.

@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 
+// TODO(hbos): Update include files...
 #include "api/units/data_rate.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video/video_rotation.h"
@@ -42,6 +43,7 @@
 #include "system_wrappers/include/clock.h"
 #include "video/encoder_bitrate_adjuster.h"
 #include "video/frame_encode_metadata_writer.h"
+#include "video/overuse_frame_detector_resource_adaptation_module.h"
 #include "video/overuse_frame_detector.h"
 
 namespace webrtc {
@@ -112,6 +114,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
  private:
   class VideoSourceProxy;
 
+  // TODO(hbos): REMOVE OR EXPOSE PUBLICALLY?
   class VideoFrameInfo {
    public:
     VideoFrameInfo(int width, int height, bool is_texture)
@@ -183,48 +186,6 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   void SetEncoderRates(const EncoderRateSettings& rate_settings)
       RTC_RUN_ON(&encoder_queue_);
 
-  // Class holding adaptation information.
-  class AdaptCounter final {
-   public:
-    AdaptCounter();
-    ~AdaptCounter();
-
-    // Get number of adaptation downscales for |reason|.
-    VideoStreamEncoderObserver::AdaptationSteps Counts(int reason) const;
-
-    std::string ToString() const;
-
-    void IncrementFramerate(int reason);
-    void IncrementResolution(int reason);
-    void DecrementFramerate(int reason);
-    void DecrementResolution(int reason);
-    void DecrementFramerate(int reason, int cur_fps);
-
-    // Gets the total number of downgrades (for all adapt reasons).
-    int FramerateCount() const;
-    int ResolutionCount() const;
-
-    // Gets the total number of downgrades for |reason|.
-    int FramerateCount(int reason) const;
-    int ResolutionCount(int reason) const;
-    int TotalCount(int reason) const;
-
-   private:
-    std::string ToString(const std::vector<int>& counters) const;
-    int Count(const std::vector<int>& counters) const;
-    void MoveCount(std::vector<int>* counters, int from_reason);
-
-    // Degradation counters holding number of framerate/resolution reductions
-    // per adapt reason.
-    std::vector<int> fps_counters_;
-    std::vector<int> resolution_counters_;
-  };
-
-  AdaptCounter& GetAdaptCounter() RTC_RUN_ON(&encoder_queue_);
-  const AdaptCounter& GetConstAdaptCounter() RTC_RUN_ON(&encoder_queue_);
-  void UpdateAdaptationStats(AdaptReason reason) RTC_RUN_ON(&encoder_queue_);
-  VideoStreamEncoderObserver::AdaptationSteps GetActiveCounts(
-      AdaptReason reason) RTC_RUN_ON(&encoder_queue_);
   bool CanAdaptUpResolution(int pixels, uint32_t bitrate_bps) const
       RTC_RUN_ON(&encoder_queue_);
   void RunPostEncode(EncodedImage encoded_image,
@@ -261,8 +222,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   const RateControlSettings rate_control_settings_;
   const QualityScalerSettings quality_scaler_settings_;
 
-  const std::unique_ptr<OveruseFrameDetector> overuse_detector_
-      RTC_PT_GUARDED_BY(&encoder_queue_);
+  // TODO(hbos): RTC_GUARDED_BY / RTC_PT_GUARDED_BY
+  std::unique_ptr<OveruseFrameDetectorResourceAdaptationModule>
+      resource_adaptation_module_;
   std::unique_ptr<QualityScaler> quality_scaler_ RTC_GUARDED_BY(&encoder_queue_)
       RTC_PT_GUARDED_BY(&encoder_queue_);
 
@@ -308,30 +270,12 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   bool encoder_failed_ RTC_GUARDED_BY(&encoder_queue_);
   Clock* const clock_;
-  // Counters used for deciding if the video resolution or framerate is
-  // currently restricted, and if so, why, on a per degradation preference
-  // basis.
-  // TODO(sprang): Replace this with a state holding a relative overuse measure
-  // instead, that can be translated into suitable down-scale or fps limit.
-  std::map<const DegradationPreference, AdaptCounter> adapt_counters_
-      RTC_GUARDED_BY(&encoder_queue_);
   // Set depending on degradation preferences.
+  // TODO(hbos): REMOVE??
   DegradationPreference degradation_preference_ RTC_GUARDED_BY(&encoder_queue_);
 
+  // TODO(hbos): REMOVE???
   const BalancedDegradationSettings balanced_settings_;
-
-  struct AdaptationRequest {
-    // The pixel count produced by the source at the time of the adaptation.
-    int input_pixel_count_;
-    // Framerate received from the source at the time of the adaptation.
-    int framerate_fps_;
-    // Indicates if request was to adapt up or down.
-    enum class Mode { kAdaptUp, kAdaptDown } mode_;
-  };
-  // Stores a snapshot of the last adaptation request triggered by an AdaptUp
-  // or AdaptDown signal.
-  absl::optional<AdaptationRequest> last_adaptation_request_
-      RTC_GUARDED_BY(&encoder_queue_);
 
   rtc::RaceChecker incoming_frame_race_checker_
       RTC_GUARDED_BY(incoming_frame_race_checker_);

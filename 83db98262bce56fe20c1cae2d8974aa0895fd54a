@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a041412_4d81b848",
+        "filename": "api/test/create_frame_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-12-16T18:22:54Z",
+      "side": 1,
+      "message": "There are external users of CreateSquareFrameGenerator. So to not cause changes to them you might want to use 0 as default.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "83db98262bce56fe20c1cae2d8974aa0895fd54a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

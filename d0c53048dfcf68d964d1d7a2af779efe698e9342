@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9b7512d5_539b8176",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-16T10:33:29Z",
+      "side": 1,
+      "message": "Explain why?",
+      "revId": "d0c53048dfcf68d964d1d7a2af779efe698e9342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b27e299_60a85287",
         "filename": "rtc_base/BUILD.gn",
         "patchSetId": 1
@@ -37,6 +54,30 @@
       "side": 1,
       "message": "Yeah, that\u0027s possible. I kind of feel like we should have a general directory for \"public utilities which are supported and stable but aren\u0027t the primary API surface\". Other projects I\u0027ve seen use a \"platform/\" directory to for stuff like that. One could argue that rtc_base could be that platform directory, and it sort of de facto is.",
       "parentUuid": "5b27e299_60a85287",
+      "range": {
+        "startLine": 565,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 22
+      },
+      "revId": "d0c53048dfcf68d964d1d7a2af779efe698e9342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fe5ae6f_db9e4172",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-12-16T10:33:29Z",
+      "side": 1,
+      "message": "If we need this in the API surface, I would just move it to api/ (no subdirectory). Making it publicly visible in rtc_base/ seems like a step in the wrong direction.",
+      "parentUuid": "e02d42a8_ce5cba8c",
       "range": {
         "startLine": 565,
         "startChar": 2,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "232d81df_18accc9b",
+        "filename": "sdk/objc/components/capturer/RTCCameraVideoCapturer.m",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-12-16T15:09:10Z",
+      "side": 1,
+      "message": "Can you move this to before the dispatch on capture queue? This method should probably already be called on the main thread anyway.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 25
+      },
+      "revId": "cc43de7b595a88d64757c4924d462c16252eafd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

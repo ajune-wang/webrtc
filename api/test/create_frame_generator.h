@@ -26,11 +26,13 @@ namespace test {
 // move randomly towards the lower right corner.
 // |type| has the default value FrameGeneratorInterface::OutputType::I420.
 // |num_squares| has the default value 10.
+// |noise_level| has the default value 10.
 std::unique_ptr<FrameGeneratorInterface> CreateSquareFrameGenerator(
     int width,
     int height,
     absl::optional<FrameGeneratorInterface::OutputType> type,
-    absl::optional<int> num_squares);
+    absl::optional<int> num_squares,
+    absl::optional<int> noise_level = absl::nullopt);
 
 // Creates a frame generator that repeatedly plays a set of yuv files.
 // The frame_repeat_count determines how many times each frame is shown,

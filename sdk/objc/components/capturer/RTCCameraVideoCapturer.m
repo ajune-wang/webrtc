@@ -153,7 +153,7 @@ const int64_t kNanosecondsPerSecond = 1000000000;
              completionHandler:(nullable void (^)(NSError *))completionHandler {
   _willBeRunning = YES;
   [RTCDispatcher
-      dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
+      dispatchAsyncOnType:RTCDispatcherTypeMain
                     block:^{
                       RTCLogInfo("startCaptureWithDevice %@ @ %ld fps", format, (long)fps);
 
@@ -190,7 +190,7 @@ const int64_t kNanosecondsPerSecond = 1000000000;
 - (void)stopCaptureWithCompletionHandler:(nullable void (^)(void))completionHandler {
   _willBeRunning = NO;
   [RTCDispatcher
-      dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
+      dispatchAsyncOnType:RTCDispatcherTypeMain
                     block:^{
                       RTCLogInfo("Stop");
                       self.currentDevice = nil;

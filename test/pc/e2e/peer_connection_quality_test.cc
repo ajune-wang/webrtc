@@ -804,10 +804,10 @@ PeerConnectionE2EQualityTest::CreateVideoCapturer(
     } else if (video_config.generator == VideoGeneratorType::kI010) {
       frame_generator_type = test::FrameGeneratorInterface::OutputType::kI010;
     }
-    frame_generator =
-        test::CreateSquareFrameGenerator(static_cast<int>(video_config.width),
-                                         static_cast<int>(video_config.height),
-                                         frame_generator_type, absl::nullopt);
+    frame_generator = test::CreateSquareFrameGenerator(
+        static_cast<int>(video_config.width),
+        static_cast<int>(video_config.height), frame_generator_type,
+        absl::nullopt, 0);
   }
   if (video_config.input_file_name) {
     frame_generator = test::CreateFromYuvFileFrameGenerator(

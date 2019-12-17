@@ -37,8 +37,9 @@ void KeepBufferRefs(rtc::scoped_refptr<webrtc::VideoFrameBuffer>,
 SquareGenerator::SquareGenerator(int width,
                                  int height,
                                  OutputType type,
-                                 int num_squares)
-    : type_(type) {
+                                 int num_squares,
+                                 int noise_level)
+    : type_(type), noise_level_(noise_level), random_generator_(1) {
   ChangeResolution(width, height);
   for (int i = 0; i < num_squares; ++i) {
     squares_.emplace_back(new Square(width, height, i + 1));
@@ -56,7 +57,15 @@ void SquareGenerator::ChangeResolution(size_t width, size_t height) {
 rtc::scoped_refptr<I420Buffer> SquareGenerator::CreateI420Buffer(int width,
                                                                  int height) {
   rtc::scoped_refptr<I420Buffer> buffer(I420Buffer::Create(width, height));
-  memset(buffer->MutableDataY(), 127, height * buffer->StrideY());
+  if (noise_level_ == 0) {
+    memset(buffer->MutableDataY(), 127, height * buffer->StrideY());
+  } else {
+    // Add luma noise to avoid limited encoder bitrate due to low image detail.
+    for (int i = 0; i < height * buffer->StrideY(); ++i) {
+      buffer->MutableDataY()[i] = random_generator_.Rand(
+          127 - noise_level_ / 2, 127 + (noise_level_ + 1) / 2);
+    }
+  }
   memset(buffer->MutableDataU(), 127,
          buffer->ChromaHeight() * buffer->StrideU());
   memset(buffer->MutableDataV(), 127,

@@ -140,7 +140,7 @@ TEST_F(TestVp9Impl, EncodeDecode) {
   absl::optional<uint8_t> decoded_qp;
   ASSERT_TRUE(WaitForDecodedFrame(&decoded_frame, &decoded_qp));
   ASSERT_TRUE(decoded_frame);
-  EXPECT_GT(I420PSNR(&input_frame, decoded_frame.get()), 36);
+  EXPECT_GT(I420PSNR(&input_frame, decoded_frame.get()), 34);
 
   const ColorSpace color_space = *decoded_frame->color_space();
   EXPECT_EQ(ColorSpace::PrimaryID::kUnspecified, color_space.primaries());

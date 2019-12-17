@@ -32,13 +32,18 @@ namespace test {
 // are moved slightly towards the lower right corner.
 class SquareGenerator : public FrameGeneratorInterface {
  public:
-  SquareGenerator(int width, int height, OutputType type, int num_squares);
+  SquareGenerator(int width,
+                  int height,
+                  OutputType type,
+                  int num_squares,
+                  int noise_level);
 
   void ChangeResolution(size_t width, size_t height) override;
   VideoFrameData NextFrame() override;
 
  private:
-  rtc::scoped_refptr<I420Buffer> CreateI420Buffer(int width, int height);
+  rtc::scoped_refptr<I420Buffer> CreateI420Buffer(int width, int height)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(&crit_);
 
   class Square {
    public:
@@ -59,6 +64,8 @@ class SquareGenerator : public FrameGeneratorInterface {
 
   rtc::CriticalSection crit_;
   const OutputType type_;
+  const int noise_level_;
+  Random random_generator_ RTC_GUARDED_BY(&crit_);
   int width_ RTC_GUARDED_BY(&crit_);
   int height_ RTC_GUARDED_BY(&crit_);
   std::vector<std::unique_ptr<Square>> squares_ RTC_GUARDED_BY(&crit_);

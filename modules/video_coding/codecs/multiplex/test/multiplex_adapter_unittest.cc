@@ -251,7 +251,7 @@ TEST_P(TestMultiplexAdapter, EncodeDecodeI420AFrame) {
   std::unique_ptr<VideoFrame> input_axx_frame = ExtractAXXFrame(*yuva_frame);
   std::unique_ptr<VideoFrame> output_axx_frame =
       ExtractAXXFrame(*decoded_frame);
-  EXPECT_GT(I420PSNR(input_axx_frame.get(), output_axx_frame.get()), 47);
+  EXPECT_GT(I420PSNR(input_axx_frame.get(), output_axx_frame.get()), 38);
 
   CheckData(decoded_frame->video_frame_buffer());
 }

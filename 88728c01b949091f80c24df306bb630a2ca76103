@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57072036_be683246",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-12-17T16:21:15Z",
+      "side": 1,
+      "message": "I\u0027m not really sure if the VideoSourceProxy belongs here, video_stream_encoder.cc or a separate file. But considering it keeps track of max frame rate, pixels, source and sinks as well as degradation preference it felt like a \"resource adaptation module\" kind of thing.\n\nHowever, in future CLs I would probably like the input and output of a module to speak in terms of settings structs and for reconfiguring of things to go through VideoStreamEncoder.\n\nBut this \"proxy\" performs more things than just plumbing a new settings value, so I put it here for now.",
+      "revId": "88728c01b949091f80c24df306bb630a2ca76103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c1998c6_8bdd3f29",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-12-17T16:21:15Z",
+      "side": 1,
+      "message": "Note: resource_adaptation_module_-\u003eSetSource() is responsible for both source_proxy_-\u003eSetSource() and PostTask-ing with the below removed logic.",
+      "revId": "88728c01b949091f80c24df306bb630a2ca76103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f022715f_f695e441",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-12-17T16:21:15Z",
+      "side": 1,
+      "message": "Note: RefreshTargetFramerate() is not exactly the same as setting max_framerate_ since it takes the minimum of the max framerate and source_proxy_-\u003eGetActiveSinkWants().max_framerate_fps, but I assume we should be consistent with how we calculate the target so I reused this method hoping the effect is the same.",
+      "revId": "88728c01b949091f80c24df306bb630a2ca76103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "376c6366_ffabf478",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-12-17T16:21:15Z",
+      "side": 1,
+      "message": "Note: I\u0027m hoping a lot of the code below can be ripped out too in a future CL, since it is performing adaptation logic and increases the dependency on adaptation implementation details.",
+      "revId": "88728c01b949091f80c24df306bb630a2ca76103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "920482f1_f260c36b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-12-17T16:21:15Z",
+      "side": 1,
+      "message": "Note: As pointed out in a TODO in the .h file, I want these methods to go away in future CLs since they have to do with adaptation.",
+      "revId": "88728c01b949091f80c24df306bb630a2ca76103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

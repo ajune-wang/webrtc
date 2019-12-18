@@ -49,7 +49,6 @@ rtc_library("call_interfaces") {
     "../api/transport:webrtc_key_value_config",
     "../api/transport/rtp:rtp_source",
     "../modules/audio_device",
-    "../modules/audio_processing",
     "../modules/audio_processing:api",
     "../modules/audio_processing:audio_processing_statistics",
     "../modules/rtp_rtcp:rtp_rtcp_format",

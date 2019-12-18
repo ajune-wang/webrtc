@@ -126,8 +126,6 @@ rtc_library("audio_processing") {
     "render_queue_item_verifier.h",
     "residual_echo_detector.cc",
     "residual_echo_detector.h",
-    "rms_level.cc",
-    "rms_level.h",
     "transient/common.h",
     "transient/daubechies_8_wavelet_coeffs.h",
     "transient/dyadic_decimator.h",
@@ -141,8 +139,6 @@ rtc_library("audio_processing") {
     "transient/wpd_node.h",
     "transient/wpd_tree.cc",
     "transient/wpd_tree.h",
-    "typing_detection.cc",
-    "typing_detection.h",
     "voice_detection.cc",
     "voice_detection.h",
   ]
@@ -157,6 +153,7 @@ rtc_library("audio_processing") {
     ":audio_processing_statistics",
     ":config",
     ":high_pass_filter",
+    ":rms_level",
     "../../api:array_view",
     "../../api:function_view",
     "../../api/audio:aec3_config",
@@ -245,6 +242,28 @@ rtc_library("audio_generator_factory") {
     "../../common_audio",
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
+  ]
+}
+
+rtc_library("typing_detection") {
+  sources = [
+    "typing_detection.cc",
+    "typing_detection.h",
+  ]
+  deps = [
+    "../../rtc_base/system:rtc_export",
+  ]
+}
+
+rtc_library("rms_level") {
+  sources = [
+    "rms_level.cc",
+    "rms_level.h",
+  ]
+  deps = [
+    "../../api:array_view",
+    "../../rtc_base:checks",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
 
@@ -354,6 +373,7 @@ if (rtc_include_tests) {
       ":file_audio_generator_unittests",
       ":high_pass_filter",
       ":mocks",
+      ":rms_level",
       "../../api:array_view",
       "../../api:scoped_refptr",
       "../../api/audio:aec3_config",

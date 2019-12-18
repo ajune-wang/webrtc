@@ -110,7 +110,7 @@ bool EchoCanceller3Config::Validate(EchoCanceller3Config* config) {
   res = res & Limit(&c->delay.delay_selection_thresholds.initial, 1, 250);
   res = res & Limit(&c->delay.delay_selection_thresholds.converged, 1, 250);
 
-  res = res & Limit(&c->filter.main.length_blocks, 1, 50);
+  res = res & Limit(&c->filter.main.length_blocks, 1, 60);
   res = res & Limit(&c->filter.main.leakage_converged, 0.f, 1000.f);
   res = res & Limit(&c->filter.main.leakage_diverged, 0.f, 1000.f);
   res = res & Limit(&c->filter.main.error_floor, 0.f, 1000.f);

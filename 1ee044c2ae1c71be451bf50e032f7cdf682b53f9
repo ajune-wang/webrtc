@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44240fbb_a2b9a281",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1282,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-12-18T22:17:10Z",
+      "side": 1,
+      "message": "This was done by `git cl format`, enforced by presubmit. Can revert if requested.",
+      "range": {
+        "startLine": 1280,
+        "startChar": 14,
+        "endLine": 1282,
+        "endChar": 28
+      },
+      "revId": "1ee044c2ae1c71be451bf50e032f7cdf682b53f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

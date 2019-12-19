@@ -46,6 +46,30 @@
       "revId": "e395e6c4ac82ac5785d81cccb7127f987046e1a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7a2f01_c28f72fc",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5752
+      },
+      "writtenOn": "2019-12-19T19:31:02Z",
+      "side": 1,
+      "message": "hm when you put it that way, I\u0027d opine that interrupted should be treated separately from activation, and that we should keep it as consistent as we can. It\u0027s easier to track two separate / independent states rather than have one var only be meaningful based on another.\n\nif we successfully activate, we know that we\u0027re not interrupted\nif we don\u0027t successfully activate, we don\u0027t know anything about interrupted\nif we successfully deactivate, we don\u0027t know anything about interrupted\nif we don\u0027t successfully deactivate, we don\u0027t know anything about interrupted\n\nif we receive system notifications about interrupted state, we know its state, and can try to reactivate or deactivate the audio session\n\nif we come to foreground, we don\u0027t know anything about interrupted, but we can try to reactivate the audio session if we need to and if we succeed then we know we\u0027re not interrupted\n\nwith the above, it\u0027s possible to be interrupted (last known state) and not be active\n\ntbh like you say it\u0027s not super meaningful to keep track of interrupted when it\u0027s not active because we\u0027ll always try to activate it (at least the first time) and fail. Other components only really care about the transition to interrupted when an audio session is active.\n\ndoes that make sense?",
+      "parentUuid": "e4ffdcff_554cb5c3",
+      "range": {
+        "startLine": 382,
+        "startChar": 15,
+        "endLine": 382,
+        "endChar": 28
+      },
+      "revId": "e395e6c4ac82ac5785d81cccb7127f987046e1a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "e395e6c4ac82ac5785d81cccb7127f987046e1a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4ffdcff_554cb5c3",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 9261
+      },
+      "writtenOn": "2019-12-19T16:36:30Z",
+      "side": 1,
+      "message": "It looks like if this block is reached due to deactivation, the interrupted state could be set to NO or left as is, with both options being functionally equivalent:\n* if an \"interruption ended notification\" arrives after deactivation, since `activationCount \u003d\u003d 0`, the audio session will not be reactivated;\n* if the audio session is deactivated while `isInterrupted \u003d\u003d YES`, and later the audio session is activated again, `isInterrupted` will be set to NO at that time.\n\nThe choice I think depends on whether we think it\u0027s meaningful for `isInterrupted` to be YES when the audio session has been deactivated. Originally I was thinking that the concept of interruption only applies while the audio session is activated (activationCount \u003e 0). Do you think it should also apply when `activationCount \u003d\u003d 0`?\n\nEither way, your comment made me realize that the argument sent to -notifyDidEndInterruptionWithShouldResumeSession: below should depend on `active`.",
+      "parentUuid": "ff9cb21f_2aa6967d",
+      "range": {
+        "startLine": 382,
+        "startChar": 15,
+        "endLine": 382,
+        "endChar": 28
+      },
+      "revId": "e395e6c4ac82ac5785d81cccb7127f987046e1a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

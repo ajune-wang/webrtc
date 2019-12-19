@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04e66237_5c78cbd8",
+        "filename": "sdk/objc/components/renderer/opengl/RTCEAGLVideoView.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-12-19T18:40:45Z",
+      "side": 1,
+      "message": "NSValue *rotationOverride.",
+      "range": {
+        "startLine": 40,
+        "startChar": 38,
+        "endLine": 40,
+        "endChar": 40
+      },
+      "revId": "7871f3684fa923d6f50c152e4b5ac109eac78716",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

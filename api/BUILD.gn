@@ -55,6 +55,7 @@ if (!build_with_chromium) {
       "../media:rtc_media_base",
       "../modules/audio_device:audio_device_api",
       "../modules/audio_processing:api",
+      "../modules/audio_processing:audio_processing",
       "../pc:peerconnection",
       "../rtc_base",
       "../rtc_base:rtc_base_approved",

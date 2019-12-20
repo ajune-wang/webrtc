@@ -845,6 +845,8 @@ rtc_library("test_common") {
     "../call:video_stream_api",
     "../modules/audio_device:audio_device_impl",
     "../modules/audio_mixer:audio_mixer_impl",
+    "../modules/audio_processing:api",
+    "../modules/audio_processing:audio_processing",
     "../modules/rtp_rtcp",
     "../modules/rtp_rtcp:rtp_rtcp_format",
     "../modules/rtp_rtcp:rtp_video_header",

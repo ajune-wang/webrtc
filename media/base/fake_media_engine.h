@@ -26,7 +26,6 @@
 #include "media/base/rtp_utils.h"
 #include "media/base/stream_params.h"
 #include "media/engine/webrtc_video_engine.h"
-#include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/network_route.h"
 

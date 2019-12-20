@@ -489,7 +489,6 @@ if (rtc_include_tests) {
       "../media:rtc_media_base",
       "../media:rtc_media_tests_utils",
       "../modules/audio_device",
-      "../modules/audio_processing",
       "../modules/audio_processing:api",
       "../p2p:fake_port_allocator",
       "../p2p:p2p_test_utils",
@@ -631,7 +630,6 @@ if (rtc_include_tests) {
       "../media:rtc_data",  # TODO(phoglund): AFAIK only used for one sctp constant.
       "../media:rtc_media_base",
       "../media:rtc_media_tests_utils",
-      "../modules/audio_processing",
       "../modules/audio_processing:api",
       "../modules/utility",
       "../p2p:p2p_test_utils",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d62a04cd_251f7c2a",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5600
+      },
+      "writtenOn": "2019-12-20T22:17:48Z",
+      "side": 1,
+      "message": "nit: might be clearer to just set YES instead of active? up to you though, pretty subjective",
+      "range": {
+        "startLine": 384,
+        "startChar": 62,
+        "endLine": 384,
+        "endChar": 68
+      },
+      "revId": "d632c542fd4502b5c2af7b512d69a0b43e162ba4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

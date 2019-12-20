@@ -379,6 +379,10 @@ NSString * const kRTCAudioSessionOutputVolumeSelector = @"outputVolume";
   if (success) {
     if (shouldSetActive) {
       self.isActive = active;
+      if (active && self.isInterrupted) {
+        self.isInterrupted = NO;
+        [self notifyDidEndInterruptionWithShouldResumeSession:active];
+      }
     }
     if (active) {
       [self incrementActivationCount];

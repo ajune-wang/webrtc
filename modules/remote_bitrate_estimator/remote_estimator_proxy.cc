@@ -22,7 +22,18 @@
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
+namespace {
 
+TimeDelta GetAbsoluteSendTimeDelta(uint32_t prev_abs_send_time,
+                                   uint32_t next_abs_send_time) {
+  RTC_DCHECK_LT(next_abs_send_time, (1ul << 24));
+  RTC_DCHECK_LT(prev_abs_send_time, (1ul << 24));
+  int32_t delta =
+      static_cast<int32_t>((next_abs_send_time - prev_abs_send_time) << 8) >> 8;
+  return TimeDelta::us((delta * int64_t{1000000}) / (1 << 18));
+}
+
+}  // namespace
 // Impossible to request feedback older than what can be represented by 15 bits.
 const int RemoteEstimatorProxy::kMaxNumberOfPackets = (1 << 15);
 
@@ -54,19 +65,18 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
 
 RemoteEstimatorProxy::~RemoteEstimatorProxy() {}
 
-void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
-                                          size_t payload_size,
-                                          const RTPHeader& header) {
-  if (arrival_time_ms < 0 || arrival_time_ms > kMaxTimeMs) {
-    RTC_LOG(LS_WARNING) << "Arrival time out of bounds: " << arrival_time_ms;
+void RemoteEstimatorProxy::IncomingPacket(const BwePacket& packet) {
+  if (packet.arrival_time_ms < 0 || packet.arrival_time_ms > kMaxTimeMs) {
+    RTC_LOG(LS_WARNING) << "Arrival time out of bounds: "
+                        << packet.arrival_time_ms;
     return;
   }
   rtc::CritScope cs(&lock_);
-  media_ssrc_ = header.ssrc;
+  media_ssrc_ = packet.ssrc;
   int64_t seq = 0;
 
-  if (header.extension.hasTransportSequenceNumber) {
-    seq = unwrapper_.Unwrap(header.extension.transportSequenceNumber);
+  if (packet.transport_sequence_number.has_value()) {
+    seq = unwrapper_.Unwrap(*packet.transport_sequence_number);
 
     if (send_periodic_feedback_) {
       if (periodic_window_start_seq_ &&
@@ -75,7 +85,8 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
         // Start new feedback packet, cull old packets.
         for (auto it = packet_arrival_times_.begin();
              it != packet_arrival_times_.end() && it->first < seq &&
-             arrival_time_ms - it->second >= send_config_.back_window->ms();) {
+             packet.arrival_time_ms - it->second >=
+                 send_config_.back_window->ms();) {
           it = packet_arrival_times_.erase(it);
         }
       }
@@ -88,7 +99,7 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
     if (packet_arrival_times_.find(seq) != packet_arrival_times_.end())
       return;
 
-    packet_arrival_times_[seq] = arrival_time_ms;
+    packet_arrival_times_[seq] = packet.arrival_time_ms;
 
     // Limit the range of sequence numbers to send feedback for.
     auto first_arrival_time_to_keep = packet_arrival_times_.lower_bound(
@@ -104,25 +115,25 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
       }
     }
 
-    if (header.extension.feedback_request) {
+    if (packet.feedback_request) {
       // Send feedback packet immediately.
-      SendFeedbackOnRequest(seq, header.extension.feedback_request.value());
+      SendFeedbackOnRequest(seq, packet.feedback_request.value());
     }
   }
 
-  if (network_state_estimator_ && header.extension.hasAbsoluteSendTime) {
+  if (network_state_estimator_ && packet.absolute_send_time.has_value()) {
     PacketResult packet_result;
-    packet_result.receive_time = Timestamp::ms(arrival_time_ms);
+    packet_result.receive_time = Timestamp::ms(packet.arrival_time_ms);
     // Ignore reordering of packets and assume they have approximately the same
     // send time.
-    abs_send_timestamp_ += std::max(
-        header.extension.GetAbsoluteSendTimeDelta(previous_abs_send_time_),
-        TimeDelta::ms(0));
-    previous_abs_send_time_ = header.extension.absoluteSendTime;
+    abs_send_timestamp_ +=
+        std::max(GetAbsoluteSendTimeDelta(previous_abs_send_time_,
+                                          *packet.absolute_send_time),
+                 TimeDelta::ms(0));
+    previous_abs_send_time_ = *packet.absolute_send_time;
     packet_result.sent_packet.send_time = abs_send_timestamp_;
     // TODO(webrtc:10742): Take IP header and transport overhead into account.
-    packet_result.sent_packet.size =
-        DataSize::bytes(header.headerLength + payload_size);
+    packet_result.sent_packet.size = DataSize::bytes(packet.total_size);
     packet_result.sent_packet.sequence_number = seq;
     network_state_estimator_->OnReceivedPacket(packet_result);
   }

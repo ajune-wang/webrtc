@@ -35,12 +35,10 @@ ReceiveSideCongestionController::WrappingBitrateEstimator::
     ~WrappingBitrateEstimator() = default;
 
 void ReceiveSideCongestionController::WrappingBitrateEstimator::IncomingPacket(
-    int64_t arrival_time_ms,
-    size_t payload_size,
-    const RTPHeader& header) {
+    const BwePacket& packet) {
   rtc::CritScope cs(&crit_sect_);
-  PickEstimatorFromHeader(header);
-  rbe_->IncomingPacket(arrival_time_ms, payload_size, header);
+  PickEstimatorFromPacket(packet.absolute_send_time.has_value());
+  rbe_->IncomingPacket(packet);
 }
 
 void ReceiveSideCongestionController::WrappingBitrateEstimator::Process() {
@@ -82,8 +80,8 @@ void ReceiveSideCongestionController::WrappingBitrateEstimator::SetMinBitrate(
 }
 
 void ReceiveSideCongestionController::WrappingBitrateEstimator::
-    PickEstimatorFromHeader(const RTPHeader& header) {
-  if (header.extension.hasAbsoluteSendTime) {
+    PickEstimatorFromPacket(bool packet_has_abs_send_time) {
+  if (packet_has_abs_send_time) {
     // If we see AST in header, switch RBE strategy immediately.
     if (!using_absolute_send_time_) {
       RTC_LOG(LS_INFO)
@@ -134,14 +132,11 @@ ReceiveSideCongestionController::ReceiveSideCongestionController(
                               network_state_estimator) {}
 
 void ReceiveSideCongestionController::OnReceivedPacket(
-    int64_t arrival_time_ms,
-    size_t payload_size,
-    const RTPHeader& header) {
-  remote_estimator_proxy_.IncomingPacket(arrival_time_ms, payload_size, header);
-  if (!header.extension.hasTransportSequenceNumber) {
+    const BwePacket& packet) {
+  remote_estimator_proxy_.IncomingPacket(packet);
+  if (!packet.transport_sequence_number.has_value()) {
     // Receive-side BWE.
-    remote_bitrate_estimator_.IncomingPacket(arrival_time_ms, payload_size,
-                                             header);
+    remote_bitrate_estimator_.IncomingPacket(packet);
   }
 }
 

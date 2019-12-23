@@ -22,6 +22,7 @@ rtc_library("remote_bitrate_estimator") {
     "overuse_detector.h",
     "overuse_estimator.cc",
     "overuse_estimator.h",
+    "remote_bitrate_estimator.cc",
     "remote_bitrate_estimator_abs_send_time.cc",
     "remote_bitrate_estimator_abs_send_time.h",
     "remote_bitrate_estimator_single_stream.cc",

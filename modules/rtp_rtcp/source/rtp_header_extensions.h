@@ -41,6 +41,10 @@ class AbsoluteSendTime {
   static constexpr uint32_t MsTo24Bits(int64_t time_ms) {
     return static_cast<uint32_t>(((time_ms << 18) + 500) / 1000) & 0x00FFFFFF;
   }
+  static constexpr int64_t BitsToUs(uint32_t time_24bits) {
+    RTC_DCHECK_LT(time_24bits, (1ul << 24));
+    return (time_24bits * int64_t{1'000'000}) / (1 << 18);
+  }
 };
 
 class AbsoluteCaptureTimeExtension {

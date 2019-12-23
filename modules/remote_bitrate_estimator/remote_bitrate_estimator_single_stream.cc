@@ -81,22 +81,19 @@ RemoteBitrateEstimatorSingleStream::~RemoteBitrateEstimatorSingleStream() {
 }
 
 void RemoteBitrateEstimatorSingleStream::IncomingPacket(
-    int64_t arrival_time_ms,
-    size_t payload_size,
-    const RTPHeader& header) {
+    const BwePacket& packet) {
   if (!uma_recorded_) {
     BweNames type = BweNames::kReceiverTOffset;
-    if (!header.extension.hasTransmissionTimeOffset)
+    if (!packet.transmission_time_offset.has_value())
       type = BweNames::kReceiverNoExtension;
     RTC_HISTOGRAM_ENUMERATION(kBweTypeHistogram, type, BweNames::kBweNamesMax);
     uma_recorded_ = true;
   }
-  uint32_t ssrc = header.ssrc;
   uint32_t rtp_timestamp =
-      header.timestamp + header.extension.transmissionTimeOffset;
+      packet.rtp_timestamp + packet.transmission_time_offset.value_or(0);
   int64_t now_ms = clock_->TimeInMilliseconds();
   rtc::CritScope cs(&crit_sect_);
-  SsrcOveruseEstimatorMap::iterator it = overuse_detectors_.find(ssrc);
+  SsrcOveruseEstimatorMap::iterator it = overuse_detectors_.find(packet.ssrc);
   if (it == overuse_detectors_.end()) {
     // This is a new SSRC. Adding to map.
     // TODO(holmer): If the channel changes SSRC the old SSRC will still be
@@ -105,9 +102,9 @@ void RemoteBitrateEstimatorSingleStream::IncomingPacket(
     // automatically cleaned up when we have one RemoteBitrateEstimator per REMB
     // group.
     std::pair<SsrcOveruseEstimatorMap::iterator, bool> insert_result =
-        overuse_detectors_.insert(
-            std::make_pair(ssrc, new Detector(now_ms, OverUseDetectorOptions(),
-                                              true, &field_trials_)));
+        overuse_detectors_.insert(std::make_pair(
+            packet.ssrc, new Detector(now_ms, OverUseDetectorOptions(), true,
+                                      &field_trials_)));
     it = insert_result.first;
   }
   Detector* estimator = it->second;
@@ -124,14 +121,14 @@ void RemoteBitrateEstimatorSingleStream::IncomingPacket(
     incoming_bitrate_.Reset();
     last_valid_incoming_bitrate_ = 0;
   }
-  incoming_bitrate_.Update(payload_size, now_ms);
+  incoming_bitrate_.Update(packet.payload_size, now_ms);
 
   const BandwidthUsage prior_state = estimator->detector.State();
   uint32_t timestamp_delta = 0;
   int64_t time_delta = 0;
   int size_delta = 0;
   if (estimator->inter_arrival.ComputeDeltas(
-          rtp_timestamp, arrival_time_ms, now_ms, payload_size,
+          rtp_timestamp, packet.arrival_time_ms, now_ms, packet.payload_size,
           &timestamp_delta, &time_delta, &size_delta)) {
     double timestamp_delta_ms = timestamp_delta * kTimestampToMs;
     estimator->estimator.Update(time_delta, timestamp_delta_ms, size_delta,

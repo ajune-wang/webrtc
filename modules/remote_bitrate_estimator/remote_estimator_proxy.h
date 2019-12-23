@@ -41,9 +41,7 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
                        NetworkStateEstimator* network_state_estimator);
   ~RemoteEstimatorProxy() override;
 
-  void IncomingPacket(int64_t arrival_time_ms,
-                      size_t payload_size,
-                      const RTPHeader& header) override;
+  void IncomingPacket(const BwePacket& packet) override;
   void RemoveStream(uint32_t ssrc) override {}
   bool LatestEstimate(std::vector<unsigned int>* ssrcs,
                       unsigned int* bitrate_bps) const override;

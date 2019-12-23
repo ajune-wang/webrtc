@@ -53,24 +53,25 @@ TEST(ReceiveSideCongestionControllerTest, OnReceivedPacketWithAbsSendTime) {
 
   ReceiveSideCongestionController controller(&clock_, &packet_router);
 
-  size_t payload_size = 1000;
-  RTPHeader header;
-  header.ssrc = 0x11eb21c;
-  header.extension.hasAbsoluteSendTime = true;
+  BwePacket packet;
+  packet.payload_size = 1000;
+  packet.ssrc = 0x11eb21c;
 
   std::vector<unsigned int> ssrcs;
   EXPECT_CALL(packet_router, OnReceiveBitrateChanged(_, _))
       .WillRepeatedly(SaveArg<0>(&ssrcs));
 
   for (int i = 0; i < 10; ++i) {
-    clock_.AdvanceTimeMilliseconds((1000 * payload_size) / kInitialBitrateBps);
+    clock_.AdvanceTimeMilliseconds((1000 * packet.payload_size) /
+                                   kInitialBitrateBps);
     int64_t now_ms = clock_.TimeInMilliseconds();
-    header.extension.absoluteSendTime = AbsSendTime(now_ms, 1000);
-    controller.OnReceivedPacket(now_ms, payload_size, header);
+    packet.arrival_time_ms = now_ms;
+    packet.absolute_send_time = AbsSendTime(now_ms, 1000);
+    controller.OnReceivedPacket(packet);
   }
 
   ASSERT_EQ(1u, ssrcs.size());
-  EXPECT_EQ(header.ssrc, ssrcs[0]);
+  EXPECT_EQ(packet.ssrc, ssrcs[0]);
 }
 
 TEST(ReceiveSideCongestionControllerTest, ConvergesToCapacity) {

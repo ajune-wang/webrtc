@@ -1347,18 +1347,18 @@ void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
   bool use_send_side_bwe =
       (it != receive_rtp_config_.end()) && it->second.use_send_side_bwe;
 
-  RTPHeader header;
-  packet.GetHeader(&header);
-
   ReceivedPacket packet_msg;
   packet_msg.size = DataSize::bytes(packet.payload_size());
   packet_msg.receive_time = Timestamp::ms(packet.arrival_time_ms());
-  if (header.extension.hasAbsoluteSendTime) {
-    packet_msg.send_time = header.extension.GetAbsoluteSendTimestamp();
+  uint32_t abs_send_time;
+  if (packet.GetExtension<AbsoluteSendTime>(&abs_send_time)) {
+    packet_msg.send_time =
+        Timestamp::us(AbsoluteSendTime::BitsToUs(abs_send_time));
   }
   transport_send_ptr_->OnReceivedPacket(packet_msg);
 
-  if (!use_send_side_bwe && header.extension.hasTransportSequenceNumber) {
+  BwePacket bwe_packet = ToBwePacket(packet);
+  if (!use_send_side_bwe && bwe_packet.transport_sequence_number.has_value()) {
     // Inconsistent configuration of send side BWE. Do nothing.
     // TODO(nisse): Without this check, we may produce RTCP feedback
     // packets even when not negotiated. But it would be cleaner to
@@ -1370,10 +1370,8 @@ void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
   }
   // For audio, we only support send side BWE.
   if (media_type == MediaType::VIDEO ||
-      (use_send_side_bwe && header.extension.hasTransportSequenceNumber)) {
-    receive_side_cc_.OnReceivedPacket(
-        packet.arrival_time_ms(), packet.payload_size() + packet.padding_size(),
-        header);
+      (use_send_side_bwe && bwe_packet.transport_sequence_number.has_value())) {
+    receive_side_cc_.OnReceivedPacket(bwe_packet);
   }
 }
 

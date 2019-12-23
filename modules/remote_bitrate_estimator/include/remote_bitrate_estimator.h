@@ -21,6 +21,7 @@
 #include "modules/include/module_common_types.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtcp_packet.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 
 namespace webrtc {
 
@@ -49,6 +50,24 @@ class TransportFeedbackSenderInterface {
 // TODO(holmer): Remove when all implementations have been updated.
 struct ReceiveBandwidthEstimatorStats {};
 
+// Rtp packet as seen by bandwidth estimation components.
+struct BwePacket {
+  int64_t arrival_time_ms;
+  size_t payload_size;  // size of the potentially useful part of the packet.
+  size_t total_size;    // size of the packet including overhead.
+  uint32_t ssrc;
+  uint32_t rtp_timestamp;
+  absl::optional<int32_t> transmission_time_offset;
+  absl::optional<uint32_t> absolute_send_time;
+  absl::optional<uint16_t> transport_sequence_number;
+  absl::optional<FeedbackRequest> feedback_request;
+};
+
+BwePacket ToBwePacket(const RtpPacketReceived& rtp_packet);
+BwePacket ToBwePacket(int64_t arrival_time_ms,
+                      size_t payload_size,
+                      const RTPHeader& header);
+
 class RemoteBitrateEstimator : public CallStatsObserver, public Module {
  public:
   ~RemoteBitrateEstimator() override {}
@@ -58,9 +77,13 @@ class RemoteBitrateEstimator : public CallStatsObserver, public Module {
   // remote bitrate estimate will be updated. Note that |payload_size| is the
   // packet size excluding headers.
   // Note that |arrival_time_ms| can be of an arbitrary time base.
-  virtual void IncomingPacket(int64_t arrival_time_ms,
-                              size_t payload_size,
-                              const RTPHeader& header) = 0;
+  RTC_DEPRECATED
+  void IncomingPacket(int64_t arrival_time_ms,
+                      size_t payload_size,
+                      const RTPHeader& header) {
+    IncomingPacket(ToBwePacket(arrival_time_ms, payload_size, header));
+  }
+  virtual void IncomingPacket(const BwePacket& rtp_packet) = 0;
 
   // Removes all data for |ssrc|.
   virtual void RemoveStream(uint32_t ssrc) = 0;

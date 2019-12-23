@@ -84,25 +84,22 @@ class RemoteEstimatorProxyTest : public ::testing::Test {
       uint16_t seq,
       int64_t time_ms,
       absl::optional<FeedbackRequest> feedback_request = absl::nullopt) {
-    proxy_.IncomingPacket(time_ms, kDefaultPacketSize,
-                          CreateHeader(seq, feedback_request, absl::nullopt));
+    proxy_.IncomingPacket(
+        CreatePacket(time_ms, seq, feedback_request, absl::nullopt));
   }
 
-  RTPHeader CreateHeader(absl::optional<uint16_t> transport_sequence,
+  BwePacket CreatePacket(int64_t arrival_time_ms,
+                         absl::optional<uint16_t> transport_sequence,
                          absl::optional<FeedbackRequest> feedback_request,
                          absl::optional<uint32_t> absolute_send_time) {
-    RTPHeader header;
-    if (transport_sequence) {
-      header.extension.hasTransportSequenceNumber = true;
-      header.extension.transportSequenceNumber = transport_sequence.value();
-    }
-    header.extension.feedback_request = feedback_request;
-    if (absolute_send_time) {
-      header.extension.hasAbsoluteSendTime = true;
-      header.extension.absoluteSendTime = absolute_send_time.value();
-    }
-    header.ssrc = kMediaSsrc;
-    return header;
+    BwePacket packet;
+    packet.transport_sequence_number = transport_sequence;
+    packet.feedback_request = feedback_request;
+    packet.absolute_send_time = absolute_send_time;
+    packet.ssrc = kMediaSsrc;
+    packet.arrival_time_ms = arrival_time_ms;
+    packet.payload_size = kDefaultPacketSize;
+    return packet;
   }
 
   void Process() {
@@ -603,8 +600,7 @@ TEST_F(RemoteEstimatorProxyTest, ReportsIncomingPacketToNetworkStateEstimator) {
       }));
   // Incoming packet with abs sendtime but without transport sequence number.
   proxy_.IncomingPacket(
-      kBaseTimeMs, kDefaultPacketSize,
-      CreateHeader(absl::nullopt, absl::nullopt,
+      CreatePacket(kBaseTimeMs, absl::nullopt, absl::nullopt,
                    AbsoluteSendTime::MsTo24Bits(kBaseTimeMs)));
 
   // Expect packet with older abs send time to be treated as sent at the same
@@ -615,8 +611,7 @@ TEST_F(RemoteEstimatorProxyTest, ReportsIncomingPacketToNetworkStateEstimator) {
         EXPECT_EQ(packet.sent_packet.send_time, first_send_timestamp);
       }));
   proxy_.IncomingPacket(
-      kBaseTimeMs, kDefaultPacketSize,
-      CreateHeader(absl::nullopt, absl::nullopt,
+      CreatePacket(kBaseTimeMs, absl::nullopt, absl::nullopt,
                    AbsoluteSendTime::MsTo24Bits(kBaseTimeMs - 12)));
 }
 
@@ -635,8 +630,7 @@ TEST_F(RemoteEstimatorProxyTest, IncomingPacketHandlesWrapInAbsSendTime) {
         first_send_timestamp = packet.sent_packet.send_time;
       }));
   proxy_.IncomingPacket(
-      kBaseTimeMs, kDefaultPacketSize,
-      CreateHeader(kBaseSeq, absl::nullopt, kFirstAbsSendTime));
+      CreatePacket(kBaseTimeMs, kBaseSeq, absl::nullopt, kFirstAbsSendTime));
 
   EXPECT_CALL(network_state_estimator_, OnReceivedPacket(_))
       .WillOnce(Invoke([first_send_timestamp,
@@ -645,15 +639,13 @@ TEST_F(RemoteEstimatorProxyTest, IncomingPacketHandlesWrapInAbsSendTime) {
         EXPECT_EQ(packet.sent_packet.send_time.ms(),
                   (first_send_timestamp + kExpectedAbsSendTimeDelta).ms());
       }));
-  proxy_.IncomingPacket(
-      kBaseTimeMs + 123, kDefaultPacketSize,
-      CreateHeader(kBaseSeq + 1, absl::nullopt, kSecondAbsSendTime));
+  proxy_.IncomingPacket(CreatePacket(kBaseTimeMs + 123, kBaseSeq + 1,
+                                     absl::nullopt, kSecondAbsSendTime));
 }
 
 TEST_F(RemoteEstimatorProxyTest, SendTransportFeedbackAndNetworkStateUpdate) {
   proxy_.IncomingPacket(
-      kBaseTimeMs, kDefaultPacketSize,
-      CreateHeader(kBaseSeq, absl::nullopt,
+      CreatePacket(kBaseTimeMs, kBaseSeq, absl::nullopt,
                    AbsoluteSendTime::MsTo24Bits(kBaseTimeMs - 1)));
   EXPECT_CALL(network_state_estimator_, GetCurrentEstimate())
       .WillOnce(Return(NetworkStateEstimate()));

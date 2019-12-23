@@ -29,7 +29,6 @@
 namespace webrtc {
 
 class Clock;
-struct RTPHeader;
 
 class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
  public:
@@ -37,9 +36,7 @@ class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
                                      Clock* clock);
   ~RemoteBitrateEstimatorSingleStream() override;
 
-  void IncomingPacket(int64_t arrival_time_ms,
-                      size_t payload_size,
-                      const RTPHeader& header) override;
+  void IncomingPacket(const BwePacket& rtp_packet) override;
   void Process() override;
   int64_t TimeUntilNextProcess() override;
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;

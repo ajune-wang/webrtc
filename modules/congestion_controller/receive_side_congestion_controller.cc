@@ -14,6 +14,8 @@
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/remote_bitrate_estimator/remote_bitrate_estimator_abs_send_time.h"
 #include "modules/remote_bitrate_estimator/remote_bitrate_estimator_single_stream.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
@@ -35,12 +37,10 @@ ReceiveSideCongestionController::WrappingBitrateEstimator::
     ~WrappingBitrateEstimator() = default;
 
 void ReceiveSideCongestionController::WrappingBitrateEstimator::IncomingPacket(
-    int64_t arrival_time_ms,
-    size_t payload_size,
-    const RTPHeader& header) {
+    const BwePacket& packet) {
   rtc::CritScope cs(&crit_sect_);
-  PickEstimatorFromHeader(header);
-  rbe_->IncomingPacket(arrival_time_ms, payload_size, header);
+  PickEstimatorFromPacket(packet.absolute_send_time.has_value());
+  rbe_->IncomingPacket(packet);
 }
 
 void ReceiveSideCongestionController::WrappingBitrateEstimator::Process() {
@@ -82,8 +82,8 @@ void ReceiveSideCongestionController::WrappingBitrateEstimator::SetMinBitrate(
 }
 
 void ReceiveSideCongestionController::WrappingBitrateEstimator::
-    PickEstimatorFromHeader(const RTPHeader& header) {
-  if (header.extension.hasAbsoluteSendTime) {
+    PickEstimatorFromPacket(bool packet_has_abs_send_time) {
+  if (packet_has_abs_send_time) {
     // If we see AST in header, switch RBE strategy immediately.
     if (!using_absolute_send_time_) {
       RTC_LOG(LS_INFO)
@@ -137,11 +137,15 @@ void ReceiveSideCongestionController::OnReceivedPacket(
     int64_t arrival_time_ms,
     size_t payload_size,
     const RTPHeader& header) {
-  remote_estimator_proxy_.IncomingPacket(arrival_time_ms, payload_size, header);
-  if (!header.extension.hasTransportSequenceNumber) {
+  OnReceivedPacket(ToBwePacket(arrival_time_ms, payload_size, header));
+}
+
+void ReceiveSideCongestionController::OnReceivedPacket(
+    const BwePacket& rtp_packet) {
+  remote_estimator_proxy_.IncomingPacket(rtp_packet);
+  if (!rtp_packet.transport_sequence_number.has_value()) {
     // Receive-side BWE.
-    remote_bitrate_estimator_.IncomingPacket(arrival_time_ms, payload_size,
-                                             header);
+    remote_bitrate_estimator_.IncomingPacket(rtp_packet);
   }
 }
 

@@ -41,9 +41,11 @@ class ReceiveSideCongestionController : public CallStatsObserver,
 
   ~ReceiveSideCongestionController() override {}
 
-  virtual void OnReceivedPacket(int64_t arrival_time_ms,
-                                size_t payload_size,
-                                const RTPHeader& header);
+  RTC_DEPRECATED
+  void OnReceivedPacket(int64_t arrival_time_ms,
+                        size_t payload_size,
+                        const RTPHeader& header);
+  void OnReceivedPacket(const BwePacket& rtp_packet);
 
   void SetSendPeriodicFeedback(bool send_periodic_feedback);
   // TODO(nisse): Delete these methods, design a more specific interface.
@@ -68,9 +70,7 @@ class ReceiveSideCongestionController : public CallStatsObserver,
 
     ~WrappingBitrateEstimator() override;
 
-    void IncomingPacket(int64_t arrival_time_ms,
-                        size_t payload_size,
-                        const RTPHeader& header) override;
+    void IncomingPacket(const BwePacket& rtp_packet) override;
 
     void Process() override;
 
@@ -86,7 +86,7 @@ class ReceiveSideCongestionController : public CallStatsObserver,
     void SetMinBitrate(int min_bitrate_bps) override;
 
    private:
-    void PickEstimatorFromHeader(const RTPHeader& header)
+    void PickEstimatorFromPacket(bool packet_has_abs_send_time)
         RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
     void PickEstimator() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
     RemoteBitrateObserver* observer_;

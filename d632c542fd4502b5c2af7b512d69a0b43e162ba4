@@ -22,6 +22,30 @@
       "revId": "d632c542fd4502b5c2af7b512d69a0b43e162ba4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88bb1918_55fa836d",
+        "filename": "sdk/objc/components/audio/RTCAudioSession.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 9261
+      },
+      "writtenOn": "2019-12-23T19:19:12Z",
+      "side": 1,
+      "message": "Okay, I was on the fence about this, so since you mentioned it I\u0027ve changed it to YES.",
+      "parentUuid": "d62a04cd_251f7c2a",
+      "range": {
+        "startLine": 384,
+        "startChar": 62,
+        "endLine": 384,
+        "endChar": 68
+      },
+      "revId": "d632c542fd4502b5c2af7b512d69a0b43e162ba4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

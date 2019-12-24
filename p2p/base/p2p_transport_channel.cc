@@ -155,6 +155,16 @@ P2PTransportChannel::~P2PTransportChannel() {
     p.resolver_->Destroy(false);
   }
   resolvers_.clear();
+
+  if (gatherer_) {
+    gatherer_->session()->SignalPortReady.disconnect(this);
+    gatherer_->session()->SignalPortsPruned.disconnect(this);
+    gatherer_->session()->SignalCandidatesReady.disconnect(this);
+    gatherer_->session()->SignalCandidateError.disconnect(this);
+    gatherer_->session()->SignalCandidatesRemoved.disconnect(this);
+    gatherer_->session()->SignalCandidatesAllocationDone.disconnect(this);
+  }
+
   RTC_DCHECK_RUN_ON(network_thread_);
 }
 
@@ -164,7 +174,12 @@ void P2PTransportChannel::AddAllocatorSession(
     std::unique_ptr<PortAllocatorSession> session) {
   RTC_DCHECK_RUN_ON(network_thread_);
 
-  session->set_generation(static_cast<uint32_t>(allocator_sessions_.size()));
+  // We need to always be bigger than the gatherer_generation_,
+  // if there was a shared allocator session.  Otherwise, generations of
+  // owned allocator sessions would get mixed up.
+  session->set_generation(gatherer_generation_ +
+                          static_cast<uint32_t>(allocator_sessions_.size()) +
+                          1);
   session->SignalPortReady.connect(this, &P2PTransportChannel::OnPortReady);
   session->SignalPortsPruned.connect(this, &P2PTransportChannel::OnPortsPruned);
   session->SignalCandidatesReady.connect(
@@ -176,7 +191,7 @@ void P2PTransportChannel::AddAllocatorSession(
   session->SignalCandidatesAllocationDone.connect(
       this, &P2PTransportChannel::OnCandidatesAllocationDone);
   if (!allocator_sessions_.empty()) {
-    allocator_session()->PruneAllPorts();
+    allocator_sessions_.back()->PruneAllPorts();
   }
   allocator_sessions_.push_back(std::move(session));
   regathering_controller_->set_allocator_session(allocator_session());
@@ -465,7 +480,7 @@ void P2PTransportChannel::SetRemoteIceMode(IceMode mode) {
 void P2PTransportChannel::SetIceConfig(const IceConfig& config) {
   RTC_DCHECK_RUN_ON(network_thread_);
   if (config_.continual_gathering_policy != config.continual_gathering_policy) {
-    if (!allocator_sessions_.empty()) {
+    if (allocator_session()) {
       RTC_LOG(LS_ERROR) << "Trying to change continual gathering policy "
                            "when gathering has already started!";
     } else {
@@ -775,16 +790,16 @@ void P2PTransportChannel::MaybeStartGathering() {
     return;
   }
   // Start gathering if we never started before, or if an ICE restart occurred.
-  if (allocator_sessions_.empty() ||
-      IceCredentialsChanged(allocator_sessions_.back()->ice_ufrag(),
-                            allocator_sessions_.back()->ice_pwd(),
+  if (!allocator_session() ||
+      IceCredentialsChanged(allocator_session()->ice_ufrag(),
+                            allocator_session()->ice_pwd(),
                             ice_parameters_.ufrag, ice_parameters_.pwd)) {
     if (gathering_state_ != kIceGatheringGathering) {
       gathering_state_ = kIceGatheringGathering;
       SignalGatheringState(this);
     }
 
-    if (!allocator_sessions_.empty()) {
+    if (allocator_session()) {
       IceRestartState state;
       if (writable()) {
         state = IceRestartState::CONNECTED;
@@ -823,6 +838,46 @@ void P2PTransportChannel::MaybeStartGathering() {
       allocator_sessions_.back()->StartGettingPorts();
     }
   }
+}
+
+rtc::scoped_refptr<IceGatherer> P2PTransportChannel::CreateGatherer() {
+  RTC_DCHECK_RUN_ON(network_thread_);
+
+  return new rtc::RefCountedObject<IceGatherer>(
+      allocator_->CreateSession(transport_name(), component(),
+                                ice_parameters_.ufrag, ice_parameters_.pwd));
+}
+
+void P2PTransportChannel::StartGathering(
+    rtc::scoped_refptr<cricket::IceGatherer> gatherer) {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  if (gathering_state_ != kIceGatheringGathering) {
+    gathering_state_ = kIceGatheringGathering;
+    SignalGatheringState(this);
+  }
+
+  auto* session = gatherer->session();
+  session->SignalPortReady.connect(this, &P2PTransportChannel::OnPortReady);
+  session->SignalPortsPruned.connect(this, &P2PTransportChannel::OnPortsPruned);
+  session->SignalCandidatesReady.connect(
+      this, &P2PTransportChannel::OnCandidatesReady);
+  session->SignalCandidateError.connect(this,
+                                        &P2PTransportChannel::OnCandidateError);
+  session->SignalCandidatesRemoved.connect(
+      this, &P2PTransportChannel::OnCandidatesRemoved);
+  session->SignalCandidatesAllocationDone.connect(
+      this, &P2PTransportChannel::OnCandidatesAllocationDone);
+  // Process the pooled session's existing candidates/ports, if they exist.
+  OnCandidatesReady(session, session->ReadyCandidates());
+  for (PortInterface* port : session->ReadyPorts()) {
+    OnPortReady(session, port);
+  }
+  if (session->CandidatesAllocationDone()) {
+    OnCandidatesAllocationDone(session);
+  }
+  session->StartGettingPorts();
+  gatherer_ = gatherer;
+  gatherer_generation_ = session->generation();
 }
 
 // A new port is available, attempt to make connections for it
@@ -1499,7 +1554,7 @@ bool P2PTransportChannel::GetStats(IceTransportStats* ice_transport_stats) {
   ice_transport_stats->candidate_stats_list.clear();
   ice_transport_stats->connection_infos.clear();
 
-  if (!allocator_sessions_.empty()) {
+  if (allocator_session()) {
     allocator_session()->GetCandidateStatsFromReadyPorts(
         &ice_transport_stats->candidate_stats_list);
   }

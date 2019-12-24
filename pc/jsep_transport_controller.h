@@ -184,6 +184,8 @@ class JsepTransportController : public sigslot::has_slots<> {
   // Start gathering candidates for any new transports, or transports doing an
   // ICE restart.
   void MaybeStartGathering();
+  rtc::scoped_refptr<cricket::IceGatherer> CreateIceGatherer();
+  void StartGathering(rtc::scoped_refptr<cricket::IceGatherer> ice_gatherer);
   RTCError AddRemoteCandidates(
       const std::string& mid,
       const std::vector<cricket::Candidate>& candidates);

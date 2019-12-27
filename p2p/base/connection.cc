@@ -451,6 +451,7 @@ void Connection::OnReadPacket(const char* data,
   } else if (!msg) {
     // The packet was STUN, but failed a check and was handled internally.
   } else {
+    recv_rate_tracker_.AddSamples(size);
     // The packet is STUN and passed the Port checks.
     // Perform our own checks to ensure this packet is valid.
     // If this is a STUN request, then update the receiving bit and respond.

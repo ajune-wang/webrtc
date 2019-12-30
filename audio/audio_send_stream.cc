@@ -449,8 +449,7 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
   stats.typing_noise_detected = audio_state()->typing_noise_detected();
   stats.ana_statistics = channel_send_->GetANAStatistics();
   RTC_DCHECK(audio_state_->audio_processing());
-  stats.apm_statistics =
-      audio_state_->audio_processing()->GetStatistics(has_remote_tracks);
+  stats.apm_statistics = audio_state_->audio_processing()->GetStatistics();
 
   stats.report_block_datas = std::move(call_stats.report_block_datas);
 

@@ -658,6 +658,10 @@ void CallTest::DestroyVideoSendStreams() {
   video_send_streams_.clear();
 }
 
+void CallTest::DeleteTaskQueue() {
+  task_queue_.reset();
+}
+
 void CallTest::SetFakeVideoCaptureRotation(VideoRotation rotation) {
   frame_generator_capturer_->SetFakeRotation(rotation);
 }

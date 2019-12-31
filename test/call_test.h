@@ -164,6 +164,7 @@ class CallTest : public ::testing::Test {
   void StopVideoStreams();
   void DestroyStreams();
   void DestroyVideoSendStreams();
+  void DeleteTaskQueue();
   void SetFakeVideoCaptureRotation(VideoRotation rotation);
 
   void SetVideoDegradation(DegradationPreference preference);

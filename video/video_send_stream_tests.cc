@@ -1805,6 +1805,9 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
   } test(task_queue());
 
   RunBaseTest(&test);
+
+  Stop();
+  DeleteTaskQueue();
 }
 
 TEST_F(VideoSendStreamTest, ChangingTransportOverhead) {

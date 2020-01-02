@@ -25,6 +25,7 @@ class NullCallbacks : public VideoStreamDecoderInterface::Callbacks {
   void OnDecodedFrame(VideoFrame decodedImage,
                       absl::optional<int> decode_time_ms,
                       absl::optional<int> qp) override {}
+  void OnEncodedFrame(const video_coding::EncodedFrame& frame) override {}
 };
 
 TEST(VideoStreamDecoderCreate, CreateVideoStreamDecoder) {

@@ -863,6 +863,7 @@ public class PeerConnectionEndToEndTest {
     rtpParameters.encodings.get(0).maxFramerate = 20;
     rtpParameters.encodings.get(0).numTemporalLayers = 2;
     rtpParameters.encodings.get(0).scaleResolutionDownBy = 2.0;
+    rtpParameters.degradationPreference = RtpParameters.DegradationPreference.MAINTAIN_RESOLUTION;
     assertTrue(videoSender.setParameters(rtpParameters));
 
     // Create a DTMF sender.
@@ -878,6 +879,8 @@ public class PeerConnectionEndToEndTest {
     assertEquals(20, (int) rtpParameters.encodings.get(0).maxFramerate);
     assertEquals(2, (int) rtpParameters.encodings.get(0).numTemporalLayers);
     assertThat(rtpParameters.encodings.get(0).scaleResolutionDownBy).isEqualTo(2.0);
+    assertEquals(RtpParameters.DegradationPreference.MAINTAIN_RESOLUTION,
+        rtpParameters.degradationPreference);
 
     // Test send & receive UTF-8 text.
     answeringExpectations.expectMessage(

@@ -27,6 +27,35 @@ import org.webrtc.MediaStreamTrack;
  * default value".
  */
 public class RtpParameters {
+  /** Java version of webrtc::DegradationPreference. */
+  public enum DegradationPreference {
+    DISABLED(0),
+    MAINTAIN_FRAMERATE(1),
+    MAINTAIN_RESOLUTION(2),
+    BALANCED(3);
+
+    private final int nativeIndex;
+
+    private DegradationPreference(int nativeIndex) {
+      this.nativeIndex = nativeIndex;
+    }
+
+    @CalledByNative("DegradationPreference")
+    public int getNativeIndex() {
+      return nativeIndex;
+    }
+
+    @CalledByNative("DegradationPreference")
+    public static DegradationPreference fromNativeIndex(int nativeIndex) {
+      for (DegradationPreference value : DegradationPreference.values()) {
+        if (value.getNativeIndex() == nativeIndex) {
+          return value;
+        }
+      }
+      throw new IllegalArgumentException("Unknown native DegradationPreference: " + nativeIndex);
+    }
+  }
+
   public static class Encoding {
     // If non-null, this represents the RID that identifies this encoding layer.
     // RIDs are used to identify layers in simulcast.
@@ -240,14 +269,19 @@ public class RtpParameters {
   // remove them.
   public final List<Codec> codecs;
 
+  // Degradation preference in case of CPU adaptation or constrained bandwidth. If null,
+  // implementation default degradation preference will be used.
+  @Nullable public DegradationPreference degradationPreference;
+
   @CalledByNative
   RtpParameters(String transactionId, Rtcp rtcp, List<HeaderExtension> headerExtensions,
-      List<Encoding> encodings, List<Codec> codecs) {
+      List<Encoding> encodings, List<Codec> codecs, DegradationPreference degradationPreference) {
     this.transactionId = transactionId;
     this.rtcp = rtcp;
     this.headerExtensions = headerExtensions;
     this.encodings = encodings;
     this.codecs = codecs;
+    this.degradationPreference = degradationPreference;
   }
 
   @CalledByNative
@@ -273,5 +307,11 @@ public class RtpParameters {
   @CalledByNative
   List<Codec> getCodecs() {
     return codecs;
+  }
+
+  @Nullable
+  @CalledByNative
+  DegradationPreference getDegradationPreference() {
+    return degradationPreference;
   }
 }

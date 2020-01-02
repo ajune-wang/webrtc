@@ -95,6 +95,20 @@ RtpEncodingParameters JavaToNativeRtpEncodingParameters(
   return encoding;
 }
 
+DegradationPreference JavaToNativeDegradationPreference(
+    JNIEnv* jni,
+    const JavaRef<jobject>& j_degradation_preference) {
+  return static_cast<DegradationPreference>(
+      Java_DegradationPreference_getNativeIndex(jni, j_degradation_preference));
+}
+
+ScopedJavaLocalRef<jobject> NativeToJavaDegradationPreference(
+    JNIEnv* jni,
+    DegradationPreference degradation_preference) {
+  return Java_DegradationPreference_fromNativeIndex(
+      jni, static_cast<int>(degradation_preference));
+}
+
 RtpParameters JavaToNativeRtpParameters(JNIEnv* jni,
                                         const JavaRef<jobject>& j_parameters) {
   RtpParameters parameters;
@@ -150,6 +164,14 @@ RtpParameters JavaToNativeRtpParameters(JNIEnv* jni,
     codec.parameters.insert(parameters_map.begin(), parameters_map.end());
     parameters.codecs.push_back(codec);
   }
+
+  ScopedJavaLocalRef<jobject> j_degradation_preference =
+      Java_RtpParameters_getDegradationPreference(jni, j_parameters);
+  if (!IsNull(jni, j_degradation_preference)) {
+    parameters.degradation_preference =
+        JavaToNativeDegradationPreference(jni, j_degradation_preference);
+  }
+
   return parameters;
 }
 
@@ -163,7 +185,9 @@ ScopedJavaLocalRef<jobject> NativeToJavaRtpParameters(
                        &NativeToJavaRtpHeaderExtensionParameter),
       NativeToJavaList(env, parameters.encodings,
                        &NativeToJavaRtpEncodingParameter),
-      NativeToJavaList(env, parameters.codecs, &NativeToJavaRtpCodecParameter));
+      NativeToJavaList(env, parameters.codecs, &NativeToJavaRtpCodecParameter),
+      NativeToJavaDegradationPreference(env,
+                                        parameters.degradation_preference));
 }
 
 }  // namespace jni

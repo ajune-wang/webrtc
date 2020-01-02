@@ -44,7 +44,6 @@ class GainControlImpl : public GainControl {
                                     std::vector<int16_t>* packed_buffer);
 
   // GainControl implementation.
-  bool is_enabled() const override { return enabled_; }
   int stream_analog_level() const override;
   bool is_limiter_enabled() const override { return limiter_enabled_; }
   Mode mode() const override { return mode_; }

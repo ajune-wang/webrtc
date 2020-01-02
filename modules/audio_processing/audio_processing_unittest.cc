@@ -431,9 +431,9 @@ ApmTest::ApmTest()
       near_file_(NULL),
       out_file_(NULL) {
   Config config;
-  config.Set<ExperimentalAgc>(new ExperimentalAgc(false));
   apm_.reset(AudioProcessingBuilder().Create(config));
   AudioProcessing::Config apm_config = apm_->GetConfig();
+  apm_config.analog_gain_controller.enabled = false;
   apm_config.pipeline.maximum_internal_processing_rate = 48000;
   apm_->ApplyConfig(apm_config);
 }
@@ -1539,8 +1539,10 @@ TEST_F(ApmTest, Process) {
       continue;
 
     Config config;
-    config.Set<ExperimentalAgc>(new ExperimentalAgc(false));
     apm_.reset(AudioProcessingBuilder().Create(config));
+    AudioProcessing::Config apm_config = apm_->GetConfig();
+    apm_config.analog_gain_controller.enabled = false;
+    apm_->ApplyConfig(apm_config);
 
     EnableAllComponents();
 
@@ -1826,9 +1828,12 @@ class AudioProcessingTest
                             size_t num_reverse_output_channels,
                             const std::string& output_file_prefix) {
     Config config;
-    config.Set<ExperimentalAgc>(new ExperimentalAgc(false));
     std::unique_ptr<AudioProcessing> ap(
         AudioProcessingBuilder().Create(config));
+    AudioProcessing::Config apm_config = ap->GetConfig();
+    apm_config.analog_gain_controller.enabled = false;
+    ap->ApplyConfig(apm_config);
+
     EnableAllAPComponents(ap.get());
 
     ProcessingConfig processing_config = {

@@ -358,8 +358,10 @@ TEST_F(DebugDumpTest, VerifyCombinedExperimentalStringInclusive) {
   Config config;
   AudioProcessing::Config apm_config;
   apm_config.echo_canceller.enabled = true;
+  apm_config.analog_gain_controller.enabled = true;
+  apm_config.analog_gain_controller.startup_min_volume = 0;
   // Arbitrarily set clipping gain to 17, which will never be the default.
-  config.Set<ExperimentalAgc>(new ExperimentalAgc(true, 0, 17));
+  apm_config.analog_gain_controller.clipped_level_min = 17;
   DebugDumpGenerator generator(config, apm_config);
   generator.StartRecording();
   generator.Process(100);
@@ -436,9 +438,12 @@ TEST_F(DebugDumpTest, VerifyAec3ExperimentalString) {
 
 TEST_F(DebugDumpTest, VerifyAgcClippingLevelExperimentalString) {
   Config config;
+  AudioProcessing::Config apm_config;
+  apm_config.analog_gain_controller.enabled = true;
+  apm_config.analog_gain_controller.startup_min_volume = 0;
   // Arbitrarily set clipping gain to 17, which will never be the default.
-  config.Set<ExperimentalAgc>(new ExperimentalAgc(true, 0, 17));
-  DebugDumpGenerator generator(config, AudioProcessing::Config());
+  apm_config.analog_gain_controller.clipped_level_min = 17;
+  DebugDumpGenerator generator(config, apm_config);
   generator.StartRecording();
   generator.Process(100);
   generator.StopRecording();

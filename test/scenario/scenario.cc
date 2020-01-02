@@ -60,6 +60,10 @@ Scenario::Scenario()
     : Scenario(std::unique_ptr<LogWriterFactoryInterface>(),
                /*real_time=*/false) {}
 
+Scenario::Scenario(const testing::TestInfo* test_info)
+    : Scenario(std::string(test_info->test_suite_name()) + "/" +
+               test_info->name()) {}
+
 Scenario::Scenario(std::string file_name)
     : Scenario(file_name, /*real_time=*/false) {}
 

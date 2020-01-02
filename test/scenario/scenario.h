@@ -19,6 +19,7 @@
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/repeating_task.h"
+#include "test/gtest.h"
 #include "test/logging/log_writer.h"
 #include "test/network/network_emulation_manager.h"
 #include "test/scenario/audio_stream.h"
@@ -41,6 +42,7 @@ namespace test {
 class Scenario {
  public:
   Scenario();
+  explicit Scenario(const testing::TestInfo* test_info);
   explicit Scenario(std::string file_name);
   Scenario(std::string file_name, bool real_time);
   Scenario(std::unique_ptr<LogWriterFactoryInterface> log_writer_manager,

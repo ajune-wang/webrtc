@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5f3ba8d_06689b78",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-01-02T10:42:59Z",
+      "side": 1,
+      "message": "The presubmit is complaining because this target is referring to files that should be handled by other BUILD.gn files (we try to enforce this to avoid unclear ownership). This CL is not the cause of the problem, indeed. \n\nIs it possible to run tests that are part of a dependency (and make \"sources\" empty for this junit_binary), if that is possible I can do it in a follow-up.",
+      "range": {
+        "startLine": 685,
+        "startChar": 8,
+        "endLine": 696,
+        "endChar": 68
+      },
+      "revId": "b014b61bbef93a6b6baedbefa7fcc4442a0a8390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

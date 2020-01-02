@@ -16,6 +16,10 @@
 
 namespace rtc {
 
+// Just a test check
+static size_t foo;
+static_assert(sizeof(foo) == 8, "size_t is wrong");
+
 // Determines if the given class has zero-argument .data() and .size() methods
 // whose return values are convertible to T* and size_t, respectively.
 template <typename DS, typename T>

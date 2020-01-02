@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc702dd1_ae15ac7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-02T08:38:30Z",
+      "side": 1,
+      "message": "Spelling",
+      "range": {
+        "startLine": 9,
+        "startChar": 37,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "19acf66423111136355108d5232bdb2ad4f9361f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b178b01_d4ca3dd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-02T08:38:30Z",
+      "side": 1,
+      "message": "Can you clarify what the problematic code path is? Which task is running after object it depends on are destructed? (I had a look at the bug, but it wasn\u0027t crystal clear from the the backtraces).",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "19acf66423111136355108d5232bdb2ad4f9361f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d00661e_db236b5b",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-02T08:38:30Z",
+      "side": 1,
+      "message": "It would make sense to me to have Stop() delete the task queue. But it looks like code in the base CallTest class wants to call Stop from the task queue in question, making things more complicated.",
+      "range": {
+        "startLine": 1809,
+        "startChar": 0,
+        "endLine": 1810,
+        "endChar": 20
+      },
+      "revId": "19acf66423111136355108d5232bdb2ad4f9361f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

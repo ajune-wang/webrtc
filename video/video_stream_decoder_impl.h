@@ -33,6 +33,14 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
       VideoStreamDecoderInterface::Callbacks* callbacks,
       VideoDecoderFactory* decoder_factory,
       TaskQueueFactory* task_queue_factory,
+      Clock* clock,
+      std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings);
+
+  // TODO(philipel): Remove when downstream projects have been updated.
+  VideoStreamDecoderImpl(
+      VideoStreamDecoderInterface::Callbacks* callbacks,
+      VideoDecoderFactory* decoder_factory,
+      TaskQueueFactory* task_queue_factory,
       std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings);
 
   ~VideoStreamDecoderImpl() override;

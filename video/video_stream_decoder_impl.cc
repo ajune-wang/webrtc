@@ -24,6 +24,18 @@ VideoStreamDecoderImpl::VideoStreamDecoderImpl(
     VideoDecoderFactory* decoder_factory,
     TaskQueueFactory* task_queue_factory,
     std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings)
+    : VideoStreamDecoderImpl(callbacks,
+                             decoder_factory,
+                             task_queue_factory,
+                             Clock::GetRealTimeClock(),
+                             decoder_settings) {}
+
+VideoStreamDecoderImpl::VideoStreamDecoderImpl(
+    VideoStreamDecoderInterface::Callbacks* callbacks,
+    VideoDecoderFactory* decoder_factory,
+    TaskQueueFactory* task_queue_factory,
+    Clock* clock,
+    std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings)
     : callbacks_(callbacks),
       decoder_factory_(decoder_factory),
       decoder_settings_(std::move(decoder_settings)),
@@ -34,8 +46,8 @@ VideoStreamDecoderImpl::VideoStreamDecoderImpl(
                      this,
                      "video_stream_decoder_decode_thread",
                      rtc::kHighestPriority),
-      timing_(Clock::GetRealTimeClock()),
-      frame_buffer_(Clock::GetRealTimeClock(), &timing_, nullptr),
+      timing_(clock),
+      frame_buffer_(clock, &timing_, nullptr),
       next_frame_timestamps_index_(0) {
   frame_timestamps_.fill({-1, -1, -1});
   decode_thread_.Start();

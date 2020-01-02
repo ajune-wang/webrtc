@@ -200,6 +200,11 @@ void CallTest::RunBaseTest(BaseTest* test) {
     fake_send_audio_device_ = nullptr;
     fake_recv_audio_device_ = nullptr;
   });
+
+  // Ensure all tasks are processed, since |test| is
+  // destructed before this fixture class.
+  // Otherwise "use after free" flakily occurs.
+  DeleteTaskQueue();
 }
 
 void CallTest::CreateCalls() {
@@ -656,6 +661,10 @@ void CallTest::DestroyVideoSendStreams() {
   for (VideoSendStream* video_send_stream : video_send_streams_)
     sender_call_->DestroyVideoSendStream(video_send_stream);
   video_send_streams_.clear();
+}
+
+void CallTest::DeleteTaskQueue() {
+  task_queue_.reset();
 }
 
 void CallTest::SetFakeVideoCaptureRotation(VideoRotation rotation) {

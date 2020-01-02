@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a4324de_e58ef5b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2020-01-02T11:16:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc702dd1_ae15ac7a",
+      "range": {
+        "startLine": 9,
+        "startChar": 37,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "19acf66423111136355108d5232bdb2ad4f9361f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b178b01_d4ca3dd7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6e7bd28e_498f688a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2020-01-02T11:16:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b178b01_d4ca3dd7",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "19acf66423111136355108d5232bdb2ad4f9361f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d05511_a8aa4843",
         "filename": "video/video_send_stream_tests.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-02T08:48:25Z",
       "side": 1,
       "message": "Is it this task that gets run too late? Is |call_| set to null anywhere?",
+      "range": {
+        "startLine": 1746,
+        "startChar": 0,
+        "endLine": 1753,
+        "endChar": 10
+      },
+      "revId": "19acf66423111136355108d5232bdb2ad4f9361f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "496038ff_9b34ead1",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1753,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2020-01-02T11:16:53Z",
+      "side": 1,
+      "message": "Oh yes you might be right. I though it was the call on OnSendRtp itself. Let me double check that.",
+      "parentUuid": "a4d05511_a8aa4843",
       "range": {
         "startLine": 1746,
         "startChar": 0,

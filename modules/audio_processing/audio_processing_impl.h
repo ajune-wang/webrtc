@@ -223,7 +223,7 @@ class AudioProcessingImpl : public AudioProcessing {
   // Methods requiring APM running in a single-threaded manner.
   // Are called with both the render and capture locks already
   // acquired.
-  void InitializeTransient()
+  void InitializeTransientSuppressor()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
   int InitializeLocked(const ProcessingConfig& config)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
@@ -395,13 +395,12 @@ class AudioProcessingImpl : public AudioProcessing {
   } constants_;
 
   struct ApmCaptureState {
-    ApmCaptureState(bool transient_suppressor_enabled);
+    ApmCaptureState();
     ~ApmCaptureState();
     int delay_offset_ms;
     bool was_stream_delay_set;
     bool output_will_be_muted;
     bool key_pressed;
-    bool transient_suppressor_enabled;
     std::unique_ptr<AudioBuffer> capture_audio;
     std::unique_ptr<AudioBuffer> capture_fullband_audio;
     std::unique_ptr<AudioBuffer> linear_aec_output;

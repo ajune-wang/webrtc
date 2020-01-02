@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7195843a_878a4c3d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-02T14:16:07Z",
+      "side": 1,
+      "message": "Oups!\nGood find! No, I think the tests pass with the current version.",
+      "parentUuid": "c0b4894f_d6751149",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 50
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd9b3d58_aa31465f",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5729a6fb_27228422",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-02T14:16:07Z",
+      "side": 1,
+      "message": "Hmm, I had an idea that this code should only activate, and never deactivate the enabled flag.\n\nBut I see now that is not a good idea.\nDone.",
+      "parentUuid": "dd9b3d58_aa31465f",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 3
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09dd3e57_179d8e64",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-02T09:50:51Z",
       "side": 1,
       "message": "(Good to see this one go away!)\n\nNote tha unlike the ToT version, this CL will stop support for toggling TS via SetExtraOptions. Could that cause trouble for Chrome?",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 1
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c3b73a8_2935ec6f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-02T14:16:07Z",
+      "side": 1,
+      "message": "I don\u0027t see it being used in Chromium.\nIf there is need for this, let\u0027s add a proper runtime-setting instead.",
+      "parentUuid": "09dd3e57_179d8e64",
       "range": {
         "startLine": 742,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4e6c25e3_75e8ab81",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-02T14:16:07Z",
+      "side": 1,
+      "message": "Good point!\nThat is much nicer!\n\nDone!",
+      "parentUuid": "ab0a2d72_8126079a",
+      "range": {
+        "startLine": 227,
+        "startChar": 35,
+        "endLine": 227,
+        "endChar": 49
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52db8365_dde192a7",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2020-01-02T09:50:51Z",
       "side": 1,
       "message": "nit: A newline here would make the deprecation message clearer.",
+      "range": {
+        "startLine": 96,
+        "startChar": 49,
+        "endLine": 96,
+        "endChar": 50
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4703b0a0_27e31ed2",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-02T14:16:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52db8365_dde192a7",
       "range": {
         "startLine": 96,
         "startChar": 49,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "4cd7b29b_6ef981fd",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-02T14:16:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cb89788_c71a574d",
+      "range": {
+        "startLine": 253,
+        "startChar": 11,
+        "endLine": 253,
+        "endChar": 31
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "215f1809_1772f93b",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 1
@@ -151,6 +295,30 @@
       "writtenOn": "2020-01-02T09:50:51Z",
       "side": 1,
       "message": "What do you think about documenting that the client should, if available, supply keyboard information when transient suppression is activated? (keyboard mic channel and/or set_stream_key_pressed())",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 28
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "000ed934_2705018b",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-02T14:16:07Z",
+      "side": 1,
+      "message": "That would make sense. We probably should revise the whole description in this file for how APM should be used.\nLet\u0027s do that in another CL though. WDYT?",
+      "parentUuid": "215f1809_1772f93b",
       "range": {
         "startLine": 252,
         "startChar": 0,

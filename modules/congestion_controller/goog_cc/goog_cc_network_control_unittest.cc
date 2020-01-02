@@ -412,7 +412,7 @@ TEST_F(GoogCcNetworkControllerTest, LimitsToFloorIfRttIsHighInTrial) {
   // Wait to allow the high RTT to be detected and acted upon.
   s.RunFor(TimeDelta::seconds(4));
   // By now the target rate should have dropped to the minimum configured rate.
-  EXPECT_NEAR(client->target_rate().kbps(), kBandwidthFloor.kbps(), 1);
+  EXPECT_NEAR(client->target_rate().kbps(), kBandwidthFloor.kbps(), 5);
 }
 
 TEST_F(GoogCcNetworkControllerTest, UpdatesTargetRateBasedOnLinkCapacity) {
@@ -502,9 +502,10 @@ DataRate AverageBitrateAfterCrossInducedLoss(std::string name) {
   auto* client = s.CreateClient("send", CallClientConfig());
   auto* route = s.CreateRoutes(
       client, send_net, s.CreateClient("return", CallClientConfig()), ret_net);
-  auto* video = s.CreateVideoStream(route->forward(), VideoStreamConfig());
+  VideoStreamConfig video_conf;
+  auto* video = s.CreateVideoStream(route->forward(), video_conf);
   s.RunFor(TimeDelta::seconds(10));
-  for (int i = 0; i < 4; ++i) {
+  for (int i = 0; i < 2; ++i) {
     // Sends TCP cross traffic inducing loss.
     auto* tcp_traffic =
         s.net()->StartFakeTcpCrossTraffic(send_net, ret_net, FakeTcpConfig());
@@ -521,11 +522,11 @@ DataRate AverageBitrateAfterCrossInducedLoss(std::string name) {
 
 TEST_F(GoogCcNetworkControllerTest,
        NoLossBasedRecoversSlowerAfterCrossInducedLoss) {
-  // This test acts as a reference for the test below, showing that wihtout the
+  // This test acts as a reference for the test below, showing that without the
   // trial, we have worse behavior.
   DataRate average_bitrate =
       AverageBitrateAfterCrossInducedLoss("googcc_unit/no_cross_loss_based");
-  RTC_DCHECK_LE(average_bitrate, DataRate::kbps(650));
+  EXPECT_LE(average_bitrate, DataRate::kbps(750));
 }
 
 TEST_F(GoogCcNetworkControllerTest,
@@ -535,7 +536,7 @@ TEST_F(GoogCcNetworkControllerTest,
   ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
   DataRate average_bitrate =
       AverageBitrateAfterCrossInducedLoss("googcc_unit/cross_loss_based");
-  RTC_DCHECK_GE(average_bitrate, DataRate::kbps(750));
+  EXPECT_GE(average_bitrate, DataRate::kbps(800));
 }
 
 TEST_F(GoogCcNetworkControllerTest, LossBasedEstimatorCapsRateAtModerateLoss) {

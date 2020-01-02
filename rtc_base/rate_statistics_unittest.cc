@@ -278,4 +278,14 @@ TEST_F(RateStatisticsTest, HandlesQuietPeriods) {
   EXPECT_TRUE(static_cast<bool>(bitrate));
   EXPECT_EQ(0u, *bitrate);
 }
+
+TEST_F(RateStatisticsTest, HandlesBigNumbers) {
+  uint64_t large_number = 0x100000000u;
+  int64_t now_ms = 0;
+  stats_.Update(large_number, now_ms++);
+  stats_.Update(large_number, now_ms);
+  EXPECT_TRUE(stats_.Rate(now_ms));
+  EXPECT_EQ(large_number * 8000, *stats_.Rate(now_ms));
+}
+
 }  // namespace

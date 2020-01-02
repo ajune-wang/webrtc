@@ -55,7 +55,7 @@ void RateStatistics::Reset() {
     buckets_[i] = Bucket();
 }
 
-void RateStatistics::Update(size_t count, int64_t now_ms) {
+void RateStatistics::Update(uint64_t count, int64_t now_ms) {
   if (now_ms < oldest_time_) {
     // Too old data is ignored.
     return;
@@ -78,7 +78,7 @@ void RateStatistics::Update(size_t count, int64_t now_ms) {
   ++num_samples_;
 }
 
-absl::optional<uint32_t> RateStatistics::Rate(int64_t now_ms) const {
+absl::optional<uint64_t> RateStatistics::Rate(int64_t now_ms) const {
   // Yeah, this const_cast ain't pretty, but the alternative is to declare most
   // of the members as mutable...
   const_cast<RateStatistics*>(this)->EraseOld(now_ms);
@@ -95,10 +95,10 @@ absl::optional<uint32_t> RateStatistics::Rate(int64_t now_ms) const {
   float result = accumulated_count_ * scale + 0.5f;
 
   // Better return unavailable rate than garbage value (undefined behavior).
-  if (result > std::numeric_limits<uint32_t>::max()) {
+  if (result > std::numeric_limits<uint64_t>::max()) {
     return absl::nullopt;
   }
-  return static_cast<uint32_t>(result);
+  return static_cast<uint64_t>(result);
 }
 
 void RateStatistics::EraseOld(int64_t now_ms) {

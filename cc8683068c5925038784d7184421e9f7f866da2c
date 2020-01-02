@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0b4894f_d6751149",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T09:50:51Z",
+      "side": 1,
+      "message": "This should be negated, right? Old code:\n\n#if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)\n      capture_(false),\n#else\n      capture_(config.Get\u003cExperimentalNs\u003e().enabled),\n#endif\n\n\nIs there any test that fails with the current version?",
+      "range": {
+        "startLine": 381,
+        "startChar": 0,
+        "endLine": 381,
+        "endChar": 50
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9b3d58_aa31465f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T09:50:51Z",
+      "side": 1,
+      "message": "Is the if statement necessary? Since we are not contending about any lock resources, it is a very cheap assignment, etc.",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 3
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09dd3e57_179d8e64",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T09:50:51Z",
+      "side": 1,
+      "message": "(Good to see this one go away!)\n\nNote tha unlike the ToT version, this CL will stop support for toggling TS via SetExtraOptions. Could that cause trouble for Chrome?",
+      "range": {
+        "startLine": 742,
+        "startChar": 0,
+        "endLine": 745,
+        "endChar": 1
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0a2d72_8126079a",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T09:50:51Z",
+      "side": 1,
+      "message": "Is the render lock necessary?\nThese declarations, and the comment right above, might be outdated. There are several InitializeX functions below that only need capture.\n\nWhat do you think about reordering them by which locks are required? Like:\n\n// Methods requiring APM running in a single threaded-manner.\n// Are called with both the render and capture locks already\n// acquired.\nInitializeLocked...\nInitializeEchoDetector...\n...\n// Initialization of capture only submodules, requiring the\n// capture lock already acquired.\nInitializePreAmplifier...\n...\n// Initialization of render only submodules, requiring the\n// render lock already acquired.\nInitializePreProcessor...\n...",
+      "range": {
+        "startLine": 227,
+        "startChar": 35,
+        "endLine": 227,
+        "endChar": 49
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52db8365_dde192a7",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T09:50:51Z",
+      "side": 1,
+      "message": "nit: A newline here would make the deprecation message clearer.",
+      "range": {
+        "startLine": 96,
+        "startChar": 49,
+        "endLine": 96,
+        "endChar": 50
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cb89788_c71a574d",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T09:50:51Z",
+      "side": 1,
+      "message": "Please update AudioProcessing::Config::ToString() accordingly.",
+      "range": {
+        "startLine": 253,
+        "startChar": 11,
+        "endLine": 253,
+        "endChar": 31
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "215f1809_1772f93b",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T09:50:51Z",
+      "side": 1,
+      "message": "What do you think about documenting that the client should, if available, supply keyboard information when transient suppression is activated? (keyboard mic channel and/or set_stream_key_pressed())",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 255,
+        "endChar": 28
+      },
+      "revId": "cc8683068c5925038784d7184421e9f7f866da2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

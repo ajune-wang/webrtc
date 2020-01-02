@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c2e1726_d45d9ba2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T10:10:02Z",
+      "side": 1,
+      "message": "At some point we should consider adding something like AudioProcessing::UpdateStatistics(AudioBuffer*) to keep ProcessCaptureStreamLocked at a manageable size.",
+      "range": {
+        "startLine": 1426,
+        "startChar": 0,
+        "endLine": 1470,
+        "endChar": 0
+      },
+      "revId": "b0ead91a8f21cd3a2f29de20dd11f293768f94c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,418 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f0d3add_f747051c",
+        "filename": "modules/audio_processing/agc/gain_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "Can this also be removed?",
+      "range": {
+        "startLine": 23,
+        "startChar": 1,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0b45520_4e94d0bc",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1767,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "After your CLs currently on review, this Update() function will entirely be a function of config_ and state known at construction time*. Maybe the code can be simplified?\n\n\n*\n - capture_nonlocked_.echo_controller_enabled depends on config_ but also on whether an AEC factory is injected. But this information for other injected submodules is supplied at construction time to submodule_states_, the same should probably be done anyway for the AEC factory.\n - !!submodules_.echo_control_mobile can be derived from the factory information plus the config\n - (!!submodules_.legacy_noise_suppressor || !!submodules_.noise_suppressor)\nseems equivalent to config_.noise_suppression.enabled",
+      "range": {
+        "startLine": 1761,
+        "startChar": 9,
+        "endLine": 1767,
+        "endChar": 78
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec45886_10137b90",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1895,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "With this CL, submodules_.gain_control will always be created.\nThat is also how ToT works.\nHowever, this CL also seems to check if(submodules_.gain_control) in places.\nIt seems we need to clarify when the GainControl instance exists.\n\nHow about dropping the GainControl::Enable call in ApplyAgc1Config, make it default enabled, and delete it if disabled? To make sure !!submodules_.gain_control \u003d\u003d config_.gain_controller1.enabled, always.\n\n(Note: That probably requires a chunk of thinking to make sure it works out. It could be that we haven\u0027t done it before for a reason.)\n\n\nIf not, submodules_.gain_control will always exist. If that is the case, then we might as well make it a direct member of submodules_ instead of a unique_ptr, to be super explicit. Although that might make it harder to make it optional at compilation time, and we keep the Enable() API, which we have gotten rid of on other submodules.",
+      "range": {
+        "startLine": 1887,
+        "startChar": 0,
+        "endLine": 1895,
+        "endChar": 1
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46432b78_26e2cd57",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "DCHECK that this is already created.",
+      "range": {
+        "startLine": 1922,
+        "startChar": 8,
+        "endLine": 1922,
+        "endChar": 38
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b981d55_1fc34c1a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "This code assumes that submodules_.gain_control is already created, and I find calling InitializeGainController1 from inside this function confusing.\n\nWhat do you think about bundling the two functions?\n\n\nvoid AP::InitializeGainController1AndAnalogGainController() {\n  // Create submodules_.gain_control if necessary\n  ...\n  submodules_.gain_control-\u003eInitialize(num_proc_channels(),\n                                       proc_sample_rate_hz());\n\n  // Run code to set up analog AGC\n  if (config_.analog_gain_controller.enabled) {\n    ...\n  } else {\n    // Configure AGC1 normally.\n    ApplyAgc1Config(config_.gain_controller1);\n  }\n}",
+      "range": {
+        "startLine": 1922,
+        "startChar": 8,
+        "endLine": 1922,
+        "endChar": 32
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1877411b_9c60da91",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "This already happens within InitializeGainController1()",
+      "range": {
+        "startLine": 1928,
+        "startChar": 0,
+        "endLine": 1928,
+        "endChar": 48
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5be1e6_155cb485",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "Can use parameter-free Create-function:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/include/audio_processing.h?l\u003d708\u0026rcl\u003da43777dead46df4575a58c5ca2733c5f3ff0212b",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 434,
+        "endChar": 54
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b1c9e49_d143d398",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "Can use parameter-free Create-function:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/include/audio_processing.h?l\u003d708\u0026rcl\u003da43777dead46df4575a58c5ca2733c5f3ff0212b",
+      "range": {
+        "startLine": 1541,
+        "startChar": 0,
+        "endLine": 1542,
+        "endChar": 56
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1768254_b666e979",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1832,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "Can use parameter-free Create-function:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/include/audio_processing.h?l\u003d708\u0026rcl\u003da43777dead46df4575a58c5ca2733c5f3ff0212b",
+      "range": {
+        "startLine": 1830,
+        "startChar": 0,
+        "endLine": 1832,
+        "endChar": 49
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163ad456_e826476d",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "How does this relate to the kAdaptiveAnalog mode of AudioProcessing::Config::GainController1?",
+      "range": {
+        "startLine": 314,
+        "startChar": 7,
+        "endLine": 314,
+        "endChar": 55
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6497e449_0b26ef3b",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "In what unit? Negated dBFS? Please clarify in the comment.",
+      "range": {
+        "startLine": 318,
+        "startChar": 9,
+        "endLine": 318,
+        "endChar": 32
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29a672ba_c6ed57f6",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "`enable_agc2_level_estimator` (imperative mood), to be consistent with similar parameters.",
+      "range": {
+        "startLine": 320,
+        "startChar": 11,
+        "endLine": 320,
+        "endChar": 39
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f20af54_c7fbc29e",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "Can you add a brief comment about what this does?",
+      "range": {
+        "startLine": 321,
+        "startChar": 11,
+        "endLine": 321,
+        "endChar": 36
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c705d2_c371a821",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "What do you think about negating this parameter, so that all parameters are of the form \"enable_X\" , and have it default to `true`?",
+      "range": {
+        "startLine": 321,
+        "startChar": 11,
+        "endLine": 321,
+        "endChar": 44
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de3e6cfa_8a75e721",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "I suggest renaming to enable_digital_adaptive or disable_digital_adaptive, to be consistent with other parameter names.",
+      "range": {
+        "startLine": 321,
+        "startChar": 11,
+        "endLine": 321,
+        "endChar": 37
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04a1971d_500c90e4",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "Is this resolved by this CL?",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 368,
+        "endChar": 20
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1352c6aa_875c3c48",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "Wouldn\u0027t we want the analog agc settings to be applied regardless of whether the agc is enabled right here? What if it is enabled elsewhere, or changed to \n\nI would expect supplying the flag --analog_agc_disable_digital_adaptive\u003d1 to make its way into APM even if the analog AGC is not necessarily explicitly enabled.\n\nLike:\n\nif (settings_.use_analog_agc) {\n  apm_config.analog_gain_controller.enabled \u003d *settings_.use_analog_agc;\n}\n\nif (settings_.use_analog_agc_agc2_level_estimator) {\n  apm_config.analog_gain_controller.enabled_agc2_level_estimator \u003d\n      *settings_.use_analog_agc_agc2_level_estimator;\n}\n\nif (settings_.analog_agc_disable_digital_adaptive) {\n  apm_config.analog_gain_controller.digital_adaptive_disabled \u003d\n      *settings_.analog_agc_disable_digital_adaptive;\n}",
+      "range": {
+        "startLine": 498,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 3
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fed128a_9281af65",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-02T15:36:02Z",
+      "side": 1,
+      "message": "Where is this used?",
+      "range": {
+        "startLine": 67,
+        "startChar": 23,
+        "endLine": 67,
+        "endChar": 52
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

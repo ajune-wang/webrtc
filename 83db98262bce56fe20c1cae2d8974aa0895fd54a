@@ -46,6 +46,30 @@
       "revId": "83db98262bce56fe20c1cae2d8974aa0895fd54a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8751b53_558a5430",
+        "filename": "api/test/create_frame_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-02T10:22:56Z",
+      "side": 1,
+      "message": "Ah, then I guess this CL doesn\u0027t make much sense then. My thinking was that the default behavior should be to add noise, since that\u0027s more similar to a real capture device. We do have capturers that are designed for testing screenshare (slides, fixed frames) that isn\u0027t affected by this change so my feeling is that the tests using the squares generator are for video.",
+      "parentUuid": "0f9134cb_746e217d",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 1
+      },
+      "revId": "83db98262bce56fe20c1cae2d8974aa0895fd54a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

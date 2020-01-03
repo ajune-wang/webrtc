@@ -377,10 +377,6 @@ AudioProcessingImpl::AudioProcessingImpl(
         new rtc::RefCountedObject<ResidualEchoDetector>();
   }
 
-  // TODO(alessiob): Move the injected gain controller once injection is
-  // implemented.
-  submodules_.gain_controller2.reset(new GainController2());
-
   SetExtraOptions(config);
 }
 
@@ -657,6 +653,9 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
       config_.gain_controller1.analog_level_maximum !=
           config.gain_controller1.analog_level_maximum;
 
+  const bool agc2_config_changed =
+      config_.gain_controller2.enabled != config.gain_controller2.enabled;
+
   const bool voice_detection_config_changed =
       config_.voice_detection.enabled != config.voice_detection.enabled;
 
@@ -688,9 +687,10 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
                       << "\nReverting to default parameter set";
     config_.gain_controller2 = AudioProcessing::Config::GainController2();
   }
-  InitializeGainController2();
+  if (agc2_config_changed) {
+    InitializeGainController2();
+  }
   InitializePreAmplifier();
-  submodules_.gain_controller2->ApplyConfig(config_.gain_controller2);
 
   if (config_.level_estimation.enabled && !submodules_.output_level_estimator) {
     submodules_.output_level_estimator = std::make_unique<LevelEstimator>();
@@ -934,7 +934,7 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
         break;
       }
       case RuntimeSetting::Type::kCaptureFixedPostGain: {
-        if (config_.gain_controller2.enabled) {
+        if (submodules_.gain_controller2) {
           float value;
           setting.GetFloat(&value);
           config_.gain_controller2.fixed_digital.gain_db = value;
@@ -1414,7 +1414,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     submodules_.capture_analyzer->Analyze(capture_buffer);
   }
 
-  if (config_.gain_controller2.enabled) {
+  if (submodules_.gain_controller2) {
     submodules_.gain_controller2->NotifyAnalogLevel(
         recommended_stream_analog_level());
     submodules_.gain_controller2->Process(capture_buffer);
@@ -1764,7 +1764,7 @@ bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
       config_.high_pass_filter.enabled, !!submodules_.echo_control_mobile,
       config_.residual_echo_detector.enabled,
       !!submodules_.legacy_noise_suppressor || !!submodules_.noise_suppressor,
-      submodules_.gain_control->is_enabled(), config_.gain_controller2.enabled,
+      submodules_.gain_control->is_enabled(), !!submodules_.gain_controller2,
       config_.pre_amplifier.enabled, capture_nonlocked_.echo_controller_enabled,
       config_.voice_detection.enabled, capture_.transient_suppressor_enabled);
 }
@@ -1889,7 +1889,16 @@ void AudioProcessingImpl::InitializeEchoController() {
 
 void AudioProcessingImpl::InitializeGainController2() {
   if (config_.gain_controller2.enabled) {
+    if (!submodules_.gain_controller2) {
+      // TODO(alessiob): Move the injected gain controller once injection is
+      // implemented.
+      submodules_.gain_controller2.reset(new GainController2());
+    }
+
     submodules_.gain_controller2->Initialize(proc_fullband_sample_rate_hz());
+    submodules_.gain_controller2->ApplyConfig(config_.gain_controller2);
+  } else {
+    submodules_.gain_controller2.reset();
   }
 }
 

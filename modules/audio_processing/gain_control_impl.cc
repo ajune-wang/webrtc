@@ -112,9 +112,7 @@ GainControlImpl::~GainControlImpl() = default;
 
 void GainControlImpl::ProcessRenderAudio(
     rtc::ArrayView<const int16_t> packed_render_audio) {
-  if (!enabled_) {
-    return;
-  }
+  RTC_CHECK(enabled_);
 
   for (size_t ch = 0; ch < mono_agcs_.size(); ++ch) {
     WebRtcAgc_AddFarend(mono_agcs_[ch]->state, packed_render_audio.data(),
@@ -151,9 +149,7 @@ void GainControlImpl::PackRenderAudioBuffer(
 }
 
 int GainControlImpl::AnalyzeCaptureAudio(const AudioBuffer& audio) {
-  if (!enabled_) {
-    return AudioProcessing::kNoError;
-  }
+  RTC_CHECK(enabled_);
 
   RTC_DCHECK(num_proc_channels_);
   RTC_DCHECK_GE(AudioBuffer::kMaxSplitFrameLength, audio.num_frames_per_band());
@@ -203,9 +199,7 @@ int GainControlImpl::AnalyzeCaptureAudio(const AudioBuffer& audio) {
 
 int GainControlImpl::ProcessCaptureAudio(AudioBuffer* audio,
                                          bool stream_has_echo) {
-  if (!enabled_) {
-    return AudioProcessing::kNoError;
-  }
+  RTC_CHECK(enabled_);
 
   if (mode_ == kAdaptiveAnalog && !was_analog_level_set_) {
     return AudioProcessing::kStreamParameterNotSetError;
@@ -309,19 +303,6 @@ int GainControlImpl::stream_analog_level() const {
   return analog_capture_level_;
 }
 
-int GainControlImpl::Enable(bool enable) {
-  if (enable && !enabled_) {
-    enabled_ = enable;  // Must be set before Initialize() is called.
-
-    RTC_DCHECK(num_proc_channels_);
-    RTC_DCHECK(sample_rate_hz_);
-    Initialize(*num_proc_channels_, *sample_rate_hz_);
-  } else {
-    enabled_ = enable;
-  }
-  return AudioProcessing::kNoError;
-}
-
 int GainControlImpl::set_mode(Mode mode) {
   if (MapSetting(mode) == -1) {
     return AudioProcessing::kBadParameterError;
@@ -381,9 +362,7 @@ void GainControlImpl::Initialize(size_t num_proc_channels, int sample_rate_hz) {
   num_proc_channels_ = num_proc_channels;
   sample_rate_hz_ = sample_rate_hz;
 
-  if (!enabled_) {
-    return;
-  }
+  // RTC_CHECK(enabled_);
 
   mono_agcs_.resize(*num_proc_channels_);
   capture_levels_.resize(*num_proc_channels_);

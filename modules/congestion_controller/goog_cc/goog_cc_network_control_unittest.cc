@@ -412,7 +412,7 @@ TEST_F(GoogCcNetworkControllerTest, LimitsToFloorIfRttIsHighInTrial) {
   // Wait to allow the high RTT to be detected and acted upon.
   s.RunFor(TimeDelta::seconds(4));
   // By now the target rate should have dropped to the minimum configured rate.
-  EXPECT_NEAR(client->target_rate().kbps(), kBandwidthFloor.kbps(), 1);
+  EXPECT_NEAR(client->target_rate().kbps(), kBandwidthFloor.kbps(), 5);
 }
 
 TEST_F(GoogCcNetworkControllerTest, UpdatesTargetRateBasedOnLinkCapacity) {
@@ -486,7 +486,7 @@ TEST_F(GoogCcNetworkControllerTest,
   EXPECT_GT(client->target_rate().kbps(), 100);
 }
 
-DataRate AverageBitrateAfterCrossInducedLoss(std::string name) {
+DataRate TargetAfterCrossInducedLoss(std::string name) {
   Scenario s(name, false);
   NetworkSimulationConfig net_conf;
   net_conf.bandwidth = DataRate::kbps(1000);
@@ -502,30 +502,28 @@ DataRate AverageBitrateAfterCrossInducedLoss(std::string name) {
   auto* client = s.CreateClient("send", CallClientConfig());
   auto* route = s.CreateRoutes(
       client, send_net, s.CreateClient("return", CallClientConfig()), ret_net);
-  auto* video = s.CreateVideoStream(route->forward(), VideoStreamConfig());
+  VideoStreamConfig vc;
+  vc.stream.use_rtx = false;
+  s.CreateVideoStream(route->forward(), vc);
   s.RunFor(TimeDelta::seconds(10));
-  for (int i = 0; i < 4; ++i) {
-    // Sends TCP cross traffic inducing loss.
-    auto* tcp_traffic =
-        s.net()->StartFakeTcpCrossTraffic(send_net, ret_net, FakeTcpConfig());
-    s.RunFor(TimeDelta::seconds(2));
-    // Allow the ccongestion controller to recover.
-    s.net()->StopCrossTraffic(tcp_traffic);
-    s.RunFor(TimeDelta::seconds(20));
-  }
-  return DataSize::bytes(video->receive()
-                             ->GetStats()
-                             .rtp_stats.packet_counter.TotalBytes()) /
-         s.TimeSinceStart();
+  // Sends TCP cross traffic inducing loss.
+  auto* tcp_traffic =
+      s.net()->StartFakeTcpCrossTraffic(send_net, ret_net, FakeTcpConfig());
+  s.RunFor(TimeDelta::seconds(2));
+  // Allow the ccongestion controller to recover.
+  s.net()->StopCrossTraffic(tcp_traffic);
+  // Waiting for target bitrate to recover, but not long enough to backoff.
+  s.RunFor(TimeDelta::seconds(8));
+  return DataRate::bps(client->GetStats().send_bandwidth_bps);
 }
 
 TEST_F(GoogCcNetworkControllerTest,
        NoLossBasedRecoversSlowerAfterCrossInducedLoss) {
-  // This test acts as a reference for the test below, showing that wihtout the
+  // This test acts as a reference for the test below, showing that without the
   // trial, we have worse behavior.
-  DataRate average_bitrate =
-      AverageBitrateAfterCrossInducedLoss("googcc_unit/no_cross_loss_based");
-  RTC_DCHECK_LE(average_bitrate, DataRate::kbps(650));
+  DataRate bitrate =
+      TargetAfterCrossInducedLoss("googcc_unit/no_cross_loss_based");
+  EXPECT_LE(bitrate, DataRate::kbps(600));
 }
 
 TEST_F(GoogCcNetworkControllerTest,
@@ -533,9 +531,9 @@ TEST_F(GoogCcNetworkControllerTest,
   // We recover bitrate better when subject to loss spikes from cross traffic
   // when loss based controller is used.
   ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
-  DataRate average_bitrate =
-      AverageBitrateAfterCrossInducedLoss("googcc_unit/cross_loss_based");
-  RTC_DCHECK_GE(average_bitrate, DataRate::kbps(750));
+  DataRate bitrate =
+      TargetAfterCrossInducedLoss("googcc_unit/cross_loss_based");
+  EXPECT_GE(bitrate, DataRate::kbps(900));
 }
 
 TEST_F(GoogCcNetworkControllerTest, LossBasedEstimatorCapsRateAtModerateLoss) {

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8711ad9_d61561bc",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-03T19:49:11Z",
+      "side": 1,
+      "message": "Does this mean for forking, the IceGatherer never wrappers a pooled session? I am asking because the pooled session is created when creating the pc and happens before CreateGatherer IIUC.",
+      "range": {
+        "startLine": 847,
+        "startChar": 18,
+        "endLine": 847,
+        "endChar": 31
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a466f41_66f1cd41",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-03T19:49:11Z",
+      "side": 1,
+      "message": "Just want to double check we expect |disable_equivalent| should do the dedup for this call.",
+      "range": {
+        "startLine": 878,
+        "startChar": 11,
+        "endLine": 878,
+        "endChar": 28
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54650189_0be586df",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-03T19:49:11Z",
+      "side": 1,
+      "message": "A couple of questions related to this line:\n1. For a shared session, which transport should set the role and tie breaker in the first place?\n2. Because of line 878, is there a chance we would have a new port created so that it\u0027s not from a pooled batch?",
+      "range": {
+        "startLine": 911,
+        "startChar": 10,
+        "endLine": 911,
+        "endChar": 20
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e783484_bdbae053",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2608,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-03T19:49:11Z",
+      "side": 1,
+      "message": "nit: the two methods could be renamed to make the distinction a bit clearer, though I don\u0027t have better names...",
+      "range": {
+        "startLine": 2608,
+        "startChar": 27,
+        "endLine": 2608,
+        "endChar": 46
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15070609_ab217b20",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 7381,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-03T19:49:11Z",
+      "side": 1,
+      "message": "This API is now supposedly called before SLD, but wondering if we consider offering the option to cancel forking by setting it to null? Not sure though if accommodating this case make any practical sense.",
+      "range": {
+        "startLine": 7381,
+        "startChar": 2,
+        "endLine": 7381,
+        "endChar": 12
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

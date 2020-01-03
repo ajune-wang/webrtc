@@ -234,7 +234,8 @@ class AudioProcessingImpl : public AudioProcessing {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
   void InitializeResidualEchoDetector()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
-  void InitializeHighPassFilter() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
+  void InitializeHighPassFilter(bool forced_reset)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
   void InitializeVoiceDetector() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
   void InitializeEchoController()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);

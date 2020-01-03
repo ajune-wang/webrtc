@@ -367,8 +367,9 @@ void AecDumpBasedSimulator::HandleMessage(
     // TODO(peah): Add support for controlling the Experimental AGC from the
     // command line.
     if (msg.has_noise_robust_agc_enabled()) {
-      config.Set<ExperimentalAgc>(
-          new ExperimentalAgc(msg.noise_robust_agc_enabled()));
+      apm_config.analog_gain_controller.enabled =
+          settings_.use_analog_agc ? *settings_.use_analog_agc
+                                   : msg.noise_robust_agc_enabled();
       if (settings_.use_verbose_logging) {
         std::cout << " noise_robust_agc_enabled: "
                   << (msg.noise_robust_agc_enabled() ? "true" : "false")

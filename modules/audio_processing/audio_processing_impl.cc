@@ -334,18 +334,7 @@ AudioProcessingImpl::AudioProcessingImpl(
                   std::move(render_pre_processor),
                   std::move(echo_detector),
                   std::move(capture_analyzer)),
-      constants_(config.Get<ExperimentalAgc>().startup_min_volume,
-                 config.Get<ExperimentalAgc>().clipped_level_min,
-#if defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS)
-                 /* enabled= */ false,
-                 /* enabled_agc2_level_estimator= */ false,
-                 /* digital_adaptive_disabled= */ false,
-#else
-                 config.Get<ExperimentalAgc>().enabled,
-                 config.Get<ExperimentalAgc>().enabled_agc2_level_estimator,
-                 config.Get<ExperimentalAgc>().digital_adaptive_disabled,
-#endif
-                 !field_trial::IsEnabled(
+      constants_(!field_trial::IsEnabled(
                      "WebRTC-ApmExperimentalMultiChannelRenderKillSwitch"),
                  !field_trial::IsEnabled(
                      "WebRTC-ApmExperimentalMultiChannelCaptureKillSwitch"),
@@ -364,8 +353,6 @@ AudioProcessingImpl::AudioProcessingImpl(
   capture_nonlocked_.echo_controller_enabled =
       static_cast<bool>(echo_control_factory_);
 
-  submodules_.gain_control.reset(new GainControlImpl());
-
   // If no echo detector is injected, use the ResidualEchoDetector.
   if (!submodules_.echo_detector) {
     submodules_.echo_detector =
@@ -376,10 +363,23 @@ AudioProcessingImpl::AudioProcessingImpl(
   // implemented.
   submodules_.gain_controller2.reset(new GainController2());
 
+#if !(defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
   // TODO(webrtc:5298): Remove once the use of ExperimentalNs has been
   // deprecated.
-#if !(defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))
   config_.transient_suppression.enabled = config.Get<ExperimentalNs>().enabled;
+
+  // TODO(webrtc:5298): Remove once the use of ExperimentalAgc has been
+  // deprecated.
+  config_.analog_gain_controller.enabled =
+      config.Get<ExperimentalAgc>().enabled;
+  config_.analog_gain_controller.startup_min_volume =
+      config.Get<ExperimentalAgc>().startup_min_volume;
+  config_.analog_gain_controller.clipped_level_min =
+      config.Get<ExperimentalAgc>().clipped_level_min;
+  config_.analog_gain_controller.enabled_agc2_level_estimator =
+      config.Get<ExperimentalAgc>().enabled_agc2_level_estimator;
+  config_.analog_gain_controller.digital_adaptive_disabled =
+      config.Get<ExperimentalAgc>().digital_adaptive_disabled;
 #endif
 }
 
@@ -484,34 +484,8 @@ int AudioProcessingImpl::InitializeLocked() {
 
   AllocateRenderQueue();
 
-  submodules_.gain_control->Initialize(num_proc_channels(),
-                                       proc_sample_rate_hz());
-  if (constants_.use_experimental_agc) {
-    if (!submodules_.agc_manager.get() ||
-        submodules_.agc_manager->num_channels() !=
-            static_cast<int>(num_proc_channels()) ||
-        submodules_.agc_manager->sample_rate_hz() !=
-            capture_nonlocked_.split_rate) {
-      int stream_analog_level = -1;
-      const bool re_creation = !!submodules_.agc_manager;
-      if (re_creation) {
-        stream_analog_level = submodules_.agc_manager->stream_analog_level();
-      }
-      submodules_.agc_manager.reset(new AgcManagerDirect(
-          num_proc_channels(), constants_.agc_startup_min_volume,
-          constants_.agc_clipped_level_min,
-          constants_.use_experimental_agc_agc2_level_estimation,
-          constants_.use_experimental_agc_agc2_digital_adaptive,
-          capture_nonlocked_.split_rate));
-      if (re_creation) {
-        submodules_.agc_manager->set_stream_analog_level(stream_analog_level);
-      }
-    }
-    submodules_.agc_manager->Initialize();
-    submodules_.agc_manager->SetupDigitalGainControl(
-        submodules_.gain_control.get());
-    submodules_.agc_manager->SetCaptureMuted(capture_.output_will_be_muted);
-  }
+  InitializeGainController1();
+  InitializeAnalogGainController();
   InitializeTransientSuppressor();
   InitializeHighPassFilter();
   InitializeVoiceDetector();
@@ -642,6 +616,18 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
       config_.echo_canceller.enabled != config.echo_canceller.enabled ||
       config_.echo_canceller.mobile_mode != config.echo_canceller.mobile_mode;
 
+  const bool analog_agc_config_changed =
+      config_.analog_gain_controller.enabled !=
+          config.analog_gain_controller.enabled ||
+      config_.analog_gain_controller.startup_min_volume !=
+          config.analog_gain_controller.startup_min_volume ||
+      config_.analog_gain_controller.clipped_level_min !=
+          config.analog_gain_controller.clipped_level_min ||
+      config_.analog_gain_controller.enabled_agc2_level_estimator !=
+          config.analog_gain_controller.enabled_agc2_level_estimator ||
+      config_.analog_gain_controller.digital_adaptive_disabled !=
+          config.analog_gain_controller.digital_adaptive_disabled;
+
   const bool agc1_config_changed =
       config_.gain_controller1.enabled != config.gain_controller1.enabled ||
       config_.gain_controller1.mode != config.gain_controller1.mode ||
@@ -682,8 +668,12 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
 
   InitializeHighPassFilter();
 
+  if (analog_agc_config_changed) {
+    InitializeAnalogGainController();
+  }
+
   if (agc1_config_changed) {
-    ApplyAgc1Config(config_.gain_controller1);
+    InitializeGainController1();
   }
 
   const bool config_ok = GainController2::Validate(config_.gain_controller2);
@@ -1002,7 +992,7 @@ void AudioProcessingImpl::QueueBandedRenderAudio(AudioBuffer* audio) {
     }
   }
 
-  if (!submodules_.agc_manager) {
+  if (!submodules_.agc_manager && submodules_.gain_control) {
     GainControlImpl::PackRenderAudioBuffer(*audio, &agc_render_queue_buffer_);
     // Insert the samples into the queue.
     if (!agc_render_signal_queue_->Insert(&agc_render_queue_buffer_)) {
@@ -1089,8 +1079,10 @@ void AudioProcessingImpl::EmptyQueuedRenderAudio() {
     }
   }
 
-  while (agc_render_signal_queue_->Remove(&agc_capture_queue_buffer_)) {
-    submodules_.gain_control->ProcessRenderAudio(agc_capture_queue_buffer_);
+  if (submodules_.gain_control) {
+    while (agc_render_signal_queue_->Remove(&agc_capture_queue_buffer_)) {
+      submodules_.gain_control->ProcessRenderAudio(agc_capture_queue_buffer_);
+    }
   }
 
   while (red_render_signal_queue_->Remove(&red_capture_queue_buffer_)) {
@@ -1259,8 +1251,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     submodules_.echo_controller->AnalyzeCapture(capture_buffer);
   }
 
-  if (constants_.use_experimental_agc &&
-      submodules_.gain_control->is_enabled()) {
+  if (submodules_.agc_manager && config_.gain_controller1.enabled) {
     submodules_.agc_manager->AnalyzePreProcess(capture_buffer);
   }
 
@@ -1352,8 +1343,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     capture_.stats.voice_detected = absl::nullopt;
   }
 
-  if (constants_.use_experimental_agc &&
-      submodules_.gain_control->is_enabled()) {
+  if (submodules_.agc_manager && config_.gain_controller1.enabled) {
     submodules_.agc_manager->Process(capture_buffer);
 
     absl::optional<int> new_digital_gain =
@@ -1362,9 +1352,12 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
       submodules_.gain_control->set_compression_gain_db(*new_digital_gain);
     }
   }
-  // TODO(peah): Add reporting from AEC3 whether there is echo.
-  RETURN_ON_ERR(submodules_.gain_control->ProcessCaptureAudio(
-      capture_buffer, /*stream_has_echo*/ false));
+
+  if (config_.gain_controller1.enabled) {
+    // TODO(peah): Add reporting from AEC3 whether there is echo.
+    RETURN_ON_ERR(submodules_.gain_control->ProcessCaptureAudio(
+        capture_buffer, /*stream_has_echo*/ false));
+  }
 
   if (submodule_states_.CaptureMultiBandProcessingPresent() &&
       SampleRateSupportsMultiBand(
@@ -1761,7 +1754,7 @@ bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
       config_.high_pass_filter.enabled, !!submodules_.echo_control_mobile,
       config_.residual_echo_detector.enabled,
       !!submodules_.legacy_noise_suppressor || !!submodules_.noise_suppressor,
-      submodules_.gain_control->is_enabled(), config_.gain_controller2.enabled,
+      config_.gain_controller1.enabled, config_.gain_controller2.enabled,
       config_.pre_amplifier.enabled, capture_nonlocked_.echo_controller_enabled,
       config_.voice_detection.enabled, !!submodules_.transient_suppressor);
 }
@@ -1886,6 +1879,51 @@ void AudioProcessingImpl::InitializeEchoController() {
   aecm_render_signal_queue_.reset();
 }
 
+void AudioProcessingImpl::InitializeGainController1() {
+  if (!submodules_.gain_control) {
+    submodules_.gain_control.reset(new GainControlImpl());
+  }
+  submodules_.gain_control->Initialize(num_proc_channels(),
+                                       proc_sample_rate_hz());
+  ApplyAgc1Config(config_.gain_controller1);
+}
+
+void AudioProcessingImpl::InitializeAnalogGainController() {
+  if (config_.analog_gain_controller.enabled) {
+    if (!submodules_.agc_manager.get() ||
+        submodules_.agc_manager->num_channels() !=
+            static_cast<int>(num_proc_channels()) ||
+        submodules_.agc_manager->sample_rate_hz() !=
+            capture_nonlocked_.split_rate) {
+      int stream_analog_level = -1;
+      const bool re_creation = !!submodules_.agc_manager;
+      if (re_creation) {
+        stream_analog_level = submodules_.agc_manager->stream_analog_level();
+      }
+      submodules_.agc_manager.reset(new AgcManagerDirect(
+          num_proc_channels(),
+          config_.analog_gain_controller.startup_min_volume,
+          config_.analog_gain_controller.clipped_level_min,
+          config_.analog_gain_controller.enabled_agc2_level_estimator,
+          config_.analog_gain_controller.digital_adaptive_disabled,
+          capture_nonlocked_.split_rate));
+      if (re_creation) {
+        submodules_.agc_manager->set_stream_analog_level(stream_analog_level);
+      }
+    }
+    submodules_.agc_manager->Initialize();
+    submodules_.agc_manager->SetupDigitalGainControl(
+        submodules_.gain_control.get());
+    submodules_.agc_manager->SetCaptureMuted(capture_.output_will_be_muted);
+  } else {
+    if (submodules_.agc_manager.get()) {
+      submodules_.agc_manager.reset();
+      InitializeGainController1();
+      ApplyAgc1Config(config_.gain_controller1);
+    }
+  }
+}
+
 void AudioProcessingImpl::InitializeGainController2() {
   if (config_.gain_controller2.enabled) {
     submodules_.gain_controller2->Initialize(proc_fullband_sample_rate_hz());
@@ -1980,7 +2018,7 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
   std::string experiments_description = "";
   // TODO(peah): Add semicolon-separated concatenations of experiment
   // descriptions for other submodules.
-  if (constants_.agc_clipped_level_min != kClippedLevelMin) {
+  if (config_.analog_gain_controller.clipped_level_min != kClippedLevelMin) {
     experiments_description += "AgcClippingLevelExperiment;";
   }
   if (capture_nonlocked_.echo_controller_enabled) {
@@ -2006,7 +2044,7 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
           ? static_cast<int>(submodules_.echo_control_mobile->routing_mode())
           : 0;
 
-  apm_config.agc_enabled = submodules_.gain_control->is_enabled();
+  apm_config.agc_enabled = config_.gain_controller1.enabled;
   apm_config.agc_mode = static_cast<int>(submodules_.gain_control->mode());
   apm_config.agc_limiter_enabled =
       submodules_.gain_control->is_limiter_enabled();

@@ -60,6 +60,10 @@ static const int kAgcStartupMinVolume = 85;
 static const int kAgcStartupMinVolume = 0;
 #endif  // defined(WEBRTC_CHROMIUM_BUILD)
 static constexpr int kClippedLevelMin = 70;
+
+// To be deprecated: Please instead use the flag in the
+// AudioProcessing::Config::AnalogGainController.
+// TODO(webrtc:5298): Remove.
 struct ExperimentalAgc {
   ExperimentalAgc() = default;
   explicit ExperimentalAgc(bool enabled) : enabled(enabled) {}
@@ -315,6 +319,16 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       int analog_level_minimum = 0;
       int analog_level_maximum = 255;
     } gain_controller1;
+
+    // Enables the analog gain controller functionality.
+    struct AnalogGainController {
+      bool enabled = false;
+      int startup_min_volume = kAgcStartupMinVolume;
+      // Lowest microphone level that will be applied in response to clipping.
+      int clipped_level_min = kClippedLevelMin;
+      bool enabled_agc2_level_estimator = false;
+      bool digital_adaptive_disabled = false;
+    } analog_gain_controller;
 
     // Enables the next generation AGC functionality. This feature replaces the
     // standard methods of gain control in the previous AGC. Enabling this

@@ -36,6 +36,9 @@ class VideoStreamDecoderInterface {
     virtual void OnContinuousUntil(
         const video_coding::VideoLayerFrameId& key) = 0;
 
+    // Called with the encoded frame before it is decoded.
+    virtual void OnEncodedFrame(const video_coding::EncodedFrame& frame) {}
+
     // Called with the decoded frame.
     virtual void OnDecodedFrame(VideoFrame decodedImage,
                                 absl::optional<int> decode_time_ms,

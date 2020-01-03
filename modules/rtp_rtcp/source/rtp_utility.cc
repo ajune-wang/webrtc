@@ -559,4 +559,17 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
 }
 
 }  // namespace RtpUtility
+
+absl::optional<RTPHeader> TryParseRtpHeader(
+    const rtc::ArrayView<const uint8_t> packet,
+    RtpHeaderExtensionMap* extension_map) {
+  RtpUtility::RtpHeaderParser rtp_parser(packet.data(), packet.size());
+  if (!rtp_parser.RTCP()) {
+    RTPHeader header;
+    if (rtp_parser.Parse(&header, extension_map))
+      return header;
+  }
+  return absl::nullopt;
+}
+
 }  // namespace webrtc

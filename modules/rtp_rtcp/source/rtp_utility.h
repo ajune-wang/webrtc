@@ -16,6 +16,7 @@
 #include <algorithm>
 
 #include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
 #include "api/rtp_headers.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -50,6 +51,10 @@ class RtpHeaderParser {
   const uint8_t* const _ptrRTPDataEnd;
 };
 }  // namespace RtpUtility
+
+absl::optional<RTPHeader> TryParseRtpHeader(
+    const rtc::ArrayView<const uint8_t> packet,
+    RtpHeaderExtensionMap* extension_map = nullptr);
 }  // namespace webrtc
 
 #endif  // MODULES_RTP_RTCP_SOURCE_RTP_UTILITY_H_

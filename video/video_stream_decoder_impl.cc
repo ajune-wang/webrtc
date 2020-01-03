@@ -219,6 +219,7 @@ void VideoStreamDecoderImpl::OnNextFrameCallback(
   switch (result) {
     case video_coding::FrameBuffer::kFrameFound: {
       RTC_DCHECK(frame);
+      callbacks_->OnEncodedFrame(*frame);
       SaveFrameTimestamps(*frame);
 
       decode_queue_.PostTask([this, frame = std::move(frame)]() mutable {

@@ -514,7 +514,7 @@ int AudioProcessingImpl::InitializeLocked() {
     submodules_.agc_manager->SetCaptureMuted(capture_.output_will_be_muted);
   }
   InitializeTransient();
-  InitializeHighPassFilter();
+  InitializeHighPassFilter(true);
   InitializeVoiceDetector();
   InitializeResidualEchoDetector();
   InitializeEchoController();
@@ -664,6 +664,11 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
       config_.noise_suppression.enabled != config.noise_suppression.enabled ||
       config_.noise_suppression.level != config.noise_suppression.level;
 
+  const bool pre_amplifier_config_changed =
+      config_.pre_amplifier.enabled != config.pre_amplifier.enabled ||
+      config_.pre_amplifier.fixed_gain_factor !=
+          config.pre_amplifier.fixed_gain_factor;
+
   config_ = config;
 
   if (aec_config_changed) {
@@ -674,7 +679,7 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
     InitializeNoiseSuppressor();
   }
 
-  InitializeHighPassFilter();
+  InitializeHighPassFilter(false);
 
   if (agc1_config_changed) {
     ApplyAgc1Config(config_.gain_controller1);
@@ -689,7 +694,9 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
     config_.gain_controller2 = AudioProcessing::Config::GainController2();
   }
   InitializeGainController2();
-  InitializePreAmplifier();
+  if (pre_amplifier_config_changed) {
+    InitializePreAmplifier();
+  }
   submodules_.gain_controller2->ApplyConfig(config_.gain_controller2);
 
   if (config_.level_estimation.enabled && !submodules_.output_level_estimator) {
@@ -1780,7 +1787,7 @@ void AudioProcessingImpl::InitializeTransient() {
   }
 }
 
-void AudioProcessingImpl::InitializeHighPassFilter() {
+void AudioProcessingImpl::InitializeHighPassFilter(bool forced_reset) {
   bool high_pass_filter_needed_by_aec =
       config_.echo_canceller.enabled &&
       config_.echo_canceller.enforce_high_pass_filtering &&
@@ -1794,7 +1801,13 @@ void AudioProcessingImpl::InitializeHighPassFilter() {
     size_t num_channels =
         use_full_band ? num_output_channels() : num_proc_channels();
 
-    submodules_.high_pass_filter.reset(new HighPassFilter(rate, num_channels));
+    if (!submodules_.high_pass_filter ||
+        rate != submodules_.high_pass_filter->sample_rate_hz() ||
+        forced_reset ||
+        num_channels != submodules_.high_pass_filter->num_channels()) {
+      submodules_.high_pass_filter.reset(
+          new HighPassFilter(rate, num_channels));
+    }
   } else {
     submodules_.high_pass_filter.reset();
   }

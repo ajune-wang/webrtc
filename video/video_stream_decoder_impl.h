@@ -45,10 +45,8 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
  private:
   enum DecodeResult {
     kOk,
+    kOkRequestKeyframe,
     kDecodeFailure,
-    kNoFrame,
-    kNoDecoder,
-    kShutdown,
   };
 
   struct FrameTimestamps {
@@ -57,10 +55,9 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
     int64_t render_time_us;
   };
 
-  VideoDecoder* GetDecoder(int payload_type);
-  static void DecodeLoop(void* ptr);
-  DecodeResult DecodeNextFrame(int max_wait_time_ms, bool keyframe_required);
-
+  VideoDecoder* GetDecoder(int payload_type) RTC_RUN_ON(decode_queue_);
+  void SaveFrameTimestamps(const video_coding::EncodedFrame& frame)
+      RTC_RUN_ON(bookkeeping_queue_);
   FrameTimestamps* GetFrameTimestamps(int64_t timestamp);
 
   // Implements DecodedImageCallback interface
@@ -75,18 +72,25 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
   VideoDecoderFactory* const decoder_factory_;
   std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings_;
 
-  // The |bookkeeping_queue_| is used to:
-  //  - Make |callbacks_|.
-  //  - Insert/extract frames from the |frame_buffer_|
-  //  - Synchronize with whatever thread that makes the Decoded callback.
+  // NOTE! The destruction order of |bookkeeping_queue_|, |decode_queue_| and
+  //       |decoder_| matters.
   rtc::TaskQueue bookkeeping_queue_;
+  rtc::TaskQueue decode_queue_;
+  std::unique_ptr<VideoDecoder> decoder_ RTC_GUARDED_BY(decode_queue_);
 
-  rtc::PlatformThread decode_thread_;
   VCMTiming timing_;
   video_coding::FrameBuffer frame_buffer_;
   video_coding::VideoLayerFrameId last_continuous_id_;
   absl::optional<int> current_payload_type_;
-  std::unique_ptr<VideoDecoder> decoder_;
+
+  bool keyframe_required_ = true;
+  void StartNextDecode();
+  void OnNextFrameCallback(std::unique_ptr<video_coding::EncodedFrame> frame,
+                           video_coding::FrameBuffer::ReturnReason res);
+  void RequestKeyframe();
+
+  VideoStreamDecoderImpl::DecodeResult DecodeFrame(
+      std::unique_ptr<video_coding::EncodedFrame> frame);
 
   // Some decoders are pipelined so it is not sufficient to save frame info
   // for the last frame only.

@@ -22,6 +22,30 @@
       "revId": "86119e387055d19ca8e5310f8c719a26adda9eb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfc4aff0_2e3e8ad8",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T22:00:56Z",
+      "side": 1,
+      "message": "Awesome!\nThanks!",
+      "parentUuid": "12721a83_e7374592",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 25
+      },
+      "revId": "86119e387055d19ca8e5310f8c719a26adda9eb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

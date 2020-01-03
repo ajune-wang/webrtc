@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5bd3de35_ee17e8ee",
+        "filename": "modules/audio_processing/agc/gain_control.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f0d3add_f747051c",
+      "range": {
+        "startLine": 23,
+        "startChar": 1,
+        "endLine": 23,
+        "endChar": 38
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0b45520_4e94d0bc",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bfb3f561_018619a5",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1767,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Good point!\nI\u0027d prefer to do it in a separate CL though as that is kind of independent of this one. WDYT?",
+      "parentUuid": "a0b45520_4e94d0bc",
+      "range": {
+        "startLine": 1761,
+        "startChar": 9,
+        "endLine": 1767,
+        "endChar": 78
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ec45886_10137b90",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-02T15:36:02Z",
       "side": 1,
       "message": "With this CL, submodules_.gain_control will always be created.\nThat is also how ToT works.\nHowever, this CL also seems to check if(submodules_.gain_control) in places.\nIt seems we need to clarify when the GainControl instance exists.\n\nHow about dropping the GainControl::Enable call in ApplyAgc1Config, make it default enabled, and delete it if disabled? To make sure !!submodules_.gain_control \u003d\u003d config_.gain_controller1.enabled, always.\n\n(Note: That probably requires a chunk of thinking to make sure it works out. It could be that we haven\u0027t done it before for a reason.)\n\n\nIf not, submodules_.gain_control will always exist. If that is the case, then we might as well make it a direct member of submodules_ instead of a unique_ptr, to be super explicit. Although that might make it harder to make it optional at compilation time, and we keep the Enable() API, which we have gotten rid of on other submodules.",
+      "range": {
+        "startLine": 1887,
+        "startChar": 0,
+        "endLine": 1895,
+        "endChar": 1
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55b2923b_66cd4d3d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1895,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "I would prefer to keep gain_control dynamically created since:\n-There is nothing that requires it if no AGC effect is specified. The fact that it is always created regardless is not really correct I\u0027d claim.\n-Keeping it dynamically created would make it follow what all other submodules does, which means that there would be a uniform pattern for the submodules. \n\nI changed the patchset to no longer have it created by default. That became much better I think.\n\nWDYT?",
+      "parentUuid": "9ec45886_10137b90",
       "range": {
         "startLine": 1887,
         "startChar": 0,
@@ -117,6 +189,54 @@
     },
     {
       "key": {
+        "uuid": "7ec1fb68_854ca34c",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46432b78_26e2cd57",
+      "range": {
+        "startLine": 1922,
+        "startChar": 8,
+        "endLine": 1922,
+        "endChar": 38
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23434551_66841723",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "That makes a lot of sense. I made a change in the new patchset similar to that one.\n\nPTAL",
+      "parentUuid": "9b981d55_1fc34c1a",
+      "range": {
+        "startLine": 1922,
+        "startChar": 8,
+        "endLine": 1922,
+        "endChar": 32
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1877411b_9c60da91",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9290b5e7_fa8816e4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1928,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1877411b_9c60da91",
+      "range": {
+        "startLine": 1928,
+        "startChar": 0,
+        "endLine": 1928,
+        "endChar": 48
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "aa831b1d_2c9150d3",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf5be1e6_155cb485",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 434,
+        "endChar": 54
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b1c9e49_d143d398",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 3
@@ -183,6 +351,30 @@
       "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acec5592_49a09a51",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b1c9e49_d143d398",
+      "range": {
+        "startLine": 1541,
+        "startChar": 0,
+        "endLine": 1542,
+        "endChar": 56
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "f4b06eef_7ec5b9e1",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1832,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1768254_b666e979",
+      "range": {
+        "startLine": 1830,
+        "startChar": 0,
+        "endLine": 1832,
+        "endChar": 49
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "163ad456_e826476d",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 3
@@ -220,6 +436,30 @@
       "writtenOn": "2020-01-02T15:36:02Z",
       "side": 1,
       "message": "How does this relate to the kAdaptiveAnalog mode of AudioProcessing::Config::GainController1?",
+      "range": {
+        "startLine": 314,
+        "startChar": 7,
+        "endLine": 314,
+        "endChar": 55
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06f8af6_2a1fcc65",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "That is a bit complicated. The AGC1 has support for an analog mode but when agc_manager is active it takes over that.",
+      "parentUuid": "163ad456_e826476d",
       "range": {
         "startLine": 314,
         "startChar": 7,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "72f06eff_c73b234f",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "It is the analog mic gain. This is the original comment copied from the former code. I now added some slight adjustment but at the moment I\u0027d prefer to keep it like it is, as I\u0027m myself not fully sure of the definition.\n\nWDYT?",
+      "parentUuid": "6497e449_0b26ef3b",
+      "range": {
+        "startLine": 318,
+        "startChar": 9,
+        "endLine": 318,
+        "endChar": 32
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29a672ba_c6ed57f6",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 3
@@ -275,6 +539,30 @@
       "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9313a421_5ff5f32b",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29a672ba_c6ed57f6",
+      "range": {
+        "startLine": 320,
+        "startChar": 11,
+        "endLine": 320,
+        "endChar": 39
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +635,78 @@
     },
     {
       "key": {
+        "uuid": "86bfb302_92e1c6cb",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81c705d2_c371a821",
+      "range": {
+        "startLine": 321,
+        "startChar": 11,
+        "endLine": 321,
+        "endChar": 44
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12538047_0dfc3361",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de3e6cfa_8a75e721",
+      "range": {
+        "startLine": 321,
+        "startChar": 11,
+        "endLine": 321,
+        "endChar": 37
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b23f0fc6_a85f260a",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t know. I agree that the name is too vague, and I\u0027m not familiar with the details of the code in question.\n\nSince this CL is just moving that code around, I\u0027d prefer to not add any comment at this time as my comment likely would be misleading/wrong.\n\nWDYT, is it ok to keep as it is?",
+      "parentUuid": "8f20af54_c7fbc29e",
+      "range": {
+        "startLine": 321,
+        "startChar": 11,
+        "endLine": 321,
+        "endChar": 36
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04a1971d_500c90e4",
         "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
         "patchSetId": 3
@@ -367,6 +727,30 @@
       "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf35904b_5dcc9f21",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04a1971d_500c90e4",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 368,
+        "endChar": 20
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "7a4b0b45_50702348",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Good point!\nDone.",
+      "parentUuid": "1352c6aa_875c3c48",
+      "range": {
+        "startLine": 498,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 3
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6fed128a_9281af65",
         "filename": "modules/audio_processing/test/audio_processing_simulator.h",
         "patchSetId": 3
@@ -413,6 +821,30 @@
       "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c56d8651_56c916f5",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-03T14:35:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fed128a_9281af65",
+      "range": {
+        "startLine": 67,
+        "startChar": 23,
+        "endLine": 67,
+        "endChar": 52
+      },
+      "revId": "18aa47d267e8d47f5d30f9988bf67f5d3564ea7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

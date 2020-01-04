@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '236f912c9dbd482ecae79309c2fa13f41ba79a58',
+  'chromium_revision': 'd9ee60be29cbb6d77dd8cd4a06eb371554f2aa18',
 }
 
 deps = {
@@ -115,7 +115,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@44134341fa8b46e83bad3bef48a8bc6badaa3083',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@cf50f77484421e2b2f2b8f08c740c7055febac8b',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@68b4dfdbd607fdd33b9b8e3515f039d97677dd1c',
   'src/third_party/findbugs': {
@@ -2119,6 +2119,17 @@ deps = {
           {
               'package': 'chromium/third_party/android_deps/libs/com_squareup_javapoet',
               'version': 'version:1.11.0-cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/javax_annotation_javax_annotation_api': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/javax_annotation_javax_annotation_api',
+              'version': 'version:1.3.2-cr0',
           },
       ],
       'condition': 'checkout_android',

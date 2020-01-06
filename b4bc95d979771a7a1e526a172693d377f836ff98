@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0b0cf219_a9d55f8b",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-06T19:54:30Z",
+      "side": 1,
+      "message": "Ack. If we add this later, it then seems start() in RTCIceTransport would be delegated if we have gatherer.",
+      "parentUuid": "8e21b56a_1797a599",
+      "range": {
+        "startLine": 847,
+        "startChar": 18,
+        "endLine": 847,
+        "endChar": 31
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a466f41_66f1cd41",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "989987d8_ca5740d5",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-06T19:54:30Z",
+      "side": 1,
+      "message": "Ack. |disable_equivalent| should be a no-op ideally and if not we should fix that. IIRC, interface changes should be signaled to the (shared) session and handled correctly on the fly.",
+      "parentUuid": "8a996e2e_5af30ddb",
+      "range": {
+        "startLine": 878,
+        "startChar": 11,
+        "endLine": 878,
+        "endChar": 28
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54650189_0be586df",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 4
@@ -136,6 +184,53 @@
         "startChar": 10,
         "endLine": 911,
         "endChar": 20
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c96a81f_bf3aee60",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-06T19:54:30Z",
+      "side": 1,
+      "message": "1. I see. Sorry I missed the other CL.\n2. Ack.",
+      "parentUuid": "eda61282_b790ff5b",
+      "range": {
+        "startLine": 911,
+        "startChar": 10,
+        "endLine": 911,
+        "endChar": 20
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7be1f25_89b182cb",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5696,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-06T19:54:30Z",
+      "side": 1,
+      "message": "transport2? Or do we intend to have a transport1.reset()?\n\nIn terms of the tested behavior, IIUC sharing a session would then disable the optimization that stops gathering in |P2PTransportChannel::MaybeStopPortAllocatorSessions| when we have a writable connection, which I think we should.",
+      "range": {
+        "startLine": 5696,
+        "startChar": 30,
+        "endLine": 5696,
+        "endChar": 40
       },
       "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -190,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "18c6116d_e30bedbf",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2608,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-06T19:54:30Z",
+      "side": 1,
+      "message": "StartGatheringWithSharedGatherer sgtm.",
+      "parentUuid": "bb492b09_b528f2ea",
+      "range": {
+        "startLine": 2608,
+        "startChar": 27,
+        "endLine": 2608,
+        "endChar": 46
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15070609_ab217b20",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -206,6 +325,29 @@
         "startChar": 2,
         "endLine": 7381,
         "endChar": 12
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a048db96_e123ed1e",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-06T19:54:30Z",
+      "side": 1,
+      "message": "nit: could have a drive-by clean-up now that we have GetInternalPeerConnection below.",
+      "range": {
+        "startLine": 220,
+        "startChar": 4,
+        "endLine": 220,
+        "endChar": 20
       },
       "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

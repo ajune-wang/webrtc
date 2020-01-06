@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6006cfb8_6c6730a6",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T21:53:22Z",
+      "side": 1,
+      "message": "I\u0027ll add a comment to reflect this thinking.",
+      "parentUuid": "0b0cf219_a9d55f8b",
+      "range": {
+        "startLine": 847,
+        "startChar": 18,
+        "endLine": 847,
+        "endChar": 31
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a466f41_66f1cd41",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 4
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Ack. |disable_equivalent| should be a no-op ideally and if not we should fix that. IIRC, interface changes should be signaled to the (shared) session and handled correctly on the fly.",
       "parentUuid": "8a996e2e_5af30ddb",
+      "range": {
+        "startLine": 878,
+        "startChar": 11,
+        "endLine": 878,
+        "endChar": 28
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c10222cc_729f530e",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T21:53:22Z",
+      "side": 1,
+      "message": "I\u0027ll leave a not to make sure this is clear.",
+      "parentUuid": "989987d8_ca5740d5",
       "range": {
         "startLine": 878,
         "startChar": 11,
@@ -238,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "dc0eccaa_78b4470c",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5696,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T21:53:22Z",
+      "side": 1,
+      "message": "I meant to say \"the transport\" (transport1 or transport2 doesn\u0027t matter for the tests, I don\u0027t think).  \n\nI\u0027ll fix the comment.",
+      "parentUuid": "f7be1f25_89b182cb",
+      "range": {
+        "startLine": 5696,
+        "startChar": 30,
+        "endLine": 5696,
+        "endChar": 40
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e783484_bdbae053",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -309,6 +381,30 @@
     },
     {
       "key": {
+        "uuid": "c2ce14a3_90145ab5",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2608,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T21:53:22Z",
+      "side": 1,
+      "message": "OK, changed to StartGatheringWithSharedGatherer.",
+      "parentUuid": "18c6116d_e30bedbf",
+      "range": {
+        "startLine": 2608,
+        "startChar": 27,
+        "endLine": 2608,
+        "endChar": 46
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15070609_ab217b20",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -352,6 +448,30 @@
       "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9d1cac7_03b2735a",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T21:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a048db96_e123ed1e",
+      "range": {
+        "startLine": 220,
+        "startChar": 4,
+        "endLine": 220,
+        "endChar": 20
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

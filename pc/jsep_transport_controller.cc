@@ -323,6 +323,32 @@ void JsepTransportController::MaybeStartGathering() {
   }
 }
 
+rtc::scoped_refptr<cricket::IceGatherer>
+JsepTransportController::CreateIceGatherer() {
+  if (!network_thread_->IsCurrent()) {
+    network_thread_->Invoke<void>(RTC_FROM_HERE, [&] { CreateIceGatherer(); });
+    return nullptr;
+  }
+
+  auto random = cricket::IceCredentialsIterator::CreateRandomIceCredentials();
+  return new rtc::RefCountedObject<cricket::IceGatherer>(
+      port_allocator_->CreateSession("shared", 0, random.ufrag, random.pwd));
+}
+
+void JsepTransportController::StartGatheringWithSharedGatherer(
+    rtc::scoped_refptr<cricket::IceGatherer> shared_gatherer) {
+  if (!network_thread_->IsCurrent()) {
+    network_thread_->Invoke<void>(RTC_FROM_HERE, [=] {
+      StartGatheringWithSharedGatherer(std::move(shared_gatherer));
+    });
+    return;
+  }
+
+  for (auto& dtls : GetDtlsTransports()) {
+    dtls->ice_transport()->StartGatheringWithSharedGatherer(shared_gatherer);
+  }
+}
+
 RTCError JsepTransportController::AddRemoteCandidates(
     const std::string& transport_name,
     const cricket::Candidates& candidates) {

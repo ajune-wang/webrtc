@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e21b56a_1797a599",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T17:08:28Z",
+      "side": 1,
+      "message": "Correct.  Pooled sessions and gatherers are completely separate.  I doubt anyone would ever use both pooled sessions and gatherers together, though.  If anyone cared about having the gatherer\u0027s start gathering before SLD is called, we could add a Start() method on the IceGatherer (which is something ORTC has).",
+      "parentUuid": "c8711ad9_d61561bc",
+      "range": {
+        "startLine": 847,
+        "startChar": 18,
+        "endLine": 847,
+        "endChar": 31
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a466f41_66f1cd41",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-03T19:49:11Z",
       "side": 1,
       "message": "Just want to double check we expect |disable_equivalent| should do the dedup for this call.",
+      "range": {
+        "startLine": 878,
+        "startChar": 11,
+        "endLine": 878,
+        "endChar": 28
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a996e2e_5af30ddb",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T17:08:28Z",
+      "side": 1,
+      "message": "Yes, I was relying on StartGettingPorts being a no-op after the first call.  If that\u0027s not true, or we don\u0027t want to rely on it being true, we can put a bool in the IceGatherer object with an IceGatherer::Start() method that checks it and then call IceGatherer-\u003eStart here as well.",
+      "parentUuid": "2a466f41_66f1cd41",
       "range": {
         "startLine": 878,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "eda61282_b790ff5b",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T17:08:28Z",
+      "side": 1,
+      "message": "1.  The current code does role/tiebreaker at the port level, which doesn\u0027t work when doing forking.  A wrote a fix for that in https://webrtc-review.googlesource.com/c/src/+/163400.  If that CL works, then each transport would do its own role/tiebreaker.\n\n2.  If you call StartGathering, you are explicitly providing the IceGatherer and ignoring pooled sessions, so yes, we\u0027d ignore pooled sessions if (for some reason) pooled sessions and IceGatherers were used at the same time.",
+      "parentUuid": "54650189_0be586df",
+      "range": {
+        "startLine": 911,
+        "startChar": 10,
+        "endLine": 911,
+        "endChar": 20
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e783484_bdbae053",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2020-01-03T19:49:11Z",
       "side": 1,
       "message": "nit: the two methods could be renamed to make the distinction a bit clearer, though I don\u0027t have better names...",
+      "range": {
+        "startLine": 2608,
+        "startChar": 27,
+        "endLine": 2608,
+        "endChar": 46
+      },
+      "revId": "b4bc95d979771a7a1e526a172693d377f836ff98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb492b09_b528f2ea",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2608,
+      "author": {
+        "id": 5659
+      },
+      "writtenOn": "2020-01-06T17:08:28Z",
+      "side": 1,
+      "message": "One is definitely gathering with a given IceGatherer and the other is maybe gathering with a new one or a pooled one depending on the latest ICE parameters.  Changing MaybeStartGathering would require a lot of places to be renamed, so I\u0027d rather not rename it.\n\nI\u0027m happy to make StartGathering more explicit though.  Perhaps something like StartGatheringWithSharedGatherer?",
+      "parentUuid": "1e783484_bdbae053",
       "range": {
         "startLine": 2608,
         "startChar": 27,

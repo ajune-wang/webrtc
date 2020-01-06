@@ -114,6 +114,10 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // IceTransportChannel does not depend on this.
   void Connect() {}
   void MaybeStartGathering() override;
+  rtc::scoped_refptr<IceGatherer> CreateGatherer() override;
+  void StartGatheringWithSharedGatherer(
+      rtc::scoped_refptr<cricket::IceGatherer> shared_gatherer) override;
+  rtc::scoped_refptr<IceGatherer> gatherer() override { return gatherer_; }
   IceGatheringState gathering_state() const override;
   void ResolveHostnameCandidate(const Candidate& candidate);
   void AddRemoteCandidate(const Candidate& candidate) override;
@@ -186,10 +190,15 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   // Public for unit tests.
   PortAllocatorSession* allocator_session() const {
     RTC_DCHECK_RUN_ON(network_thread_);
-    if (allocator_sessions_.empty()) {
-      return nullptr;
+    // Owned allocator sessions take precedent over shared ones so that ICE
+    // restarts after forking work properly.
+    if (!allocator_sessions_.empty()) {
+      return allocator_sessions_.back().get();
     }
-    return allocator_sessions_.back().get();
+    if (gatherer_) {
+      return gatherer_->session();
+    }
+    return nullptr;
   }
 
   // Public for unit tests.
@@ -253,6 +262,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
                                PortInterface* origin_port);
   void PingConnection(Connection* conn);
   void AddAllocatorSession(std::unique_ptr<PortAllocatorSession> session);
+  void ListenToAllocatorSession(PortAllocatorSession* session);
   void AddConnection(Connection* connection);
 
   void OnPortReady(PortAllocatorSession* session, PortInterface* port);
@@ -270,7 +280,20 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
                         ProtocolType proto,
                         IceMessage* stun_msg,
                         const std::string& remote_username,
-                        bool port_muxed);
+                        bool port_muxed,
+                        bool shared);
+  void OnUnknownAddressFromOwnedSession(PortInterface* port,
+                                        const rtc::SocketAddress& addr,
+                                        ProtocolType proto,
+                                        IceMessage* stun_msg,
+                                        const std::string& remote_username,
+                                        bool port_muxed);
+  void OnUnknownAddressFromSharedSession(PortInterface* port,
+                                         const rtc::SocketAddress& addr,
+                                         ProtocolType proto,
+                                         IceMessage* stun_msg,
+                                         const std::string& remote_username,
+                                         bool port_muxed);
   void OnCandidateFilterChanged(uint32_t prev_filter, uint32_t cur_filter);
 
   // When a port is destroyed, remove it from both lists |ports_|
@@ -307,6 +330,10 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
       IceControllerEvent reason,
       IceControllerInterface::SwitchResult result);
   void PruneConnections();
+
+  bool IsSharedSession(PortAllocatorSession* session) {
+    return gatherer_ && gatherer_->session() == session;
+  }
 
   // Returns the latest remote ICE parameters or nullptr if there are no remote
   // ICE parameters yet.
@@ -358,6 +385,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   int error_ RTC_GUARDED_BY(network_thread_);
   std::vector<std::unique_ptr<PortAllocatorSession>> allocator_sessions_
       RTC_GUARDED_BY(network_thread_);
+  rtc::scoped_refptr<IceGatherer> gatherer_;
   // |ports_| contains ports that are used to form new connections when
   // new remote candidates are added.
   std::vector<PortInterface*> ports_ RTC_GUARDED_BY(network_thread_);

@@ -325,6 +325,16 @@ class PeerConnection : public PeerConnectionInternal,
   }
   void RequestUsagePatternReportForTesting();
 
+  // Creates an IceGatherer that can be shared/used with SetSharedIceGatherer
+  rtc::scoped_refptr<cricket::IceGatherer> CreateIceGatherer();
+  // SetGatherer with the same IceGatherer on many ICE transports to get
+  // ICE forking behavior.  For example, like so:
+  // auto gatherer = pc1->CreateSharedGatherer();
+  // pc1->SetSharedGatherer(gatherer);
+  // pc2->SetSharedGatherer(gatherer);
+  // Do this before calling CreateOffer/CreateAnswer/SetLocalDescription.
+  void SetIceGatherer(rtc::scoped_refptr<cricket::IceGatherer> ice_gatherer);
+
  protected:
   ~PeerConnection() override;
 
@@ -1387,6 +1397,8 @@ class PeerConnection : public PeerConnectionInternal,
   DataChannelController data_channel_controller_;
   rtc::WeakPtrFactory<PeerConnection> weak_ptr_factory_
       RTC_GUARDED_BY(signaling_thread());
+
+  rtc::scoped_refptr<cricket::IceGatherer> ice_gatherer_;
 };
 
 }  // namespace webrtc

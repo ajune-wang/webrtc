@@ -13,7 +13,9 @@
 
 #include <stdint.h>
 
+#include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -22,6 +24,8 @@
 #include "p2p/base/connection.h"
 #include "p2p/base/packet_transport_internal.h"
 #include "p2p/base/port.h"
+// For PortAllocatorSession
+#include "p2p/base/port_allocator.h"
 #include "p2p/base/transport_description.h"
 #include "rtc_base/network_constants.h"
 #include "rtc_base/system/rtc_export.h"
@@ -210,6 +214,18 @@ enum IceProtocolType {
   ICEPROTO_RFC5245  // Standard RFC 5245 version of ICE.
 };
 
+// Wraps a PortAllocatorSession so it can be shared among
+// different ICE transports for ICE forking.
+class IceGatherer : public rtc::RefCountInterface {
+ public:
+  explicit IceGatherer(std::unique_ptr<PortAllocatorSession> session)
+      : session_(std::move(session)) {}
+  PortAllocatorSession* session() const { return session_.get(); }
+
+ private:
+  std::unique_ptr<PortAllocatorSession> session_;
+};
+
 // IceTransportInternal is an internal abstract class that does ICE.
 // Once the public interface is supported,
 // (https://www.w3.org/TR/webrtc/#rtcicetransport)
@@ -255,6 +271,17 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
   // Start gathering candidates if not already started, or if an ICE restart
   // occurred.
   virtual void MaybeStartGathering() = 0;
+  // Creates an IceGatherer that can be shared/used with StartGathering()
+  virtual rtc::scoped_refptr<IceGatherer> CreateGatherer() { return nullptr; }
+  // Start gathering with the same IceGatherer on many ICE transports to get
+  // ICE forking behavior.  For example, like so:
+  // auto gatherer = transport1->CreateSharedGatherer();
+  // transport1->StartGatheringWithSharedGatherer(gatherer);
+  // transport2->StartGatheringWithSharedGatherer(gatherer);
+  virtual void StartGatheringWithSharedGatherer(
+      rtc::scoped_refptr<cricket::IceGatherer> gatherer) {}
+  // Just for tests
+  virtual rtc::scoped_refptr<IceGatherer> gatherer() { return nullptr; }
 
   virtual void AddRemoteCandidate(const Candidate& candidate) = 0;
 

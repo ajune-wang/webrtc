@@ -91,6 +91,8 @@ bool NetworkNodeTransport::SendRtp(const uint8_t* packet,
     return false;
   rtc::CopyOnWriteBuffer buffer(packet, length,
                                 length + packet_overhead_.bytes());
+  // TODO(srte): Remove this resizing hack in favor of adding per-node overhead
+  // to allow packet inspection on the virtual links.
   buffer.SetSize(length + packet_overhead_.bytes());
   send_net_->OnPacketReceived(
       EmulatedIpPacket(local_address_, receiver_address_, buffer, send_time));
@@ -101,6 +103,8 @@ bool NetworkNodeTransport::SendRtcp(const uint8_t* packet, size_t length) {
   rtc::CopyOnWriteBuffer buffer(packet, length);
   Timestamp send_time = sender_clock_->CurrentTime();
   rtc::CritScope crit(&crit_sect_);
+  // TODO(srte): Remove this resizing hack in favor of adding per-node overhead
+  // to allow packet inspection on the virtual links.
   buffer.SetSize(length + packet_overhead_.bytes());
   if (!send_net_)
     return false;

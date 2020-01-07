@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "393c2f61_42bad0fa",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-07T14:36:48Z",
+      "side": 1,
+      "message": "I think this synchronization still deserves a brief comment, to complement the other longer comment on destruction sequence. E.g., \"Waiting until all book-keeping task are complete ensures that it is safe to destroy the |decode_queue_|.\"",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "c9bd4ecf8acd27dc838944b9a697400e25dfc861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a1d46eb_5181f4ae",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 4
@@ -140,6 +163,30 @@
       "revId": "c9bd4ecf8acd27dc838944b9a697400e25dfc861",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "318675eb_5065e35d",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-07T14:36:48Z",
+      "side": 1,
+      "message": "Thanks, that is clearer.",
+      "parentUuid": "394beff2_e3f16b51",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 35
+      },
+      "revId": "c9bd4ecf8acd27dc838944b9a697400e25dfc861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

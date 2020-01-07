@@ -46,6 +46,30 @@
       "revId": "b08882b625ea245ea1b42c2436c8acc17d9306a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd7e1c98_75c3bb6e",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-07T14:59:06Z",
+      "side": 1,
+      "message": "\"Adaptor\" have several uses in our codebase where it refers to something wrapping something else, or just plumbing something through. I think we need a different word to distinguish \"adaptation-responsible\" from other uses of \"adaptor\".",
+      "parentUuid": "ee04525b_23f3ab84",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "b08882b625ea245ea1b42c2436c8acc17d9306a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

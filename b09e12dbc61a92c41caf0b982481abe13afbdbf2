@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af6fcf9_fb25aa7b",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2020-01-07T18:41:50Z",
+      "side": 1,
+      "message": "Is returning a nullptr the right thing to do here? Shouldn\u0027t this be:\nreturn network_thread_-\u003eInvoke\u003crtc::scoped_refptr\u003ccricket::IceGatherer\u003e\u003e(RTC_FROM_HERE, [\u0026] { CreateIceGatherer(); });",
+      "range": {
+        "startLine": 329,
+        "startChar": 4,
+        "endLine": 330,
+        "endChar": 18
+      },
+      "revId": "b09e12dbc61a92c41caf0b982481abe13afbdbf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8713476_4a226412",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2020-01-07T18:41:50Z",
+      "side": 1,
+      "message": "Documentation says \"SetSharedGatherer\", but method says \"SetIceGatherer\". I don\u0027t have a preference, but it should be consistent.",
+      "range": {
+        "startLine": 336,
+        "startChar": 7,
+        "endLine": 336,
+        "endChar": 21
+      },
+      "revId": "b09e12dbc61a92c41caf0b982481abe13afbdbf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adf15a37_04011367",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1446,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2020-01-07T18:41:50Z",
+      "side": 1,
+      "message": "Does this need to be a wait? Won\u0027t the candidates be reused?",
+      "range": {
+        "startLine": 1446,
+        "startChar": 2,
+        "endLine": 1446,
+        "endChar": 18
+      },
+      "revId": "b09e12dbc61a92c41caf0b982481abe13afbdbf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cc6d013_cb5f41bc",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1449,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2020-01-07T18:41:50Z",
+      "side": 1,
+      "message": "pc2_internal",
+      "range": {
+        "startLine": 1449,
+        "startChar": 39,
+        "endLine": 1449,
+        "endChar": 51
+      },
+      "revId": "b09e12dbc61a92c41caf0b982481abe13afbdbf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

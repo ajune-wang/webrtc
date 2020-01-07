@@ -70,11 +70,11 @@ class RtpRtcpObserver {
  protected:
   RtpRtcpObserver() : RtpRtcpObserver(0) {}
   explicit RtpRtcpObserver(int event_timeout_ms)
-      : parser_(RtpHeaderParser::CreateForTest()),
+      : parser_(RtpHeaderParserForTest::CreateForTest()),
         timeout_ms_(event_timeout_ms) {}
 
   rtc::Event observation_complete_;
-  const std::unique_ptr<RtpHeaderParser> parser_;
+  const std::unique_ptr<RtpHeaderParserForTest> parser_;
 
  private:
   const int timeout_ms_;
@@ -101,7 +101,7 @@ class PacketTransport : public test::DirectTransport {
   bool SendRtp(const uint8_t* packet,
                size_t length,
                const PacketOptions& options) override {
-    EXPECT_FALSE(RtpHeaderParser::IsRtcp(packet, length));
+    EXPECT_FALSE(RtpHeaderParserForTest::IsRtcp(packet, length));
     RtpRtcpObserver::Action action;
     {
       if (transport_type_ == kSender) {
@@ -121,7 +121,7 @@ class PacketTransport : public test::DirectTransport {
   }
 
   bool SendRtcp(const uint8_t* packet, size_t length) override {
-    EXPECT_TRUE(RtpHeaderParser::IsRtcp(packet, length));
+    EXPECT_TRUE(RtpHeaderParserForTest::IsRtcp(packet, length));
     RtpRtcpObserver::Action action;
     {
       if (transport_type_ == kSender) {

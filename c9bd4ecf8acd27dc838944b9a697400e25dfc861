@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "0a1d46eb_5181f4ae",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-07T13:50:27Z",
+      "side": 1,
+      "message": "Would it be possible to move the code around a bit so the diff gets easier to read? You can follow up with a final patchset moving it back after review.",
+      "range": {
+        "startLine": 216,
+        "startChar": 29,
+        "endLine": 216,
+        "endChar": 48
+      },
+      "revId": "c9bd4ecf8acd27dc838944b9a697400e25dfc861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be6c4bee_8f6dc36d",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-07T13:50:27Z",
+      "side": 1,
+      "message": "Suggestion: (if I understand correctly)\nkDecoded,\nkRequestKeyFrame",
+      "range": {
+        "startLine": 47,
+        "startChar": 1,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "c9bd4ecf8acd27dc838944b9a697400e25dfc861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f0e608b_1ad075e8",
         "filename": "video/video_stream_decoder_impl.h",
         "patchSetId": 4

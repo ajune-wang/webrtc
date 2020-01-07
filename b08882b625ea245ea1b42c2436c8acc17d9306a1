@@ -22,6 +22,30 @@
       "revId": "b08882b625ea245ea1b42c2436c8acc17d9306a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee04525b_23f3ab84",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-07T14:55:44Z",
+      "side": 1,
+      "message": "This is landing in several steps due to the size of the work, the idea is that this will be one (of several possible) implementation of ResourceAdaptationModuleInterface.\n\nIn this case, the lengthy and ugly name OveruseFrameDetectorResourceAdaptationModule refers to this being a ResourceAdaptationModuleInterface implementation that is built on top of OveruseFrameDetector. The \"2.0\" implementation of the adaptation module will not be based on the OveruseFrameDetector class, and will be named something else.\n\nI\u0027m happy to rename it, but if so I think we need to rename the OveruseFrameDetector class as well. The name is 1:1 here on purpose.\n\nWith regards to \"module\" adding length without clarity: If we remove module from the name then the corresponding interface would be ResourceAdaptationInterface. Does adaptation make sense, or is it like having a verb when it should be a noun? I don\u0027t have a strong preference, but \"module\" is meant to refer to this being a thing that is injectable, that thing (module) being responsible for adaptation. Suggestions welcome.",
+      "parentUuid": "bc2fa78d_f812b037",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "b08882b625ea245ea1b42c2436c8acc17d9306a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

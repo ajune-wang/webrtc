@@ -18,13 +18,13 @@ namespace webrtc {
 class Clock;
 class RemoteBitrateEstimator;
 class RemoteBitrateObserver;
-class RtpHeaderParser;
+class RtpHeaderParserForTest;
 namespace test {
 class RtpFileReader;
 }
 }  // namespace webrtc
 
-std::unique_ptr<webrtc::RtpHeaderParser> ParseArgsAndSetupEstimator(
+std::unique_ptr<webrtc::RtpHeaderParserForTest> ParseArgsAndSetupEstimator(
     int argc,
     char** argv,
     webrtc::Clock* clock,

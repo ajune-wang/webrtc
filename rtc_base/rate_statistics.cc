@@ -15,14 +15,15 @@
 #include <memory>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
-RateStatistics::RateStatistics(int64_t window_size_ms, float scale)
+RateStatistics::RateStatistics(size_t window_size_ms, float scale)
     : buckets_(new Bucket[window_size_ms]()),
       accumulated_count_(0),
       num_samples_(0),
-      oldest_time_(-window_size_ms),
+      oldest_time_(-static_cast<int>(window_size_ms)),
       oldest_index_(0),
       scale_(scale),
       max_window_size_ms_(window_size_ms),
@@ -30,6 +31,7 @@ RateStatistics::RateStatistics(int64_t window_size_ms, float scale)
 
 RateStatistics::RateStatistics(const RateStatistics& other)
     : accumulated_count_(other.accumulated_count_),
+      overflow_(other.overflow_),
       num_samples_(other.num_samples_),
       oldest_time_(other.oldest_time_),
       oldest_index_(other.oldest_index_),
@@ -47,15 +49,17 @@ RateStatistics::~RateStatistics() {}
 
 void RateStatistics::Reset() {
   accumulated_count_ = 0;
+  overflow_ = false;
   num_samples_ = 0;
-  oldest_time_ = -max_window_size_ms_;
+  oldest_time_ = -static_cast<int>(max_window_size_ms_);
   oldest_index_ = 0;
   current_window_size_ms_ = max_window_size_ms_;
-  for (int64_t i = 0; i < max_window_size_ms_; i++)
+  for (size_t i = 0; i < max_window_size_ms_; i++)
     buckets_[i] = Bucket();
 }
 
-void RateStatistics::Update(size_t count, int64_t now_ms) {
+void RateStatistics::Update(int64_t count, int64_t now_ms) {
+  RTC_DCHECK_LE(0, count);
   if (now_ms < oldest_time_) {
     // Too old data is ignored.
     return;
@@ -74,31 +78,38 @@ void RateStatistics::Update(size_t count, int64_t now_ms) {
     index -= max_window_size_ms_;
   buckets_[index].sum += count;
   ++buckets_[index].samples;
-  accumulated_count_ += count;
+  if (std::numeric_limits<int64_t>::max() - accumulated_count_ > count) {
+    accumulated_count_ += count;
+  } else {
+    overflow_ = true;
+  }
   ++num_samples_;
 }
 
-absl::optional<uint32_t> RateStatistics::Rate(int64_t now_ms) const {
+absl::optional<int64_t> RateStatistics::Rate(int64_t now_ms) const {
   // Yeah, this const_cast ain't pretty, but the alternative is to declare most
   // of the members as mutable...
   const_cast<RateStatistics*>(this)->EraseOld(now_ms);
 
   // If window is a single bucket or there is only one sample in a data set that
-  // has not grown to the full window size, treat this as rate unavailable.
-  int64_t active_window_size = now_ms - oldest_time_ + 1;
+  // has not grown to the full window size, or if the accumulator has
+  // overflowed, treat this as rate unavailable.
+  int active_window_size = now_ms - oldest_time_ + 1;
   if (num_samples_ == 0 || active_window_size <= 1 ||
-      (num_samples_ <= 1 && active_window_size < current_window_size_ms_)) {
+      (num_samples_ <= 1 &&
+       active_window_size < static_cast<int>(current_window_size_ms_)) ||
+      overflow_) {
     return absl::nullopt;
   }
 
-  float scale = scale_ / active_window_size;
+  float scale = static_cast<float>(scale_) / active_window_size;
   float result = accumulated_count_ * scale + 0.5f;
 
   // Better return unavailable rate than garbage value (undefined behavior).
-  if (result > std::numeric_limits<uint32_t>::max()) {
+  if (result > static_cast<float>(std::numeric_limits<int64_t>::max())) {
     return absl::nullopt;
   }
-  return static_cast<uint32_t>(result);
+  return static_cast<int64_t>(result);
 }
 
 void RateStatistics::EraseOld(int64_t now_ms) {
@@ -123,11 +134,13 @@ void RateStatistics::EraseOld(int64_t now_ms) {
     if (++oldest_index_ >= max_window_size_ms_)
       oldest_index_ = 0;
     ++oldest_time_;
+    // This does not clear overflow_ even when counter is empty.
+    // TODO(https://bugs.webrtc.org/11247): Consider if overflow_ can be reset.
   }
   oldest_time_ = new_oldest_time;
 }
 
-bool RateStatistics::SetWindowSize(int64_t window_size_ms, int64_t now_ms) {
+bool RateStatistics::SetWindowSize(size_t window_size_ms, int64_t now_ms) {
   if (window_size_ms <= 0 || window_size_ms > max_window_size_ms_)
     return false;
 
@@ -137,7 +150,7 @@ bool RateStatistics::SetWindowSize(int64_t window_size_ms, int64_t now_ms) {
 }
 
 bool RateStatistics::IsInitialized() const {
-  return oldest_time_ != -max_window_size_ms_;
+  return oldest_time_ != -static_cast<int64_t>(max_window_size_ms_);
 }
 
 }  // namespace webrtc

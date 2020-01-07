@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "audio/audio_receive_stream.h"
+#include "audio/audio_send_stream.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -159,7 +160,7 @@ void AudioState::SetStereoChannelSwapping(bool enable) {
 
 void AudioState::UpdateAudioTransportWithSendingStreams() {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  std::vector<webrtc::AudioSendStream*> sending_streams;
+  std::vector<AudioSender*> sending_streams;
   int max_sample_rate_hz = 8000;
   size_t max_num_channels = 1;
   for (const auto& kv : sending_streams_) {
@@ -167,8 +168,8 @@ void AudioState::UpdateAudioTransportWithSendingStreams() {
     max_sample_rate_hz = std::max(max_sample_rate_hz, kv.second.sample_rate_hz);
     max_num_channels = std::max(max_num_channels, kv.second.num_channels);
   }
-  audio_transport_.UpdateSendingStreams(std::move(sending_streams),
-                                        max_sample_rate_hz, max_num_channels);
+  audio_transport_.UpdateAudioSenders(std::move(sending_streams),
+                                      max_sample_rate_hz, max_num_channels);
 }
 
 void AudioState::UpdateNullAudioPollerState() {

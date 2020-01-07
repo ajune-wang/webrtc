@@ -22,6 +22,30 @@
       "revId": "4cdd7fb898ba36d0ae72afdf5d61f099059b00f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b5146d5_0f2d85d6",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-07T14:26:26Z",
+      "side": 0,
+      "message": "Yes, I added RTC_RUN_ON/RTC_GUARDED_BY to member functions/variables so I hope this should still be fairly clear.",
+      "parentUuid": "6b5bbcd6_2fefaee4",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 73
+      },
+      "revId": "4cdd7fb898ba36d0ae72afdf5d61f099059b00f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

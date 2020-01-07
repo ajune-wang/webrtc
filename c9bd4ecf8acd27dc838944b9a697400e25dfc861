@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fab93d4_452f7063",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-07T14:26:26Z",
+      "side": 1,
+      "message": "I tried to make the diff a bit better, hopefully it\u0027s a little bit clearer.",
+      "parentUuid": "0a1d46eb_5181f4ae",
+      "range": {
+        "startLine": 216,
+        "startChar": 29,
+        "endLine": 216,
+        "endChar": 48
+      },
+      "revId": "c9bd4ecf8acd27dc838944b9a697400e25dfc861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be6c4bee_8f6dc36d",
         "filename": "video/video_stream_decoder_impl.h",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a4e96e4_e1d0806c",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-07T14:26:26Z",
+      "side": 1,
+      "message": "If you look at OnNextFrameCallback you can see that there is a difference in behavior depending on whether we get kOk or kOkRequestKeyframe as a return code from the decoder.",
+      "parentUuid": "be6c4bee_8f6dc36d",
+      "range": {
+        "startLine": 47,
+        "startChar": 1,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "c9bd4ecf8acd27dc838944b9a697400e25dfc861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f0e608b_1ad075e8",
         "filename": "video/video_stream_decoder_impl.h",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-07T13:30:51Z",
       "side": 1,
       "message": "Can you be a bit more explicit? How it matters is obvious to you, now, but likely less obvious to later readers of this code.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 35
+      },
+      "revId": "c9bd4ecf8acd27dc838944b9a697400e25dfc861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "394beff2_e3f16b51",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-07T14:26:26Z",
+      "side": 1,
+      "message": "I expanded the comment a bit",
+      "parentUuid": "4f0e608b_1ad075e8",
       "range": {
         "startLine": 81,
         "startChar": 0,

@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "296382a0_73daae4a",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "please avoid spreading this anti-pattern.\nIt increases risk of subtle deadlocks/limits how application can organize threads.\nIn particular it disallows to use same thread pool for caller of the destructor and for the task queue. \nWhat make it subtle is that usually (specially in unittests) it works, but on high load it can hit thread-starvation deadlock.\n\nSynchronous alternative is to stop the bookkeeping_queue_, then stop the frame_buffer_ on current thread (if really needed)",
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "614b339b_8b40a821",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "move into unnamed namespace.\n\nhttps://abseil.io/tips/119#summary\n\n\"Declare namespace aliases and using-declarations inside the innermost namespace, whether named or anonymous.\"",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b2f5579_d1e1b20f",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "Does StubVideoDecoder need to be derived from the VideoDecoder?\nSince it is wrapped into WrappedVideoDecoder, may be it can be simpler:\n\nclass StubVideoDecoder {\n public:\n  MOCK_METHOD3(Decode, ...);\n  \n  int32_t StubDecode(...) {... Decode()....};\n};\n\nclass WrappedVideoDecoder : public VideoDecoder {\n public:\n  int32_t Decode(...) { stub_decoder_-\u003eStubDecode(...); }\n}",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 44
+      },
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e51f4ed_739f7456",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "may be add to the list of aliases above:\nusing ::testing::NiceMock\n\nto avoid repeating ::testing:: namespace here.",
+      "range": {
+        "startLine": 123,
+        "startChar": 2,
+        "endLine": 123,
+        "endChar": 21
+      },
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a2542c0_ab9058aa",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "what \u0027static\u0027 adds here?",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 6
+      },
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2c61e9d_bf5cdeca",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "this function looks almost like an alias \"using FrameBuilder \u003d FakeEncodedFrameBuilder;\".\nI wonder if it would be cleaner to instead name class above \u0027FrameBuilder\u0027",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 1
+      },
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42822635_3e01dcf2",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "it is a bit safer to put everything (including the fixture class and tests cases) inside the unnamed namespace.",
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d797f741_3eaa3f1c",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "may be just time_controller_\n\n(abbreviation doesn\u0027t align well with general naming rules, and actually there is probably no need to mention type of the time controller here)",
+      "range": {
+        "startLine": 175,
+        "startChar": 32,
+        "endLine": 175,
+        "endChar": 36
+      },
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "febd0fb3_bbd84f7e",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "I do not see requesting a Keyframe in the test body. May be test should be named differently?\n(e.g. something like NotifiesAboutNonDecodableStateUntilKeyframe)",
+      "range": {
+        "startLine": 185,
+        "startChar": 35,
+        "endLine": 185,
+        "endChar": 50
+      },
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa7ba0f1_c5113809",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T15:04:11Z",
+      "side": 1,
+      "message": "may be ON_CALL (https://github.com/google/googletest/blob/master/googlemock/docs/cook_book.md#knowing-when-to-expect-useoncall)\nto make it a bit more visible which statement is an \u0027arrange\u0027 and which one is \u0027assert\u0027",
+      "range": {
+        "startLine": 209,
+        "startChar": 2,
+        "endLine": 209,
+        "endChar": 13
+      },
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

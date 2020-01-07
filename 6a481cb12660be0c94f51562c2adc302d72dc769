@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c70290a6_3542b79c",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-07T15:41:35Z",
+      "side": 1,
+      "message": "Since FrameBuffer::Stop calls RepeatingTaskHandle::Stop, FrameBuffer::Stop must be called on the   |bookeeping_queue_|.\n\nAlso, we can\u0027t destroy the bookkeeping_queue_ before the decoder_ has been destroyed (since it could try to post back to the |bookkeeping_queue_).",
+      "parentUuid": "402a5e45_5ed48837",
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "614b339b_8b40a821",
         "filename": "video/video_stream_decoder_impl_unittest.cc",
         "patchSetId": 5

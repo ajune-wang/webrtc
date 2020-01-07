@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bf362ed_afc9b07d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T12:41:36Z",
+      "side": 1,
+      "message": "where is the second?\nthere is one more in modules/rtp_rtcp/rtp_utility.h, but that one is in different namespace:\nwebrtc::RtpUtility::RtpHeaderParser\n\n(it is still confusing, so I agree it is good idea to rename one in the test/rtp_header_parser, but may be update the description to be technically correct, e.g. \u0027two different RtpHeaderParser classes\u0027)",
+      "range": {
+        "startLine": 9,
+        "startChar": 33,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "bdd169278df0ae840adbffe5e8fadcfdbbf91f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "a43777dead46df4575a58c5ca2733c5f3ff0212b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2333a97_6e1325e2",
+        "filename": "test/fuzzers/rtp_header_parser_fuzzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T12:41:36Z",
+      "side": 0,
+      "message": "Some time ago it wasn\u0027t test-only class. But all production code already updated to a different parser (RtpPacket::Parse)\n\nMay be it\u0027s time to kill this fuzzer.\nOr may be let it live until RtpHeaderParserForTest can be removed completely.",
+      "parentUuid": "5499734c_903e0c4c",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 35
+      },
+      "revId": "a43777dead46df4575a58c5ca2733c5f3ff0212b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -19,10 +19,10 @@ namespace webrtc {
 
 struct RTPHeader;
 
-class RtpHeaderParser {
+class RtpHeaderParserForTest {
  public:
-  static std::unique_ptr<RtpHeaderParser> CreateForTest();
-  virtual ~RtpHeaderParser() {}
+  static std::unique_ptr<RtpHeaderParserForTest> Create();
+  virtual ~RtpHeaderParserForTest() {}
 
   // Returns true if the packet is an RTCP packet, false otherwise.
   static bool IsRtcp(const uint8_t* packet, size_t length);

@@ -1568,8 +1568,8 @@ class WebRtcVideoChannelBaseTest : public ::testing::Test {
 
   static bool ParseRtpPacket(const rtc::CopyOnWriteBuffer* p,
                              webrtc::RTPHeader* header) {
-    std::unique_ptr<webrtc::RtpHeaderParser> parser(
-        webrtc::RtpHeaderParser::CreateForTest());
+    std::unique_ptr<webrtc::RtpHeaderParserForTest> parser(
+        webrtc::RtpHeaderParserForTest::Create());
     return parser->Parse(p->cdata(), p->size(), header);
   }
 

@@ -17,6 +17,7 @@
 
 #include "api/rtp_headers.h"
 #include "api/rtp_parameters.h"
+#include "api/transport/rtp/rtp_packet_type.h"
 #include "media/base/rtp_utils.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "rtc_base/checks.h"
@@ -247,23 +248,24 @@ void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
 
   // When using RTCP multiplexing we might get RTCP packets on the RTP
   // transport. We check the RTP payload type to determine if it is RTCP.
-  auto array_view = rtc::MakeArrayView(data, len);
-  cricket::RtpPacketType packet_type = cricket::InferRtpPacketType(array_view);
+  auto array_view =
+      rtc::MakeArrayView(reinterpret_cast<const uint8_t*>(data), len);
+  RtpPacketType packet_type = InferRtpPacketType(array_view);
   // Filter out the packet that is neither RTP nor RTCP.
-  if (packet_type == cricket::RtpPacketType::kUnknown) {
+  if (packet_type == RtpPacketType::kUnknown) {
     return;
   }
 
   // Protect ourselves against crazy data.
-  if (!cricket::IsValidRtpPacketSize(packet_type, len)) {
+  if (len > cricket::kMaxRtpPacketLen) {
     RTC_LOG(LS_ERROR) << "Dropping incoming "
-                      << cricket::RtpPacketTypeToString(packet_type)
+                      << RtpPacketTypeToString(packet_type)
                       << " packet: wrong size=" << len;
     return;
   }
 
   rtc::CopyOnWriteBuffer packet(data, len);
-  if (packet_type == cricket::RtpPacketType::kRtcp) {
+  if (packet_type == RtpPacketType::kRtcp) {
     OnRtcpPacketReceived(std::move(packet), packet_time_us);
   } else {
     OnRtpPacketReceived(std::move(packet), packet_time_us);

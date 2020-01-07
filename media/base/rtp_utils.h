@@ -43,12 +43,6 @@ enum RtcpTypes {
   kRtcpTypePSFB = 206,   // Payload-specific Feedback message payload type.
 };
 
-enum class RtpPacketType {
-  kRtp,
-  kRtcp,
-  kUnknown,
-};
-
 bool GetRtpPayloadType(const void* data, size_t len, int* value);
 bool GetRtpSeqNum(const void* data, size_t len, int* value);
 bool GetRtpTimestamp(const void* data, size_t len, uint32_t* value);
@@ -62,19 +56,8 @@ bool SetRtpSsrc(void* data, size_t len, uint32_t value);
 // Assumes version 2, no padding, no extensions, no csrcs.
 bool SetRtpHeader(void* data, size_t len, const RtpHeader& header);
 
-bool IsRtpPacket(rtc::ArrayView<const char> packet);
-
-bool IsRtcpPacket(rtc::ArrayView<const char> packet);
-// Checks the packet header to determine if it can be an RTP or RTCP packet.
-RtpPacketType InferRtpPacketType(rtc::ArrayView<const char> packet);
 // True if |payload type| is 0-127.
 bool IsValidRtpPayloadType(int payload_type);
-
-// True if |size| is appropriate for the indicated packet type.
-bool IsValidRtpPacketSize(RtpPacketType packet_type, size_t size);
-
-// Returns "RTCP", "RTP" or "Unknown" according to |packet_type|.
-absl::string_view RtpPacketTypeToString(RtpPacketType packet_type);
 
 // Verifies that a packet has a valid RTP header.
 bool RTC_EXPORT ValidateRtpHeader(const uint8_t* rtp,

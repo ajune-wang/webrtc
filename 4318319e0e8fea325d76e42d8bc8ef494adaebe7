@@ -22,6 +22,30 @@
       "revId": "4318319e0e8fea325d76e42d8bc8ef494adaebe7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "312015a6_a4693a6b",
+        "filename": "call/audio_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-01-07T18:14:19Z",
+      "side": 1,
+      "message": "You\u0027re right.  I have changed to use the audio_frame_api instead of forward declaration. Thanks.",
+      "parentUuid": "ab6a7a72_ab4f8ca4",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 16
+      },
+      "revId": "4318319e0e8fea325d76e42d8bc8ef494adaebe7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

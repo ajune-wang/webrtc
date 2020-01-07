@@ -65,7 +65,7 @@ std::set<uint32_t> SsrcFilter() {
   return ssrcs;
 }
 
-std::unique_ptr<webrtc::RtpHeaderParser> ParseArgsAndSetupEstimator(
+std::unique_ptr<webrtc::RtpHeaderParserForTest> ParseArgsAndSetupEstimator(
     int argc,
     char** argv,
     webrtc::Clock* clock,
@@ -109,7 +109,7 @@ std::unique_ptr<webrtc::RtpHeaderParser> ParseArgsAndSetupEstimator(
   }
 
   // Setup the RTP header parser and the bitrate estimator.
-  auto parser = webrtc::RtpHeaderParser::CreateForTest();
+  auto parser = webrtc::RtpHeaderParserForTest::Create();
   parser->RegisterRtpHeaderExtension(extension, ExtensionId());
   if (estimator) {
     switch (extension) {

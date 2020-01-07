@@ -462,8 +462,8 @@ class RtpReplayer final {
           break;
         case PacketReceiver::DELIVERY_UNKNOWN_SSRC: {
           RTPHeader header;
-          std::unique_ptr<RtpHeaderParser> parser(
-              RtpHeaderParser::CreateForTest());
+          std::unique_ptr<RtpHeaderParserForTest> parser(
+              RtpHeaderParserForTest::Create());
           parser->Parse(packet.data, packet.length, &header);
           if (unknown_packets[header.ssrc] == 0)
             fprintf(stderr, "Unknown SSRC: %u!\n", header.ssrc);
@@ -474,8 +474,8 @@ class RtpReplayer final {
           fprintf(stderr,
                   "Packet error, corrupt packets or incorrect setup?\n");
           RTPHeader header;
-          std::unique_ptr<RtpHeaderParser> parser(
-              RtpHeaderParser::CreateForTest());
+          std::unique_ptr<RtpHeaderParserForTest> parser(
+              RtpHeaderParserForTest::Create());
           parser->Parse(packet.data, packet.length, &header);
           fprintf(stderr, "Packet len=%zu pt=%u seq=%u ts=%u ssrc=0x%8x\n",
                   packet.length, header.payloadType, header.sequenceNumber,

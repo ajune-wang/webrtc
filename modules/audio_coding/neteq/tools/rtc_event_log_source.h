@@ -23,7 +23,7 @@
 
 namespace webrtc {
 
-class RtpHeaderParser;
+class RtpHeaderParserForTest;
 
 namespace test {
 

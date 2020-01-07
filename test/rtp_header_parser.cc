@@ -18,7 +18,7 @@
 
 namespace webrtc {
 
-class RtpHeaderParserImpl : public RtpHeaderParser {
+class RtpHeaderParserImpl : public RtpHeaderParserForTest {
  public:
   RtpHeaderParserImpl();
   ~RtpHeaderParserImpl() override = default;
@@ -39,19 +39,19 @@ class RtpHeaderParserImpl : public RtpHeaderParser {
       RTC_GUARDED_BY(critical_section_);
 };
 
-std::unique_ptr<RtpHeaderParser> RtpHeaderParser::CreateForTest() {
+std::unique_ptr<RtpHeaderParserForTest> RtpHeaderParserForTest::Create() {
   return std::make_unique<RtpHeaderParserImpl>();
 }
 
 RtpHeaderParserImpl::RtpHeaderParserImpl() {}
 
-bool RtpHeaderParser::IsRtcp(const uint8_t* packet, size_t length) {
+bool RtpHeaderParserForTest::IsRtcp(const uint8_t* packet, size_t length) {
   RtpUtility::RtpHeaderParser rtp_parser(packet, length);
   return rtp_parser.RTCP();
 }
 
-absl::optional<uint32_t> RtpHeaderParser::GetSsrc(const uint8_t* packet,
-                                                  size_t length) {
+absl::optional<uint32_t> RtpHeaderParserForTest::GetSsrc(const uint8_t* packet,
+                                                         size_t length) {
   RtpUtility::RtpHeaderParser rtp_parser(packet, length);
   RTPHeader header;
   if (rtp_parser.Parse(&header, nullptr)) {

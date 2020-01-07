@@ -204,7 +204,7 @@ CallClient::CallClient(
       clock_(time_controller->GetClock()),
       log_writer_factory_(std::move(log_writer_factory)),
       network_controller_factory_(log_writer_factory_.get(), config.transport),
-      header_parser_(RtpHeaderParser::CreateForTest()),
+      header_parser_(RtpHeaderParserForTest::Create()),
       task_queue_(time_controller->GetTaskQueueFactory()->CreateTaskQueue(
           "CallClient",
           TaskQueueFactory::Priority::NORMAL)) {
@@ -270,8 +270,9 @@ void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
   packet.data.SetSize(size);
 
   MediaType media_type = MediaType::ANY;
-  if (!RtpHeaderParser::IsRtcp(packet.cdata(), packet.data.size())) {
-    auto ssrc = RtpHeaderParser::GetSsrc(packet.cdata(), packet.data.size());
+  if (!RtpHeaderParserForTest::IsRtcp(packet.cdata(), packet.data.size())) {
+    auto ssrc =
+        RtpHeaderParserForTest::GetSsrc(packet.cdata(), packet.data.size());
     RTC_CHECK(ssrc.has_value());
     media_type = ssrc_media_types_[*ssrc];
   }

@@ -20,12 +20,11 @@
 namespace webrtc {
 
 void FuzzOneInput(const uint8_t* data, size_t size) {
-  RtpHeaderParser::IsRtcp(data, size);
-  RtpHeaderParser::GetSsrc(data, size);
+  RtpHeaderParserForTest::IsRtcp(data, size);
+  RtpHeaderParserForTest::GetSsrc(data, size);
   RTPHeader rtp_header;
 
-  std::unique_ptr<RtpHeaderParser> rtp_header_parser(
-      RtpHeaderParser::CreateForTest());
+  auto rtp_header_parser(RtpHeaderParserForTest::Create());
 
   rtp_header_parser->Parse(data, size, &rtp_header);
   for (int i = 1; i < kRtpExtensionNumberOfExtensions; ++i) {

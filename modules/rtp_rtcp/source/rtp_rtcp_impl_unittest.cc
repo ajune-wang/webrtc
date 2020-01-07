@@ -67,7 +67,8 @@ class SendTransport : public Transport {
                size_t len,
                const PacketOptions& options) override {
     RTPHeader header;
-    std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::CreateForTest());
+    std::unique_ptr<RtpHeaderParserForTest> parser(
+        RtpHeaderParserForTest::Create());
     EXPECT_TRUE(parser->Parse(static_cast<const uint8_t*>(data), len, &header));
     ++rtp_packets_sent_;
     last_rtp_header_ = header;

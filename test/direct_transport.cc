@@ -26,7 +26,7 @@ Demuxer::Demuxer(const std::map<uint8_t, MediaType>& payload_type_map)
 
 MediaType Demuxer::GetMediaType(const uint8_t* packet_data,
                                 const size_t packet_length) const {
-  if (!RtpHeaderParser::IsRtcp(packet_data, packet_length)) {
+  if (!RtpHeaderParserForTest::IsRtcp(packet_data, packet_length)) {
     RTC_CHECK_GE(packet_length, 2);
     const uint8_t payload_type = packet_data[1] & 0x7f;
     std::map<uint8_t, MediaType>::const_iterator it =

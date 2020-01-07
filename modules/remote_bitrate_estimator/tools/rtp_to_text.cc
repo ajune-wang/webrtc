@@ -20,8 +20,9 @@
 
 int main(int argc, char* argv[]) {
   std::unique_ptr<webrtc::test::RtpFileReader> reader;
-  std::unique_ptr<webrtc::RtpHeaderParser> parser(ParseArgsAndSetupEstimator(
-      argc, argv, nullptr, nullptr, &reader, nullptr, nullptr));
+  std::unique_ptr<webrtc::RtpHeaderParserForTest> parser(
+      ParseArgsAndSetupEstimator(argc, argv, nullptr, nullptr, &reader, nullptr,
+                                 nullptr));
   if (!parser)
     return -1;
 

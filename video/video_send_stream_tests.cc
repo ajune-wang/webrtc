@@ -1631,7 +1631,7 @@ TEST_F(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
 
    private:
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
-      if (RtpHeaderParser::IsRtcp(packet, length))
+      if (RtpHeaderParserForTest::IsRtcp(packet, length))
         return DROP_PACKET;
 
       RtpPacket rtp_packet;

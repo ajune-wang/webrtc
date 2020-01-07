@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5499734c_903e0c4c",
+        "filename": "test/fuzzers/rtp_header_parser_fuzzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2020-01-07T12:37:14Z",
+      "side": 0,
+      "message": "Was/is this a mistake? Why are we fuzzing the test class?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 35
+      },
+      "revId": "a43777dead46df4575a58c5ca2733c5f3ff0212b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "165c0149_b2f003fa",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T12:38:14Z",
+      "side": 1,
+      "message": "please use same variable name in .h and .cc (currently it is capture_timestamp in .h and rtp_timestamp in .cc.\nmay be actually merge these two names: capture_rtp_timestamp/capture_timestamp_rtp/rtp_capture_timestamp, specially that now there is another \u0027capture\u0027 timestamp that is not \u0027rtp\u0027)",
+      "range": {
+        "startLine": 158,
+        "startChar": 40,
+        "endLine": 158,
+        "endChar": 43
+      },
+      "revId": "5516ddde4c9466a23c34764aed8028d71f08e402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44b8e2ae_4821aace",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-07T12:38:14Z",
+      "side": 1,
+      "message": "nit: HasExtension\nslightly better describes the intent.",
+      "range": {
+        "startLine": 145,
+        "startChar": 20,
+        "endLine": 145,
+        "endChar": 23
+      },
+      "revId": "5516ddde4c9466a23c34764aed8028d71f08e402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

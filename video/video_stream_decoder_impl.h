@@ -45,10 +45,8 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
  private:
   enum DecodeResult {
     kOk,
+    kOkRequestKeyframe,
     kDecodeFailure,
-    kNoFrame,
-    kNoDecoder,
-    kShutdown,
   };
 
   struct FrameTimestamps {
@@ -57,11 +55,21 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
     int64_t render_time_us;
   };
 
-  VideoDecoder* GetDecoder(int payload_type);
-  static void DecodeLoop(void* ptr);
-  DecodeResult DecodeNextFrame(int max_wait_time_ms, bool keyframe_required);
+  void SaveFrameTimestamps(const video_coding::EncodedFrame& frame)
+      RTC_RUN_ON(bookkeeping_queue_);
+  FrameTimestamps* GetFrameTimestamps(int64_t timestamp)
+      RTC_RUN_ON(bookkeeping_queue_);
+  void StartNextDecode() RTC_RUN_ON(bookkeeping_queue_);
+  void OnNextFrameCallback(std::unique_ptr<video_coding::EncodedFrame> frame,
+                           video_coding::FrameBuffer::ReturnReason res)
+      RTC_RUN_ON(bookkeeping_queue_);
 
-  FrameTimestamps* GetFrameTimestamps(int64_t timestamp);
+  VideoDecoder* GetDecoder(int payload_type) RTC_RUN_ON(decode_queue_);
+  VideoStreamDecoderImpl::DecodeResult DecodeFrame(
+      std::unique_ptr<video_coding::EncodedFrame> frame)
+      RTC_RUN_ON(decode_queue_);
+
+  void RequestKeyframe();
 
   // Implements DecodedImageCallback interface
   int32_t Decoded(VideoFrame& decodedImage) override;
@@ -70,23 +78,19 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
                absl::optional<int32_t> decode_time_ms,
                absl::optional<uint8_t> qp) override;
 
+  // NOTE! The destruction order of |bookkeeping_queue_|, |decoder_| and
+  //       |decode_queue_| matters.
+  rtc::TaskQueue bookkeeping_queue_;
+  std::unique_ptr<VideoDecoder> decoder_ RTC_GUARDED_BY(decode_queue_);
+  rtc::TaskQueue decode_queue_;
+
+  VCMTiming timing_;
   VideoStreamDecoderInterface::Callbacks* const callbacks_
       RTC_PT_GUARDED_BY(bookkeeping_queue_);
-  VideoDecoderFactory* const decoder_factory_;
-  std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings_;
-
-  // The |bookkeeping_queue_| is used to:
-  //  - Make |callbacks_|.
-  //  - Insert/extract frames from the |frame_buffer_|
-  //  - Synchronize with whatever thread that makes the Decoded callback.
-  rtc::TaskQueue bookkeeping_queue_;
-
-  rtc::PlatformThread decode_thread_;
-  VCMTiming timing_;
-  video_coding::FrameBuffer frame_buffer_;
-  video_coding::VideoLayerFrameId last_continuous_id_;
-  absl::optional<int> current_payload_type_;
-  std::unique_ptr<VideoDecoder> decoder_;
+  video_coding::FrameBuffer frame_buffer_ RTC_GUARDED_BY(bookkeeping_queue_);
+  video_coding::VideoLayerFrameId last_continuous_id_
+      RTC_GUARDED_BY(bookkeeping_queue_);
+  bool keyframe_required_ RTC_GUARDED_BY(bookkeeping_queue_);
 
   // Some decoders are pipelined so it is not sufficient to save frame info
   // for the last frame only.
@@ -94,6 +98,11 @@ class VideoStreamDecoderImpl : public VideoStreamDecoderInterface,
   std::array<FrameTimestamps, kFrameTimestampsMemory> frame_timestamps_
       RTC_GUARDED_BY(bookkeeping_queue_);
   int next_frame_timestamps_index_ RTC_GUARDED_BY(bookkeeping_queue_);
+
+  absl::optional<int> current_payload_type_ RTC_GUARDED_BY(decode_queue_);
+  VideoDecoderFactory* const decoder_factory_ RTC_PT_GUARDED_BY(decode_queue_);
+  std::map<int, std::pair<SdpVideoFormat, int>> decoder_settings_
+      RTC_GUARDED_BY(decode_queue_);
 };
 
 }  // namespace webrtc

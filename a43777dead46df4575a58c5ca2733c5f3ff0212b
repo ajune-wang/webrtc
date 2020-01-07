@@ -94,6 +94,30 @@
       "revId": "a43777dead46df4575a58c5ca2733c5f3ff0212b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2fdefc28_399c173a",
+        "filename": "test/fuzzers/rtp_header_parser_fuzzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2020-01-07T13:13:28Z",
+      "side": 0,
+      "message": "Great! Thanks.",
+      "parentUuid": "82eb0ace_020e349a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 35
+      },
+      "revId": "a43777dead46df4575a58c5ca2733c5f3ff0212b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

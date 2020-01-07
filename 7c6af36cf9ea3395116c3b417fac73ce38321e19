@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffd70f2c_70641cca",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-07T10:24:41Z",
+      "side": 1,
+      "message": "Is there a strong need for an unsigned type here? If not, use int64_t instead. https://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "revId": "7c6af36cf9ea3395116c3b417fac73ce38321e19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d63632ca_d4c1009c",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-07T10:24:41Z",
+      "side": 1,
+      "message": "Why not change both of these?",
+      "revId": "7c6af36cf9ea3395116c3b417fac73ce38321e19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6de37ce7_7823785b",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-07T10:24:41Z",
+      "side": 1,
+      "message": "This one too?",
+      "revId": "7c6af36cf9ea3395116c3b417fac73ce38321e19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cdf0f2f_d60a1375",
+        "filename": "rtc_base/rate_tracker.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-07T10:24:41Z",
+      "side": 1,
+      "message": "This looks like it\u0027s used as the size of an array in memory. In that case, size_t is arguably the correct choice. int would also be reasonable, in case you\u0027re sure it\u0027ll never be more than a billion or so.",
+      "range": {
+        "startLine": 24,
+        "startChar": 43,
+        "endLine": 24,
+        "endChar": 64
+      },
+      "revId": "7c6af36cf9ea3395116c3b417fac73ce38321e19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

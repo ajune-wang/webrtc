@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ca91bde6_07c8ef0e",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-07T15:17:45Z",
+      "side": 1,
+      "message": "\u003e Synchronous alternative is to stop the bookkeeping_queue_, then stop the frame_buffer_ on current thread (if really needed)\n\nStopping the queue, is that TaskQueueBase::Delete() ?",
+      "parentUuid": "296382a0_73daae4a",
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "614b339b_8b40a821",
         "filename": "video/video_stream_decoder_impl_unittest.cc",
         "patchSetId": 5

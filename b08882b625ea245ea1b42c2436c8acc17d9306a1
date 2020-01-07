@@ -70,6 +70,30 @@
       "revId": "b08882b625ea245ea1b42c2436c8acc17d9306a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4972bbba_f6358a8f",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-07T15:11:10Z",
+      "side": 1,
+      "message": "If I search for Adaptor in the webrtc tree, most of the matches seem related to AudioNetworkAdaptor, which I think uses \"adaptor\" to mean a decision maker rather than a wrapper to adapt some interface. While \"Adapter\" seems more common for the other meaning.\n\nI\u0027d be ok with VideoStreamAdaptorInterface, although I think it\u0027s maybe unfortunate that it isn\u0027t spelled out that it belongs on the send side.\n\nProper name also depends on the scope of intended responsibility. I think it would make sense with a class responsible for all decision making needed by VideoStreamEncoder. We may want to change\n\n* resolution\n* frame rate\n* encoder choice and speed settings\n\nin response to signals such as encode load from this encoder (i.e., what the OveruseFrameDetector is doing), quality measures such as QP, the bandwidth etimate, overall system load, etc.",
+      "parentUuid": "dd7e1c98_75c3bb6e",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "b08882b625ea245ea1b42c2436c8acc17d9306a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

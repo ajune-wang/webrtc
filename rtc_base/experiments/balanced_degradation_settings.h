@@ -27,19 +27,28 @@ class BalancedDegradationSettings {
 
   struct CodecTypeSpecific {
     CodecTypeSpecific() {}
-    CodecTypeSpecific(int qp_low, int qp_high, int fps)
-        : qp_low(qp_low), qp_high(qp_high), fps(fps) {}
+    CodecTypeSpecific(int qp_low, int qp_high, int fps, int kbps, int kbps_res)
+        : qp_low(qp_low),
+          qp_high(qp_high),
+          fps(fps),
+          kbps(kbps),
+          kbps_res(kbps_res) {}
 
     bool operator==(const CodecTypeSpecific& o) const {
-      return qp_low == o.qp_low && qp_high == o.qp_high && fps == o.fps;
+      return qp_low == o.qp_low && qp_high == o.qp_high && fps == o.fps &&
+             kbps == o.kbps && kbps_res == o.kbps_res;
     }
 
     absl::optional<int> GetQpLow() const;
     absl::optional<int> GetQpHigh() const;
     absl::optional<int> GetFps() const;
+    absl::optional<int> GetKbps() const;
+    absl::optional<int> GetKbpsRes() const;
     int qp_low = 0;
     int qp_high = 0;
     int fps = 0;
+    int kbps = 0;
+    int kbps_res = 0;
   };
 
   struct Config {
@@ -84,13 +93,11 @@ class BalancedDegradationSettings {
   int MinFps(VideoCodecType type, int pixels) const;
   int MaxFps(VideoCodecType type, int pixels) const;
 
-  // Gets the bitrate for the first resolution above |pixels|.
-  absl::optional<int> NextHigherBitrateKbps(int pixels) const;
-  absl::optional<int> ResolutionNextHigherBitrateKbps(int pixels) const;
-
   // Checks if quality can be increased based on |pixels| and |bitrate_bps|.
-  bool CanAdaptUp(int pixels, uint32_t bitrate_bps) const;
-  bool CanAdaptUpResolution(int pixels, uint32_t bitrate_bps) const;
+  bool CanAdaptUp(VideoCodecType type, int pixels, uint32_t bitrate_bps) const;
+  bool CanAdaptUpResolution(VideoCodecType type,
+                            int pixels,
+                            uint32_t bitrate_bps) const;
 
   // Gets the min framerate diff from |configs_| based on |pixels|.
   absl::optional<int> MinFpsDiff(int pixels) const;

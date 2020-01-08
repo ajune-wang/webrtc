@@ -22,6 +22,30 @@
       "revId": "e193252977f74b72b306b7dd4512c9fcc1b19ac2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e30e94c8_beca86ee",
+        "filename": "test/network/fake_network_socket_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-08T14:21:36Z",
+      "side": 1,
+      "message": "Good suggestion, I checked and we currently use FakeNetworkSocket::ProcessIo causing us to require that the sockets_ vector is FakeNetworkSocket specific. I do have some thought on how this could be avoided though, but that will be in a later CL.",
+      "parentUuid": "42d8e86e_8441d52c",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 45
+      },
+      "revId": "e193252977f74b72b306b7dd4512c9fcc1b19ac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

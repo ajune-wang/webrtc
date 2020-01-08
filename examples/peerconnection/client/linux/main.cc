@@ -32,9 +32,7 @@ class CustomSocketServer : public rtc::PhysicalSocketServer {
       : wnd_(wnd), conductor_(NULL), client_(NULL) {}
   virtual ~CustomSocketServer() {}
 
-  void SetMessageQueue(rtc::MessageQueue* queue) override {
-    message_queue_ = queue;
-  }
+  void SetMessageQueue(rtc::Thread* queue) override { message_queue_ = queue; }
 
   void set_client(PeerConnectionClient* client) { client_ = client; }
   void set_conductor(Conductor* conductor) { conductor_ = conductor; }
@@ -58,7 +56,7 @@ class CustomSocketServer : public rtc::PhysicalSocketServer {
   }
 
  protected:
-  rtc::MessageQueue* message_queue_;
+  rtc::Thread* message_queue_;
   GtkMainWnd* wnd_;
   Conductor* conductor_;
   PeerConnectionClient* client_;

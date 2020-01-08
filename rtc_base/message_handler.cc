@@ -15,7 +15,7 @@
 namespace rtc {
 
 MessageHandler::~MessageHandler() {
-  MessageQueueManager::Clear(this);
+  ThreadManager::Clear(this);
 }
 
 }  // namespace rtc

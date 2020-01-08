@@ -599,7 +599,7 @@ VirtualSocket* VirtualSocketServer::CreateSocketInternal(int family, int type) {
   return socket;
 }
 
-void VirtualSocketServer::SetMessageQueue(MessageQueue* msg_queue) {
+void VirtualSocketServer::SetMessageQueue(Thread* msg_queue) {
   msg_queue_ = msg_queue;
   if (msg_queue_) {
     msg_queue_->SignalQueueDestroyed.connect(

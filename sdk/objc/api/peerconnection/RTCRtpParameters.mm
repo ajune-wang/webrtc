@@ -99,8 +99,12 @@
 }
 
 + (RTCDegradationPreference)degradationPreferenceFromNativeDegradationPreference:
-    (webrtc::DegradationPreference)nativeDegradationPreference {
-  switch (nativeDegradationPreference) {
+    (absl::optional<webrtc::DegradationPreference>)nativeDegradationPreference {
+  if (!nativeDegradationPreference.has_value()) {
+    return nil;
+  }
+
+  switch (*nativeDegradationPreference) {
     case webrtc::DegradationPreference::DISABLED:
       return RTCDegradationPreferenceDisabled;
     case webrtc::DegradationPreference::MAINTAIN_FRAMERATE:

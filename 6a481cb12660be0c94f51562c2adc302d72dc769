@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "b0003848_de2f3cc0",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-08T07:36:05Z",
+      "side": 1,
+      "message": "If we call book_keeping_queue_.Delete() before FrameBuffer::Stop(), then calling RepeatingTaskHandle::Stop in the latter is unnecessary, right? Delete ought to \"stop\" any repeating tasks.\n\nAre there any other callers of FrameBuffer::Stop()? I see some options if we don\u0027t dare delete the call from Stop to CancelCallback right away. I think it\u0027s worth some effort to try to get this right, to have an example of doing a complex shutdown without the hack of posttask + wait.\n\nI think FrameBuffer::Stop() is a bit fishy. On one hand, it must be called on the same task queue passed to NextFrame, since it (indirectly) calls RepeatingTaskHandle::Stop(). But it nevertheless takes a mutex. Something that tasks usually shouldn\u0027t do.\n\nAnd would it make sense to take callback_queue_ as an argument to the FrameBuffer constructor, rather than as an argument to NextFrame?",
+      "parentUuid": "f3d8a630_6a417c25",
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "614b339b_8b40a821",
         "filename": "video/video_stream_decoder_impl_unittest.cc",
         "patchSetId": 5

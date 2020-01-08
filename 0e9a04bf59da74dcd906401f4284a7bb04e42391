@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "109ee653_68cb4f2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-01-08T09:18:55Z",
+      "side": 1,
+      "message": "Please reference an appropriate feature bug",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 5
+      },
+      "revId": "0e9a04bf59da74dcd906401f4284a7bb04e42391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01521bf3_16a18de1",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/Camera1CapturerUsingByteBufferTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-01-08T09:18:55Z",
+      "side": 1,
+      "message": "Please add literal comments: /*specifyCameraName\u003d*/ true",
+      "range": {
+        "startLine": 120,
+        "startChar": 26,
+        "endLine": 120,
+        "endChar": 30
+      },
+      "revId": "0e9a04bf59da74dcd906401f4284a7bb04e42391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cec9c282_1ea78885",
+        "filename": "sdk/android/src/java/org/webrtc/CameraCapturer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-01-08T09:18:55Z",
+      "side": 1,
+      "message": "I don\u0027t think it is good to cache the camera names as these might change at runtime. (New camera may be plugged in or removed.)",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 41
+      },
+      "revId": "0e9a04bf59da74dcd906401f4284a7bb04e42391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2314af2b_038ebef2",
+        "filename": "sdk/android/src/java/org/webrtc/CameraCapturer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-01-08T09:18:55Z",
+      "side": 1,
+      "message": "nit: @NonNull is not used in the codebase",
+      "range": {
+        "startLine": 391,
+        "startChar": 7,
+        "endLine": 391,
+        "endChar": 14
+      },
+      "revId": "0e9a04bf59da74dcd906401f4284a7bb04e42391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -70,10 +70,7 @@ class DecisionLogic : public NetEqController {
   // Adds |value| to |sample_memory_|.
   void AddSampleMemory(int32_t value) override { sample_memory_ += value; }
 
-  int TargetLevelMs() override {
-    return ((delay_manager_->TargetLevel() * packet_length_samples_) >> 8) /
-           rtc::CheckedDivExact(sample_rate_, 1000);
-  }
+  int TargetLevelMs() override { return delay_manager_->TargetLevel(); }
 
   absl::optional<int> PacketArrived(bool last_cng_or_dtmf,
                                     size_t packet_length_samples,
@@ -82,7 +79,7 @@ class DecisionLogic : public NetEqController {
                                     uint32_t main_timestamp,
                                     int fs_hz) override;
 
-  void RegisterEmptyPacket() override { delay_manager_->RegisterEmptyPacket(); }
+  void RegisterEmptyPacket() override {}
 
   bool SetMaximumDelay(int delay_ms) override {
     return delay_manager_->SetMaximumDelay(delay_ms);
@@ -135,20 +132,11 @@ class DecisionLogic : public NetEqController {
   virtual NetEq::Operation NoPacket(bool play_dtmf);
 
   // Returns the operation to do given that the expected packet is available.
-  virtual NetEq::Operation ExpectedPacketAvailable(NetEq::Mode prev_mode,
-                                                   bool play_dtmf);
+  virtual NetEq::Operation ExpectedPacketAvailable(const NetEqStatus& status);
 
   // Returns the operation to do given that the expected packet is not
   // available, but a packet further into the future is at hand.
-  virtual NetEq::Operation FuturePacketAvailable(
-      size_t decoder_frame_length,
-      NetEq::Mode prev_mode,
-      uint32_t target_timestamp,
-      uint32_t available_timestamp,
-      bool play_dtmf,
-      size_t generated_noise_samples,
-      size_t span_samples_in_packet_buffer,
-      size_t num_packets_in_packet_buffer);
+  virtual NetEq::Operation FuturePacketAvailable(const NetEqStatus& status);
 
   // Checks if enough time has elapsed since the last successful timescale
   // operation was done (i.e., accelerate or preemptive expand).

@@ -53,30 +53,11 @@ class DelayManager {
                                      uint32_t timestamp,
                                      int sample_rate_hz);
 
-  // Calculates a new target buffer level. Called from the Update() method.
-  // Sets target_level_ (in Q8) and returns the same value. Also calculates
-  // and updates base_target_level_, which is the target buffer level before
-  // taking delay peaks into account.
-  virtual int CalculateTargetLevel();
-
-  // Notifies the DelayManager of how much audio data is carried in each packet.
-  // The method updates the DelayPeakDetector too, and resets the inter-arrival
-  // time counter. Returns 0 on success, -1 on failure.
-  virtual int SetPacketAudioLength(int length_ms);
-
   // Resets the DelayManager and the associated DelayPeakDetector.
   virtual void Reset();
 
   // Reset the inter-arrival time counter to 0.
   virtual void ResetPacketIatCount();
-
-  // Writes the lower and higher limits which the buffer level should stay
-  // within to the corresponding pointers. The values are in (fractions of)
-  // packets in Q8.
-  virtual void BufferLimits(int* lower_limit, int* higher_limit) const;
-  virtual void BufferLimits(int target_level,
-                            int* lower_limit,
-                            int* higher_limit) const;
 
   // Gets the target buffer level, in (fractions of) packets in Q8.
   virtual int TargetLevel() const;
@@ -85,18 +66,12 @@ class DelayManager {
   // speech.
   virtual void LastDecodedWasCngOrDtmf(bool it_was);
 
-  // Notify the delay manager that empty packets have been received. These are
-  // packets that are part of the sequence number series, so that an empty
-  // packet will shift the sequence numbers for the following packets.
-  virtual void RegisterEmptyPacket();
-
   // Accessors and mutators.
   // Assuming |delay| is in valid range.
   virtual bool SetMinimumDelay(int delay_ms);
   virtual bool SetMaximumDelay(int delay_ms);
   virtual bool SetBaseMinimumDelay(int delay_ms);
   virtual int GetBaseMinimumDelay() const;
-  virtual int base_target_level() const;
   virtual int last_pack_cng_or_dtmf() const;
   virtual void set_last_pack_cng_or_dtmf(int value);
 
@@ -153,14 +128,7 @@ class DelayManager {
 
   // Time elapsed since last packet.
   std::unique_ptr<TickTimer::Stopwatch> packet_iat_stopwatch_;
-  int base_target_level_;  // Currently preferred buffer level before peak
-                           // detection and streaming mode (Q0).
-  // TODO(turajs) change the comment according to the implementation of
-  // minimum-delay.
-  int target_level_;         // Currently preferred buffer level in (fractions)
-                             // of packets (Q8), before adding any extra delay.
-  int packet_len_ms_;        // Length of audio in each incoming packet [ms].
-  uint16_t last_seq_no_;     // Sequence number for last received packet.
+  int target_level_;  // Currently preferred buffer level in milliseconds.
   uint32_t last_timestamp_;  // Timestamp for the last received packet.
   int minimum_delay_ms_;     // Externally set minimum delay.
   int maximum_delay_ms_;     // Externally set maximum allowed delay.

@@ -54,7 +54,7 @@ public class RtpSenderTest {
 
     RtpParameters parameters = sender.getParameters();
     assertNotNull(parameters);
-    assertEquals(DegradationPreference.BALANCED, parameters.degradationPreference);
+    assertNull(parameters.degradationPreference);
 
     parameters.degradationPreference = DegradationPreference.MAINTAIN_FRAMERATE;
     assertTrue(sender.setParameters(parameters));

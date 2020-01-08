@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b61dbf9_d753d2cc",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-01-08T12:15:31Z",
+      "side": 1,
+      "message": "Can these names be more verbose? Something like {parameter}_{units}.",
+      "range": {
+        "startLine": 30,
+        "startChar": 51,
+        "endLine": 30,
+        "endChar": 78
+      },
+      "revId": "025cba54d6a6e58e1033c2f91a1a5b30fabdb44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

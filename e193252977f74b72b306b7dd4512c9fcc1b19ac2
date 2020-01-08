@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42d8e86e_8441d52c",
+        "filename": "test/network/fake_network_socket_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2020-01-08T14:12:41Z",
+      "side": 1,
+      "message": "Would it make sense for this method take a rtc::Socket instead, as that\u0027s the type created by CreateSocket/CreateAsyncSocket?\n\nIf that works, also remove the forward declaration.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 45
+      },
+      "revId": "e193252977f74b72b306b7dd4512c9fcc1b19ac2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

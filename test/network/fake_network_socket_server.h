@@ -18,11 +18,11 @@
 #include "rtc_base/async_socket.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
-#include "rtc_base/message_queue.h"
 #include "rtc_base/socket.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/socket_server.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "rtc_base/thread.h"
 #include "system_wrappers/include/clock.h"
 #include "test/network/fake_network_socket.h"
 
@@ -49,7 +49,7 @@ class FakeNetworkSocketServer : public rtc::SocketServer,
   // rtc::SocketServer methods:
   // Called by the network thread when this server is installed, kicking off the
   // message handler loop.
-  void SetMessageQueue(rtc::MessageQueue* msg_queue) override;
+  void SetMessageQueue(rtc::Thread* msg_queue) override;
   bool Wait(int cms, bool process_io) override;
   void WakeUp() override;
 
@@ -59,7 +59,7 @@ class FakeNetworkSocketServer : public rtc::SocketServer,
   Clock* const clock_;
   const EndpointsContainer* endpoints_container_;
   rtc::Event wakeup_;
-  rtc::MessageQueue* msg_queue_;
+  rtc::Thread* msg_queue_;
 
   rtc::CriticalSection lock_;
   std::set<SocketIoProcessor*> io_processors_ RTC_GUARDED_BY(lock_);

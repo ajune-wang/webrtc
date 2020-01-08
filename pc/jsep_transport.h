@@ -37,10 +37,10 @@
 #include "pc/srtp_transport.h"
 #include "pc/transport_stats.h"
 #include "rtc_base/constructor_magic.h"
-#include "rtc_base/message_queue.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "rtc_base/thread.h"
 #include "rtc_base/thread_checker.h"
 
 namespace cricket {

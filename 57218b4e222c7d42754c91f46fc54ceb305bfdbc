@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faa12e23_5248e414",
+        "filename": "test/fuzzers/rtp_depacketizer_av1_parse_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-08T16:42:56Z",
+      "side": 0,
+      "message": "av1 Parse was simplified in https://webrtc-review.googlesource.com/c/src/+/161013 after related spec change.\nNow it just extracts few bits from the 1st byte.\nFuzzing that is overkill (assemble frame is still complicated and inspects packets deeply, so that fuzzer is kept.)",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 20
+      },
+      "revId": "57218b4e222c7d42754c91f46fc54ceb305bfdbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

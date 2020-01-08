@@ -46,6 +46,30 @@
       "revId": "025cba54d6a6e58e1033c2f91a1a5b30fabdb44d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a717a775_b1f23285",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-01-08T14:25:52Z",
+      "side": 1,
+      "message": "I would suggest to add {parameter}. Just fps/kbps don\u0027t tell enough.",
+      "parentUuid": "53969e58_cb77e0a8",
+      "range": {
+        "startLine": 30,
+        "startChar": 51,
+        "endLine": 30,
+        "endChar": 78
+      },
+      "revId": "025cba54d6a6e58e1033c2f91a1a5b30fabdb44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

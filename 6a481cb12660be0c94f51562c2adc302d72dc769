@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "9f35405c_1e912dbb",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-08T10:06:19Z",
+      "side": 1,
+      "message": "The FrameBuffer is currently the class responsible for the synchronization of the network thread and the decoder thread. After we start using the VideoStreamDecoder in the VideoReceiveStream it will no longer have that duty, so its internal lock can be removed.\n\nTaskQueueBase::Delete documentation:\n  // Code not running on the TaskQueue should not make any assumption when\n  // TaskQueue is deallocated and thus should not call any methods after Delete.\n  // Code running on the TaskQueue should not call Delete, but can assume\n  // TaskQueue still exists and may call other methods, e.g. PostTask.\n\nIf we start by deleting the bookkeeping_queue_ the decoder_ might try to post to it in its post deleted state, which we shouldn\u0027t do.\n\nI\u0027m gonna have a look at using a ScopedYieldPolicy to maybe drive the task queue while we are waiting for the event, but I\u0027m not sure if that is possible.",
+      "parentUuid": "b0003848_de2f3cc0",
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "614b339b_8b40a821",
         "filename": "video/video_stream_decoder_impl_unittest.cc",
         "patchSetId": 5

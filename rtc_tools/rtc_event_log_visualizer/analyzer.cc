@@ -1934,7 +1934,7 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
   callbacks.post_insert_packet = neteq_stats_getter->delay_analyzer();
   callbacks.get_audio_callback = neteq_stats_getter.get();
 
-  test::NetEqTest test(config, decoder_factory, codecs, nullptr,
+  test::NetEqTest test(config, decoder_factory, codecs, nullptr, nullptr,
                        std::move(input), std::move(output), callbacks);
   test.Run();
   return neteq_stats_getter;

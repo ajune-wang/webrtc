@@ -1085,7 +1085,8 @@ TEST(NetEqNoTimeStretchingMode, RunTest) {
   std::unique_ptr<AudioSink> output(new VoidAudioSink);
   NetEqTest::Callbacks callbacks;
   NetEqTest test(config, CreateBuiltinAudioDecoderFactory(), codecs, nullptr,
-                 std::move(input_time_limit), std::move(output), callbacks);
+                 nullptr, std::move(input_time_limit), std::move(output),
+                 callbacks);
   test.Run();
   const auto stats = test.SimulationStats();
   EXPECT_EQ(0, stats.accelerate_rate);

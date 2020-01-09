@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <list>
 #include <memory>
 #include <queue>
 #include <set>
@@ -1097,7 +1098,7 @@ PeerConnection::~PeerConnection() {
 
   // Process all pending notifications in the message queue. If we don't do
   // this, requests will linger and not know they succeeded or failed.
-  rtc::MessageList list;
+  std::list<rtc::Message> list;
   signaling_thread()->Clear(this, rtc::MQID_ANY, &list);
   for (auto& msg : list) {
     if (msg.message_id == MSG_CREATE_SESSIONDESCRIPTION_FAILED) {

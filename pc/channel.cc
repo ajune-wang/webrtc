@@ -11,6 +11,7 @@
 #include "pc/channel.h"
 
 #include <iterator>
+#include <list>
 #include <utility>
 
 #include "absl/algorithm/container.h"
@@ -750,7 +751,7 @@ void BaseChannel::FlushRtcpMessages_n() {
   // Flush all remaining RTCP messages. This should only be called in
   // destructor.
   RTC_DCHECK(network_thread_->IsCurrent());
-  rtc::MessageList rtcp_messages;
+  std::list<rtc::Message> rtcp_messages;
   network_thread_->Clear(this, MSG_SEND_RTCP_PACKET, &rtcp_messages);
   for (const auto& message : rtcp_messages) {
     network_thread_->Send(RTC_FROM_HERE, this, MSG_SEND_RTCP_PACKET,

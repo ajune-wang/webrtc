@@ -198,11 +198,11 @@ int VirtualSocket::Close() {
       server_->RemoveConnection(local_addr_, remote_addr_);
     }
     // Cancel potential connects
-    MessageList msgs;
+    std::list<Message> msgs;
     if (server_->msg_queue_) {
       server_->msg_queue_->Clear(this, MSG_ID_CONNECT, &msgs);
     }
-    for (MessageList::iterator it = msgs.begin(); it != msgs.end(); ++it) {
+    for (auto it = msgs.begin(); it != msgs.end(); ++it) {
       RTC_DCHECK(nullptr != it->pdata);
       MessageAddress* data = static_cast<MessageAddress*>(it->pdata);
 

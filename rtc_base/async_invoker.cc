@@ -59,9 +59,9 @@ void AsyncInvoker::Flush(Thread* thread, uint32_t id /*= MQID_ANY*/) {
     return;
   }
 
-  MessageList removed;
+  std::list<Message> removed;
   thread->Clear(this, id, &removed);
-  for (MessageList::iterator it = removed.begin(); it != removed.end(); ++it) {
+  for (auto it = removed.begin(); it != removed.end(); ++it) {
     // This message was pending on this thread, so run it now.
     thread->Send(it->posted_from, it->phandler, it->message_id, it->pdata);
   }

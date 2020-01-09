@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 
+#include <list>
 #include <memory>
 #include <string>
 #include <utility>
@@ -195,7 +196,7 @@ WebRtcSessionDescriptionFactory::~WebRtcSessionDescriptionFactory() {
 
   // Process all pending notifications in the message queue.  If we don't do
   // this, requests will linger and not know they succeeded or failed.
-  rtc::MessageList list;
+  std::list<rtc::Message> list;
   signaling_thread_->Clear(this, rtc::MQID_ANY, &list);
   for (auto& msg : list) {
     if (msg.message_id != MSG_USE_CONSTRUCTOR_CERTIFICATE) {

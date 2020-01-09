@@ -208,9 +208,9 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Get (or Peek) returns false.  By guaranteeing delivery of those messages,
   // we eliminate the race condition when an MessageHandler and Thread
   // may be destroyed independently of each other.
-  virtual void Quit();
-  virtual bool IsQuitting();
-  virtual void Restart();
+  void Quit();
+  bool IsQuitting();
+  void Restart();
   // Not all message queues actually process messages (such as SignalThread).
   // In those cases, it's important to know, before posting, that it won't be
   // Processed.  Normally, this would be true until IsQuitting() is true.
@@ -223,14 +223,15 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   virtual bool Get(Message* pmsg,
                    int cmsWait = kForever,
                    bool process_io = true);
-  virtual bool Peek(Message* pmsg, int cmsWait = 0);
+  bool Peek(Message* pmsg, int cmsWait = 0);
+  // |time_sensitive| is deprecated and should always be false.
   virtual void Post(const Location& posted_from,
                     MessageHandler* phandler,
                     uint32_t id = 0,
                     MessageData* pdata = nullptr,
                     bool time_sensitive = false);
   virtual void PostDelayed(const Location& posted_from,
-                           int cmsDelay,
+                           int delay_ms,
                            MessageHandler* phandler,
                            uint32_t id = 0,
                            MessageData* pdata = nullptr);
@@ -239,17 +240,10 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
                       MessageHandler* phandler,
                       uint32_t id = 0,
                       MessageData* pdata = nullptr);
-  // TODO(honghaiz): Remove this when all the dependencies are removed.
-  virtual void PostAt(const Location& posted_from,
-                      uint32_t tstamp,
-                      MessageHandler* phandler,
-                      uint32_t id = 0,
-                      MessageData* pdata = nullptr);
-  void Clear(MessageHandler* phandler,
-             uint32_t id = MQID_ANY,
-             MessageList* removed = nullptr);
-  virtual void Dispatch(Message* pmsg);
-  virtual void ReceiveSends();
+  virtual void Clear(MessageHandler* phandler,
+                     uint32_t id = MQID_ANY,
+                     std::list<Message>* removed = nullptr);
+  void Dispatch(Message* pmsg);
 
   // Amount of time until the next message can be retrieved
   virtual int GetDelay();
@@ -257,7 +251,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   bool empty() const { return size() == 0u; }
   size_t size() const {
     CritScope cs(&crit_);  // msgq_.size() is not thread safe.
-    return msgq_.size() + dmsgq_.size() + (fPeekKeep_ ? 1u : 0u);
+    return messages_.size() + messages_.size() + (fPeekKeep_ ? 1u : 0u);
   }
 
   // Internally posts a message which causes the doomed object to be deleted
@@ -291,7 +285,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Never call Stop on the current thread.  Instead use the inherited Quit
   // function which will exit the base Thread without terminating the
   // underlying OS thread.
-  virtual void Stop();
+  void Stop();
 
   // By default, Thread::Run() calls ProcessMessages(kForever).  To do other
   // work, override Run().  To receive and dispatch messages, call
@@ -427,6 +421,33 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 #endif
 
  protected:
+  // DelayedMessage goes into a priority queue, sorted by trigger time. Messages
+  // with the same trigger time are processed in num_ (FIFO) order.
+  class DelayedMessage {
+   public:
+    DelayedMessage(int64_t delay,
+                   int64_t run_time_ms,
+                   uint32_t num,
+                   const Message& msg)
+        : delay_ms_(delay),
+          run_time_ms_(run_time_ms),
+          message_number_(num),
+          msg_(msg) {}
+
+    bool operator<(const DelayedMessage& dmsg) const {
+      return (dmsg.run_time_ms_ < run_time_ms_) ||
+             ((dmsg.run_time_ms_ == run_time_ms_) &&
+              (dmsg.message_number_ < message_number_));
+    }
+
+    int64_t delay_ms_;  // for debugging
+    int64_t run_time_ms_;
+    // Monotonicaly incrementing number used for ordering of messages
+    // targeted to execute at the same time.
+    uint32_t message_number_;
+    Message msg_;
+  };
+
   class PriorityQueue : public std::priority_queue<DelayedMessage> {
    public:
     container_type& container() { return c; }
@@ -448,7 +469,8 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // the destructor (by definition, the latter has exclusive access).
   void ClearInternal(MessageHandler* phandler,
                      uint32_t id,
-                     MessageList* removed) RTC_EXCLUSIVE_LOCKS_REQUIRED(&crit_);
+                     std::list<Message>* removed)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(&crit_);
 
   // Perform cleanup; subclasses must call this from the destructor,
   // and are not expected to actually hold the lock.
@@ -470,9 +492,9 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   bool fPeekKeep_;
   Message msgPeek_;
-  MessageList msgq_ RTC_GUARDED_BY(crit_);
-  PriorityQueue dmsgq_ RTC_GUARDED_BY(crit_);
-  uint32_t dmsgq_next_num_ RTC_GUARDED_BY(crit_);
+  std::list<Message> messages_ RTC_GUARDED_BY(crit_);
+  PriorityQueue delayed_messages_ RTC_GUARDED_BY(crit_);
+  uint32_t delayed_next_num_ RTC_GUARDED_BY(crit_);
   CriticalSection crit_;
   bool fInitialized_;
   bool fDestroyed_;

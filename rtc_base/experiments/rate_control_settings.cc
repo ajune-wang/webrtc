@@ -61,9 +61,10 @@ void ParseHysteresisFactor(const WebRtcKeyValueConfig* const key_value_config,
 constexpr char CongestionWindowConfig::kKey[];
 
 std::unique_ptr<StructParametersParser> CongestionWindowConfig::Parser() {
-  return StructParametersParser::Create("QueueSize", &queue_size_ms,  //
-                                        "MinBitrate", &min_bitrate_bps,
-                                        "InitWin", &initial_data_window);
+  return StructParametersParser::Create(
+      "QueueSize", &queue_size_ms,  //
+      "MinBitrate", &min_bitrate_bps, "InitWin", &initial_data_window,
+      "IncludeInStableTargetRate", &include_in_stable_target_rate);
 }
 
 // static
@@ -151,6 +152,10 @@ uint32_t RateControlSettings::CongestionWindowMinPushbackTargetBitrateBps()
 absl::optional<DataSize>
 RateControlSettings::CongestionWindowInitialDataWindow() const {
   return congestion_window_config_.initial_data_window;
+}
+
+bool RateControlSettings::IncludeCongestionWindowInStableTargetRate() const {
+  return congestion_window_config_.include_in_stable_target_rate;
 }
 
 absl::optional<double> RateControlSettings::GetPacingFactor() const {

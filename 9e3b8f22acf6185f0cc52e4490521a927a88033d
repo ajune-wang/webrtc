@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e0e3b1a_8930c21c",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-09T15:14:45Z",
+      "side": 1,
+      "message": "Right, removed.",
+      "parentUuid": "d77854d1_ac633a91",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 37
+      },
+      "revId": "9e3b8f22acf6185f0cc52e4490521a927a88033d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4e344bd_e2f8d5c3",
         "filename": "video/video_stream_decoder_impl.h",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-09T14:58:08Z",
       "side": 1,
       "message": "nit: * const",
+      "range": {
+        "startLine": 55,
+        "startChar": 26,
+        "endLine": 55,
+        "endChar": 28
+      },
+      "revId": "9e3b8f22acf6185f0cc52e4490521a927a88033d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f986f36a_aa949239",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-09T15:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4e344bd_e2f8d5c3",
       "range": {
         "startLine": 55,
         "startChar": 26,

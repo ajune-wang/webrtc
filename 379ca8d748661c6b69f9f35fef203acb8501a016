@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c810f9b_84c5c1b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-09T10:01:59Z",
+      "side": 1,
+      "message": "Could you expand this abbreviation? I\u0027m not sure everyone knows what CWP means.",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "379ca8d748661c6b69f9f35fef203acb8501a016",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

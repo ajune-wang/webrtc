@@ -496,6 +496,7 @@ if (rtc_enable_libevent) {
       ":safe_conversions",
       ":timeutils",
       "../api/task_queue",
+      "synchronization:sequence_scope",
       "//third_party/abseil-cpp/absl/strings",
     ]
     if (rtc_build_libevent) {
@@ -795,6 +796,7 @@ rtc_library("rtc_base") {
     "../api:scoped_refptr",
     "../api/task_queue",
     "network:sent_packet",
+    "synchronization:sequence_scope",
     "system:file_wrapper",
     "system:rtc_export",
     "third_party/base64",

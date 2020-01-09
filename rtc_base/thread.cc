@@ -32,6 +32,7 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/null_socket_server.h"
+#include "rtc_base/synchronization/sequence_scope.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
@@ -353,7 +354,7 @@ void* Thread::PreRun(void* pv) {
   Thread* thread = static_cast<Thread*>(pv);
   ThreadManager::Instance()->SetCurrentThread(thread);
   rtc::SetCurrentThreadName(thread->name_.c_str());
-  CurrentTaskQueueSetter set_current_task_queue(thread);
+  webrtc::SequenceScope set_current_task_queue(thread);
 #if defined(WEBRTC_MAC)
   ScopedAutoReleasePool pool;
 #endif

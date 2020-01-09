@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "rtc_base/synchronization/sequence_scope.h"
 
 namespace webrtc {
 namespace {
@@ -63,8 +64,6 @@ class SimulatedSequenceRunner : public ProcessThread, public TaskQueueBase {
   void WakeUp(Module* module) override;
   void RegisterModule(Module* module, const rtc::Location& from) override;
   void DeRegisterModule(Module* module) override;
-  // Promoted to public for use in SimulatedTimeControllerImpl::YieldExecution.
-  using CurrentTaskQueueSetter = TaskQueueBase::CurrentTaskQueueSetter;
 
  private:
   Timestamp GetCurrentTime() const { return handler_->CurrentTime(); }
@@ -137,7 +136,7 @@ void SimulatedSequenceRunner::RunReadyTasks(Timestamp at_time) {
     ready_tasks.swap(ready_tasks_);
   }
   if (!ready_tasks.empty()) {
-    CurrentTaskQueueSetter set_current(this);
+    SequenceScope set_current(this);
     for (auto& ready : ready_tasks) {
       bool delete_task = ready->Run();
       if (delete_task) {
@@ -151,7 +150,7 @@ void SimulatedSequenceRunner::RunReadyTasks(Timestamp at_time) {
 
 void SimulatedSequenceRunner::RunReadyModules(Timestamp at_time) {
   if (!ready_modules_.empty()) {
-    CurrentTaskQueueSetter set_current(this);
+    SequenceScope set_current(this);
     for (auto* module : ready_modules_) {
       module->Process();
       delayed_modules_[GetNextTime(module, at_time)].push_back(module);
@@ -281,7 +280,7 @@ void SimulatedSequenceRunner::DeRegisterModule(Module* module) {
 
 Timestamp SimulatedSequenceRunner::GetNextTime(Module* module,
                                                Timestamp at_time) {
-  CurrentTaskQueueSetter set_current(this);
+  SequenceScope set_current(this);
   return at_time + TimeDelta::ms(module->TimeUntilNextProcess());
 }
 
@@ -319,7 +318,7 @@ void SimulatedTimeControllerImpl::YieldExecution() {
     // the thread local task queue reference. This ensures that thread checkers
     // won't think we are executing on the yielding task queue. It also ensure
     // that TaskQueueBase::Current() won't return the yielding task queue.
-    SimulatedSequenceRunner::CurrentTaskQueueSetter reset_queue(nullptr);
+    SequenceScope reset_queue(nullptr);
     RTC_DCHECK_RUN_ON(&thread_checker_);
     // When we yield, we don't want to risk executing further tasks on the
     // currently executing task queue. If there's a ready task that also yields,

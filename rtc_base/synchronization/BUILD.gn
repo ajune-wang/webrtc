@@ -36,12 +36,24 @@ rtc_library("rw_lock_wrapper") {
   }
 }
 
+rtc_library("sequence_scope") {
+  sources = [
+    "sequence_scope.cc",
+    "sequence_scope.h",
+  ]
+  deps = [
+    "//third_party/abseil-cpp/absl/base:config",
+    "//third_party/abseil-cpp/absl/base:core_headers",
+  ]
+}
+
 rtc_library("sequence_checker") {
   sources = [
     "sequence_checker.cc",
     "sequence_checker.h",
   ]
   deps = [
+    ":sequence_scope",
     "..:checks",
     "..:criticalsection",
     "..:macromagic",

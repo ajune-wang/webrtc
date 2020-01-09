@@ -619,9 +619,15 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     TargetTransferRate target_rate_msg;
     target_rate_msg.at_time = at_time;
     target_rate_msg.target_rate = pushback_target_rate;
-    target_rate_msg.stable_target_rate =
-        std::min(bandwidth_estimation_->GetEstimatedLinkCapacity(),
-                 pushback_target_rate);
+    if (rate_control_settings_.IncludeCongestionWindowInStableTargetRate()) {
+      target_rate_msg.stable_target_rate =
+          std::min(bandwidth_estimation_->GetEstimatedLinkCapacity(),
+                   pushback_target_rate);
+    } else {
+      target_rate_msg.stable_target_rate =
+          std::min(bandwidth_estimation_->GetEstimatedLinkCapacity(),
+                   loss_based_target_rate);
+    }
     target_rate_msg.network_estimate.at_time = at_time;
     target_rate_msg.network_estimate.round_trip_time = round_trip_time;
     target_rate_msg.network_estimate.loss_rate_ratio = fraction_loss / 255.0f;

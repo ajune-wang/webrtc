@@ -44,6 +44,19 @@ TEST(RateControlSettingsTest, CongestionWindowPushback) {
             100000u);
 }
 
+TEST(RateControlSettingsTest, CongestionWindowInStableTargetRate) {
+  EXPECT_TRUE(RateControlSettings::ParseFromFieldTrials()
+                  .IncludeCongestionWindowInStableTargetRate());
+
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-CongestionWindow/"
+      "QueueSize:100,MinBitrate:100000,IncludeInStableTargetRate:false/");
+  const RateControlSettings settings_after =
+      RateControlSettings::ParseFromFieldTrials();
+  EXPECT_TRUE(settings_after.UseCongestionWindowPushback());
+  EXPECT_FALSE(settings_after.IncludeCongestionWindowInStableTargetRate());
+}
+
 TEST(RateControlSettingsTest, PacingFactor) {
   EXPECT_FALSE(RateControlSettings::ParseFromFieldTrials().GetPacingFactor());
 

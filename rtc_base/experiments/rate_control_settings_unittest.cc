@@ -19,21 +19,40 @@ namespace webrtc {
 
 namespace {
 
-TEST(RateControlSettingsTest, CongestionWindow) {
-  EXPECT_FALSE(
-      RateControlSettings::ParseFromFieldTrials().UseCongestionWindow());
+TEST(RateControlSettingsTest, DefaultCongestionWindow) {
+  RateControlSettings settings = RateControlSettings::ParseFromFieldTrials();
+  EXPECT_TRUE(settings.UseCongestionWindow());
+  EXPECT_EQ(settings.GetCongestionWindowAdditionalTimeMs(), 800);
+  EXPECT_EQ(settings.CongestionWindowMinPushbackTargetBitrateBps(), 30000u);
+  EXPECT_FALSE(settings.CongestionWindowInitialDataWindow().has_value());
+}
 
+TEST(RateControlSettingsTest, DisableCongestionWindowPushback) {
+  EXPECT_TRUE(RateControlSettings::ParseFromFieldTrials()
+                  .UseCongestionWindowPushback());
   test::ScopedFieldTrials field_trials(
-      "WebRTC-CongestionWindow/QueueSize:100/");
+      "WebRTC-CongestionWindow/QueueSize:100,MinBitrate:/");
   const RateControlSettings settings_after =
       RateControlSettings::ParseFromFieldTrials();
   EXPECT_TRUE(settings_after.UseCongestionWindow());
+  EXPECT_FALSE(settings_after.UseCongestionWindowPushback());
   EXPECT_EQ(settings_after.GetCongestionWindowAdditionalTimeMs(), 100);
 }
 
+TEST(RateControlSettingsTest, DisableCongestionWindow) {
+  EXPECT_TRUE(RateControlSettings::ParseFromFieldTrials()
+                  .UseCongestionWindowPushback());
+  test::ScopedFieldTrials field_trials(
+      "WebRTC-CongestionWindow/QueueSize:,MinBitrate:/");
+  const RateControlSettings settings_after =
+      RateControlSettings::ParseFromFieldTrials();
+  EXPECT_FALSE(settings_after.UseCongestionWindow());
+  EXPECT_FALSE(settings_after.UseCongestionWindowPushback());
+}
+
 TEST(RateControlSettingsTest, CongestionWindowPushback) {
-  EXPECT_FALSE(RateControlSettings::ParseFromFieldTrials()
-                   .UseCongestionWindowPushback());
+  EXPECT_TRUE(RateControlSettings::ParseFromFieldTrials()
+                  .UseCongestionWindowPushback());
 
   test::ScopedFieldTrials field_trials(
       "WebRTC-CongestionWindow/QueueSize:100,MinBitrate:100000/");

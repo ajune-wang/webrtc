@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f0551cac_24263767",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-09T18:40:19Z",
+      "side": 1,
+      "message": "Good catch; we need one more return in the body of the lambda: \nreturn network_thread_-\u003eInvoke\u003crtc::scoped_refptr\u003ccricket::IceGatherer\u003e\u003e(RTC_FROM_HERE, [\u0026] { return CreateIceGatherer(); });",
+      "parentUuid": "7af6fcf9_fb25aa7b",
+      "range": {
+        "startLine": 329,
+        "startChar": 4,
+        "endLine": 330,
+        "endChar": 18
+      },
+      "revId": "b09e12dbc61a92c41caf0b982481abe13afbdbf2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8713476_4a226412",
         "filename": "pc/peer_connection.h",
         "patchSetId": 10

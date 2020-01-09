@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "35b35199_9e7e34a9",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-09T12:27:23Z",
+      "side": 1,
+      "message": "Updated the comment.",
+      "parentUuid": "80796857_b478d09b",
+      "range": {
+        "startLine": 191,
+        "startChar": 9,
+        "endLine": 191,
+        "endChar": 68
+      },
+      "revId": "e4ea15296752d1e5c61bc2dc1407d090c59e3e05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ed2b51b_c6562900",
         "filename": "video/video_stream_decoder_impl.h",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2393c1fc_5e9e2fbf",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-09T12:27:23Z",
+      "side": 1,
+      "message": "Oops, fixed.",
+      "parentUuid": "6ed2b51b_c6562900",
+      "range": {
+        "startLine": 112,
+        "startChar": 21,
+        "endLine": 112,
+        "endChar": 34
+      },
+      "revId": "e4ea15296752d1e5c61bc2dc1407d090c59e3e05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22624190_debde099",
         "filename": "video/video_stream_decoder_impl_unittest.cc",
         "patchSetId": 9
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-09T11:57:49Z",
       "side": 1,
       "message": "Happy new year!",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "e4ea15296752d1e5c61bc2dc1407d090c59e3e05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c5256bb_06dac0c2",
+        "filename": "video/video_stream_decoder_impl_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-09T12:27:23Z",
+      "side": 1,
+      "message": "Happy new year! :D",
+      "parentUuid": "22624190_debde099",
       "range": {
         "startLine": 2,
         "startChar": 18,

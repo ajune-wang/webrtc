@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "93ddf58b_3ba61150",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-09T14:09:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51bf781c_e69fb412",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "6a1a99fc3facbbfeb348ea4f6f70e78182e2e304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b756b5b_419ecd44",
         "filename": "video/video_stream_decoder_impl.cc",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-09T13:01:54Z",
       "side": 1,
       "message": "overall capturing |this| into a lambda that might be called after destructor of |this| is called\nis error-prone: it make it harder to check there are no races.\n\n(and easy to introduce new races. e.g. changing a function (DecodeFrame in this case) from non-virtual to virtual would introduce a race)",
+      "range": {
+        "startLine": 163,
+        "startChar": 30,
+        "endLine": 163,
+        "endChar": 34
+      },
+      "revId": "6a1a99fc3facbbfeb348ea4f6f70e78182e2e304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "948d7cd9_be1c3c17",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-09T14:09:55Z",
+      "side": 1,
+      "message": "I see what you mean, but I\u0027m not sure how to solve it if I ever wants to call a member function from the lambda (given that someone could always have the idea of making it virtual).",
+      "parentUuid": "4b756b5b_419ecd44",
       "range": {
         "startLine": 163,
         "startChar": 30,

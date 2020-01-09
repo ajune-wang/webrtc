@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74d578e1_20d4d03f",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-09T18:19:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aef3a4e_85ba37a5",
+      "range": {
+        "startLine": 69,
+        "startChar": 5,
+        "endLine": 69,
+        "endChar": 6
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2a575ac_782be569",
         "filename": "test/network/fake_network_socket_server.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dba682cc_c946b9cd",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-09T18:19:08Z",
+      "side": 1,
+      "message": "Added comment on this.\n\nIdeally we would refactor the code so it\u0027s obvious that this s what always happens. The current design seem to be made to handle the TCP/streaming case where a reader might read an arbitrary amount. For packet based operation we can assume that we always read each packet in full.",
+      "parentUuid": "d2a575ac_782be569",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 19
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c8fe48c1_23c18cb2",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-09T18:19:08Z",
+      "side": 1,
+      "message": "Changed to CHECK. We could \"fail gracefully# in debug as well, but I don\u0027t see much value in that, WDYT?",
+      "parentUuid": "d64702d7_fea83eca",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 18
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d68651de_0ac02d1d",
         "filename": "test/network/fake_network_socket_server.cc",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2020-01-09T15:05:55Z",
       "side": 1,
       "message": "I think here it\u0027s better to keep old value, because it is more correct according to comment above",
+      "range": {
+        "startLine": 216,
+        "startChar": 26,
+        "endLine": 216,
+        "endChar": 35
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86908cf1_2830c80f",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-09T18:19:08Z",
+      "side": 1,
+      "message": "I can\u0027t use it since I to reset() before the return. We could store it in a separate variable, but that seems wasteful?",
+      "parentUuid": "d68651de_0ac02d1d",
       "range": {
         "startLine": 216,
         "startChar": 26,

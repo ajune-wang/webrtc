@@ -354,12 +354,6 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
   video_header.is_last_packet_in_frame |= rtp_packet.Marker();
   video_header.frame_marking.temporal_id = kNoTemporalIdx;
 
-  if (const auto* vp9_header =
-          absl::get_if<RTPVideoHeaderVP9>(&video_header.video_type_header)) {
-    video_header.is_last_packet_in_frame |= vp9_header->end_of_frame;
-    video_header.is_first_packet_in_frame |= vp9_header->beginning_of_frame;
-  }
-
   rtp_packet.GetExtension<VideoOrientation>(&video_header.rotation);
   rtp_packet.GetExtension<VideoContentTypeExtension>(
       &video_header.content_type);

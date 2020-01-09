@@ -214,8 +214,8 @@ TEST(NetworkEmulationManagerTest, Run) {
     rtc::SocketAddress a1(alice_endpoint->GetPeerLocalAddress(), 0);
     rtc::SocketAddress a2(bob_endpoint->GetPeerLocalAddress(), 0);
 
-    s1->Bind(a1);
-    s2->Bind(a2);
+    nt1->network_thread()->Invoke<void>(RTC_FROM_HERE, [&] { s1->Bind(a1); });
+    nt2->network_thread()->Invoke<void>(RTC_FROM_HERE, [&] { s2->Bind(a2); });
 
     s1->Connect(s2->GetLocalAddress());
     s2->Connect(s1->GetLocalAddress());
@@ -292,8 +292,8 @@ TEST(NetworkEmulationManagerTest, ThroughputStats) {
   rtc::SocketAddress a1(alice_endpoint->GetPeerLocalAddress(), 0);
   rtc::SocketAddress a2(bob_endpoint->GetPeerLocalAddress(), 0);
 
-  s1->Bind(a1);
-  s2->Bind(a2);
+  nt1->network_thread()->Invoke<void>(RTC_FROM_HERE, [&] { s1->Bind(a1); });
+  nt2->network_thread()->Invoke<void>(RTC_FROM_HERE, [&] { s2->Bind(a2); });
 
   s1->Connect(s2->GetLocalAddress());
   s2->Connect(s1->GetLocalAddress());

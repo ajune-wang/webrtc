@@ -343,9 +343,6 @@ TEST_F(TransportFeedbackEndToEndTest, AudioVideoReceivesTransportFeedback) {
 
 TEST_F(TransportFeedbackEndToEndTest,
        StopsAndResumesMediaWhenCongestionWindowFull) {
-  test::ScopedFieldTrials override_field_trials(
-      "WebRTC-CongestionWindow/QueueSize:250/");
-
   class TransportFeedbackTester : public test::EndToEndTest {
    public:
     TransportFeedbackTester(size_t num_video_streams, size_t num_audio_streams)

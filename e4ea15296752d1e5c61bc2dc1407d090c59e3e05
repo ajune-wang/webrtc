@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ed2b51b_c6562900",
+        "filename": "video/video_stream_decoder_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-09T11:27:49Z",
+      "side": 1,
+      "message": "if this is accessed on the decode_queue_, you might want to destroy it after decode_queue_ is stopped/deleted/destroyed.\n\nOtherwise you\u0027ll have a race on destruction.\n(same applies to other members, it just less practical issue for simple types)",
+      "range": {
+        "startLine": 112,
+        "startChar": 21,
+        "endLine": 112,
+        "endChar": 34
+      },
+      "revId": "e4ea15296752d1e5c61bc2dc1407d090c59e3e05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

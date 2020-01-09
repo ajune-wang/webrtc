@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30d0c084_65382f15",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-09T14:40:34Z",
+      "side": 1,
+      "message": "I realized I actually broke plottable counters, but this line fixes it :)",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 48
+      },
+      "revId": "cac26c45cdd4abc855a5116ba253c381e332c56e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -20,10 +20,13 @@
 
 namespace webrtc {
 
+const int kDefaultAcceptedQueueMs = 800;
+const int kDefaultMinPushbackTargetBitrateBps = 30000;
+
 struct CongestionWindowConfig {
   static constexpr char kKey[] = "WebRTC-CongestionWindow";
-  absl::optional<int> queue_size_ms;
-  absl::optional<int> min_bitrate_bps;
+  absl::optional<int> queue_size_ms = kDefaultAcceptedQueueMs;
+  absl::optional<int> min_bitrate_bps = kDefaultMinPushbackTargetBitrateBps;
   absl::optional<DataSize> initial_data_window;
   std::unique_ptr<StructParametersParser> Parser();
   static CongestionWindowConfig Parse(absl::string_view config);

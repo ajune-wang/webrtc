@@ -258,8 +258,6 @@ TEST_F(GoogCcNetworkControllerTest, ReactsToChangedNetworkConditions) {
 // Test congestion window pushback on network delay happens.
 TEST_F(GoogCcNetworkControllerTest, CongestionWindowPushbackOnNetworkDelay) {
   auto factory = CreateFeedbackOnlyFactory();
-  ScopedFieldTrials trial(
-      "WebRTC-CongestionWindow/QueueSize:800,MinBitrate:30000/");
   Scenario s("googcc_unit/cwnd_on_delay", false);
   auto send_net =
       s.CreateMutableSimulationNode([=](NetworkSimulationConfig* c) {
@@ -384,8 +382,10 @@ TEST_F(GoogCcNetworkControllerTest, LimitsToFloorIfRttIsHighInTrial) {
   // allows the RTT to recover faster than the regular control mechanism would
   // achieve.
   const DataRate kBandwidthFloor = DataRate::kbps(50);
+  // Additionally cap congestion window to a higher limit to show
   ScopedFieldTrials trial("WebRTC-Bwe-MaxRttLimit/limit:2s,floor:" +
-                          std::to_string(kBandwidthFloor.kbps()) + "kbps/");
+                          std::to_string(kBandwidthFloor.kbps()) + "kbps/" +
+                          "WebRTC-CongestionWindow/MinBitrate:100000/");
   // In the test case, we limit the capacity and add a cross traffic packet
   // burst that blocks media from being sent. This causes the RTT to quickly
   // increase above the threshold in the trial.
@@ -668,7 +668,6 @@ TEST_F(GoogCcNetworkControllerTest,
        TargetRateReducedOnPacingBufferBuildupInTrial) {
   // Configure strict pacing to ensure build-up.
   ScopedFieldTrials trial(
-      "WebRTC-CongestionWindow/QueueSize:100,MinBitrate:30000/"
       "WebRTC-Video-Pacing/factor:1.0/"
       "WebRTC-AddPacingToCongestionWindowPushback/Enabled/");
 

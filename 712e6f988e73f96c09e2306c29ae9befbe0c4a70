@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0aef3a4e_85ba37a5",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-09T15:05:55Z",
+      "side": 1,
+      "message": "nit: extra whitespace",
+      "range": {
+        "startLine": 69,
+        "startChar": 5,
+        "endLine": 69,
+        "endChar": 6
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2a575ac_782be569",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-09T15:05:55Z",
+      "side": 1,
+      "message": "Will RecvFrom be executed on the same thread as this task blocking execution of the next task?\nCan you explain it in comments. Because if not, we can have a situation like this:\n\nAssume we had 3 invocations:\nOnPacketReceived(P1)\nOnPacketReceived(P2)\nOnPacketReceived(P3)\n\nthen on thread_ we processed packet P1 and put it into pending_ and fire SignalReadEvent.\nthen on thread_ we processed packet P2 and put it into pending_ and fire SignalReadEvent.\nthen RecvFrom was invoked on thread_ and processed P2 instead of P1.\n\nI suppose that it should be impossible, but I think it make sense to explain it in comment, because by default here is kind of async communication.",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 19
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d64702d7_fea83eca",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-09T15:05:55Z",
+      "side": 1,
+      "message": "In debug mode if is always false, in release in can fire... Do we want this?",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 18
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d68651de_0ac02d1d",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-09T15:05:55Z",
+      "side": 1,
+      "message": "I think here it\u0027s better to keep old value, because it is more correct according to comment above",
+      "range": {
+        "startLine": 216,
+        "startChar": 26,
+        "endLine": 216,
+        "endChar": 35
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

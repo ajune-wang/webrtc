@@ -93,6 +93,30 @@
       "revId": "6a1a99fc3facbbfeb348ea4f6f70e78182e2e304",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6fa5385c_a2fd434c",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-09T14:58:08Z",
+      "side": 1,
+      "message": "yep, that\u0027s the point: to not desire to call a member function from such lambda.\ninstead delegate all the work to child objects (that may refer to each other, but not the main object).\n\nThen compiler/initialization order/destruction order can help you to spot when things might happen out of desired order. Same initialization order would also guard against circular dependencies.\n\nThat way sure harder to write, seems like lot\u0027s of boilerplate, but should be safer, easier to reason.\n\n[calling non-virtual function after destructor started is still technically UB, but in practice works for now]",
+      "parentUuid": "948d7cd9_be1c3c17",
+      "range": {
+        "startLine": 163,
+        "startChar": 30,
+        "endLine": 163,
+        "endChar": 34
+      },
+      "revId": "6a1a99fc3facbbfeb348ea4f6f70e78182e2e304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

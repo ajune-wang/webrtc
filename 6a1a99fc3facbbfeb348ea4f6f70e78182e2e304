@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51bf781c_e69fb412",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-09T13:01:54Z",
+      "side": 1,
+      "message": "typically you do not need to take locks in destructor. The fact that you do is an indicator you have another problem.\nIt seems you do: |this| is registered as a callback to the decoder, but calling virtual functions while destructor is called is a race on modifying/accessing virtual table of the object.\n(That issue seems already there, but changing threading may start triggering it).\n\nTo fix that problem it might be better to create a separate object that implements DecodedImageCallback (and keeps pointers to everything it need to do the work).\nThat object can still be alive when ~VideoStreamDecoderImpl is called and destroyed after decoder_queue_ is destroyed.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "6a1a99fc3facbbfeb348ea4f6f70e78182e2e304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b756b5b_419ecd44",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-09T13:01:54Z",
+      "side": 1,
+      "message": "overall capturing |this| into a lambda that might be called after destructor of |this| is called\nis error-prone: it make it harder to check there are no races.\n\n(and easy to introduce new races. e.g. changing a function (DecodeFrame in this case) from non-virtual to virtual would introduce a race)",
+      "range": {
+        "startLine": 163,
+        "startChar": 30,
+        "endLine": 163,
+        "endChar": 34
+      },
+      "revId": "6a1a99fc3facbbfeb348ea4f6f70e78182e2e304",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

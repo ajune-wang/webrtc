@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bcef747_34561b53",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-09T13:54:41Z",
+      "side": 1,
+      "message": "Why do we want to exclude all /test from presubmit?",
+      "range": {
+        "startLine": 506,
+        "startChar": 12,
+        "endLine": 506,
+        "endChar": 40
+      },
+      "revId": "62558033814023642ddbb85c936596abdd3c9f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9317917_a003b14c",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-09T13:54:41Z",
+      "side": 1,
+      "message": "Maybe it will be better to keep it in the same place with \"isolated_script_test_perf_output\"?",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 36
+      },
+      "revId": "62558033814023642ddbb85c936596abdd3c9f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18624073_ddb34f6c",
+        "filename": "test/testsupport/perf_test_graphjson_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-09T13:54:41Z",
+      "side": 1,
+      "message": "So this writer actually do 2 things:\n* write to STDOUT or provided FILE*\n* write generate Chart Json format.\n\nSo in histograms writer we have to replicate STDOUT part then. Maybe we should restructure it in the way to make it simpler and be responsible for only 1 thing?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "62558033814023642ddbb85c936596abdd3c9f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9806f979_badd970a",
+        "filename": "test/testsupport/perf_test_result_writer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-09T13:54:41Z",
+      "side": 1,
+      "message": "Please document.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 26
+      },
+      "revId": "62558033814023642ddbb85c936596abdd3c9f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

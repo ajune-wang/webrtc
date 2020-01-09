@@ -70,6 +70,30 @@
       "revId": "025cba54d6a6e58e1033c2f91a1a5b30fabdb44d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb4c544e_ac056158",
+        "filename": "rtc_base/experiments/balanced_degradation_settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-01-09T09:18:33Z",
+      "side": 1,
+      "message": "Added some comments and an example.\nIf renaming these parameters and the corresponding ones in Config, maybe it can be done in a separate follow up CL?",
+      "parentUuid": "a717a775_b1f23285",
+      "range": {
+        "startLine": 30,
+        "startChar": 51,
+        "endLine": 30,
+        "endChar": 78
+      },
+      "revId": "025cba54d6a6e58e1033c2f91a1a5b30fabdb44d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

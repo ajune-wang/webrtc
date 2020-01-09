@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e9efa439_8dee003e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6276
+      },
+      "writtenOn": "2020-01-09T04:29:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ec6a55c_8187f4de",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 5
+      },
+      "revId": "0e9a04bf59da74dcd906401f4284a7bb04e42391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01521bf3_16a18de1",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/Camera1CapturerUsingByteBufferTest.java",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "01521bf3_16a18de1",
+      "range": {
+        "startLine": 120,
+        "startChar": 26,
+        "endLine": 120,
+        "endChar": 30
+      },
+      "revId": "0e9a04bf59da74dcd906401f4284a7bb04e42391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1531003b_a39dbd9b",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/Camera1CapturerUsingByteBufferTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6276
+      },
+      "writtenOn": "2020-01-09T04:29:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3b77ea8_905b1e2e",
       "range": {
         "startLine": 120,
         "startChar": 26,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "4d8fe9d7_02744ff8",
+        "filename": "sdk/android/src/java/org/webrtc/CameraCapturer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6276
+      },
+      "writtenOn": "2020-01-09T04:29:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dc8e938_49c813d4",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 41
+      },
+      "revId": "0e9a04bf59da74dcd906401f4284a7bb04e42391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2314af2b_038ebef2",
         "filename": "sdk/android/src/java/org/webrtc/CameraCapturer.java",
         "patchSetId": 4
@@ -178,6 +250,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "2314af2b_038ebef2",
+      "range": {
+        "startLine": 391,
+        "startChar": 7,
+        "endLine": 391,
+        "endChar": 14
+      },
+      "revId": "0e9a04bf59da74dcd906401f4284a7bb04e42391",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99c9d9e0_0c356530",
+        "filename": "sdk/android/src/java/org/webrtc/CameraCapturer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 6276
+      },
+      "writtenOn": "2020-01-09T04:29:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bd0db98_d5d9902c",
       "range": {
         "startLine": 391,
         "startChar": 7,

@@ -145,6 +145,24 @@
     },
     {
       "key": {
+        "uuid": "631cfab6_fe45ef28",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-09T10:04:33Z",
+      "side": 1,
+      "message": "I have replaced the event with a lock instead. PTAL at the latest PS.",
+      "parentUuid": "42704a0f_3bd388a9",
+      "revId": "6a481cb12660be0c94f51562c2adc302d72dc769",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "614b339b_8b40a821",
         "filename": "video/video_stream_decoder_impl_unittest.cc",
         "patchSetId": 5

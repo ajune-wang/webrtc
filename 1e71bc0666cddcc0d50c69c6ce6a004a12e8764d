@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "db8fe495_5ec1c51d",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-10T10:12:50Z",
+      "side": 1,
+      "message": "Moved them to the top-level functions.",
+      "parentUuid": "fcf74523_9136b248",
+      "range": {
+        "startLine": 213,
+        "startChar": 4,
+        "endLine": 213,
+        "endChar": 35
+      },
+      "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21ea97a5_ddb317ef",
         "filename": "test/testsupport/perf_test.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee4764bc_fe1bfe8c",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-10T10:12:50Z",
+      "side": 1,
+      "message": "Done. Good catch. So that code wasn\u0027t even re-used! This class is a prime example of what happens when you break SRP.",
+      "parentUuid": "21ea97a5_ddb317ef",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 26
+      },
+      "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "059230d6_f866815a",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-10T10:12:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "319a5c67_9e860a10",
+      "range": {
+        "startLine": 240,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 55
+      },
+      "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5324bf55_087a076d",
         "filename": "test/testsupport/perf_test.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b8d198e_efed3443",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-10T10:12:50Z",
+      "side": 1,
+      "message": "Yep, good catch",
+      "parentUuid": "5324bf55_087a076d",
+      "range": {
+        "startLine": 350,
+        "startChar": 5,
+        "endLine": 350,
+        "endChar": 16
+      },
+      "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

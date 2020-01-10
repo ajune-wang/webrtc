@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e817bbf4_7d42101c",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-10T20:02:58Z",
+      "side": 1,
+      "message": "What do these comments mean?",
+      "revId": "c0fc0a7d8f18362f91d2f5849ed6aaf6b5396a8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5145e202_c056319e",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-10T20:02:58Z",
+      "side": 1,
+      "message": "Is it necessary to have all this new stuff in the protected section? Especially the member variables are bothersome.",
+      "revId": "c0fc0a7d8f18362f91d2f5849ed6aaf6b5396a8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

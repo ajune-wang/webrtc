@@ -41,6 +41,29 @@ bool IsFramerateScalingEnabled(DegradationPreference degradation_preference) {
          degradation_preference == DegradationPreference::BALANCED;
 }
 
+VideoSourceRestrictions ApplyDegradationPreference(
+    VideoSourceRestrictions source_restrictions,
+    DegradationPreference degradation_preference) {
+  // Clear any constraints from the current sink wants that don't apply to the
+  // degradation preference.
+  switch (degradation_preference) {
+    case DegradationPreference::BALANCED:
+      break;
+    case DegradationPreference::MAINTAIN_FRAMERATE:
+      source_restrictions.set_max_frame_rate(absl::nullopt);
+      break;
+    case DegradationPreference::MAINTAIN_RESOLUTION:
+      source_restrictions.set_max_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_target_pixels_per_frame(absl::nullopt);
+      break;
+    case DegradationPreference::DISABLED:
+      source_restrictions.set_max_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_target_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_max_frame_rate(absl::nullopt);
+  }
+  return source_restrictions;
+}
+
 }  // namespace
 
 // VideoSourceRestrictor is responsible for keeping track of current
@@ -93,8 +116,11 @@ class OveruseFrameDetectorResourceAdaptationModule::VideoSourceRestrictor {
     rtc::CritScope lock(&crit_);
     // Clear all restrictions.
     source_restrictions_ = VideoSourceRestrictions();
-    video_source_sink_controller_->SetRestrictions(source_restrictions_);
-    video_source_sink_controller_->PushSourceSinkSettings();
+    RTC_DCHECK(video_source_sink_controller_);  // bogus
+    // video_source_sink_controller_->SetRestrictions(
+    //     ApplyDegradationPreference(source_restrictions_,
+    //                                degradation_preference_));
+    // video_source_sink_controller_->PushSourceSinkSettings();
   }
 
   // Updates the source_restrictions(). The source/sink has to be informed of
@@ -505,6 +531,9 @@ void OveruseFrameDetectorResourceAdaptationModule::
         DegradationPreference degradation_preference) {
   source_restrictor_->SetHasInputVideoAndDegradationPreference(
       has_input_video, degradation_preference);
+  adaptation_listener_->OnVideoSourceRestrictionsUpdated(
+      ApplyDegradationPreference(source_restrictor_->source_restrictions(),
+                                 degradation_preference));
   encoder_queue_->PostTask([this, degradation_preference] {
     RTC_DCHECK_RUN_ON(encoder_queue_);
     if (degradation_preference_ != degradation_preference) {
@@ -520,6 +549,9 @@ void OveruseFrameDetectorResourceAdaptationModule::
       }
     }
     degradation_preference_ = degradation_preference;
+    adaptation_listener_->OnVideoSourceRestrictionsUpdated(
+        ApplyDegradationPreference(source_restrictor_->source_restrictions(),
+                                   degradation_preference_));
   });
 }
 
@@ -533,14 +565,20 @@ void OveruseFrameDetectorResourceAdaptationModule::RefreshTargetFramerate() {
   // changes to settings are handled by this class instead, we can remove the
   // dependency on the controller; the VideoSourceRestrictions outputted by this
   // module will then be the "final" settings, including the max frame rate.
-  auto sink_wants = video_source_sink_controller_->CurrentSettingsToSinkWants();
+  /*auto sink_wants = */video_source_sink_controller_->CurrentSettingsToSinkWants();
+  int max_framerate_fps = OptionalDoubleToInt(video_source_sink_controller_->restrictions().max_frame_rate());
+  if (degradation_preference_ == DegradationPreference::MAINTAIN_FRAMERATE ||
+      degradation_preference_ == DegradationPreference::DISABLED) {
+    max_framerate_fps = std::numeric_limits<int>::max();
+  }
+  max_framerate_fps = std::min(max_framerate_fps, OptionalDoubleToInt(video_source_sink_controller_->frame_rate_upper_limit()));
   // Get the current target framerate, ie the maximum framerate as specified by
   // the current codec configuration, or any limit imposed by cpu adaption in
   // maintain-resolution or balanced mode. This is used to make sure overuse
   // detection doesn't needlessly trigger in low and/or variable framerate
   // scenarios.
   int target_framerate =
-      std::min(codec_max_framerate_, sink_wants.max_framerate_fps);
+      std::min(codec_max_framerate_, max_framerate_fps);
   overuse_detector_->OnTargetFramerateUpdated(target_framerate);
 }
 
@@ -550,6 +588,9 @@ void OveruseFrameDetectorResourceAdaptationModule::ResetAdaptationCounters() {
   last_adaptation_request_.reset();
   source_restrictor_->ResetPixelFpsCount();
   adapt_counters_.clear();
+  adaptation_listener_->OnVideoSourceRestrictionsUpdated(
+      ApplyDegradationPreference(source_restrictor_->source_restrictions(),
+                                 degradation_preference_));
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::AdaptUp(AdaptReason reason) {
@@ -659,7 +700,8 @@ void OveruseFrameDetectorResourceAdaptationModule::AdaptUp(AdaptReason reason) {
   // Tell the adaptation listener to reconfigure the source for us according to
   // the latest adaptation.
   adaptation_listener_->OnVideoSourceRestrictionsUpdated(
-      source_restrictor_->source_restrictions());
+      ApplyDegradationPreference(source_restrictor_->source_restrictions(),
+                                 degradation_preference_));
 
   last_adaptation_request_.emplace(adaptation_request);
 
@@ -766,7 +808,8 @@ bool OveruseFrameDetectorResourceAdaptationModule::AdaptDown(
   // Tell the adaptation listener to reconfigure the source for us according to
   // the latest adaptation.
   adaptation_listener_->OnVideoSourceRestrictionsUpdated(
-      source_restrictor_->source_restrictions());
+      ApplyDegradationPreference(source_restrictor_->source_restrictions(),
+                                 degradation_preference_));
 
   last_adaptation_request_.emplace(adaptation_request);
 

@@ -197,7 +197,7 @@ class OveruseFrameDetectorResourceAdaptationModule
   // and replace |encoder_queue_| with a sequence checker instead?
   rtc::TaskQueue* encoder_queue_;
   ResourceAdaptationModuleListener* const adaptation_listener_
-      RTC_GUARDED_BY(encoder_queue_);
+;//      RTC_GUARDED_BY(encoder_queue_);
   // Used to query CpuOveruseOptions at StartCheckForOveruse().
   VideoStreamEncoder* video_stream_encoder_ RTC_GUARDED_BY(encoder_queue_);
   // TODO(https://crbug.com/webrtc/11222): When the VideoSourceSinkController is

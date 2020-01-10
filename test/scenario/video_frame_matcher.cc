@@ -25,15 +25,14 @@ constexpr int kThumbHeight = 96;
 VideoFrameMatcher::VideoFrameMatcher(
     std::vector<std::function<void(const VideoFramePair&)> >
         frame_pair_handlers)
-    : frame_pair_handlers_(std::move(frame_pair_handlers)),
-      task_queue_("VideoAnalyzer") {}
+    : frame_pair_handlers_(std::move(frame_pair_handlers)) {}
 
 VideoFrameMatcher::~VideoFrameMatcher() {
-  task_queue_.SendTask([this] { Finalize(); }, RTC_FROM_HERE);
+  Finalize();
 }
 
 void VideoFrameMatcher::RegisterLayer(int layer_id) {
-  task_queue_.PostTask([this, layer_id] { layers_[layer_id] = VideoLayer(); });
+  layers_[layer_id] = VideoLayer();
 }
 
 void VideoFrameMatcher::OnCapturedFrame(const VideoFrame& frame,
@@ -43,8 +42,8 @@ void VideoFrameMatcher::OnCapturedFrame(const VideoFrame& frame,
   captured.capture_time = at_time;
   captured.frame = frame.video_frame_buffer();
   captured.thumb = ScaleVideoFrameBuffer(*frame.video_frame_buffer()->ToI420(),
-                                         kThumbWidth, kThumbHeight),
-  task_queue_.PostTask([this, captured]() {
+                                         kThumbWidth, kThumbHeight);
+  {
     for (auto& layer : layers_) {
       CapturedFrame copy = captured;
       if (layer.second.last_decode &&
@@ -55,7 +54,7 @@ void VideoFrameMatcher::OnCapturedFrame(const VideoFrame& frame,
       }
       layer.second.captured_frames.push_back(std::move(copy));
     }
-  });
+  }
 }
 
 void VideoFrameMatcher::OnDecodedFrame(const VideoFrame& frame,
@@ -68,8 +67,7 @@ void VideoFrameMatcher::OnDecodedFrame(const VideoFrame& frame,
   decoded->frame = frame.video_frame_buffer();
   decoded->thumb = ScaleVideoFrameBuffer(*frame.video_frame_buffer()->ToI420(),
                                          kThumbWidth, kThumbHeight);
-
-  task_queue_.PostTask([this, decoded, layer_id] {
+  {
     auto& layer = layers_[layer_id];
     decoded->id = layer.next_decoded_id++;
     layer.last_decode = decoded;
@@ -94,7 +92,7 @@ void VideoFrameMatcher::OnDecodedFrame(const VideoFrame& frame,
       HandleMatch(std::move(layer.captured_frames.front()), layer_id);
       layer.captured_frames.pop_front();
     }
-  });
+  }
 }
 
 bool VideoFrameMatcher::Active() const {

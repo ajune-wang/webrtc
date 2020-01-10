@@ -73,7 +73,6 @@ class VideoFrameMatcher {
   int next_capture_id_ = 1;
   std::vector<std::function<void(const VideoFramePair&)>> frame_pair_handlers_;
   std::map<int, VideoLayer> layers_;
-  TaskQueueForTest task_queue_;
 };
 
 class CapturedFrameTap : public rtc::VideoSinkInterface<VideoFrame> {

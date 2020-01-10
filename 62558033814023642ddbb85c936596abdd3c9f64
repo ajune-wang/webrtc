@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c21c1e7a_5a2252d9",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-10T12:42:45Z",
+      "side": 1,
+      "message": "From the \u003csstream\u003e check, yes, They\u0027re fine to use in tests because binary size doesn\u0027t matter there.",
+      "parentUuid": "2bcef747_34561b53",
+      "range": {
+        "startLine": 506,
+        "startChar": 12,
+        "endLine": 506,
+        "endChar": 40
+      },
+      "revId": "62558033814023642ddbb85c936596abdd3c9f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9317917_a003b14c",
         "filename": "test/testsupport/perf_test.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-09T13:54:41Z",
       "side": 1,
       "message": "Maybe it will be better to keep it in the same place with \"isolated_script_test_perf_output\"?",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 36
+      },
+      "revId": "62558033814023642ddbb85c936596abdd3c9f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6caff283_1c528e60",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-10T12:42:45Z",
+      "side": 1,
+      "message": "Yeah, that would make sense. I just don\u0027t know how to implement it. I would have to move the flag to test_main_lib.cc, but then I would have to keep a global bool in this file and do this from test_main_lib.cc:\n\nif (absl::GetFlag(FLAGS_write_histogram_proto_json))\n  UseNewHistogramFormat();\n\nI would probably have to synchronize on the boolean to be sure.\n\nOtherwise you could imagine that test_main_lib.cc declares the abseil flag and I read it from this file, but I think I will get a circular dependency from perf_test.cc to test_main_lib in that case.",
+      "parentUuid": "e9317917_a003b14c",
       "range": {
         "startLine": 29,
         "startChar": 10,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "838fc23e_954b4996",
+        "filename": "test/testsupport/perf_test_graphjson_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-10T12:42:45Z",
+      "side": 1,
+      "message": "Fixed in previous patch.",
+      "parentUuid": "18624073_ddb34f6c",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "62558033814023642ddbb85c936596abdd3c9f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9806f979_badd970a",
         "filename": "test/testsupport/perf_test_result_writer.h",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "62558033814023642ddbb85c936596abdd3c9f64",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f59fcd0b_0e4c50ee",
+        "filename": "test/testsupport/perf_test_result_writer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-10T12:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9806f979_badd970a",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 26
+      },
+      "revId": "62558033814023642ddbb85c936596abdd3c9f64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

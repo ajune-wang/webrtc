@@ -240,6 +240,18 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     webrtc::metrics::Reset();
   }
 
+  ~P2PTransportChannelTestBase() {
+    // Process remaining messages before |ep1_|, |ep2_| and
+    // |remote_ice_parameter_source_| are destructed.
+    // That's what main_'s destructor does, but by then it's
+    // too late. We cannot switch order of destruction either,
+    // since |ep1_| and |ep2_| endpoints rely on the thread provided by main_.
+    // TODO(bugs.webrtc.org/11269): Find a more robust solution.
+    // For some reason some messages still creeps in after that.
+    main_.ProcessMessages(0);
+    main_.Stop();
+  }
+
  protected:
   enum Config {
     OPEN,                         // Open to the Internet

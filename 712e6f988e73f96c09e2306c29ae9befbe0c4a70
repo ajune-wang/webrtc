@@ -187,6 +187,30 @@
       "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac7d170_ac67e6f4",
+        "filename": "test/network/fake_network_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-10T09:54:28Z",
+      "side": 1,
+      "message": "Ok, then SGTM",
+      "parentUuid": "86908cf1_2830c80f",
+      "range": {
+        "startLine": 216,
+        "startChar": 26,
+        "endLine": 216,
+        "endChar": 35
+      },
+      "revId": "712e6f988e73f96c09e2306c29ae9befbe0c4a70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

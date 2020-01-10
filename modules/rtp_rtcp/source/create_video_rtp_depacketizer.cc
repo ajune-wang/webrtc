@@ -54,7 +54,7 @@ std::unique_ptr<VideoRtpDepacketizer> CreateVideoRtpDepacketizer(
     VideoCodecType codec) {
   switch (codec) {
     case kVideoCodecH264:
-      return std::make_unique<Legacy<RtpDepacketizerH264>>();
+      return std::make_unique<VideoRtpDepacketizerH264>();
     case kVideoCodecVP8:
       return std::make_unique<VideoRtpDepacketizerVp8>();
     case kVideoCodecVP9:

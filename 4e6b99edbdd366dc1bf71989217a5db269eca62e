@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e5273d0_20ca984e",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-01-10T15:25:31Z",
+      "side": 1,
+      "message": "Rename the function to that \"ClearRestrictions\" instead of the comment above?",
+      "range": {
+        "startLine": 105,
+        "startChar": 7,
+        "endLine": 105,
+        "endChar": 25
+      },
+      "revId": "4e6b99edbdd366dc1bf71989217a5db269eca62e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8118622_48903d10",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-01-10T15:25:31Z",
+      "side": 1,
+      "message": "Not clear to me why this needed to be added here",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 567,
+        "endChar": 59
+      },
+      "revId": "4e6b99edbdd366dc1bf71989217a5db269eca62e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62945c89_363a31f8",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-01-10T15:25:31Z",
+      "side": 1,
+      "message": "Missing RTC_GUARDED_BY?",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 63
+      },
+      "revId": "4e6b99edbdd366dc1bf71989217a5db269eca62e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

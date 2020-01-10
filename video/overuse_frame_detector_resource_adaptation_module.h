@@ -27,7 +27,6 @@
 #include "call/adaptation/resource_adaptation_module_interface.h"
 #include "rtc_base/experiments/balanced_degradation_settings.h"
 #include "video/overuse_frame_detector.h"
-#include "video/video_source_sink_controller.h"
 
 namespace webrtc {
 
@@ -51,7 +50,6 @@ class OveruseFrameDetectorResourceAdaptationModule
  public:
   OveruseFrameDetectorResourceAdaptationModule(
       VideoStreamEncoder* video_stream_encoder,
-      VideoSourceSinkController* video_source_controller,
       std::unique_ptr<OveruseFrameDetector> overuse_detector,
       VideoStreamEncoderObserver* encoder_stats_observer,
       ResourceAdaptationModuleListener* adaptation_listener);
@@ -193,18 +191,15 @@ class OveruseFrameDetectorResourceAdaptationModule
   bool CanAdaptUpResolution(int pixels, uint32_t bitrate_bps) const
       RTC_RUN_ON(encoder_queue_);
 
-  // TODO(hbos): Can we move the |source_restrictor_| to the |encoder_queue_|
-  // and replace |encoder_queue_| with a sequence checker instead?
   rtc::TaskQueue* encoder_queue_;
-  ResourceAdaptationModuleListener* const adaptation_listener_
-      RTC_GUARDED_BY(encoder_queue_);
+  // TODO(https://crbug.com/webrtc/11222): Update
+  // SetHasInputVideoAndDegradationPreference() to do all work on the encoder
+  // queue (including |source_restrictor_| and |adaptation_listener_| usage).
+  // When this is the case, remove the usage of locks in VideoSourceRestrictor
+  // and replace |encoder_queue_| with a sequence checker.
+  ResourceAdaptationModuleListener* const adaptation_listener_;
   // Used to query CpuOveruseOptions at StartCheckForOveruse().
   VideoStreamEncoder* video_stream_encoder_ RTC_GUARDED_BY(encoder_queue_);
-  // TODO(https://crbug.com/webrtc/11222): When the VideoSourceSinkController is
-  // no longer aware of DegradationPreference, and the degradation
-  // preference-related logic resides within this class, we can remove this
-  // dependency on the VideoSourceSinkController.
-  VideoSourceSinkController* const video_source_sink_controller_;
   DegradationPreference degradation_preference_ RTC_GUARDED_BY(encoder_queue_);
   // Counters used for deciding if the video resolution or framerate is
   // currently restricted, and if so, why, on a per degradation preference

@@ -138,9 +138,7 @@ class PeerConnectionWrapperForUsageHistogramTest
   using PeerConnectionWrapper::PeerConnectionWrapper;
 
   PeerConnection* GetInternalPeerConnection() {
-    auto* pci =
-        static_cast<PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
-            pc());
+    auto* pci = static_cast<PeerConnectionProxy*>(pc());
     return static_cast<PeerConnection*>(pci->internal());
   }
 

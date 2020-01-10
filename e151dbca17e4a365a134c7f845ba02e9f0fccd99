@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0eed951_d828aff4",
+        "filename": "api/proxy.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-10T18:41:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5dba4146_75e04cfb",
+      "revId": "e151dbca17e4a365a134c7f845ba02e9f0fccd99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68dba7b1_37cbcddf",
         "filename": "api/proxy.h",
         "patchSetId": 5
@@ -39,6 +57,30 @@
       "revId": "e151dbca17e4a365a134c7f845ba02e9f0fccd99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb88a504_87db9d27",
+        "filename": "api/proxy.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-10T18:41:25Z",
+      "side": 1,
+      "message": "Yes, ...ProxyWithInternal is a templated class, so we get compilation error without the template keyword.",
+      "parentUuid": "68dba7b1_37cbcddf",
+      "range": {
+        "startLine": 144,
+        "startChar": 25,
+        "endLine": 144,
+        "endChar": 33
+      },
+      "revId": "e151dbca17e4a365a134c7f845ba02e9f0fccd99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

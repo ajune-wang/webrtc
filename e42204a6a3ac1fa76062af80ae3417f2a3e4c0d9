@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "11775088_aaeccb79",
+        "filename": "audio/audio_state.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-01-10T18:34:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "283f6d96_371b4ab5",
+      "range": {
+        "startLine": 163,
+        "startChar": 28,
+        "endLine": 163,
+        "endChar": 43
+      },
+      "revId": "e42204a6a3ac1fa76062af80ae3417f2a3e4c0d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc2baea2_80cf7a79",
         "filename": "call/BUILD.gn",
         "patchSetId": 3
@@ -69,6 +93,30 @@
       "revId": "e42204a6a3ac1fa76062af80ae3417f2a3e4c0d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c934b578_79f31537",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-01-10T18:34:21Z",
+      "side": 1,
+      "message": "Thanks. I didn\u0027t realize api postfix represented public API. Since this is refactoring AudioSendStream interface, this should stay out of API. Changed the target name to audio_sender_interface.",
+      "parentUuid": "934953ab_77f65221",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 32
+      },
+      "revId": "e42204a6a3ac1fa76062af80ae3417f2a3e4c0d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dba4146_75e04cfb",
+        "filename": "api/proxy.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-10T18:33:03Z",
+      "side": 1,
+      "message": "Is ReturnType unused now?",
+      "revId": "e151dbca17e4a365a134c7f845ba02e9f0fccd99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68dba7b1_37cbcddf",
+        "filename": "api/proxy.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-10T18:33:03Z",
+      "side": 1,
+      "message": "is `template` needed here?",
+      "range": {
+        "startLine": 144,
+        "startChar": 25,
+        "endLine": 144,
+        "endChar": 33
+      },
+      "revId": "e151dbca17e4a365a134c7f845ba02e9f0fccd99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

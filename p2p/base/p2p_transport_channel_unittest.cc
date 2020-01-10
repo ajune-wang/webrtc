@@ -426,6 +426,7 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     channel->SetIceTiebreaker(GetEndpoint(endpoint)->GetIceTiebreaker());
     return channel;
   }
+
   void DestroyChannels() {
     main_.Clear(this);
     ep1_.cd1_.ch_.reset();
@@ -2170,6 +2171,8 @@ TEST_F(P2PTransportChannelTest, TurnToTurnPresumedWritable) {
   const char* data = "test";
   int len = static_cast<int>(strlen(data));
   EXPECT_EQ(len, SendData(ep1_ch1(), data, len));
+  // Prevent pending messages to access endpoints after their destruction.
+  DestroyChannels();
 }
 
 // Test that a TURN/peer reflexive candidate pair is also presumed writable.

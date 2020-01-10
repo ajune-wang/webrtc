@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcf74523_9136b248",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-10T10:00:19Z",
+      "side": 1,
+      "message": "We need the same checks in stdout printer too, or maybe common validator, it\u0027s up to you to decide.",
+      "range": {
+        "startLine": 213,
+        "startChar": 4,
+        "endLine": 213,
+        "endChar": 35
+      },
+      "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21ea97a5_ddb317ef",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-10T10:00:19Z",
+      "side": 1,
+      "message": "Not used",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 26
+      },
+      "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "319a5c67_9e860a10",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-10T10:00:19Z",
+      "side": 1,
+      "message": "Not used",
+      "range": {
+        "startLine": 240,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 55
+      },
+      "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5324bf55_087a076d",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-10T10:00:19Z",
+      "side": 1,
+      "message": "Will we print to stdout twice here?",
+      "range": {
+        "startLine": 350,
+        "startChar": 5,
+        "endLine": 350,
+        "endChar": 16
+      },
+      "revId": "1e71bc0666cddcc0d50c69c6ce6a004a12e8764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

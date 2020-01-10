@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a45cef4_f731df79",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-01-10T09:20:01Z",
+      "side": 1,
+      "message": "nit: Sometimes the encoder malfunctions and needs to be restarted.",
+      "range": {
+        "startLine": 506,
+        "startChar": 7,
+        "endLine": 506,
+        "endChar": 65
+      },
+      "revId": "195c2f3f2066b6af47efe5927951d0dd2400626e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3750566_52ff399d",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-01-10T09:20:01Z",
+      "side": 1,
+      "message": "Please revise this log line a little. I don\u0027t think we should log the status as we already know it\u0027s kVTVideoEncoderMalfunctionErr. I suggest something like: \"Encountered video encoder malfunction error. Resetting compression session.\"",
+      "range": {
+        "startLine": 507,
+        "startChar": 4,
+        "endLine": 508,
+        "endChar": 59
+      },
+      "revId": "195c2f3f2066b6af47efe5927951d0dd2400626e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

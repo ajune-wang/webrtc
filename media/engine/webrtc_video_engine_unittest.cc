@@ -1075,7 +1075,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, EmptyFactories) {
       (std::unique_ptr<webrtc::VideoDecoderFactory>(decoder_factory)));
   // TODO(kron): Change to Times(1) once send and receive codecs are changed
   // to be treated independently.
-  EXPECT_CALL(*encoder_factory, GetSupportedFormats()).Times(2);
+  EXPECT_CALL(*encoder_factory, GetSupportedFormats()).Times(1);
   EXPECT_EQ(0u, engine.send_codecs().size());
   EXPECT_EQ(0u, engine.recv_codecs().size());
   EXPECT_CALL(*encoder_factory, Die());

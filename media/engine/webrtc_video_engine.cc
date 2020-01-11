@@ -483,7 +483,7 @@ std::vector<VideoCodec> WebRtcVideoEngine::send_codecs() const {
 std::vector<VideoCodec> WebRtcVideoEngine::recv_codecs() const {
   // TODO(kron): Change to decoder_factory_ once incorrect configuration in
   // downstream projects have been fixed.
-  return GetPayloadTypesAndDefaultCodecs(encoder_factory_.get());
+  return GetPayloadTypesAndDefaultCodecs(decoder_factory_.get());
 }
 
 RtpCapabilities WebRtcVideoEngine::GetCapabilities() const {
@@ -977,6 +977,10 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
   }
 
   // Verify that every mapped codec is supported locally.
+
+  const std::vector<VideoCodec> local_supported_encodecs =
+      GetPayloadTypesAndDefaultCodecs(encoder_factory_);
+
   const std::vector<VideoCodec> local_supported_codecs =
       GetPayloadTypesAndDefaultCodecs(decoder_factory_);
   for (const VideoCodecSettings& mapped_codec : mapped_codecs) {
@@ -984,6 +988,29 @@ bool WebRtcVideoChannel::GetChangedRecvParameters(
       RTC_LOG(LS_ERROR)
           << "SetRecvParameters called with unsupported video codec: "
           << mapped_codec.codec.ToString();
+
+      for (const auto& string_map : mapped_codec.codec.params) {
+        RTC_LOG(LS_ERROR) << " . " << string_map.first << " => "
+                          << string_map.second;
+      }
+
+      for (const VideoCodec& local_codec : local_supported_codecs) {
+        RTC_LOG(LS_ERROR) << "LOCAL: " << local_codec.ToString() << " : ";
+        for (const auto& string_map : local_codec.params) {
+          RTC_LOG(LS_ERROR)
+              << "  l  " << string_map.first << " => " << string_map.second;
+        }
+      }
+
+      for (const VideoCodec& local_codec : local_supported_encodecs) {
+        RTC_LOG(LS_ERROR) << "LOCAL ENCODERS: " << local_codec.ToString()
+                          << " : ";
+        for (const auto& string_map : local_codec.params) {
+          RTC_LOG(LS_ERROR)
+              << "  le " << string_map.first << " => " << string_map.second;
+        }
+      }
+
       return false;
     }
   }

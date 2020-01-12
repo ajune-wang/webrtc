@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d05e2b98_19ccc90d",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2020-01-12T11:35:30Z",
+      "side": 1,
+      "message": "Why are you doing the opposite change here?\nWhy is this field 64 bits in the first place? Two mega-seconds already seems a lot.",
+      "revId": "0453222675586c0609df1690759569560379dd3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

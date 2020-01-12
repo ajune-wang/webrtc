@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0aaccf3_8dc73ce7",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-01-12T12:55:21Z",
+      "side": 1,
+      "message": "If we change window_size_ms to int64, this cast goes away, but thanks for the tip on using dchecked_cast rather than static_cast!",
+      "parentUuid": "964e7f70_5040c124",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "0453222675586c0609df1690759569560379dd3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cd920d5_2d8f54ba",
         "filename": "rtc_base/rate_statistics.cc",
         "patchSetId": 9
@@ -100,6 +124,24 @@
       "side": 1,
       "message": "I\u0027m also surprised by the move *away* from a signed type here. int or int64_t seems better. (No opinion on whether a window size \u003e24 days is required.)",
       "parentUuid": "d05e2b98_19ccc90d",
+      "revId": "0453222675586c0609df1690759569560379dd3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bb942f4_0608d03f",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-01-12T12:55:21Z",
+      "side": 1,
+      "message": "It turned out the window size is actually used as an array size, which I made a size_t based on nisse\u0027s previous advice about \"stuff that indexes elements in memory\". That\u0027s part of the implementation, and shouldn\u0027t be part of the interface; we seem to be generally using int64 for things that are intended to correspond to milliseconds, so I\u0027ll change that back.",
+      "parentUuid": "1762c26c_697ddd89",
       "revId": "0453222675586c0609df1690759569560379dd3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

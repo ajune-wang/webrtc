@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "964e7f70_5040c124",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-12T12:02:08Z",
+      "side": 1,
+      "message": "I would recommend dchecked cast for a cast such as this, which is known by the programmer to not be narrowing, because it will check the assumption for you ion debug mode, and more importantly clearly documents that the programmer thought that the cast would not be narrowing.",
+      "range": {
+        "startLine": 26,
+        "startChar": 20,
+        "endLine": 26,
+        "endChar": 31
+      },
+      "revId": "0453222675586c0609df1690759569560379dd3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cd920d5_2d8f54ba",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-12T12:02:08Z",
+      "side": 1,
+      "message": "Here too. (More cases below.)",
+      "range": {
+        "startLine": 54,
+        "startChar": 18,
+        "endLine": 54,
+        "endChar": 29
+      },
+      "revId": "0453222675586c0609df1690759569560379dd3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43811abe_24ded472",
+        "filename": "rtc_base/rate_statistics.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-12T12:02:08Z",
+      "side": 1,
+      "message": "Pro tip: rtc::SafeLt will compare two integers of any type safely.",
+      "range": {
+        "startLine": 100,
+        "startChar": 7,
+        "endLine": 100,
+        "endChar": 69
+      },
+      "revId": "0453222675586c0609df1690759569560379dd3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d05e2b98_19ccc90d",
         "filename": "rtc_base/rate_statistics.h",
         "patchSetId": 9
@@ -13,6 +82,47 @@
       "writtenOn": "2020-01-12T11:35:30Z",
       "side": 1,
       "message": "Why are you doing the opposite change here?\nWhy is this field 64 bits in the first place? Two mega-seconds already seems a lot.",
+      "revId": "0453222675586c0609df1690759569560379dd3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1762c26c_697ddd89",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-12T12:02:08Z",
+      "side": 1,
+      "message": "I\u0027m also surprised by the move *away* from a signed type here. int or int64_t seems better. (No opinion on whether a window size \u003e24 days is required.)",
+      "parentUuid": "d05e2b98_19ccc90d",
+      "revId": "0453222675586c0609df1690759569560379dd3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3106373_4e27ca7f",
+        "filename": "rtc_base/rate_statistics.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-12T12:02:08Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 57,
+        "startChar": 21,
+        "endLine": 57,
+        "endChar": 27
+      },
       "revId": "0453222675586c0609df1690759569560379dd3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

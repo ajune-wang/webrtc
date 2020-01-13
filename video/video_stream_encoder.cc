@@ -388,10 +388,10 @@ void VideoStreamEncoder::SetSource(
     const DegradationPreference& degradation_preference) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   video_source_sink_controller_->SetSource(source);
-  resource_adaptation_module_->SetHasInputVideoAndDegradationPreference(
-      source, degradation_preference);
-  encoder_queue_.PostTask([this, degradation_preference] {
+  encoder_queue_.PostTask([this, source, degradation_preference] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
+    resource_adaptation_module_->SetHasInputVideoAndDegradationPreference(
+        source, degradation_preference);
     if (encoder_)
       ConfigureQualityScaler(encoder_->GetEncoderInfo());
 

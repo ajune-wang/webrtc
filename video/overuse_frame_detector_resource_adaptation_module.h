@@ -26,6 +26,7 @@
 #include "api/video_codecs/video_encoder_config.h"
 #include "call/adaptation/resource_adaptation_module_interface.h"
 #include "rtc_base/experiments/balanced_degradation_settings.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "video/overuse_frame_detector.h"
 
 namespace webrtc {
@@ -187,12 +188,7 @@ class OveruseFrameDetectorResourceAdaptationModule
   // Makes |video_source_restrictions_| up-to-date and informs the
   // |adaptation_listener_| if restrictions are changed, allowing the listener
   // to reconfigure the source accordingly.
-  // TODO(https://crbug.com/webrtc/11222): When
-  // SetHasInputVideoAndDegradationPreference() stops calling this method prior
-  // to updating |degradation_preference_| on the encoder queue, remove its
-  // argument in favor of using |degradation_preference_| directly.
-  void MaybeUpdateVideoSourceRestrictions(
-      DegradationPreference degradation_preference);
+  void MaybeUpdateVideoSourceRestrictions() RTC_RUN_ON(encoder_queue_);
 
   void UpdateAdaptationStats(AdaptReason reason) RTC_RUN_ON(encoder_queue_);
   DegradationPreference EffectiveDegradataionPreference()
@@ -202,17 +198,10 @@ class OveruseFrameDetectorResourceAdaptationModule
       RTC_RUN_ON(encoder_queue_);
 
   rtc::TaskQueue* encoder_queue_;
-  // TODO(https://crbug.com/webrtc/11222): Update
-  // SetHasInputVideoAndDegradationPreference() to do all work on the encoder
-  // queue (including |source_restrictor_| and |adaptation_listener_| usage).
-  // When this is the case, remove |VideoSourceRestrictor::crit_| and
-  // |video_source_restrictions_crit_| and replace |encoder_queue_| with a
-  // sequence checker.
-  rtc::CriticalSection video_source_restrictions_crit_;
   ResourceAdaptationModuleListener* const adaptation_listener_;
   // The restrictions that |adaptation_listener_| is informed of.
   VideoSourceRestrictions video_source_restrictions_
-      RTC_GUARDED_BY(&video_source_restrictions_crit_);
+      RTC_GUARDED_BY(encoder_queue_);
   // Used to query CpuOveruseOptions at StartCheckForOveruse().
   VideoStreamEncoder* video_stream_encoder_ RTC_GUARDED_BY(encoder_queue_);
   DegradationPreference degradation_preference_ RTC_GUARDED_BY(encoder_queue_);

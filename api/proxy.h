@@ -113,14 +113,18 @@ namespace webrtc {
 
 // Note that the destructor is protected so that the proxy can only be
 // destroyed via RefCountInterface.
-#define REFCOUNTED_PROXY_MAP_BOILERPLATE(c)                            \
- protected:                                                            \
-  ~c##ProxyWithInternal() {                                            \
-    destructor_thread()->template Invoke<void>(RTC_FROM_HERE,          \
-                                               [&] { c_ = nullptr; }); \
-  }                                                                    \
-                                                                       \
- private:                                                              \
+#define REFCOUNTED_PROXY_MAP_BOILERPLATE(c)                              \
+ protected:                                                              \
+  ~c##ProxyWithInternal() {                                              \
+    if (destructor_thread().IsCurrent()) {                               \
+      c_ = nullptr;                                                      \
+    } else {                                                             \
+      destructor_thread()->template Invoke<void>(RTC_FROM_HERE,          \
+                                                 [&] { c_ = nullptr; }); \
+    }                                                                    \
+  }                                                                      \
+                                                                         \
+ private:                                                                \
   rtc::scoped_refptr<INTERNAL_CLASS> c_;
 
 // Note: This doesn't use a unique_ptr, because it intends to handle a corner
@@ -128,14 +132,18 @@ namespace webrtc {
 // this proxy object. If relying on a unique_ptr to delete the object, its
 // inner pointer would be set to null before this reentrant callback would have
 // a chance to run, resulting in a segfault.
-#define OWNED_PROXY_MAP_BOILERPLATE(c)                              \
- public:                                                            \
-  ~c##ProxyWithInternal() {                                         \
-    destructor_thread()->template Invoke<void>(RTC_FROM_HERE,       \
-                                               [&] { delete c_; }); \
-  }                                                                 \
-                                                                    \
- private:                                                           \
+#define OWNED_PROXY_MAP_BOILERPLATE(c)                                \
+ public:                                                              \
+  ~c##ProxyWithInternal() {                                           \
+    if (destructor_thread().IsCurrent()) {                            \
+      delete c_;                                                      \
+    } else {                                                          \
+      destructor_thread()->template Invoke<void>(RTC_FROM_HERE,       \
+                                                 [&] { delete c_; }); \
+    }                                                                 \
+  }                                                                   \
+                                                                      \
+ private:                                                             \
   INTERNAL_CLASS* c_;
 
 #define BEGIN_SIGNALING_PROXY_MAP(c)                                         \

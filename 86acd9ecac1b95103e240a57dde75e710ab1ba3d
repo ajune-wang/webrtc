@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b256e620_7b977284",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-01-13T12:39:34Z",
+      "side": 1,
+      "message": "I don\u0027t understand why this MaybeUpdate is called twice",
+      "range": {
+        "startLine": 540,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 64
+      },
+      "revId": "86acd9ecac1b95103e240a57dde75e710ab1ba3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "5520fb9eb5b5b287ddaabd84f96d08daaeba3d5f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb879ce3_16706bf2",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-01-13T11:56:12Z",
+      "side": 1,
+      "message": "Extracted helper function to calculate execution time limit. Different tests use different test constants for number of messages and packet loss percent, so that\u0027s why timeout computation is placed inside test methods.",
+      "parentUuid": "ad6ceb99_64f6b651",
+      "range": {
+        "startLine": 673,
+        "startChar": 2,
+        "endLine": 677,
+        "endChar": 67
+      },
+      "revId": "5520fb9eb5b5b287ddaabd84f96d08daaeba3d5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

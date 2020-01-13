@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b81bc1f_ce152c8d",
+        "filename": "BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-01-13T12:04:18Z",
+      "side": 1,
+      "message": "This should probably be rewritten to:\n\n      cflags +\u003d [\n          # MSVC warning suppressions (needed to use Abseil).\n          # TODO(bugs.webrtc.org/9274): Remove these warnings as soon as MSVC allows\n          # external headers warning suppression (or fix them upstream).\n          \"/wd4702\",  # unreachable code\n\n          # MSVC 2019 warning suppressions for C++17 compiling\n          \"/wd5041\",  # out-of-line definition for constexpr static data member is not needed and is deprecated in C++17\n      ]",
+      "range": {
+        "startLine": 333,
+        "startChar": 6,
+        "endLine": 339,
+        "endChar": 129
+      },
+      "revId": "0b3ed52d0075013955268378535f622d756be103",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

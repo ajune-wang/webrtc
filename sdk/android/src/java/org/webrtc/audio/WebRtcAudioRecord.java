@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -38,6 +39,7 @@ import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordErrorCallback;
 import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordStartErrorCode;
 import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordStateCallback;
 import org.webrtc.audio.JavaAudioDeviceModule.SamplesReadyCallback;
+import org.webrtc.audio.JavaAudioDeviceModule.VolumeCallback;
 
 class WebRtcAudioRecord {
   private static final String TAG = "WebRtcAudioRecordExternal";
@@ -76,6 +78,7 @@ class WebRtcAudioRecord {
 
   private final Context context;
   private final AudioManager audioManager;
+  private final VolumeCalculator volumeCalculator;
   private final int audioSource;
   private final int audioFormat;
 
@@ -99,6 +102,7 @@ class WebRtcAudioRecord {
   private final @Nullable AudioRecordErrorCallback errorCallback;
   private final @Nullable AudioRecordStateCallback stateCallback;
   private final @Nullable SamplesReadyCallback audioSamplesReadyCallback;
+  private final @Nullable VolumeCallback volumeCallback;
   private final boolean isAcousticEchoCancelerSupported;
   private final boolean isNoiseSuppressorSupported;
 
@@ -124,6 +128,7 @@ class WebRtcAudioRecord {
       // Audio recording has started and the client is informed about it.
       doAudioRecordStateCallback(AUDIO_RECORD_START);
 
+      Executor callbackExecutor = Executors.newSingleThreadScheduledExecutor();
       long lastTime = System.nanoTime();
       while (keepAlive) {
         int bytesRead = audioRecord.read(byteBuffer, byteBuffer.capacity());
@@ -138,14 +143,22 @@ class WebRtcAudioRecord {
           if (keepAlive) {
             nativeDataIsRecorded(nativeAudioRecord, bytesRead);
           }
-          if (audioSamplesReadyCallback != null) {
+          if (audioSamplesReadyCallback != null || volumeCallback != null) {
             // Copy the entire byte buffer array. The start of the byteBuffer is not necessarily
             // at index 0.
             byte[] data = Arrays.copyOfRange(byteBuffer.array(), byteBuffer.arrayOffset(),
                 byteBuffer.capacity() + byteBuffer.arrayOffset());
-            audioSamplesReadyCallback.onWebRtcAudioRecordSamplesReady(
-                new JavaAudioDeviceModule.AudioSamples(audioRecord.getAudioFormat(),
-                    audioRecord.getChannelCount(), audioRecord.getSampleRate(), data));
+            callbackExecutor.execute(() -> {
+              if (audioSamplesReadyCallback != null) {
+                audioSamplesReadyCallback.onWebRtcAudioRecordSamplesReady(
+                    new JavaAudioDeviceModule.AudioSamples(audioRecord.getAudioFormat(),
+                        audioRecord.getChannelCount(), audioRecord.getSampleRate(), data));
+              }
+
+              if (volumeCalculator.addSample(data)) {
+                volumeCallback.volumeSampled(volumeCalculator.getVolume());
+              }
+            });
           }
         } else {
           String errorMessage = "AudioRecord.read failed: " + bytesRead;
@@ -179,7 +192,7 @@ class WebRtcAudioRecord {
   WebRtcAudioRecord(Context context, AudioManager audioManager) {
     this(context, audioManager, DEFAULT_AUDIO_SOURCE, DEFAULT_AUDIO_FORMAT,
         null /* errorCallback */, null /* stateCallback */, null /* audioSamplesReadyCallback */,
-        WebRtcAudioEffects.isAcousticEchoCancelerSupported(),
+        null /* volumeCallback */, WebRtcAudioEffects.isAcousticEchoCancelerSupported(),
         WebRtcAudioEffects.isNoiseSuppressorSupported());
   }
 
@@ -187,7 +200,8 @@ class WebRtcAudioRecord {
       int audioFormat, @Nullable AudioRecordErrorCallback errorCallback,
       @Nullable AudioRecordStateCallback stateCallback,
       @Nullable SamplesReadyCallback audioSamplesReadyCallback,
-      boolean isAcousticEchoCancelerSupported, boolean isNoiseSuppressorSupported) {
+      @Nullable VolumeCallback volumeCallback, boolean isAcousticEchoCancelerSupported,
+      boolean isNoiseSuppressorSupported) {
     if (isAcousticEchoCancelerSupported && !WebRtcAudioEffects.isAcousticEchoCancelerSupported()) {
       throw new IllegalArgumentException("HW AEC not supported");
     }
@@ -196,11 +210,13 @@ class WebRtcAudioRecord {
     }
     this.context = context;
     this.audioManager = audioManager;
+    this.volumeCalculator = new VolumeCalculator();
     this.audioSource = audioSource;
     this.audioFormat = audioFormat;
     this.errorCallback = errorCallback;
     this.stateCallback = stateCallback;
     this.audioSamplesReadyCallback = audioSamplesReadyCallback;
+    this.volumeCallback = volumeCallback;
     this.isAcousticEchoCancelerSupported = isAcousticEchoCancelerSupported;
     this.isNoiseSuppressorSupported = isNoiseSuppressorSupported;
     Logging.d(TAG, "ctor" + WebRtcAudioUtils.getThreadInfo());
@@ -424,9 +440,6 @@ class WebRtcAudioRecord {
   private int logRecordingConfigurations(boolean verifyAudioConfig) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
       Logging.w(TAG, "AudioManager#getActiveRecordingConfigurations() requires N or higher");
-      return 0;
-    }
-    if (audioRecord == null) {
       return 0;
     }
     // Get a list of the currently active audio recording configurations of the device (can be more

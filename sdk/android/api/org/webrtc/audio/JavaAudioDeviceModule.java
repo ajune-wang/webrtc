@@ -36,6 +36,7 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     private AudioTrackErrorCallback audioTrackErrorCallback;
     private AudioRecordErrorCallback audioRecordErrorCallback;
     private SamplesReadyCallback samplesReadyCallback;
+    private VolumeCallback volumeCallback;
     private AudioTrackStateCallback audioTrackStateCallback;
     private AudioRecordStateCallback audioRecordStateCallback;
     private boolean useHardwareAcousticEchoCanceler = isBuiltInAcousticEchoCancelerSupported();
@@ -125,6 +126,14 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
     }
 
     /**
+     * Set a callback to listen to the volume level from the AudioRecord.
+     */
+    public Builder setVolumeCallback(VolumeCallback volumeCallback) {
+      this.volumeCallback = volumeCallback;
+      return this;
+    }
+
+    /**
      * Set a callback to retrieve information from the AudioTrack on when audio starts and stop.
      */
     public Builder setAudioTrackStateCallback(AudioTrackStateCallback audioTrackStateCallback) {
@@ -207,7 +216,7 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
       }
       final WebRtcAudioRecord audioInput = new WebRtcAudioRecord(context, audioManager, audioSource,
           audioFormat, audioRecordErrorCallback, audioRecordStateCallback, samplesReadyCallback,
-          useHardwareAcousticEchoCanceler, useHardwareNoiseSuppressor);
+          volumeCallback, useHardwareAcousticEchoCanceler, useHardwareNoiseSuppressor);
       final WebRtcAudioTrack audioOutput = new WebRtcAudioTrack(
           context, audioManager, audioTrackErrorCallback, audioTrackStateCallback);
       return new JavaAudioDeviceModule(context, audioManager, audioInput, audioOutput,
@@ -275,6 +284,9 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
   public static interface SamplesReadyCallback {
     void onWebRtcAudioRecordSamplesReady(AudioSamples samples);
   }
+
+  /** Called when new volume level is ready. */
+  public static interface VolumeCallback { void volumeSampled(int volume); }
 
   /* AudioTrack */
   // Audio playout/track error handler functions.

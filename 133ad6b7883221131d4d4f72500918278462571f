@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ad40d1c_b50cb8ee",
+        "filename": "media/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2020-01-13T11:37:49Z",
+      "side": 1,
+      "message": "Feel free to just add you as regular owners in this folder, the per-file isn\u0027t needed in my opinion.",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 10,
+        "endChar": 30
+      },
+      "revId": "133ad6b7883221131d4d4f72500918278462571f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

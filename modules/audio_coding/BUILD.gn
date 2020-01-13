@@ -1219,6 +1219,7 @@ if (rtc_enable_protobuf) {
 # Allow to re-use some test classes from chromium.
 rtc_library("audio_coding_modules_tests_shared") {
   testonly = true
+  cflags = []
   visibility = []
   visibility = [ "*" ]
 
@@ -1234,6 +1235,11 @@ rtc_library("audio_coding_modules_tests_shared") {
     "test/opus_test.cc",
     "test/opus_test.h",
   ]
+
+  if (is_win && !is_clang) {
+    # MSVC warning suppressions for C++17 compiling
+    cflags += [ "/wd5041" ]  # out-of-line definition for constexpr static data member is not needed and is deprecated in C++17
+  }
 
   deps = [
     ":audio_coding",
@@ -1272,12 +1278,12 @@ rtc_library("audio_coding_modules_tests_shared") {
 
 if (rtc_include_tests) {
   audio_coding_deps = [
-    "../../common_audio",
-    "../../system_wrappers",
     ":audio_encoder_cng",
     ":g711",
     ":g722",
     ":pcm16b",
+    "../../common_audio",
+    "../../system_wrappers",
   ]
   if (rtc_include_ilbc) {
     audio_coding_deps += [ ":ilbc" ]

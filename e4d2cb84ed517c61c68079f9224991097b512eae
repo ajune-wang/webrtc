@@ -22,6 +22,30 @@
       "revId": "e4d2cb84ed517c61c68079f9224991097b512eae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51121388_27be0deb",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 10216
+      },
+      "writtenOn": "2020-01-13T11:37:34Z",
+      "side": 1,
+      "message": "I tried the change you propose, and it works, but I cannot submit a CL due to some \"package boundary violations\" errors on the webrtc/BUILD.gn file in target \u0027android_junit_tests\u0027. I assume those were from a previous change since they\u0027re all related to Android but the current change should only affect Windows. Is there a way to bypass?",
+      "parentUuid": "6887775c_8e9d96a2",
+      "range": {
+        "startLine": 1239,
+        "startChar": 0,
+        "endLine": 1242,
+        "endChar": 3
+      },
+      "revId": "e4d2cb84ed517c61c68079f9224991097b512eae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad6ceb99_64f6b651",
+        "filename": "media/sctp/sctp_transport_reliability_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-13T10:04:18Z",
+      "side": 1,
+      "message": "Pull this out to a helper function. Since this is constexpr it could theoretically be a constant (though not sure if you can static_assert at the top level or if it needs to be in a code block?",
+      "range": {
+        "startLine": 673,
+        "startChar": 2,
+        "endLine": 677,
+        "endChar": 67
+      },
+      "revId": "5520fb9eb5b5b287ddaabd84f96d08daaeba3d5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

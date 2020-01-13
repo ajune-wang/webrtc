@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3937e6ba_e1eb4528",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 9408
+      },
+      "writtenOn": "2020-01-13T15:04:19Z",
+      "side": 1,
+      "message": "Is there even a need for a separate announce_goog_ping flag now?",
+      "revId": "21b1ff1026d869b2a27c57e658edba9e6714179f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f2fd1e90_fd6fb41c",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-13T15:10:14Z",
+      "side": 1,
+      "message": "Changing the degradation preferences may modify the source restrictions, and ultimately require an AddOrUpdateSinkWants() call with updated VideoSinkWants.\n\nWhy are we updating it twice? We do it once to ensure the effects are immediate (outside the encoder queue) and then once more because the restrictions may have changed again (e.g. due to ClearRestrictions()).\n\nSo... why do the effects need to be immediate? Well, if they\u0027re not that\u0027s a change in behavior from existing code, and it makes VideoStreamEncoderTest.SinkWantsStoredByDegradationPreference and VideoStreamEncoderTest.AdaptsFramerateForLowQuality_MaintainResolutionMode tests fail. These tests trigger this method to be called and then immediately assert things about the resulting VideoSinkWants without giving the encoder queue any time to run.\n\nI think we should change this behavior, and simply update those tests to allow the encoder queue to run. If we do this we can make all of our classes single-threaded: OveruseFrameDetectorResourceAdaptationModule, VideoSourceRestrictor and VideoSourceSinkController. This means we can get rid of all the locks and simply use a thread checker.\n\nBUT: Because that would be a significant change, I want to do that in a separate CL. It\u0027s the next one, WIP CL here: https://webrtc-review.googlesource.com/c/src/+/165783 (TODO: get rid of all the locks).",
+      "parentUuid": "b256e620_7b977284",
+      "range": {
+        "startLine": 540,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 64
+      },
+      "revId": "86acd9ecac1b95103e240a57dde75e710ab1ba3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f4c677b_9c056a28",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-13T14:01:29Z",
       "side": 1,
       "message": "nit: Use an explicit type please.",
+      "range": {
+        "startLine": 547,
+        "startChar": 2,
+        "endLine": 547,
+        "endChar": 6
+      },
+      "revId": "86acd9ecac1b95103e240a57dde75e710ab1ba3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74f9a3ff_84d06fc2",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-13T15:10:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f4c677b_9c056a28",
       "range": {
         "startLine": 547,
         "startChar": 2,

@@ -134,11 +134,11 @@ class MultimediaTimer {
   }
 
   void Cancel() {
-    ::ResetEvent(event_);
     if (timer_id_) {
       ::timeKillEvent(timer_id_);
       timer_id_ = 0;
     }
+    ::ResetEvent(event_);
   }
 
   HANDLE* event_for_wait() { return &event_; }

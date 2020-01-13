@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3502c2c_2efc6e1e",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-13T18:34:03Z",
+      "side": 1,
+      "message": "What do you think about promoting the DCHECK to a CHECK and moving the condition down here? That way you don\u0027t have to update any of the proxy.h code.",
+      "revId": "aa8caadbdb81048eb55a8ddf95b1586225cd2189",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

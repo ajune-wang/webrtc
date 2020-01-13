@@ -95,7 +95,7 @@ class OveruseFrameDetectorResourceAdaptationModule::VideoSourceRestrictor {
       bool has_input_video,
       DegradationPreference degradation_preference) {
     // Called on libjingle's worker thread.
-    RTC_DCHECK_RUN_ON(&main_checker_);
+    //    RTC_DCHECK_RUN_ON(&main_checker_);
     rtc::CritScope lock(&crit_);
     has_input_video_ = has_input_video;
     degradation_preference_ = degradation_preference;
@@ -516,14 +516,13 @@ void OveruseFrameDetectorResourceAdaptationModule::
     SetHasInputVideoAndDegradationPreference(
         bool has_input_video,
         DegradationPreference degradation_preference) {
-  // TODO(https://crbug.com/webrtc/11222): Move this call to the encoder queue,
-  // making VideoSourceRestrictor single-threaded and removing the only call to
-  // MaybeUpdateVideoSourceRestrictions() that isn't on the |encoder_queue_|.
-  source_restrictor_->SetHasInputVideoAndDegradationPreference(
-      has_input_video, degradation_preference);
-  MaybeUpdateVideoSourceRestrictions(degradation_preference);
-  encoder_queue_->PostTask([this, degradation_preference] {
+  encoder_queue_->PostTask([this, has_input_video, degradation_preference] {
     RTC_DCHECK_RUN_ON(encoder_queue_);
+    source_restrictor_->SetHasInputVideoAndDegradationPreference(
+        has_input_video, degradation_preference);
+    adaptation_listener_->OnVideoSourceRestrictionsUpdated(
+        ApplyDegradationPreference(source_restrictor_->source_restrictions(),
+                                   degradation_preference));
     if (degradation_preference_ != degradation_preference) {
       // Reset adaptation state, so that we're not tricked into thinking there's
       // an already pending request of the same type.
@@ -537,7 +536,7 @@ void OveruseFrameDetectorResourceAdaptationModule::
       }
     }
     degradation_preference_ = degradation_preference;
-    MaybeUpdateVideoSourceRestrictions(degradation_preference_);
+    MaybeUpdateVideoSourceRestrictions();
   });
 }
 
@@ -567,7 +566,7 @@ void OveruseFrameDetectorResourceAdaptationModule::ResetAdaptationCounters() {
   last_adaptation_request_.reset();
   source_restrictor_->ClearRestrictions();
   adapt_counters_.clear();
-  MaybeUpdateVideoSourceRestrictions(degradation_preference_);
+  MaybeUpdateVideoSourceRestrictions();
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::AdaptUp(AdaptReason reason) {
@@ -676,7 +675,7 @@ void OveruseFrameDetectorResourceAdaptationModule::AdaptUp(AdaptReason reason) {
 
   // Tell the adaptation listener to reconfigure the source for us according to
   // the latest adaptation.
-  MaybeUpdateVideoSourceRestrictions(degradation_preference_);
+  MaybeUpdateVideoSourceRestrictions();
 
   last_adaptation_request_.emplace(adaptation_request);
 
@@ -782,7 +781,7 @@ bool OveruseFrameDetectorResourceAdaptationModule::AdaptDown(
 
   // Tell the adaptation listener to reconfigure the source for us according to
   // the latest adaptation.
-  MaybeUpdateVideoSourceRestrictions(degradation_preference_);
+  MaybeUpdateVideoSourceRestrictions();
 
   last_adaptation_request_.emplace(adaptation_request);
 
@@ -793,21 +792,13 @@ bool OveruseFrameDetectorResourceAdaptationModule::AdaptDown(
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::
-    MaybeUpdateVideoSourceRestrictions(
-        DegradationPreference degradation_preference) {
-  absl::optional<VideoSourceRestrictions> updated_restrictions;
-  {
-    rtc::CritScope lock(&video_source_restrictions_crit_);
-    VideoSourceRestrictions new_restrictions = ApplyDegradationPreference(
-        source_restrictor_->source_restrictions(), degradation_preference);
-    if (video_source_restrictions_ != new_restrictions) {
-      video_source_restrictions_ = std::move(new_restrictions);
-      updated_restrictions = video_source_restrictions_;
-    }
-  }
-  if (updated_restrictions.has_value()) {
+    MaybeUpdateVideoSourceRestrictions() {
+  VideoSourceRestrictions new_restrictions = ApplyDegradationPreference(
+      source_restrictor_->source_restrictions(), degradation_preference_);
+  if (video_source_restrictions_ != new_restrictions) {
+    video_source_restrictions_ = std::move(new_restrictions);
     adaptation_listener_->OnVideoSourceRestrictionsUpdated(
-        updated_restrictions.value());
+        video_source_restrictions_);
   }
 }
 

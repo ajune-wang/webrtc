@@ -51,6 +51,24 @@
       "revId": "c0fc0a7d8f18362f91d2f5849ed6aaf6b5396a8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ea61f6_dc7dce88",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-13T09:30:17Z",
+      "side": 1,
+      "message": "You\u0027re right, I checked the chromium repo and it\u0027s safe to hide them.",
+      "parentUuid": "5145e202_c056319e",
+      "revId": "c0fc0a7d8f18362f91d2f5849ed6aaf6b5396a8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

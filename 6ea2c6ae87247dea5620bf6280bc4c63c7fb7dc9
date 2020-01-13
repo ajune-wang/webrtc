@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c93362cb_d1692d1c",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-13T18:39:54Z",
+      "side": 0,
+      "message": "Could also cycle through nullptr --\u003e simulated thread --\u003e nullptr and keep the check. Going through nullptr would make it clear that it\u0027s deliberate.",
+      "revId": "6ea2c6ae87247dea5620bf6280bc4c63c7fb7dc9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

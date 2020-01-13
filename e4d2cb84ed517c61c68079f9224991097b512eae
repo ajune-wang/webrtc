@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6887775c_8e9d96a2",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-01-13T10:24:16Z",
+      "side": 1,
+      "message": "I suggest moving this to https://cs.chromium.org/chromium/src/third_party/webrtc/BUILD.gn?l\u003d336\u0026rcl\u003d65bbcabe2f21fb7bdb1238cf7eb4d902d80e25de so we apply it on the whole build.",
+      "range": {
+        "startLine": 1239,
+        "startChar": 0,
+        "endLine": 1242,
+        "endChar": 3
+      },
+      "revId": "e4d2cb84ed517c61c68079f9224991097b512eae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

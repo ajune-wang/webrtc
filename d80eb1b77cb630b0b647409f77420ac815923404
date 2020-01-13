@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58292570_e4bdc5b3",
+        "filename": "api/test/time_controller.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-13T19:25:34Z",
+      "side": 1,
+      "message": "Note what happens if socket_server is null",
+      "revId": "d80eb1b77cb630b0b647409f77420ac815923404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44bb4923_624e7aca",
+        "filename": "test/peer_scenario/peer_scenario.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-13T19:25:34Z",
+      "side": 1,
+      "message": "Explain the 100000",
+      "revId": "d80eb1b77cb630b0b647409f77420ac815923404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ef428cb_8b445c74",
+        "filename": "test/peer_scenario/peer_scenario_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-13T19:25:34Z",
+      "side": 1,
+      "message": "Note that this is used to supply a unique_ptr for an un-owned TaskQueueFactory.",
+      "revId": "d80eb1b77cb630b0b647409f77420ac815923404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3814049f_8aff427e",
+        "filename": "test/peer_scenario/peer_scenario_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-13T19:25:34Z",
+      "side": 1,
+      "message": "Why would worker_thread_ be null?",
+      "revId": "d80eb1b77cb630b0b647409f77420ac815923404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "103191f0_8193ec3c",
+        "filename": "test/time_controller/simulated_thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-13T19:25:34Z",
+      "side": 1,
+      "message": "Good comment.",
+      "range": {
+        "startLine": 20,
+        "startChar": 38,
+        "endLine": 21,
+        "endChar": 35
+      },
+      "revId": "d80eb1b77cb630b0b647409f77420ac815923404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7e154e8_fe3ab27d",
+        "filename": "test/time_controller/simulated_thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-13T19:25:34Z",
+      "side": 1,
+      "message": "Consider introducing a CurrentThreadSetter to make this more robust.",
+      "revId": "d80eb1b77cb630b0b647409f77420ac815923404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

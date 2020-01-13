@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "db1effd6_a243e855",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-13T07:51:26Z",
+      "side": 1,
+      "message": "We use them in some places in implementation files to remind that we\u0027re not defining a \"real\" method (since the \"static\" keyword is far away). I don\u0027t have any strong opinion, but I think it\u0027s helpful.",
+      "parentUuid": "e817bbf4_7d42101c",
+      "revId": "c0fc0a7d8f18362f91d2f5849ed6aaf6b5396a8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5145e202_c056319e",
         "filename": "rtc_base/thread.h",
         "patchSetId": 6

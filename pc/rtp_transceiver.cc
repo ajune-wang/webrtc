@@ -325,7 +325,8 @@ RTCError RtpTransceiver::SetCodecPreferences(
     std::vector<cricket::VideoCodec> video_codecs;
     // Video codecs are both for the receive and send side, so the checks are
     // simpler than the audio ones.
-    channel_manager_->GetSupportedVideoCodecs(&video_codecs);
+    // TODO(kron): Update code to be similar to audio path.
+    channel_manager_->GetSupportedVideoSendCodecs(&video_codecs);
 
     // Validate codecs
     for (const auto& codec_preference : codecs) {

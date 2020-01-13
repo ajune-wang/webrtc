@@ -1330,10 +1330,12 @@ MediaSessionDescriptionFactory::MediaSessionDescriptionFactory(
   channel_manager->GetSupportedAudioSendCodecs(&audio_send_codecs_);
   channel_manager->GetSupportedAudioReceiveCodecs(&audio_recv_codecs_);
   channel_manager->GetSupportedAudioRtpHeaderExtensions(&audio_rtp_extensions_);
-  channel_manager->GetSupportedVideoCodecs(&video_codecs_);
+  channel_manager->GetSupportedVideoSendCodecs(&video_send_codecs_);
+  channel_manager->GetSupportedVideoReceiveCodecs(&video_recv_codecs_);
   channel_manager->GetSupportedVideoRtpHeaderExtensions(&video_rtp_extensions_);
   channel_manager->GetSupportedDataCodecs(&rtp_data_codecs_);
   ComputeAudioCodecsIntersectionAndUnion();
+  ComputeVideoCodecsIntersectionAndUnion();
 }
 
 const AudioCodecs& MediaSessionDescriptionFactory::audio_sendrecv_codecs()
@@ -1355,6 +1357,27 @@ void MediaSessionDescriptionFactory::set_audio_codecs(
   audio_send_codecs_ = send_codecs;
   audio_recv_codecs_ = recv_codecs;
   ComputeAudioCodecsIntersectionAndUnion();
+}
+
+const VideoCodecs& MediaSessionDescriptionFactory::video_sendrecv_codecs()
+    const {
+  return video_sendrecv_codecs_;
+}
+
+const VideoCodecs& MediaSessionDescriptionFactory::video_send_codecs() const {
+  return video_send_codecs_;
+}
+
+const VideoCodecs& MediaSessionDescriptionFactory::video_recv_codecs() const {
+  return video_recv_codecs_;
+}
+
+void MediaSessionDescriptionFactory::set_video_codecs(
+    const VideoCodecs& send_codecs,
+    const VideoCodecs& recv_codecs) {
+  video_send_codecs_ = send_codecs;
+  video_recv_codecs_ = recv_codecs;
+  ComputeVideoCodecsIntersectionAndUnion();
 }
 
 static void RemoveUnifiedPlanExtensions(RtpHeaderExtensions* extensions) {
@@ -1701,7 +1724,7 @@ MediaSessionDescriptionFactory::CreateAnswer(
 
   return answer;
 }
-
+// Implement for video 
 const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForOffer(
     const RtpTransceiverDirection& direction) const {
   switch (direction) {
@@ -1784,7 +1807,7 @@ void MediaSessionDescriptionFactory::GetCodecsForOffer(
 
   // Add our codecs that are not in the current description.
   MergeCodecs<AudioCodec>(all_audio_codecs_, audio_codecs, &used_pltypes);
-  MergeCodecs<VideoCodec>(video_codecs_, video_codecs, &used_pltypes);
+  MergeCodecs<VideoCodec>(all_video_codecs_, video_codecs, &used_pltypes);
   MergeCodecs<DataCodec>(rtp_data_codecs_, rtp_data_codecs, &used_pltypes);
 }
 
@@ -1832,7 +1855,7 @@ void MediaSessionDescriptionFactory::GetCodecsForAnswer(
         if (!FindMatchingCodec<VideoCodec>(video->codecs(),
                                            filtered_offered_video_codecs,
                                            offered_video_codec, nullptr) &&
-            FindMatchingCodec<VideoCodec>(video->codecs(), video_codecs_,
+            FindMatchingCodec<VideoCodec>(video->codecs(), all_video_codecs_,
                                           offered_video_codec, nullptr)) {
           filtered_offered_video_codecs.push_back(offered_video_codec);
         }
@@ -2629,6 +2652,34 @@ void MediaSessionDescriptionFactory::ComputeAudioCodecsIntersectionAndUnion() {
   // means it's a codec we can handle efficiently.
   NegotiateCodecs(audio_recv_codecs_, audio_send_codecs_,
                   &audio_sendrecv_codecs_, true);
+}
+
+void MediaSessionDescriptionFactory::ComputeVideoCodecsIntersectionAndUnion() {
+  video_sendrecv_codecs_.clear();
+  video_audio_codecs_.clear();
+  // Compute the video codecs union.
+  for (const VideoCodec& send : video_send_codecs_) {
+    all_video_codecs_.push_back(send);
+    if (!FindMatchingCodec<VideoCodec>(video_send_codecs_, video_recv_codecs_,
+                                       send, nullptr)) {
+      // It doesn't make sense to have an RTX codec we support sending but not
+      // receiving.
+      RTC_DCHECK(!IsRtxCodec(send));
+    }
+  }
+  for (const VideoCodec& recv : video_recv_codecs_) {
+    if (!FindMatchingCodec<VideoCodec>(video_recv_codecs_, video_send_codecs_,
+                                       recv, nullptr)) {
+      all_video_codecs_.push_back(recv);
+    }
+  }
+  // Use NegotiateCodecs to merge our codec lists, since the operation is
+  // essentially the same. Put send_codecs as the offered_codecs, which is the
+  // order we'd like to follow. The reasoning is that encoding is usually more
+  // expensive than decoding, and prioritizing a codec in the send list probably
+  // means it's a codec we can handle efficiently.
+  NegotiateCodecs(video_recv_codecs_, video_send_codecs_,
+                  &video_sendrecv_codecs_, true);
 }
 
 bool IsMediaContent(const ContentInfo* content) {

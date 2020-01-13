@@ -17,6 +17,7 @@
 #include "audio/remix_resample.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "call/audio_send_stream.h"
+#include "modules/async_audio_processing/async_audio_processing.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -79,9 +80,19 @@ int Resample(const AudioFrame& frame,
 }
 }  // namespace
 
-AudioTransportImpl::AudioTransportImpl(AudioMixer* mixer,
-                                       AudioProcessing* audio_processing)
-    : audio_processing_(audio_processing), mixer_(mixer) {
+AudioTransportImpl::AudioTransportImpl(
+    AudioMixer* mixer,
+    AudioProcessing* audio_processing,
+    AsyncAudioProcessingFactory* async_audio_processing_factory)
+    : audio_processing_(audio_processing),
+      async_audio_processing_(
+          async_audio_processing_factory
+              ? async_audio_processing_factory->CreateAsyncAudioProcessing(
+                    [this](std::unique_ptr<AudioFrame> frame) {
+                      this->SendProcessedData(std::move(frame));
+                    })
+              : nullptr),
+      mixer_(mixer) {
   RTC_DCHECK(mixer);
   RTC_DCHECK(audio_processing);
 }
@@ -147,21 +158,32 @@ int32_t AudioTransportImpl::RecordedDataIsAvailable(
   {
     rtc::CritScope lock(&capture_lock_);
     typing_noise_detected_ = typing_detected;
-
-    RTC_DCHECK_GT(audio_frame->samples_per_channel_, 0);
-    if (!sending_streams_.empty()) {
-      auto it = sending_streams_.begin();
-      while (++it != sending_streams_.end()) {
-        std::unique_ptr<AudioFrame> audio_frame_copy(new AudioFrame());
-        audio_frame_copy->CopyFrom(*audio_frame);
-        (*it)->SendAudioData(std::move(audio_frame_copy));
-      }
-      // Send the original frame to the first stream w/o copying.
-      (*sending_streams_.begin())->SendAudioData(std::move(audio_frame));
-    }
   }
 
+  RTC_DCHECK_GT(audio_frame->samples_per_channel_, 0);
+  if (async_audio_processing_)
+    async_audio_processing_->Process(std::move(audio_frame));
+  else
+    SendProcessedData(std::move(audio_frame));
+
   return 0;
+}
+
+void AudioTransportImpl::SendProcessedData(
+    std::unique_ptr<AudioFrame> audio_frame) {
+  RTC_DCHECK_GT(audio_frame->samples_per_channel_, 0);
+  rtc::CritScope lock(&capture_lock_);
+  if (sending_streams_.empty())
+    return;
+
+  auto it = sending_streams_.begin();
+  while (++it != sending_streams_.end()) {
+    std::unique_ptr<AudioFrame> audio_frame_copy(new AudioFrame());
+    audio_frame_copy->CopyFrom(*audio_frame);
+    (*it)->SendAudioData(std::move(audio_frame_copy));
+  }
+  // Send the original frame to the first stream w/o copying.
+  (*sending_streams_.begin())->SendAudioData(std::move(audio_frame));
 }
 
 // Mix all received streams, feed the result to the AudioProcessing module, then
@@ -232,6 +254,12 @@ void AudioTransportImpl::UpdateSendingStreams(
     int send_sample_rate_hz,
     size_t send_num_channels) {
   rtc::CritScope lock(&capture_lock_);
+  if (async_audio_processing_ && sending_streams_.size() != streams.size()) {
+    if (streams.empty())
+      async_audio_processing_->Stop();
+    else if (sending_streams_.empty())
+      async_audio_processing_->Start();
+  }
   sending_streams_ = std::move(streams);
   send_sample_rate_hz_ = send_sample_rate_hz;
   send_num_channels_ = send_num_channels;

@@ -240,7 +240,7 @@ Thread* ThreadManager::CurrentThread() {
 void ThreadManager::SetCurrentThread(Thread* thread) {
 #if RTC_DLOG_IS_ON
   if (CurrentThread() && thread) {
-    RTC_DLOG(LS_ERROR) << "SetCurrentThread: Overwriting an existing value?";
+    RTC_DLOG(LS_VERBOSE) << "SetCurrentThread: Overwriting an existing value?";
   }
 #endif  // RTC_DLOG_IS_ON
   pthread_setspecific(key_, thread);
@@ -256,7 +256,9 @@ Thread* ThreadManager::CurrentThread() {
 }
 
 void ThreadManager::SetCurrentThread(Thread* thread) {
-  RTC_DCHECK(!CurrentThread() || !thread);
+  if (CurrentThread() && thread) {
+    RTC_DLOG(LS_VERBOSE) << "SetCurrentThread: Overwriting an existing value?";
+  }
   TlsSetValue(key_, thread);
 }
 #endif

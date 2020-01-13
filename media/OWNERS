@@ -7,6 +7,12 @@ perkj@webrtc.org
 shampson@webrtc.org
 steveanton@webrtc.org
 
+per-file *webrtc_voice_engine*=peah@webrtc.org
+per-file *webrtc_voice_engine*=saza@webrtc.org
+
+per-file *adm_helpers*=peah@webrtc.org
+per-file *adm_helpers*=saza@webrtc.org
+
 # These are for the common case of adding or renaming files. If you're doing
 # structural changes, please get a review from a reviewer in this file.
 per-file *.gn=*

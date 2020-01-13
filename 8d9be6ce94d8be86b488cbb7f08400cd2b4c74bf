@@ -16,6 +16,24 @@
       "revId": "8d9be6ce94d8be86b488cbb7f08400cd2b4c74bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eef6757_37c59c30",
+        "filename": "rtc_base/rate_statistics_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-01-13T17:09:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3d0002_6a3c8ae5",
+      "revId": "8d9be6ce94d8be86b488cbb7f08400cd2b4c74bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

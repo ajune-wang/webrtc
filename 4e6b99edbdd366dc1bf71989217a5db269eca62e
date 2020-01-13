@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6c12b423_0c4780e9",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-13T12:17:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e5273d0_20ca984e",
+      "range": {
+        "startLine": 105,
+        "startChar": 7,
+        "endLine": 105,
+        "endChar": 25
+      },
+      "revId": "4e6b99edbdd366dc1bf71989217a5db269eca62e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8118622_48903d10",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a35624d3_7d6cc2db",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-13T12:17:35Z",
+      "side": 1,
+      "message": "The restrictions are modified here by being cleared, we need to identify the adaptation listener that we have new restrictions so that these can be pushed to the source/sink.\nThis call was not explicit prior to this CL because ResetPixelFpsCount() (aka ClearRestrictions()) was directly manipulating the video_source_controller_. Now that the controller is only touched by the encoder, we need to tell the encoder that the restrictions changed.",
+      "parentUuid": "d8118622_48903d10",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 567,
+        "endChar": 59
+      },
+      "revId": "4e6b99edbdd366dc1bf71989217a5db269eca62e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62945c89_363a31f8",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "4e6b99edbdd366dc1bf71989217a5db269eca62e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "519d92ac_c1e3d659",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-13T12:17:35Z",
+      "side": 1,
+      "message": "Because it\u0027s const we don\u0027t have to protect the pointer. As for invoking it\u0027s methods: this should be RTC_GUARDED_BY when the TODO above is resolved, but in this CL there is one instance of invoking OnVideoSourceRestrictionsUpdated() off the encoder queue. This is the one and only reason why we still have locks in VideoSourceRestrictor and VideoSourceController instead of doing everything on the encoder queue (with a sequence checker instead of encoder_queue_). This will be fixed in the next CL in the chain (CL is still WIP but it looks doable).",
+      "parentUuid": "62945c89_363a31f8",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 63
+      },
+      "revId": "4e6b99edbdd366dc1bf71989217a5db269eca62e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

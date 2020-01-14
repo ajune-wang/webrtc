@@ -46,6 +46,53 @@
       "revId": "23c5a3733f3171bdfe953ed0cb3c68e53d6b043d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44da4176_be717ab0",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-14T15:01:26Z",
+      "side": 1,
+      "message": "Ok. I\u0027d prefer something a bit more informative here, but ok if it\u0027s going to be added soon.",
+      "parentUuid": "cf01b385_3d340678",
+      "range": {
+        "startLine": 201,
+        "startChar": 38,
+        "endLine": 201,
+        "endChar": 59
+      },
+      "revId": "23c5a3733f3171bdfe953ed0cb3c68e53d6b043d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb86a40a_b88e2d77",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2615,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-14T15:01:26Z",
+      "side": 1,
+      "message": "Is this where wiring up in this cl stops? I.e., assigning this new member, but not using it anywhere? Maybe clarify in cl description.",
+      "range": {
+        "startLine": 2615,
+        "startChar": 0,
+        "endLine": 2615,
+        "endChar": 29
+      },
+      "revId": "23c5a3733f3171bdfe953ed0cb3c68e53d6b043d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

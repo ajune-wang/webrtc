@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a2f69dc_4f952278",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-14T11:27:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "455d53c4_e540f0c6",
+      "range": {
+        "startLine": 516,
+        "startChar": 2,
+        "endLine": 516,
+        "endChar": 6
+      },
+      "revId": "ee1f1efed22b2e8fd20c6846c571048bb0927a41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fdea80f3_8182bd73",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "ee1f1efed22b2e8fd20c6846c571048bb0927a41",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efa5f00a_5d5dba31",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-14T11:27:50Z",
+      "side": 1,
+      "message": "Yes, it seems like something changed in the underlying code after rebase, so I reverted this to use legacy mode for now.\n\nYeah, I think it\u0027s hard to avoid magic numbers in behavioral tests like this. Mostly they act as regression tests so we want the numbers to reflect actual behavior rather than theoretical limits. and even for theoretically derived numbers it rarely clarifies things to use calculations.\n\nCompare for instance:\nsimulation.SetCapacity(1000kbps);\nRunSimulation(10s)\nEXPECT_LT(estimato.Capacity(), 1100kbps);\n\nvs:\nkCapacity \u003d 1000kbps;\nkEstimationMargin \u003d 1.1;\nkRuntime \u003d 10s;\nsimulation.SetCapacity(kCapacity);\nRunSimulation(kRuntime)\nEXPECT_LT(estimato.Capacity(), kCapacity*kEstimationMargin);\n\nThe only extra information in the former is the reason why we don\u0027t use the same capacity (it\u0027s a margin) but it\u0027s more lines of code to read and harder to follow what the actual numbers are. (for complicated tests this becomes a hassle, as it might not even fit into one screen)",
+      "parentUuid": "fdea80f3_8182bd73",
+      "range": {
+        "startLine": 537,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 24
+      },
+      "revId": "ee1f1efed22b2e8fd20c6846c571048bb0927a41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

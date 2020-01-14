@@ -104,6 +104,8 @@ extern const char kRtcpFbParamRemb[];
 // rtcp-fb messages according to
 // https://tools.ietf.org/html/draft-holmer-rmcat-transport-wide-cc-extensions-01
 extern const char kRtcpFbParamTransportCc[];
+// rtcp-fb message for playback timing information. Documentation pending.
+extern const char kRtcpFbParamPlaybackTiming[];
 // ccm submessages according to RFC 5104
 extern const char kRtcpFbParamCcm[];
 extern const char kRtcpFbCcmParamFir[];

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d2aa93a_d6e492ec",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-01-14T12:48:33Z",
+      "side": 1,
+      "message": "\u003c\u003c \", level_\u003d\" \u003c\u003c level_",
+      "range": {
+        "startLine": 248,
+        "startChar": 20,
+        "endLine": 250,
+        "endChar": 29
+      },
+      "revId": "8e2aff874531e38aae6f71cb3f4a519b9640fb78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edb4238a_4aea7db2",
+        "filename": "modules/audio_processing/agc/agc_manager_direct.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-01-14T12:48:33Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 251,
+        "startChar": 20,
+        "endLine": 253,
+        "endChar": 33
+      },
+      "revId": "8e2aff874531e38aae6f71cb3f4a519b9640fb78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "838add0e_13327d3d",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2206,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-01-14T12:48:33Z",
+      "side": 1,
+      "message": "maybe reducing the number of lines helps to read; what about\n\n  ss \u003c\u003c \"Sample rates:\"\n        \"\\n Render input: \"\n     \u003c\u003c render_input_sample_rate_hz\n     \u003c\u003c \" Hz\"\n        \"\\n Render output: \"\n     \u003c\u003c render_output_sample_rate_hz\n     \u003c\u003c \" Hz\"\n        \"\\n Capture input: \"\n     \u003c\u003c capture_input_sample_rate_hz\n     \u003c\u003c \" Hz\"\n        \"\\n Capture output: \"\n     \u003c\u003c capture_output_sample_rate_hz\n     \u003c\u003c \" Hz\"\n        \"\\nNumber of channels:\"\n        \"\\n Render input: \"\n     \u003c\u003c render_input_num_channels\n     \u003c\u003c \"\\n Render output: \"\n     \u003c\u003c render_output_num_channels\n     \u003c\u003c \"\\n Capture input: \"\n     \u003c\u003c capture_input_num_channels\n     \u003c\u003c \"\\n Capture output: \"\n     \u003c\u003c capture_output_num_channels;",
+      "range": {
+        "startLine": 2176,
+        "startChar": 0,
+        "endLine": 2206,
+        "endChar": 36
+      },
+      "revId": "8e2aff874531e38aae6f71cb3f4a519b9640fb78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

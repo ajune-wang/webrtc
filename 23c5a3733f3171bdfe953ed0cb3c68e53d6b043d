@@ -22,6 +22,30 @@
       "revId": "23c5a3733f3171bdfe953ed0cb3c68e53d6b043d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf01b385_3d340678",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-14T14:47:41Z",
+      "side": 1,
+      "message": "Yes, I will add the code for sending/receiving in a separate CL.\nThe format is specified in the design doc in the linked bug.",
+      "parentUuid": "64821727_6c16e746",
+      "range": {
+        "startLine": 201,
+        "startChar": 38,
+        "endLine": 201,
+        "endChar": 59
+      },
+      "revId": "23c5a3733f3171bdfe953ed0cb3c68e53d6b043d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

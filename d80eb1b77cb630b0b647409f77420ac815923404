@@ -179,6 +179,24 @@
       "revId": "d80eb1b77cb630b0b647409f77420ac815923404",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ef05dc1_2aa4d41c",
+        "filename": "test/time_controller/simulated_thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-14T10:14:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7e154e8_fe3ab27d",
+      "revId": "d80eb1b77cb630b0b647409f77420ac815923404",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

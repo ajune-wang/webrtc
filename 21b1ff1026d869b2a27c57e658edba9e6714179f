@@ -16,6 +16,23 @@
       "revId": "21b1ff1026d869b2a27c57e658edba9e6714179f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d221125_ef6a6abc",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2743,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-01-14T14:07:00Z",
+      "side": 1,
+      "message": "Given the logic here, and that kGoogPingVersion is 1, responding with 0 would mean \"the version you asked for is not supported\".\n\nWhere\u0027s the test that verifies this code path - that the client responds correctly to it?",
+      "revId": "21b1ff1026d869b2a27c57e658edba9e6714179f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

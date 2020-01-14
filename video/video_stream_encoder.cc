@@ -332,7 +332,10 @@ VideoStreamEncoder::VideoStreamEncoder(
           TaskQueueFactory::Priority::NORMAL)) {
   RTC_DCHECK(encoder_stats_observer);
   RTC_DCHECK_GE(number_of_cores, 1);
-  resource_adaptation_module_->Initialize(encoder_queue());
+  encoder_queue_.PostTask([this] {
+    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    resource_adaptation_module_->Initialize();
+  });
 
   for (auto& state : encoder_buffer_state_)
     state.fill(std::numeric_limits<int64_t>::max());
@@ -388,10 +391,10 @@ void VideoStreamEncoder::SetSource(
     const DegradationPreference& degradation_preference) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   video_source_sink_controller_->SetSource(source);
-  resource_adaptation_module_->SetHasInputVideoAndDegradationPreference(
-      source, degradation_preference);
-  encoder_queue_.PostTask([this, degradation_preference] {
+  encoder_queue_.PostTask([this, source, degradation_preference] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
+    resource_adaptation_module_->SetHasInputVideoAndDegradationPreference(
+        source, degradation_preference);
     if (encoder_)
       ConfigureQualityScaler(encoder_->GetEncoderInfo());
 

@@ -233,6 +233,7 @@ bool HasNack(const Codec& codec);
 bool HasRemb(const Codec& codec);
 bool HasRrtr(const Codec& codec);
 bool HasTransportCc(const Codec& codec);
+bool HasPlaybackTiming(const Codec& codec);
 // Returns the first codec in |supported_codecs| that matches |codec|, or
 // nullptr if no codec matches.
 const VideoCodec* FindMatchingCodec(

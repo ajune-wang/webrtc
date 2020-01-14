@@ -429,6 +429,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
     void SetFeedbackParameters(bool lntf_enabled,
                                bool nack_enabled,
                                bool transport_cc_enabled,
+                               bool playback_timing_enabled,
                                webrtc::RtcpMode rtcp_mode);
     void SetRecvParameters(const ChangedRecvParameters& recv_params);
 

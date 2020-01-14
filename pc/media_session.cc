@@ -729,6 +729,12 @@ static void NegotiateCodecs(const std::vector<C>& local_codecs,
       C negotiated = ours;
       NegotiatePacketization(ours, theirs, &negotiated);
       negotiated.IntersectFeedbackParams(theirs);
+      if (HasPlaybackTiming(theirs)) {
+        // Respond that we support playback timing RTCP feedback, although it's
+        // not in our default offer.
+        negotiated.AddFeedbackParam(
+            FeedbackParam(kRtcpFbParamPlaybackTiming, kParamValueEmpty));
+      }
       if (IsRtxCodec(negotiated)) {
         const auto apt_it =
             theirs.params.find(kCodecParamAssociatedPayloadType);

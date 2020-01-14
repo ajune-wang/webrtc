@@ -844,6 +844,7 @@ bool WebRtcVideoChannel::ApplyChangedParams(
       kv.second->SetFeedbackParameters(
           HasLntf(send_codec_->codec), HasNack(send_codec_->codec),
           HasTransportCc(send_codec_->codec),
+          HasPlaybackTiming(send_codec_->codec),
           send_params_.rtcp.reduced_size ? webrtc::RtcpMode::kReducedSize
                                          : webrtc::RtcpMode::kCompound);
     }
@@ -1316,6 +1317,9 @@ void WebRtcVideoChannel::ConfigureReceiverRtp(
 
   config->rtp.transport_cc =
       send_codec_ ? HasTransportCc(send_codec_->codec) : false;
+
+  config->rtp.playback_timing =
+      send_codec_ ? HasPlaybackTiming(send_codec_->codec) : false;
 
   sp.GetFidSsrc(ssrc, &config->rtp.rtx_ssrc);
 
@@ -2589,22 +2593,26 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
     bool lntf_enabled,
     bool nack_enabled,
     bool transport_cc_enabled,
+    bool playback_timing_enabled,
     webrtc::RtcpMode rtcp_mode) {
   int nack_history_ms = nack_enabled ? kNackHistoryMs : 0;
   if (config_.rtp.lntf.enabled == lntf_enabled &&
       config_.rtp.nack.rtp_history_ms == nack_history_ms &&
       config_.rtp.transport_cc == transport_cc_enabled &&
+      config_.rtp.playback_timing == playback_timing_enabled &&
       config_.rtp.rtcp_mode == rtcp_mode) {
     RTC_LOG(LS_INFO)
         << "Ignoring call to SetFeedbackParameters because parameters are "
            "unchanged; lntf="
         << lntf_enabled << ", nack=" << nack_enabled
-        << ", transport_cc=" << transport_cc_enabled;
+        << ", transport_cc=" << transport_cc_enabled
+        << ", playback_timing=" << playback_timing_enabled;
     return;
   }
   config_.rtp.lntf.enabled = lntf_enabled;
   config_.rtp.nack.rtp_history_ms = nack_history_ms;
   config_.rtp.transport_cc = transport_cc_enabled;
+  config_.rtp.playback_timing = playback_timing_enabled;
   config_.rtp.rtcp_mode = rtcp_mode;
   // TODO(brandtr): We should be spec-compliant and set |transport_cc| here
   // based on the rtcp-fb for the FlexFEC codec, not the media codec.
@@ -2612,7 +2620,8 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFeedbackParameters(
   flexfec_config_.rtcp_mode = config_.rtp.rtcp_mode;
   RTC_LOG(LS_INFO)
       << "RecreateWebRtcStream (recv) because of SetFeedbackParameters; nack="
-      << nack_enabled << ", transport_cc=" << transport_cc_enabled;
+      << nack_enabled << ", transport_cc=" << transport_cc_enabled
+      << ", playback_timing=" << playback_timing_enabled;
   MaybeRecreateWebRtcFlexfecStream();
   RecreateWebRtcVideoStream();
 }

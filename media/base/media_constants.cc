@@ -84,6 +84,7 @@ const char kRtcpFbParamNack[] = "nack";
 const char kRtcpFbNackParamPli[] = "pli";
 const char kRtcpFbParamRemb[] = "goog-remb";
 const char kRtcpFbParamTransportCc[] = "transport-cc";
+const char kRtcpFbParamPlaybackTiming[] = "playback-timing";
 
 const char kRtcpFbParamCcm[] = "ccm";
 const char kRtcpFbCcmParamFir[] = "fir";

@@ -16,6 +16,24 @@
       "revId": "aa8caadbdb81048eb55a8ddf95b1586225cd2189",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c31928f6_5d2155b8",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-14T09:15:44Z",
+      "side": 1,
+      "message": "We\u0027d also have to change the behavior so we run the handler in that specific case. (removing the early return)\n\nI think that might work, but I think there\u0027s some value in requiring callers to be explicit.  IMO callers should always be explicit on whether they are on a specific thread/queue or if they need to do a send. That makes it easier for readers of code to figure out what happens. In that spirit I feel that checks for IsCurrent should move as far \"out\" as possible (and ideally be removed when they are far out enough that the state is implicitly known).\n\nIdeally we\u0027d update dependent code so it doesn\u0027t call the destructor when the thread is quitting and then revert the change in proxy.h.\n\nWDYT?",
+      "parentUuid": "f3502c2c_2efc6e1e",
+      "revId": "aa8caadbdb81048eb55a8ddf95b1586225cd2189",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

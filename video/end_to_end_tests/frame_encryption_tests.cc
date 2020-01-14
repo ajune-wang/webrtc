@@ -26,8 +26,9 @@ enum : int {  // The first valid value is 1.
 class FrameEncryptionEndToEndTest : public test::CallTest {
  public:
   FrameEncryptionEndToEndTest() {
-    RegisterRtpExtension(RtpExtension(RtpExtension::kGenericFrameDescriptorUri,
-                                      kGenericDescriptorExtensionId));
+    RegisterRtpExtension(
+        RtpExtension(RtpExtension::kGenericFrameDescriptorUri00,
+                     kGenericDescriptorExtensionId));
   }
 
  private:

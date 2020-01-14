@@ -132,8 +132,6 @@ const char RtpExtension::kGenericFrameDescriptorUri00[] =
     "http://www.webrtc.org/experiments/rtp-hdrext/generic-frame-descriptor-00";
 const char RtpExtension::kGenericFrameDescriptorUri01[] =
     "http://www.webrtc.org/experiments/rtp-hdrext/generic-frame-descriptor-01";
-const char RtpExtension::kGenericFrameDescriptorUri[] =
-    "http://www.webrtc.org/experiments/rtp-hdrext/generic-frame-descriptor-00";
 
 const char RtpExtension::kEncryptHeaderExtensionsUri[] =
     "urn:ietf:params:rtp-hdrext:encrypt";

@@ -1294,6 +1294,65 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestCreateVideoAnswerGcmAnswer) {
   TestVideoGcmCipher(false, true);
 }
 
+// Playback timing is experimental and therefore disabled by default.
+TEST_F(MediaSessionDescriptionFactoryTest, PlaybackTimingDisabledByDefault) {
+  MediaSessionOptions opts;
+  AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
+
+  std::unique_ptr<SessionDescription> offer = f1_.CreateOffer(opts, NULL);
+  ASSERT_TRUE(offer.get() != NULL);
+  const ContentInfo* offer_vc = offer->GetContentByName("video");
+  ASSERT_TRUE(offer_vc != NULL);
+  const VideoContentDescription* offer_vcd =
+      offer_vc->media_description()->as_video();
+  EXPECT_FALSE(offer_vcd->codecs().empty());
+  // Disabled in offer.
+  for (const auto& codec : offer_vcd->codecs()) {
+    EXPECT_FALSE(HasPlaybackTiming(codec));
+  }
+
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswer(offer.get(), opts, NULL);
+  const ContentInfo* answer_vc = answer->GetContentByName("video");
+  ASSERT_TRUE(answer_vc != NULL);
+  const VideoContentDescription* answer_vcd =
+      answer_vc->media_description()->as_video();
+  EXPECT_FALSE(answer_vcd->codecs().empty());
+  // Disabled in answer.
+  for (const auto& codec : answer_vcd->codecs()) {
+    EXPECT_FALSE(HasPlaybackTiming(codec));
+  }
+}
+
+// Test that answer contains playback timing RTCP feedback if included in offer.
+TEST_F(MediaSessionDescriptionFactoryTest, VideoAnswerWithPlaybackTiming) {
+  MediaSessionOptions opts;
+  AddAudioVideoSections(RtpTransceiverDirection::kRecvOnly, &opts);
+
+  // Add PlaybackTiming to codecs in offer.
+  std::vector<VideoCodec> video_codecs = MAKE_VECTOR(kVideoCodecs1);
+  for (auto& codec : video_codecs) {
+    codec.AddFeedbackParam(cricket::FeedbackParam(
+        cricket::kRtcpFbParamPlaybackTiming, cricket::kParamValueEmpty));
+  }
+  f1_.set_video_codecs(video_codecs);
+
+  std::unique_ptr<SessionDescription> offer = f1_.CreateOffer(opts, NULL);
+  ASSERT_TRUE(offer.get() != NULL);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswer(offer.get(), opts, NULL);
+  const ContentInfo* answer_vc = answer->GetContentByName("video");
+  ASSERT_TRUE(answer_vc != NULL);
+  const VideoContentDescription* answer_vcd =
+      answer_vc->media_description()->as_video();
+  EXPECT_EQ(MEDIA_TYPE_VIDEO, answer_vcd->type());
+  EXPECT_FALSE(answer_vcd->codecs().empty());
+  // Enabled in answer.
+  for (const auto& codec : answer_vcd->codecs()) {
+    EXPECT_TRUE(HasPlaybackTiming(codec));
+  }
+}
+
 TEST_F(MediaSessionDescriptionFactoryTest, TestCreateDataAnswer) {
   MediaSessionOptions opts = CreatePlanBMediaSessionOptions();
   AddDataSection(cricket::DCT_RTP, RtpTransceiverDirection::kRecvOnly, &opts);

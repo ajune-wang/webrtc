@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4405dcb3_281d977c",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-15T09:57:18Z",
+      "side": 1,
+      "message": "Question to reviewers: Now that EVERYTHING is guarded by a sequence checker... do we want to keep the sequence checker in OveruseFrameDetectorResourceAdaptationModule? If the module instances are RTC_GUARDED_BY a sequence checker or task queue, safety would be ensured at usage place - and this class doesn\u0027t even have to care about the existence of sequences. VideoStreamEncoder already protects it with RTC_GUARDED_BY. That said it doesn\u0027t hurt to check proper usage inside this class as well, other than possibly readability.",
+      "revId": "f63965f9b579aa37928130da2b736a2acb6fb34a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

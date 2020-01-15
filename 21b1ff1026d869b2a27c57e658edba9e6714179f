@@ -33,6 +33,24 @@
       "revId": "21b1ff1026d869b2a27c57e658edba9e6714179f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31361bcb_c03aca53",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2743,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-01-15T12:44:54Z",
+      "side": 1,
+      "message": "hmm...\nthis is sort of theoretical...i think...\n\na peer (on either side) can determine that it does not support the GoogPingVersion\nof the other peer by examine the version number (currently 1).\n\nbut there is no such current scenario, since there is only 1 version.\ntherefor there is no such code, and hence no such test.\n\nWDYT?",
+      "parentUuid": "5d221125_ef6a6abc",
+      "revId": "21b1ff1026d869b2a27c57e658edba9e6714179f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

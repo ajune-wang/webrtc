@@ -51,6 +51,24 @@
       "revId": "21b1ff1026d869b2a27c57e658edba9e6714179f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04e57ae_e95bd304",
+        "filename": "p2p/base/port_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2743,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-01-15T13:24:50Z",
+      "side": 1,
+      "message": "Pings come from the external world, and the external world is full of enemies.\nWe should know what happens when the enemy sends us version 0, and the easiest way to know is to write a test for it.",
+      "parentUuid": "31361bcb_c03aca53",
+      "revId": "21b1ff1026d869b2a27c57e658edba9e6714179f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

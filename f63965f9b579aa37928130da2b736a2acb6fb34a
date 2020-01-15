@@ -83,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "aafe44b8_8e34ff20",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-15T10:39:29Z",
+      "side": 1,
+      "message": "I also slightly prefer if the extra check is removed.",
+      "parentUuid": "06d31908_ce19b992",
+      "revId": "f63965f9b579aa37928130da2b736a2acb6fb34a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd3740c1_3ccbefba",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
         "patchSetId": 9

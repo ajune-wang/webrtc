@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58429dd6_f6174f7f",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-15T11:43:03Z",
+      "side": 1,
+      "message": "nit: Don\u0027t think you need this get()?\nsame below",
+      "range": {
+        "startLine": 441,
+        "startChar": 16,
+        "endLine": 441,
+        "endChar": 21
+      },
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd48b780_de3170f9",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-15T11:43:03Z",
+      "side": 1,
+      "message": "Got a bit confused by \"All\". If that means we would accept either screen or window, maybe it should be named \"Any\"?\n\nAlso, if this is a bit-mask of uint32_t values, the code is a bit confusing. I would do something like:\n\nenum class CaptureSourceType : uint32_t {\n  kScreen \u003d 0b01,\n  kWindow \u003d 0b10,\n  kAny \u003d 0b11 };\n\n..and then cast it to int where we actually want the numeric value.",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

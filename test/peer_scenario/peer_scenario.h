@@ -21,6 +21,7 @@
 #include <list>
 #include <vector>
 
+#include "api/test/time_controller.h"
 #include "test/gtest.h"
 #include "test/logging/log_writer.h"
 #include "test/network/network_emulation_manager.h"
@@ -28,10 +29,10 @@
 #include "test/peer_scenario/signaling_route.h"
 #include "test/scenario/stats_collection.h"
 #include "test/scenario/video_frame_matcher.h"
+#include "test/time_controller/simulated_thread.h"
 
 namespace webrtc {
 namespace test {
-
 // The PeerScenario class represents a PeerConnection simulation scenario. The
 // main purpose is to maintain ownership and ensure safe destruction order of
 // clients and network emulation. Additionally it reduces the amount of boiler
@@ -46,10 +47,12 @@ class PeerScenario {
   // The name is used for log output when those are enabled by the --peer_logs
   // command line flag. Optionally, the TestInfo struct available in gtest can
   // be used to automatically generate a path based on the test name.
-  explicit PeerScenario(const testing::TestInfo& test_info);
-  explicit PeerScenario(std::string file_name);
+  explicit PeerScenario(const testing::TestInfo& test_info,
+                        bool real_time = false);
+  explicit PeerScenario(std::string file_name, bool real_time = false);
   explicit PeerScenario(
-      std::unique_ptr<LogWriterFactoryInterface> log_writer_manager);
+      std::unique_ptr<LogWriterFactoryInterface> log_writer_manager,
+      bool real_time = false);
 
   NetworkEmulationManagerImpl* net() { return &net_; }
   rtc::Thread* thread() { return signaling_thread_; }
@@ -102,12 +105,16 @@ class PeerScenario {
     CapturedFrameTap capture_tap_;
     DecodedFrameTap decode_tap_;
   };
+
   Clock* clock() { return Clock::GetRealTimeClock(); }
 
   std::unique_ptr<LogWriterFactoryInterface> GetLogWriterFactory(
       std::string name);
 
+  const std::unique_ptr<TimeController> time_controller_;
+  const std::unique_ptr<rtc::Thread> simulated_thread_;
   rtc::Thread* const signaling_thread_;
+  SimulatedThread::CurrentThreadSetter current_thread_setter_;
   const std::unique_ptr<LogWriterFactoryInterface> log_writer_manager_;
   std::list<PeerVideoQualityPair> video_quality_pairs_;
   NetworkEmulationManagerImpl net_;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ec9e42a_b23605db",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-01-15T20:59:33Z",
+      "side": 1,
+      "message": "Why does this turn to 0x4 with the removal?",
+      "range": {
+        "startLine": 554,
+        "startChar": 28,
+        "endLine": 554,
+        "endChar": 32
+      },
+      "revId": "c6fcfec8eedd9037ea3a6eb52141cd0677233e80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

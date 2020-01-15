@@ -10,9 +10,12 @@
 
 #include "modules/video_coding/loss_notification_controller.h"
 
+#include <stdint.h>
+
 #include <limits>
 #include <string>
 #include <tuple>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -24,7 +27,7 @@ namespace {
 // The information about an RTP packet that is relevant in these tests.
 struct Packet {
   uint16_t seq_num;
-  RtpGenericFrameDescriptor descriptor;
+  absl::optional<LossNotificationController::FrameDetails> frame_details;
 };
 
 Packet CreatePacket(
@@ -33,21 +36,18 @@ Packet CreatePacket(
     uint16_t seq_num,
     uint16_t frame_id,
     bool is_key_frame,
-    std::vector<uint16_t> ref_frame_ids = std::vector<uint16_t>()) {
-  RtpGenericFrameDescriptor frame_descriptor;
-  frame_descriptor.SetFirstPacketInSubFrame(first_in_frame);
-  frame_descriptor.SetLastPacketInSubFrame(last_in_frame);
+    std::vector<int64_t> ref_frame_ids = std::vector<int64_t>()) {
+  Packet packet;
+  packet.seq_num = seq_num;
   if (first_in_frame) {
-    frame_descriptor.SetFrameId(frame_id);
+    packet.frame_details.emplace();
+    packet.frame_details->is_keyframe = is_key_frame;
+    packet.frame_details->frame_id = frame_id;
     if (!is_key_frame) {
-      for (uint16_t ref_frame_id : ref_frame_ids) {
-        uint16_t fdiff = frame_id - ref_frame_id;
-        EXPECT_TRUE(frame_descriptor.AddFrameDependencyDiff(fdiff));
-      }
+      packet.frame_details->ref_frame_ids = std::move(ref_frame_ids);
     }
   }
-
-  return Packet{seq_num, frame_descriptor};
+  return packet;
 }
 
 class PacketStreamCreator final {
@@ -55,7 +55,7 @@ class PacketStreamCreator final {
   PacketStreamCreator() : seq_num_(0), frame_id_(0), next_is_key_frame_(true) {}
 
   Packet NextPacket() {
-    std::vector<uint16_t> ref_frame_ids;
+    std::vector<int64_t> ref_frame_ids;
     if (!next_is_key_frame_) {
       ref_frame_ids.push_back(frame_id_ - 1);
     }
@@ -70,7 +70,7 @@ class PacketStreamCreator final {
 
  private:
   uint16_t seq_num_;
-  uint16_t frame_id_;
+  int64_t frame_id_;
   bool next_is_key_frame_;
 };
 }  // namespace
@@ -112,25 +112,24 @@ class LossNotificationControllerBaseTest : public ::testing::Test,
     EXPECT_FALSE(LastKeyFrameRequest());
     EXPECT_FALSE(LastLossNotification());
 
-    if (packet.descriptor.FirstPacketInSubFrame()) {
+    if (packet.frame_details) {
       previous_first_packet_in_frame_ = packet;
     }
 
-    uut_.OnReceivedPacket(packet.seq_num, packet.descriptor);
+    uut_.OnReceivedPacket(packet.seq_num, packet.frame_details);
   }
 
   void OnAssembledFrame(uint16_t first_seq_num,
-                        uint16_t frame_id,
+                        int64_t frame_id,
                         bool discardable) {
     EXPECT_FALSE(LastKeyFrameRequest());
     EXPECT_FALSE(LastLossNotification());
 
     ASSERT_TRUE(previous_first_packet_in_frame_);
-    const RtpGenericFrameDescriptor& frame_descriptor =
-        previous_first_packet_in_frame_->descriptor;
-
-    uut_.OnAssembledFrame(first_seq_num, frame_id, discardable,
-                          frame_descriptor.FrameDependenciesDiffs());
+    ASSERT_TRUE(previous_first_packet_in_frame_->frame_details);
+    uut_.OnAssembledFrame(
+        first_seq_num, frame_id, discardable,
+        previous_first_packet_in_frame_->frame_details->ref_frame_ids);
   }
 
   void ExpectKeyFrameRequest() {
@@ -255,19 +254,6 @@ TEST_P(LossNotificationControllerTest, SeqNumWrapAround) {
   OnReceivedPacket(CreatePacket(first, last, ++seq_num, 1, false, {0}));
 }
 
-// No key frame or loss notifications issued due to an innocuous wrap-around
-// of the frame ID.
-TEST_P(LossNotificationControllerTest, FrameIdWrapAround) {
-  uint16_t frame_id = std::numeric_limits<uint16_t>::max();
-  OnReceivedPacket(CreatePacket(true, true, 100, frame_id, true));
-  OnAssembledFrame(100, frame_id, false);
-  ++frame_id;
-  const bool first = Bool<0>();
-  const bool last = Bool<1>();
-  OnReceivedPacket(CreatePacket(first, last, 100, frame_id, false,
-                                {static_cast<uint16_t>(frame_id - 1)}));
-}
-
 TEST_F(LossNotificationControllerTest,
        KeyFrameAfterPacketLossProducesNoLossNotifications) {
   OnReceivedPacket(CreatePacket(true, true, 100, 1, true));
@@ -335,7 +321,7 @@ TEST_P(LossNotificationControllerTest, RepeatedPacketsAreIgnored) {
   const auto key_frame_packet = packet_stream.NextPacket();
   OnReceivedPacket(key_frame_packet);
   OnAssembledFrame(key_frame_packet.seq_num,
-                   key_frame_packet.descriptor.FrameId(), false);
+                   key_frame_packet.frame_details->frame_id, false);
 
   const bool gap = Bool<0>();
 
@@ -376,7 +362,7 @@ class LossNotificationControllerTestDecodabilityFlag
 
   void ReceivePacket(bool first_packet_in_frame,
                      bool last_packet_in_frame,
-                     const std::vector<uint16_t>& ref_frame_ids) {
+                     const std::vector<int64_t>& ref_frame_ids) {
     if (first_packet_in_frame) {
       frame_id_ += 1;
     }
@@ -397,10 +383,10 @@ class LossNotificationControllerTestDecodabilityFlag
 
   // The tests intentionally never receive this, and can therefore always
   // use this as an unsatisfied dependency.
-  const uint16_t never_received_frame_id_ = 123;
+  const int64_t never_received_frame_id_ = 123;
 
   uint16_t seq_num_;
-  uint16_t frame_id_;
+  int64_t frame_id_;
 };
 
 TEST_F(LossNotificationControllerTestDecodabilityFlag,
@@ -408,7 +394,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
   ReceiveKeyFrame();
   CreateGap();
 
-  const std::vector<uint16_t> ref_frame_ids = {key_frame_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {key_frame_frame_id_};
   ReceivePacket(true, true, ref_frame_ids);
 
   const bool expected_decodability_flag = true;
@@ -421,7 +407,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
   ReceiveKeyFrame();
   CreateGap();
 
-  const std::vector<uint16_t> ref_frame_ids = {never_received_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {never_received_frame_id_};
   ReceivePacket(true, true, ref_frame_ids);
 
   const bool expected_decodability_flag = false;
@@ -434,7 +420,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
   ReceiveKeyFrame();
   CreateGap();
 
-  const std::vector<uint16_t> ref_frame_ids = {key_frame_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {key_frame_frame_id_};
   ReceivePacket(true, false, ref_frame_ids);
 
   const bool expected_decodability_flag = true;
@@ -447,7 +433,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
   ReceiveKeyFrame();
   CreateGap();
 
-  const std::vector<uint16_t> ref_frame_ids = {never_received_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {never_received_frame_id_};
   ReceivePacket(true, false, ref_frame_ids);
 
   const bool expected_decodability_flag = false;
@@ -460,7 +446,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
   ReceiveKeyFrame();
   CreateGap();
 
-  const std::vector<uint16_t> ref_frame_ids = {key_frame_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {key_frame_frame_id_};
   ReceivePacket(false, false, ref_frame_ids);
 
   const bool expected_decodability_flag = false;
@@ -473,7 +459,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
   ReceiveKeyFrame();
   CreateGap();
 
-  const std::vector<uint16_t> ref_frame_ids = {never_received_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {never_received_frame_id_};
   ReceivePacket(false, false, ref_frame_ids);
 
   const bool expected_decodability_flag = false;
@@ -488,7 +474,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
 
   // First packet in multi-packet frame. A loss notification is produced
   // because of the gap in RTP sequence numbers.
-  const std::vector<uint16_t> ref_frame_ids = {key_frame_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {key_frame_frame_id_};
   ReceivePacket(true, false, ref_frame_ids);
   const bool expected_decodability_flag_first = true;
   ExpectLossNotification(key_frame_seq_num_, seq_num_,
@@ -510,7 +496,7 @@ TEST_F(
   // First packet in multi-packet frame. A loss notification is produced
   // because of the gap in RTP sequence numbers. The frame is also recognized
   // as having non-decodable dependencies.
-  const std::vector<uint16_t> ref_frame_ids = {never_received_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {never_received_frame_id_};
   ReceivePacket(true, false, ref_frame_ids);
   const bool expected_decodability_flag_first = false;
   ExpectLossNotification(key_frame_seq_num_, seq_num_,
@@ -529,7 +515,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
   ReceiveKeyFrame();
   CreateGap();
 
-  const std::vector<uint16_t> ref_frame_ids = {key_frame_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {key_frame_frame_id_};
   ReceivePacket(false, true, ref_frame_ids);
 
   const bool expected_decodability_flag = false;
@@ -542,7 +528,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
   ReceiveKeyFrame();
   CreateGap();
 
-  const std::vector<uint16_t> ref_frame_ids = {never_received_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {never_received_frame_id_};
   ReceivePacket(false, true, ref_frame_ids);
 
   const bool expected_decodability_flag = false;
@@ -557,7 +543,7 @@ TEST_F(LossNotificationControllerTestDecodabilityFlag,
 
   // First packet in multi-packet frame. A loss notification is produced
   // because of the gap in RTP sequence numbers.
-  const std::vector<uint16_t> ref_frame_ids = {key_frame_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {key_frame_frame_id_};
   ReceivePacket(true, false, ref_frame_ids);
   const bool expected_decodability_flag_first = true;
   ExpectLossNotification(key_frame_seq_num_, seq_num_,
@@ -579,7 +565,7 @@ TEST_F(
   // First packet in multi-packet frame. A loss notification is produced
   // because of the gap in RTP sequence numbers. The frame is also recognized
   // as having non-decodable dependencies.
-  const std::vector<uint16_t> ref_frame_ids = {never_received_frame_id_};
+  const std::vector<int64_t> ref_frame_ids = {never_received_frame_id_};
   ReceivePacket(true, false, ref_frame_ids);
   const bool expected_decodability_flag_first = false;
   ExpectLossNotification(key_frame_seq_num_, seq_num_,

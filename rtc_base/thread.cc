@@ -844,9 +844,6 @@ void Thread::Send(const Location& posted_from,
                   MessageHandler* phandler,
                   uint32_t id,
                   MessageData* pdata) {
-  if (IsQuitting())
-    return;
-
   // Sent messages are sent to the MessageHandler directly, in the context
   // of "thread", like Win32 SendMessage. If in the right context,
   // call the handler directly.
@@ -859,6 +856,9 @@ void Thread::Send(const Location& posted_from,
     phandler->OnMessage(&msg);
     return;
   }
+  RTC_DCHECK(!IsQuitting());
+  if (IsQuitting())
+    return;
 
   AssertBlockingIsAllowedOnCurrentThread();
 

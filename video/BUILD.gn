@@ -194,6 +194,7 @@ rtc_library("video_stream_encoder_impl") {
 
   deps = [
     "../api:rtp_parameters",
+    "../api/task_queue:task_queue",
     "../api/units:data_rate",
     "../api/video:encoded_image",
     "../api/video:video_bitrate_allocation",
@@ -242,7 +243,7 @@ if (rtc_include_tests) {
   rtc_library("video_mocks") {
     testonly = true
     sources = [
-      "test/mock_video_stream_encoder.h",
+      "test/mock_video_stream_encoder.h"
     ]
     deps = [
       "../api/video:video_stream_encoder",
@@ -330,7 +331,7 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
-      "full_stack_tests.cc",
+      "full_stack_tests.cc"
     ]
     deps = [
       ":video_quality_test",
@@ -357,7 +358,7 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
-      "pc_full_stack_tests.cc",
+      "pc_full_stack_tests.cc"
     ]
     deps = [
       "../api:create_network_emulation_manager",
@@ -408,21 +409,21 @@ if (rtc_include_tests) {
     mac_app_bundle("video_loopback") {
       testonly = true
       sources = [
-        "video_loopback_main.mm",
+        "video_loopback_main.mm"
       ]
       info_plist = "../test/mac/Info.plist"
       deps = [
-        ":video_loopback_lib",
+        ":video_loopback_lib"
       ]
     }
   } else {
     rtc_executable("video_loopback") {
       testonly = true
       sources = [
-        "video_loopback_main.cc",
+        "video_loopback_main.cc"
       ]
       deps = [
-        ":video_loopback_lib",
+        ":video_loopback_lib"
       ]
     }
   }
@@ -430,7 +431,7 @@ if (rtc_include_tests) {
   rtc_executable("screenshare_loopback") {
     testonly = true
     sources = [
-      "screenshare_loopback.cc",
+      "screenshare_loopback.cc"
     ]
 
     deps = [
@@ -459,7 +460,7 @@ if (rtc_include_tests) {
   rtc_executable("sv_loopback") {
     testonly = true
     sources = [
-      "sv_loopback.cc",
+      "sv_loopback.cc"
     ]
     deps = [
       ":video_quality_test",
@@ -487,7 +488,7 @@ if (rtc_include_tests) {
   rtc_executable("video_replay") {
     testonly = true
     sources = [
-      "video_replay.cc",
+      "video_replay.cc"
     ]
     deps = [
       "../api/rtc_event_log",

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ef915aa7_47e157c8",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-15T10:42:45Z",
+      "side": 1,
+      "message": "Checking if degradation preference allows the change was a protection against a race; the comment that was here prior to this CL was:\n\n// This can happen since |degradation_preference_| is set on libjingle\u0027s\n// worker thread but the adaptation is done on the encoder task queue.\n\nBut now that everything happens on the encoder queue, we\u0027ve eliminated a race causing this, so the only way for this not to be true would be if the method is invoked incorrectly by AdaptUp() or AdaptDown(), but that method already takes degradation preference into account. I changed it to a DCHECK and it still passes all the tests, so... fingers crossed.\n\nI wanted to go one step further and DCHECK has_input_video_ too but discovered that this is not ensured by AdaptUp() or AdaptDown(), so I continue to allow the method to be called there. This could be cleaned up but I don\u0027t think it\u0027s worth the time/risk doing for now.",
+      "parentUuid": "362c331a_e719c3d9",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 68
+      },
+      "revId": "f63965f9b579aa37928130da2b736a2acb6fb34a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "964fef09_08fc071a",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "f63965f9b579aa37928130da2b736a2acb6fb34a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "830af56d_817a05c8",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-15T10:42:45Z",
+      "side": 1,
+      "message": "It was to ensure the sequence checker was attached at a definitive point (decrease the risk of it being attached in some random racy call, premature worry probably) - but now I decided to remove the Initialize() method altogether now.",
+      "parentUuid": "964fef09_08fc071a",
+      "range": {
+        "startLine": 407,
+        "startChar": 0,
+        "endLine": 409,
+        "endChar": 27
+      },
+      "revId": "f63965f9b579aa37928130da2b736a2acb6fb34a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -101,6 +149,24 @@
     },
     {
       "key": {
+        "uuid": "12fffee6_fc5a870d",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-15T10:42:45Z",
+      "side": 1,
+      "message": "OK - it\u0027s gone! And so is the Initialize() method.",
+      "parentUuid": "06d31908_ce19b992",
+      "revId": "f63965f9b579aa37928130da2b736a2acb6fb34a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd3740c1_3ccbefba",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
         "patchSetId": 9
@@ -121,6 +187,30 @@
       "revId": "f63965f9b579aa37928130da2b736a2acb6fb34a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff36d6b7_92f1e9cd",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-15T10:42:45Z",
+      "side": 1,
+      "message": "It was to avoid binary increase on release builds. But without the sequence checker there is no need to initialize. Gone.",
+      "parentUuid": "cd3740c1_3ccbefba",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 27
+      },
+      "revId": "f63965f9b579aa37928130da2b736a2acb6fb34a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

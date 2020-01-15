@@ -396,6 +396,19 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
           packet.generic_descriptor->FrameDependenciesDiffs().empty()
               ? VideoFrameType::kVideoFrameKey
               : VideoFrameType::kVideoFrameDelta;
+
+      auto& descriptor = video_header.generic.emplace();
+      int64_t frame_id =
+          frame_id_unwrapper_.Unwrap(packet.generic_descriptor->FrameId());
+      descriptor.frame_id = frame_id;
+      descriptor.spatial_index = packet.generic_descriptor->SpatialLayer();
+      descriptor.temporal_index = packet.generic_descriptor->TemporalLayer();
+      descriptor.discardable =
+          packet.generic_descriptor->Discardable().value_or(false);
+      for (uint16_t fdiff :
+           packet.generic_descriptor->FrameDependenciesDiffs()) {
+        descriptor.dependencies.push_back(frame_id - fdiff);
+      }
     }
 
     video_header.width = packet.generic_descriptor->Width();
@@ -427,8 +440,12 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
       RTC_LOG(LS_WARNING) << "LossNotificationController requires generic "
                              "frame descriptor, but it is missing.";
     } else {
+      const rtc::ArrayView<const int64_t> kUnknownDependencies;
       loss_notification_controller_->OnReceivedPacket(
-          rtp_packet.SequenceNumber(), *packet.generic_descriptor);
+          rtp_packet.SequenceNumber(), video_header.is_first_packet_in_frame,
+          video_header.generic ? video_header.generic->frame_id : 0,
+          video_header.generic ? video_header.generic->dependencies
+                               : kUnknownDependencies);
     }
   }
 
@@ -610,14 +627,12 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
   RTC_DCHECK_RUN_ON(&network_tc_);
   RTC_DCHECK(frame);
 
-  absl::optional<RtpGenericFrameDescriptor> descriptor =
-      frame->GetGenericFrameDescriptor();
+  const auto& descriptor = frame->GetRtpVideoHeader().generic;
 
   if (loss_notification_controller_ && descriptor) {
     loss_notification_controller_->OnAssembledFrame(
-        frame->first_seq_num(), descriptor->FrameId(),
-        descriptor->Discardable().value_or(false),
-        descriptor->FrameDependenciesDiffs());
+        frame->first_seq_num(), descriptor->frame_id, descriptor->discardable,
+        descriptor->dependencies);
   }
 
   // If frames arrive before a key frame, they would not be decodable.

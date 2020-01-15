@@ -104,6 +104,7 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
     decode_time_ms = now_ms - frameInfo->decodeStartTimeMs;
   }
   _timing->StopDecodeTimer(*decode_time_ms, now_ms);
+  decodedImage.set_processing_time(TimeDelta::ms(*decode_time_ms));
 
   // Report timing information.
   TimingFrameInfo timing_frame_info;

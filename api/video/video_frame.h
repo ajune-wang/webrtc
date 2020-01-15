@@ -223,6 +223,13 @@ class RTC_EXPORT VideoFrame {
     packet_infos_ = std::move(value);
   }
 
+  const absl::optional<TimeDelta>& processing_time() const {
+    return processing_time_;
+  }
+  void set_processing_time(const absl::optional<TimeDelta> processing_time) {
+    processing_time_ = processing_time;
+  }
+
  private:
   VideoFrame(uint16_t id,
              const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
@@ -252,6 +259,9 @@ class RTC_EXPORT VideoFrame {
   // MediaStreamTrack, in order to implement getContributingSources(). See:
   // https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver-getcontributingsources
   RtpPacketInfos packet_infos_;
+  // Processing time of the frame. For received video frames this is equal to
+  // the decode time. Currently, not set for locally captured video frames.
+  absl::optional<TimeDelta> processing_time_;
 };
 
 }  // namespace webrtc

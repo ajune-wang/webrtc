@@ -26,6 +26,7 @@
 #include "api/video_codecs/video_encoder_config.h"
 #include "call/adaptation/resource_adaptation_module_interface.h"
 #include "rtc_base/experiments/balanced_degradation_settings.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "video/overuse_frame_detector.h"
 
 namespace webrtc {
@@ -36,6 +37,8 @@ class VideoStreamEncoder;
 // resolution up or down based on encode usage percent. It keeps track of video
 // source settings, adaptation counters and may get influenced by
 // VideoStreamEncoder's quality scaler through AdaptUp() and AdaptDown() calls.
+// This class is single-threaded. It may be constructed on any sequence but must
+// initialize and run on a single sequence.
 // TODO(hbos): Reduce the coupling with VideoStreamEncoder.
 // TODO(hbos): Add unittests specific to this class, it is currently only tested
 // indirectly in video_stream_encoder_unittest.cc and other tests exercising
@@ -48,6 +51,8 @@ class OveruseFrameDetectorResourceAdaptationModule
     : public ResourceAdaptationModuleInterface,
       public AdaptationObserverInterface {
  public:
+  // The module can be constructed on any sequence, but must be initialized and
+  // used on a single sequence, e.g. the encoder queue.
   OveruseFrameDetectorResourceAdaptationModule(
       VideoStreamEncoder* video_stream_encoder,
       std::unique_ptr<OveruseFrameDetector> overuse_detector,
@@ -55,7 +60,8 @@ class OveruseFrameDetectorResourceAdaptationModule
       ResourceAdaptationModuleListener* adaptation_listener);
   ~OveruseFrameDetectorResourceAdaptationModule() override;
 
-  void Initialize(rtc::TaskQueue* encoder_queue);
+  // Initialize must be invoked on the sequence that will use the module.
+  void Initialize();
   // Sets the encoder to reconfigure based on overuse.
   // TODO(hbos): Don't reconfigure the encoder directly. Instead, define the
   // output of a resource adaptation module as a struct and let the
@@ -63,8 +69,7 @@ class OveruseFrameDetectorResourceAdaptationModule
   void SetEncoder(VideoEncoder* encoder);
 
   DegradationPreference degradation_preference() const {
-    RTC_DCHECK(encoder_queue_);
-    RTC_DCHECK_RUN_ON(encoder_queue_);
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
     return degradation_preference_;
   }
 
@@ -187,60 +192,55 @@ class OveruseFrameDetectorResourceAdaptationModule
   // Makes |video_source_restrictions_| up-to-date and informs the
   // |adaptation_listener_| if restrictions are changed, allowing the listener
   // to reconfigure the source accordingly.
-  // TODO(https://crbug.com/webrtc/11222): When
-  // SetHasInputVideoAndDegradationPreference() stops calling this method prior
-  // to updating |degradation_preference_| on the encoder queue, remove its
-  // argument in favor of using |degradation_preference_| directly.
-  void MaybeUpdateVideoSourceRestrictions(
-      DegradationPreference degradation_preference);
+  void MaybeUpdateVideoSourceRestrictions() RTC_RUN_ON(sequence_checker_);
 
-  void UpdateAdaptationStats(AdaptReason reason) RTC_RUN_ON(encoder_queue_);
+  void UpdateAdaptationStats(AdaptReason reason) RTC_RUN_ON(sequence_checker_);
   DegradationPreference EffectiveDegradataionPreference()
-      RTC_RUN_ON(encoder_queue_);
-  AdaptCounter& GetAdaptCounter() RTC_RUN_ON(encoder_queue_);
+      RTC_RUN_ON(sequence_checker_);
+  AdaptCounter& GetAdaptCounter() RTC_RUN_ON(sequence_checker_);
   bool CanAdaptUpResolution(int pixels, uint32_t bitrate_bps) const
-      RTC_RUN_ON(encoder_queue_);
+      RTC_RUN_ON(sequence_checker_);
 
-  rtc::TaskQueue* encoder_queue_;
-  // TODO(https://crbug.com/webrtc/11222): Update
-  // SetHasInputVideoAndDegradationPreference() to do all work on the encoder
-  // queue (including |source_restrictor_| and |adaptation_listener_| usage).
-  // When this is the case, remove |VideoSourceRestrictor::crit_| and
-  // |video_source_restrictions_crit_| and replace |encoder_queue_| with a
-  // sequence checker.
-  rtc::CriticalSection video_source_restrictions_crit_;
-  ResourceAdaptationModuleListener* const adaptation_listener_;
+  SequenceChecker sequence_checker_;
+#ifdef RTC_DCHECK_IS_ON
+  bool is_initialized_ RTC_GUARDED_BY(&sequence_checker_);
+#endif  // RTC_DCHECK_IS_ON
+  ResourceAdaptationModuleListener* const adaptation_listener_
+      RTC_GUARDED_BY(&sequence_checker_);
   // The restrictions that |adaptation_listener_| is informed of.
   VideoSourceRestrictions video_source_restrictions_
-      RTC_GUARDED_BY(&video_source_restrictions_crit_);
+      RTC_GUARDED_BY(&sequence_checker_);
   // Used to query CpuOveruseOptions at StartCheckForOveruse().
-  VideoStreamEncoder* video_stream_encoder_ RTC_GUARDED_BY(encoder_queue_);
-  DegradationPreference degradation_preference_ RTC_GUARDED_BY(encoder_queue_);
+  VideoStreamEncoder* video_stream_encoder_ RTC_GUARDED_BY(&sequence_checker_);
+  DegradationPreference degradation_preference_
+      RTC_GUARDED_BY(&sequence_checker_);
   // Counters used for deciding if the video resolution or framerate is
   // currently restricted, and if so, why, on a per degradation preference
   // basis.
   // TODO(sprang): Replace this with a state holding a relative overuse measure
   // instead, that can be translated into suitable down-scale or fps limit.
   std::map<const DegradationPreference, AdaptCounter> adapt_counters_
-      RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(&sequence_checker_);
   const BalancedDegradationSettings balanced_settings_
-      RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(&sequence_checker_);
   // Stores a snapshot of the last adaptation request triggered by an AdaptUp
   // or AdaptDown signal.
   absl::optional<AdaptationRequest> last_adaptation_request_
-      RTC_GUARDED_BY(encoder_queue_);
-  absl::optional<int> last_frame_pixel_count_ RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(&sequence_checker_);
+  absl::optional<int> last_frame_pixel_count_
+      RTC_GUARDED_BY(&sequence_checker_);
   // Keeps track of source restrictions that this adaptation module outputs.
-  const std::unique_ptr<VideoSourceRestrictor> source_restrictor_;
+  const std::unique_ptr<VideoSourceRestrictor> source_restrictor_
+      RTC_GUARDED_BY(&sequence_checker_);
   const std::unique_ptr<OveruseFrameDetector> overuse_detector_
-      RTC_PT_GUARDED_BY(encoder_queue_);
-  int codec_max_framerate_ RTC_GUARDED_BY(encoder_queue_);
-  uint32_t encoder_start_bitrate_bps_ RTC_GUARDED_BY(encoder_queue_);
-  bool is_quality_scaler_enabled_ RTC_GUARDED_BY(encoder_queue_);
-  VideoEncoderConfig encoder_config_ RTC_GUARDED_BY(encoder_queue_);
-  VideoEncoder* encoder_ RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(&sequence_checker_);
+  int codec_max_framerate_ RTC_GUARDED_BY(&sequence_checker_);
+  uint32_t encoder_start_bitrate_bps_ RTC_GUARDED_BY(&sequence_checker_);
+  bool is_quality_scaler_enabled_ RTC_GUARDED_BY(&sequence_checker_);
+  VideoEncoderConfig encoder_config_ RTC_GUARDED_BY(&sequence_checker_);
+  VideoEncoder* encoder_ RTC_GUARDED_BY(&sequence_checker_);
   VideoStreamEncoderObserver* const encoder_stats_observer_
-      RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(&sequence_checker_);
 };
 
 }  // namespace webrtc

@@ -93,6 +93,30 @@
       "revId": "23c5a3733f3171bdfe953ed0cb3c68e53d6b043d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af514ecb_05449c70",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2615,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-15T12:08:15Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct. I update the CL description.",
+      "parentUuid": "cb86a40a_b88e2d77",
+      "range": {
+        "startLine": 2615,
+        "startChar": 0,
+        "endLine": 2615,
+        "endChar": 29
+      },
+      "revId": "23c5a3733f3171bdfe953ed0cb3c68e53d6b043d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

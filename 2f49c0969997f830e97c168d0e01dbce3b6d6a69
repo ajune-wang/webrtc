@@ -25,6 +25,40 @@
     },
     {
       "key": {
+        "uuid": "222a6d86_989954a1",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-15T20:32:01Z",
+      "side": 1,
+      "message": "nit: no need for else",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6607b150_0c3db0f4",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-15T20:32:01Z",
+      "side": 1,
+      "message": "nit: would it make sense to have little \u0027smart\u0027 helper classes for making these sort of things happen automatically at the end of a scope?",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd48b780_de3170f9",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
         "patchSetId": 4
@@ -42,6 +76,64 @@
         "endLine": 34,
         "endChar": 53
       },
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6ffa7db_0a4f3014",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-15T20:32:01Z",
+      "side": 1,
+      "message": "+1 (also on coding guideline suggestion)",
+      "parentUuid": "dd48b780_de3170f9",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d78faaf_04bac281",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-15T20:32:01Z",
+      "side": 1,
+      "message": "shared_ptr isn\u0027t used in webrtc. You could look into using scoped_refptr instead. Being super clear on the threading model would also be useful so if you do that route and if the usage is single threaded, then you could avoid locks and DCHECK the correct threading/sequencing in that implementation.",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "128bd8ca_7424ae31",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-15T20:32:01Z",
+      "side": 1,
+      "message": "update name ... pw_callback_?",
       "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

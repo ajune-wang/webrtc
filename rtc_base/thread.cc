@@ -264,7 +264,7 @@ void ThreadManager::SetCurrentThread(Thread* thread) {
   SetCurrentThreadInternal(thread);
 }
 
-void rtc::ThreadManager::ChangeCurrentThreadForTest(rtc::Thread* thread) {
+void rtc::ThreadManager::ChangeCurrentThread(rtc::Thread* thread) {
   SetCurrentThreadInternal(thread);
 }
 
@@ -296,6 +296,17 @@ Thread::ScopedDisallowBlockingCalls::ScopedDisallowBlockingCalls()
 Thread::ScopedDisallowBlockingCalls::~ScopedDisallowBlockingCalls() {
   RTC_DCHECK(thread_->IsCurrent());
   thread_->SetAllowBlockingCalls(previous_state_);
+}
+
+Thread::CurrentThreadSetter::CurrentThreadSetter(Thread* thread)
+    : CurrentTaskQueueSetter(thread),
+      manager_(rtc::ThreadManager::Instance()),
+      previous_(manager_->CurrentThread()) {
+  manager_->ChangeCurrentThread(thread);
+}
+
+rtc::Thread::CurrentThreadSetter::~CurrentThreadSetter() {
+  manager_->ChangeCurrentThread(previous_);
 }
 
 Thread::Thread(SocketServer* ss) : Thread(ss, /*do_init=*/true) {}

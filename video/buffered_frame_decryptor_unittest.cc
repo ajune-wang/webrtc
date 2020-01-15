@@ -57,7 +57,7 @@ class BufferedFrameDecryptorTest : public ::testing::Test,
   std::unique_ptr<video_coding::RtpFrameObject> CreateRtpFrameObject(
       bool key_frame) {
     seq_num_++;
-
+    const uint8_t kDummy[1] = {0};
     // clang-format off
     return std::make_unique<video_coding::RtpFrameObject>(
         seq_num_,
@@ -75,7 +75,7 @@ class BufferedFrameDecryptorTest : public ::testing::Test,
         VideoContentType::UNSPECIFIED,
         RTPVideoHeader(),
         /*color_space=*/absl::nullopt,
-        RtpGenericFrameDescriptor(),
+        rtc::ArrayView<const uint8_t>(kDummy),
         RtpPacketInfos(),
         EncodedImageBuffer::Create(/*size=*/0));
     // clang-format on

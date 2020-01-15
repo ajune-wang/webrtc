@@ -11,11 +11,12 @@
 #ifndef MODULES_VIDEO_CODING_LOSS_NOTIFICATION_CONTROLLER_H_
 #define MODULES_VIDEO_CODING_LOSS_NOTIFICATION_CONTROLLER_H_
 
+#include <cstdint>
 #include <set>
 
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "modules/include/module_common_types.h"
-#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 
@@ -29,21 +30,23 @@ class LossNotificationController {
 
   // An RTP packet was received from the network.
   void OnReceivedPacket(uint16_t sequence_number,
-                        const RtpGenericFrameDescriptor& generic_descriptor);
+                        bool first_packet_in_frame,
+                        int64_t frame_id,
+                        rtc::ArrayView<const int64_t> frame_dependencies);
 
   // A frame was assembled from packets previously received.
   // (Should be called even if the frame was composed of a single packet.)
   void OnAssembledFrame(uint16_t first_seq_num,
-                        uint16_t frame_id,
+                        int64_t frame_id,
                         bool discardable,
-                        rtc::ArrayView<const uint16_t> frame_dependency_diffs);
+                        rtc::ArrayView<const int64_t> frame_dependencies);
 
  private:
   void DiscardOldInformation();
 
   bool AllDependenciesDecodable(
       int64_t unwrapped_frame_id,
-      rtc::ArrayView<const uint16_t> frame_dependency_diffs) const;
+      rtc::ArrayView<const int64_t> frame_dependencies) const;
 
   // When the loss of a packet or the non-decodability of a frame is detected,
   // produces a key frame request or a loss notification.
@@ -65,9 +68,6 @@ class LossNotificationController {
       RTC_GUARDED_BY(sequence_checker_);
 
   LossNotificationSender* const loss_notification_sender_
-      RTC_GUARDED_BY(sequence_checker_);
-
-  SeqNumUnwrapper<uint16_t> frame_id_unwrapper_
       RTC_GUARDED_BY(sequence_checker_);
 
   // Tracked to avoid processing repeated frames (buggy/malicious remote).

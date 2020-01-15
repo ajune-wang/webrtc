@@ -457,6 +457,10 @@ std::unique_ptr<RtpFrameObject> PacketBuffer::AssembleFrame(
     RTC_DCHECK_EQ(write_at - bitstream->data(), bitstream->size());
   }
   const Packet& last_packet = GetPacket(last_seq_num);
+  rtc::ArrayView<const uint8_t> gfd_bytes;
+  if (first_packet.generic_descriptor) {
+    gfd_bytes = first_packet.generic_descriptor->GetByteRepresentation();
+  }
   return std::make_unique<RtpFrameObject>(
       first_seq_num,                            //
       last_seq_num,                             //
@@ -473,7 +477,7 @@ std::unique_ptr<RtpFrameObject> PacketBuffer::AssembleFrame(
       last_packet.video_header.content_type,    //
       first_packet.video_header,                //
       last_packet.video_header.color_space,     //
-      first_packet.generic_descriptor,          //
+      gfd_bytes,                                //
       RtpPacketInfos(std::move(packet_infos)),  //
       std::move(bitstream));
 }

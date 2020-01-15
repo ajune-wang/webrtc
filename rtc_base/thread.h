@@ -92,7 +92,7 @@ class RTC_EXPORT ThreadManager {
   void SetCurrentThread(Thread* thread);
   // Allows changing the current thread, this is intended for tests where we
   // want to simulate multiple threads running on a single physical thread.
-  void ChangeCurrentThreadForTest(Thread* thread);
+  void ChangeCurrentThread(Thread* thread);
 
   // Returns a thread object with its thread_ ivar set
   // to whatever the OS uses to represent the thread.
@@ -431,6 +431,16 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 #endif
 
  protected:
+  class CurrentThreadSetter : CurrentTaskQueueSetter {
+   public:
+    explicit CurrentThreadSetter(rtc::Thread* thread);
+    ~CurrentThreadSetter();
+
+   private:
+    rtc::ThreadManager* const manager_;
+    rtc::Thread* const previous_;
+  };
+
   class PriorityQueue : public std::priority_queue<DelayedMessage> {
    public:
     container_type& container() { return c; }

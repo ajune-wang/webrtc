@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44fdab63_6dbef724",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-15T14:48:36Z",
+      "side": 1,
+      "message": "Is an unset optional better than zero, when we don\u0027t have any processing we account for? (In general, optional is better than using magic values, but zero could be argued to not be magic). The practical question is: Is there ever any reason to treat unset differently from zero?",
+      "range": {
+        "startLine": 264,
+        "startChar": 2,
+        "endLine": 264,
+        "endChar": 16
+      },
+      "revId": "f76947fac955f895569aef41c1defd68ce05138b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

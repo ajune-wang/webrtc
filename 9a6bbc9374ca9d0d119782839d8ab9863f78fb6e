@@ -33,6 +33,24 @@
       "revId": "9a6bbc9374ca9d0d119782839d8ab9863f78fb6e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b245156f_bc6c834c",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-16T10:18:33Z",
+      "side": 1,
+      "message": "OK I\u0027ll give it a go!",
+      "parentUuid": "0a479531_2684898e",
+      "revId": "9a6bbc9374ca9d0d119782839d8ab9863f78fb6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "305c550a_ac330866",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-16T13:31:46Z",
+      "side": 1,
+      "message": "The combination of this parameter\u0027s name and its type is unclear to me.",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af89f85_648514c6",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-16T13:31:46Z",
+      "side": 1,
+      "message": "What is the size at which we switch between passing by value and passing by const-ref?",
+      "range": {
+        "startLine": 41,
+        "startChar": 24,
+        "endLine": 41,
+        "endChar": 52
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edcd676d_85a29f83",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-16T13:31:46Z",
+      "side": 1,
+      "message": "Here it\u0027s clear - that |first_in_frame| is a bool makes things very clear. But I am not sure what it meant in the UUT.",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 22
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

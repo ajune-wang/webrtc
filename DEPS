@@ -5,29 +5,29 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '1d541bc5a0d4be1df5038f08de8f9a23259accf1',
+  'chromium_revision': '4bd4e980f14ba3cf429ef58f29d52949eb595f85',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@a02f566ffbc9e0c935106ffb55a66cbe3df9ecf6',
+    'https://chromium.googlesource.com/chromium/src/base@b58e32966815493c59c4ba4c6789109c1fbc47de',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@6e49eefa473f1335c0e23579d70c2ab108a29e82',
+    'https://chromium.googlesource.com/chromium/src/build@1bee638a8c4a9481ea06df4982d69488d0a5626d',
   'src/buildtools':
-    'https://chromium.googlesource.com/chromium/src/buildtools@8d2132841536523249669813b928e29144d487f9',
+    'https://chromium.googlesource.com/chromium/src/buildtools@1f38b432e5630619f3aba0a22b9b63d606aee35a',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': 'https://chromium.googlesource.com/external/github.com/gradle/gradle.git@89af43c4d0506f69980f00dde78c97b2f81437f8',
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@e8a110c88e6fff1ac0747c7ee80928c155518800',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@6630b3ea396b87004f2d6eccfc1dfef272bafe77',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@68cc12528c4c8e7460087d57a78fff7a50ae1d6d',
+    'https://chromium.googlesource.com/chromium/src/testing@d9f629bf2418a01ebd577eca95537f7f2585923e',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@e88d42df9f24ba69b14923944a0aca7fb8cc96c5',
 

@@ -239,7 +239,8 @@ VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
       timestamp_rtp_(0),
       ntp_time_ms_(0),
       timestamp_us_(timestamp_us),
-      rotation_(rotation) {}
+      rotation_(rotation),
+      processing_time_(TimeDelta::ms(0)) {}
 
 VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
                        uint32_t timestamp_rtp,
@@ -249,7 +250,8 @@ VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
       timestamp_rtp_(timestamp_rtp),
       ntp_time_ms_(0),
       timestamp_us_(render_time_ms * rtc::kNumMicrosecsPerMillisec),
-      rotation_(rotation) {
+      rotation_(rotation),
+      processing_time_(TimeDelta::ms(0)) {
   RTC_DCHECK(buffer);
 }
 
@@ -270,7 +272,8 @@ VideoFrame::VideoFrame(uint16_t id,
       rotation_(rotation),
       color_space_(color_space),
       update_rect_(update_rect),
-      packet_infos_(std::move(packet_infos)) {
+      packet_infos_(std::move(packet_infos)),
+      processing_time_(TimeDelta::ms(0)) {
   if (update_rect_) {
     RTC_DCHECK_GE(update_rect_->offset_x, 0);
     RTC_DCHECK_GE(update_rect_->offset_y, 0);

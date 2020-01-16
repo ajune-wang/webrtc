@@ -314,6 +314,10 @@ class PeerConnectionE2EQualityTestFixture {
     // applied to all summed RTP streams for this peer.
     virtual PeerConfigurer* SetBitrateParameters(
         PeerConnectionInterface::BitrateParameters bitrate_params) = 0;
+
+    // Set IceTransportFactory.
+    virtual PeerConfigurer* SetIceTransportFactory(
+        std::unique_ptr<IceTransportFactory> factory) = 0;
   };
 
   // Contains configuration for echo emulator.

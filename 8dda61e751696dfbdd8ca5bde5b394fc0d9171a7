@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72077f2d_8e945345",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-16T12:32:21Z",
+      "side": 1,
+      "message": "If these are only ever set together and the only way they are used is to compute the processing time, it makes little sense to me to store them in that way. IMHO, Optional TimeDelta should be computed in set_processing_time().",
+      "range": {
+        "startLine": 270,
+        "startChar": 2,
+        "endLine": 271,
+        "endChar": 47
+      },
+      "revId": "8dda61e751696dfbdd8ca5bde5b394fc0d9171a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -28,10 +28,15 @@
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 
 namespace webrtc {
+struct RTPVideoHeaderGeneric {
+  uint16_t picture_id;
+};
+
 using RTPVideoTypeHeader = absl::variant<absl::monostate,
                                          RTPVideoHeaderVP8,
                                          RTPVideoHeaderVP9,
-                                         RTPVideoHeaderH264>;
+                                         RTPVideoHeaderH264,
+                                         RTPVideoHeaderGeneric>;
 
 struct RTPVideoHeader {
   struct GenericDescriptorInfo {

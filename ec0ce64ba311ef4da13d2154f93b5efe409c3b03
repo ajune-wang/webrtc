@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7775a1c1_9e1e6a26",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-16T10:50:34Z",
+      "side": 1,
+      "message": "Appears this file wasn\u0027t formatted. The real changes are the two added lines above.",
+      "range": {
+        "startLine": 237,
+        "startChar": 1,
+        "endLine": 241,
+        "endChar": 3
+      },
+      "revId": "ec0ce64ba311ef4da13d2154f93b5efe409c3b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

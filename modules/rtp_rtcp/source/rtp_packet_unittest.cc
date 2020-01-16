@@ -201,7 +201,6 @@ void TestCreateAndParseColorSpaceExtension(bool with_hdr_metadata) {
   EXPECT_TRUE(parsed.GetExtension<ColorSpaceExtension>(&parsed_color_space));
   EXPECT_EQ(kColorSpace, parsed_color_space);
 }
-}  // namespace
 
 TEST(RtpPacketTest, CreateMinimum) {
   RtpPacketToSend packet(nullptr);
@@ -751,6 +750,48 @@ TEST(RtpPacketTest, ParseWithMid) {
   EXPECT_EQ(mid, kMid);
 }
 
+struct UncopiableValue {
+  UncopiableValue() = default;
+  UncopiableValue(const UncopiableValue&) = delete;
+  UncopiableValue& operator=(const UncopiableValue&) = delete;
+};
+struct ExtensionTrait {
+  static constexpr RTPExtensionType kId = kRtpExtensionGenericFrameDescriptor00;
+  static constexpr char kUri[] = "uri";
+
+  static size_t ValueSize(const UncopiableValue& value) { return 1; }
+  static bool Write(rtc::ArrayView<uint8_t> data,
+                    const UncopiableValue& value) {
+    return true;
+  }
+  static bool Parse(rtc::ArrayView<const uint8_t> data,
+                    UncopiableValue* value) {
+    return true;
+  }
+};
+constexpr RTPExtensionType ExtensionTrait::kId;
+constexpr char ExtensionTrait::kUri[];
+
+TEST(RtpPacketTest, SetNonCopiableExtension) {
+  RtpPacket::ExtensionManager extensions;
+  extensions.Register<ExtensionTrait>(1);
+  RtpPacket rtp_packet(&extensions);
+
+  UncopiableValue value;
+  EXPECT_TRUE(rtp_packet.SetExtension<ExtensionTrait>(value));
+}
+
+TEST(RtpPacketTest, GetNonCopiableExtension) {
+  RtpPacket::ExtensionManager extensions;
+  extensions.Register<ExtensionTrait>(1);
+  RtpPacket rtp_packet(&extensions);
+  UncopiableValue value;
+  rtp_packet.SetExtension<ExtensionTrait>(value);
+
+  UncopiableValue value2;
+  EXPECT_TRUE(rtp_packet.GetExtension<ExtensionTrait>(&value2));
+}
+
 TEST(RtpPacketTest, CreateAndParseTimingFrameExtension) {
   // Create a packet with video frame timing extension populated.
   RtpPacketToSend::ExtensionManager send_extensions;
@@ -1100,4 +1141,5 @@ TEST(RtpPacketTest, RemoveExtensionFailure) {
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
 }
 
+}  // namespace
 }  // namespace webrtc

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5853e401_fd0270ba",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-16T12:39:51Z",
+      "side": 1,
+      "message": "If this is the only accessor, I think it makes more sense to stay with a single |processing_time_| member, and add separate start and finish time later, if/when you find a use for them.\n\nRegarding optional, considerations for the return value is the same as for a |processing_time_| member. Use optional only if there\u0027s some reason to distinguish between zero and unset.",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 3
+      },
+      "revId": "8dda61e751696dfbdd8ca5bde5b394fc0d9171a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72077f2d_8e945345",
         "filename": "api/video/video_frame.h",
         "patchSetId": 3
@@ -16,6 +39,29 @@
       "range": {
         "startLine": 270,
         "startChar": 2,
+        "endLine": 271,
+        "endChar": 47
+      },
+      "revId": "8dda61e751696dfbdd8ca5bde5b394fc0d9171a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce00e01c_2815e42d",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-16T12:39:51Z",
+      "side": 1,
+      "message": "If you want separate timestamps, I think they should be collected into a single struct, which is then made optional (so equivalent to two numbers and a *single* bool).",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
         "endLine": 271,
         "endChar": 47
       },

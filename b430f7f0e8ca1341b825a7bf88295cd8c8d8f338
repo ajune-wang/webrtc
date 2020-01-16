@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a7abdda_01196797",
+        "filename": "test/testsupport/perf_test_histogram_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-16T11:04:50Z",
+      "side": 1,
+      "message": "If we ignore it why we need to have such parameter at all?",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 44
+      },
+      "revId": "b430f7f0e8ca1341b825a7bf88295cd8c8d8f338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50ae0a0b_a7039cff",
+        "filename": "test/testsupport/perf_test_histogram_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-16T11:04:50Z",
+      "side": 1,
+      "message": "Are we sure that there are no other units? It will be good to have a fallback that if unit \nisn\u0027t from enum, then log warning and convert it to unitless",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 23
+      },
+      "revId": "b430f7f0e8ca1341b825a7bf88295cd8c8d8f338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

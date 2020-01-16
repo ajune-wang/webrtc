@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f9c589a_1a771a28",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-16T13:09:05Z",
+      "side": 1,
+      "message": "You\u0027re right, I should add an accessor to both start and finish at once, otherwise I won\u0027t get the benefits of storing the two timestamps.",
+      "parentUuid": "5853e401_fd0270ba",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 3
+      },
+      "revId": "8dda61e751696dfbdd8ca5bde5b394fc0d9171a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "72077f2d_8e945345",
         "filename": "api/video/video_frame.h",
         "patchSetId": 3
@@ -62,6 +86,54 @@
       "range": {
         "startLine": 270,
         "startChar": 0,
+        "endLine": 271,
+        "endChar": 47
+      },
+      "revId": "8dda61e751696dfbdd8ca5bde5b394fc0d9171a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32940e22_8224567e",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-16T13:09:05Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "ce00e01c_2815e42d",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 47
+      },
+      "revId": "8dda61e751696dfbdd8ca5bde5b394fc0d9171a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55192744_675d9a0d",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-16T13:09:05Z",
+      "side": 1,
+      "message": "I\u0027ve created a struct to keep both of them, so that also both of them can be read out from the accessor.",
+      "parentUuid": "72077f2d_8e945345",
+      "range": {
+        "startLine": 270,
+        "startChar": 2,
         "endLine": 271,
         "endChar": 47
       },

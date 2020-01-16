@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d575c6a_ac7c8431",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-16T09:25:41Z",
+      "side": 1,
+      "message": "Can you move it to line 291 and update comment at line 280 please?",
+      "range": {
+        "startLine": 318,
+        "startChar": 4,
+        "endLine": 319,
+        "endChar": 50
+      },
+      "revId": "b6bf078abe9caa81a2459b45871b429c2167525f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

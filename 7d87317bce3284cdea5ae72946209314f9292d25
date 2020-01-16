@@ -39,6 +39,40 @@
       "revId": "7d87317bce3284cdea5ae72946209314f9292d25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "342351b0_f5e1e234",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4547,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-16T21:53:50Z",
+      "side": 1,
+      "message": "Can you delete these lines? I think your change should fix this issue too.",
+      "revId": "7d87317bce3284cdea5ae72946209314f9292d25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56e98146_942ddc32",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4579,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-16T21:53:50Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "7d87317bce3284cdea5ae72946209314f9292d25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

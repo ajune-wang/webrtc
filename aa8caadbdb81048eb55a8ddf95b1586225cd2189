@@ -34,6 +34,24 @@
       "revId": "aa8caadbdb81048eb55a8ddf95b1586225cd2189",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3792ca47_5cbfea70",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-16T21:27:34Z",
+      "side": 1,
+      "message": "Ok, I think that makes sense. I recall now that most other usages of Invoke do a thread check first, so it\u0027s really just the proxies that need to change.",
+      "parentUuid": "c31928f6_5d2155b8",
+      "revId": "aa8caadbdb81048eb55a8ddf95b1586225cd2189",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

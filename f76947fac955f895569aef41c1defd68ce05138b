@@ -22,6 +22,30 @@
       "revId": "f76947fac955f895569aef41c1defd68ce05138b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "301d93af_26f55980",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-16T09:22:48Z",
+      "side": 1,
+      "message": "It doesn\u0027t make a difference in practice. Removing the optional.",
+      "parentUuid": "44fdab63_6dbef724",
+      "range": {
+        "startLine": 264,
+        "startChar": 2,
+        "endLine": 264,
+        "endChar": 16
+      },
+      "revId": "f76947fac955f895569aef41c1defd68ce05138b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

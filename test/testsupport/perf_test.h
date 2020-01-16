@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "absl/flags/flag.h"
 #include "api/array_view.h"
 #include "rtc_base/numerics/samples_stats_counter.h"
 
@@ -106,10 +107,13 @@ void WritePerfResults(const std::string& output_path);
 // should be printing instead.
 void SetPerfResultsOutput(FILE* output);
 
-// You shouldn't use this function. It's only used to test the functions above.
+// Only for use by tests.
 void ClearPerfResults();
 
 }  // namespace test
 }  // namespace webrtc
+
+// Only for use by tests.
+ABSL_DECLARE_FLAG(bool, write_histogram_proto_json);
 
 #endif  // TEST_TESTSUPPORT_PERF_TEST_H_

@@ -17,7 +17,6 @@
 #include <sstream>
 #include <vector>
 
-#include "absl/flags/flag.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/critical_section.h"
 #include "test/testsupport/perf_test_graphjson_writer.h"

@@ -50,6 +50,75 @@ const char* kJsonExpected = R"({
   }
 })";
 
+const char* kHistogramJsonExpected = R"({
+ "histograms": [
+  {
+   "name": "foobar",
+   "unit": {
+    "unit": "UNITLESS"
+   },
+   "diagnostics": {
+    "diagnosticMap": {
+     "stories": {
+      "genericSet": {
+       "values": [
+        "\"baz_v\""
+       ]
+      }
+     }
+    }
+   },
+   "sampleValues": [
+    7,
+    1,
+    1,
+    2,
+    3
+   ],
+   "maxNumSampleValues": 10,
+   "running": {
+    "count": 5,
+    "max": 7,
+    "meanlogs": 0.747533917,
+    "mean": 2.8,
+    "min": 1,
+    "sum": 14,
+    "variance": 6.2
+   }
+  },
+  {
+   "name": "measurementmodifier",
+   "unit": {
+    "unit": "UNITLESS"
+   },
+   "diagnostics": {
+    "diagnosticMap": {
+     "stories": {
+      "genericSet": {
+       "values": [
+        "\"trace\""
+       ]
+      }
+     }
+    }
+   },
+   "sampleValues": [
+    42
+   ],
+   "maxNumSampleValues": 10,
+   "running": {
+    "count": 1,
+    "max": 42,
+    "meanlogs": 3.73766971,
+    "mean": 42,
+    "min": 42,
+    "sum": 42
+   }
+  }
+ ]
+}
+)";
+
 std::string RemoveSpaces(std::string s) {
   s.erase(std::remove(s.begin(), s.end(), ' '), s.end());
   s.erase(std::remove(s.begin(), s.end(), '\n'), s.end());
@@ -105,6 +174,24 @@ TEST_F(PerfTest, TestClearPerfResults) {
   PrintResult("measurement", "modifier", "trace", 42, "units", false);
   ClearPerfResults();
   EXPECT_EQ(R"({"format_version":"1.0","charts":{}})", GetPerfResultsJSON());
+}
+
+TEST_F(PerfTest, TestGetPerfResultsJSONHistograms) {
+  absl::SetFlag(&FLAGS_write_histogram_proto_json, true);
+  PrintResult("measurement", "modifier", "trace", 42, "units", false);
+  PrintResult("foo", "bar", "baz_v", 7, "widgets", true);
+  // Note: the error will be ignored, not supported by histograms.
+  PrintResultMeanAndError("foo", "bar", "baz_me", 1, 2000, "lemurs", false);
+  const double kListOfScalars[] = {1, 2, 3};
+  PrintResultList("foo", "bar", "baz_vl", kListOfScalars, "units", false);
+
+  EXPECT_EQ(kHistogramJsonExpected, GetPerfResultsJSON());
+}
+
+TEST_F(PerfTest, TestClearPerfResultsHistograms) {
+  PrintResult("measurement", "modifier", "trace", 42, "units", false);
+  ClearPerfResults();
+  EXPECT_EQ("{}\n", GetPerfResultsJSON());
 }
 
 #if GTEST_HAS_DEATH_TEST

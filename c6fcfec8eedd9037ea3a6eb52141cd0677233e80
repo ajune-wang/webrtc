@@ -22,6 +22,30 @@
       "revId": "c6fcfec8eedd9037ea3a6eb52141cd0677233e80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d118b6f4_1080a907",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-16T09:22:56Z",
+      "side": 1,
+      "message": "spatial_bitmask (on the wire) has bits matching spatial index (2) and higher spatial layers (was 4).\nwith higher spatial layers removed, bit #4 is cleared too and bit #2 remained.\n\nrewrote expectation using binary rather than hexadecimal constant.",
+      "parentUuid": "5ec9e42a_b23605db",
+      "range": {
+        "startLine": 554,
+        "startChar": 28,
+        "endLine": 554,
+        "endChar": 32
+      },
+      "revId": "c6fcfec8eedd9037ea3a6eb52141cd0677233e80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

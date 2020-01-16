@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9f063826_dd66b4f7",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-16T14:20:58Z",
+      "side": 1,
+      "message": "any suggestions how to make it better?\n\ne.g., does passing 4 parameters instead (where last 3 are only used when first_in_frame \u003d\u003d true) looks clearer?",
+      "parentUuid": "305c550a_ac330866",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0af89f85_648514c6",
         "filename": "modules/video_coding/loss_notification_controller.h",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3ab673c_de731b78",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-16T14:20:58Z",
+      "side": 1,
+      "message": "I\u0027m not aware of such a guidance.\n\nI believe it is not about size, but how efficient copy is, how likely copy/move will be avoid altogether thanks to RVO. (and how much does that matter on the used code path)\n\nIn this case I trust compiler would optimize copy away since parameter is trivial.\n(even if it doesn\u0027t, copy looks cheap - no more than passing 4 parameters instead)",
+      "parentUuid": "0af89f85_648514c6",
+      "range": {
+        "startLine": 41,
+        "startChar": 24,
+        "endLine": 41,
+        "endChar": 52
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

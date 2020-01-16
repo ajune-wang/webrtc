@@ -11,6 +11,7 @@
 #define MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_
 
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -127,7 +128,7 @@ class RtpPacket {
   rtc::ArrayView<const uint8_t> GetRawExtension() const;
 
   template <typename Extension, typename... Values>
-  bool SetExtension(Values...);
+  bool SetExtension(Values&&...);
 
   template <typename Extension>
   bool ReserveExtension();
@@ -235,12 +236,12 @@ rtc::ArrayView<const uint8_t> RtpPacket::GetRawExtension() const {
 }
 
 template <typename Extension, typename... Values>
-bool RtpPacket::SetExtension(Values... values) {
+bool RtpPacket::SetExtension(Values&&... values) {
   const size_t value_size = Extension::ValueSize(values...);
   auto buffer = AllocateExtension(Extension::kId, value_size);
   if (buffer.empty())
     return false;
-  return Extension::Write(buffer, values...);
+  return Extension::Write(buffer, std::forward<Values>(values)...);
 }
 
 template <typename Extension>

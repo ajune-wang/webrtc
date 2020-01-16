@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1d55b11e_e6c330c5",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-01-16T08:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58429dd6_f6174f7f",
+      "range": {
+        "startLine": 441,
+        "startChar": 16,
+        "endLine": 441,
+        "endChar": 21
+      },
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "222a6d86_989954a1",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "e1e7ef5b_2b5ff87d",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-01-16T08:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "222a6d86_989954a1",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6607b150_0c3db0f4",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 4
@@ -53,6 +95,24 @@
       "writtenOn": "2020-01-15T20:32:01Z",
       "side": 1,
       "message": "nit: would it make sense to have little \u0027smart\u0027 helper classes for making these sort of things happen automatically at the end of a scope?",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e04171e_322d26d1",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-01-16T08:42:11Z",
+      "side": 1,
+      "message": "I have never wrote anything like that, any hint where I can get some inspiration?",
+      "parentUuid": "6607b150_0c3db0f4",
       "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -123,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "fac26aed_1397865a",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-01-16T08:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d78faaf_04bac281",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "128bd8ca_7424ae31",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
         "patchSetId": 4
@@ -137,6 +215,24 @@
       "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba06f376_1e5f8573",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-01-16T08:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "128bd8ca_7424ae31",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

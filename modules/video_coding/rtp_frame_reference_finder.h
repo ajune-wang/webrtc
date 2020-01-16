@@ -20,6 +20,7 @@
 
 #include "modules/include/module_common_types_public.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
+#include "modules/video_coding/codecs/vp8/include/vp8_globals.h"
 #include "modules/video_coding/codecs/vp9/include/vp9_globals.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/numerics/sequence_number_util.h"
@@ -99,7 +100,8 @@ class RtpFrameReferenceFinder {
   FrameDecision ManageFramePidOrSeqNum(RtpFrameObject* frame, int picture_id);
 
   // Find references for Vp8 frames
-  FrameDecision ManageFrameVp8(RtpFrameObject* frame);
+  FrameDecision ManageFrameVp8(RtpFrameObject* frame,
+                               const RTPVideoHeaderVP8& codec_header);
 
   // Updates necessary layer info state used to determine frame references for
   // Vp8.
@@ -108,7 +110,8 @@ class RtpFrameReferenceFinder {
                           uint8_t temporal_idx);
 
   // Find references for Vp9 frames
-  FrameDecision ManageFrameVp9(RtpFrameObject* frame);
+  FrameDecision ManageFrameVp9(RtpFrameObject* frame,
+                               const RTPVideoHeaderVP9& codec_header);
 
   // Check if we are missing a frame necessary to determine the references
   // for this frame.

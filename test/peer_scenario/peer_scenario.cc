@@ -41,17 +41,6 @@ std::unique_ptr<FileLogWriterFactory> GetPeerScenarioLogManager(
   }
   return nullptr;
 }
-
-std::unique_ptr<TimeController> CreateTimeController(bool real_time) {
-  if (real_time) {
-    return std::make_unique<RealTimeController>();
-  } else {
-    // Using an offset of 100000 to get nice fixed width and readable timestamps
-    // in typical test scenarios.
-    const Timestamp kSimulatedStartTime = Timestamp::seconds(100000);
-    return std::make_unique<GlobalSimulatedTimeController>(kSimulatedStartTime);
-  }
-}
 }  // namespace
 
 PeerScenario::PeerScenario(const testing::TestInfo& test_info, bool real_time)
@@ -66,9 +55,8 @@ PeerScenario::PeerScenario(
     std::unique_ptr<LogWriterFactoryInterface> log_writer_manager,
     bool real_time)
     : log_writer_manager_(std::move(log_writer_manager)),
-      time_controller_(CreateTimeController(real_time)),
-      signaling_thread_(time_controller_->GetMainThread()),
-      net_(time_controller_.get()) {}
+      net_(real_time),
+      signaling_thread_(net_.time_controller()->GetMainThread()) {}
 
 PeerScenarioClient* PeerScenario::CreateClient(
     PeerScenarioClient::Config config) {
@@ -79,7 +67,7 @@ PeerScenarioClient* PeerScenario::CreateClient(
 PeerScenarioClient* PeerScenario::CreateClient(
     std::string name,
     PeerScenarioClient::Config config) {
-  peer_clients_.emplace_back(net(), time_controller_.get(), thread(),
+  peer_clients_.emplace_back(net(), signaling_thread_,
                              GetLogWriterFactory(name), config);
   return &peer_clients_.back();
 }
@@ -124,7 +112,7 @@ bool PeerScenario::WaitAndProcess(std::atomic<bool>* event,
     return true;
   for (auto elapsed = TimeDelta::Zero(); elapsed < max_duration;
        elapsed += kStep) {
-    time_controller_->AdvanceTime(kStep);
+    net_.time_controller()->AdvanceTime(kStep);
     if (*event)
       return true;
   }
@@ -132,7 +120,7 @@ bool PeerScenario::WaitAndProcess(std::atomic<bool>* event,
 }
 
 void PeerScenario::ProcessMessages(TimeDelta duration) {
-  time_controller_->AdvanceTime(duration);
+  net_.time_controller()->AdvanceTime(duration);
 }
 
 std::unique_ptr<LogWriterFactoryInterface> PeerScenario::GetLogWriterFactory(

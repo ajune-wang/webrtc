@@ -54,7 +54,6 @@ class PeerScenario {
       bool real_time = false);
 
   NetworkEmulationManagerImpl* net() { return &net_; }
-  rtc::Thread* thread() { return signaling_thread_; }
 
   // Creates a client wrapping a peer connection conforming to the given config.
   // The client  will share the signaling thread with the scenario. To maintain
@@ -111,10 +110,9 @@ class PeerScenario {
       std::string name);
 
   const std::unique_ptr<LogWriterFactoryInterface> log_writer_manager_;
-  const std::unique_ptr<TimeController> time_controller_;
+  NetworkEmulationManagerImpl net_;
   rtc::Thread* const signaling_thread_;
   std::list<PeerVideoQualityPair> video_quality_pairs_;
-  NetworkEmulationManagerImpl net_;
   std::list<PeerScenarioClient> peer_clients_;
 };
 

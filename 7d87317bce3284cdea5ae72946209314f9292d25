@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d29d5d2e_fea2524e",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1714,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-16T21:25:30Z",
+      "side": 1,
+      "message": "I think it might be more clear to merge this into PeerConnectionIntegrationTestWithFakeClock, but up to you.",
+      "revId": "7d87317bce3284cdea5ae72946209314f9292d25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c625cfbb_4010ae39",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1729,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-16T21:25:30Z",
+      "side": 1,
+      "message": "This is pretty ugly but I can\u0027t think of anything better. Maybe expand a bit on the comment so people aren\u0027t confused in the future.",
+      "range": {
+        "startLine": 1729,
+        "startChar": 6,
+        "endLine": 1729,
+        "endChar": 29
+      },
+      "revId": "7d87317bce3284cdea5ae72946209314f9292d25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

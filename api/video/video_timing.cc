@@ -16,6 +16,13 @@
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
+constexpr uint8_t VideoSendTiming::kFlagsOffset;
+constexpr uint8_t VideoSendTiming::kEncodeStartDeltaOffset;
+constexpr uint8_t VideoSendTiming::kEncodeFinishDeltaOffset;
+constexpr uint8_t VideoSendTiming::kPacketizationFinishDeltaOffset;
+constexpr uint8_t VideoSendTiming::kPacerExitDeltaOffset;
+constexpr uint8_t VideoSendTiming::kNetworkTimestampDeltaOffset;
+constexpr uint8_t VideoSendTiming::kNetwork2TimestampDeltaOffset;
 
 uint16_t VideoSendTiming::GetDeltaCappedMs(int64_t base_ms, int64_t time_ms) {
   if (time_ms < base_ms) {

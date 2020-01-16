@@ -201,6 +201,7 @@ class OveruseFrameDetectorResourceAdaptationModule
   VideoSourceRestrictions video_source_restrictions_;
   // Used to query CpuOveruseOptions at StartCheckForOveruse().
   VideoStreamEncoder* video_stream_encoder_;
+  bool has_input_video_;
   DegradationPreference degradation_preference_;
   // Counters used for deciding if the video resolution or framerate is
   // currently restricted, and if so, why, on a per degradation preference

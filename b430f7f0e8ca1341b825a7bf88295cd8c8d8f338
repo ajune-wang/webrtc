@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1e904064_b606f5f2",
+        "filename": "test/testsupport/perf_test_histogram_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-16T15:18:48Z",
+      "side": 1,
+      "message": "I mean AddSample is a private function and why need to add into its arguments list?",
+      "parentUuid": "86d3ec83_3249525d",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 44
+      },
+      "revId": "b430f7f0e8ca1341b825a7bf88295cd8c8d8f338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "50ae0a0b_a7039cff",
         "filename": "test/testsupport/perf_test_histogram_writer.cc",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "UnitFromJsonUnit will convert to unitless in that case. In fact, I can do even better than a warning; I\u0027ll add a dcheck and just run all the tests later. If they all pass I know there are no other units, and I will prevent new ones from being added as well.",
       "parentUuid": "50ae0a0b_a7039cff",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 23
+      },
+      "revId": "b430f7f0e8ca1341b825a7bf88295cd8c8d8f338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71dca134_e59a990c",
+        "filename": "test/testsupport/perf_test_histogram_writer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-16T15:18:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f52ba848_01d91795",
       "range": {
         "startLine": 140,
         "startChar": 4,

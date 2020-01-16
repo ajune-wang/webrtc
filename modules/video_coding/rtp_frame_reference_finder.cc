@@ -104,23 +104,38 @@ RtpFrameReferenceFinder::ManageFrameInternal(RtpFrameObject* frame) {
     return ManageFrameGeneric(frame, *generic_descriptor);
   }
 
-  switch (frame->codec_type()) {
-    case kVideoCodecVP8:
-      return ManageFrameVp8(frame);
-    case kVideoCodecVP9:
-      return ManageFrameVp9(frame);
-    case kVideoCodecH264:
-      return ManageFrameH264(frame);
-    default: {
+  struct SwitchCodec {
+    RtpFrameReferenceFinder::FrameDecision operator()(
+        const RTPVideoHeaderVP8& codec_header) {
+      RTC_DCHECK_EQ(frame->codec_type(), kVideoCodecVP8);
+      return self.ManageFrameVp8(frame, codec_header);
+    }
+    RtpFrameReferenceFinder::FrameDecision operator()(
+        const RTPVideoHeaderVP9& codec_header) {
+      RTC_DCHECK_EQ(frame->codec_type(), kVideoCodecVP9);
+      return self.ManageFrameVp9(frame, codec_header);
+    }
+    RtpFrameReferenceFinder::FrameDecision operator()(
+        const RTPVideoHeaderH264& /*codec_header*/) {
+      RTC_DCHECK_EQ(frame->codec_type(), kVideoCodecH264);
+      return self.ManageFrameH264(frame);
+    }
+    RtpFrameReferenceFinder::FrameDecision operator()(absl::monostate) {
       // Use 15 first bits of frame ID as picture ID if available.
       const RTPVideoHeader& video_header = frame->GetRtpVideoHeader();
       int picture_id = kNoPictureId;
       if (video_header.generic)
         picture_id = video_header.generic->frame_id & 0x7fff;
 
-      return ManageFramePidOrSeqNum(frame, picture_id);
+      return self.ManageFramePidOrSeqNum(frame, picture_id);
     }
-  }
+
+    RtpFrameObject* const frame;
+    RtpFrameReferenceFinder& self;
+  };
+
+  return absl::visit(SwitchCodec{frame, *this},
+                     frame->GetRtpVideoHeader().video_type_header);
 }
 
 void RtpFrameReferenceFinder::PaddingReceived(uint16_t seq_num) {
@@ -276,13 +291,8 @@ RtpFrameReferenceFinder::ManageFramePidOrSeqNum(RtpFrameObject* frame,
 }
 
 RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
-    RtpFrameObject* frame) {
-  const RTPVideoHeader& video_header = frame->GetRtpVideoHeader();
-  RTPVideoTypeHeader rtp_codec_header = video_header.video_type_header;
-
-  const RTPVideoHeaderVP8& codec_header =
-      absl::get<RTPVideoHeaderVP8>(rtp_codec_header);
-
+    RtpFrameObject* frame,
+    const RTPVideoHeaderVP8& codec_header) {
   if (codec_header.pictureId == kNoPictureId ||
       codec_header.temporalIdx == kNoTemporalIdx ||
       codec_header.tl0PicIdx == kNoTl0PicIdx) {
@@ -421,13 +431,8 @@ void RtpFrameReferenceFinder::UpdateLayerInfoVp8(RtpFrameObject* frame,
 }
 
 RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
-    RtpFrameObject* frame) {
-  const RTPVideoHeader& video_header = frame->GetRtpVideoHeader();
-  RTPVideoTypeHeader rtp_codec_header = video_header.video_type_header;
-
-  const RTPVideoHeaderVP9& codec_header =
-      absl::get<RTPVideoHeaderVP9>(rtp_codec_header);
-
+    RtpFrameObject* frame,
+    const RTPVideoHeaderVP9& codec_header) {
   if (codec_header.picture_id == kNoPictureId ||
       codec_header.temporal_idx == kNoTemporalIdx) {
     return ManageFramePidOrSeqNum(frame, codec_header.picture_id);

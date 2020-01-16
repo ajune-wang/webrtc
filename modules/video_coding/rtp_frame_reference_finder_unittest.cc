@@ -186,7 +186,7 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
 
     std::unique_ptr<RtpFrameObject> frame =
         CreateFrame(seq_num_start, seq_num_end, keyframe, kVideoCodecH264,
-                    RTPVideoTypeHeader(), frame_marking);
+                    RTPVideoHeaderH264(), frame_marking);
     reference_finder_->ManageFrame(std::move(frame));
   }
 

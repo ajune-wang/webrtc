@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e2d186d1_ff7a13ca",
+        "filename": "api/test/video/function_video_decoder_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-16T14:02:34Z",
+      "side": 1,
+      "message": "I think that an empty vector would be okay unless you try to do the negotiation. There are other checks that will fail if someone tries to setup a call without any supported codecs.",
+      "parentUuid": "f7384a5c_f0271cc0",
+      "revId": "b727cdafda325af7df3ef9c8c2fbcabc51ae6522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2cf2ace_81364b47",
         "filename": "media/base/fake_media_engine.h",
         "patchSetId": 7
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "bbbabc1e_9a767eb2",
+        "filename": "media/base/fake_media_engine.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-16T14:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2cf2ace_81364b47",
+      "range": {
+        "startLine": 564,
+        "startChar": 21,
+        "endLine": 564,
+        "endChar": 50
+      },
+      "revId": "b727cdafda325af7df3ef9c8c2fbcabc51ae6522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8077c5bd_6fa8a972",
         "filename": "media/engine/fake_webrtc_video_engine.h",
         "patchSetId": 7
@@ -56,6 +98,24 @@
       "revId": "b727cdafda325af7df3ef9c8c2fbcabc51ae6522",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ac48c0_08679619",
+        "filename": "media/engine/fake_webrtc_video_engine.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-16T14:02:34Z",
+      "side": 1,
+      "message": "The function was added to make this symmetric to the encoder factory.\nLooking at the code more closely, the function that takes SdpVideoFormat is not needed at all.",
+      "parentUuid": "8077c5bd_6fa8a972",
+      "revId": "b727cdafda325af7df3ef9c8c2fbcabc51ae6522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -79,6 +139,30 @@
       "revId": "b727cdafda325af7df3ef9c8c2fbcabc51ae6522",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c83c1d88_38894972",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2192,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-16T14:02:34Z",
+      "side": 1,
+      "message": "Yes, why not.\nI\u0027ve update all similar constructions in this file to use std::make_unique.",
+      "parentUuid": "ed30d06b_1348717d",
+      "range": {
+        "startLine": 2192,
+        "startChar": 48,
+        "endLine": 2192,
+        "endChar": 79
+      },
+      "revId": "b727cdafda325af7df3ef9c8c2fbcabc51ae6522",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

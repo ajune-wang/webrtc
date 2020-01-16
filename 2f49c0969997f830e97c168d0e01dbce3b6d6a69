@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "36151cec_7853d5e5",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-01-16T12:15:26Z",
+      "side": 1,
+      "message": "I now used g_autoptr and g_autofree, which does this. One thing I\u0027m not sure about is whether I\u0027m allowed to use them in first place. They require GLib 2.44 and I was told Chromium is supposed to still support Ubuntu 14.04 where the version of GLib is older, however Ubuntu 14.04 is already unsupported for a year or so.",
+      "parentUuid": "9e04171e_322d26d1",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd48b780_de3170f9",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
         "patchSetId": 4

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60711c8a_e066ec93",
+        "filename": "test/time_controller/simulated_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-17T12:14:08Z",
+      "side": 1,
+      "message": "How does this relate to ScopedYieldPolicy?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "433434948c046621b48bc952ee46f20b9f01869d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf3e64a9_08067c8e",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-17T12:14:08Z",
+      "side": 1,
+      "message": "Not sure what terminology you use in the scheduler, but maybe rephrase to say that the task queue/runner is set as \"not ready to run\"?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 12
+      },
+      "revId": "433434948c046621b48bc952ee46f20b9f01869d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

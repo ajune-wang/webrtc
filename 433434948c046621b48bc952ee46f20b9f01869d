@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a0e0c53_b75d670b",
+        "filename": "test/time_controller/simulated_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-17T12:59:11Z",
+      "side": 1,
+      "message": "With ScopedYieldPolicy, handler_ is hooked up to a thread local variable on which YieldExecution() is called in Event::Wait. YieldExecution() in turn will do StartYield and StopYield internally.\n\nIn this case we don\u0027t need to use the thread local variable, since we already know that the current YieldPolicy maps to handler_.",
+      "parentUuid": "60711c8a_e066ec93",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "433434948c046621b48bc952ee46f20b9f01869d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf3e64a9_08067c8e",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "433434948c046621b48bc952ee46f20b9f01869d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c909e4_c60bc5f1",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-17T12:59:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf3e64a9_08067c8e",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 12
+      },
+      "revId": "433434948c046621b48bc952ee46f20b9f01869d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

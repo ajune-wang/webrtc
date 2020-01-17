@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '1ae08c8c438eb476059373962aaf12b3f1fcf28a',
+  'chromium_revision': 'f7a9012434c6bd66b8aca6755b2ac5cdaa14574e',
 }
 
 deps = {
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d264acf4bc4e66050208dcd826809f08b12873bb',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@0a217a8576a2f98016b475e1dc80c9b15b3d5f63',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@18b140a3c0f6ea3dff2d40af9b8fe12ab2af9546',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d2674016bb06dd245b2752fd624a9bf521449c39',
+    'https://chromium.googlesource.com/chromium/src/third_party@9f9c0a32c874118d45e63b2029da0fb9d18d05eb',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -105,7 +105,7 @@ deps = {
   },
 
   'src/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@cb3f04f584a53844546aaa32e949534c453185aa',
+    'https://boringssl.googlesource.com/boringssl.git@89730072b81077cc3e3a973963015b2494d36b1a',
   'src/third_party/catapult':
     'https://chromium.googlesource.com/catapult.git@c6d670ac06ee34a9fcc9c86b5d10aad52371f1f7',
   'src/third_party/ced/src': {
@@ -115,7 +115,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@05b001c28df8e2811c24656e7ad260d7232afb9d',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@98cfac11bd02507564d03ff5c3d328c97ab9abdf',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@bcc5d9fec0a32ec5a90b831e5d0414639af34e1f',
   'src/third_party/findbugs': {
@@ -237,7 +237,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d8d650c220aeeaf08678c45aee7378fddacef975',
+    'https://chromium.googlesource.com/chromium/src/tools@b196d98d554e84be7888ef0ccc867d53c67338a9',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

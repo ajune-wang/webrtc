@@ -289,6 +289,10 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
     }
   }
 
+  // Since no spatial layers or streams are enabled or disabled by the
+  // adjustment, bw-limited layers stay the same.
+  adjusted_allocation.set_bw_limited(rates.bitrate.is_bw_limited());
+
   return adjusted_allocation;
 }
 

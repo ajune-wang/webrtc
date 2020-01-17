@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "modules/rtp_rtcp/source/byte_io.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -167,9 +168,9 @@ void RtpPacket::ZeroMutableExtensions() {
       case RTPExtensionType::kRtpExtensionVideoTiming: {
         // Nullify 3 last entries: packetization delay and 2 network timestamps.
         // Each of them is 2 bytes.
-        memset(
-            WriteAt(extension.offset + VideoSendTiming::kPacerExitDeltaOffset),
-            0, 6);
+        memset(WriteAt(extension.offset +
+                       VideoTimingExtension::kPacerExitDeltaOffset),
+               0, 6);
         break;
       }
       case RTPExtensionType::kRtpExtensionTransportSequenceNumber:

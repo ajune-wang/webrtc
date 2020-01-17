@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0f26a736_e7438787",
+        "filename": "test/time_controller/simulated_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-17T13:16:21Z",
+      "side": 1,
+      "message": "And I take it it\u0027s not worth the effort with a separate ScopedSomething for this matching pair of Start/Stop?",
+      "parentUuid": "7a0e0c53_b75d670b",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "433434948c046621b48bc952ee46f20b9f01869d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf3e64a9_08067c8e",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 1

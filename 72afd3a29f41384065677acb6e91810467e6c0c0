@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f8e085fe_567e8461",
+        "filename": "api/video/video_timing.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-17T12:24:37Z",
+      "side": 1,
+      "message": "without these defintions code no longer links:\n\nsome of these values are passed to the SetExtension as parameter, so their addresses is needed now.\n\nBut you right, these constants do not belong to the api/VideoSendTiming, but should be in the VideoSendTimingExtension trait instead... I\u0027ll move them.\n\n(and will wait with landing this change since it won\u0027t link now)",
+      "parentUuid": "0a5cacfc_368968d3",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 65
+      },
+      "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61744d8c_b39aa6d7",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "829ffd81_7ac7194b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-17T12:24:37Z",
+      "side": 1,
+      "message": "This method is responsible for saving the extension (so that it can be then retrieved with GetExtension method later).\n\nHow exactly it does that is implementation detail. Right now it asks extension trait to serialize it into array of bytes. May be later it will be able do it differently (e.g. postpone serialization somehow)\n\nThis change relax the requirement for the value(s) - it/they no longer need to be copyable (or even movable).\n\nI would like postpone adding perfect forwarding and move values into Extension::Write until there is a usecase for that. Specially since I can\u0027t imagine one.\n(note - perfect forwarding is a bit less trivial in this case because values... are used twice. call to ValueSize shouldn\u0027t consume/change values)",
+      "parentUuid": "61744d8c_b39aa6d7",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 53
+      },
+      "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3f2a857b_cfa224ec",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-17T12:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecd1ff13_bdef31d9",
+      "range": {
+        "startLine": 753,
+        "startChar": 7,
+        "endLine": 753,
+        "endChar": 22
+      },
+      "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "37a9b9b3_ae9d390e",
         "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2cb8b92_3a4f25ec",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-17T12:24:37Z",
+      "side": 1,
+      "message": "Done\n\n(the name is so fuzzy because initially I tried to put it locally inside the test, but that didn\u0027t work for c++ reasons)",
+      "parentUuid": "37a9b9b3_ae9d390e",
+      "range": {
+        "startLine": 758,
+        "startChar": 7,
+        "endLine": 758,
+        "endChar": 21
+      },
+      "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -35,7 +35,17 @@
 
 #include "rtc_base/checks.h"
 
+constexpr int ConstexprFunction(int i) {
+  RTC_CHECK(i == 0);
+  RTC_CHECK_EQ(i, 0);
+  static_assert((true ? 1 : 0 ? 2 : 3) == 1, "order is as expected");
+  return i;
+}
+
+constexpr int i = ConstexprFunction(0);
+
 namespace {
+
 #if defined(__GNUC__)
 __attribute__((__format__(__printf__, 2, 3)))
 #endif
@@ -46,7 +56,7 @@ void AppendFormat(std::string* s, const char* fmt, ...) {
   const int predicted_length = std::vsnprintf(nullptr, 0, fmt, copy);
   va_end(copy);
 
-  if (predicted_length > 0) {
+  if (predicted_length > i) {
     const size_t size = s->size();
     s->resize(size + predicted_length);
     // Pass "+ 1" to vsnprintf to include space for the '\0'.

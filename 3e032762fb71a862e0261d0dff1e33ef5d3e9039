@@ -94,6 +94,30 @@
       "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e868d23b_a02c6b2f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-17T12:21:04Z",
+      "side": 1,
+      "message": "would similar code make it clearer?\nif (extension.length \u003e\u003d 6) {\n  memeset(WriteAt(extension.offset + extension.length - 6), 0, 6);\n}",
+      "parentUuid": "5022e12c_247a4be5",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 54
+      },
+      "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

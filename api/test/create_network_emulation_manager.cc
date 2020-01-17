@@ -17,8 +17,9 @@
 
 namespace webrtc {
 
-std::unique_ptr<NetworkEmulationManager> CreateNetworkEmulationManager() {
-  return std::make_unique<test::NetworkEmulationManagerImpl>();
+std::unique_ptr<NetworkEmulationManager> CreateNetworkEmulationManager(
+    bool real_time) {
+  return std::make_unique<test::NetworkEmulationManagerImpl>(real_time);
 }
 
 }  // namespace webrtc

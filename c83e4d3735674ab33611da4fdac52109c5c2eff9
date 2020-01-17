@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b74bda98_7247d515",
+        "filename": "api/test/create_network_emulation_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-17T13:17:19Z",
+      "side": 1,
+      "message": "Will just bool be enough or maybe we can give a unique pointer to the controller and if it\u0027s null then use realtime one? Because I see, that simulated time controller is created with different constructor parameters.\n\nCan we talk offline to me better understand the full idea behind this?",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "c83e4d3735674ab33611da4fdac52109c5c2eff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

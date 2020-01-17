@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eac0ec28_cc4165f2",
+        "filename": "api/test/create_network_emulation_manager.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-17T18:11:33Z",
+      "side": 1,
+      "message": "nit: a two-member enum would be much more readable",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f01500_b55edf45",
+        "filename": "api/test/time_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-17T18:11:33Z",
+      "side": 1,
+      "message": "Can\u0027t the simulated time controller be smarter by jumping to the next task time rather than moving by a fixed, small interval?",
+      "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e721473_1914afe7",
+        "filename": "test/network/network_emulation_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-17T18:11:33Z",
+      "side": 1,
+      "message": "Could we use ASSERT_EQ_SIMULATED_WAIT instead? That would preserve nice test failure messages (i.e., printing the arguments).\n\nLike:\n\nASSERT_EQ_SIMULATED_WAIT(received_stats_count.load(), 2, kStatsWaitTimeoutMs, *network_manager.time_controller())",
+      "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4b557d6_82d45d15",
+        "filename": "test/time_controller/real_time_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-17T18:11:33Z",
+      "side": 1,
+      "message": "Why not just inline a std::unique_ptr\u003crtc::Thread\u003e and a CurrentThreadSetter in RealTimeController?",
+      "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

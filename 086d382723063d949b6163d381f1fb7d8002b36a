@@ -22,6 +22,30 @@
       "revId": "086d382723063d949b6163d381f1fb7d8002b36a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fcdd5d5_c563b326",
+        "filename": "test/scenario/network_node.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-17T12:06:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "929935a9_c7fbac32",
+      "range": {
+        "startLine": 112,
+        "startChar": 54,
+        "endLine": 112,
+        "endChar": 55
+      },
+      "revId": "086d382723063d949b6163d381f1fb7d8002b36a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

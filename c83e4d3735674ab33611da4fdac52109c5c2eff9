@@ -22,6 +22,76 @@
       "revId": "c83e4d3735674ab33611da4fdac52109c5c2eff9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ce01bb4_5ddb066e",
+        "filename": "api/test/create_network_emulation_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-17T14:06:56Z",
+      "side": 1,
+      "message": "Discussed offline, the param to simulated time controller isn\u0027t very important, so we can keep it like this.",
+      "parentUuid": "b74bda98_7247d515",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "c83e4d3735674ab33611da4fdac52109c5c2eff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "174aaeff_abc9313c",
+        "filename": "test/network/network_emulation_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-17T14:06:56Z",
+      "side": 1,
+      "message": "I think the step also should be documented in API.",
+      "range": {
+        "startLine": 312,
+        "startChar": 34,
+        "endLine": 312,
+        "endChar": 48
+      },
+      "revId": "c83e4d3735674ab33611da4fdac52109c5c2eff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d095736e_e76138ad",
+        "filename": "test/network/network_emulation_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-01-17T14:06:56Z",
+      "side": 1,
+      "message": "I want in some point we have the same public API of NetworkEmulationManager and NetworkEmulationManagerImpl. Do we need this methods on manager or can they live in time controller? If we do, then maybe we should have them in public API?\n\nAlso from my point of view it\u0027s a bit strange to have time control methods on network manager. It mixing two abstractions a bit, so I think, I prefer to have them in TimeController API.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 93,
+        "endChar": 79
+      },
+      "revId": "c83e4d3735674ab33611da4fdac52109c5c2eff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

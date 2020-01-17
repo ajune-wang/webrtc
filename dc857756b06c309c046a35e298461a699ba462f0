@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f82ccd0_b4204c1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-17T15:20:41Z",
+      "side": 1,
+      "message": "nit: length",
+      "revId": "dc857756b06c309c046a35e298461a699ba462f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "073eda64_2c9dd225",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-17T15:20:41Z",
+      "side": 1,
+      "message": "Not sure if this is case-sensitive or not, but this is usually \"Bug: \"",
+      "revId": "dc857756b06c309c046a35e298461a699ba462f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

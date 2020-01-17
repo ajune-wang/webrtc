@@ -71,8 +71,6 @@ class Vp9FrameBufferPool {
     size_t GetDataSize() const;
     void SetSize(size_t size);
 
-    virtual bool HasOneRef() const = 0;
-
    private:
     // Data as an easily resizable buffer.
     rtc::Buffer data_;

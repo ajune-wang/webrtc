@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16a872ed_dedb360f",
+        "filename": "modules/desktop_capture/mouse_cursor_monitor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2020-01-17T21:55:02Z",
+      "side": 0,
+      "message": "Since it\u0027s possible to request only shape change notifications, it\u0027s acceptable not to want to implement this method.",
+      "range": {
+        "startLine": 65,
+        "startChar": 77,
+        "endLine": 65,
+        "endChar": 0
+      },
+      "revId": "100fe639b230fab54d176d5f2ff354df01cbb85b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

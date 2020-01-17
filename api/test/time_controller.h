@@ -51,6 +51,10 @@ class TimeController {
   // Allow task queues and process threads created by this instance to execute
   // for the given |duration|.
   virtual void AdvanceTime(TimeDelta duration) = 0;
+
+  // Waits until done() == true, polling done() in small time intervals.
+  bool Wait(const std::function<bool()>& done,
+            TimeDelta max_duration = TimeDelta::seconds(5));
 };
 
 // Interface for telling time, scheduling an event to fire at a particular time,

@@ -54,7 +54,7 @@ class MouseCursorMonitor {
     // relative to the |window| specified in the constructor.
     // Deprecated: use the following overload instead.
     virtual void OnMouseCursorPosition(CursorState state,
-                                       const DesktopVector& position) = 0;
+                                       const DesktopVector& position) {}
 
     // Called in response to Capture(). |position| indicates cursor absolute
     // position on the system in fullscreen coordinate, i.e. the top-left

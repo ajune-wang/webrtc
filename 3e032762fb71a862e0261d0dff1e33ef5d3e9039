@@ -22,6 +22,30 @@
       "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cdb098b_63795974",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-17T12:06:37Z",
+      "side": 1,
+      "message": "no, offset doesn\u0027t add to the length\n(there are extension.length bytes available for this extensions starting at the extension.offset)",
+      "parentUuid": "f52aa3c9_81ee30ec",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 54
+      },
+      "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

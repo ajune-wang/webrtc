@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a5cacfc_368968d3",
+        "filename": "api/video/video_timing.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-17T09:23:58Z",
+      "side": 1,
+      "message": "How is this fix related to the main change? Do these constants need to be in the api/ at all? \n\ngit grep \u0027VideoSendTiming::k.*Offset\u0027\n\nfinds uses in rtp_header_extensions.cc, rtp_packet.cc, and rtp_packet_to_send.h, so seems internal to RTP implementation?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 65
+      },
+      "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61744d8c_b39aa6d7",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-17T09:23:58Z",
+      "side": 1,
+      "message": "So this method is responsible for serialization? From the name, I expected it to need to make a copy (and maybe have an rvalue overload to deal with movable but not copyable types).",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 53
+      },
+      "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd1ff13_bdef31d9",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-17T09:23:58Z",
+      "side": 1,
+      "message": "\"copyable\" with y seems to be a more common spelling.\n\nWould it improve the test to let it have an uint8_t member and verify Set/Get roundtrip?",
+      "range": {
+        "startLine": 753,
+        "startChar": 7,
+        "endLine": 753,
+        "endChar": 22
+      },
+      "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37a9b9b3_ae9d390e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-17T09:23:58Z",
+      "side": 1,
+      "message": "Less generic name, please. Perhaps UncopyableExtension?",
+      "range": {
+        "startLine": 758,
+        "startChar": 7,
+        "endLine": 758,
+        "endChar": 21
+      },
+      "revId": "72afd3a29f41384065677acb6e91810467e6c0c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

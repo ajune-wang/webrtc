@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '1ae08c8c438eb476059373962aaf12b3f1fcf28a',
+  'chromium_revision': '665fc90a81961e9f209e4a27348f5f0ee8554f02',
 }
 
 deps = {
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@d264acf4bc4e66050208dcd826809f08b12873bb',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@0a217a8576a2f98016b475e1dc80c9b15b3d5f63',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@18b140a3c0f6ea3dff2d40af9b8fe12ab2af9546',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d2674016bb06dd245b2752fd624a9bf521449c39',
+    'https://chromium.googlesource.com/chromium/src/third_party@9f9c0a32c874118d45e63b2029da0fb9d18d05eb',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -105,7 +105,7 @@ deps = {
   },
 
   'src/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@cb3f04f584a53844546aaa32e949534c453185aa',
+    'https://boringssl.googlesource.com/boringssl.git@89730072b81077cc3e3a973963015b2494d36b1a',
   'src/third_party/catapult':
     'https://chromium.googlesource.com/catapult.git@c6d670ac06ee34a9fcc9c86b5d10aad52371f1f7',
   'src/third_party/ced/src': {
@@ -237,7 +237,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d8d650c220aeeaf08678c45aee7378fddacef975',
+    'https://chromium.googlesource.com/chromium/src/tools@b196d98d554e84be7888ef0ccc867d53c67338a9',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

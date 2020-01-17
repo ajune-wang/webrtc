@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5d167643_73977139",
+        "filename": "test/network/network_emulation_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-17T15:04:51Z",
+      "side": 1,
+      "message": "Added mention of it, I don\u0027t wan\u0027t to mention the exact number as that should be considered an implementation detail. If we think it\u0027s important enough for the reader to know it should be a configurable parameter IMO. But I don\u0027t have any use case for that (yet).",
+      "parentUuid": "174aaeff_abc9313c",
+      "range": {
+        "startLine": 312,
+        "startChar": 34,
+        "endLine": 312,
+        "endChar": 48
+      },
+      "revId": "c83e4d3735674ab33611da4fdac52109c5c2eff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d095736e_e76138ad",
         "filename": "test/network/network_emulation_manager.h",
         "patchSetId": 6
@@ -92,6 +116,30 @@
       "revId": "c83e4d3735674ab33611da4fdac52109c5c2eff9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "258824df_a7f89772",
+        "filename": "test/network/network_emulation_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-17T15:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d095736e_e76138ad",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 93,
+        "endChar": 79
+      },
+      "revId": "c83e4d3735674ab33611da4fdac52109c5c2eff9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

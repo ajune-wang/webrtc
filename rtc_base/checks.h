@@ -367,17 +367,18 @@ class FatalLogCall final {
 // RTC_CHECK_OP is a helper macro for binary operators.
 // Don't use this macro directly in your code, use RTC_CHECK_EQ et al below.
 #if RTC_CHECK_MSG_ENABLED
-#define RTC_CHECK(condition)                                       \
-  while (!(condition))                                             \
-  rtc::webrtc_checks_impl::FatalLogCall<false>(__FILE__, __LINE__, \
-                                               #condition) &       \
-      rtc::webrtc_checks_impl::LogStreamer<>()
+#define RTC_CHECK(condition)                                  \
+  (condition) ? static_cast<void>(0)                          \
+              : rtc::webrtc_checks_impl::FatalLogCall<false>( \
+                    __FILE__, __LINE__, #condition) &         \
+                    rtc::webrtc_checks_impl::LogStreamer<>()
 
-#define RTC_CHECK_OP(name, op, val1, val2)                               \
-  while (!rtc::Safe##name((val1), (val2)))                               \
-  rtc::webrtc_checks_impl::FatalLogCall<true>(__FILE__, __LINE__,        \
-                                              #val1 " " #op " " #val2) & \
-      rtc::webrtc_checks_impl::LogStreamer<>() << (val1) << (val2)
+#define RTC_CHECK_OP(name, op, val1, val2)                                     \
+  (rtc::Safe##name((val1), (val2)))                                            \
+      ? static_cast<void>(0)                                                   \
+      : rtc::webrtc_checks_impl::FatalLogCall<true>(__FILE__, __LINE__,        \
+                                                    #val1 " " #op " " #val2) & \
+            rtc::webrtc_checks_impl::LogStreamer<>() << (val1) << (val2)
 #else
 #define RTC_CHECK(condition)                                                   \
   while (!(condition))                                                         \

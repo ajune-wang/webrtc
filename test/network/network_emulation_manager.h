@@ -39,8 +39,7 @@ namespace test {
 
 class NetworkEmulationManagerImpl : public NetworkEmulationManager {
  public:
-  NetworkEmulationManagerImpl();
-  explicit NetworkEmulationManagerImpl(TimeController* time_controller);
+  explicit NetworkEmulationManagerImpl(bool real_time);
   ~NetworkEmulationManagerImpl();
 
   EmulatedNetworkNode* CreateEmulatedNode(
@@ -84,11 +83,20 @@ class NetworkEmulationManagerImpl : public NetworkEmulationManager {
   EmulatedNetworkManagerInterface* CreateEmulatedNetworkManagerInterface(
       const std::vector<EmulatedEndpoint*>& endpoints) override;
 
- private:
-  absl::optional<rtc::IPAddress> GetNextIPv4Address();
+  // Waits for done() == true while processing messages on the main thread.
+  bool WaitAndProcess(std::function<bool()> done,
+                      TimeDelta max_duration = TimeDelta::seconds(5));
+  void AdvanceTime(TimeDelta duration) {
+    time_controller_->AdvanceTime(duration);
+  }
+
+  TimeController* time_controller() override { return time_controller_.get(); }
+
   Timestamp Now() const;
 
-  TimeController* const time_controller_;
+ private:
+  absl::optional<rtc::IPAddress> GetNextIPv4Address();
+  const std::unique_ptr<TimeController> time_controller_;
   Clock* const clock_;
   int next_node_id_;
 

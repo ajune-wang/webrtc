@@ -166,6 +166,30 @@
       "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b563ac7_411fe64a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-17T12:35:10Z",
+      "side": 1,
+      "message": "(my suggestion behave differently for malformed packets, but same for valid packets)\n\nCHECK might fail for malformed packet, but it can be runtime-check:\nif (VideoSendTiming::kPacerExitDeltaOffset \u003c extension.length) {\n  memset(WriteAt(extension.offset + VideoSendTiming::kPacerExitDeltaOffset), \n         0, extension.length - VideoSendTiming::kPacerExitDeltaOffset);\n}",
+      "parentUuid": "772404cb_40c34056",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 54
+      },
+      "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -39,6 +39,10 @@ class RTC_EXPORT DesktopAndCursorComposer
   DesktopAndCursorComposer(std::unique_ptr<DesktopCapturer> desktop_capturer,
                            const DesktopCaptureOptions& options);
 
+  // Creates a new blender that relies on an external source for cursor shape
+  // and position information via the MouseCursorMonitor::Callback interface.
+  DesktopAndCursorComposer(std::unique_ptr<DesktopCapturer> desktop_capturer);
+
   ~DesktopAndCursorComposer() override;
 
   // DesktopCapturer interface.
@@ -47,6 +51,10 @@ class RTC_EXPORT DesktopAndCursorComposer
       std::unique_ptr<SharedMemoryFactory> shared_memory_factory) override;
   void CaptureFrame() override;
   void SetExcludedWindow(WindowId window) override;
+
+  // MouseCursorMonitor::Callback interface.
+  void OnMouseCursor(MouseCursor* cursor) override;
+  void OnMouseCursorPosition(const DesktopVector& position) override;
 
  private:
   // Allows test cases to use a fake MouseCursorMonitor implementation.
@@ -60,10 +68,6 @@ class RTC_EXPORT DesktopAndCursorComposer
   // DesktopCapturer::Callback interface.
   void OnCaptureResult(DesktopCapturer::Result result,
                        std::unique_ptr<DesktopFrame> frame) override;
-
-  // MouseCursorMonitor::Callback interface.
-  void OnMouseCursor(MouseCursor* cursor) override;
-  void OnMouseCursorPosition(const DesktopVector& position) override;
 
   const std::unique_ptr<DesktopCapturer> desktop_capturer_;
   const std::unique_ptr<MouseCursorMonitor> mouse_monitor_;

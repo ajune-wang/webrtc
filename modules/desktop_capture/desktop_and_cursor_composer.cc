@@ -136,6 +136,10 @@ DesktopAndCursorComposer::DesktopAndCursorComposer(
                                MouseCursorMonitor::Create(options).release()) {}
 
 DesktopAndCursorComposer::DesktopAndCursorComposer(
+    std::unique_ptr<DesktopCapturer> desktop_capturer)
+    : DesktopAndCursorComposer(desktop_capturer.release(), nullptr) {}
+
+DesktopAndCursorComposer::DesktopAndCursorComposer(
     DesktopCapturer* desktop_capturer,
     MouseCursorMonitor* mouse_monitor)
     : desktop_capturer_(desktop_capturer), mouse_monitor_(mouse_monitor) {
@@ -195,12 +199,6 @@ void DesktopAndCursorComposer::OnCaptureResult(
 
 void DesktopAndCursorComposer::OnMouseCursor(MouseCursor* cursor) {
   cursor_.reset(cursor);
-}
-
-void DesktopAndCursorComposer::OnMouseCursorPosition(
-    MouseCursorMonitor::CursorState state,
-    const DesktopVector& position) {
-  RTC_NOTREACHED();
 }
 
 void DesktopAndCursorComposer::OnMouseCursorPosition(

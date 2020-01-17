@@ -16,6 +16,7 @@
 
 #include "api/test/network_emulation/network_emulation_interfaces.h"
 #include "api/test/simulated_network.h"
+#include "api/test/time_controller.h"
 
 #include "api/units/timestamp.h"
 #include "rtc_base/network.h"
@@ -102,6 +103,8 @@ class NetworkEmulationManager {
     };
   };
   virtual ~NetworkEmulationManager() = default;
+
+  virtual TimeController* time_controller() = 0;
 
   // Creates an emulated network node, which represents single network in
   // the emulated network layer.

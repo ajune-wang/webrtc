@@ -161,7 +161,7 @@ class Scenario {
   TimeDelta TimeUntilTarget(TimeDelta target_time_offset);
 
   const std::unique_ptr<LogWriterFactoryInterface> log_writer_factory_;
-  std::unique_ptr<TimeController> time_controller_;
+  NetworkEmulationManagerImpl network_manager_;
   Clock* clock_;
 
   std::vector<std::unique_ptr<CallClient>> clients_;
@@ -176,7 +176,6 @@ class Scenario {
   rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory_;
 
   Timestamp start_time_ = Timestamp::PlusInfinity();
-  NetworkEmulationManagerImpl network_manager_;
   // Defined last so it's destroyed first.
   rtc::TaskQueue task_queue_;
 };

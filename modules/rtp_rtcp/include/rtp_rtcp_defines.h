@@ -184,7 +184,11 @@ class RtcpIntraFrameObserver {
  public:
   virtual ~RtcpIntraFrameObserver() {}
 
-  virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) = 0;
+  RTC_DEPRECATED virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) {}
+  virtual bool OnIntraFrameRequested(uint32_t ssrc) {
+    OnReceivedIntraFrameRequest(ssrc);
+    return true;
+  }
 };
 
 // Observer for incoming LossNotification RTCP messages.

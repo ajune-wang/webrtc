@@ -142,6 +142,30 @@
       "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "772404cb_40c34056",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-17T12:30:14Z",
+      "side": 1,
+      "message": "Danil: I read it slightly differently. To me, the current code reads as \"zero the six bytes starting at kPacerExitDeltaOffset\", while your alternative reads \"zero the last six bytes\".  Which flavor is clearest in this context, I\u0027m not sure. \n\nAnother variant would be \"zero everything after kPacerExitDeltaOffset\", like\n\nRTC_CHECK_LE(VideoSendTiming::kPacerExitDeltaOffset, extension.length);\nmemset(WriteAt(extension.offset + VideoSendTiming::kPacerExitDeltaOffset), \n       0, extension.length - VideoSendTiming::kPacerExitDeltaOffset);\n\nThen we avoid mentioning the magic number 6.",
+      "parentUuid": "e1fe0eb1_9aa211c1",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 54
+      },
+      "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

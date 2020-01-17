@@ -118,6 +118,30 @@
       "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1fe0eb1_9aa211c1",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-17T12:23:03Z",
+      "side": 1,
+      "message": "There\u0027s packet buffer. Some extensions are found in it and populated as entries {offset, length}. These are already checked that they are inside the buffer while they are parsed.\n\nThis code here tried to write 6 bytes in one extension without checking it\u0027s size.\n\nVideoSendTiming::KpacerExitDeltaOffset is extension-specific offset of a field within it.\n\nSo, the correct check is to look only on things relative to extension.",
+      "parentUuid": "5022e12c_247a4be5",
+      "range": {
+        "startLine": 170,
+        "startChar": 12,
+        "endLine": 170,
+        "endChar": 54
+      },
+      "revId": "3e032762fb71a862e0261d0dff1e33ef5d3e9039",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

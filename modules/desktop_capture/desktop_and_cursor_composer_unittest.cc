@@ -324,4 +324,12 @@ TEST_F(DesktopAndCursorComposerTest, CursorIncluded) {
   }
 }
 
+TEST_F(DesktopAndCursorComposerTest,
+       UpdatedRegionIncludesOldAndNewCursorRectsIfMoved) {}
+
+TEST_F(DesktopAndCursorComposerTest,
+       UpdatedRegionIncludesOldAndNewCursorRectsIfShapeChanged) {}
+
+TEST_F(DesktopAndCursorComposerTest, UpdatedRegionUnchangedIfCursorUnchanged) {}
+
 }  // namespace webrtc

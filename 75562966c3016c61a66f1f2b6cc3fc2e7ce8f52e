@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d4478698_ee873e97",
+        "filename": "modules/desktop_capture/desktop_and_cursor_composer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2020-01-18T00:22:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a26fc23_ccc160fb",
+      "range": {
+        "startLine": 42,
+        "startChar": 19,
+        "endLine": 42,
+        "endChar": 26
+      },
+      "revId": "75562966c3016c61a66f1f2b6cc3fc2e7ce8f52e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "730c3ddd_f746d123",
         "filename": "modules/desktop_capture/desktop_and_cursor_composer.h",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "75562966c3016c61a66f1f2b6cc3fc2e7ce8f52e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1e195c8_3f504579",
+        "filename": "modules/desktop_capture/desktop_and_cursor_composer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2020-01-18T00:22:56Z",
+      "side": 1,
+      "message": "I went with the latter.",
+      "parentUuid": "730c3ddd_f746d123",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 26
+      },
+      "revId": "75562966c3016c61a66f1f2b6cc3fc2e7ce8f52e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

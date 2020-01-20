@@ -18,8 +18,10 @@
 #include <string>
 #include <utility>
 
+#include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
 #include "api/crypto/frame_encryptor_interface.h"
+#include "api/transport/rtp/dependency_descriptor.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
@@ -110,7 +112,9 @@ void AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
     RtpGenericFrameDescriptor generic_descriptor;
     generic_descriptor.SetFirstPacketInSubFrame(first_packet);
     generic_descriptor.SetLastPacketInSubFrame(last_packet);
-    generic_descriptor.SetDiscardable(video_header.generic->discardable);
+    generic_descriptor.SetDiscardable(
+        absl::c_linear_search(video_header.generic->decode_target_indications,
+                              DecodeTargetIndication::kDiscardable));
 
     if (first_packet) {
       generic_descriptor.SetFrameId(

@@ -251,6 +251,7 @@ rtc_library("rtp_rtcp") {
     "../../api/rtc_event_log",
     "../../api/transport:field_trial_based_config",
     "../../api/transport:webrtc_key_value_config",
+    "../../api/transport/rtp:dependency_descriptor",
     "../../api/transport/rtp:rtp_source",
     "../../api/units:data_rate",
     "../../api/units:time_delta",
@@ -332,6 +333,7 @@ rtc_library("rtp_video_header") {
   ]
   deps = [
     "../../:webrtc_common",
+    "../../api/transport/rtp:dependency_descriptor",
     "../../api/video:video_frame",
     "../../api/video:video_frame_type",
     "../../api/video:video_rtp_headers",

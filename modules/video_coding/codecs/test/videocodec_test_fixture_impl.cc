@@ -71,7 +71,7 @@ void ConfigureSimulcast(VideoCodec* codec_settings) {
     ss->width = static_cast<uint16_t>(streams[i].width);
     ss->height = static_cast<uint16_t>(streams[i].height);
     ss->numberOfTemporalLayers =
-        static_cast<unsigned char>(*streams[i].num_temporal_layers);
+        static_cast<unsigned char>(streams[i].num_temporal_layers);
     ss->maxBitrate = streams[i].max_bitrate_bps / 1000;
     ss->targetBitrate = streams[i].target_bitrate_bps / 1000;
     ss->minBitrate = streams[i].min_bitrate_bps / 1000;

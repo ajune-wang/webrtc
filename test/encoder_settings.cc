@@ -84,7 +84,7 @@ std::vector<VideoStream> CreateVideoStreams(
         stream_settings[i].max_framerate = stream.max_framerate;
       }
       if (stream.num_temporal_layers) {
-        RTC_DCHECK_GE(*stream.num_temporal_layers, 1);
+        RTC_DCHECK_GE(stream.num_temporal_layers, 1);
         stream_settings[i].num_temporal_layers = stream.num_temporal_layers;
       }
       if (stream.scale_resolution_down_by >= 1.0) {

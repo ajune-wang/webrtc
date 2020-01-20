@@ -3142,10 +3142,9 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
     for (size_t i = 0; i < layers.size(); ++i) {
       layers[i].active = encoder_config.simulcast_layers[i].active;
       // Update with configured num temporal layers if supported by codec.
-      if (encoder_config.simulcast_layers[i].num_temporal_layers &&
-          IsTemporalLayersSupported(codec_name_)) {
+      if (IsTemporalLayersSupported(codec_name_)) {
         layers[i].num_temporal_layers =
-            *encoder_config.simulcast_layers[i].num_temporal_layers;
+            encoder_config.simulcast_layers[i].num_temporal_layers;
       }
       if (encoder_config.simulcast_layers[i].max_framerate > 0) {
         layers[i].max_framerate =
@@ -3272,7 +3271,7 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
     // Use configured number of temporal layers if set.
     if (encoder_config.simulcast_layers[0].num_temporal_layers) {
       layer.num_temporal_layers =
-          *encoder_config.simulcast_layers[0].num_temporal_layers;
+          encoder_config.simulcast_layers[0].num_temporal_layers;
     }
   }
 

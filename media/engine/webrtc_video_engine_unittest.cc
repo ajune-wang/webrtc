@@ -3250,7 +3250,7 @@ TEST_F(WebRtcVideoChannelTest, UsesCorrectSettingsForScreencast) {
   streams = send_stream->GetVideoStreams();
   EXPECT_EQ(rtc::checked_cast<size_t>(1280), streams.front().width);
   EXPECT_EQ(rtc::checked_cast<size_t>(720), streams.front().height);
-  EXPECT_FALSE(streams[0].num_temporal_layers.has_value());
+  EXPECT_EQ(streams[0].num_temporal_layers, 1UL);
   EXPECT_TRUE(channel_->SetVideoSend(last_ssrc_, nullptr, nullptr));
 }
 
@@ -6085,7 +6085,7 @@ TEST_F(WebRtcVideoChannelTest, SetNumTemporalLayersForSingleStream) {
   // we are just testing the behavior of
   // EncoderStreamFactory::CreateEncoderStreams.
   ASSERT_EQ(1UL, stream->GetVideoStreams().size());
-  EXPECT_FALSE(stream->GetVideoStreams()[0].num_temporal_layers.has_value());
+  EXPECT_EQ(stream->GetVideoStreams()[0].num_temporal_layers, 1UL);
 
   // Set temporal layers and check that VideoStream.num_temporal_layers is set.
   parameters = channel_->GetRtpSendParameters(last_ssrc_);
@@ -7680,7 +7680,7 @@ class WebRtcVideoChannelSimulcastTest : public ::testing::Test {
       EXPECT_EQ(expected_streams[i].max_qp, video_streams[i].max_qp);
 
       EXPECT_EQ(num_configured_streams > 1 || conference_mode,
-                expected_streams[i].num_temporal_layers.has_value());
+                expected_streams[i].num_temporal_layers > 1);
 
       if (conference_mode) {
         EXPECT_EQ(expected_streams[i].num_temporal_layers,

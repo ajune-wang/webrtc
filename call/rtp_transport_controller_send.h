@@ -103,8 +103,6 @@ class RtpTransportControllerSend final
   void SetSdpBitrateParameters(const BitrateConstraints& constraints) override;
   void SetClientBitratePreferences(const BitrateSettings& preferences) override;
 
-  void OnTransportOverheadChanged(
-      size_t transport_overhead_per_packet) override;
 
   void AccountForAudioPacketsInPacedSender(bool account_for_audio) override;
   void IncludeOverheadInPacedSender() override;
@@ -123,6 +121,8 @@ class RtpTransportControllerSend final
   void OnRemoteNetworkEstimate(NetworkStateEstimate estimate) override;
 
  private:
+  void OnTransportOverheadChanged(size_t transport_overhead_per_packet)
+      RTC_RUN_ON(task_queue_);
   void MaybeCreateControllers() RTC_RUN_ON(task_queue_);
   void UpdateInitialConstraints(TargetRateConstraints new_contraints)
       RTC_RUN_ON(task_queue_);
@@ -143,8 +143,9 @@ class RtpTransportControllerSend final
   RtcEventLog* const event_log_;
   PacketRouter packet_router_;
   std::vector<std::unique_ptr<RtpVideoSenderInterface>> video_rtp_senders_;
-  RtpBitrateConfigurator bitrate_configurator_;
-  std::map<std::string, rtc::NetworkRoute> network_routes_;
+  RtpBitrateConfigurator bitrate_configurator_ RTC_GUARDED_BY(task_queue_);
+  std::map<std::string, rtc::NetworkRoute> network_routes_
+      RTC_GUARDED_BY(task_queue_);
   const std::unique_ptr<ProcessThread> process_thread_;
   const bool use_task_queue_pacer_;
   std::unique_ptr<PacedSender> process_thread_pacer_;

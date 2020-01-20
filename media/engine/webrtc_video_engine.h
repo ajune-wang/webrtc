@@ -528,7 +528,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
 
   uint32_t rtcp_receiver_report_ssrc_ RTC_GUARDED_BY(thread_checker_);
   bool sending_ RTC_GUARDED_BY(thread_checker_);
-  webrtc::Call* const call_ RTC_GUARDED_BY(thread_checker_);
+  webrtc::Call* const call_;
 
   DefaultUnsignalledSsrcHandler default_unsignalled_ssrc_handler_
       RTC_GUARDED_BY(thread_checker_);

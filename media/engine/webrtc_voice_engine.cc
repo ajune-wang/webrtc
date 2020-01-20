@@ -2102,7 +2102,6 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
 void WebRtcVoiceMediaChannel::OnNetworkRouteChanged(
     const std::string& transport_name,
     const rtc::NetworkRoute& network_route) {
-  RTC_DCHECK(worker_thread_checker_.IsCurrent());
   call_->GetTransportControllerSend()->OnNetworkRouteChanged(transport_name,
                                                              network_route);
   call_->OnAudioTransportOverheadChanged(network_route.packet_overhead);

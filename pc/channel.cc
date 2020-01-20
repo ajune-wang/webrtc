@@ -361,9 +361,7 @@ void BaseChannel::OnNetworkRouteChanged(
   // use the same transport name and MediaChannel::OnNetworkRouteChanged cannot
   // work correctly. Intentionally leave it broken to simplify the code and
   // encourage the users to stop using non-muxing RTCP.
-  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, worker_thread_, [=] {
-    media_channel_->OnNetworkRouteChanged(transport_name_, new_route);
-  });
+  media_channel_->OnNetworkRouteChanged(transport_name_, new_route);
 }
 
 void BaseChannel::OnTransportReadyToSend(bool ready) {

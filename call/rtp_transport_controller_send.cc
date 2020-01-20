@@ -9,6 +9,7 @@
  */
 #include "call/rtp_transport_controller_send.h"
 
+#include <algorithm>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -34,26 +35,17 @@ static const size_t kMaxOverheadBytes = 500;
 
 constexpr TimeDelta kPacerQueueUpdateInterval = TimeDelta::Millis<25>();
 
-TargetRateConstraints ConvertConstraints(int min_bitrate_bps,
-                                         int max_bitrate_bps,
-                                         int start_bitrate_bps,
-                                         Clock* clock) {
-  TargetRateConstraints msg;
-  msg.at_time = Timestamp::ms(clock->TimeInMilliseconds());
-  msg.min_data_rate =
-      min_bitrate_bps >= 0 ? DataRate::bps(min_bitrate_bps) : DataRate::Zero();
-  msg.max_data_rate = max_bitrate_bps > 0 ? DataRate::bps(max_bitrate_bps)
-                                          : DataRate::Infinity();
-  if (start_bitrate_bps > 0)
-    msg.starting_rate = DataRate::bps(start_bitrate_bps);
-  return msg;
-}
-
 TargetRateConstraints ConvertConstraints(const BitrateConstraints& contraints,
-                                         Clock* clock) {
-  return ConvertConstraints(contraints.min_bitrate_bps,
-                            contraints.max_bitrate_bps,
-                            contraints.start_bitrate_bps, clock);
+                                         Timestamp at_time) {
+  TargetRateConstraints msg;
+  msg.at_time = at_time;
+  msg.min_data_rate = DataRate::bps(std::max(0, contraints.min_bitrate_bps));
+  msg.max_data_rate = contraints.max_bitrate_bps > 0
+                          ? DataRate::bps(contraints.max_bitrate_bps)
+                          : DataRate::Infinity();
+  if (contraints.start_bitrate_bps > 0)
+    msg.starting_rate = DataRate::bps(contraints.start_bitrate_bps);
+  return msg;
 }
 
 bool IsEnabled(const WebRtcKeyValueConfig* trials, absl::string_view key) {
@@ -109,7 +101,8 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       task_queue_(task_queue_factory->CreateTaskQueue(
           "rtp_send_controller",
           TaskQueueFactory::Priority::NORMAL)) {
-  initial_config_.constraints = ConvertConstraints(bitrate_config, clock_);
+  initial_config_.constraints = ConvertConstraints(
+      bitrate_config, Timestamp::ms(clock_->TimeInMilliseconds()));
   initial_config_.event_log = event_log;
   initial_config_.key_value_config = trials;
   RTC_DCHECK(bitrate_config.start_bitrate_bps > 0);
@@ -252,20 +245,27 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
     // consider merging these two methods.
     return;
   }
+  Timestamp at_time = Timestamp::ms(clock_->TimeInMilliseconds());
 
-  // Check whether the network route has changed on each transport.
-  auto result =
-      network_routes_.insert(std::make_pair(transport_name, network_route));
-  auto kv = result.first;
-  bool inserted = result.second;
-  if (inserted) {
-    // No need to reset BWE if this is the first time the network connects.
-    return;
-  }
-  if (kv->second.connected != network_route.connected ||
-      kv->second.local_network_id != network_route.local_network_id ||
-      kv->second.remote_network_id != network_route.remote_network_id) {
+  task_queue_.PostTask([this, at_time, transport_name, network_route] {
+    RTC_DCHECK_RUN_ON(&task_queue_);
+    // Check whether the network route has changed on each transport.
+    auto result =
+        network_routes_.insert(std::make_pair(transport_name, network_route));
+    auto kv = result.first;
+    bool inserted = result.second;
+    if (inserted) {
+      // No need to reset BWE if this is the first time the network connects.
+      return;
+    }
+    if (kv->second.connected == network_route.connected &&
+        kv->second.local_network_id == network_route.local_network_id &&
+        kv->second.remote_network_id == network_route.remote_network_id) {
+      return;
+    }
     kv->second = network_route;
+    OnTransportOverheadChanged(network_route.packet_overhead);
+
     BitrateConstraints bitrate_config = bitrate_configurator_.GetConfig();
     RTC_LOG(LS_INFO) << "Network route changed on transport " << transport_name
                      << ": new local network id "
@@ -284,24 +284,22 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
           network_route.connected, network_route.packet_overhead));
     }
     NetworkRouteChange msg;
-    msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
-    msg.constraints = ConvertConstraints(bitrate_config, clock_);
-    task_queue_.PostTask([this, msg, network_route] {
-      RTC_DCHECK_RUN_ON(&task_queue_);
-      transport_overhead_bytes_per_packet_ = network_route.packet_overhead;
-      if (reset_feedback_on_route_change_) {
-        transport_feedback_adapter_.SetNetworkIds(
-            network_route.local_network_id, network_route.remote_network_id);
-      }
-      if (controller_) {
-        PostUpdates(controller_->OnNetworkRouteChange(msg));
-      } else {
-        UpdateInitialConstraints(msg.constraints);
-      }
-      pacer()->UpdateOutstandingData(DataSize::Zero());
-    });
-  }
+    msg.at_time = at_time;
+    msg.constraints = ConvertConstraints(bitrate_config, at_time);
+    transport_overhead_bytes_per_packet_ = network_route.packet_overhead;
+    if (reset_feedback_on_route_change_) {
+      transport_feedback_adapter_.SetNetworkIds(
+          network_route.local_network_id, network_route.remote_network_id);
+    }
+    if (controller_) {
+      PostUpdates(controller_->OnNetworkRouteChange(msg));
+    } else {
+      UpdateInitialConstraints(msg.constraints);
+    }
+    pacer()->UpdateOutstandingData(DataSize::Zero());
+  });
 }
+
 void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
   RTC_LOG(LS_VERBOSE) << "SignalNetworkState "
                       << (network_available ? "Up" : "Down");
@@ -374,44 +372,47 @@ void RtpTransportControllerSend::OnReceivedPacket(
 
 void RtpTransportControllerSend::SetSdpBitrateParameters(
     const BitrateConstraints& constraints) {
-  absl::optional<BitrateConstraints> updated =
-      bitrate_configurator_.UpdateWithSdpParameters(constraints);
-  if (updated.has_value()) {
-    TargetRateConstraints msg = ConvertConstraints(*updated, clock_);
-    task_queue_.PostTask([this, msg]() {
-      RTC_DCHECK_RUN_ON(&task_queue_);
-      if (controller_) {
-        PostUpdates(controller_->OnTargetRateConstraints(msg));
-      } else {
-        UpdateInitialConstraints(msg);
-      }
-    });
-  } else {
-    RTC_LOG(LS_VERBOSE)
-        << "WebRTC.RtpTransportControllerSend.SetSdpBitrateParameters: "
-           "nothing to update";
-  }
+  Timestamp at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  task_queue_.PostTask(
+      [=] {
+        RTC_DCHECK_RUN_ON(&task_queue_);
+        absl::optional<BitrateConstraints> updated =
+            bitrate_configurator_.UpdateWithSdpParameters(constraints);
+        if (updated.has_value()) {
+          TargetRateConstraints msg = ConvertConstraints(*updated, at_time);
+          if (controller_) {
+            PostUpdates(controller_->OnTargetRateConstraints(msg));
+          } else {
+            UpdateInitialConstraints(msg);
+          }
+        } else {
+          RTC_LOG(LS_VERBOSE)
+              << "WebRTC.RtpTransportControllerSend.SetSdpBitrateParameters: "
+                 "nothing to update";
+        }
+      });
 }
 
 void RtpTransportControllerSend::SetClientBitratePreferences(
     const BitrateSettings& preferences) {
-  absl::optional<BitrateConstraints> updated =
-      bitrate_configurator_.UpdateWithClientPreferences(preferences);
-  if (updated.has_value()) {
-    TargetRateConstraints msg = ConvertConstraints(*updated, clock_);
-    task_queue_.PostTask([this, msg]() {
-      RTC_DCHECK_RUN_ON(&task_queue_);
+  Timestamp at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  task_queue_.PostTask([=] {
+    RTC_DCHECK_RUN_ON(&task_queue_);
+    absl::optional<BitrateConstraints> updated =
+        bitrate_configurator_.UpdateWithClientPreferences(preferences);
+    if (updated.has_value()) {
+      TargetRateConstraints msg = ConvertConstraints(*updated, at_time);
       if (controller_) {
         PostUpdates(controller_->OnTargetRateConstraints(msg));
       } else {
         UpdateInitialConstraints(msg);
       }
-    });
-  } else {
-    RTC_LOG(LS_VERBOSE)
-        << "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: "
-           "nothing to update";
-  }
+    } else {
+      RTC_LOG(LS_VERBOSE)
+          << "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: "
+             "nothing to update";
+    }
+  });
 }
 
 void RtpTransportControllerSend::OnTransportOverheadChanged(

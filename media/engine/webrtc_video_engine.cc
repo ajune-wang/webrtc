@@ -1582,11 +1582,8 @@ void WebRtcVideoChannel::OnReadyToSend(bool ready) {
 void WebRtcVideoChannel::OnNetworkRouteChanged(
     const std::string& transport_name,
     const rtc::NetworkRoute& network_route) {
-  RTC_DCHECK_RUN_ON(&thread_checker_);
   call_->GetTransportControllerSend()->OnNetworkRouteChanged(transport_name,
                                                              network_route);
-  call_->GetTransportControllerSend()->OnTransportOverheadChanged(
-      network_route.packet_overhead);
 }
 
 void WebRtcVideoChannel::SetInterface(

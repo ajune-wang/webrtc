@@ -495,7 +495,6 @@ uint32_t AudioSendStream::OnBitrateUpdated(BitrateAllocationUpdate update) {
 
 void AudioSendStream::SetTransportOverhead(
     int transport_overhead_per_packet_bytes) {
-  RTC_DCHECK(worker_thread_checker_.IsCurrent());
   rtc::CritScope cs(&overhead_per_packet_lock_);
   transport_overhead_per_packet_bytes_ = transport_overhead_per_packet_bytes;
   UpdateOverheadForEncoder();

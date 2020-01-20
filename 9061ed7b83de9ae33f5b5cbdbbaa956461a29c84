@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91be7103_ccd35d1a",
+        "filename": "tools_webrtc/presubmit_checks_lib/check_package_boundaries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-20T11:18:07Z",
+      "side": 1,
+      "message": "its",
+      "range": {
+        "startLine": 66,
+        "startChar": 59,
+        "endLine": 66,
+        "endChar": 63
+      },
+      "revId": "9061ed7b83de9ae33f5b5cbdbbaa956461a29c84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

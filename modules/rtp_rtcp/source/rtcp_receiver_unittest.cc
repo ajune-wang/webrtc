@@ -55,6 +55,7 @@ using ::testing::InSequence;
 using ::testing::IsEmpty;
 using ::testing::NiceMock;
 using ::testing::Property;
+using ::testing::Return;
 using ::testing::SizeIs;
 using ::testing::StrEq;
 using ::testing::StrictMock;
@@ -69,6 +70,7 @@ class MockRtcpPacketTypeCounterObserver : public RtcpPacketTypeCounterObserver {
 class MockRtcpIntraFrameObserver : public RtcpIntraFrameObserver {
  public:
   MOCK_METHOD1(OnReceivedIntraFrameRequest, void(uint32_t));
+  MOCK_METHOD1(OnIntraFrameRequested, bool(uint32_t));
 };
 
 class MockRtcpLossNotificationObserver : public RtcpLossNotificationObserver {
@@ -680,8 +682,7 @@ TEST_F(RtcpReceiverTest, InjectPliPacket) {
       packet_type_counter_observer_,
       RtcpPacketTypesCounterUpdated(
           kReceiverMainSsrc, Field(&RtcpPacketTypeCounter::pli_packets, 1)));
-  EXPECT_CALL(intra_frame_observer_,
-              OnReceivedIntraFrameRequest(kReceiverMainSsrc));
+  EXPECT_CALL(intra_frame_observer_, OnIntraFrameRequested(kReceiverMainSsrc));
   InjectRtcpPacket(pli);
 }
 
@@ -693,7 +694,7 @@ TEST_F(RtcpReceiverTest, PliPacketNotToUsIgnored) {
       packet_type_counter_observer_,
       RtcpPacketTypesCounterUpdated(
           kReceiverMainSsrc, Field(&RtcpPacketTypeCounter::pli_packets, 0)));
-  EXPECT_CALL(intra_frame_observer_, OnReceivedIntraFrameRequest(_)).Times(0);
+  EXPECT_CALL(intra_frame_observer_, OnIntraFrameRequested(_)).Times(0);
   InjectRtcpPacket(pli);
 }
 
@@ -705,8 +706,7 @@ TEST_F(RtcpReceiverTest, InjectFirPacket) {
       packet_type_counter_observer_,
       RtcpPacketTypesCounterUpdated(
           kReceiverMainSsrc, Field(&RtcpPacketTypeCounter::fir_packets, 1)));
-  EXPECT_CALL(intra_frame_observer_,
-              OnReceivedIntraFrameRequest(kReceiverMainSsrc));
+  EXPECT_CALL(intra_frame_observer_, OnIntraFrameRequested(kReceiverMainSsrc));
   InjectRtcpPacket(fir);
 }
 
@@ -714,7 +714,79 @@ TEST_F(RtcpReceiverTest, FirPacketNotToUsIgnored) {
   rtcp::Fir fir;
   fir.AddRequestTo(kNotToUsSsrc, 13);
 
-  EXPECT_CALL(intra_frame_observer_, OnReceivedIntraFrameRequest(_)).Times(0);
+  EXPECT_CALL(intra_frame_observer_, OnIntraFrameRequested(_)).Times(0);
+  InjectRtcpPacket(fir);
+}
+
+TEST_F(RtcpReceiverTest, FirWithSameSequenceNumberIgnoredIfAlreadyGotIFrame) {
+  rtcp::Fir fir;
+  fir.AddRequestTo(kReceiverMainSsrc, 13);
+  EXPECT_CALL(intra_frame_observer_, OnIntraFrameRequested(kReceiverMainSsrc))
+      .Times(1)
+      .WillOnce(Return(true));
+  InjectRtcpPacket(fir);
+
+  // Avoid the sanity callback filter.
+  system_clock_.AdvanceTimeMilliseconds(20);
+  InjectRtcpPacket(fir);
+}
+
+TEST_F(RtcpReceiverTest, FirWithSameSequnceNumberRequestsIFrameIfNoIFrame) {
+  rtcp::Fir fir;
+  fir.AddRequestTo(kReceiverMainSsrc, 13);
+  EXPECT_CALL(intra_frame_observer_, OnIntraFrameRequested(kReceiverMainSsrc))
+      .Times(2)
+      .WillOnce(Return(false))
+      .WillOnce(Return(true));
+  InjectRtcpPacket(fir);
+
+  // Avoid the sanity callback filter.
+  system_clock_.AdvanceTimeMilliseconds(20);
+  InjectRtcpPacket(fir);
+}
+
+TEST_F(RtcpReceiverTest,
+       FirWithSameSequnceNumberGetsIFrameAfterTimeoutPeriodIfNotRtt) {
+  rtcp::Fir fir;
+  fir.AddRequestTo(kReceiverMainSsrc, 13);
+  EXPECT_CALL(intra_frame_observer_, OnIntraFrameRequested(kReceiverMainSsrc))
+      .Times(2)
+      .WillOnce(Return(true))
+      .WillOnce(Return(true));
+  InjectRtcpPacket(fir);
+
+  system_clock_.AdvanceTimeMilliseconds(500);
+  InjectRtcpPacket(fir);
+}
+
+TEST_F(RtcpReceiverTest, FirWithSameSequnceNumberGetsIFrameAfter2RttPeriod) {
+  const int64_t kRttMs = 150;
+  const uint32_t kDelayNtp = 13200;
+  const int64_t kDelayMs = CompactNtpRttToMs(kDelayNtp);
+
+  uint32_t sent_ntp =
+      CompactNtp(TimeMicrosToNtp(system_clock_.TimeInMicroseconds()));
+  system_clock_.AdvanceTimeMilliseconds(kRttMs + kDelayMs);
+  rtcp::SenderReport sr;
+  sr.SetSenderSsrc(kSenderSsrc);
+  rtcp::ReportBlock block;
+  block.SetMediaSsrc(kReceiverMainSsrc);
+  block.SetLastSr(sent_ntp);
+  block.SetDelayLastSr(kDelayNtp);
+  sr.AddReportBlock(block);
+  EXPECT_CALL(rtp_rtcp_impl_, OnReceivedRtcpReportBlocks(_));
+  EXPECT_CALL(bandwidth_observer_, OnReceivedRtcpReceiverReport(_, _, _));
+  InjectRtcpPacket(sr);
+
+  rtcp::Fir fir;
+  fir.AddRequestTo(kReceiverMainSsrc, 13);
+  EXPECT_CALL(intra_frame_observer_, OnIntraFrameRequested(kReceiverMainSsrc))
+      .Times(2)
+      .WillRepeatedly(Return(true));
+  InjectRtcpPacket(fir);
+
+  // Avoid the sanity callback filter.
+  system_clock_.AdvanceTimeMilliseconds(2 * kRttMs);
   InjectRtcpPacket(fir);
 }
 

@@ -113,6 +113,7 @@ class RTCPReceiver {
   void RegisterRtcpCnameCallback(RtcpCnameCallback* callback);
   RtcpStatisticsCallback* GetRtcpStatisticsCallback();
   void SetReportBlockDataObserver(ReportBlockDataObserver* observer);
+  int64_t CurrentFirTimeout() const;
 
  private:
   struct PacketInformation;

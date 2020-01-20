@@ -10,15 +10,20 @@
 
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
 
+#include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
+#include "api/transport/rtp/dependency_descriptor.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_timing.h"
+#include "common_video/generic_frame_descriptor/generic_frame_info.h"
 #include "modules/rtp_rtcp/include/rtp_cvo.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_format_video_generic.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
@@ -34,12 +39,15 @@ namespace webrtc {
 namespace {
 
 using ::testing::ElementsAre;
+using ::testing::IsEmpty;
+using ::testing::SizeIs;
 
 enum : int {  // The first valid value is 1.
   kAbsoluteSendTimeExtensionId = 1,
   kFrameMarkingExtensionId,
   kGenericDescriptorId00,
   kGenericDescriptorId01,
+  kGenericDescriptorId02,
   kTransmissionTimeOffsetExtensionId,
   kTransportSequenceNumberExtensionId,
   kVideoRotationExtensionId,
@@ -71,6 +79,8 @@ class LoopbackTransportTest : public webrtc::Transport {
         kGenericDescriptorId00);
     receivers_extensions_.Register<RtpGenericFrameDescriptorExtension01>(
         kGenericDescriptorId01);
+    receivers_extensions_.Register<RtpDependencyDescriptorExtension>(
+        kGenericDescriptorId02);
     receivers_extensions_.Register<FrameMarkingExtension>(
         kFrameMarkingExtensionId);
   }
@@ -513,6 +523,74 @@ TEST_P(RtpSenderVideoTest, ConditionalRetransmitLimit) {
   // so allow retransmission anyway.
   vp8_header.temporalIdx = 1;
   EXPECT_TRUE(rtp_sender_video_.AllowRetransmission(header, kSettings, kRttMs));
+}
+
+TEST_P(RtpSenderVideoTest, SendsDependencyDescriptorWhenVideoStructureSet) {
+  const int64_t kFrameId = 100000;
+  uint8_t kFrame[100];
+  rtp_module_->RegisterRtpHeaderExtension(
+      RtpDependencyDescriptorExtension::kUri, kGenericDescriptorId02);
+  auto video_structure = std::make_unique<FrameDependencyStructure>();
+  video_structure->num_decode_targets = 2;
+  video_structure->templates = {
+      GenericFrameInfo::Builder().S(0).T(0).Dtis("SS").Build(),
+      GenericFrameInfo::Builder().S(1).T(0).Dtis("S-").Build(),
+      GenericFrameInfo::Builder().S(1).T(1).Dtis("D-").Build(),
+  };
+  rtp_sender_video_.SetVideoStructure(std::move(video_structure));
+
+  // Send key frame.
+  RTPVideoHeader hdr;
+  RTPVideoHeader::GenericDescriptorInfo& generic = hdr.generic.emplace();
+  generic.frame_id = kFrameId;
+  generic.temporal_index = 0;
+  generic.spatial_index = 0;
+  generic.decode_target_indications = {DecodeTargetIndication::kSwitch,
+                                       DecodeTargetIndication::kSwitch};
+  hdr.frame_type = VideoFrameType::kVideoFrameKey;
+  rtp_sender_video_.SendVideo(kPayload, kType, kTimestamp, 0, kFrame, nullptr,
+                              hdr, kDefaultExpectedRetransmissionTimeMs);
+
+  EXPECT_EQ(transport_.packets_sent(), 1);
+  DependencyDescriptor descriptor_key;
+  ASSERT_TRUE(transport_.last_sent_packet()
+                  .GetExtension<RtpDependencyDescriptorExtension>(
+                      nullptr, &descriptor_key));
+  ASSERT_TRUE(descriptor_key.attached_structure);
+  EXPECT_EQ(descriptor_key.attached_structure->num_decode_targets, 2);
+  EXPECT_THAT(descriptor_key.attached_structure->templates, SizeIs(3));
+  EXPECT_EQ(descriptor_key.frame_number, kFrameId & 0xFFFF);
+  EXPECT_EQ(descriptor_key.frame_dependencies.spatial_id, 0);
+  EXPECT_EQ(descriptor_key.frame_dependencies.temporal_id, 0);
+  EXPECT_EQ(descriptor_key.frame_dependencies.decode_target_indications,
+            generic.decode_target_indications);
+  EXPECT_THAT(descriptor_key.frame_dependencies.frame_diffs, IsEmpty());
+
+  // Send delta frame.
+  generic.frame_id = kFrameId + 1;
+  generic.temporal_index = 1;
+  generic.spatial_index = 1;
+  generic.dependencies = {kFrameId, kFrameId - 500};
+  generic.decode_target_indications = {DecodeTargetIndication::kRequired,
+                                       DecodeTargetIndication::kNotPresent};
+  hdr.frame_type = VideoFrameType::kVideoFrameDelta;
+  rtp_sender_video_.SendVideo(kPayload, kType, kTimestamp, 0, kFrame, nullptr,
+                              hdr, kDefaultExpectedRetransmissionTimeMs);
+
+  EXPECT_EQ(transport_.packets_sent(), 2);
+  DependencyDescriptor descriptor_delta;
+  ASSERT_TRUE(
+      transport_.last_sent_packet()
+          .GetExtension<RtpDependencyDescriptorExtension>(
+              descriptor_key.attached_structure.get(), &descriptor_delta));
+  EXPECT_EQ(descriptor_delta.attached_structure, nullptr);
+  EXPECT_EQ(descriptor_delta.frame_number, (kFrameId + 1) & 0xFFFF);
+  EXPECT_EQ(descriptor_delta.frame_dependencies.spatial_id, 1);
+  EXPECT_EQ(descriptor_delta.frame_dependencies.temporal_id, 1);
+  EXPECT_EQ(descriptor_delta.frame_dependencies.decode_target_indications,
+            generic.decode_target_indications);
+  EXPECT_THAT(descriptor_delta.frame_dependencies.frame_diffs,
+              ElementsAre(1, 501));
 }
 
 void RtpSenderVideoTest::PopulateGenericFrameDescriptor(int version) {

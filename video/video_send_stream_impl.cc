@@ -530,8 +530,7 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
     stats_proxy_->OnInactiveSsrc(config_->rtp.ssrcs[i]);
   }
 
-  const size_t num_temporal_layers =
-      streams.back().num_temporal_layers.value_or(1);
+  const size_t num_temporal_layers = streams.back().num_temporal_layers;
 
   rtp_video_sender_->SetEncodingData(streams[0].width, streams[0].height,
                                      num_temporal_layers);

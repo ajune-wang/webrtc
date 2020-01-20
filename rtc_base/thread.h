@@ -431,6 +431,20 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 #endif
 
  protected:
+  class CurrentThreadSetter : CurrentTaskQueueSetter {
+   public:
+    explicit CurrentThreadSetter(Thread* thread)
+        : CurrentTaskQueueSetter(thread),
+          manager_(rtc::ThreadManager::Instance()),
+          previous_(manager_->CurrentThread()) {
+      manager_->ChangeCurrentThreadForTest(thread);
+    }
+    ~CurrentThreadSetter() { manager_->ChangeCurrentThreadForTest(previous_); }
+
+   private:
+    rtc::ThreadManager* const manager_;
+    rtc::Thread* const previous_;
+  };
   class PriorityQueue : public std::priority_queue<DelayedMessage> {
    public:
     container_type& container() { return c; }

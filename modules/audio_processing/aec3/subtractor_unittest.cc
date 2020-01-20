@@ -233,9 +233,17 @@ TEST(Subtractor, Convergence) {
 
 // Verifies that the subtractor is able to converge on correlated data.
 TEST(Subtractor, ConvergenceMultiChannel) {
+#if defined(NDEBUG)
+  auto num_render_channels_to_test = {1, 2, 4, 8};
+  auto num_capture_channels_to_test = {1, 2, 4};
+#else
+  auto num_render_channels_to_test = {1, 2};
+  auto num_capture_channels_to_test = {1, 2};
+#endif
+
   std::vector<int> blocks_with_echo_path_changes;
-  for (size_t num_render_channels : {1, 2, 4, 8}) {
-    for (size_t num_capture_channels : {1, 2, 4}) {
+  for (size_t num_render_channels : num_render_channels_to_test) {
+    for (size_t num_capture_channels : num_capture_channels_to_test) {
       SCOPED_TRACE(
           ProduceDebugText(num_render_channels, num_render_channels, 64, 20));
       size_t num_blocks_to_process = 2500 * num_render_channels;

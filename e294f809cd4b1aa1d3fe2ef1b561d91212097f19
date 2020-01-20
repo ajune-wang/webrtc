@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74a3c121_730af254",
+        "filename": "api/test/create_network_emulation_manager.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-20T08:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eac0ec28_cc4165f2",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89f01500_b55edf45",
         "filename": "api/test/time_controller.cc",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c44fcc8_3d40f878",
+        "filename": "api/test/time_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-20T08:51:20Z",
+      "side": 1,
+      "message": "It could, but we want it to behave as identical to the real time controller as possible.",
+      "parentUuid": "89f01500_b55edf45",
+      "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "9dfa208c_16a13d42",
+        "filename": "test/network/network_emulation_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-20T08:51:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e721473_1914afe7",
+      "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4b557d6_82d45d15",
         "filename": "test/time_controller/real_time_controller.cc",
         "patchSetId": 7
@@ -73,6 +133,24 @@
       "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ca37e7f_8c7aa691",
+        "filename": "test/time_controller/real_time_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-20T08:51:20Z",
+      "side": 1,
+      "message": "Because we need to run Stop() and DoDestroy() before exiting the CurrentThreadSetter scope. Regular rtc::Thread solves this by simply never restoring the current thread.",
+      "parentUuid": "d4b557d6_82d45d15",
+      "revId": "e294f809cd4b1aa1d3fe2ef1b561d91212097f19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

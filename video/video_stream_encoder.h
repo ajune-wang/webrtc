@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-nodiscard"
 /*
  *  Copyright (c) 2012 The WebRTC project authors. All Rights Reserved.
  *

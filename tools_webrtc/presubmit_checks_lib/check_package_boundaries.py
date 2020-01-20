@@ -29,6 +29,11 @@ ERROR_MESSAGE = ("{build_file_path}:{line_number} in target '{target_name}':\n"
                  "  Source file '{source_file}'\n"
                  "  crosses boundary of package '{subpackage}'.")
 
+# Some targets are allowed to violated package boundaries because for
+# example they are junit tests targets. Do not add C++ targets to this
+# list.
+ALLOWED_EXCEPTIONS = ['android_junit_tests']
+
 
 class PackageBoundaryViolation(
     collections.namedtuple('PackageBoundaryViolation',
@@ -67,6 +72,8 @@ def _CheckBuildFile(build_file_path, packages):
   build_file_contents = _ReadFileAndPrependLines(build_file_path)
   for target_match in TARGET_RE.finditer(build_file_contents):
     target_name = target_match.group('target_name')
+    if target_name in ALLOWED_EXCEPTIONS:
+      continue
     target_contents = target_match.group('target_contents')
     for sources_match in SOURCES_RE.finditer(target_contents):
       sources = sources_match.group('sources')

@@ -234,8 +234,11 @@ rtc_library("perf_test") {
     "../api:array_view",
     "../rtc_base:checks",
     "../rtc_base:criticalsection",
+    "../rtc_base:logging",
     "../rtc_base:rtc_numerics",
     "//third_party/abseil-cpp/absl/flags:flag",
+    "//third_party/catapult/tracing/tracing:histogram",
+    "//third_party/catapult/tracing/tracing:reserved_infos",
   ]
 }
 
@@ -482,6 +485,7 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/strings",
       "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/catapult/tracing/tracing:histogram",
     ]
     sources = [
       "call_config_utils_unittest.cc",
@@ -492,6 +496,7 @@ if (rtc_include_tests) {
       "rtp_file_reader_unittest.cc",
       "rtp_file_writer_unittest.cc",
       "testsupport/ivf_video_frame_generator_unittest.cc",
+      "testsupport/perf_test_histogram_writer_unittest.cc",
       "testsupport/perf_test_unittest.cc",
       "testsupport/test_artifacts_unittest.cc",
       "testsupport/video_frame_writer_unittest.cc",

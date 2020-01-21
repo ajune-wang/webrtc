@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "911bd36b_2acd3925",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-21T09:19:09Z",
+      "side": 1,
+      "message": "Can you add a TODO comment what the plan is to make the adapt counters private?\nAlso should we make this part of the resource_adaptation_module_interface.h?",
+      "revId": "22ee394f306d5e91cddf94ab780d28cd99c26e72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

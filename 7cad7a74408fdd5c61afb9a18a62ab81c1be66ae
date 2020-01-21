@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8567b8ef_ed25fa53",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-01-21T08:01:54Z",
+      "side": 1,
+      "message": "I think it make sense to keep all method calls to the same sequence in the engines even though it means an extra, unnecessary thread hop.",
+      "range": {
+        "startLine": 1585,
+        "startChar": 2,
+        "endLine": 1585,
+        "endChar": 7
+      },
+      "revId": "7cad7a74408fdd5c61afb9a18a62ab81c1be66ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c253cd10_5de8e27c",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-01-21T08:01:54Z",
+      "side": 1,
+      "message": "Yes, this is an unnecessary extra thread hop. But it means that the media channel is called on worker thread which make sense. \nIt is done in BaseChannel::OnTransportReadyToSend as you can see.",
+      "range": {
+        "startLine": 364,
+        "startChar": 2,
+        "endLine": 364,
+        "endChar": 16
+      },
+      "revId": "7cad7a74408fdd5c61afb9a18a62ab81c1be66ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

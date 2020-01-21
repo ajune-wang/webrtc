@@ -18,6 +18,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/transport/rtp/dependency_descriptor.h"
 #include "api/video/video_codec_type.h"
 #include "api/video/video_frame_type.h"
 #include "modules/include/module_common_types.h"
@@ -102,6 +103,18 @@ class RTPSenderVideo {
                  const RTPFragmentationHeader* fragmentation,
                  RTPVideoHeader video_header,
                  absl::optional<int64_t> expected_retransmission_time_ms);
+  // Configures video structures produced by encoder to communicate with the
+  // dependency descript rtp header extension. Must be followed by a call to
+  // SendVideo with video_header.frame_type = kVideoFrameKey.
+  // All calls to SendVideo after this call must use video_header compatible
+  // with the structure, i.e.
+  // video_header.generic->decode_target_indication.size() ==
+  // video_structure->num_decode_targets;
+  // video_structure has template with matching spatial/temporal id;
+  // resolution doesn't exceed the one in the video structure.
+  void SetVideoStructure(
+      std::unique_ptr<FrameDependencyStructure> video_structure);
+
   // FlexFEC/ULPFEC.
   // Set FEC rates, max frames before FEC is sent, and type of FEC masks.
   // Returns false on failure.
@@ -183,6 +196,8 @@ class RTPSenderVideo {
   VideoRotation last_rotation_ RTC_GUARDED_BY(send_checker_);
   absl::optional<ColorSpace> last_color_space_ RTC_GUARDED_BY(send_checker_);
   bool transmit_color_space_next_frame_ RTC_GUARDED_BY(send_checker_);
+  std::unique_ptr<FrameDependencyStructure> video_structure_
+      RTC_GUARDED_BY(send_checker_);
 
   // Tracks the current request for playout delay limits from application
   // and decides whether the current RTP frame should include the playout

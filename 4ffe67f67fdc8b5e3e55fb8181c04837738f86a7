@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d18cc4f_975954b2",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-21T10:21:12Z",
+      "side": 1,
+      "message": "nit:\n\nDoes it have any benefit? consider removing move to increase readability.",
+      "range": {
+        "startLine": 431,
+        "startChar": 24,
+        "endLine": 431,
+        "endChar": 33
+      },
+      "revId": "4ffe67f67fdc8b5e3e55fb8181c04837738f86a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

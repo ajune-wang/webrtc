@@ -22,6 +22,30 @@
       "revId": "fa93573e732b6632d0188cc42dbecfa5980384d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37d71d62_4cb28b12",
+        "filename": "api/video_codecs/video_encoder_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-01-21T12:56:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2445a88_88530f5b",
+      "range": {
+        "startLine": 67,
+        "startChar": 23,
+        "endLine": 67,
+        "endChar": 39
+      },
+      "revId": "fa93573e732b6632d0188cc42dbecfa5980384d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

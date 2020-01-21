@@ -12,12 +12,16 @@
 
 #include <memory>
 
+#include "api/call/call_factory_interface.h"
 #include "api/test/time_controller.h"
 
 namespace webrtc {
 
 std::unique_ptr<TimeController> CreateTimeController(
     ControlledAlarmClock* alarm);
+
+std::unique_ptr<CallFactoryInterface> CreateTimeControllerBasedCallFactory(
+    TimeController* time_controller);
 
 }  // namespace webrtc
 

@@ -10,7 +10,7 @@
 """Adds build info to perf results and uploads them.
 
 The tests don't know which bot executed the tests or at what revision, so we
-need to take their output and enrich it with this information. We load the JSON
+need to take their output and enrich it with this information. We load the proto
 from the tests, add the build information as shared diagnostics and then
 upload it to the dashboard.
 
@@ -26,14 +26,24 @@ import sys
 import subprocess
 import zlib
 
+# We just yank the python scripts we require into the PYTHONPATH. You could also
+# imagine a solution where we use for instance protobuf:py_proto_runtime to copy
+# catapult and protobuf code to out/, but this approach is allowed by
+# convention. Fortunately neither catapult nor protobuf require any build rules
+# to be executed.
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 CHECKOUT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
 sys.path.insert(0, os.path.join(CHECKOUT_ROOT, 'third_party', 'catapult',
                                 'tracing'))
+sys.path.insert(0, os.path.join(CHECKOUT_ROOT, 'third_party', 'protobuf',
+                                'python', 'google'))
 
+from tracing import histogram_pb2
 from tracing.value import histogram_set
 from tracing.value.diagnostics import generic_set
 from tracing.value.diagnostics import reserved_infos
+
+from protobuf import json_format
 
 
 def _GenerateOauthToken():
@@ -74,11 +84,15 @@ def _SendHistogramSet(url, histograms, oauth_token):
 
 def _LoadHistogramSetFromJson(options):
   with options.input_results_file as f:
-    json_data = json.load(f)
+    histograms = histogram_pb2.HistogramSet()
+    histograms.ParseFromString(f.read())
 
-  histograms = histogram_set.HistogramSet()
-  histograms.ImportDicts(json_data)
-  return histograms
+  # TODO(https://crbug.com/1029452): Don't convert to JSON as a middle step once
+  # there is a proto de-serializer ready in catapult.
+  json_data = json.loads(json_format.MessageToJson(histograms))
+  hs = histogram_set.HistogramSet()
+  hs.ImportDicts(json_data)
+  return hs
 
 
 def _AddBuildInfo(histograms, options):

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6cbf5480_754b7cd8",
+        "filename": "modules/audio_processing/aec3/subtractor_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-21T09:43:14Z",
+      "side": 1,
+      "message": "nit: I am hesitant about auto\u0027ing these, because of the complicated behind-the-scenes for why it works. I think it is a std::initializer_list\u003cint\u003e ?",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 12
+      },
+      "revId": "55abba6c4af388226be7fc5af42da9cdf46221ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

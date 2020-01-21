@@ -97,8 +97,7 @@ class ReturnType<void> {
 
 namespace internal {
 
-class RTC_EXPORT SynchronousMethodCall : public rtc::MessageData,
-                                         public rtc::MessageHandler {
+class RTC_EXPORT SynchronousMethodCall : public rtc::MessageData {
  public:
   explicit SynchronousMethodCall(rtc::MessageHandler* proxy);
   ~SynchronousMethodCall() override;
@@ -106,9 +105,6 @@ class RTC_EXPORT SynchronousMethodCall : public rtc::MessageData,
   void Invoke(const rtc::Location& posted_from, rtc::Thread* t);
 
  private:
-  void OnMessage(rtc::Message*) override;
-
-  rtc::Event e_;
   rtc::MessageHandler* proxy_;
 };
 

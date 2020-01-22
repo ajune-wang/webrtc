@@ -628,17 +628,15 @@ TEST_P(RtpSenderVideoTest, AbsoluteCaptureTime) {
   // It is expected that one and only one of the packets sent on this video
   // frame has absolute capture time header extension.
   int packets_with_abs_capture_time = 0;
-  for_each(transport_.sent_packets().begin(), transport_.sent_packets().end(),
-           [&packets_with_abs_capture_time](const RtpPacketReceived& packet) {
-             auto absolute_capture_time =
-                 packet.GetExtension<AbsoluteCaptureTimeExtension>();
-             if (absolute_capture_time) {
-               ++packets_with_abs_capture_time;
-               EXPECT_EQ(absolute_capture_time->absolute_capture_timestamp,
-                         Int64MsToUQ32x32(kAbsoluteCaptureTimestampMs +
-                                          NtpOffsetMs()));
-             }
-           });
+  for (const RtpPacketReceived& packet : transport_.sent_packets()) {
+    auto absolute_capture_time =
+        packet.GetExtension<AbsoluteCaptureTimeExtension>();
+    if (absolute_capture_time) {
+      ++packets_with_abs_capture_time;
+      EXPECT_EQ(absolute_capture_time->absolute_capture_timestamp,
+                Int64MsToUQ32x32(kAbsoluteCaptureTimestampMs + NtpOffsetMs()));
+    }
+  }
   EXPECT_EQ(packets_with_abs_capture_time, 1);
 }
 

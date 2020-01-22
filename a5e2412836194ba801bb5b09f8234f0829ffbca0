@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "73d1373a_aec081f3",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T15:16:31Z",
+      "side": 1,
+      "message": "good point. I think it ought be moved.",
+      "parentUuid": "ec81893b_4d3d7e79",
+      "revId": "a5e2412836194ba801bb5b09f8234f0829ffbca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5cbdd5a9_dd20fe91",
         "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
         "patchSetId": 1
@@ -53,6 +71,30 @@
       "writtenOn": "2020-01-22T14:57:52Z",
       "side": 1,
       "message": "wertc -\u003e webrtc\n\nI think it\u0027s also slightly more common/preferred to do:\n\n// TODO(bugs.webrtc.org/10739)",
+      "range": {
+        "startLine": 398,
+        "startChar": 10,
+        "endLine": 398,
+        "endChar": 15
+      },
+      "revId": "a5e2412836194ba801bb5b09f8234f0829ffbca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29e43659_ad1f1129",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T15:16:31Z",
+      "side": 1,
+      "message": "I also remembered that URL is preferred. But when I tried to copy and paste the URL from browser, it turned out to be fairly long. Thanks for pointing me to this shorter URL.",
+      "parentUuid": "5cbdd5a9_dd20fe91",
       "range": {
         "startLine": 398,
         "startChar": 10,

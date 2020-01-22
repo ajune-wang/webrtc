@@ -16,6 +16,24 @@
       "revId": "ef37e5b153cecf517879bae82f55f370116ed03f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0039c4df_13fccc3f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T15:16:31Z",
+      "side": 0,
+      "message": "Internal tests showed that it is still not ready to deprecate this. So let\u0027s revert rtp_sender_audio.h|cc in this CL",
+      "parentUuid": "503787f1_03a6a78d",
+      "revId": "ef37e5b153cecf517879bae82f55f370116ed03f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -174,8 +174,7 @@ CreateVp9SpecificSettings(VideoStreamConfig video_config) {
     vp9.automaticResizeOn = conf.single.automatic_scaling;
     vp9.denoisingOn = conf.single.denoising;
   }
-  return new rtc::RefCountedObject<
-      VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9);
+  return new VideoEncoderConfig::Vp9EncoderSpecificSettings(vp9);
 }
 
 rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>
@@ -191,8 +190,7 @@ CreateVp8SpecificSettings(VideoStreamConfig config) {
     vp8_settings.automaticResizeOn = config.encoder.single.automatic_scaling;
     vp8_settings.denoisingOn = config.encoder.single.denoising;
   }
-  return new rtc::RefCountedObject<
-      VideoEncoderConfig::Vp8EncoderSpecificSettings>(vp8_settings);
+  return new VideoEncoderConfig::Vp8EncoderSpecificSettings(vp8_settings);
 }
 
 rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>
@@ -204,8 +202,7 @@ CreateH264SpecificSettings(VideoStreamConfig config) {
   h264_settings.frameDroppingOn = config.encoder.frame_dropping;
   h264_settings.keyFrameInterval =
       config.encoder.key_frame_interval.value_or(0);
-  return new rtc::RefCountedObject<
-      VideoEncoderConfig::H264EncoderSpecificSettings>(h264_settings);
+  return new VideoEncoderConfig::H264EncoderSpecificSettings(h264_settings);
 }
 
 rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>
@@ -246,12 +243,10 @@ VideoEncoderConfig CreateVideoEncoderConfig(VideoStreamConfig config) {
   if (!cricket_codec.empty()) {
     bool screenshare = config.encoder.content_type ==
                        VideoStreamConfig::Encoder::ContentType::kScreen;
-    encoder_config.video_stream_factory =
-        new rtc::RefCountedObject<cricket::EncoderStreamFactory>(
-            cricket_codec, kDefaultMaxQp, screenshare, screenshare);
+    encoder_config.video_stream_factory = new cricket::EncoderStreamFactory(
+        cricket_codec, kDefaultMaxQp, screenshare, screenshare);
   } else {
-    encoder_config.video_stream_factory =
-        new rtc::RefCountedObject<DefaultVideoStreamFactory>();
+    encoder_config.video_stream_factory = new DefaultVideoStreamFactory();
   }
 
   // TODO(srte): Base this on encoder capabilities.

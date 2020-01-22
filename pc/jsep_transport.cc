@@ -122,21 +122,19 @@ JsepTransport::JsepTransport(
       sdes_transport_(std::move(sdes_transport)),
       dtls_srtp_transport_(std::move(dtls_srtp_transport)),
       rtp_dtls_transport_(
-          rtp_dtls_transport ? new rtc::RefCountedObject<webrtc::DtlsTransport>(
-                                   std::move(rtp_dtls_transport))
-                             : nullptr),
+          rtp_dtls_transport
+              ? new webrtc::DtlsTransport(std::move(rtp_dtls_transport))
+              : nullptr),
       rtcp_dtls_transport_(
           rtcp_dtls_transport
-              ? new rtc::RefCountedObject<webrtc::DtlsTransport>(
-                    std::move(rtcp_dtls_transport))
+              ? new webrtc::DtlsTransport(std::move(rtcp_dtls_transport))
               : nullptr),
       sctp_data_channel_transport_(
           sctp_transport ? std::make_unique<webrtc::SctpDataChannelTransport>(
                                sctp_transport.get())
                          : nullptr),
       sctp_transport_(sctp_transport
-                          ? new rtc::RefCountedObject<webrtc::SctpTransport>(
-                                std::move(sctp_transport))
+                          ? new webrtc::SctpTransport(std::move(sctp_transport))
                           : nullptr),
       datagram_transport_(std::move(datagram_transport)),
       datagram_rtp_transport_(std::move(datagram_rtp_transport)),

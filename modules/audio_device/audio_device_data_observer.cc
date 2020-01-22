@@ -288,8 +288,7 @@ rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceWithDataObserver(
     TaskQueueFactory* task_queue_factory,
     AudioDeviceDataObserver* observer) {
   rtc::scoped_refptr<ADMWrapper> audio_device(
-      new rtc::RefCountedObject<ADMWrapper>(audio_layer, task_queue_factory,
-                                            observer));
+      new ADMWrapper(audio_layer, task_queue_factory, observer));
 
   if (!audio_device->IsValid()) {
     return nullptr;

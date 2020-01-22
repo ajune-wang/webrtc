@@ -66,7 +66,7 @@ rtc::scoped_refptr<DtmfSender> DtmfSender::Create(
     return nullptr;
   }
   rtc::scoped_refptr<DtmfSender> dtmf_sender(
-      new rtc::RefCountedObject<DtmfSender>(signaling_thread, provider));
+      new DtmfSender(signaling_thread, provider));
   return dtmf_sender;
 }
 

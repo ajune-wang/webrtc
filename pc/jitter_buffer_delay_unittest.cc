@@ -31,8 +31,7 @@ namespace webrtc {
 class JitterBufferDelayTest : public ::testing::Test {
  public:
   JitterBufferDelayTest()
-      : delay_(new rtc::RefCountedObject<JitterBufferDelay>(
-            rtc::Thread::Current())) {}
+      : delay_(new JitterBufferDelay(rtc::Thread::Current())) {}
 
  protected:
   rtc::scoped_refptr<JitterBufferDelayInterface> delay_;

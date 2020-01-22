@@ -35,7 +35,7 @@
 
 namespace webrtc {
 
-class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
+class VideoRtpReceiver : public RtpReceiverInternal,
                          public VideoRtpTrackSource::Callback {
  public:
   // An SSRC of 0 will create a receiver that will match the first SSRC it

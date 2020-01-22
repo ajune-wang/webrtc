@@ -37,7 +37,7 @@ namespace {
 const int kNumberOfFramesLookAhead = 60;
 
 // Helper class that takes a video and generates an infinite looping video.
-class LoopingVideo : public rtc::RefCountedObject<Video> {
+class LoopingVideo : public Video {
  public:
   explicit LoopingVideo(const rtc::scoped_refptr<Video>& video)
       : video_(video) {}
@@ -59,7 +59,7 @@ class LoopingVideo : public rtc::RefCountedObject<Video> {
 
 // Helper class that take a vector of frame indices and a video and produces a
 // new video where the frames have been reshuffled.
-class ReorderedVideo : public rtc::RefCountedObject<Video> {
+class ReorderedVideo : public Video {
  public:
   ReorderedVideo(const rtc::scoped_refptr<Video>& video,
                  const std::vector<size_t>& indices)
@@ -80,7 +80,7 @@ class ReorderedVideo : public rtc::RefCountedObject<Video> {
 };
 
 // Helper class that takes a video and produces a downscaled video.
-class DownscaledVideo : public rtc::RefCountedObject<Video> {
+class DownscaledVideo : public Video {
  public:
   DownscaledVideo(float scale_factor, const rtc::scoped_refptr<Video>& video)
       : downscaled_width_(
@@ -113,7 +113,7 @@ class DownscaledVideo : public rtc::RefCountedObject<Video> {
 
 // Helper class that takes a video and caches the latest frame access. This
 // improves performance a lot since the original source is often from a file.
-class CachedVideo : public rtc::RefCountedObject<Video> {
+class CachedVideo : public Video {
  public:
   CachedVideo(int max_cache_size, const rtc::scoped_refptr<Video>& video)
       : max_cache_size_(max_cache_size), video_(video) {}

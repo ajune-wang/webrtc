@@ -535,8 +535,7 @@ TEST_P(PeerConnectionSignalingTest, CreateOffersAndShutdown) {
 
   rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observers[100];
   for (auto& observer : observers) {
-    observer =
-        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>();
+    observer = new MockCreateSessionDescriptionObserver();
     caller->pc()->CreateOffer(observer, options);
   }
 
@@ -558,7 +557,7 @@ TEST_P(PeerConnectionSignalingTest, CreateOffersAndShutdown) {
 TEST_P(PeerConnectionSignalingTest, CloseCreateOfferAndShutdown) {
   auto caller = CreatePeerConnection();
   rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer =
-      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>();
+      new MockCreateSessionDescriptionObserver();
   caller->pc()->Close();
   caller->pc()->CreateOffer(observer, RTCOfferAnswerOptions());
   caller.reset(nullptr);
@@ -614,7 +613,7 @@ TEST_P(PeerConnectionSignalingTest, CreateOfferBlocksSetRemoteDescription) {
 
   EXPECT_EQ(0u, callee->pc()->GetReceivers().size());
   rtc::scoped_refptr<MockCreateSessionDescriptionObserver> offer_observer(
-      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+      new MockCreateSessionDescriptionObserver());
   // Synchronously invoke CreateOffer() and SetRemoteDescription(). The
   // SetRemoteDescription() operation should be chained to be executed
   // asynchronously, when CreateOffer() completes.
@@ -689,7 +688,7 @@ TEST_P(PeerConnectionSignalingTest,
   // SetLocalDescription(), implicitly creating an offer.
   rtc::scoped_refptr<MockSetSessionDescriptionObserver>
       caller_set_local_description_observer(
-          new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+          new MockSetSessionDescriptionObserver());
   caller->pc()->SetLocalDescription(caller_set_local_description_observer);
   EXPECT_TRUE_WAIT(caller_set_local_description_observer->called(),
                    kWaitTimeout);
@@ -698,7 +697,7 @@ TEST_P(PeerConnectionSignalingTest,
   // SetRemoteDescription(offer)
   rtc::scoped_refptr<MockSetSessionDescriptionObserver>
       callee_set_remote_description_observer(
-          new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+          new MockSetSessionDescriptionObserver());
   callee->pc()->SetRemoteDescription(
       callee_set_remote_description_observer.get(),
       CloneSessionDescription(caller->pc()->pending_local_description())
@@ -707,7 +706,7 @@ TEST_P(PeerConnectionSignalingTest,
   // SetLocalDescription(), implicitly creating an answer.
   rtc::scoped_refptr<MockSetSessionDescriptionObserver>
       callee_set_local_description_observer(
-          new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+          new MockSetSessionDescriptionObserver());
   callee->pc()->SetLocalDescription(callee_set_local_description_observer);
   EXPECT_TRUE_WAIT(callee_set_local_description_observer->called(),
                    kWaitTimeout);
@@ -719,7 +718,7 @@ TEST_P(PeerConnectionSignalingTest,
   // SetRemoteDescription(answer)
   rtc::scoped_refptr<MockSetSessionDescriptionObserver>
       caller_set_remote_description_observer(
-          new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+          new MockSetSessionDescriptionObserver());
   caller->pc()->SetRemoteDescription(
       caller_set_remote_description_observer,
       CloneSessionDescription(callee->pc()->current_local_description())
@@ -797,9 +796,8 @@ TEST_F(PeerConnectionSignalingUnifiedPlanTest,
   // By not waiting for the observer's callback we can verify that the operation
   // executed immediately.
   RTC_DCHECK(!caller->pc()->GetTransceivers()[0]->mid().has_value());
-  caller->pc()->SetLocalDescription(
-      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>(),
-      offer.release());
+  caller->pc()->SetLocalDescription(new MockSetSessionDescriptionObserver(),
+                                    offer.release());
   EXPECT_TRUE(caller->pc()->GetTransceivers()[0]->mid().has_value());
 }
 
@@ -811,15 +809,13 @@ TEST_F(PeerConnectionSignalingUnifiedPlanTest,
   auto offer = caller->CreateOffer(RTCOfferAnswerOptions());
 
   rtc::scoped_refptr<ExecuteFunctionOnCreateSessionDescriptionObserver>
-      offer_observer(new rtc::RefCountedObject<
-                     ExecuteFunctionOnCreateSessionDescriptionObserver>(
+      offer_observer(new ExecuteFunctionOnCreateSessionDescriptionObserver(
           [pc = caller->pc()](SessionDescriptionInterface* desc) {
             // By not waiting for the observer's callback we can verify that the
             // operation executed immediately.
             RTC_DCHECK(!pc->GetTransceivers()[0]->mid().has_value());
-            pc->SetLocalDescription(
-                new rtc::RefCountedObject<MockSetSessionDescriptionObserver>(),
-                desc);
+            pc->SetLocalDescription(new MockSetSessionDescriptionObserver(),
+                                    desc);
             EXPECT_TRUE(pc->GetTransceivers()[0]->mid().has_value());
           }));
   caller->pc()->CreateOffer(offer_observer, RTCOfferAnswerOptions());

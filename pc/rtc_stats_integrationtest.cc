@@ -114,10 +114,10 @@ class RTCStatsIntegrationTest : public ::testing::Test {
     RTC_CHECK(network_thread_->Start());
     RTC_CHECK(worker_thread_->Start());
 
-    caller_ = new rtc::RefCountedObject<PeerConnectionTestWrapper>(
-        "caller", network_thread_.get(), worker_thread_.get());
-    callee_ = new rtc::RefCountedObject<PeerConnectionTestWrapper>(
-        "callee", network_thread_.get(), worker_thread_.get());
+    caller_ = new PeerConnectionTestWrapper("caller", network_thread_.get(),
+                                            worker_thread_.get());
+    callee_ = new PeerConnectionTestWrapper("callee", network_thread_.get(),
+                                            worker_thread_.get());
   }
 
   void StartCall() {

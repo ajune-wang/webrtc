@@ -272,7 +272,7 @@ class MockSetSessionDescriptionObserver
     : public webrtc::SetSessionDescriptionObserver {
  public:
   static rtc::scoped_refptr<MockSetSessionDescriptionObserver> Create() {
-    return new rtc::RefCountedObject<MockSetSessionDescriptionObserver>();
+    return new MockSetSessionDescriptionObserver();
   }
 
   MockSetSessionDescriptionObserver()
@@ -298,7 +298,7 @@ class MockSetSessionDescriptionObserver
 };
 
 class MockSetRemoteDescriptionObserver
-    : public rtc::RefCountedObject<SetRemoteDescriptionObserverInterface> {
+    : public SetRemoteDescriptionObserverInterface {
  public:
   bool called() const { return error_.has_value(); }
   RTCError& error() {

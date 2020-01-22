@@ -107,7 +107,7 @@ class RTC_EXPORT RTCStatsReport : public rtc::RefCountInterface {
   // listing all of its stats objects.
   std::string ToJson() const;
 
-  friend class rtc::RefCountedObject<RTCStatsReport>;
+  friend class RTCStatsReport;
 
  private:
   ~RTCStatsReport() override;

@@ -829,7 +829,7 @@ class PeerConnection::LocalIceCredentialsToReplace {
 // PeerConnectionInterface::SetRemoteDescription() that takes a
 // SetSessionDescriptionObserver as an argument.
 class PeerConnection::SetRemoteDescriptionObserverAdapter
-    : public rtc::RefCountedObject<SetRemoteDescriptionObserverInterface> {
+    : public SetRemoteDescriptionObserverInterface {
  public:
   SetRemoteDescriptionObserverAdapter(
       rtc::scoped_refptr<PeerConnection> pc,
@@ -2209,10 +2209,10 @@ void PeerConnection::CreateOffer(CreateSessionDescriptionObserver* observer,
         }
         // The operation completes asynchronously when the wrapper is invoked.
         rtc::scoped_refptr<CreateSessionDescriptionObserverOperationWrapper>
-            observer_wrapper(new rtc::RefCountedObject<
-                             CreateSessionDescriptionObserverOperationWrapper>(
-                std::move(observer_refptr),
-                std::move(operations_chain_callback)));
+            observer_wrapper(
+                new CreateSessionDescriptionObserverOperationWrapper(
+                    std::move(observer_refptr),
+                    std::move(operations_chain_callback)));
         this_weak_ptr->DoCreateOffer(options, observer_wrapper);
       });
 }
@@ -2365,10 +2365,10 @@ void PeerConnection::CreateAnswer(CreateSessionDescriptionObserver* observer,
         }
         // The operation completes asynchronously when the wrapper is invoked.
         rtc::scoped_refptr<CreateSessionDescriptionObserverOperationWrapper>
-            observer_wrapper(new rtc::RefCountedObject<
-                             CreateSessionDescriptionObserverOperationWrapper>(
-                std::move(observer_refptr),
-                std::move(operations_chain_callback)));
+            observer_wrapper(
+                new CreateSessionDescriptionObserverOperationWrapper(
+                    std::move(observer_refptr),
+                    std::move(operations_chain_callback)));
         this_weak_ptr->DoCreateAnswer(options, observer_wrapper);
       });
 }
@@ -2468,10 +2468,9 @@ void PeerConnection::SetLocalDescription(
   // The |create_sdp_observer| handles performing DoSetLocalDescription() with
   // the resulting description as well as completing the operation.
   rtc::scoped_refptr<ImplicitCreateSessionDescriptionObserver>
-      create_sdp_observer(
-          new rtc::RefCountedObject<ImplicitCreateSessionDescriptionObserver>(
-              weak_ptr_factory_.GetWeakPtr(),
-              rtc::scoped_refptr<SetSessionDescriptionObserver>(observer)));
+      create_sdp_observer(new ImplicitCreateSessionDescriptionObserver(
+          weak_ptr_factory_.GetWeakPtr(),
+          rtc::scoped_refptr<SetSessionDescriptionObserver>(observer)));
   // Chain this operation. If asynchronous operations are pending on the chain,
   // this operation will be queued to be invoked, otherwise the contents of the
   // lambda will execute immediately.

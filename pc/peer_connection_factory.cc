@@ -51,8 +51,7 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreateModularPeerConnectionFactory(
     PeerConnectionFactoryDependencies dependencies) {
   rtc::scoped_refptr<PeerConnectionFactory> pc_factory(
-      new rtc::RefCountedObject<PeerConnectionFactory>(
-          std::move(dependencies)));
+      new PeerConnectionFactory(std::move(dependencies)));
   // Call Initialize synchronously but make sure it is executed on
   // |signaling_thread|.
   MethodCall<PeerConnectionFactory, bool> call(
@@ -296,8 +295,7 @@ PeerConnectionFactory::CreatePeerConnection(
       rtc::Bind(&PeerConnectionFactory::CreateCall_w, this, event_log.get()));
 
   rtc::scoped_refptr<PeerConnection> pc(
-      new rtc::RefCountedObject<PeerConnection>(this, std::move(event_log),
-                                                std::move(call)));
+      new PeerConnection(this, std::move(event_log), std::move(call)));
   ActionsBeforeInitializeForTesting(pc);
   if (!pc->Initialize(configuration, std::move(dependencies))) {
     return nullptr;

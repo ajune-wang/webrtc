@@ -930,7 +930,7 @@ rtc::scoped_refptr<RTCStatsCollector> RTCStatsCollector::Create(
     PeerConnectionInternal* pc,
     int64_t cache_lifetime_us) {
   return rtc::scoped_refptr<RTCStatsCollector>(
-      new rtc::RefCountedObject<RTCStatsCollector>(pc, cache_lifetime_us));
+      new RTCStatsCollector(pc, cache_lifetime_us));
 }
 
 RTCStatsCollector::RTCStatsCollector(PeerConnectionInternal* pc,

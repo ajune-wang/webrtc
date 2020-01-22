@@ -18,36 +18,12 @@
 
 namespace rtc {
 
-template <class T, typename Enable = void>
-class RefCountedObject;
-
 template <class T>
-class RefCountedObject<
-    T,
-    typename std::enable_if<std::is_base_of<RefCountInterface, T>::value>::type>
-    : public T {
+class RefCountedObject : public RefCountInterface, public T {
  public:
-  RefCountedObject() {}
+  static_assert(!std::is_base_of<RefCountInterface, T>::value,
+                "RefCountedObject should not be used with RefCountInterface");
 
-  template <class P0>
-  explicit RefCountedObject(P0&& p0) : T(std::forward<P0>(p0)) {}
-
-  template <class P0, class P1, class... Args>
-  RefCountedObject(P0&& p0, P1&& p1, Args&&... args)
-      : T(std::forward<P0>(p0),
-          std::forward<P1>(p1),
-          std::forward<Args>(args)...) {}
-
- protected:
-  RTC_DISALLOW_COPY_AND_ASSIGN(RefCountedObject);
-};
-
-template <class T>
-class RefCountedObject<T,
-                       typename std::enable_if<
-                           !std::is_base_of<RefCountInterface, T>::value>::type>
-    : public RefCountInterface, public T {
- public:
   RefCountedObject() {}
 
   template <class P0>

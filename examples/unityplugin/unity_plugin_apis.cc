@@ -26,8 +26,7 @@ int CreatePeerConnection(const char** turn_urls,
                          const char* username,
                          const char* credential,
                          bool mandatory_receive_video) {
-  g_peer_connection_map[g_peer_connection_id] =
-      new rtc::RefCountedObject<SimplePeerConnection>();
+  g_peer_connection_map[g_peer_connection_id] = new SimplePeerConnection();
 
   if (!g_peer_connection_map[g_peer_connection_id]->InitializePeerConnection(
           turn_urls, no_of_urls, username, credential, mandatory_receive_video))

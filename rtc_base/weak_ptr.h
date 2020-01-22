@@ -99,7 +99,7 @@ class WeakReference {
     bool IsValid() const;
 
    private:
-    friend class RefCountedObject<Flag>;
+    friend class Flag;
 
     ~Flag() override;
 
@@ -134,7 +134,7 @@ class WeakReferenceOwner {
   void Invalidate();
 
  private:
-  mutable scoped_refptr<RefCountedObject<WeakReference::Flag>> flag_;
+  mutable scoped_refptr<WeakReference::Flag> flag_;
 };
 
 // This class simplifies the implementation of WeakPtr's type conversion

@@ -70,10 +70,10 @@ int MakeUsageFingerprint(std::set<PeerConnection::UsageEvent> events) {
 }
 
 class PeerConnectionFactoryForUsageHistogramTest
-    : public rtc::RefCountedObject<PeerConnectionFactory> {
+    : public PeerConnectionFactory {
  public:
   PeerConnectionFactoryForUsageHistogramTest()
-      : rtc::RefCountedObject<PeerConnectionFactory>([] {
+      : PeerConnectionFactory([] {
           PeerConnectionFactoryDependencies dependencies;
           dependencies.network_thread = rtc::Thread::Current();
           dependencies.worker_thread = rtc::Thread::Current();

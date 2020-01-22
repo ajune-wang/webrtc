@@ -52,7 +52,7 @@ class MockAudioEncoderFactory
     using ::testing::Return;
 
     rtc::scoped_refptr<webrtc::MockAudioEncoderFactory> factory =
-        new rtc::RefCountedObject<webrtc::MockAudioEncoderFactory>;
+        new webrtc::MockAudioEncoderFactory;
     ON_CALL(*factory.get(), GetSupportedEncoders())
         .WillByDefault(Return(std::vector<webrtc::AudioCodecSpec>()));
     ON_CALL(*factory.get(), QueryAudioEncoder(_))
@@ -75,7 +75,7 @@ class MockAudioEncoderFactory
     using ::testing::SetArgPointee;
 
     rtc::scoped_refptr<webrtc::MockAudioEncoderFactory> factory =
-        new rtc::RefCountedObject<webrtc::MockAudioEncoderFactory>;
+        new webrtc::MockAudioEncoderFactory;
     ON_CALL(*factory.get(), GetSupportedEncoders())
         .WillByDefault(Return(std::vector<webrtc::AudioCodecSpec>()));
     ON_CALL(*factory.get(), QueryAudioEncoder(_))

@@ -751,7 +751,7 @@ TEST_P(PeerConnectionIceTest,
 
   // Chain an operation that will block AddIceCandidate() from executing.
   rtc::scoped_refptr<MockCreateSessionDescriptionObserver> answer_observer(
-      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+      new MockCreateSessionDescriptionObserver());
   callee->pc()->CreateAnswer(answer_observer, RTCOfferAnswerOptions());
 
   auto jsep_candidate =
@@ -799,7 +799,7 @@ TEST_P(PeerConnectionIceTest,
 
   // Chain an operation that will block AddIceCandidate() from executing.
   rtc::scoped_refptr<MockCreateSessionDescriptionObserver> answer_observer(
-      new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+      new MockCreateSessionDescriptionObserver());
   callee->pc()->CreateAnswer(answer_observer, RTCOfferAnswerOptions());
 
   auto jsep_candidate =

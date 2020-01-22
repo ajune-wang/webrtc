@@ -96,7 +96,7 @@ rtc::scoped_refptr<I420Buffer> I420BufferPool::CreateBuffer(int width,
     return nullptr;
   // Allocate new buffer.
   rtc::scoped_refptr<PooledI420Buffer> buffer =
-      new PooledI420Buffer(width, height, stride_y, stride_u, stride_v);
+      PooledI420Buffer::Create(width, height, stride_y, stride_u, stride_v);
   if (zero_initialize_)
     buffer->InitializeData();
   buffers_.push_back(buffer);

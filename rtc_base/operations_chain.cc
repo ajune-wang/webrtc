@@ -38,7 +38,7 @@ scoped_refptr<OperationsChain> OperationsChain::Create() {
   return new OperationsChain();
 }
 
-OperationsChain::OperationsChain() : RefCountedObject() {
+OperationsChain::OperationsChain() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
 }
 

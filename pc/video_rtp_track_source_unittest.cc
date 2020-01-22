@@ -31,7 +31,7 @@ class MockSink : public rtc::VideoSinkInterface<RecordableEncodedFrame> {
 rtc::scoped_refptr<VideoRtpTrackSource> MakeSource(
     VideoRtpTrackSource::Callback* callback) {
   rtc::scoped_refptr<VideoRtpTrackSource> source(
-      new rtc::RefCountedObject<VideoRtpTrackSource>(callback));
+      new VideoRtpTrackSource(callback));
   return source;
 }
 

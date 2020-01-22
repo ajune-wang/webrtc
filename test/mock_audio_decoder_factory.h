@@ -48,7 +48,7 @@ class MockAudioDecoderFactory : public AudioDecoderFactory {
     using ::testing::Return;
 
     rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> factory =
-        new rtc::RefCountedObject<webrtc::MockAudioDecoderFactory>;
+        new webrtc::MockAudioDecoderFactory;
     ON_CALL(*factory.get(), GetSupportedDecoders())
         .WillByDefault(Return(std::vector<webrtc::AudioCodecSpec>()));
     EXPECT_CALL(*factory.get(), GetSupportedDecoders()).Times(AnyNumber());
@@ -69,7 +69,7 @@ class MockAudioDecoderFactory : public AudioDecoderFactory {
     using ::testing::SetArgPointee;
 
     rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> factory =
-        new rtc::RefCountedObject<webrtc::MockAudioDecoderFactory>;
+        new webrtc::MockAudioDecoderFactory;
     ON_CALL(*factory.get(), GetSupportedDecoders())
         .WillByDefault(Return(std::vector<webrtc::AudioCodecSpec>()));
     EXPECT_CALL(*factory.get(), GetSupportedDecoders()).Times(AnyNumber());

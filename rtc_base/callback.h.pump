@@ -75,7 +75,7 @@ class Callback$i {
   // Default copy operations are appropriate for this class.
   Callback$i() {}
   template <class T> Callback$i(const T& functor)
-      : helper_(new RefCountedObject< HelperImpl<T> >(functor)) {}
+      : helper_(new HelperImpl<T >(functor)) {}
   R operator()($for j , [[P$j p$j]]) {
     if (empty())
       return R();

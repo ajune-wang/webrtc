@@ -75,7 +75,7 @@ const NetworkStatistics kNetworkStats = {
 const AudioDecodingCallStats kAudioDecodeStats = MakeAudioDecodeStatsForTest();
 
 struct ConfigHelper {
-  ConfigHelper() : ConfigHelper(new rtc::RefCountedObject<MockAudioMixer>()) {}
+  ConfigHelper() : ConfigHelper(new MockAudioMixer()) {}
 
   explicit ConfigHelper(rtc::scoped_refptr<MockAudioMixer> audio_mixer)
       : audio_mixer_(audio_mixer) {
@@ -83,9 +83,8 @@ struct ConfigHelper {
 
     AudioState::Config config;
     config.audio_mixer = audio_mixer_;
-    config.audio_processing = new rtc::RefCountedObject<MockAudioProcessing>();
-    config.audio_device_module =
-        new rtc::RefCountedObject<testing::NiceMock<MockAudioDeviceModule>>();
+    config.audio_processing = new MockAudioProcessing();
+    config.audio_device_module = new testing::NiceMock<MockAudioDeviceModule>();
     audio_state_ = AudioState::Create(config);
 
     channel_receive_ = new ::testing::StrictMock<MockChannelReceive>();
@@ -109,8 +108,7 @@ struct ConfigHelper {
     stream_config_.rtp.extensions.push_back(RtpExtension(
         RtpExtension::kTransportSequenceNumberUri, kTransportSequenceNumberId));
     stream_config_.rtcp_send_transport = &rtcp_send_transport_;
-    stream_config_.decoder_factory =
-        new rtc::RefCountedObject<MockAudioDecoderFactory>;
+    stream_config_.decoder_factory = new MockAudioDecoderFactory;
   }
 
   std::unique_ptr<internal::AudioReceiveStream> CreateAudioReceiveStream() {
@@ -390,14 +388,14 @@ TEST(AudioReceiveStreamTest, ReconfigureWithFrameDecryptor) {
 
   auto new_config_0 = helper.config();
   rtc::scoped_refptr<FrameDecryptorInterface> mock_frame_decryptor_0(
-      new rtc::RefCountedObject<MockFrameDecryptor>());
+      new MockFrameDecryptor());
   new_config_0.frame_decryptor = mock_frame_decryptor_0;
 
   recv_stream->Reconfigure(new_config_0);
 
   auto new_config_1 = helper.config();
   rtc::scoped_refptr<FrameDecryptorInterface> mock_frame_decryptor_1(
-      new rtc::RefCountedObject<MockFrameDecryptor>());
+      new MockFrameDecryptor());
   new_config_1.frame_decryptor = mock_frame_decryptor_1;
   new_config_1.crypto_options.sframe.require_frame_encryption = true;
   recv_stream->Reconfigure(new_config_1);

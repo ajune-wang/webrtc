@@ -242,27 +242,25 @@ class ConstMethodCall : public rtc::Message, public rtc::MessageHandler {
   void DestroyInternal() { delete c_; }                \
   INTERNAL_CLASS* c_;
 
-#define BEGIN_SIGNALING_PROXY_MAP(c)                                         \
-  PROXY_MAP_BOILERPLATE(c)                                                   \
-  SIGNALING_PROXY_MAP_BOILERPLATE(c)                                         \
-  REFCOUNTED_PROXY_MAP_BOILERPLATE(c)                                        \
- public:                                                                     \
-  static rtc::scoped_refptr<c##ProxyWithInternal> Create(                    \
-      rtc::Thread* signaling_thread, INTERNAL_CLASS* c) {                    \
-    return new rtc::RefCountedObject<c##ProxyWithInternal>(signaling_thread, \
-                                                           c);               \
+#define BEGIN_SIGNALING_PROXY_MAP(c)                      \
+  PROXY_MAP_BOILERPLATE(c)                                \
+  SIGNALING_PROXY_MAP_BOILERPLATE(c)                      \
+  REFCOUNTED_PROXY_MAP_BOILERPLATE(c)                     \
+ public:                                                  \
+  static rtc::scoped_refptr<c##ProxyWithInternal> Create( \
+      rtc::Thread* signaling_thread, INTERNAL_CLASS* c) { \
+    return new c##ProxyWithInternal(signaling_thread, c); \
   }
 
-#define BEGIN_PROXY_MAP(c)                                                    \
-  PROXY_MAP_BOILERPLATE(c)                                                    \
-  WORKER_PROXY_MAP_BOILERPLATE(c)                                             \
-  REFCOUNTED_PROXY_MAP_BOILERPLATE(c)                                         \
- public:                                                                      \
-  static rtc::scoped_refptr<c##ProxyWithInternal> Create(                     \
-      rtc::Thread* signaling_thread, rtc::Thread* worker_thread,              \
-      INTERNAL_CLASS* c) {                                                    \
-    return new rtc::RefCountedObject<c##ProxyWithInternal>(signaling_thread,  \
-                                                           worker_thread, c); \
+#define BEGIN_PROXY_MAP(c)                                               \
+  PROXY_MAP_BOILERPLATE(c)                                               \
+  WORKER_PROXY_MAP_BOILERPLATE(c)                                        \
+  REFCOUNTED_PROXY_MAP_BOILERPLATE(c)                                    \
+ public:                                                                 \
+  static rtc::scoped_refptr<c##ProxyWithInternal> Create(                \
+      rtc::Thread* signaling_thread, rtc::Thread* worker_thread,         \
+      INTERNAL_CLASS* c) {                                               \
+    return new c##ProxyWithInternal(signaling_thread, worker_thread, c); \
   }
 
 #define BEGIN_OWNED_PROXY_MAP(c)                                   \

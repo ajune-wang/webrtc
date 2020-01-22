@@ -298,8 +298,7 @@ TEST(RedPayloadSplitter, CheckRedPayloads) {
   // Use a real DecoderDatabase object here instead of a mock, since it is
   // easier to just register the payload types and let the actual implementation
   // do its job.
-  DecoderDatabase decoder_database(
-      new rtc::RefCountedObject<MockAudioDecoderFactory>, absl::nullopt);
+  DecoderDatabase decoder_database(new MockAudioDecoderFactory, absl::nullopt);
   decoder_database.RegisterPayload(0, SdpAudioFormat("cn", 8000, 1));
   decoder_database.RegisterPayload(1, SdpAudioFormat("pcmu", 8000, 1));
   decoder_database.RegisterPayload(2,
@@ -333,8 +332,7 @@ TEST(RedPayloadSplitter, CheckRedPayloadsRecursiveRed) {
   // Use a real DecoderDatabase object here instead of a mock, since it is
   // easier to just register the payload types and let the actual implementation
   // do its job.
-  DecoderDatabase decoder_database(
-      new rtc::RefCountedObject<MockAudioDecoderFactory>, absl::nullopt);
+  DecoderDatabase decoder_database(new MockAudioDecoderFactory, absl::nullopt);
   decoder_database.RegisterPayload(kRedPayloadType,
                                    SdpAudioFormat("red", 8000, 1));
 

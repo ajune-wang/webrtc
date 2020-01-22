@@ -396,8 +396,7 @@ rtc::scoped_refptr<AudioRtpSender> AudioRtpSender::Create(
     StatsCollector* stats,
     SetStreamsObserver* set_streams_observer) {
   return rtc::scoped_refptr<AudioRtpSender>(
-      new rtc::RefCountedObject<AudioRtpSender>(worker_thread, id, stats,
-                                                set_streams_observer));
+      new AudioRtpSender(worker_thread, id, stats, set_streams_observer));
 }
 
 AudioRtpSender::AudioRtpSender(rtc::Thread* worker_thread,
@@ -543,8 +542,7 @@ rtc::scoped_refptr<VideoRtpSender> VideoRtpSender::Create(
     const std::string& id,
     SetStreamsObserver* set_streams_observer) {
   return rtc::scoped_refptr<VideoRtpSender>(
-      new rtc::RefCountedObject<VideoRtpSender>(worker_thread, id,
-                                                set_streams_observer));
+      new VideoRtpSender(worker_thread, id, set_streams_observer));
 }
 
 VideoRtpSender::VideoRtpSender(rtc::Thread* worker_thread,

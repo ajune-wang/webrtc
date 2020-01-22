@@ -228,8 +228,7 @@ FrameEncodeMetadataWriter::UpdateBitstream(
       modified_fragmentation->fragmentationLength);
 
   encoded_image->SetEncodedData(
-      new rtc::RefCountedObject<EncodedImageBufferWrapper>(
-          std::move(modified_buffer)));
+      new EncodedImageBufferWrapper(std::move(modified_buffer)));
 
   return modified_fragmentation;
 }

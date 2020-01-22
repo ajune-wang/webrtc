@@ -433,8 +433,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   // which can be used to access the gathered stats.
   rtc::scoped_refptr<MockStatsObserver> OldGetStatsForTrack(
       webrtc::MediaStreamTrackInterface* track) {
-    rtc::scoped_refptr<MockStatsObserver> observer(
-        new rtc::RefCountedObject<MockStatsObserver>());
+    rtc::scoped_refptr<MockStatsObserver> observer(new MockStatsObserver());
     EXPECT_TRUE(peer_connection_->GetStats(
         observer, nullptr, PeerConnectionInterface::kStatsOutputLevelStandard));
     EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
@@ -450,7 +449,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   // and returns null.
   rtc::scoped_refptr<const webrtc::RTCStatsReport> NewGetStats() {
     rtc::scoped_refptr<webrtc::MockRTCStatsCollectorCallback> callback(
-        new rtc::RefCountedObject<webrtc::MockRTCStatsCollectorCallback>());
+        new webrtc::MockRTCStatsCollectorCallback());
     peer_connection_->GetStats(callback);
     EXPECT_TRUE_WAIT(callback->called(), kDefaultTimeout);
     return callback->report();
@@ -588,7 +587,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   // Returns null on failure.
   std::unique_ptr<SessionDescriptionInterface> CreateOfferAndWait() {
     rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+        new MockCreateSessionDescriptionObserver());
     pc()->CreateOffer(observer, offer_answer_options_);
     return WaitForDescriptionFromObserver(observer);
   }
@@ -703,8 +702,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     config.frame_interval_ms = 100;
 
     video_track_sources_.emplace_back(
-        new rtc::RefCountedObject<webrtc::FakePeriodicVideoTrackSource>(
-            config, false /* remote */));
+        new webrtc::FakePeriodicVideoTrackSource(config, false /* remote */));
     rtc::scoped_refptr<webrtc::VideoTrackInterface> track(
         peer_connection_factory_->CreateVideoTrack(
             rtc::CreateRandomUuid(), video_track_sources_.back()));
@@ -750,7 +748,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   // Returns null on failure.
   std::unique_ptr<SessionDescriptionInterface> CreateAnswer() {
     rtc::scoped_refptr<MockCreateSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockCreateSessionDescriptionObserver>());
+        new MockCreateSessionDescriptionObserver());
     pc()->CreateAnswer(observer, offer_answer_options_);
     return WaitForDescriptionFromObserver(observer);
   }
@@ -776,7 +774,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
   bool SetLocalDescriptionAndSendSdpMessage(
       std::unique_ptr<SessionDescriptionInterface> desc) {
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+        new MockSetSessionDescriptionObserver());
     RTC_LOG(LS_INFO) << debug_name_ << ": SetLocalDescriptionAndSendSdpMessage";
     SdpType type = desc->GetType();
     std::string sdp;
@@ -795,7 +793,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
 
   bool SetRemoteDescription(std::unique_ptr<SessionDescriptionInterface> desc) {
     rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
-        new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+        new MockSetSessionDescriptionObserver());
     RTC_LOG(LS_INFO) << debug_name_ << ": SetRemoteDescription";
     pc()->SetRemoteDescription(observer, desc.release());
     if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
@@ -1190,8 +1188,7 @@ class MockIceTransportFactory : public IceTransportFactory {
       int component,
       IceTransportInit init) {
     RecordIceTransportCreated();
-    return new rtc::RefCountedObject<MockIceTransport>(transport_name,
-                                                       component);
+    return new MockIceTransport(transport_name, component);
   }
   MOCK_METHOD0(RecordIceTransportCreated, void());
 };
@@ -5262,7 +5259,7 @@ TEST_P(PeerConnectionIntegrationTest, IceTransportFactoryUsedForConnections) {
   ASSERT_TRUE(wrapper);
   wrapper->CreateDataChannel();
   rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
-      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+      new MockSetSessionDescriptionObserver());
   wrapper->pc()->SetLocalDescription(observer,
                                      wrapper->CreateOfferAndWait().release());
 }
@@ -5744,7 +5741,7 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   caller()->AddVideoTrack();
   callee()->AddVideoTrack();
   rtc::scoped_refptr<MockSetSessionDescriptionObserver> observer(
-      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+      new MockSetSessionDescriptionObserver());
   callee()->pc()->SetLocalDescription(observer,
                                       callee()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(observer->called(), kDefaultTimeout);
@@ -5762,14 +5759,14 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
   ASSERT_TRUE(CreatePeerConnectionWrappersWithConfig(config, config));
 
   rtc::scoped_refptr<MockSetSessionDescriptionObserver> sld_observer(
-      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+      new MockSetSessionDescriptionObserver());
   callee()->pc()->SetLocalDescription(sld_observer,
                                       callee()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(sld_observer->called(), kDefaultTimeout);
   EXPECT_EQ(sld_observer->error(), "");
 
   rtc::scoped_refptr<MockSetSessionDescriptionObserver> srd_observer(
-      new rtc::RefCountedObject<MockSetSessionDescriptionObserver>());
+      new MockSetSessionDescriptionObserver());
   callee()->pc()->SetRemoteDescription(
       srd_observer, caller()->CreateOfferAndWait().release());
   EXPECT_TRUE_WAIT(srd_observer->called(), kDefaultTimeout);

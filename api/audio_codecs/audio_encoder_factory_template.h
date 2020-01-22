@@ -143,8 +143,7 @@ rtc::scoped_refptr<AudioEncoderFactory> CreateAudioEncoderFactory() {
                 "Caller must give at least one template parameter");
 
   return rtc::scoped_refptr<AudioEncoderFactory>(
-      new rtc::RefCountedObject<
-          audio_encoder_factory_template_impl::AudioEncoderFactoryT<Ts...>>());
+      new audio_encoder_factory_template_impl::AudioEncoderFactoryT<Ts...>());
 }
 
 }  // namespace webrtc

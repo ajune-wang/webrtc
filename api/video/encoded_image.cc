@@ -32,13 +32,13 @@ EncodedImageBuffer::~EncodedImageBuffer() {
 
 // static
 rtc::scoped_refptr<EncodedImageBuffer> EncodedImageBuffer::Create(size_t size) {
-  return new rtc::RefCountedObject<EncodedImageBuffer>(size);
+  return new EncodedImageBuffer(size);
 }
 // static
 rtc::scoped_refptr<EncodedImageBuffer> EncodedImageBuffer::Create(
     const uint8_t* data,
     size_t size) {
-  return new rtc::RefCountedObject<EncodedImageBuffer>(data, size);
+  return new EncodedImageBuffer(data, size);
 }
 
 const uint8_t* EncodedImageBuffer::data() const {

@@ -41,7 +41,7 @@ AudioRtpReceiver::AudioRtpReceiver(
     const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams)
     : worker_thread_(worker_thread),
       id_(receiver_id),
-      source_(new rtc::RefCountedObject<RemoteAudioSource>(worker_thread)),
+      source_(new RemoteAudioSource(worker_thread)),
       track_(AudioTrackProxy::Create(rtc::Thread::Current(),
                                      AudioTrack::Create(receiver_id, source_))),
       cached_track_enabled_(track_->enabled()),
@@ -49,7 +49,7 @@ AudioRtpReceiver::AudioRtpReceiver(
       delay_(JitterBufferDelayProxy::Create(
           rtc::Thread::Current(),
           worker_thread_,
-          new rtc::RefCountedObject<JitterBufferDelay>(worker_thread))) {
+          new JitterBufferDelay(worker_thread))) {
   RTC_DCHECK(worker_thread_);
   RTC_DCHECK(track_->GetSource()->remote());
   track_->RegisterObserver(this);

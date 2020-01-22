@@ -2608,8 +2608,7 @@ void VideoCodecConfigObserver<VideoCodecH264>::VerifyCodecSpecifics(
 template <>
 rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>
 VideoCodecConfigObserver<VideoCodecH264>::GetEncoderSpecificSettings() const {
-  return new rtc::RefCountedObject<
-      VideoEncoderConfig::H264EncoderSpecificSettings>(encoder_settings_);
+  return new VideoEncoderConfig::H264EncoderSpecificSettings(encoder_settings_);
 }
 
 template <>
@@ -2642,8 +2641,7 @@ void VideoCodecConfigObserver<VideoCodecVP8>::VerifyCodecSpecifics(
 template <>
 rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>
 VideoCodecConfigObserver<VideoCodecVP8>::GetEncoderSpecificSettings() const {
-  return new rtc::RefCountedObject<
-      VideoEncoderConfig::Vp8EncoderSpecificSettings>(encoder_settings_);
+  return new VideoEncoderConfig::Vp8EncoderSpecificSettings(encoder_settings_);
 }
 
 template <>
@@ -2676,8 +2674,7 @@ void VideoCodecConfigObserver<VideoCodecVP9>::VerifyCodecSpecifics(
 template <>
 rtc::scoped_refptr<VideoEncoderConfig::EncoderSpecificSettings>
 VideoCodecConfigObserver<VideoCodecVP9>::GetEncoderSpecificSettings() const {
-  return new rtc::RefCountedObject<
-      VideoEncoderConfig::Vp9EncoderSpecificSettings>(encoder_settings_);
+  return new VideoEncoderConfig::Vp9EncoderSpecificSettings(encoder_settings_);
 }
 
 TEST_F(VideoSendStreamTest, EncoderSetupPropagatesVp8Config) {
@@ -2795,8 +2792,7 @@ TEST_F(VideoSendStreamTest, TranslatesTwoLayerScreencastToTargetBitrate) {
         VideoEncoderConfig* encoder_config) override {
       send_config->encoder_settings.encoder_factory = &encoder_factory_;
       EXPECT_EQ(1u, encoder_config->number_of_streams);
-      encoder_config->video_stream_factory =
-          new rtc::RefCountedObject<VideoStreamFactory>();
+      encoder_config->video_stream_factory = new VideoStreamFactory();
       EXPECT_EQ(1u, encoder_config->simulcast_layers.size());
       encoder_config->simulcast_layers[0].num_temporal_layers = 2;
       encoder_config->content_type = VideoEncoderConfig::ContentType::kScreen;
@@ -3132,8 +3128,8 @@ class Vp9HeaderObserver : public test::SendTest {
     send_config->rtp.payload_name = "VP9";
     send_config->rtp.payload_type = kVp9PayloadType;
     ModifyVideoConfigsHook(send_config, receive_configs, encoder_config);
-    encoder_config->encoder_specific_settings = new rtc::RefCountedObject<
-        VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9_settings_);
+    encoder_config->encoder_specific_settings =
+        new VideoEncoderConfig::Vp9EncoderSpecificSettings(vp9_settings_);
     EXPECT_EQ(1u, encoder_config->number_of_streams);
     EXPECT_EQ(1u, encoder_config->simulcast_layers.size());
     encoder_config->simulcast_layers[0].num_temporal_layers =

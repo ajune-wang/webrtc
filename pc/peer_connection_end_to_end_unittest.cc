@@ -59,10 +59,10 @@ class PeerConnectionEndToEndBaseTest : public sigslot::has_slots<>,
     worker_thread_ = rtc::Thread::Create();
     RTC_CHECK(network_thread_->Start());
     RTC_CHECK(worker_thread_->Start());
-    caller_ = new rtc::RefCountedObject<PeerConnectionTestWrapper>(
-        "caller", network_thread_.get(), worker_thread_.get());
-    callee_ = new rtc::RefCountedObject<PeerConnectionTestWrapper>(
-        "callee", network_thread_.get(), worker_thread_.get());
+    caller_ = new PeerConnectionTestWrapper("caller", network_thread_.get(),
+                                            worker_thread_.get());
+    callee_ = new PeerConnectionTestWrapper("callee", network_thread_.get(),
+                                            worker_thread_.get());
     webrtc::PeerConnectionInterface::IceServer ice_server;
     ice_server.uri = "stun:stun.l.google.com:19302";
     config_.servers.push_back(ice_server);
@@ -256,7 +256,7 @@ rtc::scoped_refptr<webrtc::AudioDecoderFactory>
 CreateForwardingMockDecoderFactory(
     webrtc::AudioDecoderFactory* real_decoder_factory) {
   rtc::scoped_refptr<webrtc::MockAudioDecoderFactory> mock_decoder_factory =
-      new rtc::RefCountedObject<StrictMock<webrtc::MockAudioDecoderFactory>>;
+      new StrictMock<webrtc::MockAudioDecoderFactory>;
   EXPECT_CALL(*mock_decoder_factory, GetSupportedDecoders())
       .Times(AtLeast(1))
       .WillRepeatedly(Invoke([real_decoder_factory] {
@@ -431,22 +431,22 @@ TEST_P(PeerConnectionEndToEndTest, CallWithCustomCodec) {
   std::vector<webrtc::AudioCodecPairId> encoder_id1, encoder_id2, decoder_id1,
       decoder_id2;
   CreatePcs(rtc::scoped_refptr<webrtc::AudioEncoderFactory>(
-                new rtc::RefCountedObject<IdLoggingAudioEncoderFactory>(
+                new IdLoggingAudioEncoderFactory(
                     webrtc::CreateAudioEncoderFactory<
                         AudioEncoderUnicornSparklesRainbow>(),
                     &encoder_id1)),
             rtc::scoped_refptr<webrtc::AudioDecoderFactory>(
-                new rtc::RefCountedObject<IdLoggingAudioDecoderFactory>(
+                new IdLoggingAudioDecoderFactory(
                     webrtc::CreateAudioDecoderFactory<
                         AudioDecoderUnicornSparklesRainbow>(),
                     &decoder_id1)),
             rtc::scoped_refptr<webrtc::AudioEncoderFactory>(
-                new rtc::RefCountedObject<IdLoggingAudioEncoderFactory>(
+                new IdLoggingAudioEncoderFactory(
                     webrtc::CreateAudioEncoderFactory<
                         AudioEncoderUnicornSparklesRainbow>(),
                     &encoder_id2)),
             rtc::scoped_refptr<webrtc::AudioDecoderFactory>(
-                new rtc::RefCountedObject<IdLoggingAudioDecoderFactory>(
+                new IdLoggingAudioDecoderFactory(
                     webrtc::CreateAudioDecoderFactory<
                         AudioDecoderUnicornSparklesRainbow>(),
                     &decoder_id2)));

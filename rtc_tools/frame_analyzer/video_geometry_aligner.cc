@@ -132,7 +132,7 @@ rtc::scoped_refptr<I420BufferInterface> AdjustCropping(
 rtc::scoped_refptr<Video> AdjustCropping(
     const rtc::scoped_refptr<Video>& reference_video,
     const rtc::scoped_refptr<Video>& test_video) {
-  class CroppedVideo : public rtc::RefCountedObject<Video> {
+  class CroppedVideo : public Video {
    public:
     CroppedVideo(const rtc::scoped_refptr<Video>& reference_video,
                  const rtc::scoped_refptr<Video>& test_video)

@@ -44,10 +44,9 @@ DefaultIceTransportFactory::CreateIceTransport(
     int component,
     IceTransportInit init) {
   BasicIceControllerFactory factory;
-  return new rtc::RefCountedObject<DefaultIceTransport>(
-      std::make_unique<cricket::P2PTransportChannel>(
-          transport_name, component, init.port_allocator(),
-          init.async_resolver_factory(), init.event_log(), &factory));
+  return new DefaultIceTransport(std::make_unique<cricket::P2PTransportChannel>(
+      transport_name, component, init.port_allocator(),
+      init.async_resolver_factory(), init.event_log(), &factory));
 }
 
 }  // namespace webrtc

@@ -139,7 +139,7 @@ rtc::scoped_refptr<DataChannel> DataChannel::Create(
     const std::string& label,
     const InternalDataChannelInit& config) {
   rtc::scoped_refptr<DataChannel> channel(
-      new rtc::RefCountedObject<DataChannel>(provider, dct, label));
+      new DataChannel(provider, dct, label));
   if (!channel->Init(config)) {
     return NULL;
   }

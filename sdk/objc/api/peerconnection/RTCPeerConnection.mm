@@ -490,9 +490,8 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
           completionHandler:
     (void (^)(RTCSessionDescription *sessionDescription,
               NSError *error))completionHandler {
-  rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserverAdapter>
-      observer(new rtc::RefCountedObject
-          <webrtc::CreateSessionDescriptionObserverAdapter>(completionHandler));
+  rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserverAdapter> observer(
+      new webrtc::CreateSessionDescriptionObserverAdapter(completionHandler));
   webrtc::PeerConnectionInterface::RTCOfferAnswerOptions options;
   CopyConstraintsIntoOfferAnswerOptions(constraints.nativeConstraints.get(), &options);
 
@@ -503,9 +502,8 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
            completionHandler:
     (void (^)(RTCSessionDescription *sessionDescription,
               NSError *error))completionHandler {
-  rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserverAdapter>
-      observer(new rtc::RefCountedObject
-          <webrtc::CreateSessionDescriptionObserverAdapter>(completionHandler));
+  rtc::scoped_refptr<webrtc::CreateSessionDescriptionObserverAdapter> observer(
+      new webrtc::CreateSessionDescriptionObserverAdapter(completionHandler));
   webrtc::PeerConnectionInterface::RTCOfferAnswerOptions options;
   CopyConstraintsIntoOfferAnswerOptions(constraints.nativeConstraints.get(), &options);
 
@@ -515,16 +513,14 @@ void PeerConnectionDelegateAdapter::OnRemoveTrack(
 - (void)setLocalDescription:(RTCSessionDescription *)sdp
           completionHandler:(void (^)(NSError *error))completionHandler {
   rtc::scoped_refptr<webrtc::SetSessionDescriptionObserverAdapter> observer(
-      new rtc::RefCountedObject<webrtc::SetSessionDescriptionObserverAdapter>(
-          completionHandler));
+      new webrtc::SetSessionDescriptionObserverAdapter(completionHandler));
   _peerConnection->SetLocalDescription(observer, sdp.nativeDescription);
 }
 
 - (void)setRemoteDescription:(RTCSessionDescription *)sdp
            completionHandler:(void (^)(NSError *error))completionHandler {
   rtc::scoped_refptr<webrtc::SetSessionDescriptionObserverAdapter> observer(
-      new rtc::RefCountedObject<webrtc::SetSessionDescriptionObserverAdapter>(
-          completionHandler));
+      new webrtc::SetSessionDescriptionObserverAdapter(completionHandler));
   _peerConnection->SetRemoteDescription(observer, sdp.nativeDescription);
 }
 

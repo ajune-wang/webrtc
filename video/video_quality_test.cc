@@ -648,10 +648,9 @@ void VideoQualityTest::FillScalabilitySettings(
     encoder_config.number_of_streams = num_streams;
     encoder_config.spatial_layers = params->ss[video_idx].spatial_layers;
     encoder_config.simulcast_layers = std::vector<VideoStream>(num_streams);
-    encoder_config.video_stream_factory =
-        new rtc::RefCountedObject<cricket::EncoderStreamFactory>(
-            params->video[video_idx].codec, kDefaultMaxQp,
-            params->screenshare[video_idx].enabled, true);
+    encoder_config.video_stream_factory = new cricket::EncoderStreamFactory(
+        params->video[video_idx].codec, kDefaultMaxQp,
+        params->screenshare[video_idx].enabled, true);
     params->ss[video_idx].streams =
         encoder_config.video_stream_factory->CreateEncoderStreams(
             static_cast<int>(params->video[video_idx].width),
@@ -831,7 +830,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
           params_.ss[video_idx].streams;
     }
     video_encoder_configs_[video_idx].video_stream_factory =
-        new rtc::RefCountedObject<cricket::EncoderStreamFactory>(
+        new cricket::EncoderStreamFactory(
             params_.video[video_idx].codec,
             params_.ss[video_idx].streams[0].max_qp,
             params_.screenshare[video_idx].enabled, true);
@@ -860,8 +859,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
         vp8_settings.numberOfTemporalLayers = static_cast<unsigned char>(
             params_.video[video_idx].num_temporal_layers);
         video_encoder_configs_[video_idx].encoder_specific_settings =
-            new rtc::RefCountedObject<
-                VideoEncoderConfig::Vp8EncoderSpecificSettings>(vp8_settings);
+            new VideoEncoderConfig::Vp8EncoderSpecificSettings(vp8_settings);
       } else if (params_.video[video_idx].codec == "VP9") {
         VideoCodecVP9 vp9_settings = VideoEncoder::GetDefaultVp9Settings();
         vp9_settings.denoisingOn = false;
@@ -876,8 +874,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
           vp9_settings.flexibleMode = true;
         }
         video_encoder_configs_[video_idx].encoder_specific_settings =
-            new rtc::RefCountedObject<
-                VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9_settings);
+            new VideoEncoderConfig::Vp9EncoderSpecificSettings(vp9_settings);
       }
     } else if (params_.ss[video_idx].num_spatial_layers > 1) {
       // If SVC mode without screenshare, still need to set codec specifics.
@@ -889,21 +886,18 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
           static_cast<unsigned char>(params_.ss[video_idx].num_spatial_layers);
       vp9_settings.interLayerPred = params_.ss[video_idx].inter_layer_pred;
       video_encoder_configs_[video_idx].encoder_specific_settings =
-          new rtc::RefCountedObject<
-              VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9_settings);
+          new VideoEncoderConfig::Vp9EncoderSpecificSettings(vp9_settings);
     } else if (params_.video[video_idx].automatic_scaling) {
       if (params_.video[video_idx].codec == "VP8") {
         VideoCodecVP8 vp8_settings = VideoEncoder::GetDefaultVp8Settings();
         vp8_settings.automaticResizeOn = true;
         video_encoder_configs_[video_idx].encoder_specific_settings =
-            new rtc::RefCountedObject<
-                VideoEncoderConfig::Vp8EncoderSpecificSettings>(vp8_settings);
+            new VideoEncoderConfig::Vp8EncoderSpecificSettings(vp8_settings);
       } else if (params_.video[video_idx].codec == "VP9") {
         VideoCodecVP9 vp9_settings = VideoEncoder::GetDefaultVp9Settings();
         vp9_settings.automaticResizeOn = true;
         video_encoder_configs_[video_idx].encoder_specific_settings =
-            new rtc::RefCountedObject<
-                VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9_settings);
+            new VideoEncoderConfig::Vp9EncoderSpecificSettings(vp9_settings);
       } else if (params_.video[video_idx].codec == "H264") {
         // Quality scaling is always on for H.264.
       } else {
@@ -917,19 +911,16 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
         VideoCodecVP8 vp8_settings = VideoEncoder::GetDefaultVp8Settings();
         vp8_settings.automaticResizeOn = false;
         video_encoder_configs_[video_idx].encoder_specific_settings =
-            new rtc::RefCountedObject<
-                VideoEncoderConfig::Vp8EncoderSpecificSettings>(vp8_settings);
+            new VideoEncoderConfig::Vp8EncoderSpecificSettings(vp8_settings);
       } else if (params_.video[video_idx].codec == "VP9") {
         VideoCodecVP9 vp9_settings = VideoEncoder::GetDefaultVp9Settings();
         vp9_settings.automaticResizeOn = false;
         video_encoder_configs_[video_idx].encoder_specific_settings =
-            new rtc::RefCountedObject<
-                VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9_settings);
+            new VideoEncoderConfig::Vp9EncoderSpecificSettings(vp9_settings);
       } else if (params_.video[video_idx].codec == "H264") {
         VideoCodecH264 h264_settings = VideoEncoder::GetDefaultH264Settings();
         video_encoder_configs_[video_idx].encoder_specific_settings =
-            new rtc::RefCountedObject<
-                VideoEncoderConfig::H264EncoderSpecificSettings>(h264_settings);
+            new VideoEncoderConfig::H264EncoderSpecificSettings(h264_settings);
       }
     }
     total_streams_used += num_video_substreams;
@@ -1005,7 +996,7 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
     thumbnail_encoder_config.max_bitrate_bps = 50000;
     std::vector<VideoStream> streams{params_.ss[0].streams[0]};
     thumbnail_encoder_config.video_stream_factory =
-        new rtc::RefCountedObject<VideoStreamFactory>(streams);
+        new VideoStreamFactory(streams);
     thumbnail_encoder_config.spatial_layers = params_.ss[0].spatial_layers;
 
     thumbnail_encoder_configs_.push_back(thumbnail_encoder_config.Copy());

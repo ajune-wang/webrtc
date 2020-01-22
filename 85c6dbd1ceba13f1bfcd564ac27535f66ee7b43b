@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c521f8d7_3571f7e3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T10:00:28Z",
+      "side": 1,
+      "message": "I actually don\u0027t quite know whether first_packet is equally good as last_packet or any different.",
+      "range": {
+        "startLine": 106,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 18
+      },
+      "revId": "85c6dbd1ceba13f1bfcd564ac27535f66ee7b43b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

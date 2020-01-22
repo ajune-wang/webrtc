@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "182299eb_9147d3c4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T11:19:50Z",
+      "side": 1,
+      "message": "prefer c++11 for each loop:\nfor (const RtpPacketReceived\u0026 packet : transport_.send_packets()) {\n  // same body as in lambda\n}",
+      "range": {
+        "startLine": 631,
+        "startChar": 2,
+        "endLine": 632,
+        "endChar": 78
+      },
+      "revId": "a01e78fca1576d2ba9159bbd87320813a3ee67fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -384,6 +384,15 @@ void LocalAudioSinkAdapter::OnData(const void* audio_data,
   }
 }
 
+int LocalAudioSinkAdapter::GetNumChannels() const {
+  rtc::CritScope lock(&lock_);
+  if (sink_) {
+    return sink_->GetNumChannels();
+  } else {
+    return -1;
+  }
+}
+
 void LocalAudioSinkAdapter::SetSink(cricket::AudioSource::Sink* sink) {
   rtc::CritScope lock(&lock_);
   RTC_DCHECK(!sink || !sink_);

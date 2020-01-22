@@ -42,6 +42,8 @@ class RemoteAudioSource::AudioDataProxy : public AudioSinkInterface {
     source_->OnData(audio);
   }
 
+  int GetNumChannels() const override { return -1; }
+
  private:
   const rtc::scoped_refptr<RemoteAudioSource> source_;
 

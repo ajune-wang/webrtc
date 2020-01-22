@@ -62,6 +62,7 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface>,
   // These are callbacks from the media engine.
   class AudioDataProxy;
   void OnData(const AudioSinkInterface::Data& audio);
+
   void OnAudioChannelGone();
 
   void OnMessage(rtc::Message* msg) override;

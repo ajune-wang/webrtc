@@ -32,6 +32,8 @@ class AudioSource {
     // Called when the AudioSource is going away.
     virtual void OnClose() = 0;
 
+    virtual int GetNumChannels() const = 0;
+
    protected:
     virtual ~Sink() {}
   };

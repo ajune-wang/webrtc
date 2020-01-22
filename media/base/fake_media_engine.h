@@ -370,6 +370,7 @@ class FakeVoiceMediaChannel : public RtpHelper<VoiceMediaChannel> {
                 size_t number_of_channels,
                 size_t number_of_frames) override;
     void OnClose() override;
+    int GetNumChannels() const override;
     AudioSource* source() const;
 
    private:

@@ -5,7 +5,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '3f2a66dfa606354299f48eb4f5576c985f599b38',
+  'chromium_revision': '1ab7f5d8cd9ef635627652e9ccafb890be7cd024',
 }
 
 deps = {
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@85a45ffb11278838e309ada315050d4967f43f89',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@b55ccdede67ccaff29612f88e9bbd24003130390',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@8d8f6f083196aa749dcc81b1247fe3a8235e234f',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@efbd0ee00a27dc5acb27a4adb457c80280ebb388',
+    'https://chromium.googlesource.com/chromium/src/third_party@61a73fab609f351ff4d2a2e1c2faad430ec3ef77',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -86,7 +86,7 @@ deps = {
       'packages': [
           {
               'package': 'chromium/third_party/android_build_tools/aapt2',
-              'version': 'TM6ESkOFwhdEwjsIxbY3m6j7BIhg8mpY_X9Pg0nwb1AC',
+              'version': 'LKH_DI44rZhQ4RkScMFQLGSJ4jZyuPcff0llITnq-i4C',
           },
       ],
       'condition': 'checkout_android',
@@ -237,7 +237,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@8b16967ddc487cc606ebfd58336a69ad94dbe4c5',
+    'https://chromium.googlesource.com/chromium/src/tools@0a874268d9872224bd6ae7afdbd7f95c598f78a9',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@885b3febcc170a60f25795304e60927b77d1e92d',
 

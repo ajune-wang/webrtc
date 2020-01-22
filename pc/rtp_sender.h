@@ -215,11 +215,15 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
               size_t number_of_channels,
               size_t number_of_frames) override;
 
+  // AudioSinkInterface implementation.
+  int GetNumChannels() const override;
+
   // cricket::AudioSource implementation.
   void SetSink(cricket::AudioSource::Sink* sink) override;
 
+  int num_sink_channels_;
   cricket::AudioSource::Sink* sink_;
-  // Critical section protecting |sink_|.
+  // Critical section protecting |sink_| and |num_sink_channels_|.
   rtc::CriticalSection lock_;
 };
 

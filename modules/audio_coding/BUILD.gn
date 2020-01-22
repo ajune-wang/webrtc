@@ -45,6 +45,7 @@ rtc_library("audio_coding") {
     "..:module_api_public",
     "../../api:array_view",
     "../../api:function_view",
+    "../../api:rtp_headers",
     "../../api/audio:audio_frame_api",
     "../../api/audio_codecs:audio_codecs_api",
     "../../api/neteq:neteq_api",

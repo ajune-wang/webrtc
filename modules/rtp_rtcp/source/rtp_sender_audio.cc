@@ -146,17 +146,6 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
                                int8_t payload_type,
                                uint32_t rtp_timestamp,
                                const uint8_t* payload_data,
-                               size_t payload_size) {
-  return SendAudio(frame_type, payload_type, rtp_timestamp, payload_data,
-                   payload_size,
-                   // TODO(bugs.webrtc.org/10739) replace once plumbed.
-                   /*absolute_capture_timestamp_ms=*/0);
-}
-
-bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
-                               int8_t payload_type,
-                               uint32_t rtp_timestamp,
-                               const uint8_t* payload_data,
                                size_t payload_size,
                                int64_t absolute_capture_timestamp_ms) {
 #if RTC_TRACE_EVENTS_ENABLED

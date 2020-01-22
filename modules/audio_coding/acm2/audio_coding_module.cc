@@ -11,12 +11,12 @@
 #include "modules/audio_coding/include/audio_coding_module.h"
 
 #include <assert.h>
-
 #include <algorithm>
 #include <cstdint>
 
 #include "absl/strings/match.h"
 #include "api/array_view.h"
+#include "api/rtp_headers.h"
 #include "modules/audio_coding/acm2/acm_receiver.h"
 #include "modules/audio_coding/acm2/acm_remixing.h"
 #include "modules/audio_coding/acm2/acm_resampler.h"
@@ -110,6 +110,7 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
     // If a re-mix is required (up or down), this buffer will store a re-mixed
     // version of the input.
     std::vector<int16_t> buffer;
+    int64_t absolute_capture_timestamp_ms;
   };
 
   InputData input_data_ RTC_GUARDED_BY(acm_crit_sect_);
@@ -253,6 +254,7 @@ int32_t AudioCodingModuleImpl::Encode(const InputData& input_data) {
                     int64_t{input_data.input_timestamp - last_timestamp_} *
                         encoder_stack_->RtpTimestampRateHz(),
                     int64_t{encoder_stack_->SampleRateHz()}));
+
   last_timestamp_ = input_data.input_timestamp;
   last_rtp_timestamp_ = rtp_timestamp;
   first_frame_ = false;
@@ -302,7 +304,8 @@ int32_t AudioCodingModuleImpl::Encode(const InputData& input_data) {
     if (packetization_callback_) {
       packetization_callback_->SendData(
           frame_type, encoded_info.payload_type, encoded_info.encoded_timestamp,
-          encode_buffer_.data(), encode_buffer_.size());
+          encode_buffer_.data(), encode_buffer_.size(),
+          input_data.absolute_capture_timestamp_ms);
     }
 
     if (vad_callback_) {
@@ -392,6 +395,9 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
   input_data->input_timestamp = ptr_frame->timestamp_;
   input_data->length_per_channel = ptr_frame->samples_per_channel_;
   input_data->audio_channel = current_num_channels;
+  // TODO(wertc:10739): Assign from a corresponding field in audio_frame when it
+  // is added in AudioFrame.
+  input_data->absolute_capture_timestamp_ms = 0;
 
   if (!same_num_channels) {
     // Remixes the input frame to the output data and in the process resize the

@@ -32,7 +32,20 @@ namespace webrtc {
 // microseconds (us).
 class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
  public:
+  static constexpr TimeDelta Microseconds(int64_t value) {
+    return FromValue(value);
+  }
+  static constexpr TimeDelta Milliseconds(int64_t value) {
+    return FromFraction(1'000, value);
+  }
+  static constexpr TimeDelta Seconds(int64_t value) {
+    return FromFraction(1'000'000, value);
+  }
+
   TimeDelta() = delete;
+
+  // TODO(danilchap): Migrate all code to the 3 factories above and delete the
+  // 6 factories below.
   template <int64_t seconds>
   static constexpr TimeDelta Seconds() {
     return FromFraction(1'000'000, seconds);

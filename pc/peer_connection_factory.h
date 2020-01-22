@@ -75,6 +75,9 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   virtual std::unique_ptr<cricket::SctpTransportInternalFactory>
   CreateSctpTransportInternalFactory();
 
+  rtc::scoped_refptr<cricket::IceGathererInterface> CreateIceGatherer(
+      cricket::IceGatherer::Config config);
+
   virtual cricket::ChannelManager* channel_manager();
 
   rtc::Thread* signaling_thread() {

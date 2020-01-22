@@ -22,6 +22,7 @@
 #include "p2p/base/connection.h"
 #include "p2p/base/packet_transport_internal.h"
 #include "p2p/base/port.h"
+#include "p2p/base/port_allocator.h"
 #include "p2p/base/transport_description.h"
 #include "rtc_base/network_constants.h"
 #include "rtc_base/system/rtc_export.h"
@@ -255,6 +256,17 @@ class RTC_EXPORT IceTransportInternal : public rtc::PacketTransportInternal {
   // Start gathering candidates if not already started, or if an ICE restart
   // occurred.
   virtual void MaybeStartGathering() = 0;
+  // Start gathering with the same IceGatherer on many ICE transports to get
+  // ICE forking behavior.  For example, like so:
+  // rtc::scoped_refptr<IceGathererInterface> gatherer = ...;
+  // transport1->StartGatheringWithSharedGatherer(gatherer);
+  // transport2->StartGatheringWithSharedGatherer(gatherer);
+  virtual void StartGatheringWithSharedGatherer(
+      rtc::scoped_refptr<IceGathererInterface> gatherer) {}
+  // Just for tests
+  virtual rtc::scoped_refptr<IceGathererInterface> shared_gatherer() {
+    return nullptr;
+  }
 
   virtual void AddRemoteCandidate(const Candidate& candidate) = 0;
 

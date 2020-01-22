@@ -667,6 +667,53 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
   FindPooledSession(const IceParameters* ice_credentials = nullptr) const;
 };
 
+// An IceGatherer is basically a shareable PortAllocatorSession.
+// This is useful for doing ICE forking, where the local ports are shared
+// between many IceTransports. As long as the IceGatherer is not destroyed, the
+// PortAllocatorSession is valid. The IceGatherer must outlive any use of the
+// PortAllocatorSession. For example, an implementation may choose to implement
+// this by owning a PortAllocator and PortAllocatorSession.
+class IceGathererInterface : public rtc::RefCountInterface {
+ public:
+  virtual PortAllocatorSession* port_allocator_session() = 0;
+};
+
+// An implementation of an IceGatherer that owns a PortAllocator and a
+// PortAllocatorSession. Always uses content name "shared", component 1, and
+// random ICE ufrag/pwd. Creates the PortAllocatorSession from the
+// PortAllocator.
+class IceGatherer : public IceGathererInterface {
+ public:
+  struct Config {
+    cricket::ServerAddresses stun_servers;
+    std::vector<cricket::RelayServerConfig> relay_servers;
+    bool relay_only = false;
+    bool disable_tcp = false;
+    bool disable_costly_networks = false;
+    bool disable_ipv6;
+    absl::optional<webrtc::PortPrunePolicy> turn_port_prune_policy;
+    absl::optional<int> stun_candidate_keepalive_interval;
+  };
+  // Initializes/Configures the PortAllocator while creating an IceGatherer.
+  // This is a convenience function over IceGatherer::IceGatherer.
+  static rtc::scoped_refptr<IceGatherer> CreateAndInitialize(
+      std::unique_ptr<PortAllocator> port_allocator,
+      IceGatherer::Config config);
+
+  // It is the responsibility of the caller to make sure the PortAllocator is
+  // initialized and configured correctly.
+  explicit IceGatherer(std::unique_ptr<PortAllocator> port_allocator);
+  PortAllocatorSession* port_allocator_session() override {
+    return port_allocator_session_.get();
+  }
+  // Only for tests
+  PortAllocator* port_allocator() { return port_allocator_.get(); }
+
+ private:
+  std::unique_ptr<PortAllocator> port_allocator_;
+  std::unique_ptr<PortAllocatorSession> port_allocator_session_;
+};
+
 }  // namespace cricket
 
 #endif  // P2P_BASE_PORT_ALLOCATOR_H_

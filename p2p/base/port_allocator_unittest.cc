@@ -305,3 +305,61 @@ TEST_F(PortAllocatorTest, RestrictIceCredentialsChange) {
                                           credentials[0].pwd));
   allocator_->DiscardCandidatePool();
 }
+
+TEST_F(PortAllocatorTest, IceGathererInit) {
+  cricket::IceGatherer::Config default_config;
+  auto default_gatherer = cricket::IceGatherer::CreateAndInitialize(
+      std::make_unique<cricket::FakePortAllocator>(rtc::Thread::Current(),
+                                                   nullptr),
+      default_config);
+
+  ASSERT_TRUE(default_gatherer->port_allocator());
+  EXPECT_EQ(default_gatherer->port_allocator()->stun_servers().size(), 0u);
+  EXPECT_EQ(default_gatherer->port_allocator()->turn_servers().size(), 0u);
+  EXPECT_EQ(default_gatherer->port_allocator()->flags(),
+            uint32_t(cricket::PORTALLOCATOR_ENABLE_SHARED_SOCKET |
+                     cricket::PORTALLOCATOR_ENABLE_IPV6 |
+                     cricket::PORTALLOCATOR_ENABLE_IPV6_ON_WIFI));
+  EXPECT_EQ(default_gatherer->port_allocator()->step_delay(),
+            cricket::kMinimumStepDelay);
+  EXPECT_EQ(default_gatherer->port_allocator()->candidate_filter(),
+            cricket::CF_ALL);
+  EXPECT_EQ(default_gatherer->port_allocator()->candidate_pool_size(), 0);
+  EXPECT_EQ(default_gatherer->port_allocator()->turn_port_prune_policy(),
+            webrtc::NO_PRUNE);
+  EXPECT_EQ(default_gatherer->port_allocator()->turn_customizer(), nullptr);
+
+  cricket::IceGatherer::Config config;
+  config.stun_servers = {stun_server_1};
+  config.relay_servers = {turn_server_1};
+  config.relay_only = true;
+  config.disable_tcp = true;
+  config.disable_costly_networks = true;
+  config.disable_ipv6 = true;
+  config.turn_port_prune_policy = webrtc::PRUNE_BASED_ON_PRIORITY;
+  config.stun_candidate_keepalive_interval = 30000;
+  auto gatherer = cricket::IceGatherer::CreateAndInitialize(
+      std::make_unique<cricket::FakePortAllocator>(rtc::Thread::Current(),
+                                                   nullptr),
+      config);
+
+  ASSERT_TRUE(gatherer->port_allocator());
+  ASSERT_EQ(gatherer->port_allocator()->stun_servers().size(), 1u);
+  ASSERT_EQ(gatherer->port_allocator()->turn_servers().size(), 1u);
+  EXPECT_EQ(gatherer->port_allocator()->turn_servers()[0], turn_server_1);
+  EXPECT_EQ(gatherer->port_allocator()->flags(),
+            uint32_t(cricket::PORTALLOCATOR_ENABLE_SHARED_SOCKET |
+                     cricket::PORTALLOCATOR_ENABLE_IPV6 |
+                     cricket::PORTALLOCATOR_ENABLE_IPV6_ON_WIFI |
+                     cricket::PORTALLOCATOR_DISABLE_TCP |
+                     cricket::PORTALLOCATOR_DISABLE_COSTLY_NETWORKS));
+  EXPECT_EQ(gatherer->port_allocator()->step_delay(),
+            cricket::kMinimumStepDelay);
+  EXPECT_EQ(gatherer->port_allocator()->candidate_filter(), cricket::CF_RELAY);
+  EXPECT_EQ(gatherer->port_allocator()->candidate_pool_size(), 0);
+  EXPECT_EQ(gatherer->port_allocator()->turn_port_prune_policy(),
+            webrtc::PRUNE_BASED_ON_PRIORITY);
+  EXPECT_EQ(gatherer->port_allocator()->turn_customizer(), nullptr);
+  EXPECT_EQ(gatherer->port_allocator()->stun_candidate_keepalive_interval(),
+            30000);
+}

@@ -2601,7 +2601,12 @@ void PeerConnection::DoSetLocalDescription(
   // MaybeStartGathering needs to be called after posting
   // MSG_SET_SESSIONDESCRIPTION_SUCCESS, so that we don't signal any candidates
   // before signaling that SetLocalDescription completed.
-  transport_controller_->MaybeStartGathering();
+  if (shared_ice_gatherer_) {
+    transport_controller_->StartGatheringWithSharedIceGatherer(
+        std::move(shared_ice_gatherer_));
+  } else {
+    transport_controller_->MaybeStartGathering();
+  }
 
   if (local_description()->GetType() == SdpType::kAnswer) {
     // TODO(deadbeef): We already had to hop to the network thread for
@@ -4892,11 +4897,19 @@ void PeerConnection::GetOptionsForOffer(
 
   session_options->rtcp_cname = rtcp_cname_;
   session_options->crypto_options = GetCryptoOptions();
-  session_options->pooled_ice_credentials =
-      network_thread()->Invoke<std::vector<cricket::IceParameters>>(
-          RTC_FROM_HERE,
-          rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
-                    port_allocator_.get()));
+  if (shared_ice_gatherer_) {
+    session_options->ice_credentials.push_back(cricket::IceParameters(
+        shared_ice_gatherer_->port_allocator_session()->ice_ufrag(),
+        shared_ice_gatherer_->port_allocator_session()->ice_pwd(),
+        configuration_.enable_ice_renomination));
+  } else {
+    session_options->ice_credentials =
+        network_thread()->Invoke<std::vector<cricket::IceParameters>>(
+            RTC_FROM_HERE,
+            rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
+                      port_allocator_.get()));
+  }
+
   session_options->offer_extmap_allow_mixed =
       configuration_.offer_extmap_allow_mixed;
 
@@ -5212,12 +5225,18 @@ void PeerConnection::GetOptionsForAnswer(
 
   session_options->rtcp_cname = rtcp_cname_;
   session_options->crypto_options = GetCryptoOptions();
-  session_options->pooled_ice_credentials =
-      network_thread()->Invoke<std::vector<cricket::IceParameters>>(
-          RTC_FROM_HERE,
-          rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
-                    port_allocator_.get()));
-
+  if (shared_ice_gatherer_) {
+    session_options->ice_credentials.push_back(cricket::IceParameters(
+        shared_ice_gatherer_->port_allocator_session()->ice_ufrag(),
+        shared_ice_gatherer_->port_allocator_session()->ice_pwd(),
+        configuration_.enable_ice_renomination));
+  } else {
+    session_options->ice_credentials =
+        network_thread()->Invoke<std::vector<cricket::IceParameters>>(
+            RTC_FROM_HERE,
+            rtc::Bind(&cricket::PortAllocator::GetPooledIceCredentials,
+                      port_allocator_.get()));
+  }
   // If datagram transport is in use, add opaque transport parameters.
   if (use_datagram_transport_ || use_datagram_transport_for_data_channels_) {
     for (auto& options : session_options->media_description_options) {
@@ -7351,6 +7370,12 @@ void PeerConnection::ClearStatsCache() {
   if (stats_collector_) {
     stats_collector_->ClearCachedStatsReport();
   }
+}
+
+void PeerConnection::UseSharedIceGatherer(
+    rtc::scoped_refptr<cricket::IceGathererInterface> shared_ice_gatherer) {
+  RTC_DCHECK(shared_ice_gatherer);
+  shared_ice_gatherer_ = std::move(shared_ice_gatherer);
 }
 
 void PeerConnection::RequestUsagePatternReportForTesting() {

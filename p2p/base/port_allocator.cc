@@ -333,4 +333,44 @@ Candidate PortAllocator::SanitizeCandidate(const Candidate& c) const {
   return c.ToSanitizedCopy(use_hostname_address, filter_related_address);
 }
 
+// static
+rtc::scoped_refptr<IceGatherer> IceGatherer::CreateAndInitialize(
+    std::unique_ptr<PortAllocator> port_allocator,
+    IceGatherer::Config config) {
+  // The following is a simplified version of
+  // PeerConnection::InitializePortAllocator_n. We ought to find a way to
+  // deduplicate it.
+  port_allocator->Initialize();
+  int flags = port_allocator->flags();
+  flags |= cricket::PORTALLOCATOR_ENABLE_SHARED_SOCKET;
+  flags |= cricket::PORTALLOCATOR_ENABLE_IPV6;
+  flags |= cricket::PORTALLOCATOR_ENABLE_IPV6_ON_WIFI;
+  if (config.disable_tcp) {
+    flags |= cricket::PORTALLOCATOR_DISABLE_TCP;
+  }
+  if (config.disable_costly_networks) {
+    flags |= cricket::PORTALLOCATOR_DISABLE_COSTLY_NETWORKS;
+  }
+  port_allocator->set_flags(flags);
+  port_allocator->set_step_delay(cricket::kMinimumStepDelay);
+  if (config.relay_only) {
+    port_allocator->SetCandidateFilter(CF_RELAY);
+  }
+  port_allocator->SetConfiguration(
+      config.stun_servers, config.relay_servers, 0 /* candidate_pool_size */,
+      config.turn_port_prune_policy.value_or(webrtc::NO_PRUNE),
+      nullptr /* turn_customizer */, config.stun_candidate_keepalive_interval);
+  return new rtc::RefCountedObject<IceGatherer>(std::move(port_allocator));
+}
+
+IceGatherer::IceGatherer(std::unique_ptr<PortAllocator> port_allocator)
+    : port_allocator_(std::move(port_allocator)) {
+  RTC_DCHECK(port_allocator_);
+  IceParameters parameters =
+      IceCredentialsIterator::CreateRandomIceCredentials();
+  port_allocator_session_ = port_allocator_->CreateSession(
+      "shared", 1, parameters.ufrag, parameters.pwd);
+  RTC_DCHECK(port_allocator_session_);
+}
+
 }  // namespace cricket

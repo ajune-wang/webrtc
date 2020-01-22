@@ -338,6 +338,18 @@ PeerConnectionFactory::CreateSctpTransportInternalFactory() {
 #endif
 }
 
+rtc::scoped_refptr<cricket::IceGathererInterface>
+PeerConnectionFactory::CreateIceGatherer(cricket::IceGatherer::Config config) {
+  return network_thread_
+      ->Invoke<rtc::scoped_refptr<cricket::IceGathererInterface>>(
+          RTC_FROM_HERE, [this, config]() {
+            auto port_allocator = std::make_unique<cricket::BasicPortAllocator>(
+                default_network_manager_.get(), default_socket_factory_.get());
+            return cricket::IceGatherer::CreateAndInitialize(
+                std::move(port_allocator), config);
+          });
+}
+
 cricket::ChannelManager* PeerConnectionFactory::channel_manager() {
   return channel_manager_.get();
 }

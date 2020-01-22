@@ -155,7 +155,7 @@ void RtpReplayer::ReplayPackets(rtc::FakeClock* clock,
     if (deliver_in_ms > 0) {
       // StatsCounter::ReportMetricToAggregatedCounter is O(elapsed time).
       // Set an upper limit to prevent waste time.
-      clock->AdvanceTime(webrtc::TimeDelta::ms(
+      clock->AdvanceTime(webrtc::TimeDelta::Milliseconds(
           std::min(deliver_in_ms, static_cast<int64_t>(100))));
     }
 

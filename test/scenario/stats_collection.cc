@@ -121,7 +121,7 @@ void VideoLayerAnalyzer::HandleRenderedFrame(const VideoFramePair& sample) {
     RTC_DCHECK(sample.render_time.IsFinite());
     TimeDelta render_interval = sample.render_time - last_render_time_;
     TimeDelta mean_interval = stats_.render.frames.interval().Mean();
-    if (render_interval > TimeDelta::ms(150) + mean_interval ||
+    if (render_interval > TimeDelta::Milliseconds(150) + mean_interval ||
         render_interval > 3 * mean_interval) {
       stats_.freeze_duration.AddSample(render_interval);
       stats_.time_between_freezes.AddSample(last_render_time_ -
@@ -136,9 +136,10 @@ void CallStatsCollector::AddStats(Call::Stats sample) {
   if (sample.send_bandwidth_bps > 0)
     stats_.target_rate.AddSampleBps(sample.send_bandwidth_bps);
   if (sample.pacer_delay_ms > 0)
-    stats_.pacer_delay.AddSample(TimeDelta::ms(sample.pacer_delay_ms));
+    stats_.pacer_delay.AddSample(
+        TimeDelta::Milliseconds(sample.pacer_delay_ms));
   if (sample.rtt_ms > 0)
-    stats_.round_trip_time.AddSample(TimeDelta::ms(sample.rtt_ms));
+    stats_.round_trip_time.AddSample(TimeDelta::Milliseconds(sample.rtt_ms));
   stats_.memory_usage.AddSample(rtc::GetProcessResidentSizeBytes());
 }
 

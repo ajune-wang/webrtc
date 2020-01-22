@@ -24,7 +24,7 @@ constexpr int kNotReceived = PacketDeliveryInfo::kNotReceived;
 }
 
 TEST(SimulatedNetworkTest, CodelDoesNothingAtCapacity) {
-  const TimeDelta kRuntime = TimeDelta::seconds(30);
+  const TimeDelta kRuntime = TimeDelta::Seconds(30);
 
   DataRate link_capacity = DataRate::kbps(1000);
   const DataSize packet_size = DataSize::bytes(1000);
@@ -37,7 +37,7 @@ TEST(SimulatedNetworkTest, CodelDoesNothingAtCapacity) {
 
   // Need to round up here as otherwise we actually will choke.
   const TimeDelta packet_inverval =
-      packet_size / link_capacity + TimeDelta::ms(1);
+      packet_size / link_capacity + TimeDelta::Milliseconds(1);
 
   // Send at capacity and see we get no loss.
   Timestamp start_time = Timestamp::ms(0);
@@ -77,8 +77,8 @@ TEST(SimulatedNetworkTest, CodelDoesNothingAtCapacity) {
 }
 
 TEST(SimulatedNetworkTest, CodelLimitsDelayAndDropsPacketsOnOverload) {
-  const TimeDelta kRuntime = TimeDelta::seconds(30);
-  const TimeDelta kCheckInterval = TimeDelta::ms(2000);
+  const TimeDelta kRuntime = TimeDelta::Seconds(30);
+  const TimeDelta kCheckInterval = TimeDelta::Milliseconds(2000);
 
   DataRate link_capacity = DataRate::kbps(1000);
   const DataSize rough_packet_size = DataSize::bytes(1500);
@@ -130,7 +130,8 @@ TEST(SimulatedNetworkTest, CodelLimitsDelayAndDropsPacketsOnOverload) {
     if (current_time > last_check + kCheckInterval) {
       last_check = current_time;
       TimeDelta average_delay =
-          TimeDelta::us(absl::c_accumulate(delays_us, 0)) / delays_us.size();
+          TimeDelta::Microseconds(absl::c_accumulate(delays_us, 0)) /
+          delays_us.size();
       double loss_ratio = static_cast<double>(lost) / (lost + delays_us.size());
       EXPECT_LT(average_delay.ms(), 200)
           << "Time " << (current_time - start_time).ms() << "\n";

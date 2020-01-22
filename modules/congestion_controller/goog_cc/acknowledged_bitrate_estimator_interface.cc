@@ -27,10 +27,10 @@ RobustThroughputEstimatorSettings::RobustThroughputEstimatorSettings(
                         << " packets";
     min_packets = 20;
   }
-  if (window_duration < TimeDelta::ms(100) ||
-      TimeDelta::ms(2000) < window_duration) {
+  if (window_duration < TimeDelta::Milliseconds(100) ||
+      TimeDelta::Milliseconds(2000) < window_duration) {
     RTC_LOG(LS_WARNING) << "Window duration must be between 100 and 2000 ms";
-    window_duration = TimeDelta::ms(500);
+    window_duration = TimeDelta::Milliseconds(500);
   }
 }
 

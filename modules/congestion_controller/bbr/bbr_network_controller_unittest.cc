@@ -126,11 +126,12 @@ TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
   config.transport.rates.start_rate = DataRate::kbps(300);
   auto send_net = s.CreateMutableSimulationNode([](NetworkSimulationConfig* c) {
     c->bandwidth = DataRate::kbps(500);
-    c->delay = TimeDelta::ms(100);
+    c->delay = TimeDelta::Milliseconds(100);
     c->loss_rate = 0.0;
   });
-  auto ret_net = s.CreateMutableSimulationNode(
-      [](NetworkSimulationConfig* c) { c->delay = TimeDelta::ms(100); });
+  auto ret_net = s.CreateMutableSimulationNode([](NetworkSimulationConfig* c) {
+    c->delay = TimeDelta::Milliseconds(100);
+  });
   auto* client = s.CreateClient("send", config);
   const DataSize kOverhead = DataSize::bytes(38);  // IPV4 + UDP + SRTP
   auto routes = s.CreateRoutes(client, {send_net->node()}, kOverhead,
@@ -138,25 +139,26 @@ TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
                                {ret_net->node()}, kOverhead);
   s.CreateVideoStream(routes->forward(), VideoStreamConfig());
 
-  s.RunFor(TimeDelta::seconds(25));
+  s.RunFor(TimeDelta::Seconds(25));
   EXPECT_NEAR(client->send_bandwidth().kbps(), 450, 100);
 
   send_net->UpdateConfig([](NetworkSimulationConfig* c) {
     c->bandwidth = DataRate::kbps(800);
-    c->delay = TimeDelta::ms(100);
+    c->delay = TimeDelta::Milliseconds(100);
   });
 
-  s.RunFor(TimeDelta::seconds(20));
+  s.RunFor(TimeDelta::Seconds(20));
   EXPECT_NEAR(client->send_bandwidth().kbps(), 750, 150);
 
   send_net->UpdateConfig([](NetworkSimulationConfig* c) {
     c->bandwidth = DataRate::kbps(200);
-    c->delay = TimeDelta::ms(200);
+    c->delay = TimeDelta::Milliseconds(200);
   });
-  ret_net->UpdateConfig(
-      [](NetworkSimulationConfig* c) { c->delay = TimeDelta::ms(200); });
+  ret_net->UpdateConfig([](NetworkSimulationConfig* c) {
+    c->delay = TimeDelta::Milliseconds(200);
+  });
 
-  s.RunFor(TimeDelta::seconds(35));
+  s.RunFor(TimeDelta::Seconds(35));
   EXPECT_NEAR(client->send_bandwidth().kbps(), 170, 50);
 }
 

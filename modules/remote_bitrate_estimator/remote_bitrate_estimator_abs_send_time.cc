@@ -391,7 +391,7 @@ void RemoteBitrateEstimatorAbsSendTime::TimeoutStreams(int64_t now_ms) {
 void RemoteBitrateEstimatorAbsSendTime::OnRttUpdate(int64_t avg_rtt_ms,
                                                     int64_t max_rtt_ms) {
   rtc::CritScope lock(&crit_);
-  remote_rate_.SetRtt(TimeDelta::ms(avg_rtt_ms));
+  remote_rate_.SetRtt(TimeDelta::Milliseconds(avg_rtt_ms));
 }
 
 void RemoteBitrateEstimatorAbsSendTime::RemoveStream(uint32_t ssrc) {

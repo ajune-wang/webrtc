@@ -32,7 +32,7 @@ TEST(TimeUtilTest, TimeMicrosToNtpDoesntChangeBetweenRuns) {
 TEST(TimeUtilTest, TimeMicrosToNtpKeepsIntervals) {
   rtc::ScopedFakeClock clock;
   NtpTime time_ntp1 = TimeMicrosToNtp(rtc::TimeMicros());
-  clock.AdvanceTime(TimeDelta::ms(20));
+  clock.AdvanceTime(TimeDelta::Milliseconds(20));
   NtpTime time_ntp2 = TimeMicrosToNtp(rtc::TimeMicros());
   EXPECT_EQ(time_ntp2.ToMs() - time_ntp1.ToMs(), 20);
 }

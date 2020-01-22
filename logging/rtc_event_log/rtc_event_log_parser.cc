@@ -2083,7 +2083,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
     // If we have a large time delta, it can be caused by a gap in logging,
     // therefore we don't want to match up sequence numbers as we might have had
     // a wraparound.
-    if (new_log_time - last_log_time > TimeDelta::seconds(30)) {
+    if (new_log_time - last_log_time > TimeDelta::Seconds(30)) {
       seq_num_unwrapper = SequenceNumberUnwrapper();
       indices.clear();
     }
@@ -2144,7 +2144,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
         if (!last_feedback_base_time_us) {
           feedback_base_time = log_feedback_time;
         } else {
-          feedback_base_time += TimeDelta::us(
+          feedback_base_time += TimeDelta::Microseconds(
               feedback.GetBaseDeltaUs(*last_feedback_base_time_us));
         }
         last_feedback_base_time_us = feedback.GetBaseTimeUs();
@@ -2163,13 +2163,13 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
           }
           LoggedPacketInfo* sent = &packets[it->second];
           if (log_feedback_time - sent->log_packet_time >
-              TimeDelta::seconds(60)) {
+              TimeDelta::Seconds(60)) {
             RTC_LOG(LS_WARNING)
                 << "Received very late feedback, possibly due to wraparound.";
             continue;
           }
           if (packet.received()) {
-            receive_timestamp += TimeDelta::us(packet.delta_us());
+            receive_timestamp += TimeDelta::Microseconds(packet.delta_us());
             if (sent->reported_recv_time.IsInfinite()) {
               sent->reported_recv_time = Timestamp::ms(receive_timestamp.ms());
               sent->log_feedback_time = log_feedback_time;

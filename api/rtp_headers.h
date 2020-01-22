@@ -111,7 +111,8 @@ struct RTPHeaderExtension {
     RTC_DCHECK(previous_sendtime < (1ul << 24));
     int32_t delta =
         static_cast<int32_t>((absoluteSendTime - previous_sendtime) << 8) >> 8;
-    return TimeDelta::us((delta * 1000000ll) / (1 << kAbsSendTimeFraction));
+    return TimeDelta::Microseconds((delta * 1000000ll) /
+                                   (1 << kAbsSendTimeFraction));
   }
 
   bool hasTransmissionTimeOffset;

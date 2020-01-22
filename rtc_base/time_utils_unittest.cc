@@ -245,13 +245,13 @@ TEST(FakeClock, SetTime) {
 
 TEST(FakeClock, AdvanceTime) {
   FakeClock clock;
-  clock.AdvanceTime(webrtc::TimeDelta::us(1u));
+  clock.AdvanceTime(webrtc::TimeDelta::Microseconds(1u));
   EXPECT_EQ(1000, clock.TimeNanos());
-  clock.AdvanceTime(webrtc::TimeDelta::us(2222u));
+  clock.AdvanceTime(webrtc::TimeDelta::Microseconds(2222u));
   EXPECT_EQ(2223000, clock.TimeNanos());
-  clock.AdvanceTime(webrtc::TimeDelta::ms(3333u));
+  clock.AdvanceTime(webrtc::TimeDelta::Milliseconds(3333u));
   EXPECT_EQ(3335223000, clock.TimeNanos());
-  clock.AdvanceTime(webrtc::TimeDelta::seconds(4444u));
+  clock.AdvanceTime(webrtc::TimeDelta::Seconds(4444u));
   EXPECT_EQ(4447335223000, clock.TimeNanos());
 }
 
@@ -282,7 +282,7 @@ TEST(FakeClock, SettingTimeWakesThreads) {
 
   // Advance the fake clock, expecting the worker thread to wake up
   // and dispatch the message instantly.
-  clock.AdvanceTime(webrtc::TimeDelta::seconds(60u));
+  clock.AdvanceTime(webrtc::TimeDelta::Seconds(60u));
   EXPECT_TRUE(message_handler_dispatched.Wait(0));
   worker->Stop();
 

@@ -39,7 +39,7 @@ void LogBasedNetworkControllerSimulation::ProcessUntil(Timestamp to_time) {
     controller_ = factory_->Create(config);
   }
   if (last_process_.IsInfinite() ||
-      to_time - last_process_ > TimeDelta::seconds(1)) {
+      to_time - last_process_ > TimeDelta::Seconds(1)) {
     last_process_ = to_time;
     current_time_ = to_time;
     ProcessInterval msg;
@@ -150,7 +150,7 @@ void LogBasedNetworkControllerSimulation::OnReceiverReport(
           CompactNtp(TimeMicrosToNtp(report.log_time_us()));
       uint32_t rtt_ntp =
           receive_time_ntp - rb.delay_since_last_sr() - rb.last_sr();
-      rtt = std::min(rtt, TimeDelta::ms(CompactNtpRttToMs(rtt_ntp)));
+      rtt = std::min(rtt, TimeDelta::Milliseconds(CompactNtpRttToMs(rtt_ntp)));
     }
   }
   if (rtt.IsFinite()) {

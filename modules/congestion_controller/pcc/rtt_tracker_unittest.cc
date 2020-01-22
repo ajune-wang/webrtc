@@ -16,7 +16,7 @@ namespace webrtc {
 namespace pcc {
 namespace test {
 namespace {
-const TimeDelta kInitialRtt = TimeDelta::us(10);
+const TimeDelta kInitialRtt = TimeDelta::Microseconds(10);
 constexpr double kAlpha = 0.9;
 const Timestamp kStartTime = Timestamp::seconds(0);
 
@@ -53,7 +53,7 @@ TEST(PccRttTrackerTest, DoNothingWhenPacketIsLost) {
 
 TEST(PccRttTrackerTest, ChangeInRtt) {
   RttTracker tracker{kInitialRtt, kAlpha};
-  const TimeDelta kNewRtt = TimeDelta::us(100);
+  const TimeDelta kNewRtt = TimeDelta::Microseconds(100);
   tracker.OnPacketsFeedback({GetPacketWithRtt(kNewRtt)}, kStartTime + kNewRtt);
   EXPECT_GT(tracker.GetRtt(), kInitialRtt);
   EXPECT_LE(tracker.GetRtt(), kNewRtt);
@@ -61,7 +61,7 @@ TEST(PccRttTrackerTest, ChangeInRtt) {
     tracker.OnPacketsFeedback({GetPacketWithRtt(kNewRtt)},
                               kStartTime + kNewRtt);
   }
-  const TimeDelta absolute_error = TimeDelta::us(1);
+  const TimeDelta absolute_error = TimeDelta::Microseconds(1);
   EXPECT_NEAR(tracker.GetRtt().us(), kNewRtt.us(), absolute_error.us());
   EXPECT_LE(tracker.GetRtt(), kNewRtt);
 }

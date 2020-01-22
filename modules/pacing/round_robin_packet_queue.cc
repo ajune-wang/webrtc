@@ -225,7 +225,7 @@ void RoundRobinPacketQueue::UpdateQueueTime(Timestamp now) {
   if (paused_) {
     pause_time_sum_ += delta;
   } else {
-    queue_time_sum_ += TimeDelta::us(delta.us() * size_packets_);
+    queue_time_sum_ += TimeDelta::Microseconds(delta.us() * size_packets_);
   }
 
   time_last_updated_ = now;

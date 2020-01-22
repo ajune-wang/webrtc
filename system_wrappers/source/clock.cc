@@ -262,11 +262,11 @@ int64_t SimulatedClock::CurrentNtpInMilliseconds() {
 }
 
 void SimulatedClock::AdvanceTimeMilliseconds(int64_t milliseconds) {
-  AdvanceTime(TimeDelta::ms(milliseconds));
+  AdvanceTime(TimeDelta::Milliseconds(milliseconds));
 }
 
 void SimulatedClock::AdvanceTimeMicroseconds(int64_t microseconds) {
-  AdvanceTime(TimeDelta::us(microseconds));
+  AdvanceTime(TimeDelta::Microseconds(microseconds));
 }
 
 void SimulatedClock::AdvanceTime(TimeDelta delta) {

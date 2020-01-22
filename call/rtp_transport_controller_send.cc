@@ -32,7 +32,7 @@ namespace {
 static const int64_t kRetransmitWindowSizeMs = 500;
 static const size_t kMaxOverheadBytes = 500;
 
-constexpr TimeDelta kPacerQueueUpdateInterval = TimeDelta::Millis<25>();
+constexpr TimeDelta kPacerQueueUpdateInterval = TimeDelta::Milliseconds(25);
 
 TargetRateConstraints ConvertConstraints(int min_bitrate_bps,
                                          int max_bitrate_bps,
@@ -225,7 +225,7 @@ void RtpTransportControllerSend::SetPacingFactor(float pacing_factor) {
   UpdateStreamsConfig();
 }
 void RtpTransportControllerSend::SetQueueTimeLimit(int limit_ms) {
-  pacer()->SetQueueTimeLimit(TimeDelta::ms(limit_ms));
+  pacer()->SetQueueTimeLimit(TimeDelta::Milliseconds(limit_ms));
 }
 StreamFeedbackProvider*
 RtpTransportControllerSend::GetStreamFeedbackProvider() {
@@ -458,7 +458,7 @@ void RtpTransportControllerSend::OnReceivedRtcpReceiverReport(
     RTC_DCHECK_RUN_ON(&task_queue_);
     RoundTripTimeUpdate report;
     report.receive_time = Timestamp::ms(now_ms);
-    report.round_trip_time = TimeDelta::ms(rtt_ms);
+    report.round_trip_time = TimeDelta::Milliseconds(rtt_ms);
     report.smoothed = false;
     if (controller_ && !report.round_trip_time.IsZero())
       PostUpdates(controller_->OnRoundTripTimeUpdate(report));

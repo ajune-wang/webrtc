@@ -56,10 +56,14 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
 
  private:
   struct TransportWideFeedbackConfig {
-    FieldTrialParameter<TimeDelta> back_window{"wind", TimeDelta::ms(500)};
-    FieldTrialParameter<TimeDelta> min_interval{"min", TimeDelta::ms(50)};
-    FieldTrialParameter<TimeDelta> max_interval{"max", TimeDelta::ms(250)};
-    FieldTrialParameter<TimeDelta> default_interval{"def", TimeDelta::ms(100)};
+    FieldTrialParameter<TimeDelta> back_window{"wind",
+                                               TimeDelta::Milliseconds(500)};
+    FieldTrialParameter<TimeDelta> min_interval{"min",
+                                                TimeDelta::Milliseconds(50)};
+    FieldTrialParameter<TimeDelta> max_interval{"max",
+                                                TimeDelta::Milliseconds(250)};
+    FieldTrialParameter<TimeDelta> default_interval{
+        "def", TimeDelta::Milliseconds(100)};
     FieldTrialParameter<double> bandwidth_fraction{"frac", 0.05};
     explicit TransportWideFeedbackConfig(
         const WebRtcKeyValueConfig* key_value_config) {

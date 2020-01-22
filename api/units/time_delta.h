@@ -19,6 +19,7 @@
 #include <string>
 #include <type_traits>
 
+#include "rtc_base/deprecation.h"
 #include "rtc_base/units/unit_base.h"
 
 namespace webrtc {
@@ -32,34 +33,46 @@ namespace webrtc {
 // microseconds (us).
 class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
  public:
+  static constexpr TimeDelta Microseconds(int64_t value) {
+    return FromValue(value);
+  }
+  static constexpr TimeDelta Milliseconds(int64_t value) {
+    return FromFraction(1'000, value);
+  }
+  static constexpr TimeDelta Seconds(int64_t value) {
+    return FromFraction(1'000'000, value);
+  }
+
   TimeDelta() = delete;
+
   template <int64_t seconds>
-  static constexpr TimeDelta Seconds() {
+  RTC_DEPRECATED static constexpr TimeDelta Seconds() {
     return FromFraction(1'000'000, seconds);
   }
   template <int64_t ms>
-  static constexpr TimeDelta Millis() {
+  RTC_DEPRECATED static constexpr TimeDelta Millis() {
     return FromFraction(1000, ms);
   }
   template <int64_t us>
-  static constexpr TimeDelta Micros() {
+  RTC_DEPRECATED static constexpr TimeDelta Micros() {
     return FromValue(us);
   }
   template <typename T>
-  static TimeDelta seconds(T seconds) {
+  RTC_DEPRECATED static TimeDelta seconds(T seconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1'000'000, seconds);
   }
   template <typename T>
-  static TimeDelta ms(T milliseconds) {
+  RTC_DEPRECATED static TimeDelta ms(T milliseconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1000, milliseconds);
   }
   template <typename T>
-  static TimeDelta us(T microseconds) {
+  RTC_DEPRECATED static TimeDelta us(T microseconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromValue(microseconds);
   }
+
   template <typename T = int64_t>
   T seconds() const {
     return ToFraction<1000000, T>();
@@ -87,7 +100,7 @@ class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
     return ToValueOr(fallback_value);
   }
 
-  TimeDelta Abs() const { return TimeDelta::us(std::abs(us())); }
+  TimeDelta Abs() const { return TimeDelta::Microseconds(std::abs(us())); }
 
  private:
   friend class rtc_units_impl::UnitBase<TimeDelta>;

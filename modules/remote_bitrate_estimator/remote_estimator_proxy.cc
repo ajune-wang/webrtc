@@ -117,7 +117,7 @@ void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
     // send time.
     abs_send_timestamp_ += std::max(
         header.extension.GetAbsoluteSendTimeDelta(previous_abs_send_time_),
-        TimeDelta::ms(0));
+        TimeDelta::Milliseconds(0));
     previous_abs_send_time_ = header.extension.absoluteSendTime;
     packet_result.sent_packet.send_time = abs_send_timestamp_;
     // TODO(webrtc:10742): Take IP header and transport overhead into account.

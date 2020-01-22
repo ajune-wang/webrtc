@@ -69,7 +69,8 @@ inline TimeDelta operator/(int64_t nominator, const Frequency& frequency) {
   RTC_DCHECK_LE(nominator, std::numeric_limits<int64_t>::max() / kMegaPerMilli);
   RTC_CHECK(frequency.IsFinite());
   RTC_CHECK(!frequency.IsZero());
-  return TimeDelta::us(nominator * kMegaPerMilli / frequency.millihertz());
+  return TimeDelta::Microseconds(nominator * kMegaPerMilli /
+                                 frequency.millihertz());
 }
 
 std::string ToString(Frequency value);

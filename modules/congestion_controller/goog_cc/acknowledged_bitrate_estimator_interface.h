@@ -47,7 +47,7 @@ struct RobustThroughputEstimatorSettings {
   // The estimator window keeps at least |min_packets| packets and up to
   // kMaxPackets received during the last |window_duration|.
   unsigned min_packets = 20;
-  TimeDelta window_duration = TimeDelta::ms(500);
+  TimeDelta window_duration = TimeDelta::Milliseconds(500);
 
   std::unique_ptr<StructParametersParser> Parser();
 };

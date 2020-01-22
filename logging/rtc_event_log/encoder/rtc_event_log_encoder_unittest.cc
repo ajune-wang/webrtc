@@ -800,7 +800,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpReceiverReport) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =
@@ -839,7 +839,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpSenderReport) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =
@@ -878,7 +878,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpExtendedReports) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =
@@ -917,7 +917,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpFir) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =
@@ -955,7 +955,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpPli) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =
@@ -993,7 +993,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpNack) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =
@@ -1031,7 +1031,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpRemb) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =
@@ -1070,7 +1070,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpTransportFeedback) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =
@@ -1111,7 +1111,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventRtcpLossNotification) {
         history_.push_back(
             std::make_unique<RtcEventRtcpPacketOutgoing>(buffer));
       }
-      fake_clock.AdvanceTime(TimeDelta::ms(prng_.Rand(0, 1000)));
+      fake_clock.AdvanceTime(TimeDelta::Milliseconds(prng_.Rand(0, 1000)));
     }
 
     std::string encoded =

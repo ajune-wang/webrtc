@@ -115,7 +115,7 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
       RTC_DCHECK(!other.IsMinusInfinity());
       return TimeDelta::MinusInfinity();
     }
-    return TimeDelta::us(us() - other.us());
+    return TimeDelta::Microseconds(us() - other.us());
   }
   Timestamp& operator-=(const TimeDelta delta) {
     *this = *this - delta;

@@ -153,7 +153,7 @@ absl::optional<DataRate> BitrateEstimator::bitrate() const {
 
 absl::optional<DataRate> BitrateEstimator::PeekRate() const {
   if (current_window_ms_ > 0)
-    return DataSize::bytes(sum_) / TimeDelta::ms(current_window_ms_);
+    return DataSize::bytes(sum_) / TimeDelta::Milliseconds(current_window_ms_);
   return absl::nullopt;
 }
 

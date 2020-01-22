@@ -626,7 +626,7 @@ TEST_F(RemoteEstimatorProxyTest, IncomingPacketHandlesWrapInAbsSendTime) {
       AbsoluteSendTime::MsTo24Bits((1 << 24) - 30);
   // Second abs send time has wrapped.
   const uint32_t kSecondAbsSendTime = AbsoluteSendTime::MsTo24Bits((1 << 24));
-  const TimeDelta kExpectedAbsSendTimeDelta = TimeDelta::ms(30);
+  const TimeDelta kExpectedAbsSendTimeDelta = TimeDelta::Milliseconds(30);
 
   Timestamp first_send_timestamp = Timestamp::ms(0);
   EXPECT_CALL(network_state_estimator_, OnReceivedPacket(_))

@@ -51,6 +51,7 @@ rtc_library("time_delta") {
   deps = [
     "..:array_view",
     "../../rtc_base:checks",
+    "../../rtc_base:deprecation",
     "../../rtc_base:stringutils",
     "../../rtc_base/units:unit_base",
   ]

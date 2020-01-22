@@ -294,16 +294,16 @@ TEST_F(TransportFeedbackAdapterTest, TimestampDeltas) {
   std::vector<PacketResult> sent_packets;
   // TODO(srte): Consider using us resolution in the constants.
   const TimeDelta kSmallDelta =
-      TimeDelta::us(rtcp::TransportFeedback::kDeltaScaleFactor * 0xFF)
-          .RoundDownTo(TimeDelta::ms(1));
+      TimeDelta::Microseconds(rtcp::TransportFeedback::kDeltaScaleFactor * 0xFF)
+          .RoundDownTo(TimeDelta::Milliseconds(1));
   const TimeDelta kLargePositiveDelta =
-      TimeDelta::us(rtcp::TransportFeedback::kDeltaScaleFactor *
-                    std::numeric_limits<int16_t>::max())
-          .RoundDownTo(TimeDelta::ms(1));
+      TimeDelta::Microseconds(rtcp::TransportFeedback::kDeltaScaleFactor *
+                              std::numeric_limits<int16_t>::max())
+          .RoundDownTo(TimeDelta::Milliseconds(1));
   const TimeDelta kLargeNegativeDelta =
-      TimeDelta::us(rtcp::TransportFeedback::kDeltaScaleFactor *
-                    std::numeric_limits<int16_t>::min())
-          .RoundDownTo(TimeDelta::ms(1));
+      TimeDelta::Microseconds(rtcp::TransportFeedback::kDeltaScaleFactor *
+                              std::numeric_limits<int16_t>::min())
+          .RoundDownTo(TimeDelta::Milliseconds(1));
 
   PacketResult packet_feedback;
   packet_feedback.sent_packet.sequence_number = 1;
@@ -331,8 +331,9 @@ TEST_F(TransportFeedbackAdapterTest, TimestampDeltas) {
 
   // Too large, delta - will need two feedback messages.
   packet_feedback.sent_packet.send_time +=
-      kLargePositiveDelta + TimeDelta::ms(1);
-  packet_feedback.receive_time += kLargePositiveDelta + TimeDelta::ms(1);
+      kLargePositiveDelta + TimeDelta::Milliseconds(1);
+  packet_feedback.receive_time +=
+      kLargePositiveDelta + TimeDelta::Milliseconds(1);
   ++packet_feedback.sent_packet.sequence_number;
 
   // Packets will be added to send history.

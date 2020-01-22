@@ -318,7 +318,7 @@ class PacingControllerFieldTrialTest
   }
   void ProcessNext(PacingController* pacer) {
     if (GetParam() == PacingController::ProcessMode::kPeriodic) {
-      TimeDelta process_interval = TimeDelta::ms(5);
+      TimeDelta process_interval = TimeDelta::Milliseconds(5);
       clock_.AdvanceTime(process_interval);
       pacer->ProcessPackets();
       return;
@@ -437,7 +437,7 @@ TEST_P(PacingControllerFieldTrialTest, BudgetAffectsAudioInTrial) {
   // Verify delay is near expectation, within timing margin.
   EXPECT_LT(((wait_end_time - wait_start_time) - expected_wait_time).Abs(),
             GetParam() == PacingController::ProcessMode::kPeriodic
-                ? TimeDelta::ms(5)
+                ? TimeDelta::Milliseconds(5)
                 : PacingController::kMinSleepTime);
 }
 
@@ -541,7 +541,7 @@ TEST_P(PacingControllerTest, QueueAndPacePackets) {
   const uint32_t kSsrc = 12345;
   uint16_t sequence_number = 1234;
   const DataSize kPackeSize = DataSize::bytes(250);
-  const TimeDelta kSendInterval = TimeDelta::ms(5);
+  const TimeDelta kSendInterval = TimeDelta::Milliseconds(5);
 
   // Due to the multiplicative factor we can send 5 packets during a 5ms send
   // interval. (send interval * network capacity * multiplier / packet size)
@@ -622,9 +622,9 @@ TEST_P(PacingControllerTest, PaceQueuedPackets) {
     }
   }
   const TimeDelta actual_pace_time = clock_.CurrentTime() - start_time;
-  EXPECT_LT(
-      (actual_pace_time - expected_pace_time).Abs(),
-      PeriodicProcess() ? TimeDelta::ms(5) : PacingController::kMinSleepTime);
+  EXPECT_LT((actual_pace_time - expected_pace_time).Abs(),
+            PeriodicProcess() ? TimeDelta::Milliseconds(5)
+                              : PacingController::kMinSleepTime);
 
   EXPECT_EQ(0u, pacer_->QueueSizePackets());
   clock_.AdvanceTime(TimeUntilNextProcess());
@@ -840,7 +840,7 @@ TEST_P(PacingControllerTest, VerifyAverageBitrateVaryingMediaPayload) {
   uint16_t sequence_number = 1234;
   int64_t capture_time_ms = 56789;
   const int kTimeStep = 5;
-  const TimeDelta kAveragingWindowLength = TimeDelta::seconds(10);
+  const TimeDelta kAveragingWindowLength = TimeDelta::Seconds(10);
   PacingControllerPadding callback;
   pacer_ = std::make_unique<PacingController>(&clock_, &callback, nullptr,
                                               nullptr, GetParam());
@@ -1197,7 +1197,7 @@ TEST_P(PacingControllerTest, Pause) {
   }
 
   // Expect everything to be queued.
-  EXPECT_EQ(TimeDelta::ms(second_capture_time_ms - capture_time_ms),
+  EXPECT_EQ(TimeDelta::Milliseconds(second_capture_time_ms - capture_time_ms),
             pacer_->OldestPacketWaitTime());
 
   // Process triggers keep-alive packet.
@@ -1208,7 +1208,7 @@ TEST_P(PacingControllerTest, Pause) {
   pacer_->ProcessPackets();
 
   // Verify no packets sent for the rest of the paused process interval.
-  const TimeDelta kProcessInterval = TimeDelta::ms(5);
+  const TimeDelta kProcessInterval = TimeDelta::Milliseconds(5);
   TimeDelta expected_time_until_send = PacingController::kPausedProcessInterval;
   EXPECT_CALL(callback_, SendPadding).Times(0);
   while (expected_time_until_send >= kProcessInterval) {
@@ -1303,7 +1303,7 @@ TEST_P(PacingControllerTest, InactiveFromStart) {
       (GetParam() == PacingController::ProcessMode::kDynamic
            ? PacingController::kMinSleepTime
            : TimeDelta::Zero()) +
-      TimeDelta::us(1);
+      TimeDelta::Microseconds(1);
 
   EXPECT_EQ(pacer_->NextSendTime() - start_time,
             PacingController::kPausedProcessInterval);
@@ -1334,8 +1334,8 @@ TEST_P(PacingControllerTest, ExpectedQueueTimeMs) {
   }
 
   // Queue in ms = 1000 * (bytes in queue) *8 / (bits per second)
-  TimeDelta queue_time =
-      TimeDelta::ms(1000 * kNumPackets * kPacketSize * 8 / kMaxBitrate);
+  TimeDelta queue_time = TimeDelta::Milliseconds(1000 * kNumPackets *
+                                                 kPacketSize * 8 / kMaxBitrate);
   EXPECT_EQ(queue_time, pacer_->ExpectedQueueTime());
 
   const Timestamp time_start = clock_.CurrentTime();
@@ -1351,7 +1351,7 @@ TEST_P(PacingControllerTest, ExpectedQueueTimeMs) {
   const TimeDelta deviation =
       duration - PacingController::kMaxExpectedQueueLength;
   EXPECT_LT(deviation.Abs(),
-            TimeDelta::ms(1000 * kPacketSize * 8 / kMaxBitrate));
+            TimeDelta::Milliseconds(1000 * kPacketSize * 8 / kMaxBitrate));
 }
 
 TEST_P(PacingControllerTest, QueueTimeGrowsOverTime) {
@@ -1365,7 +1365,7 @@ TEST_P(PacingControllerTest, QueueTimeGrowsOverTime) {
                       clock_.TimeInMilliseconds(), 1200);
 
   clock_.AdvanceTimeMilliseconds(500);
-  EXPECT_EQ(TimeDelta::ms(500), pacer_->OldestPacketWaitTime());
+  EXPECT_EQ(TimeDelta::Milliseconds(500), pacer_->OldestPacketWaitTime());
   pacer_->ProcessPackets();
   EXPECT_EQ(TimeDelta::Zero(), pacer_->OldestPacketWaitTime());
 }
@@ -1474,7 +1474,7 @@ TEST_P(PacingControllerTest, SkipsProbesWhenProcessIntervalTooLarge) {
   EXPECT_EQ(pacer_->NextSendTime(), probe_time);
 
   // Too high probe delay, drop it!
-  clock_.AdvanceTime(TimeDelta::us(1));
+  clock_.AdvanceTime(TimeDelta::Microseconds(1));
   EXPECT_GT(pacer_->NextSendTime(), probe_time);
 }
 
@@ -1537,7 +1537,7 @@ TEST_P(PacingControllerTest, PaddingOveruse) {
 
   SendAndExpectPacket(RtpPacketToSend::Type::kVideo, ssrc, sequence_number++,
                       clock_.TimeInMilliseconds(), kPacketSize);
-  EXPECT_LT(TimeDelta::ms(5), pacer_->ExpectedQueueTime());
+  EXPECT_LT(TimeDelta::Milliseconds(5), pacer_->ExpectedQueueTime());
   // Don't send padding if queue is non-empty, even if padding budget > 0.
   EXPECT_CALL(callback_, SendPadding).Times(0);
   if (PeriodicProcess()) {
@@ -1720,8 +1720,9 @@ TEST_P(PacingControllerTest, TaskLate) {
 
   // Simulate a late process call, executed just before we allow sending the
   // fourth packet.
-  clock_.AdvanceTime((time_between_packets * 3) -
-                     (PacingController::kMinSleepTime + TimeDelta::ms(1)));
+  clock_.AdvanceTime(
+      (time_between_packets * 3) -
+      (PacingController::kMinSleepTime + TimeDelta::Milliseconds(1)));
 
   EXPECT_CALL(callback_, SendPacket).Times(2);
   pacer_->ProcessPackets();
@@ -1729,10 +1730,10 @@ TEST_P(PacingControllerTest, TaskLate) {
   // Check that next scheduled send time is within sleep-time + 1ms.
   next_send_time = pacer_->NextSendTime();
   EXPECT_LE(next_send_time - clock_.CurrentTime(),
-            PacingController::kMinSleepTime + TimeDelta::ms(1));
+            PacingController::kMinSleepTime + TimeDelta::Milliseconds(1));
 
   // Advance to within error margin for execution.
-  clock_.AdvanceTime(TimeDelta::ms(1));
+  clock_.AdvanceTime(TimeDelta::Milliseconds(1));
   EXPECT_CALL(callback_, SendPacket).Times(1);
   pacer_->ProcessPackets();
 }

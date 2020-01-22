@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <limits>
+
 #include "api/units/timestamp.h"
 #include "test/gtest.h"
 
@@ -132,10 +134,10 @@ TEST(UnitConversionTest, TimestampAndTimeDeltaMath) {
   const int64_t kValueB = 450;
   const Timestamp time_a = Timestamp::ms(kValueA);
   const Timestamp time_b = Timestamp::ms(kValueB);
-  const TimeDelta delta_a = TimeDelta::ms(kValueA);
-  const TimeDelta delta_b = TimeDelta::ms(kValueB);
+  const TimeDelta delta_a = TimeDelta::Milliseconds(kValueA);
+  const TimeDelta delta_b = TimeDelta::Milliseconds(kValueB);
 
-  EXPECT_EQ((time_a - time_b), TimeDelta::ms(kValueA - kValueB));
+  EXPECT_EQ((time_a - time_b), TimeDelta::Milliseconds(kValueA - kValueB));
   EXPECT_EQ((time_b - delta_a), Timestamp::ms(kValueB - kValueA));
   EXPECT_EQ((time_b + delta_a), Timestamp::ms(kValueB + kValueA));
 
@@ -149,7 +151,7 @@ TEST(UnitConversionTest, TimestampAndTimeDeltaMath) {
 TEST(UnitConversionTest, InfinityOperations) {
   const int64_t kValue = 267;
   const Timestamp finite_time = Timestamp::ms(kValue);
-  const TimeDelta finite_delta = TimeDelta::ms(kValue);
+  const TimeDelta finite_delta = TimeDelta::Milliseconds(kValue);
   EXPECT_TRUE((Timestamp::PlusInfinity() + finite_delta).IsInfinite());
   EXPECT_TRUE((Timestamp::PlusInfinity() - finite_delta).IsInfinite());
   EXPECT_TRUE((finite_time + TimeDelta::PlusInfinity()).IsInfinite());

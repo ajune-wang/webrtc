@@ -63,7 +63,7 @@ void SimulatedThread::RunReady(Timestamp at_time) {
   if (delay_ms == kForever) {
     next_run_time_ = Timestamp::PlusInfinity();
   } else {
-    next_run_time_ = at_time + TimeDelta::ms(delay_ms);
+    next_run_time_ = at_time + TimeDelta::Milliseconds(delay_ms);
   }
 }
 

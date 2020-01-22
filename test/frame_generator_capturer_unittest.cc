@@ -39,7 +39,7 @@ TEST(FrameGeneratorCapturerTest, CreateFromConfig) {
   capturer->Start();
   EXPECT_CALL(mock_sink, OnFrame(Property(&VideoFrame::width, Eq(300))))
       .Times(21);
-  time.AdvanceTime(TimeDelta::seconds(1));
+  time.AdvanceTime(TimeDelta::Seconds(1));
 }
 }  // namespace test
 }  // namespace webrtc

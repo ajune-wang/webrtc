@@ -21,7 +21,7 @@
 
 namespace webrtc {
 namespace {
-constexpr TimeDelta kDefaultProcessDelay = TimeDelta::Millis<5>();
+constexpr TimeDelta kDefaultProcessDelay = TimeDelta::Milliseconds(5);
 }  // namespace
 
 CoDelSimulation::CoDelSimulation() = default;
@@ -31,9 +31,9 @@ bool CoDelSimulation::DropDequeuedPacket(Timestamp now,
                                          Timestamp enqueing_time,
                                          DataSize packet_size,
                                          DataSize queue_size) {
-  constexpr TimeDelta kWindow = TimeDelta::Millis<100>();
-  constexpr TimeDelta kDelayThreshold = TimeDelta::Millis<5>();
-  constexpr TimeDelta kDropCountMemory = TimeDelta::Millis<1600>();
+  constexpr TimeDelta kWindow = TimeDelta::Milliseconds(100);
+  constexpr TimeDelta kDelayThreshold = TimeDelta::Milliseconds(5);
+  constexpr TimeDelta kDropCountMemory = TimeDelta::Milliseconds(1600);
   constexpr DataSize kMaxPacketSize = DataSize::Bytes<1500>();
 
   // Compensates for process interval in simulation; not part of standard CoDel.

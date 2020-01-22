@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ad574a28_74bd3ad9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-22T15:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ee7d2bd_bbfebbcd",
+      "range": {
+        "startLine": 10,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "b3cecaa41ea8b8a3079dee8b7f498885be486f5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d563cd88_989c9cee",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-22T11:14:17Z",
       "side": 1,
       "message": "OnFrameDroppedDueToSize()?",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "b3cecaa41ea8b8a3079dee8b7f498885be486f5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3796f261_bc9f9177",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-22T15:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d563cd88_989c9cee",
       "range": {
         "startLine": 11,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a326ca7_4708f8eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-22T15:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "377651d8_c9acc9a8",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "b3cecaa41ea8b8a3079dee8b7f498885be486f5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec752e9d_a9bacdce",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2020-01-22T11:14:17Z",
       "side": 1,
       "message": "OnEncodeCompleted()?",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "b3cecaa41ea8b8a3079dee8b7f498885be486f5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "501c0326_825b8505",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-22T15:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec752e9d_a9bacdce",
       "range": {
         "startLine": 15,
         "startChar": 2,
@@ -114,6 +210,30 @@
       "revId": "b3cecaa41ea8b8a3079dee8b7f498885be486f5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f2a147_7f336ce4",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-22T15:19:03Z",
+      "side": 1,
+      "message": "Done as VideoStreamEncoder::kDefaultLastFrameInfoWidth/Height.",
+      "parentUuid": "e81a6dc2_843a1991",
+      "range": {
+        "startLine": 728,
+        "startChar": 41,
+        "endLine": 728,
+        "endChar": 50
+      },
+      "revId": "b3cecaa41ea8b8a3079dee8b7f498885be486f5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

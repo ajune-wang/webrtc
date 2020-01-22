@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a72a7336_fb3190ad",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T15:35:07Z",
+      "side": 1,
+      "message": "please use same parameter name in defintion and declaration\n(I agree rtp_timestamp is better name than timeStamp in several ways)",
+      "range": {
+        "startLine": 365,
+        "startChar": 39,
+        "endLine": 365,
+        "endChar": 48
+      },
+      "revId": "329497c4f9d40eaa27d94b0179986a03af381f32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea5f4a47_323ab702",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T15:35:07Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 377,
+        "startChar": 43,
+        "endLine": 377,
+        "endChar": 52
+      },
+      "revId": "329497c4f9d40eaa27d94b0179986a03af381f32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

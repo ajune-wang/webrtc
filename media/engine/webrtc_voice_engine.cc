@@ -67,6 +67,8 @@ class ProxySink : public webrtc::AudioSinkInterface {
 
   void OnData(const Data& audio) override { sink_->OnData(audio); }
 
+  int GetNumChannels() const override { return sink_->GetNumChannels(); }
+
  private:
   webrtc::AudioSinkInterface* sink_;
 };
@@ -881,6 +883,10 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
         audio_frame->vad_activity_, number_of_channels);
     stream_->SendAudioData(std::move(audio_frame));
   }
+
+  // AudioSource::Sink implementation.
+  // This method is called on the audio thread.
+  int GetNumChannels() const override { return stream_->GetNumChannels(); }
 
   // Callback from the |source_| when it is going away. In case Start() has
   // never been called, this callback won't be triggered.

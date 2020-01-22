@@ -22,6 +22,30 @@
       "revId": "55abba6c4af388226be7fc5af42da9cdf46221ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb6430b7_402a0d56",
+        "filename": "modules/audio_processing/aec3/subtractor_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-01-22T09:31:49Z",
+      "side": 1,
+      "message": "I agree.\nI added the explicit type instead.",
+      "parentUuid": "6cbf5480_754b7cd8",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 12
+      },
+      "revId": "55abba6c4af388226be7fc5af42da9cdf46221ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

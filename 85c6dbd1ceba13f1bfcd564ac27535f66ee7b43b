@@ -22,6 +22,30 @@
       "revId": "85c6dbd1ceba13f1bfcd564ac27535f66ee7b43b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "449e994a_8afb0b36",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2020-01-22T10:07:46Z",
+      "side": 1,
+      "message": "Earlier (i.e. `first_packet`) is better for the interpolation code on the receiver side.",
+      "parentUuid": "c521f8d7_3571f7e3",
+      "range": {
+        "startLine": 106,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 18
+      },
+      "revId": "85c6dbd1ceba13f1bfcd564ac27535f66ee7b43b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

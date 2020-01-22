@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f7e062a_a1f40329",
+        "filename": "modules/audio_coding/acm2/acm_send_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T14:40:14Z",
+      "side": 1,
+      "message": "triggered by changing the signature of SendData in audio_coding_module.h",
+      "range": {
+        "startLine": 58,
+        "startChar": 27,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "a5e2412836194ba801bb5b09f8234f0829ffbca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ebfbd9a_2a9988d6",
+        "filename": "modules/audio_coding/include/audio_coding_module.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T14:40:14Z",
+      "side": 1,
+      "message": "redefining SendData triggered many changes in test code. That\u0027s why the CL seems big.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 70
+      },
+      "revId": "a5e2412836194ba801bb5b09f8234f0829ffbca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

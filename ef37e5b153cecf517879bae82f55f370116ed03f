@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "503787f1_03a6a78d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T14:40:14Z",
+      "side": 0,
+      "message": "this TODO is ready to make since only use of old SendAudio is in audio coding module.",
+      "revId": "ef37e5b153cecf517879bae82f55f370116ed03f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06496ab5_d7757703",
+        "filename": "api/test/time_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-22T04:25:39Z",
+      "side": 1,
+      "message": "This should go in create_network_emulation_manager.h since it\u0027s only relevant for the factory.",
+      "revId": "3fc87f09f302534721619cb82b34d5b49c80795f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

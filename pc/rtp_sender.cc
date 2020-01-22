@@ -364,7 +364,8 @@ RTCError RtpSenderBase::DisableEncodingLayers(
   return result;
 }
 
-LocalAudioSinkAdapter::LocalAudioSinkAdapter() : sink_(nullptr) {}
+LocalAudioSinkAdapter::LocalAudioSinkAdapter()
+    : num_sink_channels_(-1), sink_(nullptr) {}
 
 LocalAudioSinkAdapter::~LocalAudioSinkAdapter() {
   rtc::CritScope lock(&lock_);
@@ -381,7 +382,15 @@ void LocalAudioSinkAdapter::OnData(const void* audio_data,
   if (sink_) {
     sink_->OnData(audio_data, bits_per_sample, sample_rate, number_of_channels,
                   number_of_frames);
+    num_sink_channels_ = sink_->GetNumChannels();
+  } else {
+    num_sink_channels_ = -1;
   }
+}
+
+int LocalAudioSinkAdapter::GetNumChannels() const {
+  rtc::CritScope lock(&lock_);
+  return num_sink_channels_;
 }
 
 void LocalAudioSinkAdapter::SetSink(cricket::AudioSource::Sink* sink) {

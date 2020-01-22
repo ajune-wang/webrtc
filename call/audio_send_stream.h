@@ -179,6 +179,9 @@ class AudioSendStream : public AudioSender {
                                   int event,
                                   int duration_ms) = 0;
 
+  // Returns the number of channels encoded and sent.
+  virtual int GetNumChannels() const = 0;
+
   virtual void SetMuted(bool muted) = 0;
 
   virtual Stats GetStats() const = 0;

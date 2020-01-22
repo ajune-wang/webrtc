@@ -40,6 +40,11 @@ void FakeVoiceMediaChannel::VoiceChannelAudioSink::OnData(
     int sample_rate,
     size_t number_of_channels,
     size_t number_of_frames) {}
+
+int FakeVoiceMediaChannel::VoiceChannelAudioSink::GetNumChannels() const {
+  return -1;
+}
+
 void FakeVoiceMediaChannel::VoiceChannelAudioSink::OnClose() {
   source_ = nullptr;
 }

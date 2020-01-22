@@ -194,7 +194,7 @@ class FakeAudioTrackForStats : public MediaStreamTrack<AudioTrackInterface> {
       const std::string& id,
       MediaStreamTrackInterface::TrackState state) {
     rtc::scoped_refptr<FakeAudioTrackForStats> audio_track_stats(
-        new rtc::RefCountedObject<FakeAudioTrackForStats>(id));
+        new FakeAudioTrackForStats(id));
     audio_track_stats->set_state(state);
     return audio_track_stats;
   }
@@ -220,8 +220,7 @@ class FakeVideoTrackSourceForStats : public VideoTrackSourceInterface {
       int input_width,
       int input_height) {
     return rtc::scoped_refptr<FakeVideoTrackSourceForStats>(
-        new rtc::RefCountedObject<FakeVideoTrackSourceForStats>(input_width,
-                                                                input_height));
+        new FakeVideoTrackSourceForStats(input_width, input_height));
   }
 
   FakeVideoTrackSourceForStats(int input_width, int input_height)
@@ -261,8 +260,7 @@ class FakeVideoTrackForStats : public MediaStreamTrack<VideoTrackInterface> {
       MediaStreamTrackInterface::TrackState state,
       rtc::scoped_refptr<VideoTrackSourceInterface> source) {
     rtc::scoped_refptr<FakeVideoTrackForStats> video_track(
-        new rtc::RefCountedObject<FakeVideoTrackForStats>(id,
-                                                          std::move(source)));
+        new FakeVideoTrackForStats(id, std::move(source)));
     video_track->set_state(state);
     return video_track;
   }
@@ -310,8 +308,7 @@ rtc::scoped_refptr<MockRtpSenderInternal> CreateMockSender(
               media_type == cricket::MEDIA_TYPE_AUDIO) ||
              (track->kind() == MediaStreamTrackInterface::kVideoKind &&
               media_type == cricket::MEDIA_TYPE_VIDEO));
-  rtc::scoped_refptr<MockRtpSenderInternal> sender(
-      new rtc::RefCountedObject<MockRtpSenderInternal>());
+  rtc::scoped_refptr<MockRtpSenderInternal> sender(new MockRtpSenderInternal());
   EXPECT_CALL(*sender, track()).WillRepeatedly(Return(track));
   EXPECT_CALL(*sender, ssrc()).WillRepeatedly(Return(ssrc));
   EXPECT_CALL(*sender, media_type()).WillRepeatedly(Return(media_type));
@@ -331,7 +328,7 @@ rtc::scoped_refptr<MockRtpReceiverInternal> CreateMockReceiver(
     uint32_t ssrc,
     int attachment_id) {
   rtc::scoped_refptr<MockRtpReceiverInternal> receiver(
-      new rtc::RefCountedObject<MockRtpReceiverInternal>());
+      new MockRtpReceiverInternal());
   EXPECT_CALL(*receiver, track()).WillRepeatedly(Return(track));
   EXPECT_CALL(*receiver, streams())
       .WillRepeatedly(
@@ -570,7 +567,7 @@ class RTCStatsCollectorWrapper {
 class RTCStatsCollectorTest : public ::testing::Test {
  public:
   RTCStatsCollectorTest()
-      : pc_(new rtc::RefCountedObject<FakePeerConnectionForStats>()),
+      : pc_(new FakePeerConnectionForStats()),
         stats_(new RTCStatsCollectorWrapper(pc_)) {}
 
   void ExpectReportContainsCertificateInfo(
@@ -2897,9 +2894,9 @@ class RecursiveCallback : public RTCStatsCollectorCallback {
 // called again recursively. Regression test for crbug.com/webrtc/8973.
 TEST_F(RTCStatsCollectorTest, DoNotCrashWhenGetStatsCalledDuringCallback) {
   rtc::scoped_refptr<RecursiveCallback> callback1(
-      new rtc::RefCountedObject<RecursiveCallback>(stats_.get()));
+      new RecursiveCallback(stats_.get()));
   rtc::scoped_refptr<RecursiveCallback> callback2(
-      new rtc::RefCountedObject<RecursiveCallback>(stats_.get()));
+      new RecursiveCallback(stats_.get()));
   stats_->stats_collector()->GetStatsReport(callback1);
   stats_->stats_collector()->GetStatsReport(callback2);
   EXPECT_TRUE_WAIT(callback1->called(), kGetStatsReportTimeoutMs);
@@ -2927,8 +2924,7 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
       PeerConnectionInternal* pc,
       int64_t cache_lifetime_us) {
     return rtc::scoped_refptr<FakeRTCStatsCollector>(
-        new rtc::RefCountedObject<FakeRTCStatsCollector>(pc,
-                                                         cache_lifetime_us));
+        new FakeRTCStatsCollector(pc, cache_lifetime_us));
   }
 
   // RTCStatsCollectorCallback implementation.
@@ -3011,7 +3007,7 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
 
 TEST(RTCStatsCollectorTestWithFakeCollector, ThreadUsageAndResultsMerging) {
   rtc::scoped_refptr<FakePeerConnectionForStats> pc(
-      new rtc::RefCountedObject<FakePeerConnectionForStats>());
+      new FakePeerConnectionForStats());
   rtc::scoped_refptr<FakeRTCStatsCollector> stats_collector(
       FakeRTCStatsCollector::Create(pc, 50 * rtc::kNumMicrosecsPerMillisec));
   stats_collector->VerifyThreadUsageAndResultsMerging();

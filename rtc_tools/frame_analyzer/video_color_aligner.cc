@@ -155,7 +155,7 @@ ColorTransformationMatrix CalculateColorTransformationMatrix(
 rtc::scoped_refptr<Video> AdjustColors(
     const ColorTransformationMatrix& color_transformation,
     const rtc::scoped_refptr<Video>& video) {
-  class ColorAdjustedVideo : public rtc::RefCountedObject<Video> {
+  class ColorAdjustedVideo : public Video {
    public:
     ColorAdjustedVideo(const ColorTransformationMatrix& color_transformation,
                        const rtc::scoped_refptr<Video>& video)

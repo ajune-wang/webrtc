@@ -68,20 +68,20 @@ class StatsObserverAdapter : public StatsObserver {
 - (void)statisticsForSender:(RTCRtpSender *)sender
           completionHandler:(RTCStatisticsCompletionHandler)completionHandler {
   rtc::scoped_refptr<webrtc::StatsCollectorCallbackAdapter> collector(
-      new rtc::RefCountedObject<webrtc::StatsCollectorCallbackAdapter>(completionHandler));
+      new webrtc::StatsCollectorCallbackAdapter(completionHandler));
   self.nativePeerConnection->GetStats(sender.nativeRtpSender, collector);
 }
 
 - (void)statisticsForReceiver:(RTCRtpReceiver *)receiver
             completionHandler:(RTCStatisticsCompletionHandler)completionHandler {
   rtc::scoped_refptr<webrtc::StatsCollectorCallbackAdapter> collector(
-      new rtc::RefCountedObject<webrtc::StatsCollectorCallbackAdapter>(completionHandler));
+      new webrtc::StatsCollectorCallbackAdapter(completionHandler));
   self.nativePeerConnection->GetStats(receiver.nativeRtpReceiver, collector);
 }
 
 - (void)statisticsWithCompletionHandler:(RTCStatisticsCompletionHandler)completionHandler {
   rtc::scoped_refptr<webrtc::StatsCollectorCallbackAdapter> collector(
-      new rtc::RefCountedObject<webrtc::StatsCollectorCallbackAdapter>(completionHandler));
+      new webrtc::StatsCollectorCallbackAdapter(completionHandler));
   self.nativePeerConnection->GetStats(collector);
 }
 
@@ -90,8 +90,7 @@ class StatsObserverAdapter : public StatsObserver {
     completionHandler:
     (void (^)(NSArray<RTCLegacyStatsReport *> *stats))completionHandler {
   rtc::scoped_refptr<webrtc::StatsObserverAdapter> observer(
-      new rtc::RefCountedObject<webrtc::StatsObserverAdapter>
-          (completionHandler));
+      new webrtc::StatsObserverAdapter(completionHandler));
   webrtc::PeerConnectionInterface::StatsOutputLevel nativeOutputLevel =
       [[self class] nativeStatsOutputLevelForLevel:statsOutputLevel];
   self.nativePeerConnection->GetStats(

@@ -70,7 +70,7 @@ class RTCCertificateGeneratorFixture : public RTCCertificateGeneratorCallback {
 class RTCCertificateGeneratorTest : public ::testing::Test {
  public:
   RTCCertificateGeneratorTest()
-      : fixture_(new RefCountedObject<RTCCertificateGeneratorFixture>()) {}
+      : fixture_(new RTCCertificateGeneratorFixture()) {}
 
  protected:
   static const int kGenerationTimeoutMs = 10000;

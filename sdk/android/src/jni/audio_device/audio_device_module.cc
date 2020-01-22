@@ -656,7 +656,7 @@ rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModuleFromInputAndOutput(
     std::unique_ptr<AudioInput> audio_input,
     std::unique_ptr<AudioOutput> audio_output) {
   RTC_LOG(INFO) << __FUNCTION__;
-  return new rtc::RefCountedObject<AndroidAudioDeviceModule>(
+  return new AndroidAudioDeviceModule(
       audio_layer, is_stereo_playout_supported, is_stereo_record_supported,
       playout_delay_ms, std::move(audio_input), std::move(audio_output));
 }

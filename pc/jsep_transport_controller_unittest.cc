@@ -65,7 +65,7 @@ class FakeIceTransportFactory : public webrtc::IceTransportFactory {
       const std::string& transport_name,
       int component,
       IceTransportInit init) override {
-    return new rtc::RefCountedObject<cricket::FakeIceTransportWrapper>(
+    return new cricket::FakeIceTransportWrapper(
         std::make_unique<cricket::FakeIceTransport>(transport_name, component));
   }
 };

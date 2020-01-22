@@ -204,8 +204,7 @@ class EmptyHandler : public MessageHandler {
 TEST(ThreadManager, ClearReentrant) {
   std::unique_ptr<Thread> t(Thread::Create());
   EmptyHandler handler;
-  RefCountedHandler* inner_handler(
-      new rtc::RefCountedObject<RefCountedHandler>());
+  RefCountedHandler* inner_handler(new RefCountedHandler());
   // When the empty handler is destroyed, it will clear messages queued for
   // itself. The message to be cleared itself wraps a MessageHandler object
   // (RefCountedHandler) so this will cause the message queue to be cleared

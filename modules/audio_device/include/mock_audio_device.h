@@ -23,12 +23,10 @@ namespace test {
 class MockAudioDeviceModule : public AudioDeviceModule {
  public:
   static rtc::scoped_refptr<MockAudioDeviceModule> CreateNice() {
-    return new rtc::RefCountedObject<
-        ::testing::NiceMock<MockAudioDeviceModule>>();
+    return new ::testing::NiceMock<MockAudioDeviceModule>();
   }
   static rtc::scoped_refptr<MockAudioDeviceModule> CreateStrict() {
-    return new rtc::RefCountedObject<
-        ::testing::StrictMock<MockAudioDeviceModule>>();
+    return new ::testing::StrictMock<MockAudioDeviceModule>();
   }
 
   // AudioDeviceModule.

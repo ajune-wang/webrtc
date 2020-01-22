@@ -289,7 +289,7 @@ AudioProcessing* AudioProcessingBuilder::Create() {
 }
 
 AudioProcessing* AudioProcessingBuilder::Create(const webrtc::Config& config) {
-  AudioProcessingImpl* apm = new rtc::RefCountedObject<AudioProcessingImpl>(
+  AudioProcessingImpl* apm = new AudioProcessingImpl(
       config, std::move(capture_post_processing_),
       std::move(render_pre_processing_), std::move(echo_control_factory_),
       std::move(echo_detector_), std::move(capture_analyzer_));
@@ -356,8 +356,7 @@ AudioProcessingImpl::AudioProcessingImpl(
 
   // If no echo detector is injected, use the ResidualEchoDetector.
   if (!submodules_.echo_detector) {
-    submodules_.echo_detector =
-        new rtc::RefCountedObject<ResidualEchoDetector>();
+    submodules_.echo_detector = new ResidualEchoDetector();
   }
 
 #if !(defined(WEBRTC_ANDROID) || defined(WEBRTC_IOS))

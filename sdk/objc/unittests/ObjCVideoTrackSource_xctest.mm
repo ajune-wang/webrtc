@@ -51,7 +51,7 @@ class ObjCCallbackVideoSink : public rtc::VideoSinkInterface<webrtc::VideoFrame>
 }
 
 - (void)setUp {
-  _video_source = new rtc::RefCountedObject<webrtc::ObjCVideoTrackSource>();
+  _video_source = new webrtc::ObjCVideoTrackSource();
 }
 
 - (void)tearDown {

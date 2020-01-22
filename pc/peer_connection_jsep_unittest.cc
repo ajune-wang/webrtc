@@ -85,7 +85,7 @@ class PeerConnectionJsepTest : public ::testing::Test {
 
   WrapperPtr CreatePeerConnection(const RTCConfiguration& config) {
     rtc::scoped_refptr<PeerConnectionFactory> pc_factory(
-        new rtc::RefCountedObject<PeerConnectionFactoryForJsepTest>());
+        new PeerConnectionFactoryForJsepTest());
     RTC_CHECK(pc_factory->Initialize());
     auto observer = std::make_unique<MockPeerConnectionObserver>();
     auto pc = pc_factory->CreatePeerConnection(config, nullptr, nullptr,

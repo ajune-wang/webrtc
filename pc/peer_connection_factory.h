@@ -92,6 +92,9 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   }
 
  protected:
+  friend rtc::scoped_refptr<PeerConnectionFactoryInterface>
+      CreateModularPeerConnectionFactory(PeerConnectionFactoryDependencies);
+
   // This structure allows simple management of all new dependencies being added
   // to the PeerConnectionFactory.
   explicit PeerConnectionFactory(

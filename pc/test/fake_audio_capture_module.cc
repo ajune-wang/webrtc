@@ -57,7 +57,7 @@ FakeAudioCaptureModule::~FakeAudioCaptureModule() {
 
 rtc::scoped_refptr<FakeAudioCaptureModule> FakeAudioCaptureModule::Create() {
   rtc::scoped_refptr<FakeAudioCaptureModule> capture_module(
-      new rtc::RefCountedObject<FakeAudioCaptureModule>());
+      new FakeAudioCaptureModule());
   if (!capture_module->Initialize()) {
     return nullptr;
   }

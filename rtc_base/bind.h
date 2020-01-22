@@ -50,7 +50,7 @@
 //   };
 //
 //   int main() {
-//     rtc::scoped_refptr<Bar> bar = new rtc::RefCountedObject<Bar>();
+//     rtc::scoped_refptr<Bar> bar = new Bar();
 //     auto functor = rtc::Bind(&Bar::Test, bar);
 //     bar = nullptr;
 //     // The functor stores an internal scoped_refptr<Bar>, so this is safe.

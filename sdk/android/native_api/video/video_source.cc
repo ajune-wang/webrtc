@@ -28,11 +28,10 @@ class JavaVideoTrackSourceImpl : public JavaVideoTrackSourceInterface {
                            bool is_screencast,
                            bool align_timestamps)
       : android_video_track_source_(
-            new rtc::RefCountedObject<jni::AndroidVideoTrackSource>(
-                signaling_thread,
-                env,
-                is_screencast,
-                align_timestamps)),
+            new jni::AndroidVideoTrackSource(signaling_thread,
+                                             env,
+                                             is_screencast,
+                                             align_timestamps)),
         native_capturer_observer_(jni::CreateJavaNativeCapturerObserver(
             env,
             android_video_track_source_)) {}
@@ -100,8 +99,8 @@ rtc::scoped_refptr<JavaVideoTrackSourceInterface> CreateJavaVideoSource(
     rtc::Thread* signaling_thread,
     bool is_screencast,
     bool align_timestamps) {
-  return new rtc::RefCountedObject<JavaVideoTrackSourceImpl>(
-      jni, signaling_thread, is_screencast, align_timestamps);
+  return new JavaVideoTrackSourceImpl(jni, signaling_thread, is_screencast,
+                                      align_timestamps);
 }
 
 }  // namespace webrtc

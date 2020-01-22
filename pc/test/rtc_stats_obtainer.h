@@ -21,7 +21,7 @@ class RTCStatsObtainer : public RTCStatsCollectorCallback {
   static rtc::scoped_refptr<RTCStatsObtainer> Create(
       rtc::scoped_refptr<const RTCStatsReport>* report_ptr = nullptr) {
     return rtc::scoped_refptr<RTCStatsObtainer>(
-        new rtc::RefCountedObject<RTCStatsObtainer>(report_ptr));
+        new RTCStatsObtainer(report_ptr));
   }
 
   void OnStatsDelivered(

@@ -78,8 +78,7 @@ rtc::scoped_refptr<AndroidVideoI420Buffer> AndroidVideoI420Buffer::Adopt(
     int width,
     int height,
     const JavaRef<jobject>& j_video_frame_buffer) {
-  return new rtc::RefCountedObject<AndroidVideoI420Buffer>(
-      jni, width, height, j_video_frame_buffer);
+  return new AndroidVideoI420Buffer(jni, width, height, j_video_frame_buffer);
 }
 
 AndroidVideoI420Buffer::AndroidVideoI420Buffer(
@@ -124,8 +123,7 @@ int64_t GetJavaVideoFrameTimestampNs(JNIEnv* jni,
 rtc::scoped_refptr<AndroidVideoBuffer> AndroidVideoBuffer::Adopt(
     JNIEnv* jni,
     const JavaRef<jobject>& j_video_frame_buffer) {
-  return new rtc::RefCountedObject<AndroidVideoBuffer>(jni,
-                                                       j_video_frame_buffer);
+  return new AndroidVideoBuffer(jni, j_video_frame_buffer);
 }
 
 rtc::scoped_refptr<AndroidVideoBuffer> AndroidVideoBuffer::Create(

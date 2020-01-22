@@ -66,8 +66,7 @@ class RefClassWithMixedValues : public RefCountInterface {
 }  // namespace
 
 TEST(RefCountedObject, HasOneRef) {
-  scoped_refptr<RefCountedObject<RefClass>> aref(
-      new RefCountedObject<RefClass>());
+  scoped_refptr<RefClass> aref(new RefClass());
   EXPECT_TRUE(aref->HasOneRef());
   aref->AddRef();
   EXPECT_FALSE(aref->HasOneRef());
@@ -77,8 +76,7 @@ TEST(RefCountedObject, HasOneRef) {
 
 TEST(RefCountedObject, SupportRValuesInCtor) {
   std::unique_ptr<A> a(new A());
-  scoped_refptr<RefClassWithRvalue> ref(
-      new RefCountedObject<RefClassWithRvalue>(std::move(a)));
+  scoped_refptr<RefClassWithRvalue> ref(new RefClassWithRvalue(std::move(a)));
   EXPECT_TRUE(ref->a_.get() != nullptr);
   EXPECT_TRUE(a.get() == nullptr);
 }
@@ -88,7 +86,7 @@ TEST(RefCountedObject, SupportMixedTypesInCtor) {
   int b = 9;
   std::string c = "hello";
   scoped_refptr<RefClassWithMixedValues> ref(
-      new RefCountedObject<RefClassWithMixedValues>(std::move(a), b, c));
+      new RefClassWithMixedValues(std::move(a), b, c));
   EXPECT_TRUE(ref->a_.get() != nullptr);
   EXPECT_TRUE(a.get() == nullptr);
   EXPECT_EQ(b, ref->b_);

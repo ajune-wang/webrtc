@@ -85,7 +85,7 @@ class TestBuffer : public webrtc::I420Buffer {
       : I420Buffer(width, height), event_(event) {}
 
  private:
-  friend class rtc::RefCountedObject<TestBuffer>;
+  friend class TestBuffer;
   ~TestBuffer() override {
     if (event_)
       event_->Set();
@@ -106,7 +106,7 @@ class FakeNativeBuffer : public webrtc::VideoFrameBuffer {
   }
 
  private:
-  friend class rtc::RefCountedObject<FakeNativeBuffer>;
+  friend class FakeNativeBuffer;
   ~FakeNativeBuffer() override {
     if (event_)
       event_->Set();
@@ -300,14 +300,13 @@ class AdaptingFrameForwarder : public test::FrameForwarder {
               video_frame.width(), video_frame.height(),
               video_frame.timestamp_us() * 1000, &cropped_width,
               &cropped_height, &out_width, &out_height)) {
-        VideoFrame adapted_frame =
-            VideoFrame::Builder()
-                .set_video_frame_buffer(new rtc::RefCountedObject<TestBuffer>(
-                    nullptr, out_width, out_height))
-                .set_timestamp_rtp(99)
-                .set_timestamp_ms(99)
-                .set_rotation(kVideoRotation_0)
-                .build();
+        VideoFrame adapted_frame = VideoFrame::Builder()
+                                       .set_video_frame_buffer(new TestBuffer(
+                                           nullptr, out_width, out_height))
+                                       .set_timestamp_rtp(99)
+                                       .set_timestamp_ms(99)
+                                       .set_rotation(kVideoRotation_0)
+                                       .build();
         adapted_frame.set_ntp_time_ms(video_frame.ntp_time_ms());
         if (video_frame.has_update_rect()) {
           adapted_frame.set_update_rect(
@@ -417,7 +416,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
     VideoEncoderConfig video_encoder_config;
     test::FillEncoderConfiguration(kVideoCodecVP8, 1, &video_encoder_config);
     video_encoder_config.video_stream_factory =
-        new rtc::RefCountedObject<VideoStreamFactory>(1, max_framerate_);
+        new VideoStreamFactory(1, max_framerate_);
     video_encoder_config_ = video_encoder_config.Copy();
 
     // Framerate limit is specified by the VideoStreamFactory.
@@ -458,8 +457,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
     video_encoder_config.max_bitrate_bps =
         num_streams == 1 ? kTargetBitrateBps : kSimulcastTargetBitrateBps;
     video_encoder_config.video_stream_factory =
-        new rtc::RefCountedObject<VideoStreamFactory>(num_temporal_layers,
-                                                      kDefaultFramerate);
+        new VideoStreamFactory(num_temporal_layers, kDefaultFramerate);
     video_encoder_config.content_type =
         screenshare ? VideoEncoderConfig::ContentType::kScreen
                     : VideoEncoderConfig::ContentType::kRealtimeVideo;
@@ -467,22 +465,20 @@ class VideoStreamEncoderTest : public ::testing::Test {
       VideoCodecVP9 vp9_settings = VideoEncoder::GetDefaultVp9Settings();
       vp9_settings.numberOfSpatialLayers = num_spatial_layers;
       video_encoder_config.encoder_specific_settings =
-          new rtc::RefCountedObject<
-              VideoEncoderConfig::Vp9EncoderSpecificSettings>(vp9_settings);
+          new VideoEncoderConfig::Vp9EncoderSpecificSettings(vp9_settings);
     }
     ConfigureEncoder(std::move(video_encoder_config));
   }
 
   VideoFrame CreateFrame(int64_t ntp_time_ms,
                          rtc::Event* destruction_event) const {
-    VideoFrame frame =
-        VideoFrame::Builder()
-            .set_video_frame_buffer(new rtc::RefCountedObject<TestBuffer>(
-                destruction_event, codec_width_, codec_height_))
-            .set_timestamp_rtp(99)
-            .set_timestamp_ms(99)
-            .set_rotation(kVideoRotation_0)
-            .build();
+    VideoFrame frame = VideoFrame::Builder()
+                           .set_video_frame_buffer(new TestBuffer(
+                               destruction_event, codec_width_, codec_height_))
+                           .set_timestamp_rtp(99)
+                           .set_timestamp_ms(99)
+                           .set_rotation(kVideoRotation_0)
+                           .build();
     frame.set_ntp_time_ms(ntp_time_ms);
     return frame;
   }
@@ -492,8 +488,8 @@ class VideoStreamEncoderTest : public ::testing::Test {
                                          int offset_x) const {
     VideoFrame frame =
         VideoFrame::Builder()
-            .set_video_frame_buffer(new rtc::RefCountedObject<TestBuffer>(
-                destruction_event, codec_width_, codec_height_))
+            .set_video_frame_buffer(
+                new TestBuffer(destruction_event, codec_width_, codec_height_))
             .set_timestamp_rtp(99)
             .set_timestamp_ms(99)
             .set_rotation(kVideoRotation_0)
@@ -506,8 +502,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
   VideoFrame CreateFrame(int64_t ntp_time_ms, int width, int height) const {
     VideoFrame frame =
         VideoFrame::Builder()
-            .set_video_frame_buffer(
-                new rtc::RefCountedObject<TestBuffer>(nullptr, width, height))
+            .set_video_frame_buffer(new TestBuffer(nullptr, width, height))
             .set_timestamp_rtp(99)
             .set_timestamp_ms(99)
             .set_rotation(kVideoRotation_0)
@@ -521,14 +516,13 @@ class VideoStreamEncoderTest : public ::testing::Test {
                                    rtc::Event* destruction_event,
                                    int width,
                                    int height) const {
-    VideoFrame frame =
-        VideoFrame::Builder()
-            .set_video_frame_buffer(new rtc::RefCountedObject<FakeNativeBuffer>(
-                destruction_event, width, height))
-            .set_timestamp_rtp(99)
-            .set_timestamp_ms(99)
-            .set_rotation(kVideoRotation_0)
-            .build();
+    VideoFrame frame = VideoFrame::Builder()
+                           .set_video_frame_buffer(new FakeNativeBuffer(
+                               destruction_event, width, height))
+                           .set_timestamp_rtp(99)
+                           .set_timestamp_ms(99)
+                           .set_rotation(kVideoRotation_0)
+                           .build();
     frame.set_ntp_time_ms(ntp_time_ms);
     return frame;
   }
@@ -1275,7 +1269,7 @@ TEST_F(VideoStreamEncoderTest, DropFrameWithFailedI420Conversion) {
 TEST_F(VideoStreamEncoderTest, DropFrameWithFailedI420ConversionWithCrop) {
   // Use the cropping factory.
   video_encoder_config_.video_stream_factory =
-      new rtc::RefCountedObject<CroppingVideoStreamFactory>(1, 30);
+      new CroppingVideoStreamFactory(1, 30);
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config_),
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
@@ -3471,7 +3465,7 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
   video_encoder_config.max_bitrate_bps = kTargetBitrateBps;
   video_encoder_config.number_of_streams = 1;
   video_encoder_config.video_stream_factory =
-      new rtc::RefCountedObject<VideoStreamFactory>(1, kFramerate);
+      new VideoStreamFactory(1, kFramerate);
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
@@ -3525,7 +3519,7 @@ TEST_F(VideoStreamEncoderTest,
   video_encoder_config.max_bitrate_bps = kTargetBitrateBps;
   video_encoder_config.number_of_streams = 1;
   video_encoder_config.video_stream_factory =
-      new rtc::RefCountedObject<VideoStreamFactory>(1, kLowFramerate);
+      new VideoStreamFactory(1, kLowFramerate);
   source.IncomingCapturedFrame(CreateFrame(1, kFrameWidth, kFrameHeight));
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
@@ -3548,7 +3542,7 @@ TEST_F(VideoStreamEncoderTest,
   // Reconfigure the encoder with a new (higher max framerate), max fps should
   // still respect the adaptation.
   video_encoder_config.video_stream_factory =
-      new rtc::RefCountedObject<VideoStreamFactory>(1, kHighFramerate);
+      new VideoStreamFactory(1, kHighFramerate);
   source.IncomingCapturedFrame(CreateFrame(1, kFrameWidth, kFrameHeight));
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
@@ -3590,7 +3584,7 @@ TEST_F(VideoStreamEncoderTest,
   video_encoder_config.max_bitrate_bps = kTargetBitrateBps;
   video_encoder_config.number_of_streams = 1;
   video_encoder_config.video_stream_factory =
-      new rtc::RefCountedObject<VideoStreamFactory>(1, kFramerate);
+      new VideoStreamFactory(1, kFramerate);
   source.IncomingCapturedFrame(CreateFrame(1, kFrameWidth, kFrameHeight));
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
@@ -4511,7 +4505,7 @@ TEST_F(VideoStreamEncoderTest, AcceptsFullHdAdaptedDownSimulcastFrames) {
   video_encoder_config.max_bitrate_bps = kTargetBitrateBps;
   video_encoder_config.number_of_streams = 1;
   video_encoder_config.video_stream_factory =
-      new rtc::RefCountedObject<CroppingVideoStreamFactory>(1, kFramerate);
+      new CroppingVideoStreamFactory(1, kFramerate);
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();

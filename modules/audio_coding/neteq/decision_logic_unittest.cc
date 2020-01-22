@@ -27,8 +27,7 @@ namespace webrtc {
 TEST(DecisionLogic, CreateAndDestroy) {
   int fs_hz = 8000;
   int output_size_samples = fs_hz / 100;  // Samples per 10 ms.
-  DecoderDatabase decoder_database(
-      new rtc::RefCountedObject<MockAudioDecoderFactory>, absl::nullopt);
+  DecoderDatabase decoder_database(new MockAudioDecoderFactory, absl::nullopt);
   TickTimer tick_timer;
   StatisticsCalculator stats;
   PacketBuffer packet_buffer(10, &tick_timer);

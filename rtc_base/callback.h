@@ -74,8 +74,7 @@ class Callback0 {
   // Default copy operations are appropriate for this class.
   Callback0() {}
   template <class T>
-  Callback0(const T& functor)
-      : helper_(new RefCountedObject<HelperImpl<T> >(functor)) {}
+  Callback0(const T& functor) : helper_(new HelperImpl<T>(functor)) {}
   R operator()() {
     if (empty())
       return R();
@@ -103,8 +102,7 @@ class Callback1 {
   // Default copy operations are appropriate for this class.
   Callback1() {}
   template <class T>
-  Callback1(const T& functor)
-      : helper_(new RefCountedObject<HelperImpl<T> >(functor)) {}
+  Callback1(const T& functor) : helper_(new HelperImpl<T>(functor)) {}
   R operator()(P1 p1) {
     if (empty())
       return R();
@@ -132,8 +130,7 @@ class Callback2 {
   // Default copy operations are appropriate for this class.
   Callback2() {}
   template <class T>
-  Callback2(const T& functor)
-      : helper_(new RefCountedObject<HelperImpl<T> >(functor)) {}
+  Callback2(const T& functor) : helper_(new HelperImpl<T>(functor)) {}
   R operator()(P1 p1, P2 p2) {
     if (empty())
       return R();
@@ -161,8 +158,7 @@ class Callback3 {
   // Default copy operations are appropriate for this class.
   Callback3() {}
   template <class T>
-  Callback3(const T& functor)
-      : helper_(new RefCountedObject<HelperImpl<T> >(functor)) {}
+  Callback3(const T& functor) : helper_(new HelperImpl<T>(functor)) {}
   R operator()(P1 p1, P2 p2, P3 p3) {
     if (empty())
       return R();
@@ -190,8 +186,7 @@ class Callback4 {
   // Default copy operations are appropriate for this class.
   Callback4() {}
   template <class T>
-  Callback4(const T& functor)
-      : helper_(new RefCountedObject<HelperImpl<T> >(functor)) {}
+  Callback4(const T& functor) : helper_(new HelperImpl<T>(functor)) {}
   R operator()(P1 p1, P2 p2, P3 p3, P4 p4) {
     if (empty())
       return R();
@@ -221,8 +216,7 @@ class Callback5 {
   // Default copy operations are appropriate for this class.
   Callback5() {}
   template <class T>
-  Callback5(const T& functor)
-      : helper_(new RefCountedObject<HelperImpl<T> >(functor)) {}
+  Callback5(const T& functor) : helper_(new HelperImpl<T>(functor)) {}
   R operator()(P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) {
     if (empty())
       return R();

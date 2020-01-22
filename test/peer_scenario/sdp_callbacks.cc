@@ -30,7 +30,7 @@ webrtc_sdp_obs_impl::SdpSetObserversInterface* SdpSetObserver(
     }
     std::function<void()> callback_;
   };
-  return new rtc::RefCountedObject<SdpSetObserver>(std::move(callback));
+  return new SdpSetObserver(std::move(callback));
 }
 
 CreateSessionDescriptionObserver* SdpCreateObserver(
@@ -47,7 +47,7 @@ CreateSessionDescriptionObserver* SdpCreateObserver(
     }
     decltype(callback) callback_;
   };
-  return new rtc::RefCountedObject<SdpCreateObserver>(std::move(callback));
+  return new SdpCreateObserver(std::move(callback));
 }
 
 }  // namespace test

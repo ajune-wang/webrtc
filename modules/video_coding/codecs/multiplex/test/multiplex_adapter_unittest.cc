@@ -92,8 +92,7 @@ class TestMultiplexAdapter : public VideoCodecUnitTest,
       data[i] = i;
     }
     rtc::scoped_refptr<AugmentedVideoFrameBuffer> augmented_video_frame_buffer =
-        new rtc::RefCountedObject<AugmentedVideoFrameBuffer>(
-            video_buffer, std::move(data), 16);
+        new AugmentedVideoFrameBuffer(video_buffer, std::move(data), 16);
     return std::make_unique<VideoFrame>(
         VideoFrame::Builder()
             .set_video_frame_buffer(augmented_video_frame_buffer)

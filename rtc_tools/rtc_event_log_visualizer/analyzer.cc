@@ -1918,8 +1918,8 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
   std::unique_ptr<test::VoidAudioSink> output(new test::VoidAudioSink());
 
   rtc::scoped_refptr<AudioDecoderFactory> decoder_factory =
-      new rtc::RefCountedObject<ReplacementAudioDecoderFactory>(
-          replacement_file_name, file_sample_rate_hz);
+      new ReplacementAudioDecoderFactory(replacement_file_name,
+                                         file_sample_rate_hz);
 
   test::NetEqTest::DecoderMap codecs = {
       {kReplacementPt, SdpAudioFormat("l16", 48000, 1)}};

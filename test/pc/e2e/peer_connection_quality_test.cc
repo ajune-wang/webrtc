@@ -741,7 +741,7 @@ PeerConnectionE2EQualityTest::MaybeAddVideo(TestPeer* peer) {
         video_quality_analyzer_injection_helper_->CreateFramePreprocessor(
             video_config, writer));
     rtc::scoped_refptr<TestVideoCapturerVideoTrackSource> source =
-        new rtc::RefCountedObject<TestVideoCapturerVideoTrackSource>(
+        new TestVideoCapturerVideoTrackSource(
             std::move(capturer),
             /*is_screencast=*/video_config.screen_share_config &&
                 video_config.screen_share_config->use_text_content_hint);

@@ -56,8 +56,7 @@ bool RTCStatsReport::ConstIterator::operator!=(
 
 rtc::scoped_refptr<RTCStatsReport> RTCStatsReport::Create(
     int64_t timestamp_us) {
-  return rtc::scoped_refptr<RTCStatsReport>(
-      new rtc::RefCountedObject<RTCStatsReport>(timestamp_us));
+  return rtc::scoped_refptr<RTCStatsReport>(new RTCStatsReport(timestamp_us));
 }
 
 RTCStatsReport::RTCStatsReport(int64_t timestamp_us)

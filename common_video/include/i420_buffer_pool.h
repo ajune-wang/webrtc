@@ -60,7 +60,7 @@ class I420BufferPool {
  private:
   // Explicitly use a RefCountedObject to get access to HasOneRef,
   // needed by the pool to check exclusive access.
-  using PooledI420Buffer = rtc::RefCountedObject<I420Buffer>;
+  using PooledI420Buffer = I420Buffer;
 
   rtc::RaceChecker race_checker_;
   std::list<rtc::scoped_refptr<PooledI420Buffer>> buffers_;

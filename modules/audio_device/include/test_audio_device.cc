@@ -447,8 +447,8 @@ rtc::scoped_refptr<TestAudioDeviceModule> TestAudioDeviceModule::Create(
     std::unique_ptr<TestAudioDeviceModule::Capturer> capturer,
     std::unique_ptr<TestAudioDeviceModule::Renderer> renderer,
     float speed) {
-  return new rtc::RefCountedObject<TestAudioDeviceModuleImpl>(
-      task_queue_factory, std::move(capturer), std::move(renderer), speed);
+  return new TestAudioDeviceModuleImpl(task_queue_factory, std::move(capturer),
+                                       std::move(renderer), speed);
 }
 
 std::unique_ptr<TestAudioDeviceModule::PulsedNoiseCapturer>

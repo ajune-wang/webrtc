@@ -202,8 +202,7 @@ void SsrcEndToEndTest::TestSendsSetSsrcs(size_t num_ssrcs,
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
         VideoEncoderConfig* encoder_config) override {
-      encoder_config->video_stream_factory =
-          new rtc::RefCountedObject<VideoStreamFactory>();
+      encoder_config->video_stream_factory = new VideoStreamFactory();
       video_encoder_config_all_streams_ = encoder_config->Copy();
       if (send_single_ssrc_first_)
         encoder_config->number_of_streams = 1;
@@ -323,8 +322,7 @@ TEST_F(SsrcEndToEndTest, DISABLED_RedundantPayloadsTransmittedOnAllSsrcs) {
         std::vector<VideoReceiveStream::Config>* receive_configs,
         VideoEncoderConfig* encoder_config) override {
       // Set low simulcast bitrates to not have to wait for bandwidth ramp-up.
-      encoder_config->video_stream_factory =
-          new rtc::RefCountedObject<VideoStreamFactory>();
+      encoder_config->video_stream_factory = new VideoStreamFactory();
       send_config->rtp.rtx.payload_type = kSendRtxPayloadType;
 
       for (size_t i = 0; i < kNumSimulcastStreams; ++i)

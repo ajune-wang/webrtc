@@ -32,8 +32,8 @@ void InternalStatsObserver::OnComplete(const StatsReports& reports) {
 StatsPoller::StatsPoller(std::vector<StatsObserverInterface*> observers,
                          std::map<std::string, TestPeer*> peers) {
   for (auto& peer : peers) {
-    pollers_.push_back(new rtc::RefCountedObject<InternalStatsObserver>(
-        peer.first, peer.second, observers));
+    pollers_.push_back(
+        new InternalStatsObserver(peer.first, peer.second, observers));
   }
 }
 

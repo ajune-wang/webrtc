@@ -33,7 +33,7 @@ namespace webrtc {
 
 class AudioRtpReceiver : public ObserverInterface,
                          public AudioSourceInterface::AudioObserver,
-                         public rtc::RefCountedObject<RtpReceiverInternal> {
+                         public RtpReceiverInternal {
  public:
   AudioRtpReceiver(rtc::Thread* worker_thread,
                    std::string receiver_id,

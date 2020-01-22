@@ -22,15 +22,13 @@ namespace webrtc {
 class StreamCollection : public StreamCollectionInterface {
  public:
   static rtc::scoped_refptr<StreamCollection> Create() {
-    rtc::RefCountedObject<StreamCollection>* implementation =
-        new rtc::RefCountedObject<StreamCollection>();
+    StreamCollection* implementation = new StreamCollection();
     return implementation;
   }
 
   static rtc::scoped_refptr<StreamCollection> Create(
       StreamCollection* streams) {
-    rtc::RefCountedObject<StreamCollection>* implementation =
-        new rtc::RefCountedObject<StreamCollection>(streams);
+    StreamCollection* implementation = new StreamCollection(streams);
     return implementation;
   }
 

@@ -16,7 +16,7 @@ namespace webrtc {
 
 rtc::scoped_refptr<VideoFrameBuffer> ObjCToNativeVideoFrameBuffer(
     id<RTCVideoFrameBuffer> objc_video_frame_buffer) {
-  return new rtc::RefCountedObject<ObjCFrameBuffer>(objc_video_frame_buffer);
+  return new ObjCFrameBuffer(objc_video_frame_buffer);
 }
 
 id<RTCVideoFrameBuffer> NativeToObjCVideoFrameBuffer(

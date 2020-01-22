@@ -1037,8 +1037,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
     rtc::scoped_refptr<AudioDecoderFactory> fact_;  // Fallback factory.
   };
 
-  rtc::scoped_refptr<rtc::RefCountedObject<ADFactory>> factory(
-      new rtc::RefCountedObject<ADFactory>);
+  rtc::scoped_refptr<ADFactory> factory(new ADFactory);
   Run(48000,
       PlatformChecksum("2955d0b83602541fd92d9b820ebce68d",
                        "f4a8386a6a49439ced60ed9a7c7f75fd",
@@ -1499,8 +1498,7 @@ TEST_F(AcmSenderBitExactnessNewApi, DISABLED_OpusManyChannels) {
       AudioDecoderMultiChannelOpus::MakeAudioDecoder(*decoder_config);
 
   rtc::scoped_refptr<AudioDecoderFactory> decoder_factory =
-      new rtc::RefCountedObject<test::AudioDecoderProxyFactory>(
-          opus_decoder.get());
+      new test::AudioDecoderProxyFactory(opus_decoder.get());
 
   // Set up an EXTERNAL DECODER to parse 4 channels.
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(  // audio checksum

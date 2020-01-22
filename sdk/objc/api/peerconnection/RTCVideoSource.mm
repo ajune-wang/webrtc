@@ -52,7 +52,7 @@ static webrtc::ObjCVideoTrackSource *getObjCVideoSource(
                 signalingThread:(rtc::Thread *)signalingThread
                    workerThread:(rtc::Thread *)workerThread {
   rtc::scoped_refptr<webrtc::ObjCVideoTrackSource> objCVideoTrackSource(
-      new rtc::RefCountedObject<webrtc::ObjCVideoTrackSource>());
+      new webrtc::ObjCVideoTrackSource());
 
   return [self initWithFactory:factory
              nativeVideoSource:webrtc::VideoTrackSourceProxy::Create(

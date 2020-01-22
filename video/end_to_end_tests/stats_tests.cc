@@ -281,8 +281,7 @@ TEST_F(StatsEndToEndTest, GetStats) {
         VideoSendStream::Config* send_config,
         std::vector<VideoReceiveStream::Config>* receive_configs,
         VideoEncoderConfig* encoder_config) override {
-      encoder_config->video_stream_factory =
-          new rtc::RefCountedObject<VideoStreamFactory>();
+      encoder_config->video_stream_factory = new VideoStreamFactory();
       expected_cname_ = send_config->rtp.c_name = "SomeCName";
 
       send_config->rtp.nack.rtp_history_ms = kNackRtpHistoryMs;

@@ -71,8 +71,7 @@ using ::testing::Values;
 const uint32_t kDefaultTimeout = 10000u;
 
 template <typename MethodFunctor>
-class OnSuccessObserver : public rtc::RefCountedObject<
-                              webrtc::SetRemoteDescriptionObserverInterface> {
+class OnSuccessObserver : public webrtc::SetRemoteDescriptionObserverInterface {
  public:
   explicit OnSuccessObserver(MethodFunctor on_success)
       : on_success_(std::move(on_success)) {}
@@ -835,7 +834,7 @@ TEST_P(PeerConnectionRtpTest,
   auto callee = CreatePeerConnection();
 
   rtc::scoped_refptr<webrtc::MockSetSessionDescriptionObserver> observer =
-      new rtc::RefCountedObject<webrtc::MockSetSessionDescriptionObserver>();
+      new webrtc::MockSetSessionDescriptionObserver();
 
   auto offer = caller->CreateOfferAndSetAsLocal();
   callee->pc()->SetRemoteDescription(observer, offer.release());

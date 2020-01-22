@@ -118,8 +118,7 @@ class FakeDtmfProvider : public DtmfProviderInterface {
 class DtmfSenderTest : public ::testing::Test {
  protected:
   DtmfSenderTest()
-      : observer_(new rtc::RefCountedObject<FakeDtmfObserver>()),
-        provider_(new FakeDtmfProvider()) {
+      : observer_(new FakeDtmfObserver()), provider_(new FakeDtmfProvider()) {
     provider_->SetCanInsertDtmf(true);
     dtmf_ = DtmfSender::Create(rtc::Thread::Current(), provider_.get());
     dtmf_->RegisterObserver(observer_.get());

@@ -117,7 +117,7 @@ std::unique_ptr<MockAudioEncoder> SetupAudioEncoderMock(
 
 rtc::scoped_refptr<MockAudioEncoderFactory> SetupEncoderFactoryMock() {
   rtc::scoped_refptr<MockAudioEncoderFactory> factory =
-      new rtc::RefCountedObject<MockAudioEncoderFactory>();
+      new MockAudioEncoderFactory();
   ON_CALL(*factory.get(), GetSupportedEncoders())
       .WillByDefault(Return(std::vector<AudioCodecSpec>(
           std::begin(kCodecSpecs), std::end(kCodecSpecs))));
@@ -145,7 +145,7 @@ struct ConfigHelper {
       : clock_(1000000),
         task_queue_factory_(CreateDefaultTaskQueueFactory()),
         stream_config_(/*send_transport=*/nullptr),
-        audio_processing_(new rtc::RefCountedObject<MockAudioProcessing>()),
+        audio_processing_(new MockAudioProcessing()),
         bitrate_allocator_(&limit_observer_),
         worker_queue_(task_queue_factory_->CreateTaskQueue(
             "ConfigHelper_worker_queue",
@@ -156,8 +156,7 @@ struct ConfigHelper {
     AudioState::Config config;
     config.audio_mixer = AudioMixerImpl::Create();
     config.audio_processing = audio_processing_;
-    config.audio_device_module =
-        new rtc::RefCountedObject<MockAudioDeviceModule>();
+    config.audio_device_module = new MockAudioDeviceModule();
     audio_state_ = AudioState::Create(config);
 
     SetupDefaultChannelSend(audio_bwe_enabled);
@@ -780,7 +779,7 @@ TEST(AudioSendStreamTest, ReconfigureWithFrameEncryptor) {
   auto new_config = helper.config();
 
   rtc::scoped_refptr<FrameEncryptorInterface> mock_frame_encryptor_0(
-      new rtc::RefCountedObject<MockFrameEncryptor>());
+      new MockFrameEncryptor());
   new_config.frame_encryptor = mock_frame_encryptor_0;
   EXPECT_CALL(*helper.channel_send(), SetFrameEncryptor(Ne(nullptr))).Times(1);
   send_stream->Reconfigure(new_config);
@@ -791,7 +790,7 @@ TEST(AudioSendStreamTest, ReconfigureWithFrameEncryptor) {
 
   // Updating frame encryptor to a new object should force a call to the proxy.
   rtc::scoped_refptr<FrameEncryptorInterface> mock_frame_encryptor_1(
-      new rtc::RefCountedObject<MockFrameEncryptor>());
+      new MockFrameEncryptor());
   new_config.frame_encryptor = mock_frame_encryptor_1;
   new_config.crypto_options.sframe.require_frame_encryption = true;
   EXPECT_CALL(*helper.channel_send(), SetFrameEncryptor(Ne(nullptr))).Times(1);

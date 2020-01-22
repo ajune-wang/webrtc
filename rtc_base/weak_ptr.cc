@@ -60,7 +60,7 @@ WeakReferenceOwner::~WeakReferenceOwner() {
 WeakReference WeakReferenceOwner::GetRef() const {
   // If we hold the last reference to the Flag then create a new one.
   if (!HasRefs())
-    flag_ = new RefCountedObject<WeakReference::Flag>();
+    flag_ = new WeakReference::Flag();
 
   return WeakReference(flag_.get());
 }

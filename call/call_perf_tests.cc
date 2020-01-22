@@ -796,8 +796,7 @@ TEST_F(CallPerfTest, MAYBE_KeepsHighBitrateWhenReconfiguringSender) {
       send_config->encoder_settings.bitrate_allocator_factory =
           bitrate_allocator_factory_.get();
       encoder_config->max_bitrate_bps = 2 * kReconfigureThresholdKbps * 1000;
-      encoder_config->video_stream_factory =
-          new rtc::RefCountedObject<VideoStreamFactory>();
+      encoder_config->video_stream_factory = new VideoStreamFactory();
 
       encoder_config_ = encoder_config->Copy();
     }

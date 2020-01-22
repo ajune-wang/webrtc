@@ -31,9 +31,8 @@ struct ConfigHelper {
   ConfigHelper() : audio_mixer(AudioMixerImpl::Create()) {
     audio_state_config.audio_mixer = audio_mixer;
     audio_state_config.audio_processing =
-        new rtc::RefCountedObject<testing::NiceMock<MockAudioProcessing>>();
-    audio_state_config.audio_device_module =
-        new rtc::RefCountedObject<MockAudioDeviceModule>();
+        new testing::NiceMock<MockAudioProcessing>();
+    audio_state_config.audio_device_module = new MockAudioDeviceModule();
   }
   AudioState::Config& config() { return audio_state_config; }
   rtc::scoped_refptr<AudioMixer> mixer() { return audio_mixer; }
@@ -93,13 +92,13 @@ TEST(AudioStateTest, Create) {
 TEST(AudioStateTest, ConstructDestruct) {
   ConfigHelper helper;
   rtc::scoped_refptr<internal::AudioState> audio_state(
-      new rtc::RefCountedObject<internal::AudioState>(helper.config()));
+      new internal::AudioState(helper.config()));
 }
 
 TEST(AudioStateTest, RecordedAudioArrivesAtSingleStream) {
   ConfigHelper helper;
   rtc::scoped_refptr<internal::AudioState> audio_state(
-      new rtc::RefCountedObject<internal::AudioState>(helper.config()));
+      new internal::AudioState(helper.config()));
 
   MockAudioSendStream stream;
   audio_state->AddSendingStream(&stream, 8000, 2);
@@ -137,7 +136,7 @@ TEST(AudioStateTest, RecordedAudioArrivesAtSingleStream) {
 TEST(AudioStateTest, RecordedAudioArrivesAtMultipleStreams) {
   ConfigHelper helper;
   rtc::scoped_refptr<internal::AudioState> audio_state(
-      new rtc::RefCountedObject<internal::AudioState>(helper.config()));
+      new internal::AudioState(helper.config()));
 
   MockAudioSendStream stream_1;
   MockAudioSendStream stream_2;
@@ -191,7 +190,7 @@ TEST(AudioStateTest, EnableChannelSwap) {
 
   ConfigHelper helper;
   rtc::scoped_refptr<internal::AudioState> audio_state(
-      new rtc::RefCountedObject<internal::AudioState>(helper.config()));
+      new internal::AudioState(helper.config()));
 
   audio_state->SetStereoChannelSwapping(true);
 

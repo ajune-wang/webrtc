@@ -25,8 +25,7 @@ namespace webrtc {
 // FrameEncryptorInterface. It is constructed with a simple single digit key and
 // a fixed postfix byte. This is just to validate that the core code works
 // as expected.
-class FakeFrameEncryptor
-    : public rtc::RefCountedObject<FrameEncryptorInterface> {
+class FakeFrameEncryptor : public FrameEncryptorInterface {
  public:
   // Provide a key (0,255) and some postfix byte (0,255).
   explicit FakeFrameEncryptor(uint8_t fake_key = 0xAA,

@@ -152,9 +152,8 @@ void RTCCertificateGenerator::GenerateCertificateAsync(
   // until the task has completed (independent of |RTCCertificateGenerator|).
   ScopedRefMessageData<RTCCertificateGenerationTask>* msg_data =
       new ScopedRefMessageData<RTCCertificateGenerationTask>(
-          new RefCountedObject<RTCCertificateGenerationTask>(
-              signaling_thread_, worker_thread_, key_params, expires_ms,
-              callback));
+          new RTCCertificateGenerationTask(signaling_thread_, worker_thread_,
+                                           key_params, expires_ms, callback));
   worker_thread_->Post(RTC_FROM_HERE, msg_data->data().get(), MSG_GENERATE,
                        msg_data);
 }

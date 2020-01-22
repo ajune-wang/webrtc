@@ -242,9 +242,7 @@ class DummyPeerConnection : public PeerConnectionInterface {
   void Close() {}
 };
 
-static_assert(
-    !std::is_abstract<rtc::RefCountedObject<DummyPeerConnection>>::value,
-    "");
+static_assert(!std::is_abstract<DummyPeerConnection>::value, "");
 
 }  // namespace webrtc
 

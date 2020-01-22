@@ -44,7 +44,7 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
   std::bitset<16> call_order(call_order_int);
 
   rtc::scoped_refptr<ResidualEchoDetector> echo_detector =
-      new rtc::RefCountedObject<ResidualEchoDetector>();
+      new ResidualEchoDetector();
   std::vector<float> input(1);
   // Call AnalyzeCaptureAudio once to prevent the flushing of the buffer.
   echo_detector->AnalyzeCaptureAudio(input);

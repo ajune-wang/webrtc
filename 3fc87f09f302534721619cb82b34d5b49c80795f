@@ -16,6 +16,24 @@
       "revId": "3fc87f09f302534721619cb82b34d5b49c80795f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad771a5c_6296172a",
+        "filename": "api/test/time_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-22T09:13:49Z",
+      "side": 1,
+      "message": "It\u0027s also needed by the emulation manager constructor. Moved it to network_emulation_manager.h",
+      "parentUuid": "06496ab5_d7757703",
+      "revId": "3fc87f09f302534721619cb82b34d5b49c80795f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

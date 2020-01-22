@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "54775514_0fa00ab3",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T16:15:21Z",
+      "side": 1,
+      "message": "I wanted to change this, but realized that this is not very right either,",
+      "range": {
+        "startLine": 149,
+        "startChar": 28,
+        "endLine": 149,
+        "endChar": 41
+      },
+      "revId": "329497c4f9d40eaa27d94b0179986a03af381f32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a72a7336_fb3190ad",
         "filename": "audio/channel_send.cc",
         "patchSetId": 2
@@ -13,6 +36,30 @@
       "writtenOn": "2020-01-22T15:35:07Z",
       "side": 1,
       "message": "please use same parameter name in defintion and declaration\n(I agree rtp_timestamp is better name than timeStamp in several ways)",
+      "range": {
+        "startLine": 365,
+        "startChar": 39,
+        "endLine": 365,
+        "endChar": 48
+      },
+      "revId": "329497c4f9d40eaa27d94b0179986a03af381f32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fe2e348_af27815b",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T16:15:21Z",
+      "side": 1,
+      "message": "that is how I wanted, but it seems that this is not rtp_timestamp but rtp_timestamp_offset (see my other comment, and it seems to be subject to further change.)",
+      "parentUuid": "a72a7336_fb3190ad",
       "range": {
         "startLine": 365,
         "startChar": 39,
@@ -41,6 +88,29 @@
         "startChar": 43,
         "endLine": 377,
         "endChar": 52
+      },
+      "revId": "329497c4f9d40eaa27d94b0179986a03af381f32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a30973e1_899d84bb",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-22T16:15:21Z",
+      "side": 1,
+      "message": "so I found here that it is not rtp_timestamp but rtp_timestamp_offset",
+      "range": {
+        "startLine": 441,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 78
       },
       "revId": "329497c4f9d40eaa27d94b0179986a03af381f32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

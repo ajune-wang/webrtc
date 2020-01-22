@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e29c0bad_3e5170e3",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "The style rules changed half a year ago, now file should include all headers it needs, there is no longer exception for the \u0027related header\u0027.\n\nsection https://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes\nwas changed in\nhttps://github.com/google/styleguide/commit/f0314ea7e0a483a10250f46f663d633e69ebd60e#diff-26120df7bca3279afbf749017c778545L494",
+      "parentUuid": "0d0ab490_81e52411",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb8ddac6_33a07e14",
         "filename": "modules/video_coding/loss_notification_controller.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db7016eb_b98356a0",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "eb8ddac6_33a07e14",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "b9349f35_04eac7bd",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "renamed and added a comment as suggested in other comments.",
+      "parentUuid": "cc6d8794_0c04d00d",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff37d6f8_ee045ebd",
         "filename": "modules/video_coding/loss_notification_controller.cc",
         "patchSetId": 4
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "d9341258_a988143f",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "1. why type of the last_received_frame_id_ important?\nThis code tries to say \"if new frame is earlier than the last received\".\nThat it naturally false if there was no earlier frames.\n\n2. I do not read the value, I compare T and optional\u003cT\u003e\nthat is well defined: absl::nullopt is smaller than any T.\n(see (26) in https://en.cppreference.com/w/cpp/utility/optional/operator_cmp that abseil adopts)",
+      "parentUuid": "ff37d6f8_ee045ebd",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 59
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2421b4ce_a4e48d88",
         "filename": "modules/video_coding/loss_notification_controller.h",
         "patchSetId": 4
@@ -162,6 +258,30 @@
       "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7100f7ec_4e6ee701",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "Added such comment.\nalso, thanks to your suggestion realized there is no need to use optional\u003c\u003e here.\npassing raw pointer that can be nullptr is simpler in this case.",
+      "parentUuid": "2421b4ce_a4e48d88",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -235,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "74f49066_dcf74b7c",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "I went for shorter |frame| since not so sure what does \u0027_details\u0027 suffix adds in this case.",
+      "parentUuid": "eef37fa9_7b6a08a8",
+      "range": {
+        "startLine": 41,
+        "startChar": 53,
+        "endLine": 41,
+        "endChar": 67
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edcd676d_85a29f83",
         "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
         "patchSetId": 4
@@ -275,6 +419,24 @@
     },
     {
       "key": {
+        "uuid": "126d3d3a_eeb361f0",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "that page talks about \u0027voice packets\u0027\n\nFor video packets marker bit indicates end of picture/temporal unit.\n(technically that is codec specific, but it is true for all codecs webrtc supports)\n\nas a consequence marker bit indicates end of frame (since frame can\u0027t span across multiple pictures)",
+      "parentUuid": "4b7ea5af_8621c85c",
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba08170e_8d2993e0",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4
@@ -295,6 +457,30 @@
       "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eaee85c_b84bd6c1",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "1. as mentioned in the previous comment. marker bit \u003d end of picture \u003d\u003e end of frame.\n2. yep, you right, well formed packet shouldn\u0027t have \"Marker() \u0026\u0026 !LastPacketInSubFrame()\" state. Currently code silently recover that error. I\u0027m not sure how to handle that error better (silently discard packet? - may be. Log a warning? - might trigger too many warning.)\n\n(btw \"!Marker() \u0026\u0026 LastPacketInSubFrame()\" is a valid state: indicates there are more frames in the same picture)\n\nEither way that issue doesn\u0027t look related to the current cl.\n(and may be not important enough to address.)",
+      "parentUuid": "ba08170e_8d2993e0",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 58
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -321,6 +507,30 @@
     },
     {
       "key": {
+        "uuid": "1bcaf397_2858c3f8",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dd6e4bb5_4a633ffc",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 405,
+        "endChar": 77
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "258aff3b_1fc514e6",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4
@@ -341,6 +551,30 @@
       "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7809252b_a1edf874",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "that is consistent with current behavior (this was move from the RtpVideoStreamReceiver::OnAssembledFrame).\nit might be possible to do better.\n(e.g. discardable \u003d temporal_index \u003e 0), but I prefer to avoid mixing in behavior changes.",
+      "parentUuid": "258aff3b_1fc514e6",
+      "range": {
+        "startLine": 407,
+        "startChar": 50,
+        "endLine": 407,
+        "endChar": 66
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -367,6 +601,30 @@
     },
     {
       "key": {
+        "uuid": "fe8ca220_0517ecf5",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "no, it doesn\u0027t. Why negative referenced number whould be a problem?\n\n(it will point to a frame that can never be received, so this frame would never look decodable, but there are simpler ways to trigger same behavior....\nor may be it can. depends how frame_id unwrapper behave.\ne.g. delta frame with frame_id \u003d 2 and fdiff\u003d3 is received, then key frame with frame_id\u003d0xffff is received. That is valid.)",
+      "parentUuid": "b7025f6d_1a483041",
+      "range": {
+        "startLine": 410,
+        "startChar": 42,
+        "endLine": 410,
+        "endChar": 58
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7d29d03_7d91b6d4",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4
@@ -390,6 +648,30 @@
     },
     {
       "key": {
+        "uuid": "b2c20a77_dc11a8aa",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "yes, I think setting values using names is more readable than having multiple parameters,\nspecially since types here are too generic to give a hint of the parameter meaning.\n\nbugs where some values are errornesly unset I believe better catched with a unittest.",
+      "parentUuid": "b7d29d03_7d91b6d4",
+      "range": {
+        "startLine": 446,
+        "startChar": 8,
+        "endLine": 446,
+        "endChar": 32
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0356cf50_801c477c",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4
@@ -410,6 +692,30 @@
       "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "221992bf_3e3ad1d1",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-22T18:13:50Z",
+      "side": 1,
+      "message": "1. why? (expression looks simple enough, can order of operators be confusing here?)\n2. up to you,\nbut I would recommend to keep distinguishing between key frame and frame with no dependencies.\nfirst one resets all the state (LossNotificationController does decodable_frame_ids_.clear();)\nsecond one - doesn\u0027t and shouldn\u0027t. e.g. This dependencies are potentially valid:\nD\u003c--D\u003c--D\n|   |   |\nKF  D   D\n--time--\u003e\n\nyou right that GFDv0 can\u0027t see the difference between key frame and intra frame,\nbut GFDv2 - can.",
+      "parentUuid": "0356cf50_801c477c",
+      "range": {
+        "startLine": 448,
+        "startChar": 12,
+        "endLine": 448,
+        "endChar": 69
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

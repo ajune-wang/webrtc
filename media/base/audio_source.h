@@ -32,6 +32,12 @@ class AudioSource {
     // Called when the AudioSource is going away.
     virtual void OnClose() = 0;
 
+    // Returns the number of channels in the source, or a value of -1 if the
+    // number is unknown.
+    // TODO(bugs.webrtc.org/8133): Make pure virtual once picked up by
+    // downstream projects.
+    virtual int GetNumChannels() const { return -1; }
+
    protected:
     virtual ~Sink() {}
   };

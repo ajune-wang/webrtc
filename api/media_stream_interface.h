@@ -204,6 +204,12 @@ class AudioTrackSinkInterface {
                       size_t number_of_channels,
                       size_t number_of_frames) = 0;
 
+  // Returns the number of channels in the sink, or a value of -1 if the number
+  // is unknown.
+  // TODO(bugs.webrtc.org/8133): Make pure virtual once picked up by downstream
+  // projects.
+  virtual int GetNumChannels() const { return -1; }
+
  protected:
   virtual ~AudioTrackSinkInterface() {}
 };

@@ -167,6 +167,7 @@ TEST(WebRtcVoiceEngineTestStubLibrary, StartupShutdown) {
 class FakeAudioSink : public webrtc::AudioSinkInterface {
  public:
   void OnData(const Data& audio) override {}
+  int GetNumChannels() const override { return -1; }
 };
 
 class FakeAudioSource : public cricket::AudioSource {

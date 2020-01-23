@@ -204,6 +204,8 @@ class AudioTrackSinkInterface {
                       size_t number_of_channels,
                       size_t number_of_frames) = 0;
 
+  virtual int GetNumChannels() const = 0;
+
  protected:
   virtual ~AudioTrackSinkInterface() {}
 };

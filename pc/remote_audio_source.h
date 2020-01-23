@@ -62,6 +62,7 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface>,
   // These are callbacks from the media engine.
   class AudioDataProxy;
   void OnData(const AudioSinkInterface::Data& audio);
+  int GetMaxNumSinkChannels();
   void OnAudioChannelGone();
 
   void OnMessage(rtc::Message* msg) override;
@@ -72,6 +73,7 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface>,
   rtc::CriticalSection sink_lock_;
   std::list<AudioTrackSinkInterface*> sinks_;
   SourceState state_;
+  int max_num_sink_channels_;
 };
 
 }  // namespace webrtc

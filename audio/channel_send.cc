@@ -101,6 +101,8 @@ class ChannelSend : public ChannelSendInterface,
   // Muting, Volume and Level.
   void SetInputMute(bool enable) override;
 
+  int GetNumChannels() const override;
+
   // Stats.
   ANAStats GetANAStatistics() const override;
 
@@ -221,6 +223,8 @@ class ChannelSend : public ChannelSendInterface,
   // Defined last to ensure that there are no running tasks when the other
   // members are destroyed.
   rtc::TaskQueue encoder_queue_;
+
+  int num_channels_ = -1;
 };
 
 const int kTelephoneEventAttenuationdB = 10;
@@ -568,6 +572,8 @@ void ChannelSend::SetEncoder(int payload_type,
   RTC_DCHECK_GE(payload_type, 0);
   RTC_DCHECK_LE(payload_type, 127);
 
+  num_channels_ = encoder->NumChannels();
+
   // The RTP/RTCP module needs to know the RTP timestamp rate (i.e. clockrate)
   // as well as some other things, so we collect this info and send it along.
   _rtpRtcpModule->RegisterSendPayloadFrequency(payload_type,
@@ -616,6 +622,10 @@ void ChannelSend::OnBitrateAllocation(BitrateAllocationUpdate update) {
 int ChannelSend::GetBitrate() const {
   rtc::CritScope lock(&bitrate_crit_section_);
   return configured_bitrate_bps_;
+}
+
+int ChannelSend::GetNumChannels() const {
+  return num_channels_;
 }
 
 void ChannelSend::OnUplinkPacketLossRate(float packet_loss_rate) {

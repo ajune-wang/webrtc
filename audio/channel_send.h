@@ -93,6 +93,11 @@ class ChannelSendInterface {
   virtual void OnBitrateAllocation(BitrateAllocationUpdate update) = 0;
   virtual int GetBitrate() const = 0;
   virtual void SetInputMute(bool muted) = 0;
+  // Returns the number of channels in the encoder, or a value of -1 if the
+  // number is unknown.
+  // TODO(bugs.webrtc.org/8133): Make pure virtual once picked up by downstream
+  // projects.
+  virtual int GetNumChannels() const { return -1; }
 
   virtual void ProcessAndEncodeAudio(
       std::unique_ptr<AudioFrame> audio_frame) = 0;

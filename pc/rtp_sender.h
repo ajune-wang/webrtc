@@ -15,6 +15,7 @@
 #ifndef PC_RTP_SENDER_H_
 #define PC_RTP_SENDER_H_
 
+#include <atomic>
 #include <memory>
 #include <string>
 #include <vector>
@@ -215,9 +216,13 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
               size_t number_of_channels,
               size_t number_of_frames) override;
 
+  // AudioSinkInterface implementation.
+  int GetNumChannels() const override;
+
   // cricket::AudioSource implementation.
   void SetSink(cricket::AudioSource::Sink* sink) override;
 
+  std::atomic<int> num_sink_channels_;
   cricket::AudioSource::Sink* sink_;
   // Critical section protecting |sink_|.
   rtc::CriticalSection lock_;

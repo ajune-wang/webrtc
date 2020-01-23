@@ -563,6 +563,11 @@ void SimplePeerConnection::OnData(const void* audio_data,
                  static_cast<int>(number_of_frames));
 }
 
+int SimplePeerConnection::GetNumChannels() const {
+  // Return -1 to indicate that the number of channels is unknown.
+  return -1;
+}
+
 std::vector<uint32_t> SimplePeerConnection::GetRemoteAudioTrackSsrcs() {
   std::vector<rtc::scoped_refptr<webrtc::RtpReceiverInterface>> receivers =
       peer_connection_->GetReceivers();

@@ -11,6 +11,7 @@
 #include "media/engine/webrtc_voice_engine.h"
 
 #include <algorithm>
+#include <atomic>
 #include <cstdio>
 #include <functional>
 #include <string>
@@ -61,14 +62,21 @@ const int kMaxPayloadType = 127;
 
 class ProxySink : public webrtc::AudioSinkInterface {
  public:
-  explicit ProxySink(AudioSinkInterface* sink) : sink_(sink) {
+  explicit ProxySink(AudioSinkInterface* sink)
+      : sink_(sink), num_sink_channels_(-1) {
     RTC_DCHECK(sink);
   }
 
-  void OnData(const Data& audio) override { sink_->OnData(audio); }
+  void OnData(const Data& audio) override {
+    sink_->OnData(audio);
+    num_sink_channels_ = sink_->GetNumChannels();
+  }
+
+  int GetNumChannels() const override { return num_sink_channels_; }
 
  private:
   webrtc::AudioSinkInterface* sink_;
+  std::atomic<int> num_sink_channels_;
 };
 
 bool ValidateStreamParams(const StreamParams& sp) {
@@ -703,7 +711,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
       : call_(call),
         config_(send_transport),
         max_send_bitrate_bps_(max_send_bitrate_bps),
-        rtp_parameters_(CreateRtpParametersWithOneEncoding()) {
+        rtp_parameters_(CreateRtpParametersWithOneEncoding()),
+        num_stream_channels_(-1) {
     RTC_DCHECK(call);
     RTC_DCHECK(encoder_factory);
     config_.rtp.ssrc = ssrc;
@@ -880,7 +889,12 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
         number_of_frames, sample_rate, audio_frame->speech_type_,
         audio_frame->vad_activity_, number_of_channels);
     stream_->SendAudioData(std::move(audio_frame));
+    num_stream_channels_ = stream_->GetNumChannels();
   }
+
+  // AudioSource::Sink implementation.
+  // This method is called on the audio thread.
+  int GetNumChannels() const override { return num_stream_channels_; }
 
   // Callback from the |source_| when it is going away. In case Start() has
   // never been called, this callback won't be triggered.
@@ -1035,6 +1049,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
   int max_send_bitrate_bps_;
   webrtc::RtpParameters rtp_parameters_;
   absl::optional<webrtc::AudioCodecSpec> audio_codec_spec_;
+  std::atomic<int> num_stream_channels_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(WebRtcAudioSendStream);
 };

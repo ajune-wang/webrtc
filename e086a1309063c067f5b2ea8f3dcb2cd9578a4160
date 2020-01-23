@@ -22,6 +22,30 @@
       "revId": "e086a1309063c067f5b2ea8f3dcb2cd9578a4160",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83c86c5f_4878e47e",
+        "filename": "api/units/time_delta.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T10:27:31Z",
+      "side": 1,
+      "message": "That will address double functionality problem,\nbut will not address other concerns I have",
+      "parentUuid": "77ef5e4b_5aff226e",
+      "range": {
+        "startLine": 62,
+        "startChar": 19,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "e086a1309063c067f5b2ea8f3dcb2cd9578a4160",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

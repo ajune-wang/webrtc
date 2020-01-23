@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "db71ec03_d43df5e0",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-23T08:52:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea5f4a47_323ab702",
+      "range": {
+        "startLine": 377,
+        "startChar": 43,
+        "endLine": 377,
+        "endChar": 52
+      },
+      "revId": "329497c4f9d40eaa27d94b0179986a03af381f32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a30973e1_899d84bb",
         "filename": "audio/channel_send.cc",
         "patchSetId": 2
@@ -130,6 +154,30 @@
       "side": 1,
       "message": "nah, it is _rtpRtcpModule-\u003eStartTimestamp() that is rtp_timestamp_offset 😊\n(according to rtp spec rtp timestamp should start from a random value, that value is generated in the rtp_rtcp_module and named start timestamp)",
       "parentUuid": "a30973e1_899d84bb",
+      "range": {
+        "startLine": 441,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 78
+      },
+      "revId": "329497c4f9d40eaa27d94b0179986a03af381f32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b30ca732_d92f76b0",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-23T08:52:32Z",
+      "side": 1,
+      "message": "nice, that makes me happy too. now variable renamed.",
+      "parentUuid": "827203f9_11daf8cf",
       "range": {
         "startLine": 441,
         "startChar": 0,

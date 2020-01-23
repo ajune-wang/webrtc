@@ -746,6 +746,30 @@
     },
     {
       "key": {
+        "uuid": "6195922b_ee5572f9",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T13:19:19Z",
+      "side": 1,
+      "message": "We use `discardable` here in the sense that no future frames may depend on it.",
+      "parentUuid": "8a826383_bc52a66e",
+      "range": {
+        "startLine": 407,
+        "startChar": 50,
+        "endLine": 407,
+        "endChar": 66
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7025f6d_1a483041",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4

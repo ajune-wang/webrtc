@@ -11,6 +11,7 @@
 #include "audio/channel_send.h"
 
 #include <algorithm>
+#include <atomic>
 #include <map>
 #include <memory>
 #include <string>
@@ -100,6 +101,9 @@ class ChannelSend : public ChannelSendInterface,
 
   // Muting, Volume and Level.
   void SetInputMute(bool enable) override;
+
+  // Number of channels to send.
+  int GetNumChannels() const override { return num_channels_; }
 
   // Stats.
   ANAStats GetANAStatistics() const override;
@@ -221,6 +225,8 @@ class ChannelSend : public ChannelSendInterface,
   // Defined last to ensure that there are no running tasks when the other
   // members are destroyed.
   rtc::TaskQueue encoder_queue_;
+
+  std::atomic<int> num_channels_;
 };
 
 const int kTelephoneEventAttenuationdB = 10;
@@ -473,7 +479,8 @@ ChannelSend::ChannelSend(Clock* clock,
       crypto_options_(crypto_options),
       encoder_queue_(task_queue_factory->CreateTaskQueue(
           "AudioEncoder",
-          TaskQueueFactory::Priority::NORMAL)) {
+          TaskQueueFactory::Priority::NORMAL)),
+      num_channels_(-1) {
   RTC_DCHECK(module_process_thread);
   module_process_thread_checker_.Detach();
 
@@ -567,6 +574,8 @@ void ChannelSend::SetEncoder(int payload_type,
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   RTC_DCHECK_GE(payload_type, 0);
   RTC_DCHECK_LE(payload_type, 127);
+
+  num_channels_ = encoder->NumChannels();
 
   // The RTP/RTCP module needs to know the RTP timestamp rate (i.e. clockrate)
   // as well as some other things, so we collect this info and send it along.

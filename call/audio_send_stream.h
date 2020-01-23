@@ -179,6 +179,12 @@ class AudioSendStream : public AudioSender {
                                   int event,
                                   int duration_ms) = 0;
 
+  // Returns the number of channels sent in the stream, or a value of -1 if the
+  // number is unknown.
+  // TODO(bugs.webrtc.org/8133): Make pure virtual once picked up by downstream
+  // projects.
+  virtual int GetNumChannels() const { return -1; }
+
   virtual void SetMuted(bool muted) = 0;
 
   virtual Stats GetStats() const = 0;

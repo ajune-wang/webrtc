@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 
+#include <algorithm>
 #include <memory>
 #include <string>
 
@@ -32,7 +33,8 @@ namespace webrtc {
 // which will fan it out to all the sinks that have been added to it.
 class RemoteAudioSource::AudioDataProxy : public AudioSinkInterface {
  public:
-  explicit AudioDataProxy(RemoteAudioSource* source) : source_(source) {
+  explicit AudioDataProxy(RemoteAudioSource* source)
+      : source_(source), max_num_sink_channels_(-1) {
     RTC_DCHECK(source);
   }
   ~AudioDataProxy() override { source_->OnAudioChannelGone(); }
@@ -40,10 +42,14 @@ class RemoteAudioSource::AudioDataProxy : public AudioSinkInterface {
   // AudioSinkInterface implementation.
   void OnData(const AudioSinkInterface::Data& audio) override {
     source_->OnData(audio);
+    max_num_sink_channels_ = source_->GetMaxNumSinkChannels();
   }
+
+  int GetNumChannels() const override { return max_num_sink_channels_; }
 
  private:
   const rtc::scoped_refptr<RemoteAudioSource> source_;
+  int max_num_sink_channels_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(AudioDataProxy);
 };
@@ -51,7 +57,8 @@ class RemoteAudioSource::AudioDataProxy : public AudioSinkInterface {
 RemoteAudioSource::RemoteAudioSource(rtc::Thread* worker_thread)
     : main_thread_(rtc::Thread::Current()),
       worker_thread_(worker_thread),
-      state_(MediaSourceInterface::kLive) {
+      state_(MediaSourceInterface::kLive),
+      max_num_sink_channels_(-1) {
   RTC_DCHECK(main_thread_);
   RTC_DCHECK(worker_thread_);
 }
@@ -143,9 +150,14 @@ void RemoteAudioSource::RemoveSink(AudioTrackSinkInterface* sink) {
 void RemoteAudioSource::OnData(const AudioSinkInterface::Data& audio) {
   // Called on the externally-owned audio callback thread, via/from webrtc.
   rtc::CritScope lock(&sink_lock_);
+  max_num_sink_channels_ = -1;
   for (auto* sink : sinks_) {
     sink->OnData(audio.data, 16, audio.sample_rate, audio.channels,
                  audio.samples_per_channel);
+    const int num_channels_in_sink = sink->GetNumChannels();
+    if (max_num_sink_channels_ < num_channels_in_sink) {
+      max_num_sink_channels_ = num_channels_in_sink;
+    }
   }
 }
 

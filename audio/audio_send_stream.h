@@ -84,6 +84,9 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   void Start() override;
   void Stop() override;
   void SendAudioData(std::unique_ptr<AudioFrame> audio_frame) override;
+  int GetNumChannels() const override {
+    return channel_send_->GetNumChannels();
+  }
   bool SendTelephoneEvent(int payload_type,
                           int payload_frequency,
                           int event,

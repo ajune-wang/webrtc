@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3c2caf37_44413516",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T12:50:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdc9fe85_e0e9a067",
+      "revId": "92830f62d3e03d0d3b37b8c1c3577a470782c997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "762c70bd_e99373b0",
         "filename": "modules/video_coding/loss_notification_controller.cc",
         "patchSetId": 7
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "6b9ffc85_cff81817",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T12:50:56Z",
+      "side": 1,
+      "message": "you\u0027re right, I\u0027ve added a simple test for that usecase.\n[and manually checked it fails if check here replaced with if (frame-\u003eframe_dependencies.empty()) ]",
+      "parentUuid": "762c70bd_e99373b0",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "92830f62d3e03d0d3b37b8c1c3577a470782c997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df9a6bd6_f376e69c",
         "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
         "patchSetId": 7
@@ -62,6 +104,30 @@
       "revId": "92830f62d3e03d0d3b37b8c1c3577a470782c997",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08ab214b_0c38e10c",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T12:50:56Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "df9a6bd6_f376e69c",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "92830f62d3e03d0d3b37b8c1c3577a470782c997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

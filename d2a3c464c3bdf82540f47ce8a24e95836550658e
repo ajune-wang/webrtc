@@ -262,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "c66f7469_90846411",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T12:50:56Z",
+      "side": 1,
+      "message": "generally I consider it is ok to rely on behavior defined in the c++ (std library) spec.\nBut here I think it doesn\u0027t really matter.\nReverted to the explicit check for nullopt case because you think it does matter.",
+      "parentUuid": "9af8cf72_c1314671",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 59
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2421b4ce_a4e48d88",
         "filename": "modules/video_coding/loss_notification_controller.h",
         "patchSetId": 4
@@ -556,6 +580,30 @@
     },
     {
       "key": {
+        "uuid": "782f585a_f6da0f4c",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T12:50:56Z",
+      "side": 1,
+      "message": "yes, I think that would be better. Removed the marker check to avoid it dragging attention.\nNo test seems to complain about the simplification.",
+      "parentUuid": "869383c0_b4894975",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 58
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd6e4bb5_4a633ffc",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4
@@ -671,6 +719,30 @@
       "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a826383_bc52a66e",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T12:50:56Z",
+      "side": 1,
+      "message": "depends which frames you consider discardable and which dependency structure is used.\nif discardable means stream is still decodable without current and all dependend frames, just may be with lower quality, then T1s are discardable.\n\nif T1 always depends on previous T1, then T1 is not discardable (but, afaik, we do not use such structures).\nif discardable means there are 0 frames depending on this frame, then T1 might not be discardable.\nif discardable means there are max few frames depending on this frame, then T1 can be claimed discardable (afaik in structures we use there might be maximum 3 frames that (indirectly) depends on a T1 frame.\n\nMy understanding you are using definition \u0027discardable means there are 0 frames depending on current frame\u0027. Then discardable \u003d (temporal_index \u003e 0) is a bad idea.\n\nAnyway. if discardability is unknown it is safer to assume frame is not discardable.",
+      "parentUuid": "08dedb0e_064b267f",
+      "range": {
+        "startLine": 407,
+        "startChar": 50,
+        "endLine": 407,
+        "endChar": 66
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -827,6 +899,30 @@
       "side": 1,
       "message": "1. That\u0027s what some C++ readability reviewers have asked me to do. I have no preference here personally, so do as you think is best.\n2. Changing between relying on lack of dependencies, and relying on something being a key frame, should probably come with some added unit tests?",
       "parentUuid": "221992bf_3e3ad1d1",
+      "range": {
+        "startLine": 448,
+        "startChar": 12,
+        "endLine": 448,
+        "endChar": 69
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed084d1d_3b7ecaee",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T12:50:56Z",
+      "side": 1,
+      "message": "in situation like this one parenthesis are not recommended because they can hide bug\nframe_details-\u003eis_keyframe \u003d\n    (video_header.frame_type \u003d VideoFrameType::kVideoFrameKey);\n\n(this still won\u0027t compile because frame_type is not convertable to bool, but would compile if video_header.frame_type would have been e.g. optional\u003cVideoFrameType)\n\n2. yes, test added.",
+      "parentUuid": "f14d17ae_aacd9aba",
       "range": {
         "startLine": 448,
         "startChar": 12,

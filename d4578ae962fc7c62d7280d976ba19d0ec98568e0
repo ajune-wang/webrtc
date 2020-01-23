@@ -22,6 +22,30 @@
       "revId": "d4578ae962fc7c62d7280d976ba19d0ec98568e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8536626c_55f27b64",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-23T12:50:56Z",
+      "side": 0,
+      "message": "because LossNotificationController no longer responsible for the frame id unwrapper.\nBut probably I should add similar test to the RtpVideoStreamReceiver instead. because that one is responsible for that now.",
+      "parentUuid": "a6339247_1aa25789",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 1
+      },
+      "revId": "d4578ae962fc7c62d7280d976ba19d0ec98568e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

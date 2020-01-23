@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bdc9fe85_e0e9a067",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 1,
+      "message": "Please comment that this condition corresponds to being/not-being the first packet in a frame. (The reader might have missed it in the header, or could have forgotten by now.)",
+      "revId": "92830f62d3e03d0d3b37b8c1c3577a470782c997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "762c70bd_e99373b0",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 1,
+      "message": "Prior to your change, a non-key intra-frame would enter the if-block. After your change, it enters the else-block. We should probably add a unit test for non-key intra-frames.",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "92830f62d3e03d0d3b37b8c1c3577a470782c997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df9a6bd6_f376e69c",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 1,
+      "message": "(Issue from the original code.)\nMaybe it would have been better to DCHECK that (!key || refs.empty()), and then just copy the dependencies unconditionally.",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 23
+      },
+      "revId": "92830f62d3e03d0d3b37b8c1c3577a470782c997",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

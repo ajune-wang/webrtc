@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "9af8cf72_c1314671",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 1,
+      "message": "I was not aware that nullopt was lesser than any optional\u003cT\u003e. My guess would be that few people would be aware of the fact. The code as it stands is a bit \"clever\". Maybe we can change it to be more explicit?",
+      "parentUuid": "d9341258_a988143f",
+      "range": {
+        "startLine": 73,
+        "startChar": 36,
+        "endLine": 73,
+        "endChar": 59
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2421b4ce_a4e48d88",
         "filename": "modules/video_coding/loss_notification_controller.h",
         "patchSetId": 4
@@ -379,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "51a380a2_c17e633c",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 1,
+      "message": "|frame| is also good. I was mostly objecting |first_in_frame|.",
+      "parentUuid": "74f49066_dcf74b7c",
+      "range": {
+        "startLine": 41,
+        "startChar": 53,
+        "endLine": 41,
+        "endChar": 67
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edcd676d_85a29f83",
         "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
         "patchSetId": 4
@@ -484,6 +532,30 @@
     },
     {
       "key": {
+        "uuid": "869383c0_b4894975",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 1,
+      "message": "I agree that it\u0027s not a blocker for the current CL.\nWould it not make sense to rely solely on the GFD when it is available, and on the marker bit otherwise?",
+      "parentUuid": "0eaee85c_b84bd6c1",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 58
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd6e4bb5_4a633ffc",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4
@@ -575,6 +647,30 @@
       "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08dedb0e_064b267f",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 1,
+      "message": "[Not a blocker for this CL.]\n(temporal_index \u003e 0) does not imply discardability, since future frames of the same temporal layer (or higher) may depend on it, right?",
+      "parentUuid": "7809252b_a1edf874",
+      "range": {
+        "startLine": 407,
+        "startChar": 50,
+        "endLine": 407,
+        "endChar": 66
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -707,6 +803,30 @@
       "side": 1,
       "message": "1. why? (expression looks simple enough, can order of operators be confusing here?)\n2. up to you,\nbut I would recommend to keep distinguishing between key frame and frame with no dependencies.\nfirst one resets all the state (LossNotificationController does decodable_frame_ids_.clear();)\nsecond one - doesn\u0027t and shouldn\u0027t. e.g. This dependencies are potentially valid:\nD\u003c--D\u003c--D\n|   |   |\nKF  D   D\n--time--\u003e\n\nyou right that GFDv0 can\u0027t see the difference between key frame and intra frame,\nbut GFDv2 - can.",
       "parentUuid": "0356cf50_801c477c",
+      "range": {
+        "startLine": 448,
+        "startChar": 12,
+        "endLine": 448,
+        "endChar": 69
+      },
+      "revId": "d2a3c464c3bdf82540f47ce8a24e95836550658e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f14d17ae_aacd9aba",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 1,
+      "message": "1. That\u0027s what some C++ readability reviewers have asked me to do. I have no preference here personally, so do as you think is best.\n2. Changing between relying on lack of dependencies, and relying on something being a key frame, should probably come with some added unit tests?",
+      "parentUuid": "221992bf_3e3ad1d1",
       "range": {
         "startLine": 448,
         "startChar": 12,

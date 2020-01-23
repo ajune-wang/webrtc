@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6339247_1aa25789",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-01-23T10:30:31Z",
+      "side": 0,
+      "message": "Why was this removed?",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 1
+      },
+      "revId": "d4578ae962fc7c62d7280d976ba19d0ec98568e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

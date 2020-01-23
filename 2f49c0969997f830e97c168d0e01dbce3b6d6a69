@@ -173,6 +173,24 @@
     },
     {
       "key": {
+        "uuid": "a1a4cc1b_ff9a9445",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-01-23T13:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2085efd1_dad14b80",
+      "revId": "2f49c0969997f830e97c168d0e01dbce3b6d6a69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd48b780_de3170f9",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
         "patchSetId": 4

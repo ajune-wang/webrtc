@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a21b4c4_4d4c630a",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2020-01-23T14:03:45Z",
+      "side": 1,
+      "message": "Is it expected to potentially do both Nonbanded and Banded render?\nWhat would be the rationale behind that?\nCan we add this rationale as a comment \"// Do non-banded render in any case since ...\"?",
+      "revId": "2d31aea481900e2982d0ee2aa0d19070f8dabf3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

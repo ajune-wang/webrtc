@@ -96,6 +96,7 @@ class MockChannelSend : public voe::ChannelSendInterface {
   MOCK_METHOD2(SetSendTelephoneEventPayloadType,
                void(int payload_type, int payload_frequency));
   MOCK_METHOD2(SendTelephoneEventOutband, bool(int event, int duration_ms));
+  MOCK_CONST_METHOD0(GetNumChannels, int());
   MOCK_METHOD1(OnBitrateAllocation, void(BitrateAllocationUpdate update));
   MOCK_METHOD1(SetInputMute, void(bool muted));
   MOCK_METHOD2(ReceivedRTCPPacket, void(const uint8_t* packet, size_t length));

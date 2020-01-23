@@ -11,6 +11,7 @@
 #ifndef PC_REMOTE_AUDIO_SOURCE_H_
 #define PC_REMOTE_AUDIO_SOURCE_H_
 
+#include <atomic>
 #include <list>
 #include <string>
 
@@ -62,6 +63,9 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface>,
   // These are callbacks from the media engine.
   class AudioDataProxy;
   void OnData(const AudioSinkInterface::Data& audio);
+  // Returns the maximum number of channels in the sinks, or a value of -1 when
+  // this is not known.
+  int GetMaxNumSinkChannels();
   void OnAudioChannelGone();
 
   void OnMessage(rtc::Message* msg) override;
@@ -72,6 +76,7 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface>,
   rtc::CriticalSection sink_lock_;
   std::list<AudioTrackSinkInterface*> sinks_;
   SourceState state_;
+  std::atomic<int> max_num_sink_channels_;
 };
 
 }  // namespace webrtc

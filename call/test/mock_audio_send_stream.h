@@ -35,6 +35,7 @@ class MockAudioSendStream : public AudioSendStream {
                     int payload_frequency,
                     int event,
                     int duration_ms));
+  MOCK_CONST_METHOD0(GetNumChannels, int());
   MOCK_METHOD1(SetMuted, void(bool muted));
   MOCK_CONST_METHOD0(GetStats, Stats());
   MOCK_CONST_METHOD1(GetStats, Stats(bool has_remote_tracks));

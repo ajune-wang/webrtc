@@ -100,6 +100,8 @@ class SimplePeerConnection : public webrtc::PeerConnectionObserver,
               size_t number_of_channels,
               size_t number_of_frames) override;
 
+  int GetNumChannels() const override;
+
   // Get remote audio tracks ssrcs.
   std::vector<uint32_t> GetRemoteAudioTrackSsrcs();
 

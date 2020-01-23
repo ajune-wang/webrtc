@@ -33,6 +33,9 @@ namespace webrtc {
 class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
  public:
   TimeDelta() = delete;
+
+  // TODO(danilchap): Delete 6 factories below when webrtc and dependencies are
+  // switched to use 3 free functions just below this class to create TimeDelta.
   template <int64_t seconds>
   static constexpr TimeDelta Seconds() {
     return FromFraction(1'000'000, seconds);
@@ -91,9 +94,22 @@ class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
 
  private:
   friend class rtc_units_impl::UnitBase<TimeDelta>;
+  friend constexpr TimeDelta Microseconds(int64_t value);
+  friend constexpr TimeDelta Milliseconds(int64_t value);
+  friend constexpr TimeDelta Seconds(int64_t value);
   using RelativeUnit::RelativeUnit;
   static constexpr bool one_sided = false;
 };
+
+inline constexpr TimeDelta Microseconds(int64_t value) {
+  return TimeDelta::FromValue(value);
+}
+inline constexpr TimeDelta Milliseconds(int64_t value) {
+  return TimeDelta::FromFraction(1'000, value);
+}
+inline constexpr TimeDelta Seconds(int64_t value) {
+  return TimeDelta::FromFraction(1'000'000, value);
+}
 
 std::string ToString(TimeDelta value);
 inline std::string ToLogString(TimeDelta value) {

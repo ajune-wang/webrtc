@@ -46,6 +46,7 @@ class AudioSinkInterface {
   };
 
   virtual void OnData(const Data& audio) = 0;
+  virtual int GetNumChannels() const = 0;
 };
 
 }  // namespace webrtc

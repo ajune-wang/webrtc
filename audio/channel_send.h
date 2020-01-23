@@ -93,6 +93,7 @@ class ChannelSendInterface {
   virtual void OnBitrateAllocation(BitrateAllocationUpdate update) = 0;
   virtual int GetBitrate() const = 0;
   virtual void SetInputMute(bool muted) = 0;
+  virtual int GetNumChannels() const = 0;
 
   virtual void ProcessAndEncodeAudio(
       std::unique_ptr<AudioFrame> audio_frame) = 0;

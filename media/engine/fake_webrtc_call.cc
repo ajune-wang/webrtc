@@ -54,6 +54,10 @@ bool FakeAudioSendStream::SendTelephoneEvent(int payload_type,
   return true;
 }
 
+int FakeAudioSendStream::GetNumChannels() const {
+  return -1;
+}
+
 void FakeAudioSendStream::SetMuted(bool muted) {
   muted_ = muted;
 }

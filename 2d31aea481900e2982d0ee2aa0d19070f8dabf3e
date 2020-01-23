@@ -16,6 +16,24 @@
       "revId": "2d31aea481900e2982d0ee2aa0d19070f8dabf3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc42edd8_2ee3b8fd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-23T15:06:11Z",
+      "side": 1,
+      "message": "Welcome! This is a place with a rich history.\n\nSome submodules require the audio to be split into bands, some do not.\nThis function stores the render audio for submodules that want to see the full band audio.\n\nBelow, we split audio into bands of 16 kHz, and feed it to other submodules that want to see the split audio.\n\nWe would be calling both, always, like this:\n  QueueNonBandedRenderAudio(render_buffer);\n  QueueBandedRenderAudio(render_buffer);\nbut the banded audio will only be available if we have the right sample rates and actually do the split, in which case we (or at least we want to leave the door open to) have overwritten the non-banded audio. So the flow is a bit like this:\n1. enqueue the original audio\n2. maybe modify the audio\n3. maybe enqueue the modified audio",
+      "parentUuid": "4a21b4c4_4d4c630a",
+      "revId": "2d31aea481900e2982d0ee2aa0d19070f8dabf3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

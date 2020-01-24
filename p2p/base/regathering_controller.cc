@@ -34,7 +34,7 @@ BasicRegatheringController::BasicRegatheringController(
     : config_(config),
       ice_transport_(ice_transport),
       thread_(thread),
-      rand_(rtc::SystemTimeNanos()) {
+      rand_(rtc::TimeNanos()) {
   RTC_DCHECK(ice_transport_);
   RTC_DCHECK(thread_);
   ice_transport_->SignalStateChanged.connect(

@@ -97,6 +97,7 @@ rtc_library("rtc_pc_base") {
     "../api/rtc_event_log",
     "../api/transport:datagram_transport_interface",
     "../api/transport/media:media_transport_interface",
+    "../api/transport/rtp:rtp_packet_type",
     "../api/video:builtin_video_bitrate_allocator_factory",
     "../api/video:video_frame",
     "../api/video:video_rtp_headers",

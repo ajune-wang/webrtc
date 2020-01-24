@@ -252,6 +252,7 @@ rtc_library("call") {
     "../api:transport_api",
     "../api/rtc_event_log",
     "../api/transport:network_control",
+    "../api/transport/rtp:rtp_packet_type",
     "../api/units:time_delta",
     "../api/video_codecs:video_codecs_api",
     "../audio",

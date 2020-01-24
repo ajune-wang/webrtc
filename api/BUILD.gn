@@ -984,6 +984,7 @@ if (rtc_include_tests) {
       "../test:fileutils",
       "../test:test_support",
       "task_queue:task_queue_default_factory_unittests",
+      "transport/rtp:transport_rtp_unittests",
       "units:time_delta",
       "units:timestamp",
       "units:units_unittests",

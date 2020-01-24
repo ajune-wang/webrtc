@@ -465,7 +465,7 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(
     std::unique_ptr<SmoothingFilter> bitrate_smoother)
     : payload_type_(payload_type),
       send_side_bwe_with_overhead_(
-          webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+          !webrtc::field_trial::IsDisabled("WebRTC-SendSideBwe-WithOverhead")),
       use_stable_target_for_adaptation_(webrtc::field_trial::IsEnabled(
           "WebRTC-Audio-StableTargetAdaptation")),
       adjust_bandwidth_(
@@ -593,6 +593,11 @@ void AudioEncoderOpusImpl::OnReceivedUplinkPacketLossFraction(
   ApplyAudioNetworkAdaptor();
 }
 
+void AudioEncoderOpusImpl::OnReceivedTargetAudioBitrate(
+    int target_audio_bitrate_bps) {
+  SetTargetBitrate(target_audio_bitrate_bps);
+}
+
 void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     int target_audio_bitrate_bps,
     absl::optional<int64_t> bwe_period_ms,
@@ -621,14 +626,17 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
 
     ApplyAudioNetworkAdaptor();
   } else if (send_side_bwe_with_overhead_) {
+    auto overhead = overhead_bytes_per_packet_;
     if (!overhead_bytes_per_packet_) {
+      // DefaultOverhead = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
+      constexpr size_t kDefaultOverhead = 20 + 8 + 10 + 12;
       RTC_LOG(LS_INFO)
-          << "AudioEncoderOpusImpl: Overhead unknown, target audio bitrate "
-          << target_audio_bitrate_bps << " bps is ignored.";
-      return;
+          << "AudioEncoderOpusImpl: Overhead unknown, using default value of "
+          << kDefaultOverhead;
+      overhead = kDefaultOverhead;
     }
-    const int overhead_bps = static_cast<int>(
-        *overhead_bytes_per_packet_ * 8 * 100 / Num10MsFramesInNextPacket());
+    const int overhead_bps =
+        static_cast<int>(*overhead * 8 * 100 / Num10MsFramesInNextPacket());
     SetTargetBitrate(
         std::min(AudioEncoderOpusConfig::kMaxBitrateBps,
                  std::max(AudioEncoderOpusConfig::kMinBitrateBps,

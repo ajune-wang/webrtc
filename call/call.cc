@@ -39,9 +39,9 @@
 #include "modules/congestion_controller/include/receive_side_congestion_controller.h"
 #include "modules/rtp_rtcp/include/flexfec_receiver.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
+#include "modules/rtp_rtcp/rtp_packet_type.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
-#include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "modules/utility/include/process_thread.h"
 #include "modules/video_coding/fec_controller_default.h"
 #include "rtc_base/checks.h"
@@ -150,11 +150,6 @@ std::unique_ptr<rtclog::StreamConfig> CreateRtcLogStreamConfig(
   rtclog_config->local_ssrc = config.rtp.local_ssrc;
   rtclog_config->rtp_extensions = config.rtp.extensions;
   return rtclog_config;
-}
-
-bool IsRtcp(const uint8_t* packet, size_t length) {
-  RtpUtility::RtpHeaderParser rtp_parser(packet, length);
-  return rtp_parser.RTCP();
 }
 
 }  // namespace
@@ -1308,10 +1303,17 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     rtc::CopyOnWriteBuffer packet,
     int64_t packet_time_us) {
   RTC_DCHECK_RUN_ON(&configuration_sequence_checker_);
-  if (IsRtcp(packet.cdata(), packet.size()))
-    return DeliverRtcp(media_type, packet.cdata(), packet.size());
-
-  return DeliverRtp(media_type, std::move(packet), packet_time_us);
+  // Avoid potentital accidental memcpy by calling const accessor .cdata()
+  // instead of implicetly calling non-const .data()
+  switch (
+      InferRtpPacketType(rtc::MakeArrayView(packet.cdata(), packet.size()))) {
+    case RtpPacketType::kRtcp:
+      return DeliverRtcp(media_type, packet.cdata(), packet.size());
+    case RtpPacketType::kRtp:
+      return DeliverRtp(media_type, std::move(packet), packet_time_us);
+    case RtpPacketType::kUnknown:
+      return DELIVERY_PACKET_ERROR;
+  }
 }
 
 void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {

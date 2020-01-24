@@ -12,6 +12,7 @@
 
 #include <cstdint>
 
+#include "api/array_view.h"
 #include "test/gtest.h"
 
 namespace rtc {
@@ -278,6 +279,21 @@ TEST(CopyOnWriteBufferTest, TestConstDataAccessor) {
   EXPECT_NE(data1, cdata1);
   // Therefore buf2 was no longer sharing data and was not cloned.
   EXPECT_EQ(data2, cdata1);
+}
+
+TEST(CopyOnWriteBufferTest, PassingAsArrayViewAvoidsCloning) {
+  CopyOnWriteBuffer buf1(kTestData, 3, 10);
+  CopyOnWriteBuffer buf2(buf1);
+  // .cdata() doesn't clone data.
+  const uint8_t* cdata1 = buf1.cdata();
+  const uint8_t* cdata2 = buf2.cdata();
+  ASSERT_EQ(cdata1, cdata2);
+
+  auto reader = [&](rtc::ArrayView<const uint8_t> buffer) {
+    // check data still shared
+    EXPECT_EQ(buffer.data(), cdata1);
+  };
+  reader(buf1);
 }
 
 TEST(CopyOnWriteBufferTest, TestBacketRead) {

@@ -242,13 +242,14 @@ void RtpPayloadParams::SetCodecSpecific(RTPVideoHeader* rtp_video_header,
   }
   // There are currently two generic descriptors in WebRTC. The old descriptor
   // can not share a picture id space between simulcast streams, so we use the
-  // |picture_id| in this case. We let the |picture_id| tag along in |frame_id|
-  // until the old generic format can be removed.
+  // |picture_id| in this case. We let the |picture_id| tag along until the old
+  // generic format can be removed.
   // TODO(philipel): Remove this when the new generic format has been fully
   //                 implemented.
   if (generic_picture_id_experiment_ &&
       rtp_video_header->codec == kVideoCodecGeneric) {
-    rtp_video_header->generic.emplace().frame_id = state_.picture_id;
+    rtp_video_header->video_type_header.emplace<RTPVideoHeaderGeneric>()
+        .picture_id = state_.picture_id;
   }
 }
 

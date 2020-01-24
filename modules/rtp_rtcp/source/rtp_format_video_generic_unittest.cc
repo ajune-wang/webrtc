@@ -75,7 +75,8 @@ TEST(RtpPacketizerVideoGeneric, WritesExtendedHeaderWhenPictureIdIsSet) {
   const uint8_t kPayload[kPayloadSize] = {};
 
   RTPVideoHeader rtp_video_header;
-  rtp_video_header.generic.emplace().frame_id = 37;
+  rtp_video_header.video_type_header.emplace<RTPVideoHeaderGeneric>()
+      .picture_id = 37;
   rtp_video_header.frame_type = VideoFrameType::kVideoFrameKey;
   RtpPacketizerGeneric packetizer(kPayload, kNoSizeLimits, rtp_video_header);
 

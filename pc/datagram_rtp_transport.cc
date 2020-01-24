@@ -20,6 +20,7 @@
 #include "api/array_view.h"
 #include "api/rtc_error.h"
 #include "media/base/rtp_utils.h"
+#include "modules/rtp_rtcp/rtp_packet_type.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "modules/rtp_rtcp/source/rtp_packet.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
@@ -189,9 +190,7 @@ void DatagramRtpTransport::OnDatagramReceived(
     rtc::ArrayView<const uint8_t> data) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
 
-  rtc::ArrayView<const char> cdata(reinterpret_cast<const char*>(data.data()),
-                                   data.size());
-  if (cricket::InferRtpPacketType(cdata) == cricket::RtpPacketType::kRtcp) {
+  if (InferRtpPacketType(data) == RtpPacketType::kRtcp) {
     rtc::CopyOnWriteBuffer buffer(data.data(), data.size());
     SignalRtcpPacketReceived(&buffer, /*packet_time_us=*/-1);
     return;

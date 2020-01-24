@@ -17,6 +17,7 @@ rtc_library("rtp_rtcp_format") {
     "include/rtp_header_extension_map.h",
     "include/rtp_packet_sender.h",
     "include/rtp_rtcp_defines.h",
+    "rtp_packet_type.h",
     "source/byte_io.h",
     "source/rtcp_packet.h",
     "source/rtcp_packet/app.h",
@@ -56,6 +57,7 @@ rtc_library("rtp_rtcp_format") {
   sources = [
     "include/report_block_data.cc",
     "include/rtp_rtcp_defines.cc",
+    "rtp_packet_type.cc",
     "source/rtcp_packet.cc",
     "source/rtcp_packet/app.cc",
     "source/rtcp_packet/bye.cc",
@@ -418,6 +420,7 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
+      "rtp_packet_type_unittest.cc",
       "source/absolute_capture_time_receiver_unittest.cc",
       "source/absolute_capture_time_sender_unittest.cc",
       "source/byte_io_unittest.cc",

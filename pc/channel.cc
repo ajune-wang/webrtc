@@ -19,6 +19,7 @@
 #include "api/transport/media/media_transport_config.h"
 #include "media/base/media_constants.h"
 #include "media/base/rtp_utils.h"
+#include "modules/rtp_rtcp/rtp_packet_type.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "p2p/base/packet_transport_internal.h"
 #include "pc/channel_manager.h"
@@ -375,7 +376,8 @@ bool BaseChannel::SendPacket(bool rtcp,
                              rtc::CopyOnWriteBuffer* packet,
                              const rtc::PacketOptions& options) {
   // Until all the code is migrated to use RtpPacketType instead of bool.
-  RtpPacketType packet_type = rtcp ? RtpPacketType::kRtcp : RtpPacketType::kRtp;
+  webrtc::RtpPacketType packet_type =
+      rtcp ? webrtc::RtpPacketType::kRtcp : webrtc::RtpPacketType::kRtp;
   // SendPacket gets called from MediaEngine, on a pacer or an encoder thread.
   // If the thread is not our network thread, we will post to our network
   // so that the real work happens on our network. This avoids us having to
@@ -403,8 +405,9 @@ bool BaseChannel::SendPacket(bool rtcp,
     return false;
   }
 
+  RTC_DCHECK_EQ(webrtc::InferRtpPacketType(*packet), packet_type);
   // Protect ourselves against crazy data.
-  if (!IsValidRtpPacketSize(packet_type, packet->size())) {
+  if (packet->size() > kMaxRtpPacketLen) {
     RTC_LOG(LS_ERROR) << "Dropping outgoing " << content_name_ << " "
                       << RtpPacketTypeToString(packet_type)
                       << " packet: wrong size=" << packet->size();
@@ -428,8 +431,7 @@ bool BaseChannel::SendPacket(bool rtcp,
       return false;
     }
 
-    std::string packet_type = rtcp ? "RTCP" : "RTP";
-    RTC_LOG(LS_WARNING) << "Sending an " << packet_type
+    RTC_LOG(LS_WARNING) << "Sending an " << RtpPacketTypeToString(packet_type)
                         << " packet without encryption.";
   }
 

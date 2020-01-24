@@ -465,7 +465,7 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(
     std::unique_ptr<SmoothingFilter> bitrate_smoother)
     : payload_type_(payload_type),
       send_side_bwe_with_overhead_(
-          webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+          !webrtc::field_trial::IsDisabled("WebRTC-SendSideBwe-WithOverhead")),
       use_stable_target_for_adaptation_(webrtc::field_trial::IsEnabled(
           "WebRTC-Audio-StableTargetAdaptation")),
       adjust_bandwidth_(
@@ -591,6 +591,11 @@ void AudioEncoderOpusImpl::OnReceivedUplinkPacketLossFraction(
   audio_network_adaptor_->SetUplinkPacketLossFraction(
       uplink_packet_loss_fraction);
   ApplyAudioNetworkAdaptor();
+}
+
+void AudioEncoderOpusImpl::OnReceivedTargetAudioBitrate(
+    int target_audio_bitrate_bps) {
+  SetTargetBitrate(target_audio_bitrate_bps);
 }
 
 void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(

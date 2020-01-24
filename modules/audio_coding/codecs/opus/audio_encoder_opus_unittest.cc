@@ -204,20 +204,20 @@ TEST_P(AudioEncoderOpusTest,
   const int kMinBitrateBps = 6000;
   const int kMaxBitrateBps = 510000;
   // Set a too low bitrate.
-  states->encoder->OnReceivedUplinkBandwidth(kMinBitrateBps - 1, absl::nullopt);
+  states->encoder->OnReceivedTargetAudioBitrate(kMinBitrateBps - 1);
   EXPECT_EQ(kMinBitrateBps, states->encoder->GetTargetBitrate());
   // Set a too high bitrate.
-  states->encoder->OnReceivedUplinkBandwidth(kMaxBitrateBps + 1, absl::nullopt);
+  states->encoder->OnReceivedTargetAudioBitrate(kMaxBitrateBps + 1);
   EXPECT_EQ(kMaxBitrateBps, states->encoder->GetTargetBitrate());
   // Set the minimum rate.
-  states->encoder->OnReceivedUplinkBandwidth(kMinBitrateBps, absl::nullopt);
+  states->encoder->OnReceivedTargetAudioBitrate(kMinBitrateBps);
   EXPECT_EQ(kMinBitrateBps, states->encoder->GetTargetBitrate());
   // Set the maximum rate.
-  states->encoder->OnReceivedUplinkBandwidth(kMaxBitrateBps, absl::nullopt);
+  states->encoder->OnReceivedTargetAudioBitrate(kMaxBitrateBps);
   EXPECT_EQ(kMaxBitrateBps, states->encoder->GetTargetBitrate());
   // Set rates from kMaxBitrateBps up to 32000 bps.
   for (int rate = kMinBitrateBps; rate <= 32000; rate += 1000) {
-    states->encoder->OnReceivedUplinkBandwidth(rate, absl::nullopt);
+    states->encoder->OnReceivedTargetAudioBitrate(rate);
     EXPECT_EQ(rate, states->encoder->GetTargetBitrate());
   }
 }

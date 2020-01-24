@@ -19,6 +19,7 @@
 #include <type_traits>
 #include <utility>
 
+#include "api/array_view.h"
 #include "api/scoped_refptr.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
@@ -71,6 +72,11 @@ class RTC_EXPORT CopyOnWriteBuffer {
       : CopyOnWriteBuffer(array, N) {}
 
   ~CopyOnWriteBuffer();
+
+  // An implicit converstion to read-only array view.
+  // Without it implicit conversion of a non-const CopyOnWriteBuffer to the
+  // array view uses non-const data() accessor and forks the shared data.
+  operator ArrayView<const uint8_t>() { return MakeArrayView(cdata(), size()); }
 
   // Get a pointer to the data. Just .data() will give you a (const) uint8_t*,
   // but you may also use .data<int8_t>() and .data<char>().

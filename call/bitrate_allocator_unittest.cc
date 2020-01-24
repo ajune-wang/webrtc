@@ -30,19 +30,19 @@ auto AllocationLimitsEq(uint32_t min_allocatable_rate_bps,
                         uint32_t max_padding_rate_bps,
                         uint32_t max_allocatable_rate_bps) {
   return AllOf(Field(&BitrateAllocationLimits::min_allocatable_rate,
-                     DataRate::bps(min_allocatable_rate_bps)),
+                     DataRate::BitsPerSecond(min_allocatable_rate_bps)),
                Field(&BitrateAllocationLimits::max_allocatable_rate,
-                     DataRate::bps(max_allocatable_rate_bps)),
+                     DataRate::BitsPerSecond(max_allocatable_rate_bps)),
                Field(&BitrateAllocationLimits::max_padding_rate,
-                     DataRate::bps(max_padding_rate_bps)));
+                     DataRate::BitsPerSecond(max_padding_rate_bps)));
 }
 
 auto AllocationLimitsEq(uint32_t min_allocatable_rate_bps,
                         uint32_t max_padding_rate_bps) {
   return AllOf(Field(&BitrateAllocationLimits::min_allocatable_rate,
-                     DataRate::bps(min_allocatable_rate_bps)),
+                     DataRate::BitsPerSecond(min_allocatable_rate_bps)),
                Field(&BitrateAllocationLimits::max_padding_rate,
-                     DataRate::bps(max_padding_rate_bps)));
+                     DataRate::BitsPerSecond(max_padding_rate_bps)));
 }
 
 class MockLimitObserver : public BitrateAllocator::LimitObserver {
@@ -64,12 +64,12 @@ class TestBitrateObserver : public BitrateAllocatorObserver {
   }
 
   uint32_t OnBitrateUpdated(BitrateAllocationUpdate update) override {
-    last_bitrate_bps_ = update.target_bitrate.bps();
+    last_bitrate_bps_ = update.target_bitrate.BitsPerSecond();
     last_fraction_loss_ =
         rtc::dchecked_cast<uint8_t>(update.packet_loss_ratio * 256);
-    last_rtt_ms_ = update.round_trip_time.ms();
-    last_probing_interval_ms_ = update.bwe_period.ms();
-    return update.target_bitrate.bps() * protection_ratio_;
+    last_rtt_ms_ = update.round_trip_time.Milliseconds();
+    last_probing_interval_ms_ = update.bwe_period.Milliseconds();
+    return update.target_bitrate.BitsPerSecond() * protection_ratio_;
   }
   uint32_t last_bitrate_bps_;
   uint8_t last_fraction_loss_;
@@ -88,13 +88,13 @@ TargetTransferRate CreateTargetRateMessage(uint32_t target_bitrate_bps,
   TargetTransferRate msg;
   // The timestamp is just for log output, keeping it fixed just means fewer log
   // messages in the test.
-  msg.at_time = Timestamp::seconds(10000);
-  msg.target_rate = DataRate::bps(target_bitrate_bps);
+  msg.at_time = Timestamp::Seconds(10000);
+  msg.target_rate = DataRate::BitsPerSecond(target_bitrate_bps);
   msg.stable_target_rate = msg.target_rate;
   msg.network_estimate.bandwidth = msg.target_rate;
   msg.network_estimate.loss_rate_ratio = fraction_loss / 255.0;
-  msg.network_estimate.round_trip_time = TimeDelta::ms(rtt_ms);
-  msg.network_estimate.bwe_period = TimeDelta::ms(bwe_period_ms);
+  msg.network_estimate.round_trip_time = TimeDelta::Milliseconds(rtt_ms);
+  msg.network_estimate.bwe_period = TimeDelta::Milliseconds(bwe_period_ms);
   return msg;
 }
 }  // namespace

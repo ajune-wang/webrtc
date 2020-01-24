@@ -37,7 +37,7 @@ double EventRateCounter::Rate() const {
     return 0;
   if (event_count_ == 1)
     return NAN;
-  return (event_count_ - 1) / (last_time_ - first_time_).seconds<double>();
+  return (event_count_ - 1) / (last_time_ - first_time_).Seconds<double>();
 }
 
 TimeDelta EventRateCounter::TotalDuration() const {

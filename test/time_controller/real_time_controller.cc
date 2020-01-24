@@ -66,7 +66,7 @@ rtc::Thread* RealTimeController::GetMainThread() {
 }
 
 void RealTimeController::AdvanceTime(TimeDelta duration) {
-  main_thread_->ProcessMessages(duration.ms());
+  main_thread_->ProcessMessages(duration.Milliseconds());
 }
 
 }  // namespace webrtc

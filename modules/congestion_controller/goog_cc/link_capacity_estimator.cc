@@ -18,14 +18,14 @@ LinkCapacityEstimator::LinkCapacityEstimator() {}
 
 DataRate LinkCapacityEstimator::UpperBound() const {
   if (estimate_kbps_.has_value())
-    return DataRate::kbps(estimate_kbps_.value() +
-                          3 * deviation_estimate_kbps());
+    return DataRate::KilobitsPerSecond(estimate_kbps_.value() +
+                                       3 * deviation_estimate_kbps());
   return DataRate::Infinity();
 }
 
 DataRate LinkCapacityEstimator::LowerBound() const {
   if (estimate_kbps_.has_value())
-    return DataRate::kbps(
+    return DataRate::KilobitsPerSecond(
         std::max(0.0, estimate_kbps_.value() - 3 * deviation_estimate_kbps()));
   return DataRate::Zero();
 }
@@ -43,7 +43,7 @@ void LinkCapacityEstimator::OnProbeRate(DataRate probe_rate) {
 }
 
 void LinkCapacityEstimator::Update(DataRate capacity_sample, double alpha) {
-  double sample_kbps = capacity_sample.kbps();
+  double sample_kbps = capacity_sample.KilobitsPerSecond();
   if (!estimate_kbps_.has_value()) {
     estimate_kbps_ = sample_kbps;
   } else {
@@ -65,7 +65,7 @@ bool LinkCapacityEstimator::has_estimate() const {
 }
 
 DataRate LinkCapacityEstimator::estimate() const {
-  return DataRate::kbps(*estimate_kbps_);
+  return DataRate::KilobitsPerSecond(*estimate_kbps_);
 }
 
 double LinkCapacityEstimator::deviation_estimate_kbps() const {

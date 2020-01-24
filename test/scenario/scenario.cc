@@ -85,7 +85,7 @@ ColumnPrinter Scenario::TimePrinter() {
   return ColumnPrinter::Lambda(
       "time",
       [this](rtc::SimpleStringBuilder& sb) {
-        sb.AppendFormat("%.3lf", Now().seconds<double>());
+        sb.AppendFormat("%.3lf", Now().Seconds<double>());
       },
       32);
 }
@@ -130,8 +130,8 @@ CallClientPair* Scenario::CreateRoutes(
     CallClient* second,
     std::vector<EmulatedNetworkNode*> return_link) {
   return CreateRoutes(first, send_link,
-                      DataSize::bytes(PacketOverhead::kDefault), second,
-                      return_link, DataSize::bytes(PacketOverhead::kDefault));
+                      DataSize::Bytes(PacketOverhead::kDefault), second,
+                      return_link, DataSize::Bytes(PacketOverhead::kDefault));
 }
 
 CallClientPair* Scenario::CreateRoutes(
@@ -150,7 +150,7 @@ CallClientPair* Scenario::CreateRoutes(
 
 void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
                            std::vector<EmulatedNetworkNode*> over_nodes) {
-  ChangeRoute(clients, over_nodes, DataSize::bytes(PacketOverhead::kDefault));
+  ChangeRoute(clients, over_nodes, DataSize::Bytes(PacketOverhead::kDefault));
 }
 
 void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
@@ -265,7 +265,7 @@ void Scenario::Post(std::function<void()> function) {
 
 void Scenario::At(TimeDelta offset, std::function<void()> function) {
   RTC_DCHECK_GT(offset, TimeSinceStart());
-  task_queue_.PostDelayedTask(function, TimeUntilTarget(offset).ms());
+  task_queue_.PostDelayedTask(function, TimeUntilTarget(offset).Milliseconds());
 }
 
 void Scenario::RunFor(TimeDelta duration) {

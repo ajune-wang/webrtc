@@ -74,7 +74,7 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
                                       absl::optional<uint8_t> qp) {
   // Wait some extra time to simulate a slow decoder.
   if (_extra_decode_time) {
-    rtc::Thread::SleepMs(_extra_decode_time->ms());
+    rtc::Thread::SleepMs(_extra_decode_time->Milliseconds());
   }
 
   RTC_DCHECK(_receiveCallback) << "Callback must not be null at this point";
@@ -102,9 +102,9 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
   const Timestamp now = _clock->CurrentTime();
   RTC_DCHECK(frameInfo->decodeStart);
   if (!decode_time_ms) {
-    decode_time_ms = (now - *frameInfo->decodeStart).ms();
+    decode_time_ms = (now - *frameInfo->decodeStart).Milliseconds();
   }
-  _timing->StopDecodeTimer(*decode_time_ms, now.ms());
+  _timing->StopDecodeTimer(*decode_time_ms, now.Milliseconds());
   decodedImage.set_processing_time({*frameInfo->decodeStart, now});
 
   // Report timing information.
@@ -149,8 +149,8 @@ void VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage,
   }
 
   timing_frame_info.flags = frameInfo->timing.flags;
-  timing_frame_info.decode_start_ms = frameInfo->decodeStart->ms();
-  timing_frame_info.decode_finish_ms = now.ms();
+  timing_frame_info.decode_start_ms = frameInfo->decodeStart->Milliseconds();
+  timing_frame_info.decode_finish_ms = now.Milliseconds();
   timing_frame_info.render_time_ms = frameInfo->renderTimeMs;
   timing_frame_info.rtp_timestamp = decodedImage.timestamp();
   timing_frame_info.receive_start_ms = frameInfo->timing.receive_start_ms;

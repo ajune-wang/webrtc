@@ -36,7 +36,7 @@ class WindowedFilterTest : public ::testing::Test {
   // Third best = 50ms, recorded at 100ms
   void InitializeMinFilter() {
     int64_t now_ms = 0;
-    TimeDelta rtt_sample = TimeDelta::ms(10);
+    TimeDelta rtt_sample = TimeDelta::Milliseconds(10);
     for (int i = 0; i < 5; ++i) {
       windowed_min_rtt_.Update(rtt_sample, now_ms);
       RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << ToString(rtt_sample)
@@ -46,11 +46,11 @@ class WindowedFilterTest : public ::testing::Test {
                           << ToString(windowed_min_rtt_.GetSecondBest()) << " "
                           << ToString(windowed_min_rtt_.GetThirdBest());
       now_ms += 25;
-      rtt_sample = rtt_sample + TimeDelta::ms(10);
+      rtt_sample = rtt_sample + TimeDelta::Milliseconds(10);
     }
-    EXPECT_EQ(TimeDelta::ms(20), windowed_min_rtt_.GetBest());
-    EXPECT_EQ(TimeDelta::ms(40), windowed_min_rtt_.GetSecondBest());
-    EXPECT_EQ(TimeDelta::ms(50), windowed_min_rtt_.GetThirdBest());
+    EXPECT_EQ(TimeDelta::Milliseconds(20), windowed_min_rtt_.GetBest());
+    EXPECT_EQ(TimeDelta::Milliseconds(40), windowed_min_rtt_.GetSecondBest());
+    EXPECT_EQ(TimeDelta::Milliseconds(50), windowed_min_rtt_.GetThirdBest());
   }
 
   // Sets up windowed_max_bw_ to have the following values:
@@ -59,7 +59,7 @@ class WindowedFilterTest : public ::testing::Test {
   // Third best = 600 bps, recorded at 100ms
   void InitializeMaxFilter() {
     int64_t now_ms = 0;
-    DataRate bw_sample = DataRate::bps(1000);
+    DataRate bw_sample = DataRate::BitsPerSecond(1000);
     for (int i = 0; i < 5; ++i) {
       windowed_max_bw_.Update(bw_sample, now_ms);
       RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << ToString(bw_sample)
@@ -69,11 +69,11 @@ class WindowedFilterTest : public ::testing::Test {
                           << ToString(windowed_max_bw_.GetSecondBest()) << " "
                           << ToString(windowed_max_bw_.GetThirdBest());
       now_ms += 25;
-      bw_sample = DataRate::bps(bw_sample.bps() - 100);
+      bw_sample = DataRate::BitsPerSecond(bw_sample.BitsPerSecond() - 100);
     }
-    EXPECT_EQ(DataRate::bps(900), windowed_max_bw_.GetBest());
-    EXPECT_EQ(DataRate::bps(700), windowed_max_bw_.GetSecondBest());
-    EXPECT_EQ(DataRate::bps(600), windowed_max_bw_.GetThirdBest());
+    EXPECT_EQ(DataRate::BitsPerSecond(900), windowed_max_bw_.GetBest());
+    EXPECT_EQ(DataRate::BitsPerSecond(700), windowed_max_bw_.GetSecondBest());
+    EXPECT_EQ(DataRate::BitsPerSecond(600), windowed_max_bw_.GetThirdBest());
   }
 
  protected:
@@ -107,56 +107,60 @@ TEST_F(WindowedFilterTest, UninitializedEstimates) {
 
 TEST_F(WindowedFilterTest, MonotonicallyIncreasingMin) {
   int64_t now_ms = 0;
-  TimeDelta rtt_sample = TimeDelta::ms(10);
+  TimeDelta rtt_sample = TimeDelta::Milliseconds(10);
   windowed_min_rtt_.Update(rtt_sample, now_ms);
-  EXPECT_EQ(TimeDelta::ms(10), windowed_min_rtt_.GetBest());
+  EXPECT_EQ(TimeDelta::Milliseconds(10), windowed_min_rtt_.GetBest());
 
   // Gradually increase the rtt samples and ensure the windowed min rtt starts
   // rising.
   for (int i = 0; i < 6; ++i) {
     now_ms += 25;
-    rtt_sample = rtt_sample + TimeDelta::ms(10);
+    rtt_sample = rtt_sample + TimeDelta::Milliseconds(10);
     windowed_min_rtt_.Update(rtt_sample, now_ms);
-    RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << rtt_sample.ms()
+    RTC_LOG(LS_VERBOSE) << "i: " << i
+                        << " sample: " << rtt_sample.Milliseconds()
                         << " mins: "
                            " "
-                        << windowed_min_rtt_.GetBest().ms() << " "
-                        << windowed_min_rtt_.GetSecondBest().ms() << " "
-                        << windowed_min_rtt_.GetThirdBest().ms();
+                        << windowed_min_rtt_.GetBest().Milliseconds() << " "
+                        << windowed_min_rtt_.GetSecondBest().Milliseconds()
+                        << " "
+                        << windowed_min_rtt_.GetThirdBest().Milliseconds();
     if (i < 3) {
-      EXPECT_EQ(TimeDelta::ms(10), windowed_min_rtt_.GetBest());
+      EXPECT_EQ(TimeDelta::Milliseconds(10), windowed_min_rtt_.GetBest());
     } else if (i == 3) {
-      EXPECT_EQ(TimeDelta::ms(20), windowed_min_rtt_.GetBest());
+      EXPECT_EQ(TimeDelta::Milliseconds(20), windowed_min_rtt_.GetBest());
     } else if (i < 6) {
-      EXPECT_EQ(TimeDelta::ms(40), windowed_min_rtt_.GetBest());
+      EXPECT_EQ(TimeDelta::Milliseconds(40), windowed_min_rtt_.GetBest());
     }
   }
 }
 
 TEST_F(WindowedFilterTest, MonotonicallyDecreasingMax) {
   int64_t now_ms = 0;
-  DataRate bw_sample = DataRate::bps(1000);
+  DataRate bw_sample = DataRate::BitsPerSecond(1000);
   windowed_max_bw_.Update(bw_sample, now_ms);
-  EXPECT_EQ(DataRate::bps(1000), windowed_max_bw_.GetBest());
+  EXPECT_EQ(DataRate::BitsPerSecond(1000), windowed_max_bw_.GetBest());
 
   // Gradually decrease the bw samples and ensure the windowed max bw starts
   // decreasing.
   for (int i = 0; i < 6; ++i) {
     now_ms += 25;
-    bw_sample = DataRate::bps(bw_sample.bps() - 100);
+    bw_sample = DataRate::BitsPerSecond(bw_sample.BitsPerSecond() - 100);
     windowed_max_bw_.Update(bw_sample, now_ms);
-    RTC_LOG(LS_VERBOSE) << "i: " << i << " sample: " << bw_sample.bps()
+    RTC_LOG(LS_VERBOSE) << "i: " << i
+                        << " sample: " << bw_sample.BitsPerSecond()
                         << " maxs: "
                            " "
-                        << windowed_max_bw_.GetBest().bps() << " "
-                        << windowed_max_bw_.GetSecondBest().bps() << " "
-                        << windowed_max_bw_.GetThirdBest().bps();
+                        << windowed_max_bw_.GetBest().BitsPerSecond() << " "
+                        << windowed_max_bw_.GetSecondBest().BitsPerSecond()
+                        << " "
+                        << windowed_max_bw_.GetThirdBest().BitsPerSecond();
     if (i < 3) {
-      EXPECT_EQ(DataRate::bps(1000), windowed_max_bw_.GetBest());
+      EXPECT_EQ(DataRate::BitsPerSecond(1000), windowed_max_bw_.GetBest());
     } else if (i == 3) {
-      EXPECT_EQ(DataRate::bps(900), windowed_max_bw_.GetBest());
+      EXPECT_EQ(DataRate::BitsPerSecond(900), windowed_max_bw_.GetBest());
     } else if (i < 6) {
-      EXPECT_EQ(DataRate::bps(700), windowed_max_bw_.GetBest());
+      EXPECT_EQ(DataRate::BitsPerSecond(700), windowed_max_bw_.GetBest());
     }
   }
 }
@@ -164,70 +168,73 @@ TEST_F(WindowedFilterTest, MonotonicallyDecreasingMax) {
 TEST_F(WindowedFilterTest, SampleChangesThirdBestMin) {
   InitializeMinFilter();
   // RTT sample lower than the third-choice min-rtt sets that, but nothing else.
-  TimeDelta rtt_sample = windowed_min_rtt_.GetThirdBest() - TimeDelta::ms(5);
+  TimeDelta rtt_sample =
+      windowed_min_rtt_.GetThirdBest() - TimeDelta::Milliseconds(5);
   // This assert is necessary to avoid triggering -Wstrict-overflow
   // See crbug/616957
-  ASSERT_GT(windowed_min_rtt_.GetThirdBest(), TimeDelta::ms(5));
+  ASSERT_GT(windowed_min_rtt_.GetThirdBest(), TimeDelta::Milliseconds(5));
   // Latest sample was recorded at 100ms.
   int64_t now_ms = 101;
   windowed_min_rtt_.Update(rtt_sample, now_ms);
   EXPECT_EQ(rtt_sample, windowed_min_rtt_.GetThirdBest());
-  EXPECT_EQ(TimeDelta::ms(40), windowed_min_rtt_.GetSecondBest());
-  EXPECT_EQ(TimeDelta::ms(20), windowed_min_rtt_.GetBest());
+  EXPECT_EQ(TimeDelta::Milliseconds(40), windowed_min_rtt_.GetSecondBest());
+  EXPECT_EQ(TimeDelta::Milliseconds(20), windowed_min_rtt_.GetBest());
 }
 
 TEST_F(WindowedFilterTest, SampleChangesThirdBestMax) {
   InitializeMaxFilter();
   // BW sample higher than the third-choice max sets that, but nothing else.
-  DataRate bw_sample =
-      DataRate::bps(windowed_max_bw_.GetThirdBest().bps() + 50);
+  DataRate bw_sample = DataRate::BitsPerSecond(
+      windowed_max_bw_.GetThirdBest().BitsPerSecond() + 50);
   // Latest sample was recorded at 100ms.
   int64_t now_ms = 101;
   windowed_max_bw_.Update(bw_sample, now_ms);
   EXPECT_EQ(bw_sample, windowed_max_bw_.GetThirdBest());
-  EXPECT_EQ(DataRate::bps(700), windowed_max_bw_.GetSecondBest());
-  EXPECT_EQ(DataRate::bps(900), windowed_max_bw_.GetBest());
+  EXPECT_EQ(DataRate::BitsPerSecond(700), windowed_max_bw_.GetSecondBest());
+  EXPECT_EQ(DataRate::BitsPerSecond(900), windowed_max_bw_.GetBest());
 }
 
 TEST_F(WindowedFilterTest, SampleChangesSecondBestMin) {
   InitializeMinFilter();
   // RTT sample lower than the second-choice min sets that and also
   // the third-choice min.
-  TimeDelta rtt_sample = windowed_min_rtt_.GetSecondBest() - TimeDelta::ms(5);
+  TimeDelta rtt_sample =
+      windowed_min_rtt_.GetSecondBest() - TimeDelta::Milliseconds(5);
   // This assert is necessary to avoid triggering -Wstrict-overflow
   // See crbug/616957
-  ASSERT_GT(windowed_min_rtt_.GetSecondBest(), TimeDelta::ms(5));
+  ASSERT_GT(windowed_min_rtt_.GetSecondBest(), TimeDelta::Milliseconds(5));
   // Latest sample was recorded at 100ms.
   int64_t now_ms = 101;
   windowed_min_rtt_.Update(rtt_sample, now_ms);
   EXPECT_EQ(rtt_sample, windowed_min_rtt_.GetThirdBest());
   EXPECT_EQ(rtt_sample, windowed_min_rtt_.GetSecondBest());
-  EXPECT_EQ(TimeDelta::ms(20), windowed_min_rtt_.GetBest());
+  EXPECT_EQ(TimeDelta::Milliseconds(20), windowed_min_rtt_.GetBest());
 }
 
 TEST_F(WindowedFilterTest, SampleChangesSecondBestMax) {
   InitializeMaxFilter();
   // BW sample higher than the second-choice max sets that and also
   // the third-choice max.
-  DataRate bw_sample =
-      DataRate::bps(windowed_max_bw_.GetSecondBest().bps() + 50);
+  DataRate bw_sample = DataRate::BitsPerSecond(
+      windowed_max_bw_.GetSecondBest().BitsPerSecond() + 50);
 
   // Latest sample was recorded at 100ms.
   int64_t now_ms = 101;
   windowed_max_bw_.Update(bw_sample, now_ms);
   EXPECT_EQ(bw_sample, windowed_max_bw_.GetThirdBest());
   EXPECT_EQ(bw_sample, windowed_max_bw_.GetSecondBest());
-  EXPECT_EQ(DataRate::bps(900), windowed_max_bw_.GetBest());
+  EXPECT_EQ(DataRate::BitsPerSecond(900), windowed_max_bw_.GetBest());
 }
 
 TEST_F(WindowedFilterTest, SampleChangesAllMins) {
   InitializeMinFilter();
   // RTT sample lower than the first-choice min-rtt sets that and also
   // the second and third-choice mins.
-  TimeDelta rtt_sample = windowed_min_rtt_.GetBest() - TimeDelta::ms(5);
+  TimeDelta rtt_sample =
+      windowed_min_rtt_.GetBest() - TimeDelta::Milliseconds(5);
   // This assert is necessary to avoid triggering -Wstrict-overflow
   // See crbug/616957
-  ASSERT_GT(windowed_min_rtt_.GetBest(), TimeDelta::ms(5));
+  ASSERT_GT(windowed_min_rtt_.GetBest(), TimeDelta::Milliseconds(5));
   // Latest sample was recorded at 100ms.
   int64_t now_ms = 101;
   windowed_min_rtt_.Update(rtt_sample, now_ms);
@@ -240,7 +247,8 @@ TEST_F(WindowedFilterTest, SampleChangesAllMaxs) {
   InitializeMaxFilter();
   // BW sample higher than the first-choice max sets that and also
   // the second and third-choice maxs.
-  DataRate bw_sample = DataRate::bps(windowed_max_bw_.GetBest().bps() + 50);
+  DataRate bw_sample =
+      DataRate::BitsPerSecond(windowed_max_bw_.GetBest().BitsPerSecond() + 50);
   // Latest sample was recorded at 100ms.
   int64_t now_ms = 101;
   windowed_max_bw_.Update(bw_sample, now_ms);
@@ -253,7 +261,7 @@ TEST_F(WindowedFilterTest, ExpireBestMin) {
   InitializeMinFilter();
   TimeDelta old_third_best = windowed_min_rtt_.GetThirdBest();
   TimeDelta old_second_best = windowed_min_rtt_.GetSecondBest();
-  TimeDelta rtt_sample = old_third_best + TimeDelta::ms(5);
+  TimeDelta rtt_sample = old_third_best + TimeDelta::Milliseconds(5);
   // Best min sample was recorded at 25ms, so expiry time is 124ms.
   int64_t now_ms = 125;
   windowed_min_rtt_.Update(rtt_sample, now_ms);
@@ -266,7 +274,8 @@ TEST_F(WindowedFilterTest, ExpireBestMax) {
   InitializeMaxFilter();
   DataRate old_third_best = windowed_max_bw_.GetThirdBest();
   DataRate old_second_best = windowed_max_bw_.GetSecondBest();
-  DataRate bw_sample = DataRate::bps(old_third_best.bps() - 50);
+  DataRate bw_sample =
+      DataRate::BitsPerSecond(old_third_best.BitsPerSecond() - 50);
   // Best max sample was recorded at 25ms, so expiry time is 124ms.
   int64_t now_ms = 125;
   windowed_max_bw_.Update(bw_sample, now_ms);
@@ -278,7 +287,7 @@ TEST_F(WindowedFilterTest, ExpireBestMax) {
 TEST_F(WindowedFilterTest, ExpireSecondBestMin) {
   InitializeMinFilter();
   TimeDelta old_third_best = windowed_min_rtt_.GetThirdBest();
-  TimeDelta rtt_sample = old_third_best + TimeDelta::ms(5);
+  TimeDelta rtt_sample = old_third_best + TimeDelta::Milliseconds(5);
   // Second best min sample was recorded at 75ms, so expiry time is 174ms.
   int64_t now_ms = 175;
   windowed_min_rtt_.Update(rtt_sample, now_ms);
@@ -290,7 +299,8 @@ TEST_F(WindowedFilterTest, ExpireSecondBestMin) {
 TEST_F(WindowedFilterTest, ExpireSecondBestMax) {
   InitializeMaxFilter();
   DataRate old_third_best = windowed_max_bw_.GetThirdBest();
-  DataRate bw_sample = DataRate::bps(old_third_best.bps() - 50);
+  DataRate bw_sample =
+      DataRate::BitsPerSecond(old_third_best.BitsPerSecond() - 50);
   // Second best max sample was recorded at 75ms, so expiry time is 174ms.
   int64_t now_ms = 175;
   windowed_max_bw_.Update(bw_sample, now_ms);
@@ -301,7 +311,8 @@ TEST_F(WindowedFilterTest, ExpireSecondBestMax) {
 
 TEST_F(WindowedFilterTest, ExpireAllMins) {
   InitializeMinFilter();
-  TimeDelta rtt_sample = windowed_min_rtt_.GetThirdBest() + TimeDelta::ms(5);
+  TimeDelta rtt_sample =
+      windowed_min_rtt_.GetThirdBest() + TimeDelta::Milliseconds(5);
   // This assert is necessary to avoid triggering -Wstrict-overflow
   // See crbug/616957
   ASSERT_LT(windowed_min_rtt_.GetThirdBest(), TimeDelta::PlusInfinity());
@@ -315,8 +326,8 @@ TEST_F(WindowedFilterTest, ExpireAllMins) {
 
 TEST_F(WindowedFilterTest, ExpireAllMaxs) {
   InitializeMaxFilter();
-  DataRate bw_sample =
-      DataRate::bps(windowed_max_bw_.GetThirdBest().bps() - 50);
+  DataRate bw_sample = DataRate::BitsPerSecond(
+      windowed_max_bw_.GetThirdBest().BitsPerSecond() - 50);
   // Third best max sample was recorded at 100ms, so expiry time is 199ms.
   int64_t now_ms = 200;
   windowed_max_bw_.Update(bw_sample, now_ms);

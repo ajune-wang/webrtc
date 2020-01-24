@@ -377,19 +377,19 @@ void BitrateAllocator::UpdateStartRate(uint32_t start_rate_bps) {
 
 void BitrateAllocator::OnNetworkEstimateChanged(TargetTransferRate msg) {
   RTC_DCHECK_RUN_ON(&sequenced_checker_);
-  last_target_bps_ = msg.target_rate.bps();
-  last_stable_target_bps_ = msg.stable_target_rate.bps();
+  last_target_bps_ = msg.target_rate.BitsPerSecond();
+  last_stable_target_bps_ = msg.stable_target_rate.BitsPerSecond();
   last_non_zero_bitrate_bps_ =
       last_target_bps_ > 0 ? last_target_bps_ : last_non_zero_bitrate_bps_;
 
   int loss_ratio_255 = msg.network_estimate.loss_rate_ratio * 255;
   last_fraction_loss_ =
       rtc::dchecked_cast<uint8_t>(rtc::SafeClamp(loss_ratio_255, 0, 255));
-  last_rtt_ = msg.network_estimate.round_trip_time.ms();
-  last_bwe_period_ms_ = msg.network_estimate.bwe_period.ms();
+  last_rtt_ = msg.network_estimate.round_trip_time.Milliseconds();
+  last_bwe_period_ms_ = msg.network_estimate.bwe_period.Milliseconds();
 
   // Periodically log the incoming BWE.
-  int64_t now = msg.at_time.ms();
+  int64_t now = msg.at_time.Milliseconds();
   if (now > last_bwe_log_time_ + kBweLogIntervalMs) {
     RTC_LOG(LS_INFO) << "Current BWE " << last_target_bps_;
     last_bwe_log_time_ = now;
@@ -404,11 +404,12 @@ void BitrateAllocator::OnNetworkEstimateChanged(TargetTransferRate msg) {
     uint32_t allocated_stable_target_rate =
         stable_bitrate_allocation[config.observer];
     BitrateAllocationUpdate update;
-    update.target_bitrate = DataRate::bps(allocated_bitrate);
-    update.stable_target_bitrate = DataRate::bps(allocated_stable_target_rate);
+    update.target_bitrate = DataRate::BitsPerSecond(allocated_bitrate);
+    update.stable_target_bitrate =
+        DataRate::BitsPerSecond(allocated_stable_target_rate);
     update.packet_loss_ratio = last_fraction_loss_ / 256.0;
-    update.round_trip_time = TimeDelta::ms(last_rtt_);
-    update.bwe_period = TimeDelta::ms(last_bwe_period_ms_);
+    update.round_trip_time = TimeDelta::Milliseconds(last_rtt_);
+    update.bwe_period = TimeDelta::Milliseconds(last_bwe_period_ms_);
     uint32_t protection_bitrate = config.observer->OnBitrateUpdated(update);
 
     if (allocated_bitrate == 0 && config.allocated_bitrate_bps > 0) {
@@ -468,11 +469,12 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
       uint32_t allocated_stable_bitrate =
           stable_bitrate_allocation[config.observer];
       BitrateAllocationUpdate update;
-      update.target_bitrate = DataRate::bps(allocated_bitrate);
-      update.stable_target_bitrate = DataRate::bps(allocated_stable_bitrate);
+      update.target_bitrate = DataRate::BitsPerSecond(allocated_bitrate);
+      update.stable_target_bitrate =
+          DataRate::BitsPerSecond(allocated_stable_bitrate);
       update.packet_loss_ratio = last_fraction_loss_ / 256.0;
-      update.round_trip_time = TimeDelta::ms(last_rtt_);
-      update.bwe_period = TimeDelta::ms(last_bwe_period_ms_);
+      update.round_trip_time = TimeDelta::Milliseconds(last_rtt_);
+      update.bwe_period = TimeDelta::Milliseconds(last_bwe_period_ms_);
       uint32_t protection_bitrate = config.observer->OnBitrateUpdated(update);
       config.allocated_bitrate_bps = allocated_bitrate;
       if (allocated_bitrate > 0)
@@ -487,8 +489,8 @@ void BitrateAllocator::AddObserver(BitrateAllocatorObserver* observer,
     update.target_bitrate = DataRate::Zero();
     update.stable_target_bitrate = DataRate::Zero();
     update.packet_loss_ratio = last_fraction_loss_ / 256.0;
-    update.round_trip_time = TimeDelta::ms(last_rtt_);
-    update.bwe_period = TimeDelta::ms(last_bwe_period_ms_);
+    update.round_trip_time = TimeDelta::Milliseconds(last_rtt_);
+    update.bwe_period = TimeDelta::Milliseconds(last_bwe_period_ms_);
     observer->OnBitrateUpdated(update);
   }
   UpdateAllocationLimits();
@@ -500,13 +502,14 @@ void BitrateAllocator::UpdateAllocationLimits() {
     uint32_t stream_padding = config.config.pad_up_bitrate_bps;
     if (config.config.enforce_min_bitrate) {
       limits.min_allocatable_rate +=
-          DataRate::bps(config.config.min_bitrate_bps);
+          DataRate::BitsPerSecond(config.config.min_bitrate_bps);
     } else if (config.allocated_bitrate_bps == 0) {
       stream_padding =
           std::max(config.MinBitrateWithHysteresis(), stream_padding);
     }
-    limits.max_padding_rate += DataRate::bps(stream_padding);
-    limits.max_allocatable_rate += DataRate::bps(config.config.max_bitrate_bps);
+    limits.max_padding_rate += DataRate::BitsPerSecond(stream_padding);
+    limits.max_allocatable_rate +=
+        DataRate::BitsPerSecond(config.config.max_bitrate_bps);
   }
 
   if (limits.min_allocatable_rate == current_limits_.min_allocatable_rate &&

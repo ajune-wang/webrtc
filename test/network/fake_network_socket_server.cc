@@ -195,7 +195,7 @@ int FakeNetworkSocket::RecvFrom(void* pv,
   *paddr = pending_->from;
   size_t data_read = std::min(cb, pending_->size());
   memcpy(pv, pending_->cdata(), data_read);
-  *timestamp = pending_->arrival_time.us();
+  *timestamp = pending_->arrival_time.Microseconds();
 
   // According to RECV(2) Linux Man page
   // real socket will discard data, that won't fit into provided buffer,

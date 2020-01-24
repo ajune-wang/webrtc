@@ -47,7 +47,7 @@ static constexpr int kMaxVbaSizeDifferencePercent = 10;
 // Max time we will throttle similar video bitrate allocations.
 static constexpr int64_t kMaxVbaThrottleTimeMs = 500;
 
-constexpr TimeDelta kEncoderTimeOut = TimeDelta::seconds(2);
+constexpr TimeDelta kEncoderTimeOut = TimeDelta::Seconds(2);
 
 bool TransportSeqNumExtensionConfigured(const VideoSendStream::Config& config) {
   const std::vector<RtpExtension>& extensions = config.rtp.extensions;
@@ -157,8 +157,9 @@ bool SameStreamsEnabled(const VideoBitrateAllocation& lhs,
 
 PacingConfig::PacingConfig()
     : pacing_factor("factor", PacedSender::kDefaultPaceMultiplier),
-      max_pacing_delay("max_delay",
-                       TimeDelta::ms(PacedSender::kMaxQueueLengthMs)) {
+      max_pacing_delay(
+          "max_delay",
+          TimeDelta::Milliseconds(PacedSender::kMaxQueueLengthMs)) {
   ParseFieldTrial({&pacing_factor, &max_pacing_delay},
                   field_trial::FindFullName("WebRTC-Video-Pacing"));
 }
@@ -269,7 +270,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
               pacing_config_.pacing_factor);
       transport->SetPacingFactor(pacing_factor);
       configured_pacing_factor_ = pacing_factor;
-      transport->SetQueueTimeLimit(pacing_config_.max_pacing_delay.Get().ms());
+      transport->SetQueueTimeLimit(
+          pacing_config_.max_pacing_delay.Get().Milliseconds());
     }
   }
 
@@ -496,7 +498,7 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
       GetExperimentalMinVideoBitrate(codec_type);
   encoder_min_bitrate_bps_ =
       experimental_min_bitrate
-          ? experimental_min_bitrate->bps()
+          ? experimental_min_bitrate->BitsPerSecond()
           : std::max(streams[0].min_bitrate_bps, kDefaultMinVideoBitrateBps);
 
   encoder_max_bitrate_bps_ = 0;
@@ -623,30 +625,33 @@ uint32_t VideoSendStreamImpl::OnBitrateUpdated(BitrateAllocationUpdate update) {
       rtp_video_sender_->GetProtectionBitrateBps();
   DataRate link_allocation = DataRate::Zero();
   if (encoder_target_rate_bps_ > protection_bitrate_bps) {
-    link_allocation =
-        DataRate::bps(encoder_target_rate_bps_ - protection_bitrate_bps);
+    link_allocation = DataRate::BitsPerSecond(encoder_target_rate_bps_ -
+                                              protection_bitrate_bps);
   }
   DataRate overhead =
-      update.target_bitrate - DataRate::bps(encoder_target_rate_bps_);
+      update.target_bitrate - DataRate::BitsPerSecond(encoder_target_rate_bps_);
   DataRate encoder_stable_target_rate = update.stable_target_bitrate;
   if (encoder_stable_target_rate > overhead) {
     encoder_stable_target_rate = encoder_stable_target_rate - overhead;
   } else {
-    encoder_stable_target_rate = DataRate::bps(encoder_target_rate_bps_);
+    encoder_stable_target_rate =
+        DataRate::BitsPerSecond(encoder_target_rate_bps_);
   }
 
   encoder_target_rate_bps_ =
       std::min(encoder_max_bitrate_bps_, encoder_target_rate_bps_);
 
-  encoder_stable_target_rate = std::min(DataRate::bps(encoder_max_bitrate_bps_),
-                                        encoder_stable_target_rate);
+  encoder_stable_target_rate =
+      std::min(DataRate::BitsPerSecond(encoder_max_bitrate_bps_),
+               encoder_stable_target_rate);
 
-  DataRate encoder_target_rate = DataRate::bps(encoder_target_rate_bps_);
+  DataRate encoder_target_rate =
+      DataRate::BitsPerSecond(encoder_target_rate_bps_);
   link_allocation = std::max(encoder_target_rate, link_allocation);
   video_stream_encoder_->OnBitrateUpdated(
       encoder_target_rate, encoder_stable_target_rate, link_allocation,
       rtc::dchecked_cast<uint8_t>(update.packet_loss_ratio * 256),
-      update.round_trip_time.ms());
+      update.round_trip_time.Milliseconds());
   stats_proxy_->OnSetEncoderTargetRate(encoder_target_rate_bps_);
   return protection_bitrate_bps;
 }

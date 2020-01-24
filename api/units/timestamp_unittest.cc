@@ -18,39 +18,39 @@ TEST(TimestampTest, ConstExpr) {
   constexpr int64_t kValue = 12345;
   constexpr Timestamp kTimestampInf = Timestamp::PlusInfinity();
   static_assert(kTimestampInf.IsInfinite(), "");
-  static_assert(kTimestampInf.ms_or(-1) == -1, "");
+  static_assert(kTimestampInf.MillisecondsOr(-1) == -1, "");
 
-  constexpr Timestamp kTimestampSeconds = Timestamp::seconds(kValue);
-  constexpr Timestamp kTimestampMs = Timestamp::ms(kValue);
-  constexpr Timestamp kTimestampUs = Timestamp::us(kValue);
+  constexpr Timestamp kTimestampSeconds = Timestamp::Seconds(kValue);
+  constexpr Timestamp kTimestampMs = Timestamp::Milliseconds(kValue);
+  constexpr Timestamp kTimestampUs = Timestamp::Microseconds(kValue);
 
-  static_assert(kTimestampSeconds.seconds_or(0) == kValue, "");
-  static_assert(kTimestampMs.ms_or(0) == kValue, "");
-  static_assert(kTimestampUs.us_or(0) == kValue, "");
+  static_assert(kTimestampSeconds.SecondsOr(0) == kValue, "");
+  static_assert(kTimestampMs.MillisecondsOr(0) == kValue, "");
+  static_assert(kTimestampUs.MicrosecondsOr(0) == kValue, "");
 
   static_assert(kTimestampMs > kTimestampUs, "");
 
-  EXPECT_EQ(kTimestampSeconds.seconds(), kValue);
-  EXPECT_EQ(kTimestampMs.ms(), kValue);
-  EXPECT_EQ(kTimestampUs.us(), kValue);
+  EXPECT_EQ(kTimestampSeconds.Seconds(), kValue);
+  EXPECT_EQ(kTimestampMs.Milliseconds(), kValue);
+  EXPECT_EQ(kTimestampUs.Microseconds(), kValue);
 }
 
 TEST(TimestampTest, GetBackSameValues) {
   const int64_t kValue = 499;
-  EXPECT_EQ(Timestamp::ms(kValue).ms(), kValue);
-  EXPECT_EQ(Timestamp::us(kValue).us(), kValue);
-  EXPECT_EQ(Timestamp::seconds(kValue).seconds(), kValue);
+  EXPECT_EQ(Timestamp::Milliseconds(kValue).Milliseconds(), kValue);
+  EXPECT_EQ(Timestamp::Microseconds(kValue).Microseconds(), kValue);
+  EXPECT_EQ(Timestamp::Seconds(kValue).Seconds(), kValue);
 }
 
 TEST(TimestampTest, GetDifferentPrefix) {
   const int64_t kValue = 3000000;
-  EXPECT_EQ(Timestamp::us(kValue).seconds(), kValue / 1000000);
-  EXPECT_EQ(Timestamp::ms(kValue).seconds(), kValue / 1000);
-  EXPECT_EQ(Timestamp::us(kValue).ms(), kValue / 1000);
+  EXPECT_EQ(Timestamp::Microseconds(kValue).Seconds(), kValue / 1000000);
+  EXPECT_EQ(Timestamp::Milliseconds(kValue).Seconds(), kValue / 1000);
+  EXPECT_EQ(Timestamp::Microseconds(kValue).Milliseconds(), kValue / 1000);
 
-  EXPECT_EQ(Timestamp::ms(kValue).us(), kValue * 1000);
-  EXPECT_EQ(Timestamp::seconds(kValue).ms(), kValue * 1000);
-  EXPECT_EQ(Timestamp::seconds(kValue).us(), kValue * 1000000);
+  EXPECT_EQ(Timestamp::Milliseconds(kValue).Microseconds(), kValue * 1000);
+  EXPECT_EQ(Timestamp::Seconds(kValue).Milliseconds(), kValue * 1000);
+  EXPECT_EQ(Timestamp::Seconds(kValue).Microseconds(), kValue * 1000000);
 }
 
 TEST(TimestampTest, IdentityChecks) {
@@ -58,11 +58,11 @@ TEST(TimestampTest, IdentityChecks) {
 
   EXPECT_TRUE(Timestamp::PlusInfinity().IsInfinite());
   EXPECT_TRUE(Timestamp::MinusInfinity().IsInfinite());
-  EXPECT_FALSE(Timestamp::ms(kValue).IsInfinite());
+  EXPECT_FALSE(Timestamp::Milliseconds(kValue).IsInfinite());
 
   EXPECT_FALSE(Timestamp::PlusInfinity().IsFinite());
   EXPECT_FALSE(Timestamp::MinusInfinity().IsFinite());
-  EXPECT_TRUE(Timestamp::ms(kValue).IsFinite());
+  EXPECT_TRUE(Timestamp::Milliseconds(kValue).IsFinite());
 
   EXPECT_TRUE(Timestamp::PlusInfinity().IsPlusInfinity());
   EXPECT_FALSE(Timestamp::MinusInfinity().IsPlusInfinity());
@@ -77,22 +77,23 @@ TEST(TimestampTest, ComparisonOperators) {
 
   EXPECT_EQ(Timestamp::PlusInfinity(), Timestamp::PlusInfinity());
   EXPECT_GE(Timestamp::PlusInfinity(), Timestamp::PlusInfinity());
-  EXPECT_GT(Timestamp::PlusInfinity(), Timestamp::ms(kLarge));
-  EXPECT_EQ(Timestamp::ms(kSmall), Timestamp::ms(kSmall));
-  EXPECT_LE(Timestamp::ms(kSmall), Timestamp::ms(kSmall));
-  EXPECT_GE(Timestamp::ms(kSmall), Timestamp::ms(kSmall));
-  EXPECT_NE(Timestamp::ms(kSmall), Timestamp::ms(kLarge));
-  EXPECT_LE(Timestamp::ms(kSmall), Timestamp::ms(kLarge));
-  EXPECT_LT(Timestamp::ms(kSmall), Timestamp::ms(kLarge));
-  EXPECT_GE(Timestamp::ms(kLarge), Timestamp::ms(kSmall));
-  EXPECT_GT(Timestamp::ms(kLarge), Timestamp::ms(kSmall));
+  EXPECT_GT(Timestamp::PlusInfinity(), Timestamp::Milliseconds(kLarge));
+  EXPECT_EQ(Timestamp::Milliseconds(kSmall), Timestamp::Milliseconds(kSmall));
+  EXPECT_LE(Timestamp::Milliseconds(kSmall), Timestamp::Milliseconds(kSmall));
+  EXPECT_GE(Timestamp::Milliseconds(kSmall), Timestamp::Milliseconds(kSmall));
+  EXPECT_NE(Timestamp::Milliseconds(kSmall), Timestamp::Milliseconds(kLarge));
+  EXPECT_LE(Timestamp::Milliseconds(kSmall), Timestamp::Milliseconds(kLarge));
+  EXPECT_LT(Timestamp::Milliseconds(kSmall), Timestamp::Milliseconds(kLarge));
+  EXPECT_GE(Timestamp::Milliseconds(kLarge), Timestamp::Milliseconds(kSmall));
+  EXPECT_GT(Timestamp::Milliseconds(kLarge), Timestamp::Milliseconds(kSmall));
 }
 
 TEST(TimestampTest, CanBeInititializedFromLargeInt) {
   const int kMaxInt = std::numeric_limits<int>::max();
-  EXPECT_EQ(Timestamp::seconds(kMaxInt).us(),
+  EXPECT_EQ(Timestamp::Seconds(kMaxInt).Microseconds(),
             static_cast<int64_t>(kMaxInt) * 1000000);
-  EXPECT_EQ(Timestamp::ms(kMaxInt).us(), static_cast<int64_t>(kMaxInt) * 1000);
+  EXPECT_EQ(Timestamp::Milliseconds(kMaxInt).Microseconds(),
+            static_cast<int64_t>(kMaxInt) * 1000);
 }
 
 TEST(TimestampTest, ConvertsToAndFromDouble) {
@@ -101,44 +102,46 @@ TEST(TimestampTest, ConvertsToAndFromDouble) {
   const double kMillisDouble = kMicros * 1e-3;
   const double kSecondsDouble = kMillisDouble * 1e-3;
 
-  EXPECT_EQ(Timestamp::us(kMicros).seconds<double>(), kSecondsDouble);
-  EXPECT_EQ(Timestamp::seconds(kSecondsDouble).us(), kMicros);
+  EXPECT_EQ(Timestamp::Microseconds(kMicros).Seconds<double>(), kSecondsDouble);
+  EXPECT_EQ(Timestamp::Seconds(kSecondsDouble).Microseconds(), kMicros);
 
-  EXPECT_EQ(Timestamp::us(kMicros).ms<double>(), kMillisDouble);
-  EXPECT_EQ(Timestamp::ms(kMillisDouble).us(), kMicros);
+  EXPECT_EQ(Timestamp::Microseconds(kMicros).Milliseconds<double>(),
+            kMillisDouble);
+  EXPECT_EQ(Timestamp::Milliseconds(kMillisDouble).Microseconds(), kMicros);
 
-  EXPECT_EQ(Timestamp::us(kMicros).us<double>(), kMicrosDouble);
-  EXPECT_EQ(Timestamp::us(kMicrosDouble).us(), kMicros);
+  EXPECT_EQ(Timestamp::Microseconds(kMicros).Microseconds<double>(),
+            kMicrosDouble);
+  EXPECT_EQ(Timestamp::Microseconds(kMicrosDouble).Microseconds(), kMicros);
 
   const double kPlusInfinity = std::numeric_limits<double>::infinity();
   const double kMinusInfinity = -kPlusInfinity;
 
-  EXPECT_EQ(Timestamp::PlusInfinity().seconds<double>(), kPlusInfinity);
-  EXPECT_EQ(Timestamp::MinusInfinity().seconds<double>(), kMinusInfinity);
-  EXPECT_EQ(Timestamp::PlusInfinity().ms<double>(), kPlusInfinity);
-  EXPECT_EQ(Timestamp::MinusInfinity().ms<double>(), kMinusInfinity);
-  EXPECT_EQ(Timestamp::PlusInfinity().us<double>(), kPlusInfinity);
-  EXPECT_EQ(Timestamp::MinusInfinity().us<double>(), kMinusInfinity);
+  EXPECT_EQ(Timestamp::PlusInfinity().Seconds<double>(), kPlusInfinity);
+  EXPECT_EQ(Timestamp::MinusInfinity().Seconds<double>(), kMinusInfinity);
+  EXPECT_EQ(Timestamp::PlusInfinity().Milliseconds<double>(), kPlusInfinity);
+  EXPECT_EQ(Timestamp::MinusInfinity().Milliseconds<double>(), kMinusInfinity);
+  EXPECT_EQ(Timestamp::PlusInfinity().Microseconds<double>(), kPlusInfinity);
+  EXPECT_EQ(Timestamp::MinusInfinity().Microseconds<double>(), kMinusInfinity);
 
-  EXPECT_TRUE(Timestamp::seconds(kPlusInfinity).IsPlusInfinity());
-  EXPECT_TRUE(Timestamp::seconds(kMinusInfinity).IsMinusInfinity());
-  EXPECT_TRUE(Timestamp::ms(kPlusInfinity).IsPlusInfinity());
-  EXPECT_TRUE(Timestamp::ms(kMinusInfinity).IsMinusInfinity());
-  EXPECT_TRUE(Timestamp::us(kPlusInfinity).IsPlusInfinity());
-  EXPECT_TRUE(Timestamp::us(kMinusInfinity).IsMinusInfinity());
+  EXPECT_TRUE(Timestamp::Seconds(kPlusInfinity).IsPlusInfinity());
+  EXPECT_TRUE(Timestamp::Seconds(kMinusInfinity).IsMinusInfinity());
+  EXPECT_TRUE(Timestamp::Milliseconds(kPlusInfinity).IsPlusInfinity());
+  EXPECT_TRUE(Timestamp::Milliseconds(kMinusInfinity).IsMinusInfinity());
+  EXPECT_TRUE(Timestamp::Microseconds(kPlusInfinity).IsPlusInfinity());
+  EXPECT_TRUE(Timestamp::Microseconds(kMinusInfinity).IsMinusInfinity());
 }
 
 TEST(UnitConversionTest, TimestampAndTimeDeltaMath) {
   const int64_t kValueA = 267;
   const int64_t kValueB = 450;
-  const Timestamp time_a = Timestamp::ms(kValueA);
-  const Timestamp time_b = Timestamp::ms(kValueB);
-  const TimeDelta delta_a = TimeDelta::ms(kValueA);
-  const TimeDelta delta_b = TimeDelta::ms(kValueB);
+  const Timestamp time_a = Timestamp::Milliseconds(kValueA);
+  const Timestamp time_b = Timestamp::Milliseconds(kValueB);
+  const TimeDelta delta_a = TimeDelta::Milliseconds(kValueA);
+  const TimeDelta delta_b = TimeDelta::Milliseconds(kValueB);
 
-  EXPECT_EQ((time_a - time_b), TimeDelta::ms(kValueA - kValueB));
-  EXPECT_EQ((time_b - delta_a), Timestamp::ms(kValueB - kValueA));
-  EXPECT_EQ((time_b + delta_a), Timestamp::ms(kValueB + kValueA));
+  EXPECT_EQ((time_a - time_b), TimeDelta::Milliseconds(kValueA - kValueB));
+  EXPECT_EQ((time_b - delta_a), Timestamp::Milliseconds(kValueB - kValueA));
+  EXPECT_EQ((time_b + delta_a), Timestamp::Milliseconds(kValueB + kValueA));
 
   Timestamp mutable_time = time_a;
   mutable_time += delta_b;
@@ -149,8 +152,8 @@ TEST(UnitConversionTest, TimestampAndTimeDeltaMath) {
 
 TEST(UnitConversionTest, InfinityOperations) {
   const int64_t kValue = 267;
-  const Timestamp finite_time = Timestamp::ms(kValue);
-  const TimeDelta finite_delta = TimeDelta::ms(kValue);
+  const Timestamp finite_time = Timestamp::Milliseconds(kValue);
+  const TimeDelta finite_delta = TimeDelta::Milliseconds(kValue);
   EXPECT_TRUE((Timestamp::PlusInfinity() + finite_delta).IsInfinite());
   EXPECT_TRUE((Timestamp::PlusInfinity() - finite_delta).IsInfinite());
   EXPECT_TRUE((finite_time + TimeDelta::PlusInfinity()).IsInfinite());

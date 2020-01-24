@@ -498,7 +498,7 @@ class BitrateObserver : public RemoteBitrateObserver {
 
   void Update(NetworkControlUpdate update) {
     if (update.target_rate) {
-      last_bitrate_bps_ = update.target_rate->target_rate.bps();
+      last_bitrate_bps_ = update.target_rate->target_rate.BitsPerSecond();
       bitrate_updated_ = true;
     }
   }
@@ -1173,8 +1173,8 @@ void EventLogAnalyzer::CreateGoogCcSimulationGraph(Plot* plot) {
       [&](const NetworkControlUpdate& update, Timestamp at_time) {
         if (update.target_rate) {
           target_rates.points.emplace_back(
-              config_.GetCallTimeSec(at_time.us()),
-              update.target_rate->target_rate.kbps<float>());
+              config_.GetCallTimeSec(at_time.Microseconds()),
+              update.target_rate->target_rate.KilobitsPerSecond<float>());
         }
       });
 
@@ -1228,8 +1228,10 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
   // TODO(holmer): Log the call config and use that here instead.
   static const uint32_t kDefaultStartBitrateBps = 300000;
   NetworkControllerConfig cc_config;
-  cc_config.constraints.at_time = Timestamp::us(clock.TimeInMicroseconds());
-  cc_config.constraints.starting_rate = DataRate::bps(kDefaultStartBitrateBps);
+  cc_config.constraints.at_time =
+      Timestamp::Microseconds(clock.TimeInMicroseconds());
+  cc_config.constraints.starting_rate =
+      DataRate::BitsPerSecond(kDefaultStartBitrateBps);
   cc_config.event_log = &null_event_log;
   auto goog_cc = factory.Create(cc_config);
 
@@ -1298,7 +1300,7 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
         transport_feedback.AddPacket(
             packet_info,
             0u,  // Per packet overhead bytes.
-            Timestamp::us(rtp_packet.rtp.log_time_us()));
+            Timestamp::Microseconds(rtp_packet.rtp.log_time_us()));
         rtc::SentPacket sent_packet(
             rtp_packet.rtp.header.extension.transportSequenceNumber,
             rtp_packet.rtp.log_time_us() / 1000);
@@ -1313,7 +1315,7 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
 
       auto feedback_msg = transport_feedback.ProcessTransportFeedback(
           rtcp_iterator->transport_feedback,
-          Timestamp::ms(clock.TimeInMilliseconds()));
+          Timestamp::Milliseconds(clock.TimeInMilliseconds()));
       absl::optional<uint32_t> bitrate_bps;
       if (feedback_msg) {
         observer.Update(goog_cc->OnTransportPacketsFeedback(*feedback_msg));
@@ -1325,9 +1327,10 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
               feedback);
 #endif  // !(BWE_TEST_LOGGING_COMPILE_TIME_ENABLE)
           for (const PacketResult& packet : feedback)
-            acked_bitrate.Update(packet.sent_packet.size.bytes(),
-                                 packet.receive_time.ms());
-          bitrate_bps = acked_bitrate.Rate(feedback.back().receive_time.ms());
+            acked_bitrate.Update(packet.sent_packet.size.Bytes(),
+                                 packet.receive_time.Milliseconds());
+          bitrate_bps =
+              acked_bitrate.Rate(feedback.back().receive_time.Milliseconds());
         }
       }
 
@@ -1337,7 +1340,7 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
 #if !(BWE_TEST_LOGGING_COMPILE_TIME_ENABLE)
       y = acknowledged_bitrate_estimator->bitrate()
               .value_or(DataRate::Zero())
-              .kbps();
+              .KilobitsPerSecond();
       acked_estimate_time_series.points.emplace_back(x, y);
 #endif  // !(BWE_TEST_LOGGING_COMPILE_TIME_ENABLE)
       ++rtcp_iterator;
@@ -1345,9 +1348,9 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
     if (clock.TimeInMicroseconds() >= NextProcessTime()) {
       RTC_DCHECK_EQ(clock.TimeInMicroseconds(), NextProcessTime());
       ProcessInterval msg;
-      msg.at_time = Timestamp::us(clock.TimeInMicroseconds());
+      msg.at_time = Timestamp::Microseconds(clock.TimeInMicroseconds());
       observer.Update(goog_cc->OnProcessInterval(msg));
-      next_process_time_us_ += process_interval.us();
+      next_process_time_us_ += process_interval.Microseconds();
     }
     if (observer.GetAndResetBitrateUpdated() ||
         time_us - last_update_us >= 1e6) {

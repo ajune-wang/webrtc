@@ -73,11 +73,11 @@ void VideoStreamDecoderImpl::OnFrame(
 }
 
 void VideoStreamDecoderImpl::SetMinPlayoutDelay(TimeDelta min_delay) {
-  timing_.set_min_playout_delay(min_delay.ms());
+  timing_.set_min_playout_delay(min_delay.Milliseconds());
 }
 
 void VideoStreamDecoderImpl::SetMaxPlayoutDelay(TimeDelta max_delay) {
-  timing_.set_max_playout_delay(max_delay.ms());
+  timing_.set_max_playout_delay(max_delay.Milliseconds());
 }
 
 VideoDecoder* VideoStreamDecoderImpl::GetDecoder(int payload_type) {

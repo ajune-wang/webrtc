@@ -94,8 +94,8 @@ class PlottableCounterPrinter {
       value_stream << R"("samples":[)";
       const char* sep = "";
       for (const auto& sample : counter.counter.GetTimedSamples()) {
-        value_stream << sep << R"({"time":)" << sample.time.us() << ','
-                     << R"("value":)" << sample.value << '}';
+        value_stream << sep << R"({"time":)" << sample.time.Microseconds()
+                     << ',' << R"("value":)" << sample.value << '}';
         sep = ",";
       }
       value_stream << "]}";

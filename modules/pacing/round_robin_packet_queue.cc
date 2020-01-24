@@ -18,7 +18,7 @@
 
 namespace webrtc {
 namespace {
-static constexpr DataSize kMaxLeadingSize = DataSize::bytes(1400);
+static constexpr DataSize kMaxLeadingSize = DataSize::Bytes(1400);
 }
 
 RoundRobinPacketQueue::QueuedPacket::QueuedPacket(const QueuedPacket& rhs) =
@@ -74,7 +74,7 @@ uint64_t RoundRobinPacketQueue::QueuedPacket::EnqueueOrder() const {
 }
 
 DataSize RoundRobinPacketQueue::QueuedPacket::Size(bool count_overhead) const {
-  return DataSize::bytes(count_overhead ? owned_packet_->size()
+  return DataSize::Bytes(count_overhead ? owned_packet_->size()
                                         : owned_packet_->payload_size() +
                                               owned_packet_->padding_size());
 }
@@ -225,7 +225,8 @@ void RoundRobinPacketQueue::UpdateQueueTime(Timestamp now) {
   if (paused_) {
     pause_time_sum_ += delta;
   } else {
-    queue_time_sum_ += TimeDelta::us(delta.us() * size_packets_);
+    queue_time_sum_ +=
+        TimeDelta::Microseconds(delta.Microseconds() * size_packets_);
   }
 
   time_last_updated_ = now;

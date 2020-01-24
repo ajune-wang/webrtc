@@ -33,61 +33,51 @@ namespace webrtc {
 class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
  public:
   TimeDelta() = delete;
-  template <int64_t seconds>
-  RTC_DEPRECATED static constexpr TimeDelta Seconds() {
-    return FromFraction(1'000'000, seconds);
-  }
-  template <int64_t ms>
-  RTC_DEPRECATED static constexpr TimeDelta Millis() {
-    return FromFraction(1000, ms);
-  }
-  template <int64_t us>
-  RTC_DEPRECATED static constexpr TimeDelta Micros() {
-    return FromValue(us);
-  }
   template <typename T>
-  static constexpr TimeDelta seconds(T seconds) {
+  static constexpr TimeDelta Seconds(T seconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1'000'000, seconds);
   }
   template <typename T>
-  static constexpr TimeDelta ms(T milliseconds) {
+  static constexpr TimeDelta Milliseconds(T milliseconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1000, milliseconds);
   }
   template <typename T>
-  static constexpr TimeDelta us(T microseconds) {
+  static constexpr TimeDelta Microseconds(T microseconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromValue(microseconds);
   }
   template <typename T = int64_t>
-  T seconds() const {
+  T Seconds() const {
     return ToFraction<1000000, T>();
   }
   template <typename T = int64_t>
-  T ms() const {
+  T Milliseconds() const {
     return ToFraction<1000, T>();
   }
   template <typename T = int64_t>
-  T us() const {
+  T Microseconds() const {
     return ToValue<T>();
   }
   template <typename T = int64_t>
-  T ns() const {
+  T Nanoseconds() const {
     return ToMultiple<1000, T>();
   }
 
-  constexpr int64_t seconds_or(int64_t fallback_value) const {
+  constexpr int64_t SecondsOr(int64_t fallback_value) const {
     return ToFractionOr<1000000>(fallback_value);
   }
-  constexpr int64_t ms_or(int64_t fallback_value) const {
+  constexpr int64_t MillisecondsOr(int64_t fallback_value) const {
     return ToFractionOr<1000>(fallback_value);
   }
-  constexpr int64_t us_or(int64_t fallback_value) const {
+  constexpr int64_t MicrosecondsOr(int64_t fallback_value) const {
     return ToValueOr(fallback_value);
   }
 
-  TimeDelta Abs() const { return TimeDelta::us(std::abs(us())); }
+  TimeDelta Abs() const {
+    return TimeDelta::Microseconds(std::abs(Microseconds()));
+  }
 
  private:
   friend class rtc_units_impl::UnitBase<TimeDelta>;

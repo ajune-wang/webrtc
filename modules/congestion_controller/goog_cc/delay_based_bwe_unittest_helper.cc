@@ -53,8 +53,8 @@ int64_t RtpStream::GenerateFrame(int64_t time_now_us,
   for (size_t i = 0; i < n_packets; ++i) {
     PacketResult packet;
     packet.sent_packet.send_time =
-        Timestamp::us(time_now_us + kSendSideOffsetUs);
-    packet.sent_packet.size = DataSize::bytes(payload_size);
+        Timestamp::Microseconds(time_now_us + kSendSideOffsetUs);
+    packet.sent_packet.size = DataSize::Bytes(payload_size);
     packets->push_back(packet);
   }
   next_rtp_time_ = time_now_us + (1000000 + fps_ / 2) / fps_;
@@ -132,12 +132,12 @@ int64_t StreamGenerator::GenerateFrame(std::vector<PacketResult>* packets,
   for (PacketResult& packet : *packets) {
     int capacity_bpus = capacity_ / 1000;
     int64_t required_network_time_us =
-        (8 * 1000 * packet.sent_packet.size.bytes() + capacity_bpus / 2) /
+        (8 * 1000 * packet.sent_packet.size.Bytes() + capacity_bpus / 2) /
         capacity_bpus;
     prev_arrival_time_us_ =
         std::max(time_now_us + required_network_time_us,
                  prev_arrival_time_us_ + required_network_time_us);
-    packet.receive_time = Timestamp::us(prev_arrival_time_us_);
+    packet.receive_time = Timestamp::Microseconds(prev_arrival_time_us_);
     ++i;
   }
   it = std::min_element(streams_.begin(), streams_.end(), RtpStream::Compare);
@@ -194,16 +194,16 @@ void DelayBasedBweTest::IncomingFeedback(int64_t arrival_time_ms,
   RTC_CHECK_GE(arrival_time_ms + arrival_time_offset_ms_, 0);
   PacketResult packet;
   packet.receive_time =
-      Timestamp::ms(arrival_time_ms + arrival_time_offset_ms_);
-  packet.sent_packet.send_time = Timestamp::ms(send_time_ms);
-  packet.sent_packet.size = DataSize::bytes(payload_size);
+      Timestamp::Milliseconds(arrival_time_ms + arrival_time_offset_ms_);
+  packet.sent_packet.send_time = Timestamp::Milliseconds(send_time_ms);
+  packet.sent_packet.size = DataSize::Bytes(payload_size);
   packet.sent_packet.pacing_info = pacing_info;
   if (packet.sent_packet.pacing_info.probe_cluster_id !=
       PacedPacketInfo::kNotAProbe)
     probe_bitrate_estimator_->HandleProbeAndEstimateBitrate(packet);
 
   TransportPacketsFeedback msg;
-  msg.feedback_time = Timestamp::ms(clock_.TimeInMilliseconds());
+  msg.feedback_time = Timestamp::Milliseconds(clock_.TimeInMilliseconds());
   msg.packet_feedbacks.push_back(packet);
   acknowledged_bitrate_estimator_->IncomingPacketFeedbackVector(
       msg.SortedByReceiveTime());
@@ -213,7 +213,8 @@ void DelayBasedBweTest::IncomingFeedback(int64_t arrival_time_ms,
           probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate(),
           /*network_estimate*/ absl::nullopt, /*in_alr*/ false);
   if (result.updated) {
-    bitrate_observer_.OnReceiveBitrateChanged(result.target_bitrate.bps());
+    bitrate_observer_.OnReceiveBitrateChanged(
+        result.target_bitrate.BitsPerSecond());
   }
 }
 
@@ -235,11 +236,12 @@ bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t ssrc,
 
   bool overuse = false;
   bitrate_observer_.Reset();
-  clock_.AdvanceTimeMicroseconds(packets.back().receive_time.us() -
+  clock_.AdvanceTimeMicroseconds(packets.back().receive_time.Microseconds() -
                                  clock_.TimeInMicroseconds());
   for (auto& packet : packets) {
-    RTC_CHECK_GE(packet.receive_time.ms() + arrival_time_offset_ms_, 0);
-    packet.receive_time += TimeDelta::ms(arrival_time_offset_ms_);
+    RTC_CHECK_GE(packet.receive_time.Milliseconds() + arrival_time_offset_ms_,
+                 0);
+    packet.receive_time += TimeDelta::Milliseconds(arrival_time_offset_ms_);
 
     if (packet.sent_packet.pacing_info.probe_cluster_id !=
         PacedPacketInfo::kNotAProbe)
@@ -249,7 +251,7 @@ bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t ssrc,
   acknowledged_bitrate_estimator_->IncomingPacketFeedbackVector(packets);
   TransportPacketsFeedback msg;
   msg.packet_feedbacks = packets;
-  msg.feedback_time = Timestamp::ms(clock_.TimeInMilliseconds());
+  msg.feedback_time = Timestamp::Milliseconds(clock_.TimeInMilliseconds());
 
   DelayBasedBwe::Result result =
       bitrate_estimator_->IncomingPacketFeedbackVector(
@@ -257,8 +259,9 @@ bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t ssrc,
           probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate(),
           /*network_estimate*/ absl::nullopt, /*in_alr*/ false);
   if (result.updated) {
-    bitrate_observer_.OnReceiveBitrateChanged(result.target_bitrate.bps());
-    if (!first_update_ && result.target_bitrate.bps() < bitrate_bps)
+    bitrate_observer_.OnReceiveBitrateChanged(
+        result.target_bitrate.BitsPerSecond());
+    if (!first_update_ && result.target_bitrate.BitsPerSecond() < bitrate_bps)
       overuse = true;
     first_update_ = false;
   }
@@ -335,11 +338,11 @@ void DelayBasedBweTest::InitialBehaviorTestHelper(
   EXPECT_TRUE(bitrate_estimator_->LatestEstimate(&ssrcs, &bitrate));
   ASSERT_EQ(1u, ssrcs.size());
   EXPECT_EQ(kDefaultSsrc, ssrcs.front());
-  EXPECT_NEAR(expected_converge_bitrate, bitrate.bps(),
+  EXPECT_NEAR(expected_converge_bitrate, bitrate.BitsPerSecond(),
               kAcceptedBitrateErrorBps);
   EXPECT_TRUE(bitrate_observer_.updated());
   bitrate_observer_.Reset();
-  EXPECT_EQ(bitrate_observer_.latest_bitrate(), bitrate.bps());
+  EXPECT_EQ(bitrate_observer_.latest_bitrate(), bitrate.BitsPerSecond());
 }
 
 void DelayBasedBweTest::RateIncreaseReorderingTestHelper(

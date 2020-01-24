@@ -65,11 +65,11 @@ NackModule::BackoffSettings::BackoffSettings(TimeDelta min_retry,
 absl::optional<NackModule::BackoffSettings>
 NackModule::BackoffSettings::ParseFromFieldTrials() {
   // Matches magic number in RTPSender::OnReceivedNack().
-  const TimeDelta kDefaultMinRetryInterval = TimeDelta::ms(5);
+  const TimeDelta kDefaultMinRetryInterval = TimeDelta::Milliseconds(5);
   // Upper bound on link-delay considered for exponential backoff.
   // Selected so that cumulative delay with 1.25 base and 10 retries ends up
   // below 3s, since above that there will be a FIR generated instead.
-  const TimeDelta kDefaultMaxRtt = TimeDelta::ms(160);
+  const TimeDelta kDefaultMaxRtt = TimeDelta::Milliseconds(160);
   // Default base for exponential backoff, adds 25% RTT delay for each retry.
   const double kDefaultBase = 1.25;
 
@@ -296,22 +296,23 @@ std::vector<uint16_t> NackModule::GetNackBatch(NackFilterOptions options) {
   std::vector<uint16_t> nack_batch;
   auto it = nack_list_.begin();
   while (it != nack_list_.end()) {
-    TimeDelta resend_delay = TimeDelta::ms(rtt_ms_);
+    TimeDelta resend_delay = TimeDelta::Milliseconds(rtt_ms_);
     if (backoff_settings_) {
       resend_delay =
           std::max(resend_delay, backoff_settings_->min_retry_interval);
       if (it->second.retries > 1) {
         TimeDelta exponential_backoff =
-            std::min(TimeDelta::ms(rtt_ms_), backoff_settings_->max_rtt) *
+            std::min(TimeDelta::Milliseconds(rtt_ms_),
+                     backoff_settings_->max_rtt) *
             std::pow(backoff_settings_->base, it->second.retries - 1);
         resend_delay = std::max(resend_delay, exponential_backoff);
       }
     }
 
     bool delay_timed_out =
-        now.ms() - it->second.created_at_time >= send_nack_delay_ms_;
-    bool nack_on_rtt_passed =
-        now.ms() - it->second.sent_at_time >= resend_delay.ms();
+        now.Milliseconds() - it->second.created_at_time >= send_nack_delay_ms_;
+    bool nack_on_rtt_passed = now.Milliseconds() - it->second.sent_at_time >=
+                              resend_delay.Milliseconds();
     bool nack_on_seq_num_passed =
         it->second.sent_at_time == -1 &&
         AheadOrAt(newest_seq_num_, it->second.send_at_seq_num);
@@ -319,7 +320,7 @@ std::vector<uint16_t> NackModule::GetNackBatch(NackFilterOptions options) {
                             (consider_timestamp && nack_on_rtt_passed))) {
       nack_batch.emplace_back(it->second.seq_num);
       ++it->second.retries;
-      it->second.sent_at_time = now.ms();
+      it->second.sent_at_time = now.Milliseconds();
       if (it->second.retries >= kMaxNackRetries) {
         RTC_LOG(LS_WARNING) << "Sequence number " << it->second.seq_num
                             << " removed from NACK list due to max retries.";

@@ -28,7 +28,7 @@
 
 namespace webrtc {
 namespace {
-constexpr TimeDelta kStreamTimeOut = TimeDelta::seconds(2);
+constexpr TimeDelta kStreamTimeOut = TimeDelta::Seconds(2);
 constexpr int kTimestampGroupLengthMs = 5;
 constexpr int kAbsSendTimeFraction = 18;
 constexpr int kAbsSendTimeInterArrivalUpshift = 8;
@@ -165,7 +165,8 @@ void DelayBasedBwe::IncomingPacketFeedback(const PacketResult& packet_feedback,
 
   uint32_t send_time_24bits =
       static_cast<uint32_t>(
-          ((static_cast<uint64_t>(packet_feedback.sent_packet.send_time.ms())
+          ((static_cast<uint64_t>(
+                packet_feedback.sent_packet.send_time.Milliseconds())
             << kAbsSendTimeFraction) +
            500) /
           1000) &
@@ -194,13 +195,14 @@ void DelayBasedBwe::IncomingPacketFeedback(const PacketResult& packet_feedback,
   int64_t t_delta = 0;
   int size_delta = 0;
   bool calculated_deltas = inter_arrival_->ComputeDeltas(
-      timestamp, packet_feedback.receive_time.ms(), at_time.ms(),
-      packet_size.bytes(), &ts_delta, &t_delta, &size_delta);
+      timestamp, packet_feedback.receive_time.Milliseconds(),
+      at_time.Milliseconds(), packet_size.Bytes(), &ts_delta, &t_delta,
+      &size_delta);
   double ts_delta_ms = (1000.0 * ts_delta) / (1 << kInterArrivalShift);
   delay_detector_->Update(t_delta, ts_delta_ms,
-                          packet_feedback.sent_packet.send_time.ms(),
-                          packet_feedback.receive_time.ms(),
-                          packet_size.bytes(), calculated_deltas);
+                          packet_feedback.sent_packet.send_time.Milliseconds(),
+                          packet_feedback.receive_time.Milliseconds(),
+                          packet_size.Bytes(), calculated_deltas);
 }
 
 DataRate DelayBasedBwe::TriggerOveruse(Timestamp at_time,
@@ -259,11 +261,12 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
       detector_state != prev_state_) {
     DataRate bitrate = result.updated ? result.target_bitrate : prev_bitrate_;
 
-    BWE_TEST_LOGGING_PLOT(1, "target_bitrate_bps", at_time.ms(), bitrate.bps());
+    BWE_TEST_LOGGING_PLOT(1, "target_bitrate_bps", at_time.Milliseconds(),
+                          bitrate.BitsPerSecond());
 
     if (event_log_) {
       event_log_->Log(std::make_unique<RtcEventBweUpdateDelayBased>(
-          bitrate.bps(), detector_state));
+          bitrate.BitsPerSecond(), detector_state));
     }
 
     prev_bitrate_ = bitrate;

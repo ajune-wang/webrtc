@@ -80,11 +80,12 @@ void MaybeLogProbeClusterCreated(RtcEventLog* event_log,
     return;
   }
 
-  size_t min_bytes = static_cast<int32_t>(probe.target_data_rate.bps() *
-                                          probe.target_duration.ms() / 8000);
+  size_t min_bytes =
+      static_cast<int32_t>(probe.target_data_rate.BitsPerSecond() *
+                           probe.target_duration.Milliseconds() / 8000);
   event_log->Log(std::make_unique<RtcEventProbeClusterCreated>(
-      probe.id, probe.target_data_rate.bps(), probe.target_probe_count,
-      min_bytes));
+      probe.id, probe.target_data_rate.BitsPerSecond(),
+      probe.target_probe_count, min_bytes));
 }
 
 }  // namespace
@@ -95,7 +96,7 @@ ProbeControllerConfig::ProbeControllerConfig(
       second_exponential_probe_scale("p2", 6.0),
       further_exponential_probe_scale("step_size", 2),
       further_probe_threshold("further_probe_threshold", 0.7),
-      alr_probing_interval("alr_interval", TimeDelta::seconds(5)),
+      alr_probing_interval("alr_interval", TimeDelta::Seconds(5)),
       alr_probe_scale("alr_scale", 2),
       first_allocation_probe_scale("alloc_p1", 1),
       second_allocation_probe_scale("alloc_p2", 2),
@@ -232,7 +233,7 @@ std::vector<ProbeClusterConfig> ProbeController::OnNetworkAvailability(
   }
 
   if (network_available_ && state_ == State::kInit && start_bitrate_bps_ > 0)
-    return InitiateExponentialProbing(msg.at_time.ms());
+    return InitiateExponentialProbing(msg.at_time.Milliseconds());
   return std::vector<ProbeClusterConfig>();
 }
 
@@ -377,7 +378,7 @@ std::vector<ProbeClusterConfig> ProbeController::Process(int64_t at_time_ms) {
     if (alr_start_time_ms_ && estimated_bitrate_bps_ > 0) {
       int64_t next_probe_time_ms =
           std::max(*alr_start_time_ms_, time_last_probing_initiated_ms_) +
-          config_.alr_probing_interval->ms();
+          config_.alr_probing_interval->Milliseconds();
       if (at_time_ms >= next_probe_time_ms) {
         return InitiateProbing(at_time_ms,
                                {static_cast<int64_t>(estimated_bitrate_bps_ *
@@ -417,9 +418,10 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
     }
 
     ProbeClusterConfig config;
-    config.at_time = Timestamp::ms(now_ms);
-    config.target_data_rate = DataRate::bps(rtc::dchecked_cast<int>(bitrate));
-    config.target_duration = TimeDelta::ms(kMinProbeDurationMs);
+    config.at_time = Timestamp::Milliseconds(now_ms);
+    config.target_data_rate =
+        DataRate::BitsPerSecond(rtc::dchecked_cast<int>(bitrate));
+    config.target_duration = TimeDelta::Milliseconds(kMinProbeDurationMs);
     config.target_probe_count = kMinProbePacketsSent;
     config.id = next_probe_cluster_id_;
     next_probe_cluster_id_++;

@@ -33,10 +33,10 @@ class Clock {
   virtual ~Clock() {}
   // Return a timestamp relative to an unspecified epoch.
   virtual Timestamp CurrentTime() {
-    return Timestamp::us(TimeInMicroseconds());
+    return Timestamp::Microseconds(TimeInMicroseconds());
   }
-  virtual int64_t TimeInMilliseconds() { return CurrentTime().ms(); }
-  virtual int64_t TimeInMicroseconds() { return CurrentTime().us(); }
+  virtual int64_t TimeInMilliseconds() { return CurrentTime().Milliseconds(); }
+  virtual int64_t TimeInMicroseconds() { return CurrentTime().Microseconds(); }
 
   // Retrieve an NTP absolute timestamp.
   virtual NtpTime CurrentNtpTime() = 0;

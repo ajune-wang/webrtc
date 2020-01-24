@@ -2034,7 +2034,7 @@ std::vector<InferredRouteChangeEvent> ParsedRtcEventLog::GetRouteChanges()
     if (candidate.type == IceCandidatePairConfigType::kSelected) {
       InferredRouteChangeEvent route;
       route.route_id = candidate.candidate_pair_id;
-      route.log_time = Timestamp::ms(candidate.log_time_ms());
+      route.log_time = Timestamp::Milliseconds(candidate.log_time_ms());
 
       route.send_overhead = kUdpOverhead + kSrtpOverhead + kIpv4Overhead;
       if (candidate.remote_address_family ==
@@ -2083,7 +2083,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
     // If we have a large time delta, it can be caused by a gap in logging,
     // therefore we don't want to match up sequence numbers as we might have had
     // a wraparound.
-    if (new_log_time - last_log_time > TimeDelta::seconds(30)) {
+    if (new_log_time - last_log_time > TimeDelta::Seconds(30)) {
       seq_num_unwrapper = SequenceNumberUnwrapper();
       indices.clear();
     }
@@ -2092,7 +2092,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
   };
 
   auto rtp_handler = [&](const LoggedRtpPacket& rtp) {
-    advance_time(Timestamp::ms(rtp.log_time_ms()));
+    advance_time(Timestamp::Milliseconds(rtp.log_time_ms()));
     MediaStreamInfo* stream = &streams[rtp.header.ssrc];
     Timestamp capture_time = Timestamp::MinusInfinity();
     if (!stream->rtx) {
@@ -2107,7 +2107,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
           kStartingCaptureTimeTicks +
           stream->unwrap_capture_ticks.Unwrap(rtp.header.timestamp);
       // TODO(srte): Use logged sample rate when it is added to the format.
-      capture_time = Timestamp::seconds(
+      capture_time = Timestamp::Seconds(
           capture_ticks /
           (stream->media_type == LoggedMediaType::kAudio ? 48000.0 : 90000.0));
     }
@@ -2121,8 +2121,8 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
         auto prev = packets[indices[unwrapped_seq_num]];
         RTC_LOG(LS_WARNING)
             << "Repeated sent packet sequence number: " << unwrapped_seq_num
-            << " Packet time:" << prev.log_packet_time.seconds() << "s vs "
-            << logged.log_packet_time.seconds()
+            << " Packet time:" << prev.log_packet_time.Seconds() << "s vs "
+            << logged.log_packet_time.Seconds()
             << "s at:" << rtp.log_time_ms() / 1000;
       }
       indices[unwrapped_seq_num] = packets.size();
@@ -2135,7 +2135,8 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
 
   auto feedback_handler =
       [&](const LoggedRtcpPacketTransportFeedback& logged_rtcp) {
-        auto log_feedback_time = Timestamp::ms(logged_rtcp.log_time_ms());
+        auto log_feedback_time =
+            Timestamp::Milliseconds(logged_rtcp.log_time_ms());
         advance_time(log_feedback_time);
         const auto& feedback = logged_rtcp.transport_feedback;
         // Add timestamp deltas to a local time base selected on first packet
@@ -2144,7 +2145,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
         if (!last_feedback_base_time_us) {
           feedback_base_time = log_feedback_time;
         } else {
-          feedback_base_time += TimeDelta::us(
+          feedback_base_time += TimeDelta::Microseconds(
               feedback.GetBaseDeltaUs(*last_feedback_base_time_us));
         }
         last_feedback_base_time_us = feedback.GetBaseTimeUs();
@@ -2163,15 +2164,16 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
           }
           LoggedPacketInfo* sent = &packets[it->second];
           if (log_feedback_time - sent->log_packet_time >
-              TimeDelta::seconds(60)) {
+              TimeDelta::Seconds(60)) {
             RTC_LOG(LS_WARNING)
                 << "Received very late feedback, possibly due to wraparound.";
             continue;
           }
           if (packet.received()) {
-            receive_timestamp += TimeDelta::us(packet.delta_us());
+            receive_timestamp += TimeDelta::Microseconds(packet.delta_us());
             if (sent->reported_recv_time.IsInfinite()) {
-              sent->reported_recv_time = Timestamp::ms(receive_timestamp.ms());
+              sent->reported_recv_time =
+                  Timestamp::Milliseconds(receive_timestamp.Milliseconds());
               sent->log_feedback_time = log_feedback_time;
             }
           } else {
@@ -2245,14 +2247,14 @@ std::vector<LoggedIceEvent> ParsedRtcEventLog::GetIceEvents() const {
        {ConfigType::kSelected, Combined::kSelected}});
   std::vector<LoggedIceEvent> log_events;
   auto handle_check = [&](const LoggedIceCandidatePairEvent& check) {
-    log_events.push_back(LoggedIceEvent{check.candidate_pair_id,
-                                        Timestamp::ms(check.log_time_ms()),
-                                        check_map[check.type]});
+    log_events.push_back(LoggedIceEvent{
+        check.candidate_pair_id, Timestamp::Milliseconds(check.log_time_ms()),
+        check_map[check.type]});
   };
   auto handle_config = [&](const LoggedIceCandidatePairConfig& conf) {
-    log_events.push_back(LoggedIceEvent{conf.candidate_pair_id,
-                                        Timestamp::ms(conf.log_time_ms()),
-                                        config_map[conf.type]});
+    log_events.push_back(LoggedIceEvent{
+        conf.candidate_pair_id, Timestamp::Milliseconds(conf.log_time_ms()),
+        config_map[conf.type]});
   };
   RtcEventProcessor process;
   process.AddEvents(ice_candidate_pair_events(), handle_check);
@@ -2267,9 +2269,9 @@ const std::vector<MatchedSendArrivalTimes> GetNetworkTrace(
   for (auto& packet :
        parsed_log.GetPacketInfos(PacketDirection::kOutgoingPacket)) {
     if (packet.log_feedback_time.IsFinite()) {
-      rtp_rtcp_matched.emplace_back(packet.log_feedback_time.ms(),
-                                    packet.log_packet_time.ms(),
-                                    packet.reported_recv_time.ms_or(
+      rtp_rtcp_matched.emplace_back(packet.log_feedback_time.Milliseconds(),
+                                    packet.log_packet_time.Milliseconds(),
+                                    packet.reported_recv_time.MillisecondsOr(
                                         MatchedSendArrivalTimes::kNotReceived),
                                     packet.size);
     }
@@ -2406,14 +2408,14 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::StoreRemoteEstimateEvent(
   if (proto.has_link_capacity_lower_kbps()) {
     base_link_capacity_lower_kbps = proto.link_capacity_lower_kbps();
     base_event.link_capacity_lower =
-        DataRate::kbps(proto.link_capacity_lower_kbps());
+        DataRate::KilobitsPerSecond(proto.link_capacity_lower_kbps());
   }
 
   absl::optional<uint64_t> base_link_capacity_upper_kbps;
   if (proto.has_link_capacity_upper_kbps()) {
     base_link_capacity_upper_kbps = proto.link_capacity_upper_kbps();
     base_event.link_capacity_upper =
-        DataRate::kbps(proto.link_capacity_upper_kbps());
+        DataRate::KilobitsPerSecond(proto.link_capacity_upper_kbps());
   }
 
   remote_estimate_events_.push_back(base_event);
@@ -2451,10 +2453,10 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::StoreRemoteEstimateEvent(
     event.timestamp_ms = *timestamp_ms_values[i];
     if (link_capacity_lower_kbps_values[i])
       event.link_capacity_lower =
-          DataRate::kbps(*link_capacity_lower_kbps_values[i]);
+          DataRate::KilobitsPerSecond(*link_capacity_lower_kbps_values[i]);
     if (link_capacity_upper_kbps_values[i])
       event.link_capacity_upper =
-          DataRate::kbps(*link_capacity_upper_kbps_values[i]);
+          DataRate::KilobitsPerSecond(*link_capacity_upper_kbps_values[i]);
     remote_estimate_events_.push_back(event);
   }
   return ParseStatus::Success();

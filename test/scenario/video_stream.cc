@@ -129,7 +129,7 @@ VideoSendStream::Config CreateVideoSendStreamConfig(
   send_config.rtp.payload_name = CodecTypeToPayloadString(config.encoder.codec);
   send_config.rtp.payload_type = CodecTypeToPayloadType(config.encoder.codec);
   send_config.rtp.nack.rtp_history_ms =
-      config.stream.nack_history_time.ms<int>();
+      config.stream.nack_history_time.Milliseconds<int>();
 
   send_config.rtp.ssrcs = ssrcs;
   send_config.rtp.extensions = GetVideoRtpExtensions(config);
@@ -240,7 +240,8 @@ VideoEncoderConfig CreateVideoEncoderConfig(VideoStreamConfig config) {
         static_cast<size_t>(config.encoder.layers.spatial);
   encoder_config.simulcast_layers =
       std::vector<VideoStream>(config.encoder.layers.spatial);
-  encoder_config.min_transmit_bitrate_bps = config.stream.pad_to_rate.bps();
+  encoder_config.min_transmit_bitrate_bps =
+      config.stream.pad_to_rate.BitsPerSecond();
 
   std::string cricket_codec = CodecTypeToCodecName(config.encoder.codec);
   if (!cricket_codec.empty()) {
@@ -256,7 +257,8 @@ VideoEncoderConfig CreateVideoEncoderConfig(VideoStreamConfig config) {
 
   // TODO(srte): Base this on encoder capabilities.
   encoder_config.max_bitrate_bps =
-      config.encoder.max_data_rate.value_or(DataRate::kbps(10000)).bps();
+      config.encoder.max_data_rate.value_or(DataRate::KilobitsPerSecond(10000))
+          .BitsPerSecond();
 
   encoder_config.encoder_specific_settings =
       CreateEncoderSpecificSettings(config);
@@ -286,12 +288,12 @@ std::unique_ptr<FrameGeneratorInterface> CreateImageSlideGenerator(
     RTC_CHECK_LE(crop_height, slides.images.height);
     return CreateScrollingInputFromYuvFilesFrameGenerator(
         clock, paths, slides.images.width, slides.images.height, crop_width,
-        crop_height, slides.images.crop.scroll_duration.ms(),
-        pause_duration.ms());
+        crop_height, slides.images.crop.scroll_duration.Milliseconds(),
+        pause_duration.Milliseconds());
   } else {
     return CreateFromYuvFileFrameGenerator(
         paths, slides.images.width, slides.images.height,
-        slides.change_interval.seconds<double>() * framerate);
+        slides.change_interval.Seconds<double>() * framerate);
   }
 }
 
@@ -312,7 +314,7 @@ std::unique_ptr<FrameGeneratorInterface> CreateFrameGenerator(
     case Capture::kGenerateSlides:
       return CreateSlideFrameGenerator(
           source.slides.generator.width, source.slides.generator.height,
-          source.slides.change_interval.seconds<double>() * source.framerate);
+          source.slides.change_interval.Seconds<double>() * source.framerate);
     case Capture::kImageSlides:
       return CreateImageSlideGenerator(clock, source.slides, source.framerate);
   }
@@ -333,7 +335,7 @@ VideoReceiveStream::Config CreateVideoReceiveStreamConfig(
 
   RTC_DCHECK(!config.stream.use_rtx ||
              config.stream.nack_history_time > TimeDelta::Zero());
-  recv.rtp.nack.rtp_history_ms = config.stream.nack_history_time.ms();
+  recv.rtp.nack.rtp_history_ms = config.stream.nack_history_time.Milliseconds();
   recv.rtp.protected_by_flexfec = config.stream.use_flexfec;
   recv.rtp.remote_ssrc = ssrc;
   recv.decoders.push_back(decoder);
@@ -382,7 +384,8 @@ SendVideoStream::SendVideoStream(CallClient* sender,
             }
             fake_encoders_.push_back(encoder.get());
             if (config_.encoder.fake.max_rate.IsFinite())
-              encoder->SetMaxBitrate(config_.encoder.fake.max_rate.kbps());
+              encoder->SetMaxBitrate(
+                  config_.encoder.fake.max_rate.KilobitsPerSecond());
             return encoder;
           });
       break;
@@ -455,7 +458,8 @@ void SendVideoStream::UpdateConfig(
     modifier(&config_);
     if (prior_config.encoder.fake.max_rate != config_.encoder.fake.max_rate) {
       for (auto* encoder : fake_encoders_) {
-        encoder->SetMaxBitrate(config_.encoder.fake.max_rate.kbps());
+        encoder->SetMaxBitrate(
+            config_.encoder.fake.max_rate.KilobitsPerSecond());
       }
     }
     // TODO(srte): Add more conditions that should cause reconfiguration.

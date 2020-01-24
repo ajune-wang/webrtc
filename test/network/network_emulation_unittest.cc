@@ -28,8 +28,8 @@ namespace webrtc {
 namespace test {
 namespace {
 
-constexpr TimeDelta kNetworkPacketWaitTimeout = TimeDelta::ms(100);
-constexpr TimeDelta kStatsWaitTimeout = TimeDelta::seconds(1);
+constexpr TimeDelta kNetworkPacketWaitTimeout = TimeDelta::Milliseconds(100);
+constexpr TimeDelta kStatsWaitTimeout = TimeDelta::Seconds(1);
 constexpr int kOverheadIpv4Udp = 20 + 8;
 
 class SocketReader : public sigslot::has_slots<> {
@@ -233,7 +233,7 @@ TEST(NetworkEmulationManagerTest, Run) {
                    [&]() { s2->Send(data.data(), data.size()); });
     }
 
-    network_manager.time_controller()->AdvanceTime(TimeDelta::seconds(1));
+    network_manager.time_controller()->AdvanceTime(TimeDelta::Seconds(1));
 
     EXPECT_EQ(r1.ReceivedCount(), 1000);
     EXPECT_EQ(r2.ReceivedCount(), 1000);
@@ -246,24 +246,24 @@ TEST(NetworkEmulationManagerTest, Run) {
   std::atomic<int> received_stats_count{0};
   nt1->GetStats([&](EmulatedNetworkStats st) {
     EXPECT_EQ(st.packets_sent, 2000l);
-    EXPECT_EQ(st.bytes_sent.bytes(), single_packet_size * 2000l);
+    EXPECT_EQ(st.bytes_sent.Bytes(), single_packet_size * 2000l);
     EXPECT_EQ(st.packets_received, 2000l);
-    EXPECT_EQ(st.bytes_received.bytes(), single_packet_size * 2000l);
+    EXPECT_EQ(st.bytes_received.Bytes(), single_packet_size * 2000l);
     EXPECT_EQ(st.packets_dropped, 0l);
-    EXPECT_EQ(st.bytes_dropped.bytes(), 0l);
+    EXPECT_EQ(st.bytes_dropped.Bytes(), 0l);
     received_stats_count++;
   });
   nt2->GetStats([&](EmulatedNetworkStats st) {
     EXPECT_EQ(st.packets_sent, 2000l);
-    EXPECT_EQ(st.bytes_sent.bytes(), single_packet_size * 2000l);
+    EXPECT_EQ(st.bytes_sent.Bytes(), single_packet_size * 2000l);
     EXPECT_EQ(st.packets_received, 2000l);
-    EXPECT_EQ(st.bytes_received.bytes(), single_packet_size * 2000l);
+    EXPECT_EQ(st.bytes_received.Bytes(), single_packet_size * 2000l);
     EXPECT_EQ(st.packets_dropped, 0l);
-    EXPECT_EQ(st.bytes_dropped.bytes(), 0l);
+    EXPECT_EQ(st.bytes_dropped.Bytes(), 0l);
     received_stats_count++;
   });
   ASSERT_EQ_SIMULATED_WAIT(received_stats_count.load(), 2,
-                           kStatsWaitTimeout.ms(),
+                           kStatsWaitTimeout.Milliseconds(),
                            *network_manager.time_controller());
 }
 
@@ -315,7 +315,7 @@ TEST(NetworkEmulationManagerTest, ThroughputStats) {
 
   // Send 11 packets, totalizing 1 second between the first and the last.
   const int kNumPacketsSent = 11;
-  const TimeDelta kDelay = TimeDelta::ms(100);
+  const TimeDelta kDelay = TimeDelta::Milliseconds(100);
   for (int i = 0; i < kNumPacketsSent; i++) {
     t1->PostTask(RTC_FROM_HERE, [&]() { s1->Send(data.data(), data.size()); });
     t2->PostTask(RTC_FROM_HERE, [&]() { s2->Send(data.data(), data.size()); });
@@ -325,17 +325,17 @@ TEST(NetworkEmulationManagerTest, ThroughputStats) {
   std::atomic<int> received_stats_count{0};
   nt1->GetStats([&](EmulatedNetworkStats st) {
     EXPECT_EQ(st.packets_sent, kNumPacketsSent);
-    EXPECT_EQ(st.bytes_sent.bytes(), kSinglePacketSize * kNumPacketsSent);
+    EXPECT_EQ(st.bytes_sent.Bytes(), kSinglePacketSize * kNumPacketsSent);
 
     const double tolerance = 0.95;  // Accept 5% tolerance for timing.
     EXPECT_GE(st.last_packet_sent_time - st.first_packet_sent_time,
               (kNumPacketsSent - 1) * kDelay * tolerance);
-    EXPECT_GT(st.AverageSendRate().bps(), 0);
+    EXPECT_GT(st.AverageSendRate().BitsPerSecond(), 0);
     received_stats_count++;
   });
 
   ASSERT_EQ_SIMULATED_WAIT(received_stats_count.load(), 1,
-                           kStatsWaitTimeout.ms(),
+                           kStatsWaitTimeout.Milliseconds(),
                            *network_manager.time_controller());
 
   EXPECT_EQ(r1.ReceivedCount(), 11);

@@ -114,7 +114,7 @@ bool AbsoluteCaptureTimeSender::ShouldSendExtension(
   const int64_t interpolation_error_ms = UQ32x32ToInt64Ms(std::min(
       interpolated_absolute_capture_timestamp - absolute_capture_timestamp,
       absolute_capture_timestamp - interpolated_absolute_capture_timestamp));
-  if (interpolation_error_ms > kInterpolationMaxError.ms()) {
+  if (interpolation_error_ms > kInterpolationMaxError.Milliseconds()) {
     return true;
   }
 

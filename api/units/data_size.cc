@@ -23,7 +23,7 @@ std::string ToString(DataSize value) {
   } else if (value.IsMinusInfinity()) {
     sb << "-inf bytes";
   } else {
-    sb << value.bytes() << " bytes";
+    sb << value.Bytes() << " bytes";
   }
   return sb.str();
 }

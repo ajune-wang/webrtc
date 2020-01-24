@@ -1275,10 +1275,11 @@ TEST_F(TestSimulcastEncoderAdapterFake, SetRateDistributesBandwithAllocation) {
       kVideoCodecVP8);
   codec_.numberOfSimulcastStreams = 3;
   const DataRate target_bitrate =
-      DataRate::kbps(codec_.simulcastStream[0].targetBitrate +
-                     codec_.simulcastStream[1].targetBitrate +
-                     codec_.simulcastStream[2].minBitrate);
-  const DataRate bandwidth_allocation = target_bitrate + DataRate::kbps(600);
+      DataRate::KilobitsPerSecond(codec_.simulcastStream[0].targetBitrate +
+                                  codec_.simulcastStream[1].targetBitrate +
+                                  codec_.simulcastStream[2].minBitrate);
+  const DataRate bandwidth_allocation =
+      target_bitrate + DataRate::KilobitsPerSecond(600);
 
   rate_allocator_.reset(new SimulcastRateAllocator(codec_));
   EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
@@ -1287,7 +1288,7 @@ TEST_F(TestSimulcastEncoderAdapterFake, SetRateDistributesBandwithAllocation) {
   // Set bitrates so that we send all layers.
   adapter_->SetRates(VideoEncoder::RateControlParameters(
       rate_allocator_->Allocate(
-          VideoBitrateAllocationParameters(target_bitrate.bps(), 30)),
+          VideoBitrateAllocationParameters(target_bitrate.BitsPerSecond(), 30)),
       30.0, bandwidth_allocation));
 
   std::vector<MockVideoEncoder*> encoders = helper_->factory()->encoders();
@@ -1304,8 +1305,9 @@ TEST_F(TestSimulcastEncoderAdapterFake, SetRateDistributesBandwithAllocation) {
               encoders[i]->last_set_rates().bitrate.get_sum_bps())
         << i;
     EXPECT_EQ(
-        (layer_bitrate_bps * bandwidth_allocation.bps()) / target_bitrate.bps(),
-        encoders[i]->last_set_rates().bandwidth_allocation.bps())
+        (layer_bitrate_bps * bandwidth_allocation.BitsPerSecond()) /
+            target_bitrate.BitsPerSecond(),
+        encoders[i]->last_set_rates().bandwidth_allocation.BitsPerSecond())
         << i;
   }
 }
@@ -1357,11 +1359,12 @@ TEST_F(TestSimulcastEncoderAdapterFake, SupportsFallback) {
   // Make sure we have bitrate for all layers.
   DataRate max_bitrate = DataRate::Zero();
   for (int i = 0; i < 3; ++i) {
-    max_bitrate += DataRate::kbps(codec_.simulcastStream[i].maxBitrate);
+    max_bitrate +=
+        DataRate::KilobitsPerSecond(codec_.simulcastStream[i].maxBitrate);
   }
   const auto rate_settings = VideoEncoder::RateControlParameters(
       rate_allocator_->Allocate(
-          VideoBitrateAllocationParameters(max_bitrate.bps(), 30)),
+          VideoBitrateAllocationParameters(max_bitrate.BitsPerSecond(), 30)),
       30.0, max_bitrate);
   adapter_->SetRates(rate_settings);
 

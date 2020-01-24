@@ -113,7 +113,8 @@ class ScreenshareLayerTest : public ::testing::Test {
 
   Vp8FrameConfig NextFrameConfig(size_t stream_index, uint32_t timestamp) {
     int64_t timestamp_ms = timestamp / 90;
-    clock_.AdvanceTime(TimeDelta::ms(timestamp_ms - rtc::TimeMillis()));
+    clock_.AdvanceTime(
+        TimeDelta::Milliseconds(timestamp_ms - rtc::TimeMillis()));
     return layers_->NextFrameConfig(stream_index, timestamp);
   }
 
@@ -563,7 +564,7 @@ TEST_F(ScreenshareLayerTest, UpdatesHistograms) {
     } else {
       RTC_NOTREACHED() << "Unexpected flags";
     }
-    clock_.AdvanceTime(TimeDelta::ms(1000 / 5));
+    clock_.AdvanceTime(TimeDelta::Milliseconds(1000 / 5));
   }
 
   EXPECT_TRUE(overshoot);
@@ -626,7 +627,7 @@ TEST_F(ScreenshareLayerTest, RespectsConfiguredFramerate) {
                             IgnoredCodecSpecificInfo());
     }
     timestamp += kFrameIntervalsMs * 90;
-    clock_.AdvanceTime(TimeDelta::ms(kFrameIntervalsMs));
+    clock_.AdvanceTime(TimeDelta::Milliseconds(kFrameIntervalsMs));
 
     ++num_input_frames;
   }
@@ -644,7 +645,7 @@ TEST_F(ScreenshareLayerTest, RespectsConfiguredFramerate) {
                             IgnoredCodecSpecificInfo());
     }
     timestamp += kFrameIntervalsMs * 90 / 2;
-    clock_.AdvanceTime(TimeDelta::ms(kFrameIntervalsMs));
+    clock_.AdvanceTime(TimeDelta::Milliseconds(kFrameIntervalsMs));
     ++num_input_frames;
   }
 

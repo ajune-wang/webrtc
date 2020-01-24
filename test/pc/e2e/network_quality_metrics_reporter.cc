@@ -100,24 +100,24 @@ void NetworkQualityMetricsReporter::ReportStats(
     const std::string& network_label,
     const EmulatedNetworkStats& stats,
     int64_t packet_loss) {
-  ReportResult("bytes_sent", network_label, stats.bytes_sent.bytes(),
+  ReportResult("bytes_sent", network_label, stats.bytes_sent.Bytes(),
                "sizeInBytes");
   ReportResult("packets_sent", network_label, stats.packets_sent, "unitless");
   ReportResult(
       "average_send_rate", network_label,
-      stats.packets_sent >= 2 ? stats.AverageSendRate().bytes_per_sec() : 0,
+      stats.packets_sent >= 2 ? stats.AverageSendRate().BytesPerSecond() : 0,
       "bytesPerSecond");
-  ReportResult("bytes_dropped", network_label, stats.bytes_dropped.bytes(),
+  ReportResult("bytes_dropped", network_label, stats.bytes_dropped.Bytes(),
                "sizeInBytes");
   ReportResult("packets_dropped", network_label, stats.packets_dropped,
                "unitless");
-  ReportResult("bytes_received", network_label, stats.bytes_received.bytes(),
+  ReportResult("bytes_received", network_label, stats.bytes_received.Bytes(),
                "sizeInBytes");
   ReportResult("packets_received", network_label, stats.packets_received,
                "unitless");
   ReportResult("average_receive_rate", network_label,
                stats.packets_received >= 2
-                   ? stats.AverageReceiveRate().bytes_per_sec()
+                   ? stats.AverageReceiveRate().BytesPerSecond()
                    : 0,
                "bytesPerSecond");
   ReportResult("sent_packets_loss", network_label, packet_loss, "unitless");

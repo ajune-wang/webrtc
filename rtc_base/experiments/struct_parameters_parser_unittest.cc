@@ -19,7 +19,7 @@ struct DummyConfig {
   unsigned size = 3;
   bool ping = 0;
   absl::optional<TimeDelta> duration;
-  absl::optional<TimeDelta> latency = TimeDelta::ms(100);
+  absl::optional<TimeDelta> latency = TimeDelta::Milliseconds(100);
   std::unique_ptr<StructParametersParser> Parser();
 };
 
@@ -43,7 +43,7 @@ TEST(StructParametersParserTest, ParsesValidParameters) {
   EXPECT_EQ(exp.retries, 2);
   EXPECT_EQ(exp.size, 7u);
   EXPECT_EQ(exp.ping, true);
-  EXPECT_EQ(exp.duration.value().ms(), 8);
+  EXPECT_EQ(exp.duration.value().Milliseconds(), 8);
   EXPECT_FALSE(exp.latency);
 }
 

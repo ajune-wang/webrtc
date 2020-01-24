@@ -3138,7 +3138,7 @@ EncoderStreamFactory::CreateDefaultVideoStreams(
 
   int min_bitrate_bps =
       experimental_min_bitrate
-          ? rtc::saturated_cast<int>(experimental_min_bitrate->bps())
+          ? rtc::saturated_cast<int>(experimental_min_bitrate->BitsPerSecond())
           : webrtc::kDefaultMinVideoBitrateBps;
   if (encoder_config.simulcast_layers[0].min_bitrate_bps > 0) {
     // Use set min bitrate.
@@ -3222,7 +3222,7 @@ EncoderStreamFactory::CreateSimulcastOrConfereceModeScreenshareStreams(
   // spatial layer. The experiment's configuration has the lowest priority.
   if (experimental_min_bitrate) {
     layers[0].min_bitrate_bps =
-        rtc::saturated_cast<int>(experimental_min_bitrate->bps());
+        rtc::saturated_cast<int>(experimental_min_bitrate->BitsPerSecond());
   }
   // Update the active simulcast layers and configured bitrates.
   bool is_highest_layer_max_bitrate_configured = false;

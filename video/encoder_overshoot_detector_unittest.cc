@@ -23,7 +23,7 @@ class EncoderOvershootDetectorTest : public ::testing::Test {
   static constexpr double kDefaultFrameRateFps = 15;
   EncoderOvershootDetectorTest()
       : detector_(kWindowSizeMs),
-        target_bitrate_(DataRate::bps(kDefaultBitrateBps)),
+        target_bitrate_(DataRate::BitsPerSecond(kDefaultBitrateBps)),
         target_framerate_fps_(kDefaultFrameRateFps) {}
 
  protected:
@@ -31,23 +31,23 @@ class EncoderOvershootDetectorTest : public ::testing::Test {
                                   double expected_utilization_factor,
                                   double allowed_error,
                                   int64_t test_duration_ms) {
-    const int frame_size_bytes =
-        static_cast<int>(actual_utilization_factor *
-                         (target_bitrate_.bps() / target_framerate_fps_) / 8);
+    const int frame_size_bytes = static_cast<int>(
+        actual_utilization_factor *
+        (target_bitrate_.BitsPerSecond() / target_framerate_fps_) / 8);
     detector_.SetTargetRate(target_bitrate_, target_framerate_fps_,
                             rtc::TimeMillis());
 
     if (rtc::TimeMillis() == 0) {
       // Encode a first frame which by definition has no overuse factor.
       detector_.OnEncodedFrame(frame_size_bytes, rtc::TimeMillis());
-      clock_.AdvanceTime(TimeDelta::seconds(1) / target_framerate_fps_);
+      clock_.AdvanceTime(TimeDelta::Seconds(1) / target_framerate_fps_);
     }
 
     int64_t runtime_us = 0;
     while (runtime_us < test_duration_ms * 1000) {
       detector_.OnEncodedFrame(frame_size_bytes, rtc::TimeMillis());
       runtime_us += rtc::kNumMicrosecsPerSec / target_framerate_fps_;
-      clock_.AdvanceTime(TimeDelta::seconds(1) / target_framerate_fps_);
+      clock_.AdvanceTime(TimeDelta::Seconds(1) / target_framerate_fps_);
     }
 
     // At constant utilization, both network and media utilization should be
@@ -81,7 +81,7 @@ TEST_F(EncoderOvershootDetectorTest, NoUtilizationIfNoRate) {
       detector_.GetNetworkRateUtilizationFactor(rtc::TimeMillis()).has_value());
 
   detector_.OnEncodedFrame(frame_size_bytes, rtc::TimeMillis());
-  clock_.AdvanceTime(TimeDelta::ms(time_interval_ms));
+  clock_.AdvanceTime(TimeDelta::Milliseconds(time_interval_ms));
   EXPECT_TRUE(
       detector_.GetNetworkRateUtilizationFactor(rtc::TimeMillis()).has_value());
 }
@@ -111,7 +111,8 @@ TEST_F(EncoderOvershootDetectorTest, ConstantOvershootVaryingRates) {
   RunConstantUtilizationTest(1.2, 1.2, 0.01, kWindowSizeMs);
   target_framerate_fps_ /= 2;
   RunConstantUtilizationTest(1.2, 1.2, 0.01, kWindowSizeMs / 2);
-  target_bitrate_ = DataRate::bps(target_bitrate_.bps() / 2);
+  target_bitrate_ =
+      DataRate::BitsPerSecond(target_bitrate_.BitsPerSecond() / 2);
   RunConstantUtilizationTest(1.2, 1.2, 0.01, kWindowSizeMs / 2);
 }
 
@@ -129,7 +130,7 @@ TEST_F(EncoderOvershootDetectorTest, ConstantRateVaryingOvershoot) {
 
 TEST_F(EncoderOvershootDetectorTest, PartialOvershoot) {
   const int ideal_frame_size_bytes =
-      (target_bitrate_.bps() / target_framerate_fps_) / 8;
+      (target_bitrate_.BitsPerSecond() / target_framerate_fps_) / 8;
   detector_.SetTargetRate(target_bitrate_, target_framerate_fps_,
                           rtc::TimeMillis());
 
@@ -147,7 +148,7 @@ TEST_F(EncoderOvershootDetectorTest, PartialOvershoot) {
   int i = 0;
   while (runtime_us < kWindowSizeMs * rtc::kNumMicrosecsPerMillisec) {
     runtime_us += rtc::kNumMicrosecsPerSec / target_framerate_fps_;
-    clock_.AdvanceTime(TimeDelta::seconds(1) / target_framerate_fps_);
+    clock_.AdvanceTime(TimeDelta::Seconds(1) / target_framerate_fps_);
     int frame_size_bytes = (i++ % 4 < 2) ? (ideal_frame_size_bytes * 120) / 100
                                          : (ideal_frame_size_bytes * 80) / 100;
     detector_.OnEncodedFrame(frame_size_bytes, rtc::TimeMillis());

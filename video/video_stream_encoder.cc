@@ -571,11 +571,11 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     // Lower max bitrate to the level codec actually can produce.
     streams[0].max_bitrate_bps =
         std::min(streams[0].max_bitrate_bps,
-                 SvcRateAllocator::GetMaxBitrate(codec).bps<int>());
+                 SvcRateAllocator::GetMaxBitrate(codec).BitsPerSecond<int>());
     streams[0].min_bitrate_bps = codec.spatialLayers[0].minBitrate * 1000;
     // target_bitrate_bps specifies the maximum padding bitrate.
     streams[0].target_bitrate_bps =
-        SvcRateAllocator::GetPaddingBitrate(codec).bps<int>();
+        SvcRateAllocator::GetPaddingBitrate(codec).BitsPerSecond<int>();
   }
 
   char log_stream_buf[4 * 1024];
@@ -986,9 +986,10 @@ VideoStreamEncoder::UpdateBitrateAllocationAndNotifyObserver(
   // target in order to sustain the min bitrate of the video codec. In this
   // case, make sure the bandwidth allocation is at least equal the allocation
   // as that is part of the document contract for that field.
-  new_rate_settings.rate_control.bandwidth_allocation = std::max(
-      new_rate_settings.rate_control.bandwidth_allocation,
-      DataRate::bps(new_rate_settings.rate_control.bitrate.get_sum_bps()));
+  new_rate_settings.rate_control.bandwidth_allocation =
+      std::max(new_rate_settings.rate_control.bandwidth_allocation,
+               DataRate::BitsPerSecond(
+                   new_rate_settings.rate_control.bitrate.get_sum_bps()));
 
   if (bitrate_adjuster_) {
     VideoBitrateAllocation adjusted_allocation =
@@ -1175,7 +1176,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
         << "Drop Frame: "
            "target bitrate "
         << (last_encoder_rate_settings_
-                ? last_encoder_rate_settings_->encoder_target.bps()
+                ? last_encoder_rate_settings_->encoder_target.BitsPerSecond()
                 : 0)
         << ", input frame rate " << framerate_fps;
     OnDroppedFrame(
@@ -1514,7 +1515,7 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   // We are only interested in propagating the meta-data about the image, not
   // encoded data itself, to the post encode function. Since we cannot be sure
   // the pointer will still be valid when run on the task queue, set it to null.
-  DataSize frame_size = DataSize::bytes(image_copy.size());
+  DataSize frame_size = DataSize::Bytes(image_copy.size());
   image_copy.ClearEncodedData();
 
   int temporal_index = 0;
@@ -1601,23 +1602,25 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
 
   RTC_DCHECK(sink_) << "sink_ must be set before the encoder is active.";
 
-  RTC_LOG(LS_VERBOSE) << "OnBitrateUpdated, bitrate " << target_bitrate.bps()
-                      << " stable bitrate = " << stable_target_bitrate.bps()
-                      << " link allocation bitrate = " << link_allocation.bps()
-                      << " packet loss " << static_cast<int>(fraction_lost)
-                      << " rtt " << round_trip_time_ms;
+  RTC_LOG(LS_VERBOSE) << "OnBitrateUpdated, bitrate "
+                      << target_bitrate.BitsPerSecond() << " stable bitrate = "
+                      << stable_target_bitrate.BitsPerSecond()
+                      << " link allocation bitrate = "
+                      << link_allocation.BitsPerSecond() << " packet loss "
+                      << static_cast<int>(fraction_lost) << " rtt "
+                      << round_trip_time_ms;
 
   if (set_start_bitrate_bps_ > 0 && !has_seen_first_bwe_drop_ &&
       quality_scaler_ && quality_scaler_settings_.InitialBitrateIntervalMs() &&
       quality_scaler_settings_.InitialBitrateFactor()) {
     int64_t diff_ms = clock_->TimeInMilliseconds() - set_start_bitrate_time_ms_;
     if (diff_ms < quality_scaler_settings_.InitialBitrateIntervalMs().value() &&
-        (target_bitrate.bps() <
+        (target_bitrate.BitsPerSecond() <
          (set_start_bitrate_bps_ *
           quality_scaler_settings_.InitialBitrateFactor().value()))) {
       RTC_LOG(LS_INFO) << "Reset initial_framedrop_. Start bitrate: "
-                       << set_start_bitrate_bps_
-                       << ", target bitrate: " << target_bitrate.bps();
+                       << set_start_bitrate_bps_ << ", target bitrate: "
+                       << target_bitrate.BitsPerSecond();
       initial_framedrop_ = 0;
       has_seen_first_bwe_drop_ = true;
     }
@@ -1629,7 +1632,8 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
   }
 
   uint32_t framerate_fps = GetInputFramerateFps();
-  frame_dropper_.SetRates((target_bitrate.bps() + 500) / 1000, framerate_fps);
+  frame_dropper_.SetRates((target_bitrate.BitsPerSecond() + 500) / 1000,
+                          framerate_fps);
   const bool video_is_suspended = target_bitrate == DataRate::Zero();
   const bool video_suspension_changed = video_is_suspended != EncoderPaused();
 
@@ -1638,8 +1642,8 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
       link_allocation, target_bitrate, stable_target_bitrate};
   SetEncoderRates(UpdateBitrateAllocationAndNotifyObserver(new_rate_settings));
 
-  if (target_bitrate.bps() != 0)
-    encoder_target_bitrate_bps_ = target_bitrate.bps();
+  if (target_bitrate.BitsPerSecond() != 0)
+    encoder_target_bitrate_bps_ = target_bitrate.BitsPerSecond();
   resource_adaptation_module_->SetEncoderTargetBitrate(
       encoder_target_bitrate_bps_);
 
@@ -1686,7 +1690,7 @@ bool VideoStreamEncoder::TryQualityRampup(int64_t now_ms) {
 
   uint32_t bw_kbps = last_encoder_rate_settings_
                          ? last_encoder_rate_settings_->rate_control
-                               .bandwidth_allocation.kbps()
+                               .bandwidth_allocation.KilobitsPerSecond()
                          : 0;
 
   if (quality_rampup_experiment_.BwHigh(now_ms, bw_kbps)) {
@@ -1767,7 +1771,7 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
       encoded_image._frameType == VideoFrameType::kVideoFrameKey;
 
   if (!frame_size.IsZero()) {
-    frame_dropper_.Fill(frame_size.bytes(), !keyframe);
+    frame_dropper_.Fill(frame_size.Bytes(), !keyframe);
   }
 
   if (HasInternalSource()) {
@@ -1808,8 +1812,8 @@ void VideoStreamEncoder::ReleaseEncoder() {
 
 bool VideoStreamEncoder::EncoderSwitchExperiment::IsBitrateBelowThreshold(
     const DataRate& target_bitrate) {
-  DataRate rate =
-      DataRate::kbps(bitrate_filter.Apply(1.0, target_bitrate.kbps()));
+  DataRate rate = DataRate::KilobitsPerSecond(
+      bitrate_filter.Apply(1.0, target_bitrate.KilobitsPerSecond()));
   return current_thresholds.bitrate && rate < *current_thresholds.bitrate;
 }
 
@@ -1875,7 +1879,8 @@ VideoStreamEncoder::ParseEncoderSwitchFieldTrial() const {
     rtc::FromString(thresholds_split[2], &pixel_count);
 
     if (bitrate_kbps > 0) {
-      result.codec_thresholds[codec].bitrate = DataRate::kbps(bitrate_kbps);
+      result.codec_thresholds[codec].bitrate =
+          DataRate::KilobitsPerSecond(bitrate_kbps);
     }
 
     if (pixel_count > 0) {
@@ -1898,9 +1903,10 @@ VideoStreamEncoder::ParseEncoderSwitchFieldTrial() const {
 
   for (auto kv : result.codec_thresholds) {
     std::string codec_name = CodecTypeToPayloadString(kv.first);
-    std::string bitrate = kv.second.bitrate
-                              ? std::to_string(kv.second.bitrate->kbps())
-                              : "<none>";
+    std::string bitrate =
+        kv.second.bitrate
+            ? std::to_string(kv.second.bitrate->KilobitsPerSecond())
+            : "<none>";
     std::string pixels = kv.second.pixel_count
                              ? std::to_string(*kv.second.pixel_count)
                              : "<none>";
@@ -1971,14 +1977,14 @@ void VideoStreamEncoder::CheckForAnimatedContent(
   } else if ((!last_update_rect_ ||
               frame.update_rect() != *last_update_rect_)) {
     last_update_rect_ = frame.update_rect();
-    animation_start_time_ = Timestamp::us(time_when_posted_in_us);
+    animation_start_time_ = Timestamp::Microseconds(time_when_posted_in_us);
   } else {
     TimeDelta animation_duration =
-        Timestamp::us(time_when_posted_in_us) - animation_start_time_;
+        Timestamp::Microseconds(time_when_posted_in_us) - animation_start_time_;
     float area_ratio = static_cast<float>(last_update_rect_->width *
                                           last_update_rect_->height) /
                        (frame.width() * frame.height());
-    if (animation_duration.ms() >=
+    if (animation_duration.Milliseconds() >=
             automatic_animation_detection_experiment_.min_duration_ms &&
         area_ratio >=
             automatic_animation_detection_experiment_.min_area_ratio &&

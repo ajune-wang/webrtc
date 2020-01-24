@@ -22,11 +22,11 @@ constexpr char kDummyTransportName[] = "dummy";
 SimulatedNetwork::Config CreateSimulationConfig(
     NetworkSimulationConfig config) {
   SimulatedNetwork::Config sim_config;
-  sim_config.link_capacity_kbps = config.bandwidth.kbps_or(0);
+  sim_config.link_capacity_kbps = config.bandwidth.KilobitsPerSecondOr(0);
   sim_config.loss_percent = config.loss_rate * 100;
-  sim_config.queue_delay_ms = config.delay.ms();
-  sim_config.delay_standard_deviation_ms = config.delay_std_dev.ms();
-  sim_config.packet_overhead = config.packet_overhead.bytes<int>();
+  sim_config.queue_delay_ms = config.delay.Milliseconds();
+  sim_config.delay_standard_deviation_ms = config.delay_std_dev.Milliseconds();
+  sim_config.packet_overhead = config.packet_overhead.Bytes<int>();
   sim_config.codel_active_queue_management =
       config.codel_active_queue_management;
   sim_config.queue_length_packets =
@@ -54,15 +54,16 @@ void SimulationNode::UpdateConfig(
 }
 
 void SimulationNode::PauseTransmissionUntil(Timestamp until) {
-  simulation_->PauseTransmissionUntil(until.us());
+  simulation_->PauseTransmissionUntil(until.Microseconds());
 }
 
 ColumnPrinter SimulationNode::ConfigPrinter() const {
   return ColumnPrinter::Lambda(
       "propagation_delay capacity loss_rate",
       [this](rtc::SimpleStringBuilder& sb) {
-        sb.AppendFormat("%.3lf %.0lf %.2lf", config_.delay.seconds<double>(),
-                        config_.bandwidth.bps() / 8.0, config_.loss_rate);
+        sb.AppendFormat("%.3lf %.0lf %.2lf", config_.delay.Seconds<double>(),
+                        config_.bandwidth.BitsPerSecond() / 8.0,
+                        config_.loss_rate);
       });
 }
 
@@ -90,7 +91,7 @@ bool NetworkNodeTransport::SendRtp(const uint8_t* packet,
     return false;
   rtc::CopyOnWriteBuffer buffer(packet, length);
   endpoint_->SendPacket(local_address_, remote_address_, buffer,
-                        packet_overhead_.bytes());
+                        packet_overhead_.Bytes());
   return true;
 }
 
@@ -100,7 +101,7 @@ bool NetworkNodeTransport::SendRtcp(const uint8_t* packet, size_t length) {
   if (!endpoint_)
     return false;
   endpoint_->SendPacket(local_address_, remote_address_, buffer,
-                        packet_overhead_.bytes());
+                        packet_overhead_.Bytes());
   return true;
 }
 

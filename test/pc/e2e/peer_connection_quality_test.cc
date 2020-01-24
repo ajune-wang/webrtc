@@ -55,9 +55,9 @@ constexpr int kPeerConnectionUsedThreads = 7;
 constexpr int kFrameworkUsedThreads = 2;
 constexpr int kMaxVideoAnalyzerThreads = 8;
 
-constexpr TimeDelta kStatsUpdateInterval = TimeDelta::seconds(1);
+constexpr TimeDelta kStatsUpdateInterval = TimeDelta::Seconds(1);
 
-constexpr TimeDelta kAliveMessageLogInterval = TimeDelta::seconds(30);
+constexpr TimeDelta kAliveMessageLogInterval = TimeDelta::Seconds(30);
 
 constexpr int kQuickTestModeRunDurationMs = 100;
 
@@ -215,7 +215,7 @@ void PeerConnectionE2EQualityTest::PostTask(ScheduledActivity activity) {
 
   task_queue_->PostDelayedTask(
       [activity, start_time, this]() { activity.func(Now() - start_time); },
-      remaining_delay.ms());
+      remaining_delay.Milliseconds());
 }
 
 void PeerConnectionE2EQualityTest::AddQualityMetricsReporter(
@@ -391,7 +391,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
   if (is_quick_test_enabled) {
     done.Wait(kQuickTestModeRunDurationMs);
   } else {
-    done.Wait(run_params.run_duration.ms());
+    done.Wait(run_params.run_duration.Milliseconds());
   }
 
   RTC_LOG(INFO) << "Test is done, initiating disconnect sequence.";
@@ -850,7 +850,7 @@ PeerConnectionE2EQualityTest::CreateScreenShareFrameGenerator(
   if (video_config.screen_share_config->generate_slides) {
     return test::CreateSlideFrameGenerator(
         video_config.width, video_config.height,
-        video_config.screen_share_config->slide_change_interval.seconds() *
+        video_config.screen_share_config->slide_change_interval.Seconds() *
             video_config.fps);
   }
   std::vector<std::string> slides =
@@ -868,7 +868,7 @@ PeerConnectionE2EQualityTest::CreateScreenShareFrameGenerator(
     // Cycle image every slide_change_interval seconds.
     return test::CreateFromYuvFileFrameGenerator(
         slides, video_config.width, video_config.height,
-        video_config.screen_share_config->slide_change_interval.seconds() *
+        video_config.screen_share_config->slide_change_interval.Seconds() *
             video_config.fps);
   }
 
@@ -882,8 +882,9 @@ PeerConnectionE2EQualityTest::CreateScreenShareFrameGenerator(
       video_config.screen_share_config->scrolling_params->source_width,
       video_config.screen_share_config->scrolling_params->source_height,
       video_config.width, video_config.height,
-      video_config.screen_share_config->scrolling_params->duration.ms(),
-      pause_duration.ms());
+      video_config.screen_share_config->scrolling_params->duration
+          .Milliseconds(),
+      pause_duration.Milliseconds());
 }
 
 void PeerConnectionE2EQualityTest::MaybeAddAudio(TestPeer* peer) {

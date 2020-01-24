@@ -290,7 +290,7 @@ RTCPSender::FeedbackState ModuleRtpRtcpImpl::GetFeedbackState() {
     state.media_bytes_sent = rtp_stats.transmitted.payload_bytes +
                              rtx_stats.transmitted.payload_bytes;
     state.send_bitrate =
-        rtp_sender_->packet_sender.SendBitrate().bps<uint32_t>();
+        rtp_sender_->packet_sender.SendBitrate().BitsPerSecond<uint32_t>();
   }
   state.module = this;
 
@@ -706,12 +706,14 @@ void ModuleRtpRtcpImpl::BitrateSent(uint32_t* total_rate,
                                     uint32_t* video_rate,
                                     uint32_t* fec_rate,
                                     uint32_t* nack_rate) const {
-  *total_rate = rtp_sender_->packet_sender.SendBitrate().bps<uint32_t>();
+  *total_rate =
+      rtp_sender_->packet_sender.SendBitrate().BitsPerSecond<uint32_t>();
   if (video_rate)
     *video_rate = 0;
   if (fec_rate)
     *fec_rate = 0;
-  *nack_rate = rtp_sender_->packet_sender.NackOverheadRate().bps<uint32_t>();
+  *nack_rate =
+      rtp_sender_->packet_sender.NackOverheadRate().BitsPerSecond<uint32_t>();
 }
 
 void ModuleRtpRtcpImpl::OnRequestSendReport() {

@@ -433,8 +433,9 @@ void VP9EncoderImpl::SetRates(const RateControlParameters& parameters) {
   if (dynamic_rate_settings_) {
     // Tweak rate control settings based on available network headroom.
     UpdateRateSettings(
-        config_, GetRateSettings(parameters.bandwidth_allocation.bps<double>() /
-                                 parameters.bitrate.get_sum_bps()));
+        config_, GetRateSettings(
+                     parameters.bandwidth_allocation.BitsPerSecond<double>() /
+                     parameters.bitrate.get_sum_bps()));
   }
 
   bool res = SetSvcRates(parameters.bitrate);

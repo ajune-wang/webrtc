@@ -406,8 +406,9 @@ void LibvpxVp8Encoder::SetRates(const RateControlParameters& parameters) {
       // Tweak rate control settings based on available network headroom.
       UpdateRateSettings(
           &vpx_configs_[i],
-          GetRateSettings(parameters.bandwidth_allocation.bps<double>() /
-                          parameters.bitrate.get_sum_bps()));
+          GetRateSettings(
+              parameters.bandwidth_allocation.BitsPerSecond<double>() /
+              parameters.bitrate.get_sum_bps()));
     }
 
     vpx_codec_err_t err =

@@ -120,11 +120,11 @@ TEST_F(DelayBasedBweTest, ProbeDetectionSlowerArrivalHighBitrate) {
 
 TEST_F(DelayBasedBweTest, GetExpectedBwePeriodMs) {
   auto default_interval = bitrate_estimator_->GetExpectedBwePeriod();
-  EXPECT_GT(default_interval.ms(), 0);
+  EXPECT_GT(default_interval.Milliseconds(), 0);
   CapacityDropTestHelper(1, true, 333, 0);
   auto interval = bitrate_estimator_->GetExpectedBwePeriod();
-  EXPECT_GT(interval.ms(), 0);
-  EXPECT_NE(interval.ms(), default_interval.ms());
+  EXPECT_GT(interval.Milliseconds(), 0);
+  EXPECT_NE(interval.Milliseconds(), default_interval.Milliseconds());
 }
 
 TEST_F(DelayBasedBweTest, InitialBehavior) {
@@ -174,20 +174,21 @@ TEST_F(DelayBasedBweTest, TestLongTimeoutAndWrap) {
 }
 
 TEST_F(DelayBasedBweTest, TestInitialOveruse) {
-  const DataRate kStartBitrate = DataRate::kbps(300);
-  const DataRate kInitialCapacity = DataRate::kbps(200);
+  const DataRate kStartBitrate = DataRate::KilobitsPerSecond(300);
+  const DataRate kInitialCapacity = DataRate::KilobitsPerSecond(200);
   const uint32_t kDummySsrc = 0;
   // High FPS to ensure that we send a lot of packets in a short time.
   const int kFps = 90;
 
-  stream_generator_->AddStream(new test::RtpStream(kFps, kStartBitrate.bps()));
-  stream_generator_->set_capacity_bps(kInitialCapacity.bps());
+  stream_generator_->AddStream(
+      new test::RtpStream(kFps, kStartBitrate.BitsPerSecond()));
+  stream_generator_->set_capacity_bps(kInitialCapacity.BitsPerSecond());
 
   // Needed to initialize the AimdRateControl.
   bitrate_estimator_->SetStartBitrate(kStartBitrate);
 
   // Produce 30 frames (in 1/3 second) and give them to the estimator.
-  int64_t bitrate_bps = kStartBitrate.bps();
+  int64_t bitrate_bps = kStartBitrate.BitsPerSecond();
   bool seen_overuse = false;
   for (int i = 0; i < 30; ++i) {
     bool overuse = GenerateAndProcessFrame(kDummySsrc, bitrate_bps);
@@ -197,8 +198,8 @@ TEST_F(DelayBasedBweTest, TestInitialOveruse) {
     EXPECT_FALSE(acknowledged_bitrate_estimator_->bitrate().has_value());
     if (overuse) {
       EXPECT_TRUE(bitrate_observer_.updated());
-      EXPECT_NEAR(bitrate_observer_.latest_bitrate(), kStartBitrate.bps() / 2,
-                  15000);
+      EXPECT_NEAR(bitrate_observer_.latest_bitrate(),
+                  kStartBitrate.BitsPerSecond() / 2, 15000);
       bitrate_bps = bitrate_observer_.latest_bitrate();
       seen_overuse = true;
       break;
@@ -208,8 +209,8 @@ TEST_F(DelayBasedBweTest, TestInitialOveruse) {
     }
   }
   EXPECT_TRUE(seen_overuse);
-  EXPECT_NEAR(bitrate_observer_.latest_bitrate(), kStartBitrate.bps() / 2,
-              15000);
+  EXPECT_NEAR(bitrate_observer_.latest_bitrate(),
+              kStartBitrate.BitsPerSecond() / 2, 15000);
 }
 
 class DelayBasedBweTestWithBackoffTimeoutExperiment : public DelayBasedBweTest {
@@ -222,20 +223,21 @@ class DelayBasedBweTestWithBackoffTimeoutExperiment : public DelayBasedBweTest {
 
 // This test subsumes and improves DelayBasedBweTest.TestInitialOveruse above.
 TEST_F(DelayBasedBweTestWithBackoffTimeoutExperiment, TestInitialOveruse) {
-  const DataRate kStartBitrate = DataRate::kbps(300);
-  const DataRate kInitialCapacity = DataRate::kbps(200);
+  const DataRate kStartBitrate = DataRate::KilobitsPerSecond(300);
+  const DataRate kInitialCapacity = DataRate::KilobitsPerSecond(200);
   const uint32_t kDummySsrc = 0;
   // High FPS to ensure that we send a lot of packets in a short time.
   const int kFps = 90;
 
-  stream_generator_->AddStream(new test::RtpStream(kFps, kStartBitrate.bps()));
-  stream_generator_->set_capacity_bps(kInitialCapacity.bps());
+  stream_generator_->AddStream(
+      new test::RtpStream(kFps, kStartBitrate.BitsPerSecond()));
+  stream_generator_->set_capacity_bps(kInitialCapacity.BitsPerSecond());
 
   // Needed to initialize the AimdRateControl.
   bitrate_estimator_->SetStartBitrate(kStartBitrate);
 
   // Produce 30 frames (in 1/3 second) and give them to the estimator.
-  int64_t bitrate_bps = kStartBitrate.bps();
+  int64_t bitrate_bps = kStartBitrate.BitsPerSecond();
   bool seen_overuse = false;
   for (int frames = 0; frames < 30 && !seen_overuse; ++frames) {
     bool overuse = GenerateAndProcessFrame(kDummySsrc, bitrate_bps);
@@ -245,8 +247,8 @@ TEST_F(DelayBasedBweTestWithBackoffTimeoutExperiment, TestInitialOveruse) {
     EXPECT_FALSE(acknowledged_bitrate_estimator_->bitrate().has_value());
     if (overuse) {
       EXPECT_TRUE(bitrate_observer_.updated());
-      EXPECT_NEAR(bitrate_observer_.latest_bitrate(), kStartBitrate.bps() / 2,
-                  15000);
+      EXPECT_NEAR(bitrate_observer_.latest_bitrate(),
+                  kStartBitrate.BitsPerSecond() / 2, 15000);
       bitrate_bps = bitrate_observer_.latest_bitrate();
       seen_overuse = true;
     } else if (bitrate_observer_.updated()) {
@@ -262,8 +264,8 @@ TEST_F(DelayBasedBweTestWithBackoffTimeoutExperiment, TestInitialOveruse) {
     EXPECT_FALSE(overuse);
     if (bitrate_observer_.updated()) {
       bitrate_bps = bitrate_observer_.latest_bitrate();
-      EXPECT_GE(bitrate_bps, kStartBitrate.bps() / 2 - 15000);
-      EXPECT_LE(bitrate_bps, kInitialCapacity.bps() + 15000);
+      EXPECT_GE(bitrate_bps, kStartBitrate.BitsPerSecond() / 2 - 15000);
+      EXPECT_LE(bitrate_bps, kInitialCapacity.BitsPerSecond() + 15000);
       bitrate_observer_.Reset();
     }
   }

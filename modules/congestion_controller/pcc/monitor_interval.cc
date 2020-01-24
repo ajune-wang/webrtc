@@ -73,8 +73,8 @@ double PccMonitorInterval::ComputeDelayGradient(
   double sum_delays = 0;
   for (const ReceivedPacket& packet : received_packets_) {
     double time_delta_us =
-        (packet.sent_time - received_packets_[0].sent_time).us();
-    double delay = packet.delay.us();
+        (packet.sent_time - received_packets_[0].sent_time).Microseconds();
+    double delay = packet.delay.Microseconds();
     sum_times += time_delta_us;
     sum_delays += delay;
   }
@@ -82,8 +82,8 @@ double PccMonitorInterval::ComputeDelayGradient(
   double sum_scaled_time_delta_dot_delay = 0;
   for (const ReceivedPacket& packet : received_packets_) {
     double time_delta_us =
-        (packet.sent_time - received_packets_[0].sent_time).us();
-    double delay = packet.delay.us();
+        (packet.sent_time - received_packets_[0].sent_time).Microseconds();
+    double delay = packet.delay.Microseconds();
     double scaled_time_delta_us =
         time_delta_us - sum_times / received_packets_.size();
     sum_squared_scaled_time_deltas +=

@@ -32,13 +32,13 @@ constexpr double kThroughputPower = 0.99;
 constexpr double kDelayGradientThreshold = 0.01;
 constexpr double kDelayGradientNegativeBound = 10;
 
-const DataRate kTargetSendingRate = DataRate::kbps(300);
+const DataRate kTargetSendingRate = DataRate::KilobitsPerSecond(300);
 const double kEpsilon = 0.05;
-const Timestamp kStartTime = Timestamp::us(0);
-const TimeDelta kPacketsDelta = TimeDelta::ms(1);
-const TimeDelta kIntervalDuration = TimeDelta::ms(1000);
-const TimeDelta kDefaultRtt = TimeDelta::ms(1000);
-const DataSize kDefaultDataSize = DataSize::bytes(100);
+const Timestamp kStartTime = Timestamp::Microseconds(0);
+const TimeDelta kPacketsDelta = TimeDelta::Milliseconds(1);
+const TimeDelta kIntervalDuration = TimeDelta::Milliseconds(1000);
+const TimeDelta kDefaultRtt = TimeDelta::Milliseconds(1000);
+const DataSize kDefaultDataSize = DataSize::Bytes(100);
 
 std::vector<PacketResult> CreatePacketResults(
     const std::vector<Timestamp>& packets_send_times,
@@ -103,8 +103,8 @@ TEST(PccBitrateControllerTest, IncreaseRateWhenNoChangesForTestBitrates) {
   EXPECT_GT(bitrate_controller
                 .ComputeRateUpdateForOnlineLearningMode(monitor_block,
                                                         kTargetSendingRate)
-                .bps(),
-            kTargetSendingRate.bps());
+                .BitsPerSecond(),
+            kTargetSendingRate.BitsPerSecond());
 }
 
 TEST(PccBitrateControllerTest, NoChangesWhenUtilityFunctionDoesntChange) {
@@ -134,8 +134,8 @@ TEST(PccBitrateControllerTest, NoChangesWhenUtilityFunctionDoesntChange) {
   EXPECT_EQ(bitrate_controller
                 .ComputeRateUpdateForOnlineLearningMode(monitor_block,
                                                         kTargetSendingRate)
-                .bps(),
-            kTargetSendingRate.bps());
+                .BitsPerSecond(),
+            kTargetSendingRate.BitsPerSecond());
 }
 
 TEST(PccBitrateControllerTest, NoBoundaryWhenSmallGradient) {
@@ -143,7 +143,7 @@ TEST(PccBitrateControllerTest, NoBoundaryWhenSmallGradient) {
       std::make_unique<MockUtilityFunction>();
   constexpr double kFirstMonitorIntervalUtility = 0;
   const double kSecondMonitorIntervalUtility =
-      2 * kTargetSendingRate.bps() * kEpsilon;
+      2 * kTargetSendingRate.BitsPerSecond() * kEpsilon;
 
   EXPECT_CALL(*mock_utility_function, Compute(::testing::_))
       .Times(2)
@@ -166,13 +166,14 @@ TEST(PccBitrateControllerTest, NoBoundaryWhenSmallGradient) {
 
   double gradient =
       (kFirstMonitorIntervalUtility - kSecondMonitorIntervalUtility) /
-      (kTargetSendingRate.bps() * 2 * kEpsilon);
+      (kTargetSendingRate.BitsPerSecond() * 2 * kEpsilon);
   // When the gradient is small we don't hit the dynamic boundary.
-  EXPECT_EQ(bitrate_controller
-                .ComputeRateUpdateForOnlineLearningMode(monitor_block,
-                                                        kTargetSendingRate)
-                .bps(),
-            kTargetSendingRate.bps() + kInitialConversionFactor * gradient);
+  EXPECT_EQ(
+      bitrate_controller
+          .ComputeRateUpdateForOnlineLearningMode(monitor_block,
+                                                  kTargetSendingRate)
+          .BitsPerSecond(),
+      kTargetSendingRate.BitsPerSecond() + kInitialConversionFactor * gradient);
 }
 
 TEST(PccBitrateControllerTest, FaceBoundaryWhenLargeGradient) {
@@ -180,8 +181,8 @@ TEST(PccBitrateControllerTest, FaceBoundaryWhenLargeGradient) {
       std::make_unique<MockUtilityFunction>();
   constexpr double kFirstMonitorIntervalUtility = 0;
   const double kSecondMonitorIntervalUtility =
-      10 * kInitialDynamicBoundary * kTargetSendingRate.bps() * 2 *
-      kTargetSendingRate.bps() * kEpsilon;
+      10 * kInitialDynamicBoundary * kTargetSendingRate.BitsPerSecond() * 2 *
+      kTargetSendingRate.BitsPerSecond() * kEpsilon;
 
   EXPECT_CALL(*mock_utility_function, Compute(::testing::_))
       .Times(4)
@@ -212,8 +213,8 @@ TEST(PccBitrateControllerTest, FaceBoundaryWhenLargeGradient) {
   EXPECT_EQ(bitrate_controller
                 .ComputeRateUpdateForOnlineLearningMode(monitor_block,
                                                         kTargetSendingRate)
-                .bps(),
-            kTargetSendingRate.bps() *
+                .BitsPerSecond(),
+            kTargetSendingRate.BitsPerSecond() *
                 (1 - kInitialDynamicBoundary - kDynamicBoundaryIncrement));
 }
 
@@ -259,7 +260,7 @@ TEST(PccBitrateControllerTest, StepSizeIncrease) {
       std::make_unique<MockUtilityFunction>();
   constexpr double kFirstMiUtilityFunction = 0;
   const double kSecondMiUtilityFunction =
-      2 * kTargetSendingRate.bps() * kEpsilon;
+      2 * kTargetSendingRate.BitsPerSecond() * kEpsilon;
 
   EXPECT_CALL(*mock_utility_function, Compute(::testing::_))
       .Times(4)
@@ -279,21 +280,23 @@ TEST(PccBitrateControllerTest, StepSizeIncrease) {
       CreatePacketResults({kStartTime + 3 * kIntervalDuration}, {}, {}));
 
   double gradient = (kFirstMiUtilityFunction - kSecondMiUtilityFunction) /
-                    (kTargetSendingRate.bps() * 2 * kEpsilon);
+                    (kTargetSendingRate.BitsPerSecond() * 2 * kEpsilon);
   PccBitrateController bitrate_controller(
       kInitialConversionFactor, kInitialDynamicBoundary,
       kDynamicBoundaryIncrement, std::move(mock_utility_function));
   // If we are moving in the same direction - the step size should increase.
+  EXPECT_EQ(
+      bitrate_controller
+          .ComputeRateUpdateForOnlineLearningMode(monitor_block,
+                                                  kTargetSendingRate)
+          .BitsPerSecond(),
+      kTargetSendingRate.BitsPerSecond() + kInitialConversionFactor * gradient);
   EXPECT_EQ(bitrate_controller
                 .ComputeRateUpdateForOnlineLearningMode(monitor_block,
                                                         kTargetSendingRate)
-                .bps(),
-            kTargetSendingRate.bps() + kInitialConversionFactor * gradient);
-  EXPECT_EQ(bitrate_controller
-                .ComputeRateUpdateForOnlineLearningMode(monitor_block,
-                                                        kTargetSendingRate)
-                .bps(),
-            kTargetSendingRate.bps() + 2 * kInitialConversionFactor * gradient);
+                .BitsPerSecond(),
+            kTargetSendingRate.BitsPerSecond() +
+                2 * kInitialConversionFactor * gradient);
 }
 
 }  // namespace test

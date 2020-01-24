@@ -175,7 +175,7 @@ void SimulatedProcessThread::PostTask(std::unique_ptr<QueuedTask> task) {
 Timestamp SimulatedProcessThread::GetNextTime(Module* module,
                                               Timestamp at_time) {
   CurrentTaskQueueSetter set_current(this);
-  return at_time + TimeDelta::ms(module->TimeUntilNextProcess());
+  return at_time + TimeDelta::Milliseconds(module->TimeUntilNextProcess());
 }
 
 }  // namespace webrtc

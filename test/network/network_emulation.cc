@@ -25,8 +25,9 @@ void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
     RTC_DCHECK_RUN_ON(task_queue_);
 
     uint64_t packet_id = next_packet_id_++;
-    bool sent = network_behavior_->EnqueuePacket(PacketInFlightInfo(
-        packet.ip_packet_size(), packet.arrival_time.us(), packet_id));
+    bool sent = network_behavior_->EnqueuePacket(
+        PacketInFlightInfo(packet.ip_packet_size(),
+                           packet.arrival_time.Microseconds(), packet_id));
     if (sent) {
       packets_.emplace_back(StoredPacket{packet_id, std::move(packet), false});
     }
@@ -40,7 +41,7 @@ void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
     process_task_ = RepeatingTaskHandle::DelayedStart(
         task_queue_->Get(),
         std::max(TimeDelta::Zero(),
-                 Timestamp::us(*next_time_us) - current_time),
+                 Timestamp::Microseconds(*next_time_us) - current_time),
         [this]() {
           RTC_DCHECK_RUN_ON(task_queue_);
           Timestamp current_time = clock_->CurrentTime();
@@ -51,15 +52,15 @@ void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
             process_task_.Stop();
             return TimeDelta::Zero();  // This is ignored.
           }
-          RTC_DCHECK_GE(*next_time_us, current_time.us());
-          return Timestamp::us(*next_time_us) - current_time;
+          RTC_DCHECK_GE(*next_time_us, current_time.Microseconds());
+          return Timestamp::Microseconds(*next_time_us) - current_time;
         });
   });
 }
 
 void LinkEmulation::Process(Timestamp at_time) {
   std::vector<PacketDeliveryInfo> delivery_infos =
-      network_behavior_->DequeueDeliverablePackets(at_time.us());
+      network_behavior_->DequeueDeliverablePackets(at_time.Microseconds());
   for (PacketDeliveryInfo& delivery_info : delivery_infos) {
     StoredPacket* packet = nullptr;
     for (auto& stored_packet : packets_) {
@@ -74,7 +75,7 @@ void LinkEmulation::Process(Timestamp at_time) {
 
     if (delivery_info.receive_time_us != PacketDeliveryInfo::kNotReceived) {
       packet->packet.arrival_time =
-          Timestamp::us(delivery_info.receive_time_us);
+          Timestamp::Microseconds(delivery_info.receive_time_us);
       receiver_->OnPacketReceived(std::move(packet->packet));
     }
     while (!packets_.empty() && packets_.front().removed) {
@@ -215,11 +216,11 @@ void EmulatedEndpointImpl::SendPacket(const rtc::SocketAddress& from,
     Timestamp current_time = clock_->CurrentTime();
     if (stats_.first_packet_sent_time.IsInfinite()) {
       stats_.first_packet_sent_time = current_time;
-      stats_.first_sent_packet_size = DataSize::bytes(packet.ip_packet_size());
+      stats_.first_sent_packet_size = DataSize::Bytes(packet.ip_packet_size());
     }
     stats_.last_packet_sent_time = current_time;
     stats_.packets_sent++;
-    stats_.bytes_sent += DataSize::bytes(packet.ip_packet_size());
+    stats_.bytes_sent += DataSize::Bytes(packet.ip_packet_size());
 
     router_.OnPacketReceived(std::move(packet));
   });
@@ -291,7 +292,7 @@ void EmulatedEndpointImpl::OnPacketReceived(EmulatedIpPacket packet) {
     RTC_LOG(INFO) << "Drop packet: no receiver registered in " << id_
                   << " on port " << packet.to.port();
     stats_.packets_dropped++;
-    stats_.bytes_dropped += DataSize::bytes(packet.ip_packet_size());
+    stats_.bytes_dropped += DataSize::Bytes(packet.ip_packet_size());
     return;
   }
   // Endpoint assumes frequent calls to bind and unbind methods, so it holds
@@ -328,11 +329,11 @@ void EmulatedEndpointImpl::UpdateReceiveStats(const EmulatedIpPacket& packet) {
   if (stats_.first_packet_received_time.IsInfinite()) {
     stats_.first_packet_received_time = current_time;
     stats_.first_received_packet_size =
-        DataSize::bytes(packet.ip_packet_size());
+        DataSize::Bytes(packet.ip_packet_size());
   }
   stats_.last_packet_received_time = current_time;
   stats_.packets_received++;
-  stats_.bytes_received += DataSize::bytes(packet.ip_packet_size());
+  stats_.bytes_received += DataSize::Bytes(packet.ip_packet_size());
 }
 
 EndpointsContainer::EndpointsContainer(

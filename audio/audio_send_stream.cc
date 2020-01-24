@@ -798,14 +798,14 @@ void AudioSendStream::ConfigureBitrateObserver() {
     if (use_legacy_overhead_calculation_) {
       // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
       constexpr int kOverheadPerPacket = 20 + 8 + 10 + 12;
-      const TimeDelta kMinPacketDuration = TimeDelta::ms(20);
+      const TimeDelta kMinPacketDuration = TimeDelta::Milliseconds(20);
       DataRate max_overhead =
-          DataSize::bytes(kOverheadPerPacket) / kMinPacketDuration;
+          DataSize::Bytes(kOverheadPerPacket) / kMinPacketDuration;
       priority_bitrate += max_overhead;
     } else {
       RTC_DCHECK(frame_length_range_);
       const DataSize kOverheadPerPacket =
-          DataSize::bytes(total_packet_overhead_bytes_);
+          DataSize::Bytes(total_packet_overhead_bytes_);
       DataRate max_overhead = kOverheadPerPacket / frame_length_range_->first;
       priority_bitrate += max_overhead;
     }
@@ -814,12 +814,12 @@ void AudioSendStream::ConfigureBitrateObserver() {
     priority_bitrate = *allocation_settings_.priority_bitrate_raw;
 
   bitrate_allocator_->AddObserver(
-      this,
-      MediaStreamAllocationConfig{
-          constraints.min.bps<uint32_t>(), constraints.max.bps<uint32_t>(), 0,
-          priority_bitrate.bps(), true,
-          allocation_settings_.bitrate_priority.value_or(
-              config_.bitrate_priority)});
+      this, MediaStreamAllocationConfig{
+                constraints.min.BitsPerSecond<uint32_t>(),
+                constraints.max.BitsPerSecond<uint32_t>(), 0,
+                priority_bitrate.BitsPerSecond(), true,
+                allocation_settings_.bitrate_priority.value_or(
+                    config_.bitrate_priority)});
 }
 
 void AudioSendStream::RemoveBitrateObserver() {
@@ -837,8 +837,8 @@ void AudioSendStream::RemoveBitrateObserver() {
 AudioSendStream::TargetAudioBitrateConstraints
 AudioSendStream::GetMinMaxBitrateConstraints() const {
   TargetAudioBitrateConstraints constraints{
-      DataRate::bps(config_.min_bitrate_bps),
-      DataRate::bps(config_.max_bitrate_bps)};
+      DataRate::BitsPerSecond(config_.min_bitrate_bps),
+      DataRate::BitsPerSecond(config_.max_bitrate_bps)};
 
   // If bitrates were explicitly overriden via field trial, use those values.
   if (allocation_settings_.min_bitrate)
@@ -852,16 +852,16 @@ AudioSendStream::GetMinMaxBitrateConstraints() const {
   if (send_side_bwe_with_overhead_) {
     if (use_legacy_overhead_calculation_) {
       // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
-      const DataSize kOverheadPerPacket = DataSize::bytes(20 + 8 + 10 + 12);
+      const DataSize kOverheadPerPacket = DataSize::Bytes(20 + 8 + 10 + 12);
       const TimeDelta kMaxFrameLength =
-          TimeDelta::ms(60);  // Based on Opus spec
+          TimeDelta::Milliseconds(60);  // Based on Opus spec
       const DataRate kMinOverhead = kOverheadPerPacket / kMaxFrameLength;
       constraints.min += kMinOverhead;
       constraints.max += kMinOverhead;
     } else {
       RTC_DCHECK(frame_length_range_);
       const DataSize kOverheadPerPacket =
-          DataSize::bytes(total_packet_overhead_bytes_);
+          DataSize::Bytes(total_packet_overhead_bytes_);
       constraints.min += kOverheadPerPacket / frame_length_range_->second;
       constraints.max += kOverheadPerPacket / frame_length_range_->first;
     }

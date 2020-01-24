@@ -52,25 +52,28 @@ class StreamSynchronizationTest : public ::testing::Test {
     StreamSynchronization::Measurements video;
     NtpTime ntp_time = clock_sender_.CurrentNtpTime();
     uint32_t rtp_timestamp =
-        clock_sender_.CurrentTime().ms() * audio_frequency / 1000;
+        clock_sender_.CurrentTime().Milliseconds() * audio_frequency / 1000;
     EXPECT_TRUE(audio.rtp_to_ntp.UpdateMeasurements(
         ntp_time.seconds(), ntp_time.fractions(), rtp_timestamp, &new_sr));
     clock_sender_.AdvanceTimeMilliseconds(100);
     clock_receiver_.AdvanceTimeMilliseconds(100);
     ntp_time = clock_sender_.CurrentNtpTime();
-    rtp_timestamp = clock_sender_.CurrentTime().ms() * video_frequency / 1000;
+    rtp_timestamp =
+        clock_sender_.CurrentTime().Milliseconds() * video_frequency / 1000;
     EXPECT_TRUE(video.rtp_to_ntp.UpdateMeasurements(
         ntp_time.seconds(), ntp_time.fractions(), rtp_timestamp, &new_sr));
     clock_sender_.AdvanceTimeMilliseconds(900);
     clock_receiver_.AdvanceTimeMilliseconds(900);
     ntp_time = clock_sender_.CurrentNtpTime();
-    rtp_timestamp = clock_sender_.CurrentTime().ms() * audio_frequency / 1000;
+    rtp_timestamp =
+        clock_sender_.CurrentTime().Milliseconds() * audio_frequency / 1000;
     EXPECT_TRUE(audio.rtp_to_ntp.UpdateMeasurements(
         ntp_time.seconds(), ntp_time.fractions(), rtp_timestamp, &new_sr));
     clock_sender_.AdvanceTimeMilliseconds(100);
     clock_receiver_.AdvanceTimeMilliseconds(100);
     ntp_time = clock_sender_.CurrentNtpTime();
-    rtp_timestamp = clock_sender_.CurrentTime().ms() * video_frequency / 1000;
+    rtp_timestamp =
+        clock_sender_.CurrentTime().Milliseconds() * video_frequency / 1000;
     EXPECT_TRUE(video.rtp_to_ntp.UpdateMeasurements(
         ntp_time.seconds(), ntp_time.fractions(), rtp_timestamp, &new_sr));
     clock_sender_.AdvanceTimeMilliseconds(900);
@@ -78,22 +81,26 @@ class StreamSynchronizationTest : public ::testing::Test {
 
     // Capture an audio and a video frame at the same time.
     audio.latest_timestamp =
-        clock_sender_.CurrentTime().ms() * audio_frequency / 1000;
+        clock_sender_.CurrentTime().Milliseconds() * audio_frequency / 1000;
     video.latest_timestamp =
-        clock_sender_.CurrentTime().ms() * video_frequency / 1000;
+        clock_sender_.CurrentTime().Milliseconds() * video_frequency / 1000;
 
     if (audio_delay_ms > video_delay_ms) {
       // Audio later than video.
       clock_receiver_.AdvanceTimeMilliseconds(video_delay_ms);
-      video.latest_receive_time_ms = clock_receiver_.CurrentTime().ms();
+      video.latest_receive_time_ms =
+          clock_receiver_.CurrentTime().Milliseconds();
       clock_receiver_.AdvanceTimeMilliseconds(audio_delay_ms - video_delay_ms);
-      audio.latest_receive_time_ms = clock_receiver_.CurrentTime().ms();
+      audio.latest_receive_time_ms =
+          clock_receiver_.CurrentTime().Milliseconds();
     } else {
       // Video later than audio.
       clock_receiver_.AdvanceTimeMilliseconds(audio_delay_ms);
-      audio.latest_receive_time_ms = clock_receiver_.CurrentTime().ms();
+      audio.latest_receive_time_ms =
+          clock_receiver_.CurrentTime().Milliseconds();
       clock_receiver_.AdvanceTimeMilliseconds(video_delay_ms - audio_delay_ms);
-      video.latest_receive_time_ms = clock_receiver_.CurrentTime().ms();
+      video.latest_receive_time_ms =
+          clock_receiver_.CurrentTime().Milliseconds();
     }
     int relative_delay_ms;
     StreamSynchronization::ComputeRelativeDelay(audio, video,

@@ -646,8 +646,9 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
 
 void AudioEncoderOpusImpl::OnReceivedUplinkAllocation(
     BitrateAllocationUpdate update) {
-  OnReceivedUplinkBandwidth(update.target_bitrate.bps(), update.bwe_period.ms(),
-                            update.stable_target_bitrate.bps());
+  OnReceivedUplinkBandwidth(update.target_bitrate.BitsPerSecond(),
+                            update.bwe_period.Milliseconds(),
+                            update.stable_target_bitrate.BitsPerSecond());
 }
 
 void AudioEncoderOpusImpl::OnReceivedRtt(int rtt_ms) {
@@ -919,11 +920,12 @@ AudioEncoderOpusImpl::GetFrameLengthRange() const {
   if (config_.supported_frame_lengths_ms.empty()) {
     return absl::nullopt;
   } else if (audio_network_adaptor_) {
-    return {{TimeDelta::ms(config_.supported_frame_lengths_ms.front()),
-             TimeDelta::ms(config_.supported_frame_lengths_ms.back())}};
+    return {
+        {TimeDelta::Milliseconds(config_.supported_frame_lengths_ms.front()),
+         TimeDelta::Milliseconds(config_.supported_frame_lengths_ms.back())}};
   } else {
-    return {{TimeDelta::ms(config_.frame_size_ms),
-             TimeDelta::ms(config_.frame_size_ms)}};
+    return {{TimeDelta::Milliseconds(config_.frame_size_ms),
+             TimeDelta::Milliseconds(config_.frame_size_ms)}};
   }
 }
 

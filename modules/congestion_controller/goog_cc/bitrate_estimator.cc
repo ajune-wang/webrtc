@@ -69,8 +69,8 @@ void BitrateEstimator::Update(Timestamp at_time, DataSize amount, bool in_alr) {
   if (bitrate_estimate_kbps_ < 0.f)
     rate_window_ms = initial_window_ms_.Get();
   bool is_small_sample = false;
-  float bitrate_sample_kbps = UpdateWindow(at_time.ms(), amount.bytes(),
-                                           rate_window_ms, &is_small_sample);
+  float bitrate_sample_kbps = UpdateWindow(
+      at_time.Milliseconds(), amount.Bytes(), rate_window_ms, &is_small_sample);
   if (bitrate_sample_kbps < 0.0f)
     return;
   if (bitrate_estimate_kbps_ < 0.0f) {
@@ -95,7 +95,7 @@ void BitrateEstimator::Update(Timestamp at_time, DataSize amount, bool in_alr) {
       scale * std::abs(bitrate_estimate_kbps_ - bitrate_sample_kbps) /
       (bitrate_estimate_kbps_ +
        std::min(bitrate_sample_kbps,
-                uncertainty_symmetry_cap_.Get().kbps<float>()));
+                uncertainty_symmetry_cap_.Get().KilobitsPerSecond<float>()));
 
   float sample_var = sample_uncertainty * sample_uncertainty;
   // Update a bayesian estimate of the rate, weighting it lower if the sample
@@ -106,11 +106,11 @@ void BitrateEstimator::Update(Timestamp at_time, DataSize amount, bool in_alr) {
   bitrate_estimate_kbps_ = (sample_var * bitrate_estimate_kbps_ +
                             pred_bitrate_estimate_var * bitrate_sample_kbps) /
                            (sample_var + pred_bitrate_estimate_var);
-  bitrate_estimate_kbps_ =
-      std::max(bitrate_estimate_kbps_, estimate_floor_.Get().kbps<float>());
+  bitrate_estimate_kbps_ = std::max(
+      bitrate_estimate_kbps_, estimate_floor_.Get().KilobitsPerSecond<float>());
   bitrate_estimate_var_ = sample_var * pred_bitrate_estimate_var /
                           (sample_var + pred_bitrate_estimate_var);
-  BWE_TEST_LOGGING_PLOT(1, "acknowledged_bitrate", at_time.ms(),
+  BWE_TEST_LOGGING_PLOT(1, "acknowledged_bitrate", at_time.Milliseconds(),
                         bitrate_estimate_kbps_ * 1000);
 }
 
@@ -136,7 +136,7 @@ float BitrateEstimator::UpdateWindow(int64_t now_ms,
   prev_time_ms_ = now_ms;
   float bitrate_sample = -1.0f;
   if (current_window_ms_ >= rate_window_ms) {
-    *is_small_sample = sum_ < small_sample_threshold_->bytes();
+    *is_small_sample = sum_ < small_sample_threshold_->Bytes();
     bitrate_sample = 8.0f * sum_ / static_cast<float>(rate_window_ms);
     current_window_ms_ -= rate_window_ms;
     sum_ = 0;
@@ -148,12 +148,12 @@ float BitrateEstimator::UpdateWindow(int64_t now_ms,
 absl::optional<DataRate> BitrateEstimator::bitrate() const {
   if (bitrate_estimate_kbps_ < 0.f)
     return absl::nullopt;
-  return DataRate::kbps(bitrate_estimate_kbps_);
+  return DataRate::KilobitsPerSecond(bitrate_estimate_kbps_);
 }
 
 absl::optional<DataRate> BitrateEstimator::PeekRate() const {
   if (current_window_ms_ > 0)
-    return DataSize::bytes(sum_) / TimeDelta::ms(current_window_ms_);
+    return DataSize::Bytes(sum_) / TimeDelta::Milliseconds(current_window_ms_);
   return absl::nullopt;
 }
 

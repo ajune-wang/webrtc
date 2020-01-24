@@ -26,7 +26,7 @@
 
 namespace webrtc {
 
-constexpr TimeDelta kSendTimeHistoryWindow = TimeDelta::seconds(60);
+constexpr TimeDelta kSendTimeHistoryWindow = TimeDelta::Seconds(60);
 
 void InFlightBytesTracker::AddInFlightPacketBytes(
     const PacketFeedback& packet) {
@@ -74,7 +74,7 @@ void TransportFeedbackAdapter::AddPacket(const RtpPacketSendInfo& packet_info,
   packet.creation_time = creation_time;
   packet.sent.sequence_number =
       seq_num_unwrapper_.Unwrap(packet_info.transport_sequence_number);
-  packet.sent.size = DataSize::bytes(packet_info.length + overhead_bytes);
+  packet.sent.size = DataSize::Bytes(packet_info.length + overhead_bytes);
   packet.local_net_id = local_net_id_;
   packet.remote_net_id = remote_net_id_;
   packet.sent.pacing_info = packet_info.pacing_info;
@@ -91,7 +91,7 @@ void TransportFeedbackAdapter::AddPacket(const RtpPacketSendInfo& packet_info,
 }
 absl::optional<SentPacket> TransportFeedbackAdapter::ProcessSentPacket(
     const rtc::SentPacket& sent_packet) {
-  auto send_time = Timestamp::ms(sent_packet.send_time_ms);
+  auto send_time = Timestamp::Milliseconds(sent_packet.send_time_ms);
   // TODO(srte): Only use one way to indicate that packet feedback is used.
   if (sent_packet.info.included_in_feedback || sent_packet.packet_id != -1) {
     int64_t unwrapped_seq_num =
@@ -122,7 +122,7 @@ absl::optional<SentPacket> TransportFeedbackAdapter::ProcessSentPacket(
       RTC_LOG(LS_WARNING) << "ignoring untracked data for out of order packet.";
     }
     pending_untracked_size_ +=
-        DataSize::bytes(sent_packet.info.packet_size_bytes);
+        DataSize::Bytes(sent_packet.info.packet_size_bytes);
     last_untracked_send_time_ = std::max(last_untracked_send_time_, send_time);
   }
   return absl::nullopt;
@@ -178,8 +178,8 @@ TransportFeedbackAdapter::ProcessTransportFeedbackInner(
     current_offset_ = feedback_time;
   } else {
     // TODO(srte): We shouldn't need to do rounding here.
-    const TimeDelta delta =
-        feedback.GetBaseDelta(last_timestamp_).RoundDownTo(TimeDelta::ms(1));
+    const TimeDelta delta = feedback.GetBaseDelta(last_timestamp_)
+                                .RoundDownTo(TimeDelta::Milliseconds(1));
     // Protect against assigning current_offset_ negative value.
     if (delta < Timestamp::Zero() - current_offset_) {
       RTC_LOG(LS_WARNING) << "Unexpected feedback timestamp received.";
@@ -227,7 +227,8 @@ TransportFeedbackAdapter::ProcessTransportFeedbackInner(
     if (packet.received()) {
       packet_offset += packet.delta();
       packet_feedback.receive_time =
-          current_offset_ + packet_offset.RoundDownTo(TimeDelta::ms(1));
+          current_offset_ +
+          packet_offset.RoundDownTo(TimeDelta::Milliseconds(1));
       // Note: Lost packets are not removed from history because they might be
       // reported as received by a later feedback.
       history_.erase(it);

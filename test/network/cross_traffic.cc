@@ -42,7 +42,7 @@ void RandomWalkCrossTraffic::Process(Timestamp at_time) {
 
   if (at_time - last_update_time_ >= config_.update_interval) {
     intensity_ += random_.Gaussian(config_.bias, config_.variance) *
-                  sqrt((at_time - last_update_time_).seconds<double>());
+                  sqrt((at_time - last_update_time_).Seconds<double>());
     intensity_ = rtc::SafeClamp(intensity_, 0.0, 1.0);
     last_update_time_ = at_time;
   }
@@ -50,7 +50,7 @@ void RandomWalkCrossTraffic::Process(Timestamp at_time) {
 
   if (pending_size_ >= config_.min_packet_size &&
       at_time >= last_send_time_ + config_.min_packet_interval) {
-    traffic_route_->SendPacket(pending_size_.bytes());
+    traffic_route_->SendPacket(pending_size_.Bytes());
     pending_size_ = DataSize::Zero();
     last_send_time_ = at_time;
   }
@@ -65,7 +65,7 @@ ColumnPrinter RandomWalkCrossTraffic::StatsPrinter() {
   return ColumnPrinter::Lambda(
       "random_walk_cross_traffic_rate",
       [this](rtc::SimpleStringBuilder& sb) {
-        sb.AppendFormat("%.0lf", TrafficRate().bps() / 8.0);
+        sb.AppendFormat("%.0lf", TrafficRate().BitsPerSecond() / 8.0);
       },
       32);
 }
@@ -96,7 +96,7 @@ void PulsedPeaksCrossTraffic::Process(Timestamp at_time) {
 
     if (pending_size >= config_.min_packet_size &&
         at_time >= last_send_time_ + config_.min_packet_interval) {
-      traffic_route_->SendPacket(pending_size.bytes());
+      traffic_route_->SendPacket(pending_size.Bytes());
       last_send_time_ = at_time;
     }
   }
@@ -111,7 +111,7 @@ ColumnPrinter PulsedPeaksCrossTraffic::StatsPrinter() {
   return ColumnPrinter::Lambda(
       "pulsed_peaks_cross_traffic_rate",
       [this](rtc::SimpleStringBuilder& sb) {
-        sb.AppendFormat("%.0lf", TrafficRate().bps() / 8.0);
+        sb.AppendFormat("%.0lf", TrafficRate().BitsPerSecond() / 8.0);
       },
       32);
 }
@@ -207,7 +207,7 @@ void TcpMessageRouteImpl::HandleLoss(Timestamp at_time) {
 }
 
 void TcpMessageRouteImpl::SendPackets(Timestamp at_time) {
-  const TimeDelta kPacketTimeout = TimeDelta::seconds(1);
+  const TimeDelta kPacketTimeout = TimeDelta::Seconds(1);
   int cwnd = std::ceil(cwnd_);
   int packets_to_send = std::max(cwnd - static_cast<int>(in_flight_.size()), 0);
   while (packets_to_send-- > 0 && !pending_.empty()) {
@@ -223,7 +223,7 @@ void TcpMessageRouteImpl::SendPackets(Timestamp at_time) {
                                    HandlePacketTimeout(seq_num,
                                                        clock_->CurrentTime());
                                  }),
-                                 kPacketTimeout.ms());
+                                 kPacketTimeout.Milliseconds());
   }
 }
 
@@ -308,7 +308,7 @@ void FakeTcpCrossTraffic::SendPackets(Timestamp at_time) {
       break;
     }
     in_flight_.insert({next_sequence_number_, at_time});
-    route_.SendRequest(conf_.packet_size.bytes<size_t>(),
+    route_.SendRequest(conf_.packet_size.Bytes<size_t>(),
                        next_sequence_number_++);
     total_sent_ += conf_.packet_size;
   }

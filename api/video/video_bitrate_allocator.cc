@@ -15,8 +15,8 @@ namespace webrtc {
 VideoBitrateAllocationParameters::VideoBitrateAllocationParameters(
     uint32_t total_bitrate_bps,
     uint32_t framerate)
-    : total_bitrate(DataRate::bps(total_bitrate_bps)),
-      stable_bitrate(DataRate::bps(total_bitrate_bps)),
+    : total_bitrate(DataRate::BitsPerSecond(total_bitrate_bps)),
+      stable_bitrate(DataRate::BitsPerSecond(total_bitrate_bps)),
       framerate(static_cast<double>(framerate)) {}
 
 VideoBitrateAllocationParameters::VideoBitrateAllocationParameters(
@@ -39,14 +39,15 @@ VideoBitrateAllocationParameters::~VideoBitrateAllocationParameters() = default;
 VideoBitrateAllocation VideoBitrateAllocator::GetAllocation(
     uint32_t total_bitrate_bps,
     uint32_t framerate) {
-  return Allocate({DataRate::bps(total_bitrate_bps),
-                   DataRate::bps(total_bitrate_bps),
+  return Allocate({DataRate::BitsPerSecond(total_bitrate_bps),
+                   DataRate::BitsPerSecond(total_bitrate_bps),
                    static_cast<double>(framerate)});
 }
 
 VideoBitrateAllocation VideoBitrateAllocator::Allocate(
     VideoBitrateAllocationParameters parameters) {
-  return GetAllocation(parameters.total_bitrate.bps(), parameters.framerate);
+  return GetAllocation(parameters.total_bitrate.BitsPerSecond(),
+                       parameters.framerate);
 }
 
 }  // namespace webrtc

@@ -549,10 +549,10 @@ void OveruseFrameDetector::StartCheckForOveruse(
 
   SetOptions(options);
   check_overuse_task_ = RepeatingTaskHandle::DelayedStart(
-      task_queue_base, TimeDelta::ms(kTimeToFirstCheckForOveruseMs),
+      task_queue_base, TimeDelta::Milliseconds(kTimeToFirstCheckForOveruseMs),
       [this, overuse_observer] {
         CheckForOveruse(overuse_observer);
-        return TimeDelta::ms(kCheckForOveruseIntervalMs);
+        return TimeDelta::Milliseconds(kCheckForOveruseIntervalMs);
       });
 }
 void OveruseFrameDetector::StopCheckForOveruse() {
@@ -689,7 +689,7 @@ void OveruseFrameDetector::SetOptions(const CpuOveruseOptions& options) {
 
   // Time constant config overridable by field trial.
   if (filter_time_constant_) {
-    options_.filter_time_ms = filter_time_constant_->ms();
+    options_.filter_time_ms = filter_time_constant_->Milliseconds();
   }
   // Force reset with next frame.
   num_pixels_ = 0;

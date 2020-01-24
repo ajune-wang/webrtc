@@ -28,16 +28,16 @@ namespace {
 // we have a min probe packet size of 200 bytes.
 constexpr size_t kMinProbePacketSize = 200;
 
-constexpr TimeDelta kProbeClusterTimeout = TimeDelta::seconds(5);
+constexpr TimeDelta kProbeClusterTimeout = TimeDelta::Seconds(5);
 
 }  // namespace
 
 BitrateProberConfig::BitrateProberConfig(
     const WebRtcKeyValueConfig* key_value_config)
     : min_probe_packets_sent("min_probe_packets_sent", 5),
-      min_probe_delta("min_probe_delta", TimeDelta::ms(1)),
-      min_probe_duration("min_probe_duration", TimeDelta::ms(15)),
-      max_probe_delay("max_probe_delay", TimeDelta::ms(3)) {
+      min_probe_delta("min_probe_delta", TimeDelta::Milliseconds(1)),
+      min_probe_duration("min_probe_duration", TimeDelta::Milliseconds(15)),
+      max_probe_delay("max_probe_delay", TimeDelta::Milliseconds(3)) {
   ParseFieldTrial({&min_probe_packets_sent, &min_probe_delta,
                    &min_probe_duration, &max_probe_delay},
                   key_value_config->Lookup("WebRTC-Bwe-ProbingConfiguration"));
@@ -107,9 +107,9 @@ void BitrateProber::CreateProbeCluster(DataRate bitrate,
   cluster.created_at = now;
   cluster.pace_info.probe_cluster_min_probes = config_.min_probe_packets_sent;
   cluster.pace_info.probe_cluster_min_bytes =
-      (bitrate * config_.min_probe_duration.Get()).bytes();
+      (bitrate * config_.min_probe_duration.Get()).Bytes();
   RTC_DCHECK_GE(cluster.pace_info.probe_cluster_min_bytes, 0);
-  cluster.pace_info.send_bitrate_bps = bitrate.bps();
+  cluster.pace_info.send_bitrate_bps = bitrate.BitsPerSecond();
   cluster.pace_info.probe_cluster_id = cluster_id;
   clusters_.push(cluster);
 
@@ -133,8 +133,8 @@ Timestamp BitrateProber::NextProbeTime(Timestamp now) const {
       now - next_probe_time_ > config_.max_probe_delay.Get()) {
     RTC_DLOG(LS_WARNING) << "Probe delay too high"
                             " (next_ms:"
-                         << next_probe_time_.ms() << ", now_ms: " << now.ms()
-                         << ")";
+                         << next_probe_time_.Milliseconds()
+                         << ", now_ms: " << now.Milliseconds() << ")";
     return Timestamp::PlusInfinity();
   }
 
@@ -155,7 +155,7 @@ PacedPacketInfo BitrateProber::CurrentCluster() const {
 size_t BitrateProber::RecommendedMinProbeSize() const {
   RTC_DCHECK(!clusters_.empty());
   return clusters_.front().pace_info.send_bitrate_bps * 2 *
-         config_.min_probe_delta->ms() / (8 * 1000);
+         config_.min_probe_delta->Milliseconds() / (8 * 1000);
 }
 
 void BitrateProber::ProbeSent(Timestamp now, size_t bytes) {
@@ -178,7 +178,7 @@ void BitrateProber::ProbeSent(Timestamp now, size_t bytes) {
       RTC_HISTOGRAM_COUNTS_100("WebRTC.BWE.Probing.ProbesPerCluster",
                                cluster->sent_probes);
       RTC_HISTOGRAM_COUNTS_10000("WebRTC.BWE.Probing.TimePerProbeCluster",
-                                 (now - cluster->started_at).ms());
+                                 (now - cluster->started_at).Milliseconds());
 
       clusters_.pop();
     }
@@ -194,8 +194,9 @@ Timestamp BitrateProber::CalculateNextProbeTime(
 
   // Compute the time delta from the cluster start to ensure probe bitrate stays
   // close to the target bitrate. Result is in milliseconds.
-  DataSize sent_bytes = DataSize::bytes(cluster.sent_bytes);
-  DataRate send_bitrate = DataRate::bps(cluster.pace_info.send_bitrate_bps);
+  DataSize sent_bytes = DataSize::Bytes(cluster.sent_bytes);
+  DataRate send_bitrate =
+      DataRate::BitsPerSecond(cluster.pace_info.send_bitrate_bps);
   TimeDelta delta = sent_bytes / send_bitrate;
   return cluster.started_at + delta;
 }

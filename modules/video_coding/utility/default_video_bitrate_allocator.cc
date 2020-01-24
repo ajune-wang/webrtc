@@ -31,7 +31,7 @@ VideoBitrateAllocation DefaultVideoBitrateAllocator::Allocate(
   if (parameters.total_bitrate.IsZero() || !codec_.active)
     return allocation;
 
-  uint32_t allocated_bitrate_bps = parameters.total_bitrate.bps();
+  uint32_t allocated_bitrate_bps = parameters.total_bitrate.BitsPerSecond();
   allocated_bitrate_bps =
       std::max(allocated_bitrate_bps, codec_.minBitrate * 1000);
   if (codec_.maxBitrate > 0) {

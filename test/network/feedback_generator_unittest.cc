@@ -17,14 +17,14 @@ TEST(FeedbackGeneratorTest, ReportsFeedbackForSentPackets) {
   auto gen = CreateFeedbackGenerator(FeedbackGenerator::Config());
   for (int i = 0; i < 10; ++i) {
     gen->SendPacket(kPacketSize);
-    gen->Sleep(TimeDelta::ms(50));
+    gen->Sleep(TimeDelta::Milliseconds(50));
   }
   auto feedback_list = gen->PopFeedback();
   EXPECT_GT(feedback_list.size(), 0u);
   for (const auto& feedback : feedback_list) {
     EXPECT_GT(feedback.packet_feedbacks.size(), 0u);
     for (const auto& packet : feedback.packet_feedbacks) {
-      EXPECT_EQ(packet.sent_packet.size.bytes<size_t>(), kPacketSize);
+      EXPECT_EQ(packet.sent_packet.size.Bytes<size_t>(), kPacketSize);
     }
   }
 }

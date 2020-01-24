@@ -109,7 +109,7 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
     LayerRateInfo& layer_info = layer_infos.back();
 
     layer_info.target_rate =
-        DataRate::bps(rates.bitrate.GetSpatialLayerSum(si));
+        DataRate::BitsPerSecond(rates.bitrate.GetSpatialLayerSum(si));
 
     // Adjustment is done per spatial layer only (not per temporal layer).
     if (frames_since_layout_change_ < kMinFramesSinceLayoutChange) {
@@ -156,7 +156,7 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
         }
         const double weight =
             static_cast<double>(rates.bitrate.GetBitrate(si, ti)) /
-            layer_info.target_rate.bps();
+            layer_info.target_rate.BitsPerSecond();
         layer_info.link_utilization_factor +=
             weight * ti_link_utilization_factor.value();
         layer_info.media_utilization_factor +=
@@ -186,8 +186,8 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
   // Available link headroom that can be used to fill wanted overshoot.
   DataRate available_headroom = DataRate::Zero();
   if (utilize_bandwidth_headroom_) {
-    available_headroom =
-        rates.bandwidth_allocation - DataRate::bps(rates.bitrate.get_sum_bps());
+    available_headroom = rates.bandwidth_allocation -
+                         DataRate::BitsPerSecond(rates.bitrate.get_sum_bps());
   }
 
   // All wanted overshoots are satisfied in the same proportion based on
@@ -195,8 +195,8 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
   const double granted_overshoot_ratio =
       wanted_overshoot_sum == DataRate::Zero()
           ? 0.0
-          : std::min(1.0, available_headroom.bps<double>() /
-                              wanted_overshoot_sum.bps());
+          : std::min(1.0, available_headroom.BitsPerSecond<double>() /
+                              wanted_overshoot_sum.BitsPerSecond());
 
   for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
     LayerRateInfo& layer_info = layer_infos[si];
@@ -207,18 +207,19 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
       // Pretend the target bitrate is higher by the allowed overshoot.
       // Since utilization_factor = actual_bitrate / target_bitrate, it can be
       // done by multiplying by old_target_bitrate / new_target_bitrate.
-      utilization_factor *= layer_info.target_rate.bps<double>() /
-                            (allowed_overshoot.bps<double>() +
-                             layer_info.target_rate.bps<double>());
+      utilization_factor *= layer_info.target_rate.BitsPerSecond<double>() /
+                            (allowed_overshoot.BitsPerSecond<double>() +
+                             layer_info.target_rate.BitsPerSecond<double>());
     }
 
     if (min_bitrates_bps_[si] > 0 &&
         layer_info.target_rate > DataRate::Zero() &&
-        DataRate::bps(min_bitrates_bps_[si]) < layer_info.target_rate) {
+        DataRate::BitsPerSecond(min_bitrates_bps_[si]) <
+            layer_info.target_rate) {
       // Make sure rate adjuster doesn't push target bitrate below minimum.
-      utilization_factor =
-          std::min(utilization_factor, layer_info.target_rate.bps<double>() /
-                                           min_bitrates_bps_[si]);
+      utilization_factor = std::min(
+          utilization_factor, layer_info.target_rate.BitsPerSecond<double>() /
+                                  min_bitrates_bps_[si]);
     }
 
     if (layer_info.target_rate > DataRate::Zero()) {
@@ -226,9 +227,9 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
                           << ": link = " << layer_info.link_utilization_factor
                           << ", media = " << layer_info.media_utilization_factor
                           << ", wanted overshoot = "
-                          << layer_info.WantedOvershoot().bps()
+                          << layer_info.WantedOvershoot().BitsPerSecond()
                           << " bps, available headroom = "
-                          << available_headroom.bps()
+                          << available_headroom.BitsPerSecond()
                           << " bps, total utilization factor = "
                           << utilization_factor;
     }
@@ -236,14 +237,15 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
     // Populate the adjusted allocation with determined utilization factor.
     if (active_tls_[si] == 1 &&
         layer_info.target_rate >
-            DataRate::bps(rates.bitrate.GetBitrate(si, 0))) {
+            DataRate::BitsPerSecond(rates.bitrate.GetBitrate(si, 0))) {
       // Bitrate allocation indicates temporal layer usage, but encoder
       // does not seem to support it. Pipe all bitrate into a single
       // overshoot detector.
-      uint32_t adjusted_layer_bitrate_bps =
-          std::min(static_cast<uint32_t>(
-                       layer_info.target_rate.bps() / utilization_factor + 0.5),
-                   layer_info.target_rate.bps<uint32_t>());
+      uint32_t adjusted_layer_bitrate_bps = std::min(
+          static_cast<uint32_t>(layer_info.target_rate.BitsPerSecond() /
+                                    utilization_factor +
+                                0.5),
+          layer_info.target_rate.BitsPerSecond<uint32_t>());
       adjusted_allocation.SetBitrate(si, 0, adjusted_layer_bitrate_bps);
     } else {
       for (size_t ti = 0; ti < kMaxTemporalStreams; ++ti) {
@@ -283,7 +285,7 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
             VideoEncoder::EncoderInfo::kMaxFramerateFraction;
 
         overshoot_detectors_[si][ti]->SetTargetRate(
-            DataRate::bps(layer_bitrate_bps),
+            DataRate::BitsPerSecond(layer_bitrate_bps),
             fps_fraction * rates.framerate_fps, now_ms);
       }
     }

@@ -29,11 +29,12 @@ constexpr double kSlowStartModeIncrease = 1.5;
 
 constexpr double kAlphaForPacketInterval = 0.9;
 constexpr int64_t kMinPacketsNumberPerInterval = 20;
-const TimeDelta kMinDurationOfMonitorInterval = TimeDelta::ms(50);
-const TimeDelta kStartupDuration = TimeDelta::ms(500);
+const TimeDelta kMinDurationOfMonitorInterval = TimeDelta::Milliseconds(50);
+const TimeDelta kStartupDuration = TimeDelta::Milliseconds(500);
 constexpr double kMinRateChangeBps = 4000;
-constexpr DataRate kMinRateHaveMultiplicativeRateChange = DataRate::bps(
-    static_cast<int64_t>(kMinRateChangeBps / kDefaultSamplingStep));
+constexpr DataRate kMinRateHaveMultiplicativeRateChange =
+    DataRate::BitsPerSecond(
+        static_cast<int64_t>(kMinRateChangeBps / kDefaultSamplingStep));
 
 // Bitrate controller constants.
 constexpr double kInitialConversionFactor = 5;
@@ -56,10 +57,11 @@ PccNetworkController::PccNetworkController(NetworkControllerConfig config)
       last_sent_packet_time_(Timestamp::PlusInfinity()),
       smoothed_packets_sending_interval_(TimeDelta::Zero()),
       mode_(Mode::kStartup),
-      default_bandwidth_(DataRate::kbps(kInitialBandwidthKbps)),
+      default_bandwidth_(DataRate::KilobitsPerSecond(kInitialBandwidthKbps)),
       bandwidth_estimate_(default_bandwidth_),
-      rtt_tracker_(TimeDelta::ms(kInitialRttMs), kAlphaForRtt),
-      monitor_interval_timeout_(TimeDelta::ms(kInitialRttMs) * kTimeoutRatio),
+      rtt_tracker_(TimeDelta::Milliseconds(kInitialRttMs), kAlphaForRtt),
+      monitor_interval_timeout_(TimeDelta::Milliseconds(kInitialRttMs) *
+                                kTimeoutRatio),
       monitor_interval_length_strategy_(MonitorIntervalLengthStrategy::kFixed),
       monitor_interval_duration_ratio_(kMonitorIntervalDurationRatio),
       sampling_step_(kDefaultSamplingStep),
@@ -114,7 +116,7 @@ NetworkControlUpdate PccNetworkController::CreateRateUpdate(
   // Set up pacing/padding target rate.
   PacerConfig pacer_config;
   pacer_config.at_time = at_time;
-  pacer_config.time_window = TimeDelta::ms(1);
+  pacer_config.time_window = TimeDelta::Milliseconds(1);
   pacer_config.data_window = sending_rate * pacer_config.time_window;
   pacer_config.pad_window = sending_rate * pacer_config.time_window;
 
@@ -214,10 +216,12 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
             bandwidth_estimate_ * (1 - sign * sampling_step_)};
       } else {
         monitor_intervals_bitrates_ = {
-            DataRate::bps(std::max<double>(
-                bandwidth_estimate_.bps() + sign * kMinRateChangeBps, 0)),
-            DataRate::bps(std::max<double>(
-                bandwidth_estimate_.bps() - sign * kMinRateChangeBps, 0))};
+            DataRate::BitsPerSecond(std::max<double>(
+                bandwidth_estimate_.BitsPerSecond() + sign * kMinRateChangeBps,
+                0)),
+            DataRate::BitsPerSecond(std::max<double>(
+                bandwidth_estimate_.BitsPerSecond() - sign * kMinRateChangeBps,
+                0))};
       }
       monitor_intervals_.emplace_back(monitor_intervals_bitrates_[0],
                                       msg.send_time,
@@ -309,7 +313,7 @@ bool PccNetworkController::NeedDoubleCheckMeasurments() const {
   double second_loss_rate = monitor_intervals_[1].GetLossRate();
   DataRate first_bitrate = monitor_intervals_[0].GetTargetSendingRate();
   DataRate second_bitrate = monitor_intervals_[1].GetTargetSendingRate();
-  if ((first_bitrate.bps() - second_bitrate.bps()) *
+  if ((first_bitrate.BitsPerSecond() - second_bitrate.BitsPerSecond()) *
           (first_loss_rate - second_loss_rate) <
       0) {
     return true;

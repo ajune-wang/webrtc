@@ -159,7 +159,7 @@ int64_t EncoderOvershootDetector::IdealFrameSizeBits() const {
 
   // Current ideal frame size, based on the current target bitrate.
   return static_cast<int64_t>(
-      (target_bitrate_.bps() + target_framerate_fps_ / 2) /
+      (target_bitrate_.BitsPerSecond() + target_framerate_fps_ / 2) /
       target_framerate_fps_);
 }
 
@@ -167,7 +167,8 @@ void EncoderOvershootDetector::LeakBits(int64_t time_ms) {
   if (time_last_update_ms_ != -1 && target_bitrate_ > DataRate::Zero()) {
     int64_t time_delta_ms = time_ms - time_last_update_ms_;
     // Leak bits according to the current target bitrate.
-    const int64_t leaked_bits = (target_bitrate_.bps() * time_delta_ms) / 1000;
+    const int64_t leaked_bits =
+        (target_bitrate_.BitsPerSecond() * time_delta_ms) / 1000;
 
     // Network buffer may not go below zero.
     network_buffer_level_bits_ =
@@ -179,7 +180,7 @@ void EncoderOvershootDetector::LeakBits(int64_t time_ms) {
         std::min(kMaxMediaUnderrunFrames, target_framerate_fps_) /
         target_framerate_fps_;
     media_buffer_level_bits_ = std::max<int64_t>(
-        -max_underrun_seconds * target_bitrate_.bps<int64_t>(),
+        -max_underrun_seconds * target_bitrate_.BitsPerSecond<int64_t>(),
         media_buffer_level_bits_ - leaked_bits);
   }
   time_last_update_ms_ = time_ms;

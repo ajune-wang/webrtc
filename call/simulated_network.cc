@@ -21,7 +21,7 @@
 
 namespace webrtc {
 namespace {
-constexpr TimeDelta kDefaultProcessDelay = TimeDelta::ms(5);
+constexpr TimeDelta kDefaultProcessDelay = TimeDelta::Milliseconds(5);
 }  // namespace
 
 CoDelSimulation::CoDelSimulation() = default;
@@ -31,10 +31,10 @@ bool CoDelSimulation::DropDequeuedPacket(Timestamp now,
                                          Timestamp enqueing_time,
                                          DataSize packet_size,
                                          DataSize queue_size) {
-  constexpr TimeDelta kWindow = TimeDelta::ms(100);
-  constexpr TimeDelta kDelayThreshold = TimeDelta::ms(5);
-  constexpr TimeDelta kDropCountMemory = TimeDelta::ms(1600);
-  constexpr DataSize kMaxPacketSize = DataSize::bytes(1500);
+  constexpr TimeDelta kWindow = TimeDelta::Milliseconds(100);
+  constexpr TimeDelta kDelayThreshold = TimeDelta::Milliseconds(5);
+  constexpr TimeDelta kDropCountMemory = TimeDelta::Milliseconds(1600);
+  constexpr DataSize kMaxPacketSize = DataSize::Bytes(1500);
 
   // Compensates for process interval in simulation; not part of standard CoDel.
   TimeDelta queuing_time = now - enqueing_time - kDefaultProcessDelay;
@@ -135,7 +135,8 @@ bool SimulatedNetwork::EnqueuePacket(PacketInFlightInfo packet) {
   queue_size_bytes_ += packet.size;
   capacity_link_.push({packet, packet.send_time_us});
   if (!next_process_time_us_) {
-    next_process_time_us_ = packet.send_time_us + kDefaultProcessDelay.us();
+    next_process_time_us_ =
+        packet.send_time_us + kDefaultProcessDelay.Microseconds();
   }
 
   return true;
@@ -191,10 +192,11 @@ void SimulatedNetwork::UpdateCapacityQueue(ConfigState state,
     if (state.config.codel_active_queue_management) {
       while (!capacity_link_.empty() &&
              codel_controller_.DropDequeuedPacket(
-                 Timestamp::us(time_us),
-                 Timestamp::us(capacity_link_.front().packet.send_time_us),
-                 DataSize::bytes(capacity_link_.front().packet.size),
-                 DataSize::bytes(queue_size_bytes_))) {
+                 Timestamp::Microseconds(time_us),
+                 Timestamp::Microseconds(
+                     capacity_link_.front().packet.send_time_us),
+                 DataSize::Bytes(capacity_link_.front().packet.size),
+                 DataSize::Bytes(queue_size_bytes_))) {
         PacketInfo dropped = capacity_link_.front();
         capacity_link_.pop();
         queue_size_bytes_ -= dropped.packet.size;
@@ -275,7 +277,8 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
   if (!delay_link_.empty()) {
     next_process_time_us_ = delay_link_.front().arrival_time_us;
   } else if (!capacity_link_.empty()) {
-    next_process_time_us_ = receive_time_us + kDefaultProcessDelay.us();
+    next_process_time_us_ =
+        receive_time_us + kDefaultProcessDelay.Microseconds();
   } else {
     next_process_time_us_.reset();
   }

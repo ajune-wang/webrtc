@@ -268,7 +268,7 @@ void DatagramRtpTransport::OnDatagramAcked(const DatagramAck& ack) {
                       << ", sent_packet_info.ssrc="
                       << sent_packet_info.ssrc.value_or(-1)
                       << ", receive_timestamp_ms="
-                      << ack.receive_timestamp.ms();
+                      << ack.receive_timestamp.Milliseconds();
 
   // If transport sequence number was not present in RTP packet, we do not need
   // to propagate RTCP feedback.
@@ -280,7 +280,7 @@ void DatagramRtpTransport::OnDatagramAcked(const DatagramAck& ack) {
   // return zero timestamps in the middle of the call. This is workaround to
   // avoid propagating zero timestamps, but we need to understand why we have
   // them in the first place.
-  int64_t receive_timestamp_us = ack.receive_timestamp.us();
+  int64_t receive_timestamp_us = ack.receive_timestamp.Microseconds();
 
   if (receive_timestamp_us == 0) {
     receive_timestamp_us = previous_nonzero_timestamp_us_;

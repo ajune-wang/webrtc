@@ -35,11 +35,11 @@ const double kProbeBWCongestionWindowGain = 2.0f;
 // minus the IP and UDP headers. IPv6 has a 40 byte header, UDP adds an
 // additional 8 bytes.  This is a total overhead of 48 bytes.  Ethernet's
 // max packet size is 1500 bytes,  1500 - 48 = 1452.
-const DataSize kMaxPacketSize = DataSize::bytes(1452);
+const DataSize kMaxPacketSize = DataSize::Bytes(1452);
 
 // Default maximum packet size used in the Linux TCP implementation.
 // Used in QUIC for congestion window computations in bytes.
-constexpr DataSize kDefaultTCPMSS = DataSize::bytes(1460);
+constexpr DataSize kDefaultTCPMSS = DataSize::Bytes(1460);
 // Constants based on TCP defaults.
 constexpr DataSize kMaxSegmentSize = kDefaultTCPMSS;
 
@@ -184,7 +184,7 @@ BbrNetworkController::BbrNetworkController(NetworkControllerConfig config)
       last_sent_packet_(0),
       current_round_trip_end_(0),
       max_bandwidth_(kBandwidthWindowSize, DataRate::Zero(), 0),
-      default_bandwidth_(DataRate::kbps(kInitialBandwidthKbps)),
+      default_bandwidth_(DataRate::KilobitsPerSecond(kInitialBandwidthKbps)),
       max_ack_height_(kBandwidthWindowSize, DataSize::Zero(), 0),
       aggregation_epoch_start_time_(),
       aggregation_epoch_bytes_(DataSize::Zero()),
@@ -421,8 +421,8 @@ NetworkControlUpdate BbrNetworkController::OnTransportPacketsFeedback(
   int packets_sent =
       static_cast<int>(lost_packets.size() + acked_packets.size());
   int packets_lost = static_cast<int>(lost_packets.size());
-  loss_rate_.UpdateWithLossStatus(msg.feedback_time.ms(), packets_sent,
-                                  packets_lost);
+  loss_rate_.UpdateWithLossStatus(msg.feedback_time.Milliseconds(),
+                                  packets_sent, packets_lost);
 
   // Input the new data into the BBR model of the connection.
   if (!acked_packets.empty()) {
@@ -508,8 +508,9 @@ NetworkControlUpdate BbrNetworkController::OnNetworkStateEstimate(
 }
 
 TimeDelta BbrNetworkController::GetMinRtt() const {
-  return !min_rtt_.IsZero() ? min_rtt_
-                            : TimeDelta::us(rtt_stats_.initial_rtt_us());
+  return !min_rtt_.IsZero()
+             ? min_rtt_
+             : TimeDelta::Microseconds(rtt_stats_.initial_rtt_us());
 }
 
 DataSize BbrNetworkController::GetTargetCongestionWindow(double gain) const {
@@ -597,7 +598,7 @@ bool BbrNetworkController::UpdateBandwidthAndMinRtt(
   min_rtt_since_last_probe_rtt_ =
       std::min(min_rtt_since_last_probe_rtt_, sample_rtt);
 
-  const TimeDelta kMinRttExpiry = TimeDelta::seconds(kMinRttExpirySeconds);
+  const TimeDelta kMinRttExpiry = TimeDelta::Seconds(kMinRttExpirySeconds);
   // Do not expire min_rtt if none was ever available.
   bool min_rtt_expired =
       !min_rtt_.IsZero() && (now > (min_rtt_timestamp_ + kMinRttExpiry));
@@ -733,7 +734,8 @@ void BbrNetworkController::MaybeEnterOrExitProbeRtt(
       // we allow an extra packet since QUIC checks CWND before sending a
       // packet.
       if (msg.data_in_flight < ProbeRttCongestionWindow() + kMaxPacketSize) {
-        exit_probe_rtt_at_ = msg.feedback_time + TimeDelta::ms(kProbeRttTimeMs);
+        exit_probe_rtt_at_ =
+            msg.feedback_time + TimeDelta::Milliseconds(kProbeRttTimeMs);
         probe_rtt_round_passed_ = false;
       }
     } else {

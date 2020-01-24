@@ -23,10 +23,10 @@ std::string ToString(DataRate value) {
   } else if (value.IsMinusInfinity()) {
     sb << "-inf bps";
   } else {
-    if (value.bps() == 0 || value.bps() % 1000 != 0) {
-      sb << value.bps() << " bps";
+    if (value.BitsPerSecond() == 0 || value.BitsPerSecond() % 1000 != 0) {
+      sb << value.BitsPerSecond() << " bps";
     } else {
-      sb << value.kbps() << " kbps";
+      sb << value.KilobitsPerSecond() << " kbps";
     }
   }
   return sb.str();

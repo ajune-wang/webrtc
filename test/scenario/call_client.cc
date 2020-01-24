@@ -57,11 +57,11 @@ Call* CreateCall(TimeController* time_controller,
                  rtc::scoped_refptr<AudioState> audio_state) {
   CallConfig call_config(event_log);
   call_config.bitrate_config.max_bitrate_bps =
-      config.transport.rates.max_rate.bps_or(-1);
+      config.transport.rates.max_rate.BitsPerSecondOr(-1);
   call_config.bitrate_config.min_bitrate_bps =
-      config.transport.rates.min_rate.bps();
+      config.transport.rates.min_rate.BitsPerSecond();
   call_config.bitrate_config.start_bitrate_bps =
-      config.transport.rates.start_rate.bps();
+      config.transport.rates.start_rate.BitsPerSecond();
   call_config.task_queue_factory = time_controller->GetTaskQueueFactory();
   call_config.network_controller_factory = network_controller_factory;
   call_config.audio_state = audio_state;
@@ -272,7 +272,7 @@ void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
   task_queue_.PostTask(
       [call = call_.get(), media_type, packet = std::move(packet)]() mutable {
         call->Receiver()->DeliverPacket(media_type, packet.data,
-                                        packet.arrival_time.us());
+                                        packet.arrival_time.Microseconds());
       });
 }
 

@@ -37,7 +37,7 @@ void FeedbackGeneratorImpl::Sleep(TimeDelta duration) {
 void FeedbackGeneratorImpl::SendPacket(size_t size) {
   SentPacket sent;
   sent.send_time = Now();
-  sent.size = DataSize::bytes(size);
+  sent.size = DataSize::Bytes(size);
   sent.sequence_number = sequence_number_++;
   route_.SendRequest(size, sent);
 }
@@ -60,7 +60,7 @@ void FeedbackGeneratorImpl::SetReturnConfig(
 }
 
 void FeedbackGeneratorImpl::SetSendLinkCapacity(DataRate capacity) {
-  conf_.send_link.link_capacity_kbps = capacity.kbps<int>();
+  conf_.send_link.link_capacity_kbps = capacity.KilobitsPerSecond<int>();
   send_link_->SetConfig(conf_.send_link);
 }
 
@@ -72,7 +72,7 @@ void FeedbackGeneratorImpl::OnRequest(SentPacket packet,
   builder_.packet_feedbacks.push_back(result);
   Timestamp first_recv = builder_.packet_feedbacks.front().receive_time;
   if (Now() - first_recv > conf_.feedback_interval) {
-    route_.SendResponse(conf_.feedback_packet_size.bytes<size_t>(), builder_);
+    route_.SendResponse(conf_.feedback_packet_size.Bytes<size_t>(), builder_);
     builder_ = {};
   }
 }

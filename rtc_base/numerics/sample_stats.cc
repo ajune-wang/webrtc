@@ -55,11 +55,11 @@ int SampleStats<double>::Count() {
 
 void SampleStats<TimeDelta>::AddSample(TimeDelta delta) {
   RTC_DCHECK(delta.IsFinite());
-  stats_.AddSample(delta.seconds<double>());
+  stats_.AddSample(delta.Seconds<double>());
 }
 
 void SampleStats<TimeDelta>::AddSampleMs(double delta_ms) {
-  AddSample(TimeDelta::ms(delta_ms));
+  AddSample(TimeDelta::Milliseconds(delta_ms));
 }
 void SampleStats<TimeDelta>::AddSamples(const SampleStats<TimeDelta>& other) {
   stats_.AddSamples(other.stats_);
@@ -70,11 +70,11 @@ bool SampleStats<TimeDelta>::IsEmpty() {
 }
 
 TimeDelta SampleStats<TimeDelta>::Max() {
-  return TimeDelta::seconds(stats_.Max());
+  return TimeDelta::Seconds(stats_.Max());
 }
 
 TimeDelta SampleStats<TimeDelta>::Mean() {
-  return TimeDelta::seconds(stats_.Mean());
+  return TimeDelta::Seconds(stats_.Mean());
 }
 
 TimeDelta SampleStats<TimeDelta>::Median() {
@@ -82,19 +82,19 @@ TimeDelta SampleStats<TimeDelta>::Median() {
 }
 
 TimeDelta SampleStats<TimeDelta>::Quantile(double quantile) {
-  return TimeDelta::seconds(stats_.Quantile(quantile));
+  return TimeDelta::Seconds(stats_.Quantile(quantile));
 }
 
 TimeDelta SampleStats<TimeDelta>::Min() {
-  return TimeDelta::seconds(stats_.Min());
+  return TimeDelta::Seconds(stats_.Min());
 }
 
 TimeDelta SampleStats<TimeDelta>::Variance() {
-  return TimeDelta::seconds(stats_.Variance());
+  return TimeDelta::Seconds(stats_.Variance());
 }
 
 TimeDelta SampleStats<TimeDelta>::StandardDeviation() {
-  return TimeDelta::seconds(stats_.StandardDeviation());
+  return TimeDelta::Seconds(stats_.StandardDeviation());
 }
 
 int SampleStats<TimeDelta>::Count() {
@@ -102,7 +102,7 @@ int SampleStats<TimeDelta>::Count() {
 }
 
 void SampleStats<DataRate>::AddSample(DataRate sample) {
-  stats_.AddSample(sample.bps<double>());
+  stats_.AddSample(sample.BitsPerSecond<double>());
 }
 
 void SampleStats<DataRate>::AddSampleBps(double rate_bps) {
@@ -118,11 +118,11 @@ bool SampleStats<DataRate>::IsEmpty() {
 }
 
 DataRate SampleStats<DataRate>::Max() {
-  return DataRate::bps(stats_.Max());
+  return DataRate::BitsPerSecond(stats_.Max());
 }
 
 DataRate SampleStats<DataRate>::Mean() {
-  return DataRate::bps(stats_.Mean());
+  return DataRate::BitsPerSecond(stats_.Mean());
 }
 
 DataRate SampleStats<DataRate>::Median() {
@@ -130,19 +130,19 @@ DataRate SampleStats<DataRate>::Median() {
 }
 
 DataRate SampleStats<DataRate>::Quantile(double quantile) {
-  return DataRate::bps(stats_.Quantile(quantile));
+  return DataRate::BitsPerSecond(stats_.Quantile(quantile));
 }
 
 DataRate SampleStats<DataRate>::Min() {
-  return DataRate::bps(stats_.Min());
+  return DataRate::BitsPerSecond(stats_.Min());
 }
 
 DataRate SampleStats<DataRate>::Variance() {
-  return DataRate::bps(stats_.Variance());
+  return DataRate::BitsPerSecond(stats_.Variance());
 }
 
 DataRate SampleStats<DataRate>::StandardDeviation() {
-  return DataRate::bps(stats_.StandardDeviation());
+  return DataRate::BitsPerSecond(stats_.StandardDeviation());
 }
 
 int SampleStats<DataRate>::Count() {

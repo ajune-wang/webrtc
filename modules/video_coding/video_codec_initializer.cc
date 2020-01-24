@@ -244,7 +244,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       GetExperimentalMinVideoBitrate(video_codec.codecType);
   if (experimental_min_bitrate) {
     const int experimental_min_bitrate_kbps =
-        rtc::saturated_cast<int>(experimental_min_bitrate->kbps());
+        rtc::saturated_cast<int>(experimental_min_bitrate->KilobitsPerSecond());
     video_codec.minBitrate = experimental_min_bitrate_kbps;
     video_codec.simulcastStream[0].minBitrate = experimental_min_bitrate_kbps;
     if (video_codec.codecType == kVideoCodecVP9) {

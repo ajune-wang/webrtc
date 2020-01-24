@@ -25,7 +25,8 @@ EchoEmulatingCapturer::EchoEmulatingCapturer(
     PeerConnectionE2EQualityTestFixture::EchoEmulationConfig config)
     : delegate_(std::move(capturer)),
       config_(config),
-      renderer_queue_(2 * config_.echo_delay.ms() / kSingleBufferDurationMs),
+      renderer_queue_(2 * config_.echo_delay.Milliseconds() /
+                      kSingleBufferDurationMs),
       queue_input_(TestAudioDeviceModule::SamplesPerFrame(
                        delegate_->SamplingFrequency()) *
                    delegate_->NumChannels()),
@@ -84,9 +85,9 @@ bool EchoEmulatingCapturer::Capture(rtc::BufferT<int16_t>* buffer) {
   // that buffer on each ::Capture(...) call. If the buffer become empty it
   // will mean some bug, so we will crash during removing item from the queue.
   if (!delay_accumulated_) {
-    delay_accumulated_ =
-        renderer_queue_.SizeAtLeast() >=
-        static_cast<size_t>(config_.echo_delay.ms() / kSingleBufferDurationMs);
+    delay_accumulated_ = renderer_queue_.SizeAtLeast() >=
+                         static_cast<size_t>(config_.echo_delay.Milliseconds() /
+                                             kSingleBufferDurationMs);
   }
 
   if (delay_accumulated_) {

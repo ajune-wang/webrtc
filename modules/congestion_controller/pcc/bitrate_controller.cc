@@ -124,15 +124,17 @@ DataRate PccBitrateController::ComputeRateUpdateForOnlineLearningMode(
     DataRate bandwith_estimate) {
   double first_utility = utility_function_->Compute(intervals[0]);
   double second_utility = utility_function_->Compute(intervals[1]);
-  double first_bitrate_bps = intervals[0].GetTargetSendingRate().bps();
-  double second_bitrate_bps = intervals[1].GetTargetSendingRate().bps();
+  double first_bitrate_bps =
+      intervals[0].GetTargetSendingRate().BitsPerSecond();
+  double second_bitrate_bps =
+      intervals[1].GetTargetSendingRate().BitsPerSecond();
   double gradient = (first_utility - second_utility) /
                     (first_bitrate_bps - second_bitrate_bps);
   double rate_change_bps = gradient * ComputeStepSize(gradient);  // delta_r
   rate_change_bps =
-      ApplyDynamicBoundary(rate_change_bps, bandwith_estimate.bps());
-  return DataRate::bps(
-      std::max(0.0, bandwith_estimate.bps() + rate_change_bps));
+      ApplyDynamicBoundary(rate_change_bps, bandwith_estimate.BitsPerSecond());
+  return DataRate::BitsPerSecond(
+      std::max(0.0, bandwith_estimate.BitsPerSecond() + rate_change_bps));
 }
 
 }  // namespace pcc

@@ -22,13 +22,13 @@ int64_t FakeClock::TimeNanos() const {
 
 void FakeClock::SetTime(webrtc::Timestamp new_time) {
   CritScope cs(&lock_);
-  RTC_DCHECK(new_time.us() * 1000 >= time_ns_);
-  time_ns_ = new_time.us() * 1000;
+  RTC_DCHECK(new_time.Microseconds() * 1000 >= time_ns_);
+  time_ns_ = new_time.Microseconds() * 1000;
 }
 
 void FakeClock::AdvanceTime(webrtc::TimeDelta delta) {
   CritScope cs(&lock_);
-  time_ns_ += delta.ns();
+  time_ns_ += delta.Nanoseconds();
 }
 
 void ThreadProcessingFakeClock::SetTime(webrtc::Timestamp time) {

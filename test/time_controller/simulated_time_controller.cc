@@ -173,7 +173,9 @@ void SimulatedTimeControllerImpl::StopYield(TaskQueueBase* yielding_from) {
 
 GlobalSimulatedTimeController::GlobalSimulatedTimeController(
     Timestamp start_time)
-    : sim_clock_(start_time.us()), impl_(start_time), yield_policy_(&impl_) {
+    : sim_clock_(start_time.Microseconds()),
+      impl_(start_time),
+      yield_policy_(&impl_) {
   global_clock_.SetTime(start_time);
   auto main_thread = std::make_unique<SimulatedMainThread>(&impl_);
   impl_.Register(main_thread.get());
@@ -209,14 +211,14 @@ void GlobalSimulatedTimeController::AdvanceTime(TimeDelta duration) {
   rtc::ScopedYieldPolicy yield_policy(&impl_);
   Timestamp current_time = impl_.CurrentTime();
   Timestamp target_time = current_time + duration;
-  RTC_DCHECK_EQ(current_time.us(), rtc::TimeMicros());
+  RTC_DCHECK_EQ(current_time.Microseconds(), rtc::TimeMicros());
   while (current_time < target_time) {
     impl_.RunReadyRunners();
     Timestamp next_time = std::min(impl_.NextRunTime(), target_time);
     impl_.AdvanceTime(next_time);
     auto delta = next_time - current_time;
     current_time = next_time;
-    sim_clock_.AdvanceTimeMicroseconds(delta.us());
+    sim_clock_.AdvanceTimeMicroseconds(delta.Microseconds());
     global_clock_.AdvanceTime(delta);
   }
   // After time has been simulated up until |target_time| we also need to run

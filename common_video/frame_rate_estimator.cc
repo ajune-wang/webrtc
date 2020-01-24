@@ -27,13 +27,13 @@ absl::optional<double> FrameRateEstimator::GetAverageFps() const {
     return absl::nullopt;
   }
   TimeDelta time_span = frame_times_.back() - frame_times_.front();
-  if (time_span < TimeDelta::us(1)) {
+  if (time_span < TimeDelta::Microseconds(1)) {
     return absl::nullopt;
   }
   TimeDelta avg_frame_interval = time_span / (frame_times_.size() - 1);
 
   return static_cast<double>(rtc::kNumMicrosecsPerSec) /
-         avg_frame_interval.us();
+         avg_frame_interval.Microseconds();
 }
 
 absl::optional<double> FrameRateEstimator::GetAverageFps(Timestamp now) {

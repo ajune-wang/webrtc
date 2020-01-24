@@ -19,10 +19,10 @@ std::string ToString(Frequency value) {
     sb << "+inf Hz";
   } else if (value.IsMinusInfinity()) {
     sb << "-inf Hz";
-  } else if (value.millihertz<int64_t>() % 1000 != 0) {
-    sb.AppendFormat("%.3f Hz", value.hertz<double>());
+  } else if (value.Millihertz<int64_t>() % 1000 != 0) {
+    sb.AppendFormat("%.3f Hz", value.Hertz<double>());
   } else {
-    sb << value.hertz<int64_t>() << " Hz";
+    sb << value.Hertz<int64_t>() << " Hz";
   }
   return sb.str();
 }

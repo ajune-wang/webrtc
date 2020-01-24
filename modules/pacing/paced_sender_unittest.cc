@@ -120,8 +120,9 @@ class PacedSenderTest
 TEST_P(PacedSenderTest, PacesPackets) {
   // Insert a number of packets, covering one second.
   static constexpr size_t kPacketsToSend = 42;
-  pacer_->SetPacingRates(DataRate::bps(kDefaultPacketSize * 8 * kPacketsToSend),
-                         DataRate::Zero());
+  pacer_->SetPacingRates(
+      DataRate::BitsPerSecond(kDefaultPacketSize * 8 * kPacketsToSend),
+      DataRate::Zero());
   std::vector<std::unique_ptr<RtpPacketToSend>> packets;
   for (size_t i = 0; i < kPacketsToSend; ++i) {
     packets.emplace_back(BuildRtpPacket(RtpPacketToSend::Type::kVideo));
@@ -145,7 +146,7 @@ TEST_P(PacedSenderTest, PacesPackets) {
   // Packets should be sent over a period of close to 1s. Expect a little lower
   // than this since initial probing is a bit quicker.
   TimeDelta duration = clock_.CurrentTime() - start_time;
-  EXPECT_GT(duration, TimeDelta::ms(900));
+  EXPECT_GT(duration, TimeDelta::Milliseconds(900));
 }
 
 INSTANTIATE_TEST_SUITE_P(

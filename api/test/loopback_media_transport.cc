@@ -276,7 +276,7 @@ RTCError MediaTransportPair::LoopbackDatagramTransport::SendDatagram(
         if (sink_) {
           DatagramAck ack;
           ack.datagram_id = datagram_id;
-          ack.receive_timestamp = Timestamp::us(rtc::TimeMicros());
+          ack.receive_timestamp = Timestamp::Microseconds(rtc::TimeMicros());
           sink_->OnDatagramAcked(ack);
         }
       });

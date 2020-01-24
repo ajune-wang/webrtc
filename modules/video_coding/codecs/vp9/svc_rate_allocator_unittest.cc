@@ -259,8 +259,8 @@ TEST(SvcRateAllocatorTest, FindLayerTogglingThreshold) {
   // Predetermined constants indicating the min bitrate needed for two and three
   // layers to be enabled respectively, using the config from Configure() with
   // 1280x720 resolution and three spatial layers.
-  const DataRate kTwoLayerMinRate = DataRate::bps(299150);
-  const DataRate kThreeLayerMinRate = DataRate::bps(891052);
+  const DataRate kTwoLayerMinRate = DataRate::BitsPerSecond(299150);
+  const DataRate kThreeLayerMinRate = DataRate::BitsPerSecond(891052);
 
   VideoCodec codec = Configure(1280, 720, 3, 1, false);
   absl::InlinedVector<DataRate, kMaxSpatialLayers> layer_start_bitrates =
@@ -283,14 +283,14 @@ class SvcRateAllocatorTestParametrizedContentType
 TEST_P(SvcRateAllocatorTestParametrizedContentType, MaxBitrate) {
   VideoCodec codec = Configure(1280, 720, 3, 1, is_screen_sharing_);
   EXPECT_EQ(SvcRateAllocator::GetMaxBitrate(codec),
-            DataRate::kbps(codec.spatialLayers[0].maxBitrate +
-                           codec.spatialLayers[1].maxBitrate +
-                           codec.spatialLayers[2].maxBitrate));
+            DataRate::KilobitsPerSecond(codec.spatialLayers[0].maxBitrate +
+                                        codec.spatialLayers[1].maxBitrate +
+                                        codec.spatialLayers[2].maxBitrate));
 
   // Deactivate middle layer. This causes deactivation of top layer as well.
   codec.spatialLayers[1].active = false;
   EXPECT_EQ(SvcRateAllocator::GetMaxBitrate(codec),
-            DataRate::kbps(codec.spatialLayers[0].maxBitrate));
+            DataRate::KilobitsPerSecond(codec.spatialLayers[0].maxBitrate));
 }
 
 TEST_P(SvcRateAllocatorTestParametrizedContentType, PaddingBitrate) {
@@ -349,12 +349,13 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, StableBitrate) {
   const DataRate min_rate_three_layers = start_rates[2];
 
   const DataRate max_rate_one_layer =
-      DataRate::kbps(codec.spatialLayers[0].maxBitrate);
+      DataRate::KilobitsPerSecond(codec.spatialLayers[0].maxBitrate);
   const DataRate max_rate_two_layers =
-      is_screen_sharing_ ? DataRate::kbps(codec.spatialLayers[0].targetBitrate +
-                                          codec.spatialLayers[1].maxBitrate)
-                         : DataRate::kbps(codec.spatialLayers[0].maxBitrate +
-                                          codec.spatialLayers[1].maxBitrate);
+      is_screen_sharing_
+          ? DataRate::KilobitsPerSecond(codec.spatialLayers[0].targetBitrate +
+                                        codec.spatialLayers[1].maxBitrate)
+          : DataRate::KilobitsPerSecond(codec.spatialLayers[0].maxBitrate +
+                                        codec.spatialLayers[1].maxBitrate);
 
   SvcRateAllocator allocator = SvcRateAllocator(codec);
 
@@ -363,34 +364,34 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType, StableBitrate) {
       /*total_bitrate=*/min_rate_two_layers,
       /*stable_bitrate=*/min_rate_two_layers, /*fps=*/30.0));
   EXPECT_TRUE(allocation.IsSpatialLayerUsed(1));
-  EXPECT_EQ(allocation.get_sum_bps(), min_rate_two_layers.bps());
+  EXPECT_EQ(allocation.get_sum_bps(), min_rate_two_layers.BitsPerSecond());
 
   // Two layers, stable bitrate too low for two layers.
   allocation = allocator.Allocate(VideoBitrateAllocationParameters(
       /*total_bitrate=*/min_rate_two_layers,
-      /*stable_bitrate=*/min_rate_two_layers - DataRate::bps(1),
+      /*stable_bitrate=*/min_rate_two_layers - DataRate::BitsPerSecond(1),
       /*fps=*/30.0));
   EXPECT_FALSE(allocation.IsSpatialLayerUsed(1));
-  EXPECT_EQ(
-      DataRate::bps(allocation.get_sum_bps()),
-      std::min(min_rate_two_layers - DataRate::bps(1), max_rate_one_layer));
+  EXPECT_EQ(DataRate::BitsPerSecond(allocation.get_sum_bps()),
+            std::min(min_rate_two_layers - DataRate::BitsPerSecond(1),
+                     max_rate_one_layer));
 
   // Three layers, stable and target equal.
   allocation = allocator.Allocate(VideoBitrateAllocationParameters(
       /*total_bitrate=*/min_rate_three_layers,
       /*stable_bitrate=*/min_rate_three_layers, /*fps=*/30.0));
   EXPECT_TRUE(allocation.IsSpatialLayerUsed(2));
-  EXPECT_EQ(allocation.get_sum_bps(), min_rate_three_layers.bps());
+  EXPECT_EQ(allocation.get_sum_bps(), min_rate_three_layers.BitsPerSecond());
 
   // Three layers, stable bitrate too low for three layers.
   allocation = allocator.Allocate(VideoBitrateAllocationParameters(
       /*total_bitrate=*/min_rate_three_layers,
-      /*stable_bitrate=*/min_rate_three_layers - DataRate::bps(1),
+      /*stable_bitrate=*/min_rate_three_layers - DataRate::BitsPerSecond(1),
       /*fps=*/30.0));
   EXPECT_FALSE(allocation.IsSpatialLayerUsed(2));
-  EXPECT_EQ(
-      DataRate::bps(allocation.get_sum_bps()),
-      std::min(min_rate_three_layers - DataRate::bps(1), max_rate_two_layers));
+  EXPECT_EQ(DataRate::BitsPerSecond(allocation.get_sum_bps()),
+            std::min(min_rate_three_layers - DataRate::BitsPerSecond(1),
+                     max_rate_two_layers));
 }
 
 TEST_P(SvcRateAllocatorTestParametrizedContentType,
@@ -444,7 +445,8 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType,
   // Going below min for two layers, second layer should turn off again.
   allocation = allocator.Allocate(VideoBitrateAllocationParameters(
       /*total_bitrate=*/max_bitrate,
-      /*stable_bitrate=*/min_rate_two_layers - DataRate::bps(1), /*fps=*/30.0));
+      /*stable_bitrate=*/min_rate_two_layers - DataRate::BitsPerSecond(1),
+      /*fps=*/30.0));
   EXPECT_TRUE(allocation.IsSpatialLayerUsed(0));
   EXPECT_FALSE(allocation.IsSpatialLayerUsed(1));
   EXPECT_FALSE(allocation.IsSpatialLayerUsed(2));
@@ -476,7 +478,7 @@ TEST_P(SvcRateAllocatorTestParametrizedContentType,
   // Going below min for three layers, third layer should turn off again.
   allocation = allocator.Allocate(VideoBitrateAllocationParameters(
       /*total_bitrate=*/max_bitrate,
-      /*stable_bitrate=*/min_rate_three_layers - DataRate::bps(1),
+      /*stable_bitrate=*/min_rate_three_layers - DataRate::BitsPerSecond(1),
       /*fps=*/30.0));
   EXPECT_TRUE(allocation.IsSpatialLayerUsed(0));
   EXPECT_TRUE(allocation.IsSpatialLayerUsed(1));

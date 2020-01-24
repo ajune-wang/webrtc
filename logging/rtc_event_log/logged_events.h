@@ -519,8 +519,8 @@ struct LoggedVideoSendConfig {
 };
 
 struct InferredRouteChangeEvent {
-  int64_t log_time_ms() const { return log_time.ms(); }
-  int64_t log_time_us() const { return log_time.us(); }
+  int64_t log_time_ms() const { return log_time.Milliseconds(); }
+  int64_t log_time_us() const { return log_time.Microseconds(); }
   uint32_t route_id;
   Timestamp log_time = Timestamp::MinusInfinity();
   uint16_t send_overhead;
@@ -536,8 +536,8 @@ struct LoggedPacketInfo {
                    Timestamp capture_time);
   LoggedPacketInfo(const LoggedPacketInfo&);
   ~LoggedPacketInfo();
-  int64_t log_time_ms() const { return log_packet_time.ms(); }
-  int64_t log_time_us() const { return log_packet_time.us(); }
+  int64_t log_time_ms() const { return log_packet_time.Milliseconds(); }
+  int64_t log_time_us() const { return log_packet_time.Microseconds(); }
   uint32_t ssrc;
   uint16_t stream_seq_no;
   uint16_t size;

@@ -29,16 +29,16 @@ void WriteTypedValue(RtcEventLogOutput* out, double value) {
   LogWriteFormat(out, "%.6f", value);
 }
 void WriteTypedValue(RtcEventLogOutput* out, absl::optional<DataRate> value) {
-  LogWriteFormat(out, "%.0f", value ? value->bytes_per_sec<double>() : NAN);
+  LogWriteFormat(out, "%.0f", value ? value->BytesPerSecond<double>() : NAN);
 }
 void WriteTypedValue(RtcEventLogOutput* out, absl::optional<DataSize> value) {
-  LogWriteFormat(out, "%.0f", value ? value->bytes<double>() : NAN);
+  LogWriteFormat(out, "%.0f", value ? value->Bytes<double>() : NAN);
 }
 void WriteTypedValue(RtcEventLogOutput* out, absl::optional<TimeDelta> value) {
-  LogWriteFormat(out, "%.3f", value ? value->seconds<double>() : NAN);
+  LogWriteFormat(out, "%.3f", value ? value->Seconds<double>() : NAN);
 }
 void WriteTypedValue(RtcEventLogOutput* out, absl::optional<Timestamp> value) {
-  LogWriteFormat(out, "%.3f", value ? value->seconds<double>() : NAN);
+  LogWriteFormat(out, "%.3f", value ? value->Seconds<double>() : NAN);
 }
 
 template <typename F>
@@ -70,7 +70,7 @@ GoogCcStatePrinter::GoogCcStatePrinter() {
 
 std::deque<FieldLogger*> GoogCcStatePrinter::CreateLoggers() {
   auto stable_estimate = [this] {
-    return DataRate::kbps(
+    return DataRate::KilobitsPerSecond(
         controller_->delay_based_bwe_->rate_control_.link_capacity_
             .estimate_kbps_.value_or(-INFINITY));
   };

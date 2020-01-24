@@ -63,7 +63,7 @@ void SimulatedThread::RunReady(Timestamp at_time) {
   if (delay_ms == kForever) {
     next_run_time_ = Timestamp::PlusInfinity();
   } else {
-    next_run_time_ = at_time + TimeDelta::ms(delay_ms);
+    next_run_time_ = at_time + TimeDelta::Milliseconds(delay_ms);
   }
 }
 
@@ -106,8 +106,8 @@ void SimulatedThread::PostDelayed(const rtc::Location& posted_from,
                                   rtc::MessageData* pdata) {
   rtc::Thread::PostDelayed(posted_from, delay_ms, phandler, id, pdata);
   rtc::CritScope lock(&lock_);
-  next_run_time_ =
-      std::min(next_run_time_, Timestamp::ms(rtc::TimeMillis() + delay_ms));
+  next_run_time_ = std::min(
+      next_run_time_, Timestamp::Milliseconds(rtc::TimeMillis() + delay_ms));
 }
 
 void SimulatedThread::PostAt(const rtc::Location& posted_from,
@@ -117,7 +117,8 @@ void SimulatedThread::PostAt(const rtc::Location& posted_from,
                              rtc::MessageData* pdata) {
   rtc::Thread::PostAt(posted_from, target_time_ms, phandler, id, pdata);
   rtc::CritScope lock(&lock_);
-  next_run_time_ = std::min(next_run_time_, Timestamp::ms(target_time_ms));
+  next_run_time_ =
+      std::min(next_run_time_, Timestamp::Milliseconds(target_time_ms));
 }
 
 void SimulatedThread::Stop() {

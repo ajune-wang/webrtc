@@ -26,10 +26,10 @@ const char kBweReceiveTimeCorrection[] = "WebRTC-Bwe-ReceiveTimeFix";
 }  // namespace
 
 ReceiveTimeCalculatorConfig::ReceiveTimeCalculatorConfig()
-    : max_packet_time_repair("maxrep", TimeDelta::ms(2000)),
-      stall_threshold("stall", TimeDelta::ms(5)),
-      tolerance("tol", TimeDelta::ms(1)),
-      max_stall("maxstall", TimeDelta::seconds(5)) {
+    : max_packet_time_repair("maxrep", TimeDelta::Milliseconds(2000)),
+      stall_threshold("stall", TimeDelta::Milliseconds(5)),
+      tolerance("tol", TimeDelta::Milliseconds(1)),
+      max_stall("maxstall", TimeDelta::Seconds(5)) {
   std::string trial_string =
       field_trial::FindFullName(kBweReceiveTimeCorrection);
   ParseFieldTrial(
@@ -54,8 +54,9 @@ int64_t ReceiveTimeCalculator::ReconcileReceiveTimes(int64_t packet_time_us,
                                                      int64_t system_time_us,
                                                      int64_t safe_time_us) {
   int64_t stall_time_us = system_time_us - packet_time_us;
-  if (total_system_time_passed_us_ < config_.stall_threshold->us()) {
-    stall_time_us = rtc::SafeMin(stall_time_us, config_.max_stall->us());
+  if (total_system_time_passed_us_ < config_.stall_threshold->Microseconds()) {
+    stall_time_us =
+        rtc::SafeMin(stall_time_us, config_.max_stall->Microseconds());
   }
   int64_t corrected_time_us = safe_time_us - stall_time_us;
 
@@ -71,29 +72,34 @@ int64_t ReceiveTimeCalculator::ReconcileReceiveTimes(int64_t packet_time_us,
     // Repair backwards clock resets during initial stall. In this case, the
     // reset is observed only in packet time but never in system time.
     if (system_time_delta_us < 0)
-      total_system_time_passed_us_ += config_.stall_threshold->us();
+      total_system_time_passed_us_ += config_.stall_threshold->Microseconds();
     else
       total_system_time_passed_us_ += system_time_delta_us;
     if (packet_time_delta_us < 0 &&
-        total_system_time_passed_us_ < config_.stall_threshold->us()) {
+        total_system_time_passed_us_ <
+            config_.stall_threshold->Microseconds()) {
       static_clock_offset_us_ -= packet_time_delta_us;
     }
     corrected_time_us += static_clock_offset_us_;
 
     // Detect resets inbetween clock readings in socket and app.
     bool forward_clock_reset =
-        corrected_time_us + config_.tolerance->us() < last_corrected_time_us_;
+        corrected_time_us + config_.tolerance->Microseconds() <
+        last_corrected_time_us_;
     bool obvious_backward_clock_reset = system_time_us < packet_time_us;
 
     // Harder case with backward clock reset during stall, the reset being
     // smaller than the stall. Compensate throughout the stall.
     bool small_backward_clock_reset =
         !obvious_backward_clock_reset &&
-        safe_time_delta_us > system_time_delta_us + config_.tolerance->us();
+        safe_time_delta_us >
+            system_time_delta_us + config_.tolerance->Microseconds();
     bool stall_start =
         packet_time_delta_us >= 0 &&
-        system_time_delta_us > packet_time_delta_us + config_.tolerance->us();
-    bool stall_is_over = safe_time_delta_us > config_.stall_threshold->us();
+        system_time_delta_us >
+            packet_time_delta_us + config_.tolerance->Microseconds();
+    bool stall_is_over =
+        safe_time_delta_us > config_.stall_threshold->Microseconds();
     bool packet_time_caught_up =
         packet_time_delta_us < 0 && system_time_delta_us >= 0;
     if (stall_start && small_backward_clock_reset)
@@ -104,9 +110,10 @@ int64_t ReceiveTimeCalculator::ReconcileReceiveTimes(int64_t packet_time_us,
     // If resets are detected, advance time by (capped) packet time increase.
     if (forward_clock_reset || obvious_backward_clock_reset ||
         small_reset_during_stall_) {
-      corrected_time_us = last_corrected_time_us_ +
-                          rtc::SafeClamp(packet_time_delta_us, 0,
-                                         config_.max_packet_time_repair->us());
+      corrected_time_us =
+          last_corrected_time_us_ +
+          rtc::SafeClamp(packet_time_delta_us, 0,
+                         config_.max_packet_time_repair->Microseconds());
     }
   }
 

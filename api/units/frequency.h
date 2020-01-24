@@ -27,26 +27,22 @@ namespace webrtc {
 class Frequency final : public rtc_units_impl::RelativeUnit<Frequency> {
  public:
   Frequency() = delete;
-  template <int64_t hertz>
-  RTC_DEPRECATED static constexpr Frequency Hertz() {
-    return FromFraction(1000, hertz);
-  }
   template <typename T>
-  static constexpr Frequency hertz(T hertz) {
+  static constexpr Frequency Hertz(T hertz) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1000, hertz);
   }
   template <typename T>
-  static constexpr Frequency millihertz(T hertz) {
+  static constexpr Frequency Millihertz(T hertz) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromValue(hertz);
   }
   template <typename T = int64_t>
-  T hertz() const {
+  T Hertz() const {
     return ToFraction<1000, T>();
   }
   template <typename T = int64_t>
-  T millihertz() const {
+  T Millihertz() const {
     return ToValue<T>();
   }
 
@@ -61,7 +57,8 @@ inline Frequency operator/(int64_t nominator, const TimeDelta& interval) {
   RTC_DCHECK_LE(nominator, std::numeric_limits<int64_t>::max() / kKiloPerMicro);
   RTC_CHECK(interval.IsFinite());
   RTC_CHECK(!interval.IsZero());
-  return Frequency::millihertz(nominator * kKiloPerMicro / interval.us());
+  return Frequency::Millihertz(nominator * kKiloPerMicro /
+                               interval.Microseconds());
 }
 
 inline TimeDelta operator/(int64_t nominator, const Frequency& frequency) {
@@ -69,7 +66,8 @@ inline TimeDelta operator/(int64_t nominator, const Frequency& frequency) {
   RTC_DCHECK_LE(nominator, std::numeric_limits<int64_t>::max() / kMegaPerMilli);
   RTC_CHECK(frequency.IsFinite());
   RTC_CHECK(!frequency.IsZero());
-  return TimeDelta::us(nominator * kMegaPerMilli / frequency.millihertz());
+  return TimeDelta::Microseconds(nominator * kMegaPerMilli /
+                                 frequency.Millihertz());
 }
 
 std::string ToString(Frequency value);

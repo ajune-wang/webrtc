@@ -343,13 +343,14 @@ TEST(AbsoluteCaptureTimeSenderTest,
       AbsoluteCaptureTime{
           Int64MsToUQ32x32(
               9000 + 20 +
-              AbsoluteCaptureTimeSender::kInterpolationMaxError.ms()),
+              AbsoluteCaptureTimeSender::kInterpolationMaxError.Milliseconds()),
           Int64MsToQ32x32(-350)};
   static const absl::optional<AbsoluteCaptureTime> kExtension2 =
       AbsoluteCaptureTime{
           Int64MsToUQ32x32(
               9000 + 40 +
-              AbsoluteCaptureTimeSender::kInterpolationMaxError.ms() + 1),
+              AbsoluteCaptureTimeSender::kInterpolationMaxError.Milliseconds() +
+              1),
           Int64MsToQ32x32(-350)};
 
   SimulatedClock clock(0);

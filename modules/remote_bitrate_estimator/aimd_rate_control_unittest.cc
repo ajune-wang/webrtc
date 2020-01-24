@@ -47,7 +47,7 @@ AimdRateControlStates CreateAimdRateControlStates(bool send_side = false) {
 absl::optional<DataRate> OptionalRateFromOptionalBps(
     absl::optional<int> bitrate_bps) {
   if (bitrate_bps) {
-    return DataRate::bps(*bitrate_bps);
+    return DataRate::BitsPerSecond(*bitrate_bps);
   } else {
     return absl::nullopt;
   }
@@ -58,10 +58,10 @@ void UpdateRateControl(const AimdRateControlStates& states,
                        int64_t now_ms) {
   RateControlInput input(bandwidth_usage,
                          OptionalRateFromOptionalBps(throughput_estimate));
-  states.aimd_rate_control->Update(&input, Timestamp::ms(now_ms));
+  states.aimd_rate_control->Update(&input, Timestamp::Milliseconds(now_ms));
 }
 void SetEstimate(const AimdRateControlStates& states, int bitrate_bps) {
-  states.aimd_rate_control->SetEstimate(DataRate::bps(bitrate_bps),
+  states.aimd_rate_control->SetEstimate(DataRate::BitsPerSecond(bitrate_bps),
                                         states.simulated_clock->CurrentTime());
 }
 
@@ -87,7 +87,7 @@ TEST(AimdRateControlTest, NearMaxIncreaseRateIs5kbpsOn60kbpsAnd100msRtt) {
   auto states = CreateAimdRateControlStates();
   constexpr int kBitrate = 60000;
   SetEstimate(states, kBitrate);
-  states.aimd_rate_control->SetRtt(TimeDelta::ms(100));
+  states.aimd_rate_control->SetRtt(TimeDelta::Milliseconds(100));
   EXPECT_EQ(5000,
             states.aimd_rate_control->GetNearMaxIncreaseRateBpsPerSecond());
 }
@@ -102,8 +102,9 @@ TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriod) {
   EXPECT_NEAR(14000,
               states.aimd_rate_control->GetNearMaxIncreaseRateBpsPerSecond(),
               1000);
-  EXPECT_EQ(kDefaultPeriodMsNoSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_EQ(
+      kDefaultPeriodMsNoSmoothingExp,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriodSmoothingExp) {
@@ -117,8 +118,9 @@ TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriodSmoothingExp) {
   EXPECT_NEAR(14000,
               states.aimd_rate_control->GetNearMaxIncreaseRateBpsPerSecond(),
               1000);
-  EXPECT_EQ(kMinBwePeriodMsSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_EQ(
+      kMinBwePeriodMsSmoothingExp,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, BweLimitedByAckedBitrate) {
@@ -133,7 +135,7 @@ TEST(AimdRateControlTest, BweLimitedByAckedBitrate) {
   }
   ASSERT_TRUE(states.aimd_rate_control->ValidEstimate());
   EXPECT_EQ(static_cast<uint32_t>(1.5 * kAckedBitrate + 10000),
-            states.aimd_rate_control->LatestEstimate().bps());
+            states.aimd_rate_control->LatestEstimate().BitsPerSecond());
 }
 
 TEST(AimdRateControlTest, BweNotLimitedByDecreasingAckedBitrate) {
@@ -149,10 +151,12 @@ TEST(AimdRateControlTest, BweNotLimitedByDecreasingAckedBitrate) {
   ASSERT_TRUE(states.aimd_rate_control->ValidEstimate());
   // If the acked bitrate decreases the BWE shouldn't be reduced to 1.5x
   // what's being acked, but also shouldn't get to increase more.
-  uint32_t prev_estimate = states.aimd_rate_control->LatestEstimate().bps();
+  uint32_t prev_estimate =
+      states.aimd_rate_control->LatestEstimate().BitsPerSecond();
   UpdateRateControl(states, BandwidthUsage::kBwNormal, kAckedBitrate / 2,
                     states.simulated_clock->TimeInMilliseconds());
-  uint32_t new_estimate = states.aimd_rate_control->LatestEstimate().bps();
+  uint32_t new_estimate =
+      states.aimd_rate_control->LatestEstimate().BitsPerSecond();
   EXPECT_NEAR(new_estimate, static_cast<uint32_t>(1.5 * kAckedBitrate + 10000),
               2000);
   EXPECT_EQ(new_estimate, prev_estimate);
@@ -161,28 +165,32 @@ TEST(AimdRateControlTest, BweNotLimitedByDecreasingAckedBitrate) {
 TEST(AimdRateControlTest, DefaultPeriodUntilFirstOveruse) {
   // Smoothing experiment disabled
   auto states = CreateAimdRateControlStates();
-  states.aimd_rate_control->SetStartBitrate(DataRate::kbps(300));
-  EXPECT_EQ(kDefaultPeriodMsNoSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  states.aimd_rate_control->SetStartBitrate(DataRate::KilobitsPerSecond(300));
+  EXPECT_EQ(
+      kDefaultPeriodMsNoSmoothingExp,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
   states.simulated_clock->AdvanceTimeMilliseconds(100);
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, 280000,
                     states.simulated_clock->TimeInMilliseconds());
-  EXPECT_NE(kDefaultPeriodMsNoSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_NE(
+      kDefaultPeriodMsNoSmoothingExp,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, MinPeriodUntilFirstOveruseSmoothingExp) {
   // Smoothing experiment enabled
   test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
   auto states = CreateAimdRateControlStates();
-  states.aimd_rate_control->SetStartBitrate(DataRate::kbps(300));
-  EXPECT_EQ(kMinBwePeriodMsSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  states.aimd_rate_control->SetStartBitrate(DataRate::KilobitsPerSecond(300));
+  EXPECT_EQ(
+      kMinBwePeriodMsSmoothingExp,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
   states.simulated_clock->AdvanceTimeMilliseconds(100);
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, 280000,
                     states.simulated_clock->TimeInMilliseconds());
-  EXPECT_NE(kMinBwePeriodMsSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_NE(
+      kMinBwePeriodMsSmoothingExp,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, ExpectedPeriodAfter20kbpsDropAnd5kbpsIncrease) {
@@ -198,7 +206,9 @@ TEST(AimdRateControlTest, ExpectedPeriodAfter20kbpsDropAnd5kbpsIncrease) {
                     states.simulated_clock->TimeInMilliseconds());
   EXPECT_EQ(5000,
             states.aimd_rate_control->GetNearMaxIncreaseRateBpsPerSecond());
-  EXPECT_EQ(4000, states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_EQ(
+      4000,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, MinPeriodAfterLargeBitrateDecreaseSmoothingExp) {
@@ -213,8 +223,9 @@ TEST(AimdRateControlTest, MinPeriodAfterLargeBitrateDecreaseSmoothingExp) {
   constexpr int kAckedBitrate = kInitialBitrate * 3 / 4 / kFractionAfterOveruse;
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, kAckedBitrate,
                     states.simulated_clock->TimeInMilliseconds());
-  EXPECT_EQ(kMinBwePeriodMsSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_EQ(
+      kMinBwePeriodMsSmoothingExp,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, BandwidthPeriodIsNotBelowMin) {
@@ -225,8 +236,9 @@ TEST(AimdRateControlTest, BandwidthPeriodIsNotBelowMin) {
   // Make a small (1.5 kbps) bitrate drop to 8.5 kbps.
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, kInitialBitrate - 1,
                     states.simulated_clock->TimeInMilliseconds());
-  EXPECT_EQ(kMinBwePeriodMsNoSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_EQ(
+      kMinBwePeriodMsNoSmoothingExp,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxSmoothingExp) {
@@ -240,8 +252,9 @@ TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxSmoothingExp) {
   constexpr int kAckedBitrate = 40000000 / kFractionAfterOveruse;
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, kAckedBitrate,
                     states.simulated_clock->TimeInMilliseconds());
-  EXPECT_EQ(kMaxBwePeriodMs,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_EQ(
+      kMaxBwePeriodMs,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxNoSmoothingExp) {
@@ -253,8 +266,9 @@ TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxNoSmoothingExp) {
   constexpr int kAckedBitrate = 10000 / kFractionAfterOveruse;
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, kAckedBitrate,
                     states.simulated_clock->TimeInMilliseconds());
-  EXPECT_EQ(kMaxBwePeriodMs,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
+  EXPECT_EQ(
+      kMaxBwePeriodMs,
+      states.aimd_rate_control->GetExpectedBandwidthPeriod().Milliseconds());
 }
 
 TEST(AimdRateControlTest, SendingRateBoundedWhenThroughputNotEstimated) {
@@ -275,7 +289,7 @@ TEST(AimdRateControlTest, SendingRateBoundedWhenThroughputNotEstimated) {
                       states.simulated_clock->TimeInMilliseconds());
     states.simulated_clock->AdvanceTimeMilliseconds(100);
   }
-  EXPECT_LE(states.aimd_rate_control->LatestEstimate().bps(),
+  EXPECT_LE(states.aimd_rate_control->LatestEstimate().BitsPerSecond(),
             kInitialBitrateBps * 1.5 + 10000);
 }
 
@@ -291,7 +305,7 @@ TEST(AimdRateControlTest, EstimateDoesNotIncreaseInAlr) {
   states.aimd_rate_control->SetInApplicationLimitedRegion(true);
   UpdateRateControl(states, BandwidthUsage::kBwNormal, kInitialBitrateBps,
                     states.simulated_clock->TimeInMilliseconds());
-  ASSERT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+  ASSERT_EQ(states.aimd_rate_control->LatestEstimate().BitsPerSecond(),
             kInitialBitrateBps);
 
   for (int i = 0; i < 100; ++i) {
@@ -299,7 +313,7 @@ TEST(AimdRateControlTest, EstimateDoesNotIncreaseInAlr) {
                       states.simulated_clock->TimeInMilliseconds());
     states.simulated_clock->AdvanceTimeMilliseconds(100);
   }
-  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().BitsPerSecond(),
             kInitialBitrateBps);
 }
 
@@ -310,10 +324,10 @@ TEST(AimdRateControlTest, SetEstimateIncreaseBweInAlr) {
   constexpr int kInitialBitrateBps = 123000;
   SetEstimate(states, kInitialBitrateBps);
   states.aimd_rate_control->SetInApplicationLimitedRegion(true);
-  ASSERT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+  ASSERT_EQ(states.aimd_rate_control->LatestEstimate().BitsPerSecond(),
             kInitialBitrateBps);
   SetEstimate(states, 2 * kInitialBitrateBps);
-  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().bps(),
+  EXPECT_EQ(states.aimd_rate_control->LatestEstimate().BitsPerSecond(),
             2 * kInitialBitrateBps);
 }
 
@@ -333,7 +347,7 @@ TEST(AimdRateControlTest, EstimateIncreaseWhileNotInAlr) {
                       states.simulated_clock->TimeInMilliseconds());
     states.simulated_clock->AdvanceTimeMilliseconds(100);
   }
-  EXPECT_GT(states.aimd_rate_control->LatestEstimate().bps(),
+  EXPECT_GT(states.aimd_rate_control->LatestEstimate().BitsPerSecond(),
             kInitialBitrateBps);
 }
 

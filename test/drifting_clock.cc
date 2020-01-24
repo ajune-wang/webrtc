@@ -38,12 +38,12 @@ NtpTime DriftingClock::CurrentNtpTime() {
 
   NtpTime ntp = clock_->CurrentNtpTime();
   uint64_t total_fractions = static_cast<uint64_t>(ntp);
-  total_fractions += Drift().us() * kNtpFracPerMicroSecond;
+  total_fractions += Drift().Microseconds() * kNtpFracPerMicroSecond;
   return NtpTime(total_fractions);
 }
 
 int64_t DriftingClock::CurrentNtpInMilliseconds() {
-  return clock_->CurrentNtpInMilliseconds() + Drift().ms();
+  return clock_->CurrentNtpInMilliseconds() + Drift().Milliseconds();
 }
 }  // namespace test
 }  // namespace webrtc

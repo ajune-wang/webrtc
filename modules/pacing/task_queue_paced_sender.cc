@@ -23,10 +23,10 @@ namespace {
 // If no calls to MaybeProcessPackets() happen, make sure we update stats
 // at least every |kMaxTimeBetweenStatsUpdates| as long as the pacer isn't
 // completely drained.
-constexpr TimeDelta kMaxTimeBetweenStatsUpdates = TimeDelta::ms(33);
+constexpr TimeDelta kMaxTimeBetweenStatsUpdates = TimeDelta::Milliseconds(33);
 // Don't call UpdateStats() more than |kMinTimeBetweenStatsUpdates| apart,
 // for performance reasons.
-constexpr TimeDelta kMinTimeBetweenStatsUpdates = TimeDelta::ms(1);
+constexpr TimeDelta kMinTimeBetweenStatsUpdates = TimeDelta::Milliseconds(1);
 }  // namespace
 
 TaskQueuePacedSender::TaskQueuePacedSender(
@@ -189,7 +189,7 @@ void TaskQueuePacedSender::MaybeProcessPackets(
 
     task_queue_.PostDelayedTask(
         [this, next_process_time]() { MaybeProcessPackets(next_process_time); },
-        sleep_time.ms<uint32_t>());
+        sleep_time.Milliseconds<uint32_t>());
   }
 
   MaybeUpdateStats(false);
@@ -197,7 +197,7 @@ void TaskQueuePacedSender::MaybeProcessPackets(
 
 std::vector<std::unique_ptr<RtpPacketToSend>>
 TaskQueuePacedSender::GeneratePadding(DataSize size) {
-  return packet_router_->GeneratePadding(size.bytes());
+  return packet_router_->GeneratePadding(size.Bytes());
 }
 
 void TaskQueuePacedSender::SendRtpPacket(
@@ -239,7 +239,7 @@ void TaskQueuePacedSender::MaybeUpdateStats(bool is_scheduled_call) {
           RTC_DCHECK_RUN_ON(&task_queue_);
           MaybeUpdateStats(true);
         },
-        kMaxTimeBetweenStatsUpdates.ms<uint32_t>());
+        kMaxTimeBetweenStatsUpdates.Milliseconds<uint32_t>());
     stats_update_scheduled_ = true;
   } else {
     stats_update_scheduled_ = false;

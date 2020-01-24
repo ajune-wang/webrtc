@@ -609,8 +609,9 @@ void ChannelSend::OnBitrateAllocation(BitrateAllocationUpdate update) {
   CallEncoder([&](AudioEncoder* encoder) {
     encoder->OnReceivedUplinkAllocation(update);
   });
-  retransmission_rate_limiter_->SetMaxRate(update.target_bitrate.bps());
-  configured_bitrate_bps_ = update.target_bitrate.bps();
+  retransmission_rate_limiter_->SetMaxRate(
+      update.target_bitrate.BitsPerSecond());
+  configured_bitrate_bps_ = update.target_bitrate.BitsPerSecond();
 }
 
 int ChannelSend::GetBitrate() const {

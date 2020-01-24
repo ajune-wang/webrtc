@@ -75,7 +75,7 @@ class PeerConnectionE2EQualityTestFixture {
         : duration(duration),
           source_width(source_width),
           source_height(source_height) {
-      RTC_CHECK_GT(duration.ms(), 0);
+      RTC_CHECK_GT(duration.Milliseconds(), 0);
     }
 
     // Duration of scrolling.
@@ -90,7 +90,7 @@ class PeerConnectionE2EQualityTestFixture {
   struct ScreenShareConfig {
     explicit ScreenShareConfig(TimeDelta slide_change_interval)
         : slide_change_interval(slide_change_interval) {
-      RTC_CHECK_GT(slide_change_interval.ms(), 0);
+      RTC_CHECK_GT(slide_change_interval.Milliseconds(), 0);
     }
 
     // Shows how long one slide should be presented on the screen during
@@ -322,7 +322,7 @@ class PeerConnectionE2EQualityTestFixture {
   struct EchoEmulationConfig {
     // Delay which represents the echo path delay, i.e. how soon rendered signal
     // should reach capturer.
-    TimeDelta echo_delay = TimeDelta::ms(50);
+    TimeDelta echo_delay = TimeDelta::Milliseconds(50);
   };
 
   struct VideoCodecConfig {

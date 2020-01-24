@@ -535,7 +535,7 @@ void Call::UpdateHistograms() {
 // Called from the dtor.
 void Call::UpdateSendHistograms(Timestamp first_sent_packet) {
   int64_t elapsed_sec =
-      (clock_->TimeInMilliseconds() - first_sent_packet.ms()) / 1000;
+      (clock_->TimeInMilliseconds() - first_sent_packet.Milliseconds()) / 1000;
   if (elapsed_sec < metrics::kMinRunTimeInSeconds)
     return;
   const int kMinRequiredPeriodicSamples = 5;
@@ -1066,7 +1066,7 @@ void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {
 
 void Call::OnStartRateUpdate(DataRate start_rate) {
   RTC_DCHECK(network_queue()->IsCurrent());
-  bitrate_allocator_->UpdateStartRate(start_rate.bps<uint32_t>());
+  bitrate_allocator_->UpdateStartRate(start_rate.BitsPerSecond<uint32_t>());
 }
 
 void Call::OnTargetTransferRate(TargetTransferRate msg) {
@@ -1074,10 +1074,10 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   {
     rtc::CritScope cs(&last_bandwidth_bps_crit_);
-    last_bandwidth_bps_ = msg.target_rate.bps();
+    last_bandwidth_bps_ = msg.target_rate.BitsPerSecond();
   }
 
-  uint32_t target_bitrate_bps = msg.target_rate.bps();
+  uint32_t target_bitrate_bps = msg.target_rate.BitsPerSecond();
   // For controlling the rate of feedback messages.
   receive_side_cc_.OnBitrateChanged(target_bitrate_bps);
   bitrate_allocator_->OnNetworkEstimateChanged(msg);
@@ -1116,10 +1116,10 @@ void Call::OnAllocationLimitsChanged(BitrateAllocationLimits limits) {
 
   transport_send_ptr_->SetAllocatedSendBitrateLimits(limits);
 
-  min_allocated_send_bitrate_bps_ = limits.min_allocatable_rate.bps();
+  min_allocated_send_bitrate_bps_ = limits.min_allocatable_rate.BitsPerSecond();
 
   rtc::CritScope lock(&bitrate_crit_);
-  configured_max_padding_bitrate_bps_ = limits.max_padding_rate.bps();
+  configured_max_padding_bitrate_bps_ = limits.max_padding_rate.BitsPerSecond();
 }
 
 void Call::ConfigureSync(const std::string& sync_group) {
@@ -1351,8 +1351,8 @@ void Call::NotifyBweOfReceivedPacket(const RtpPacketReceived& packet,
   packet.GetHeader(&header);
 
   ReceivedPacket packet_msg;
-  packet_msg.size = DataSize::bytes(packet.payload_size());
-  packet_msg.receive_time = Timestamp::ms(packet.arrival_time_ms());
+  packet_msg.size = DataSize::Bytes(packet.payload_size());
+  packet_msg.receive_time = Timestamp::Milliseconds(packet.arrival_time_ms());
   if (header.extension.hasAbsoluteSendTime) {
     packet_msg.send_time = header.extension.GetAbsoluteSendTimestamp();
   }

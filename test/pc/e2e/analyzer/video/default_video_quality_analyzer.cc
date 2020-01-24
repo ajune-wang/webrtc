@@ -59,7 +59,8 @@ double RateCounter::GetEventsPerSecond() const {
   // where there were too small amount of events, so difference is less then 1
   // sec. We can use us here, because Timestamp has us resolution.
   return static_cast<double>(event_count_) /
-         (event_last_time_ - event_first_time_).us() * kMicrosPerSecond;
+         (event_last_time_ - event_first_time_).Microseconds() *
+         kMicrosPerSecond;
 }
 
 DefaultVideoQualityAnalyzer::DefaultVideoQualityAnalyzer(
@@ -208,7 +209,7 @@ void DefaultVideoQualityAnalyzer::OnFramePreDecode(
                          return a.receive_time_ms() < b.receive_time_ms();
                        })
           ->receive_time_ms();
-  it->second.received_time = Timestamp::ms(last_receive_time);
+  it->second.received_time = Timestamp::Milliseconds(last_receive_time);
 }
 
 void DefaultVideoQualityAnalyzer::OnFrameDecoded(
@@ -340,7 +341,7 @@ void DefaultVideoQualityAnalyzer::Stop() {
         item.second.time_between_freezes_ms.AddSample(
             (state.last_rendered_frame_time.value() -
              stream_last_freeze_end_time_.at(item.first))
-                .ms());
+                .Milliseconds());
       }
     }
   }
@@ -533,7 +534,8 @@ void DefaultVideoQualityAnalyzer::ProcessComparison(
   }
   if (frame_stats.encoded_time.IsFinite()) {
     stats->encode_time_ms.AddSample(
-        (frame_stats.encoded_time - frame_stats.pre_encode_time).ms());
+        (frame_stats.encoded_time - frame_stats.pre_encode_time)
+            .Milliseconds());
     stats->encode_frame_rate.AddEvent(frame_stats.encoded_time);
   } else {
     if (frame_stats.pre_encode_time.IsFinite()) {
@@ -548,31 +550,34 @@ void DefaultVideoQualityAnalyzer::ProcessComparison(
         *comparison.frame_stats.rendered_frame_width *
         *comparison.frame_stats.rendered_frame_height);
     stats->transport_time_ms.AddSample(
-        (frame_stats.decode_start_time - frame_stats.encoded_time).ms());
+        (frame_stats.decode_start_time - frame_stats.encoded_time)
+            .Milliseconds());
     stats->total_delay_incl_transport_ms.AddSample(
-        (frame_stats.rendered_time - frame_stats.captured_time).ms());
+        (frame_stats.rendered_time - frame_stats.captured_time).Milliseconds());
     stats->decode_time_ms.AddSample(
-        (frame_stats.decode_end_time - frame_stats.decode_start_time).ms());
+        (frame_stats.decode_end_time - frame_stats.decode_start_time)
+            .Milliseconds());
     stats->receive_to_render_time_ms.AddSample(
-        (frame_stats.rendered_time - frame_stats.received_time).ms());
+        (frame_stats.rendered_time - frame_stats.received_time).Milliseconds());
 
     if (frame_stats.prev_frame_rendered_time.IsFinite()) {
       TimeDelta time_between_rendered_frames =
           frame_stats.rendered_time - frame_stats.prev_frame_rendered_time;
       stats->time_between_rendered_frames_ms.AddSample(
-          time_between_rendered_frames.ms());
+          time_between_rendered_frames.Milliseconds());
       double average_time_between_rendered_frames_ms =
           stats->time_between_rendered_frames_ms.GetAverage();
-      if (time_between_rendered_frames.ms() >
+      if (time_between_rendered_frames.Milliseconds() >
           std::max(kFreezeThresholdMs + average_time_between_rendered_frames_ms,
                    3 * average_time_between_rendered_frames_ms)) {
-        stats->freeze_time_ms.AddSample(time_between_rendered_frames.ms());
+        stats->freeze_time_ms.AddSample(
+            time_between_rendered_frames.Milliseconds());
         auto freeze_end_it =
             stream_last_freeze_end_time_.find(frame_stats.stream_label);
         RTC_DCHECK(freeze_end_it != stream_last_freeze_end_time_.end());
         stats->time_between_freezes_ms.AddSample(
             (frame_stats.prev_frame_rendered_time - freeze_end_it->second)
-                .ms());
+                .Milliseconds());
         freeze_end_it->second = frame_stats.rendered_time;
       }
     }

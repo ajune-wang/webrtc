@@ -38,7 +38,7 @@ VivaceUtilityFunction::VivaceUtilityFunction(
 double VivaceUtilityFunction::Compute(
     const PccMonitorInterval& monitor_interval) const {
   RTC_DCHECK(monitor_interval.IsFeedbackCollectionDone());
-  double bitrate = monitor_interval.GetTargetSendingRate().bps();
+  double bitrate = monitor_interval.GetTargetSendingRate().BitsPerSecond();
   double loss_rate = monitor_interval.GetLossRate();
   double rtt_gradient =
       monitor_interval.ComputeDelayGradient(delay_gradient_threshold_);
@@ -69,7 +69,7 @@ ModifiedVivaceUtilityFunction::ModifiedVivaceUtilityFunction(
 double ModifiedVivaceUtilityFunction::Compute(
     const PccMonitorInterval& monitor_interval) const {
   RTC_DCHECK(monitor_interval.IsFeedbackCollectionDone());
-  double bitrate = monitor_interval.GetTargetSendingRate().bps();
+  double bitrate = monitor_interval.GetTargetSendingRate().BitsPerSecond();
   double loss_rate = monitor_interval.GetLossRate();
   double rtt_gradient =
       monitor_interval.ComputeDelayGradient(delay_gradient_threshold_);

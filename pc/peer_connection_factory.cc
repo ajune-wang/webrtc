@@ -364,18 +364,21 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   call_config.audio_state =
       channel_manager_->media_engine()->voice().GetAudioState();
 
-  FieldTrialParameter<DataRate> min_bandwidth("min", DataRate::kbps(30));
-  FieldTrialParameter<DataRate> start_bandwidth("start", DataRate::kbps(300));
-  FieldTrialParameter<DataRate> max_bandwidth("max", DataRate::kbps(2000));
+  FieldTrialParameter<DataRate> min_bandwidth("min",
+                                              DataRate::KilobitsPerSecond(30));
+  FieldTrialParameter<DataRate> start_bandwidth(
+      "start", DataRate::KilobitsPerSecond(300));
+  FieldTrialParameter<DataRate> max_bandwidth(
+      "max", DataRate::KilobitsPerSecond(2000));
   ParseFieldTrial({&min_bandwidth, &start_bandwidth, &max_bandwidth},
                   trials_->Lookup("WebRTC-PcFactoryDefaultBitrates"));
 
   call_config.bitrate_config.min_bitrate_bps =
-      rtc::saturated_cast<int>(min_bandwidth->bps());
+      rtc::saturated_cast<int>(min_bandwidth->BitsPerSecond());
   call_config.bitrate_config.start_bitrate_bps =
-      rtc::saturated_cast<int>(start_bandwidth->bps());
+      rtc::saturated_cast<int>(start_bandwidth->BitsPerSecond());
   call_config.bitrate_config.max_bitrate_bps =
-      rtc::saturated_cast<int>(max_bandwidth->bps());
+      rtc::saturated_cast<int>(max_bandwidth->BitsPerSecond());
 
   call_config.fec_controller_factory = fec_controller_factory_.get();
   call_config.task_queue_factory = task_queue_factory_.get();

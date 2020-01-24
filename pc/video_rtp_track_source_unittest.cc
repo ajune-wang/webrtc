@@ -118,7 +118,7 @@ class TestFrame : public RecordableEncodedFrame {
   EncodedResolution resolution() const override {
     return EncodedResolution{0, 0};
   }
-  Timestamp render_time() const override { return Timestamp::ms(0); }
+  Timestamp render_time() const override { return Timestamp::Milliseconds(0); }
 };
 
 TEST(VideoRtpTrackSourceTest, BroadcastsFrames) {

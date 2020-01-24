@@ -32,20 +32,22 @@ namespace {
 static const int64_t kRetransmitWindowSizeMs = 500;
 static const size_t kMaxOverheadBytes = 500;
 
-constexpr TimeDelta kPacerQueueUpdateInterval = TimeDelta::ms(25);
+constexpr TimeDelta kPacerQueueUpdateInterval = TimeDelta::Milliseconds(25);
 
 TargetRateConstraints ConvertConstraints(int min_bitrate_bps,
                                          int max_bitrate_bps,
                                          int start_bitrate_bps,
                                          Clock* clock) {
   TargetRateConstraints msg;
-  msg.at_time = Timestamp::ms(clock->TimeInMilliseconds());
-  msg.min_data_rate =
-      min_bitrate_bps >= 0 ? DataRate::bps(min_bitrate_bps) : DataRate::Zero();
-  msg.max_data_rate = max_bitrate_bps > 0 ? DataRate::bps(max_bitrate_bps)
-                                          : DataRate::Infinity();
+  msg.at_time = Timestamp::Milliseconds(clock->TimeInMilliseconds());
+  msg.min_data_rate = min_bitrate_bps >= 0
+                          ? DataRate::BitsPerSecond(min_bitrate_bps)
+                          : DataRate::Zero();
+  msg.max_data_rate = max_bitrate_bps > 0
+                          ? DataRate::BitsPerSecond(max_bitrate_bps)
+                          : DataRate::Infinity();
   if (start_bitrate_bps > 0)
-    msg.starting_rate = DataRate::bps(start_bitrate_bps);
+    msg.starting_rate = DataRate::BitsPerSecond(start_bitrate_bps);
   return msg;
 }
 
@@ -96,7 +98,8 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       controller_factory_fallback_(
           std::make_unique<GoogCcNetworkControllerFactory>(predictor_factory)),
       process_interval_(controller_factory_fallback_->GetProcessInterval()),
-      last_report_block_time_(Timestamp::ms(clock_->TimeInMilliseconds())),
+      last_report_block_time_(
+          Timestamp::Milliseconds(clock_->TimeInMilliseconds())),
       reset_feedback_on_route_change_(
           !IsEnabled(trials, "WebRTC-Bwe-NoFeedbackReset")),
       send_side_bwe_with_overhead_(
@@ -114,8 +117,9 @@ RtpTransportControllerSend::RtpTransportControllerSend(
   initial_config_.key_value_config = trials;
   RTC_DCHECK(bitrate_config.start_bitrate_bps > 0);
 
-  pacer()->SetPacingRates(DataRate::bps(bitrate_config.start_bitrate_bps),
-                          DataRate::Zero());
+  pacer()->SetPacingRates(
+      DataRate::BitsPerSecond(bitrate_config.start_bitrate_bps),
+      DataRate::Zero());
 
   if (!use_task_queue_pacer_) {
     process_thread_->Start();
@@ -166,7 +170,7 @@ void RtpTransportControllerSend::UpdateControlState() {
   absl::optional<TargetTransferRate> update = control_handler_->GetUpdate();
   if (!update)
     return;
-  retransmission_rate_limiter_.SetMaxRate(update->target_rate.bps());
+  retransmission_rate_limiter_.SetMaxRate(update->target_rate.BitsPerSecond());
   // We won't create control_handler_ until we have an observers.
   RTC_DCHECK(observer_ != nullptr);
   observer_->OnTargetTransferRate(*update);
@@ -225,7 +229,7 @@ void RtpTransportControllerSend::SetPacingFactor(float pacing_factor) {
   UpdateStreamsConfig();
 }
 void RtpTransportControllerSend::SetQueueTimeLimit(int limit_ms) {
-  pacer()->SetQueueTimeLimit(TimeDelta::ms(limit_ms));
+  pacer()->SetQueueTimeLimit(TimeDelta::Milliseconds(limit_ms));
 }
 StreamFeedbackProvider*
 RtpTransportControllerSend::GetStreamFeedbackProvider() {
@@ -284,7 +288,7 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
           network_route.connected, network_route.packet_overhead));
     }
     NetworkRouteChange msg;
-    msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+    msg.at_time = Timestamp::Milliseconds(clock_->TimeInMilliseconds());
     msg.constraints = ConvertConstraints(bitrate_config, clock_);
     task_queue_.PostTask([this, msg, network_route] {
       RTC_DCHECK_RUN_ON(&task_queue_);
@@ -306,7 +310,7 @@ void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
   RTC_LOG(LS_VERBOSE) << "SignalNetworkState "
                       << (network_available ? "Up" : "Down");
   NetworkAvailability msg;
-  msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  msg.at_time = Timestamp::Milliseconds(clock_->TimeInMilliseconds());
   msg.network_available = network_available;
   task_queue_.PostTask([this, msg]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
@@ -337,7 +341,7 @@ RtcpBandwidthObserver* RtpTransportControllerSend::GetBandwidthObserver() {
   return this;
 }
 int64_t RtpTransportControllerSend::GetPacerQueuingDelayMs() const {
-  return pacer()->OldestPacketWaitTime().ms();
+  return pacer()->OldestPacketWaitTime().Milliseconds();
 }
 absl::optional<Timestamp> RtpTransportControllerSend::GetFirstPacketTime()
     const {
@@ -436,8 +440,8 @@ void RtpTransportControllerSend::AccountForAudioPacketsInPacedSender(
 
 void RtpTransportControllerSend::OnReceivedEstimatedBitrate(uint32_t bitrate) {
   RemoteBitrateReport msg;
-  msg.receive_time = Timestamp::ms(clock_->TimeInMilliseconds());
-  msg.bandwidth = DataRate::bps(bitrate);
+  msg.receive_time = Timestamp::Milliseconds(clock_->TimeInMilliseconds());
+  msg.bandwidth = DataRate::BitsPerSecond(bitrate);
   task_queue_.PostTask([this, msg]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     if (controller_)
@@ -457,8 +461,8 @@ void RtpTransportControllerSend::OnReceivedRtcpReceiverReport(
   task_queue_.PostTask([this, now_ms, rtt_ms]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     RoundTripTimeUpdate report;
-    report.receive_time = Timestamp::ms(now_ms);
-    report.round_trip_time = TimeDelta::ms(rtt_ms);
+    report.receive_time = Timestamp::Milliseconds(now_ms);
+    report.round_trip_time = TimeDelta::Milliseconds(rtt_ms);
     report.smoothed = false;
     if (controller_ && !report.round_trip_time.IsZero())
       PostUpdates(controller_->OnRoundTripTimeUpdate(report));
@@ -469,7 +473,8 @@ void RtpTransportControllerSend::OnAddPacket(
     const RtpPacketSendInfo& packet_info) {
   feedback_demuxer_.AddPacket(packet_info);
 
-  Timestamp creation_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  Timestamp creation_time =
+      Timestamp::Milliseconds(clock_->TimeInMilliseconds());
   task_queue_.PostTask([this, packet_info, creation_time]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     transport_feedback_adapter_.AddPacket(
@@ -482,7 +487,7 @@ void RtpTransportControllerSend::OnAddPacket(
 void RtpTransportControllerSend::OnTransportFeedback(
     const rtcp::TransportFeedback& feedback) {
   feedback_demuxer_.OnTransportFeedback(feedback);
-  auto feedback_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  auto feedback_time = Timestamp::Milliseconds(clock_->TimeInMilliseconds());
   task_queue_.PostTask([this, feedback, feedback_time]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
     absl::optional<TransportPacketsFeedback> feedback_msg =
@@ -502,7 +507,7 @@ void RtpTransportControllerSend::OnRemoteNetworkEstimate(
     event_log_->Log(std::make_unique<RtcEventRemoteEstimate>(
         estimate.link_capacity_lower, estimate.link_capacity_upper));
   }
-  estimate.update_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  estimate.update_time = Timestamp::Milliseconds(clock_->TimeInMilliseconds());
   task_queue_.PostTask([this, estimate] {
     RTC_DCHECK_RUN_ON(&task_queue_);
     if (controller_)
@@ -519,7 +524,7 @@ void RtpTransportControllerSend::MaybeCreateControllers() {
   control_handler_ = std::make_unique<CongestionControlHandler>();
 
   initial_config_.constraints.at_time =
-      Timestamp::ms(clock_->TimeInMilliseconds());
+      Timestamp::Milliseconds(clock_->TimeInMilliseconds());
   initial_config_.stream_based_config = streams_config_;
 
   // TODO(srte): Use fallback controller if no feedback is available.
@@ -569,14 +574,15 @@ void RtpTransportControllerSend::StartProcessPeriodicTasks() {
 void RtpTransportControllerSend::UpdateControllerWithTimeInterval() {
   RTC_DCHECK(controller_);
   ProcessInterval msg;
-  msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  msg.at_time = Timestamp::Milliseconds(clock_->TimeInMilliseconds());
   if (add_pacing_to_cwin_)
     msg.pacer_queue = pacer()->QueueSizeData();
   PostUpdates(controller_->OnProcessInterval(msg));
 }
 
 void RtpTransportControllerSend::UpdateStreamsConfig() {
-  streams_config_.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  streams_config_.at_time =
+      Timestamp::Milliseconds(clock_->TimeInMilliseconds());
   if (controller_)
     PostUpdates(controller_->OnStreamsConfig(streams_config_));
 }
@@ -630,7 +636,7 @@ void RtpTransportControllerSend::OnReceivedRtcpReceiverReportBlocks(
 
   if (packets_received_delta < 1)
     return;
-  Timestamp now = Timestamp::ms(now_ms);
+  Timestamp now = Timestamp::Milliseconds(now_ms);
   TransportLossReport msg;
   msg.packets_lost_delta = total_packets_lost_delta;
   msg.packets_received_delta = packets_received_delta;

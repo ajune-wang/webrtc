@@ -153,9 +153,9 @@ int64_t PacedSender::TimeUntilNextProcess() {
   TimeDelta sleep_time =
       std::max(TimeDelta::Zero(), next_send_time - clock_->CurrentTime());
   if (process_mode_ == PacingController::ProcessMode::kDynamic) {
-    return std::max(sleep_time, PacingController::kMinSleepTime).ms();
+    return std::max(sleep_time, PacingController::kMinSleepTime).Milliseconds();
   }
-  return sleep_time.ms();
+  return sleep_time.Milliseconds();
 }
 
 void PacedSender::Process() {
@@ -196,7 +196,7 @@ std::vector<std::unique_ptr<RtpPacketToSend>> PacedSender::GeneratePadding(
     DataSize size) {
   std::vector<std::unique_ptr<RtpPacketToSend>> padding_packets;
   critsect_.Leave();
-  padding_packets = packet_router_->GeneratePadding(size.bytes());
+  padding_packets = packet_router_->GeneratePadding(size.Bytes());
   critsect_.Enter();
   return padding_packets;
 }

@@ -49,7 +49,7 @@ void CongestionControlHandler::SetNetworkAvailability(bool network_available) {
 
 void CongestionControlHandler::SetPacerQueue(TimeDelta expected_queue_time) {
   RTC_DCHECK_RUN_ON(&sequenced_checker_);
-  pacer_expected_queue_ms_ = expected_queue_time.ms();
+  pacer_expected_queue_ms_ = expected_queue_time.Milliseconds();
 }
 
 absl::optional<TargetTransferRate> CongestionControlHandler::GetUpdate() {

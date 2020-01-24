@@ -38,7 +38,7 @@ ABSL_FLAG(std::string,
 namespace webrtc {
 namespace {
 
-constexpr TimeDelta kPollInterval = TimeDelta::ms(20);
+constexpr TimeDelta kPollInterval = TimeDelta::Milliseconds(20);
 static const int kExpectedHighVideoBitrateBps = 80000;
 static const int kExpectedHighAudioBitrateBps = 30000;
 static const int kLowBandwidthLimitBps = 20000;

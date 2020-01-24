@@ -26,19 +26,22 @@ struct ResultForTest {
 class DataTransferTrackerForTest : public DataTransferTracker {
  public:
   void AddSample(int bytes, int send_time_ms, int ack_time_ms) {
-    DataTransferTracker::AddSample(DataSize::bytes(bytes),
-                                   Timestamp::ms(send_time_ms),
-                                   Timestamp::ms(ack_time_ms));
+    DataTransferTracker::AddSample(DataSize::Bytes(bytes),
+                                   Timestamp::Milliseconds(send_time_ms),
+                                   Timestamp::Milliseconds(ack_time_ms));
   }
 
   void ClearOldSamples(int excluding_end_ms) {
-    DataTransferTracker::ClearOldSamples(Timestamp::ms(excluding_end_ms));
+    DataTransferTracker::ClearOldSamples(
+        Timestamp::Milliseconds(excluding_end_ms));
   }
   ResultForTest GetRatesByAckTime(int covered_start_ms, int including_end_ms) {
     auto result = DataTransferTracker::GetRatesByAckTime(
-        Timestamp::ms(covered_start_ms), Timestamp::ms(including_end_ms));
-    return ResultForTest{result.ack_timespan.ms(), result.send_timespan.ms(),
-                         result.acked_data.bytes()};
+        Timestamp::Milliseconds(covered_start_ms),
+        Timestamp::Milliseconds(including_end_ms));
+    return ResultForTest{result.ack_timespan.Milliseconds(),
+                         result.send_timespan.Milliseconds(),
+                         result.acked_data.Bytes()};
   }
 };
 

@@ -45,11 +45,11 @@ TEST(RobustThroughputEstimatorTest, SteadyRate) {
   FieldTrialBasedConfig field_trial_config;
   RobustThroughputEstimatorSettings settings(&field_trial_config);
   RobustThroughputEstimator throughput_estimator(settings);
-  DataSize packet_size(DataSize::bytes(1000));
-  Timestamp send_clock(Timestamp::ms(100000));
-  Timestamp recv_clock(Timestamp::ms(10000));
-  TimeDelta send_increment(TimeDelta::ms(10));
-  TimeDelta recv_increment(TimeDelta::ms(10));
+  DataSize packet_size(DataSize::Bytes(1000));
+  Timestamp send_clock(Timestamp::Milliseconds(100000));
+  Timestamp recv_clock(Timestamp::Milliseconds(10000));
+  TimeDelta send_increment(TimeDelta::Milliseconds(10));
+  TimeDelta recv_increment(TimeDelta::Milliseconds(10));
   uint16_t sequence_number = 100;
   std::vector<PacketResult> packet_feedback =
       CreateFeedbackVector(9, packet_size, send_increment, recv_increment,
@@ -63,7 +63,7 @@ TEST(RobustThroughputEstimatorTest, SteadyRate) {
   throughput_estimator.IncomingPacketFeedbackVector(packet_feedback);
   auto throughput = throughput_estimator.bitrate();
   EXPECT_TRUE(throughput.has_value());
-  EXPECT_NEAR(throughput.value().bytes_per_sec<double>(), 100 * 1000.0,
+  EXPECT_NEAR(throughput.value().BytesPerSecond<double>(), 100 * 1000.0,
               0.05 * 100 * 1000.0);  // Allow 5% error
 }
 
@@ -75,11 +75,11 @@ TEST(RobustThroughputEstimatorTest, DelaySpike) {
   FieldTrialBasedConfig field_trial_config;
   RobustThroughputEstimatorSettings settings(&field_trial_config);
   RobustThroughputEstimator throughput_estimator(settings);
-  DataSize packet_size(DataSize::bytes(1000));
-  Timestamp send_clock(Timestamp::ms(100000));
-  Timestamp recv_clock(Timestamp::ms(10000));
-  TimeDelta send_increment(TimeDelta::ms(10));
-  TimeDelta recv_increment(TimeDelta::ms(10));
+  DataSize packet_size(DataSize::Bytes(1000));
+  Timestamp send_clock(Timestamp::Milliseconds(100000));
+  Timestamp recv_clock(Timestamp::Milliseconds(10000));
+  TimeDelta send_increment(TimeDelta::Milliseconds(10));
+  TimeDelta recv_increment(TimeDelta::Milliseconds(10));
   uint16_t sequence_number = 100;
   std::vector<PacketResult> packet_feedback =
       CreateFeedbackVector(20, packet_size, send_increment, recv_increment,
@@ -87,32 +87,32 @@ TEST(RobustThroughputEstimatorTest, DelaySpike) {
   throughput_estimator.IncomingPacketFeedbackVector(packet_feedback);
   auto throughput = throughput_estimator.bitrate();
   EXPECT_TRUE(throughput.has_value());
-  EXPECT_NEAR(throughput.value().bytes_per_sec<double>(), 100 * 1000.0,
+  EXPECT_NEAR(throughput.value().BytesPerSecond<double>(), 100 * 1000.0,
               0.05 * 100 * 1000.0);  // Allow 5% error
 
   // Delay spike
-  recv_clock += TimeDelta::ms(40);
+  recv_clock += TimeDelta::Milliseconds(40);
 
   // Faster delivery after the gap
-  recv_increment = TimeDelta::ms(2);
+  recv_increment = TimeDelta::Milliseconds(2);
   packet_feedback =
       CreateFeedbackVector(5, packet_size, send_increment, recv_increment,
                            &send_clock, &recv_clock, &sequence_number);
   throughput_estimator.IncomingPacketFeedbackVector(packet_feedback);
   throughput = throughput_estimator.bitrate();
   EXPECT_TRUE(throughput.has_value());
-  EXPECT_NEAR(throughput.value().bytes_per_sec<double>(), 100 * 1000.0,
+  EXPECT_NEAR(throughput.value().BytesPerSecond<double>(), 100 * 1000.0,
               0.05 * 100 * 1000.0);  // Allow 5% error
 
   // Delivery at normal rate. This will be capped by the send rate.
-  recv_increment = TimeDelta::ms(10);
+  recv_increment = TimeDelta::Milliseconds(10);
   packet_feedback =
       CreateFeedbackVector(5, packet_size, send_increment, recv_increment,
                            &send_clock, &recv_clock, &sequence_number);
   throughput_estimator.IncomingPacketFeedbackVector(packet_feedback);
   throughput = throughput_estimator.bitrate();
   EXPECT_TRUE(throughput.has_value());
-  EXPECT_NEAR(throughput.value().bytes_per_sec<double>(), 100 * 1000.0,
+  EXPECT_NEAR(throughput.value().BytesPerSecond<double>(), 100 * 1000.0,
               0.05 * 100 * 1000.0);  // Allow 5% error
 }
 
@@ -124,11 +124,11 @@ TEST(RobustThroughputEstimatorTest, CappedByReceiveRate) {
   FieldTrialBasedConfig field_trial_config;
   RobustThroughputEstimatorSettings settings(&field_trial_config);
   RobustThroughputEstimator throughput_estimator(settings);
-  DataSize packet_size(DataSize::bytes(1000));
-  Timestamp send_clock(Timestamp::ms(100000));
-  Timestamp recv_clock(Timestamp::ms(10000));
-  TimeDelta send_increment(TimeDelta::ms(10));
-  TimeDelta recv_increment(TimeDelta::ms(40));
+  DataSize packet_size(DataSize::Bytes(1000));
+  Timestamp send_clock(Timestamp::Milliseconds(100000));
+  Timestamp recv_clock(Timestamp::Milliseconds(10000));
+  TimeDelta send_increment(TimeDelta::Milliseconds(10));
+  TimeDelta recv_increment(TimeDelta::Milliseconds(40));
   uint16_t sequence_number = 100;
   std::vector<PacketResult> packet_feedback =
       CreateFeedbackVector(20, packet_size, send_increment, recv_increment,
@@ -136,7 +136,7 @@ TEST(RobustThroughputEstimatorTest, CappedByReceiveRate) {
   throughput_estimator.IncomingPacketFeedbackVector(packet_feedback);
   auto throughput = throughput_estimator.bitrate();
   EXPECT_TRUE(throughput.has_value());
-  EXPECT_NEAR(throughput.value().bytes_per_sec<double>(), 25 * 1000.0,
+  EXPECT_NEAR(throughput.value().BytesPerSecond<double>(), 25 * 1000.0,
               0.05 * 25 * 1000.0);  // Allow 5% error
 }
 
@@ -148,11 +148,11 @@ TEST(RobustThroughputEstimatorTest, CappedBySendRate) {
   FieldTrialBasedConfig field_trial_config;
   RobustThroughputEstimatorSettings settings(&field_trial_config);
   RobustThroughputEstimator throughput_estimator(settings);
-  DataSize packet_size(DataSize::bytes(1000));
-  Timestamp send_clock(Timestamp::ms(100000));
-  Timestamp recv_clock(Timestamp::ms(10000));
-  TimeDelta send_increment(TimeDelta::ms(20));
-  TimeDelta recv_increment(TimeDelta::ms(10));
+  DataSize packet_size(DataSize::Bytes(1000));
+  Timestamp send_clock(Timestamp::Milliseconds(100000));
+  Timestamp recv_clock(Timestamp::Milliseconds(10000));
+  TimeDelta send_increment(TimeDelta::Milliseconds(20));
+  TimeDelta recv_increment(TimeDelta::Milliseconds(10));
   uint16_t sequence_number = 100;
   std::vector<PacketResult> packet_feedback =
       CreateFeedbackVector(20, packet_size, send_increment, recv_increment,
@@ -160,7 +160,7 @@ TEST(RobustThroughputEstimatorTest, CappedBySendRate) {
   throughput_estimator.IncomingPacketFeedbackVector(packet_feedback);
   auto throughput = throughput_estimator.bitrate();
   EXPECT_TRUE(throughput.has_value());
-  EXPECT_NEAR(throughput.value().bytes_per_sec<double>(), 50 * 1000.0,
+  EXPECT_NEAR(throughput.value().BytesPerSecond<double>(), 50 * 1000.0,
               0.05 * 50 * 1000.0);  // Allow 5% error
 }
 

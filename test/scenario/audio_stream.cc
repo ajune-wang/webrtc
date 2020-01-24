@@ -44,15 +44,15 @@ absl::optional<std::string> CreateAdaptationString(
         config.frame.max_packet_loss_for_increase);
 
     controller->set_fl_20ms_to_60ms_bandwidth_bps(
-        config.frame.min_rate_for_20_ms.bps<int32_t>());
+        config.frame.min_rate_for_20_ms.BitsPerSecond<int32_t>());
     controller->set_fl_60ms_to_20ms_bandwidth_bps(
-        config.frame.max_rate_for_60_ms.bps<int32_t>());
+        config.frame.max_rate_for_60_ms.BitsPerSecond<int32_t>());
 
     if (config.frame.max_rate_for_120_ms.IsFinite()) {
       controller->set_fl_60ms_to_120ms_bandwidth_bps(
-          config.frame.min_rate_for_60_ms.bps<int32_t>());
+          config.frame.min_rate_for_60_ms.BitsPerSecond<int32_t>());
       controller->set_fl_120ms_to_60ms_bandwidth_bps(
-          config.frame.max_rate_for_120_ms.bps<int32_t>());
+          config.frame.max_rate_for_120_ms.BitsPerSecond<int32_t>());
     }
   }
   cont_conf.add_controllers()->mutable_bitrate_controller();
@@ -79,9 +79,9 @@ SendAudioStream::SendAudioStream(
   SdpAudioFormat::Parameters sdp_params;
   if (config.source.channels == 2)
     sdp_params["stereo"] = "1";
-  if (config.encoder.initial_frame_length != TimeDelta::ms(20))
+  if (config.encoder.initial_frame_length != TimeDelta::Milliseconds(20))
     sdp_params["ptime"] =
-        std::to_string(config.encoder.initial_frame_length.ms());
+        std::to_string(config.encoder.initial_frame_length.Milliseconds());
   if (config.encoder.enable_dtx)
     sdp_params["usedtx"] = "1";
 
@@ -95,7 +95,7 @@ SendAudioStream::SendAudioStream(
 
   if (config.encoder.fixed_rate)
     send_config.send_codec_spec->target_bitrate_bps =
-        config.encoder.fixed_rate->bps();
+        config.encoder.fixed_rate->BitsPerSecond();
 
   if (config.network_adaptation) {
     send_config.audio_network_adaptor_config =
@@ -112,8 +112,8 @@ SendAudioStream::SendAudioStream(
       min_rate = *config.encoder.min_rate;
       max_rate = *config.encoder.max_rate;
     }
-    send_config.min_bitrate_bps = min_rate.bps();
-    send_config.max_bitrate_bps = max_rate.bps();
+    send_config.min_bitrate_bps = min_rate.BitsPerSecond();
+    send_config.max_bitrate_bps = max_rate.BitsPerSecond();
   }
 
   if (config.stream.in_bandwidth_estimation) {
@@ -130,7 +130,7 @@ SendAudioStream::SendAudioStream(
     send_stream_ = sender_->call_->CreateAudioSendStream(send_config);
     if (field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")) {
       sender->call_->OnAudioTransportOverheadChanged(
-          sender_->transport_->packet_overhead().bytes());
+          sender_->transport_->packet_overhead().Bytes());
     }
   });
 }

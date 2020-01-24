@@ -70,15 +70,16 @@ TEST(CrossTrafficTest, PulsedPeaksCrossTraffic) {
   TrafficRoute traffic(&fixture.clock, &fixture.counter, &fixture.endpoint);
 
   PulsedPeaksConfig config;
-  config.peak_rate = DataRate::kbps(1000);
-  config.min_packet_size = DataSize::bytes(1);
-  config.min_packet_interval = TimeDelta::ms(25);
-  config.send_duration = TimeDelta::ms(500);
-  config.hold_duration = TimeDelta::ms(250);
+  config.peak_rate = DataRate::KilobitsPerSecond(1000);
+  config.min_packet_size = DataSize::Bytes(1);
+  config.min_packet_interval = TimeDelta::Milliseconds(25);
+  config.send_duration = TimeDelta::Milliseconds(500);
+  config.hold_duration = TimeDelta::Milliseconds(250);
   PulsedPeaksCrossTraffic pulsed_peaks(config, &traffic);
-  const auto kRunTime = TimeDelta::seconds(1);
-  while (fixture.clock.TimeInMilliseconds() < kRunTime.ms()) {
-    pulsed_peaks.Process(Timestamp::ms(fixture.clock.TimeInMilliseconds()));
+  const auto kRunTime = TimeDelta::Seconds(1);
+  while (fixture.clock.TimeInMilliseconds() < kRunTime.Milliseconds()) {
+    pulsed_peaks.Process(
+        Timestamp::Milliseconds(fixture.clock.TimeInMilliseconds()));
     fixture.clock.AdvanceTimeMilliseconds(1);
   }
 
@@ -86,8 +87,8 @@ TEST(CrossTrafficTest, PulsedPeaksCrossTraffic) {
                 << fixture.counter.total_packets_size_ << " bytes";
   // Using 50% duty cycle.
   const auto kExpectedDataSent = kRunTime * config.peak_rate * 0.5;
-  EXPECT_NEAR(fixture.counter.total_packets_size_, kExpectedDataSent.bytes(),
-              kExpectedDataSent.bytes() * 0.1);
+  EXPECT_NEAR(fixture.counter.total_packets_size_, kExpectedDataSent.Bytes(),
+              kExpectedDataSent.Bytes() * 0.1);
 }
 
 TEST(CrossTrafficTest, RandomWalkCrossTraffic) {
@@ -95,17 +96,18 @@ TEST(CrossTrafficTest, RandomWalkCrossTraffic) {
   TrafficRoute traffic(&fixture.clock, &fixture.counter, &fixture.endpoint);
 
   RandomWalkConfig config;
-  config.peak_rate = DataRate::kbps(1000);
-  config.min_packet_size = DataSize::bytes(1);
-  config.min_packet_interval = TimeDelta::ms(25);
-  config.update_interval = TimeDelta::ms(500);
+  config.peak_rate = DataRate::KilobitsPerSecond(1000);
+  config.min_packet_size = DataSize::Bytes(1);
+  config.min_packet_interval = TimeDelta::Milliseconds(25);
+  config.update_interval = TimeDelta::Milliseconds(500);
   config.variance = 0.0;
   config.bias = 1.0;
 
   RandomWalkCrossTraffic random_walk(config, &traffic);
-  const auto kRunTime = TimeDelta::seconds(1);
-  while (fixture.clock.TimeInMilliseconds() < kRunTime.ms()) {
-    random_walk.Process(Timestamp::ms(fixture.clock.TimeInMilliseconds()));
+  const auto kRunTime = TimeDelta::Seconds(1);
+  while (fixture.clock.TimeInMilliseconds() < kRunTime.Milliseconds()) {
+    random_walk.Process(
+        Timestamp::Milliseconds(fixture.clock.TimeInMilliseconds()));
     fixture.clock.AdvanceTimeMilliseconds(1);
   }
 
@@ -113,8 +115,8 @@ TEST(CrossTrafficTest, RandomWalkCrossTraffic) {
                 << fixture.counter.total_packets_size_ << " bytes";
   // Sending at peak rate since bias = 1.
   const auto kExpectedDataSent = kRunTime * config.peak_rate;
-  EXPECT_NEAR(fixture.counter.total_packets_size_, kExpectedDataSent.bytes(),
-              kExpectedDataSent.bytes() * 0.1);
+  EXPECT_NEAR(fixture.counter.total_packets_size_, kExpectedDataSent.Bytes(),
+              kExpectedDataSent.Bytes() * 0.1);
 }
 
 TEST(TcpMessageRouteTest, DeliveredOnLossyNetwork) {
@@ -144,10 +146,10 @@ TEST(TcpMessageRouteTest, DeliveredOnLossyNetwork) {
 
   // If there was no loss, we would have delivered the message in ca 1 second,
   // with 50% it should take much longer.
-  net.time_controller()->AdvanceTime(TimeDelta::seconds(5));
+  net.time_controller()->AdvanceTime(TimeDelta::Seconds(5));
   ASSERT_EQ(deliver_count, 0);
   // But given enough time the messsage will be delivered, but only once.
-  net.time_controller()->AdvanceTime(TimeDelta::seconds(60));
+  net.time_controller()->AdvanceTime(TimeDelta::Seconds(60));
   EXPECT_EQ(deliver_count, 1);
 }
 

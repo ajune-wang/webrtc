@@ -32,13 +32,13 @@ constexpr double kThroughputPower = 0.9;
 constexpr double kThroughputCoefficient = 1;
 constexpr double kDelayGradientNegativeBound = 10;
 
-const Timestamp kStartTime = Timestamp::us(0);
-const TimeDelta kPacketsDelta = TimeDelta::ms(1);
-const TimeDelta kIntervalDuration = TimeDelta::ms(100);
-const DataRate kSendingBitrate = DataRate::bps(1000);
+const Timestamp kStartTime = Timestamp::Microseconds(0);
+const TimeDelta kPacketsDelta = TimeDelta::Milliseconds(1);
+const TimeDelta kIntervalDuration = TimeDelta::Milliseconds(100);
+const DataRate kSendingBitrate = DataRate::BitsPerSecond(1000);
 
-const DataSize kDefaultDataSize = DataSize::bytes(100);
-const TimeDelta kDefaultDelay = TimeDelta::ms(100);
+const DataSize kDefaultDataSize = DataSize::Bytes(100);
+const TimeDelta kDefaultDelay = TimeDelta::Milliseconds(100);
 
 std::vector<PacketResult> CreatePacketResults(
     const std::vector<Timestamp>& packets_send_times,
@@ -82,9 +82,10 @@ TEST(PccVivaceUtilityFunctionTest,
        Timestamp::PlusInfinity()},
       {kDefaultDataSize, kDefaultDataSize, kDefaultDataSize,
        kDefaultDataSize}));
-  EXPECT_DOUBLE_EQ(utility_function.Compute(monitor_interval),
-                   kThroughputCoefficient *
-                       std::pow(kSendingBitrate.bps(), kThroughputPower));
+  EXPECT_DOUBLE_EQ(
+      utility_function.Compute(monitor_interval),
+      kThroughputCoefficient *
+          std::pow(kSendingBitrate.BitsPerSecond(), kThroughputPower));
 }
 
 TEST(PccVivaceUtilityFunctionTest,
@@ -101,11 +102,12 @@ TEST(PccVivaceUtilityFunctionTest,
        kStartTime + kDefaultDelay, kStartTime + 3 * kIntervalDuration},
       {}));
   // The second packet was lost.
-  EXPECT_DOUBLE_EQ(utility_function.Compute(monitor_interval),
-                   kThroughputCoefficient *
-                           std::pow(kSendingBitrate.bps(), kThroughputPower) -
-                       kLossCoefficient * kSendingBitrate.bps() *
-                           monitor_interval.GetLossRate());
+  EXPECT_DOUBLE_EQ(
+      utility_function.Compute(monitor_interval),
+      kThroughputCoefficient *
+              std::pow(kSendingBitrate.BitsPerSecond(), kThroughputPower) -
+          kLossCoefficient * kSendingBitrate.BitsPerSecond() *
+              monitor_interval.GetLossRate());
 }
 
 }  // namespace test

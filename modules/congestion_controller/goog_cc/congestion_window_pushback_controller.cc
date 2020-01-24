@@ -54,7 +54,7 @@ uint32_t CongestionWindowPushbackController::UpdateTargetBitrate(
   if (add_pacing_)
     total_bytes += pacing_bytes_;
   double fill_ratio =
-      total_bytes / static_cast<double>(current_data_window_->bytes());
+      total_bytes / static_cast<double>(current_data_window_->Bytes());
   if (fill_ratio > 1.5) {
     encoding_rate_ratio_ *= 0.9;
   } else if (fill_ratio > 1) {

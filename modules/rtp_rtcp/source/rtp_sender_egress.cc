@@ -96,16 +96,20 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
   if (is_audio_) {
 #if BWE_TEST_LOGGING_COMPILE_TIME_ENABLE
     BWE_TEST_LOGGING_PLOT_WITH_SSRC(1, "AudioTotBitrate_kbps", now_ms,
-                                    SendBitrate().kbps(), packet_ssrc);
+                                    SendBitrate().KilobitsPerSecond(),
+                                    packet_ssrc);
     BWE_TEST_LOGGING_PLOT_WITH_SSRC(1, "AudioNackBitrate_kbps", now_ms,
-                                    NackOverheadRate().kbps(), packet_ssrc);
+                                    NackOverheadRate().KilobitsPerSecond(),
+                                    packet_ssrc);
 #endif
   } else {
 #if BWE_TEST_LOGGING_COMPILE_TIME_ENABLE
     BWE_TEST_LOGGING_PLOT_WITH_SSRC(1, "VideoTotBitrate_kbps", now_ms,
-                                    SendBitrate().kbps(), packet_ssrc);
+                                    SendBitrate().KilobitsPerSecond(),
+                                    packet_ssrc);
     BWE_TEST_LOGGING_PLOT_WITH_SSRC(1, "VideoNackBitrate_kbps", now_ms,
-                                    NackOverheadRate().kbps(), packet_ssrc);
+                                    NackOverheadRate().KilobitsPerSecond(),
+                                    packet_ssrc);
 #endif
   }
 
@@ -194,13 +198,13 @@ void RtpSenderEgress::ProcessBitrateAndNotifyObservers() {
 
 DataRate RtpSenderEgress::SendBitrate() const {
   rtc::CritScope cs(&lock_);
-  return DataRate::bps(
+  return DataRate::BitsPerSecond(
       total_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0));
 }
 
 DataRate RtpSenderEgress::NackOverheadRate() const {
   rtc::CritScope cs(&lock_);
-  return DataRate::bps(
+  return DataRate::BitsPerSecond(
       nack_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0));
 }
 

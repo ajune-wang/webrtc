@@ -111,7 +111,8 @@ class RepeatingTaskHandle {
         webrtc_repeating_task_impl::RepeatingTaskImpl<Closure>>(
         task_queue, first_delay, std::forward<Closure>(closure));
     auto* repeating_task_ptr = repeating_task.get();
-    task_queue->PostDelayedTask(std::move(repeating_task), first_delay.ms());
+    task_queue->PostDelayedTask(std::move(repeating_task),
+                                first_delay.Milliseconds());
     return RepeatingTaskHandle(repeating_task_ptr);
   }
 

@@ -46,11 +46,11 @@ constexpr float kTargetUtilizationFraction = 0.95f;
 // The maximum time period over which the cluster history is retained.
 // This is also the maximum time period beyond which a probing burst is not
 // expected to last.
-constexpr TimeDelta kMaxClusterHistory = TimeDelta::seconds(1);
+constexpr TimeDelta kMaxClusterHistory = TimeDelta::Seconds(1);
 
 // The maximum time interval between first and the last probe on a cluster
 // on the sender side as well as the receive side.
-constexpr TimeDelta kMaxProbeInterval = TimeDelta::seconds(1);
+constexpr TimeDelta kMaxProbeInterval = TimeDelta::Seconds(1);
 
 }  // namespace
 
@@ -94,7 +94,7 @@ absl::optional<DataRate> ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
       packet_feedback.sent_packet.pacing_info.probe_cluster_min_probes *
       kMinReceivedProbesRatio;
   DataSize min_size =
-      DataSize::bytes(
+      DataSize::Bytes(
           packet_feedback.sent_packet.pacing_info.probe_cluster_min_bytes) *
       kMinReceivedBytesRatio;
   if (cluster->num_probes < min_probes || cluster->size_total < min_size)
@@ -175,8 +175,8 @@ absl::optional<DataRate> ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
     res = kTargetUtilizationFraction * receive_rate;
   }
   if (event_log_) {
-    event_log_->Log(
-        std::make_unique<RtcEventProbeResultSuccess>(cluster_id, res.bps()));
+    event_log_->Log(std::make_unique<RtcEventProbeResultSuccess>(
+        cluster_id, res.BitsPerSecond()));
   }
   estimated_data_rate_ = res;
   return *estimated_data_rate_;

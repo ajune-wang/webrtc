@@ -30,54 +30,41 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
  public:
   Timestamp() = delete;
 
-  template <int64_t seconds>
-  RTC_DEPRECATED static constexpr Timestamp Seconds() {
-    return FromFraction(1'000'000, seconds);
-  }
-  template <int64_t ms>
-  RTC_DEPRECATED static constexpr Timestamp Millis() {
-    return FromFraction(1000, ms);
-  }
-  template <int64_t us>
-  RTC_DEPRECATED static constexpr Timestamp Micros() {
-    return FromValue(us);
-  }
-
   template <typename T>
-  static constexpr Timestamp seconds(T seconds) {
+  static constexpr Timestamp Seconds(T seconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1'000'000, seconds);
   }
   template <typename T>
-  static constexpr Timestamp ms(T milliseconds) {
+  static constexpr Timestamp Milliseconds(T milliseconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1000, milliseconds);
   }
   template <typename T>
-  static constexpr Timestamp us(T microseconds) {
+  static constexpr Timestamp Microseconds(T microseconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromValue(microseconds);
   }
   template <typename T = int64_t>
-  T seconds() const {
+  T Seconds() const {
     return ToFraction<1000000, T>();
   }
   template <typename T = int64_t>
-  T ms() const {
+  T Milliseconds() const {
     return ToFraction<1000, T>();
   }
   template <typename T = int64_t>
-  T us() const {
+  T Microseconds() const {
     return ToValue<T>();
   }
 
-  constexpr int64_t seconds_or(int64_t fallback_value) const {
+  constexpr int64_t SecondsOr(int64_t fallback_value) const {
     return ToFractionOr<1000000>(fallback_value);
   }
-  constexpr int64_t ms_or(int64_t fallback_value) const {
+  constexpr int64_t MillisecondsOr(int64_t fallback_value) const {
     return ToFractionOr<1000>(fallback_value);
   }
-  constexpr int64_t us_or(int64_t fallback_value) const {
+  constexpr int64_t MicrosecondsOr(int64_t fallback_value) const {
     return ToValueOr(fallback_value);
   }
 
@@ -91,7 +78,7 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
       RTC_DCHECK(!delta.IsPlusInfinity());
       return MinusInfinity();
     }
-    return Timestamp::us(us() + delta.us());
+    return Timestamp::Microseconds(Microseconds() + delta.Microseconds());
   }
   Timestamp operator-(const TimeDelta delta) const {
     if (IsPlusInfinity() || delta.IsMinusInfinity()) {
@@ -103,7 +90,7 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
       RTC_DCHECK(!delta.IsMinusInfinity());
       return MinusInfinity();
     }
-    return Timestamp::us(us() - delta.us());
+    return Timestamp::Microseconds(Microseconds() - delta.Microseconds());
   }
   TimeDelta operator-(const Timestamp other) const {
     if (IsPlusInfinity() || other.IsMinusInfinity()) {
@@ -115,7 +102,7 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
       RTC_DCHECK(!other.IsMinusInfinity());
       return TimeDelta::MinusInfinity();
     }
-    return TimeDelta::us(us() - other.us());
+    return TimeDelta::Microseconds(Microseconds() - other.Microseconds());
   }
   Timestamp& operator-=(const TimeDelta delta) {
     *this = *this - delta;

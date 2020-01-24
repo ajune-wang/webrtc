@@ -595,10 +595,10 @@ TEST_F(RemoteEstimatorProxyOnRequestTest,
 }
 
 TEST_F(RemoteEstimatorProxyTest, ReportsIncomingPacketToNetworkStateEstimator) {
-  Timestamp first_send_timestamp = Timestamp::ms(0);
+  Timestamp first_send_timestamp = Timestamp::Milliseconds(0);
   EXPECT_CALL(network_state_estimator_, OnReceivedPacket(_))
       .WillOnce(Invoke([&first_send_timestamp](const PacketResult& packet) {
-        EXPECT_EQ(packet.receive_time, Timestamp::ms(kBaseTimeMs));
+        EXPECT_EQ(packet.receive_time, Timestamp::Milliseconds(kBaseTimeMs));
         first_send_timestamp = packet.sent_packet.send_time;
       }));
   // Incoming packet with abs sendtime but without transport sequence number.
@@ -611,7 +611,7 @@ TEST_F(RemoteEstimatorProxyTest, ReportsIncomingPacketToNetworkStateEstimator) {
   // time as the previous packet due to reordering.
   EXPECT_CALL(network_state_estimator_, OnReceivedPacket(_))
       .WillOnce(Invoke([&first_send_timestamp](const PacketResult& packet) {
-        EXPECT_EQ(packet.receive_time, Timestamp::ms(kBaseTimeMs));
+        EXPECT_EQ(packet.receive_time, Timestamp::Milliseconds(kBaseTimeMs));
         EXPECT_EQ(packet.sent_packet.send_time, first_send_timestamp);
       }));
   proxy_.IncomingPacket(
@@ -626,12 +626,12 @@ TEST_F(RemoteEstimatorProxyTest, IncomingPacketHandlesWrapInAbsSendTime) {
       AbsoluteSendTime::MsTo24Bits((1 << 24) - 30);
   // Second abs send time has wrapped.
   const uint32_t kSecondAbsSendTime = AbsoluteSendTime::MsTo24Bits((1 << 24));
-  const TimeDelta kExpectedAbsSendTimeDelta = TimeDelta::ms(30);
+  const TimeDelta kExpectedAbsSendTimeDelta = TimeDelta::Milliseconds(30);
 
-  Timestamp first_send_timestamp = Timestamp::ms(0);
+  Timestamp first_send_timestamp = Timestamp::Milliseconds(0);
   EXPECT_CALL(network_state_estimator_, OnReceivedPacket(_))
       .WillOnce(Invoke([&first_send_timestamp](const PacketResult& packet) {
-        EXPECT_EQ(packet.receive_time, Timestamp::ms(kBaseTimeMs));
+        EXPECT_EQ(packet.receive_time, Timestamp::Milliseconds(kBaseTimeMs));
         first_send_timestamp = packet.sent_packet.send_time;
       }));
   proxy_.IncomingPacket(
@@ -641,9 +641,11 @@ TEST_F(RemoteEstimatorProxyTest, IncomingPacketHandlesWrapInAbsSendTime) {
   EXPECT_CALL(network_state_estimator_, OnReceivedPacket(_))
       .WillOnce(Invoke([first_send_timestamp,
                         kExpectedAbsSendTimeDelta](const PacketResult& packet) {
-        EXPECT_EQ(packet.receive_time, Timestamp::ms(kBaseTimeMs + 123));
-        EXPECT_EQ(packet.sent_packet.send_time.ms(),
-                  (first_send_timestamp + kExpectedAbsSendTimeDelta).ms());
+        EXPECT_EQ(packet.receive_time,
+                  Timestamp::Milliseconds(kBaseTimeMs + 123));
+        EXPECT_EQ(
+            packet.sent_packet.send_time.Milliseconds(),
+            (first_send_timestamp + kExpectedAbsSendTimeDelta).Milliseconds());
       }));
   proxy_.IncomingPacket(
       kBaseTimeMs + 123, kDefaultPacketSize,

@@ -1346,13 +1346,13 @@ void RtcEventLogEncoderNewFormat::EncodeRemoteEstimate(
   absl::optional<uint64_t> base_link_capacity_lower;
   if (base_event->link_capacity_lower_.IsFinite()) {
     base_link_capacity_lower =
-        base_event->link_capacity_lower_.kbps<uint32_t>();
+        base_event->link_capacity_lower_.KilobitsPerSecond<uint32_t>();
     proto_batch->set_link_capacity_lower_kbps(*base_link_capacity_lower);
   }
   absl::optional<uint64_t> base_link_capacity_upper;
   if (base_event->link_capacity_upper_.IsFinite()) {
     base_link_capacity_upper =
-        base_event->link_capacity_upper_.kbps<uint32_t>();
+        base_event->link_capacity_upper_.KilobitsPerSecond<uint32_t>();
     proto_batch->set_link_capacity_upper_kbps(*base_link_capacity_upper);
   }
 
@@ -1378,7 +1378,7 @@ void RtcEventLogEncoderNewFormat::EncodeRemoteEstimate(
   for (size_t i = 0; i < values.size(); ++i) {
     const auto* event = batch[i + 1];
     if (base_event->link_capacity_lower_.IsFinite()) {
-      values[i] = event->link_capacity_lower_.kbps<uint32_t>();
+      values[i] = event->link_capacity_lower_.KilobitsPerSecond<uint32_t>();
     } else {
       values[i].reset();
     }
@@ -1392,7 +1392,7 @@ void RtcEventLogEncoderNewFormat::EncodeRemoteEstimate(
   for (size_t i = 0; i < values.size(); ++i) {
     const auto* event = batch[i + 1];
     if (base_event->link_capacity_upper_.IsFinite()) {
-      values[i] = event->link_capacity_upper_.kbps<uint32_t>();
+      values[i] = event->link_capacity_upper_.KilobitsPerSecond<uint32_t>();
     } else {
       values[i].reset();
     }

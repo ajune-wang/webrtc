@@ -84,7 +84,7 @@ std::unique_ptr<FrameGeneratorCapturer> FrameGeneratorCapturer::Create(
       clock,
       CreateSlideFrameGenerator(
           config.width, config.height,
-          /*frame_repeat_count*/ config.change_interval.seconds<double>() *
+          /*frame_repeat_count*/ config.change_interval.Seconds<double>() *
               config.framerate),
       config.framerate, task_queue_factory);
 }
@@ -120,11 +120,12 @@ std::unique_ptr<FrameGeneratorCapturer> FrameGeneratorCapturer::Create(
     RTC_CHECK_LE(crop_height, config.height);
     slides_generator = CreateScrollingInputFromYuvFilesFrameGenerator(
         clock, paths, config.width, config.height, crop_width, crop_height,
-        config.crop.scroll_duration.ms(), pause_duration.ms());
+        config.crop.scroll_duration.Milliseconds(),
+        pause_duration.Milliseconds());
   } else {
     slides_generator = CreateFromYuvFileFrameGenerator(
         paths, config.width, config.height,
-        /*frame_repeat_count*/ config.change_interval.seconds<double>() *
+        /*frame_repeat_count*/ config.change_interval.Seconds<double>() *
             config.framerate);
   }
   return std::make_unique<FrameGeneratorCapturer>(
@@ -167,9 +168,9 @@ bool FrameGeneratorCapturer::Init() {
 
   frame_task_ = RepeatingTaskHandle::DelayedStart(
       task_queue_.Get(),
-      TimeDelta::seconds(1) / GetCurrentConfiguredFramerate(), [this] {
+      TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate(), [this] {
         InsertFrame();
-        return TimeDelta::seconds(1) / GetCurrentConfiguredFramerate();
+        return TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate();
       });
   return true;
 }
@@ -210,7 +211,7 @@ void FrameGeneratorCapturer::Start() {
   if (!frame_task_.Running()) {
     frame_task_ = RepeatingTaskHandle::Start(task_queue_.Get(), [this] {
       InsertFrame();
-      return TimeDelta::seconds(1) / GetCurrentConfiguredFramerate();
+      return TimeDelta::Seconds(1) / GetCurrentConfiguredFramerate();
     });
   }
 }

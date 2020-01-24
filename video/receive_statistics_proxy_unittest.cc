@@ -189,9 +189,9 @@ TEST_F(ReceiveStatisticsProxyTest, ReportsContentType) {
 
 TEST_F(ReceiveStatisticsProxyTest, ReportsMaxTotalInterFrameDelay) {
   webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
-  const TimeDelta kInterFrameDelay1 = TimeDelta::ms(100);
-  const TimeDelta kInterFrameDelay2 = TimeDelta::ms(200);
-  const TimeDelta kInterFrameDelay3 = TimeDelta::ms(300);
+  const TimeDelta kInterFrameDelay1 = TimeDelta::Milliseconds(100);
+  const TimeDelta kInterFrameDelay2 = TimeDelta::Milliseconds(200);
+  const TimeDelta kInterFrameDelay3 = TimeDelta::Milliseconds(300);
   double expected_total_inter_frame_delay = 0;
   double expected_total_squared_inter_frame_delay = 0;
   EXPECT_EQ(expected_total_inter_frame_delay,
@@ -210,9 +210,9 @@ TEST_F(ReceiveStatisticsProxyTest, ReportsMaxTotalInterFrameDelay) {
   fake_clock_.AdvanceTime(kInterFrameDelay1);
   statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, 0,
                                     VideoContentType::UNSPECIFIED);
-  expected_total_inter_frame_delay += kInterFrameDelay1.seconds<double>();
+  expected_total_inter_frame_delay += kInterFrameDelay1.Seconds<double>();
   expected_total_squared_inter_frame_delay +=
-      pow(kInterFrameDelay1.seconds<double>(), 2.0);
+      pow(kInterFrameDelay1.Seconds<double>(), 2.0);
   EXPECT_DOUBLE_EQ(expected_total_inter_frame_delay,
                    statistics_proxy_->GetStats().total_inter_frame_delay);
   EXPECT_DOUBLE_EQ(
@@ -222,9 +222,9 @@ TEST_F(ReceiveStatisticsProxyTest, ReportsMaxTotalInterFrameDelay) {
   fake_clock_.AdvanceTime(kInterFrameDelay2);
   statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, 0,
                                     VideoContentType::UNSPECIFIED);
-  expected_total_inter_frame_delay += kInterFrameDelay2.seconds<double>();
+  expected_total_inter_frame_delay += kInterFrameDelay2.Seconds<double>();
   expected_total_squared_inter_frame_delay +=
-      pow(kInterFrameDelay2.seconds<double>(), 2.0);
+      pow(kInterFrameDelay2.Seconds<double>(), 2.0);
   EXPECT_DOUBLE_EQ(expected_total_inter_frame_delay,
                    statistics_proxy_->GetStats().total_inter_frame_delay);
   EXPECT_DOUBLE_EQ(
@@ -234,9 +234,9 @@ TEST_F(ReceiveStatisticsProxyTest, ReportsMaxTotalInterFrameDelay) {
   fake_clock_.AdvanceTime(kInterFrameDelay3);
   statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, 0,
                                     VideoContentType::UNSPECIFIED);
-  expected_total_inter_frame_delay += kInterFrameDelay3.seconds<double>();
+  expected_total_inter_frame_delay += kInterFrameDelay3.Seconds<double>();
   expected_total_squared_inter_frame_delay +=
-      pow(kInterFrameDelay3.seconds<double>(), 2.0);
+      pow(kInterFrameDelay3.Seconds<double>(), 2.0);
   EXPECT_DOUBLE_EQ(expected_total_inter_frame_delay,
                    statistics_proxy_->GetStats().total_inter_frame_delay);
   EXPECT_DOUBLE_EQ(

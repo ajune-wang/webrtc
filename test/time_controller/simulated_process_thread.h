@@ -45,6 +45,7 @@ class SimulatedProcessThread : public TokenTaskQueue,
   void PostTask(std::unique_ptr<QueuedTask> task) override;
 
  private:
+  Timestamp CalculateNextRunTime() const RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
   Timestamp GetNextTime(Module* module, Timestamp at_time);
 
   sim_time_impl::SimulatedTimeControllerImpl* const handler_;
@@ -57,7 +58,6 @@ class SimulatedProcessThread : public TokenTaskQueue,
 
   bool process_thread_running_ RTC_GUARDED_BY(lock_) = false;
   std::vector<Module*> stopped_modules_ RTC_GUARDED_BY(lock_);
-  std::vector<Module*> ready_modules_ RTC_GUARDED_BY(lock_);
   std::map<Timestamp, std::list<Module*>> delayed_modules_
       RTC_GUARDED_BY(lock_);
 };

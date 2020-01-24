@@ -1,0 +1,130 @@
+[
+    {
+        "type": "Group",
+        "name": "l2l audio",
+        "parent_id": null,
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "Il6v1QpdTkMfE94y"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/api/audio/audio_frame_processor.h",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "api/audio/audio_frame_processor.h",
+        "id": "LrQVFs09HWx6a2uU"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/audio/audio_transport_impl.cc",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "audio/audio_transport_impl.cc",
+        "id": "0cu6BIxvWgbFCioR"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/audio/audio_transport_impl.h",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "audio/audio_transport_impl.h",
+        "id": "MS5sand2HmDVkAy8"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_media_engine_defaults.cc",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_media_engine_defaults.cc",
+        "id": "cj9JqFYGTw0nLZx6"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_media_engine_defaults.h",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_media_engine_defaults.h",
+        "id": "rO138TlLakv5uqK2"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_media_engine_unittest.cc",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_media_engine_unittest.cc",
+        "id": "EyFbIm1VsxzW2KOv"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_media_engine.cc",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_media_engine.cc",
+        "id": "x8RVmH0KPzjE4h6T"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_media_engine.h",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_media_engine.h",
+        "id": "EQXOFhDC8maBfkV5"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_video_engine_unittest.cc",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_video_engine_unittest.cc",
+        "id": "z4g8VW72rEocyqQl"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_video_engine.cc",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_video_engine.cc",
+        "id": "SnN2U5Box6XrLbeG"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_video_engine.h",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_video_engine.h",
+        "id": "9N3GYiUPwq0axFpT"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_voice_engine_unittest.cc",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_voice_engine_unittest.cc",
+        "id": "cWZ6gAfsYEd4KHiy"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_voice_engine.cc",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_voice_engine.cc",
+        "id": "oR375NSLYemhzfbd"
+    },
+    {
+        "type": "File",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/media/engine/webrtc_voice_engine.h",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "media/engine/webrtc_voice_engine.h",
+        "id": "4EvBTIMLmQyGa3ZO"
+    },
+    {
+        "type": "Directory",
+        "name": "/usr/local/google/home/olka/webrtc-checkout/src/modules/async_audio_processing",
+        "parent_id": "Il6v1QpdTkMfE94y",
+        "workspaceRoot": "/usr/local/google/home/olka/webrtc-checkout/src",
+        "workspacePath": "modules/async_audio_processing",
+        "id": "9ivLhWFUYS41mBKQ"
+    }
+]

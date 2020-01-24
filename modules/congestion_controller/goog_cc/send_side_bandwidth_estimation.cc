@@ -27,16 +27,16 @@
 
 namespace webrtc {
 namespace {
-constexpr TimeDelta kBweIncreaseInterval = TimeDelta::Millis<1000>();
-constexpr TimeDelta kBweDecreaseInterval = TimeDelta::Millis<300>();
-constexpr TimeDelta kStartPhase = TimeDelta::Millis<2000>();
-constexpr TimeDelta kBweConverganceTime = TimeDelta::Millis<20000>();
+constexpr TimeDelta kBweIncreaseInterval = TimeDelta::ms(1000);
+constexpr TimeDelta kBweDecreaseInterval = TimeDelta::ms(300);
+constexpr TimeDelta kStartPhase = TimeDelta::ms(2000);
+constexpr TimeDelta kBweConverganceTime = TimeDelta::ms(20000);
 constexpr int kLimitNumPackets = 20;
-constexpr DataRate kDefaultMaxBitrate = DataRate::BitsPerSec<1000000000>();
-constexpr TimeDelta kLowBitrateLogPeriod = TimeDelta::Millis<10000>();
-constexpr TimeDelta kRtcEventLogPeriod = TimeDelta::Millis<5000>();
+constexpr DataRate kDefaultMaxBitrate = DataRate::bps(1000000000);
+constexpr TimeDelta kLowBitrateLogPeriod = TimeDelta::ms(10000);
+constexpr TimeDelta kRtcEventLogPeriod = TimeDelta::ms(5000);
 // Expecting that RTCP feedback is sent uniformly within [0.5, 1.5]s intervals.
-constexpr TimeDelta kMaxRtcpFeedbackInterval = TimeDelta::Millis<5000>();
+constexpr TimeDelta kMaxRtcpFeedbackInterval = TimeDelta::ms(5000);
 
 constexpr float kDefaultLowLossThreshold = 0.02f;
 constexpr float kDefaultHighLossThreshold = 0.1f;

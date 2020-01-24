@@ -31,30 +31,30 @@ class Timestamp final : public rtc_units_impl::UnitBase<Timestamp> {
   Timestamp() = delete;
 
   template <int64_t seconds>
-  static constexpr Timestamp Seconds() {
+  RTC_DEPRECATED static constexpr Timestamp Seconds() {
     return FromFraction(1'000'000, seconds);
   }
   template <int64_t ms>
-  static constexpr Timestamp Millis() {
+  RTC_DEPRECATED static constexpr Timestamp Millis() {
     return FromFraction(1000, ms);
   }
   template <int64_t us>
-  static constexpr Timestamp Micros() {
+  RTC_DEPRECATED static constexpr Timestamp Micros() {
     return FromValue(us);
   }
 
   template <typename T>
-  static Timestamp seconds(T seconds) {
+  static constexpr Timestamp seconds(T seconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1'000'000, seconds);
   }
   template <typename T>
-  static Timestamp ms(T milliseconds) {
+  static constexpr Timestamp ms(T milliseconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1000, milliseconds);
   }
   template <typename T>
-  static Timestamp us(T microseconds) {
+  static constexpr Timestamp us(T microseconds) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromValue(microseconds);
   }

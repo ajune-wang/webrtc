@@ -47,7 +47,7 @@ static constexpr int kMaxVbaSizeDifferencePercent = 10;
 // Max time we will throttle similar video bitrate allocations.
 static constexpr int64_t kMaxVbaThrottleTimeMs = 500;
 
-constexpr TimeDelta kEncoderTimeOut = TimeDelta::Seconds<2>();
+constexpr TimeDelta kEncoderTimeOut = TimeDelta::seconds(2);
 
 bool TransportSeqNumExtensionConfigured(const VideoSendStream::Config& config) {
   const std::vector<RtpExtension>& extensions = config.rtp.extensions;

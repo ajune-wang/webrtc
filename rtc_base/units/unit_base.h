@@ -18,6 +18,7 @@
 #include <type_traits>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/deprecation.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {

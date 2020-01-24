@@ -26,17 +26,17 @@
 namespace webrtc {
 namespace {
 // Time limit in milliseconds between packet bursts.
-constexpr TimeDelta kDefaultMinPacketLimit = TimeDelta::Millis<5>();
-constexpr TimeDelta kCongestedPacketInterval = TimeDelta::Millis<500>();
+constexpr TimeDelta kDefaultMinPacketLimit = TimeDelta::ms(5);
+constexpr TimeDelta kCongestedPacketInterval = TimeDelta::ms(500);
 // TODO(sprang): Consider dropping this limit.
 // The maximum debt level, in terms of time, capped when sending packets.
-constexpr TimeDelta kMaxDebtInTime = TimeDelta::Millis<500>();
-constexpr TimeDelta kMaxElapsedTime = TimeDelta::Seconds<2>();
-constexpr DataSize kDefaultPaddingTarget = DataSize::Bytes<50>();
+constexpr TimeDelta kMaxDebtInTime = TimeDelta::ms(500);
+constexpr TimeDelta kMaxElapsedTime = TimeDelta::seconds(2);
+constexpr DataSize kDefaultPaddingTarget = DataSize::bytes(50);
 
 // Upper cap on process interval, in case process has not been called in a long
 // time.
-constexpr TimeDelta kMaxProcessingInterval = TimeDelta::Millis<30>();
+constexpr TimeDelta kMaxProcessingInterval = TimeDelta::ms(30);
 
 constexpr int kFirstPriority = 0;
 
@@ -74,12 +74,11 @@ int GetPriorityForType(RtpPacketToSend::Type type) {
 
 }  // namespace
 
-const TimeDelta PacingController::kMaxExpectedQueueLength =
-    TimeDelta::Millis<2000>();
+const TimeDelta PacingController::kMaxExpectedQueueLength = TimeDelta::ms(2000);
 const float PacingController::kDefaultPaceMultiplier = 2.5f;
 const TimeDelta PacingController::kPausedProcessInterval =
     kCongestedPacketInterval;
-const TimeDelta PacingController::kMinSleepTime = TimeDelta::Millis<1>();
+const TimeDelta PacingController::kMinSleepTime = TimeDelta::ms(1);
 
 PacingController::PacingController(Clock* clock,
                                    PacketSender* packet_sender,

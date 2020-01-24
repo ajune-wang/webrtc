@@ -28,16 +28,16 @@ class Frequency final : public rtc_units_impl::RelativeUnit<Frequency> {
  public:
   Frequency() = delete;
   template <int64_t hertz>
-  static constexpr Frequency Hertz() {
+  RTC_DEPRECATED static constexpr Frequency Hertz() {
     return FromFraction(1000, hertz);
   }
   template <typename T>
-  static Frequency hertz(T hertz) {
+  static constexpr Frequency hertz(T hertz) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromFraction(1000, hertz);
   }
   template <typename T>
-  static Frequency millihertz(T hertz) {
+  static constexpr Frequency millihertz(T hertz) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromValue(hertz);
   }

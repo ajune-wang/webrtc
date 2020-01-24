@@ -33,13 +33,13 @@ using ::testing::Return;
 namespace webrtc {
 namespace test {
 namespace {
-constexpr DataRate kFirstClusterRate = DataRate::KilobitsPerSec<900>();
-constexpr DataRate kSecondClusterRate = DataRate::KilobitsPerSec<1800>();
+constexpr DataRate kFirstClusterRate = DataRate::kbps(900);
+constexpr DataRate kSecondClusterRate = DataRate::kbps(1800);
 
 // The error stems from truncating the time interval of probe packets to integer
 // values. This results in probing slightly higher than the target bitrate.
 // For 1.8 Mbps, this comes to be about 120 kbps with 1200 probe packets.
-constexpr DataRate kProbingErrorMargin = DataRate::KilobitsPerSec<150>();
+constexpr DataRate kProbingErrorMargin = DataRate::kbps(150);
 
 const float kPaceMultiplier = 2.5f;
 
@@ -48,7 +48,7 @@ constexpr uint32_t kVideoSsrc = 234565;
 constexpr uint32_t kVideoRtxSsrc = 34567;
 constexpr uint32_t kFlexFecSsrc = 45678;
 
-constexpr DataRate kTargetRate = DataRate::KilobitsPerSec<800>();
+constexpr DataRate kTargetRate = DataRate::kbps(800);
 
 std::unique_ptr<RtpPacketToSend> BuildPacket(RtpPacketToSend::Type type,
                                              uint32_t ssrc,

@@ -34,7 +34,7 @@ namespace webrtc {
 
 namespace {
 // From RTCPSender video report interval.
-constexpr TimeDelta kLossUpdateInterval = TimeDelta::Millis<1000>();
+constexpr TimeDelta kLossUpdateInterval = TimeDelta::ms(1000);
 
 // Pacing-rate relative to our target send rate.
 // Multiplicative factor that is applied to the target bitrate to calculate

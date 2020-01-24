@@ -16,6 +16,7 @@ rtc_source_set("unit_base") {
   sources = [ "unit_base.h" ]
 
   deps = [
+    "../:deprecation",
     "../../rtc_base:checks",
     "../../rtc_base:safe_conversions",
   ]

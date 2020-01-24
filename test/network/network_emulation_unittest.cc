@@ -28,8 +28,8 @@ namespace webrtc {
 namespace test {
 namespace {
 
-constexpr TimeDelta kNetworkPacketWaitTimeout = TimeDelta::Millis<100>();
-constexpr TimeDelta kStatsWaitTimeout = TimeDelta::Seconds<1>();
+constexpr TimeDelta kNetworkPacketWaitTimeout = TimeDelta::ms(100);
+constexpr TimeDelta kStatsWaitTimeout = TimeDelta::seconds(1);
 constexpr int kOverheadIpv4Udp = 20 + 8;
 
 class SocketReader : public sigslot::has_slots<> {

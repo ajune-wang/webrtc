@@ -16,7 +16,7 @@
 
 namespace webrtc {
 namespace {
-constexpr TimeDelta kDefaultWindow = TimeDelta::Millis<1000>();
+constexpr TimeDelta kDefaultWindow = TimeDelta::ms(1000);
 }
 
 class FrameRateEstimatorTest : public ::testing::Test {

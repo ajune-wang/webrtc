@@ -32,8 +32,8 @@ TEST(DataRateTest, ConstExpr) {
   static_assert(kDataRateInf.bps_or(-1) == -1, "");
   static_assert(kDataRateInf > kDataRateZero, "");
 
-  constexpr DataRate kDataRateBps = DataRate::BitsPerSec<kValue>();
-  constexpr DataRate kDataRateKbps = DataRate::KilobitsPerSec<kValue>();
+  constexpr DataRate kDataRateBps = DataRate::bps(kValue);
+  constexpr DataRate kDataRateKbps = DataRate::kbps(kValue);
   static_assert(kDataRateBps.bps<double>() == kValue, "");
   static_assert(kDataRateBps.bps_or(0) == kValue, "");
   static_assert(kDataRateKbps.kbps_or(0) == kValue, "");

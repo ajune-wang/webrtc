@@ -28,7 +28,7 @@ namespace {
 // we have a min probe packet size of 200 bytes.
 constexpr size_t kMinProbePacketSize = 200;
 
-constexpr TimeDelta kProbeClusterTimeout = TimeDelta::Seconds<5>();
+constexpr TimeDelta kProbeClusterTimeout = TimeDelta::seconds(5);
 
 }  // namespace
 

@@ -18,7 +18,7 @@
 
 namespace webrtc {
 namespace {
-static constexpr DataSize kMaxLeadingSize = DataSize::Bytes<1400>();
+static constexpr DataSize kMaxLeadingSize = DataSize::bytes(1400);
 }
 
 RoundRobinPacketQueue::QueuedPacket::QueuedPacket(const QueuedPacket& rhs) =

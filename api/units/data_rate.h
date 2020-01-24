@@ -34,11 +34,11 @@ class DataRate final : public rtc_units_impl::RelativeUnit<DataRate> {
   DataRate() = delete;
   static constexpr DataRate Infinity() { return PlusInfinity(); }
   template <int64_t bps>
-  static constexpr DataRate BitsPerSec() {
+  RTC_DEPRECATED static constexpr DataRate BitsPerSec() {
     return FromValue(bps);
   }
   template <int64_t kbps>
-  static constexpr DataRate KilobitsPerSec() {
+  RTC_DEPRECATED static constexpr DataRate KilobitsPerSec() {
     return FromFraction(1000, kbps);
   }
   template <typename T>

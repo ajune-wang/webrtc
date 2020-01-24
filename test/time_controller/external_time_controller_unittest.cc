@@ -29,7 +29,7 @@ using ::testing::Invoke;
 using ::testing::MockFunction;
 using ::testing::NiceMock;
 using ::testing::Return;
-constexpr Timestamp kStartTime = Timestamp::Seconds<1000>();
+constexpr Timestamp kStartTime = Timestamp::seconds(1000);
 
 class FakeAlarm : public ControlledAlarmClock {
  public:

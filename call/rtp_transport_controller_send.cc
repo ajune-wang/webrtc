@@ -32,7 +32,7 @@ namespace {
 static const int64_t kRetransmitWindowSizeMs = 500;
 static const size_t kMaxOverheadBytes = 500;
 
-constexpr TimeDelta kPacerQueueUpdateInterval = TimeDelta::Millis<25>();
+constexpr TimeDelta kPacerQueueUpdateInterval = TimeDelta::ms(25);
 
 TargetRateConstraints ConvertConstraints(int min_bitrate_bps,
                                          int max_bitrate_bps,

@@ -27,12 +27,12 @@ class DataSize final : public rtc_units_impl::RelativeUnit<DataSize> {
   DataSize() = delete;
   static constexpr DataSize Infinity() { return PlusInfinity(); }
   template <int64_t bytes>
-  static constexpr DataSize Bytes() {
+  RTC_DEPRECATED static constexpr DataSize Bytes() {
     return FromValue(bytes);
   }
 
   template <typename T>
-  static DataSize bytes(T bytes) {
+  static constexpr DataSize bytes(T bytes) {
     static_assert(std::is_arithmetic<T>::value, "");
     return FromValue(bytes);
   }

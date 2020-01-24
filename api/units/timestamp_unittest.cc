@@ -7,6 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+#include <limits>
 
 #include "api/units/timestamp.h"
 #include "test/gtest.h"
@@ -19,9 +20,9 @@ TEST(TimestampTest, ConstExpr) {
   static_assert(kTimestampInf.IsInfinite(), "");
   static_assert(kTimestampInf.ms_or(-1) == -1, "");
 
-  constexpr Timestamp kTimestampSeconds = Timestamp::Seconds<kValue>();
-  constexpr Timestamp kTimestampMs = Timestamp::Millis<kValue>();
-  constexpr Timestamp kTimestampUs = Timestamp::Micros<kValue>();
+  constexpr Timestamp kTimestampSeconds = Timestamp::seconds(kValue);
+  constexpr Timestamp kTimestampMs = Timestamp::ms(kValue);
+  constexpr Timestamp kTimestampUs = Timestamp::us(kValue);
 
   static_assert(kTimestampSeconds.seconds_or(0) == kValue, "");
   static_assert(kTimestampMs.ms_or(0) == kValue, "");

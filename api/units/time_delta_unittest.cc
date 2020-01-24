@@ -28,9 +28,9 @@ TEST(TimeDeltaTest, ConstExpr) {
 
   static_assert(kTimeDeltaPlusInf > kTimeDeltaZero, "");
 
-  constexpr TimeDelta kTimeDeltaSeconds = TimeDelta::Seconds<kValue>();
-  constexpr TimeDelta kTimeDeltaMs = TimeDelta::Millis<kValue>();
-  constexpr TimeDelta kTimeDeltaUs = TimeDelta::Micros<kValue>();
+  constexpr TimeDelta kTimeDeltaSeconds = TimeDelta::seconds(kValue);
+  constexpr TimeDelta kTimeDeltaMs = TimeDelta::ms(kValue);
+  constexpr TimeDelta kTimeDeltaUs = TimeDelta::us(kValue);
 
   static_assert(kTimeDeltaSeconds.seconds_or(0) == kValue, "");
   static_assert(kTimeDeltaMs.ms_or(0) == kValue, "");

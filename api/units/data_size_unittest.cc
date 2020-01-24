@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <limits>
+
 #include "api/units/data_size.h"
 #include "test/gtest.h"
 
@@ -23,7 +25,7 @@ TEST(DataSizeTest, ConstExpr) {
   static_assert(kDataSizeInf.bytes_or(-1) == -1, "");
   static_assert(kDataSizeInf > kDataSizeZero, "");
 
-  constexpr DataSize kDataSize = DataSize::Bytes<kValue>();
+  constexpr DataSize kDataSize = DataSize::bytes(kValue);
   static_assert(kDataSize.bytes_or(-1) == kValue, "");
 
   EXPECT_EQ(kDataSize.bytes(), kValue);

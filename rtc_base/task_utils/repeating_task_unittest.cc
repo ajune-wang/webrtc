@@ -30,7 +30,7 @@ using ::testing::MockFunction;
 using ::testing::NiceMock;
 using ::testing::Return;
 
-constexpr TimeDelta kTimeout = TimeDelta::Millis<1000>();
+constexpr TimeDelta kTimeout = TimeDelta::ms(1000);
 
 void Sleep(TimeDelta time_delta) {
   // Note that Chromium style guide prohibits use of <thread> and <chrono> in

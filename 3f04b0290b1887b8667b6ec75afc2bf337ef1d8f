@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a76d0a34_e07ff3d8",
+        "filename": "p2p/base/transport_description.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-01-25T00:25:30Z",
+      "side": 1,
+      "message": "nit: not sure if the style guide prefers \"static\" or an anonymous namespace.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 6
+      },
+      "revId": "3f04b0290b1887b8667b6ec75afc2bf337ef1d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

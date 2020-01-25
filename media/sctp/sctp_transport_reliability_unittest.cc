@@ -26,7 +26,7 @@ namespace {
 static constexpr int kDefaultTimeout = 10000;  // 10 seconds.
 static constexpr int kTransport1Port = 15001;
 static constexpr int kTransport2Port = 25002;
-static constexpr int kLogPerMessagesCount = 100;
+static constexpr int kLogPerMessagesCount = 10000;
 
 /**
  * An simple packet transport implementation which can be
@@ -196,6 +196,7 @@ class SctpDataSender final {
   void SendNextMessage() {
     RTC_DCHECK_RUN_ON(thread_);
     if (!started_ || num_messages_sent_ >= target_messages_count_) {
+      RTC_LOG(LS_INFO) << sender_id_ << " signaling wait";
       sent_target_messages_count_.Set();
       return;
     }
@@ -216,6 +217,9 @@ class SctpDataSender final {
     transport_->SendData(params, payload_, &result);
     switch (result) {
       case cricket::SDR_BLOCK:
+        RTC_LOG(LS_INFO) << "SctpTransport::SendData will retry after 500 ms "
+                            "timeout. Messages sent: "
+                         << num_messages_sent_;
         // retry after timeout
         invoker_.AsyncInvokeDelayed<void>(
             RTC_FROM_HERE, thread_,
@@ -230,8 +234,14 @@ class SctpDataSender final {
             rtc::Bind(&SctpDataSender::SendNextMessage, this));
         break;
       case cricket::SDR_ERROR:
+        RTC_LOG(LS_ERROR) << "SctpTransport::SendData error returned";
         // give up
         last_error_ = "SctpTransport::SendData error returned";
+        sent_target_messages_count_.Set();
+        break;
+      default:
+        RTC_LOG(LS_ERROR) << "SctpTransport::SendData unknown return value "
+                          << result;
         sent_target_messages_count_.Set();
         break;
     }
@@ -242,7 +252,7 @@ class SctpDataSender final {
   const uint64_t target_messages_count_;
   const cricket::SendDataParams send_params_;
   const uint32_t sender_id_;
-  rtc::CopyOnWriteBuffer payload_{std::string(1400, '.').c_str(), 1400};
+  rtc::CopyOnWriteBuffer payload_{std::string(1100, '.').c_str(), 1100};
   std::atomic<bool> started_ ATOMIC_VAR_INIT(false);
   rtc::AsyncInvoker invoker_;
   std::atomic<uint64_t> num_messages_sent_ ATOMIC_VAR_INIT(0);
@@ -267,6 +277,10 @@ class SctpDataReceiver final : public sigslot::has_slots<> {
   void OnDataReceived(const cricket::ReceiveDataParams& params,
                       const rtc::CopyOnWriteBuffer& data) {
     num_bytes_received_ += data.size();
+    last_received_packet_millis_ = rtc::TimeMillis();
+    if (num_messages_received_ == 0) {
+      first_received_packet_millis_ = last_received_packet_millis_;
+    }
     if (++num_messages_received_ == target_messages_count_) {
       received_target_messages_count_.Set();
     }
@@ -281,6 +295,10 @@ class SctpDataReceiver final : public sigslot::has_slots<> {
 
   uint64_t BytesReceivedCount() const { return num_bytes_received_; }
 
+  uint64_t ElapsedMillis() const {
+    return last_received_packet_millis_ - first_received_packet_millis_;
+  }
+
   bool WaitForMessagesReceived(int timeout_millis) {
     return received_target_messages_count_.Wait(timeout_millis);
   }
@@ -288,6 +306,8 @@ class SctpDataReceiver final : public sigslot::has_slots<> {
  private:
   std::atomic<uint64_t> num_messages_received_ ATOMIC_VAR_INIT(0);
   std::atomic<uint64_t> num_bytes_received_ ATOMIC_VAR_INIT(0);
+  uint64_t first_received_packet_millis_ = 0;
+  uint64_t last_received_packet_millis_ = 0;
   rtc::Event received_target_messages_count_{true, false};
   const uint32_t receiver_id_;
   const uint64_t target_messages_count_;
@@ -493,7 +513,21 @@ class SctpPingPong final {
       return;
     }
 
-    RTC_LOG(LS_INFO) << "SctpPingPong id = " << id_ << " is done";
+    const auto kiloBytesPerSecond1 =
+        static_cast<double>(data_receiver1_->BytesReceivedCount()) /
+        data_receiver1_->ElapsedMillis();
+
+    const auto kiloBytesPerSecond2 =
+        static_cast<double>(data_receiver2_->BytesReceivedCount()) /
+        data_receiver2_->ElapsedMillis();
+
+    RTC_LOG(LS_INFO) << "SctpPingPong id = " << id_ << " is done"
+                     << " receiver 1: " << data_receiver1_->BytesReceivedCount()
+                     << " bytes received, average speed = "
+                     << kiloBytesPerSecond1 << " Kilobytes/sec,"
+                     << " receiver 2: " << data_receiver2_->BytesReceivedCount()
+                     << " bytes received, average speed = "
+                     << kiloBytesPerSecond2 << " Kilobytes/ses";
   }
 
  private:
@@ -821,6 +855,59 @@ TEST_F(UsrSctpReliabilityTest,
     EXPECT_TRUE(errors_list.empty()) << rtc::join(errors_list, ';');
     tests.pop();
   }
+}
+
+TEST_F(UsrSctpReliabilityTest, MaxThroughputTest) {
+  auto thread1 = rtc::Thread::Create();
+  auto thread2 = rtc::Thread::Create();
+  thread1->SetName("Thrd 1", nullptr);
+  thread2->SetName("Thrd 2", nullptr);
+  thread1->Start();
+  thread2->Start();
+  constexpr uint8_t packet_loss_percents = 0;
+  constexpr uint16_t avg_send_delay_millis = 0;
+  constexpr uint32_t messages_count = 1 * 1000 * 1000;
+
+  cricket::SendDataParams send_params;
+  send_params.sid = -1;
+  send_params.ordered = true;
+  send_params.reliable = true;
+  send_params.max_rtx_count = 0;
+  send_params.max_rtx_ms = 0;
+
+  SctpPingPong test(1, kTransport1Port, kTransport2Port, thread1.get(),
+                    thread2.get(), messages_count, packet_loss_percents,
+                    avg_send_delay_millis, send_params);
+  EXPECT_TRUE(test.Start()) << rtc::join(test.GetErrorsList(), ';');
+  test.WaitForCompletion(
+      GetExecutionTimeLimitInMillis(messages_count, packet_loss_percents));
+  auto errors_list = test.GetErrorsList();
+  EXPECT_TRUE(errors_list.empty()) << rtc::join(errors_list, ';');
+}
+
+TEST_F(UsrSctpReliabilityTest, MaxThroughputWithSingleThreadTest) {
+  auto transport_thread = rtc::Thread::Create();
+  transport_thread->SetName("sctp trd", nullptr);
+  transport_thread->Start();
+  constexpr uint8_t packet_loss_percents = 0;
+  constexpr uint16_t avg_send_delay_millis = 0;
+  constexpr uint32_t messages_count = 10 * 1000 * 1000;
+
+  cricket::SendDataParams send_params;
+  send_params.sid = -1;
+  send_params.ordered = true;
+  send_params.reliable = true;
+  send_params.max_rtx_count = 0;
+  send_params.max_rtx_ms = 0;
+
+  SctpPingPong test(1, kTransport1Port, kTransport2Port, transport_thread.get(),
+                    transport_thread.get(), messages_count,
+                    packet_loss_percents, avg_send_delay_millis, send_params);
+  EXPECT_TRUE(test.Start()) << rtc::join(test.GetErrorsList(), ';');
+  test.WaitForCompletion(
+      GetExecutionTimeLimitInMillis(messages_count, packet_loss_percents));
+  auto errors_list = test.GetErrorsList();
+  EXPECT_TRUE(errors_list.empty()) << rtc::join(errors_list, ';');
 }
 
 }  // namespace cricket

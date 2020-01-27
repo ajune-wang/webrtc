@@ -38,6 +38,7 @@ AudioState::~AudioState() {
   RTC_DCHECK(thread_checker_.IsCurrent());
   RTC_DCHECK(receiving_streams_.empty());
   RTC_DCHECK(sending_streams_.empty());
+  null_audio_poller_.Stop();
 }
 
 AudioProcessing* AudioState::audio_processing() {
@@ -173,13 +174,32 @@ void AudioState::UpdateAudioTransportWithSendingStreams() {
 }
 
 void AudioState::UpdateNullAudioPollerState() {
+  constexpr int64_t kPollDelayMs = 10;  // WebRTC uses 10ms by default
+
+  constexpr size_t kNumChannels = 1;
+  constexpr uint32_t kSamplesPerSecond = 48000;            // 48kHz
+  constexpr size_t kNumSamples = kSamplesPerSecond / 100;  // 10ms of samples
+
   // Run NullAudioPoller when there are receiving streams and playout is
   // disabled.
   if (!receiving_streams_.empty() && !playout_enabled_) {
-    if (!null_audio_poller_)
-      null_audio_poller_ = std::make_unique<NullAudioPoller>(&audio_transport_);
+    if (!null_audio_poller_.Running())
+      // TODO(srte): We shoud replace the current thread with a task queue here.
+      null_audio_poller_ =
+          RepeatingTaskHandle::Start(rtc::Thread::Current(), [this] {
+            // Buffer to hold the audio samples.
+            int16_t buffer[kNumSamples * kNumChannels];
+            // Output variables from |NeedMorePlayData|.
+            size_t n_samples;
+            int64_t elapsed_time_ms;
+            int64_t ntp_time_ms;
+            audio_transport_.NeedMorePlayData(
+                kNumSamples, sizeof(int16_t), kNumChannels, kSamplesPerSecond,
+                buffer, n_samples, &elapsed_time_ms, &ntp_time_ms);
+            return TimeDelta::ms(kPollDelayMs);
+          });
   } else {
-    null_audio_poller_.reset();
+    null_audio_poller_.Stop();
   }
 }
 }  // namespace internal

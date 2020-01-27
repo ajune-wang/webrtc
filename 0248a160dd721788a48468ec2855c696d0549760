@@ -22,6 +22,30 @@
       "revId": "0248a160dd721788a48468ec2855c696d0549760",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f6acd8_b4b73840",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-27T14:44:54Z",
+      "side": 1,
+      "message": "This test expects that we do not apply overhead to the bitrate. This is expected for the target bitrate as that\u0027s a codec parameter specifically talking about the payload bitrate, but it\u0027s not expected not for the uplink bandwidth (link bandwidth is a metric that relates to the link capacity rather than the specific payload bitrate).\n\nBefore this change, we did not take overhead in consideration at all, so those two concepts were identical.",
+      "parentUuid": "3bb6452b_1500524b",
+      "range": {
+        "startLine": 207,
+        "startChar": 19,
+        "endLine": 207,
+        "endChar": 47
+      },
+      "revId": "0248a160dd721788a48468ec2855c696d0549760",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

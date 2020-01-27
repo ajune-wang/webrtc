@@ -19,6 +19,7 @@
 #include <memory>
 #include <queue>
 #include <set>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/transport/webrtc_key_value_config.h"
@@ -52,6 +53,7 @@ class RoundRobinPacketQueue {
   TimeDelta AverageQueueTime() const;
   void UpdateQueueTime(Timestamp now);
   void SetPauseState(bool paused, Timestamp now);
+  void SetIncludeOverhead();
 
  private:
   struct QueuedPacket {
@@ -111,7 +113,11 @@ class RoundRobinPacketQueue {
 
     DataSize size;
     uint32_t ssrc;
-    std::priority_queue<QueuedPacket> packet_queue;
+    class PriorityPacketQueue : public std::priority_queue<QueuedPacket> {
+     public:
+      const std::vector<QueuedPacket>& packets() const { return c; }
+    };
+    PriorityPacketQueue packet_queue;
 
     // Whenever a packet is inserted for this stream we check if |priority_it|
     // points to an element in |stream_priorities_|, and if it does it means
@@ -150,7 +156,7 @@ class RoundRobinPacketQueue {
   // the age of the oldest packet in the queue.
   std::multiset<Timestamp> enqueue_times_;
 
-  const bool send_side_bwe_with_overhead_;
+  bool include_overhead_;
 };
 }  // namespace webrtc
 

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bb6452b_1500524b",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-27T14:32:11Z",
+      "side": 1,
+      "message": "I don\u0027t immediately see why this change is necessary.",
+      "range": {
+        "startLine": 207,
+        "startChar": 19,
+        "endLine": 207,
+        "endChar": 47
+      },
+      "revId": "0248a160dd721788a48468ec2855c696d0549760",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

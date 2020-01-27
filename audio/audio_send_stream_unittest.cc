@@ -108,7 +108,7 @@ std::unique_ptr<MockAudioEncoder> SetupAudioEncoderMock(
           .WillByDefault(Return(spec.format.clockrate_hz));
       ON_CALL(*encoder.get(), GetFrameLengthRange())
           .WillByDefault(Return(absl::optional<std::pair<TimeDelta, TimeDelta>>{
-              {TimeDelta::ms(20), TimeDelta::ms(120)}}));
+              {kMinFrameLength, kMaxFrameLength}}));
       return encoder;
     }
   }
@@ -579,12 +579,20 @@ TEST(AudioSendStreamTest, SSBweFieldTrialMinRespected) {
   ScopedFieldTrials field_trials(
       "WebRTC-Audio-SendSideBwe/Enabled/"
       "WebRTC-Audio-Allocation/min:6kbps,max:64kbps/");
+  DataSize kOverheadPerPacket = DataSize::bytes(15);
+  DataRate kMinOverhead = kOverheadPerPacket / kMaxFrameLength;
+  DataRate kMinBitrate = DataRate::kbps(6);
   ConfigHelper helper(true, true);
   auto send_stream = helper.CreateAudioSendStream();
+  send_stream->SetTransportOverhead(0);
+
+  EXPECT_CALL(*helper.channel_send(), CallEncoder(_));
+  send_stream->OnOverheadChanged(kOverheadPerPacket.bytes());
+
   EXPECT_CALL(
       *helper.channel_send(),
       OnBitrateAllocation(Field(&BitrateAllocationUpdate::target_bitrate,
-                                Eq(DataRate::kbps(6)))));
+                                Eq(kMinBitrate + kMinOverhead))));
   BitrateAllocationUpdate update;
   update.target_bitrate = DataRate::kbps(1);
   helper.worker()->SendTask([&] { send_stream->OnBitrateUpdated(update); },

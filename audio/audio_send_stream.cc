@@ -148,13 +148,13 @@ AudioSendStream::AudioSendStream(
       enable_audio_alr_probing_(
           !field_trial::IsDisabled("WebRTC-Audio-AlrProbing")),
       send_side_bwe_with_overhead_(
-          field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+          !field_trial::IsDisabled("WebRTC-SendSideBwe-WithOverhead")),
       config_(Config(/*send_transport=*/nullptr)),
       audio_state_(audio_state),
       channel_send_(std::move(channel_send)),
       event_log_(event_log),
       use_legacy_overhead_calculation_(
-          !field_trial::IsDisabled("WebRTC-Audio-LegacyOverhead")),
+          field_trial::IsEnabled("WebRTC-Audio-LegacyOverhead")),
       bitrate_allocator_(bitrate_allocator),
       rtp_transport_(rtp_transport),
       rtp_rtcp_module_(channel_send_->GetRtpRtcp()),

@@ -51,32 +51,42 @@ std::string ProduceDebugText(int sample_rate_hz, size_t delay) {
 TEST(BlockDelayBuffer, CorrectDelayApplied) {
   for (size_t delay : {0, 1, 27, 160, 4321, 7021}) {
     for (auto rate : {16000, 32000, 48000}) {
-      SCOPED_TRACE(ProduceDebugText(rate, delay));
-      size_t num_bands = NumBandsForRate(rate);
-      size_t subband_frame_length = 160;
+      for (size_t num_channels : {1, 2, 4}) {
+        SCOPED_TRACE(ProduceDebugText(rate, delay));
+        size_t num_bands = NumBandsForRate(rate);
+        size_t subband_frame_length = 160;
 
-      BlockDelayBuffer delay_buffer(num_bands, subband_frame_length, delay);
+        BlockDelayBuffer delay_buffer(num_channels, num_bands,
+                                      subband_frame_length, delay);
 
-      static constexpr size_t kNumFramesToProcess = 20;
-      for (size_t frame_index = 0; frame_index < kNumFramesToProcess;
-           ++frame_index) {
-        AudioBuffer audio_buffer(rate, 1, rate, 1, rate, 1);
-        if (rate > 16000) {
-          audio_buffer.SplitIntoFrequencyBands();
-        }
-        size_t first_sample_index = frame_index * subband_frame_length;
-        PopulateInputFrame(subband_frame_length, num_bands, first_sample_index,
-                           &audio_buffer.split_bands(0)[0]);
-        delay_buffer.DelaySignal(&audio_buffer);
+        static constexpr size_t kNumFramesToProcess = 20;
+        for (size_t frame_index = 0; frame_index < kNumFramesToProcess;
+             ++frame_index) {
+          AudioBuffer audio_buffer(rate, num_channels, rate, num_channels, rate,
+                                   num_channels);
+          if (rate > 16000) {
+            audio_buffer.SplitIntoFrequencyBands();
+          }
+          size_t first_sample_index = frame_index * subband_frame_length;
+          for (size_t ch = 0; ch < num_channels; ++ch) {
+            PopulateInputFrame(subband_frame_length, num_bands,
+                               first_sample_index,
+                               &audio_buffer.split_bands(ch)[0]);
+          }
+          delay_buffer.DelaySignal(&audio_buffer);
 
-        for (size_t k = 0; k < num_bands; ++k) {
-          size_t sample_index = first_sample_index;
-          for (size_t i = 0; i < subband_frame_length; ++i, ++sample_index) {
-            if (sample_index < delay) {
-              EXPECT_EQ(0.f, audio_buffer.split_bands(0)[k][i]);
-            } else {
-              EXPECT_EQ(SampleValue(sample_index - delay),
-                        audio_buffer.split_bands(0)[k][i]);
+          for (size_t ch = 0; ch < num_channels; ++ch) {
+            for (size_t band = 0; band < num_bands; ++band) {
+              size_t sample_index = first_sample_index;
+              for (size_t i = 0; i < subband_frame_length;
+                   ++i, ++sample_index) {
+                if (sample_index < delay) {
+                  EXPECT_EQ(0.f, audio_buffer.split_bands(ch)[band][i]);
+                } else {
+                  EXPECT_EQ(SampleValue(sample_index - delay),
+                            audio_buffer.split_bands(ch)[band][i]);
+                }
+              }
             }
           }
         }

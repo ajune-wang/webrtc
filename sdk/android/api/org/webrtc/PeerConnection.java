@@ -415,27 +415,6 @@ public class PeerConnection {
     KEEP_FIRST_READY // Keep the first ready port and prune the rest on the same network.
   }
 
-  /** Java version of rtc::IntervalRange */
-  public static class IntervalRange {
-    private final int min;
-    private final int max;
-
-    public IntervalRange(int min, int max) {
-      this.min = min;
-      this.max = max;
-    }
-
-    @CalledByNative("IntervalRange")
-    public int getMin() {
-      return min;
-    }
-
-    @CalledByNative("IntervalRange")
-    public int getMax() {
-      return max;
-    }
-  }
-
   /**
    * Java version of webrtc::SdpSemantics.
    *
@@ -525,7 +504,6 @@ public class PeerConnection {
     //
     // Can be set to Integer.MAX_VALUE to effectively disable the limit.
     public int maxIPv6Networks;
-    @Nullable public IntervalRange iceRegatherIntervalRange;
 
     // These values will be overridden by MediaStream constraints if deprecated constraints-based
     // create peerconnection interface is used.

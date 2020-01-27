@@ -17,7 +17,6 @@
 #import "api/peerconnection/RTCConfiguration+Private.h"
 #import "api/peerconnection/RTCConfiguration.h"
 #import "api/peerconnection/RTCIceServer.h"
-#import "api/peerconnection/RTCIntervalRange.h"
 #import "helpers/NSString+StdString.h"
 
 @interface RTCConfigurationTest : NSObject
@@ -30,7 +29,6 @@
 - (void)testConversionToNativeConfiguration {
   NSArray *urlStrings = @[ @"stun:stun1.example.net" ];
   RTCIceServer *server = [[RTCIceServer alloc] initWithURLStrings:urlStrings];
-  RTCIntervalRange *range = [[RTCIntervalRange alloc] initWithMin:0 max:100];
 
   RTCConfiguration *config = [[RTCConfiguration alloc] init];
   config.iceServers = @[ server ];
@@ -49,7 +47,6 @@
   config.continualGatheringPolicy =
       RTCContinualGatheringPolicyGatherContinually;
   config.shouldPruneTurnPorts = YES;
-  config.iceRegatherIntervalRange = range;
   config.cryptoOptions = [[RTCCryptoOptions alloc] initWithSrtpEnableGcmCryptoSuites:YES
                                                  srtpEnableAes128Sha1_32CryptoCipher:YES
                                               srtpEnableEncryptedRtpHeaderExtensions:YES
@@ -95,7 +92,6 @@
 - (void)testNativeConversionToConfiguration {
   NSArray *urlStrings = @[ @"stun:stun1.example.net" ];
   RTCIceServer *server = [[RTCIceServer alloc] initWithURLStrings:urlStrings];
-  RTCIntervalRange *range = [[RTCIntervalRange alloc] initWithMin:0 max:100];
 
   RTCConfiguration *config = [[RTCConfiguration alloc] init];
   config.iceServers = @[ server ];
@@ -114,7 +110,6 @@
   config.continualGatheringPolicy =
       RTCContinualGatheringPolicyGatherContinually;
   config.shouldPruneTurnPorts = YES;
-  config.iceRegatherIntervalRange = range;
   config.cryptoOptions = [[RTCCryptoOptions alloc] initWithSrtpEnableGcmCryptoSuites:YES
                                                  srtpEnableAes128Sha1_32CryptoCipher:NO
                                               srtpEnableEncryptedRtpHeaderExtensions:NO
@@ -146,8 +141,6 @@
             newConfig.iceBackupCandidatePairPingInterval);
   EXPECT_EQ(config.continualGatheringPolicy, newConfig.continualGatheringPolicy);
   EXPECT_EQ(config.shouldPruneTurnPorts, newConfig.shouldPruneTurnPorts);
-  EXPECT_EQ(config.iceRegatherIntervalRange.min, newConfig.iceRegatherIntervalRange.min);
-  EXPECT_EQ(config.iceRegatherIntervalRange.max, newConfig.iceRegatherIntervalRange.max);
   EXPECT_EQ(config.cryptoOptions.srtpEnableGcmCryptoSuites,
             newConfig.cryptoOptions.srtpEnableGcmCryptoSuites);
   EXPECT_EQ(config.cryptoOptions.srtpEnableAes128Sha1_32CryptoCipher,

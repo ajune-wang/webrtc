@@ -133,8 +133,9 @@ bool UlpfecReceiverImpl::AddReceivedRedPacket(const RtpPacket& rtp_packet,
     received_packet->pkt->data.SetData(rtp_packet.data(),
                                        rtp_packet.headers_size());
     // Set payload type.
-    received_packet->pkt->data[1] &= 0x80;          // Reset RED payload type.
-    received_packet->pkt->data[1] += payload_type;  // Set media payload type.
+    received_packet->pkt->data.Data()[1] &= 0x80;  // Reset RED payload type.
+    received_packet->pkt->data.Data()[1] +=
+        payload_type;  // Set media payload type.
     // Copy payload data.
     received_packet->pkt->data.AppendData(red_payload.data(),
                                           red_payload.size());

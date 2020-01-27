@@ -78,7 +78,11 @@ class RTC_EXPORT CopyOnWriteBuffer {
             typename std::enable_if<
                 internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
   const T* data() const {
-    return cdata<T>();
+    RTC_DCHECK(IsConsistent());
+    if (!buffer_) {
+      return nullptr;
+    }
+    return buffer_->data<T>() + offset_;
   }
 
   // Get writable pointer to the data. This will create a copy of the underlying
@@ -86,7 +90,7 @@ class RTC_EXPORT CopyOnWriteBuffer {
   template <typename T = uint8_t,
             typename std::enable_if<
                 internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
-  T* data() {
+  T* Data() {
     RTC_DCHECK(IsConsistent());
     if (!buffer_) {
       return nullptr;
@@ -97,15 +101,12 @@ class RTC_EXPORT CopyOnWriteBuffer {
 
   // Get const pointer to the data. This will not create a copy of the
   // underlying data if it is shared with other buffers.
+  // Deprecated, use .data()
   template <typename T = uint8_t,
             typename std::enable_if<
                 internal::BufferCompat<uint8_t, T>::value>::type* = nullptr>
   const T* cdata() const {
-    RTC_DCHECK(IsConsistent());
-    if (!buffer_) {
-      return nullptr;
-    }
-    return buffer_->data<T>() + offset_;
+    return data<T>();
   }
 
   size_t size() const {
@@ -146,14 +147,9 @@ class RTC_EXPORT CopyOnWriteBuffer {
     return !(*this == buf);
   }
 
-  uint8_t& operator[](size_t index) {
-    RTC_DCHECK_LT(index, size());
-    return data()[index];
-  }
-
   uint8_t operator[](size_t index) const {
     RTC_DCHECK_LT(index, size());
-    return cdata()[index];
+    return data()[index];
   }
 
   // Replace the contents of the buffer. Accepts the same types as the

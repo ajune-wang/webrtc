@@ -165,10 +165,11 @@ TEST_F(FlexfecReceiverTest, FailsOnUnknownMediaSsrc) {
   PacketizeFrame(kNumMediaPackets, 0, &media_packets);
   auto& media_packet = media_packets.front();
   // Corrupt the SSRC.
-  media_packet->data[8] = 0;
-  media_packet->data[9] = 1;
-  media_packet->data[10] = 2;
-  media_packet->data[11] = 3;
+  uint8_t* ssrc_data = media_packet->data.Data() + 8;
+  ssrc_data[0] = 0;
+  ssrc_data[1] = 1;
+  ssrc_data[2] = 2;
+  ssrc_data[3] = 3;
 
   EXPECT_FALSE(receiver_.AddReceivedPacket(ParsePacket(*media_packet)));
 }
@@ -183,10 +184,11 @@ TEST_F(FlexfecReceiverTest, FailsOnUnknownFecSsrc) {
   const auto& media_packet = media_packets.front();
   auto fec_packet = packet_generator_.BuildFlexfecPacket(*fec_packets.front());
   // Corrupt the SSRC.
-  fec_packet->data[8] = 4;
-  fec_packet->data[9] = 5;
-  fec_packet->data[10] = 6;
-  fec_packet->data[11] = 7;
+  uint8_t* ssrc_data = fec_packet->data.Data() + 8;
+  ssrc_data[0] = 4;
+  ssrc_data[1] = 5;
+  ssrc_data[2] = 6;
+  ssrc_data[3] = 7;
 
   std::unique_ptr<ForwardErrorCorrection::ReceivedPacket> received_packet =
       receiver_.AddReceivedPacket(ParsePacket(*media_packet));

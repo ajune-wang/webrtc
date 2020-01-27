@@ -305,7 +305,7 @@ void DatagramRtpTransport::OnDatagramAcked(const DatagramAck& ack) {
 
   rtc::CopyOnWriteBuffer buffer(kMaxRtcpFeedbackPacketSize);
   size_t index = 0;
-  if (!feedback_packet.Create(buffer.data(), &index, buffer.capacity(),
+  if (!feedback_packet.Create(buffer.Data(), &index, buffer.capacity(),
                               nullptr)) {
     RTC_NOTREACHED() << "Failed to create RTCP feedback packet";
     return;

@@ -79,7 +79,7 @@ rtc::scoped_refptr<Packet> WriteHeader(const uint8_t* packet_mask,
   rtc::scoped_refptr<Packet> written_packet(new Packet());
   written_packet->data.SetSize(kMediaPacketLength);
   for (size_t i = 0; i < written_packet->data.size(); ++i) {
-    written_packet->data[i] = i;  // Actual content doesn't matter.
+    written_packet->data.Data()[i] = i;  // Actual content doesn't matter.
   }
   writer.FinalizeFecHeader(kMediaSsrc, kMediaStartSeqNum, packet_mask,
                            packet_mask_size, written_packet.get());
@@ -329,7 +329,7 @@ TEST(FlexfecHeaderWriterTest, FinalizesHeaderWithKBit0Set) {
   Packet written_packet;
   written_packet.data.SetSize(kMediaPacketLength);
   for (size_t i = 0; i < written_packet.data.size(); ++i) {
-    written_packet.data[i] = i;
+    written_packet.data.Data()[i] = i;
   }
 
   FlexfecHeaderWriter writer;
@@ -347,7 +347,7 @@ TEST(FlexfecHeaderWriterTest, FinalizesHeaderWithKBit1Set) {
   Packet written_packet;
   written_packet.data.SetSize(kMediaPacketLength);
   for (size_t i = 0; i < written_packet.data.size(); ++i) {
-    written_packet.data[i] = i;
+    written_packet.data.Data()[i] = i;
   }
 
   FlexfecHeaderWriter writer;
@@ -369,7 +369,7 @@ TEST(FlexfecHeaderWriterTest, FinalizesHeaderWithKBit2Set) {
   Packet written_packet;
   written_packet.data.SetSize(kMediaPacketLength);
   for (size_t i = 0; i < written_packet.data.size(); ++i) {
-    written_packet.data[i] = i;
+    written_packet.data.Data()[i] = i;
   }
 
   FlexfecHeaderWriter writer;

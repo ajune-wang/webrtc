@@ -14,7 +14,6 @@
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/port_allocator.h"
 #include "rtc_base/async_invoker.h"
-#include "rtc_base/random.h"
 #include "rtc_base/thread.h"
 
 namespace webrtc {
@@ -24,9 +23,6 @@ namespace webrtc {
 // using methods like GetStats to get additional information, and calling
 // methods like RegatherOnAllNetworks on the PortAllocatorSession when
 // regathering is desired.
-//
-// TODO(qingsi): Add the description of behavior when autonomous regathering is
-// implemented.
 //
 // "Regathering" is defined as gathering additional candidates within a single
 // ICE generation (or in other words, PortAllocatorSession), and is possible
@@ -46,13 +42,10 @@ namespace webrtc {
 class BasicRegatheringController : public sigslot::has_slots<> {
  public:
   struct Config {
-    Config(const absl::optional<rtc::IntervalRange>&
-               regather_on_all_networks_interval_range,
-           int regather_on_failed_networks_interval);
+    explicit Config(int regather_on_failed_networks_interval);
     Config(const Config& other);
     ~Config();
     Config& operator=(const Config& other);
-    absl::optional<rtc::IntervalRange> regather_on_all_networks_interval_range;
     int regather_on_failed_networks_interval;
   };
 
@@ -83,11 +76,6 @@ class BasicRegatheringController : public sigslot::has_slots<> {
   void OnIceTransportWritableState(rtc::PacketTransportInternal*) {}
   void OnIceTransportReceivingState(rtc::PacketTransportInternal*) {}
   void OnIceTransportNetworkRouteChanged(absl::optional<rtc::NetworkRoute>) {}
-  // Schedules delayed and repeated regathering of local candidates on all
-  // networks, where the delay in milliseconds is randomly sampled from the
-  // range in the config. The delay of each repetition is independently sampled
-  // from the same range. When scheduled, all previous schedules are canceled.
-  void ScheduleRecurringRegatheringOnAllNetworks();
   // Schedules delayed and repeated regathering of local candidates on failed
   // networks, where the delay in milliseconds is given by the config. Each
   // repetition is separated by the same delay. When scheduled, all previous
@@ -100,23 +88,16 @@ class BasicRegatheringController : public sigslot::has_slots<> {
   void CancelScheduledRecurringRegatheringOnFailedNetworks();
 
   rtc::Thread* thread() const { return thread_; }
-  // The following two methods perform the actual regathering, if the recent
-  // port allocator session has done the initial gathering.
-  void RegatherOnAllNetworksIfDoneGathering(bool repeated);
+  // The following method perform the actual regathering, if the recent port
+  // allocator session has done the initial gathering.
   void RegatherOnFailedNetworksIfDoneGathering(bool repeated);
-  // Samples a delay from the uniform distribution in the given range.
-  int SampleRegatherAllNetworksInterval(const rtc::IntervalRange& range);
 
   Config config_;
   cricket::IceTransportInternal* ice_transport_;
   cricket::PortAllocatorSession* allocator_session_ = nullptr;
-  bool has_recurring_schedule_on_all_networks_ = false;
   bool has_recurring_schedule_on_failed_networks_ = false;
   rtc::Thread* thread_;
-  rtc::AsyncInvoker invoker_for_all_networks_;
   rtc::AsyncInvoker invoker_for_failed_networks_;
-  // Used to generate random intervals for regather_all_networks_interval_range.
-  Random rand_;
 };
 
 }  // namespace webrtc

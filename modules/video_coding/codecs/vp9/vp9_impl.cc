@@ -12,7 +12,6 @@
 #ifdef RTC_ENABLE_VP9
 
 #include "modules/video_coding/codecs/vp9/vp9_impl.h"
-
 #include <algorithm>
 #include <limits>
 #include <utility>
@@ -249,7 +248,8 @@ VP9EncoderImpl::VP9EncoderImpl(const cricket::VideoCodec& codec)
           "WebRTC-VP9VariableFramerateScreenshare")),
       variable_framerate_controller_(
           variable_framerate_experiment_.framerate_limit),
-      num_steady_state_frames_(0) {
+      num_steady_state_frames_(0),
+      config_changed_(true) {
   codec_ = {};
   memset(&svc_params_, 0, sizeof(vpx_svc_extra_cfg_t));
 }
@@ -410,6 +410,7 @@ bool VP9EncoderImpl::SetSvcRates(
   }
 
   current_bitrate_allocation_ = bitrate_allocation;
+  config_changed_ = true;
   return true;
 }
 
@@ -435,6 +436,7 @@ void VP9EncoderImpl::SetRates(const RateControlParameters& parameters) {
     UpdateRateSettings(
         config_, GetRateSettings(parameters.bandwidth_allocation.bps<double>() /
                                  parameters.bitrate.get_sum_bps()));
+    config_changed_ = true;
   }
 
   bool res = SetSvcRates(parameters.bitrate);
@@ -814,6 +816,7 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
   // Enable encoder skip of static/low content blocks.
   vpx_codec_control(encoder_, VP8E_SET_STATIC_THRESHOLD, 1);
   inited_ = true;
+  config_changed_ = true;
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
@@ -933,8 +936,11 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
                       &svc_drop_frame_);
   }
 
-  if (vpx_codec_enc_config_set(encoder_, config_)) {
-    return WEBRTC_VIDEO_CODEC_ERROR;
+  if (config_changed_) {
+    if (vpx_codec_enc_config_set(encoder_, config_)) {
+      return WEBRTC_VIDEO_CODEC_ERROR;
+    }
+    config_changed_ = false;
   }
 
   RTC_DCHECK_EQ(input_image.width(), raw_->d_w);

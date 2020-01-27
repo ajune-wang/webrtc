@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3784d99_5cf6c3bd",
+        "filename": "modules/pacing/round_robin_packet_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2020-01-27T17:12:25Z",
+      "side": 1,
+      "message": "Suggestion: move the details to the .cc file with a comment about the variable \"c\". I don\u0027t have the C++ standard memorized yet :).",
+      "revId": "417a8a3832b0ca93ab46519e7cd789156a09615d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "868eede5_f72d06d5",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-01-27T12:53:26Z",
+      "side": 1,
+      "message": "Don\u0027t really understand why this was moved?",
+      "range": {
+        "startLine": 702,
+        "startChar": 0,
+        "endLine": 703,
+        "endChar": 72
+      },
+      "revId": "e9214f2bbb088f82df9a91e6a7017135acc27f4b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -46,6 +46,30 @@
       "revId": "9414c6d17a25b065be39b1dc875bf520b2470b1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c125b74c_924607a4",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-28T16:44:12Z",
+      "side": 1,
+      "message": "If we are moving towards a codec specific AssembleFrame interface then slicing away the payload descriptor is not really necessary (since that can be done in that codec aware function). But using the already existing COW buffer from RTP packets is a good motivation to keep it though.",
+      "parentUuid": "b50e05f5_67c285a4",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 26
+      },
+      "revId": "9414c6d17a25b065be39b1dc875bf520b2470b1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

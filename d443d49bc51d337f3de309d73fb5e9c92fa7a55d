@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca2138fe_1f4d6228",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-28T09:46:38Z",
+      "side": 1,
+      "message": "Is this supposed to be unused?",
+      "range": {
+        "startLine": 102,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 33
+      },
+      "revId": "d443d49bc51d337f3de309d73fb5e9c92fa7a55d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "17a6381c1c98b3cf631d82ba0d956650cd825784",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9c377be_3747da71",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2020-01-28T17:58:13Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "f36fa870_d9373d23",
+      "revId": "17a6381c1c98b3cf631d82ba0d956650cd825784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

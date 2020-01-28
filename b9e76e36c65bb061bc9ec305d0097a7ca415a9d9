@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "549935e6_262907a1",
+        "filename": "rtc_base/protobuf_utils.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-28T10:09:14Z",
+      "side": 1,
+      "message": "GN doesn\u0027t understand that the headers are behind an ifdef, so we need the nocgncheck. TBH I\u0027m not sure why my CL is triggering this problem, but this fix makes sense.",
+      "range": {
+        "startLine": 18,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 80
+      },
+      "revId": "b9e76e36c65bb061bc9ec305d0097a7ca415a9d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abf09542_f6333576",
+        "filename": "pc/remote_audio_source.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-28T13:01:14Z",
+      "side": 1,
+      "message": "when peerconnection acts as an audiosource, it should not provide capture time.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 59
+      },
+      "revId": "9839a0473968445da5ee77581e68774ef832cb1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

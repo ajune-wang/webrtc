@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7adc6627_a18fe69b",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-01-28T17:26:01Z",
+      "side": 1,
+      "message": "I\u0027m assuming \"auto\" here means RTPVideoHeaderLegacyGeneric? If not, please use explicit type.\n\nAnd const auto* please, if possible.",
+      "range": {
+        "startLine": 336,
+        "startChar": 2,
+        "endLine": 336,
+        "endChar": 6
+      },
+      "revId": "cc09b10b81b562414f29234084d5570a59dfff3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

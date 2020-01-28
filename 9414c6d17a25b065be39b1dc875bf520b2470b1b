@@ -70,6 +70,30 @@
       "revId": "9414c6d17a25b065be39b1dc875bf520b2470b1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "837fc265_ccfda0b0",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-28T16:51:12Z",
+      "side": 1,
+      "message": "yes, once there it might be possible to remove this slice. But may be it still will be viable to carry it to avoid double parsing the rtp payload. We\u0027ll see.\n(slicing itself already happens in the codec aware function. this struct just carry it over from Parse to AssembleFrame)",
+      "parentUuid": "c125b74c_924607a4",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 26
+      },
+      "revId": "9414c6d17a25b065be39b1dc875bf520b2470b1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

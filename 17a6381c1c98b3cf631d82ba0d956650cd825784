@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa84e295_60326f37",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-28T09:28:40Z",
+      "side": 0,
+      "message": "Will removing this field risk breaking API clients?",
+      "revId": "17a6381c1c98b3cf631d82ba0d956650cd825784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

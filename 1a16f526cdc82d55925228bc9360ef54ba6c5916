@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "859927cb_c9c3846f",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-28T10:50:17Z",
+      "side": 1,
+      "message": "You can remove this whole comment now. It will become apparent that this will have to be removed when the old generic payload descriptor is removed.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 33
+      },
+      "revId": "1a16f526cdc82d55925228bc9360ef54ba6c5916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4048eb6e_bd63ea23",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-28T10:50:17Z",
+      "side": 1,
+      "message": "LegacyRTPVideoHeaderGeneric, or something similar",
+      "range": {
+        "startLine": 31,
+        "startChar": 7,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "1a16f526cdc82d55925228bc9360ef54ba6c5916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

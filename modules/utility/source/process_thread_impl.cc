@@ -50,10 +50,20 @@ ProcessThreadImpl::~ProcessThreadImpl() {
   RTC_DCHECK(!thread_.get());
   RTC_DCHECK(!stop_);
 
+  while (!delayed_tasks_.empty()) {
+    delete delayed_tasks_.top().task;
+    delayed_tasks_.pop();
+  }
+
   while (!queue_.empty()) {
     delete queue_.front();
     queue_.pop();
   }
+}
+
+void ProcessThreadImpl::Delete() {
+  Stop();
+  delete this;
 }
 
 void ProcessThreadImpl::Start() {
@@ -113,6 +123,21 @@ void ProcessThreadImpl::PostTask(std::unique_ptr<QueuedTask> task) {
   wake_up_.Set();
 }
 
+void ProcessThreadImpl::PostDelayedTask(std::unique_ptr<QueuedTask> task,
+                                        uint32_t milliseconds) {
+  int64_t run_at_ms = rtc::TimeMillis() + milliseconds;
+  rtc::CritScope lock(&lock_);
+  DelayedTask delayed_task;
+  delayed_task.run_at_ms = run_at_ms;
+  delayed_task.task = task.release();
+  delayed_tasks_.push(std::move(delayed_task));
+
+  // If the new task inserted at the front, recalculate the wakeup time.
+  if (run_at_ms == delayed_tasks_.top().run_at_ms) {
+    wake_up_.Set();
+  }
+}
+
 void ProcessThreadImpl::RegisterModule(Module* module,
                                        const rtc::Location& from) {
   RTC_DCHECK(thread_checker_.IsCurrent());
@@ -166,6 +191,7 @@ void ProcessThreadImpl::DeRegisterModule(Module* module) {
 // static
 void ProcessThreadImpl::Run(void* obj) {
   ProcessThreadImpl* impl = static_cast<ProcessThreadImpl*>(obj);
+  CurrentTaskQueueSetter set_current(impl);
   while (impl->Process()) {
   }
 }
@@ -206,12 +232,23 @@ bool ProcessThreadImpl::Process() {
         next_checkpoint = m.next_callback;
     }
 
+    while (!delayed_tasks_.empty() && delayed_tasks_.top().run_at_ms <= now) {
+      queue_.push(delayed_tasks_.top().task);
+      delayed_tasks_.pop();
+    }
+
+    if (!delayed_tasks_.empty()) {
+      next_checkpoint =
+          std::min(next_checkpoint, delayed_tasks_.top().run_at_ms);
+    }
+
     while (!queue_.empty()) {
       QueuedTask* task = queue_.front();
       queue_.pop();
       lock_.Leave();
-      task->Run();
-      delete task;
+      if (task->Run()) {
+        delete task;
+      }
       lock_.Enter();
     }
   }

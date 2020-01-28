@@ -70,6 +70,30 @@
       "revId": "0054f2677e48d7295839a3d7087fdd52671b60b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7158c517_0d3920fd",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-28T14:51:06Z",
+      "side": 1,
+      "message": "You are of course right.\n\nI changed the wording and meaning of the member to match the trial, hopefully it\u0027s easier to follow this way...",
+      "parentUuid": "7fe6cfa9_65656bd3",
+      "range": {
+        "startLine": 103,
+        "startChar": 10,
+        "endLine": 103,
+        "endChar": 79
+      },
+      "revId": "0054f2677e48d7295839a3d7087fdd52671b60b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

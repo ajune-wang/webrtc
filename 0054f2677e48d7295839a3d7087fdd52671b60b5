@@ -22,6 +22,30 @@
       "revId": "0054f2677e48d7295839a3d7087fdd52671b60b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5956167_0639f134",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-01-28T13:46:32Z",
+      "side": 1,
+      "message": "The intention is to have a trial that reflects a deviation from the expected behavior. Initially we\u0027ll keep this unexpected behavior as the default. Then we\u0027ll flip it to become a kill switch.",
+      "parentUuid": "e1bf6240_5180f394",
+      "range": {
+        "startLine": 103,
+        "startChar": 10,
+        "endLine": 103,
+        "endChar": 79
+      },
+      "revId": "0054f2677e48d7295839a3d7087fdd52671b60b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62e98f27_a7adaec4",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-28T15:53:49Z",
+      "side": 1,
+      "message": "Is it worth changing this to an rtc::Buffer, or is that tricky given the CopyAndFixBitstream fiddling?",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 26
+      },
+      "revId": "9414c6d17a25b065be39b1dc875bf520b2470b1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

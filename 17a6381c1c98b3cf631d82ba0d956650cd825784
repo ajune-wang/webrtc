@@ -16,6 +16,24 @@
       "revId": "17a6381c1c98b3cf631d82ba0d956650cd825784",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d8b6d4f_0c6337dd",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-28T18:45:15Z",
+      "side": 0,
+      "message": "Yes, it will break anyone who is using it. Though I doubt anyone was using it since it\u0027s a weird configuration.",
+      "parentUuid": "fa84e295_60326f37",
+      "revId": "17a6381c1c98b3cf631d82ba0d956650cd825784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

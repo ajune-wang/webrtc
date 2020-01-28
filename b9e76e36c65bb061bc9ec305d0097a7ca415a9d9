@@ -22,6 +22,30 @@
       "revId": "b9e76e36c65bb061bc9ec305d0097a7ca415a9d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b0f4eff_a0f86366",
+        "filename": "rtc_base/protobuf_utils.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-01-28T10:57:12Z",
+      "side": 1,
+      "message": "I haven\u0027t looked too deeply but I suspect it is because now you are using this header also when \"rtc_enable_protobuf\" is false?\n\nSee: https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/BUILD.gn?l\u003d32\u0026rcl\u003dccbe95fd8a9e12dc519904b9d16c41590c2a16b6",
+      "parentUuid": "549935e6_262907a1",
+      "range": {
+        "startLine": 18,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 80
+      },
+      "revId": "b9e76e36c65bb061bc9ec305d0097a7ca415a9d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

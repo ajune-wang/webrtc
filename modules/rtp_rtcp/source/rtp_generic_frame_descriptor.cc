@@ -110,9 +110,4 @@ void RtpGenericFrameDescriptor::SetByteRepresentation(
   byte_representation_[0] &= ~0x40;
 }
 
-rtc::ArrayView<const uint8_t>
-RtpGenericFrameDescriptor::GetByteRepresentation() {
-  return byte_representation_;
-}
-
 }  // namespace webrtc

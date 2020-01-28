@@ -11,7 +11,10 @@
 #ifndef MODULES_VIDEO_CODING_FRAME_OBJECT_H_
 #define MODULES_VIDEO_CODING_FRAME_OBJECT_H_
 
+#include <vector>
+
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "api/video/encoded_frame.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 
@@ -36,7 +39,7 @@ class RtpFrameObject : public EncodedFrame {
       VideoContentType content_type,
       const RTPVideoHeader& video_header,
       const absl::optional<webrtc::ColorSpace>& color_space,
-      const absl::optional<RtpGenericFrameDescriptor>& generic_descriptor,
+      rtc::ArrayView<const uint8_t> generic_descriptor_byte_representation,
       RtpPacketInfos packet_infos,
       rtc::scoped_refptr<EncodedImageBuffer> image_buffer);
 
@@ -50,13 +53,15 @@ class RtpFrameObject : public EncodedFrame {
   int64_t RenderTime() const override;
   bool delayed_by_retransmission() const override;
   const RTPVideoHeader& GetRtpVideoHeader() const;
-  const absl::optional<RtpGenericFrameDescriptor>& GetGenericFrameDescriptor()
-      const;
+  rtc::ArrayView<const uint8_t> GetGenericFrameDescriptorByteRepresentation()
+      const {
+    return generic_descriptor_byte_representation_;
+  }
   const FrameMarking& GetFrameMarking() const;
 
  private:
   RTPVideoHeader rtp_video_header_;
-  absl::optional<RtpGenericFrameDescriptor> rtp_generic_frame_descriptor_;
+  const std::vector<uint8_t> generic_descriptor_byte_representation_;
   VideoCodecType codec_type_;
   uint16_t first_seq_num_;
   uint16_t last_seq_num_;

@@ -57,7 +57,7 @@ std::unique_ptr<RtpFrameObject> CreateFrame(
       VideoContentType::UNSPECIFIED,
       video_header,
       /*color_space=*/absl::nullopt,
-      /*generic_descriptor=*/absl::nullopt,
+      rtc::ArrayView<const uint8_t>(),
       RtpPacketInfos(),
       EncodedImageBuffer::Create(/*size=*/0));
   // clang-format on

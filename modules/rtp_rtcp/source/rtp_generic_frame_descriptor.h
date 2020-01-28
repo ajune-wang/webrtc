@@ -71,7 +71,9 @@ class RtpGenericFrameDescriptor {
   bool AddFrameDependencyDiff(uint16_t fdiff);
 
   void SetByteRepresentation(rtc::ArrayView<const uint8_t> representation);
-  rtc::ArrayView<const uint8_t> GetByteRepresentation();
+  rtc::ArrayView<const uint8_t> GetByteRepresentation() const {
+    return byte_representation_;
+  }
 
  private:
   bool beginning_of_subframe_ = false;

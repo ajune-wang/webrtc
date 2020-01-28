@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92f153f6_ab72c06c",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-28T11:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "859927cb_c9c3846f",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 33
+      },
+      "revId": "1a16f526cdc82d55925228bc9360ef54ba6c5916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4048eb6e_bd63ea23",
         "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-28T10:50:17Z",
       "side": 1,
       "message": "LegacyRTPVideoHeaderGeneric, or something similar",
+      "range": {
+        "startLine": 31,
+        "startChar": 7,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "1a16f526cdc82d55925228bc9360ef54ba6c5916",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cef69fe_f18ccffe",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-28T11:44:11Z",
+      "side": 1,
+      "message": "do you have a bug number or other details about the removal plan?\nare you ok with the TODO I put next to it, or prefer a different description?\n\n(calling it legacy imply there should be some deprecation plan).",
+      "parentUuid": "4048eb6e_bd63ea23",
       "range": {
         "startLine": 31,
         "startChar": 7,

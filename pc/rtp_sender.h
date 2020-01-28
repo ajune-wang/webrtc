@@ -213,7 +213,8 @@ class LocalAudioSinkAdapter : public AudioTrackSinkInterface,
               int bits_per_sample,
               int sample_rate,
               size_t number_of_channels,
-              size_t number_of_frames) override;
+              size_t number_of_frames,
+              absl::optional<int64_t> absolute_capture_timestamp_ms) override;
 
   // cricket::AudioSource implementation.
   void SetSink(cricket::AudioSource::Sink* sink) override;

@@ -145,7 +145,7 @@ void RemoteAudioSource::OnData(const AudioSinkInterface::Data& audio) {
   rtc::CritScope lock(&sink_lock_);
   for (auto* sink : sinks_) {
     sink->OnData(audio.data, 16, audio.sample_rate, audio.channels,
-                 audio.samples_per_channel);
+                 audio.samples_per_channel, absl::nullopt);
   }
 }
 

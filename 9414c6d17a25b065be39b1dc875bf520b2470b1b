@@ -22,6 +22,30 @@
       "revId": "9414c6d17a25b065be39b1dc875bf520b2470b1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b50e05f5_67c285a4",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-28T16:18:20Z",
+      "side": 1,
+      "message": "I think it doesn\u0027t worth it, but for another reason:\n\nRtpPacket uses CowBuffer internally. which make it cheap to get that buffer when rtp packet is raw,generic,vp8,vp9 or av1 (now it should be the same cow buffer created somewhere in the base media channel before even RtpPacket created; propagated all the way until it is assembled into the frame. In particular that become possible after Ilya added cheap cow buffer slicing).\n\nit makes it a bit more expensive (more memcpy) for h264 because some h264 rewrites use rtc::Buffer.\nBut when I\u0027ll manage to add AssembleFrame to the VideoRtpDepacketizer interface, it might be worth it to review how h264 frames are assemble and move more logic into the VideoRtpDepacketizerH264. In particular postpone rewriting until frame need to be assembled.",
+      "parentUuid": "62e98f27_a7adaec4",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 26
+      },
+      "revId": "9414c6d17a25b065be39b1dc875bf520b2470b1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "b039c30157f02367d3be5a258169d50bc067d43e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a943954_7b1db7b2",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-28T16:18:20Z",
+      "side": 0,
+      "message": "yep, sometimes it was accessed even when wasn\u0027t used.\n(start_index looking at packet just before the potential begining of frame packet and that packet might not be there).\n\nUnit tests forced me to add the check.",
+      "parentUuid": "ab8ce244_fe5ac80b",
+      "range": {
+        "startLine": 388,
+        "startChar": 11,
+        "endLine": 388,
+        "endChar": 66
+      },
+      "revId": "b039c30157f02367d3be5a258169d50bc067d43e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

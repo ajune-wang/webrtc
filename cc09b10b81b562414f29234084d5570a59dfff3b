@@ -22,6 +22,30 @@
       "revId": "cc09b10b81b562414f29234084d5570a59dfff3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a977c09_9d27f84a",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-28T17:38:08Z",
+      "side": 1,
+      "message": "yes it does. get_if\u003cT\u003e(\u0026variant) returns some pointer to T\nget\u003cT\u003e(variant) returns some reference to T\nhttps://en.cppreference.com/w/cpp/utility/variant/get_if\n\nchanged to const, that was missing, Thank you.",
+      "parentUuid": "7adc6627_a18fe69b",
+      "range": {
+        "startLine": 336,
+        "startChar": 2,
+        "endLine": 336,
+        "endChar": 6
+      },
+      "revId": "cc09b10b81b562414f29234084d5570a59dfff3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -2,6 +2,167 @@
   "comments": [
     {
       "key": {
+        "uuid": "6cb175eb_34ca6c71",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "if you wish, you may drop https:// prefix.\nIt is assumed that even without the prefix it is easy to understand this is an url.\nhttps://chromium.googlesource.com/external/webrtc/+/HEAD/style-guide.md#todo-comments",
+      "range": {
+        "startLine": 284,
+        "startChar": 8,
+        "endLine": 284,
+        "endChar": 16
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d462f7e8_0ef666ee",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "is this situation possible?:\nKF (num_spatial_layers\u003d3, spatial_layer\u003d1, resolutions\u003d{{0,0},{320,180},{640,360}});\nDF (num_spatial_layers\u003d3, spatial_layer\u003d1, resolutions\u003d{{0,0},{0,0},{0,0}});\n\nI see that you\u0027ve updated one of the vp9 encoder wrappers to always provide the resolutions.\nWhat about other encoder wrappers [outside the webrtc]?",
+      "range": {
+        "startLine": 299,
+        "startChar": 4,
+        "endLine": 299,
+        "endChar": 27
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78fcb93c_df7f7352",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "early return in this case?\nor might be better to add an extra clause for early return since it is likely to be the most common case:\nif (first_active_layer \u003d\u003d 0) {\n  return hdr;\n}",
+      "range": {
+        "startLine": 302,
+        "startChar": 56,
+        "endLine": 302,
+        "endChar": 57
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6c27cde_1584ce0e",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "is this loop needed? (hdr.num_spatial_layers is reduced, so no code should read into these resolutions)",
+      "range": {
+        "startLine": 308,
+        "startChar": 2,
+        "endLine": 309,
+        "endChar": 41
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0df15a43_2e03a5a9",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "const auto\u0026",
+      "range": {
+        "startLine": 181,
+        "startChar": 6,
+        "endLine": 181,
+        "endChar": 12
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a98bd08_e1a2a45f",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "may be add condition since that doesn\u0027t look obvious from the test.\ne.g.\nShiftsSpatialLayersTowardsZeroWhenResolutionIsZero.",
+      "range": {
+        "startLine": 564,
+        "startChar": 57,
+        "endLine": 564,
+        "endChar": 58
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ee7fd5_ce8e50ec",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "did you plan to add more tests?\n(to avoid repeating expected_ setup, it might help to add a free function:\nCreateVp9VideoHeader(std::vector\u003cstd::pair\u003cint, int\u003e\u003e resolutions) {\n  RTPVideoHeaderVp9 header;\n  // copy resolutions.\n  header.num_spatial_layers \u003d resolutions.size();\n  return header;\n}\n\n(also, to use less primitive types, may #include \"api/transport/rtp/dependency_descriptor\" and use std::vector\u003cRenderResolution\u003e. That still should allow to write in tests\nexpected_ \u003d CreateVp9VideoHeader(/*resolutions\u003d*/{{0, 0}, {640, 360}, {1280, 720}});",
+      "range": {
+        "startLine": 600,
+        "startChar": 2,
+        "endLine": 600,
+        "endChar": 5
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e026b15c_f6515c75",
         "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
         "patchSetId": 1
@@ -22,6 +183,70 @@
       "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2949d4b5_f7190f01",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "In current situation I would prefer 2nd option:\nadd first_active_spatial_layer with default value \u003d 0. It seems is safer and small enough change.\nvp9 header already has other fields that are not [directly] written on the wire (it has both ref_picture_id that is not written and pid_diff that is)\n\nlonger-term I would rather have 3rd option, and have that flag not in RtpSenderVideo, but in the statefull vp9 packetizer. That would require to refactor rtp packetizers similar to how depacketizers recently refactored. But that likely be too much work just for this feature.\n\nyet another, completely different approach - do not do this hack. instead rely on GFD02. Again, that look too much work just for this issue. GFD02 is still not wired up.",
+      "parentUuid": "e026b15c_f6515c75",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5115f9d_1d6f32a1",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "available",
+      "range": {
+        "startLine": 1136,
+        "startChar": 10,
+        "endLine": 1136,
+        "endChar": 11
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3ed099a_212df127",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:15:24Z",
+      "side": 1,
+      "message": "not sure this comment is helpful: it doesn\u0027t explain code here (it explains lack of code) and filling of width/height is done in the same function just few lines above.",
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

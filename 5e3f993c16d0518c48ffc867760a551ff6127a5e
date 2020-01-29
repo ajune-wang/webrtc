@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ffdb0d4_6e43a4e1",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T14:50:14Z",
+      "side": 1,
+      "message": "alternatively you may modify writer functions, but I doubt that will be easier/safer.\n\n(e.g. here it would be for (size_t i \u003d vp9.first_active_layer; ..\u003crest is the same\u003e\nbut then you need to be careful to catch all places where num_spatial_layers/spatial_idx is used.)",
+      "range": {
+        "startLine": 263,
+        "startChar": 20,
+        "endLine": 263,
+        "endChar": 21
+      },
+      "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7c1a96f_453a75b9",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T14:50:14Z",
+      "side": 1,
+      "message": "nit. in spec language \u0027must\u0027 is a very strong word.\nmay be use less strong spec word \u0027should\u0027 or non-spec language \u0027send layers better start/it is less confusing when layers start with spatial id 0\u0027, etc.\n\nActually.... never mind. spec in fact mandate (at least in one common case) to start with SL0:\n\nhttps://tools.ietf.org/html/draft-ietf-payload-vp9-09#section-5.2\n\n\"Upon receipt of an FIR request, a VP9 sender MUST send a picture with\n   a keyframe for its spatial layer 0 layer frame\".\n\nSo this change might not be a hack, but a fix to follow the spec.",
+      "range": {
+        "startLine": 286,
+        "startChar": 15,
+        "endLine": 286,
+        "endChar": 19
+      },
+      "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07739b61_eab4c068",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T14:50:14Z",
+      "side": 1,
+      "message": "it is better to always return hdr to trigger RVO\ni.e.\nRTPVideoHeaderVP9 hdr(original_header);\nif (original_header.first_active_layer \u003d\u003d 0)\n    return hdr;\n\nsee https://abseil.io/tips/11#how-can-you-ensure-the-compiler-performs-rvo",
+      "range": {
+        "startLine": 291,
+        "startChar": 2,
+        "endLine": 292,
+        "endChar": 27
+      },
+      "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb76f0b8_88506908",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T14:50:14Z",
+      "side": 1,
+      "message": "may be move line\nexpected_.spatial_idx \u003d 1 just above this line.\n\nhttps://testing.googleblog.com/2017/01/testing-on-toilet-keep-cause-and-effect.html",
+      "range": {
+        "startLine": 596,
+        "startChar": 2,
+        "endLine": 596,
+        "endChar": 6
+      },
+      "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f6d041d_65d81844",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T14:50:14Z",
+      "side": 1,
+      "message": "where this value is set/updated?\n(did you forgot do add vp9_impl.h?)",
+      "range": {
+        "startLine": 1116,
+        "startChar": 33,
+        "endLine": 1116,
+        "endChar": 52
+      },
+      "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

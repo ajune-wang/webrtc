@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5c1907f_89b67160",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-29T18:27:38Z",
+      "side": 1,
+      "message": "Please add a sentence about the changes compared to the first time around.",
+      "revId": "c77ede165796ae1b2b397c0b7ce8bd9a794365fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

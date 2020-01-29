@@ -174,6 +174,8 @@ struct RTPVideoHeaderVP9 {
     num_ref_pics = 0;
     num_spatial_layers = 1;
     end_of_picture = true;
+    memset(width, 0, kMaxVp9NumberOfSpatialLayers * sizeof(uint16_t));
+    memset(height, 0, kMaxVp9NumberOfSpatialLayers * sizeof(uint16_t));
   }
 
   bool inter_pic_predicted;  // This layer frame is dependent on previously

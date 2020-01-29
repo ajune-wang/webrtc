@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "a67f54e4_aee60947",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T12:39:46Z",
+      "side": 1,
+      "message": "btw, in the examples in the spec, I\u0027ve ordered decode targets from higher quality to lower:\nhttps://aomediacodec.github.io/av1-rtp-spec/#a53-l3t3-full-svc\n(in the same examples chains are ordered in opposite order)",
+      "parentUuid": "be06ee4b_cb21cf1b",
+      "range": {
+        "startLine": 544,
+        "startChar": 50,
+        "endLine": 544,
+        "endChar": 52
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "941aaafe_930de786",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
         "patchSetId": 6

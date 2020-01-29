@@ -46,6 +46,30 @@
       "revId": "b9e76e36c65bb061bc9ec305d0097a7ca415a9d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0965ebbb_c618b0c2",
+        "filename": "rtc_base/protobuf_utils.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-29T07:06:10Z",
+      "side": 1,
+      "message": "Yeah, this use of the proto will not be suppressed by rtc_enable_protobuf. Maybe it should be (but in that case perf upload will not work).\n\nI think that makes sense to do. I should not depend on proto if rtc_enable_protobuf is off and either take all perf tests out of the GN tree in that case (probably better?) or DCHECK them at the start. Either way, I should not break mozilla or others who don\u0027t want protobuf. I doubt they run our perf tests anyway.",
+      "parentUuid": "3b0f4eff_a0f86366",
+      "range": {
+        "startLine": 18,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 80
+      },
+      "revId": "b9e76e36c65bb061bc9ec305d0097a7ca415a9d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

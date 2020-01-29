@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8de9e42e_0f7237e1",
+        "filename": "test/fuzzers/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T16:37:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db158d9f_27602592",
+      "range": {
+        "startLine": 516,
+        "startChar": 0,
+        "endLine": 516,
+        "endChar": 28
+      },
+      "revId": "25b67a055fb6986a314e002f9f71005f5f234fe4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e589c372_e4f7b1b8",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b04938fe_8a95ae9e",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T16:37:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e589c372_e4f7b1b8",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "25b67a055fb6986a314e002f9f71005f5f234fe4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c20d7c8d_d96f7d43",
         "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
         "patchSetId": 8
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-29T16:17:51Z",
       "side": 1,
       "message": "Is this fuzzer running multi-threaded code? Is the intent to fuzz the multi-threading, or can that part be cut away to only fuzz the non-threaded code?",
+      "range": {
+        "startLine": 96,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 11
+      },
+      "revId": "25b67a055fb6986a314e002f9f71005f5f234fe4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea2076d3_3565508d",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T16:37:01Z",
+      "side": 1,
+      "message": "The FrameBuffer synchronize between the network thread and the decoding task queue. By using the GlobalSimulatedTimeController everything is single thread.",
+      "parentUuid": "c20d7c8d_d96f7d43",
       "range": {
         "startLine": 96,
         "startChar": 6,

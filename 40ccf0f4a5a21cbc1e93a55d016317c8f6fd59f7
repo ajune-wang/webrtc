@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bfc1e29_263c5e0e",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-29T10:17:05Z",
+      "side": 1,
+      "message": "I think you need to move this to the end of the method, after SetSvcRates() as that call may change the active layer config.",
+      "range": {
+        "startLine": 440,
+        "startChar": 4,
+        "endLine": 440,
+        "endChar": 27
+      },
+      "revId": "40ccf0f4a5a21cbc1e93a55d016317c8f6fd59f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

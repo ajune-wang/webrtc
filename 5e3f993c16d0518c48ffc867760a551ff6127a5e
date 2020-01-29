@@ -210,6 +210,30 @@
       "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d1cec91_6766ea56",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T15:35:55Z",
+      "side": 1,
+      "message": "gotcha, I didn\u0027t realize this member is not new.\nI took a look how it is updated, but still unsure about the question:\nCan first_active_layer_ change on a delta frame?\nif it can, then there is a problem: after it is increased you\u0027ll get a situation where next SL0 frame depends on previous SL1 frame.",
+      "parentUuid": "633dc26e_eb8cdca2",
+      "range": {
+        "startLine": 1116,
+        "startChar": 33,
+        "endLine": 1116,
+        "endChar": 52
+      },
+      "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

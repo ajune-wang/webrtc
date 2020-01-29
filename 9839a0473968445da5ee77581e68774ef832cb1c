@@ -46,6 +46,30 @@
       "revId": "9839a0473968445da5ee77581e68774ef832cb1c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa9cc4e0_4a29c67a",
+        "filename": "pc/remote_audio_source.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-29T03:41:33Z",
+      "side": 1,
+      "message": "+1 for making this a comment. Also, /*variable_name\u003d*/ in front of the nullopt will help readability a lot.",
+      "parentUuid": "a95a6304_1b8ad926",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 59
+      },
+      "revId": "9839a0473968445da5ee77581e68774ef832cb1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "7422f808cfc96d6e9b77badaa98e6e1bb2435ded",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4474ddc2_f62a5b16",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T10:35:32Z",
+      "side": 1,
+      "message": "The problem was not the \"const auto\u0026\" part, it was the assign-and-test part that I think we don\u0027t generally do. I agree that the smaller scope is better. I think the c++17 version is clearer, but I don\u0027t feel strongly about this.",
+      "parentUuid": "498c3c21_7e7d99e6",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 73
+      },
+      "revId": "7422f808cfc96d6e9b77badaa98e6e1bb2435ded",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

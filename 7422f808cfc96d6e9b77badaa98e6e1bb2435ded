@@ -22,6 +22,30 @@
       "revId": "7422f808cfc96d6e9b77badaa98e6e1bb2435ded",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "498c3c21_7e7d99e6",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T10:23:39Z",
+      "side": 1,
+      "message": "I\u0027m not aware of such guidance. What would be the reason to avoid it?\nlet me replace auto with the exact optional type.\nI guess that would explain how generic_descriptor is convertible to bool.\n\nThis kind of statement reduces scope of the generic_descriptor variable.\nAnd smaller scope is generally better.\n\n(go/totw/165 encourages c++17 version of this syntax)",
+      "parentUuid": "a3250630_7f07d232",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 73
+      },
+      "revId": "7422f808cfc96d6e9b77badaa98e6e1bb2435ded",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a03f089_88370b35",
+        "filename": "pc/rtp_sender.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-01-29T12:11:41Z",
+      "side": 1,
+      "message": "I realized that this method is used by downstream projects, therefore implemented to be backward compatible.",
+      "range": {
+        "startLine": 220,
+        "startChar": 7,
+        "endLine": 220,
+        "endChar": 13
+      },
+      "revId": "e44e55938d5cbe093db7c10e4416d5a91c17801d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

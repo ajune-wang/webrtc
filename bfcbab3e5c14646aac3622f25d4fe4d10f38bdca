@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8a0c8eb_c9c5b3be",
+        "filename": "api/transport/datagram_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-29T00:09:41Z",
+      "side": 1,
+      "message": "absl::string_view?",
+      "range": {
+        "startLine": 140,
+        "startChar": 6,
+        "endLine": 140,
+        "endChar": 24
+      },
+      "revId": "bfcbab3e5c14646aac3622f25d4fe4d10f38bdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31424043_fadff07e",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-29T00:09:41Z",
+      "side": 1,
+      "message": "nit: move these into an if branch so that the mutating call is a bit more obvious",
+      "range": {
+        "startLine": 774,
+        "startChar": 8,
+        "endLine": 775,
+        "endChar": 64
+      },
+      "revId": "bfcbab3e5c14646aac3622f25d4fe4d10f38bdca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

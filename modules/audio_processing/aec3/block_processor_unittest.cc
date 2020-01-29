@@ -41,7 +41,7 @@ void RunBasicSetupAndApiCallTest(int sample_rate_hz, int num_iterations) {
 
   std::unique_ptr<BlockProcessor> block_processor(
       BlockProcessor::Create(EchoCanceller3Config(), sample_rate_hz,
-                             kNumRenderChannels, kNumCaptureChannels));
+                             kNumRenderChannels, kNumCaptureChannels, nullptr));
   std::vector<std::vector<std::vector<float>>> block(
       NumBandsForRate(sample_rate_hz),
       std::vector<std::vector<float>>(kNumRenderChannels,
@@ -159,7 +159,7 @@ TEST(BlockProcessor, DISABLED_DelayControllerIntegration) {
         .WillRepeatedly(Return(0));
     std::unique_ptr<BlockProcessor> block_processor(BlockProcessor::Create(
         EchoCanceller3Config(), rate, kNumRenderChannels, kNumCaptureChannels,
-        std::move(render_delay_buffer_mock)));
+        nullptr, std::move(render_delay_buffer_mock)));
 
     std::vector<std::vector<std::vector<float>>> render_block(
         NumBandsForRate(rate),
@@ -209,14 +209,14 @@ TEST(BlockProcessor, DISABLED_SubmoduleIntegration) {
         .WillRepeatedly(Return(0));
     EXPECT_CALL(*render_delay_controller_mock, GetDelay(_, _, _))
         .Times(kNumBlocks);
-    EXPECT_CALL(*echo_remover_mock, ProcessCapture(_, _, _, _, _, _))
+    EXPECT_CALL(*echo_remover_mock, ProcessCapture(_, _, _, _, _, _, _))
         .Times(kNumBlocks);
     EXPECT_CALL(*echo_remover_mock, UpdateEchoLeakageStatus(_))
         .Times(kNumBlocks);
 
     std::unique_ptr<BlockProcessor> block_processor(BlockProcessor::Create(
         EchoCanceller3Config(), rate, kNumRenderChannels, kNumCaptureChannels,
-        std::move(render_delay_buffer_mock),
+        nullptr, std::move(render_delay_buffer_mock),
         std::move(render_delay_controller_mock), std::move(echo_remover_mock)));
 
     std::vector<std::vector<std::vector<float>>> render_block(

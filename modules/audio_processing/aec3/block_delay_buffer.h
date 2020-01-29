@@ -31,6 +31,7 @@ class BlockDelayBuffer {
 
   // Delays the samples by the specified delay.
   void DelaySignal(AudioBuffer* frame);
+  void DelaySignal(std::vector<std::vector<std::vector<float>>>* frame);
 
  private:
   const size_t frame_length_;

@@ -36,6 +36,11 @@
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
+// #include "modules/audio_processing/aec3/combine_and_scale.h"
+// //  CombineAndScale to_remove_;
+//       to_remove_(num_capture_input_channels_,num_capture_input_channels_, 5,
+//       true),
+
 #define RETURN_ON_ERR(expr) \
   do {                      \
     int err = (expr);       \

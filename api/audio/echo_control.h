@@ -51,6 +51,10 @@ class EchoControl {
   // Returns wheter the signal is altered.
   virtual bool ActiveProcessing() const = 0;
 
+  // Returns the number of channels in the output.
+  // TODO(peah): Make pure virtual.
+  virtual size_t NumCaptureOutputChannels() const { return 1; }
+
   virtual ~EchoControl() {}
 };
 

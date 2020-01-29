@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c00fdbc3_ed2e8e2d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T10:26:14Z",
+      "side": 1,
+      "message": "nit: I think the more common way of doing this is \u0026 0xFFFF.",
+      "range": {
+        "startLine": 126,
+        "startChar": 63,
+        "endLine": 126,
+        "endChar": 72
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d0cb0eb_357e5e2e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T10:26:14Z",
+      "side": 1,
+      "message": "Could be a trap when making future changes to this function, for example if someone were to add  some extension logic after this return statement. Maybe wrap 00/01 version in something like:\n\n  if (!generic_extension_set) {\n    // 00 and 01 logic here\n  }",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 7
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "306d13b1_a8da4894",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T10:26:14Z",
+      "side": 1,
+      "message": "DTIS are listed from 0 to N\n-S",
+      "range": {
+        "startLine": 544,
+        "startChar": 50,
+        "endLine": 544,
+        "endChar": 52
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941aaafe_930de786",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T10:26:14Z",
+      "side": 1,
+      "message": "-D",
+      "range": {
+        "startLine": 545,
+        "startChar": 50,
+        "endLine": 545,
+        "endChar": 52
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d2b5164_6274df43",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T10:26:14Z",
+      "side": 1,
+      "message": "order?",
+      "range": {
+        "startLine": 581,
+        "startChar": 39,
+        "endLine": 582,
+        "endChar": 74
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd7c24ce_ecb33861",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-29T10:26:14Z",
+      "side": 1,
+      "message": "Could we also have a test where we send a keyframe and then send a delta frame matching one of the templates and verify that we used the correct template id and also didn\u0027t use the extended header?",
+      "range": {
+        "startLine": 675,
+        "startChar": 0,
+        "endLine": 675,
+        "endChar": 1
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

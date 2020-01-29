@@ -593,8 +593,7 @@ bool AudioSendStream::SetupSendCodec(const Config& new_config) {
   }
 
   // Enable ANA if configured (currently only used by Opus).
-  if (new_config.audio_network_adaptor_config &&
-      TransportSeqNumId(new_config) != 0) {
+  if (new_config.audio_network_adaptor_config) {
     if (encoder->EnableAudioNetworkAdaptor(
             *new_config.audio_network_adaptor_config, event_log_)) {
       RTC_DLOG(LS_INFO) << "Audio network adaptor enabled on SSRC "
@@ -693,8 +692,7 @@ void AudioSendStream::ReconfigureANA(const Config& new_config) {
       config_.audio_network_adaptor_config) {
     return;
   }
-  if (new_config.audio_network_adaptor_config &&
-      TransportSeqNumId(new_config) != 0) {
+  if (new_config.audio_network_adaptor_config) {
     channel_send_->CallEncoder([&](AudioEncoder* encoder) {
       if (encoder->EnableAudioNetworkAdaptor(
               *new_config.audio_network_adaptor_config, event_log_)) {

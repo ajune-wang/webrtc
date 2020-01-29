@@ -67,7 +67,7 @@ class PacketBuffer {
 
     rtc::CopyOnWriteBuffer video_payload;
     RTPVideoHeader video_header;
-    absl::optional<RtpGenericFrameDescriptor> generic_descriptor;
+    std::vector<uint8_t> generic_descriptor_bytes;
 
     RtpPacketInfo packet_info;
   };

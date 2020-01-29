@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "74d52893_c6a56536",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T10:53:46Z",
+      "side": 1,
+      "message": "I guess it is more common because is slightly better in several ways.\n(e.g. safer if frame_id happens to be negative. Should never happen, but still.)",
+      "parentUuid": "c00fdbc3_ed2e8e2d",
+      "range": {
+        "startLine": 126,
+        "startChar": 63,
+        "endLine": 126,
+        "endChar": 72
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d0cb0eb_357e5e2e",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "dd5e310f_27bcc6e2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T10:53:46Z",
+      "side": 1,
+      "message": "yep, it is a trap. Trap removed.",
+      "parentUuid": "4d0cb0eb_357e5e2e",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 7
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "306d13b1_a8da4894",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-29T10:26:14Z",
       "side": 1,
       "message": "DTIS are listed from 0 to N\n-S",
+      "range": {
+        "startLine": 544,
+        "startChar": 50,
+        "endLine": 544,
+        "endChar": 52
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be06ee4b_cb21cf1b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T10:53:46Z",
+      "side": 1,
+      "message": "I guess it is debatable how to better order decode targets.\nHere I order using same idea as operating point ordering: \u0027better\u0027 quality comes first, so when choosing a decode target, need to search for the first one that is active and compatible (rather than for the last one).\n\n(for the purpose of this test that is irrelevant though).",
+      "parentUuid": "306d13b1_a8da4894",
       "range": {
         "startLine": 544,
         "startChar": 50,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "5dba2b75_e7fe3da2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T10:53:46Z",
+      "side": 1,
+      "message": "irrelevant (this dtis don\u0027t even match any of the templates)",
+      "parentUuid": "2d2b5164_6274df43",
+      "range": {
+        "startLine": 581,
+        "startChar": 39,
+        "endLine": 582,
+        "endChar": 74
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd7c24ce_ecb33861",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
         "patchSetId": 6
@@ -137,6 +233,30 @@
       "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60eecf71_dd63cfad",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-01-29T10:53:46Z",
+      "side": 1,
+      "message": "using correct template id and avoiding extended header is the job of the RtpDependencyDescriptorWriter, not of the RtpSenderVideo.\n\nthough... RtpDependencyDescriptorWriter currently completely misses tests. [other than fuzzing].\nlet me add some [in a separate cl]",
+      "parentUuid": "fd7c24ce_ecb33861",
+      "range": {
+        "startLine": 675,
+        "startChar": 0,
+        "endLine": 675,
+        "endChar": 1
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

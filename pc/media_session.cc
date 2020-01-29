@@ -1423,8 +1423,7 @@ std::unique_ptr<SessionDescription> MediaSessionDescriptionFactory::CreateOffer(
                   session_options.media_description_options.size());
   }
 
-  IceCredentialsIterator ice_credentials(
-      session_options.pooled_ice_credentials);
+  IceCredentialsIterator ice_credentials(session_options.ice_credentials);
 
   std::vector<const ContentInfo*> current_active_contents;
   if (current_description) {
@@ -1562,8 +1561,7 @@ MediaSessionDescriptionFactory::CreateAnswer(
   RTC_DCHECK_EQ(offer->contents().size(),
                 session_options.media_description_options.size());
 
-  IceCredentialsIterator ice_credentials(
-      session_options.pooled_ice_credentials);
+  IceCredentialsIterator ice_credentials(session_options.ice_credentials);
 
   std::vector<const ContentInfo*> current_active_contents;
   if (current_description) {

@@ -105,7 +105,7 @@ TEST_F(NetEqDecodingTest, MAYBE_TestBitExactness) {
 #else
 #define MAYBE_TestOpusBitExactness DISABLED_TestOpusBitExactness
 #endif
-TEST_F(NetEqDecodingTest, MAYBE_TestOpusBitExactness) {
+TEST_F(NetEqDecodingTest, DISABLED_TestOpusBitExactness) {
   const std::string input_rtp_file =
       webrtc::test::ResourcePath("audio_coding/neteq_opus", "rtp");
 
@@ -134,7 +134,7 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusBitExactness) {
 #else
 #define MAYBE_TestOpusDtxBitExactness DISABLED_TestOpusDtxBitExactness
 #endif
-TEST_F(NetEqDecodingTest, MAYBE_TestOpusDtxBitExactness) {
+TEST_F(NetEqDecodingTest, DISABLED_TestOpusDtxBitExactness) {
   const std::string input_rtp_file =
       webrtc::test::ResourcePath("audio_coding/neteq_opus_dtx", "rtp");
 

@@ -101,7 +101,7 @@ float EncodedPowerRatio(AudioEncoder* encoder,
 
 }  // namespace
 
-TEST(BandwidthAdaptationTest, BandwidthAdaptationTest) {
+TEST(BandwidthAdaptationTest, DISABLED_BandwidthAdaptationTest) {
   test::ScopedFieldTrials override_field_trials(
       "WebRTC-AdjustOpusBandwidth/Enabled/");
 

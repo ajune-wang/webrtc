@@ -28,6 +28,7 @@
 #include "modules/rtp_rtcp/include/ulpfec_receiver.h"
 #include "modules/rtp_rtcp/source/create_video_rtp_depacketizer.h"
 #include "modules/rtp_rtcp/source/rtp_format.h"
+#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
@@ -367,51 +368,58 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
   rtp_packet.GetExtension<PlayoutDelayLimits>(&video_header.playout_delay);
   rtp_packet.GetExtension<FrameMarkingExtension>(&video_header.frame_marking);
 
-  RtpGenericFrameDescriptor& generic_descriptor =
-      packet->generic_descriptor.emplace();
+  absl::optional<RtpGenericFrameDescriptor> generic_descriptor(absl::in_place);
   if (rtp_packet.GetExtension<RtpGenericFrameDescriptorExtension01>(
-          &generic_descriptor)) {
+          &*generic_descriptor)) {
     if (rtp_packet.HasExtension<RtpGenericFrameDescriptorExtension00>()) {
       RTC_LOG(LS_WARNING) << "RTP packet had two different GFD versions.";
       return;
     }
-    generic_descriptor.SetByteRepresentation(
-        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>());
+    auto raw =
+        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>();
+    packet->generic_descriptor_bytes.assign(raw.begin(), raw.end());
   } else if ((rtp_packet.GetExtension<RtpGenericFrameDescriptorExtension00>(
-                 &generic_descriptor))) {
-    generic_descriptor.SetByteRepresentation(
-        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>());
+                 &*generic_descriptor))) {
+    auto raw =
+        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>();
+    packet->generic_descriptor_bytes.assign(raw.begin(), raw.end());
   } else {
-    packet->generic_descriptor = absl::nullopt;
+    generic_descriptor = absl::nullopt;
   }
-  if (packet->generic_descriptor != absl::nullopt) {
-    video_header.is_first_packet_in_frame =
-        packet->generic_descriptor->FirstPacketInSubFrame();
-    video_header.is_last_packet_in_frame =
-        packet->generic_descriptor->LastPacketInSubFrame();
+  if (generic_descriptor != absl::nullopt) {
+    // Clear end_of_subframe bit.
+    // Because byte representation is used for frame authentication, bit
+    // describing position of the packet in the frame shouldn't be part of it.
+    // This match RtpVideoSender where descriptor is passed for authentication
+    // before end_of_subframe bit is decided and set, i.e. it is always 0.
+    RTC_CHECK(!packet->generic_descriptor_bytes.empty());
+    packet->generic_descriptor_bytes[0] &= ~0x40;
 
-    if (packet->generic_descriptor->FirstPacketInSubFrame()) {
+    video_header.is_first_packet_in_frame =
+        generic_descriptor->FirstPacketInSubFrame();
+    video_header.is_last_packet_in_frame =
+        generic_descriptor->LastPacketInSubFrame();
+
+    if (generic_descriptor->FirstPacketInSubFrame()) {
       video_header.frame_type =
-          packet->generic_descriptor->FrameDependenciesDiffs().empty()
+          generic_descriptor->FrameDependenciesDiffs().empty()
               ? VideoFrameType::kVideoFrameKey
               : VideoFrameType::kVideoFrameDelta;
 
       auto& descriptor = video_header.generic.emplace();
       int64_t frame_id =
-          frame_id_unwrapper_.Unwrap(packet->generic_descriptor->FrameId());
+          frame_id_unwrapper_.Unwrap(generic_descriptor->FrameId());
       descriptor.frame_id = frame_id;
-      descriptor.spatial_index = packet->generic_descriptor->SpatialLayer();
-      descriptor.temporal_index = packet->generic_descriptor->TemporalLayer();
+      descriptor.spatial_index = generic_descriptor->SpatialLayer();
+      descriptor.temporal_index = generic_descriptor->TemporalLayer();
       descriptor.discardable =
-          packet->generic_descriptor->Discardable().value_or(false);
-      for (uint16_t fdiff :
-           packet->generic_descriptor->FrameDependenciesDiffs()) {
+          generic_descriptor->Discardable().value_or(false);
+      for (uint16_t fdiff : generic_descriptor->FrameDependenciesDiffs()) {
         descriptor.dependencies.push_back(frame_id - fdiff);
       }
     }
-
-    video_header.width = packet->generic_descriptor->Width();
-    video_header.height = packet->generic_descriptor->Height();
+    video_header.width = generic_descriptor->Width();
+    video_header.height = generic_descriptor->Height();
   }
 
   // Color space should only be transmitted in the last packet of a frame,
@@ -435,7 +443,7 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
       // TODO(bugs.webrtc.org/10336): Implement support for reordering.
       RTC_LOG(LS_INFO)
           << "LossNotificationController does not support reordering.";
-    } else if (!packet->generic_descriptor) {
+    } else if (packet->generic_descriptor_bytes.empty()) {
       RTC_LOG(LS_WARNING) << "LossNotificationController requires generic "
                              "frame descriptor, but it is missing.";
     } else {

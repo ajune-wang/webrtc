@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f072b23_093294f0",
+        "filename": "api/video_codecs/test/video_encoder_software_fallback_wrapper_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-29T12:00:48Z",
+      "side": 0,
+      "message": "I found this behavior very strange so I removed it.\nWas there a rationale for doing it that way?",
+      "range": {
+        "startLine": 497,
+        "startChar": 2,
+        "endLine": 501,
+        "endChar": 47
+      },
+      "revId": "094ce2ef8368c54aaad10b3350c69e1ee618f5e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

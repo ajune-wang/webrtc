@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e026b15c_f6515c75",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-29T09:31:10Z",
+      "side": 1,
+      "message": "This now always has to be initialized.\n\nAlternative is to add a separate field |first_active_layer|, which is 0 by default and set by the encoder.\nThis field will be different in sense that it\u0027s present in the header, but isn\u0027t written on the wire.\n\nAnother alternative would be to introduce some state in RtpSenderVideo to remember which layers are active, after the key-frame indicated them, and pass that to Vp9 packetizer.\n\nWDYT?",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

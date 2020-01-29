@@ -217,10 +217,8 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
   // TODO(qingsi): Rewrite this method in terms of the standard IceTransport
   // after it is implemented.
   cricket::IceRole GetIceRole(const WrapperPtr& pc_wrapper_ptr) {
-    auto* pc_proxy =
-        static_cast<PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
-            pc_wrapper_ptr->pc());
-    PeerConnection* pc = static_cast<PeerConnection*>(pc_proxy->internal());
+    PeerConnection* pc = GetInternalPeerConnection(pc_wrapper_ptr);
+
     for (const auto& transceiver : pc->GetTransceiversInternal()) {
       if (transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
         auto dtls_transport = pc->LookupDtlsTransportByMidInternal(
@@ -230,6 +228,26 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
     }
     RTC_NOTREACHED();
     return cricket::ICEROLE_UNKNOWN;
+  }
+
+  PeerConnection* GetInternalPeerConnection(const WrapperPtr& pc_wrapper_ptr) {
+    auto* pc_proxy =
+        static_cast<PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
+            pc_wrapper_ptr->pc());
+    return static_cast<PeerConnection*>(pc_proxy->internal());
+  }
+
+  cricket::IceTransportInternal* GetFirstIceTransport(PeerConnection* pc) {
+    for (const auto& transceiver : pc->GetTransceiversInternal()) {
+      if (transceiver->internal() && transceiver->internal()->channel()) {
+        auto dtls_transport = pc->LookupDtlsTransportByMidInternal(
+            transceiver->internal()->channel()->content_name());
+        if (dtls_transport && dtls_transport->ice_transport()) {
+          return dtls_transport->ice_transport()->internal();
+        }
+      }
+    }
+    return nullptr;
   }
 
   // Returns a list of (ufrag, pwd) pairs in the order that they appear in
@@ -1402,6 +1420,47 @@ TEST_P(PeerConnectionIceTest, IceCredentialsCreateAnswer) {
     EXPECT_EQ(transport_info->description.ice_ufrag, credentials[0].ufrag);
     EXPECT_EQ(transport_info->description.ice_pwd, credentials[0].pwd);
   }
+}
+
+TEST_P(PeerConnectionIceTest, IceForking) {
+  RTCConfiguration config;
+  config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
+  auto pc1 = CreatePeerConnectionWithAudioVideo(config);
+  auto pc1_internal = GetInternalPeerConnection(pc1);
+  auto pc2 = CreatePeerConnectionWithAudioVideo(config);
+  auto pc2_internal = GetInternalPeerConnection(pc2);
+
+  auto gatherer = pc1_internal->CreateSharedIceGatherer();
+  ASSERT_TRUE(gatherer);
+
+  pc1_internal->UseSharedIceGatherer(gatherer);
+  pc1->SetLocalDescription(pc1->CreateOffer());
+  EXPECT_TRUE_WAIT(pc1->IsIceGatheringDone(), kIceCandidatesTimeout);
+  auto* pc1_transport_desc =
+      GetFirstTransportDescription(pc1_internal->local_description());
+
+  auto* pc1_ice = GetFirstIceTransport(pc1_internal);
+
+  pc2_internal->UseSharedIceGatherer(gatherer);
+  pc2->SetLocalDescription(pc2->CreateOffer());
+  EXPECT_TRUE_WAIT(pc2->IsIceGatheringDone(), kIceCandidatesTimeout);
+  auto* pc2_transport_desc =
+      GetFirstTransportDescription(pc2_internal->local_description());
+  auto* pc2_ice = GetFirstIceTransport(pc2_internal);
+
+  ASSERT_TRUE(pc1_transport_desc);
+  ASSERT_TRUE(pc1_ice);
+  ASSERT_TRUE(pc2_transport_desc);
+  ASSERT_TRUE(pc2_ice);
+  EXPECT_EQ(pc1_transport_desc->ice_ufrag, pc2_transport_desc->ice_ufrag);
+  EXPECT_EQ(pc1_transport_desc->ice_pwd, pc2_transport_desc->ice_pwd);
+  ASSERT_TRUE(pc1_ice->shared_gatherer());
+  ASSERT_TRUE(pc2_ice->shared_gatherer());
+  EXPECT_EQ(gatherer->port_allocator_session(),
+            pc1_ice->shared_gatherer()->port_allocator_session());
+  EXPECT_EQ(gatherer->port_allocator_session(),
+            pc2_ice->shared_gatherer()->port_allocator_session());
+  EXPECT_TRUE(gatherer->port_allocator_session()->IsGettingPorts());
 }
 
 }  // namespace webrtc

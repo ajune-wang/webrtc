@@ -280,12 +280,46 @@ bool WriteSsData(const RTPVideoHeaderVP9& vp9, rtc::BitBufferWriter* writer) {
   }
   return true;
 }
+
+// TODO(https://bugs.webrtc.org/11319):
+// Workaround for switching off spatial layers on the fly.
+// Sent layers must start from SL0 on RTP layer, but can start from any
+// spatial layer because WebRTC-SVC api isn't implemented yet and
+// current API to invoke SVC is not flexible enough.
+RTPVideoHeaderVP9 RemoveInactiveSpatialLayers(
+    const RTPVideoHeaderVP9& original_header) {
+  RTPVideoHeaderVP9 hdr(original_header);
+  size_t first_active_layer = 0;
+  while (first_active_layer < hdr.num_spatial_layers) {
+    if (hdr.width[first_active_layer] > 0 && hdr.height[first_active_layer] > 0)
+      break;
+    ++first_active_layer;
+  }
+  if (first_active_layer == hdr.num_spatial_layers) {
+    first_active_layer = 0;
+    RTC_LOG(LS_WARNING) << "VP9 frame without resolution information. "
+                           "Can't figure out the first active layer. "
+                           "Assuming layer 0 is active.";
+  }
+  for (size_t i = first_active_layer; i < hdr.num_spatial_layers; ++i) {
+    hdr.width[i - first_active_layer] = hdr.width[i];
+    hdr.height[i - first_active_layer] = hdr.height[i];
+  }
+  for (size_t i = hdr.num_spatial_layers - first_active_layer;
+       i < hdr.num_spatial_layers; ++i) {
+    hdr.width[i] = 0;
+    hdr.height[i] = 0;
+  }
+  hdr.num_spatial_layers -= first_active_layer;
+  hdr.spatial_idx -= first_active_layer;
+  return hdr;
+}
 }  // namespace
 
 RtpPacketizerVp9::RtpPacketizerVp9(rtc::ArrayView<const uint8_t> payload,
                                    PayloadSizeLimits limits,
                                    const RTPVideoHeaderVP9& hdr)
-    : hdr_(hdr),
+    : hdr_(RemoveInactiveSpatialLayers(hdr)),
       header_size_(PayloadDescriptorLengthMinusSsData(hdr_)),
       first_packet_extra_header_size_(SsDataLength(hdr_)),
       remaining_payload_(payload) {

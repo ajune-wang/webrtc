@@ -1129,6 +1129,22 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
 
   vp9_info->inter_pic_predicted = (!is_key_pic && vp9_info->num_ref_pics > 0);
 
+  // TODO(https://bugs.webrtc.org/11319):
+  // To ensure that on RTP level spatial layers are counted from 0,
+  // information about disabled layers needs to be present on all frames.
+  // Therefore, |width| and |height| are always populated, even if ss data is
+  // not abvailable.
+  for (size_t i = 0; i < first_active_layer_; ++i) {
+    vp9_info->width[i] = 0;
+    vp9_info->height[i] = 0;
+  }
+  for (size_t i = first_active_layer_; i < num_active_spatial_layers_; ++i) {
+    vp9_info->width[i] = codec_.width * svc_params_.scaling_factor_num[i] /
+                         svc_params_.scaling_factor_den[i];
+    vp9_info->height[i] = codec_.height * svc_params_.scaling_factor_num[i] /
+                          svc_params_.scaling_factor_den[i];
+  }
+
   // Write SS on key frame of independently coded spatial layers and on base
   // temporal/spatial layer frame if number of layers changed without issuing
   // of key picture (inter-layer prediction is enabled).
@@ -1137,17 +1153,7 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
                        layer_id.spatial_layer_id == first_active_layer_)) {
     vp9_info->ss_data_available = true;
     vp9_info->spatial_layer_resolution_present = true;
-    // Signal disabled layers.
-    for (size_t i = 0; i < first_active_layer_; ++i) {
-      vp9_info->width[i] = 0;
-      vp9_info->height[i] = 0;
-    }
-    for (size_t i = first_active_layer_; i < num_active_spatial_layers_; ++i) {
-      vp9_info->width[i] = codec_.width * svc_params_.scaling_factor_num[i] /
-                           svc_params_.scaling_factor_den[i];
-      vp9_info->height[i] = codec_.height * svc_params_.scaling_factor_num[i] /
-                            svc_params_.scaling_factor_den[i];
-    }
+    // width and height are already filled in.
     if (vp9_info->flexible_mode) {
       vp9_info->gof.num_frames_in_gof = 0;
     } else {

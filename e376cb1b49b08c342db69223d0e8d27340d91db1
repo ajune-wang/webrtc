@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "ef33e48f_60d3ae80",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-29T13:58:27Z",
+      "side": 1,
+      "message": "Good find. This is a big issue. Fixed by adding explicit first_active_layer instead of relying on resolution always provided.",
+      "parentUuid": "d462f7e8_0ef666ee",
+      "range": {
+        "startLine": 299,
+        "startChar": 4,
+        "endLine": 299,
+        "endChar": 27
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78fcb93c_df7f7352",
         "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
         "patchSetId": 1
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "d47a08db_ab0942b6",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-29T13:58:27Z",
+      "side": 1,
+      "message": "Not strictly needed. But it makes debugging easier.",
+      "parentUuid": "f6c27cde_1584ce0e",
+      "range": {
+        "startLine": 308,
+        "startChar": 2,
+        "endLine": 309,
+        "endChar": 41
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0df15a43_2e03a5a9",
         "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
         "patchSetId": 1
@@ -114,6 +162,30 @@
       "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46263b40_78d50c8d",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-29T13:58:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0df15a43_2e03a5a9",
+      "range": {
+        "startLine": 181,
+        "startChar": 6,
+        "endLine": 181,
+        "endChar": 12
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +223,30 @@
       "writtenOn": "2020-01-29T12:15:24Z",
       "side": 1,
       "message": "did you plan to add more tests?\n(to avoid repeating expected_ setup, it might help to add a free function:\nCreateVp9VideoHeader(std::vector\u003cstd::pair\u003cint, int\u003e\u003e resolutions) {\n  RTPVideoHeaderVp9 header;\n  // copy resolutions.\n  header.num_spatial_layers \u003d resolutions.size();\n  return header;\n}\n\n(also, to use less primitive types, may #include \"api/transport/rtp/dependency_descriptor\" and use std::vector\u003cRenderResolution\u003e. That still should allow to write in tests\nexpected_ \u003d CreateVp9VideoHeader(/*resolutions\u003d*/{{0, 0}, {640, 360}, {1280, 720}});",
+      "range": {
+        "startLine": 600,
+        "startChar": 2,
+        "endLine": 600,
+        "endChar": 5
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76718e71_96adcf67",
+        "filename": "modules/rtp_rtcp/source/rtp_format_vp9_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-29T13:58:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89ee7fd5_ce8e50ec",
       "range": {
         "startLine": 600,
         "startChar": 2,
@@ -210,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "a0443e99_2edcdf35",
+        "filename": "modules/video_coding/codecs/vp9/include/vp9_globals.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-29T13:58:27Z",
+      "side": 1,
+      "message": "Switching to the 2nd option.",
+      "parentUuid": "2949d4b5_f7190f01",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 71
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5115f9d_1d6f32a1",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 1
@@ -233,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "1666e570_7f6e083e",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-29T13:58:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a5115f9d_1d6f32a1",
+      "range": {
+        "startLine": 1136,
+        "startChar": 10,
+        "endLine": 1136,
+        "endChar": 11
+      },
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3ed099a_212df127",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 1
@@ -244,6 +388,24 @@
       "writtenOn": "2020-01-29T12:15:24Z",
       "side": 1,
       "message": "not sure this comment is helpful: it doesn\u0027t explain code here (it explains lack of code) and filling of width/height is done in the same function just few lines above.",
+      "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fed7c3da_a42188ce",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-29T13:58:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a3ed099a_212df127",
       "revId": "e376cb1b49b08c342db69223d0e8d27340d91db1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

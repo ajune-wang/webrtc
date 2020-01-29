@@ -16,6 +16,29 @@
       "revId": "c0a8c4d58297034bc0c185802ebc329beed83f94",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710d822f_f5e971e5",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-29T14:51:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like a plain setter method. Perhaps UpdateQualityScalerSettings() ?\nAt least a comment to make it clear a nullopt means it\u0027s turned off",
+      "range": {
+        "startLine": 89,
+        "startChar": 7,
+        "endLine": 89,
+        "endChar": 23
+      },
+      "revId": "c0a8c4d58297034bc0c185802ebc329beed83f94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

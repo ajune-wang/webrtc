@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fc7de27_8289401d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-29T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8071a48_6de71ad1",
+      "range": {
+        "startLine": 143,
+        "startChar": 62,
+        "endLine": 143,
+        "endChar": 64
+      },
+      "revId": "aa71a92069292141a37283f3688fa7db2f59bc8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1b2f250_0b422628",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "ecd1cd8a_67a1ea35",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-29T11:42:43Z",
+      "side": 1,
+      "message": "I\u0027ve added unit tests to cover going from sendrecv to {send, recv} and also going from {send, recv} to sendrecv.\n\nThe code was working but I\u0027ve added some protection to make it explicit.\n\nI think the reason is that negotiated_codecs will only be empty if either encoder/decoder factory is \"empty\", but in that case there won\u0027t be any sendrecv stream to begin with. Also going from {send, recv} to sendrecv only makes sense if both encoder and decoder factory are \"nonempty\".\n\nThis is also the current behavior, so nothing should be changed in this sense. The only new case that the code must handle is send only connections where there\u0027s no decoder factory.",
+      "parentUuid": "e1b2f250_0b422628",
+      "revId": "aa71a92069292141a37283f3688fa7db2f59bc8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "745d68ea_51819099",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 4
@@ -56,6 +98,24 @@
       "revId": "aa71a92069292141a37283f3688fa7db2f59bc8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5ee2102_f3f1ca92",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-29T11:42:43Z",
+      "side": 1,
+      "message": "To my understanding, mapped_codecs is for this stream, so even if this is a send-only stream there will still be mapped_codecs for the receiver.\nVideoRecvParameters, including codecs, are extracted in RtpParametersFromMediaDescription() on line 98 in channel.cc.",
+      "parentUuid": "745d68ea_51819099",
+      "revId": "aa71a92069292141a37283f3688fa7db2f59bc8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "ff74e833_7f0896d3",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-29T11:42:43Z",
+      "side": 1,
+      "message": "mapped_codecs should never be empty at this point.",
+      "parentUuid": "f540977b_7bdd45a9",
+      "range": {
+        "startLine": 1008,
+        "startChar": 29,
+        "endLine": 1008,
+        "endChar": 50
+      },
+      "revId": "aa71a92069292141a37283f3688fa7db2f59bc8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef79810a_631c6697",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 4
@@ -96,6 +180,24 @@
       "revId": "aa71a92069292141a37283f3688fa7db2f59bc8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b7c7add_cc2da654",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2921,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-01-29T11:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef79810a_631c6697",
+      "revId": "aa71a92069292141a37283f3688fa7db2f59bc8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

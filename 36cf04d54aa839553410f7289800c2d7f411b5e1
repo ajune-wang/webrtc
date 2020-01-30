@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "432cb848_f2eadd84",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-30T15:07:37Z",
+      "side": 1,
+      "message": "As discussed offline, strictly speaking order doesn\u0027t matter since it is just a set of decode targets, but in general I would prefer if higher decode targets would represent a higher fidelity stream (I know this can\u0027t always be the case).\n\nHere is a \"counter example\" I guess:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp8/default_temporal_layers.cc?l\u003d131\u0026rcl\u003d81c7a60961cc60c69241979b9c0315ef07666979",
+      "parentUuid": "a67f54e4_aee60947",
+      "range": {
+        "startLine": 544,
+        "startChar": 50,
+        "endLine": 544,
+        "endChar": 52
+      },
+      "revId": "36cf04d54aa839553410f7289800c2d7f411b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "941aaafe_930de786",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
         "patchSetId": 6

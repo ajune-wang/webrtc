@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class MediaConstraints {
   /** Simple String key/value pair. */
-  public static class KeyValuePair {
+  public static final class KeyValuePair {
     private final String key;
     private final String value;
 
@@ -49,7 +49,7 @@ public class MediaConstraints {
       if (this == other) {
         return true;
       }
-      if (other == null || getClass() != other.getClass()) {
+      if (!(other instanceof KeyValuePair)) {
         return false;
       }
       KeyValuePair that = (KeyValuePair) other;

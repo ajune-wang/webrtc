@@ -94,6 +94,30 @@
       "revId": "b9e76e36c65bb061bc9ec305d0097a7ca415a9d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c48ea36d_f0cf03b2",
+        "filename": "rtc_base/protobuf_utils.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-30T10:45:20Z",
+      "side": 1,
+      "message": "I\u0027ve put everything behind rtc_enable_protobuf now, but I still get this error. I think it\u0027s a GN bug or something very subtle is going on. This error should show up whenever this file is used and rtc_enable_protobuf is false (because the deps don\u0027t get added in that case). You\u0027d think this file is never used in master, but it is:\n\ngn path out/noprb/ :default //rtc_base:protobuf_utils\n//:default --[private]--\u003e\n//:webrtc_perf_tests --[private]--\u003e\n//modules/audio_processing:audio_processing_perf_tests --[private]--\u003e\n//rtc_base:protobuf_utils\n\nThe structure is the same in my patch.",
+      "parentUuid": "d6fd5715_a69a84a9",
+      "range": {
+        "startLine": 18,
+        "startChar": 68,
+        "endLine": 18,
+        "endChar": 80
+      },
+      "revId": "b9e76e36c65bb061bc9ec305d0097a7ca415a9d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

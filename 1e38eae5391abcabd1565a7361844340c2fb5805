@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "974a0f5c_e9702592",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-01-30T10:37:36Z",
+      "side": 1,
+      "message": "Are you going to do this in a follow up CL?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 67
+      },
+      "revId": "1e38eae5391abcabd1565a7361844340c2fb5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1be2282e_2f12f5af",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-01-30T10:37:36Z",
+      "side": 1,
+      "message": "Oh, is this \"gn format\"?\n\nI was expecting something along these lines:\n\n  public_deps +\u003d [  # no-presubmit-check TODO(webrtc:8603)\n    \":test_support_objc\",\n  ]",
+      "range": {
+        "startLine": 300,
+        "startChar": 4,
+        "endLine": 301,
+        "endChar": 32
+      },
+      "revId": "1e38eae5391abcabd1565a7361844340c2fb5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

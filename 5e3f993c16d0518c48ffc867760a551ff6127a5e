@@ -234,6 +234,30 @@
       "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34c387ea_d215ab78",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-01-30T09:07:07Z",
+      "side": 1,
+      "message": "No, it\u0027s impossible to enable new lower layers on a delta frame:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp9/vp9_impl.cc?l\u003d310\u0026rcl\u003dd7fade5738e7c7a73d7a75f503caba481307bdf5\n\nIn such situation we force a key-frame.",
+      "parentUuid": "4d1cec91_6766ea56",
+      "range": {
+        "startLine": 1116,
+        "startChar": 33,
+        "endLine": 1116,
+        "endChar": 52
+      },
+      "revId": "5e3f993c16d0518c48ffc867760a551ff6127a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

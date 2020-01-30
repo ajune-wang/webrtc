@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "88367503_b11549e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-30T10:41:52Z",
+      "side": 1,
+      "message": "Sure",
+      "parentUuid": "974a0f5c_e9702592",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 67
+      },
+      "revId": "1e38eae5391abcabd1565a7361844340c2fb5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1be2282e_2f12f5af",
         "filename": "test/BUILD.gn",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "1e38eae5391abcabd1565a7361844340c2fb5805",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76200c83_4edcaf71",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-30T10:41:52Z",
+      "side": 1,
+      "message": "It\u0027s ok with this at least. The problem was\n\npublic_deps +\u003d [ \":test_support_objc\" ] # no-presubmit-check TODO(webrtc:8603)\n\nThe line is too long, and it formats to\n\npublic_deps +\u003d \n    [ \":test_support_objc\" ] # no-presubmit-check TODO(webrtc:8603)\n\nBut that breaks the presubmit since the comment has to be on the same line as the public_deps, so I moved the comment.",
+      "parentUuid": "1be2282e_2f12f5af",
+      "range": {
+        "startLine": 300,
+        "startChar": 4,
+        "endLine": 301,
+        "endChar": 32
+      },
+      "revId": "1e38eae5391abcabd1565a7361844340c2fb5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

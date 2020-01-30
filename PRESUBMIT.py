@@ -534,11 +534,12 @@ def CheckPublicDepsIsNotUsed(gn_files, input_api, output_api):
                'public_deps = [  # no-presubmit-check TODO(webrtc:8603)\n')
   for affected_file in gn_files:
     for (line_number, affected_line) in affected_file.ChangedContents():
-      if ('public_deps' in affected_line
-          and not no_presubmit_check_re.search(affected_line)):
-        result.append(
-            output_api.PresubmitError(error_msg % (affected_file.LocalPath(),
-                                                   line_number)))
+      if 'public_deps' in affected_line:
+        surpressed = no_presubmit_check_re.search(affected_line)
+        if not surpressed:
+          result.append(
+              output_api.PresubmitError(error_msg % (affected_file.LocalPath(),
+                                                     line_number)))
   return result
 
 

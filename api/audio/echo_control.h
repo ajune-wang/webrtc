@@ -18,6 +18,7 @@
 namespace webrtc {
 
 class AudioBuffer;
+class EchoControlEnhancer;
 
 // Interface for an acoustic echo cancellation (AEC) submodule.
 class EchoControl {
@@ -51,6 +52,10 @@ class EchoControl {
   // Returns wheter the signal is altered.
   virtual bool ActiveProcessing() const = 0;
 
+  // Returns the number of channels in the output.
+  // TODO(peah): Make pure virtual.
+  virtual size_t NumCaptureOutputChannels() const { return 1; }
+
   virtual ~EchoControl() {}
 };
 
@@ -60,6 +65,16 @@ class EchoControlFactory {
   virtual std::unique_ptr<EchoControl> Create(int sample_rate_hz,
                                               int num_render_channels,
                                               int num_capture_channels) = 0;
+
+  // TODO(peah): Make pure virtual once downstream dependencies have been
+  // resolved.
+  virtual std::unique_ptr<EchoControl> Create(
+      int sample_rate_hz,
+      int num_render_channels,
+      int num_capture_channels,
+      EchoControlEnhancer* echo_control_enhancer) {
+    return Create(sample_rate_hz, num_render_channels, num_capture_channels);
+  }
 
   virtual ~EchoControlFactory() = default;
 };

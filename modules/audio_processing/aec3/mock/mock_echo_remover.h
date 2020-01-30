@@ -27,14 +27,16 @@ class MockEchoRemover : public EchoRemover {
   MockEchoRemover();
   virtual ~MockEchoRemover();
 
-  MOCK_METHOD6(ProcessCapture,
-               void(EchoPathVariability echo_path_variability,
+  MOCK_METHOD7(ProcessCapture,
+               void(bool render_buffer_aligned,
+                    EchoPathVariability echo_path_variability,
                     bool capture_signal_saturation,
                     const absl::optional<DelayEstimate>& delay_estimate,
                     RenderBuffer* render_buffer,
                     std::vector<std::vector<std::vector<float>>>* linear_output,
                     std::vector<std::vector<std::vector<float>>>* capture));
   MOCK_CONST_METHOD0(Delay, absl::optional<int>());
+  MOCK_CONST_METHOD0(NumCaptureOutputChannels, size_t());
   MOCK_METHOD1(UpdateEchoLeakageStatus, void(bool leakage_detected));
   MOCK_CONST_METHOD1(GetMetrics, void(EchoControl::Metrics* metrics));
 };

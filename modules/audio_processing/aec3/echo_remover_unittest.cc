@@ -58,7 +58,7 @@ TEST_P(EchoRemoverMultiChannel, BasicApiCalls) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<EchoRemover> remover(
         EchoRemover::Create(EchoCanceller3Config(), rate, num_render_channels,
-                            num_capture_channels));
+                            num_capture_channels, nullptr));
     std::unique_ptr<RenderDelayBuffer> render_buffer(RenderDelayBuffer::Create(
         EchoCanceller3Config(), rate, num_render_channels));
 
@@ -79,9 +79,9 @@ TEST_P(EchoRemoverMultiChannel, BasicApiCalls) {
       render_buffer->Insert(render);
       render_buffer->PrepareCaptureProcessing();
 
-      remover->ProcessCapture(echo_path_variability, k % 2 == 0 ? true : false,
-                              delay_estimate, render_buffer->GetRenderBuffer(),
-                              nullptr, &capture);
+      remover->ProcessCapture(
+          true, echo_path_variability, k % 2 == 0 ? true : false,
+          delay_estimate, render_buffer->GetRenderBuffer(), nullptr, &capture);
     }
   }
 }
@@ -92,8 +92,8 @@ TEST_P(EchoRemoverMultiChannel, BasicApiCalls) {
 // TODO(peah): Re-enable the test once the issue with memory leaks during DEATH
 // tests on test bots has been fixed.
 TEST(EchoRemover, DISABLED_WrongSampleRate) {
-  EXPECT_DEATH(std::unique_ptr<EchoRemover>(
-                   EchoRemover::Create(EchoCanceller3Config(), 8001, 1, 1)),
+  EXPECT_DEATH(std::unique_ptr<EchoRemover>(EchoRemover::Create(
+                   EchoCanceller3Config(), 8001, 1, 1, nullptr)),
                "");
 }
 
@@ -103,7 +103,7 @@ TEST(EchoRemover, WrongCaptureBlockSize) {
   for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<EchoRemover> remover(
-        EchoRemover::Create(EchoCanceller3Config(), rate, 1, 1));
+        EchoRemover::Create(EchoCanceller3Config(), rate, 1, 1, nullptr));
     std::unique_ptr<RenderDelayBuffer> render_buffer(
         RenderDelayBuffer::Create(EchoCanceller3Config(), rate, 1));
     std::vector<std::vector<std::vector<float>>> capture(
@@ -112,7 +112,7 @@ TEST(EchoRemover, WrongCaptureBlockSize) {
     EchoPathVariability echo_path_variability(
         false, EchoPathVariability::DelayAdjustment::kNone, false);
     EXPECT_DEATH(remover->ProcessCapture(
-                     echo_path_variability, false, delay_estimate,
+                     true, echo_path_variability, false, delay_estimate,
                      render_buffer->GetRenderBuffer(), nullptr, &capture),
                  "");
   }
@@ -126,7 +126,7 @@ TEST(EchoRemover, DISABLED_WrongCaptureNumBands) {
   for (auto rate : {16000, 32000, 48000}) {
     SCOPED_TRACE(ProduceDebugText(rate));
     std::unique_ptr<EchoRemover> remover(
-        EchoRemover::Create(EchoCanceller3Config(), rate, 1, 1));
+        EchoRemover::Create(EchoCanceller3Config(), rate, 1, 1, nullptr));
     std::unique_ptr<RenderDelayBuffer> render_buffer(
         RenderDelayBuffer::Create(EchoCanceller3Config(), rate, 1));
     std::vector<std::vector<std::vector<float>>> capture(
@@ -136,7 +136,7 @@ TEST(EchoRemover, DISABLED_WrongCaptureNumBands) {
     EchoPathVariability echo_path_variability(
         false, EchoPathVariability::DelayAdjustment::kNone, false);
     EXPECT_DEATH(remover->ProcessCapture(
-                     echo_path_variability, false, delay_estimate,
+                     true, echo_path_variability, false, delay_estimate,
                      render_buffer->GetRenderBuffer(), nullptr, &capture),
                  "");
   }
@@ -146,13 +146,13 @@ TEST(EchoRemover, DISABLED_WrongCaptureNumBands) {
 TEST(EchoRemover, NullCapture) {
   absl::optional<DelayEstimate> delay_estimate;
   std::unique_ptr<EchoRemover> remover(
-      EchoRemover::Create(EchoCanceller3Config(), 16000, 1, 1));
+      EchoRemover::Create(EchoCanceller3Config(), 16000, 1, 1, nullptr));
   std::unique_ptr<RenderDelayBuffer> render_buffer(
       RenderDelayBuffer::Create(EchoCanceller3Config(), 16000, 1));
   EchoPathVariability echo_path_variability(
       false, EchoPathVariability::DelayAdjustment::kNone, false);
   EXPECT_DEATH(remover->ProcessCapture(
-                   echo_path_variability, false, delay_estimate,
+                   true, echo_path_variability, false, delay_estimate,
                    render_buffer->GetRenderBuffer(), nullptr, nullptr),
                "");
 }
@@ -180,8 +180,8 @@ TEST(EchoRemover, BasicEchoRemoval) {
       for (size_t delay_samples : {0, 64, 150, 200, 301}) {
         SCOPED_TRACE(ProduceDebugText(rate, delay_samples));
         EchoCanceller3Config config;
-        std::unique_ptr<EchoRemover> remover(
-            EchoRemover::Create(config, rate, num_channels, num_channels));
+        std::unique_ptr<EchoRemover> remover(EchoRemover::Create(
+            config, rate, num_channels, num_channels, nullptr));
         std::unique_ptr<RenderDelayBuffer> render_buffer(
             RenderDelayBuffer::Create(config, rate, num_channels));
         render_buffer->AlignFromDelay(delay_samples / kBlockSize);
@@ -225,9 +225,9 @@ TEST(EchoRemover, BasicEchoRemoval) {
           render_buffer->Insert(x);
           render_buffer->PrepareCaptureProcessing();
 
-          remover->ProcessCapture(echo_path_variability, false, delay_estimate,
-                                  render_buffer->GetRenderBuffer(), nullptr,
-                                  &y);
+          remover->ProcessCapture(
+              true, echo_path_variability, false, delay_estimate,
+              render_buffer->GetRenderBuffer(), nullptr, &y);
 
           if (k > kNumBlocksToProcess / 2) {
             output_energy = std::inner_product(y[0][0].begin(), y[0][0].end(),

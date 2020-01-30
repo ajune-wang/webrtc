@@ -31,6 +31,8 @@
 #include "rtc_base/strings/json.h"
 #include "rtc_base/strings/string_builder.h"
 
+#include "modules/audio_processing/aec3/combine_and_scale.h"
+
 namespace webrtc {
 namespace test {
 namespace {
@@ -537,6 +539,11 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
     apm_config.noise_suppression.analyze_linear_aec_output_when_available =
         *settings_.ns_analysis_on_linear_aec_output;
   }
+
+  std::unique_ptr<EchoControlEnhancerFactory> echo_control_enhancer_factory =
+      std::make_unique<CombineAndScaleFactory>(1, true);
+  ap_builder_->SetEchoControlEnhancerFactory(
+      std::move(echo_control_enhancer_factory));
 
   RTC_CHECK(ap_builder_);
   if (echo_control_factory) {

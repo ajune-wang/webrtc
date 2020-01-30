@@ -164,6 +164,30 @@
       "revId": "25b67a055fb6986a314e002f9f71005f5f234fe4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b78a13f_0e25926a",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-01-30T12:50:43Z",
+      "side": 1,
+      "message": "\u003e Just to make sure - you\u0027re saying everything is running on one single thread, not that everything is running in a single-threaded fashion?\n\nYes, everything runs on a single thread.\n\n\u003e I let the fuzzer run (no corpus) for 140k test cases with and without this CL.\n\u003e Before patch: 2900 cases / sec\n\u003e After patch: 1800 cases / sec\n\u003e \n\u003e Is this ~30 % slowdown recoverable in any way?\n\nNot really, but fuzzing this way is much better since we cover more cases. Before having a wait time greater than 0 was impractical, but now with the GlobalSimulatedTimeController that is no longer the case.",
+      "parentUuid": "27c69639_47de6784",
+      "range": {
+        "startLine": 96,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 11
+      },
+      "revId": "25b67a055fb6986a314e002f9f71005f5f234fe4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

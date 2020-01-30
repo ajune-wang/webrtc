@@ -163,7 +163,8 @@ class ChannelReceive : public ChannelReceiveInterface {
  private:
   void ReceivePacket(const uint8_t* packet,
                      size_t packet_length,
-                     const RTPHeader& header);
+                     const RTPHeader& header,
+                     uint64_t receive_time_ms);
   int ResendPackets(const uint16_t* sequence_numbers, int length);
   void UpdatePlayoutTimestamp(bool rtcp, int64_t now_ms);
 
@@ -171,7 +172,8 @@ class ChannelReceive : public ChannelReceiveInterface {
   int64_t GetRTT() const;
 
   void OnReceivedPayloadData(rtc::ArrayView<const uint8_t> payload,
-                             const RTPHeader& rtpHeader);
+                             const RTPHeader& rtpHeader,
+                             uint64_t receive_time_ms);
 
   bool Playing() const {
     rtc::CritScope lock(&playing_lock_);
@@ -263,7 +265,8 @@ class ChannelReceive : public ChannelReceiveInterface {
 
 void ChannelReceive::OnReceivedPayloadData(
     rtc::ArrayView<const uint8_t> payload,
-    const RTPHeader& rtpHeader) {
+    const RTPHeader& rtpHeader,
+    uint64_t receive_time_ms) {
   if (!Playing()) {
     // Avoid inserting into NetEQ when we are not playing. Count the
     // packet as discarded.
@@ -271,7 +274,7 @@ void ChannelReceive::OnReceivedPayloadData(
   }
 
   // Push the incoming payload (parsed and ready for decoding) into the ACM
-  if (acm_receiver_.InsertPacket(rtpHeader, payload) != 0) {
+  if (acm_receiver_.InsertPacket(rtpHeader, payload, receive_time_ms) != 0) {
     RTC_DLOG(LS_ERROR) << "ChannelReceive::OnReceivedPayloadData() unable to "
                           "push data to the ACM";
     return;
@@ -543,12 +546,14 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
   RTPHeader header;
   packet_copy.GetHeader(&header);
 
-  ReceivePacket(packet_copy.data(), packet_copy.size(), header);
+  ReceivePacket(packet_copy.data(), packet_copy.size(), header,
+                packet.arrival_time_ms());
 }
 
 void ChannelReceive::ReceivePacket(const uint8_t* packet,
                                    size_t packet_length,
-                                   const RTPHeader& header) {
+                                   const RTPHeader& header,
+                                   uint64_t receive_time_ms) {
   const uint8_t* payload = packet + header.headerLength;
   assert(packet_length >= header.headerLength);
   size_t payload_length = packet_length - header.headerLength;
@@ -588,7 +593,8 @@ void ChannelReceive::ReceivePacket(const uint8_t* packet,
   }
 
   OnReceivedPayloadData(
-      rtc::ArrayView<const uint8_t>(payload, payload_data_length), header);
+      rtc::ArrayView<const uint8_t>(payload, payload_data_length), header,
+      receive_time_ms);
 }
 
 // May be called on either worker thread or network thread.

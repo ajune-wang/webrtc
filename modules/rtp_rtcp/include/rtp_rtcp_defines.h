@@ -182,9 +182,16 @@ class RecoveredPacketReceiver {
 
 class RtcpIntraFrameObserver {
  public:
-  virtual ~RtcpIntraFrameObserver() {}
+  virtual ~RtcpIntraFrameObserver() = default;
 
+  // TODO(eshr): Replace use of this method with the boolean variant and remove.
   virtual void OnReceivedIntraFrameRequest(uint32_t ssrc) = 0;
+
+  // Returns true if an intra frame was produced for the ssrc.
+  virtual bool OnIntraFrameRequested(uint32_t ssrc) {
+    OnReceivedIntraFrameRequest(ssrc);
+    return true;
+  }
 };
 
 // Observer for incoming LossNotification RTCP messages.

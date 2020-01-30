@@ -66,6 +66,8 @@ const size_t kMaxNumberOfStoredRrtrs = 200;
 constexpr int32_t kDefaultVideoReportInterval = 1000;
 constexpr int32_t kDefaultAudioReportInterval = 5000;
 
+constexpr int64_t kDefaultFirTimeout = 500;
+
 std::set<uint32_t> GetRegisteredSsrcs(const RtpRtcp::Configuration& config) {
   std::set<uint32_t> ssrcs;
   ssrcs.insert(config.local_media_ssrc);
@@ -77,6 +79,8 @@ std::set<uint32_t> GetRegisteredSsrcs(const RtpRtcp::Configuration& config) {
   }
   return ssrcs;
 }
+
+enum class FirStatus { kWaitingForKeyFrame, kSatisfied };
 }  // namespace
 
 struct RTCPReceiver::PacketInformation {
@@ -93,6 +97,7 @@ struct RTCPReceiver::PacketInformation {
   absl::optional<VideoBitrateAllocation> target_bitrate_allocation;
   absl::optional<NetworkStateEstimate> network_state_estimate;
   std::unique_ptr<rtcp::LossNotification> loss_notification;
+  absl::optional<uint32_t> fir_sender_ssrc;
 };
 
 // Structure for handing TMMBR and TMMBN rtcp messages (RFC5104, section 3.5.4).
@@ -131,6 +136,7 @@ struct RTCPReceiver::LastFirStatus {
       : request_ms(now_ms), sequence_number(sequence_number) {}
   int64_t request_ms;
   uint8_t sequence_number;
+  FirStatus fir_status = FirStatus::kWaitingForKeyFrame;
 };
 
 RTCPReceiver::RTCPReceiver(const RtpRtcp::Configuration& config,
@@ -936,14 +942,20 @@ void RTCPReceiver::HandleFir(const CommonHeader& rtcp_block,
     ++packet_type_counter_.fir_packets;
 
     int64_t now_ms = clock_->TimeInMilliseconds();
-    auto inserted = last_fir_.insert(std::make_pair(
+    std::map<uint32_t, LastFirStatus>::iterator entry;
+    bool inserted;
+    std::tie(entry, inserted) = last_fir_.insert(std::make_pair(
         fir.sender_ssrc(), LastFirStatus(now_ms, fir_request.seq_nr)));
-    if (!inserted.second) {  // There was already an entry.
-      LastFirStatus* last_fir = &inserted.first->second;
+    if (!inserted) {  // There was already an entry.
+      LastFirStatus* last_fir = &entry->second;
 
       // Check if we have reported this FIRSequenceNumber before.
-      if (fir_request.seq_nr == last_fir->sequence_number)
-        continue;
+      if (fir_request.seq_nr == last_fir->sequence_number &&
+          last_fir->fir_status == FirStatus::kSatisfied) {
+        int64_t fir_timeout = CurrentFirTimeout();
+        if (now_ms < last_fir->request_ms + fir_timeout)
+          continue;
+      }
 
       // Sanity: don't go crazy with the callbacks.
       if (now_ms - last_fir->request_ms < kRtcpMinFrameLengthMs)
@@ -953,8 +965,17 @@ void RTCPReceiver::HandleFir(const CommonHeader& rtcp_block,
       last_fir->sequence_number = fir_request.seq_nr;
     }
     // Received signal that we need to send a new key frame.
+    packet_information->fir_sender_ssrc = entry->first;
     packet_information->packet_type_flags |= kRtcpFir;
   }
+}
+
+int64_t RTCPReceiver::CurrentFirTimeout() const {
+  int64_t rtt;
+  int64_t fir_timeout = RTT(RemoteSSRC(), &rtt, nullptr, nullptr, nullptr) == -1
+                            ? kDefaultFirTimeout
+                            : 2 * rtt;
+  return fir_timeout;
 }
 
 void RTCPReceiver::HandleTransportFeedback(
@@ -1052,7 +1073,16 @@ void RTCPReceiver::TriggerCallbacksFromRtcpPacket(
         RTC_LOG(LS_VERBOSE)
             << "Incoming FIR from SSRC " << packet_information.remote_ssrc;
       }
-      rtcp_intra_frame_observer_->OnReceivedIntraFrameRequest(local_ssrc);
+      bool key_frame_generated =
+          rtcp_intra_frame_observer_->OnIntraFrameRequested(local_ssrc);
+      if (key_frame_generated &&
+          packet_information.fir_sender_ssrc.has_value()) {
+        rtc::CritScope lock(&rtcp_receiver_lock_);
+        RTC_DCHECK(last_fir_.find(packet_information.fir_sender_ssrc.value()) !=
+                   last_fir_.end());
+        last_fir_.at(packet_information.fir_sender_ssrc.value()).fir_status =
+            FirStatus::kSatisfied;
+      }
     }
   }
   if (rtcp_loss_notification_observer_ &&

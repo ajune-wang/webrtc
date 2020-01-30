@@ -211,6 +211,8 @@ class RTCPReceiver {
                                PacketInformation* packet_information)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
 
+  int64_t CurrentFirTimeout() const;
+
   Clock* const clock_;
   const bool receiver_only_;
   ModuleRtpRtcp* const rtp_rtcp_;

@@ -36,12 +36,14 @@ RobustThroughputEstimatorSettings::RobustThroughputEstimatorSettings(
 
 std::unique_ptr<StructParametersParser>
 RobustThroughputEstimatorSettings::Parser() {
-  return StructParametersParser::Create("enabled", &enabled,          //
-                                        "reduce_bias", &reduce_bias,  //
-                                        "assume_shared_link",
-                                        &assume_shared_link,          //
-                                        "min_packets", &min_packets,  //
-                                        "window_duration", &window_duration);
+  return StructParametersParser::Create("enabled", &enabled,                  //
+                                        "reduce_bias", &reduce_bias,          //
+                                        "assume_shared_link",                 //
+                                        &assume_shared_link,                  //
+                                        "min_packets", &min_packets,          //
+                                        "window_duration", &window_duration,  //
+                                        "initial_packets", &initial_packets,  //
+                                        "unacked_weight", &unacked_weight);
 }
 
 AcknowledgedBitrateEstimatorInterface::

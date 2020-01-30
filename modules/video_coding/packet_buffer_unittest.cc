@@ -41,10 +41,11 @@ constexpr int kMaxSize = 64;
 void IgnoreResult(PacketBuffer::InsertResult /*result*/) {}
 
 std::vector<uint16_t> StartSeqNums(
-    rtc::ArrayView<const std::unique_ptr<RtpFrameObject>> frames) {
+    rtc::ArrayView<const std::vector<std::unique_ptr<PacketBuffer::Packet>>>
+        frames) {
   std::vector<uint16_t> result;
   for (const auto& frame : frames) {
-    result.push_back(frame->first_seq_num());
+    result.push_back(frame.front()->seq_num);
   }
   return result;
 }
@@ -58,11 +59,11 @@ MATCHER_P2(StartSeqNumsAre, seq_num1, seq_num2, "") {
 }
 
 MATCHER(KeyFrame, "") {
-  return arg->frame_type() == VideoFrameType::kVideoFrameKey;
+  return arg[0]->video_header.frame_type == VideoFrameType::kVideoFrameKey;
 }
 
 MATCHER(DeltaFrame, "") {
-  return arg->frame_type() == VideoFrameType::kVideoFrameDelta;
+  return arg[0]->video_header.frame_type == VideoFrameType::kVideoFrameDelta;
 }
 
 struct PacketBufferInsertResult : public PacketBuffer::InsertResult {
@@ -73,15 +74,16 @@ struct PacketBufferInsertResult : public PacketBuffer::InsertResult {
 void PrintTo(const PacketBufferInsertResult& result, std::ostream* os) {
   *os << "frames: { ";
   for (size_t i = 0; i < result.frames.size(); ++i) {
-    const RtpFrameObject& frame = *result.frames[i];
+    const auto& frame = result.frames[i];
     if (i > 0) {
       *os << ", ";
     }
     *os << "{sn: ";
-    if (frame.first_seq_num() == frame.last_seq_num()) {
-      *os << frame.first_seq_num();
+    if (frame.size() == 1) {
+      *os << frame.front()->seq_num;
     } else {
-      *os << "[" << frame.first_seq_num() << "-" << frame.last_seq_num() << "]";
+      *os << "[" << frame.front()->seq_num << "-" << frame.back()->seq_num
+          << "]";
     }
     *os << "}";
   }
@@ -179,46 +181,6 @@ TEST_F(PacketBufferTest, InsertOldPackets) {
   EXPECT_THAT(Insert(103, kDeltaFrame, kFirst, kLast).frames, SizeIs(1));
 }
 
-TEST_F(PacketBufferTest, NackCount) {
-  const uint16_t seq_num = Rand();
-
-  auto packet = std::make_unique<PacketBuffer::Packet>();
-  packet->video_header.codec = kVideoCodecGeneric;
-  packet->seq_num = seq_num;
-  packet->video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  packet->video_header.is_first_packet_in_frame = true;
-  packet->video_header.is_last_packet_in_frame = false;
-  packet->times_nacked = 0;
-  IgnoreResult(packet_buffer_.InsertPacket(std::move(packet)));
-
-  packet = std::make_unique<PacketBuffer::Packet>();
-  packet->seq_num = seq_num + 1;
-  packet->video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  packet->video_header.is_first_packet_in_frame = false;
-  packet->video_header.is_last_packet_in_frame = false;
-  packet->times_nacked = 1;
-  IgnoreResult(packet_buffer_.InsertPacket(std::move(packet)));
-
-  packet = std::make_unique<PacketBuffer::Packet>();
-  packet->seq_num = seq_num + 2;
-  packet->video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  packet->video_header.is_first_packet_in_frame = false;
-  packet->video_header.is_last_packet_in_frame = false;
-  packet->times_nacked = 3;
-  IgnoreResult(packet_buffer_.InsertPacket(std::move(packet)));
-
-  packet = std::make_unique<PacketBuffer::Packet>();
-  packet->seq_num = seq_num + 3;
-  packet->video_header.frame_type = VideoFrameType::kVideoFrameKey;
-  packet->video_header.is_first_packet_in_frame = false;
-  packet->video_header.is_last_packet_in_frame = true;
-  packet->times_nacked = 1;
-  auto frames = packet_buffer_.InsertPacket(std::move(packet)).frames;
-
-  ASSERT_THAT(frames, SizeIs(1));
-  EXPECT_EQ(frames.front()->times_nacked(), 3);
-}
-
 TEST_F(PacketBufferTest, FrameSize) {
   const uint16_t seq_num = Rand();
   uint8_t data1[5] = {};
@@ -230,7 +192,7 @@ TEST_F(PacketBufferTest, FrameSize) {
   Insert(seq_num + 1, kKeyFrame, kNotFirst, kNotLast, data2);
   Insert(seq_num + 2, kKeyFrame, kNotFirst, kNotLast, data3);
   EXPECT_THAT(Insert(seq_num + 3, kKeyFrame, kNotFirst, kLast, data4).frames,
-              ElementsAre(Pointee(SizeIs(20))));
+              ElementsAre(SizeIs(4)));
 }
 
 TEST_F(PacketBufferTest, ExpandBuffer) {
@@ -383,111 +345,6 @@ TEST_F(PacketBufferTest, FramesReordered) {
               StartSeqNumsAre(seq_num + 2));
 }
 
-TEST_F(PacketBufferTest, GetBitstream) {
-  // "many bitstream, such data" with null termination.
-  uint8_t many[] = {0x6d, 0x61, 0x6e, 0x79, 0x20};
-  uint8_t bitstream[] = {0x62, 0x69, 0x74, 0x73, 0x74, 0x72,
-                         0x65, 0x61, 0x6d, 0x2c, 0x20};
-  uint8_t such[] = {0x73, 0x75, 0x63, 0x68, 0x20};
-  uint8_t data[] = {0x64, 0x61, 0x74, 0x61, 0x0};
-
-  const uint16_t seq_num = Rand();
-
-  Insert(seq_num, kKeyFrame, kFirst, kNotLast, many);
-  Insert(seq_num + 1, kDeltaFrame, kNotFirst, kNotLast, bitstream);
-  Insert(seq_num + 2, kDeltaFrame, kNotFirst, kNotLast, such);
-  auto frames = Insert(seq_num + 3, kDeltaFrame, kNotFirst, kLast, data).frames;
-
-  ASSERT_THAT(frames, SizeIs(1));
-  EXPECT_EQ(frames[0]->first_seq_num(), seq_num);
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), frames[0]->size()),
-              ElementsAreArray("many bitstream, such data"));
-}
-
-TEST_F(PacketBufferTest, GetBitstreamOneFrameOnePacket) {
-  uint8_t bitstream[] = "All the bitstream data for this frame!";
-
-  auto frames = Insert(0, kKeyFrame, kFirst, kLast, bitstream).frames;
-  ASSERT_THAT(StartSeqNums(frames), ElementsAre(0));
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), frames[0]->size()),
-              ElementsAreArray(bitstream));
-}
-
-TEST_F(PacketBufferTest, GetBitstreamOneFrameFullBuffer) {
-  uint8_t data_arr[kStartSize][1];
-  uint8_t expected[kStartSize];
-
-  for (uint8_t i = 0; i < kStartSize; ++i) {
-    data_arr[i][0] = i;
-    expected[i] = i;
-  }
-
-  Insert(0, kKeyFrame, kFirst, kNotLast, data_arr[0]);
-  for (uint8_t i = 1; i < kStartSize - 1; ++i)
-    Insert(i, kKeyFrame, kNotFirst, kNotLast, data_arr[i]);
-  auto frames = Insert(kStartSize - 1, kKeyFrame, kNotFirst, kLast,
-                       data_arr[kStartSize - 1])
-                    .frames;
-
-  ASSERT_THAT(StartSeqNums(frames), ElementsAre(0));
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), frames[0]->size()),
-              ElementsAreArray(expected));
-}
-
-TEST_F(PacketBufferTest, GetBitstreamAv1) {
-  const uint8_t data1[] = {0b01'01'0000, 0b0'0100'000, 'm', 'a', 'n', 'y', ' '};
-  const uint8_t data2[] = {0b10'01'0000, 'b', 'i', 't', 's', 0};
-
-  auto packet1 = std::make_unique<PacketBuffer::Packet>();
-  packet1->video_header.codec = kVideoCodecAV1;
-  packet1->seq_num = 13;
-  packet1->video_header.is_first_packet_in_frame = true;
-  packet1->video_header.is_last_packet_in_frame = false;
-  packet1->video_payload = data1;
-  auto frames = packet_buffer_.InsertPacket(std::move(packet1)).frames;
-  EXPECT_THAT(frames, IsEmpty());
-
-  auto packet2 = std::make_unique<PacketBuffer::Packet>();
-  packet2->video_header.codec = kVideoCodecAV1;
-  packet2->seq_num = 14;
-  packet2->video_header.is_first_packet_in_frame = false;
-  packet2->video_header.is_last_packet_in_frame = true;
-  packet2->video_payload = data2;
-  frames = packet_buffer_.InsertPacket(std::move(packet2)).frames;
-
-  ASSERT_THAT(frames, SizeIs(1));
-  EXPECT_EQ(frames[0]->first_seq_num(), 13);
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), 2),
-              ElementsAre(0b0'0100'010, 10));  // obu_header and obu_size.
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data() + 2, frames[0]->size() - 2),
-              ElementsAreArray("many bits"));
-}
-
-TEST_F(PacketBufferTest, GetBitstreamInvalidAv1) {
-  // Two av1 payloads that can't be combined into proper frame.
-  const uint8_t data1[] = {0b01'01'0000, 0b0'0100'000, 'm', 'a', 'n', 'y', ' '};
-  const uint8_t data2[] = {0b00'01'0000, 'b', 'i', 't', 's', 0};
-
-  auto packet1 = std::make_unique<PacketBuffer::Packet>();
-  packet1->video_header.codec = kVideoCodecAV1;
-  packet1->seq_num = 13;
-  packet1->video_header.is_first_packet_in_frame = true;
-  packet1->video_header.is_last_packet_in_frame = false;
-  packet1->video_payload = data1;
-  auto frames = packet_buffer_.InsertPacket(std::move(packet1)).frames;
-  EXPECT_THAT(frames, IsEmpty());
-
-  auto packet2 = std::make_unique<PacketBuffer::Packet>();
-  packet2->video_header.codec = kVideoCodecAV1;
-  packet2->seq_num = 14;
-  packet2->video_header.is_first_packet_in_frame = false;
-  packet2->video_header.is_last_packet_in_frame = true;
-  packet2->video_payload = data2;
-  frames = packet_buffer_.InsertPacket(std::move(packet2)).frames;
-
-  EXPECT_THAT(frames, IsEmpty());
-}
-
 TEST_F(PacketBufferTest, InsertPacketAfterSequenceNumberWrapAround) {
   uint16_t kFirstSeqNum = 0;
   uint32_t kTimestampDelta = 100;
@@ -636,13 +493,12 @@ TEST_P(PacketBufferH264ParameterizedTest, GetBitstreamOneFrameFullBuffer) {
                            data_arr[kStartSize - 1])
                     .frames;
   ASSERT_THAT(StartSeqNums(frames), ElementsAre(0));
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), frames[0]->size()),
-              ElementsAreArray(expected));
+  EXPECT_THAT(frames[0], SizeIs(kStartSize));
 }
 
 TEST_P(PacketBufferH264ParameterizedTest, GetBitstreamBufferPadding) {
   uint16_t seq_num = Rand();
-  uint8_t data[] = "some plain old data";
+  rtc::CopyOnWriteBuffer data = "some plain old data";
 
   auto packet = std::make_unique<PacketBuffer::Packet>();
   auto& h264_header =
@@ -658,11 +514,9 @@ TEST_P(PacketBufferH264ParameterizedTest, GetBitstreamBufferPadding) {
   auto frames = packet_buffer_.InsertPacket(std::move(packet)).frames;
 
   ASSERT_THAT(frames, SizeIs(1));
-  EXPECT_EQ(frames[0]->first_seq_num(), seq_num);
-  EXPECT_EQ(frames[0]->EncodedImage().size(), sizeof(data));
-  EXPECT_EQ(frames[0]->EncodedImage().capacity(), sizeof(data));
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), frames[0]->size()),
-              ElementsAreArray(data));
+  ASSERT_THAT(frames[0], SizeIs(1));
+  EXPECT_EQ(frames[0].front()->seq_num, seq_num);
+  EXPECT_EQ(frames[0].front()->video_payload, data);
 }
 
 TEST_P(PacketBufferH264ParameterizedTest, FrameResolution) {
@@ -677,10 +531,9 @@ TEST_P(PacketBufferH264ParameterizedTest, FrameResolution) {
                     .frames;
 
   ASSERT_THAT(frames, SizeIs(1));
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), frames[0]->size()),
-              ElementsAreArray(data));
-  EXPECT_EQ(frames[0]->EncodedImage()._encodedWidth, width);
-  EXPECT_EQ(frames[0]->EncodedImage()._encodedHeight, height);
+  ASSERT_THAT(frames[0], SizeIs(1));
+  EXPECT_EQ(frames[0][0]->video_header.width, width);
+  EXPECT_EQ(frames[0][0]->video_header.height, height);
 }
 
 TEST_P(PacketBufferH264ParameterizedTest, FrameResolutionNaluBeforeSPS) {
@@ -695,13 +548,9 @@ TEST_P(PacketBufferH264ParameterizedTest, FrameResolutionNaluBeforeSPS) {
                     .frames;
 
   ASSERT_THAT(StartSeqNums(frames), ElementsAre(seq_num));
-
-  EXPECT_EQ(frames[0]->EncodedImage().size(), sizeof(data));
-  EXPECT_EQ(frames[0]->EncodedImage().capacity(), sizeof(data));
-  EXPECT_EQ(frames[0]->EncodedImage()._encodedWidth, width);
-  EXPECT_EQ(frames[0]->EncodedImage()._encodedHeight, height);
-  EXPECT_THAT(rtc::MakeArrayView(frames[0]->data(), frames[0]->size()),
-              ElementsAreArray(data));
+  ASSERT_THAT(frames[0], SizeIs(1));
+  EXPECT_EQ(frames[0][0]->video_header.width, width);
+  EXPECT_EQ(frames[0][0]->video_header.height, height);
 }
 
 TEST_F(PacketBufferTest, FreeSlotsOnFrameCreation) {

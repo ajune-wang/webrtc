@@ -140,6 +140,30 @@
       "revId": "25b67a055fb6986a314e002f9f71005f5f234fe4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27c69639_47de6784",
+        "filename": "test/fuzzers/frame_buffer2_fuzzer.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-01-30T08:55:29Z",
+      "side": 1,
+      "message": "Just to make sure - you\u0027re saying everything is running on one single thread, not that everything is running in a single-threaded fashion?\n\nI let the fuzzer run (no corpus) for 140k test cases with and without this CL.\nBefore patch: 2900 cases / sec\nAfter patch: 1800 cases / sec\n\nIs this ~30 % slowdown recoverable in any way?",
+      "parentUuid": "ea2076d3_3565508d",
+      "range": {
+        "startLine": 96,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 11
+      },
+      "revId": "25b67a055fb6986a314e002f9f71005f5f234fe4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

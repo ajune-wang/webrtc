@@ -1226,7 +1226,7 @@ bool PeerConnection::Initialize(
   config.rtcp_handler = [this](const rtc::CopyOnWriteBuffer& packet,
                                int64_t packet_time_us) {
     RTC_DCHECK_RUN_ON(network_thread());
-    rtcp_invoker_.AsyncInvoke<void>(
+    call_invoker_.AsyncInvoke<void>(
         RTC_FROM_HERE, worker_thread(), [this, packet, packet_time_us] {
           RTC_DCHECK_RUN_ON(worker_thread());
           // |call_| is reset on the worker thread in the PeerConnection
@@ -1237,6 +1237,20 @@ bool PeerConnection::Initialize(
                                              packet_time_us);
           }
         });
+  };
+  config.rtp_handler = [this](const rtc::SentPacket& sent_packet) {
+    RTC_DCHECK_RUN_ON(network_thread());
+    call_invoker_.AsyncInvoke<void>(RTC_FROM_HERE, worker_thread(),
+                                    [this, sent_packet] {
+                                      RTC_DCHECK_RUN_ON(worker_thread());
+                                      // |call_| is reset on the worker thread
+                                      // in the PeerConnection destructor, so we
+                                      // check that it's still valid before
+                                      // propagating the packet.
+                                      if (call_) {
+                                        call_->OnSentPacket(sent_packet);
+                                      }
+                                    });
   };
   config.event_log = event_log_ptr_;
 #if defined(ENABLE_EXTERNAL_AUTH)
@@ -6596,8 +6610,6 @@ cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
   }
   voice_channel->SignalDtlsSrtpSetupFailure.connect(
       this, &PeerConnection::OnDtlsSrtpSetupFailure);
-  voice_channel->SignalSentPacket.connect(this,
-                                          &PeerConnection::OnSentPacket_w);
   voice_channel->SetRtpTransport(rtp_transport);
 
   return voice_channel;
@@ -6620,8 +6632,6 @@ cricket::VideoChannel* PeerConnection::CreateVideoChannel(
   }
   video_channel->SignalDtlsSrtpSetupFailure.connect(
       this, &PeerConnection::OnDtlsSrtpSetupFailure);
-  video_channel->SignalSentPacket.connect(this,
-                                          &PeerConnection::OnSentPacket_w);
   video_channel->SetRtpTransport(rtp_transport);
 
   return video_channel;
@@ -6658,8 +6668,6 @@ bool PeerConnection::CreateDataChannel(const std::string& mid) {
       data_channel_controller_.rtp_data_channel()
           ->SignalDtlsSrtpSetupFailure.connect(
               this, &PeerConnection::OnDtlsSrtpSetupFailure);
-      data_channel_controller_.rtp_data_channel()->SignalSentPacket.connect(
-          this, &PeerConnection::OnSentPacket_w);
       data_channel_controller_.rtp_data_channel()->SetRtpTransport(
           rtp_transport);
       return true;

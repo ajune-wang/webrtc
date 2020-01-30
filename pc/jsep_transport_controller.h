@@ -98,6 +98,7 @@ class JsepTransportController : public sigslot::has_slots<> {
     std::function<void(const rtc::CopyOnWriteBuffer& packet,
                        int64_t packet_time_us)>
         rtcp_handler;
+    std::function<void(const rtc::SentPacket& sent_packet)> rtp_handler;
     bool active_reset_srtp_params = false;
     RtcEventLog* event_log = nullptr;
 
@@ -417,6 +418,7 @@ class JsepTransportController : public sigslot::has_slots<> {
 
   void OnRtcpPacketReceived_n(rtc::CopyOnWriteBuffer* packet,
                               int64_t packet_time_us);
+  void OnSentPacket_n(const rtc::SentPacket& sent_packet);
 
   void OnDtlsHandshakeError(rtc::SSLHandshakeError error);
 

@@ -93,6 +93,30 @@
       "revId": "1e38eae5391abcabd1565a7361844340c2fb5805",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2401b51_0d0c22ad",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-01-30T10:42:52Z",
+      "side": 1,
+      "message": "I see, thanks!",
+      "parentUuid": "76200c83_4edcaf71",
+      "range": {
+        "startLine": 300,
+        "startChar": 4,
+        "endLine": 301,
+        "endChar": 32
+      },
+      "revId": "1e38eae5391abcabd1565a7361844340c2fb5805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

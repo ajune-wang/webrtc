@@ -33,6 +33,7 @@
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer.h"
+#include "modules/rtp_rtcp/source/video_rtp_depacketizer_av1.h"
 #include "modules/rtp_rtcp/source/video_rtp_depacketizer_raw.h"
 #include "modules/utility/include/process_thread.h"
 #include "modules/video_coding/frame_object.h"
@@ -620,8 +621,70 @@ bool RtpVideoStreamReceiver::IsDecryptable() const {
 
 void RtpVideoStreamReceiver::OnInsertedPacket(
     video_coding::PacketBuffer::InsertResult result) {
-  for (std::unique_ptr<video_coding::RtpFrameObject>& frame : result.frames) {
-    OnAssembledFrame(std::move(frame));
+  for (auto& frame : result.frames) {
+    // frame is a container of pointers to packets.
+    RTC_DCHECK(!frame.empty());
+    const video_coding::PacketBuffer::Packet& first_packet = *frame.front();
+    const video_coding::PacketBuffer::Packet& last_packet = *frame.back();
+    const uint16_t num_packets = frame.size();
+    int max_nack_count = -1;
+    int64_t min_recv_time = std::numeric_limits<int64_t>::max();
+    int64_t max_recv_time = std::numeric_limits<int64_t>::min();
+    size_t frame_size = 0;
+
+    std::vector<rtc::ArrayView<const uint8_t>> payloads;
+    RtpPacketInfos::vector_type packet_infos;
+    payloads.reserve(num_packets);
+    packet_infos.reserve(num_packets);
+
+    for (const auto& packet : frame) {
+      max_nack_count = std::max(max_nack_count, packet->times_nacked);
+      min_recv_time =
+          std::min(min_recv_time, packet->packet_info.receive_time_ms());
+      max_recv_time =
+          std::max(max_recv_time, packet->packet_info.receive_time_ms());
+      frame_size += packet->video_payload.size();
+      payloads.emplace_back(packet->video_payload);
+      packet_infos.push_back(packet->packet_info);
+    }
+
+    rtc::scoped_refptr<EncodedImageBuffer> bitstream;
+    // TODO(danilchap): Hide codec-specific code paths behind an interface.
+    if (first_packet.codec() == VideoCodecType::kVideoCodecAV1) {
+      bitstream = VideoRtpDepacketizerAv1::AssembleFrame(payloads);
+      if (!bitstream) {
+        // Failed to assemble a frame. Discard and continue.
+        continue;
+      }
+    } else {
+      bitstream = EncodedImageBuffer::Create(frame_size);
+
+      uint8_t* write_at = bitstream->data();
+      for (rtc::ArrayView<const uint8_t> payload : payloads) {
+        memcpy(write_at, payload.data(), payload.size());
+        write_at += payload.size();
+      }
+      RTC_DCHECK_EQ(write_at - bitstream->data(), bitstream->size());
+    }
+    OnAssembledFrame(std::make_unique<video_coding::RtpFrameObject>(
+        first_packet.seq_num,                     //
+        last_packet.seq_num,                      //
+        last_packet.marker_bit,                   //
+        max_nack_count,                           //
+        min_recv_time,                            //
+        max_recv_time,                            //
+        first_packet.timestamp,                   //
+        first_packet.ntp_time_ms,                 //
+        last_packet.video_header.video_timing,    //
+        first_packet.payload_type,                //
+        first_packet.codec(),                     //
+        last_packet.video_header.rotation,        //
+        last_packet.video_header.content_type,    //
+        first_packet.video_header,                //
+        last_packet.video_header.color_space,     //
+        first_packet.generic_descriptor,          //
+        RtpPacketInfos(std::move(packet_infos)),  //
+        std::move(bitstream)));
   }
   if (result.buffer_cleared) {
     RequestKeyFrame();

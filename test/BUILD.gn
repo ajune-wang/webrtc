@@ -226,7 +226,6 @@ rtc_library("perf_test") {
     "testsupport/perf_test.h",
     "testsupport/perf_test_graphjson_writer.cc",
     "testsupport/perf_test_graphjson_writer.h",
-    "testsupport/perf_test_histogram_writer.cc",
     "testsupport/perf_test_histogram_writer.h",
     "testsupport/perf_test_result_writer.h",
   ]
@@ -234,9 +233,19 @@ rtc_library("perf_test") {
     "../api:array_view",
     "../rtc_base:checks",
     "../rtc_base:criticalsection",
+    "../rtc_base:logging",
     "../rtc_base:rtc_numerics",
     "//third_party/abseil-cpp/absl/flags:flag",
   ]
+  if (rtc_enable_protobuf) {
+    sources += [ "testsupport/perf_test_histogram_writer.cc" ]
+    deps += [
+      "//third_party/catapult/tracing/tracing:histogram",
+      "//third_party/catapult/tracing/tracing:reserved_infos",
+    ]
+  } else {
+    sources += [ "testsupport/perf_test_histogram_writer_no_protobuf.cc" ]
+  }
 }
 
 if (is_ios) {
@@ -482,6 +491,7 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/strings",
       "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/catapult/tracing/tracing:histogram",
     ]
     sources = [
       "call_config_utils_unittest.cc",
@@ -500,6 +510,10 @@ if (rtc_include_tests) {
       "testsupport/yuv_frame_reader_unittest.cc",
       "testsupport/yuv_frame_writer_unittest.cc",
     ]
+
+    if (rtc_enable_protobuf) {
+      sources += [ "testsupport/perf_test_histogram_writer_unittest.cc" ]
+    }
 
     data = test_support_unittests_resources
     if (is_android) {
@@ -618,9 +632,9 @@ rtc_library("fileutils_override_impl") {
 rtc_source_set("run_test") {
   testonly = true
   if (is_mac) {
-    public_deps = [ ":run_test_objc" ]  # no-presubmit-check TODO(webrtc:8603)
+    public_deps = [ ":run_test_objc" ] # no-presubmit-check TODO(webrtc:8603)
   } else {
-    public_deps = [ ":run_test_generic" ]  # no-presubmit-check TODO(webrtc:8603)
+    public_deps = [ ":run_test_generic" ] # no-presubmit-check TODO(webrtc:8603)
   }
 }
 

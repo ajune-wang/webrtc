@@ -1235,6 +1235,8 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
 
   jsep_transport->rtp_transport()->SignalRtcpPacketReceived.connect(
       this, &JsepTransportController::OnRtcpPacketReceived_n);
+  jsep_transport->rtp_transport()->SignalSentPacket.connect(
+      this, &JsepTransportController::OnSentPacket_n);
 
   jsep_transport->SignalRtcpMuxActive.connect(
       this, &JsepTransportController::UpdateAggregateStates_n);
@@ -1648,6 +1650,12 @@ void JsepTransportController::OnRtcpPacketReceived_n(
     int64_t packet_time_us) {
   RTC_DCHECK(config_.rtcp_handler);
   config_.rtcp_handler(*packet, packet_time_us);
+}
+
+void JsepTransportController::OnSentPacket_n(
+    const rtc::SentPacket& sent_packet) {
+  RTC_DCHECK(config_.rtp_handler);
+  config_.rtp_handler(sent_packet);
 }
 
 void JsepTransportController::OnDtlsHandshakeError(

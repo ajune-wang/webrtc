@@ -175,8 +175,6 @@ bool BaseChannel::ConnectToRtpTransport() {
       this, &BaseChannel::OnNetworkRouteChanged);
   rtp_transport_->SignalWritableState.connect(this,
                                               &BaseChannel::OnWritableState);
-  rtp_transport_->SignalSentPacket.connect(this,
-                                           &BaseChannel::SignalSentPacket_n);
   return true;
 }
 
@@ -761,16 +759,6 @@ void BaseChannel::FlushRtcpMessages_n() {
                           message.pdata);
   }
 }
-
-void BaseChannel::SignalSentPacket_n(const rtc::SentPacket& sent_packet) {
-  RTC_DCHECK(network_thread_->IsCurrent());
-  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, worker_thread_,
-                             [this, sent_packet] {
-                               RTC_DCHECK(worker_thread_->IsCurrent());
-                               SignalSentPacket(sent_packet);
-                             });
-}
-
 VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
                            rtc::Thread* network_thread,
                            rtc::Thread* signaling_thread,

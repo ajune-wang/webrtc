@@ -148,9 +148,6 @@ class BaseChannel : public ChannelInterface,
     return SignalFirstPacketReceived_;
   }
 
-  // Forward SignalSentPacket to worker thread.
-  sigslot::signal1<const rtc::SentPacket&> SignalSentPacket;
-
   // Emitted whenever rtcp-mux is fully negotiated and the rtcp-transport can
   // be destroyed.
   // Fired on the network thread.
@@ -280,7 +277,6 @@ class BaseChannel : public ChannelInterface,
  private:
   bool ConnectToRtpTransport();
   void DisconnectFromRtpTransport();
-  void SignalSentPacket_n(const rtc::SentPacket& sent_packet);
   bool IsReadyToSendMedia_n() const;
 
   rtc::Thread* const worker_thread_;

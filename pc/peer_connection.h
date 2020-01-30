@@ -1119,8 +1119,6 @@ class PeerConnection : public PeerConnectionInternal,
   void NoteUsageEvent(UsageEvent event);
   void ReportUsagePattern() const RTC_RUN_ON(signaling_thread());
 
-  void OnSentPacket_w(const rtc::SentPacket& sent_packet);
-
   const std::string GetTransportName(const std::string& content_name)
       RTC_RUN_ON(signaling_thread());
 
@@ -1280,7 +1278,7 @@ class PeerConnection : public PeerConnectionInternal,
   // its own thread safety.
   std::unique_ptr<Call> call_ RTC_GUARDED_BY(worker_thread());
 
-  rtc::AsyncInvoker rtcp_invoker_ RTC_GUARDED_BY(network_thread());
+  rtc::AsyncInvoker call_invoker_ RTC_GUARDED_BY(network_thread());
 
   // Points to the same thing as `call_`. Since it's const, we may read the
   // pointer from any thread.

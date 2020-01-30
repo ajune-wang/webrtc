@@ -359,7 +359,7 @@ OveruseFrameDetectorResourceAdaptationModule::
       last_input_frame_size_(absl::nullopt),
       target_frame_rate_(absl::nullopt),
       target_bitrate_bps_(absl::nullopt),
-      is_quality_scaler_enabled_(false),
+      quality_scaler_(nullptr),
       encoder_settings_(absl::nullopt),
       encoder_stats_observer_(encoder_stats_observer) {
   RTC_DCHECK(adaptation_listener_);
@@ -470,19 +470,28 @@ void OveruseFrameDetectorResourceAdaptationModule::OnEncodeStarted(
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::OnEncodeCompleted(
-    uint32_t timestamp,
+    const EncodedImage& encoded_image,
     int64_t time_sent_in_us,
-    int64_t capture_time_us,
     absl::optional<int> encode_duration_us) {
   // TODO(hbos): Rename FrameSent() to something more appropriate (e.g.
   // "OnEncodeCompleted"?).
+  uint32_t timestamp = encoded_image.Timestamp();
+  int64_t capture_time_us =
+      encoded_image.capture_time_ms_ * rtc::kNumMicrosecsPerMillisec;
   overuse_detector_->FrameSent(timestamp, time_sent_in_us, capture_time_us,
                                encode_duration_us);
+  if (quality_scaler_ && encoded_image.qp_ >= 0)
+    quality_scaler_->ReportQp(encoded_image.qp_, time_sent_in_us);
 }
 
-void OveruseFrameDetectorResourceAdaptationModule::SetIsQualityScalerEnabled(
-    bool is_quality_scaler_enabled) {
-  is_quality_scaler_enabled_ = is_quality_scaler_enabled;
+void OveruseFrameDetectorResourceAdaptationModule::UpdateQualityScalerSettings(
+    absl::optional<VideoEncoder::QpThresholds> qp_thresholds) {
+  if (qp_thresholds.has_value()) {
+    quality_scaler_ =
+        std::make_unique<QualityScaler>(this, qp_thresholds.value());
+  } else {
+    quality_scaler_ = nullptr;
+  }
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::AdaptUp(AdaptReason reason) {
@@ -824,11 +833,11 @@ OveruseFrameDetectorResourceAdaptationModule::GetActiveCounts(
       break;
     case kQuality:
       if (!IsFramerateScalingEnabled(degradation_preference_) ||
-          !is_quality_scaler_enabled_) {
+          !quality_scaler_) {
         counts.num_framerate_reductions = absl::nullopt;
       }
       if (!IsResolutionScalingEnabled(degradation_preference_) ||
-          !is_quality_scaler_enabled_) {
+          !quality_scaler_) {
         counts.num_resolution_reductions = absl::nullopt;
       }
       break;

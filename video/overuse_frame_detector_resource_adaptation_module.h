@@ -48,8 +48,7 @@ class VideoStreamEncoder;
 // generic interface in VideoStreamEncoder, unblocking other modules from being
 // implemented and used.
 class OveruseFrameDetectorResourceAdaptationModule
-    : public ResourceAdaptationModuleInterface,
-      public AdaptationObserverInterface {
+    : public ResourceAdaptationModuleInterface {
  public:
   // The module can be constructed on any sequence, but must be initialized and
   // used on a single sequence, e.g. the encoder queue.
@@ -63,7 +62,8 @@ class OveruseFrameDetectorResourceAdaptationModule
   DegradationPreference degradation_preference() const {
     return degradation_preference_;
   }
-  QualityScaler* quality_scaler() const { return quality_scaler_.get(); }
+  // TODO(https://crbug.com/webrtc/11222): Don't expose the quality scaler.
+  QualityScaler* quality_scaler() const;
 
   // ResourceAdaptationModuleInterface implementation.
   void StartResourceAdaptation(
@@ -126,23 +126,21 @@ class OveruseFrameDetectorResourceAdaptationModule
     std::vector<int> resolution_counters_;
   };
 
-  // AdaptationObserverInterface implementation. Used both "internally" as
-  // feedback from |overuse_detector_|, and externally from VideoStreamEncoder:
-  // - It is wired to the VideoStreamEncoder::quality_scaler_.
-  // - It is invoked by VideoStreamEncoder::MaybeEncodeVideoFrame().
-  // TODO(hbos): Decouple quality scaling and resource adaptation, or find an
-  // interface for reconfiguring externally.
-  // TODO(hbos): VideoStreamEncoder should not be responsible for any part of
-  // the adaptation.
-  void AdaptUp(AdaptReason reason) override;
-  bool AdaptDown(AdaptReason reason) override;
+  // Signal that a resource (kCpu or kQuality) is overused or underused. This is
+  // currently used by EncodeUsageResource, QualityScalerResource and testing.
+  // TODO(https://crbug.com/webrtc/11222): Make use of ResourceUsageState and
+  // implement resources per call/adaptation/resource.h. When adaptation happens
+  // because a resource is in specific usage state, get rid of these explicit
+  // triggers.
+  void OnResourceUnderuse(AdaptationObserverInterface::AdaptReason reason);
+  bool OnResourceOveruse(AdaptationObserverInterface::AdaptReason reason);
 
   // Used by VideoStreamEncoder when ConfigureQualityScaler() occurs and the
   // |encoder_stats_observer_| is called outside of this class.
   // TODO(hbos): Decouple quality scaling and resource adaptation logic and make
   // this method private.
   VideoStreamEncoderObserver::AdaptationSteps GetActiveCounts(
-      AdaptReason reason);
+      AdaptationObserverInterface::AdaptReason reason);
 
   // Used by VideoStreamEncoder::MaybeEncodeVideoFrame().
   // TODO(hbos): VideoStreamEncoder should not be responsible for any part of
@@ -155,6 +153,8 @@ class OveruseFrameDetectorResourceAdaptationModule
   absl::optional<VideoEncoder::QpThresholds> GetQpThresholds() const;
 
  private:
+  class EncodeUsageResource;
+  class QualityScalerResource;
   class VideoSourceRestrictor;
 
   struct AdaptationRequest {
@@ -174,12 +174,11 @@ class OveruseFrameDetectorResourceAdaptationModule
   // |adaptation_listener_| if restrictions are changed, allowing the listener
   // to reconfigure the source accordingly.
   void MaybeUpdateVideoSourceRestrictions();
-  // Calculates an up-to-date value of |target_frame_rate_| and informs the
-  // |overuse_detector_| of the new value if it changed and the detector is
-  // started.
+  // Calculates an up-to-date value of the target frame rate and informs the
+  // |encode_usage_resource_| of the new value.
   void MaybeUpdateTargetFrameRate();
 
-  void UpdateAdaptationStats(AdaptReason reason);
+  void UpdateAdaptationStats(AdaptationObserverInterface::AdaptReason reason);
   DegradationPreference EffectiveDegradataionPreference();
   AdaptCounter& GetAdaptCounter();
   bool CanAdaptUpResolution(int pixels, uint32_t bitrate_bps) const;
@@ -202,12 +201,10 @@ class OveruseFrameDetectorResourceAdaptationModule
   absl::optional<AdaptationRequest> last_adaptation_request_;
   // Keeps track of source restrictions that this adaptation module outputs.
   const std::unique_ptr<VideoSourceRestrictor> source_restrictor_;
-  const std::unique_ptr<OveruseFrameDetector> overuse_detector_;
-  bool overuse_detector_is_started_;
+  const std::unique_ptr<EncodeUsageResource> encode_usage_resource_;
+  const std::unique_ptr<QualityScalerResource> quality_scaler_resource_;
   absl::optional<int> last_input_frame_size_;
-  absl::optional<double> target_frame_rate_;
   absl::optional<uint32_t> target_bitrate_bps_;
-  std::unique_ptr<QualityScaler> quality_scaler_;
   absl::optional<EncoderSettings> encoder_settings_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;
 };

@@ -23,15 +23,10 @@ void SynchronousMethodCall::Invoke(const rtc::Location& posted_from,
   if (t->IsCurrent()) {
     proxy_->OnMessage(nullptr);
   } else {
-    t->Post(posted_from, this, 0);
-    e_.Wait(rtc::Event::kForever);
+    t->Invoke<void>(posted_from, [this] { proxy_->OnMessage(nullptr); });
   }
 }
 
-void SynchronousMethodCall::OnMessage(rtc::Message*) {
-  proxy_->OnMessage(nullptr);
-  e_.Set();
-}
 
 }  // namespace internal
 }  // namespace webrtc

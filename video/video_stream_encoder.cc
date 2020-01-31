@@ -1701,16 +1701,16 @@ bool VideoStreamEncoder::TryQualityRampup(int64_t now_ms) {
   return false;
 }
 
-bool VideoStreamEncoder::TriggerAdaptDown(
+void VideoStreamEncoder::OnResourceUnderuseForTesting(
     AdaptationObserverInterface::AdaptReason reason) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
-  return resource_adaptation_module_->AdaptDown(reason);
+  resource_adaptation_module_->OnResourceUnderuse(reason);
 }
 
-void VideoStreamEncoder::TriggerAdaptUp(
+bool VideoStreamEncoder::OnResourceOveruseForTesting(
     AdaptationObserverInterface::AdaptReason reason) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
-  resource_adaptation_module_->AdaptUp(reason);
+  return resource_adaptation_module_->OnResourceOveruse(reason);
 }
 
 void VideoStreamEncoder::OnVideoSourceRestrictionsUpdated(

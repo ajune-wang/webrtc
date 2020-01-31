@@ -46,6 +46,30 @@
       "revId": "931eeb37d5734a8bfd7d01d65625ed73efcc31f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31ac50fb_9ab1b97d",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-01-31T12:18:29Z",
+      "side": 1,
+      "message": "They seem to come from far away. remoting/protocol/webrtc_transport.cc and third_party/blink/renderer/modules/peerconnection/rtc_rtp_sender_impl.cc are the two I was able to find, and I didn\u0027t look where they in turn got the values from. So no DCHECK, I think.",
+      "parentUuid": "b69ab763_b7c5906d",
+      "range": {
+        "startLine": 978,
+        "startChar": 0,
+        "endLine": 984,
+        "endChar": 5
+      },
+      "revId": "931eeb37d5734a8bfd7d01d65625ed73efcc31f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

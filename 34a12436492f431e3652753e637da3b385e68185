@@ -117,6 +117,125 @@
     },
     {
       "key": {
+        "uuid": "3b1f1dab_30541f69",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-31T10:32:33Z",
+      "side": 1,
+      "message": "nice to see this",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2381ced6_5cb089fe",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-31T10:32:33Z",
+      "side": 1,
+      "message": "seeing this implementation is a bit surprising until you see the explicit implementations below. Perhaps add a comment here and explain in what cases this will actually be used and why it\u0027s ok to do nothing. If it\u0027s never used, you could add RTC_NOTREACHED and that\u0027d also suffice as documentation.",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f638986_3874fd53",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-31T10:32:33Z",
+      "side": 1,
+      "message": "if this is only meant for assignment, add a DCHECK to make sure we\u0027re not leaking anyting (i.e. that |ptr| is nullptr.",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7cef748_a631f841",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-31T10:32:33Z",
+      "side": 1,
+      "message": "skip \u0027this-\u003e\u0027",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6ee22d8_59a0c65f",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-31T10:32:33Z",
+      "side": 1,
+      "message": "ptr_",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5daa5c43_eb31e644",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-31T10:32:33Z",
+      "side": 1,
+      "message": "nit: keep |proxy_ \u003d nullptr| here so that we keep the freeing and \u0027hands off\u0027 steps together (minimize the scope of which we have a bad pointer)",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97be5d12_a13d33a2",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-31T10:32:33Z",
+      "side": 1,
+      "message": "same for these, I\u0027d prefer to keep the freeing and nulling together",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5515a9d7_5404383c",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 11
@@ -134,6 +253,23 @@
         "endLine": 240,
         "endChar": 12
       },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fbabbb0_b3c1fa90",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-01-31T10:32:33Z",
+      "side": 1,
+      "message": "document why we need this?",
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

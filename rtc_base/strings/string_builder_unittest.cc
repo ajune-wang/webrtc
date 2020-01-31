@@ -32,7 +32,7 @@ TEST(SimpleStringBuilder, Limit) {
 TEST(SimpleStringBuilder, NumbersAndChars) {
   char sb_buf[100];
   SimpleStringBuilder sb(sb_buf);
-  sb << 1 << ':' << 2.1 << ":" << 2.2f << ':' << 78187493520ll << ':'
+  sb << 1 << ':' << 2.1 << ":" << 2.2f << ':' << int64_t{78187493520} << ':'
      << 78187493520ul;
   EXPECT_EQ(0, strcmp(sb.str(), "1:2.1:2.2:78187493520:78187493520"));
 }
@@ -154,7 +154,7 @@ TEST(StringBuilder, Limit) {
 
 TEST(StringBuilder, NumbersAndChars) {
   StringBuilder sb;
-  sb << 1 << ":" << 2.1 << ":" << 2.2f << ":" << 78187493520ll << ":"
+  sb << 1 << ":" << 2.1 << ":" << 2.2f << ":" << int64_t{78187493520} << ":"
      << 78187493520ul;
   EXPECT_THAT(sb.str(),
               ::testing::MatchesRegex("1:2.10*:2.20*:78187493520:78187493520"));

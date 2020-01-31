@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ada36cc8_ab3c927b",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-31T12:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e444f774_41b9d77d",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 20
+      },
+      "revId": "2dc10f717cc004c2230687f6c4ff7c5c49bab447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f802e7a3_a24bcb5d",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "2dc10f717cc004c2230687f6c4ff7c5c49bab447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad3fd23_097b3d0a",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-31T12:54:39Z",
+      "side": 1,
+      "message": "Thanks for catching!\nFor some reason, the old code had a member as uint32_t which I based the change on.\nAlso, it seems that old member wasn\u0027t used...",
+      "parentUuid": "f802e7a3_a24bcb5d",
+      "range": {
+        "startLine": 179,
+        "startChar": 17,
+        "endLine": 179,
+        "endChar": 25
+      },
+      "revId": "2dc10f717cc004c2230687f6c4ff7c5c49bab447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "09b9156c_c731bce0",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-31T12:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d3b66d7_bfd05951",
+      "range": {
+        "startLine": 304,
+        "startChar": 6,
+        "endLine": 304,
+        "endChar": 58
+      },
+      "revId": "2dc10f717cc004c2230687f6c4ff7c5c49bab447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd360cd7_102eb34b",
         "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "2dc10f717cc004c2230687f6c4ff7c5c49bab447",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adb8cb38_3c88e3bb",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-01-31T12:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd360cd7_102eb34b",
+      "range": {
+        "startLine": 480,
+        "startChar": 9,
+        "endLine": 480,
+        "endChar": 22
+      },
+      "revId": "2dc10f717cc004c2230687f6c4ff7c5c49bab447",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6dc6cef_8dde2b5e",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-31T10:39:13Z",
+      "side": 1,
+      "message": "Just checking: Is \"There is currently no signal what happens beyond this point.\" still accurate? I.e. if OnEncodeCompleted() happens we cannot get an OnFrameDropped(), correct?",
+      "revId": "9cc04d2f1256b3406dc1d464f59c6d4ced0f66ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "465bd15a_5d935507",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-01-31T10:39:13Z",
+      "side": 1,
+      "message": "Dropped but not encoded - I interpreted this as we never tried to encode but this event is after OnEncodeStarted().\n\nCan you rename this to OnEncoderDroppedFrame() or something like that and update the comments to clarify what can cause a frame to drop in this stage?\n\nAlso I think it makes sense for this method to be moved above OnEncodeCompleted() because this is a case of aborting the frame earlier in the pipeline than completing it.",
+      "revId": "9cc04d2f1256b3406dc1d464f59c6d4ced0f66ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

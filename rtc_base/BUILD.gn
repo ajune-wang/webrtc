@@ -756,6 +756,7 @@ rtc_library("rtc_base") {
     "network:sent_packet",
     "system:file_wrapper",
     "system:rtc_export",
+    "task_utils:to_queued_task",
     "third_party/base64",
     "third_party/sigslot",
     "//third_party/abseil-cpp/absl/algorithm:container",

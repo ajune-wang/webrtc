@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5291e2b1_2ed919b1",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-01-31T13:45:56Z",
+      "side": 1,
+      "message": "As per w3c spec: \"It is the sum of the time, in seconds, each audio sample or video frame takes from the time it is received and to the time it exits the jitter buffer.\"\n\nThere is no other stat that calculates the time from when a sample is received to the time it enters the jitterBuffer, so IMHO this is the correct approach. @hbos could you confirm?",
+      "parentUuid": "3f69f3a1_f7f75f5a",
+      "range": {
+        "startLine": 909,
+        "startChar": 15,
+        "endLine": 909,
+        "endChar": 34
+      },
+      "revId": "06eaac22c044c4f3e2cd460a7b15b8affa541be1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e48b18a3_ee98126f",
         "filename": "modules/audio_coding/neteq/sync_buffer.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "91d5cb6c_b2865c2a",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-01-31T13:45:56Z",
+      "side": 1,
+      "message": "How do I check the perf tests? Note that there is only one entre per packet, and I think that the max jitterbuffe size is 20 packets, so the list won\u0027t be too big. A ring buffer could do it, just didn\u0027t wanted to add too many changes for reviewing.",
+      "parentUuid": "e48b18a3_ee98126f",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "06eaac22c044c4f3e2cd460a7b15b8affa541be1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf811555_b1c979b0",
         "filename": "modules/audio_coding/neteq/sync_buffer.h",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-01-31T13:08:10Z",
       "side": 1,
       "message": "Is it necessary to store the whole RtpPacketInfo here? Could we store just the timestamps instead?",
+      "range": {
+        "startLine": 143,
+        "startChar": 44,
+        "endLine": 143,
+        "endChar": 57
+      },
+      "revId": "06eaac22c044c4f3e2cd460a7b15b8affa541be1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0403d69_3e01df4a",
+        "filename": "modules/audio_coding/neteq/sync_buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-01-31T13:45:56Z",
+      "side": 1,
+      "message": "There was another issue that said that the per-frame packet info was desirable to be stored on the sync buffer:\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10757\n\nThe packet_infos are already allocated on neteq, so if they are moved correctly (I think they do), this should not be so expensive.",
+      "parentUuid": "bf811555_b1c979b0",
       "range": {
         "startLine": 143,
         "startChar": 44,

@@ -251,7 +251,7 @@ TEST_F(AsyncStunTCPSocketTest, TestMaximumSizeStunPacket) {
 }
 
 // Investigate why WriteEvent is not signaled from VSS.
-TEST_F(AsyncStunTCPSocketTest, DISABLED_TestWithSmallSendBuffer) {
+TEST_F(AsyncStunTCPSocketTest, TestWithSmallSendBuffer) {
   vss_->set_send_buffer_capacity(1);
   Send(kTurnChannelDataMessageWithOddLength,
        sizeof(kTurnChannelDataMessageWithOddLength));

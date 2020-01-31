@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <memory>
 
+#include "api/array_view.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -161,19 +162,27 @@ int AsyncTCPSocketBase::SendRaw(const void* pv, size_t cb) {
 
 int AsyncTCPSocketBase::FlushOutBuffer() {
   RTC_DCHECK(!listen_);
-  int res = socket_->Send(outbuf_.data(), outbuf_.size());
-  if (res <= 0) {
-    return res;
+  rtc::ArrayView<uint8_t> view = outbuf_;
+  int res;
+  while (view.size() > 0) {
+    res = socket_->Send(view.data(), view.size());
+    if (res <= 0) {
+      break;
+    }
+    if (static_cast<size_t>(res) > view.size()) {
+      RTC_NOTREACHED();
+      res = -1;
+      break;
+    }
+    view = view.subview(res);
   }
-  if (static_cast<size_t>(res) > outbuf_.size()) {
-    RTC_NOTREACHED();
-    return -1;
+  if (res > 0) {
+    res = outbuf_.size() - view.size();
   }
-  size_t new_size = outbuf_.size() - res;
-  if (new_size > 0) {
-    memmove(outbuf_.data(), outbuf_.data() + res, new_size);
+  if (view.size() > 0) {
+    memmove(outbuf_.data(), view.data(), view.size());
   }
-  outbuf_.SetSize(new_size);
+  outbuf_.SetSize(view.size());
   return res;
 }
 

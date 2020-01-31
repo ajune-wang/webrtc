@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2aa68a3c_cafb1c8a",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-31T21:55:38Z",
+      "side": 1,
+      "message": "Should note (and ideally check) that the given IceGatherer is running on the same network thread as this PeerConnection.",
+      "revId": "511be23b7f75d353a10b59b8a0f28f76cfaa89c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d16741a5_da940199",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-01-31T21:55:38Z",
+      "side": 1,
+      "message": "Can do this now without needing to go through the internal PeerConnection:\n\nPeerConnectionInterface::LookupDtlsTransportByMid\nthen DtlsTransportInterface::ice_transport\nthen IceTransportInterface::internal",
+      "revId": "511be23b7f75d353a10b59b8a0f28f76cfaa89c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

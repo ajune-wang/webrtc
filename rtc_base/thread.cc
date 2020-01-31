@@ -34,6 +34,7 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/null_socket_server.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
@@ -404,9 +405,6 @@ bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
   int64_t msStart = TimeMillis();
   int64_t msCurrent = msStart;
   while (true) {
-    // Check for sent messages
-    ReceiveSendsFromThread(nullptr);
-
     // Check for posted events
     int64_t cmsDelayNext = kForever;
     bool first_pass = true;
@@ -836,7 +834,7 @@ void Thread::Send(const Location& posted_from,
   msg.message_id = id;
   msg.pdata = pdata;
   if (IsCurrent()) {
-    phandler->OnMessage(&msg);
+    msg.phandler->OnMessage(&msg);
     return;
   }
 
@@ -845,32 +843,27 @@ void Thread::Send(const Location& posted_from,
   AutoThread thread;
   Thread* current_thread = Thread::Current();
   RTC_DCHECK(current_thread != nullptr);  // AutoThread ensures this
-
+  current_thread->SetIsSending(true);
   bool ready = false;
-  {
-    CritScope cs(&crit_);
-    _SendMessage smsg;
-    smsg.thread = current_thread;
-    smsg.msg = msg;
-    smsg.ready = &ready;
-    sendlist_.push_back(smsg);
-  }
-
-  // Wait for a reply
-  WakeUpSocketServer();
+  PostTask(
+      webrtc::ToQueuedTask([msg]() mutable { msg.phandler->OnMessage(&msg); },
+                           [this, &ready, current_thread] {
+                             CritScope cs(&crit_);
+                             ready = true;
+                             current_thread->socketserver()->WakeUp();
+                           }));
 
   bool waited = false;
   crit_.Enter();
+  RTC_CHECK(!is_sending_);
   while (!ready) {
     crit_.Leave();
-    // We need to limit "ReceiveSends" to |this| thread to avoid an arbitrary
-    // thread invoking calls on the current thread.
-    current_thread->ReceiveSendsFromThread(this);
     current_thread->socketserver()->Wait(kForever, false);
     waited = true;
     crit_.Enter();
   }
   crit_.Leave();
+  current_thread->SetIsSending(false);
 
   // Our Wait loop above may have consumed some WakeUp events for this
   // Thread, that weren't relevant to this Send.  Losing these WakeUps can
@@ -886,38 +879,6 @@ void Thread::Send(const Location& posted_from,
   if (waited) {
     current_thread->socketserver()->WakeUp();
   }
-}
-
-void Thread::ReceiveSendsFromThread(const Thread* source) {
-  // Receive a sent message. Cleanup scenarios:
-  // - thread sending exits: We don't allow this, since thread can exit
-  //   only via Join, so Send must complete.
-  // - thread receiving exits: Wakeup/set ready in Thread::Clear()
-  // - object target cleared: Wakeup/set ready in Thread::Clear()
-  _SendMessage smsg;
-
-  crit_.Enter();
-  while (PopSendMessageFromThread(source, &smsg)) {
-    crit_.Leave();
-
-    Dispatch(&smsg.msg);
-
-    crit_.Enter();
-    *smsg.ready = true;
-    smsg.thread->socketserver()->WakeUp();
-  }
-  crit_.Leave();
-}
-
-bool Thread::PopSendMessageFromThread(const Thread* source, _SendMessage* msg) {
-  for (auto it = sendlist_.begin(); it != sendlist_.end(); ++it) {
-    if (it->thread == source || source == nullptr) {
-      *msg = *it;
-      sendlist_.erase(it);
-      return true;
-    }
-  }
-  return false;
 }
 
 void Thread::InvokeInternal(const Location& posted_from,
@@ -981,26 +942,6 @@ void Thread::Clear(MessageHandler* phandler,
                    uint32_t id,
                    MessageList* removed) {
   CritScope cs(&crit_);
-
-  // Remove messages on sendlist_ with phandler
-  // Object target cleared: remove from send list, wakeup/set ready
-  // if sender not null.
-  for (auto iter = sendlist_.begin(); iter != sendlist_.end();) {
-    _SendMessage smsg = *iter;
-    if (smsg.msg.Match(phandler, id)) {
-      if (removed) {
-        removed->push_back(smsg.msg);
-      } else {
-        delete smsg.msg.pdata;
-      }
-      iter = sendlist_.erase(iter);
-      *smsg.ready = true;
-      smsg.thread->socketserver()->WakeUp();
-      continue;
-    }
-    ++iter;
-  }
-
   ClearInternal(phandler, id, removed);
 }
 

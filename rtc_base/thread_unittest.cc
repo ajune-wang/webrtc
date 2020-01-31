@@ -306,30 +306,6 @@ TEST(ThreadTest, Invoke) {
   thread->Invoke<void>(RTC_FROM_HERE, &LocalFuncs::Func2);
 }
 
-// Verifies that two threads calling Invoke on each other at the same time does
-// not deadlock.
-TEST(ThreadTest, TwoThreadsInvokeNoDeadlock) {
-  AutoThread thread;
-  Thread* current_thread = Thread::Current();
-  ASSERT_TRUE(current_thread != nullptr);
-
-  auto other_thread = Thread::CreateWithSocketServer();
-  other_thread->Start();
-
-  struct LocalFuncs {
-    static void Set(bool* out) { *out = true; }
-    static void InvokeSet(Thread* thread, bool* out) {
-      thread->Invoke<void>(RTC_FROM_HERE, Bind(&Set, out));
-    }
-  };
-
-  bool called = false;
-  other_thread->Invoke<void>(
-      RTC_FROM_HERE, Bind(&LocalFuncs::InvokeSet, current_thread, &called));
-
-  EXPECT_TRUE(called);
-}
-
 // Verifies that if thread A invokes a call on thread B and thread C is trying
 // to invoke A at the same time, thread A does not handle C's invoke while
 // invoking B.

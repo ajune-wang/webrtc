@@ -286,18 +286,15 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
   if (codec_header.temporalIdx >= kMaxTemporalLayers)
     return kDrop;
 
-  frame->id.picture_id = codec_header.pictureId & 0x7FFF;
+  frame->id.picture_id = unwrapper_.Unwrap(codec_header.pictureId & 0x7FFF);
 
   if (last_picture_id_ == -1)
     last_picture_id_ = frame->id.picture_id;
 
   // Find if there has been a gap in fully received frames and save the picture
   // id of those frames in |not_yet_received_frames_|.
-  if (AheadOf<uint16_t, kPicIdLength>(frame->id.picture_id, last_picture_id_)) {
-    do {
-      last_picture_id_ = Add<kPicIdLength>(last_picture_id_, 1);
-      not_yet_received_frames_.insert(last_picture_id_);
-    } while (last_picture_id_ != frame->id.picture_id);
+  while (frame->id.picture_id > last_picture_id_) {
+    not_yet_received_frames_.insert(++last_picture_id_);
   }
 
   int64_t unwrapped_tl0 = tl0_unwrapper_.Unwrap(codec_header.tl0PicIdx & 0xFF);
@@ -308,8 +305,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
   layer_info_.erase(layer_info_.begin(), clean_layer_info_to);
 
   // Clean up info about not yet received frames that are too old.
-  uint16_t old_picture_id =
-      Subtract<kPicIdLength>(frame->id.picture_id, kMaxNotYetReceivedFrames);
+  int64_t old_picture_id = frame->id.picture_id - kMaxNotYetReceivedFrames;
   auto clean_frames_to = not_yet_received_frames_.lower_bound(old_picture_id);
   not_yet_received_frames_.erase(not_yet_received_frames_.begin(),
                                  clean_frames_to);
@@ -363,8 +359,7 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
     // If the last frame on this layer is ahead of this frame it means that
     // a layer sync frame has been received after this frame for the same
     // base layer frame, drop this frame.
-    if (AheadOf<uint16_t, kPicIdLength>(layer_info_it->second[layer],
-                                        frame->id.picture_id)) {
+    if (layer_info_it->second[layer] > frame->id.picture_id) {
       return kDrop;
     }
 
@@ -373,13 +368,11 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp8(
     auto not_received_frame_it =
         not_yet_received_frames_.upper_bound(layer_info_it->second[layer]);
     if (not_received_frame_it != not_yet_received_frames_.end() &&
-        AheadOf<uint16_t, kPicIdLength>(frame->id.picture_id,
-                                        *not_received_frame_it)) {
+        frame->id.picture_id > *not_received_frame_it) {
       return kStash;
     }
 
-    if (!(AheadOf<uint16_t, kPicIdLength>(frame->id.picture_id,
-                                          layer_info_it->second[layer]))) {
+    if (frame->id.picture_id <= layer_info_it->second[layer]) {
       RTC_LOG(LS_WARNING) << "Frame with picture id " << frame->id.picture_id
                           << " and packet range [" << frame->first_seq_num()
                           << ", " << frame->last_seq_num()
@@ -403,9 +396,7 @@ void RtpFrameReferenceFinder::UpdateLayerInfoVp8(RtpFrameObject* frame,
 
   // Update this layer info and newer.
   while (layer_info_it != layer_info_.end()) {
-    if (layer_info_it->second[temporal_idx] != -1 &&
-        AheadOf<uint16_t, kPicIdLength>(layer_info_it->second[temporal_idx],
-                                        frame->id.picture_id)) {
+    if (layer_info_it->second[temporal_idx] > frame->id.picture_id) {
       // The frame was not newer, then no subsequent layer info have to be
       // update.
       break;
@@ -416,8 +407,6 @@ void RtpFrameReferenceFinder::UpdateLayerInfoVp8(RtpFrameObject* frame,
     layer_info_it = layer_info_.find(unwrapped_tl0);
   }
   not_yet_received_frames_.erase(frame->id.picture_id);
-
-  UnwrapPictureIds(frame);
 }
 
 RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(

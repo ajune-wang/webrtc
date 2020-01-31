@@ -21,12 +21,15 @@
 #include "rtc_base/random.h"
 #include "rtc_base/ref_count.h"
 #include "system_wrappers/include/clock.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 namespace video_coding {
-
 namespace {
+
+using ::testing::SizeIs;
+
 std::unique_ptr<RtpFrameObject> CreateFrame(
     uint16_t seq_num_start,
     uint16_t seq_num_end,
@@ -676,10 +679,10 @@ TEST_F(TestRtpFrameReferenceFinder, Vp8DetectMissingFrame_0212) {
   InsertVp8(6, 6, false, 6, 2, 2, false);
   InsertVp8(7, 7, false, 7, 1, 2, false);
   InsertVp8(8, 8, false, 8, 2, 2, false);
-  ASSERT_EQ(4UL, frames_from_callback_.size());
+  ASSERT_THAT(frames_from_callback_, SizeIs(4));
 
   InsertVp8(5, 5, false, 5, 0, 2, false);
-  ASSERT_EQ(8UL, frames_from_callback_.size());
+  ASSERT_THAT(frames_from_callback_, SizeIs(8));
 
   CheckReferencesVp8(1);
   CheckReferencesVp8(2, 1);

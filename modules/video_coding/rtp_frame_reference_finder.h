@@ -156,7 +156,7 @@ class RtpFrameReferenceFinder {
 
   // Save the last picture id in order to detect when there is a gap in frames
   // that have not yet been fully received.
-  int last_picture_id_;
+  int64_t last_picture_id_;
 
   // Padding packets that have been received but that are not yet continuous
   // with any group of pictures.
@@ -164,8 +164,7 @@ class RtpFrameReferenceFinder {
 
   // Frames earlier than the last received frame that have not yet been
   // fully received.
-  std::set<uint16_t, DescendingSeqNumComp<uint16_t, kPicIdLength>>
-      not_yet_received_frames_;
+  std::set<int64_t> not_yet_received_frames_;
 
   // Sequence numbers of frames earlier than the last received frame that
   // have not yet been fully received.

@@ -22,6 +22,30 @@
       "revId": "7b064687580caee909bb105e31df9cb39185df10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76e60a18_cdad84b8",
+        "filename": "test/testsupport/perf_test_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-01-31T12:56:11Z",
+      "side": 1,
+      "message": "Thanks, good catch. Why in the whole world is WEBRTC_ENABLE_PROTOBUF always set to 0 or 1? I found it very confusing that #ifdef doesn\u0027t work for this particular define.",
+      "parentUuid": "7c37b0e5_f33de062",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 32
+      },
+      "revId": "7b064687580caee909bb105e31df9cb39185df10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

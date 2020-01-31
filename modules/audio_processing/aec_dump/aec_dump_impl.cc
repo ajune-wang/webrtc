@@ -212,6 +212,12 @@ void AecDumpImpl::WriteRuntimeSetting(
       dst->set_max_volume(src.max_volume);
       break;
     }
+    case AudioProcessing::RuntimeSetting::Type::
+        kEchoControlEnhancer3DCoordinate: {
+      // TODO(peah): Hook up functionality.
+      break;
+    }
+
     case AudioProcessing::RuntimeSetting::Type::kNotSpecified:
       RTC_NOTREACHED();
       break;

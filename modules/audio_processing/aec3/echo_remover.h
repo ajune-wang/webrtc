@@ -16,6 +16,7 @@
 #include "absl/types/optional.h"
 #include "api/audio/echo_canceller3_config.h"
 #include "api/audio/echo_control.h"
+#include "api/audio/echo_control_enhancer.h"
 #include "modules/audio_processing/aec3/delay_estimate.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/render_buffer.h"
@@ -28,7 +29,8 @@ class EchoRemover {
   static EchoRemover* Create(const EchoCanceller3Config& config,
                              int sample_rate_hz,
                              size_t num_render_channels,
-                             size_t num_capture_channels);
+                             size_t num_capture_channels,
+                             EchoControlEnhancer* echo_control_enhancer);
   virtual ~EchoRemover() = default;
 
   // Get current metrics.
@@ -38,12 +40,16 @@ class EchoRemover {
   // supplied render signal is assumed to be pre-aligned with the capture
   // signal.
   virtual void ProcessCapture(
+      bool render_buffer_aligned,
       EchoPathVariability echo_path_variability,
       bool capture_signal_saturation,
       const absl::optional<DelayEstimate>& external_delay,
       RenderBuffer* render_buffer,
       std::vector<std::vector<std::vector<float>>>* linear_output,
       std::vector<std::vector<std::vector<float>>>* capture) = 0;
+
+  // Returns the number of channels in the output that are updated.
+  virtual size_t NumCaptureOutputChannels() const = 0;
 
   // Updates the status on whether echo leakage is detected in the output of the
   // echo remover.

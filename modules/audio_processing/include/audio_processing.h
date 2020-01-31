@@ -26,6 +26,7 @@
 #include "absl/types/optional.h"
 #include "api/audio/echo_canceller3_config.h"
 #include "api/audio/echo_control.h"
+#include "api/audio/echo_control_enhancer.h"
 #include "api/scoped_refptr.h"
 #include "modules/audio_processing/include/audio_generator.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
@@ -385,13 +386,21 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       kCaptureFixedPostGain,
       kPlayoutVolumeChange,
       kCustomRenderProcessingRuntimeSetting,
-      kPlayoutAudioDeviceChange
+      kPlayoutAudioDeviceChange,
+      kEchoControlEnhancer3DCoordinate
     };
 
     // Play-out audio device properties.
     struct PlayoutAudioDeviceInfo {
       int id;          // Identifies the audio device.
       int max_volume;  // Maximum play-out volume.
+    };
+
+    // 3D coordinate information.
+    struct Coordinate3DInfo {
+      float x;
+      float y;
+      float z;
     };
 
     RuntimeSetting() : type_(Type::kNotSpecified), value_(0.f) {}
@@ -425,6 +434,11 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       return {Type::kPlayoutAudioDeviceChange, audio_device};
     }
 
+    // Creates a runtime setting for passing a 3D coordinate information.
+    static RuntimeSetting CreateCoordinate3DInfo(Coordinate3DInfo coordinate) {
+      return {Type::kEchoControlEnhancer3DCoordinate, coordinate};
+    }
+
     // Creates a runtime setting to notify play-out (aka render) volume changes.
     // |volume| is the unnormalized volume, the maximum of which
     static RuntimeSetting CreatePlayoutVolumeChange(int volume) {
@@ -450,11 +464,17 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       RTC_DCHECK(value);
       *value = value_.playout_audio_device_info;
     }
+    void GetCoordinate3DInfo(Coordinate3DInfo* value) const {
+      RTC_DCHECK(value);
+      *value = value_.coordinate_3d_info;
+    }
 
    private:
     RuntimeSetting(Type id, float value) : type_(id), value_(value) {}
     RuntimeSetting(Type id, int value) : type_(id), value_(value) {}
     RuntimeSetting(Type id, PlayoutAudioDeviceInfo value)
+        : type_(id), value_(value) {}
+    RuntimeSetting(Type id, Coordinate3DInfo value)
         : type_(id), value_(value) {}
     Type type_;
     union U {
@@ -462,9 +482,11 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
       U(int value) : int_value(value) {}
       U(float value) : float_value(value) {}
       U(PlayoutAudioDeviceInfo value) : playout_audio_device_info(value) {}
+      U(Coordinate3DInfo value) : coordinate_3d_info(value) {}
       float float_value;
       int int_value;
       PlayoutAudioDeviceInfo playout_audio_device_info;
+      Coordinate3DInfo coordinate_3d_info;
     } value_;
   };
 
@@ -515,7 +537,6 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   virtual int proc_sample_rate_hz() const = 0;
   virtual int proc_split_sample_rate_hz() const = 0;
   virtual size_t num_input_channels() const = 0;
-  virtual size_t num_proc_channels() const = 0;
   virtual size_t num_output_channels() const = 0;
   virtual size_t num_reverse_channels() const = 0;
 
@@ -720,6 +741,12 @@ class RTC_EXPORT AudioProcessingBuilder {
   // The AudioProcessingBuilder takes ownership of the capture_analyzer.
   AudioProcessingBuilder& SetCaptureAnalyzer(
       std::unique_ptr<CustomAudioAnalyzer> capture_analyzer);
+  // The AudioProcessingBuilder takes ownership of the
+  // echo_control_enhancer_factory.
+  AudioProcessingBuilder& SetEchoControlEnhancerFactory(
+      std::unique_ptr<EchoControlEnhancerFactory>
+          echo_control_enhancer_factory);
+
   // This creates an APM instance using the previously set components. Calling
   // the Create function resets the AudioProcessingBuilder to its initial state.
   AudioProcessing* Create();
@@ -731,6 +758,7 @@ class RTC_EXPORT AudioProcessingBuilder {
   std::unique_ptr<CustomProcessing> render_pre_processing_;
   rtc::scoped_refptr<EchoDetector> echo_detector_;
   std::unique_ptr<CustomAudioAnalyzer> capture_analyzer_;
+  std::unique_ptr<EchoControlEnhancerFactory> echo_control_enhancer_factory_;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioProcessingBuilder);
 };
 

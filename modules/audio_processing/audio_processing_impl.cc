@@ -283,6 +283,12 @@ AudioProcessingBuilder& AudioProcessingBuilder::SetEchoDetector(
   return *this;
 }
 
+AudioProcessingBuilder& AudioProcessingBuilder::SetEchoControlEnhancerFactory(
+    std::unique_ptr<EchoControlEnhancerFactory> echo_control_enhancer_factory) {
+  echo_control_enhancer_factory_ = std::move(echo_control_enhancer_factory);
+  return *this;
+}
+
 AudioProcessing* AudioProcessingBuilder::Create() {
   webrtc::Config config;
   return Create(config);
@@ -292,7 +298,8 @@ AudioProcessing* AudioProcessingBuilder::Create(const webrtc::Config& config) {
   AudioProcessingImpl* apm = new rtc::RefCountedObject<AudioProcessingImpl>(
       config, std::move(capture_post_processing_),
       std::move(render_pre_processing_), std::move(echo_control_factory_),
-      std::move(echo_detector_), std::move(capture_analyzer_));
+      std::move(echo_detector_), std::move(capture_analyzer_),
+      std::move(echo_control_enhancer_factory_));
   if (apm->Initialize() != AudioProcessing::kNoError) {
     delete apm;
     apm = nullptr;
@@ -306,7 +313,8 @@ AudioProcessingImpl::AudioProcessingImpl(const webrtc::Config& config)
                           /*render_pre_processor=*/nullptr,
                           /*echo_control_factory=*/nullptr,
                           /*echo_detector=*/nullptr,
-                          /*capture_analyzer=*/nullptr) {}
+                          /*capture_analyzer=*/nullptr,
+                          /*echo_control_enhancer_factory=*/nullptr) {}
 
 int AudioProcessingImpl::instance_count_ = 0;
 
@@ -316,7 +324,8 @@ AudioProcessingImpl::AudioProcessingImpl(
     std::unique_ptr<CustomProcessing> render_pre_processor,
     std::unique_ptr<EchoControlFactory> echo_control_factory,
     rtc::scoped_refptr<EchoDetector> echo_detector,
-    std::unique_ptr<CustomAudioAnalyzer> capture_analyzer)
+    std::unique_ptr<CustomAudioAnalyzer> capture_analyzer,
+    std::unique_ptr<EchoControlEnhancerFactory> echo_control_enhancer_factory)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
       enforced_usage_of_legacy_ns_(DetectLegacyNsEnforcement()),
@@ -327,6 +336,7 @@ AudioProcessingImpl::AudioProcessingImpl(
       capture_runtime_settings_enqueuer_(&capture_runtime_settings_),
       render_runtime_settings_enqueuer_(&render_runtime_settings_),
       echo_control_factory_(std::move(echo_control_factory)),
+      echo_control_enhancer_factory_(std::move(echo_control_enhancer_factory)),
       submodule_states_(!!capture_post_processor,
                         !!render_pre_processor,
                         !!capture_analyzer),
@@ -343,6 +353,8 @@ AudioProcessingImpl::AudioProcessingImpl(
   RTC_LOG(LS_INFO) << "Injected APM submodules:"
                       "\nEcho control factory: "
                    << !!echo_control_factory_
+                   << "\nEcho control enhancer factory: "
+                   << !!echo_control_enhancer_factory_
                    << "\nEcho detector: " << !!submodules_.echo_detector
                    << "\nCapture analyzer: " << !!submodules_.capture_analyzer
                    << "\nCapture post processor: "
@@ -457,11 +469,58 @@ int AudioProcessingImpl::InitializeLocked() {
     render_.render_converter.reset(nullptr);
   }
 
+  const bool multi_channel_capture = config_.pipeline.multi_channel_capture &&
+                                     constants_.multi_channel_capture_support;
+  if (submodules_.echo_controller && !multi_channel_capture) {
+    // Force down-mixing of the number of channels
+    capture_.num_proc_channels_before_aec = 1;
+
+    // Set up echo control enhancer and choose the number of processing
+    // channels.
+    InitializeEchoControlEnhancer();
+
+    capture_.num_proc_channels_after_aec = 1;
+  } else {
+    capture_.num_proc_channels_before_aec =
+        !!echo_control_enhancer_factory_
+            ? static_cast<int>(
+                  formats_.api_format.input_stream().num_channels())
+            : std::min<int>(formats_.api_format.input_stream().num_channels(),
+                            formats_.api_format.output_stream().num_channels());
+
+    // Set up echo control enhancer and choose the number of processing
+    // channels.
+    InitializeEchoControlEnhancer();
+
+    capture_.num_proc_channels_after_aec =
+        !!submodules_.echo_control_enhancer
+            ? std::min<int>(
+                  capture_.num_proc_channels_before_aec,
+                  submodules_.echo_control_enhancer->NumOutputChannels())
+            : static_cast<int>(capture_.num_proc_channels_before_aec);
+    RTC_DCHECK(!submodules_.echo_control_enhancer ||
+               static_cast<int>(
+                   submodules_.echo_control_enhancer->NumOutputChannels()) <=
+                   capture_.num_proc_channels_before_aec);
+
+    printf("-----------------------%d\n\n",
+           capture_.num_proc_channels_before_aec);
+    printf("-----------------------%d\n\n",
+           capture_.num_proc_channels_after_aec);
+    printf("-----------------------%d\n\n",
+           static_cast<int>(formats_.api_format.input_stream().num_channels()));
+    if (submodules_.echo_control_enhancer) {
+      printf("-----------------------%d\n\n",
+             static_cast<int>(
+                 submodules_.echo_control_enhancer->NumOutputChannels()));
+    }
+  }
+
   capture_.capture_audio.reset(new AudioBuffer(
       formats_.api_format.input_stream().sample_rate_hz(),
       formats_.api_format.input_stream().num_channels(),
       capture_nonlocked_.capture_processing_format.sample_rate_hz(),
-      formats_.api_format.output_stream().num_channels(),
+      capture_.num_proc_channels_before_aec,
       formats_.api_format.output_stream().sample_rate_hz(),
       formats_.api_format.output_stream().num_channels()));
 
@@ -478,6 +537,9 @@ int AudioProcessingImpl::InitializeLocked() {
   } else {
     capture_.capture_fullband_audio.reset();
   }
+
+  // Always downmix to left channel.
+  capture_.capture_audio->set_downmixing_to_specific_channel(0);
 
   AllocateRenderQueue();
 
@@ -738,16 +800,6 @@ size_t AudioProcessingImpl::num_input_channels() const {
   return formats_.api_format.input_stream().num_channels();
 }
 
-size_t AudioProcessingImpl::num_proc_channels() const {
-  // Used as callback from submodules, hence locking is not allowed.
-  const bool multi_channel_capture = config_.pipeline.multi_channel_capture &&
-                                     constants_.multi_channel_capture_support;
-  if (capture_nonlocked_.echo_controller_enabled && !multi_channel_capture) {
-    return 1;
-  }
-  return num_output_channels();
-}
-
 size_t AudioProcessingImpl::num_output_channels() const {
   // Used as callback from submodules, hence locking is not allowed.
   return formats_.api_format.output_stream().num_channels();
@@ -775,6 +827,9 @@ void AudioProcessingImpl::SetRuntimeSetting(RuntimeSetting setting) {
     case RuntimeSetting::Type::kPlayoutVolumeChange:
       capture_runtime_settings_enqueuer_.Enqueue(setting);
       render_runtime_settings_enqueuer_.Enqueue(setting);
+      return;
+    case RuntimeSetting::Type::kEchoControlEnhancer3DCoordinate:
+      capture_runtime_settings_enqueuer_.Enqueue(setting);
       return;
     case RuntimeSetting::Type::kNotSpecified:
       RTC_NOTREACHED();
@@ -927,6 +982,15 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
       case RuntimeSetting::Type::kCustomRenderProcessingRuntimeSetting:
         RTC_NOTREACHED();
         break;
+      case RuntimeSetting::Type::kEchoControlEnhancer3DCoordinate:
+        // TODO(peah): Add functionality.
+        if (submodules_.echo_control_enhancer) {
+          RuntimeSetting::Coordinate3DInfo coordinate;
+          setting.GetCoordinate3DInfo(&coordinate);
+          submodules_.echo_control_enhancer->SetDirection(
+              coordinate.x, coordinate.y, coordinate.z);
+        }
+        break;
       case RuntimeSetting::Type::kNotSpecified:
         RTC_NOTREACHED();
         break;
@@ -951,6 +1015,8 @@ void AudioProcessingImpl::HandleRenderRuntimeSettings() {
       case RuntimeSetting::Type::kCapturePreGain:          // fall-through
       case RuntimeSetting::Type::kCaptureCompressionGain:  // fall-through
       case RuntimeSetting::Type::kCaptureFixedPostGain:    // fall-through
+      case RuntimeSetting::Type::
+          kEchoControlEnhancer3DCoordinate:  // fall-through
       case RuntimeSetting::Type::kNotSpecified:
         RTC_NOTREACHED();
         break;
@@ -962,9 +1028,10 @@ void AudioProcessingImpl::QueueBandedRenderAudio(AudioBuffer* audio) {
   RTC_DCHECK_GE(160, audio->num_frames_per_band());
 
   if (submodules_.echo_control_mobile) {
-    EchoControlMobileImpl::PackRenderAudioBuffer(audio, num_output_channels(),
-                                                 num_reverse_channels(),
-                                                 &aecm_render_queue_buffer_);
+    EchoControlMobileImpl::PackRenderAudioBuffer(
+        audio, formats_.api_format.output_stream().num_channels(),
+        formats_.render_processing_format.num_channels(),
+        &aecm_render_queue_buffer_);
     RTC_DCHECK(aecm_render_signal_queue_);
     // Insert the samples into the queue.
     if (!aecm_render_signal_queue_->Insert(&aecm_render_queue_buffer_)) {
@@ -1199,16 +1266,6 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     capture_buffer->SplitIntoFrequencyBands();
   }
 
-  const bool multi_channel_capture = config_.pipeline.multi_channel_capture &&
-                                     constants_.multi_channel_capture_support;
-  if (submodules_.echo_controller && !multi_channel_capture) {
-    // Force down-mixing of the number of channels after the detection of
-    // capture signal saturation.
-    // TODO(peah): Look into ensuring that this kind of tampering with the
-    // AudioBuffer functionality should not be needed.
-    capture_buffer->set_num_channels(1);
-  }
-
   if (submodules_.high_pass_filter &&
       (!config_.high_pass_filter.apply_in_full_band ||
        constants_.enforce_split_band_hpf)) {
@@ -1258,6 +1315,10 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
 
       submodules_.echo_controller->ProcessCapture(
           capture_buffer, linear_aec_buffer, capture_.echo_path_gain_change);
+
+      RTC_DCHECK_EQ(capture_.num_proc_channels_after_aec,
+                    submodules_.echo_controller->NumCaptureOutputChannels());
+      capture_buffer->set_num_channels(capture_.num_proc_channels_after_aec);
     }
 
     if (config_.noise_suppression.analyze_linear_aec_output_when_available &&
@@ -1694,9 +1755,9 @@ void AudioProcessingImpl::InitializeTransientSuppressor() {
     if (!submodules_.transient_suppressor) {
       submodules_.transient_suppressor.reset(new TransientSuppressor());
     }
-    submodules_.transient_suppressor->Initialize(proc_fullband_sample_rate_hz(),
-                                                 capture_nonlocked_.split_rate,
-                                                 num_proc_channels());
+    submodules_.transient_suppressor->Initialize(
+        proc_fullband_sample_rate_hz(), capture_nonlocked_.split_rate,
+        capture_.num_proc_channels_after_aec);
   } else {
     submodules_.transient_suppressor.reset();
   }
@@ -1714,7 +1775,8 @@ void AudioProcessingImpl::InitializeHighPassFilter(bool forced_reset) {
     int rate = use_full_band ? proc_fullband_sample_rate_hz()
                              : proc_split_sample_rate_hz();
     size_t num_channels =
-        use_full_band ? num_output_channels() : num_proc_channels();
+        use_full_band ? formats_.api_format.output_stream().num_channels()
+                      : capture_.num_proc_channels_after_aec;
 
     if (!submodules_.high_pass_filter ||
         rate != submodules_.high_pass_filter->sample_rate_hz() ||
@@ -1736,6 +1798,17 @@ void AudioProcessingImpl::InitializeVoiceDetector() {
     submodules_.voice_detector.reset();
   }
 }
+
+void AudioProcessingImpl::InitializeEchoControlEnhancer() {
+  if (echo_control_enhancer_factory_) {
+    submodules_.echo_control_enhancer = echo_control_enhancer_factory_->Create(
+        capture_nonlocked_.capture_processing_format.sample_rate_hz(),
+        capture_.num_proc_channels_before_aec);
+  } else {
+    submodules_.echo_control_enhancer.reset();
+  }
+}
+
 void AudioProcessingImpl::InitializeEchoController() {
   bool use_echo_controller =
       echo_control_factory_ ||
@@ -1745,25 +1818,32 @@ void AudioProcessingImpl::InitializeEchoController() {
     // Create and activate the echo controller.
     if (echo_control_factory_) {
       submodules_.echo_controller = echo_control_factory_->Create(
-          proc_sample_rate_hz(), num_reverse_channels(), num_proc_channels());
+          proc_sample_rate_hz(),
+          formats_.render_processing_format.num_channels(),
+          capture_.num_proc_channels_before_aec,
+          submodules_.echo_control_enhancer.get());
       RTC_DCHECK(submodules_.echo_controller);
     } else {
       EchoCanceller3Config config =
           use_setup_specific_default_aec3_config_
-              ? EchoCanceller3::CreateDefaultConfig(num_reverse_channels(),
-                                                    num_proc_channels())
+              ? EchoCanceller3::CreateDefaultConfig(
+                    formats_.render_processing_format.num_channels(),
+                    capture_.num_proc_channels_before_aec)
               : EchoCanceller3Config();
       submodules_.echo_controller = std::make_unique<EchoCanceller3>(
-          config, proc_sample_rate_hz(), num_reverse_channels(),
-          num_proc_channels());
+          config, proc_sample_rate_hz(),
+          formats_.render_processing_format.num_channels(),
+          capture_.num_proc_channels_before_aec,
+          submodules_.echo_control_enhancer.get());
     }
 
     // Setup the storage for returning the linear AEC output.
     if (config_.echo_canceller.export_linear_aec_output) {
       constexpr int kLinearOutputRateHz = 16000;
       capture_.linear_aec_output = std::make_unique<AudioBuffer>(
-          kLinearOutputRateHz, num_proc_channels(), kLinearOutputRateHz,
-          num_proc_channels(), kLinearOutputRateHz, num_proc_channels());
+          kLinearOutputRateHz, capture_.num_proc_channels_before_aec,
+          kLinearOutputRateHz, capture_.num_proc_channels_before_aec,
+          kLinearOutputRateHz, capture_.num_proc_channels_before_aec);
     } else {
       capture_.linear_aec_output.reset();
     }
@@ -1791,7 +1871,8 @@ void AudioProcessingImpl::InitializeEchoController() {
         std::max(static_cast<size_t>(1),
                  kMaxAllowedValuesOfSamplesPerBand *
                      EchoControlMobileImpl::NumCancellersRequired(
-                         num_output_channels(), num_reverse_channels()));
+                         formats_.api_format.output_stream().num_channels(),
+                         formats_.render_processing_format.num_channels()));
 
     std::vector<int16_t> template_queue_element(max_element_size);
 
@@ -1805,9 +1886,10 @@ void AudioProcessingImpl::InitializeEchoController() {
 
     submodules_.echo_control_mobile.reset(new EchoControlMobileImpl());
 
-    submodules_.echo_control_mobile->Initialize(proc_split_sample_rate_hz(),
-                                                num_reverse_channels(),
-                                                num_output_channels());
+    submodules_.echo_control_mobile->Initialize(
+        proc_split_sample_rate_hz(),
+        formats_.render_processing_format.num_channels(),
+        capture_.num_proc_channels_before_aec);
     return;
   }
 
@@ -1826,7 +1908,7 @@ void AudioProcessingImpl::InitializeGainController1() {
     submodules_.gain_control.reset(new GainControlImpl());
   }
 
-  submodules_.gain_control->Initialize(num_proc_channels(),
+  submodules_.gain_control->Initialize(capture_.num_proc_channels_after_aec,
                                        proc_sample_rate_hz());
 
   if (!config_.gain_controller1.analog_gain_controller.enabled) {
@@ -1853,7 +1935,7 @@ void AudioProcessingImpl::InitializeGainController1() {
 
   if (!submodules_.agc_manager.get() ||
       submodules_.agc_manager->num_channels() !=
-          static_cast<int>(num_proc_channels()) ||
+          static_cast<int>(capture_.num_proc_channels_after_aec) ||
       submodules_.agc_manager->sample_rate_hz() !=
           capture_nonlocked_.split_rate) {
     int stream_analog_level = -1;
@@ -1862,7 +1944,7 @@ void AudioProcessingImpl::InitializeGainController1() {
       stream_analog_level = submodules_.agc_manager->stream_analog_level();
     }
     submodules_.agc_manager.reset(new AgcManagerDirect(
-        num_proc_channels(),
+        capture_.num_proc_channels_after_aec,
         config_.gain_controller1.analog_gain_controller.startup_min_volume,
         config_.gain_controller1.analog_gain_controller.clipped_level_min,
         config_.gain_controller1.analog_gain_controller
@@ -1925,12 +2007,13 @@ void AudioProcessingImpl::InitializeNoiseSuppressor() {
       NsConfig cfg;
       cfg.target_level = map_level(config_.noise_suppression.level);
       submodules_.noise_suppressor = std::make_unique<NoiseSuppressor>(
-          cfg, proc_sample_rate_hz(), num_proc_channels());
+          cfg, proc_sample_rate_hz(), capture_.num_proc_channels_after_aec);
     } else {
       auto ns_level =
           NsConfigLevelToInterfaceLevel(config_.noise_suppression.level);
       submodules_.legacy_noise_suppressor = std::make_unique<NoiseSuppression>(
-          num_proc_channels(), proc_sample_rate_hz(), ns_level);
+          capture_.num_proc_channels_after_aec, proc_sample_rate_hz(),
+          ns_level);
     }
   }
 }
@@ -1953,15 +2036,15 @@ void AudioProcessingImpl::InitializeResidualEchoDetector() {
 
 void AudioProcessingImpl::InitializeAnalyzer() {
   if (submodules_.capture_analyzer) {
-    submodules_.capture_analyzer->Initialize(proc_fullband_sample_rate_hz(),
-                                             num_proc_channels());
+    submodules_.capture_analyzer->Initialize(
+        proc_fullband_sample_rate_hz(), capture_.num_proc_channels_after_aec);
   }
 }
 
 void AudioProcessingImpl::InitializePostProcessor() {
   if (submodules_.capture_post_processor) {
     submodules_.capture_post_processor->Initialize(
-        proc_fullband_sample_rate_hz(), num_proc_channels());
+        proc_fullband_sample_rate_hz(), capture_.num_proc_channels_after_aec);
   }
 }
 

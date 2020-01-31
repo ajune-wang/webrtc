@@ -19,6 +19,8 @@
 
 namespace webrtc {
 
+class EchoControlEnhancer;
+
 class RTC_EXPORT EchoCanceller3Factory : public EchoControlFactory {
  public:
   // Factory producing EchoCanceller3 instances with the default configuration.
@@ -32,6 +34,12 @@ class RTC_EXPORT EchoCanceller3Factory : public EchoControlFactory {
   std::unique_ptr<EchoControl> Create(int sample_rate_hz,
                                       int num_render_channels,
                                       int num_capture_channels) override;
+
+  std::unique_ptr<EchoControl> Create(
+      int sample_rate_hz,
+      int num_render_channels,
+      int num_capture_channels,
+      EchoControlEnhancer* echo_control_enhancer) override;
 
  private:
   const EchoCanceller3Config config_;

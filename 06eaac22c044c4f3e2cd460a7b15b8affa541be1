@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f69f3a1_f7f75f5a",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-01-31T12:51:03Z",
+      "side": 1,
+      "message": "If we\u0027re measuring jitter buffer delay, shouldn\u0027t the clock start ticking when the packet reaches NetEq? In that case there would be no need to pass the receive time to the InsertPacket function, as it could be measured inside of NetEq.",
+      "range": {
+        "startLine": 909,
+        "startChar": 15,
+        "endLine": 909,
+        "endChar": 34
+      },
+      "revId": "06eaac22c044c4f3e2cd460a7b15b8affa541be1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e48b18a3_ee98126f",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-01-31T12:51:03Z",
+      "side": 1,
+      "message": "This looks potentially expensive. Have you checked the impact on the perf tests? Deleting items that are not at the end of a vector cause everything after the item to be copied. How about a ring buffer instead?\n\nAlso: is there a way to avoid updating every element?",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 3
+      },
+      "revId": "06eaac22c044c4f3e2cd460a7b15b8affa541be1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

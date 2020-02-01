@@ -1,0 +1,256 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0044f7b3_7a25ed3b",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "You don\u0027t use either of these, do you?",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d68a9f_24e9619f",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "Not necessary. Abstract classes can\u0027t be copied anyway.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 42
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3944cb_c34d0c70",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "Not necessary. Abstract classes can\u0027t be constructed.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d39f618b_eb154cd5",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "Sink has just one method, and you pass it by raw pointer. An alternative would be to just use FunctionView\u003cvoid(std::unique_ptr\u003cAudioFrame\u003e)\u003e instead.",
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d54dd41_8044b4c8",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "Again, not needed.",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda0fb44_c33361ba",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "Do these two have to be separate methods? I.e., could there be just one method that takes both an AudioFrame and the Sink to be used for that particular frame?",
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba706273_3cf875f7",
+        "filename": "audio/audio_transport_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "Avoid raw `new`. Use std::make_unique instead.",
+      "range": {
+        "startLine": 181,
+        "startChar": 4,
+        "endLine": 181,
+        "endChar": 67
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eb96a47_808d8f37",
+        "filename": "audio/audio_transport_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "const? GUARDED_BY?",
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "912b3b97_35190eb7",
+        "filename": "media/engine/webrtc_voice_engine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "Why a default value? Do we have out-of-tree callers that can\u0027t be updated in this CL?",
+      "range": {
+        "startLine": 58,
+        "startChar": 56,
+        "endLine": 58,
+        "endChar": 67
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9c47c88_d0bac262",
+        "filename": "modules/async_audio_processing/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "Does this target need to be visible to out-of-tree code? In that case, it probably belongs in api/.",
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dddbdd7_99cfbf6f",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 28,
+        "startChar": 26,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "943f45bc_9ca4d389",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-01T01:28:35Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 17
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

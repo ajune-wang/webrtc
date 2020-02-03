@@ -168,11 +168,14 @@ NetEqImpl::NetEqImpl(const NetEq::Config& config,
 NetEqImpl::~NetEqImpl() = default;
 
 int NetEqImpl::InsertPacket(const RTPHeader& rtp_header,
-                            rtc::ArrayView<const uint8_t> payload) {
+                            rtc::ArrayView<const uint8_t> payload,
+                            uint64_t receive_time_ms) {
   rtc::MsanCheckInitialized(payload);
   TRACE_EVENT0("webrtc", "NetEqImpl::InsertPacket");
   rtc::CritScope lock(&crit_sect_);
-  if (InsertPacketInternal(rtp_header, payload) != 0) {
+  if (InsertPacketInternal(
+          rtp_header, payload,
+          receive_time_ms ? receive_time_ms : clock_->TimeInMilliseconds())) {
     return kFail;
   }
   return kOK;
@@ -484,13 +487,13 @@ NetEq::Operation NetEqImpl::last_operation_for_test() const {
 // Methods below this line are private.
 
 int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
-                                    rtc::ArrayView<const uint8_t> payload) {
+                                    rtc::ArrayView<const uint8_t> payload,
+                                    uint64_t receive_time_ms) {
   if (payload.empty()) {
     RTC_LOG_F(LS_ERROR) << "payload is empty";
     return kInvalidPointer;
   }
 
-  int64_t receive_time_ms = clock_->TimeInMilliseconds();
   stats_->ReceivedPacket();
 
   PacketList packet_list;
@@ -883,16 +886,8 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
     comfort_noise_->Reset();
   }
 
-  // We treat it as if all packets referenced to by |last_decoded_packet_infos_|
-  // were mashed together when creating the samples in |algorithm_buffer_|.
-  RtpPacketInfos packet_infos(last_decoded_packet_infos_);
-
   // Copy samples from |algorithm_buffer_| to |sync_buffer_|.
-  //
-  // TODO(bugs.webrtc.org/10757):
-  //   We would in the future also like to pass |packet_infos| so that we can do
-  //   sample-perfect tracking of that information across |sync_buffer_|.
-  sync_buffer_->PushBack(*algorithm_buffer_);
+  sync_buffer_->PushBack(*algorithm_buffer_, last_decoded_packet_infos_);
 
   // Extract data from |sync_buffer_| to |output|.
   size_t num_output_samples_per_channel = output_size_samples_;
@@ -906,16 +901,18 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
     num_output_samples_per_channel =
         AudioFrame::kMaxDataSizeSamples / sync_buffer_->Channels();
   }
+
   sync_buffer_->GetNextAudioInterleaved(num_output_samples_per_channel,
                                         audio_frame);
   audio_frame->sample_rate_hz_ = fs_hz_;
-  // TODO(bugs.webrtc.org/10757):
-  //   We don't have the ability to properly track individual packets once their
-  //   audio samples have entered |sync_buffer_|. So for now, treat it as if
-  //   |packet_infos| from packets decoded by the current |GetAudioInternal()|
-  //   call were all consumed assembling the current audio frame and the current
-  //   audio frame only.
-  audio_frame->packet_infos_ = std::move(packet_infos);
+
+  // Calculate jitter buffer delay as time since reception to playback(now).
+  int64_t play_time_ms = clock_->TimeInMilliseconds();
+  for (const auto& rtp_info : audio_frame->packet_infos_) {
+    stats_->JitterBufferDelay(num_output_samples_per_channel,
+                              play_time_ms - rtp_info.receive_time_ms());
+  }
+
   if (sync_buffer_->FutureLength() < expand_->overlap_length()) {
     // The sync buffer should always contain |overlap_length| samples, but now
     // too many samples have been extracted. Reinstall the |overlap_length|
@@ -1635,6 +1632,7 @@ int NetEqImpl::DoAccelerate(int16_t* decoded_buffer,
                             bool fast_accelerate) {
   const size_t required_samples =
       static_cast<size_t>(240 * fs_mult_);  // Must have 30 ms.
+  std::vector<RtpPacketInfo> borrowed_packet_infos;
   size_t borrowed_samples_per_channel = 0;
   size_t num_channels = algorithm_buffer_->Channels();
   size_t decoded_length_per_channel = decoded_length / num_channels;
@@ -1644,8 +1642,9 @@ int NetEqImpl::DoAccelerate(int16_t* decoded_buffer,
         static_cast<int>(required_samples - decoded_length_per_channel);
     memmove(&decoded_buffer[borrowed_samples_per_channel * num_channels],
             decoded_buffer, sizeof(int16_t) * decoded_length);
-    sync_buffer_->ReadInterleavedFromEnd(borrowed_samples_per_channel,
-                                         decoded_buffer);
+    sync_buffer_->ReadInterleavedFromEndWithInfo(
+        borrowed_samples_per_channel, decoded_buffer, borrowed_packet_infos);
+
     decoded_length = required_samples * num_channels;
   }
 
@@ -1678,14 +1677,16 @@ int NetEqImpl::DoAccelerate(int16_t* decoded_buffer,
       // problems.
       sync_buffer_->ReplaceAtIndex(
           *algorithm_buffer_,
-          sync_buffer_->Size() - borrowed_samples_per_channel);
+          sync_buffer_->Size() - borrowed_samples_per_channel,
+          borrowed_packet_infos);
       sync_buffer_->PushFrontZeros(borrowed_samples_per_channel - length);
       algorithm_buffer_->PopFront(length);
       assert(algorithm_buffer_->Empty());
     } else {
       sync_buffer_->ReplaceAtIndex(
           *algorithm_buffer_, borrowed_samples_per_channel,
-          sync_buffer_->Size() - borrowed_samples_per_channel);
+          sync_buffer_->Size() - borrowed_samples_per_channel,
+          borrowed_packet_infos);
       algorithm_buffer_->PopFront(borrowed_samples_per_channel);
     }
   }
@@ -1708,6 +1709,7 @@ int NetEqImpl::DoPreemptiveExpand(int16_t* decoded_buffer,
   const size_t required_samples =
       static_cast<size_t>(240 * fs_mult_);  // Must have 30 ms.
   size_t num_channels = algorithm_buffer_->Channels();
+  std::vector<RtpPacketInfo> borrowed_packet_infos;
   size_t borrowed_samples_per_channel = 0;
   size_t old_borrowed_samples_per_channel = 0;
   size_t decoded_length_per_channel = decoded_length / num_channels;
@@ -1722,8 +1724,8 @@ int NetEqImpl::DoPreemptiveExpand(int16_t* decoded_buffer,
             : 0;
     memmove(&decoded_buffer[borrowed_samples_per_channel * num_channels],
             decoded_buffer, sizeof(int16_t) * decoded_length);
-    sync_buffer_->ReadInterleavedFromEnd(borrowed_samples_per_channel,
-                                         decoded_buffer);
+    sync_buffer_->ReadInterleavedFromEndWithInfo(
+        borrowed_samples_per_channel, decoded_buffer, borrowed_packet_infos);
     decoded_length = required_samples * num_channels;
   }
 
@@ -1752,7 +1754,8 @@ int NetEqImpl::DoPreemptiveExpand(int16_t* decoded_buffer,
     // Copy borrowed samples back to the |sync_buffer_|.
     sync_buffer_->ReplaceAtIndex(
         *algorithm_buffer_, borrowed_samples_per_channel,
-        sync_buffer_->Size() - borrowed_samples_per_channel);
+        sync_buffer_->Size() - borrowed_samples_per_channel,
+        borrowed_packet_infos);
     algorithm_buffer_->PopFront(borrowed_samples_per_channel);
   }
 
@@ -1986,8 +1989,6 @@ int NetEqImpl::ExtractPackets(size_t required_samples,
       packet_duration = decoder_frame_length_;
     }
     extracted_samples = packet->timestamp - first_timestamp + packet_duration;
-
-    stats_->JitterBufferDelay(packet_duration, waiting_time_ms);
 
     packet_list->push_back(std::move(*packet));  // Store packet in list.
     packet = absl::nullopt;  // Ensure it's never used after the move.

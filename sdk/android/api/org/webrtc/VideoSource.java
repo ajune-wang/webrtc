@@ -29,6 +29,7 @@ public class VideoSource extends MediaSource {
     }
   }
 
+  private final RefCountDelegate refCountDelegate = new RefCountDelegate(super::dispose);
   private final NativeAndroidVideoTrackSource nativeAndroidVideoTrackSource;
   private final Object videoProcessorLock = new Object();
   @Nullable private VideoProcessor videoProcessor;
@@ -135,7 +136,9 @@ public class VideoSource extends MediaSource {
       }
       videoProcessor = newVideoProcessor;
       if (newVideoProcessor != null) {
-        newVideoProcessor.setSink(nativeAndroidVideoTrackSource::onFrameCaptured);
+        newVideoProcessor.setSink(
+            (frame)
+                -> runWithReference(() -> nativeAndroidVideoTrackSource.onFrameCaptured(frame)));
         if (isCapturerRunning) {
           newVideoProcessor.onCapturerStarted(/* success= */ true);
         }

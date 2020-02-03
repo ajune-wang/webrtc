@@ -161,8 +161,6 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   void ReconfigureEncoder() RTC_RUN_ON(&encoder_queue_);
 
-  void ConfigureQualityScaler(const VideoEncoder::EncoderInfo& encoder_info);
-
   // Implements VideoSinkInterface.
   void OnFrame(const VideoFrame& video_frame) override;
   void OnDiscardedFrame() override;
@@ -213,8 +211,6 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   rtc::Event shutdown_event_;
 
   const uint32_t number_of_cores_;
-  // Counts how many frames we've dropped in the initial framedrop phase.
-  int initial_framedrop_;
   bool quality_rampup_done_ RTC_GUARDED_BY(&encoder_queue_);
   QualityRampupExperiment quality_rampup_experiment_
       RTC_GUARDED_BY(&encoder_queue_);
@@ -252,9 +248,6 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   int crop_height_ RTC_GUARDED_BY(&encoder_queue_);
   absl::optional<uint32_t> encoder_target_bitrate_bps_
       RTC_GUARDED_BY(&encoder_queue_);
-  int set_start_bitrate_bps_ RTC_GUARDED_BY(&encoder_queue_);
-  int64_t set_start_bitrate_time_ms_ RTC_GUARDED_BY(&encoder_queue_);
-  bool has_seen_first_bwe_drop_ RTC_GUARDED_BY(&encoder_queue_);
   size_t max_data_payload_length_ RTC_GUARDED_BY(&encoder_queue_);
   absl::optional<EncoderRateSettings> last_encoder_rate_settings_
       RTC_GUARDED_BY(&encoder_queue_);

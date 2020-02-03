@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0bf96dec_7073b9a4",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-02-03T21:41:59Z",
+      "side": 1,
+      "message": "I think my concerns are\n1. if any codec fails when is instructed to do 32kbps,\n2. if bandwidth estimation fails when codec fails to produced the desired bitrate. this should be not any big deal if I remember correctly, since even opus does not always fulfill the desired bitrate, for example, during DTX.",
+      "parentUuid": "e611c2dd_ae31dba5",
+      "range": {
+        "startLine": 969,
+        "startChar": 0,
+        "endLine": 969,
+        "endChar": 41
+      },
+      "revId": "931eeb37d5734a8bfd7d01d65625ed73efcc31f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "089e5698_9cf1f597",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 1

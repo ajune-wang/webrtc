@@ -46,6 +46,30 @@
       "revId": "fd1a4dbbbb79db6946f2447238c8836e08e68db5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfd4a60_b1a1dfbf",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-03T09:38:47Z",
+      "side": 1,
+      "message": "I\u0027ll add a TODO - I want to avoid changing behaviour in these refactorings.",
+      "parentUuid": "edf06100_c22e5b9b",
+      "range": {
+        "startLine": 121,
+        "startChar": 15,
+        "endLine": 121,
+        "endChar": 33
+      },
+      "revId": "fd1a4dbbbb79db6946f2447238c8836e08e68db5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08b782a9_0822e447",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-03T12:56:27Z",
+      "side": 1,
+      "message": "This line is too long, it should be max 52 chars if I remember correctly.\n\nThe CL description should probably be changed, because this CL is basically renaming a GN argument instead of adding a new one.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 102
+      },
+      "revId": "7cb90f99cc2264b52273e5a41cf51db0ee62e1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

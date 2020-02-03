@@ -25,6 +25,7 @@
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_config.h"
+#include "call/adaptation/resource.h"
 #include "call/adaptation/resource_adaptation_module_interface.h"
 #include "rtc_base/experiments/balanced_degradation_settings.h"
 #include "video/overuse_frame_detector.h"
@@ -48,7 +49,8 @@ class VideoStreamEncoder;
 // generic interface in VideoStreamEncoder, unblocking other modules from being
 // implemented and used.
 class OveruseFrameDetectorResourceAdaptationModule
-    : public ResourceAdaptationModuleInterface {
+    : public ResourceAdaptationModuleInterface,
+      public ResourceUsageListener {
  public:
   // The module can be constructed on any sequence, but must be initialized and
   // used on a single sequence, e.g. the encoder queue.
@@ -125,6 +127,8 @@ class OveruseFrameDetectorResourceAdaptationModule
     std::vector<int> resolution_counters_;
   };
 
+  void OnResourceUsageStateMeasured(const Resource& resource,
+                                    ResourceUsageState usage_state) override;
   // Signal that a resource (kCpu or kQuality) is overused or underused. This is
   // currently used by EncodeUsageResource, QualityScalerResource and testing.
   // TODO(https://crbug.com/webrtc/11222): Make use of ResourceUsageState and

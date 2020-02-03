@@ -228,6 +228,7 @@ void QualityScaler::CheckQp() {
       return;
     }
   }
+  observer_->AdaptNotNeeded(AdaptationObserverInterface::AdaptReason::kQuality);
 }
 
 void QualityScaler::ReportQpLow() {

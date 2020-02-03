@@ -28,6 +28,7 @@ namespace webrtc {
 
 // An interface for signaling requests to limit or increase the resolution or
 // framerate of the captured video stream.
+// TODO(hbos):
 class AdaptationObserverInterface {
  public:
   // Indicates if the adaptation is due to overuse of the CPU resources, or if
@@ -36,6 +37,8 @@ class AdaptationObserverInterface {
   static const size_t kScaleReasonSize = 2;
   // Called to signal that we can handle larger or more frequent frames.
   virtual void AdaptUp(AdaptReason reason) = 0;
+  // Called to signal that a measurement was made, but no adaptation was needed.
+  virtual void AdaptNotNeeded(AdaptReason reason) = 0;
   // Called to signal that the source should reduce the resolution or framerate.
   // Returns false if a downgrade was requested but the request did not result
   // in a new limiting resolution or fps.

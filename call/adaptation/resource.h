@@ -11,9 +11,11 @@
 #ifndef CALL_ADAPTATION_RESOURCE_H_
 #define CALL_ADAPTATION_RESOURCE_H_
 
-#include <string>
+#include <vector>
 
 namespace webrtc {
+
+class Resource;
 
 enum class ResourceUsageState {
   // Action is needed to minimze the load on this resource.
@@ -25,32 +27,36 @@ enum class ResourceUsageState {
   kUnderuse,
 };
 
+class ResourceUsageListener {
+ public:
+  virtual ~ResourceUsageListener();
+
+  virtual void OnResourceUsageStateMeasured(const Resource& resource,
+                                            ResourceUsageState usage_state) = 0;
+};
+
 // A Resource is something which can be measured as "overused", "stable" or
-// "underused". For example, if we are overusing CPU we may need to lower the
-// resolution of one of the streams. In other words, one of the ResourceConumers
-// - representing an encoder - needs to be reconfigured with a different
-// ResourceConsumerConfiguration - representing a different encoder setting.
+// "underused". When the resource usage changes, listeners of the resource are
+// informed.
 //
-// This is an abstract class used by the ResourceAdaptationProcessor to make
-// decisions about which configurations to use. How a resource is measured or
-// what measurements map to different ResourceUsageState values is
-// implementation-specific.
+// Implementations of this interface are responsible for performing resource
+// usage measurements and invoking OnResourceUsageStateMeasured().
 class Resource {
  public:
+  Resource();
   virtual ~Resource();
 
-  // Informational, not formally part of the decision-making process.
-  virtual std::string Name() const = 0;
-  virtual std::string UsageUnitsOfMeasurement() const = 0;
-  // Valid ranges are implementation-specific.
-  virtual double CurrentUsage() const = 0;
+  void RegisterListener(ResourceUsageListener* listener);
 
-  // The current usage state of this resource. Used by the
-  // ResourceAdaptationProcessor to calculate the desired consumer
-  // configurations.
-  virtual ResourceUsageState CurrentUsageState() const = 0;
+  ResourceUsageState usage_state() const;
 
-  std::string ToString() const;
+ protected:
+  // Updates the usage state and informs all registered listeners.
+  void OnResourceUsageStateMeasured(ResourceUsageState usage_state);
+
+ private:
+  ResourceUsageState usage_state_;
+  std::vector<ResourceUsageListener*> listeners_;
 };
 
 }  // namespace webrtc

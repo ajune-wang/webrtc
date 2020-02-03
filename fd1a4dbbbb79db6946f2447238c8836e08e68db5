@@ -22,6 +22,30 @@
       "revId": "fd1a4dbbbb79db6946f2447238c8836e08e68db5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edf06100_c22e5b9b",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-03T09:28:58Z",
+      "side": 1,
+      "message": "Can we formalize this as a TODO and address in a separate CL to avoid risk of having to revert? Stuff being moved in a CL chain",
+      "parentUuid": "69a4a01c_57069367",
+      "range": {
+        "startLine": 121,
+        "startChar": 15,
+        "endLine": 121,
+        "endChar": 33
+      },
+      "revId": "fd1a4dbbbb79db6946f2447238c8836e08e68db5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

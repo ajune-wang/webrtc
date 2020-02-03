@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3da4d7f_012c5285",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-02-03T14:08:28Z",
+      "side": 1,
+      "message": "static_cast\u003cdouble\u003e() instead.",
+      "range": {
+        "startLine": 613,
+        "startChar": 70,
+        "endLine": 613,
+        "endChar": 75
+      },
+      "revId": "3f3c78efab06768dd523618b0a2d15b4f415e64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bedb73a_e7826188",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-02-03T14:08:28Z",
+      "side": 1,
+      "message": "Strictly speaking this does not count drops, but frames.",
+      "range": {
+        "startLine": 882,
+        "startChar": 33,
+        "endLine": 882,
+        "endChar": 37
+      },
+      "revId": "3f3c78efab06768dd523618b0a2d15b4f415e64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6e3a89b_5d49a542",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-02-03T14:08:28Z",
+      "side": 1,
+      "message": "Is this necessary? The modulo operation should still return 0 on every cwnd_frame_drop_ratio_\u0027s hit, even if the counter wraps to negative numbers.",
+      "range": {
+        "startLine": 883,
+        "startChar": 4,
+        "endLine": 884,
+        "endChar": 71
+      },
+      "revId": "3f3c78efab06768dd523618b0a2d15b4f415e64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "198ee89a_4d3cba73",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1599,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-02-03T14:08:28Z",
+      "side": 1,
+      "message": "This is not a ratio, but an interval.",
+      "range": {
+        "startLine": 1599,
+        "startChar": 20,
+        "endLine": 1599,
+        "endChar": 26
+      },
+      "revId": "3f3c78efab06768dd523618b0a2d15b4f415e64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab50b143_0137687a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1603,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-02-03T14:08:28Z",
+      "side": 1,
+      "message": "As far as I can see operator/ overload exists?",
+      "range": {
+        "startLine": 1603,
+        "startChar": 37,
+        "endLine": 1603,
+        "endChar": 43
+      },
+      "revId": "3f3c78efab06768dd523618b0a2d15b4f415e64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5142aa0b_a5a4896b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1605,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-02-03T14:08:28Z",
+      "side": 1,
+      "message": "\"0\" is kind of a magic number here, because a zero-interval makes no sense. Could make the variable an absl::optional, and clear it here.",
+      "range": {
+        "startLine": 1605,
+        "startChar": 4,
+        "endLine": 1605,
+        "endChar": 31
+      },
+      "revId": "3f3c78efab06768dd523618b0a2d15b4f415e64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45bd0adc_96edb26a",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5198,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-02-03T14:08:28Z",
+      "side": 1,
+      "message": "Line break, below as well.",
+      "range": {
+        "startLine": 5198,
+        "startChar": 18,
+        "endLine": 5198,
+        "endChar": 20
+      },
+      "revId": "3f3c78efab06768dd523618b0a2d15b4f415e64d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

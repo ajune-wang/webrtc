@@ -27,6 +27,8 @@
 #include "api/video_codecs/video_encoder_config.h"
 #include "call/adaptation/resource_adaptation_module_interface.h"
 #include "rtc_base/experiments/balanced_degradation_settings.h"
+#include "rtc_base/experiments/quality_scaler_settings.h"
+#include "system_wrappers/include/clock.h"
 #include "video/overuse_frame_detector.h"
 
 namespace webrtc {
@@ -55,6 +57,7 @@ class OveruseFrameDetectorResourceAdaptationModule
   // used on a single sequence, e.g. the encoder queue.
   OveruseFrameDetectorResourceAdaptationModule(
       bool experiment_cpu_load_estimator,
+      Clock* clock,
       std::unique_ptr<OveruseFrameDetector> overuse_detector,
       VideoStreamEncoderObserver* encoder_stats_observer,
       ResourceAdaptationModuleListener* adaptation_listener);
@@ -73,8 +76,9 @@ class OveruseFrameDetectorResourceAdaptationModule
   void SetDegradationPreference(
       DegradationPreference degradation_preference) override;
   void SetEncoderSettings(EncoderSettings encoder_settings) override;
-  void SetEncoderTargetBitrate(
-      absl::optional<uint32_t> target_bitrate_bps) override;
+  void SetStartBitrate(uint32_t start_bitrate_bps) override;
+  void SetEncoderTargetBitrate(absl::optional<uint32_t> target_bitrate_bps,
+                               DataRate allocated_target_bitrate) override;
   void ResetVideoSourceRestrictions() override;
 
   void OnFrame(const VideoFrame& frame) override;
@@ -87,8 +91,6 @@ class OveruseFrameDetectorResourceAdaptationModule
                          absl::optional<int> encode_duration_us) override;
   void OnFrameDropped(EncodedImageCallback::DropReason reason) override;
   bool DropInitialFrames() const;
-  // TODO(eshr): Remove once all qp-scaling is in this class.
-  void ResetInitialFrameDropping();
 
   // TODO(eshr): This can be made private if we configure on
   // SetDegredationPreference and SetEncoderSettings.
@@ -159,6 +161,12 @@ class OveruseFrameDetectorResourceAdaptationModule
     enum class Mode { kAdaptUp, kAdaptDown } mode_;
   };
 
+  struct StartBitrate {
+    bool has_seen_first_bwe_drop_ = false;
+    int set_start_bitrate_bps_ = 0;
+    int64_t set_start_bitrate_time_ms_ = 0;
+  };
+
   CpuOveruseOptions GetCpuOveruseOptions() const;
   VideoCodecType GetVideoCodecTypeOrGeneric() const;
   int LastInputFrameSizeOrDefault() const;
@@ -184,6 +192,7 @@ class OveruseFrameDetectorResourceAdaptationModule
   bool CanAdaptUpResolution(int pixels, uint32_t bitrate_bps) const;
 
   ResourceAdaptationModuleListener* const adaptation_listener_;
+  Clock* clock_;
   const bool experiment_cpu_load_estimator_;
   // The restrictions that |adaptation_listener_| is informed of.
   VideoSourceRestrictions video_source_restrictions_;
@@ -208,6 +217,8 @@ class OveruseFrameDetectorResourceAdaptationModule
   absl::optional<uint32_t> target_bitrate_bps_;
   std::unique_ptr<QualityScaler> quality_scaler_;
   const bool quality_scaling_experiment_enabled_;
+  const QualityScalerSettings quality_scaler_settings_;
+  StartBitrate start_bitrate_;
   absl::optional<EncoderSettings> encoder_settings_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;
   // Counts how many frames we've dropped in the initial framedrop phase.

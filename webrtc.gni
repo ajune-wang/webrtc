@@ -190,6 +190,12 @@ declare_args() {
   # doesn't assume /DUNICODE and /D_UNICODE but that it explicitly uses
   # wide character functions.
   rtc_win_undef_unicode = false
+
+  # Include desktop capture module
+  # Desktop capturer is supported only on Windows, OSX and Linux.
+  rtc_include_desktop_capture =
+      (is_win && current_os != "winuwp") || is_mac ||
+      (is_linux && (rtc_use_x11_extensions || rtc_use_pipewire))
 }
 
 if (!build_with_mozilla) {
@@ -261,11 +267,6 @@ declare_args() {
 # up into declare_args should we need to actually use them for the GN build).
 rtc_libvpx_dir = "//third_party/libvpx"
 rtc_opus_dir = "//third_party/opus"
-
-# Desktop capturer is supported only on Windows, OSX and Linux.
-rtc_desktop_capture_supported =
-    (is_win && current_os != "winuwp") || is_mac ||
-    (is_linux && (rtc_use_x11_extensions || rtc_use_pipewire))
 
 ###############################################################################
 # Templates

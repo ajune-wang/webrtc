@@ -24,7 +24,7 @@ group("modules") {
     "video_processing",
   ]
 
-  if (rtc_desktop_capture_supported) {
+  if (rtc_include_desktop_capture) {
     deps += [ "desktop_capture" ]
   }
 }
@@ -82,7 +82,7 @@ if (rtc_include_tests) {
       "//testing/gtest",
     ]
 
-    if (rtc_desktop_capture_supported) {
+    if (rtc_include_desktop_capture) {
       deps += [ "desktop_capture:desktop_capture_modules_tests" ]
     }
 
@@ -229,7 +229,7 @@ if (rtc_include_tests) {
       "video_processing:video_processing_unittests",
     ]
 
-    if (rtc_desktop_capture_supported) {
+    if (rtc_include_desktop_capture) {
       deps += [ "desktop_capture:desktop_capture_unittests" ]
     }
 

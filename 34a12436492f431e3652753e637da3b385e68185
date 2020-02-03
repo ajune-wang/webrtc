@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c20c735b_f649fe86",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2ed411f_85901784",
+      "range": {
+        "startLine": 348,
+        "startChar": 4,
+        "endLine": 349,
+        "endChar": 62
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "661d0f62_ac9ac102",
         "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bd3e86a_5d68ba24",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "I can use it for some, but I cannot use it for DesktopFrame as it uses RTC_DISALLOW_COPY_AND_ASSIGN.",
+      "parentUuid": "661d0f62_ac9ac102",
+      "range": {
+        "startLine": 459,
+        "startChar": 2,
+        "endLine": 459,
+        "endChar": 73
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3638c7b9_13d4ca8d",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75960ba7_4b37cdf8",
+      "range": {
+        "startLine": 44,
+        "startChar": 65,
+        "endLine": 44,
+        "endChar": 66
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb7bf14d_f71324ab",
         "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
         "patchSetId": 11
@@ -82,6 +154,30 @@
       "writtenOn": "2020-01-31T09:47:59Z",
       "side": 1,
       "message": "alternatively, use rtc::Optional\u003cDesktopSize\u003e video_crop_size_; below",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6a91970_cd3b2fd0",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "I don\u0027t seem to be able to find it. Do you mean std::optional? I see Chromium has their own base::optional, but I don\u0027t see WebRTC equivalent.",
+      "parentUuid": "eb7bf14d_f71324ab",
       "range": {
         "startLine": 75,
         "startChar": 7,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d5105f07_50bc0518",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Can this be used with malloc and realloc? Because the size of frame change change so it needs to be reallocated. This can happen for example when you are sharing a window which changes its size.",
+      "parentUuid": "065fb18b_d1a938b0",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b1f1dab_30541f69",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 11
@@ -131,6 +251,24 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a7d0f1_aa701ee7",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b1f1dab_30541f69",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "a8670d5d_f5f77163",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2381ced6_5cb089fe",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f638986_3874fd53",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 11
@@ -165,6 +321,24 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30bcbc9f_fc4ebc5e",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f638986_3874fd53",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -185,6 +359,24 @@
     },
     {
       "key": {
+        "uuid": "a44aa37f_4c8c4967",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7cef748_a631f841",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6ee22d8_59a0c65f",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 11
@@ -199,6 +391,24 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d00b773_ee9a02e0",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6ee22d8_59a0c65f",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +429,24 @@
     },
     {
       "key": {
+        "uuid": "9408b604_9c7a7613",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5daa5c43_eb31e644",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97be5d12_a13d33a2",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 11
@@ -233,6 +461,24 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7f2bc21_3eef3f54",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97be5d12_a13d33a2",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -273,6 +519,24 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2379ca3_e1523cd8",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T08:51:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fbabbb0_b3c1fa90",
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "bdf4fba0142be60cd53db727889c3cf53a955831",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9e8dd4_f9dcc5eb",
+        "filename": "audio/audio_transport_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-02-03T15:24:31Z",
+      "side": 1,
+      "message": "Could you clarify why it\u0027s needed? And if it requires such documentation, why |audio_processing_|, |capture_resampler_| and |typing_detection_| do not need that?",
+      "parentUuid": "4d4e2e0e_f008f720",
+      "revId": "bdf4fba0142be60cd53db727889c3cf53a955831",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

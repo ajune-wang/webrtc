@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60c7ce36_93b2a405",
+        "filename": "docs/native-code/rtp-hdrext/index.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-02-03T10:31:30Z",
+      "side": 1,
+      "message": "Should all these permalink references be removed?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 35
+      },
+      "revId": "0eec38655e1b7f76ab38b7463d59e66c233cb661",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

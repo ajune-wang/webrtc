@@ -42,7 +42,8 @@ rtc_library("primitives") {
   ]
 
   if (!build_with_mozilla) {
-    deps += [ "../../rtc_base" ]  # TODO(kjellander): Cleanup in bugs.webrtc.org/3806.
+    deps += [ "../../rtc_base" ]  # TODO(kjellander): Cleanup in
+                                  # bugs.webrtc.org/3806.
   }
 }
 
@@ -57,7 +58,7 @@ if (rtc_include_tests) {
       "../../api:scoped_refptr",
       "../../rtc_base:checks",
     ]
-    if (rtc_desktop_capture_supported) {
+    if (rtc_include_desktop_capture) {
       deps += [
         ":desktop_capture_mock",
         ":primitives",
@@ -117,7 +118,7 @@ if (rtc_include_tests) {
       "../../system_wrappers:cpu_features_api",
       "../../test:test_support",
     ]
-    if (rtc_desktop_capture_supported) {
+    if (rtc_include_desktop_capture) {
       sources += [
         "screen_capturer_helper_unittest.cc",
         "screen_capturer_mac_unittest.cc",

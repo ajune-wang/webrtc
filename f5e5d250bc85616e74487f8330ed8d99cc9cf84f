@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e572fdf5_14cd695d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-03T17:32:46Z",
+      "side": 1,
+      "message": "I\u0027m refactoring code around these parts and I don\u0027t understand this part. Looking for guidance.\n\n|did_adapt| does not seem to be what it describes. It does not reflect whether or not we\u0027ve adapted... There are several code paths that returns true if we don\u0027t adapt. And the one place that sets |did_adapt| to false based on \"min_diff\" doesn\u0027t actually abort the adaptation. So adaptation happens anyway, but QualityScaler will think that \"adaptation_failed_ \u003d true\". What does this mean?\n\nI changed to code to always return true and I don\u0027t think any tests fails.\n\nIf I make this return true/false depending on if adaptation happened will the code do what is intended or will that break things? For example, the current code seems only interested in what happens to the frame rate, but what about resolution changes?\n\nIf I re-implement AdaptDown() in the future, what should I make it return?",
+      "revId": "f5e5d250bc85616e74487f8330ed8d99cc9cf84f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

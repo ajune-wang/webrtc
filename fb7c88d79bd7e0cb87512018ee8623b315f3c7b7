@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26c78960_234841ab",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-03T12:35:35Z",
+      "side": 1,
+      "message": "This method seems to depend on the following non-const things:\n1. EncoderInfo\n2. DegradationPreference\n\n1) can change because of SetEncoderSettings() (see EncoderSettings::encoder_info()).\n2) can change because of SetDegradationPreference().\n\nCan we trigger ConfigureQualityScaler() inside the module when 1) or 2) happens and make ConfigureQualityScaler() private?",
+      "revId": "fb7c88d79bd7e0cb87512018ee8623b315f3c7b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d7b9929_d06ae7fd",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-03T12:35:35Z",
+      "side": 1,
+      "message": "Any time the encoder info changes we call SetEncoderSettings() already to give it the encoder info. If we have a new encoder info here and haven\u0027t told the module about it already then we probably have a bug and should perform SetEncoderSettings() anyway.\n\nI think the reason for wanting to reconfigure the quality scaler here is because quality scaler depends on degradation preference. Perhaps ConfigureQualityScaler() should happen automatically when you call resource_adaptation_module_-\u003eSetDegradationPreference()?\n\n(Can we make ConfigureQualityScaler() private?)",
+      "revId": "fb7c88d79bd7e0cb87512018ee8623b315f3c7b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fae947e_0d1edc26",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-03T12:35:35Z",
+      "side": 1,
+      "message": "Earlier in this method (line 758) we perform SetEncoderSettings(), and part for of the encoder settings include the EncoderInfo.\n\nSo, unless something causes the EncoderInfo to change between 758 and this line, the OveruseFrameDetectorResourceAdaptationModule is already aware of the encoder info.\n\nHowever, at line 758 the module may not have started yet (this happens at line 711).\n\nCan we make ConfigureQualityScaler() happen automatically on SetEncoderSettings() and/or StartResourceAdaptation()?\n\n(Can we make ConfigureQualityScaler() private?)",
+      "revId": "fb7c88d79bd7e0cb87512018ee8623b315f3c7b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

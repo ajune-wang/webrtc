@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ea25fd00_21c95e84",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-03T09:06:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7bd3e86a_5d68ba24",
+      "range": {
+        "startLine": 459,
+        "startChar": 2,
+        "endLine": 459,
+        "endChar": 73
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75960ba7_4b37cdf8",
         "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
         "patchSetId": 11
@@ -190,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "486eee45_6954ce0d",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-03T09:06:50Z",
+      "side": 1,
+      "message": "Ah, sorry - rtc::Optional was replaced by absl::optional",
+      "parentUuid": "c6a91970_cd3b2fd0",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "065fb18b_d1a938b0",
         "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
         "patchSetId": 11
@@ -225,6 +273,30 @@
       "side": 1,
       "message": "Can this be used with malloc and realloc? Because the size of frame change change so it needs to be reallocated. This can happen for example when you are sharing a window which changes its size.",
       "parentUuid": "065fb18b_d1a938b0",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d8de5ff_7e5d04d5",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-03T09:06:50Z",
+      "side": 1,
+      "message": "No, that won\u0027t work with realloc but I think avoiding manual memory management as much as possible trumps any performance benefits here. The biggest benefit of realloc afaik is that you can re-use the contents already stored in that memory - and we are not interested in that here.\n\nAnd as you say this will be a rare event and happens mostly when a user resizes a window, I don\u0027t think it\u0027s worth over-optimizing for it.",
+      "parentUuid": "d5105f07_50bc0518",
       "range": {
         "startLine": 82,
         "startChar": 2,

@@ -156,7 +156,8 @@ TEST(WebRtcVoiceEngineTestStubLibrary, StartupShutdown) {
     cricket::WebRtcVoiceEngine engine(
         task_queue_factory.get(), adm,
         webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
-        webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
+        webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm,
+        nullptr);
     engine.Init();
   }
 }
@@ -196,7 +197,7 @@ class WebRtcVoiceEngineTestFake : public ::testing::Test {
     auto decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
     engine_.reset(new cricket::WebRtcVoiceEngine(
         task_queue_factory_.get(), adm_, encoder_factory, decoder_factory,
-        nullptr, apm_));
+        nullptr, apm_, nullptr));
     engine_->Init();
     send_parameters_.codecs.push_back(kPcmuCodec);
     recv_parameters_.codecs.push_back(kPcmuCodec);
@@ -3457,7 +3458,8 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
   cricket::WebRtcVoiceEngine engine(
       task_queue_factory.get(), adm,
       webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
-      webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
+      webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm,
+      nullptr);
   engine.Init();
   webrtc::RtcEventLogNull event_log;
   webrtc::Call::Config call_config(&event_log);
@@ -3486,7 +3488,8 @@ TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
     cricket::WebRtcVoiceEngine engine(
         task_queue_factory.get(), adm,
         webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
-        webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
+        webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm,
+        nullptr);
     engine.Init();
     webrtc::RtcEventLogNull event_log;
     webrtc::Call::Config call_config(&event_log);
@@ -3517,7 +3520,8 @@ TEST(WebRtcVoiceEngineTest, HasCorrectPayloadTypeMapping) {
   cricket::WebRtcVoiceEngine engine(
       task_queue_factory.get(), adm,
       webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
-      webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
+      webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm,
+      nullptr);
   engine.Init();
   for (const cricket::AudioCodec& codec : engine.send_codecs()) {
     auto is_codec = [&codec](const char* name, int clockrate = 0) {
@@ -3566,7 +3570,8 @@ TEST(WebRtcVoiceEngineTest, Has32Channels) {
   cricket::WebRtcVoiceEngine engine(
       task_queue_factory.get(), adm,
       webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
-      webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm);
+      webrtc::MockAudioDecoderFactory::CreateUnusedFactory(), nullptr, apm,
+      nullptr);
   engine.Init();
   webrtc::RtcEventLogNull event_log;
   webrtc::Call::Config call_config(&event_log);
@@ -3612,7 +3617,7 @@ TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
   cricket::WebRtcVoiceEngine engine(
       task_queue_factory.get(), adm,
       webrtc::MockAudioEncoderFactory::CreateUnusedFactory(),
-      webrtc::CreateBuiltinAudioDecoderFactory(), nullptr, apm);
+      webrtc::CreateBuiltinAudioDecoderFactory(), nullptr, apm, nullptr);
   engine.Init();
   webrtc::RtcEventLogNull event_log;
   webrtc::Call::Config call_config(&event_log);
@@ -3659,9 +3664,9 @@ TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
 
   rtc::scoped_refptr<webrtc::AudioProcessing> apm =
       webrtc::AudioProcessingBuilder().Create();
-  cricket::WebRtcVoiceEngine engine(task_queue_factory.get(), adm,
-                                    unused_encoder_factory,
-                                    mock_decoder_factory, nullptr, apm);
+  cricket::WebRtcVoiceEngine engine(
+      task_queue_factory.get(), adm, unused_encoder_factory,
+      mock_decoder_factory, nullptr, apm, nullptr);
   engine.Init();
   auto codecs = engine.recv_codecs();
   EXPECT_EQ(11u, codecs.size());

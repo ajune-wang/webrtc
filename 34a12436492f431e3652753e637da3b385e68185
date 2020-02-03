@@ -357,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "571ae077_2b329e79",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-03T16:31:03Z",
+      "side": 1,
+      "message": "make_unique takes the constructor arguments of the templetized class directly, in this case void, so use:\n\n  std::make_unique\u003cBaseCapturerPipeWire\u003e();\n\notherwise you try to call the copy constructor",
+      "parentUuid": "1efdd787_32ba5e05",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b1f1dab_30541f69",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 11

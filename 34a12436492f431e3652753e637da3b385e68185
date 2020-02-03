@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "c3a9fb5a_1a454c61",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T16:09:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "486eee45_6954ce0d",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "065fb18b_d1a938b0",
         "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
         "patchSetId": 11
@@ -297,6 +321,30 @@
       "side": 1,
       "message": "No, that won\u0027t work with realloc but I think avoiding manual memory management as much as possible trumps any performance benefits here. The biggest benefit of realloc afaik is that you can re-use the contents already stored in that memory - and we are not interested in that here.\n\nAnd as you say this will be a rare event and happens mostly when a user resizes a window, I don\u0027t think it\u0027s worth over-optimizing for it.",
       "parentUuid": "d5105f07_50bc0518",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1efdd787_32ba5e05",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T16:09:57Z",
+      "side": 1,
+      "message": "I\u0027m not sure I can use it. If I define it this way, it fails to build:\nIn file included from ../../buildtools/third_party/libc++/trunk/include/algorithm:643:\n../../buildtools/third_party/libc++/trunk/include/memory:3043:32: error: call to implicitly-deleted copy constructor of \u0027webrtc::BaseCapturerPipeWire\u0027\n    return unique_ptr\u003c_Tp\u003e(new _Tp(_VSTD::forward\u003c_Args\u003e(__args)...));\n                               ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n../../third_party/webrtc/modules/desktop_capture/linux/base_capturer_pipewire.cc:497:12: note: in instantiation of function template specialization \u0027std::__Cr::make_unique\u003cwebrtc::BaseCapturerPipeWire, webrtc::BaseCapturerPipeWire\u003e\u0027 requested here\n      std::make_unique\u003cBaseCapturerPipeWire\u003e(BaseCapturerPipeWire());\n           ^\n../../third_party/webrtc/modules/desktop_capture/linux/base_capturer_pipewire.h:83:30: note: copy constructor of \u0027BaseCapturerPipeWire\u0027 is implicitly deleted because field \u0027current_frame_\u0027 has a deleted copy constructor\n  std::unique_ptr\u003cuint8_t[]\u003e current_frame_;\n                             ^\n../../buildtools/third_party/libc++/trunk/include/memory:2771:3: note: copy constructor is implicitly deleted because \u0027unique_ptr\u003cunsigned char [], std::__Cr::default_delete\u003cunsigned char []\u003e \u003e\u0027 has a user-declared move constructor\n  unique_ptr(unique_ptr\u0026\u0026 __u) _NOEXCEPT",
+      "parentUuid": "6d8de5ff_7e5d04d5",
       "range": {
         "startLine": 82,
         "startChar": 2,
@@ -574,6 +622,30 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52323b5b_9408eaba",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T16:09:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5515a9d7_5404383c",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 240,
+        "endChar": 12
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -381,6 +381,30 @@
     },
     {
       "key": {
+        "uuid": "caf4e869_a4147294",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-03T17:49:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "571ae077_2b329e79",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b1f1dab_30541f69",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
         "patchSetId": 11

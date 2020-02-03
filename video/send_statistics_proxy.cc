@@ -1040,6 +1040,7 @@ void SendStatisticsProxy::OnFrameDropped(DropReason reason) {
       ++stats_.frames_dropped_by_encoder;
       break;
     case DropReason::kMediaOptimization:
+    case DropReason::kCongestionWindow:
       ++stats_.frames_dropped_by_rate_limiter;
       break;
   }

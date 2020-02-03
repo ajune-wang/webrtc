@@ -22,6 +22,29 @@
       "revId": "7cb90f99cc2264b52273e5a41cf51db0ee62e1d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62363f28_2cff9c40",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-03T13:00:36Z",
+      "side": 1,
+      "message": "This is not defined yet, I suggest you move this in the same place as rtc_desktop_capture_supported.",
+      "range": {
+        "startLine": 198,
+        "startChar": 20,
+        "endLine": 198,
+        "endChar": 42
+      },
+      "revId": "7cb90f99cc2264b52273e5a41cf51db0ee62e1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -110,7 +110,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                         DataRate stable_target_bitrate,
                         DataRate target_headroom,
                         uint8_t fraction_lost,
-                        int64_t round_trip_time_ms) override;
+                        int64_t round_trip_time_ms,
+                        double cwnd_reduce_ratio) override;
 
  protected:
   // Used for testing. For example the |ScalingObserverInterface| methods must
@@ -326,6 +327,12 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // OnEncodedImage(), which is only called by one thread but not necessarily
   // the worker thread.
   std::atomic<int> pending_frame_drops_;
+
+  // Congestion window frame drop ratio (drop 1 in every cwnd_frame_drop_ratio_
+  // frames).
+  int cwnd_frame_drop_ratio_;
+  // Frame counter for congestion window frame drop.
+  int cwnd_frame_drop_counter_;
 
   std::unique_ptr<EncoderBitrateAdjuster> bitrate_adjuster_
       RTC_GUARDED_BY(&encoder_queue_);

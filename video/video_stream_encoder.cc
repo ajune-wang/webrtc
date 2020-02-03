@@ -300,6 +300,8 @@ VideoStreamEncoder::VideoStreamEncoder(
       force_disable_frame_dropper_(false),
       input_framerate_(kFrameRateAvergingWindowSizeMs, 1000),
       pending_frame_drops_(0),
+      cwnd_frame_drop_ratio_(0),
+      cwnd_frame_drop_counter_(0),
       next_frame_types_(1, VideoFrameType::kVideoFrameDelta),
       frame_encode_metadata_writer_(this),
       experiment_groups_(GetExperimentGroups()),
@@ -875,12 +877,16 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
   }
 
   last_captured_timestamp_ = incoming_frame.ntp_time_ms();
-
+  bool cwnd_frame_drop = false;
+  if (cwnd_frame_drop_ratio_ > 1) {
+    cwnd_frame_drop = cwnd_frame_drop_counter_++ % cwnd_frame_drop_ratio_ == 0;
+    cwnd_frame_drop_counter_ =
+        cwnd_frame_drop_counter_ > 1000 ? 0 : cwnd_frame_drop_counter_;
+  }
   int64_t post_time_us = rtc::TimeMicros();
   ++posted_frames_waiting_for_encode_;
-
   encoder_queue_.PostTask(
-      [this, incoming_frame, post_time_us, log_stats]() {
+      [this, incoming_frame, cwnd_frame_drop, post_time_us, log_stats]() {
         RTC_DCHECK_RUN_ON(&encoder_queue_);
         encoder_stats_observer_->OnIncomingFrame(incoming_frame.width(),
                                                  incoming_frame.height());
@@ -889,15 +895,24 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
             posted_frames_waiting_for_encode_.fetch_sub(1);
         RTC_DCHECK_GT(posted_frames_waiting_for_encode, 0);
         CheckForAnimatedContent(incoming_frame, post_time_us);
-        if (posted_frames_waiting_for_encode == 1) {
+        if (posted_frames_waiting_for_encode == 1 && !cwnd_frame_drop) {
           MaybeEncodeVideoFrame(incoming_frame, post_time_us);
         } else {
-          // There is a newer frame in flight. Do not encode this frame.
-          RTC_LOG(LS_VERBOSE)
-              << "Incoming frame dropped due to that the encoder is blocked.";
           ++dropped_frame_count_;
-          encoder_stats_observer_->OnFrameDropped(
-              VideoStreamEncoderObserver::DropReason::kEncoderQueue);
+          if (cwnd_frame_drop) {
+            // Frame drop by congestion window pusback. Do not encode this
+            // frame.
+            RTC_LOG(LS_VERBOSE) << "Incoming frame dropped because of "
+                                   "congestion window pushback.";
+            encoder_stats_observer_->OnFrameDropped(
+                VideoStreamEncoderObserver::DropReason::kCongestionWindow);
+          } else {
+            // There is a newer frame in flight. Do not encode this frame.
+            RTC_LOG(LS_VERBOSE)
+                << "Incoming frame dropped due to that the encoder is blocked.";
+            encoder_stats_observer_->OnFrameDropped(
+                VideoStreamEncoderObserver::DropReason::kEncoderQueue);
+          }
           accumulated_update_rect_.Union(incoming_frame.update_rect());
           accumulated_update_rect_is_valid_ &= incoming_frame.has_update_rect();
         }
@@ -1574,14 +1589,27 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
                                           DataRate stable_target_bitrate,
                                           DataRate link_allocation,
                                           uint8_t fraction_lost,
-                                          int64_t round_trip_time_ms) {
+                                          int64_t round_trip_time_ms,
+                                          double cwnd_reduce_ratio) {
   RTC_DCHECK_GE(link_allocation, target_bitrate);
+
+  // Drop frames when congestion window pushback ratio is larger than 1 percent.
+  if (cwnd_reduce_ratio > 0.01) {
+    // Cap the frame drop ratio to 50 percent.
+    cwnd_frame_drop_ratio_ =
+        std::max(2, static_cast<int>(1.0 / cwnd_reduce_ratio));
+
+    // Reduce target bitrate accordingly.
+    target_bitrate -= target_bitrate * 1.0 / cwnd_frame_drop_ratio_;
+  } else {
+    cwnd_frame_drop_ratio_ = 0;
+  }
   if (!encoder_queue_.IsCurrent()) {
     encoder_queue_.PostTask([this, target_bitrate, stable_target_bitrate,
-                             link_allocation, fraction_lost,
-                             round_trip_time_ms] {
+                             link_allocation, fraction_lost, round_trip_time_ms,
+                             cwnd_reduce_ratio] {
       OnBitrateUpdated(target_bitrate, stable_target_bitrate, link_allocation,
-                       fraction_lost, round_trip_time_ms);
+                       fraction_lost, round_trip_time_ms, cwnd_reduce_ratio);
     });
     return;
   }

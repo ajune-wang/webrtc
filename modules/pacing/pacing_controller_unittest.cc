@@ -71,6 +71,11 @@ class MockPacingControllerCallback : public PacingController::PacketSender {
  public:
   void SendRtpPacket(std::unique_ptr<RtpPacketToSend> packet,
                      const PacedPacketInfo& cluster_info) override {
+    if (!packet->has_sequence_number()) {
+      packet->SetSequenceNumber(sequence_number_++);
+    } else {
+      sequence_number_ = packet->SequenceNumber();
+    }
     SendPacket(packet->Ssrc(), packet->SequenceNumber(),
                packet->capture_time_ms(),
                packet->packet_type() == RtpPacketToSend::Type::kRetransmission,
@@ -89,6 +94,8 @@ class MockPacingControllerCallback : public PacingController::PacketSender {
     }
     return ret;
   }
+
+  uint16_t sequence_number_ = 1;
 
   MOCK_METHOD5(SendPacket,
                void(uint32_t ssrc,

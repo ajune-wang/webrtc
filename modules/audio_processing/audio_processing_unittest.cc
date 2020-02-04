@@ -2415,6 +2415,14 @@ class MyEchoControlFactory : public EchoControlFactory {
                                       int num_capture_channels) {
     return Create(sample_rate_hz);
   }
+
+  std::unique_ptr<EchoControl> Create(
+      int sample_rate_hz,
+      int num_render_channels,
+      int num_capture_channels,
+      EchoControlEnhancer* echo_control_enhancer) {
+    return Create(sample_rate_hz);
+  }
 };
 
 TEST(ApmConfiguration, EchoControlInjection) {

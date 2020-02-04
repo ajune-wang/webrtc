@@ -18,6 +18,7 @@
 
 #include "api/audio/echo_canceller3_config.h"
 #include "api/audio/echo_control.h"
+#include "api/audio/echo_control_enhancer.h"
 #include "modules/audio_processing/aec3/echo_remover.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/aec3/render_delay_controller.h"
@@ -30,19 +31,22 @@ class BlockProcessor {
   static BlockProcessor* Create(const EchoCanceller3Config& config,
                                 int sample_rate_hz,
                                 size_t num_render_channels,
-                                size_t num_capture_channels);
+                                size_t num_capture_channels,
+                                EchoControlEnhancer* echo_control_enhancer);
   // Only used for testing purposes.
   static BlockProcessor* Create(
       const EchoCanceller3Config& config,
       int sample_rate_hz,
       size_t num_render_channels,
       size_t num_capture_channels,
+      EchoControlEnhancer* echo_control_enhancer,
       std::unique_ptr<RenderDelayBuffer> render_buffer);
   static BlockProcessor* Create(
       const EchoCanceller3Config& config,
       int sample_rate_hz,
       size_t num_render_channels,
       size_t num_capture_channels,
+      EchoControlEnhancer* echo_control_enhancer,
       std::unique_ptr<RenderDelayBuffer> render_buffer,
       std::unique_ptr<RenderDelayController> delay_controller,
       std::unique_ptr<EchoRemover> echo_remover);
@@ -65,6 +69,9 @@ class BlockProcessor {
   // Buffers a block of render data supplied by a FrameBlocker object.
   virtual void BufferRender(
       const std::vector<std::vector<std::vector<float>>>& render_block) = 0;
+
+  // Returns the number of channels in the output.
+  virtual size_t NumCaptureOutputChannels() const = 0;
 
   // Reports whether echo leakage has been detected in the echo canceller
   // output.

@@ -51,6 +51,8 @@ rtc_library("aec3") {
     "echo_audibility.h",
     "echo_canceller3.cc",
     "echo_canceller3.h",
+    "echo_control_enhancement.cc",
+    "echo_control_enhancement.h",
     "echo_path_delay_estimator.cc",
     "echo_path_delay_estimator.h",
     "echo_path_variability.cc",
@@ -123,6 +125,8 @@ rtc_library("aec3") {
     "suppression_filter.h",
     "suppression_gain.cc",
     "suppression_gain.h",
+    "suppressor_gain_delay_buffer.cc",
+    "suppressor_gain_delay_buffer.h",
     "vector_math.h",
   ]
 
@@ -139,6 +143,7 @@ rtc_library("aec3") {
     "../../../api:array_view",
     "../../../api/audio:aec3_config",
     "../../../api/audio:echo_control",
+    "../../../api/audio:echo_control_enhancer",
     "../../../common_audio:common_audio_c",
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",

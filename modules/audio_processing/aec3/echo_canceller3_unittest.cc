@@ -124,6 +124,8 @@ class CaptureTransportVerificationProcessor : public BlockProcessor {
 
   void SetAudioBufferDelay(int delay_ms) override {}
 
+  size_t NumCaptureOutputChannels() const { return 1; }
+
  private:
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(CaptureTransportVerificationProcessor);
 };
@@ -157,6 +159,8 @@ class RenderTransportVerificationProcessor : public BlockProcessor {
 
   void SetAudioBufferDelay(int delay_ms) override {}
 
+  size_t NumCaptureOutputChannels() const { return 1; }
+
  private:
   std::deque<std::vector<std::vector<std::vector<float>>>>
       received_render_blocks_;
@@ -188,7 +192,7 @@ class EchoCanceller3Tester {
   // output.
   void RunCaptureTransportVerificationTest() {
     EchoCanceller3 aec3(
-        EchoCanceller3Config(), sample_rate_hz_, 1, 1,
+        EchoCanceller3Config(), sample_rate_hz_, 1, 1, nullptr,
         std::unique_ptr<BlockProcessor>(
             new CaptureTransportVerificationProcessor(num_bands_)));
 
@@ -213,7 +217,7 @@ class EchoCanceller3Tester {
   // block processor.
   void RunRenderTransportVerificationTest() {
     EchoCanceller3 aec3(
-        EchoCanceller3Config(), sample_rate_hz_, 1, 1,
+        EchoCanceller3Config(), sample_rate_hz_, 1, 1, nullptr,
         std::unique_ptr<BlockProcessor>(
             new RenderTransportVerificationProcessor(num_bands_)));
 
@@ -284,7 +288,7 @@ class EchoCanceller3Tester {
         break;
     }
 
-    EchoCanceller3 aec3(EchoCanceller3Config(), sample_rate_hz_, 1, 1,
+    EchoCanceller3 aec3(EchoCanceller3Config(), sample_rate_hz_, 1, 1, nullptr,
                         std::move(block_processor_mock));
 
     for (size_t frame_index = 0; frame_index < kNumFramesToProcess;
@@ -364,7 +368,7 @@ class EchoCanceller3Tester {
       } break;
     }
 
-    EchoCanceller3 aec3(EchoCanceller3Config(), sample_rate_hz_, 1, 1,
+    EchoCanceller3 aec3(EchoCanceller3Config(), sample_rate_hz_, 1, 1, nullptr,
                         std::move(block_processor_mock));
 
     for (size_t frame_index = 0; frame_index < kNumFramesToProcess;
@@ -450,7 +454,7 @@ class EchoCanceller3Tester {
       } break;
     }
 
-    EchoCanceller3 aec3(EchoCanceller3Config(), sample_rate_hz_, 1, 1,
+    EchoCanceller3 aec3(EchoCanceller3Config(), sample_rate_hz_, 1, 1, nullptr,
                         std::move(block_processor_mock));
     for (size_t frame_index = 0; frame_index < kNumFramesToProcess;
          ++frame_index) {
@@ -490,7 +494,7 @@ class EchoCanceller3Tester {
   void RunRenderSwapQueueVerificationTest() {
     const EchoCanceller3Config config;
     EchoCanceller3 aec3(
-        config, sample_rate_hz_, 1, 1,
+        config, sample_rate_hz_, 1, 1, nullptr,
         std::unique_ptr<BlockProcessor>(
             new RenderTransportVerificationProcessor(num_bands_)));
 

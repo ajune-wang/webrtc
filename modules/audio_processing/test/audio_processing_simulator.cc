@@ -25,6 +25,7 @@
 #include "modules/audio_processing/echo_control_mobile_impl.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "modules/audio_processing/test/echo_control_enhancers/mic_selector.h"
 #include "modules/audio_processing/test/fake_recording_device.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -536,6 +537,19 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
   if (settings_.ns_analysis_on_linear_aec_output) {
     apm_config.noise_suppression.analyze_linear_aec_output_when_available =
         *settings_.ns_analysis_on_linear_aec_output;
+  }
+
+  if (settings_.echo_control_enhancer_variant) {
+    std::unique_ptr<EchoControlEnhancerFactory> echo_control_enhancer_factory;
+    switch (*settings_.echo_control_enhancer_variant) {
+      case 0:
+        echo_control_enhancer_factory = std::make_unique<MicSelectorFactory>();
+        break;
+      default:
+        RTC_NOTREACHED();
+    }
+    ap_builder_->SetEchoControlEnhancerFactory(
+        std::move(echo_control_enhancer_factory));
   }
 
   RTC_CHECK(ap_builder_);

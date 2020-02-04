@@ -83,8 +83,12 @@ SuppressionFilter::~SuppressionFilter() = default;
 void SuppressionFilter::ApplyGain(
     rtc::ArrayView<const FftData> comfort_noise,
     rtc::ArrayView<const FftData> comfort_noise_high_band,
-    const std::array<float, kFftLengthBy2Plus1>& suppression_gain,
-    float high_bands_gain,
+    const std::array<float, kFftLengthBy2Plus1>&
+        low_band_echo_suppression_gains,
+    float high_bands_echo_suppression_gain,
+    const std::array<float, kFftLengthBy2Plus1>&
+        low_band_noise_suppression_gains,
+    float high_bands_noise_suppression_gain,
     rtc::ArrayView<const FftData> E_lowest_band,
     std::vector<std::vector<std::vector<float>>>* e) {
   RTC_DCHECK(e);
@@ -93,12 +97,17 @@ void SuppressionFilter::ApplyGain(
   // Comfort noise gain is sqrt(1-g^2), where g is the suppression gain.
   std::array<float, kFftLengthBy2Plus1> noise_gain;
   for (size_t i = 0; i < kFftLengthBy2Plus1; ++i) {
-    noise_gain[i] = 1.f - suppression_gain[i] * suppression_gain[i];
+    noise_gain[i] = 1.f - low_band_echo_suppression_gains[i] *
+                              low_band_echo_suppression_gains[i];
+    noise_gain[i] *= low_band_noise_suppression_gains[i];
   }
   aec3::VectorMath(optimization_).Sqrt(noise_gain);
 
   const float high_bands_noise_scaling =
-      0.4f * std::sqrt(1.f - high_bands_gain * high_bands_gain);
+      0.4f *
+      std::sqrt(1.f - high_bands_echo_suppression_gain *
+                          high_bands_echo_suppression_gain) *
+      high_bands_noise_suppression_gain;
 
   for (size_t ch = 0; ch < num_capture_channels_; ++ch) {
     FftData E;
@@ -108,8 +117,8 @@ void SuppressionFilter::ApplyGain(
 
     for (size_t i = 0; i < kFftLengthBy2Plus1; ++i) {
       // Apply suppression gains.
-      E.re[i] *= suppression_gain[i];
-      E.im[i] *= suppression_gain[i];
+      E.re[i] *= low_band_echo_suppression_gains[i];
+      E.im[i] *= low_band_echo_suppression_gains[i];
 
       // Scale and add the comfort noise.
       E.re[i] += noise_gain[i] * comfort_noise[ch].re[i];
@@ -140,7 +149,7 @@ void SuppressionFilter::ApplyGain(
     for (size_t b = 1; b < e->size(); ++b) {
       auto& e_band = (*e)[b][ch];
       for (size_t i = 0; i < kFftLengthBy2; ++i) {
-        e_band[i] *= high_bands_gain;
+        e_band[i] *= high_bands_echo_suppression_gain;
       }
     }
 

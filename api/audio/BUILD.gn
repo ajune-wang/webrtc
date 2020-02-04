@@ -76,6 +76,7 @@ rtc_library("aec3_factory") {
   deps = [
     ":aec3_config",
     ":echo_control",
+    ":echo_control_enhancer",
     "../../modules/audio_processing/aec3",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base/system:rtc_export",
@@ -85,5 +86,11 @@ rtc_library("aec3_factory") {
 rtc_source_set("echo_control") {
   visibility = [ "*" ]
   sources = [ "echo_control.h" ]
+  deps = [ "../../rtc_base:checks" ]
+}
+
+rtc_source_set("echo_control_enhancer") {
+  visibility = [ "*" ]
+  sources = [ "echo_control_enhancer.h" ]
   deps = [ "../../rtc_base:checks" ]
 }

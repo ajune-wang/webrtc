@@ -59,4 +59,38 @@ void BlockDelayBuffer::DelaySignal(AudioBuffer* frame) {
   last_insert_ = i;
 }
 
+void BlockDelayBuffer::DelaySignal(
+    std::vector<std::vector<std::vector<float>>>* frame) {
+  RTC_DCHECK_EQ(buf_.size(), frame->size());
+  if (delay_ == 0) {
+    return;
+  }
+
+  const size_t num_bands = buf_[0].size();
+  const size_t num_channels = buf_.size();
+
+  const size_t i_start = last_insert_;
+  size_t i = 0;
+  for (size_t ch = 0; ch < num_channels; ++ch) {
+    RTC_DCHECK_EQ(buf_[ch].size(), (*frame)[ch].size());
+    RTC_DCHECK_EQ(buf_[ch].size(), num_bands);
+
+    for (size_t band = 0; band < num_bands; ++band) {
+      RTC_DCHECK_EQ(delay_, buf_[ch][band].size());
+      RTC_DCHECK_EQ(frame_length_, (*frame)[ch][band].size());
+      i = i_start;
+
+      for (size_t k = 0; k < frame_length_; ++k) {
+        const float tmp = buf_[ch][band][i];
+        buf_[ch][band][i] = (*frame)[ch][band][k];
+        (*frame)[ch][band][k] = tmp;
+
+        i = i < delay_ - 1 ? i + 1 : 0;
+      }
+    }
+  }
+
+  last_insert_ = i;
+}
+
 }  // namespace webrtc

@@ -57,7 +57,9 @@ class AudioProcessingImpl : public AudioProcessing {
                       std::unique_ptr<CustomProcessing> render_pre_processor,
                       std::unique_ptr<EchoControlFactory> echo_control_factory,
                       rtc::scoped_refptr<EchoDetector> echo_detector,
-                      std::unique_ptr<CustomAudioAnalyzer> capture_analyzer);
+                      std::unique_ptr<CustomAudioAnalyzer> capture_analyzer,
+                      std::unique_ptr<EchoControlEnhancerFactory>
+                          echo_control_enhancer_factory);
   ~AudioProcessingImpl() override;
   int Initialize() override;
   int Initialize(int capture_input_sample_rate_hz,
@@ -109,7 +111,6 @@ class AudioProcessingImpl : public AudioProcessing {
   int proc_sample_rate_hz() const override;
   int proc_split_sample_rate_hz() const override;
   size_t num_input_channels() const override;
-  size_t num_proc_channels() const override;
   size_t num_output_channels() const override;
   size_t num_reverse_channels() const override;
   int stream_delay_ms() const override;
@@ -163,6 +164,8 @@ class AudioProcessingImpl : public AudioProcessing {
 
   // EchoControl factory.
   std::unique_ptr<EchoControlFactory> echo_control_factory_;
+
+  std::unique_ptr<EchoControlEnhancerFactory> echo_control_enhancer_factory_;
 
   class SubmoduleStates {
    public:
@@ -230,6 +233,8 @@ class AudioProcessingImpl : public AudioProcessing {
   int InitializeLocked(const ProcessingConfig& config)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
   void InitializeResidualEchoDetector()
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
+  void InitializeEchoControlEnhancer()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
   void InitializeEchoController()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
@@ -355,6 +360,7 @@ class AudioProcessingImpl : public AudioProcessing {
     std::unique_ptr<CustomAudioAnalyzer> capture_analyzer;
     std::unique_ptr<LevelEstimator> output_level_estimator;
     std::unique_ptr<VoiceDetection> voice_detector;
+    std::unique_ptr<EchoControlEnhancer> echo_control_enhancer;
   } submodules_;
 
   // State that is written to while holding both the render and capture locks
@@ -396,6 +402,8 @@ class AudioProcessingImpl : public AudioProcessing {
     std::unique_ptr<AudioBuffer> capture_audio;
     std::unique_ptr<AudioBuffer> capture_fullband_audio;
     std::unique_ptr<AudioBuffer> linear_aec_output;
+    int num_proc_channels_before_aec;
+    int num_proc_channels_after_aec;
     // Only the rate and samples fields of capture_processing_format_ are used
     // because the capture processing number of channels is mutable and is
     // tracked by the capture_audio_.

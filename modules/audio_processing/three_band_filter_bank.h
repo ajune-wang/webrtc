@@ -11,11 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_THREE_BAND_FILTER_BANK_H_
 #define MODULES_AUDIO_PROCESSING_THREE_BAND_FILTER_BANK_H_
 
+#include <array>
 #include <cstring>
 #include <memory>
 #include <vector>
-
-#include "common_audio/sparse_fir_filter.h"
 
 namespace webrtc {
 
@@ -48,20 +47,8 @@ class ThreeBandFilterBank final {
   void Synthesis(const float* const* in, size_t split_length, float* out);
 
  private:
-  void DownModulate(const float* in,
-                    size_t split_length,
-                    size_t offset,
-                    float* const* out);
-  void UpModulate(const float* const* in,
-                  size_t split_length,
-                  size_t offset,
-                  float* out);
-
-  std::vector<float> in_buffer_;
-  std::vector<float> out_buffer_;
-  std::vector<std::unique_ptr<SparseFIRFilter>> analysis_filters_;
-  std::vector<std::unique_ptr<SparseFIRFilter>> synthesis_filters_;
-  std::vector<std::vector<float>> dct_modulation_;
+  std::array<std::array<float, 15>, 10> state_analysis_;
+  std::array<std::array<float, 15>, 10> state_synthesis_;
 };
 
 }  // namespace webrtc

@@ -30,20 +30,15 @@
 //
 // A similar logic can be applied to the synthesis stage.
 
-// MSVC++ requires this to be set before any other includes to get M_PI.
-#define _USE_MATH_DEFINES
-
 #include "modules/audio_processing/three_band_filter_bank.h"
 
-#include <cmath>
+#include <array>
 
+#include "api/array_view.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace {
-
-const size_t kNumBands = 3;
-const size_t kSparsity = 4;
 
 // Factors to take into account when choosing |kNumCoeffs|:
 //   1. Higher |kNumCoeffs|, means faster transition, which ensures less
@@ -53,7 +48,6 @@ const size_t kSparsity = 4;
 //      |kNumBands| * |kSparsity| * |kNumCoeffs| / 2, so it increases linearly
 //      with |kNumCoeffs|.
 //   3. The computation complexity also increases linearly with |kNumCoeffs|.
-const size_t kNumCoeffs = 4;
 
 // The Matlab code to generate these |kLowpassCoeffs| is:
 //
@@ -61,46 +55,74 @@ const size_t kNumCoeffs = 4;
 // h = fir1(N, 1 / (2 * kNumBands), kaiser(N + 1, 3.5));
 // reshape(h, kNumBands * kSparsity, kNumCoeffs);
 //
+// The code below uses:
+// kNumCoeffs = 4;
+// kNumBands = 3;
+// kSparsity = 4;
+
 // Because the total bandwidth of the lower and higher band is double the middle
 // one (because of the spectrum parity), the low-pass prototype is half the
-// bandwidth of 1 / (2 * |kNumBands|) and is then shifted with cosine modulation
+// bandwidth of 1 / (2 * |3|) and is then shifted with cosine modulation
 // to the right places.
 // A Kaiser window is used because of its flexibility and the alpha is set to
 // 3.5, since that sets a stop band attenuation of 40dB ensuring a fast
 // transition.
-const float kLowpassCoeffs[kNumBands * kSparsity][kNumCoeffs] = {
+const float kLowpassCoeffs[10][4] = {
     {-0.00047749f, -0.00496888f, +0.16547118f, +0.00425496f},
     {-0.00173287f, -0.01585778f, +0.14989004f, +0.00994113f},
     {-0.00304815f, -0.02536082f, +0.12154542f, +0.01157993f},
-    {-0.00383509f, -0.02982767f, +0.08543175f, +0.00983212f},
     {-0.00346946f, -0.02587886f, +0.04760441f, +0.00607594f},
     {-0.00154717f, -0.01136076f, +0.01387458f, +0.00186353f},
     {+0.00186353f, +0.01387458f, -0.01136076f, -0.00154717f},
     {+0.00607594f, +0.04760441f, -0.02587886f, -0.00346946f},
     {+0.00983212f, +0.08543175f, -0.02982767f, -0.00383509f},
-    {+0.01157993f, +0.12154542f, -0.02536082f, -0.00304815f},
     {+0.00994113f, +0.14989004f, -0.01585778f, -0.00173287f},
     {+0.00425496f, +0.16547118f, -0.00496888f, -0.00047749f}};
 
-// Downsamples |in| into |out|, taking one every |kNumbands| starting from
-// |offset|. |split_length| is the |out| length. |in| has to be at least
-// |kNumBands| * |split_length| long.
-void Downsample(const float* in,
-                size_t split_length,
-                size_t offset,
-                float* out) {
-  for (size_t i = 0; i < split_length; ++i) {
-    out[i] = in[kNumBands * i + offset];
-  }
-}
+const float kDctModulation[10][3] = {{2.f, 2.f, 2.f},
+                                     {1.73205077f, 0, -1.73205077f},
+                                     {1.f, -2.f, 1.f},
+                                     {-1.f, 2.f, -1.f},
+                                     {-1.73205077f, 0, 1.73205077f},
+                                     {-2.f, -2.f, -2.f},
+                                     {-1.73205077f, 0, 1.73205077f},
+                                     {-1.f, 2.f, -1.f},
+                                     {1.f, -2.f, 1.f},
+                                     {1.73205077f, 0, -1.73205077f}};
 
-// Upsamples |in| into |out|, scaling by |kNumBands| and accumulating it every
-// |kNumBands| starting from |offset|. |split_length| is the |in| length. |out|
-// has to be at least |kNumBands| * |split_length| long.
-void Upsample(const float* in, size_t split_length, size_t offset, float* out) {
-  for (size_t i = 0; i < split_length; ++i) {
-    out[kNumBands * i + offset] += kNumBands * in[i];
+void FilterCore(int shift_start,
+                rtc::ArrayView<const float, 4> filter,
+                rtc::ArrayView<const float, 160> in,
+                rtc::ArrayView<float, 160> out,
+                rtc::ArrayView<float, 15> state) {
+  memset(out.data(), 0, 160 * sizeof(float));
+
+  int k = 0;
+  int shift = shift_start;
+  for (; k < shift_start; ++k, ++shift) {
+    for (int i = 0, j = shift; i < 4; ++i, j -= 4) {
+      out[k] += state[15 + j] * filter[i];
+    }
   }
+
+  for (; k < 16; ++k, ++shift) {
+    int loop_limit = std::min(4, 1 + (shift >> 2));
+    for (int i = 0, j = shift; i < loop_limit; ++i, j -= 4) {
+      out[k] += in[j] * filter[i];
+    }
+    for (int i = loop_limit, j = shift - loop_limit * 4; i < 4; ++i, j -= 4) {
+      out[k] += state[15 + j] * filter[i];
+    }
+  }
+
+  for (; k < 160; ++k, ++shift) {
+    for (int i = 0, j = shift; i < 4; ++i, j -= 4) {
+      out[k] += in[j] * filter[i];
+    }
+  }
+
+  // Update current state.
+  std::memcpy(&state[0], &in[145], 15 * sizeof(float));
 }
 
 }  // namespace
@@ -108,51 +130,63 @@ void Upsample(const float* in, size_t split_length, size_t offset, float* out) {
 // Because the low-pass filter prototype has half bandwidth it is possible to
 // use a DCT to shift it in both directions at the same time, to the center
 // frequencies [1 / 12, 3 / 12, 5 / 12].
-ThreeBandFilterBank::ThreeBandFilterBank(size_t length)
-    : in_buffer_(rtc::CheckedDivExact(length, kNumBands)),
-      out_buffer_(in_buffer_.size()) {
-  for (size_t i = 0; i < kSparsity; ++i) {
-    for (size_t j = 0; j < kNumBands; ++j) {
-      analysis_filters_.push_back(
-          std::unique_ptr<SparseFIRFilter>(new SparseFIRFilter(
-              kLowpassCoeffs[i * kNumBands + j], kNumCoeffs, kSparsity, i)));
-      synthesis_filters_.push_back(
-          std::unique_ptr<SparseFIRFilter>(new SparseFIRFilter(
-              kLowpassCoeffs[i * kNumBands + j], kNumCoeffs, kSparsity, i)));
-    }
-  }
-  dct_modulation_.resize(kNumBands * kSparsity);
-  for (size_t i = 0; i < dct_modulation_.size(); ++i) {
-    dct_modulation_[i].resize(kNumBands);
-    for (size_t j = 0; j < kNumBands; ++j) {
-      dct_modulation_[i][j] =
-          2.f * cos(2.f * M_PI * i * (2.f * j + 1.f) / dct_modulation_.size());
-    }
+ThreeBandFilterBank::ThreeBandFilterBank(size_t length) {
+  for (int index = 0; index < 10; ++index) {
+    state_analysis_[index].fill(0.f);
+    state_synthesis_[index].fill(0.f);
   }
 }
 
 ThreeBandFilterBank::~ThreeBandFilterBank() = default;
 
 // The analysis can be separated in these steps:
-//   1. Serial to parallel downsampling by a factor of |kNumBands|.
-//   2. Filtering of |kSparsity| different delayed signals with polyphase
+//   1. Serial to parallel downsampling by a factor of |3|.
+//   2. Filtering of |4| different delayed signals with polyphase
 //      decomposition of the low-pass prototype filter and upsampled by a factor
-//      of |kSparsity|.
+//      of |4|.
 //   3. Modulating with cosines and accumulating to get the desired band.
 void ThreeBandFilterBank::Analysis(const float* in,
                                    size_t length,
                                    float* const* out) {
-  RTC_CHECK_EQ(in_buffer_.size(), rtc::CheckedDivExact(length, kNumBands));
-  for (size_t i = 0; i < kNumBands; ++i) {
-    memset(out[i], 0, in_buffer_.size() * sizeof(*out[i]));
+  RTC_DCHECK_EQ(480, length);
+  // Initialize the output to zero.
+  for (int i = 0; i < 3; ++i) {
+    memset(out[i], 0, 160 * sizeof(float));
   }
-  for (size_t i = 0; i < kNumBands; ++i) {
-    Downsample(in, in_buffer_.size(), kNumBands - i - 1, &in_buffer_[0]);
-    for (size_t j = 0; j < kSparsity; ++j) {
-      const size_t offset = i + j * kNumBands;
-      analysis_filters_[offset]->Filter(&in_buffer_[0], in_buffer_.size(),
-                                        &out_buffer_[0]);
-      DownModulate(&out_buffer_[0], out_buffer_.size(), offset, out);
+
+  for (int downsampling_index = 0; downsampling_index < 3;
+       ++downsampling_index) {
+    // Prepare filter input.
+    std::array<float, 160> in_subsampled;
+    for (int k = 0; k < 160; ++k) {
+      in_subsampled[k] = in[2 - downsampling_index + 3 * k];
+    }
+
+    for (int buffer_shift = 0; buffer_shift < 4; ++buffer_shift) {
+      // Choose filter, skip zero filters.
+      const int index = downsampling_index + buffer_shift * 3;
+      if (index == 3 || index == 9) {
+        continue;
+      }
+      const int filter_index =
+          index < 3 ? index : (index < 9 ? index - 1 : index - 2);
+
+      rtc::ArrayView<const float, 4> filter(&kLowpassCoeffs[filter_index][0],
+                                            4);
+      rtc::ArrayView<const float, 3> dct_modulation(
+          &kDctModulation[filter_index][0], 3);
+      rtc::ArrayView<float, 15> state(&state_analysis_[filter_index][0], 15);
+
+      // Filter.
+      std::array<float, 160> out_subsampled;
+      FilterCore(-buffer_shift, filter, in_subsampled, out_subsampled, state);
+
+      // Band and modulate the output.
+      for (int band = 0; band < 3; ++band) {
+        for (int n = 0; n < 160; ++n) {
+          out[band][n] += dct_modulation[band] * out_subsampled[n];
+        }
+      }
     }
   }
 }
@@ -160,52 +194,48 @@ void ThreeBandFilterBank::Analysis(const float* in,
 // The synthesis can be separated in these steps:
 //   1. Modulating with cosines.
 //   2. Filtering each one with a polyphase decomposition of the low-pass
-//      prototype filter upsampled by a factor of |kSparsity| and accumulating
-//      |kSparsity| signals with different delays.
-//   3. Parallel to serial upsampling by a factor of |kNumBands|.
+//      prototype filter upsampled by a factor of |4| and accumulating
+//      |4| signals with different delays.
+//   3. Parallel to serial upsampling by a factor of |3|.
 void ThreeBandFilterBank::Synthesis(const float* const* in,
                                     size_t split_length,
                                     float* out) {
-  RTC_CHECK_EQ(in_buffer_.size(), split_length);
-  memset(out, 0, kNumBands * in_buffer_.size() * sizeof(*out));
-  for (size_t i = 0; i < kNumBands; ++i) {
-    for (size_t j = 0; j < kSparsity; ++j) {
-      const size_t offset = i + j * kNumBands;
-      UpModulate(in, in_buffer_.size(), offset, &in_buffer_[0]);
-      synthesis_filters_[offset]->Filter(&in_buffer_[0], in_buffer_.size(),
-                                         &out_buffer_[0]);
-      Upsample(&out_buffer_[0], out_buffer_.size(), i, out);
-    }
-  }
-}
+  RTC_DCHECK_EQ(160, split_length);
 
-// Modulates |in| by |dct_modulation_| and accumulates it in each of the
-// |kNumBands| bands of |out|. |offset| is the index in the period of the
-// cosines used for modulation. |split_length| is the length of |in| and each
-// band of |out|.
-void ThreeBandFilterBank::DownModulate(const float* in,
-                                       size_t split_length,
-                                       size_t offset,
-                                       float* const* out) {
-  for (size_t i = 0; i < kNumBands; ++i) {
-    for (size_t j = 0; j < split_length; ++j) {
-      out[i][j] += dct_modulation_[offset][i] * in[j];
-    }
-  }
-}
+  memset(out, 0, 480 * sizeof(float));
+  for (int upsampling_index = 0; upsampling_index < 3; ++upsampling_index) {
+    for (int buffer_shift = 0; buffer_shift < 4; ++buffer_shift) {
+      // Choose filter, skip zero filters.
+      const int index = upsampling_index + buffer_shift * 3;
+      if (index == 3 || index == 9) {
+        continue;
+      }
+      const int filter_index =
+          index < 3 ? index : (index < 9 ? index - 1 : index - 2);
 
-// Modulates each of the |kNumBands| bands of |in| by |dct_modulation_| and
-// accumulates them in |out|. |out| is cleared before starting to accumulate.
-// |offset| is the index in the period of the cosines used for modulation.
-// |split_length| is the length of each band of |in| and |out|.
-void ThreeBandFilterBank::UpModulate(const float* const* in,
-                                     size_t split_length,
-                                     size_t offset,
-                                     float* out) {
-  memset(out, 0, split_length * sizeof(*out));
-  for (size_t i = 0; i < kNumBands; ++i) {
-    for (size_t j = 0; j < split_length; ++j) {
-      out[j] += dct_modulation_[offset][i] * in[i][j];
+      rtc::ArrayView<const float, 4> filter(&kLowpassCoeffs[filter_index][0],
+                                            4);
+      rtc::ArrayView<const float, 3> dct_modulation(
+          &kDctModulation[filter_index][0], 3);
+      rtc::ArrayView<float, 15> state(&state_synthesis_[filter_index][0], 15);
+
+      // Prepare filter input by modulating the banded input.
+      std::array<float, 160> in_subsampled;
+      memset(in_subsampled.data(), 0, 160 * sizeof(float));
+      for (int band = 0; band < 3; ++band) {
+        for (int n = 0; n < 160; ++n) {
+          in_subsampled[n] += dct_modulation[band] * in[band][n];
+        }
+      }
+
+      // Filter.
+      std::array<float, 160> out_subsampled;
+      FilterCore(-buffer_shift, filter, in_subsampled, out_subsampled, state);
+
+      // Upsample.
+      for (int k = 0; k < 160; ++k) {
+        out[upsampling_index + 3 * k] += 3.f * out_subsampled[k];
+      }
     }
   }
 }

@@ -12,9 +12,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@ce806f00e6ef611bd0666aca2cd776f2ef22dbc4',
+    'https://chromium.googlesource.com/chromium/src/base@2ad3a9dc5c7d98d8d05ec923959a576dd6c032cf',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@2f17606c25956e800b6c4670c294a03620e78551',
+    'https://chromium.googlesource.com/chromium/src/build@8cbcbb8bfd502d057bacd20066bce6eab314bc04',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@afc5b798c72905e85f9991152be878714c579958',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.

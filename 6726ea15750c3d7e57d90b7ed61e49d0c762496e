@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43a298ba_c1859338",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:17:19Z",
+      "side": 1,
+      "message": "FYI these are already whitelisted in chromium so this CL is free to roll into chromium.",
+      "range": {
+        "startLine": 122,
+        "startChar": 30,
+        "endLine": 122,
+        "endChar": 43
+      },
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d626688_a27296b0",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:17:19Z",
+      "side": 1,
+      "message": "Unordered? Shouldn\u0027t this use the same order as the SDP?\n\nIf different calls to getStats() would produce different orders for the same stats object that would be a bug. I\u0027m guessing this would return the same order each time for a particular peer connection, but if every new peer connection produces different orders that might be weird for JavaScript applications or for applications tracking metrics if each call\u0027s codec looked different. It might be even worse if the sdpFmtpLine exposed something about the implementation: might a different order be used in Chrome vs Firefox, for instance?\n\nI would prefer a specific order that makes sense and stick with that. What do we do in the SDP line? This is supposed to be \"The a\u003dfmtp line in the SDP corresponding to the codec\"\n\nIf we had a test that verified the line was the same in createOffer() as in getStats(), would we pass?",
+      "range": {
+        "startLine": 223,
+        "startChar": 56,
+        "endLine": 223,
+        "endChar": 71
+      },
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca1324b3_3c40b6ad",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:17:19Z",
+      "side": 1,
+      "message": "Why are we expecting the empty string? Can we update the tests to mock parameters set in the test and expect that those are the ones we see in the unittest?",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "449c9c29_8820c47f",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:17:19Z",
+      "side": 1,
+      "message": "I don\u0027t think empty string should be a possible value. E.g. if we haven\u0027t generated the sdpFmtpLine because we haven\u0027t created SDP yet then I think this should be undefined, not empty string.",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eaa9b74_0eba6985",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:17:19Z",
+      "side": 1,
+      "message": "Can we test that this member has a sensible value? At the very least, I don\u0027t think the empty string should be allowed.",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

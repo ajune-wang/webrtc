@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1661c06f_9c88cc1a",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-04T12:15:52Z",
+      "side": 1,
+      "message": "(1) should not be a concern. The target bitrate is treated as a suggestion in the AudioEncoder interface:\n\n  // Tells the encoder what average bitrate we\u0027d like it to produce. The\n  // encoder is free to adjust or disregard the given bitrate (the default\n  // implementation does the latter).",
+      "parentUuid": "0bf96dec_7073b9a4",
+      "range": {
+        "startLine": 969,
+        "startChar": 0,
+        "endLine": 969,
+        "endChar": 41
+      },
+      "revId": "931eeb37d5734a8bfd7d01d65625ed73efcc31f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "089e5698_9cf1f597",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 1

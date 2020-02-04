@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "798ea625_821cc453",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-04T09:43:31Z",
+      "side": 1,
+      "message": "perhaps use a separate counter for this case",
+      "range": {
+        "startLine": 1043,
+        "startChar": 4,
+        "endLine": 1043,
+        "endChar": 38
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa90b60_0001c2ce",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-04T09:43:31Z",
+      "side": 1,
+      "message": "reset if \u003c\u003d0.01?",
+      "range": {
+        "startLine": 1577,
+        "startChar": 4,
+        "endLine": 1577,
+        "endChar": 29
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b29baba7_1e092df8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-04T09:43:31Z",
+      "side": 1,
+      "message": "Could this go below the min_bitrate?",
+      "range": {
+        "startLine": 1581,
+        "startChar": 4,
+        "endLine": 1581,
+        "endChar": 18
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee7f59b_71dc7b9d",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-04T09:43:31Z",
+      "side": 1,
+      "message": "interval",
+      "range": {
+        "startLine": 329,
+        "startChar": 73,
+        "endLine": 329,
+        "endChar": 78
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32b7229a_93d98000",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-04T09:43:31Z",
+      "side": 1,
+      "message": "Consider make these run on encoder_queue_.",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 26
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

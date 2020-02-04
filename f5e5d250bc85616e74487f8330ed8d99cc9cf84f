@@ -34,6 +34,24 @@
       "revId": "f5e5d250bc85616e74487f8330ed8d99cc9cf84f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3d3cbc0_5d96be88",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1795,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T16:54:52Z",
+      "side": 1,
+      "message": "OK thank you, in the meantime we\u0027ll keep refactoring code. I\u0027ll try to keep it around with a TODO. If I change the behavior in the process I\u0027ll add you as a reviewer. Let me know if you do take a look at it before then in case we\u0027ve got pending changes.",
+      "parentUuid": "58298b7a_0137c26c",
+      "revId": "f5e5d250bc85616e74487f8330ed8d99cc9cf84f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d628994a_d54e5eb6",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T16:04:12Z",
+      "side": 1,
+      "message": "Since this isn\u0027t a Javascript identifier, I guess we can go with normal casing: \"Candidate\" and \"TCP\".",
+      "revId": "406fffaee77f90c18d41a99a0d5981309137c649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

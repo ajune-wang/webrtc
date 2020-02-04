@@ -25,6 +25,8 @@
 namespace webrtc {
 
 using ::testing::_;
+using ::testing::AnyNumber;
+using ::testing::DoDefault;
 using ::testing::InvokeWithoutArgs;
 
 namespace {
@@ -41,22 +43,25 @@ class MockCpuOveruseObserver : public AdaptationObserverInterface {
   virtual ~MockCpuOveruseObserver() {}
 
   MOCK_METHOD1(AdaptUp, void(AdaptReason));
+  MOCK_METHOD1(AdaptNotNeeded, void(AdaptReason));
   MOCK_METHOD1(AdaptDown, bool(AdaptReason));
 };
 
 class CpuOveruseObserverImpl : public AdaptationObserverInterface {
  public:
-  CpuOveruseObserverImpl() : overuse_(0), normaluse_(0) {}
+  CpuOveruseObserverImpl() : overuse_(0), stable_(0), underuse_(0) {}
   virtual ~CpuOveruseObserverImpl() {}
 
-  bool AdaptDown(AdaptReason) {
+  bool AdaptDown(AdaptReason) override {
     ++overuse_;
     return true;
   }
-  void AdaptUp(AdaptReason) { ++normaluse_; }
+  void AdaptNotNeeded(AdaptReason) override { ++stable_; }
+  void AdaptUp(AdaptReason) override { ++underuse_; }
 
   int overuse_;
-  int normaluse_;
+  int stable_;
+  int underuse_;
 };
 
 class OveruseFrameDetectorUnderTest : public OveruseFrameDetector {
@@ -76,6 +81,14 @@ class OveruseFrameDetectorTest : public ::testing::Test,
   void SetUp() override {
     observer_ = &mock_observer_;
     options_.min_process_count = 0;
+    // When |min_process_count| is 0, CheckForOveruse() will re-evaluate if
+    // adaptation is needed on every frame. This leads to a lot of
+    // AdaptNotNeeded() spam in these tests. Unless the test is explicitly
+    // designed to verify AdaptNotNeeded behavior we allow it to be invoked any
+    // times (in order to avoid gmock warning log spam).
+    EXPECT_CALL(mock_observer_, AdaptNotNeeded)
+        .Times(AnyNumber())
+        .WillRepeatedly(DoDefault());
     overuse_detector_ = std::make_unique<OveruseFrameDetectorUnderTest>(this);
     // Unfortunately, we can't call SetOptions here, since that would break
     // single-threading requirements in the RunOnTqNormalUsage test.
@@ -275,10 +288,10 @@ TEST_F(OveruseFrameDetectorTest, TriggerUnderuseWithMinProcessCount) {
   InsertAndSendFramesWithInterval(1200, kFrameIntervalUs, kWidth, kHeight,
                                   kProcessTimeUs);
   overuse_detector_->CheckForOveruse(&overuse_observer);
-  EXPECT_EQ(0, overuse_observer.normaluse_);
+  EXPECT_EQ(0, overuse_observer.underuse_);
   clock_.AdvanceTime(TimeDelta::us(kProcessIntervalUs));
   overuse_detector_->CheckForOveruse(&overuse_observer);
-  EXPECT_EQ(1, overuse_observer.normaluse_);
+  EXPECT_EQ(1, overuse_observer.underuse_);
 }
 
 TEST_F(OveruseFrameDetectorTest, ConstantOveruseGivesNoNormalUsage) {
@@ -757,10 +770,10 @@ TEST_F(OveruseFrameDetectorTest2, TriggerUnderuseWithMinProcessCount) {
   InsertAndSendFramesWithInterval(1200, kFrameIntervalUs, kWidth, kHeight,
                                   kProcessTimeUs);
   overuse_detector_->CheckForOveruse(&overuse_observer);
-  EXPECT_EQ(0, overuse_observer.normaluse_);
+  EXPECT_EQ(0, overuse_observer.underuse_);
   clock_.AdvanceTime(TimeDelta::us(kProcessIntervalUs));
   overuse_detector_->CheckForOveruse(&overuse_observer);
-  EXPECT_EQ(1, overuse_observer.normaluse_);
+  EXPECT_EQ(1, overuse_observer.underuse_);
 }
 
 TEST_F(OveruseFrameDetectorTest2, ConstantOveruseGivesNoNormalUsage) {

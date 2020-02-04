@@ -445,8 +445,13 @@ class RTCStatsReportVerifier {
     verifier.TestMemberIsDefined(codec.payload_type);
     verifier.TestMemberIsDefined(codec.mime_type);
     verifier.TestMemberIsPositive<uint32_t>(codec.clock_rate);
-    verifier.TestMemberIsUndefined(codec.channels);
-    verifier.TestMemberIsUndefined(codec.sdp_fmtp_line);
+
+    if (codec.mime_type->rfind("audio", 0) == 0)
+      verifier.TestMemberIsPositive<uint32_t>(codec.channels);
+    else
+      verifier.TestMemberIsUndefined(codec.channels);
+
+    verifier.TestMemberIsDefined(codec.sdp_fmtp_line);
     return verifier.ExpectAllMembersSuccessfullyTested();
   }
 

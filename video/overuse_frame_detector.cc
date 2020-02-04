@@ -671,6 +671,8 @@ void OveruseFrameDetector::CheckForOveruse(
     in_quick_rampup_ = true;
 
     observer->AdaptUp(kScaleReasonCpu);
+  } else {
+    observer->AdaptNotNeeded(kScaleReasonCpu);
   }
 
   int rampup_delay =

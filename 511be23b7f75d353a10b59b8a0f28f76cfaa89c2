@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cdc19b16_3d158237",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T02:36:31Z",
+      "side": 1,
+      "message": "Good point.  I added a note.  It\u0027s effectively already verified in P2pTransportChannel with all of its RTC_DCHECK_RUN_ON(network_thread_).",
+      "parentUuid": "2aa68a3c_cafb1c8a",
+      "revId": "511be23b7f75d353a10b59b8a0f28f76cfaa89c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d16741a5_da940199",
         "filename": "pc/peer_connection_ice_unittest.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "511be23b7f75d353a10b59b8a0f28f76cfaa89c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10eeedf5_4c87acda",
+        "filename": "pc/peer_connection_ice_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T02:36:31Z",
+      "side": 1,
+      "message": "I had to add LookupDtlsTransportByMid to the PeerConnectionWrapper, but yes that worked and made the test cleaner.",
+      "parentUuid": "d16741a5_da940199",
+      "revId": "511be23b7f75d353a10b59b8a0f28f76cfaa89c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

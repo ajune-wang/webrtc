@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "5de24f98_d7a83a3d",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-04T10:05:32Z",
+      "side": 1,
+      "message": "Cycling back to this, sure you use the constructor correctly? I.e. does this work?\n\nauto result \u003d std::make_unique\u003cDesktopFrame\u003e(frameSize);",
+      "parentUuid": "ea25fd00_21c95e84",
+      "range": {
+        "startLine": 459,
+        "startChar": 2,
+        "endLine": 459,
+        "endChar": 73
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75960ba7_4b37cdf8",
         "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
         "patchSetId": 11
@@ -259,6 +283,30 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "654329c3_e84d7016",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-04T10:05:32Z",
+      "side": 1,
+      "message": "The point of the optional was to remove |use_video_crop_|. Instead set value of |video_crop_size_| only when it\u0027s defined, use video_crop_size_.has_value() to check if it\u0027s set, .reset() to unset it when no longer needed etc",
+      "parentUuid": "c3a9fb5a_1a454c61",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

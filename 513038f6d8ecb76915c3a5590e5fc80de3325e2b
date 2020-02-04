@@ -22,6 +22,30 @@
       "revId": "513038f6d8ecb76915c3a5590e5fc80de3325e2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baf2ac63_c0dddf5c",
+        "filename": "sdk/android/src/java/org/webrtc/RefCountDelegate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-04T14:56:48Z",
+      "side": 1,
+      "message": "It is unlikely that we ever complete more than one loop. It exists for two scenarios:\n1. weakCompareAndSet may fail spuriously\n2. If the value changes between refCount.get() and weakCompareAndSet\n\nThere is an alternative implementation of just calling incrementAndGet and checking if the result is one. However, I decided against it because if might lead to double free in the case\nof a programming error instead of the better behavior of IllegalStateException.",
+      "parentUuid": "3616569d_f6fc235e",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "513038f6d8ecb76915c3a5590e5fc80de3325e2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1141,5 +1141,37 @@ TEST(RtpPacketTest, RemoveExtensionFailure) {
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
 }
 
+TEST(RtpPacketTest, SetSequenceNumber) {
+  RtpPacketReceived packet;
+  EXPECT_FALSE(packet.has_sequence_number());
+  packet.SetSequenceNumber(kSeqNum);
+  EXPECT_TRUE(packet.has_sequence_number());
+  EXPECT_EQ(kSeqNum, packet.SequenceNumber());
+
+  packet.Clear();
+  EXPECT_FALSE(packet.has_sequence_number());
+}
+
+TEST(RtpPacketTest, ParsingSetsSequenceNumber) {
+  RtpPacketReceived packet;
+  EXPECT_FALSE(packet.has_sequence_number());
+  EXPECT_TRUE(packet.Parse(kMinimumPacket, sizeof(kMinimumPacket)));
+  EXPECT_TRUE(packet.has_sequence_number());
+  EXPECT_EQ(kSeqNum, packet.SequenceNumber());
+}
+
+TEST(RtpPacketTest, SequenceNumberFollowToCopy) {
+  RtpPacketReceived packet;
+  EXPECT_FALSE(packet.has_sequence_number());
+
+  RtpPacketReceived packet_copy1(packet);
+  EXPECT_FALSE(packet.has_sequence_number());
+
+  packet.SetSequenceNumber(kSeqNum);
+  RtpPacketReceived packet_copy2(packet);
+  EXPECT_TRUE(packet.has_sequence_number());
+  EXPECT_EQ(kSeqNum, packet.SequenceNumber());
+}
+
 }  // namespace
 }  // namespace webrtc

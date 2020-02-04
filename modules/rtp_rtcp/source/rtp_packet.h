@@ -54,7 +54,11 @@ class RtpPacket {
   // Header.
   bool Marker() const { return marker_; }
   uint8_t PayloadType() const { return payload_type_; }
-  uint16_t SequenceNumber() const { return sequence_number_; }
+  uint16_t SequenceNumber() const {
+    RTC_DCHECK(sequence_number_.has_value());
+    return sequence_number_.value_or(0);
+  }
+  bool has_sequence_number() const { return sequence_number_.has_value(); }
   uint32_t Timestamp() const { return timestamp_; }
   uint32_t Ssrc() const { return ssrc_; }
   std::vector<uint32_t> Csrcs() const;
@@ -186,7 +190,7 @@ class RtpPacket {
   bool marker_;
   uint8_t payload_type_;
   uint8_t padding_size_;
-  uint16_t sequence_number_;
+  absl::optional<uint16_t> sequence_number_;
   uint32_t timestamp_;
   uint32_t ssrc_;
   size_t payload_offset_;  // Match header size with csrcs and extensions.

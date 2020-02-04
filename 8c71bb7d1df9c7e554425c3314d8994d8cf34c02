@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fffed5bd_8ceecf84",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-02-04T12:02:44Z",
+      "side": 1,
+      "message": "video_crop",
+      "revId": "8c71bb7d1df9c7e554425c3314d8994d8cf34c02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfe14132_72960cdd",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-02-04T12:02:44Z",
+      "side": 1,
+      "message": "prev_crop_size\n\nActually, the code is mixed with whether it follows the coding style guide or not. Would you prefer to fix things up style wize in a separate CL?\n\nFor new code, I\u0027d prefer to follow the style guide.",
+      "revId": "8c71bb7d1df9c7e554425c3314d8994d8cf34c02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3467e29_16a3a608",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-02-04T12:02:44Z",
+      "side": 1,
+      "message": "portal_base",
+      "revId": "8c71bb7d1df9c7e554425c3314d8994d8cf34c02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

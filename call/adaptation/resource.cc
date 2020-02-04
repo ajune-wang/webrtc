@@ -10,32 +10,34 @@
 
 #include "call/adaptation/resource.h"
 
-#include "rtc_base/strings/string_builder.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 
-namespace {
+ResourceUsageListener::~ResourceUsageListener() {}
 
-const char* ResourceUsageStateToString(ResourceUsageState usage_state) {
-  switch (usage_state) {
-    case ResourceUsageState::kOveruse:
-      return "overuse";
-    case ResourceUsageState::kStable:
-      return "stable";
-    case ResourceUsageState::kUnderuse:
-      return "underuse";
-  }
-}
-
-}  // namespace
+Resource::Resource() : usage_state_(ResourceUsageState::kStable) {}
 
 Resource::~Resource() {}
 
-std::string Resource::ToString() const {
-  rtc::StringBuilder sb;
-  sb << Name() << ": " << CurrentUsage() << " " << UsageUnitsOfMeasurement();
-  sb << " (" << ResourceUsageStateToString(CurrentUsageState()) << ")";
-  return sb.str();
+void Resource::RegisterListener(ResourceUsageListener* listener) {
+  RTC_DCHECK(listener);
+  listeners_.push_back(listener);
+}
+
+ResourceUsageState Resource::usage_state() const {
+  return usage_state_;
+}
+
+bool Resource::OnResourceUsageStateMeasured(ResourceUsageState usage_state) {
+  bool did_adapt = true;
+  usage_state_ = usage_state;
+  for (auto* listener : listeners_) {
+    absl::optional<bool> listener_did_adapt =
+        listener->OnResourceUsageStateMeasured(*this);
+    did_adapt &= listener_did_adapt.value_or(true);
+  }
+  return did_adapt;
 }
 
 }  // namespace webrtc

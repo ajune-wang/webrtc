@@ -25,6 +25,7 @@
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_config.h"
+#include "call/adaptation/resource.h"
 #include "call/adaptation/resource_adaptation_module_interface.h"
 #include "rtc_base/experiments/balanced_degradation_settings.h"
 #include "video/overuse_frame_detector.h"
@@ -48,7 +49,8 @@ class VideoStreamEncoder;
 // generic interface in VideoStreamEncoder, unblocking other modules from being
 // implemented and used.
 class OveruseFrameDetectorResourceAdaptationModule
-    : public ResourceAdaptationModuleInterface {
+    : public ResourceAdaptationModuleInterface,
+      public ResourceUsageListener {
  public:
   // The module can be constructed on any sequence, but must be initialized and
   // used on a single sequence, e.g. the encoder queue.
@@ -136,14 +138,18 @@ class OveruseFrameDetectorResourceAdaptationModule
     std::vector<int> resolution_counters_;
   };
 
-  // Signal that a resource (kCpu or kQuality) is overused or underused. This is
-  // currently used by EncodeUsageResource, QualityScalerResource and testing.
-  // TODO(https://crbug.com/webrtc/11222): Make use of ResourceUsageState and
-  // implement resources per call/adaptation/resource.h. When adaptation happens
-  // because a resource is in specific usage state, get rid of these explicit
-  // triggers.
-  void OnResourceUnderuse(AdaptationObserverInterface::AdaptReason reason);
-  bool OnResourceOveruse(AdaptationObserverInterface::AdaptReason reason);
+  // ResourceUsageListener implementation.
+  absl::optional<bool> OnResourceUsageStateMeasured(
+      const Resource& resource) override;
+
+  // Public versions of OnResourceUnderuse/OnResourceOveruse only used for
+  // testing.
+  // TODO(https://crbug.com/webrtc/11222): Control overuse/underuse from testing
+  // by injecting fake resources and remove these methods.
+  void OnResourceUnderuseForTesting(
+      AdaptationObserverInterface::AdaptReason reason);
+  bool OnResourceOveruseForTesting(
+      AdaptationObserverInterface::AdaptReason reason);
 
   // Used by VideoStreamEncoder::MaybeEncodeVideoFrame().
   // TODO(hbos): VideoStreamEncoder should not be responsible for any part of
@@ -163,6 +169,14 @@ class OveruseFrameDetectorResourceAdaptationModule
     // Indicates if request was to adapt up or down.
     enum class Mode { kAdaptUp, kAdaptDown } mode_;
   };
+
+  void OnResourceUnderuse(AdaptationObserverInterface::AdaptReason reason);
+  // Supposedly returns false if adaptation did not happen as a result of this
+  // call. This mirrors AdaptationObserverInterface::AdaptDown().
+  // TODO(https://crbug.com/webrtc/11222): This does not seem to be an accurate
+  // description of the return value. See documentation for
+  // ResourceUsageListener::OnResourceUsageStateMeasured() for more information.
+  bool OnResourceOveruse(AdaptationObserverInterface::AdaptReason reason);
 
   CpuOveruseOptions GetCpuOveruseOptions() const;
   VideoCodecType GetVideoCodecTypeOrGeneric() const;

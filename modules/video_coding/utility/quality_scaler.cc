@@ -228,6 +228,11 @@ void QualityScaler::CheckQp() {
       return;
     }
   }
+  // TODO(hbos): Add unittests for AdaptNotNeeded(). Because AdaptNotNeeded()
+  // translates into "stable" resource usage, and such usage is currently
+  // ignored, we would not notice if we accidentally over- or under-reported
+  // AdaptNotNeeded().
+  observer_->AdaptNotNeeded(AdaptationObserverInterface::AdaptReason::kQuality);
 }
 
 void QualityScaler::ReportQpLow() {

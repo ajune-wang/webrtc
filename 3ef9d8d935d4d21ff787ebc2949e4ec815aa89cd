@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31ff1028_454041cf",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-04T14:39:10Z",
+      "side": 1,
+      "message": "nit: TODO(bugs.webrtc.org/11222): ...",
+      "range": {
+        "startLine": 89,
+        "startChar": 5,
+        "endLine": 89,
+        "endChar": 15
+      },
+      "revId": "3ef9d8d935d4d21ff787ebc2949e4ec815aa89cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6a63efb_bc9c3604",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-04T14:39:10Z",
+      "side": 1,
+      "message": "nit: I personally prefer !target_bitrate.IsZero()",
+      "range": {
+        "startLine": 448,
+        "startChar": 6,
+        "endLine": 448,
+        "endChar": 39
+      },
+      "revId": "3ef9d8d935d4d21ff787ebc2949e4ec815aa89cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

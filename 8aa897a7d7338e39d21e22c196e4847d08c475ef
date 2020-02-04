@@ -537,6 +537,30 @@
     },
     {
       "key": {
+        "uuid": "71f77d77_b485da11",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-04T14:06:55Z",
+      "side": 1,
+      "message": "`final` on a class just means that it can\u0027t be a parent. It\u0027s a very useful thing to know when reading code---kind of like const: it\u0027s a compiler-checked declaration that certain things will not happen. You don\u0027t have to add it, but I would recommend it.",
+      "parentUuid": "5f1505c3_b1932afd",
+      "range": {
+        "startLine": 28,
+        "startChar": 26,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "8aa897a7d7338e39d21e22c196e4847d08c475ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "943f45bc_9ca4d389",
         "filename": "modules/async_audio_processing/async_audio_processing.h",
         "patchSetId": 6

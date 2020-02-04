@@ -34,6 +34,24 @@
       "revId": "bdf4fba0142be60cd53db727889c3cf53a955831",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5fa29f4_0130f3c0",
+        "filename": "audio/audio_transport_impl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-04T14:06:55Z",
+      "side": 1,
+      "message": "As is clear from the presence of capture_lock_ and the GUARDED_BY annotations, this class attempts to be at least partially thread safe, so each data member should either be protected by a mutex, or have an explanation why they don\u0027t need protection, since the lack of a GUARDED_BY annotation could easily be a bug.\n\nI don\u0027t know why some of the variables lack both annotation and comment, but we shouldn\u0027t add to the problem.",
+      "parentUuid": "bc9e8dd4_f9dcc5eb",
+      "revId": "bdf4fba0142be60cd53db727889c3cf53a955831",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

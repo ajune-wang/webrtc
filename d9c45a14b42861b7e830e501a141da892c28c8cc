@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "511dfac4_b9db61ab",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-02-04T14:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "798ea625_821cc453",
+      "range": {
+        "startLine": 1043,
+        "startChar": 4,
+        "endLine": 1043,
+        "endChar": 38
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fa90b60_0001c2ce",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c969f07_0aff3238",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-02-04T14:12:22Z",
+      "side": 1,
+      "message": "good catch thanks!",
+      "parentUuid": "4fa90b60_0001c2ce",
+      "range": {
+        "startLine": 1577,
+        "startChar": 4,
+        "endLine": 1577,
+        "endChar": 29
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "14477094_e159295a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-02-04T14:12:22Z",
+      "side": 1,
+      "message": "This in principle should not go below min bitrate as in CongestionWindowPushbackController::UpdateTargetBitrate() we already capped the adjusted target bitrate with a minimum rate(https://cs.chromium.org/chromium/src/third_party/webrtc/modules/congestion_controller/goog_cc/congestion_window_pushback_controller.cc?q\u003dcongestion_window\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d73). But it is still a good idea to add a check, as the min bitrate maybe set differently and the one in CongestionWindowPushbackController is a total bitrate. I added this check in uint32_t VideoSendStreamImpl::OnBitrateUpdated(BitrateAllocationUpdate update).",
+      "parentUuid": "b29baba7_1e092df8",
+      "range": {
+        "startLine": 1581,
+        "startChar": 4,
+        "endLine": 1581,
+        "endChar": 18
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ee7f59b_71dc7b9d",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "313e00e6_112e9077",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-02-04T14:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ee7f59b_71dc7b9d",
+      "range": {
+        "startLine": 329,
+        "startChar": 73,
+        "endLine": 329,
+        "endChar": 78
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32b7229a_93d98000",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 7
@@ -114,6 +210,30 @@
       "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ba41fe_b1e33c96",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-02-04T14:12:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32b7229a_93d98000",
+      "range": {
+        "startLine": 331,
+        "startChar": 0,
+        "endLine": 333,
+        "endChar": 26
+      },
+      "revId": "d9c45a14b42861b7e830e501a141da892c28c8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

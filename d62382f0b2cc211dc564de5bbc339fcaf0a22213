@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dbf5c5ee_0a0c458b",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dac959bc_3d1f8098",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b687f90_cf8b1d5a",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e87e5da_c743b0f4",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "This isn\u0027t new code (it was already like this).  But I\u0027ll change to an rtc::checked_cast anyway.",
+      "parentUuid": "5b687f90_cf8b1d5a",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5588393d_a2e572df",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "I made it more explicit.",
+      "parentUuid": "6ae70c7a_6262d861",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "594fc84a_ef5a892e",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12a8853_573dfb35",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "Generations don\u0027t have to be incremental.  They just have to be bigger than previous generations, so having 5 after 2 is fine.\n\nA shared gatherer is only one allocator session, so its generation is fixed.\n\nThere is a problem with if you try to use a shared gatherer after a shared gatherer, and the second one has a lower generation than the first.  That won\u0027t work.  But I don\u0027t really see any use case for using more than one shared gatherer (why would use use ICE forking to do ICE restarts?).  I\u0027ll add an RTC_DCHECK in StartGatheringWithSharedGatherer to guard against that.",
+      "parentUuid": "594fc84a_ef5a892e",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "8ed71eab_23190588",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right about the comment.  I moved it up.\n\nI like the idea of logging that we ignore the role conflict.\n\nRole conflicts can be handled with ICE forking with this, separate, CL: https://webrtc-review.googlesource.com/c/src/+/163400\n\nUntil that one is landed, don\u0027t cause a role conflict in your signaling :).",
+      "parentUuid": "9a13a4a6_0f3f3b51",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a00bc2cf_9722ed30",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 5
@@ -101,6 +191,42 @@
       "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6976d57d_f41e50fb",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "a00bc2cf_9722ed30",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27a64bcd_86cc3761",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a00bc2cf_9722ed30",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +247,24 @@
     },
     {
       "key": {
+        "uuid": "20d5baa4_fc75d24d",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "It only ignores them when we don\u0027t know the remote ufrag and pwd, which only happens when ICE checks come in before signaling, which should be a temporary situation (the signaling should arrive eventually).  At worst, this would delay call setup a bit in that situation (assuming the signaling isn\u0027t so slow that it misses all of the ICE checks, in which case you\u0027re probably going to fail anyway).\n\nI don\u0027t think a LOG(ERROR) makes sense.  But I\u0027ll add a LOG(WARN).",
+      "parentUuid": "144428e6_fa80ec38",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2edf4066_44f67a50",
         "filename": "p2p/base/p2p_transport_channel.h",
         "patchSetId": 5
@@ -132,6 +276,24 @@
       "writtenOn": "2020-02-04T15:44:16Z",
       "side": 1,
       "message": "Why is this a new interface? Why not a SetSharedGatherer() and let MaybeStartGathering() use the shared gatherer if it\u0027s present?\n\nI see the potential of weird stuff if someone calls StartGatheringWithSharedGatherer() and then MaybeStartGathering; it\u0027s easier on users if there are fewer feet to shoot at.",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7339b3f2_d4f85120",
+        "filename": "p2p/base/p2p_transport_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "SetSharedGatherer would do nothing until you call MaybeStartGathering, and the only reason you\u0027d call SetSharedGatherer is to call MaybeStartGathering right after.  So it\u0027s just that you have to call 2 methods back to back instead of just calling one.\n\nMaybeStartGathering is a no-op unless you change the ICE ufrag and pwd (to an ICE restart).\n\nDo I don\u0027t see any foot gun in having StartGatheringWithSharedGatherer(), but I do see a foot gun in SetSharedGatherer() + MaybeStartGathering():  you can forget to call the second method.\n\nHowever, I don\u0027t feel that strongly about this.  It\u0027s likely people will be using the PeerConnection-based methods anyway, which will just call 2 methods or 1 for everyone using it, so this won\u0027t matter much either way.  So if you really want, I will change it to 2 method calls instead of 1.",
+      "parentUuid": "2edf4066_44f67a50",
       "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -152,6 +314,24 @@
       "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5c2574d_24a0bd58",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5558,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-04T19:02:44Z",
+      "side": 1,
+      "message": "How about fake_port_allocator1?",
+      "parentUuid": "faeef042_d8121eea",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

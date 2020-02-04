@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1dec8485_2c311888",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T16:51:13Z",
+      "side": 1,
+      "message": "Perhaps I should just remove AdaptNotNeeded() and add a TODO to support the kStable state? That way I don\u0027t have to test the behavior of OveruseFrameDetector and QualityScaler\u0027s usage of AdaptNotNeeded() until a future CL.",
+      "revId": "a0f94ce0fa7ff75fd3e18912ab258d2c24b7239c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

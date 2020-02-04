@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "3b0d634a_35537217",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-04T10:30:32Z",
+      "side": 1,
+      "message": "It doesn\u0027t build that way.\n\nIn file included from ../../buildtools/third_party/libc++/trunk/include/algorithm:643:\n../../buildtools/third_party/libc++/trunk/include/memory:3043:32: error: no matching constructor for initialization of \u0027webrtc::DesktopFrame\u0027\n    return unique_ptr\u003c_Tp\u003e(new _Tp(_VSTD::forward\u003c_Args\u003e(__args)...));\n                               ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n../../third_party/webrtc/modules/desktop_capture/linux/base_capturer_pipewire.cc:457:22: note: in instantiation of function template specialization \u0027std::__Cr::make_unique\u003cwebrtc::DesktopFrame, webrtc::DesktopSize \u0026\u003e\u0027 requested here\n  auto result \u003d std::make_unique\u003cDesktopFrame\u003e(frameSize);\n                     ^\n../../third_party/webrtc/modules/desktop_capture/desktop_frame.h:157:32: note: candidate constructor not viable: no known conversion from \u0027webrtc::DesktopSize\u0027 to \u0027const webrtc::DesktopFrame\u0027 for 1st argument\n  RTC_DISALLOW_COPY_AND_ASSIGN(DesktopFrame);\n                               ^\n../../third_party/webrtc/rtc_base/constructor_magic.h:21:3: note: expanded from macro \u0027RTC_DISALLOW_COPY_AND_ASSIGN\u0027\n  TypeName(const TypeName\u0026) \u003d delete;          \\\n  ^\n../../third_party/webrtc/modules/desktop_capture/desktop_frame.h:135:3: note: candidate constructor not viable: requires 4 arguments, but 1 was provided\n  DesktopFrame(DesktopSize size,",
+      "parentUuid": "5de24f98_d7a83a3d",
+      "range": {
+        "startLine": 459,
+        "startChar": 2,
+        "endLine": 459,
+        "endChar": 73
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75960ba7_4b37cdf8",
         "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
         "patchSetId": 11
@@ -307,6 +331,30 @@
       "revId": "34a12436492f431e3652753e637da3b385e68185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d3fcf25_884f6a14",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-02-04T10:30:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "654329c3_e84d7016",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "34a12436492f431e3652753e637da3b385e68185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

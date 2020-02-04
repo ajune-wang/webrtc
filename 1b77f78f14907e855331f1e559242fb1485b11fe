@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa52547c_a31ff067",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T10:11:27Z",
+      "side": 1,
+      "message": "If start bitrate is really just \"the first time we set a target bitrate\" it could alternatively be what happens when you set the target bitrate if you haven\u0027t set it before. That would allow the start bitrate to be set by the video_stream_encoder.cc without having to know the constructor signature (constructor signatures being specific to the class implementation and not the interface) and without needing a special method.\n\nRegardless, exploring these options would be safer to do in separate CLs.",
+      "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7afd67c3_5b652d6b",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T10:11:27Z",
+      "side": 1,
+      "message": "It\u0027s not clear that SetStartBitrate() should override the target. Should we only set it if target_bitrate_bps_ is nullopt? Or should we not set it at all and have the video_stream_encoder.cc invoke both SetStartBitrate() and SetEncoderTargetBitrate() when setting the start bitrate?",
+      "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de76b7eb_aa6bed45",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T10:11:27Z",
+      "side": 1,
+      "message": "Optional nit: I don\u0027t know why, but it \"feels\" like a clock should be the first argument to a constructor... it\u0027s like a system resource rather than a configuration of this particular object, in a sense.",
+      "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

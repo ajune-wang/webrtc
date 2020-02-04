@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "083c3d46_61e58490",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T18:06:15Z",
+      "side": 1,
+      "message": "Sounds like an excellent reason to make the order well-defined :)",
+      "parentUuid": "d07db80c_03f61748",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "449c9c29_8820c47f",
         "filename": "pc/rtc_stats_collector_unittest.cc",
         "patchSetId": 2
@@ -166,6 +184,24 @@
     },
     {
       "key": {
+        "uuid": "9f937149_20eba4e0",
+        "filename": "pc/rtc_stats_collector_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T18:06:15Z",
+      "side": 1,
+      "message": "It\u0027s fine to ship the metrics for when we have them and leave them undefined for when we don\u0027t have them, but we should not report bogus empty string values.",
+      "parentUuid": "8d968a6e_40d4660b",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9eaa9b74_0eba6985",
         "filename": "pc/rtc_stats_integrationtest.cc",
         "patchSetId": 2
@@ -195,6 +231,24 @@
       "side": 1,
       "message": "I think it\u0027s empty for some of the audio codecs, in which case it would be either undefined or an empty string.",
       "parentUuid": "9eaa9b74_0eba6985",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26fa3cdc_7354978b",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T18:06:15Z",
+      "side": 1,
+      "message": "You could assert that it\u0027s undefined for audio and non-empty string for video if you want to keep things simple",
+      "parentUuid": "13096666_5da7aebc",
       "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

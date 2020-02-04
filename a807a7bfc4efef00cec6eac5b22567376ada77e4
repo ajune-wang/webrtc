@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "449404ad_d39518a6",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:38:05Z",
+      "side": 1,
+      "message": "Now that we\u0027ve moved the class declaration to the .cc file, perhaps we should move the method definitions into here as well? This file does not separate declarations and definitions of other .cc-classes.",
+      "revId": "a807a7bfc4efef00cec6eac5b22567376ada77e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3fe1c0a_158f8275",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:38:05Z",
+      "side": 1,
+      "message": "Optional nit, not sure which is better, but: \"if GetConstAdaptCounter()\" logic could be moved into the TryQualityRampup() method. And quality_rampup_done_ could be set inside of TryQualityRampup() and TryQualityRampup() could return false if it\u0027s true. That would avoid having a method saying we should try something when we shouldn\u0027t and makes the quality_rampup_done_ variable an \"implementation detail\" of TryQualityRampup().\n\nIf we ever put quality rampup logic into a separate private helper class we wouldn\u0027t need to pollute the module with \"bool quality_rampup_done_\".",
+      "revId": "a807a7bfc4efef00cec6eac5b22567376ada77e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1a30d2_cab8a10a",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:38:05Z",
+      "side": 1,
+      "message": "RateControlParameters contains \"VideoBitrateAllocation bitrate\"... is that different from \"DataRate target_bitrate\" of SetTargetBitrate?\n\nCan we add a comment explaining the difference?",
+      "revId": "a807a7bfc4efef00cec6eac5b22567376ada77e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a54e4c5f_a7d593c4",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:38:05Z",
+      "side": 1,
+      "message": "Is this a new part of the interface or something to be removed in a follow-up? Nothing that this is not an \"override\" - should it be?",
+      "revId": "a807a7bfc4efef00cec6eac5b22567376ada77e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "945a383d_a9f4157e",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-04T17:38:05Z",
+      "side": 1,
+      "message": "Can you add a comment explaining what this does? And/or in the other place I commented below about \"quality rampup\"",
+      "revId": "a807a7bfc4efef00cec6eac5b22567376ada77e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

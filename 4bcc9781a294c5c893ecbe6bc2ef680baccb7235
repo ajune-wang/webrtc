@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10cb5fcc_3993b8a3",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-04T13:23:05Z",
+      "side": 1,
+      "message": "This is the same two that we have in ArrayView.",
+      "revId": "4bcc9781a294c5c893ecbe6bc2ef680baccb7235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

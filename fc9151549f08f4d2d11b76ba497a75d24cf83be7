@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4c0cf7b_f4bd53f2",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-04T16:21:29Z",
+      "side": 1,
+      "message": "I wonder if is_started() could be removed by shifting this logic into the quality resource.",
+      "range": {
+        "startLine": 667,
+        "startChar": 8,
+        "endLine": 667,
+        "endChar": 47
+      },
+      "revId": "fc9151549f08f4d2d11b76ba497a75d24cf83be7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

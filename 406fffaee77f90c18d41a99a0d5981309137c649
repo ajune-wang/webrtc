@@ -34,6 +34,24 @@
       "revId": "406fffaee77f90c18d41a99a0d5981309137c649",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c4c3d59_83cc3ccc",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T17:07:30Z",
+      "side": 1,
+      "message": "OK, consistency overrides logic every time :-)",
+      "parentUuid": "97e2a49d_9ce1f76f",
+      "revId": "406fffaee77f90c18d41a99a0d5981309137c649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

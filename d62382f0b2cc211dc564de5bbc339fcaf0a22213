@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dac959bc_3d1f8098",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "As usual, you have to add dummy implementations of these to get the CL landed, after which you can do the necessary changes in Chromium to actually have sensible overrides. I\u0027d suggest that RTC_LOG(LS_FATAL) \u003c\u003c \"No shared ICE gatherer in dummy implementation\" is a fine implementation body.",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b687f90_cf8b1d5a",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "I\u0027ve learnt to distrust unguarded casts. Can we use rtc::checked_cast?",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae70c7a_6262d861",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "What does \"we\" refer to here? Please expand.",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "594fc84a_ef5a892e",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "If generation was 2, and shared_gatherer_-\u003eport_allocator_session()-\u003egeneration() was 2, the result will be 5. How is this logical?\nIs it guaranteed that the shared session\u0027s generation will stop incrementing after a fork?",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a13a4a6_0f3f3b51",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "This comment belongs in the IF branch, not the ELSE branch, I think.\nAnd what exactly is supposed to happen when a role conflict is found? That we ignore the conflict and go on with conflicting roles?\nI\u0027d at least connect SignalRoleConflict to a LOG(ERROR) \u003c\u003c \"Ignored conflict. This is bad\".",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00bc2cf_9722ed30",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "English: \"we don\u0027t know the\" -\u003e \"we don\u0027t know that the\"",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "144428e6_fa80ec38",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "Can this lead to interoperability issues because we ignore peer reflexive candidates?\nAt least LOG(ERROR).",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2edf4066_44f67a50",
+        "filename": "p2p/base/p2p_transport_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "Why is this a new interface? Why not a SetSharedGatherer() and let MaybeStartGathering() use the shared gatherer if it\u0027s present?\n\nI see the potential of weird stuff if someone calls StartGatheringWithSharedGatherer() and then MaybeStartGathering; it\u0027s easier on users if there are fewer feet to shoot at.",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faeef042_d8121eea",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5558,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-04T15:44:16Z",
+      "side": 1,
+      "message": "pa1 is a lousy variable name....",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

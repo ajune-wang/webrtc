@@ -221,6 +221,42 @@ class OveruseFrameDetectorResourceAdaptationModule::VideoSourceRestrictor {
   RTC_DISALLOW_COPY_AND_ASSIGN(VideoSourceRestrictor);
 };
 
+class OveruseFrameDetectorResourceAdaptationModule::AdaptCounter final {
+ public:
+  AdaptCounter();
+  ~AdaptCounter();
+
+  // Get number of adaptation downscales for |reason|.
+  VideoStreamEncoderObserver::AdaptationSteps Counts(int reason) const;
+
+  std::string ToString() const;
+
+  void IncrementFramerate(int reason);
+  void IncrementResolution(int reason);
+  void DecrementFramerate(int reason);
+  void DecrementResolution(int reason);
+  void DecrementFramerate(int reason, int cur_fps);
+
+  // Gets the total number of downgrades (for all adapt reasons).
+  int FramerateCount() const;
+  int ResolutionCount() const;
+
+  // Gets the total number of downgrades for |reason|.
+  int FramerateCount(int reason) const;
+  int ResolutionCount(int reason) const;
+  int TotalCount(int reason) const;
+
+ private:
+  std::string ToString(const std::vector<int>& counters) const;
+  int Count(const std::vector<int>& counters) const;
+  void MoveCount(std::vector<int>* counters, int from_reason);
+
+  // Degradation counters holding number of framerate/resolution reductions
+  // per adapt reason.
+  std::vector<int> fps_counters_;
+  std::vector<int> resolution_counters_;
+};
+
 // Class holding adaptation information.
 OveruseFrameDetectorResourceAdaptationModule::AdaptCounter::AdaptCounter() {
   fps_counters_.resize(kScaleReasonSize);
@@ -368,6 +404,8 @@ OveruseFrameDetectorResourceAdaptationModule::
       quality_scaler_(nullptr),
       quality_scaling_experiment_enabled_(QualityScalingExperiment::Enabled()),
       quality_scaler_settings_(QualityScalerSettings::ParseFromFieldTrials()),
+      quality_rampup_done_(false),
+      quality_rampup_experiment_(QualityRampupExperiment::ParseSettings()),
       encoder_settings_(absl::nullopt),
       encoder_stats_observer_(encoder_stats_observer),
       initial_framedrop_(0) {
@@ -432,6 +470,10 @@ void OveruseFrameDetectorResourceAdaptationModule::SetDegradationPreference(
 void OveruseFrameDetectorResourceAdaptationModule::SetEncoderSettings(
     EncoderSettings encoder_settings) {
   encoder_settings_ = std::move(encoder_settings);
+
+  quality_rampup_experiment_.SetMaxBitrate(
+      LastInputFrameSizeOrDefault(),
+      encoder_settings_->video_codec().maxBitrate);
   MaybeUpdateTargetFrameRate();
 }
 
@@ -468,6 +510,11 @@ void OveruseFrameDetectorResourceAdaptationModule::SetEncoderTargetBitrate(
       start_bitrate_.has_seen_first_bwe_drop_ = true;
     }
   }
+}
+
+void OveruseFrameDetectorResourceAdaptationModule::SetEncoderRates(
+    const VideoEncoder::RateControlParameters& encoder_rates) {
+  encoder_rates_ = encoder_rates;
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::
@@ -542,6 +589,16 @@ void OveruseFrameDetectorResourceAdaptationModule::OnFrameDropped(
 
 void OveruseFrameDetectorResourceAdaptationModule::OnMaybeEncodeFrame() {
   initial_framedrop_ = kMaxInitialFramedrop;
+
+  if (!quality_rampup_done_ && TryQualityRampup() &&
+      GetConstAdaptCounter().ResolutionCount(
+          AdaptationObserverInterface::AdaptReason::kQuality) > 0 &&
+      GetConstAdaptCounter().TotalCount(
+          AdaptationObserverInterface::AdaptReason::kCpu) == 0) {
+    RTC_LOG(LS_INFO) << "Reset quality limitations.";
+    ResetVideoSourceRestrictions();
+    quality_rampup_done_ = true;
+  }
 }
 
 bool OveruseFrameDetectorResourceAdaptationModule::DropInitialFrames() const {
@@ -994,6 +1051,27 @@ bool OveruseFrameDetectorResourceAdaptationModule::CanAdaptUpResolution(
   RTC_DCHECK_GE(bitrate_limits->frame_size_pixels, pixels);
   return bitrate_bps >=
          static_cast<uint32_t>(bitrate_limits->min_start_bitrate_bps);
+}
+
+bool OveruseFrameDetectorResourceAdaptationModule::TryQualityRampup() {
+  if (!quality_scaler_)
+    return false;
+
+  int64_t now_ms = clock_->TimeInMilliseconds();
+  uint32_t bw_kbps = encoder_rates_.has_value()
+                         ? encoder_rates_.value().bandwidth_allocation.kbps()
+                         : 0;
+
+  if (quality_rampup_experiment_.BwHigh(now_ms, bw_kbps)) {
+    // Verify that encoder is at max bitrate and the QP is low.
+    if (encoder_settings_ &&
+        target_bitrate_bps_.value_or(0) ==
+            encoder_settings_->video_codec().maxBitrate * 1000 &&
+        quality_scaler_->QpFastFilterLow()) {
+      return true;
+    }
+  }
+  return false;
 }
 
 }  // namespace webrtc

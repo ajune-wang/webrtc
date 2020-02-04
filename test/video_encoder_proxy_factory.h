@@ -30,7 +30,12 @@ const VideoEncoder::Capabilities kCapabilities(false);
 class VideoEncoderProxyFactory final : public VideoEncoderFactory {
  public:
   explicit VideoEncoderProxyFactory(VideoEncoder* encoder)
+      : VideoEncoderProxyFactory(encoder, nullptr) {}
+
+  explicit VideoEncoderProxyFactory(VideoEncoder* encoder,
+                                    EncoderSelectorInterface* encoder_selector)
       : encoder_(encoder),
+        encoder_selector_(encoder_selector),
         num_simultaneous_encoder_instances_(0),
         max_num_simultaneous_encoder_instances_(0) {
     codec_info_.is_hardware_accelerated = false;
@@ -54,6 +59,10 @@ class VideoEncoderProxyFactory final : public VideoEncoderFactory {
         std::max(max_num_simultaneous_encoder_instances_,
                  num_simultaneous_encoder_instances_);
     return std::make_unique<EncoderProxy>(encoder_, this);
+  }
+
+  EncoderSelectorInterface* GetEncoderSelector() const override {
+    return encoder_selector_;
   }
 
   void SetIsHardwareAccelerated(bool is_hardware_accelerated) {
@@ -118,6 +127,7 @@ class VideoEncoderProxyFactory final : public VideoEncoderFactory {
   };
 
   VideoEncoder* const encoder_;
+  EncoderSelectorInterface* const encoder_selector_;
   CodecInfo codec_info_;
 
   int num_simultaneous_encoder_instances_;

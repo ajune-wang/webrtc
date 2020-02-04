@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4e99edd9_c55c3aa3",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-04T13:14:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa52547c_a31ff067",
+      "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7afd67c3_5b652d6b",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 10
@@ -30,6 +48,47 @@
       "writtenOn": "2020-02-04T10:11:27Z",
       "side": 1,
       "message": "It\u0027s not clear that SetStartBitrate() should override the target. Should we only set it if target_bitrate_bps_ is nullopt? Or should we not set it at all and have the video_stream_encoder.cc invoke both SetStartBitrate() and SetEncoderTargetBitrate() when setting the start bitrate?",
+      "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd61f34b_59f406fd",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-04T13:14:21Z",
+      "side": 1,
+      "message": "I have renamed the variables to make this more clear. I will keep this structure as so to avoid side effects.",
+      "parentUuid": "7afd67c3_5b652d6b",
+      "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6cb8917_3184dfc1",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-04T13:14:21Z",
+      "side": 1,
+      "message": "I will make this a single argument to fix above",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 40
+      },
       "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -50,6 +109,24 @@
       "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5246d52b_885ee446",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-04T13:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de76b7eb_aa6bed45",
+      "revId": "1b77f78f14907e855331f1e559242fb1485b11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

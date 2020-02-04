@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/units/data_rate.h"
 #include "api/video_codecs/sdp_video_format.h"
 
 namespace webrtc {
@@ -37,6 +38,19 @@ class VideoEncoderFactory {
     bool has_internal_source;
   };
 
+  struct EncoderSelectorInterface {
+    // Which encoder are we currently using.
+    virtual void SetCurrentEncoder(const SdpVideoFormat& format) = 0;
+
+    // Returns true if a new encoder is preferred.
+    virtual bool EncodingBitrate(const DataRate& rate) = 0;
+    virtual bool EncoderBroken() = 0;
+
+    // Returns the currently preferred encoder.
+    virtual SdpVideoFormat SuggestedEncoder() = 0;
+    virtual ~EncoderSelectorInterface() {}
+  };
+
   // Returns a list of supported video formats in order of preference, to use
   // for signaling etc.
   virtual std::vector<SdpVideoFormat> GetSupportedFormats() const = 0;
@@ -57,6 +71,10 @@ class VideoEncoderFactory {
   // Creates a VideoEncoder for the specified format.
   virtual std::unique_ptr<VideoEncoder> CreateVideoEncoder(
       const SdpVideoFormat& format) = 0;
+
+  virtual EncoderSelectorInterface* GetEncoderSelector() const {
+    return nullptr;
+  }
 
   virtual ~VideoEncoderFactory() {}
 };

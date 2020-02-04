@@ -221,6 +221,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
       override;
   void ClearRecordableEncodedFrameCallback(uint32_t ssrc) override;
   void GenerateKeyFrame(uint32_t ssrc) override;
+  void RequestEncoderSwitch(const webrtc::SdpVideoFormat& format) override;
 
  private:
   class WebRtcVideoReceiveStream;

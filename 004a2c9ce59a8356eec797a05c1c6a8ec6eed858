@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16beeb0f_a80c6a87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-04T15:07:35Z",
+      "side": 1,
+      "message": "may be something like\nin RtpPacket allow rtp sequence number to be unset.\nor\nMake sequence number in RtpPacket optional\n\n(I\u0027m not sure what does \u0027sequence number state\u0027 means. There can be more than two states with different meanings)",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "004a2c9ce59a8356eec797a05c1c6a8ec6eed858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1e8c3a6_884d9a32",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-04T15:07:35Z",
+      "side": 1,
+      "message": "may be pre-incrememnt\n(if you first feed packet with sequence number, then feed packet without sequence number,\nthen currently they would end up having the same).",
+      "range": {
+        "startLine": 75,
+        "startChar": 48,
+        "endLine": 75,
+        "endChar": 50
+      },
+      "revId": "004a2c9ce59a8356eec797a05c1c6a8ec6eed858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d861eee_831d5de8",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-04T15:07:35Z",
+      "side": 1,
+      "message": "make it private",
+      "range": {
+        "startLine": 98,
+        "startChar": 11,
+        "endLine": 98,
+        "endChar": 27
+      },
+      "revId": "004a2c9ce59a8356eec797a05c1c6a8ec6eed858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b7731a5_64fd0dc6",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-04T15:07:35Z",
+      "side": 1,
+      "message": "#include \"rtc_base/checks.h\"\n\n(so far rtp_packet.h avoided depending on it)",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 14
+      },
+      "revId": "004a2c9ce59a8356eec797a05c1c6a8ec6eed858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edebec5a_0e281f26",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-04T15:07:35Z",
+      "side": 1,
+      "message": "I would prefer regular function style name: HasSequenceNumber()\nsince I\u0027m not sure it can qualify as accessor.\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Names",
+      "range": {
+        "startLine": 61,
+        "startChar": 7,
+        "endLine": 61,
+        "endChar": 26
+      },
+      "revId": "004a2c9ce59a8356eec797a05c1c6a8ec6eed858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6545a7a4_3f5c5cd2",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-04T15:07:35Z",
+      "side": 1,
+      "message": "may be just RtpPacket\n(initially these tests were written when RtpPacket didn\u0027t had a public constructor. Later I realized it wasn\u0027t a good idea)\n\nor RtpPacketToSend since nullopt sequence number supposed to be used by packets that should be sent out.",
+      "range": {
+        "startLine": 1145,
+        "startChar": 2,
+        "endLine": 1145,
+        "endChar": 19
+      },
+      "revId": "004a2c9ce59a8356eec797a05c1c6a8ec6eed858",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

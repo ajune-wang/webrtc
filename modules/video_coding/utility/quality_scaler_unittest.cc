@@ -36,6 +36,9 @@ class MockAdaptationObserver : public AdaptationObserverInterface {
     adapt_up_events_++;
     event.Set();
   }
+  void AdaptNotNeeded(AdaptReason reason) override {
+    ++adapt_not_needed_measurements_;
+  }
   bool AdaptDown(AdaptReason r) override {
     adapt_down_events_++;
     event.Set();
@@ -44,6 +47,7 @@ class MockAdaptationObserver : public AdaptationObserverInterface {
 
   rtc::Event event;
   int adapt_up_events_ = 0;
+  int adapt_not_needed_measurements_ = 0;
   int adapt_down_events_ = 0;
 };
 

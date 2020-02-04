@@ -16,6 +16,24 @@
       "revId": "406fffaee77f90c18d41a99a0d5981309137c649",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97e2a49d_9ce1f76f",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-02-04T16:47:05Z",
+      "side": 1,
+      "message": "all the other errors use lowercase \u0027candidate\u0027. Updated to TCP",
+      "parentUuid": "d628994a_d54e5eb6",
+      "revId": "406fffaee77f90c18d41a99a0d5981309137c649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

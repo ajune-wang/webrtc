@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86e06cc0_1e396765",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-05T15:03:35Z",
+      "side": 1,
+      "message": "What\u0027s the difference between these two?",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f88d3b0_a59076db",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-05T15:03:35Z",
+      "side": 1,
+      "message": "Should this be a class?",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "146ca826_c5290d35",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-05T15:03:35Z",
+      "side": 1,
+      "message": "I think a top-level comment would be in order, describing how this interface is supposed to be used.",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b449d802_56e48166",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-05T15:03:35Z",
+      "side": 1,
+      "message": "\"Informs the encoder selector what encoder that is currently being used.\"?",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 44
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f560023_06413841",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-05T15:03:35Z",
+      "side": 1,
+      "message": "Maybe these could be named something alone the lines of ShouldSwitchEncoderDueToBitrate(.) and ShouldSwitchEncoderDueToFailure?\n\nOr alternatively, maybe just a single method with an enum return code that describes 1) that we should switch encoder, and 2) the reason for it?",
+      "range": {
+        "startLine": 46,
+        "startChar": 17,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2b70856_d760cef5",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-05T15:03:35Z",
+      "side": 1,
+      "message": "It seems that this struct is no longer an SDP video format, but rather a struct that describes an encoder. Did you consider adding a new struct describing an encoder, potentially composed together with an SDP video format?",
+      "range": {
+        "startLine": 50,
+        "startChar": 12,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baa267e7_a0a366e8",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-05T15:03:35Z",
+      "side": 1,
+      "message": "Should go at the top\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 51,
+        "startChar": 12,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7298d37e_0cc42e4c",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-05T15:03:35Z",
+      "side": 1,
+      "message": "Maybe it would be good to mention something about the life time guarantees here? I guess this pointer must be valid as long as the providing encoder factory is valid?",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

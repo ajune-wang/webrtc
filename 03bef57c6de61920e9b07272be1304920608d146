@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4f39263_9f964483",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-05T12:00:36Z",
+      "side": 1,
+      "message": "How about something like?\n\n  // The encoder rates are the target encoder bitrate distributed across spatial and\n  // temporal layers. This may be different than target bitrate depending on encoder\n  // configuration, e.g. if we can encode at desired quality in less than the allowed\n  // target bitrate or if the encoder has not been initialized yet.",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96d3bd32_41e7280e",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-05T12:00:36Z",
+      "side": 1,
+      "message": "nit: Can we format these differently? If it doesn\u0027t fit in one line, maybe:\n\n      // 1. Down resolution (cpu):\n      //    res\u003d{quality:0,cpu:1}, fps\u003d{quality:0,cpu:0}\n\nor\n\n      // 1. Down resolution (cpu):\n      //      res\u003d{quality:0,cpu:1}\n      //      fps\u003d{quality:0,cpu:0}",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "392ef11e_e2c097e2",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-05T12:00:36Z",
+      "side": 1,
+      "message": "Can we make this one private now?",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "656451b1_c31ccb0e",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-05T12:00:36Z",
+      "side": 1,
+      "message": "nit: \"Check\" sounds like it would return true or false depending on status of experiment. How about \"MaybePerform\"?",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "246445e7_732c7400",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-05T12:00:36Z",
+      "side": 1,
+      "message": "Optional: How about a private inner friend class QualityExperiment (friend to allow ResetVideoSourceRestrictions()), declared and defined in the .cc to contain quality_rampup_done_, quality_rampup_experiment_ and CheckQualityRampupExperiment() taking |encoder_rates_| as parameter (or we move that one too moved).\n\nSame with other experiments.",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

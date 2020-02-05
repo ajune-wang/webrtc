@@ -149,7 +149,9 @@ size_t Merge::Process(int16_t* input,
 
   // Copy back the first part of the data to |sync_buffer_| and remove it from
   // |output|.
-  sync_buffer_->ReplaceAtIndex(*output, old_length, sync_buffer_->next_index());
+
+  sync_buffer_->ReplaceAtIndex(*output, old_length, sync_buffer_->next_index(),
+                               RtpPacketInfos());
   output->PopFront(old_length);
 
   // Return new added length. |old_length| samples were borrowed from

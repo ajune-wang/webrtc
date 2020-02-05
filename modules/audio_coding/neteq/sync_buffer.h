@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <deque>
 #include <vector>
 
 #include "api/audio/audio_frame.h"
@@ -34,6 +35,39 @@ class SyncBuffer : public AudioMultiVector {
 
   // Returns the number of samples yet to play out from the buffer.
   size_t FutureLength() const;
+
+  void PushBack(const AudioMultiVector& append_this,
+                const RtpPacketInfos& packet_infos);
+
+  // Reads |length| samples from each channel and writes them interleaved to
+  // |destination|. The total number of elements written to |destination| is
+  // returned, i.e., |length| * number of channels. If the AudioMultiVector
+  // contains less than |length| samples per channel, this is reflected in the
+  // return value.
+  size_t ReadInterleavedWithInfo(size_t length,
+                                 int16_t* destination,
+                                 RtpPacketInfos& packet_infos) const;
+
+  // Like ReadInterleavedWithInfo() above, but reads from |start_index| instead
+  // of from the beginning.
+  size_t ReadInterleavedFromIndexWithInfo(size_t start_index,
+                                          size_t length,
+                                          int16_t* destination,
+                                          RtpPacketInfos& packet_infos) const;
+
+  // Like ReadInterleavedWithInfo() above, but reads from the end instead of
+  // from the beginning.
+  size_t ReadInterleavedFromEndWithInfo(size_t length,
+                                        int16_t* destination,
+                                        RtpPacketInfos& packet_infos) const;
+
+  // Removes |length| elements from the beginning of this object, from each
+  // channel.
+  void PopFront(size_t length) override;
+
+  // Removes |length| elements from the end of this object, from each
+  // channel.
+  void PopBack(size_t length) override;
 
   // Adds the contents of |append_this| to the back of the SyncBuffer. Removes
   // the same number of samples from the beginning of the SyncBuffer, to
@@ -66,12 +100,14 @@ class SyncBuffer : public AudioMultiVector {
   // The |next_index_| is not updated.
   virtual void ReplaceAtIndex(const AudioMultiVector& insert_this,
                               size_t length,
-                              size_t position);
+                              size_t position,
+                              const RtpPacketInfos& packet_infos);
 
   // Same as the above method, but where all of |insert_this| is written (with
   // the same constraints as above, that the SyncBuffer is not extended).
   virtual void ReplaceAtIndex(const AudioMultiVector& insert_this,
-                              size_t position);
+                              size_t position,
+                              const RtpPacketInfos& packet_infos);
 
   // Reads |requested_len| samples from each channel and writes them interleaved
   // into |output|. The |next_index_| is updated to point to the sample to read
@@ -102,7 +138,8 @@ class SyncBuffer : public AudioMultiVector {
   size_t next_index_;
   uint32_t end_timestamp_;  // The timestamp of the last sample in the buffer.
   size_t dtmf_index_;       // Index to the first non-DTMF sample in the buffer.
-
+  std::vector<std::pair<size_t, RtpPacketInfos>>
+      packet_infos_;  // RTP packet info tracking.
   RTC_DISALLOW_COPY_AND_ASSIGN(SyncBuffer);
 };
 

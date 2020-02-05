@@ -54,12 +54,14 @@ class AcmReceiver {
   //                            timestamp, SSRC and marker bit.
   //   - incoming_payload     : Incoming audio payload.
   //   - length_payload       : Length of incoming audio payload in bytes.
+  //   - receive_time_ms      : Indication of the packet's time of reception.
   //
   // Return value             : 0 if OK.
   //                           <0 if NetEq returned an error.
   //
   int InsertPacket(const RTPHeader& rtp_header,
-                   rtc::ArrayView<const uint8_t> incoming_payload);
+                   rtc::ArrayView<const uint8_t> incoming_payload,
+                   uint64_t receive_time_ms = 0);
 
   //
   // Asks NetEq for 10 milliseconds of decoded audio.

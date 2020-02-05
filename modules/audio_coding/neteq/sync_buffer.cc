@@ -20,10 +20,42 @@ size_t SyncBuffer::FutureLength() const {
   return Size() - next_index_;
 }
 
+void SyncBuffer::PopFront(size_t length) {
+  AudioMultiVector::PopFront(length);
+  // Update the index of all rtp packet infos and discard old ones.
+  auto it = packet_infos_.begin();
+  while (it != packet_infos_.end()) {
+    if (it->first < length) {
+      it = packet_infos_.erase(it);
+    } else {
+      it->first -= length;
+      ++it;
+    }
+  }
+}
+
+void SyncBuffer::PopBack(size_t length) {
+  AudioMultiVector::PopBack(length);
+  // Delete poped ones.
+  auto it = packet_infos_.end();
+  while (it != packet_infos_.begin()) {
+    if (it->first < Size()) {
+      break;
+    }
+  }
+  packet_infos_.erase(it, packet_infos_.end());
+}
+
+void SyncBuffer::PushBack(const AudioMultiVector& append_this,
+                          const RtpPacketInfos& packet_infos) {
+  PushBack(append_this);
+  packet_infos_.emplace_back(next_index_, packet_infos);
+}
+
 void SyncBuffer::PushBack(const AudioMultiVector& append_this) {
   size_t samples_added = append_this.Size();
   AudioMultiVector::PushBack(append_this);
-  AudioMultiVector::PopFront(samples_added);
+  PopFront(samples_added);
   if (samples_added <= next_index_) {
     next_index_ -= samples_added;
   } else {
@@ -42,7 +74,7 @@ void SyncBuffer::PushBackInterleaved(const rtc::BufferT<int16_t>& append_this) {
   AudioMultiVector::PushBackInterleaved(append_this);
   const size_t samples_added_per_channel = Size() - size_before_adding;
   RTC_DCHECK_EQ(samples_added_per_channel * Channels(), append_this.size());
-  AudioMultiVector::PopFront(samples_added_per_channel);
+  PopFront(samples_added_per_channel);
   next_index_ -= std::min(next_index_, samples_added_per_channel);
   dtmf_index_ -= std::min(dtmf_index_, samples_added_per_channel);
 }
@@ -54,9 +86,15 @@ void SyncBuffer::PushFrontZeros(size_t length) {
 void SyncBuffer::InsertZerosAtIndex(size_t length, size_t position) {
   position = std::min(position, Size());
   length = std::min(length, Size() - position);
-  AudioMultiVector::PopBack(length);
+  PopBack(length);
   for (size_t channel = 0; channel < Channels(); ++channel) {
     channels_[channel]->InsertZerosAt(length, position);
+  }
+  // Update the index of all rtp packet infos.
+  for (auto& info : packet_infos_) {
+    if (info.first >= position) {
+      info.first += length;
+    }
   }
   if (next_index_ >= position) {
     // We are moving the |next_index_| sample.
@@ -70,28 +108,98 @@ void SyncBuffer::InsertZerosAtIndex(size_t length, size_t position) {
 
 void SyncBuffer::ReplaceAtIndex(const AudioMultiVector& insert_this,
                                 size_t length,
-                                size_t position) {
+                                size_t position,
+                                const RtpPacketInfos& packet_infos) {
   position = std::min(position, Size());  // Cap |position| in the valid range.
   length = std::min(length, Size() - position);
   AudioMultiVector::OverwriteAt(insert_this, length, position);
+  // Delete replaced ones.
+  auto it = packet_infos_.begin();
+  auto insert_at = packet_infos_.end();
+  while (it != packet_infos_.end()) {
+    // Find last vector element just before |position|.
+    if (it->first >= position && insert_at == packet_infos_.end()) {
+      insert_at =
+          it == packet_infos_.begin() ? packet_infos_.begin() : std::prev(it);
+    }
+    // Remove all infos from replaced samples.
+    if (it->first >= position && it->first < position + length) {
+      it = packet_infos_.erase(it);
+    } else if (it->first >= position + length) {
+      break;
+    } else {
+      ++it;
+    }
+  }
+  // Insert new info in order.
+  packet_infos_.emplace(insert_at, position, packet_infos);
 }
 
 void SyncBuffer::ReplaceAtIndex(const AudioMultiVector& insert_this,
-                                size_t position) {
-  ReplaceAtIndex(insert_this, insert_this.Size(), position);
+                                size_t position,
+                                const RtpPacketInfos& packet_infos) {
+  ReplaceAtIndex(insert_this, insert_this.Size(), position, packet_infos);
+}
+
+size_t SyncBuffer::ReadInterleavedWithInfo(size_t length,
+                                           int16_t* destination,
+                                           RtpPacketInfos& packet_infos) const {
+  return ReadInterleavedFromIndexWithInfo(0, length, destination, packet_infos);
+}
+
+size_t SyncBuffer::ReadInterleavedFromEndWithInfo(
+    size_t length,
+    int16_t* destination,
+    RtpPacketInfos& packet_infos) const {
+  length = std::min(length, Size());  // Cannot read more than Size() elements.
+  return ReadInterleavedFromIndexWithInfo(Size() - length, length, destination,
+                                          packet_infos);
+}
+
+size_t SyncBuffer::ReadInterleavedFromIndexWithInfo(
+    size_t start_index,
+    size_t length,
+    int16_t* destination,
+    RtpPacketInfos& packet_infos) const {
+  std::vector<RtpPacketInfo> frame_packet_infos;
+  for (const auto& info : packet_infos_) {
+    if (info.first >= start_index && info.first < start_index + length) {
+      frame_packet_infos.insert(packet_infos.end(), info.second.begin(),
+                                info.second.end());
+    } else if (info.first >= start_index + length) {
+      break;
+    }
+  }
+  packet_infos = RtpPacketInfos(std::move(frame_packet_infos));
+  return AudioMultiVector::ReadInterleavedFromIndex(start_index, length,
+                                                    destination);
 }
 
 void SyncBuffer::GetNextAudioInterleaved(size_t requested_len,
                                          AudioFrame* output) {
-  RTC_DCHECK(output);
   const size_t samples_to_read = std::min(FutureLength(), requested_len);
   output->ResetWithoutMuting();
+  std::vector<RtpPacketInfo> frame_packet_infos;
+  // Update the index of all rtp packet infos and erase read ones.
+  auto it = packet_infos_.begin();
+  while (it != packet_infos_.end()) {
+    if (it->first < requested_len) {
+      // Move RtpPacketInfos from RtpPacketInfos to vector.
+      std::move(it->second.begin(), it->second.end(),
+                std::back_inserter(frame_packet_infos));
+      it = packet_infos_.erase(it);
+    } else {
+      it->first -= requested_len;
+      ++it;
+    }
+  }
   const size_t tot_samples_read = ReadInterleavedFromIndex(
       next_index_, samples_to_read, output->mutable_data());
   const size_t samples_read_per_channel = tot_samples_read / Channels();
   next_index_ += samples_read_per_channel;
   output->num_channels_ = Channels();
   output->samples_per_channel_ = samples_read_per_channel;
+  output->packet_infos_ = RtpPacketInfos(std::move(frame_packet_infos));
 }
 
 void SyncBuffer::IncreaseEndTimestamp(uint32_t increment) {
@@ -103,6 +211,7 @@ void SyncBuffer::Flush() {
   next_index_ = Size();
   end_timestamp_ = 0;
   dtmf_index_ = 0;
+  packet_infos_.clear();
 }
 
 void SyncBuffer::set_next_index(size_t value) {
@@ -114,5 +223,4 @@ void SyncBuffer::set_dtmf_index(size_t value) {
   // Cannot set |dtmf_index_| larger than the size of the buffer.
   dtmf_index_ = std::min(value, Size());
 }
-
 }  // namespace webrtc

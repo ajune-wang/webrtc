@@ -91,6 +91,10 @@ class ResourceAdaptationModuleInterface {
   // VideoStreamEncoderInterface::SetStartBitrate.
   virtual void SetStartBitrate(DataRate start_bitrate) = 0;
   virtual void SetTargetBitrate(DataRate target_bitrate) = 0;
+  // The encoder rates are the target bitrate distributed across spatial and
+  // temporal layers.
+  virtual void SetEncoderRates(
+      const VideoEncoder::RateControlParameters& encoder_rates) = 0;
   // Removes all restrictions; the module will need to adapt all over again.
   // TODO(hbos): It's not clear why anybody should be able to tell the module to
   // reset like this; can we get rid of this method?

@@ -671,6 +671,12 @@ void OveruseFrameDetector::CheckForOveruse(
     in_quick_rampup_ = true;
 
     observer->AdaptUp(kScaleReasonCpu);
+  } else {
+    // TODO(hbos): Add unittests for AdaptNotNeeded(). Because AdaptNotNeeded()
+    // translates into "stable" resource usage, and such usage is currently
+    // ignored, we would not notice if we accidentally over- or under-reported
+    // AdaptNotNeeded().
+    observer->AdaptNotNeeded(kScaleReasonCpu);
   }
 
   int rampup_delay =

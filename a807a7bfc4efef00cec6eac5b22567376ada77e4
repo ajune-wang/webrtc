@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1b681309_6f4f31ff",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-05T10:47:06Z",
+      "side": 1,
+      "message": "Made a new method and commented on what this does.",
+      "parentUuid": "d3fe1c0a_158f8275",
+      "revId": "a807a7bfc4efef00cec6eac5b22567376ada77e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f1a30d2_cab8a10a",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
         "patchSetId": 5
@@ -138,6 +156,24 @@
       "revId": "a807a7bfc4efef00cec6eac5b22567376ada77e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76e82930_f02dda61",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-05T10:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "945a383d_a9f4157e",
+      "revId": "a807a7bfc4efef00cec6eac5b22567376ada77e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

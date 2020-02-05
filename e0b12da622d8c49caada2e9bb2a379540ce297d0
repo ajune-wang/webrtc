@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52ed7bc3_6246f628",
+        "filename": "modules/video_coding/encoder_buffers_converter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T10:29:57Z",
+      "side": 1,
+      "message": "Should be\n  BufferUsage\u0026 buffer \u003d buffers_[buffers_usage[i].id];\nright?",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 38
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ed4cf19_2d2cf63f",
+        "filename": "modules/video_coding/encoder_buffers_converter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T10:29:57Z",
+      "side": 1,
+      "message": "Nit: not a big fan of EncoderBuffersConverter, WDYT about FrameDependencyCalculator or something like that?",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82b7ce52_9dfc01dc",
+        "filename": "modules/video_coding/encoder_buffers_converter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T10:29:57Z",
+      "side": 1,
+      "message": "Don\u0027t quite understand this comment. WDYT about \"Calculate necessary frame dependencies based on previous and current encoder buffer usage.\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 43
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "065bb049_3e8b8fba",
+        "filename": "modules/video_coding/encoder_buffers_converter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T10:29:57Z",
+      "side": 1,
+      "message": "Seems to be a mismatch between |buffers_usage| and |buffers|. The id of the buffer a CodecBufferUsage refers to is indicated by CodecBufferUsage::id, not by it\u0027s index in the |buffers_usage| ArrayView.",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 46
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71cf5fb3_b374b3ea",
+        "filename": "modules/video_coding/encoder_buffers_converter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T10:29:57Z",
+      "side": 1,
+      "message": "Buffers should have a meaningful id, not always be 0.",
+      "range": {
+        "startLine": 25,
+        "startChar": 47,
+        "endLine": 25,
+        "endChar": 48
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

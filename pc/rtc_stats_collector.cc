@@ -10,6 +10,7 @@
 
 #include "pc/rtc_stats_collector.h"
 
+#include <map>
 #include <memory>
 #include <string>
 #include <utility>
@@ -218,6 +219,21 @@ double DoubleAudioLevelFromIntAudioLevel(int audio_level) {
   return audio_level / 32767.0;
 }
 
+std::string GenerateFmtpLine(
+    const std::map<std::string, std::string>& fmtp_parameters) {
+  rtc::StringBuilder fmtp;
+  for (const auto& entry : fmtp_parameters) {
+    const std::string& key = entry.first;
+    const std::string& value = entry.second;
+    // Parameters are a semicolon-separated list, no spaces.
+    if (fmtp.size() > 0) {
+      fmtp << ";";
+    }
+    fmtp << key << "=" << value;
+  }
+  return fmtp.Release();
+}
+
 std::unique_ptr<RTCCodecStats> CodecStatsFromRtpCodecParameters(
     uint64_t timestamp_us,
     const std::string& mid,
@@ -234,6 +250,12 @@ std::unique_ptr<RTCCodecStats> CodecStatsFromRtpCodecParameters(
   codec_stats->mime_type = codec_params.mime_type();
   if (codec_params.clock_rate) {
     codec_stats->clock_rate = static_cast<uint32_t>(*codec_params.clock_rate);
+  }
+  if (codec_params.num_channels) {
+    codec_stats->channels = *codec_params.num_channels;
+  }
+  if (!codec_params.parameters.empty()) {
+    codec_stats->sdp_fmtp_line = GenerateFmtpLine(codec_params.parameters);
   }
   return codec_stats;
 }

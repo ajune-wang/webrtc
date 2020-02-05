@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa9ce496_f6aeb987",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2127,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-02-05T15:03:46Z",
+      "side": 1,
+      "message": "Can we control the SVC layer maxBitrate using setParameters() currently?\nIf not, we shouldn\u0027t try to check it or the maxFramerate and just use the active member instead of all 3.",
+      "revId": "266a5b14b811131caee27ee5c772444c0d05d5c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

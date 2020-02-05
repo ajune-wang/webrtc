@@ -252,6 +252,24 @@
       "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c5cbc06_e99a06c6",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-02-05T10:44:36Z",
+      "side": 1,
+      "message": "It\u0027s optional to have FMTP parameters, so it\u0027s not possible to have a test on this field.",
+      "parentUuid": "26fa3cdc_7354978b",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

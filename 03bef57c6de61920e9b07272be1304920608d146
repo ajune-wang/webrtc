@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "75a5e28d_919a4d51",
+        "filename": "call/adaptation/resource_adaptation_module_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-05T12:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4f39263_9f964483",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96d3bd32_41e7280e",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "03bef57c6de61920e9b07272be1304920608d146",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab4a052_d69609a5",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-05T12:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d3bd32_41e7280e",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5eb9dd41_d6597e6d",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-05T12:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "392ef11e_e2c097e2",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "656451b1_c31ccb0e",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
         "patchSetId": 8
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "f30a6de7_c4258424",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-05T12:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "656451b1_c31ccb0e",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "246445e7_732c7400",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
         "patchSetId": 8
@@ -84,6 +156,24 @@
       "revId": "03bef57c6de61920e9b07272be1304920608d146",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fefbe3f_edf43b9a",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-05T12:23:16Z",
+      "side": 1,
+      "message": "Great idea for another day. Encapsulating the experiment logic in a box is smart and makes for easier understanding.",
+      "parentUuid": "246445e7_732c7400",
+      "revId": "03bef57c6de61920e9b07272be1304920608d146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

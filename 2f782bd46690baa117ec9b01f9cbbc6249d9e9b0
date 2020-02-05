@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "c36fa421_c3f257fa",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T13:15:36Z",
+      "side": 1,
+      "message": "let me remove this. May that would look slightly better.\n\nbtw, do you mean something like: \nstruct CodecBufferUsage {\n  enum class Usage { kReference, kUpdate; };\n  int id;\n  Usage usage;\n}\n...\nFromBufferUsage(..., {Reference(0), Updates(0)});\nFromBufferUsage(..., {Reference(0), Updates(1)});\nFromBufferUsage(..., {Reference(1)});\n\nor\nstruct CodecBuffersUsage {\n  std::vector\u003cint\u003e references;\n  std::vector\u003cint\u003e updates;\n}",
+      "parentUuid": "236e2f74_4eedba23",
+      "range": {
+        "startLine": 34,
+        "startChar": 27,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c90deea_d5cf3b0b",
         "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
         "patchSetId": 3
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "4d79ff41_d67051c5",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T13:15:36Z",
+      "side": 1,
+      "message": "yep, they do fit on same line, but still 3 lines per expectation.\nLet me show.\n(may be it is still better, I do not have strong preference)",
+      "parentUuid": "1c90deea_d5cf3b0b",
+      "range": {
+        "startLine": 64,
+        "startChar": 42,
+        "endLine": 64,
+        "endChar": 72
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "166108e8_f364edc9",
         "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
         "patchSetId": 3
@@ -105,6 +153,30 @@
       "writtenOn": "2020-02-05T12:23:22Z",
       "side": 1,
       "message": "I think instead of having a |pattern[][]| it might be easier to simply have the list of CodecBufferUsage directly in the call, like so:\n\n\n  EXPECT_THAT(calculator.FromBuffersUsage(VideoFrameType::kVideoFrameDelta,\n                                          /*frame_id\u003d*/2, {Reference(0), Update(1)}),\n              ElementsAre(1));",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 30
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c402f8f4_1bf1258f",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T13:15:36Z",
+      "side": 1,
+      "message": "rtc::ArrayView (same as std::span) doesn\u0027t have an implicit conversion from std::initializer_list,\nso this wouldn\u0027t compile.",
+      "parentUuid": "166108e8_f364edc9",
       "range": {
         "startLine": 67,
         "startChar": 0,

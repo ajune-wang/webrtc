@@ -20,6 +20,7 @@
 #include "absl/base/macros.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/video_source_interface.h"
+#include "call/adaptation/resource.h"
 #include "call/adaptation/video_source_restrictions.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -74,15 +75,14 @@ const int kMaxInitialFramedrop = 4;
 
 // Handles interaction with the OveruseDetector.
 class OveruseFrameDetectorResourceAdaptationModule::EncodeUsageResource
-    : public AdaptationObserverInterface {
+    : public Resource,
+      public AdaptationObserverInterface {
  public:
-  EncodeUsageResource(OveruseFrameDetectorResourceAdaptationModule* module,
-                      std::unique_ptr<OveruseFrameDetector> overuse_detector)
-      : module_(module),
-        overuse_detector_(std::move(overuse_detector)),
+  explicit EncodeUsageResource(
+      std::unique_ptr<OveruseFrameDetector> overuse_detector)
+      : overuse_detector_(std::move(overuse_detector)),
         is_started_(false),
         target_frame_rate_(absl::nullopt) {
-    RTC_DCHECK(module_);
     RTC_DCHECK(overuse_detector_);
   }
 
@@ -125,13 +125,15 @@ class OveruseFrameDetectorResourceAdaptationModule::EncodeUsageResource
   }
 
   // AdaptationObserverInterface implementation.
+  // TODO(https://crbug.com/webrtc/11222, 11172): This resource also needs to
+  // signal when its stable to support multi-stream aware modules.
   void AdaptUp(AdaptReason reason) override {
     RTC_DCHECK_EQ(reason, AdaptReason::kCpu);
-    module_->OnResourceUnderuse(reason);
+    OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
   }
   bool AdaptDown(AdaptReason reason) override {
     RTC_DCHECK_EQ(reason, AdaptReason::kCpu);
-    return module_->OnResourceOveruse(reason);
+    return OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
   }
 
  private:
@@ -141,7 +143,6 @@ class OveruseFrameDetectorResourceAdaptationModule::EncodeUsageResource
                : std::numeric_limits<int>::max();
   }
 
-  OveruseFrameDetectorResourceAdaptationModule* const module_;
   const std::unique_ptr<OveruseFrameDetector> overuse_detector_;
   bool is_started_;
   absl::optional<double> target_frame_rate_;
@@ -149,13 +150,10 @@ class OveruseFrameDetectorResourceAdaptationModule::EncodeUsageResource
 
 // Handles interaction with the QualityScaler.
 class OveruseFrameDetectorResourceAdaptationModule::QualityScalerResource
-    : public AdaptationObserverInterface {
+    : public Resource,
+      public AdaptationObserverInterface {
  public:
-  explicit QualityScalerResource(
-      OveruseFrameDetectorResourceAdaptationModule* module)
-      : module_(module), quality_scaler_(nullptr) {
-    RTC_DCHECK(module_);
-  }
+  QualityScalerResource() : quality_scaler_(nullptr) {}
 
   bool is_started() const { return quality_scaler_.get(); }
   // TODO(https://crbug.com/webrtc/11222): Don't expose the quality scaler.
@@ -194,17 +192,18 @@ class OveruseFrameDetectorResourceAdaptationModule::QualityScalerResource
   }
 
   // AdaptationObserverInterface implementation.
+  // TODO(https://crbug.com/webrtc/11222, 11172): This resource also needs to
+  // signal when its stable to support multi-stream aware modules.
   void AdaptUp(AdaptReason reason) override {
     RTC_DCHECK_EQ(reason, AdaptReason::kQuality);
-    module_->OnResourceUnderuse(reason);
+    OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
   }
   bool AdaptDown(AdaptReason reason) override {
     RTC_DCHECK_EQ(reason, AdaptReason::kQuality);
-    return module_->OnResourceOveruse(reason);
+    return OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
   }
 
  private:
-  OveruseFrameDetectorResourceAdaptationModule* const module_;
   std::unique_ptr<QualityScaler> quality_scaler_;
 };
 
@@ -503,9 +502,8 @@ OveruseFrameDetectorResourceAdaptationModule::
       last_adaptation_request_(absl::nullopt),
       source_restrictor_(std::make_unique<VideoSourceRestrictor>()),
       encode_usage_resource_(
-          std::make_unique<EncodeUsageResource>(this,
-                                                std::move(overuse_detector))),
-      quality_scaler_resource_(std::make_unique<QualityScalerResource>(this)),
+          std::make_unique<EncodeUsageResource>(std::move(overuse_detector))),
+      quality_scaler_resource_(std::make_unique<QualityScalerResource>()),
       quality_scaling_experiment_enabled_(QualityScalingExperiment::Enabled()),
       last_input_frame_size_(absl::nullopt),
       target_frame_rate_(absl::nullopt),
@@ -516,6 +514,8 @@ OveruseFrameDetectorResourceAdaptationModule::
       initial_framedrop_(0) {
   RTC_DCHECK(adaptation_listener_);
   RTC_DCHECK(encoder_stats_observer_);
+  encode_usage_resource_->RegisterListener(this);
+  quality_scaler_resource_->RegisterListener(this);
 }
 
 OveruseFrameDetectorResourceAdaptationModule::
@@ -729,6 +729,45 @@ void OveruseFrameDetectorResourceAdaptationModule::ConfigureQualityScaler(
       VideoStreamEncoderObserver::AdaptationReason::kNone,
       GetActiveCounts(AdaptationObserverInterface::AdaptReason::kCpu),
       GetActiveCounts(AdaptationObserverInterface::AdaptReason::kQuality));
+}
+
+absl::optional<bool>
+OveruseFrameDetectorResourceAdaptationModule::OnResourceUsageStateMeasured(
+    const Resource& resource) {
+  // If we didn't have this dependency on AdaptReason the module could be
+  // listening to other types of Resources.
+  RTC_DCHECK(&resource == encode_usage_resource_.get() ||
+             &resource == quality_scaler_resource_.get());
+  AdaptationObserverInterface::AdaptReason reason =
+      &resource == encode_usage_resource_.get()
+          ? AdaptationObserverInterface::AdaptReason::kCpu
+          : AdaptationObserverInterface::AdaptReason::kQuality;
+  switch (resource.usage_state()) {
+    case ResourceUsageState::kOveruse:
+      return OnResourceOveruse(reason);
+    case ResourceUsageState::kStable:
+      // Do nothing.
+      //
+      // This module has two resources: |encoude_usage_resource_| and
+      // |quality_scaler_resource_|. A smarter adaptation module might not
+      // attempt to adapt up unless ALL resources were underused, but this
+      // module acts on each resource's measurement in isolation - without
+      // taking the current usage of any other resource into account.
+      return absl::nullopt;
+    case ResourceUsageState::kUnderuse:
+      OnResourceUnderuse(reason);
+      return absl::nullopt;
+  }
+}
+
+void OveruseFrameDetectorResourceAdaptationModule::OnResourceUnderuseForTesting(
+    AdaptationObserverInterface::AdaptReason reason) {
+  OnResourceUnderuse(reason);
+}
+
+bool OveruseFrameDetectorResourceAdaptationModule::OnResourceOveruseForTesting(
+    AdaptationObserverInterface::AdaptReason reason) {
+  return OnResourceOveruse(reason);
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::OnResourceUnderuse(

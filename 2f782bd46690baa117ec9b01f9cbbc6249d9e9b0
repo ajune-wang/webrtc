@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "d82b8890_9912393e",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T13:45:40Z",
+      "side": 1,
+      "message": "I was thinking about your first example but with a kReferenceAndUpdate enum value as well. Also I think moving the very convenient constexpr functions out of this file would be a good idea.",
+      "parentUuid": "c36fa421_c3f257fa",
+      "range": {
+        "startLine": 34,
+        "startChar": 27,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c90deea_d5cf3b0b",
         "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
         "patchSetId": 3
@@ -186,6 +210,30 @@
       "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebbb9435_0e843851",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T13:45:40Z",
+      "side": 1,
+      "message": "Aha..",
+      "parentUuid": "c402f8f4_1bf1258f",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 30
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

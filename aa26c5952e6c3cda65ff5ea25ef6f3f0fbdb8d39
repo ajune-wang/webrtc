@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f8a6db7_c7e30250",
+        "filename": "modules/video_coding/frame_dependencies_calculator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T13:45:40Z",
+      "side": 1,
+      "message": "nit: remove",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "aa26c5952e6c3cda65ff5ea25ef6f3f0fbdb8d39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

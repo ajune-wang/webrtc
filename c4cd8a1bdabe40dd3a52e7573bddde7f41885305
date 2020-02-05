@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "8855f904_59522155",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2020-02-05T15:06:52Z",
+      "side": 1,
+      "message": "1) I don\u0027t think that it\u0027s a good idea to use sentinel values without names. I think it\u0027s better to either use `absl::optional\u003c\u003e` in the interface to make it clear that the parameter is optional (preferred approach), or alternatively use named constants (less preferred since it\u0027s very hard to make everyone agree on using the same constant everywhere).\n\n2) Thinking about it some more, I actually don\u0027t feel that it\u0027s appropiate for this code to \"fill in a timestamp if the timestamp is missing\". I think we should either ensure that every single call site does provide a correct value (more accurrate since the timestamping happen closer to actual receive time), or keep the timestamping in `NetEqImpl::InsertPacketInternal()` as it is today (easier to reason about).\n\nWe\u0027ve so far considered it acceptable to treat \"received by NetEq\" as good enough proxy for \"received as defined by the RTP specs\". Physical arrival time on the machine is anyway not known, and the difference between \"timestamps that callers are able pass to NetEq\" and \"letting NetEq do the timestamping on its own\" should be small enough that it probably doesn\u0027t matter in practice (we anyway only have millisecond precision on this value).\n\nOne other very compelling reason for letting NetEq do the timestamping is because we precisely want a `Clock::TimeInMilliseconds()` / `rtc::TimeMillis()` timestamp. Callers that are further away from WebRTC typically use other API calls for timestamps (e.g. with different epochs). This increases the chance that they will accidentally provide us with subtly wrong values.",
+      "range": {
+        "startLine": 178,
+        "startChar": 10,
+        "endLine": 178,
+        "endChar": 74
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38444231_90633d12",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1729,
+      "author": {
+        "id": 8392
+      },
+      "writtenOn": "2020-02-05T15:06:52Z",
+      "side": 1,
+      "message": "I think it\u0027s better to have output parameters as pointers rather than non-const references. A `\u0026borrowed_packet_infos` at the call site makes it more obvious that we are writing to the variable.",
+      "range": {
+        "startLine": 1729,
+        "startChar": 54,
+        "endLine": 1729,
+        "endChar": 75
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5fce94a2_46ebb82e",
         "filename": "modules/audio_coding/neteq/sync_buffer.cc",
         "patchSetId": 3

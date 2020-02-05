@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39a49137_a4058b34",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-05T14:14:02Z",
+      "side": 1,
+      "message": "consider logging frames_dropped_by_congestion_window",
+      "range": {
+        "startLine": 658,
+        "startChar": 0,
+        "endLine": 658,
+        "endChar": 0
+      },
+      "revId": "49e2f16489c704de56dc9ae868b7bf918006403a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91e5cb91_7682a250",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-05T14:14:02Z",
+      "side": 1,
+      "message": "Keep this counter as dropped frames due to encoder blocked. Maybe rename variable.",
+      "range": {
+        "startLine": 893,
+        "startChar": 9,
+        "endLine": 893,
+        "endChar": 32
+      },
+      "revId": "49e2f16489c704de56dc9ae868b7bf918006403a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be671bb5_1484cc79",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1610,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-05T14:14:02Z",
+      "side": 1,
+      "message": "Perhaps add a unittest in VideoStreamEncoderTest verifying that every nth frame is dropped.",
+      "revId": "49e2f16489c704de56dc9ae868b7bf918006403a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

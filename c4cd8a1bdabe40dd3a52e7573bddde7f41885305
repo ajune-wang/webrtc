@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "659047c0_22f001c1",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-02-05T16:38:12Z",
+      "side": 1,
+      "message": "From my tests, I have seen big delays between reception time and the time the packet arrives to neteq when cpu usage is high, so IMHO using the insertion time is a bad idea and potentially masking cpu lag issues as network delays.\n\nI am fine to remove the default parameter value and make it mandatory.",
+      "parentUuid": "8855f904_59522155",
+      "range": {
+        "startLine": 178,
+        "startChar": 10,
+        "endLine": 178,
+        "endChar": 74
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38444231_90633d12",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-05T15:06:52Z",
       "side": 1,
       "message": "I think it\u0027s better to have output parameters as pointers rather than non-const references. A `\u0026borrowed_packet_infos` at the call site makes it more obvious that we are writing to the variable.",
+      "range": {
+        "startLine": 1729,
+        "startChar": 54,
+        "endLine": 1729,
+        "endChar": 75
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b0f7276_5632d12b",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1729,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-02-05T16:38:12Z",
+      "side": 1,
+      "message": "the rest of the parameters are also out parameters and not passed as outputs, wouldn\u0027t it be inconsistent?",
+      "parentUuid": "38444231_90633d12",
       "range": {
         "startLine": 1729,
         "startChar": 54,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5cb95bfc_14679f1c",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-02-05T16:38:12Z",
+      "side": 1,
+      "message": "I need to decrement the sample time of the element too, so I can\u0027t use the remove_if. I can try to just get the begin/end iterators and remove all at once at the end and see if there is any performance gain.",
+      "parentUuid": "5fce94a2_46ebb82e",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c8520b8_783eb04c",
         "filename": "modules/audio_coding/neteq/sync_buffer.cc",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2020-02-05T14:47:43Z",
       "side": 1,
       "message": "This way of iterating backwards is incorrect. The issue is that packet_infos_.end() cannot be dereferenced because it points to one element past the end of the array, so calling it-\u003efirst on it is undefined behavior. Also, it is currently not incremented/decremented. The correct way to to iterate backward is:\n\nauto it \u003d packet_infos_.rbegin();\nfor (;it !\u003d packet_infos_.rend(); ++it) {\n  ...\n}\n\nTo convert the reverse iterator to a regular iterator you can use:\n\nif (it !\u003d packet_infos_.rend()) {\n  it++;\n}\npacket_infos_.erase(it.base(), packet_infos_.end());\n\nYou can also consider using something like this:\nconst size_t size \u003d Size();\nstd::remove_if(packet_infos_.begin(), packet_infos_.end(), [size](const auto\u0026 p){ return p.first() \u003c size; });\n\nAlso: is \"it-\u003efirst \u003c Size()\" really correct? I expected a \u003e\u003d instead.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 3
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b59b61f_695bc0c0",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-02-05T16:38:12Z",
+      "side": 1,
+      "message": "rbegin()/rend() my bad, too tired.. 😊\n\nregarding the \u003c or \u003e\u003d note that I am finding the first element valid, to erase from there on, so basically the condition is reversed.",
+      "parentUuid": "1c8520b8_783eb04c",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8fab1c81_4f88b592",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-02-05T16:38:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5282e5f6_84d87af7",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 35
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0fb6aad_6fc9e83f",
         "filename": "modules/audio_coding/neteq/sync_buffer.cc",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2020-02-05T14:47:43Z",
       "side": 1,
       "message": "See previous comments.",
+      "range": {
+        "startLine": 190,
+        "startChar": 6,
+        "endLine": 190,
+        "endChar": 35
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf549006_8301ad68",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-02-05T16:38:12Z",
+      "side": 1,
+      "message": "I need to decrement the sample time and extract the packet infos, so I can\u0027t just use remove_if. Tried to find the last element and use a single erase, but the result was worse on the perf tests.",
+      "parentUuid": "d0fb6aad_6fc9e83f",
       "range": {
         "startLine": 190,
         "startChar": 6,
@@ -160,6 +304,30 @@
       "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "033d2bc2_591ace75",
+        "filename": "modules/audio_coding/neteq/sync_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-02-05T16:38:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d21aa74_fab92498",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -30,7 +30,9 @@
 #include "rtc_base/experiments/balanced_degradation_settings.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "system_wrappers/include/clock.h"
+#include "video/encode_usage_resource.h"
 #include "video/overuse_frame_detector.h"
+#include "video/quality_scaler_resource.h"
 
 namespace webrtc {
 
@@ -158,8 +160,6 @@ class OveruseFrameDetectorResourceAdaptationModule
   const AdaptCounter& GetConstAdaptCounter();
 
  private:
-  class EncodeUsageResource;
-  class QualityScalerResource;
   class VideoSourceRestrictor;
 
   struct AdaptationRequest {

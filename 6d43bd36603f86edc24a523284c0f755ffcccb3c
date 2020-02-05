@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a60c150d_18f225a8",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1142,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-05T11:34:04Z",
+      "side": 1,
+      "message": "Perhaps add a TODO(bug) here?",
+      "revId": "6d43bd36603f86edc24a523284c0f755ffcccb3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

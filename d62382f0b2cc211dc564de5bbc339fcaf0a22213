@@ -230,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "dcb75a62_cd281898",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-05T11:34:04Z",
+      "side": 1,
+      "message": "If the log statement is right, I read the sentence wrong - it should be \"If we don\u0027t know the remote ufrag, and the session is shared between different transports\" - serial comma for the win :-(",
+      "parentUuid": "6976d57d_f41e50fb",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "144428e6_fa80ec38",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 5
@@ -300,6 +318,24 @@
     },
     {
       "key": {
+        "uuid": "763b3439_b6b6c3be",
+        "filename": "p2p/base/p2p_transport_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-05T11:34:04Z",
+      "side": 1,
+      "message": "So what you\u0027re saying is that when there is a shared gatherer, MaybeStartGathering() is guaranteed to be a no-op?\nThat makes sense (if documented).",
+      "parentUuid": "7339b3f2_d4f85120",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "faeef042_d8121eea",
         "filename": "p2p/base/p2p_transport_channel_unittest.cc",
         "patchSetId": 5
@@ -329,6 +365,24 @@
       "side": 1,
       "message": "How about fake_port_allocator1?",
       "parentUuid": "faeef042_d8121eea",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709b17ce_c369547a",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5558,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-05T11:34:04Z",
+      "side": 1,
+      "message": "Much better!",
+      "parentUuid": "e5c2574d_24a0bd58",
       "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

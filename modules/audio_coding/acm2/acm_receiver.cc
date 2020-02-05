@@ -98,7 +98,8 @@ int AcmReceiver::last_output_sample_rate_hz() const {
 }
 
 int AcmReceiver::InsertPacket(const RTPHeader& rtp_header,
-                              rtc::ArrayView<const uint8_t> incoming_payload) {
+                              rtc::ArrayView<const uint8_t> incoming_payload,
+                              uint64_t receive_time_ms) {
   if (incoming_payload.empty()) {
     neteq_->InsertEmptyPacket(rtp_header);
     return 0;
@@ -133,7 +134,7 @@ int AcmReceiver::InsertPacket(const RTPHeader& rtp_header,
     }
   }  // |crit_sect_| is released.
 
-  if (neteq_->InsertPacket(rtp_header, incoming_payload) < 0) {
+  if (neteq_->InsertPacket(rtp_header, incoming_payload, receive_time_ms) < 0) {
     RTC_LOG(LERROR) << "AcmReceiver::InsertPacket "
                     << static_cast<int>(rtp_header.payloadType)
                     << " Failed to insert packet";

@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ee4261ea_83bce64c",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T14:07:14Z",
+      "side": 1,
+      "message": "I\u0027ve suggest to do publish these helpers in a separate change (when there are helpful somewhere else), since I\u0027m not sure where to move them to:\n\nusing ::webrtc::Update name would likely be confusing.\nusing ::webrtc::CodecBufferUsage::Update avoids polluting webrtc namespace, but might become less convenient.\n\nhere it is both short and non-polluting thanks to unnamed namespace.",
+      "parentUuid": "d82b8890_9912393e",
+      "range": {
+        "startLine": 34,
+        "startChar": 27,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c90deea_d5cf3b0b",
         "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
         "patchSetId": 3

@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aed59c0f_f1ff61cd",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-05T10:34:55Z",
+      "side": 1,
+      "message": "Remove the bars? Or restore the symbolic names?\n\n(More cases of this below.)",
+      "range": {
+        "startLine": 65,
+        "startChar": 25,
+        "endLine": 65,
+        "endChar": 28
+      },
+      "revId": "7238bb5e48b24f0c56f5cc27980b52bcbf77546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "777a9932_6c36bbfd",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-05T10:34:55Z",
+      "side": 1,
+      "message": "1 \u003c\u003c kStrideLog2",
+      "range": {
+        "startLine": 73,
+        "startChar": 24,
+        "endLine": 73,
+        "endChar": 26
+      },
+      "revId": "7238bb5e48b24f0c56f5cc27980b52bcbf77546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "024a9421_adc3f1b3",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-05T10:34:55Z",
+      "side": 1,
+      "message": "Are these the same 10 and 15 as in the nested std::arrays earlier? In that case, use the symbolic names there too?",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 31
+      },
+      "revId": "7238bb5e48b24f0c56f5cc27980b52bcbf77546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaedbaee_121dc8f7",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-05T10:34:55Z",
+      "side": 1,
+      "message": "AFAIK you don\u0027t need the f suffixes when the compiler can figure out the type anyway, but you should probably be consistent.",
+      "range": {
+        "startLine": 99,
+        "startChar": 18,
+        "endLine": 99,
+        "endChar": 19
+      },
+      "revId": "7238bb5e48b24f0c56f5cc27980b52bcbf77546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22c8afc9_c8e1aa93",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-05T10:34:55Z",
+      "side": 1,
+      "message": "Easier to read as\n\n  RTC_DCHECK_GE(shift, 0);\n\n?\n\n(More cases of this below. You don\u0027t have to write the constant on the left; the two positions are equivalent, so use whatever order that maximizes readability.)",
+      "revId": "7238bb5e48b24f0c56f5cc27980b52bcbf77546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dc488b1_65ceaea1",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-05T10:34:55Z",
+      "side": 1,
+      "message": "You\u0027re rewriting the entire function body, so switch the args to ArrayView at the same time? It looks like it would really help here, since the sizes of the two arrays aren\u0027t obvious.",
+      "range": {
+        "startLine": 171,
+        "startChar": 35,
+        "endLine": 173,
+        "endChar": 52
+      },
+      "revId": "7238bb5e48b24f0c56f5cc27980b52bcbf77546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1a1d2b2_00e28a96",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-05T10:34:55Z",
+      "side": 1,
+      "message": "ArrayView?",
+      "range": {
+        "startLine": 226,
+        "startChar": 36,
+        "endLine": 228,
+        "endChar": 46
+      },
+      "revId": "7238bb5e48b24f0c56f5cc27980b52bcbf77546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fce94a2_46ebb82e",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-02-05T14:47:43Z",
+      "side": 1,
+      "message": "Repeatedly erasing from the front of a vector is inefficient because every time it happens, all the elements behind it need to be moved forward by 1 location. This can happen multiple times in this loop. It is more efficient to use the erase(start, end) function and erase the whole range at once, then the elements behind the erased range only need to be moved forward once.\n\nYou can also consider using something like this:\nstd::remove_if(packet_infos_.begin(), packet_infos_.end(), [](const auto\u0026 p){ return p.first() \u003c length; });",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c8520b8_783eb04c",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-02-05T14:47:43Z",
+      "side": 1,
+      "message": "This way of iterating backwards is incorrect. The issue is that packet_infos_.end() cannot be dereferenced because it points to one element past the end of the array, so calling it-\u003efirst on it is undefined behavior. Also, it is currently not incremented/decremented. The correct way to to iterate backward is:\n\nauto it \u003d packet_infos_.rbegin();\nfor (;it !\u003d packet_infos_.rend(); ++it) {\n  ...\n}\n\nTo convert the reverse iterator to a regular iterator you can use:\n\nif (it !\u003d packet_infos_.rend()) {\n  it++;\n}\npacket_infos_.erase(it.base(), packet_infos_.end());\n\nYou can also consider using something like this:\nconst size_t size \u003d Size();\nstd::remove_if(packet_infos_.begin(), packet_infos_.end(), [size](const auto\u0026 p){ return p.first() \u003c size; });\n\nAlso: is \"it-\u003efirst \u003c Size()\" really correct? I expected a \u003e\u003d instead.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 3
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5282e5f6_84d87af7",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-02-05T14:47:43Z",
+      "side": 1,
+      "message": "Same comment as previously, repeatedly calling erase on a single element will trigger all the elements behind the removed elements to be moved multiple times. Using erase(start, end) or std::remove_if is more efficient.",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 35
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0fb6aad_6fc9e83f",
+        "filename": "modules/audio_coding/neteq/sync_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-02-05T14:47:43Z",
+      "side": 1,
+      "message": "See previous comments.",
+      "range": {
+        "startLine": 190,
+        "startChar": 6,
+        "endLine": 190,
+        "endChar": 35
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d21aa74_fab92498",
+        "filename": "modules/audio_coding/neteq/sync_buffer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-02-05T14:47:43Z",
+      "side": 1,
+      "message": "This can be removed if not actually using a deque.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "c4cd8a1bdabe40dd3a52e7573bddde7f41885305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

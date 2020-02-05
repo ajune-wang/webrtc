@@ -16,6 +16,24 @@
       "revId": "a0f94ce0fa7ff75fd3e18912ab258d2c24b7239c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d73bf4b_7d7888e4",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-05T13:54:03Z",
+      "side": 1,
+      "message": "(I reverted AdaptNotNeeded in the latest PS. There\u0027s a TODO to support kStable. Currently not needed.)",
+      "parentUuid": "1dec8485_2c311888",
+      "revId": "a0f94ce0fa7ff75fd3e18912ab258d2c24b7239c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

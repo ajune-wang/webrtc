@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c39061c2_4534f601",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-05T15:57:40Z",
+      "side": 1,
+      "message": "...also, shouldn\u0027t it be enough to not create quality_scaler_resource_ if quality_scaling_experiment_enabled_ is false?\nOne would think that quality_scaling_allowed should be false if quality_scaling_experiment_enabled_ is false?\n\nLet\u0027s revisit in a followup",
+      "range": {
+        "startLine": 697,
+        "startChar": 1,
+        "endLine": 698,
+        "endChar": 27
+      },
+      "revId": "a73891f1391baaf9acbcd1d12ff68297217e2d1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

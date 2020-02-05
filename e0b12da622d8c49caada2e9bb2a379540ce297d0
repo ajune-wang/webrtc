@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70d1eced_bab77f64",
+        "filename": "modules/video_coding/encoder_buffers_converter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T11:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52ed7bc3_6246f628",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 38
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ed4cf19_2d2cf63f",
         "filename": "modules/video_coding/encoder_buffers_converter.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-05T10:29:57Z",
       "side": 1,
       "message": "Nit: not a big fan of EncoderBuffersConverter, WDYT about FrameDependencyCalculator or something like that?",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5c38eee_7c848ef3",
+        "filename": "modules/video_coding/encoder_buffers_converter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T11:47:03Z",
+      "side": 1,
+      "message": "i.e. swap class and function name?\nI have no problem with that.\n\nI also considered something like EncoderBuffersToFrameDependenciesConvertor,\nbut then decided to split the name between class name and the function name.\n\n(it\u0027s a bit hard to name it when this class has single functionality. Depends a bit if there are plans to extended it and what those plans would be)",
+      "parentUuid": "6ed4cf19_2d2cf63f",
       "range": {
         "startLine": 28,
         "startChar": 6,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "46c63c84_a95352b3",
+        "filename": "modules/video_coding/encoder_buffers_converter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T11:47:03Z",
+      "side": 1,
+      "message": "that looks better. I made it a bit shorter. does it still looks good to you?",
+      "parentUuid": "82b7ce52_9dfc01dc",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 43
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "065bb049_3e8b8fba",
         "filename": "modules/video_coding/encoder_buffers_converter.h",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2020-02-05T10:29:57Z",
       "side": 1,
       "message": "Seems to be a mismatch between |buffers_usage| and |buffers|. The id of the buffer a CodecBufferUsage refers to is indicated by CodecBufferUsage::id, not by it\u0027s index in the |buffers_usage| ArrayView.",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 46
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c51979a_1f9b41de",
+        "filename": "modules/video_coding/encoder_buffers_converter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T11:47:03Z",
+      "side": 1,
+      "message": "aha! I misunderstood that and was wondering what id is for...\nHow larger id can be? (is it ok to keep using vector and use id as the index, or\nwould it be better to use map?)\nLooking at your next comment I assume id as index is fine.\n\n[type still should be fine as long as it is not common to use ids larger than 3]",
+      "parentUuid": "065bb049_3e8b8fba",
       "range": {
         "startLine": 48,
         "startChar": 2,
@@ -114,6 +210,30 @@
       "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e062f76f_2d584c56",
+        "filename": "modules/video_coding/encoder_buffers_converter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-05T11:47:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71cf5fb3_b374b3ea",
+      "range": {
+        "startLine": 25,
+        "startChar": 47,
+        "endLine": 25,
+        "endChar": 48
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

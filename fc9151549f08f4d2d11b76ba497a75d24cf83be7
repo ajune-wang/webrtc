@@ -22,6 +22,30 @@
       "revId": "fc9151549f08f4d2d11b76ba497a75d24cf83be7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a8fe27_38fe91c1",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-05T13:28:11Z",
+      "side": 1,
+      "message": "quality_scaler_resource_-\u003eis_started() is needed in SetTargetBitrate() (for initial framedrop stuff), here in ConfigureQualityScaler() (which affects QP thresholds but also initial framedrop) and GetActiveCounts().\n\nBecause I can\u0027t just move this if-clause (it also affects initial framedrop) I think this is best addressed in a follow-up CL. I added a TODO.",
+      "parentUuid": "e4c0cf7b_f4bd53f2",
+      "range": {
+        "startLine": 667,
+        "startChar": 8,
+        "endLine": 667,
+        "endChar": 47
+      },
+      "revId": "fc9151549f08f4d2d11b76ba497a75d24cf83be7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

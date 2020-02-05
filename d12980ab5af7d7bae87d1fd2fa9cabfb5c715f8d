@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a316d4e7_353b4616",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T16:06:23Z",
+      "side": 1,
+      "message": "The first one is used by the \"WebRTC-NetworkCondition-EncoderSwitch\" field trial where the Config only specifies some of the SdpVideoFormat fields.\n\nThe second will replace the first one after that field trial has been removed.",
+      "parentUuid": "86e06cc0_1e396765",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f88d3b0_a59076db",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 5
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "3ecd0b27_324b20d2",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T16:06:23Z",
+      "side": 1,
+      "message": "Yes, fixed",
+      "parentUuid": "9f88d3b0_a59076db",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 8
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4791bece_a691d846",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T16:06:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "146ca826_c5290d35",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b449d802_56e48166",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2020-02-05T15:03:35Z",
       "side": 1,
       "message": "\"Informs the encoder selector what encoder that is currently being used.\"?",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 44
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06d086c_c595bf4a",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T16:06:23Z",
+      "side": 1,
+      "message": "Updated:\n    // Informs the encoder selector about which encoder that is currently being\n    // used.",
+      "parentUuid": "b449d802_56e48166",
       "range": {
         "startLine": 42,
         "startChar": 6,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "45cc5873_8cfebbf7",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T16:06:23Z",
+      "side": 1,
+      "message": "I those names are a bit over specific, I added more detailed commets, WDYT?",
+      "parentUuid": "1f560023_06413841",
+      "range": {
+        "startLine": 46,
+        "startChar": 17,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2b70856_d760cef5",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2020-02-05T15:03:35Z",
       "side": 1,
       "message": "It seems that this struct is no longer an SDP video format, but rather a struct that describes an encoder. Did you consider adding a new struct describing an encoder, potentially composed together with an SDP video format?",
+      "range": {
+        "startLine": 50,
+        "startChar": 12,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e29637e6_07025549",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T16:06:23Z",
+      "side": 1,
+      "message": "I considered using an integer to represent a specific encoder. I think making the encoders as opaque as possible to WebRTC is the way to go. I don\u0027t think that should be refactored/implemented in this CL.",
+      "parentUuid": "b2b70856_d760cef5",
       "range": {
         "startLine": 50,
         "startChar": 12,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "22a609c3_a53ddb2e",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T16:06:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa267e7_a0a366e8",
+      "range": {
+        "startLine": 51,
+        "startChar": 12,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7298d37e_0cc42e4c",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 5
@@ -183,6 +351,30 @@
       "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc7f276_b95cfc64",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T16:06:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7298d37e_0cc42e4c",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 35
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

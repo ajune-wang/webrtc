@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80271727_98dab7ce",
+        "filename": "modules/video_coding/frame_dependencies_calculator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T12:23:22Z",
+      "side": 1,
+      "message": "Not sure if it\u0027s worth it, but we could reset the |buffers_| on keyframes so that we can detect  invalid references in that case as well.",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 3
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47ec42e7_c084d685",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T12:23:22Z",
+      "side": 1,
+      "message": "I like this, it looks really good :)",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 1
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "236e2f74_4eedba23",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T12:23:22Z",
+      "side": 1,
+      "message": "I realize that the CodecBufferUsage class is not that well designed. Expressing a \"None\" usage should never really be done, we should only signal information about buffers that were either referenced, updated, or both. A better design would probably have been to have an enum expressing the useful states.",
+      "range": {
+        "startLine": 34,
+        "startChar": 27,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c90deea_d5cf3b0b",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T12:23:22Z",
+      "side": 1,
+      "message": "Nit: if you have a \"using kVideoFrameKey \u003d VideoFrameType::kVideoFrameKey;\" line then you can probably fit the frame type and the frame id on the same line. Maybe it will look a bit cleaner.",
+      "range": {
+        "startLine": 64,
+        "startChar": 42,
+        "endLine": 64,
+        "endChar": 72
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166108e8_f364edc9",
+        "filename": "modules/video_coding/frame_dependencies_calculator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T12:23:22Z",
+      "side": 1,
+      "message": "I think instead of having a |pattern[][]| it might be easier to simply have the list of CodecBufferUsage directly in the call, like so:\n\n\n  EXPECT_THAT(calculator.FromBuffersUsage(VideoFrameType::kVideoFrameDelta,\n                                          /*frame_id\u003d*/2, {Reference(0), Update(1)}),\n              ElementsAre(1));",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 30
+      },
+      "revId": "2f782bd46690baa117ec9b01f9cbbc6249d9e9b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "630fc8e7_4b788012",
+        "filename": "modules/video_coding/encoder_buffers_converter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T12:23:22Z",
+      "side": 1,
+      "message": "LG",
+      "parentUuid": "46c63c84_a95352b3",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 43
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "065bb049_3e8b8fba",
         "filename": "modules/video_coding/encoder_buffers_converter.h",
         "patchSetId": 1
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "aha! I misunderstood that and was wondering what id is for...\nHow larger id can be? (is it ok to keep using vector and use id as the index, or\nwould it be better to use map?)\nLooking at your next comment I assume id as index is fine.\n\n[type still should be fine as long as it is not common to use ids larger than 3]",
       "parentUuid": "065bb049_3e8b8fba",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 46
+      },
+      "revId": "e0b12da622d8c49caada2e9bb2a379540ce297d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97721746_a7573f74",
+        "filename": "modules/video_coding/encoder_buffers_converter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-05T12:23:22Z",
+      "side": 1,
+      "message": "I don\u0027t know of any codec that use more than 8 buffers, but given the resizing logic we should be fine in any case.",
+      "parentUuid": "6c51979a_1f9b41de",
       "range": {
         "startLine": 48,
         "startChar": 2,

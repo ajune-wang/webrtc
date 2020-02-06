@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6cf8c596_9347ec92",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-06T14:26:46Z",
+      "side": 1,
+      "message": "to make it uniform, how about this solution:\nAdd single function\nAuthenticationBytes(\n    const RTPVideoHeader::GenericDescriptorInfo\u0026 descritpor);\n\nThat would automagically adds authentication of the GFD02 compatible with GFD00.\nThat would break authentication of GFD01 (afaik it is not used), but would make it compatible with GFD00 should we decide to use it.\n\n(Note, this is a draft, if that function looks good, I need to search a better place for it. may be just own file)",
+      "parentUuid": "71391e76_1ea039b8",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 75
+      },
+      "revId": "d4d88f6e385702305ed60d38e3405e00fa57c64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48a6ddb3_469107b6",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 12

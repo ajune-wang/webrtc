@@ -11,6 +11,7 @@
 #define MODULES_RTP_RTCP_SOURCE_RTP_VIDEO_HEADER_H_
 
 #include <cstdint>
+#include <vector>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
@@ -79,6 +80,10 @@ struct RTPVideoHeader {
   absl::optional<ColorSpace> color_space;
   RTPVideoTypeHeader video_type_header;
 };
+
+// Creates raw representation of the frame dependencies for authentication
+std::vector<uint8_t> AuthenticationBytes(
+    const RTPVideoHeader::GenericDescriptorInfo& descritpor);
 
 }  // namespace webrtc
 

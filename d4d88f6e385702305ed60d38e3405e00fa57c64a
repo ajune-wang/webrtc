@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7706b91_1645a498",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T12:37:31Z",
+      "side": 1,
+      "message": "WDYT about instead of removing RtpGenericFrameDescriptor::GetByteRepresentation, we instead templatize it. So for example instead of calling GetRawExtension we would call\n\n  auto raw \u003d generic_descriptor-\u003eGetByteRepresentation\u003cRtpGenericFrameDescriptorExtension00\u003e();\n\nOr we could just create a free helper function that does the same thing, like:\n\n  auto raw \u003d GetByteRepresentation\u003cRtpGenericFrameDescriptorExtension00\u003e(*generic_descriptor);",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 75
+      },
+      "revId": "d4d88f6e385702305ed60d38e3405e00fa57c64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a6ddb3_469107b6",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T12:37:31Z",
+      "side": 1,
+      "message": "This should only be done for the 00 and 01 version right? For 02 we want to have a function that give us the byte representation.",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 49
+      },
+      "revId": "d4d88f6e385702305ed60d38e3405e00fa57c64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93d8b4c2_805362de",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-06T21:31:46Z",
+      "side": 1,
+      "message": "Note that they may temporarily get out of sync because one is updated before the other?",
+      "revId": "66e9e26be81ca16d03f109cad0652a296f8f2bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

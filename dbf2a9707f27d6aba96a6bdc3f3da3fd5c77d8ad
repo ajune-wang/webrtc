@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01ea76fc_3d4d46e5",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-06T15:17:56Z",
+      "side": 1,
+      "message": "I would rename these to indicate that they are essentially callbacks to inform of the current state. OnEncoderConfigured(), OnBitrateChage() etc or something like that\nAlso, I have an aversion to returning a bool unless it\u0027s very clear how it should be interpreted. Could we return an enum instead? Simthing like EncoderSelection { kKeepEncoder, kSwitchEncoder }",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "dbf2a9707f27d6aba96a6bdc3f3da3fd5c77d8ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

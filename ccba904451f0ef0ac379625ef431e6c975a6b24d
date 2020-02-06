@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e6fa14f_1bbb3a67",
+        "filename": "call/adaptation/resource.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-06T11:46:08Z",
+      "side": 1,
+      "message": "The code assumes that the listeners outlives the resources. This is backwards, but works in the current design where listeners are owned by the listener. I added a TODO to fix this.\n\nI\u0027ll address it in the future CL that makes Resources live outside the modules/listeners. This will be needed for multi-stream use cases and when we have CPU resources that are not based on stream encoders.",
+      "parentUuid": "0b2e4fee_099546d2",
+      "range": {
+        "startLine": 21,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 24
+      },
+      "revId": "ccba904451f0ef0ac379625ef431e6c975a6b24d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b258996e_5db5f7d1",
         "filename": "call/adaptation/resource.cc",
         "patchSetId": 9
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e23e0cbb_7168a833",
+        "filename": "call/adaptation/resource.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-06T11:46:08Z",
+      "side": 1,
+      "message": "Now that I have an enum I made it \"the last listener\u0027s result that was not kNothing\". The logic is \"if any listener returned anything interesting (i.e. not kNothing) we want to know about ut, but if multiple listeners returned something interesting we don\u0027t know which one to pick, picking the last one is arbitrary and easy to implement\".\n\nNot spending the effort to make this make more sense because we want to nuke it anyway and we currently only have a single listener for our resources.",
+      "parentUuid": "b258996e_5db5f7d1",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 15
+      },
+      "revId": "ccba904451f0ef0ac379625ef431e6c975a6b24d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44ca55b4_b9ff29dd",
         "filename": "call/adaptation/resource.h",
         "patchSetId": 9
@@ -59,6 +107,30 @@
       "writtenOn": "2020-02-06T08:45:27Z",
       "side": 1,
       "message": "What about kUnknown or a default state? Seems sane to have some unknown state, which can be used before initialization, or before data has come in.",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 29
+      },
+      "revId": "ccba904451f0ef0ac379625ef431e6c975a6b24d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed9e78f_c6dcec71",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-06T11:46:08Z",
+      "side": 1,
+      "message": "As discussed offline, we\u0027ll probably need a kUnknown or kNoOpinion etc. The current resources are \"reactive\", but in-between reporting overuse or underuse it doesn\u0027t really have an opinion.\n\nWell, AdaptUp/AdaptDown is \"MAYBE adapt up or down\", so it\u0027s a bit more complicated, but we\u0027ll need to revisit this one I think. Currently the module doesn\u0027t consider the state of other Resources when reacting to a new measurement of one of the Resources.\n\nFor now, kStable is the default (added a comment). It means \"don\u0027t adapt up\", though the current module only reacts on overuse and underuse, so it doesn\u0027t have an effect ATM.",
+      "parentUuid": "44ca55b4_b9ff29dd",
       "range": {
         "startLine": 22,
         "startChar": 11,
@@ -91,6 +163,30 @@
       "revId": "ccba904451f0ef0ac379625ef431e6c975a6b24d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae254460_7cdb863c",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-06T11:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e0dea96_87069778",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "ccba904451f0ef0ac379625ef431e6c975a6b24d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -137,6 +233,54 @@
       "revId": "ccba904451f0ef0ac379625ef431e6c975a6b24d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33f20b3b_139a620f",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-06T11:46:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6de47a0e_2a1c980d",
+      "range": {
+        "startLine": 63,
+        "startChar": 9,
+        "endLine": 63,
+        "endChar": 31
+      },
+      "revId": "ccba904451f0ef0ac379625ef431e6c975a6b24d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8cf92be_576879a4",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-06T11:46:08Z",
+      "side": 1,
+      "message": "Agree, an enum makes this much more clear. I introduced ResourceListenerResponse with kNothing and kQualityScalerShouldIncreaseFrequency.",
+      "parentUuid": "6084ea03_e4b4325d",
+      "range": {
+        "startLine": 63,
+        "startChar": 25,
+        "endLine": 63,
+        "endChar": 29
+      },
+      "revId": "ccba904451f0ef0ac379625ef431e6c975a6b24d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

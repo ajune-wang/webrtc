@@ -63,26 +63,6 @@ class NullCallback : public video_coding::OnCompleteFrameCallback {
       std::unique_ptr<video_coding::EncodedFrame> frame) override {}
 };
 
-RtpGenericFrameDescriptor GenerateRtpGenericFrameDescriptor(
-    DataReader* reader) {
-  RtpGenericFrameDescriptor res;
-  res.SetFirstPacketInSubFrame(true);
-  res.SetFrameId(reader->GetNum<uint16_t>());
-
-  int spatial_layer =
-      reader->GetNum<uint8_t>() % RtpGenericFrameDescriptor::kMaxSpatialLayers;
-  res.SetSpatialLayersBitmask(1 << spatial_layer);
-  res.SetTemporalLayer(reader->GetNum<uint8_t>() %
-                       RtpGenericFrameDescriptor::kMaxTemporalLayers);
-
-  int num_diffs = (reader->GetNum<uint8_t>() %
-                   RtpGenericFrameDescriptor::kMaxNumFrameDependencies);
-  for (int i = 0; i < num_diffs; ++i) {
-    res.AddFrameDependencyDiff(reader->GetNum<uint16_t>() % (1 << 14));
-  }
-
-  return res;
-}
 }  // namespace
 
 void FuzzOneInput(const uint8_t* data, size_t size) {
@@ -146,7 +126,6 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
         VideoContentType::UNSPECIFIED,
         video_header,
         /*color_space=*/absl::nullopt,
-        GenerateRtpGenericFrameDescriptor(&reader),
         RtpPacketInfos(),
         EncodedImageBuffer::Create(/*size=*/0));
     // clang-format on

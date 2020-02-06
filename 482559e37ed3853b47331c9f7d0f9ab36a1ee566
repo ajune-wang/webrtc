@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e25d3d73_bb46112a",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2020-02-06T22:51:37Z",
+      "side": 1,
+      "message": "Do we need to translate IPV6_TCLASS to IP_TOS here? I tend to think we don\u0027t but just want to double check.",
+      "range": {
+        "startLine": 292,
+        "startChar": 37,
+        "endLine": 292,
+        "endChar": 41
+      },
+      "revId": "482559e37ed3853b47331c9f7d0f9ab36a1ee566",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

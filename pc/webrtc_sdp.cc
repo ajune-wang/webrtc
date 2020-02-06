@@ -244,11 +244,6 @@ struct SsrcInfo {
   std::string cname;
   std::string stream_id;
   std::string track_id;
-
-  // For backward compatibility.
-  // TODO(ronghuawu): Remove below 2 fields once all the clients support msid.
-  std::string label;
-  std::string mslabel;
 };
 typedef std::vector<SsrcInfo> SsrcInfoVec;
 typedef std::vector<SsrcGroup> SsrcGroupVec;
@@ -700,12 +695,6 @@ void CreateTracksFromSsrcInfos(const SsrcInfoVec& ssrc_infos,
       // This is the case with Plan B SDP msid signaling.
       stream_ids.push_back(ssrc_info.stream_id);
       track_id = ssrc_info.track_id;
-    } else if (!ssrc_info.mslabel.empty()) {
-      // Since there's no a=msid or a=ssrc msid signaling, this is a sdp from
-      // an older version of client that doesn't support msid.
-      // In that case, we use the mslabel and label to construct the track.
-      stream_ids.push_back(ssrc_info.mslabel);
-      track_id = ssrc_info.label;
     } else {
       // Since no media streams isn't supported with older SDP signaling, we
       // use a default a stream id.
@@ -3495,14 +3484,6 @@ bool ParseSsrcAttribute(const std::string& line,
       ssrc_info.track_id = fields[1];
     }
     *msid_signaling |= cricket::kMsidSignalingSsrcAttribute;
-  } else if (attribute == kSsrcAttributeMslabel) {
-    // draft-alvestrand-rtcweb-mid-01
-    // mslabel:<value>
-    ssrc_info.mslabel = value;
-  } else if (attribute == kSSrcAttributeLabel) {
-    // The label isn't defined.
-    // label:<value>
-    ssrc_info.label = value;
   }
   return true;
 }

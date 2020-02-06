@@ -2745,21 +2745,6 @@ TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithRejectedAudioVideo) {
   EXPECT_TRUE(TestDeserializeRejected(true, true));
 }
 
-// Tests that we can still handle the sdp uses mslabel and label instead of
-// msid for backward compatibility.
-TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithoutMsid) {
-  jdesc_.description()->set_msid_supported(false);
-  JsepSessionDescription jdesc(kDummyType);
-  std::string sdp_without_msid = kSdpFullString;
-  Replace("msid", "xmsid", &sdp_without_msid);
-  // Deserialize
-  EXPECT_TRUE(SdpDeserialize(sdp_without_msid, &jdesc));
-  // Verify
-  EXPECT_TRUE(CompareSessionDescription(jdesc_, jdesc));
-  EXPECT_FALSE(jdesc.description()->msid_signaling() &
-               ~cricket::kMsidSignalingSsrcAttribute);
-}
-
 TEST_F(WebRtcSdpTest, DeserializeSessionDescriptionWithExtmapAllowMixed) {
   jdesc_.description()->set_extmap_allow_mixed(true);
   std::string sdp_with_extmap_allow_mixed = kSdpFullString;

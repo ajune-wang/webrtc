@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "919d5679_b78c83bc",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-06T13:16:04Z",
+      "side": 1,
+      "message": "CurrentEncoder, to be consistent with the two methods below?",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a8dfb38_eaf7fbf9",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-06T13:16:04Z",
+      "side": 1,
+      "message": "I think it would be helpful with some docs on what thread this methods is called from. I\u0027m guessing the VSE TQ?",
+      "range": {
+        "startLine": 785,
+        "startChar": 25,
+        "endLine": 785,
+        "endChar": 45
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d20b7b_2d7a7a7d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-06T13:16:04Z",
+      "side": 1,
+      "message": "I don\u0027t think it matters for our purposes, but by having the encoder switch at the WebRtcVideoChannel level, rather than at the WebRtcVideoChannel::WebRtcVideoSendStream level, does this mean a PlanB sender that sends, let\u0027s say one video and one screenshare stream, would be forced to switch encoder for both streams, even though only one requested a switch?",
+      "range": {
+        "startLine": 785,
+        "startChar": 5,
+        "endLine": 785,
+        "endChar": 45
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dce969f_a0962245",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-06T13:16:04Z",
+      "side": 1,
+      "message": "const\u0026?",
+      "range": {
+        "startLine": 790,
+        "startChar": 9,
+        "endLine": 790,
+        "endChar": 27
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b0f0c22_676e1ec2",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-06T13:16:04Z",
+      "side": 1,
+      "message": "RTC_RUN_ON(\u0026encoder_queue_) ?",
+      "range": {
+        "startLine": 213,
+        "startChar": 38,
+        "endLine": 213,
+        "endChar": 40
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea81191_06314126",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5234,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-06T13:16:04Z",
+      "side": 1,
+      "message": "WillOnce?",
+      "range": {
+        "startLine": 5234,
+        "startChar": 48,
+        "endLine": 5234,
+        "endChar": 61
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

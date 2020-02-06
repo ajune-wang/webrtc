@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "71391e76_1ea039b8",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T13:23:47Z",
+      "side": 1,
+      "message": "\u003e first options would add backward dependency RtpGenericFrameDescriptor -\u003e RtpGenericFrameDescriptorExtension0x. Prefer to avoid adding circular dependency.\n\nRight, we should not create a circular dependency.\n\n\u003e Second proposal avoids that. \n\u003e I\u0027m not sure how templates are helping here.\n\nUsed templates in the first case to avoid having to set a state on the RtpGenericFrameDescriptor object for it to know how to create the byte representation, but you are right, it doesn\u0027t really add anything in the second case.\n\n\u003e it seems a bit more reasonable to have RtpGenericFrameDescriptorExtension00::GetByteRepresentation(*generic_descriptor) in that case.\n\nTrue\n\n\u003e or may be even bunch of free functions:\n\u003e GetByteRepresentationV0(*generic_descriptor)\n\u003e GetByteRepresentationV1(*generic_descriptor)\n\u003e GetByteRepresentationV2(*dependency_descriptor)\n\u003e \n\u003e But why that would be better? to share code between sending and receving?\n\u003e to hide byte manipulation next to the Write/Parse functions ?\n\n- Yes hiding the bit manipulation is nice.\n- When we start using 02 we would not use GetRawExtension, we would do it some other way.\n  Can we make it uniform?\n- We could get rid of GetRawExtension function which I remember that we added back because\n  of 00. This would of course mean that we would first parse a 00 extension to an\n  RtpGenericFrameDescriptor, only to then generate the almost exact same representation\n  again.\n\n\u003e Guess I need to think a bit more about that direction.",
+      "parentUuid": "e04601f6_25496ebf",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 75
+      },
+      "revId": "d4d88f6e385702305ed60d38e3405e00fa57c64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48a6ddb3_469107b6",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 12
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Sure, that why it is in the block\nif (generic_descriptor !\u003d absl::nullopt)\nwhere generic_descriptor is a type specific for 00 and 01.",
       "parentUuid": "48a6ddb3_469107b6",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 49
+      },
+      "revId": "d4d88f6e385702305ed60d38e3405e00fa57c64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678b47a8_86c8dd04",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T13:23:47Z",
+      "side": 1,
+      "message": "Oops, I misunderstood the if/else cases around here, this is correct.",
+      "parentUuid": "afcc5175_636de809",
       "range": {
         "startLine": 390,
         "startChar": 0,

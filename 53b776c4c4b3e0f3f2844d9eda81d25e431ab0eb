@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe6dde05_7bf87dae",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-06T13:47:55Z",
+      "side": 1,
+      "message": "I think the encoder_target_rate could be less than encoder_min_bitrate_bps_ here (and limited to min configured bitrate in video_stream_encoder). And maybe zero if paused?",
+      "range": {
+        "startLine": 649,
+        "startChar": 24,
+        "endLine": 649,
+        "endChar": 49
+      },
+      "revId": "53b776c4c4b3e0f3f2844d9eda81d25e431ab0eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7cb923c_990606de",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-06T13:47:55Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "53b776c4c4b3e0f3f2844d9eda81d25e431ab0eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81616d3e_df8241c9",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-06T13:47:55Z",
+      "side": 1,
+      "message": "to the encoder",
+      "range": {
+        "startLine": 1316,
+        "startChar": 35,
+        "endLine": 1316,
+        "endChar": 62
+      },
+      "revId": "53b776c4c4b3e0f3f2844d9eda81d25e431ab0eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

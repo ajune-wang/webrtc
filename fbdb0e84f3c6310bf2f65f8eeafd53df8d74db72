@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdc46e9d_6578b51d",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-06T12:45:31Z",
+      "side": 1,
+      "message": "\"Supports\" is a bit vague, is is that we want to ensure that we keep the list? Or that we calculate the contents correctly?\n\nMaybe something like StoresPacketInfoForSentPackets?",
+      "range": {
+        "startLine": 576,
+        "startChar": 24,
+        "endLine": 576,
+        "endChar": 46
+      },
+      "revId": "fbdb0e84f3c6310bf2f65f8eeafd53df8d74db72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "044f7e45_a3aeb1dd",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-06T12:45:31Z",
+      "side": 1,
+      "message": "Nit: Put this on the line before to avoid the newline in the middle of the function call.",
+      "range": {
+        "startLine": 579,
+        "startChar": 10,
+        "endLine": 579,
+        "endChar": 53
+      },
+      "revId": "fbdb0e84f3c6310bf2f65f8eeafd53df8d74db72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36788fbb_bd1c8bd4",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-06T12:45:31Z",
+      "side": 1,
+      "message": "Could you make this a constant so it\u0027s obvious further down that we expect the offset rather than the absolute timestamp? eg. SetTimestamp(kFirstTimestamp+1) vs ..(2)",
+      "range": {
+        "startLine": 579,
+        "startChar": 6,
+        "endLine": 579,
+        "endChar": 7
+      },
+      "revId": "fbdb0e84f3c6310bf2f65f8eeafd53df8d74db72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96eaec0c_281bdd15",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-06T12:45:31Z",
+      "side": 1,
+      "message": "Couldn\u0027t audio callers simply not set need_rtp_packet_infos?",
+      "range": {
+        "startLine": 87,
+        "startChar": 31,
+        "endLine": 87,
+        "endChar": 41
+      },
+      "revId": "fbdb0e84f3c6310bf2f65f8eeafd53df8d74db72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55616da6_02ba2c3d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-06T12:45:31Z",
+      "side": 1,
+      "message": "Since we know at construction time if we have the number map, we should keep than information in something const and do an early return outside the lock if it\u0027s not used.\n\nalso, I think it would be nicer for readability to return  std::vector\u003cRtpSequenceNumberMap::Info\u003e(); explicitly, saves a glance to check that |results| indeed empty without any negative cost AFAICT.",
+      "range": {
+        "startLine": 259,
+        "startChar": 6,
+        "endLine": 259,
+        "endChar": 31
+      },
+      "revId": "fbdb0e84f3c6310bf2f65f8eeafd53df8d74db72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60bb3102_bfd63b63",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-06T12:45:31Z",
+      "side": 1,
+      "message": "Consider if auto wouldn\u0027t be easier to read here.",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 52
+      },
+      "revId": "fbdb0e84f3c6310bf2f65f8eeafd53df8d74db72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "663110bb_a94127b6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-06T12:45:31Z",
+      "side": 1,
+      "message": "We can return explicit empty here. If we create the results vector before entering the critsect we get the behavior in the comment for free with much less complexity.",
+      "range": {
+        "startLine": 270,
+        "startChar": 6,
+        "endLine": 270,
+        "endChar": 11
+      },
+      "revId": "fbdb0e84f3c6310bf2f65f8eeafd53df8d74db72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "576ed0d6_a06de82a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-06T12:45:31Z",
+      "side": 1,
+      "message": "Note that this is still within the critical section",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 3
+      },
+      "revId": "fbdb0e84f3c6310bf2f65f8eeafd53df8d74db72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

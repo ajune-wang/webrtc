@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23656fa4_2b079ed0",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-06T10:52:44Z",
+      "side": 1,
+      "message": "\u003c\u003c \"\\n\"",
+      "revId": "f4b2f7b389382168b969e9d949adb535521fc2e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1fbeba7_9d10230c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-06T10:52:44Z",
+      "side": 1,
+      "message": "reset dropped_frame_cwnd_pushback_count_",
+      "range": {
+        "startLine": 922,
+        "startChar": 0,
+        "endLine": 922,
+        "endChar": 49
+      },
+      "revId": "f4b2f7b389382168b969e9d949adb535521fc2e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ec49865_1215fe2e",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-06T10:52:44Z",
+      "side": 1,
+      "message": "Maybe kTargetBitrateBps could be set here (as above) to not pause the encoder and then check WaitForEncodedFrame(3) directly after inserting frame 3.",
+      "range": {
+        "startLine": 1311,
+        "startChar": 56,
+        "endLine": 1311,
+        "endChar": 57
+      },
+      "revId": "f4b2f7b389382168b969e9d949adb535521fc2e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d61c2390_a2f7ae68",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-06T10:52:44Z",
+      "side": 1,
+      "message": "Could also verify the stats, stats_proxy_-\u003eGetStats().frames_dropped_by_congestion_window",
+      "range": {
+        "startLine": 1325,
+        "startChar": 1,
+        "endLine": 1325,
+        "endChar": 2
+      },
+      "revId": "f4b2f7b389382168b969e9d949adb535521fc2e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

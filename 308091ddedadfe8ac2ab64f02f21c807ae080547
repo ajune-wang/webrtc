@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "299760bd_c16eae7d",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-06T21:44:35Z",
+      "side": 1,
+      "message": "Cute trick to get rid of this conditional:\n\n  const char* delimiter \u003d \"\";  // No delimiter before first parameter.\n  for (const auto\u0026 entry : fmtp_parameters) {\n    const std::string\u0026 key \u003d entry.first;\n    const std::string\u0026 value \u003d entry.second;\n    // Parameters are a semicolon-separated list, no spaces.\n    fmtp \u003c\u003c delimiter \u003c\u003c key \u003c\u003c \"\u003d\" \u003c\u003c value;\n    delimiter \u003d \";\";  // A semicolon before each subsequent parameter.\n  }",
+      "revId": "308091ddedadfe8ac2ab64f02f21c807ae080547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

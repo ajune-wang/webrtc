@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/units/data_rate.h"
 #include "api/video_codecs/sdp_video_format.h"
 
 namespace webrtc {
@@ -37,6 +38,30 @@ class VideoEncoderFactory {
     bool has_internal_source;
   };
 
+  // An injectable class that is continuously updated with encoding conditions
+  // and selects the best encoder given those conditions.
+  class EncoderSelectorInterface {
+   public:
+    virtual ~EncoderSelectorInterface() {}
+
+    // Informs the encoder selector about which encoder that is currently being
+    // used.
+    virtual void CurrentEncoder(const SdpVideoFormat& format) = 0;
+
+    // Called every time the encoding bitrate is updated. Should return true if
+    // an encoder switch should be performed.
+    virtual bool EncodingBitrate(const DataRate& rate) = 0;
+
+    // Called if the currently used encoder reports itself as broken. Should
+    // return true if an encoder switch should be performed.
+    virtual bool EncoderBroken() = 0;
+
+    // If the encoder selector has indicated a wish to switch encoder
+    // SuggestedEncoder will be called. Should return the currently preferred
+    // encoder.
+    virtual SdpVideoFormat SuggestedEncoder() = 0;
+  };
+
   // Returns a list of supported video formats in order of preference, to use
   // for signaling etc.
   virtual std::vector<SdpVideoFormat> GetSupportedFormats() const = 0;
@@ -57,6 +82,12 @@ class VideoEncoderFactory {
   // Creates a VideoEncoder for the specified format.
   virtual std::unique_ptr<VideoEncoder> CreateVideoEncoder(
       const SdpVideoFormat& format) = 0;
+
+  // The EncoderSelectorInterface object must live for at least for as long as
+  // the VideoEncoderFactory.
+  virtual EncoderSelectorInterface* GetEncoderSelector() const {
+    return nullptr;
+  }
 
   virtual ~VideoEncoderFactory() {}
 };

@@ -210,6 +210,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                                int64_t time_when_posted_in_ms)
       RTC_RUN_ON(&encoder_queue_);
 
+  void SwitchToSuggestedEncoder() const;
+
   rtc::Event shutdown_event_;
 
   const uint32_t number_of_cores_;
@@ -226,6 +228,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   const RateControlSettings rate_control_settings_;
   const QualityScalerSettings quality_scaler_settings_;
 
+  VideoEncoderFactory::EncoderSelectorInterface* const encoder_selector_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;
   // |thread_checker_| checks that public methods that are related to lifetime
   // of VideoStreamEncoder are called on the same thread.

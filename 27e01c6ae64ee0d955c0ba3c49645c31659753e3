@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95f78810_b9f53989",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T13:49:15Z",
+      "side": 1,
+      "message": "Good idea, done.",
+      "parentUuid": "919d5679_b78c83bc",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a8dfb38_eaf7fbf9",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 7
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "871622dc_de11dfe6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T13:49:15Z",
+      "side": 1,
+      "message": "\u003e does this mean a PlanB sender that sends, let\u0027s say one video and one screenshare stream, would be forced to switch encoder for both streams, even though only one requested a switch?\n\nYes, one of several reasons why this switching hack is so ugly (this behavior was known when it was initially implemented).",
+      "parentUuid": "f5d20b7b_2d7a7a7d",
+      "range": {
+        "startLine": 785,
+        "startChar": 5,
+        "endLine": 785,
+        "endChar": 45
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3dce969f_a0962245",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 7
@@ -91,6 +139,30 @@
       "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bca3a2a7_d767b4a2",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T13:49:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dce969f_a0962245",
+      "range": {
+        "startLine": 790,
+        "startChar": 9,
+        "endLine": 790,
+        "endChar": 27
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "0e78b9ed_0d70a272",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T13:49:15Z",
+      "side": 1,
+      "message": "Technically true that it is only called from the encoder queue.\n\nI interpret RTC_RUN_ON(\u0026encoder_queue_) as \"this function HAVE to run on the enoder_queue_\", but given the way RequestEncoderSwitch work there is no reason AFAICT.",
+      "parentUuid": "1b0f0c22_676e1ec2",
+      "range": {
+        "startLine": 213,
+        "startChar": 38,
+        "endLine": 213,
+        "endChar": 40
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ea81191_06314126",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 7
@@ -128,6 +224,30 @@
       "writtenOn": "2020-02-06T13:16:04Z",
       "side": 1,
       "message": "WillOnce?",
+      "range": {
+        "startLine": 5234,
+        "startChar": 48,
+        "endLine": 5234,
+        "endChar": 61
+      },
+      "revId": "27e01c6ae64ee0d955c0ba3c49645c31659753e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d788d8_e15aa30f",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5234,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-06T13:49:15Z",
+      "side": 1,
+      "message": "WillOnce can only be used on EXPECT_CALL. This is the \"arrange\" part of the test so we use ON_CALL instead.\n\nhttps://github.com/google/googletest/blob/master/googlemock/docs/cook_book.md#knowing-when-to-expect-useoncall",
+      "parentUuid": "0ea81191_06314126",
       "range": {
         "startLine": 5234,
         "startChar": 48,

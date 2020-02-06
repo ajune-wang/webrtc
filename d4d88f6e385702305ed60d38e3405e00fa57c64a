@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e04601f6_25496ebf",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-06T13:06:51Z",
+      "side": 1,
+      "message": "first options would add backward dependency RtpGenericFrameDescriptor -\u003e RtpGenericFrameDescriptorExtension0x. Prefer to avoid adding circular dependency.\nSecond proposal avoids that. \nI\u0027m not sure how templates are helping here. it seems a bit more reasonable to have\nRtpGenericFrameDescriptorExtension00::GetByteRepresentation(*generic_descriptor) in that case.\n\nor may be even bunch of free functions:\nGetByteRepresentationV0(*generic_descriptor)\nGetByteRepresentationV1(*generic_descriptor)\nGetByteRepresentationV2(*dependency_descriptor)\n\nBut why that would be better? to share code between sending and receving?\nto hide byte manipulation next to the Write/Parse functions ?\n\nGuess I need to think a bit more about that direction.",
+      "parentUuid": "e7706b91_1645a498",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 75
+      },
+      "revId": "d4d88f6e385702305ed60d38e3405e00fa57c64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48a6ddb3_469107b6",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-06T12:37:31Z",
       "side": 1,
       "message": "This should only be done for the 00 and 01 version right? For 02 we want to have a function that give us the byte representation.",
+      "range": {
+        "startLine": 390,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 49
+      },
+      "revId": "d4d88f6e385702305ed60d38e3405e00fa57c64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afcc5175_636de809",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-06T13:06:51Z",
+      "side": 1,
+      "message": "Sure, that why it is in the block\nif (generic_descriptor !\u003d absl::nullopt)\nwhere generic_descriptor is a type specific for 00 and 01.",
+      "parentUuid": "48a6ddb3_469107b6",
       "range": {
         "startLine": 390,
         "startChar": 0,

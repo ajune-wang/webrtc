@@ -19,7 +19,6 @@
 #include "absl/base/attributes.h"
 #include "api/rtp_packet_info.h"
 #include "api/video/encoded_image.h"
-#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/video_coding/frame_object.h"
@@ -67,7 +66,7 @@ class PacketBuffer {
 
     rtc::CopyOnWriteBuffer video_payload;
     RTPVideoHeader video_header;
-    absl::optional<RtpGenericFrameDescriptor> generic_descriptor;
+    std::vector<uint8_t> generic_descriptor_bytes;
 
     RtpPacketInfo packet_info;
   };

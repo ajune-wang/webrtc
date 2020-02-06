@@ -8,6 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <vector>
+
+#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
+#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 
 namespace webrtc {
@@ -20,5 +24,23 @@ RTPVideoHeader::GenericDescriptorInfo::GenericDescriptorInfo() = default;
 RTPVideoHeader::GenericDescriptorInfo::GenericDescriptorInfo(
     const GenericDescriptorInfo& other) = default;
 RTPVideoHeader::GenericDescriptorInfo::~GenericDescriptorInfo() = default;
+
+// Creates raw representation of the frame dependencies for authentication
+std::vector<uint8_t> AuthenticationBytes(
+    const RTPVideoHeader::GenericDescriptorInfo& descriptor) {
+  RtpGenericFrameDescriptor frame_descriptor;
+  frame_descriptor.SetFirstPacketInSubFrame(true);
+  frame_descriptor.SetLastPacketInSubFrame(false);
+  frame_descriptor.SetTemporalLayer(descriptor.temporal_index);
+  frame_descriptor.SetSpatialLayersBitmask(1 << descriptor.spatial_index);
+  frame_descriptor.SetFrameId(descriptor.frame_id & 0xFFFF);
+  for (int64_t dependency : descriptor.dependencies) {
+    frame_descriptor.AddFrameDependencyDiff(descriptor.frame_id - dependency);
+  }
+  std::vector<uint8_t> result(
+      RtpGenericFrameDescriptorExtension00::ValueSize(frame_descriptor));
+  RtpGenericFrameDescriptorExtension00::Write(result, frame_descriptor);
+  return result;
+}
 
 }  // namespace webrtc

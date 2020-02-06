@@ -75,7 +75,7 @@ class BufferedFrameDecryptorTest : public ::testing::Test,
         VideoContentType::UNSPECIFIED,
         RTPVideoHeader(),
         /*color_space=*/absl::nullopt,
-        RtpGenericFrameDescriptor(),
+        /*generic_descriptor_bytes=*/std::vector<uint8_t>{0},
         RtpPacketInfos(),
         EncodedImageBuffer::Create(/*size=*/0));
     // clang-format on

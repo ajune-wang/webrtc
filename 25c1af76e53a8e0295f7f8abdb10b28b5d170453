@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7dfca7a4_e0022240",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-07T14:03:56Z",
+      "side": 1,
+      "message": "Should this other method be deprecated? Or do we really need two variants?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caa98a1d_ff295960",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-07T14:03:56Z",
+      "side": 1,
+      "message": "It seems this forces the implementation to retain state. Can we have a more stateless design?\n\nA more minimalistic interface would be\n\nabsl::optional\u003cSdpVideoFormat\u003e SuggestEncoder(const SdpVideoFormat\u0026 current_encoder, const DataRate\u0026 current_rate);\n\nto return an unset optional to indicate no change.",
+      "range": {
+        "startLine": 51,
+        "startChar": 17,
+        "endLine": 51,
+        "endChar": 33
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c85efccc_7276c11a",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-07T14:03:56Z",
+      "side": 1,
+      "message": "\"true\" seems to not be true...\n\nIs there any downside to switching to an absl::optional\u003cSdpVideoFormat\u003e return value for this and the below method, and strike the SuggestedEncoder method? In addition this seems to also force the implementation to retain state.",
+      "range": {
+        "startLine": 53,
+        "startChar": 72,
+        "endLine": 53,
+        "endChar": 76
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4212a5f8_f40423d6",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-07T14:03:56Z",
+      "side": 1,
+      "message": "I think it would be simpler to just have a (const) SuggestEncoder method on this class (two overloads, one one current encoder and rate as input, and another one corresponding to your OnEncoderBroken method.\n\nAs far as I see, the user of this interface doesn\u0027t gain anything by this extra level of indirection.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

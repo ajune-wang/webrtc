@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "88400ad6_1b6636a6",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-07T15:12:04Z",
+      "side": 1,
+      "message": "Can you add a TODO comment linking to relevant bug (and RTC_DEPRECATED, if that doesn\u0027t break something)?",
+      "parentUuid": "a316d4e7_353b4616",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f88d3b0_a59076db",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 5

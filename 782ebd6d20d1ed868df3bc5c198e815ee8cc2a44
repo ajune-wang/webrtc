@@ -39,6 +39,24 @@
       "revId": "782ebd6d20d1ed868df3bc5c198e815ee8cc2a44",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37ce86fe_f39e93e4",
+        "filename": "api/call/bitrate_allocation.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-02-07T13:30:35Z",
+      "side": 1,
+      "message": "that\u0027s more clear, thanks!",
+      "parentUuid": "737467cc_51d921fa",
+      "revId": "782ebd6d20d1ed868df3bc5c198e815ee8cc2a44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

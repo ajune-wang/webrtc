@@ -270,6 +270,24 @@
       "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eba3726_19f8368e",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-07T12:55:39Z",
+      "side": 1,
+      "message": "So when do or don\u0027t we have FMTP parameters?\n\nIf it\u0027s there for audio but not video due to current implementation details, I\u0027d prefer to assert that it\u0027s a string for audio and missing for video (that way if there is a regression that removes it for audio we\u0027d know). As-is, we don\u0027t test anything.\n\nIf it truly is unpredictable then it\u0027s ok to skip it in the test, but then I\u0027d like a comment saying why the current implementation is untestable.",
+      "parentUuid": "7c5cbc06_e99a06c6",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

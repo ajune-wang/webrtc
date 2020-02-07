@@ -35,6 +35,7 @@
 #include "modules/video_coding/include/video_error_codes.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 #include "rtc_base/fake_clock.h"
+#include "test/fake_texture_frame.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -98,11 +99,14 @@ class VideoEncoderSoftwareFallbackWrapperTest : public ::testing::Test {
       const std::string& field_trials)
       : override_field_trials_(field_trials),
         fake_encoder_(new CountingFakeEncoder()),
+        fake_sw_encoder_(new CountingFakeEncoder()),
         wrapper_initialized_(false),
         fallback_wrapper_(CreateVideoEncoderSoftwareFallbackWrapper(
-            std::unique_ptr<VideoEncoder>(VP8Encoder::Create()),
+            std::unique_ptr<VideoEncoder>(fake_sw_encoder_),
             std::unique_ptr<VideoEncoder>(fake_encoder_),
-            false)) {}
+            false)) {
+    fake_sw_encoder_->implementation_name = "fake_sw_encoder";
+  }
 
   class CountingFakeEncoder : public VideoEncoder {
    public:
@@ -120,6 +124,7 @@ class VideoEncoderSoftwareFallbackWrapperTest : public ::testing::Test {
     int32_t Encode(const VideoFrame& frame,
                    const std::vector<VideoFrameType>* frame_types) override {
       ++encode_count_;
+      last_video_frame_ = frame;
       if (encode_complete_callback_ &&
           encode_return_code_ == WEBRTC_VIDEO_CODEC_OK) {
         encode_complete_callback_->OnEncodedImage(EncodedImage(), nullptr,
@@ -146,7 +151,7 @@ class VideoEncoderSoftwareFallbackWrapperTest : public ::testing::Test {
       EncoderInfo info;
       info.scaling_settings = ScalingSettings(kLowThreshold, kHighThreshold);
       info.supports_native_handle = supports_native_handle_;
-      info.implementation_name = "fake-encoder";
+      info.implementation_name = implementation_name;
       return info;
     }
 
@@ -158,6 +163,8 @@ class VideoEncoderSoftwareFallbackWrapperTest : public ::testing::Test {
     int release_count_ = 0;
     mutable int supports_native_handle_count_ = 0;
     bool supports_native_handle_ = false;
+    std::string implementation_name = "fake-encoder";
+    absl::optional<VideoFrame> last_video_frame_;
   };
 
   void InitEncode();
@@ -174,6 +181,7 @@ class VideoEncoderSoftwareFallbackWrapperTest : public ::testing::Test {
   FakeEncodedImageCallback callback_;
   // |fake_encoder_| is owned and released by |fallback_wrapper_|.
   CountingFakeEncoder* fake_encoder_;
+  CountingFakeEncoder* fake_sw_encoder_;
   bool wrapper_initialized_;
   std::unique_ptr<VideoEncoder> fallback_wrapper_;
   VideoCodec codec_ = {};
@@ -402,9 +410,52 @@ TEST_F(VideoEncoderSoftwareFallbackWrapperTest, ReportsImplementationName) {
 TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
        ReportsFallbackImplementationName) {
   UtilizeFallbackEncoder();
-  // Hard coded expected value since libvpx is the software implementation name
-  // for VP8. Change accordingly if the underlying implementation does.
-  CheckLastEncoderName("libvpx");
+  CheckLastEncoderName(fake_sw_encoder_->implementation_name.c_str());
+}
+
+TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
+       OnEncodeFallbackNativeFrameScaledIfFallbackDoesNotSupportNativeFrames) {
+  fake_encoder_->supports_native_handle_ = true;
+  fake_sw_encoder_->supports_native_handle_ = false;
+  InitEncode();
+  int width = codec_.width * 2;
+  int height = codec_.height * 2;
+  VideoFrame native_frame = test::FakeNativeBuffer::CreateFrame(
+      width, height, 0, 0, VideoRotation::kVideoRotation_0);
+  std::vector<VideoFrameType> types(1, VideoFrameType::kVideoFrameKey);
+  fake_encoder_->encode_return_code_ = WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
+
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            fallback_wrapper_->Encode(native_frame, &types));
+  EXPECT_EQ(1, fake_sw_encoder_->encode_count_);
+  ASSERT_TRUE(fake_sw_encoder_->last_video_frame_.has_value());
+  EXPECT_NE(VideoFrameBuffer::Type::kNative,
+            fake_sw_encoder_->last_video_frame_->video_frame_buffer()->type());
+  EXPECT_EQ(codec_.width, fake_sw_encoder_->last_video_frame_->width());
+  EXPECT_EQ(codec_.height, fake_sw_encoder_->last_video_frame_->height());
+}
+
+TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
+       OnEncodeFallbackNativeFrameForwardedToFallbackIfItSupportsNativeFrames) {
+  fake_encoder_->supports_native_handle_ = true;
+  fake_sw_encoder_->supports_native_handle_ = true;
+  InitEncode();
+  int width = codec_.width * 2;
+  int height = codec_.height * 2;
+  VideoFrame native_frame = test::FakeNativeBuffer::CreateFrame(
+      width, height, 0, 0, VideoRotation::kVideoRotation_0);
+  std::vector<VideoFrameType> types(1, VideoFrameType::kVideoFrameKey);
+  fake_encoder_->encode_return_code_ = WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
+
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            fallback_wrapper_->Encode(native_frame, &types));
+  EXPECT_EQ(1, fake_sw_encoder_->encode_count_);
+  ASSERT_TRUE(fake_sw_encoder_->last_video_frame_.has_value());
+  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
+            fake_sw_encoder_->last_video_frame_->video_frame_buffer()->type());
+  EXPECT_EQ(native_frame.width(), fake_sw_encoder_->last_video_frame_->width());
+  EXPECT_EQ(native_frame.height(),
+            fake_sw_encoder_->last_video_frame_->height());
 }
 
 namespace {

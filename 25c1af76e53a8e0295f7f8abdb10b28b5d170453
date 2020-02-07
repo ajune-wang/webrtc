@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1925b9cc_93269068",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-07T15:02:26Z",
+      "side": 1,
+      "message": "The other one will be removed after the related field trial has been removed.\n\nhttps://webrtc-review.googlesource.com/c/src/+/168193/5/api/video/video_stream_encoder_settings.h#38",
+      "parentUuid": "7dfca7a4_e0022240",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 60
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "caa98a1d_ff295960",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-07T14:03:56Z",
       "side": 1,
       "message": "It seems this forces the implementation to retain state. Can we have a more stateless design?\n\nA more minimalistic interface would be\n\nabsl::optional\u003cSdpVideoFormat\u003e SuggestEncoder(const SdpVideoFormat\u0026 current_encoder, const DataRate\u0026 current_rate);\n\nto return an unset optional to indicate no change.",
+      "range": {
+        "startLine": 51,
+        "startChar": 17,
+        "endLine": 51,
+        "endChar": 33
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b15f60cf_3cd9beb5",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-07T15:02:26Z",
+      "side": 1,
+      "message": "We will need state for the type of behavior we want, but I changed GetEncoderSelector() to return a unique_ptr.",
+      "parentUuid": "caa98a1d_ff295960",
       "range": {
         "startLine": 51,
         "startChar": 17,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a3de9268_98845550",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-07T15:02:26Z",
+      "side": 1,
+      "message": "SuggestedEncoder has been removed in favor of optionals.",
+      "parentUuid": "c85efccc_7276c11a",
+      "range": {
+        "startLine": 53,
+        "startChar": 72,
+        "endLine": 53,
+        "endChar": 76
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4212a5f8_f40423d6",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2020-02-07T14:03:56Z",
       "side": 1,
       "message": "I think it would be simpler to just have a (const) SuggestEncoder method on this class (two overloads, one one current encoder and rate as input, and another one corresponding to your OnEncoderBroken method.\n\nAs far as I see, the user of this interface doesn\u0027t gain anything by this extra level of indirection.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 3
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268178e0_cc2543d8",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-07T15:02:26Z",
+      "side": 1,
+      "message": "I guess that assumes a stateless decision logic, which won\u0027t work in our case.",
+      "parentUuid": "4212a5f8_f40423d6",
       "range": {
         "startLine": 88,
         "startChar": 0,

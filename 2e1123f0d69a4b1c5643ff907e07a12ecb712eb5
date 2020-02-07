@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eac5608c_ebcc978c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-07T15:24:51Z",
+      "side": 1,
+      "message": "Adds field trial to ...",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4643edc7_612eb613",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-07T15:24:51Z",
+      "side": 1,
+      "message": "I wonder if we should default this to false? I\u0027m thinking that\u0027s it\u0027s better to risk being consistently wrong than randomly? OTOH, that would mean that our sanitizer bots would not detect the issue.",
+      "range": {
+        "startLine": 114,
+        "startChar": 1,
+        "endLine": 114,
+        "endChar": 13
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a28daab4_1376944c",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-07T15:24:51Z",
+      "side": 1,
+      "message": "Nit: add a // before the first argument to avoid the line break here.",
+      "range": {
+        "startLine": 71,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 62
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72d0b49b_c5b190c8",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-07T15:24:51Z",
+      "side": 1,
+      "message": "Make this conditional on the trial?",
+      "range": {
+        "startLine": 105,
+        "startChar": 28,
+        "endLine": 106,
+        "endChar": 77
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19226a99_8dfdebb2",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-07T15:24:51Z",
+      "side": 1,
+      "message": "Is it possible to structure this to avoid the repetition? (only if improves readability)",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 57
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7907ed50_c743c6a6",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-07T15:24:51Z",
+      "side": 1,
+      "message": "I\u0027d prefer if we start with this condition, even if that mean that we repeat slightly more. That way the reader can easily ignore the lines that does not go under the trial state they are investigating.",
+      "range": {
+        "startLine": 215,
+        "startChar": 6,
+        "endLine": 215,
+        "endChar": 29
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40107f53_d780a250",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-07T15:24:51Z",
+      "side": 1,
+      "message": "This looks redundant with the check below, intentional?",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 50
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c21f0248_00dd9a1f",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-07T15:24:51Z",
+      "side": 1,
+      "message": "Can\u0027t we do this comparison directly? Or will that not do the expected thing?",
+      "range": {
+        "startLine": 80,
+        "startChar": 22,
+        "endLine": 80,
+        "endChar": 75
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -87,7 +87,7 @@ TEST(AimdRateControlTest, NearMaxIncreaseRateIs5kbpsOn60kbpsAnd100msRtt) {
   auto states = CreateAimdRateControlStates();
   constexpr int kBitrate = 60000;
   SetEstimate(states, kBitrate);
-  states.aimd_rate_control->SetRtt(TimeDelta::ms(100));
+  states.aimd_rate_control->SetRtt(TimeDelta::Millis(100));
   EXPECT_EQ(5000,
             states.aimd_rate_control->GetNearMaxIncreaseRateBpsPerSecond());
 }

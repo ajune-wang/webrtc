@@ -239,7 +239,7 @@ bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t ssrc,
                                  clock_.TimeInMicroseconds());
   for (auto& packet : packets) {
     RTC_CHECK_GE(packet.receive_time.ms() + arrival_time_offset_ms_, 0);
-    packet.receive_time += TimeDelta::ms(arrival_time_offset_ms_);
+    packet.receive_time += TimeDelta::Millis(arrival_time_offset_ms_);
 
     if (packet.sent_packet.pacing_info.probe_cluster_id !=
         PacedPacketInfo::kNotAProbe)

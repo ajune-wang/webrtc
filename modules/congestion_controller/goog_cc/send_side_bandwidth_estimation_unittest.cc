@@ -46,7 +46,7 @@ void TestProbing(bool use_delay_based) {
 
   bwe.UpdatePacketsLost(/*packets_lost=*/0, /*number_of_packets=*/1,
                         Timestamp::ms(now_ms));
-  bwe.UpdateRtt(TimeDelta::ms(50), Timestamp::ms(now_ms));
+  bwe.UpdateRtt(TimeDelta::Millis(50), Timestamp::ms(now_ms));
 
   // Initial REMB applies immediately.
   if (use_delay_based) {
@@ -104,7 +104,7 @@ TEST(SendSideBweTest, DoesntReapplyBitrateDecreaseWithoutFollowingRemb) {
   // Signal heavy loss to go down in bitrate.
   bwe.UpdatePacketsLost(/*packets_lost=*/50, /*number_of_packets=*/100,
                         Timestamp::ms(now_ms));
-  bwe.UpdateRtt(TimeDelta::ms(kRttMs), Timestamp::ms(now_ms));
+  bwe.UpdateRtt(TimeDelta::Millis(kRttMs), Timestamp::ms(now_ms));
 
   // Trigger an update 2 seconds later to not be rate limited.
   now_ms += 1000;

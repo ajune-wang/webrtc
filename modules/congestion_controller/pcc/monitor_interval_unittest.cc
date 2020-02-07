@@ -20,9 +20,9 @@ namespace test {
 namespace {
 const DataRate kTargetSendingRate = DataRate::kbps(300);
 const Timestamp kStartTime = Timestamp::us(0);
-const TimeDelta kPacketsDelta = TimeDelta::ms(1);
-const TimeDelta kIntervalDuration = TimeDelta::ms(100);
-const TimeDelta kDefaultDelay = TimeDelta::ms(100);
+const TimeDelta kPacketsDelta = TimeDelta::Millis(1);
+const TimeDelta kIntervalDuration = TimeDelta::Millis(100);
+const TimeDelta kDefaultDelay = TimeDelta::Millis(100);
 const DataSize kDefaultPacketSize = DataSize::bytes(100);
 constexpr double kDelayGradientThreshold = 0.01;
 

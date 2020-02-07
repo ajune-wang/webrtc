@@ -26,7 +26,7 @@
 
 namespace webrtc {
 
-constexpr TimeDelta kSendTimeHistoryWindow = TimeDelta::Seconds<60>();
+constexpr TimeDelta kSendTimeHistoryWindow = TimeDelta::Seconds(60);
 
 void InFlightBytesTracker::AddInFlightPacketBytes(
     const PacketFeedback& packet) {
@@ -179,7 +179,7 @@ TransportFeedbackAdapter::ProcessTransportFeedbackInner(
   } else {
     // TODO(srte): We shouldn't need to do rounding here.
     const TimeDelta delta = feedback.GetBaseDelta(last_timestamp_)
-                                .RoundDownTo(TimeDelta::Millis<1>());
+                                .RoundDownTo(TimeDelta::Millis(1));
     // Protect against assigning current_offset_ negative value.
     if (delta < Timestamp::Zero() - current_offset_) {
       RTC_LOG(LS_WARNING) << "Unexpected feedback timestamp received.";
@@ -227,7 +227,7 @@ TransportFeedbackAdapter::ProcessTransportFeedbackInner(
     if (packet.received()) {
       packet_offset += packet.delta();
       packet_feedback.receive_time =
-          current_offset_ + packet_offset.RoundDownTo(TimeDelta::Millis<1>());
+          current_offset_ + packet_offset.RoundDownTo(TimeDelta::Millis(1));
       // Note: Lost packets are not removed from history because they might be
       // reported as received by a later feedback.
       history_.erase(it);

@@ -22,6 +22,30 @@
       "revId": "482559e37ed3853b47331c9f7d0f9ab36a1ee566",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b31a4e9_99da5bfc",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-07T02:06:48Z",
+      "side": 1,
+      "message": "I intentionally didn\u0027t do that; since we can only return one value here, it makes more sense to return the IPv6 setting for IPv6 sockets.",
+      "parentUuid": "e25d3d73_bb46112a",
+      "range": {
+        "startLine": 292,
+        "startChar": 37,
+        "endLine": 292,
+        "endChar": 41
+      },
+      "revId": "482559e37ed3853b47331c9f7d0f9ab36a1ee566",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

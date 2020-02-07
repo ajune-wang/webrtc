@@ -187,6 +187,29 @@
       "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "133ca9c2_75e9eedc",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-07T15:08:36Z",
+      "side": 1,
+      "message": "BTW, regarding frequent calls to this method. Do we really need to anything right away, or would it make sense to postpone decision making until we get the next frame to encode?",
+      "range": {
+        "startLine": 1608,
+        "startChar": 29,
+        "endLine": 1608,
+        "endChar": 46
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

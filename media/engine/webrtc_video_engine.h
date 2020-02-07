@@ -214,6 +214,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   void RequestEncoderFallback() override;
   void RequestEncoderSwitch(
       const EncoderSwitchRequestCallback::Config& conf) override;
+  void RequestEncoderSwitch(const webrtc::SdpVideoFormat& format) override;
 
   void SetRecordableEncodedFrameCallback(
       uint32_t ssrc,

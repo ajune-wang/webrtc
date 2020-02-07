@@ -22,6 +22,30 @@
       "revId": "0c055f1727102a9f58dc5a24cf017e19b3c755fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b858ebe_f2c93b0f",
+        "filename": "api/video_codecs/video_encoder_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-07T15:26:05Z",
+      "side": 1,
+      "message": "Yes, the comment was completely backwards... removed it.",
+      "parentUuid": "d2597f5d_f784b8b6",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 29
+      },
+      "revId": "0c055f1727102a9f58dc5a24cf017e19b3c755fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

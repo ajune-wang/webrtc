@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "17748d71_e8c5995b",
+        "filename": "api/video/video_stream_encoder_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-07T15:26:05Z",
+      "side": 1,
+      "message": "Added a TODO, can\u0027t RTC_DEPRECATE just yet.",
+      "parentUuid": "88400ad6_1b6636a6",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "d12980ab5af7d7bae87d1fd2fa9cabfb5c715f8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f88d3b0_a59076db",
         "filename": "api/video_codecs/video_encoder_factory.h",
         "patchSetId": 5

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "060c64cd_dd663476",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-07T08:47:30Z",
+      "side": 1,
+      "message": "x 1000, I think the bitrate is in kbps.",
+      "range": {
+        "startLine": 1580,
+        "startChar": 29,
+        "endLine": 1580,
+        "endChar": 51
+      },
+      "revId": "9a486a86329f31c8e84bcb53b978234f9e97441c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc663a6c_1a8a098e",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-07T08:47:30Z",
+      "side": 1,
+      "message": "reduce_bitrate_bps",
+      "range": {
+        "startLine": 1581,
+        "startChar": 8,
+        "endLine": 1581,
+        "endChar": 22
+      },
+      "revId": "9a486a86329f31c8e84bcb53b978234f9e97441c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95a3e1bd_d04c08aa",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1583,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-02-07T08:47:30Z",
+      "side": 1,
+      "message": "x 1000",
+      "range": {
+        "startLine": 1583,
+        "startChar": 48,
+        "endLine": 1583,
+        "endChar": 70
+      },
+      "revId": "9a486a86329f31c8e84bcb53b978234f9e97441c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

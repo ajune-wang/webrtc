@@ -34,12 +34,7 @@ class EncodeUsageResource : public Resource,
   void StartCheckForOveruse(CpuOveruseOptions options);
   void StopCheckForOveruse();
 
-  void SetTargetFrameRate(absl::optional<double> target_frame_rate);
-  void OnEncodeStarted(const VideoFrame& cropped_frame,
-                       int64_t time_when_first_seen_us);
-  void OnEncodeCompleted(uint32_t timestamp,
-                         int64_t time_sent_in_us,
-                         int64_t capture_time_us,
+  void OnEncodeCompleted(int64_t capture_time_us,
                          absl::optional<int> encode_duration_us);
 
   // AdaptationObserverInterface implementation.
@@ -49,11 +44,8 @@ class EncodeUsageResource : public Resource,
   bool AdaptDown(AdaptReason reason) override;
 
  private:
-  int TargetFrameRateAsInt();
-
   const std::unique_ptr<OveruseFrameDetector> overuse_detector_;
   bool is_started_;
-  absl::optional<double> target_frame_rate_;
 };
 
 }  // namespace webrtc

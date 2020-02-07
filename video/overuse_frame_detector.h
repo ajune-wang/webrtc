@@ -27,8 +27,6 @@
 
 namespace webrtc {
 
-class VideoFrame;
-
 struct CpuOveruseOptions {
   CpuOveruseOptions();
 
@@ -37,13 +35,12 @@ struct CpuOveruseOptions {
   // General settings.
   int frame_timeout_interval_ms;  // The maximum allowed interval between two
                                   // frames before resetting estimations.
-  int min_frame_samples;          // The minimum number of frames required.
   int min_process_count;  // The number of initial process times required before
                           // triggering an overuse/underuse.
   int high_threshold_consecutive_count;  // The number of consecutive checks
                                          // above the high threshold before
                                          // triggering an overuse.
-  // New estimator enabled if this is set non-zero.
+
   int filter_time_ms;  // Time constant for averaging
 };
 
@@ -66,36 +63,17 @@ class OveruseFrameDetector {
   // StartCheckForOveruse has been called.
   void StopCheckForOveruse();
 
-  // Defines the current maximum framerate targeted by the capturer. This is
-  // used to make sure the encode usage percent doesn't drop unduly if the
-  // capturer has quiet periods (for instance caused by screen capturers with
-  // variable capture rate depending on content updates), otherwise we might
-  // experience adaptation toggling.
-  virtual void OnTargetFramerateUpdated(int framerate_fps);
-
-  // Called for each captured frame.
-  void FrameCaptured(const VideoFrame& frame, int64_t time_when_first_seen_us);
-
   // Called for each sent frame.
-  void FrameSent(uint32_t timestamp,
-                 int64_t time_sent_in_us,
-                 int64_t capture_time_us,
+  void FrameSent(int64_t capture_time_us,
                  absl::optional<int> encode_duration_us);
 
   // Interface for cpu load estimation. Intended for internal use only.
   class ProcessingUsage {
    public:
     virtual void Reset() = 0;
-    virtual void SetMaxSampleDiffMs(float diff_ms) = 0;
-    virtual void FrameCaptured(const VideoFrame& frame,
-                               int64_t time_when_first_seen_us,
-                               int64_t last_capture_time_us) = 0;
+
     // Returns encode_time in us, if there's a new measurement.
     virtual absl::optional<int> FrameSent(
-        // These two argument used by old estimator.
-        uint32_t timestamp,
-        int64_t time_sent_in_us,
-        // And these two by the new estimator.
         int64_t capture_time_us,
         absl::optional<int> encode_duration_us) = 0;
 
@@ -103,12 +81,10 @@ class OveruseFrameDetector {
     virtual ~ProcessingUsage() = default;
   };
 
- protected:
-  // Protected for test purposes.
+  // Public for test purposes.
   void CheckForOveruse(AdaptationObserverInterface* overuse_observer);
   void SetOptions(const CpuOveruseOptions& options);
-
-  CpuOveruseOptions options_;
+  CpuOveruseOptions GetOptions() { return options_; }
 
  private:
   void EncodedFrameTimeMeasured(int encode_duration_ms);
@@ -137,7 +113,6 @@ class OveruseFrameDetector {
 
   // Number of pixels of last captured frame.
   int num_pixels_ RTC_GUARDED_BY(task_checker_);
-  int max_framerate_ RTC_GUARDED_BY(task_checker_);
   int64_t last_overuse_time_ms_ RTC_GUARDED_BY(task_checker_);
   int checks_above_threshold_ RTC_GUARDED_BY(task_checker_);
   int num_overuse_detections_ RTC_GUARDED_BY(task_checker_);
@@ -146,6 +121,8 @@ class OveruseFrameDetector {
   int current_rampup_delay_ms_ RTC_GUARDED_BY(task_checker_);
 
   std::unique_ptr<ProcessingUsage> usage_ RTC_PT_GUARDED_BY(task_checker_);
+
+  CpuOveruseOptions options_;
 
   // If set by field trial, overrides CpuOveruseOptions::filter_time_ms.
   FieldTrialOptional<TimeDelta> filter_time_constant_{"tau"};

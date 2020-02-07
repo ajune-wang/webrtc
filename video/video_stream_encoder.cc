@@ -1244,7 +1244,8 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   TRACE_EVENT_ASYNC_STEP0("webrtc", "Video", video_frame.render_time_ms(),
                           "Encode");
 
-  resource_adaptation_module_->OnEncodeStarted(out_frame, time_when_posted_us);
+  // TODO(nisse): XXX To not change behavior, need logic here to reset overuse
+  // detector on resolution change.
 
   RTC_DCHECK_LE(send_codec_.width, out_frame.width());
   RTC_DCHECK_LE(send_codec_.height, out_frame.height());
@@ -1638,7 +1639,7 @@ void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,
     }
   }
 
-  resource_adaptation_module_->OnEncodeCompleted(encoded_image, time_sent_us,
+  resource_adaptation_module_->OnEncodeCompleted(encoded_image,
                                                  encode_duration_us);
   if (bitrate_adjuster_) {
     bitrate_adjuster_->OnEncodedFrame(encoded_image, temporal_index);

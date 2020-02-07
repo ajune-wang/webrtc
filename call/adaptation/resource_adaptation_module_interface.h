@@ -137,7 +137,6 @@ class ResourceAdaptationModuleInterface {
   // frame is dropped or packetized and sent over the network. There is
   // currently no signal what happens beyond this point.
   virtual void OnEncodeCompleted(const EncodedImage& encoded_image,
-                                 int64_t time_sent_in_us,
                                  absl::optional<int> encode_duration_us) = 0;
   // A frame was dropped at any point in the pipeline. This may come from
   // the encoder, or elsewhere, like a frame dropper or frame size check.

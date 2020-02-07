@@ -410,7 +410,6 @@ void OveruseFrameDetectorResourceAdaptationModule::SetEncoderSettings(
   quality_rampup_experiment_.SetMaxBitrate(
       LastInputFrameSizeOrDefault(),
       encoder_settings_->video_codec().maxBitrate);
-  MaybeUpdateTargetFrameRate();
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::SetStartBitrate(
@@ -486,25 +485,16 @@ void OveruseFrameDetectorResourceAdaptationModule::OnFrameDroppedDueToSize() {
   ++initial_framedrop_;
 }
 
-void OveruseFrameDetectorResourceAdaptationModule::OnEncodeStarted(
-    const VideoFrame& cropped_frame,
-    int64_t time_when_first_seen_us) {
-  encode_usage_resource_->OnEncodeStarted(cropped_frame,
-                                          time_when_first_seen_us);
-}
-
 void OveruseFrameDetectorResourceAdaptationModule::OnEncodeCompleted(
     const EncodedImage& encoded_image,
-    int64_t time_sent_in_us,
     absl::optional<int> encode_duration_us) {
   // Inform |encode_usage_resource_| of the encode completed event.
-  uint32_t timestamp = encoded_image.Timestamp();
   int64_t capture_time_us =
       encoded_image.capture_time_ms_ * rtc::kNumMicrosecsPerMillisec;
-  encode_usage_resource_->OnEncodeCompleted(
-      timestamp, time_sent_in_us, capture_time_us, encode_duration_us);
+  encode_usage_resource_->OnEncodeCompleted(capture_time_us,
+                                            encode_duration_us);
   // Inform |quality_scaler_resource_| of the encode completed event.
-  quality_scaler_resource_->OnEncodeCompleted(encoded_image, time_sent_in_us);
+  quality_scaler_resource_->OnEncodeCompleted(encoded_image, capture_time_us);
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::OnFrameDropped(
@@ -895,31 +885,7 @@ void OveruseFrameDetectorResourceAdaptationModule::
     video_source_restrictions_ = std::move(new_restrictions);
     adaptation_listener_->OnVideoSourceRestrictionsUpdated(
         video_source_restrictions_);
-    MaybeUpdateTargetFrameRate();
   }
-}
-
-void OveruseFrameDetectorResourceAdaptationModule::
-    MaybeUpdateTargetFrameRate() {
-  absl::optional<double> codec_max_frame_rate =
-      encoder_settings_.has_value()
-          ? absl::optional<double>(
-                encoder_settings_->video_codec().maxFramerate)
-          : absl::nullopt;
-  // The current target framerate is the maximum frame rate as specified by
-  // the current codec configuration or any limit imposed by the adaptation
-  // module. This is used to make sure overuse detection doesn't needlessly
-  // trigger in low and/or variable framerate scenarios.
-  absl::optional<double> target_frame_rate =
-      ApplyDegradationPreference(source_restrictor_->source_restrictions(),
-                                 degradation_preference_)
-          .max_frame_rate();
-  if (!target_frame_rate.has_value() ||
-      (codec_max_frame_rate.has_value() &&
-       codec_max_frame_rate.value() < target_frame_rate.value())) {
-    target_frame_rate = codec_max_frame_rate;
-  }
-  encode_usage_resource_->SetTargetFrameRate(target_frame_rate);
 }
 
 // TODO(nisse): Delete, once AdaptReason and AdaptationReason are merged.

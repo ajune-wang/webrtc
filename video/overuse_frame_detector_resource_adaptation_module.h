@@ -88,9 +88,8 @@ class OveruseFrameDetectorResourceAdaptationModule
   void OnFrameDroppedDueToSize() override;
   void OnMaybeEncodeFrame() override;
   void OnEncodeStarted(const VideoFrame& cropped_frame,
-                       int64_t time_when_first_seen_us) override;
+                       int64_t time_when_first_seen_us) override {}
   void OnEncodeCompleted(const EncodedImage& encoded_image,
-                         int64_t time_sent_in_us,
                          absl::optional<int> encode_duration_us) override;
   void OnFrameDropped(EncodedImageCallback::DropReason reason) override;
 
@@ -158,10 +157,6 @@ class OveruseFrameDetectorResourceAdaptationModule
   // |adaptation_listener_| if restrictions are changed, allowing the listener
   // to reconfigure the source accordingly.
   void MaybeUpdateVideoSourceRestrictions();
-  // Calculates an up-to-date value of the target frame rate and informs the
-  // |encode_usage_resource_| of the new value.
-  void MaybeUpdateTargetFrameRate();
-
   // Use nullopt to disable quality scaling.
   void UpdateQualityScalerSettings(
       absl::optional<VideoEncoder::QpThresholds> qp_thresholds);

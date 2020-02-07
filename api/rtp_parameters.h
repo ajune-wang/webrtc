@@ -380,6 +380,11 @@ struct RTC_EXPORT RtpEncodingParameters {
   // The relative bitrate priority of this encoding. Currently this is
   // implemented for the entire rtp sender by using the value of the first
   // encoding parameter.
+  // See: https://w3c.github.io/webrtc-priority/#enumdef-rtcprioritytype
+  // "very-low" = 0.5
+  // "low" = 1.0
+  // "medium" = 2.0
+  // "high" = 4.0
   // TODO(webrtc.bugs.org/8630): Implement this per encoding parameter.
   // Currently there is logic for how bitrate is distributed per simulcast layer
   // in the VideoBitrateAllocator. This must be updated to incorporate relative

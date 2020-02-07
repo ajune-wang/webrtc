@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afe4db32_3d2ad8e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-07T13:19:41Z",
+      "side": 1,
+      "message": "ti",
+      "range": {
+        "startLine": 7,
+        "startChar": 13,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "782ebd6d20d1ed868df3bc5c198e815ee8cc2a44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "737467cc_51d921fa",
+        "filename": "api/call/bitrate_allocation.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-07T13:19:41Z",
+      "side": 1,
+      "message": "So what we do is drop video frames amounting to the given fraction of all video bits? Maybe phrase it as\n\n  // Congestion window pushback bitrate reduction fraction. Used in\n  // VideoStreamEncoder to reduce the bitrate by the given fraction\n  // by dropping frames.",
+      "revId": "782ebd6d20d1ed868df3bc5c198e815ee8cc2a44",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

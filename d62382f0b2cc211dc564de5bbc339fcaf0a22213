@@ -336,6 +336,24 @@
     },
     {
       "key": {
+        "uuid": "9a7894af_ebd13402",
+        "filename": "p2p/base/p2p_transport_channel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 10726
+      },
+      "writtenOn": "2020-02-08T20:11:03Z",
+      "side": 1,
+      "message": "Yes, and I documented it now.",
+      "parentUuid": "763b3439_b6b6c3be",
+      "revId": "d62382f0b2cc211dc564de5bbc339fcaf0a22213",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faeef042_d8121eea",
         "filename": "p2p/base/p2p_transport_channel_unittest.cc",
         "patchSetId": 5

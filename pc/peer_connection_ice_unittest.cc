@@ -217,10 +217,8 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
   // TODO(qingsi): Rewrite this method in terms of the standard IceTransport
   // after it is implemented.
   cricket::IceRole GetIceRole(const WrapperPtr& pc_wrapper_ptr) {
-    auto* pc_proxy =
-        static_cast<PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
-            pc_wrapper_ptr->pc());
-    PeerConnection* pc = static_cast<PeerConnection*>(pc_proxy->internal());
+    PeerConnection* pc = GetInternalPeerConnection(pc_wrapper_ptr);
+
     for (const auto& transceiver : pc->GetTransceiversInternal()) {
       if (transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
         auto dtls_transport = pc->LookupDtlsTransportByMidInternal(
@@ -232,6 +230,12 @@ class PeerConnectionIceBaseTest : public ::testing::Test {
     return cricket::ICEROLE_UNKNOWN;
   }
 
+  PeerConnection* GetInternalPeerConnection(const WrapperPtr& pc_wrapper_ptr) {
+    auto* pc_proxy =
+        static_cast<PeerConnectionProxyWithInternal<PeerConnectionInterface>*>(
+            pc_wrapper_ptr->pc());
+    return static_cast<PeerConnection*>(pc_proxy->internal());
+  }
   // Returns a list of (ufrag, pwd) pairs in the order that they appear in
   // |description|, or the empty list if |description| is null.
   std::vector<std::pair<std::string, std::string>> GetIceCredentials(
@@ -1411,6 +1415,46 @@ TEST_P(PeerConnectionIceTest, CloseDoesNotTransitionGatheringStateToComplete) {
   EXPECT_FALSE(pc->IsIceGatheringDone());
   EXPECT_EQ(PeerConnectionInterface::kIceGatheringNew,
             pc->pc()->ice_gathering_state());
+}
+
+TEST_P(PeerConnectionIceTest, IceForking) {
+  RTCConfiguration config;
+  config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
+  auto pc1 = CreatePeerConnectionWithAudioVideo(config);
+  auto pc2 = CreatePeerConnectionWithAudioVideo(config);
+
+  auto gatherer = pc1->CreateSharedIceGatherer();
+  ASSERT_TRUE(gatherer);
+
+  pc1->UseSharedIceGatherer(gatherer);
+  auto offer = pc1->CreateOffer();
+  auto mid = offer->description()->contents()[0].name;
+  auto* transport_desc = GetFirstTransportDescription(offer.get());
+  EXPECT_EQ(transport_desc->ice_ufrag,
+            gatherer->port_allocator_session()->ice_ufrag());
+  EXPECT_EQ(transport_desc->ice_pwd,
+            gatherer->port_allocator_session()->ice_pwd());
+  pc1->SetLocalDescription(std::move(offer));
+  EXPECT_TRUE_WAIT(pc1->IsIceGatheringDone(), kIceCandidatesTimeout);
+
+  auto pc1_ice =
+      pc1->LookupDtlsTransportByMid(mid)->ice_transport()->internal();
+
+  pc2->UseSharedIceGatherer(gatherer);
+  pc2->SetLocalDescription(pc2->CreateOffer());
+  EXPECT_TRUE_WAIT(pc2->IsIceGatheringDone(), kIceCandidatesTimeout);
+  auto pc2_ice =
+      pc2->LookupDtlsTransportByMid(mid)->ice_transport()->internal();
+
+  ASSERT_TRUE(pc1_ice);
+  ASSERT_TRUE(pc2_ice);
+  ASSERT_TRUE(pc1_ice->shared_gatherer());
+  ASSERT_TRUE(pc2_ice->shared_gatherer());
+  EXPECT_EQ(gatherer->port_allocator_session(),
+            pc1_ice->shared_gatherer()->port_allocator_session());
+  EXPECT_EQ(gatherer->port_allocator_session(),
+            pc2_ice->shared_gatherer()->port_allocator_session());
+  EXPECT_TRUE(gatherer->port_allocator_session()->IsGettingPorts());
 }
 
 }  // namespace webrtc

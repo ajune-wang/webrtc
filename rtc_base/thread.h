@@ -145,13 +145,6 @@ class RTC_EXPORT ThreadManager {
   RTC_DISALLOW_COPY_AND_ASSIGN(ThreadManager);
 };
 
-struct _SendMessage {
-  _SendMessage() {}
-  Thread* thread;
-  Message msg;
-  bool* ready;
-};
-
 // WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().
 
 class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
@@ -537,16 +530,6 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Return true if the thread is currently running.
   bool IsRunning();
 
-  // Processes received "Send" requests. If |source| is not null, only requests
-  // from |source| are processed, otherwise, all requests are processed.
-  void ReceiveSendsFromThread(const Thread* source);
-
-  // If |source| is not null, pops the first "Send" message from |source| in
-  // |sendlist_|, otherwise, pops the first "Send" message of |sendlist_|.
-  // The caller must lock |crit_| before calling.
-  // Returns true if there is such a message.
-  bool PopSendMessageFromThread(const Thread* source, _SendMessage* msg);
-
   void InvokeInternal(const Location& posted_from,
                       rtc::FunctionView<void()> functor);
 
@@ -554,11 +537,17 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // MessageLikeTask payload data.
   static MessageHandler* GetPostTaskMessageHandler();
 
+  void SetIsSending(bool is_sending) {
+    CritScope cs(&crit_);
+    is_sending_ = is_sending;
+  }
+
   bool fPeekKeep_;
   Message msgPeek_;
   MessageList messages_ RTC_GUARDED_BY(crit_);
   PriorityQueue delayed_messages_ RTC_GUARDED_BY(crit_);
   uint32_t delayed_next_num_ RTC_GUARDED_BY(crit_);
+  bool is_sending_ RTC_GUARDED_BY(crit_) = false;
   CriticalSection crit_;
   bool fInitialized_;
   bool fDestroyed_;
@@ -570,7 +559,6 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Used if SocketServer ownership lies with |this|.
   std::unique_ptr<SocketServer> own_ss_;
 
-  std::list<_SendMessage> sendlist_;
   std::string name_;
 
   // TODO(tommi): Add thread checks for proper use of control methods.

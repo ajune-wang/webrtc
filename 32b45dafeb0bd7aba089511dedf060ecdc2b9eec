@@ -22,6 +22,30 @@
       "revId": "32b45dafeb0bd7aba089511dedf060ecdc2b9eec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f749fa60_0375d793",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-10T12:53:35Z",
+      "side": 1,
+      "message": "Thanks for the tip! This function should be used in a few other places. I have also removed the deps in the GN files that are no longer needed.",
+      "parentUuid": "c8b225ee_21b15e5d",
+      "range": {
+        "startLine": 372,
+        "startChar": 6,
+        "endLine": 379,
+        "endChar": 35
+      },
+      "revId": "32b45dafeb0bd7aba089511dedf060ecdc2b9eec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

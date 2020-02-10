@@ -378,6 +378,30 @@
       "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47b87aef_d98cefe8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-10T10:34:22Z",
+      "side": 1,
+      "message": "Right, now I get it. I can\u0027t see an EncoderSelector suggesting different encoder in that short period of time, it wouldn\u0027t really make sense for it to do that since we would need instantiate an encoder and send a keyframe on every switch.",
+      "parentUuid": "12bea6e8_82308650",
+      "range": {
+        "startLine": 1608,
+        "startChar": 29,
+        "endLine": 1608,
+        "endChar": 46
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

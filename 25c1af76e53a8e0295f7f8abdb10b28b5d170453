@@ -354,6 +354,30 @@
       "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12bea6e8_82308650",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-10T10:09:22Z",
+      "side": 1,
+      "message": "This isn\u0027t terribly important, so let\u0027s not spend too much time on this, but the way I understand it:\n\n1. Early: Instantiate a new encoder immediately when we get a new bitrate and the EncoderSelector suggests we should use a different codec.\n\n2. Late: Postpone any change to encoder until we get the next input frame, and really need an encoder to feed it to. In case there\u0027s been several suggestions to change encoder since the previous input frame, care only about the latest suggestion.\n\nIs that clearer? I don\u0027t see any strong reason to choose one or the other, but maybe there is one?",
+      "parentUuid": "f9aa794e_bc7ad73a",
+      "range": {
+        "startLine": 1608,
+        "startChar": 29,
+        "endLine": 1608,
+        "endChar": 46
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

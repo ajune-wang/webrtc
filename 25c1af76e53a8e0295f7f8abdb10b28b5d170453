@@ -306,6 +306,30 @@
       "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39b5b7b5_0c057b0b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-10T07:44:54Z",
+      "side": 1,
+      "message": "Do you see a reason to switch early? I guess there\u0027s some chance we\u0027ll do more than one switch between two frames, which shouldn\u0027t be that costly (if it\u0027s rare), but seems a bit unnecessary to instantiate an encoder we\u0027re not going to use.",
+      "parentUuid": "3553acb5_df6f1bb4",
+      "range": {
+        "startLine": 1608,
+        "startChar": 29,
+        "endLine": 1608,
+        "endChar": 46
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

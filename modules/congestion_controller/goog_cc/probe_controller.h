@@ -20,6 +20,7 @@
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "api/transport/network_control.h"
 #include "api/transport/webrtc_key_value_config.h"
+#include "api/units/data_rate.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/system/unused.h"
@@ -50,6 +51,7 @@ struct ProbeControllerConfig {
   FieldTrialOptional<double> first_allocation_probe_scale;
   FieldTrialOptional<double> second_allocation_probe_scale;
   FieldTrialFlag allocation_allow_further_probing;
+  FieldTrialOptional<DataRate> allocation_probe_max;
 };
 
 // This class controls initiation of probing to estimate initial channel
@@ -114,6 +116,7 @@ class ProbeController {
       int64_t now_ms,
       std::vector<int64_t> bitrates_to_probe,
       bool probe_further);
+  int64_t MaybeCapAllocationProbe(double uncapped_bps) const;
 
   bool network_available_;
   State state_;

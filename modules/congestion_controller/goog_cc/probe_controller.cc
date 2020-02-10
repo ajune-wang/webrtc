@@ -99,7 +99,8 @@ ProbeControllerConfig::ProbeControllerConfig(
       alr_probe_scale("alr_scale", 2),
       first_allocation_probe_scale("alloc_p1", 1),
       second_allocation_probe_scale("alloc_p2", 2),
-      allocation_allow_further_probing("alloc_probe_further", false) {
+      allocation_allow_further_probing("alloc_probe_further", false),
+      allocation_probe_max("alloc_probe_max") {
   ParseFieldTrial(
       {&first_exponential_probe_scale, &second_exponential_probe_scale,
        &further_exponential_probe_scale, &further_probe_threshold,
@@ -117,7 +118,7 @@ ProbeControllerConfig::ProbeControllerConfig(
                   key_value_config->Lookup("WebRTC-Bwe-AlrProbing"));
   ParseFieldTrial(
       {&first_allocation_probe_scale, &second_allocation_probe_scale,
-       &allocation_allow_further_probing},
+       &allocation_allow_further_probing, &allocation_probe_max},
       key_value_config->Lookup("WebRTC-Bwe-AllocationProbing"));
 }
 
@@ -191,6 +192,13 @@ std::vector<ProbeClusterConfig> ProbeController::SetBitrates(
   return std::vector<ProbeClusterConfig>();
 }
 
+int64_t ProbeController::MaybeCapAllocationProbe(double uncapped_bps) const {
+  if (!config_.allocation_probe_max)
+    return static_cast<int64_t>(uncapped_bps);
+  return std::min(config_.allocation_probe_max.Value().bps(),
+                  static_cast<int64_t>(uncapped_bps));
+}
+
 std::vector<ProbeClusterConfig> ProbeController::OnMaxTotalAllocatedBitrate(
     int64_t max_total_allocated_bitrate,
     int64_t at_time_ms) {
@@ -209,11 +217,12 @@ std::vector<ProbeClusterConfig> ProbeController::OnMaxTotalAllocatedBitrate(
       return std::vector<ProbeClusterConfig>();
 
     std::vector<int64_t> probes = {
-        static_cast<int64_t>(config_.first_allocation_probe_scale.Value() *
-                             max_total_allocated_bitrate)};
+        MaybeCapAllocationProbe(config_.first_allocation_probe_scale.Value() *
+                                max_total_allocated_bitrate)};
     if (config_.second_allocation_probe_scale) {
-      probes.push_back(config_.second_allocation_probe_scale.Value() *
-                       max_total_allocated_bitrate);
+      probes.push_back(MaybeCapAllocationProbe(
+          config_.second_allocation_probe_scale.Value() *
+          max_total_allocated_bitrate));
     }
     return InitiateProbing(at_time_ms, probes,
                            config_.allocation_allow_further_probing);

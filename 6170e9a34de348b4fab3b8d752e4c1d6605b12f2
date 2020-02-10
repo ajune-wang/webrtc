@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9dba1a9f_c58685ae",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-10T11:31:59Z",
+      "side": 1,
+      "message": "Why this type change? It seems a bit unrelated to the main changes.\n\nWhere do these ids originate?",
+      "range": {
+        "startLine": 90,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 10
+      },
+      "revId": "6170e9a34de348b4fab3b8d752e4c1d6605b12f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8835728d_4a600e1d",
+        "filename": "video/rtp_streams_synchronizer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-10T11:31:59Z",
+      "side": 1,
+      "message": "In which way is it a minimum time? Will logging interval often be larger than this?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "6170e9a34de348b4fab3b8d752e4c1d6605b12f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

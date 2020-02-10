@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8b225ee_21b15e5d",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-10T11:58:22Z",
+      "side": 1,
+      "message": "For simplicity of the code, please use this instead: https://cs.chromium.org/chromium/src/third_party/webrtc/api/video/i420_buffer.h?l\u003d99\u0026rcl\u003dd4c3c3a454215b21f02d2a772a729b4c87d6b33e",
+      "range": {
+        "startLine": 372,
+        "startChar": 6,
+        "endLine": 379,
+        "endChar": 35
+      },
+      "revId": "32b45dafeb0bd7aba089511dedf060ecdc2b9eec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

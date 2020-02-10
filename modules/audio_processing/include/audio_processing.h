@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/audio/audio_enhancer.h"
 #include "api/audio/echo_canceller3_config.h"
 #include "api/audio/echo_control.h"
 #include "api/scoped_refptr.h"
@@ -515,7 +516,6 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   virtual int proc_sample_rate_hz() const = 0;
   virtual int proc_split_sample_rate_hz() const = 0;
   virtual size_t num_input_channels() const = 0;
-  virtual size_t num_proc_channels() const = 0;
   virtual size_t num_output_channels() const = 0;
   virtual size_t num_reverse_channels() const = 0;
 
@@ -720,6 +720,11 @@ class RTC_EXPORT AudioProcessingBuilder {
   // The AudioProcessingBuilder takes ownership of the capture_analyzer.
   AudioProcessingBuilder& SetCaptureAnalyzer(
       std::unique_ptr<CustomAudioAnalyzer> capture_analyzer);
+  // The AudioProcessingBuilder takes ownership of the
+  // audio_enhancer_controller.
+  AudioProcessingBuilder& SetAudioEnhancerController(
+      std::unique_ptr<AudioEnhancerController> audio_enhancer_controller);
+
   // This creates an APM instance using the previously set components. Calling
   // the Create function resets the AudioProcessingBuilder to its initial state.
   AudioProcessing* Create();
@@ -731,6 +736,7 @@ class RTC_EXPORT AudioProcessingBuilder {
   std::unique_ptr<CustomProcessing> render_pre_processing_;
   rtc::scoped_refptr<EchoDetector> echo_detector_;
   std::unique_ptr<CustomAudioAnalyzer> capture_analyzer_;
+  std::unique_ptr<AudioEnhancerController> audio_enhancer_controller_;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioProcessingBuilder);
 };
 

@@ -15,6 +15,8 @@
 
 namespace webrtc {
 
+class AudioEnhancer;
+
 EchoCanceller3Factory::EchoCanceller3Factory() {}
 
 EchoCanceller3Factory::EchoCanceller3Factory(const EchoCanceller3Config& config)
@@ -24,8 +26,19 @@ std::unique_ptr<EchoControl> EchoCanceller3Factory::Create(
     int sample_rate_hz,
     int num_render_channels,
     int num_capture_channels) {
+  return std::make_unique<EchoCanceller3>(config_, sample_rate_hz,
+                                          num_render_channels,
+                                          num_capture_channels, nullptr);
+}
+
+std::unique_ptr<EchoControl> EchoCanceller3Factory::Create(
+    int sample_rate_hz,
+    int num_render_channels,
+    int num_capture_channels,
+    AudioEnhancer* echo_control_enhancer) {
   return std::make_unique<EchoCanceller3>(
-      config_, sample_rate_hz, num_render_channels, num_capture_channels);
+      config_, sample_rate_hz, num_render_channels, num_capture_channels,
+      echo_control_enhancer);
 }
 
 }  // namespace webrtc

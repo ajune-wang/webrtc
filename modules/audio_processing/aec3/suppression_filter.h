@@ -30,8 +30,12 @@ class SuppressionFilter {
   ~SuppressionFilter();
   void ApplyGain(rtc::ArrayView<const FftData> comfort_noise,
                  rtc::ArrayView<const FftData> comfort_noise_high_bands,
-                 const std::array<float, kFftLengthBy2Plus1>& suppression_gain,
-                 float high_bands_gain,
+                 const std::array<float, kFftLengthBy2Plus1>&
+                     low_band_echo_suppression_gains,
+                 float high_bands_echo_suppression_gain,
+                 const std::array<float, kFftLengthBy2Plus1>&
+                     low_band_noise_suppression_gains,
+                 float high_bands_noise_suppression_gain,
                  rtc::ArrayView<const FftData> E_lowest_band,
                  std::vector<std::vector<std::vector<float>>>* e);
 

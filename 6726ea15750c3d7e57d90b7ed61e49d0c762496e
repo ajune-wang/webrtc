@@ -288,6 +288,24 @@
       "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37da180_7cc67de8",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-02-10T13:15:00Z",
+      "side": 1,
+      "message": "Each codec has a set of FMTP parameters, but many times, these parameters are optional. I agree that we don\u0027t test anything here, the conversion to a string is tested in pc/rtc_stats_collector_unittest.cc\n\nI\u0027ve added a comment that the field is optional, which I think explains why it\u0027s untestable.",
+      "parentUuid": "5eba3726_19f8368e",
+      "revId": "6726ea15750c3d7e57d90b7ed61e49d0c762496e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

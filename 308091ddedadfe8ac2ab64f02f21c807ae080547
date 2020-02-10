@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bbfec9e8_a4112bc7",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-02-10T13:15:00Z",
+      "side": 1,
+      "message": "That\u0027s a nice trick.",
+      "parentUuid": "299760bd_c16eae7d",
+      "revId": "308091ddedadfe8ac2ab64f02f21c807ae080547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b5931b2_09aba1bf",
         "filename": "pc/rtc_stats_integrationtest.cc",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2020-02-07T12:55:39Z",
       "side": 1,
       "message": "For a use case where we do get the FMTP parameter, can we add a test that verifies that if we string-search the contents of createOffer() SDP for the sdpFmtpLine we should get a match? This would catch different orders or difference in formatting between the two places. This should be \"The a\u003dfmtp line in the SDP corresponding to the codec\".\n\nThis test may be added to rtc_stats_integrationtest.cc or it may be added to peer_connection_interface_unittest.cc:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/peer_connection_interface_unittest.cc;l\u003d1883?q\u003df:peer_connection_%20f:unittest.cc%20GetStats\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "revId": "308091ddedadfe8ac2ab64f02f21c807ae080547",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3187481_c356cd9c",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-02-10T13:15:00Z",
+      "side": 1,
+      "message": "I\u0027ve changed the code so that the two serializations share the same code. That wasn\u0027t possible before with unordered/ordered maps, but since everything is ordered maps now, it\u0027s working.",
+      "parentUuid": "0b5931b2_09aba1bf",
       "revId": "308091ddedadfe8ac2ab64f02f21c807ae080547",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

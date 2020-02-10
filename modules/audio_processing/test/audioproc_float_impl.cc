@@ -179,6 +179,10 @@ ABSL_FLAG(int,
           "Set a maximum internal processing rate (32000 or 48000) to override "
           "the default rate");
 ABSL_FLAG(int,
+          audio_enhancer_variant,
+          kParameterNotSpecifiedValue,
+          "Specify an enumerated echo control enhancement algorithm to use ");
+ABSL_FLAG(int,
           stream_delay,
           kParameterNotSpecifiedValue,
           "Specify the stream delay in ms to use");
@@ -403,6 +407,8 @@ SimulationSettings CreateSettings() {
                       &settings.ns_analysis_on_linear_aec_output);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_maximum_internal_processing_rate),
                         &settings.maximum_internal_processing_rate);
+  SetSettingIfSpecified(absl::GetFlag(FLAGS_audio_enhancer_variant),
+                        &settings.audio_enhancer_variant);
   SetSettingIfSpecified(absl::GetFlag(FLAGS_stream_delay),
                         &settings.stream_delay);
   SetSettingIfFlagSet(absl::GetFlag(FLAGS_use_stream_delay),

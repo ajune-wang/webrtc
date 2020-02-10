@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "api/array_view.h"
+#include "api/audio/audio_enhancer.h"
 #include "api/audio/echo_canceller3_config.h"
 #include "api/audio/echo_control.h"
 #include "modules/audio_processing/aec3/api_call_jitter_metrics.h"
@@ -80,15 +81,20 @@ class Aec3RenderQueueItemVerifier {
 class EchoCanceller3 : public EchoControl {
  public:
   // Normal c-tor to use.
+  // Does not take control of audio_enhancer. The caller is responsible
+  // for maintaining the object during the lifetime of the EchoCanceller3 object
+  // as well as its desctruction.
   EchoCanceller3(const EchoCanceller3Config& config,
                  int sample_rate_hz,
                  size_t num_render_channels,
-                 size_t num_capture_channels);
+                 size_t num_capture_channels,
+                 AudioEnhancer* audio_enhancer = nullptr);
   // Testing c-tor that is used only for testing purposes.
   EchoCanceller3(const EchoCanceller3Config& config,
                  int sample_rate_hz,
                  size_t num_render_channels,
                  size_t num_capture_channels,
+                 AudioEnhancer* audio_enhancer,
                  std::unique_ptr<BlockProcessor> block_processor);
   ~EchoCanceller3() override;
   EchoCanceller3(const EchoCanceller3&) = delete;
@@ -114,6 +120,12 @@ class EchoCanceller3 : public EchoControl {
   void SetAudioBufferDelay(int delay_ms) override;
 
   bool ActiveProcessing() const override;
+
+  // Returns the number of channels in the output.
+  size_t NumCaptureOutputChannels() const override {
+    RTC_DCHECK_RUNS_SERIALIZED(&capture_race_checker_);
+    return block_processor_->NumCaptureOutputChannels();
+  }
 
   // Signals whether an external detector has detected echo leakage from the
   // echo canceller.

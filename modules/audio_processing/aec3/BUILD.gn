@@ -26,6 +26,8 @@ rtc_library("aec3") {
     "alignment_mixer.h",
     "api_call_jitter_metrics.cc",
     "api_call_jitter_metrics.h",
+    "audio_enhancement.cc",
+    "audio_enhancement.h",
     "block_buffer.cc",
     "block_buffer.h",
     "block_delay_buffer.cc",
@@ -123,6 +125,8 @@ rtc_library("aec3") {
     "suppression_filter.h",
     "suppression_gain.cc",
     "suppression_gain.h",
+    "suppressor_gain_delay_buffer.cc",
+    "suppressor_gain_delay_buffer.h",
     "vector_math.h",
   ]
 
@@ -138,6 +142,7 @@ rtc_library("aec3") {
     "..:high_pass_filter",
     "../../../api:array_view",
     "../../../api/audio:aec3_config",
+    "../../../api/audio:audio_enhancer",
     "../../../api/audio:echo_control",
     "../../../common_audio:common_audio_c",
     "../../../rtc_base:checks",

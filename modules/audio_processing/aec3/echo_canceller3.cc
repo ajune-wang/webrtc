@@ -284,20 +284,24 @@ int EchoCanceller3::instance_count_ = 0;
 EchoCanceller3::EchoCanceller3(const EchoCanceller3Config& config,
                                int sample_rate_hz,
                                size_t num_render_channels,
-                               size_t num_capture_channels)
+                               size_t num_capture_channels,
+                               AudioEnhancer* audio_enhancer)
     : EchoCanceller3(AdjustConfig(config),
                      sample_rate_hz,
                      num_render_channels,
                      num_capture_channels,
+                     audio_enhancer,
                      std::unique_ptr<BlockProcessor>(
                          BlockProcessor::Create(AdjustConfig(config),
                                                 sample_rate_hz,
                                                 num_render_channels,
-                                                num_capture_channels))) {}
+                                                num_capture_channels,
+                                                audio_enhancer))) {}
 EchoCanceller3::EchoCanceller3(const EchoCanceller3Config& config,
                                int sample_rate_hz,
                                size_t num_render_channels,
                                size_t num_capture_channels,
+                               AudioEnhancer* audio_enhancer,
                                std::unique_ptr<BlockProcessor> block_processor)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),

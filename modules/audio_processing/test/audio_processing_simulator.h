@@ -76,6 +76,7 @@ struct SimulationSettings {
   absl::optional<int> ns_level;
   absl::optional<bool> ns_analysis_on_linear_aec_output;
   absl::optional<int> maximum_internal_processing_rate;
+  absl::optional<int> audio_enhancer_variant;
   int initial_mic_level;
   bool simulate_mic_gain = false;
   absl::optional<bool> multi_channel_render;

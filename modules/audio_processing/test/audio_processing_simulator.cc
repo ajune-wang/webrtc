@@ -20,6 +20,7 @@
 
 #include "api/audio/echo_canceller3_config_json.h"
 #include "api/audio/echo_canceller3_factory.h"
+#include "api/scoped_refptr.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/echo_control_mobile_impl.h"
@@ -28,6 +29,8 @@
 #include "modules/audio_processing/test/fake_recording_device.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/ref_count.h"
+#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/strings/json.h"
 #include "rtc_base/strings/string_builder.h"
 
@@ -536,6 +539,22 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
   if (settings_.ns_analysis_on_linear_aec_output) {
     apm_config.noise_suppression.analyze_linear_aec_output_when_available =
         *settings_.ns_analysis_on_linear_aec_output;
+  }
+
+  if (settings_.audio_enhancer_variant) {
+    std::unique_ptr<AudioEnhancerController> audio_enhancer_controller;
+    switch (*settings_.audio_enhancer_variant) {
+      case 0:
+        break;
+      case 1:
+        break;
+
+      default:
+        RTC_NOTREACHED();
+    }
+
+    ap_builder_->SetAudioEnhancerController(
+        std::move(audio_enhancer_controller));
   }
 
   RTC_CHECK(ap_builder_);

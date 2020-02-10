@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d90dbb0_3563a418",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-10T15:00:00Z",
+      "side": 1,
+      "message": "If you create a DataRate copy of this value, you can simply do (given the prior suggestion in place):\nDataRate max_allocated_rate \u003d DataRate::bps(max_total_allocated_bitrate);\n...\nstd::min(config_.allocation_probe_max, max_allocated_rate*config_.first_allocation_probe_scale.Value()).bps()\n\nThat way we avoid the extra indirection of the helper function without much overhead at the callsite.",
+      "range": {
+        "startLine": 221,
+        "startChar": 32,
+        "endLine": 221,
+        "endChar": 59
+      },
+      "revId": "b76c45bd1ae904ad3afcc0b10fd84e96317f5859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94522820_5be31df3",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-10T15:00:00Z",
+      "side": 1,
+      "message": "I suggest using:\nFieldTrialParameter\u003cDataRate\u003e allocation_probe_max;\n...\nallocation_probe_max(\"alloc_probe_max\", DataRate::PlusInfinity()),\n\nAFAICT that doesn\u0027t change the semantics, but makes it slightly clearer what the default behavior is.",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 54,
+        "endChar": 52
+      },
+      "revId": "b76c45bd1ae904ad3afcc0b10fd84e96317f5859",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

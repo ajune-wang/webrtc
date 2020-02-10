@@ -330,6 +330,30 @@
       "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9aa794e_bc7ad73a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-10T10:01:33Z",
+      "side": 1,
+      "message": "We want to switch immediately, so I don\u0027t know what early would mean in this case.",
+      "parentUuid": "39b5b7b5_0c057b0b",
+      "range": {
+        "startLine": 1608,
+        "startChar": 29,
+        "endLine": 1608,
+        "endChar": 46
+      },
+      "revId": "25c1af76e53a8e0295f7f8abdb10b28b5d170453",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

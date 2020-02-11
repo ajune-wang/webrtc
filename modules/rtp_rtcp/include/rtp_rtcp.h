@@ -92,9 +92,9 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
     // Spread any bursts of packets into smaller bursts to minimize packet loss.
     RtpPacketSender* paced_sender = nullptr;
 
-    // Generate FlexFEC packets.
+    // Generates FEC packets.
     // TODO(brandtr): Remove when FlexfecSender is wired up to PacedSender.
-    FlexfecSender* flexfec_sender = nullptr;
+    VideoFecGenerator* fec_generator = nullptr;
 
     BitrateStatisticsObserver* send_bitrate_observer = nullptr;
     SendSideDelayObserver* send_side_delay_observer = nullptr;

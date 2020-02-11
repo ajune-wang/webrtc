@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "894deaa7_69475407",
+        "filename": "modules/audio_coding/neteq/audio_decoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-11T14:24:02Z",
+      "side": 1,
+      "message": "You can only use ASSERT_* at the top level in a TEST() function, not in a subroutine (because it contains a `return`). Use EXPECT_* instead, or RTC_CHECK if you need to force a crash. (More cases below.)\n\nAlso, size_t{1}.",
+      "revId": "ee43e2cf1e5380e79da8c0d33ee4f6a534b9c74c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

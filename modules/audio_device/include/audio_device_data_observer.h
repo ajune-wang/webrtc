@@ -22,7 +22,7 @@ namespace webrtc {
 
 // This interface will capture the raw PCM data of both the local captured as
 // well as the mixed/rendered remote audio.
-class AudioDeviceDataObserver {
+class AudioDeviceDataObserver : public rtc::RefCountInterface {
  public:
   virtual void OnCaptureData(const void* audio_samples,
                              const size_t num_samples,
@@ -39,6 +39,12 @@ class AudioDeviceDataObserver {
   AudioDeviceDataObserver() = default;
   virtual ~AudioDeviceDataObserver() = default;
 };
+
+// Creates an ADMWrapper around an ADM instance that registers
+// the provided AudioDeviceDataObserver.
+rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceWithDataObserver(
+    rtc::scoped_refptr<AudioDeviceModule> impl,
+    AudioDeviceDataObserver* observer);
 
 // Creates an ADM instance with AudioDeviceDataObserver registered.
 rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceWithDataObserver(

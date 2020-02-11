@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "759d542c_e397ef97",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "nit: Please move to the top of the file\n\nPlease add javadoc for class / methods",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 3
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "681024da_822a6ed1",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "Can you please update the unittest to cover the new functionality:\nhttps://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/sdk/android/native_unittests/codecs/wrapper_unittest.cc?g\u003d0",
+      "range": {
+        "startLine": 42,
+        "startChar": 10,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af6b07c7_7f9d5a66",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "Please add javadoc",
+      "range": {
+        "startLine": 42,
+        "startChar": 31,
+        "endLine": 42,
+        "endChar": 49
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01b39d61_9ca1d851",
+        "filename": "sdk/android/src/jni/video_encoder_factory_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "is_null()",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 81,
+        "endChar": 19
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19bcc162_8379c310",
+        "filename": "sdk/android/src/jni/video_encoder_factory_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "is_null",
+      "range": {
+        "startLine": 110,
+        "startChar": 18,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64395d80_58611ba6",
+        "filename": "sdk/android/src/jni/video_encoder_factory_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "I would prefer absl::nullopt",
+      "range": {
+        "startLine": 111,
+        "startChar": 11,
+        "endLine": 111,
+        "endChar": 13
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e133642_5cb9e026",
+        "filename": "sdk/android/src/jni/video_encoder_factory_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "is_null",
+      "range": {
+        "startLine": 120,
+        "startChar": 18,
+        "endLine": 120,
+        "endChar": 21
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c84c73a8_731173f3",
+        "filename": "sdk/android/src/jni/video_encoder_factory_wrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "absl::nullopt",
+      "range": {
+        "startLine": 121,
+        "startChar": 11,
+        "endLine": 121,
+        "endChar": 13
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efcd1b34_ba9a6a67",
+        "filename": "sdk/android/src/jni/video_encoder_factory_wrapper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-11T15:22:01Z",
+      "side": 1,
+      "message": "This can be in .cc file",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

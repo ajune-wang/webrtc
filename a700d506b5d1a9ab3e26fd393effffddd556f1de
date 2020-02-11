@@ -45,6 +45,53 @@
       "revId": "a700d506b5d1a9ab3e26fd393effffddd556f1de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5111472f_9d7e81fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-02-11T11:39:53Z",
+      "side": 1,
+      "message": "Actually Bug: b/148055737\nWebRTC follows a different convention.",
+      "parentUuid": "b0aa320b_9e145e7b",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 3
+      },
+      "revId": "a700d506b5d1a9ab3e26fd393effffddd556f1de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f91f5dcf_05f47a6c",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-02-11T11:39:53Z",
+      "side": 1,
+      "message": "Can you keep the max_framerate part and add a TODO about adding maxBitrate back there?\nIt\u0027s correct by the WebRTC spec, but I guess causes issues for some sites expecting it to mean \"unlimited\".",
+      "range": {
+        "startLine": 300,
+        "startChar": 15,
+        "endLine": 300,
+        "endChar": 21
+      },
+      "revId": "a700d506b5d1a9ab3e26fd393effffddd556f1de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

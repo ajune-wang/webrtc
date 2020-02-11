@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be35b42f_5632131e",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-11T07:44:09Z",
+      "side": 1,
+      "message": "If this always return the same thing as Ssrc(), maybe it would be clearer to define it inlined here,\n\nuint32_t id() const override { return Ssrc(); } \n\nI also note that current implementation of id() uses a thread checker, while Ssrc() doesn\u0027t. It looks like the only other method they potentially race with is the (static) method ConfigureStream. Which overwrites the config_ member without any synchronization.\n\nThis cl is not the place to fix that, but it would make sense to split the Config struct into two parts, one part (including the ssrc) set at construction time, and a separate part for the things that can be changed mid-stream using ConfigureStream. Or mark all *involved* methods as running on the worker thread, if that is the way things work.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 31
+      },
+      "revId": "45b7203e5931522d57d1e2570ce5cbfaea3149dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

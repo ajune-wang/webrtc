@@ -297,9 +297,7 @@ int MinPositive(int a, int b) {
 }
 
 bool IsLayerActive(const webrtc::RtpEncodingParameters& layer) {
-  return layer.active &&
-         (!layer.max_bitrate_bps || *layer.max_bitrate_bps > 0) &&
-         (!layer.max_framerate || *layer.max_framerate > 0);
+  return layer.active;
 }
 
 }  // namespace

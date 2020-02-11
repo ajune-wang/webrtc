@@ -14,7 +14,9 @@
 #include <string.h>
 
 #include <memory>
+#include <vector>
 
+#include "api/array_view.h"
 #include "common_audio/include/audio_util.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/gtest_prod_util.h"
@@ -48,12 +50,16 @@ class ChannelBuffer {
         num_frames_per_band_(num_frames / num_bands),
         num_allocated_channels_(num_channels),
         num_channels_(num_channels),
-        num_bands_(num_bands) {
-    for (size_t i = 0; i < num_allocated_channels_; ++i) {
-      for (size_t j = 0; j < num_bands_; ++j) {
-        channels_[j * num_allocated_channels_ + i] =
-            &data_[i * num_frames_ + j * num_frames_per_band_];
-        bands_[i * num_bands_ + j] = channels_[j * num_allocated_channels_ + i];
+        num_bands_(num_bands),
+        bands_views_(num_channels_, std::vector<rtc::ArrayView<T>>(num_bands)) {
+    for (size_t ch = 0; ch < num_allocated_channels_; ++ch) {
+      for (size_t band = 0; band < num_bands_; ++band) {
+        channels_[band * num_allocated_channels_ + ch] =
+            &data_[ch * num_frames_ + band * num_frames_per_band_];
+        bands_[ch * num_bands_ + band] =
+            channels_[band * num_allocated_channels_ + ch];
+        bands_views_[ch][band] =
+            rtc::ArrayView<T>(&bands_[ch][band], num_frames_per_band_);
       }
     }
   }
@@ -100,6 +106,14 @@ class ChannelBuffer {
     return const_cast<T* const*>(t->bands(channel));
   }
 
+  rtc::ArrayView<T> bands_views(size_t channel) {
+    return bands_views_[channel];
+  }
+
+  rtc::ArrayView<const T> bands_views(size_t channel) const {
+    return bands_views_[channel];
+  }
+
   // Sets the |slice| pointers to the |start_frame| position for each channel.
   // Returns |slice| for convenience.
   const T* const* Slice(T** slice, size_t start_frame) const {
@@ -140,6 +154,7 @@ class ChannelBuffer {
   // Number of channels the user sees.
   size_t num_channels_;
   const size_t num_bands_;
+  std::vector<std::vector<rtc::ArrayView<T>>> bands_views_;
 };
 
 // One int16_t and one float ChannelBuffer that are kept in sync. The sync is

@@ -12,6 +12,7 @@
 
 #include <array>
 
+#include "api/array_view.h"
 #include "common_audio/channel_buffer.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "rtc_base/checks.h"
@@ -106,8 +107,10 @@ void SplittingFilter::ThreeBandsAnalysis(const ChannelBuffer<float>* data,
                                          ChannelBuffer<float>* bands) {
   RTC_DCHECK_EQ(three_band_filter_banks_.size(), data->num_channels());
   for (size_t i = 0; i < three_band_filter_banks_.size(); ++i) {
-    three_band_filter_banks_[i]->Analysis(data->channels()[i],
-                                          data->num_frames(), bands->bands(i));
+    rtc::ArrayView<const float, ThreeBandFilterBank::kFullBandSize> full_band(
+        data->channels()[i], 480);
+    three_band_filter_banks_[i]->Analysis(full_band, data->num_frames(),
+                                          bands->bands(i));
   }
 }
 
@@ -115,8 +118,10 @@ void SplittingFilter::ThreeBandsSynthesis(const ChannelBuffer<float>* bands,
                                           ChannelBuffer<float>* data) {
   RTC_DCHECK_LE(data->num_channels(), three_band_filter_banks_.size());
   for (size_t i = 0; i < data->num_channels(); ++i) {
+    rtc::ArrayView<float, ThreeBandFilterBank::kFullBandSize> full_band(
+        data->channels()[i], 480);
     three_band_filter_banks_[i]->Synthesis(
-        bands->bands(i), bands->num_frames_per_band(), data->channels()[i]);
+        bands->bands(i), bands->num_frames_per_band(), full_band);
   }
 }
 

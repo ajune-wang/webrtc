@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "164f19c8_c7c7515d",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-02-11T15:57:51Z",
+      "side": 1,
+      "message": "This seems incorrect, it should be 3 or 4, not 160?\n\nAnd I wonder if it is possible to enforce (fail at compile time) when we do not provide the full array contents in the definition?",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "c95bb0e4db954243314579fe9b5af641d3df179d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4966713_18ffdc88",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-02-11T15:57:51Z",
+      "side": 1,
+      "message": "It is a little confusing to pass in -buffer_shift and then negate it _again_ here. Does it make sense to pass in buffer_shift, maybe under the name offset or some such, and instead assign `int shift \u003d -offset` and iterate over `k \u003c offset`?",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 25
+      },
+      "revId": "c95bb0e4db954243314579fe9b5af641d3df179d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7dbfbd_02a78008",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-02-11T15:57:51Z",
+      "side": 1,
+      "message": "What do you think about storing the zero filters as well, and getting rid of this index computation?",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 68
+      },
+      "revId": "c95bb0e4db954243314579fe9b5af641d3df179d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3edc167_b9bcf42a",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-02-11T15:57:51Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 225,
+        "startChar": 50,
+        "endLine": 225,
+        "endChar": 51
+      },
+      "revId": "c95bb0e4db954243314579fe9b5af641d3df179d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "0e60cf1c92b493848b8db82df704da32446efbcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "702259ff_87706b23",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-11T15:18:02Z",
+      "side": 1,
+      "message": "or rather relying on secret knowledge there is no multiplex-specific code in the RtpFrameReferneceFinder.\n\nit might be better to use something like FuzzDataHelper::SelectOneOf\nsince it is not enough to set codec type, you also need to fill codec specific structure,\nso just added size field to the enum wouldn\u0027t really help.\n\nEither way, improving fuzzer is a different topic. (current way of selecting codec is sure fragile)\nFixed this line because needed to touch this fuzzer anyway.",
+      "parentUuid": "b59a1be6_46dae039",
+      "range": {
+        "startLine": 99,
+        "startChar": 70,
+        "endLine": 99,
+        "endChar": 71
+      },
+      "revId": "0e60cf1c92b493848b8db82df704da32446efbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

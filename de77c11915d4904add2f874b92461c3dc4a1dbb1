@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4632710_1d6b66bf",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-11T15:17:52Z",
+      "side": 1,
+      "message": "I find this a bit hard to read.\n\nMaybe compute\nmax_allocated_rate * config_.first_allocation_probe_scale.Value()).bps()\nin a temporary variable?\n\nMaybe move the std::min to a separate loop below\nfor (size_t i \u003d 0; i\u003cprobes.size; i++) {\n  probes[i] \u003d std::min(probes[i], config_.allocation_probe_max.Get())\n}",
+      "range": {
+        "startLine": 214,
+        "startChar": 8,
+        "endLine": 217,
+        "endChar": 18
+      },
+      "revId": "de77c11915d4904add2f874b92461c3dc4a1dbb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dcae4bb_4f5715e9",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-11T15:17:52Z",
+      "side": 1,
+      "message": "If the first probe already reached the cap, should we send a second probe at the same bitrate?",
+      "range": {
+        "startLine": 219,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 23
+      },
+      "revId": "de77c11915d4904add2f874b92461c3dc4a1dbb1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

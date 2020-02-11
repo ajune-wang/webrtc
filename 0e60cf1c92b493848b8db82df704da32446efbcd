@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b59a1be6_46dae039",
+        "filename": "test/fuzzers/rtp_frame_reference_finder_fuzzer.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-11T14:44:15Z",
+      "side": 1,
+      "message": "multiplex not supported?\nShould we add a an enum value at the end indicating size of the enum and use that perhaps? Fuzzers never seem to be properly updated...",
+      "range": {
+        "startLine": 99,
+        "startChar": 70,
+        "endLine": 99,
+        "endChar": 71
+      },
+      "revId": "0e60cf1c92b493848b8db82df704da32446efbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

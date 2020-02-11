@@ -32,4 +32,14 @@ public interface VideoEncoderFactory {
   default VideoCodecInfo[] getImplementations() {
     return getSupportedCodecs();
   }
+  public interface VideoEncoderSelector {
+    @CalledByNative("VideoEncoderSelector") void onCurrentEncoder(VideoCodecInfo info);
+    @CalledByNative("VideoEncoderSelector") VideoCodecInfo onEncodingBitrate(int kbps);
+    @CalledByNative("VideoEncoderSelector") VideoCodecInfo onEncoderBroken();
+  }
+
+  @CalledByNative
+  default VideoEncoderSelector getEncoderSelector() {
+    return null;
+  }
 }

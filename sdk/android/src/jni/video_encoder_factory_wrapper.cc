@@ -73,5 +73,53 @@ VideoEncoderFactory::CodecInfo VideoEncoderFactoryWrapper::QueryVideoEncoder(
   return codec_info;
 }
 
+std::unique_ptr<VideoEncoderFactory::EncoderSelectorInterface>
+VideoEncoderFactoryWrapper::GetEncoderSelector() const {
+  JNIEnv* jni = AttachCurrentThreadIfNeeded();
+  ScopedJavaLocalRef<jobject> selector =
+      Java_VideoEncoderFactory_getEncoderSelector(jni, encoder_factory_);
+  if (!selector.obj())
+    return nullptr;
+  return std::make_unique<VideoEncoderSelectorWrapper>(jni, selector);
+}
+
+VideoEncoderSelectorWrapper::VideoEncoderSelectorWrapper(
+    JNIEnv* jni,
+    const JavaRef<jobject>& encoder_selector)
+    : encoder_selector_(jni, encoder_selector) {}
+
+VideoEncoderSelectorWrapper::~VideoEncoderSelectorWrapper() = default;
+
+void VideoEncoderSelectorWrapper::OnCurrentEncoder(
+    const SdpVideoFormat& format) {
+  JNIEnv* jni = AttachCurrentThreadIfNeeded();
+  ScopedJavaLocalRef<jobject> j_codec_info =
+      SdpVideoFormatToVideoCodecInfo(jni, format);
+  Java_VideoEncoderSelector_onCurrentEncoder(jni, encoder_selector_,
+                                             j_codec_info);
+}
+
+absl::optional<SdpVideoFormat> VideoEncoderSelectorWrapper::OnEncodingBitrate(
+    const DataRate& rate) {
+  JNIEnv* jni = AttachCurrentThreadIfNeeded();
+  ScopedJavaLocalRef<jobject> codec_info =
+      Java_VideoEncoderSelector_onEncodingBitrate(jni, encoder_selector_,
+                                                  rate.kbps<int>());
+  if (!codec_info.obj()) {
+    return VideoCodecInfoToSdpVideoFormat(jni, codec_info);
+  }
+  return {};
+}
+
+absl::optional<SdpVideoFormat> VideoEncoderSelectorWrapper::OnEncoderBroken() {
+  JNIEnv* jni = AttachCurrentThreadIfNeeded();
+  ScopedJavaLocalRef<jobject> codec_info =
+      Java_VideoEncoderSelector_onEncoderBroken(jni, encoder_selector_);
+  if (!codec_info.obj()) {
+    return VideoCodecInfoToSdpVideoFormat(jni, codec_info);
+  }
+  return {};
+}
+
 }  // namespace jni
 }  // namespace webrtc

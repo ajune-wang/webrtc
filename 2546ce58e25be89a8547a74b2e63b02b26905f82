@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a8334dc_ef4c149f",
+        "filename": "modules/audio_device/include/audio_device_data_observer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-02-11T11:47:02Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 43,
+        "startChar": 32,
+        "endLine": 43,
+        "endChar": 33
+      },
+      "revId": "2546ce58e25be89a8547a74b2e63b02b26905f82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

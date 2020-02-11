@@ -172,7 +172,7 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   rtc::ThreadChecker module_process_thread_checker_;
   std::map<uint32_t, RtpState> suspended_ssrcs_;
 
-  std::unique_ptr<FlexfecSender> flexfec_sender_;
+  std::unique_ptr<VideoFecGenerator> fec_generator_;
 
   const std::unique_ptr<FecController> fec_controller_;
   bool fec_allowed_ RTC_GUARDED_BY(crit_);

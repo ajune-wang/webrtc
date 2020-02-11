@@ -78,11 +78,12 @@ const VideoEncoder::ResolutionBitrateLimits
 const VideoEncoder::ResolutionBitrateLimits
     kEncoderBitrateLimits720p(1280 * 720, 200 * 1000, 200 * 1000, 4000 * 1000);
 
+#if 0
 uint8_t optimal_sps[] = {0,    0,    0,    1,    H264::NaluType::kSps,
                          0x00, 0x00, 0x03, 0x03, 0xF4,
                          0x05, 0x03, 0xC7, 0xE0, 0x1B,
                          0x41, 0x10, 0x8D, 0x00};
-
+#endif
 class TestBuffer : public webrtc::I420Buffer {
  public:
   TestBuffer(rtc::Event* event, int width, int height)
@@ -4946,6 +4947,7 @@ TEST_F(VideoStreamEncoderTest, AdjustsTimestampInternalSource) {
   video_stream_encoder_->Stop();
 }
 
+#if 0
 TEST_F(VideoStreamEncoderTest, DoesNotRewriteH264BitstreamWithOptimalSps) {
   // Configure internal source factory and setup test again.
   encoder_factory_.SetHasInternalSource(true);
@@ -5007,7 +5009,7 @@ TEST_F(VideoStreamEncoderTest, RewritesH264BitstreamWithNonOptimalSps) {
 
   video_stream_encoder_->Stop();
 }
-
+#endif
 TEST_F(VideoStreamEncoderTest, CopiesVideoFrameMetadataAfterDownscale) {
   const int kFrameWidth = 1280;
   const int kFrameHeight = 720;

@@ -39,10 +39,29 @@ class VideoEncoderFactoryWrapper : public VideoEncoderFactory {
 
   CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override;
 
+  std::unique_ptr<EncoderSelectorInterface> GetEncoderSelector() const override;
+
  private:
   const ScopedJavaGlobalRef<jobject> encoder_factory_;
   std::vector<SdpVideoFormat> supported_formats_;
   std::vector<SdpVideoFormat> implementations_;
+};
+
+class VideoEncoderSelectorWrapper
+    : public VideoEncoderFactory::EncoderSelectorInterface {
+ public:
+  VideoEncoderSelectorWrapper(JNIEnv* jni,
+                              const JavaRef<jobject>& encoder_selector);
+
+  ~VideoEncoderSelectorWrapper() override;
+
+  void OnCurrentEncoder(const SdpVideoFormat& format) override;
+  absl::optional<SdpVideoFormat> OnEncodingBitrate(
+      const DataRate& rate) override;
+  absl::optional<SdpVideoFormat> OnEncoderBroken() override;
+
+ private:
+  const ScopedJavaGlobalRef<jobject> encoder_selector_;
 };
 
 }  // namespace jni

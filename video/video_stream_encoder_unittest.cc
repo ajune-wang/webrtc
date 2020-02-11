@@ -123,26 +123,10 @@ class FakeNativeBuffer : public webrtc::VideoFrameBuffer {
 class CpuOveruseDetectorProxy : public OveruseFrameDetector {
  public:
   explicit CpuOveruseDetectorProxy(CpuOveruseMetricsObserver* metrics_observer)
-      : OveruseFrameDetector(metrics_observer),
-        last_target_framerate_fps_(-1) {}
+      : OveruseFrameDetector(metrics_observer) {}
   virtual ~CpuOveruseDetectorProxy() {}
 
-  void OnTargetFramerateUpdated(int framerate_fps) override {
-    rtc::CritScope cs(&lock_);
-    last_target_framerate_fps_ = framerate_fps;
-    OveruseFrameDetector::OnTargetFramerateUpdated(framerate_fps);
-  }
-
-  int GetLastTargetFramerate() {
-    rtc::CritScope cs(&lock_);
-    return last_target_framerate_fps_;
-  }
-
   CpuOveruseOptions GetOptions() { return options_; }
-
- private:
-  rtc::CriticalSection lock_;
-  int last_target_framerate_fps_ RTC_GUARDED_BY(lock_);
 };
 
 class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
@@ -3470,6 +3454,7 @@ TEST_F(VideoStreamEncoderTest, VerifyBitrateAllocationForTwoStreams) {
   video_stream_encoder_->Stop();
 }
 
+// TODO(nisse): XXX Delete test?
 TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
   const int kFrameWidth = 1280;
   const int kFrameHeight = 720;
@@ -3486,10 +3471,6 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
   source.IncomingCapturedFrame(CreateFrame(1, kFrameWidth, kFrameHeight));
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
-  EXPECT_EQ(
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      kDefaultFramerate);
-
   // Trigger reconfigure encoder (without resetting the entire instance).
   VideoEncoderConfig video_encoder_config;
   video_encoder_config.codec_type = kVideoCodecVP8;
@@ -3501,35 +3482,24 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
-  // Detector should be updated with fps limit from codec config.
-  EXPECT_EQ(
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      kFramerate);
-
   // Trigger overuse, max framerate should be reduced.
   VideoSendStream::Stats stats = stats_proxy_->GetStats();
   stats.input_frame_rate = kFramerate;
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuOveruse();
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
-  int adapted_framerate =
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate();
-  EXPECT_LT(adapted_framerate, kFramerate);
-
   // Trigger underuse, max framerate should go back to codec configured fps.
   // Set extra low fps, to make sure it's actually reset, not just incremented.
   stats = stats_proxy_->GetStats();
-  stats.input_frame_rate = adapted_framerate / 2;
+  stats.input_frame_rate = kFramerate / 2;
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuNormalUsage();
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
-  EXPECT_EQ(
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      kFramerate);
 
   video_stream_encoder_->Stop();
 }
 
+// TODO(nisse): XXX Delete test?
 TEST_F(VideoStreamEncoderTest,
        OveruseDetectorUpdatedRespectsFramerateAfterUnderuse) {
   const int kFrameWidth = 1280;
@@ -3556,19 +3526,12 @@ TEST_F(VideoStreamEncoderTest,
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
-  EXPECT_EQ(
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      kLowFramerate);
-
   // Trigger overuse, max framerate should be reduced.
   VideoSendStream::Stats stats = stats_proxy_->GetStats();
   stats.input_frame_rate = kLowFramerate;
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuOveruse();
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
-  int adapted_framerate =
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate();
-  EXPECT_LT(adapted_framerate, kLowFramerate);
 
   // Reconfigure the encoder with a new (higher max framerate), max fps should
   // still respect the adaptation.
@@ -3579,23 +3542,17 @@ TEST_F(VideoStreamEncoderTest,
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
-  EXPECT_EQ(
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      adapted_framerate);
-
   // Trigger underuse, max framerate should go back to codec configured fps.
   stats = stats_proxy_->GetStats();
-  stats.input_frame_rate = adapted_framerate;
+  stats.input_frame_rate = kLowFramerate;
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuNormalUsage();
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
-  EXPECT_EQ(
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      kHighFramerate);
 
   video_stream_encoder_->Stop();
 }
 
+// TODO(nisse): XXX Delete test?
 TEST_F(VideoStreamEncoderTest,
        OveruseDetectorUpdatedOnDegradationPreferenceChange) {
   const int kFrameWidth = 1280;
@@ -3621,28 +3578,17 @@ TEST_F(VideoStreamEncoderTest,
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
-  EXPECT_EQ(
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      kFramerate);
-
   // Trigger overuse, max framerate should be reduced.
   VideoSendStream::Stats stats = stats_proxy_->GetStats();
   stats.input_frame_rate = kFramerate;
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuOveruse();
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
-  int adapted_framerate =
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate();
-  EXPECT_LT(adapted_framerate, kFramerate);
-
   // Change degradation preference to not enable framerate scaling. Target
   // framerate should be changed to codec defined limit.
   video_stream_encoder_->SetSource(
       &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
-  EXPECT_EQ(
-      video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
-      kFramerate);
 
   video_stream_encoder_->Stop();
 }

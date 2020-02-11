@@ -30,7 +30,6 @@ void EncodeUsageResource::StartCheckForOveruse(CpuOveruseOptions options) {
   overuse_detector_->StartCheckForOveruse(TaskQueueBase::Current(),
                                           std::move(options), this);
   is_started_ = true;
-  overuse_detector_->OnTargetFramerateUpdated(TargetFrameRateAsInt());
 }
 
 void EncodeUsageResource::StopCheckForOveruse() {
@@ -43,8 +42,6 @@ void EncodeUsageResource::SetTargetFrameRate(
   if (target_frame_rate == target_frame_rate_)
     return;
   target_frame_rate_ = target_frame_rate;
-  if (is_started_)
-    overuse_detector_->OnTargetFramerateUpdated(TargetFrameRateAsInt());
 }
 
 void EncodeUsageResource::OnEncodeStarted(const VideoFrame& cropped_frame,
@@ -76,6 +73,7 @@ bool EncodeUsageResource::AdaptDown(AdaptReason reason) {
          ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
 }
 
+// TODO(nisse): Delete.
 int EncodeUsageResource::TargetFrameRateAsInt() {
   return target_frame_rate_.has_value()
              ? static_cast<int>(target_frame_rate_.value())

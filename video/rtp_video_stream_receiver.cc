@@ -27,6 +27,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/ulpfec_receiver.h"
 #include "modules/rtp_rtcp/source/create_video_rtp_depacketizer.h"
+#include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_format.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
@@ -367,51 +368,108 @@ void RtpVideoStreamReceiver::OnReceivedPayloadData(
   rtp_packet.GetExtension<PlayoutDelayLimits>(&video_header.playout_delay);
   rtp_packet.GetExtension<FrameMarkingExtension>(&video_header.frame_marking);
 
-  RtpGenericFrameDescriptor& generic_descriptor =
-      packet->generic_descriptor.emplace();
-  if (rtp_packet.GetExtension<RtpGenericFrameDescriptorExtension01>(
-          &generic_descriptor)) {
-    if (rtp_packet.HasExtension<RtpGenericFrameDescriptorExtension00>()) {
-      RTC_LOG(LS_WARNING) << "RTP packet had two different GFD versions.";
+  if (rtp_packet.HasExtension<RtpDependencyDescriptorExtension>()) {
+    webrtc::DependencyDescriptor descriptor_v2;
+    if (!rtp_packet.GetExtension<RtpDependencyDescriptorExtension>(
+            video_structure_.get(), &descriptor_v2)) {
+      // Descriptor is there, but failed to parse. Either it is invalid,
+      // or too old packet (after relevant video_structure_ changed),
+      // or too new packet (before relevant video_structure_ arrived).
+      // Drop such packet to be on the safe side.
+      RTC_LOG(LS_WARNING) << "ssrc: " << rtp_packet.Ssrc()
+                          << " Failed to parse dependency descriptor.";
       return;
     }
-    generic_descriptor.SetByteRepresentation(
-        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>());
-  } else if ((rtp_packet.GetExtension<RtpGenericFrameDescriptorExtension00>(
-                 &generic_descriptor))) {
-    generic_descriptor.SetByteRepresentation(
-        rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>());
-  } else {
-    packet->generic_descriptor = absl::nullopt;
-  }
-  if (packet->generic_descriptor != absl::nullopt) {
-    video_header.is_first_packet_in_frame =
-        packet->generic_descriptor->FirstPacketInSubFrame();
-    video_header.is_last_packet_in_frame =
-        packet->generic_descriptor->LastPacketInSubFrame();
-
-    if (packet->generic_descriptor->FirstPacketInSubFrame()) {
-      video_header.frame_type =
-          packet->generic_descriptor->FrameDependenciesDiffs().empty()
-              ? VideoFrameType::kVideoFrameKey
-              : VideoFrameType::kVideoFrameDelta;
-
-      auto& descriptor = video_header.generic.emplace();
-      int64_t frame_id =
-          frame_id_unwrapper_.Unwrap(packet->generic_descriptor->FrameId());
-      descriptor.frame_id = frame_id;
-      descriptor.spatial_index = packet->generic_descriptor->SpatialLayer();
-      descriptor.temporal_index = packet->generic_descriptor->TemporalLayer();
-      descriptor.discardable =
-          packet->generic_descriptor->Discardable().value_or(false);
-      for (uint16_t fdiff :
-           packet->generic_descriptor->FrameDependenciesDiffs()) {
-        descriptor.dependencies.push_back(frame_id - fdiff);
-      }
+    video_header.is_first_packet_in_frame = descriptor_v2.first_packet_in_frame;
+    video_header.is_last_packet_in_frame = descriptor_v2.last_packet_in_frame;
+    video_header.frame_type =
+        video_header.is_first_packet_in_frame &&
+                descriptor_v2.attached_structure != nullptr
+            ? VideoFrameType::kVideoFrameKey
+            : VideoFrameType::kVideoFrameDelta;
+    if (descriptor_v2.resolution) {
+      video_header.width = descriptor_v2.resolution->Width();
+      video_header.height = descriptor_v2.resolution->Height();
     }
 
-    video_header.width = packet->generic_descriptor->Width();
-    video_header.height = packet->generic_descriptor->Height();
+    int64_t frame_id = frame_id_unwrapper_.Unwrap(descriptor_v2.frame_number);
+    auto& descriptor = video_header.generic.emplace();
+    descriptor.frame_id = frame_id;
+    descriptor.spatial_index = descriptor_v2.frame_dependencies.spatial_id;
+    descriptor.temporal_index = descriptor_v2.frame_dependencies.temporal_id;
+    for (int fdiff : descriptor_v2.frame_dependencies.frame_diffs) {
+      descriptor.dependencies.push_back(frame_id - fdiff);
+    }
+    descriptor.decode_target_indications =
+        descriptor_v2.frame_dependencies.decode_target_indications;
+    descriptor.discardable =
+        absl::c_linear_search(descriptor.decode_target_indications,
+                              DecodeTargetIndication::kDiscardable);
+
+    // FrameDependencyStructure is sent in dependency descriptor of the first
+    // packet of a key frame and required for parsed dependency descriptor in
+    // all the following packets until next key frame.
+    // Save it if there is a (potentially) new structure.
+    if (descriptor_v2.attached_structure) {
+      if (video_structure_frame_id_ > frame_id) {
+        RTC_LOG(LS_WARNING)
+            << "Arrived key frame with id " << frame_id << " and structure id "
+            << descriptor_v2.attached_structure->structure_id
+            << " is older than the latest received key frame with id "
+            << *video_structure_frame_id_ << " and structure id "
+            << video_structure_->structure_id;
+        return;
+      }
+      video_structure_ = std::move(descriptor_v2.attached_structure);
+      video_structure_frame_id_ = frame_id;
+    }
+  } else {  // !HasExtension<RtpDependencyDescriptorExtension>
+    RtpGenericFrameDescriptor& generic_descriptor =
+        packet->generic_descriptor.emplace();
+    if (rtp_packet.GetExtension<RtpGenericFrameDescriptorExtension01>(
+            &generic_descriptor)) {
+      if (rtp_packet.HasExtension<RtpGenericFrameDescriptorExtension00>()) {
+        RTC_LOG(LS_WARNING) << "RTP packet had two different GFD versions.";
+        return;
+      }
+      generic_descriptor.SetByteRepresentation(
+          rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>());
+    } else if ((rtp_packet.GetExtension<RtpGenericFrameDescriptorExtension00>(
+                   &generic_descriptor))) {
+      generic_descriptor.SetByteRepresentation(
+          rtp_packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>());
+    } else {
+      packet->generic_descriptor = absl::nullopt;
+    }
+    if (packet->generic_descriptor != absl::nullopt) {
+      video_header.is_first_packet_in_frame =
+          packet->generic_descriptor->FirstPacketInSubFrame();
+      video_header.is_last_packet_in_frame =
+          packet->generic_descriptor->LastPacketInSubFrame();
+
+      if (packet->generic_descriptor->FirstPacketInSubFrame()) {
+        video_header.frame_type =
+            packet->generic_descriptor->FrameDependenciesDiffs().empty()
+                ? VideoFrameType::kVideoFrameKey
+                : VideoFrameType::kVideoFrameDelta;
+
+        auto& descriptor = video_header.generic.emplace();
+        int64_t frame_id =
+            frame_id_unwrapper_.Unwrap(packet->generic_descriptor->FrameId());
+        descriptor.frame_id = frame_id;
+        descriptor.spatial_index = packet->generic_descriptor->SpatialLayer();
+        descriptor.temporal_index = packet->generic_descriptor->TemporalLayer();
+        descriptor.discardable =
+            packet->generic_descriptor->Discardable().value_or(false);
+        for (uint16_t fdiff :
+             packet->generic_descriptor->FrameDependenciesDiffs()) {
+          descriptor.dependencies.push_back(frame_id - fdiff);
+        }
+      }
+
+      video_header.width = packet->generic_descriptor->Width();
+      video_header.height = packet->generic_descriptor->Height();
+    }
   }
 
   // Color space should only be transmitted in the last packet of a frame,

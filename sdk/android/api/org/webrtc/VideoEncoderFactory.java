@@ -14,6 +14,23 @@ import android.support.annotation.Nullable;
 
 /** Factory for creating VideoEncoders. */
 public interface VideoEncoderFactory {
+  public interface VideoEncoderSelector {
+    /** Called with the VideoCodecInfo of the currently used encoder.*/
+    @CalledByNative("VideoEncoderSelector") void onCurrentEncoder(VideoCodecInfo info);
+
+    /**
+     * Called with the current encoding bitrate, returns a VideoCodecInfo if a
+     * new encoder is preferred.
+     */
+    @CalledByNative("VideoEncoderSelector") VideoCodecInfo onEncodingBitrate(int kbps);
+
+    /**
+     * Called when the currently used encoder signal itself as broken,
+     * returns a VideoCodecInfo if a new encoder is preferred.
+     */
+    @CalledByNative("VideoEncoderSelector") VideoCodecInfo onEncoderBroken();
+  }
+
   /** Creates an encoder for the given video codec. */
   @Nullable @CalledByNative VideoEncoder createEncoder(VideoCodecInfo info);
 
@@ -31,5 +48,14 @@ public interface VideoEncoderFactory {
   @CalledByNative
   default VideoCodecInfo[] getImplementations() {
     return getSupportedCodecs();
+  }
+
+  /**
+   * Returns a VideoEncoderSelector used to select which encoder to used given
+   * certain encoding conditions.
+   */
+  @CalledByNative
+  default VideoEncoderSelector getEncoderSelector() {
+    return null;
   }
 }

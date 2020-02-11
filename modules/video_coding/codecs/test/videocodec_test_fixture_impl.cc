@@ -85,7 +85,7 @@ void ConfigureSvc(VideoCodec* codec_settings) {
 
   const std::vector<SpatialLayer> layers = GetSvcConfig(
       codec_settings->width, codec_settings->height, kMaxFramerateFps,
-      codec_settings->VP9()->numberOfSpatialLayers,
+      /*min_spatial_layers=*/1, codec_settings->VP9()->numberOfSpatialLayers,
       codec_settings->VP9()->numberOfTemporalLayers,
       /* is_screen_sharing = */ false);
   ASSERT_EQ(codec_settings->VP9()->numberOfSpatialLayers, layers.size())

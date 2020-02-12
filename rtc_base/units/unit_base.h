@@ -282,6 +282,10 @@ class RelativeUnit : public UnitBase<Unit_T> {
     return UnitBase<Unit_T>::FromValue(this->ToValue() * scalar);
   }
 
+  constexpr Unit_T Interpolate(const Unit_T other, float rate) const {
+    return *this * (1.0 - rate) + other * rate;
+  }
+
  protected:
   using UnitBase<Unit_T>::UnitBase;
 };

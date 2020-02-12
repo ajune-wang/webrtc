@@ -134,11 +134,6 @@ class RTC_EXPORT EncodedImage {
     return buffer_ ? capacity_ : (encoded_data_ ? encoded_data_->size() : 0);
   }
 
-  void set_buffer(uint8_t* buffer, size_t capacity) {
-    buffer_ = buffer;
-    capacity_ = capacity;
-  }
-
   void SetEncodedData(
       rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data) {
     encoded_data_ = encoded_data;
@@ -163,19 +158,11 @@ class RTC_EXPORT EncodedImage {
     return buffer_ ? buffer_
                    : (encoded_data_ ? encoded_data_->data() : nullptr);
   }
+
   const uint8_t* data() const {
     return buffer_ ? buffer_
                    : (encoded_data_ ? encoded_data_->data() : nullptr);
   }
-  // TODO(nisse): At some places, code accepts a const ref EncodedImage, but
-  // still writes to it, to clear padding at the end of the encoded data.
-  // Padding is required by ffmpeg; the best way to deal with that is likely to
-  // make this class ensure that buffers always have a few zero padding bytes.
-  uint8_t* mutable_data() const { return const_cast<uint8_t*>(data()); }
-
-  // TODO(bugs.webrtc.org/9378): Delete. Used by code that wants to modify a
-  // buffer corresponding to a const EncodedImage. Requires an un-owned buffer.
-  uint8_t* buffer() const { return buffer_; }
 
   // Hack to workaround lack of ownership of the encoded data. If we don't
   // already own the underlying data, make an owned copy.

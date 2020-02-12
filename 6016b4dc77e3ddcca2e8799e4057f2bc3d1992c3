@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67260942_397ee834",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-12T16:42:47Z",
+      "side": 1,
+      "message": "Could this be moved to make the diff easier to read? You can move back after LGTM if you want.",
+      "range": {
+        "startLine": 121,
+        "startChar": 35,
+        "endLine": 121,
+        "endChar": 58
+      },
+      "revId": "6016b4dc77e3ddcca2e8799e4057f2bc3d1992c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

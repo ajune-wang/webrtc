@@ -1073,7 +1073,10 @@ static void NegotiateRtpHeaderExtensions(
           offered_extensions,
           webrtc::RtpExtension::kTransportSequenceNumberV2Uri);
 
+  bool generic_descriptor_00_in_local = false;
   for (const webrtc::RtpExtension& ours : local_extensions) {
+    if (ours.uri == webrtc::RtpExtension::kGenericFrameDescriptorUri00)
+      generic_descriptor_00_in_local = true;
     webrtc::RtpExtension theirs;
     if (FindByUriWithEncryptionPreference(
             offered_extensions, ours, enable_encrypted_rtp_header_extensions,
@@ -1095,6 +1098,16 @@ static void NegotiateRtpHeaderExtensions(
   if (transport_sequence_number_v2_offer) {
     // Respond that we support kTransportSequenceNumberV2Uri.
     negotiated_extensions->push_back(*transport_sequence_number_v2_offer);
+  }
+
+  // RtpGenericFrameDescriptorExtension00 support. If this is not present
+  // locally, but is in the offer, we add it to the list.
+  if (!generic_descriptor_00_in_local) {
+    for (const auto& theirs : offered_extensions) {
+      if (theirs.uri == webrtc::RtpExtension::kGenericFrameDescriptorUri00) {
+        negotiated_extensions->push_back(theirs);
+      }
+    }
   }
 }
 

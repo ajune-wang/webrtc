@@ -137,8 +137,7 @@ RtpPayloadParams::RtpPayloadParams(const uint32_t ssrc,
     : ssrc_(ssrc),
       generic_picture_id_experiment_(
           field_trial::IsEnabled("WebRTC-GenericPictureId")),
-      generic_descriptor_experiment_(
-          field_trial::IsEnabled("WebRTC-GenericDescriptor")) {
+      generic_descriptor_experiment_(true) {
   for (auto& spatial_layer : last_shared_frame_id_)
     spatial_layer.fill(-1);
 

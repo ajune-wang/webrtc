@@ -132,6 +132,8 @@ const char RtpExtension::kGenericFrameDescriptorUri00[] =
     "http://www.webrtc.org/experiments/rtp-hdrext/generic-frame-descriptor-00";
 const char RtpExtension::kGenericFrameDescriptorUri01[] =
     "http://www.webrtc.org/experiments/rtp-hdrext/generic-frame-descriptor-01";
+const char RtpExtension::kGenericFrameDescriptorUri02[] =
+    "http://www.webrtc.org/experiments/rtp-hdrext/generic-frame-descriptor-02";
 const char RtpExtension::kGenericFrameDescriptorUri[] =
     "http://www.webrtc.org/experiments/rtp-hdrext/generic-frame-descriptor-00";
 
@@ -180,6 +182,7 @@ bool RtpExtension::IsSupportedForVideo(const std::string& uri) {
          uri == webrtc::RtpExtension::kFrameMarkingUri ||
          uri == webrtc::RtpExtension::kGenericFrameDescriptorUri00 ||
          uri == webrtc::RtpExtension::kGenericFrameDescriptorUri01 ||
+         uri == webrtc::RtpExtension::kGenericFrameDescriptorUri02 ||
          uri == webrtc::RtpExtension::kColorSpaceUri ||
          uri == webrtc::RtpExtension::kRidUri ||
          uri == webrtc::RtpExtension::kRepairedRidUri;

@@ -299,6 +299,8 @@ RtpVideoSender::RtpVideoSender(
       use_early_loss_detection_(
           !webrtc::field_trial::IsDisabled("WebRTC-UseEarlyLossDetection")),
       has_packet_feedback_(TransportSeqNumExtensionConfigured(rtp_config)),
+      dependency_descriptor_experiment_(
+          webrtc::field_trial::IsEnabled("WebRTC-DependencyDescriptor")),
       active_(false),
       module_process_thread_(nullptr),
       suspended_ssrcs_(std::move(suspended_ssrcs)),
@@ -491,6 +493,19 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   if (encoded_image.RetransmissionAllowed()) {
     expected_retransmission_time_ms =
         rtp_streams_[stream_index].rtp_rtcp->ExpectedRetransmissionTimeMs();
+  }
+
+  if (dependency_descriptor_experiment_ &&
+      encoded_image._frameType == webrtc::VideoFrameType::kVideoFrameKey) {
+    if (codec_specific_info && codec_specific_info->template_structure) {
+      rtp_streams_[stream_index].sender_video->SetVideoStructure(
+          &*codec_specific_info->template_structure);
+    } else {
+      RTC_LOG(LS_WARNING)
+          << "DependencyDescriptor experiment is enabled, but encoder wrapper "
+             "didn't configure enough details to use it.";
+      rtp_streams_[stream_index].sender_video->SetVideoStructure(nullptr);
+    }
   }
 
   bool send_result = rtp_streams_[stream_index].sender_video->SendVideo(

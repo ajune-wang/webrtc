@@ -222,6 +222,24 @@
       "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a72d3ae_cb28441f",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-12T22:46:46Z",
+      "side": 1,
+      "message": "Untested, but something like this?\n\n  ::testing::ValuesIn([]{\n    std::vector\u003cstd::tuple\u003cint, int, IsacImpl, IsacImpl\u003e\u003e cases;\n    for (int frame_length_ms : {30, 60}) {\n      for (IsacImpl enc : {IsacImpl::kFloat, IsacImpl::kFixed}) {\n        for (IsacImpl dec : {IsacImpl::kFloat, IsacImpl::kFixed}) {\n          cases.push_back({16000, frame_length_ms, enc, dec});\n        }\n      }\n    }\n    cases.push_back({32000, 30, IsacImpl::kFloat, IsacImpl::kFloat});\n    return cases;\n  }())",
+      "parentUuid": "6020df6b_b7539861",
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

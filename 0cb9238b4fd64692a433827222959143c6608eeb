@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17fe33a2_8a3dc5ec",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-12T09:07:00Z",
+      "side": 1,
+      "message": "Please indicate whether these are the only allowed values (in which case this should maybe be an enum instead) or whether they are just guides (in which case, what are the hard limits?).",
+      "revId": "0cb9238b4fd64692a433827222959143c6608eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c69fcb_1cf5b19b",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-12T09:07:00Z",
+      "side": 1,
+      "message": "Same.",
+      "revId": "0cb9238b4fd64692a433827222959143c6608eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

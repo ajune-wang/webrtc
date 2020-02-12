@@ -287,9 +287,7 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
       packetization_overhead_bitrate_(1000, RateStatistics::kBpsScale),
       frame_encryptor_(config.frame_encryptor),
       require_frame_encryption_(config.require_frame_encryption),
-      generic_descriptor_auth_experiment_(
-          config.field_trials->Lookup("WebRTC-GenericDescriptorAuth")
-              .find("Enabled") == 0),
+      generic_descriptor_auth_experiment_(true),
       exclude_transport_sequence_number_from_fec_experiment_(
           config.field_trials
               ->Lookup(kExcludeTransportSequenceNumberFromFecFieldTrial)

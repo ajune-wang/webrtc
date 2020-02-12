@@ -12,6 +12,7 @@
 #define MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ISAC_FLOAT_TYPE_H_
 
 #include "modules/audio_coding/codecs/isac/main/include/isac.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

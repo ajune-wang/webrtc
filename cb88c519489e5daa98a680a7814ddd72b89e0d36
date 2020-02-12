@@ -70,6 +70,30 @@
       "revId": "cb88c519489e5daa98a680a7814ddd72b89e0d36",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b68fc966_54c0d92c",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-12T15:43:30Z",
+      "side": 1,
+      "message": "I\u0027ve added comment to the CL description.\n\nI\u0027m not sure comment explaining removed code would be helpful in the code (and I plan to cleanup version 01 entirely. Version 00 probably too, but as a different issue.)",
+      "parentUuid": "d074edf3_fb300934",
+      "range": {
+        "startLine": 522,
+        "startChar": 0,
+        "endLine": 524,
+        "endChar": 3
+      },
+      "revId": "cb88c519489e5daa98a680a7814ddd72b89e0d36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

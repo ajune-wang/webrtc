@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01f4795b_ead6f6db",
+        "filename": "media/engine/simulcast.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-12T13:45:30Z",
+      "side": 1,
+      "message": "I believe the code would be more readable, if |Interpolate| were a global function of 3 arguments (DataRate,DataRate,float) in anonymous namespace, like kbps().\n\nDataRate knowing how to interpolate itself feels weird to me. This class is used to represent value in some unit and shouldn\u0027t really care about application math logic.",
+      "range": {
+        "startLine": 163,
+        "startChar": 47,
+        "endLine": 163,
+        "endChar": 58
+      },
+      "revId": "b7a66262691d19c53fb924069aca8bb39141ceea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7a3744c_178edf3d",
+        "filename": "media/engine/simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-12T13:45:30Z",
+      "side": 1,
+      "message": "nit: kOneBps",
+      "range": {
+        "startLine": 66,
+        "startChar": 25,
+        "endLine": 66,
+        "endChar": 32
+      },
+      "revId": "b7a66262691d19c53fb924069aca8bb39141ceea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

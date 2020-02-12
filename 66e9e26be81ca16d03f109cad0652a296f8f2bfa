@@ -16,6 +16,24 @@
       "revId": "66e9e26be81ca16d03f109cad0652a296f8f2bfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28dfed7e_a14ef100",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1334,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-12T06:40:14Z",
+      "side": 1,
+      "message": "Good idea to explain what order they\u0027re updated in and when. Done.",
+      "parentUuid": "93d8b4c2_805362de",
+      "revId": "66e9e26be81ca16d03f109cad0652a296f8f2bfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

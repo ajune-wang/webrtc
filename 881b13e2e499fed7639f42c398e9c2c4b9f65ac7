@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc64b69a_e72b9f3b",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-12T12:02:36Z",
+      "side": 1,
+      "message": "Prefer int32_t{...} whenever the compiler will let you. (More cases below.)",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "260904a4_e321ee8d",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-12T12:02:36Z",
+      "side": 1,
+      "message": "For the settings where only isac float has a choice, CHECK that the setting has the only allowed value in the isac fix case?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feebc303_5c64ce90",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-12T12:02:36Z",
+      "side": 1,
+      "message": "CheckedDivExact?",
+      "range": {
+        "startLine": 86,
+        "startChar": 35,
+        "endLine": 86,
+        "endChar": 36
+      },
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc1c79e5_72670052",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-12T12:02:36Z",
+      "side": 1,
+      "message": "There\u0027s ~never any reason to use DCHECK instead of CHECK in a test.",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0b045ef_277bdee9",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-12T12:02:36Z",
+      "side": 1,
+      "message": "Generate these with loops to make it easier to see what subset of the full cartesian product you select?",
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

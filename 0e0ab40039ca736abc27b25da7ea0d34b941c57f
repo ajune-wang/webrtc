@@ -71,6 +71,54 @@
     },
     {
       "key": {
+        "uuid": "ef6898d9_d9899569",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-12T10:25:44Z",
+      "side": 1,
+      "message": "Whenever an encoder has been successfully created in the VideoStreamEncoder this function is called.",
+      "parentUuid": "c06ac1f9_64b4a873",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "0e0ab40039ca736abc27b25da7ea0d34b941c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00df3e1f_d6acc9f4",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-12T10:25:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc01bcc2_a971a7c9",
+      "range": {
+        "startLine": 18,
+        "startChar": 69,
+        "endLine": 18,
+        "endChar": 70
+      },
+      "revId": "0e0ab40039ca736abc27b25da7ea0d34b941c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87d8afc0_9ed7c176",
         "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
         "patchSetId": 4
@@ -91,6 +139,30 @@
       "revId": "0e0ab40039ca736abc27b25da7ea0d34b941c57f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b010327_d0290304",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-12T10:25:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87d8afc0_9ed7c176",
+      "range": {
+        "startLine": 22,
+        "startChar": 49,
+        "endLine": 22,
+        "endChar": 73
+      },
+      "revId": "0e0ab40039ca736abc27b25da7ea0d34b941c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "e56dbebc_c8113a72",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-12T10:25:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42e26c38_1b1b3fdf",
+      "range": {
+        "startLine": 29,
+        "startChar": 7,
+        "endLine": 29,
+        "endChar": 31
+      },
+      "revId": "0e0ab40039ca736abc27b25da7ea0d34b941c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91c0d831_4a5f8d3c",
         "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
         "patchSetId": 4
@@ -137,6 +233,30 @@
       "revId": "0e0ab40039ca736abc27b25da7ea0d34b941c57f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb9b955d_fc042036",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-12T10:25:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91c0d831_4a5f8d3c",
+      "range": {
+        "startLine": 54,
+        "startChar": 5,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "0e0ab40039ca736abc27b25da7ea0d34b941c57f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

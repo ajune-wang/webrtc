@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a8b336f5_20d9cb6d",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-02-12T15:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc64b69a_e72b9f3b",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 26
+      },
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "260904a4_e321ee8d",
         "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d32622d_585f41a6",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-02-12T15:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "260904a4_e321ee8d",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 50
+      },
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5bf3925e_1458385a",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-02-12T15:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feebc303_5c64ce90",
+      "range": {
+        "startLine": 86,
+        "startChar": 35,
+        "endLine": 86,
+        "endChar": 36
+      },
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc1c79e5_72670052",
         "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "979e96a1_9f947527",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-02-12T15:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1c79e5_72670052",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0b045ef_277bdee9",
         "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
         "patchSetId": 2
@@ -105,6 +201,24 @@
       "writtenOn": "2020-02-12T12:02:36Z",
       "side": 1,
       "message": "Generate these with loops to make it easier to see what subset of the full cartesian product you select?",
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6020df6b_b7539861",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-02-12T15:56:04Z",
+      "side": 1,
+      "message": "I would have loved to use the code below, but because of the 32 kHz case, I can\u0027t.\n\n    ::testing::Combine(::testing::Values(16000),\n                       ::testing::Values(30, 60),\n                       ::testing::Values(IsacImpl::kFloat, IsacImpl::kFixed),\n                       ::testing::Values(IsacImpl::kFloat, IsacImpl::kFixed))\n\nIs there a way to combine 2 generators?",
+      "parentUuid": "d0b045ef_277bdee9",
       "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

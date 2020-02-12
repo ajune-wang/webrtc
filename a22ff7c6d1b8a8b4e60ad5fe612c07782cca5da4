@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed83a75d_b97f7084",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Done, and also moved.",
+      "parentUuid": "6fe2dbd6_7d224762",
+      "range": {
+        "startLine": 170,
+        "startChar": 10,
+        "endLine": 175,
+        "endChar": 43
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5c995ca5_f950e497",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7696aec5_cd199917",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c995ca5_f950e497",
+      "range": {
+        "startLine": 176,
+        "startChar": 26,
+        "endLine": 176,
+        "endChar": 32
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "36c85c77_40aac97b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Done :)",
+      "parentUuid": "5c64c56e_c934ad0b",
+      "range": {
+        "startLine": 279,
+        "startChar": 10,
+        "endLine": 279,
+        "endChar": 11
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d38bcee2_4e1fb26e",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 11
@@ -105,6 +177,30 @@
       "writtenOn": "2020-02-12T09:26:55Z",
       "side": 1,
       "message": "Again not related to this CL, but I think we should do this type of configuration at some higher level. It\u0027s pretty hard to reason about the code when we have global config flags all over the place.",
+      "range": {
+        "startLine": 577,
+        "startChar": 6,
+        "endLine": 577,
+        "endChar": 69
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eebb0b33_b7b2c9af",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Agree, trying not to move too many things here though :(",
+      "parentUuid": "d38bcee2_4e1fb26e",
       "range": {
         "startLine": 577,
         "startChar": 6,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "8d3baa30_f451fd78",
+        "filename": "modules/rtp_rtcp/source/flexfec_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "No, that\u0027s the averaging window in ms. Added comment.",
+      "parentUuid": "fc2fe1d3_be6b471b",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a03061d_9bd9d494",
         "filename": "modules/rtp_rtcp/source/flexfec_sender.cc",
         "patchSetId": 11
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "7028d640_8377e1a0",
+        "filename": "modules/rtp_rtcp/source/flexfec_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a03061d_9bd9d494",
+      "range": {
+        "startLine": 127,
+        "startChar": 22,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02a687ba_c32cbebc",
         "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
         "patchSetId": 11
@@ -177,6 +321,24 @@
       "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eabbbec2_af75254f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02a687ba_c32cbebc",
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "60fe0875_8990681b",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Same answer!",
+      "parentUuid": "186947c3_da6b9d61",
+      "range": {
+        "startLine": 81,
+        "startChar": 19,
+        "endLine": 81,
+        "endChar": 23
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "671be270_6345e32c",
         "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
         "patchSetId": 11
@@ -223,6 +409,30 @@
       "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f27f37_ae8dc002",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Oops, thanks!",
+      "parentUuid": "671be270_6345e32c",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 28
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "b6e06717_e859e8a6",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "No, previously the SetProtectionParameters() method had only a single param and RtpSenderVideo would post a pending now when a new frame was generator.\nNow the fec generate keeps both params internally and just picks the one corresponding to the current frame.\nThis will be especially needed if fec generation is moved to the egress side.",
+      "parentUuid": "d4371179_b78723eb",
+      "range": {
+        "startLine": 193,
+        "startChar": 9,
+        "endLine": 193,
+        "endChar": 31
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "438f573b_b7478032",
         "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
         "patchSetId": 11
@@ -272,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "0f527345_2e7b908c",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "438f573b_b7478032",
+      "range": {
+        "startLine": 217,
+        "startChar": 22,
+        "endLine": 217,
+        "endChar": 23
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df72292b_9bbc0bdc",
         "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
         "patchSetId": 11
@@ -292,6 +550,30 @@
       "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f80fa24_cb9b1376",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df72292b_9bbc0bdc",
+      "range": {
+        "startLine": 225,
+        "startChar": 50,
+        "endLine": 225,
+        "endChar": 61
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -341,6 +623,30 @@
     },
     {
       "key": {
+        "uuid": "b59af84d_e9abca3e",
+        "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Maybe, but we would have to propagate the flexfec ssrc externally in a number of places.\nWould could have the convention that FecSsrc() nullopt \u003d\u003e UlpFec, but I thought that was kinda ugly.\nLet\u0027s follow up after refactorings.",
+      "parentUuid": "ee62fe9f_61da5741",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 49
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bdbc4c3_c91d0a2d",
         "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
         "patchSetId": 11
@@ -364,6 +670,30 @@
     },
     {
       "key": {
+        "uuid": "80bb30b8_4b29cd01",
+        "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bdbc4c3_c91d0a2d",
+      "range": {
+        "startLine": 32,
+        "startChar": 17,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44cb3e03_356d0801",
         "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
         "patchSetId": 11
@@ -384,6 +714,30 @@
       "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67715bb1_0e5f6b5e",
+        "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-12T15:53:39Z",
+      "side": 1,
+      "message": "Yes, that\u0027s the idea. Actually, it currently only _may_ lack sequence numbers. I\u0027ll update the comment.",
+      "parentUuid": "44cb3e03_356d0801",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

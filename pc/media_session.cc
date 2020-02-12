@@ -1073,6 +1073,14 @@ static void NegotiateRtpHeaderExtensions(
           offered_extensions,
           webrtc::RtpExtension::kTransportSequenceNumberV2Uri);
 
+  // RtpGenericFrameDescriptorExtension00 support. If this is present in the
+  // offer, we add it to the list.
+  for (const auto& theirs : offered_extensions) {
+    if (theirs.uri == webrtc::RtpExtension::kGenericFrameDescriptorUri00) {
+      negotiated_extensions->push_back(theirs);
+    }
+  }
+
   for (const webrtc::RtpExtension& ours : local_extensions) {
     webrtc::RtpExtension theirs;
     if (FindByUriWithEncryptionPreference(

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66250d48_8eb41286",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 0,
+      "message": "This is a nice cleanup! And the stuff below.",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 47
+      },
+      "revId": "d0e1885dbe3a7a9cada5e949df62f3cca8da128c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

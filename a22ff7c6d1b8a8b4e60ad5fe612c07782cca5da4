@@ -1,0 +1,389 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fe2dbd6_7d224762",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "I would bring this out in a  `const bool cond \u003d ...; if (cond) {`",
+      "range": {
+        "startLine": 170,
+        "startChar": 10,
+        "endLine": 175,
+        "endChar": 43
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c995ca5_f950e497",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "among",
+      "range": {
+        "startLine": 176,
+        "startChar": 26,
+        "endLine": 176,
+        "endChar": 32
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb790ecf_212dbe6d",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "No need to do this now, but I think the VideoFecGenerator interface would be nicer if we did the check above inside the impl. I guess there would be some minor overhead with that though.",
+      "range": {
+        "startLine": 177,
+        "startChar": 22,
+        "endLine": 177,
+        "endChar": 45
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c64c56e_c934ad0b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "go",
+      "range": {
+        "startLine": 279,
+        "startChar": 10,
+        "endLine": 279,
+        "endChar": 11
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d38bcee2_4e1fb26e",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Again not related to this CL, but I think we should do this type of configuration at some higher level. It\u0027s pretty hard to reason about the code when we have global config flags all over the place.",
+      "range": {
+        "startLine": 577,
+        "startChar": 6,
+        "endLine": 577,
+        "endChar": 69
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc2fe1d3_be6b471b",
+        "filename": "modules/rtp_rtcp/source/flexfec_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Where does this come from? Should it be 0?",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 23
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a03061d_9bd9d494",
+        "filename": "modules/rtp_rtcp/source/flexfec_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "_bytes?",
+      "range": {
+        "startLine": 127,
+        "startChar": 22,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a687ba_c32cbebc",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Nit: Remove this \\n, to be consistent with pairs of setters/getters above. (I know this is not part of the diff, sorry :) )",
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "186947c3_da6b9d61",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Same question here.",
+      "range": {
+        "startLine": 81,
+        "startChar": 19,
+        "endLine": 81,
+        "endChar": 23
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "671be270_6345e32c",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "key_params",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 28
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4371179_b78723eb",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Is this a bugfix?",
+      "range": {
+        "startLine": 193,
+        "startChar": 9,
+        "endLine": 193,
+        "endChar": 31
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "438f573b_b7478032",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "_bytes?",
+      "range": {
+        "startLine": 217,
+        "startChar": 22,
+        "endLine": 217,
+        "endChar": 23
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df72292b_9bbc0bdc",
+        "filename": "modules/rtp_rtcp/source/ulpfec_generator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Primary RED header with F bit unset.\n\nhttps://tools.ietf.org/html/rfc2198 section 3.",
+      "range": {
+        "startLine": 225,
+        "startChar": 50,
+        "endLine": 225,
+        "endChar": 61
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46dc738d_06977592",
+        "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "2020",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee62fe9f_61da5741",
+        "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Will it be possible to remove these in the future? If we, e.g., move some of the checks into the impls.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 49
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bdbc4c3_c91d0a2d",
+        "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Mention unit (bytes?)",
+      "range": {
+        "startLine": 32,
+        "startChar": 17,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44cb3e03_356d0801",
+        "filename": "modules/rtp_rtcp/source/video_fec_generator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-12T09:26:55Z",
+      "side": 1,
+      "message": "Will everything else be set on them? E.g. SSRC?",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "a22ff7c6d1b8a8b4e60ad5fe612c07782cca5da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

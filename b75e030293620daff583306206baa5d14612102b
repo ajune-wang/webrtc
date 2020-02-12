@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "d61584ef_76faffae",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-02-12T09:46:29Z",
+      "side": 1,
+      "message": "I don\u0027t see it as completely necessary but nice to have where easily doable. There is still things to get wrong with Java -\u003e JNI wrapping.",
+      "parentUuid": "da5cbd18_38b29c27",
+      "range": {
+        "startLine": 42,
+        "startChar": 10,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "b75e030293620daff583306206baa5d14612102b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "01b39d61_9ca1d851",
         "filename": "sdk/android/src/jni/video_encoder_factory_wrapper.cc",
         "patchSetId": 3

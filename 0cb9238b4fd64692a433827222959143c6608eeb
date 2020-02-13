@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "024b4910_036f859b",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-13T03:15:21Z",
+      "side": 1,
+      "message": "bitrate_priority can be any value, which is nice because it offers more flexibility than the web API.\n\nBut network_priority currently can only be one of the four values, which did strike me as a strange choice. I would have used an enum but I guess this was done for consistency (both of these use the same enum in chromium, which is then mapped to a double).\n\nDo you think this is worth fixing? Would be easier to fix it now than later, just wasn\u0027t sure if it was worth the effort. \n\n+thaloun (who authored the CL that added this)",
+      "parentUuid": "17fe33a2_8a3dc5ec",
+      "revId": "0cb9238b4fd64692a433827222959143c6608eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14c69fcb_1cf5b19b",
         "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
         "patchSetId": 3

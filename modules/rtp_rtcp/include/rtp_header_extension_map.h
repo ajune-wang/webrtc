@@ -15,6 +15,7 @@
 
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/rtp_parameters.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -67,7 +68,7 @@ class RtpHeaderExtensionMap {
   }
 
  private:
-  bool Register(int id, RTPExtensionType type, const char* uri);
+  bool Register(int id, RTPExtensionType type, absl::string_view uri);
 
   uint8_t ids_[kRtpExtensionNumberOfExtensions];
   bool extmap_allow_mixed_;

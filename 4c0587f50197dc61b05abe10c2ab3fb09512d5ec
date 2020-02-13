@@ -16,6 +16,24 @@
       "revId": "4c0587f50197dc61b05abe10c2ab3fb09512d5ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb7d80d5_eab51dea",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T16:00:35Z",
+      "side": 1,
+      "message": "It\u0027s not about performance in this case, but rather the fact that this can affect the behavior of the congestion controller. OnNetworkRouteChange will reset bitrates and can trigger probing in certain circumstances. It might that this won\u0027t in practice make a difference when triggered in the beginning of a call, but it\u0027s not trivial to ensure that this is the case.",
+      "parentUuid": "d7186dcb_944687c2",
+      "revId": "4c0587f50197dc61b05abe10c2ab3fb09512d5ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

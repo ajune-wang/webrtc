@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86ca1e75_02608baa",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "Expand this for readability. Somethings like \"If we have a payload for flexfec, we may want to send it\"",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 21
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "271028cd_87c7f9ec",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this aliasing carries its weight.",
+      "range": {
+        "startLine": 246,
+        "startChar": 1,
+        "endLine": 247,
+        "endChar": 42
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8892181b_108f740d",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "nit: absl::c_find",
+      "range": {
+        "startLine": 259,
+        "startChar": 7,
+        "endLine": 259,
+        "endChar": 17
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc3690e7_4c7433e9",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "use else if so it\u0027s clear that the second if won\u0027t be hit if the first on is.",
+      "range": {
+        "startLine": 277,
+        "startChar": 1,
+        "endLine": 277,
+        "endChar": 3
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43a47ad3_cf30b2e7",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "Ditto...",
+      "range": {
+        "startLine": 279,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 20
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e44af578_bb9badb3",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "This could be merged with the condition above to reduce the number of returns.",
+      "range": {
+        "startLine": 281,
+        "startChar": 3,
+        "endLine": 281,
+        "endChar": 68
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef9b818_1fa95d46",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "...",
+      "range": {
+        "startLine": 288,
+        "startChar": 2,
+        "endLine": 288,
+        "endChar": 27
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1b0c359_fbc653c6",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "nit: auto* (we get the type from the cast)",
+      "range": {
+        "startLine": 681,
+        "startChar": 6,
+        "endLine": 681,
+        "endChar": 19
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec7b8fd1_d12d7064",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T11:56:22Z",
+      "side": 1,
+      "message": "Nit: should this be const?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

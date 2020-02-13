@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7186dcb_944687c2",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2020-02-13T15:41:56Z",
+      "side": 1,
+      "message": "Seems to me like there are more things that would be useful to do that are skipped here, like adding to the event log. Are the stuff below really that expensive that we have to special-case this for the first time? Couldn\u0027t we just do everything even the first time around?",
+      "revId": "4c0587f50197dc61b05abe10c2ab3fb09512d5ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

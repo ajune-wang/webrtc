@@ -56,7 +56,6 @@ class VCMEncodedFrame : protected EncodedImage {
   using EncodedImage::data;
   using EncodedImage::GetEncodedData;
   using EncodedImage::PacketInfos;
-  using EncodedImage::Retain;
   using EncodedImage::set_size;
   using EncodedImage::SetColorSpace;
   using EncodedImage::SetEncodedData;

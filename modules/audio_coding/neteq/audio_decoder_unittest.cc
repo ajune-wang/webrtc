@@ -182,11 +182,11 @@ class AudioDecoderTest : public ::testing::Test {
 
       const std::vector<AudioDecoder::ParseResult> parse_result =
           decoder_->ParsePayload(std::move(encoded), /*timestamp=*/0);
-      RTC_CHECK_EQ(parse_result.size(), size_t{1});
+      ASSERT_EQ(parse_result.size(), static_cast<size_t>(1));
       auto decode_result = parse_result[0].frame->Decode(
           rtc::ArrayView<int16_t>(&decoded[processed_samples * channels_],
                                   frame_size_ * channels_ * sizeof(int16_t)));
-      RTC_CHECK(decode_result.has_value());
+      ASSERT_TRUE(decode_result.has_value());
       EXPECT_EQ(frame_size_ * channels_, decode_result->num_decoded_samples);
       encoded_bytes += enc_len;
       processed_samples += frame_size_;
@@ -225,9 +225,9 @@ class AudioDecoderTest : public ::testing::Test {
       decoder_->Reset();
       const std::vector<AudioDecoder::ParseResult> parse_result =
           decoder_->ParsePayload(std::move(encoded[i]), /*timestamp=*/0);
-      RTC_CHECK_EQ(parse_result.size(), size_t{1});
+      ASSERT_EQ(parse_result.size(), static_cast<size_t>(1));
       auto decode_result = parse_result[0].frame->Decode(outputs[i]);
-      RTC_CHECK(decode_result.has_value());
+      ASSERT_TRUE(decode_result.has_value());
       EXPECT_EQ(frame_size_ * channels_, decode_result->num_decoded_samples);
     }
     EXPECT_EQ(outputs[0], outputs[1]);
@@ -245,9 +245,9 @@ class AudioDecoderTest : public ::testing::Test {
     std::vector<int16_t> output(frame_size_ * channels_);
     const std::vector<AudioDecoder::ParseResult> parse_result =
         decoder_->ParsePayload(std::move(encoded), /*timestamp=*/0);
-    RTC_CHECK_EQ(parse_result.size(), size_t{1});
+    ASSERT_EQ(parse_result.size(), static_cast<size_t>(1));
     auto decode_result = parse_result[0].frame->Decode(output);
-    RTC_CHECK(decode_result.has_value());
+    ASSERT_TRUE(decode_result.has_value());
     EXPECT_EQ(frame_size_ * channels_, decode_result->num_decoded_samples);
     // Call DecodePlc and verify that we get one frame of data.
     // (Overwrite the output from the above Decode call, but that does not

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06464c97_6d6ba49b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T13:39:54Z",
+      "side": 1,
+      "message": "I think we try to keep the 73 char line limit in these.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 119
+      },
+      "revId": "f185968c4981b2937ad52dcaeafde745d7026294",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19f3346c_542db6bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-13T13:39:54Z",
+      "side": 1,
+      "message": "Since this will slightly change the default behavior (under the trial) I think we should add a bug for this, to make potential future regression investigations easier.",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "f185968c4981b2937ad52dcaeafde745d7026294",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

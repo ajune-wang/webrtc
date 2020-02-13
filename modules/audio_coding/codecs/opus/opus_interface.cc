@@ -15,6 +15,15 @@
 #include "rtc_base/checks.h"
 #include "system_wrappers/include/field_trial.h"
 
+// Provide some missing macros to support building against older versions of the
+// Opus headers.
+#ifndef OPUS_GET_IN_DTX_REQUEST
+#define OPUS_GET_IN_DTX_REQUEST 4049
+#endif
+#ifndef OPUS_GET_IN_DTX
+#define OPUS_GET_IN_DTX(x) OPUS_GET_IN_DTX_REQUEST, __opus_check_int_ptr(x)
+#endif
+
 enum {
 #if WEBRTC_OPUS_SUPPORT_120MS_PTIME
   /* Maximum supported frame size in WebRTC is 120 ms. */

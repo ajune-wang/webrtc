@@ -240,6 +240,24 @@
       "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de615f23_8f0bb2ae",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-02-13T09:22:11Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7a72d3ae_cb28441f",
+      "revId": "881b13e2e499fed7639f42c398e9c2c4b9f65ac7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

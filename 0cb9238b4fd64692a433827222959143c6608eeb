@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8315f3de_593994db",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 7621
+      },
+      "writtenOn": "2020-02-13T18:11:51Z",
+      "side": 1,
+      "message": "Yes it\u0027s a bit unfortunate that there is the string -\u003e enum -\u003e double conversion.  I was especially leery of the direct \u003d\u003d comparison for doubles, but as Taylor mentioned reusing the chromium declaration seemed the correct thing to do.",
+      "parentUuid": "024b4910_036f859b",
+      "revId": "0cb9238b4fd64692a433827222959143c6608eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14c69fcb_1cf5b19b",
         "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
         "patchSetId": 3

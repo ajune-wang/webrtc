@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "653d24d0_97c9d692",
+        "filename": "sdk/objc/api/peerconnection/RTCEncodedImage+Private.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-13T11:22:31Z",
+      "side": 1,
+      "message": "To handle the case where the EncodedImage holds a raw pointer (rare case), the caller would need to call encodedImage.Retain() before this call. I see it can\u0027t be easily added here since the input argument is const.\n\nIf all tests pass, maybe it\u0027s not worth bothering. I\u0027m only aware of one downstream place still creating an EncodedImage using a raw buffer pointer, and that code is (i) not running on iOS or mac, and (ii) hopefully going away soon.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 53
+      },
+      "revId": "5c60d0d94443f74bdbdf7f46851c82e2794737d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c449911c_4a0d8cc5",
+        "filename": "sdk/objc/unittests/objc_video_decoder_factory_tests.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-13T11:22:31Z",
+      "side": 1,
+      "message": "Optional nit: I\u0027d move the create call here, and eliminate the |buffer| variable. And similarly below.",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "5c60d0d94443f74bdbdf7f46851c82e2794737d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

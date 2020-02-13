@@ -45,6 +45,30 @@
       "revId": "7cb90f99cc2264b52273e5a41cf51db0ee62e1d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc6c953_53879fe8",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-02-13T09:04:51Z",
+      "side": 1,
+      "message": "Exactly, you can\u0027t refer to a variable in the same declare_args block. You do want this one to be overrideable, so you can\u0027t put it in its old place.\n\nTry putting it into the second declare_args block that starts on line 208 instead.",
+      "parentUuid": "62363f28_2cff9c40",
+      "range": {
+        "startLine": 198,
+        "startChar": 20,
+        "endLine": 198,
+        "endChar": 42
+      },
+      "revId": "7cb90f99cc2264b52273e5a41cf51db0ee62e1d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2659467b_610c93b0",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86ca1e75_02608baa",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 21
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "271028cd_87c7f9ec",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 14
@@ -45,6 +69,30 @@
       "revId": "a078f88513113497bd930f303054e3c2244392a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc7f832d_83f3b27f",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "271028cd_87c7f9ec",
+      "range": {
+        "startLine": 246,
+        "startChar": 1,
+        "endLine": 247,
+        "endChar": 42
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b4d26d1c_9b2c11dc",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8892181b_108f740d",
+      "range": {
+        "startLine": 259,
+        "startChar": 7,
+        "endLine": 259,
+        "endChar": 17
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc3690e7_4c7433e9",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 14
@@ -91,6 +163,30 @@
       "revId": "a078f88513113497bd930f303054e3c2244392a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b36c714_b44304ae",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc3690e7_4c7433e9",
+      "range": {
+        "startLine": 277,
+        "startChar": 1,
+        "endLine": 277,
+        "endChar": 3
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "197319bd_b9b23300",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43a47ad3_cf30b2e7",
+      "range": {
+        "startLine": 279,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 20
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e44af578_bb9badb3",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 14
@@ -137,6 +257,30 @@
       "revId": "a078f88513113497bd930f303054e3c2244392a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "511084ba_6baf4592",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e44af578_bb9badb3",
+      "range": {
+        "startLine": 281,
+        "startChar": 3,
+        "endLine": 281,
+        "endChar": 68
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "4298a46b_51b7edec",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "Rephrased.",
+      "parentUuid": "aef9b818_1fa95d46",
+      "range": {
+        "startLine": 288,
+        "startChar": 2,
+        "endLine": 288,
+        "endChar": 27
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1b0c359_fbc653c6",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 14
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "fcecb0e2_6d15ac59",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1b0c359_fbc653c6",
+      "range": {
+        "startLine": 681,
+        "startChar": 6,
+        "endLine": 681,
+        "endChar": 19
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec7b8fd1_d12d7064",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 14
@@ -206,6 +398,30 @@
       "revId": "a078f88513113497bd930f303054e3c2244392a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7022a9b_bf03caaf",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-02-13T12:29:07Z",
+      "side": 1,
+      "message": "I think it can\u0027t be, because of the move constructor above which is needed to put these into a vector.",
+      "parentUuid": "ec7b8fd1_d12d7064",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 51
+      },
+      "revId": "a078f88513113497bd930f303054e3c2244392a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

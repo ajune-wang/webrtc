@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include "absl/strings/string_view.h"
 #include "media/engine/webrtc_media_engine_defaults.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
@@ -45,11 +46,11 @@ std::vector<RtpExtension> MakeRedundantExtensions() {
   return result;
 }
 
-bool SupportedExtensions1(const std::string& name) {
+bool SupportedExtensions1(absl::string_view name) {
   return name == "c" || name == "i";
 }
 
-bool SupportedExtensions2(const std::string& name) {
+bool SupportedExtensions2(absl::string_view name) {
   return name != "a" && name != "n";
 }
 

@@ -18,6 +18,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/nack.h"
+#include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_packet.h"
 #include "modules/video_coding/fec_controller_default.h"
 #include "modules/video_coding/include/video_codec_interface.h"
@@ -52,6 +53,7 @@ const int16_t kInitialTl0PicIdx1 = 99;
 const int16_t kInitialTl0PicIdx2 = 199;
 const int64_t kRetransmitWindowSizeMs = 500;
 const int kTransportsSequenceExtensionId = 7;
+const int kDependencyDescriptorExtensionId = 8;
 
 class MockRtcpIntraFrameObserver : public RtcpIntraFrameObserver {
  public:
@@ -105,6 +107,8 @@ VideoSendStream::Config CreateVideoSendStreamConfig(
   config.rtp.nack.rtp_history_ms = 1000;
   config.rtp.extensions.emplace_back(RtpExtension::kTransportSequenceNumberUri,
                                      kTransportsSequenceExtensionId);
+  config.rtp.extensions.emplace_back(RtpDependencyDescriptorExtension::kUri,
+                                     kDependencyDescriptorExtensionId);
   return config;
 }
 
@@ -669,6 +673,80 @@ TEST(RtpVideoSenderTest, EarlyRetransmits) {
       {first_packet_feedback, second_packet_feedback});
 
   // Wait for pacer to run and send the RTX packet.
+  test.AdvanceTime(TimeDelta::Millis(33));
+  ASSERT_TRUE(event.Wait(kTimeoutMs));
+}
+
+TEST(RtpVideoSenderTest, SupportsDependencyDescriptor) {
+  test::ScopedFieldTrials trials("WebRTC-GenericDescriptor/Enabled/");
+  RtpHeaderExtensionMap extensions;
+  extensions.Register<RtpDependencyDescriptorExtension>(
+      kDependencyDescriptorExtensionId);
+  const int64_t kTimeoutMs = 500;
+
+  RtpVideoSenderTestFixture test({kSsrc1}, {}, kPayloadType, {});
+  test.router()->SetActive(true);
+
+  const uint8_t kPayload[1] = {'a'};
+  EncodedImage encoded_image;
+  encoded_image.SetTimestamp(1);
+  encoded_image.capture_time_ms_ = 2;
+  encoded_image._frameType = VideoFrameType::kVideoFrameKey;
+  encoded_image.SetEncodedData(
+      EncodedImageBuffer::Create(kPayload, sizeof(kPayload)));
+
+  CodecSpecificInfo codec_specific;
+  codec_specific.codecType = VideoCodecType::kVideoCodecGeneric;
+  codec_specific.template_structure.emplace();
+  codec_specific.template_structure->num_decode_targets = 1;
+  codec_specific.template_structure->templates = {
+      GenericFrameInfo::Builder().T(0).Dtis("S").Build(),
+      GenericFrameInfo::Builder().T(0).Dtis("S").Fdiffs({2}).Build(),
+      GenericFrameInfo::Builder().T(1).Dtis("D").Fdiffs({1}).Build(),
+  };
+
+  rtc::Event event;
+  EXPECT_CALL(test.transport(), SendRtp)
+      .WillOnce([&](const uint8_t* packet, size_t length,
+                    const PacketOptions& options) {
+        RtpPacket rtp_packet(&extensions);
+        EXPECT_TRUE(rtp_packet.Parse(packet, length));
+        EXPECT_TRUE(
+            rtp_packet.HasExtension<RtpDependencyDescriptorExtension>());
+        EXPECT_EQ(rtp_packet.Ssrc(), kSsrc1);
+        return true;
+      })
+      .WillOnce([&](const uint8_t* packet, size_t length,
+                    const PacketOptions& options) {
+        RtpPacket rtp_packet(&extensions);
+        EXPECT_TRUE(rtp_packet.Parse(packet, length));
+        EXPECT_TRUE(
+            rtp_packet.HasExtension<RtpDependencyDescriptorExtension>());
+        event.Set();
+        return true;
+      });
+
+  // Send two tiny images, mapping to single RTP packets.
+  // Send in key frame.
+  codec_specific.generic_frame_info =
+      GenericFrameInfo::Builder().T(0).Dtis("S").Build();
+  codec_specific.generic_frame_info->encoder_buffers = {{0, false, true}};
+  EXPECT_EQ(test.router()
+                ->OnEncodedImage(encoded_image, &codec_specific, nullptr)
+                .error,
+            EncodedImageCallback::Result::OK);
+  test.AdvanceTime(TimeDelta::Millis(33));
+
+  // Send in delta frame.
+  encoded_image._frameType = VideoFrameType::kVideoFrameDelta;
+  codec_specific.template_structure = absl::nullopt;
+  codec_specific.generic_frame_info =
+      GenericFrameInfo::Builder().T(1).Dtis("D").Build();
+  codec_specific.generic_frame_info->encoder_buffers = {{0, true, false}};
+  EXPECT_EQ(test.router()
+                ->OnEncodedImage(encoded_image, &codec_specific, nullptr)
+                .error,
+            EncodedImageCallback::Result::OK);
   test.AdvanceTime(TimeDelta::Millis(33));
   ASSERT_TRUE(event.Wait(kTimeoutMs));
 }

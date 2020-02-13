@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4f4b5439_9cc62c81",
+        "filename": "sdk/objc/api/peerconnection/RTCEncodedImage+Private.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-02-13T12:35:14Z",
+      "side": 1,
+      "message": "Yeah, the call to GetEncodedData will assert in case EncodedImage is backed by a raw pointer, so we should catch it right away if that were the case. I don\u0027t think it\u0027s worth going through the effort of re-const-ituting all this code and the surroundings.",
+      "parentUuid": "653d24d0_97c9d692",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 53
+      },
+      "revId": "5c60d0d94443f74bdbdf7f46851c82e2794737d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c449911c_4a0d8cc5",
         "filename": "sdk/objc/unittests/objc_video_decoder_factory_tests.mm",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "5c60d0d94443f74bdbdf7f46851c82e2794737d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "411bbc18_dd8ade97",
+        "filename": "sdk/objc/unittests/objc_video_decoder_factory_tests.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-02-13T12:35:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c449911c_4a0d8cc5",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "5c60d0d94443f74bdbdf7f46851c82e2794737d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

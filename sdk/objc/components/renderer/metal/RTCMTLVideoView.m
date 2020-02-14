@@ -21,6 +21,7 @@
 #import "RTCMTLI420Renderer.h"
 #import "RTCMTLNV12Renderer.h"
 #import "RTCMTLRGBRenderer.h"
+#import "RTCMTLVideoView+Private.h"
 
 // To avoid unreconized symbol linker errors, we're taking advantage of the objc runtime.
 // Linking errors occur when compiling for architectures that don't support Metal.
@@ -33,7 +34,7 @@
 @property(nonatomic) RTCMTLI420Renderer *rendererI420;
 @property(nonatomic) RTCMTLNV12Renderer *rendererNV12;
 @property(nonatomic) RTCMTLRGBRenderer *rendererRGB;
-@property(nonatomic) MTKView *metalView;
+@property(nonatomic, readwrite, nullable) MTKView *metalView;
 @property(atomic) RTCVideoFrame *videoFrame;
 @property(nonatomic) CGSize videoFrameSize;
 @property(nonatomic) int64_t lastFrameTimeNs;

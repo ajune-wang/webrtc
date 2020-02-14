@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "a609c2fc_467a91da",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-14T00:04:59Z",
+      "side": 1,
+      "message": "I would go with double for bitrate_priority, and an enum for network_priority. Requiring an integer parameter to be one of only four allowed values isn\u0027t ideal, but works, e.g. with a clear doc comment + a CHECK. But the same for a floating-point parameter is problematic; we\u0027d be forced to either risk rejecting values that are very close to but not exactly equal to one of the allowed values, or build code that tries to guess what the caller means when they don\u0027t follow the contract exactly, which is a well-known \"road to hell paved with good intentions\" pattern in software engineering.",
+      "parentUuid": "8315f3de_593994db",
+      "revId": "0cb9238b4fd64692a433827222959143c6608eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14c69fcb_1cf5b19b",
         "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
         "patchSetId": 3

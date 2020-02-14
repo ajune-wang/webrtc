@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99c242c3_6c04033d",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-14T02:25:12Z",
+      "side": 1,
+      "message": "#if RTC_DCHECK_IS_ON ?\n\nDocument what it means.",
+      "revId": "680bd9dfabaff85f8ab1af6b9787dd3002c3415c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

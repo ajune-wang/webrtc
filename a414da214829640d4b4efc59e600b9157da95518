@@ -117,6 +117,30 @@
       "revId": "a414da214829640d4b4efc59e600b9157da95518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4471927_f578da56",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-14T14:19:27Z",
+      "side": 1,
+      "message": "Thank you! that did it!\n\nand allowed to restructure tests making test expectation (imho) more visible.",
+      "parentUuid": "fdb37bef_26e50be5",
+      "range": {
+        "startLine": 751,
+        "startChar": 14,
+        "endLine": 751,
+        "endChar": 19
+      },
+      "revId": "a414da214829640d4b4efc59e600b9157da95518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

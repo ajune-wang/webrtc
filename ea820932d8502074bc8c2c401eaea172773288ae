@@ -22,6 +22,30 @@
       "revId": "ea820932d8502074bc8c2c401eaea172773288ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d86598a_b73b2eef",
+        "filename": "api/units/frequency.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-14T12:56:53Z",
+      "side": 0,
+      "message": "Done. (and added an expectation mentioning KiloHertz to one of the tests)\n\nI was unsure if there are plans to use it (so far only used in tests)",
+      "parentUuid": "dea3e5c2_3b7555e3",
+      "range": {
+        "startLine": 35,
+        "startChar": 29,
+        "endLine": 35,
+        "endChar": 32
+      },
+      "revId": "ea820932d8502074bc8c2c401eaea172773288ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

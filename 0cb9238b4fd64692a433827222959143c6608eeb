@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "b14e12ac_d1ae85d4",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-14T03:44:04Z",
+      "side": 1,
+      "message": "How would it be possible to accidentally end up with a value that is close to an allowed value but not exact? All the allowed values are powers of 2.\n\nAlso, how should I go about changing the type of this field without breaking chromium? I guess I could define constants in WebRTC (\"kPriorityVeryLow\"), change chromium to use them, then change WebRTC to define them as enums. That\u0027s actually not so bad.",
+      "parentUuid": "a609c2fc_467a91da",
+      "revId": "0cb9238b4fd64692a433827222959143c6608eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14c69fcb_1cf5b19b",
         "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
         "patchSetId": 3

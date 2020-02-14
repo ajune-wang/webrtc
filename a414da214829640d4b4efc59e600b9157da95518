@@ -93,6 +93,30 @@
       "revId": "a414da214829640d4b4efc59e600b9157da95518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdb37bef_26e50be5",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-14T13:11:47Z",
+      "side": 1,
+      "message": "I added two other comments that should make the test deterministic, PTAL",
+      "parentUuid": "e7e3f020_4e5fdc51",
+      "range": {
+        "startLine": 751,
+        "startChar": 14,
+        "endLine": 751,
+        "endChar": 19
+      },
+      "revId": "a414da214829640d4b4efc59e600b9157da95518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

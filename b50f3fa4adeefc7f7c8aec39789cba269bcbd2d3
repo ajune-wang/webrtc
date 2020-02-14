@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58cee245_362ce80d",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-14T00:40:48Z",
+      "side": 1,
+      "message": "Would a struct work instead? That way you\u0027d get named fields instead of cryptic std::get\u003c2\u003e() calls...",
+      "revId": "b50f3fa4adeefc7f7c8aec39789cba269bcbd2d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c72bfe0_aefaa209",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-14T00:40:48Z",
+      "side": 1,
+      "message": "What\u0027s this number? Conversion from bytes per 10 ms to bits per 1000 ms, I guess... Can you give it a descriptive name? Or something generic like \"conversion_factor\" + a comment?",
+      "range": {
+        "startLine": 155,
+        "startChar": 37,
+        "endLine": 155,
+        "endChar": 42
+      },
+      "revId": "b50f3fa4adeefc7f7c8aec39789cba269bcbd2d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22fa98c1_c146a1ec",
+        "filename": "modules/audio_coding/codecs/isac/isac_webrtc_api_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-14T00:40:48Z",
+      "side": 1,
+      "message": "struct?",
+      "revId": "b50f3fa4adeefc7f7c8aec39789cba269bcbd2d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

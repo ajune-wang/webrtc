@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c3ca138d_a5794fae",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-14T12:35:44Z",
+      "side": 1,
+      "message": "That is not the same. I would like to clear the structure if the new coded video sequence produced by an encoder wrapper that doesn\u0027t provided generic information/doesn\u0027t support DependencyDescriptor.\n(e.g. if there was a switch from software wrapper to legacy hardware wrapper)\n\nkeeping old structure in such case might be misleading.\n\nAdded comment and a test",
+      "parentUuid": "b68fed74_2266fca3",
+      "range": {
+        "startLine": 518,
+        "startChar": 0,
+        "endLine": 523,
+        "endChar": 3
+      },
+      "revId": "a414da214829640d4b4efc59e600b9157da95518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00cd54f3_dec35241",
         "filename": "call/rtp_video_sender_unittest.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-14T12:07:42Z",
       "side": 1,
       "message": "Given that RtpVideoSenderTestFixture use a GlobalSimulatedTimeController you should not really need this event, it should be deterministic.",
+      "range": {
+        "startLine": 751,
+        "startChar": 14,
+        "endLine": 751,
+        "endChar": 19
+      },
+      "revId": "a414da214829640d4b4efc59e600b9157da95518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7e3f020_4e5fdc51",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-14T12:35:44Z",
+      "side": 1,
+      "message": "trying to remove this Wait  fails the test.\ntrying to replace it with \ntest.AdvanceTime(TimeDelta::Millis(500));\nstill fails the test.\n\nwhat can I replace it with to make test work as it does now?",
+      "parentUuid": "00cd54f3_dec35241",
       "range": {
         "startLine": 751,
         "startChar": 14,

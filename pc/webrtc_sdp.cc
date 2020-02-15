@@ -686,10 +686,6 @@ void CreateTracksFromSsrcInfos(const SsrcInfoVec& ssrc_infos,
                                int msid_signaling) {
   RTC_DCHECK(tracks != NULL);
   for (const SsrcInfo& ssrc_info : ssrc_infos) {
-    if (ssrc_info.cname.empty()) {
-      continue;
-    }
-
     std::vector<std::string> stream_ids;
     std::string track_id;
     if (msid_signaling & cricket::kMsidSignalingMediaSection) {

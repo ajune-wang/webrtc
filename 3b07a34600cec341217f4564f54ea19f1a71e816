@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed6f3b60_906a7574",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-15T21:02:58Z",
+      "side": 1,
+      "message": "Suggestion: Make this\n\n  struct NetworkPriority {\n    static const double kVeryLow;\n    [...]\n  };\n\nso that you\u0027ll be able to turn it into an enum class in the next step, instead of a plain old enum.",
+      "revId": "3b07a34600cec341217f4564f54ea19f1a71e816",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

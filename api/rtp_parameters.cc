@@ -19,6 +19,11 @@ namespace webrtc {
 
 const double kDefaultBitratePriority = 1.0;
 
+const double kNetworkPriorityVeryLow = 0.5;
+const double kNetworkPriorityLow = 1.0;
+const double kNetworkPriorityMedium = 2.0;
+const double kNetworkPriorityHigh = 4.0;
+
 RtcpFeedback::RtcpFeedback() = default;
 RtcpFeedback::RtcpFeedback(RtcpFeedbackType type) : type(type) {}
 RtcpFeedback::RtcpFeedback(RtcpFeedbackType type,

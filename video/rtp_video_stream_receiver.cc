@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -192,7 +193,8 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
     NackSender* nack_sender,
     KeyFrameRequestSender* keyframe_request_sender,
     video_coding::OnCompleteFrameCallback* complete_frame_callback,
-    rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor)
+    rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer)
     : clock_(clock),
       config_(*config),
       packet_router_(packet_router),
@@ -219,7 +221,8 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
       packet_buffer_(clock_, kPacketBufferStartSize, PacketBufferMaxSize()),
       has_received_frame_(false),
       frames_decryptable_(false),
-      absolute_capture_time_receiver_(clock) {
+      absolute_capture_time_receiver_(clock),
+      frame_transformer_(frame_transformer) {
   constexpr bool remb_candidate = true;
   if (packet_router_)
     packet_router_->AddReceiveRtpModule(rtp_rtcp_.get(), remb_candidate);
@@ -278,6 +281,11 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
     if (frame_decryptor != nullptr) {
       buffered_frame_decryptor_->SetFrameDecryptor(std::move(frame_decryptor));
     }
+  }
+
+  if (frame_transformer_) {
+    frame_transformer_->RegisterTransformedFrameCallback(this);
+    RTC_LOG(LS_ERROR) << "[webrtc] registered transformed frame cb.";
   }
 }
 
@@ -687,10 +695,13 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
     last_assembled_frame_rtp_timestamp_ = frame->Timestamp();
   }
 
-  if (buffered_frame_decryptor_ == nullptr) {
-    reference_finder_->ManageFrame(std::move(frame));
-  } else {
+  if (buffered_frame_decryptor_ != nullptr) {
     buffered_frame_decryptor_->ManageEncryptedFrame(std::move(frame));
+  } else if (frame_transformer_) {
+    frame_transformer_->TransformFrame(std::move(frame),
+                                       std::vector<uint8_t>());
+  } else {
+    reference_finder_->ManageFrame(std::move(frame));
   }
 }
 
@@ -719,6 +730,15 @@ void RtpVideoStreamReceiver::OnDecryptionStatusChange(
   frames_decryptable_.store(
       (status == FrameDecryptorInterface::Status::kOk) ||
       (status == FrameDecryptorInterface::Status::kRecoverable));
+}
+
+void RtpVideoStreamReceiver::OnTransformedFrame(
+    std::unique_ptr<video_coding::EncodedFrame> frame) {
+  RTC_LOG(LS_ERROR) << "[webrtc] handle transformed frame.";
+  rtc::CritScope lock(&reference_finder_lock_);
+  auto transformed_frame = std::unique_ptr<video_coding::RtpFrameObject>(
+      static_cast<video_coding::RtpFrameObject*>(frame.release()));
+  reference_finder_->ManageFrame(std::move(transformed_frame));
 }
 
 void RtpVideoStreamReceiver::SetFrameDecryptor(
@@ -763,6 +783,17 @@ void RtpVideoStreamReceiver::RemoveSecondarySink(
     return;
   }
   secondary_sinks_.erase(it);
+}
+
+void RtpVideoStreamReceiver::InsertDepacketizerToDecoderFrameTransformer(
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
+  if (frame_transformer_) {
+    RTC_LOG(LS_ERROR) << "[webrtc] frame transformer already registered.";
+    return;
+  }
+  RTC_LOG(LS_ERROR) << "[webrtc] register frame transformer.";
+  frame_transformer_ = frame_transformer;
+  frame_transformer_->RegisterTransformedFrameCallback(this);
 }
 
 void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {

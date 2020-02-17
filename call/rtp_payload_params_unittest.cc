@@ -327,10 +327,11 @@ TEST(RtpPayloadParamsTest, PictureIdForOldGenericFormat) {
   EncodedImage encoded_image;
   CodecSpecificInfo codec_info;
   codec_info.codecType = kVideoCodecGeneric;
+  encoded_image._frameType = VideoFrameType::kVideoFrameKey;
 
   RtpPayloadParams params(kSsrc1, &state);
   RTPVideoHeader header =
-      params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
+      params.GetRtpVideoHeader(encoded_image, &codec_info, 10);
 
   EXPECT_EQ(kVideoCodecGeneric, header.codec);
   const auto* generic =
@@ -338,7 +339,8 @@ TEST(RtpPayloadParamsTest, PictureIdForOldGenericFormat) {
   ASSERT_TRUE(generic);
   EXPECT_EQ(0, generic->picture_id);
 
-  header = params.GetRtpVideoHeader(encoded_image, &codec_info, kDontCare);
+  encoded_image._frameType = VideoFrameType::kVideoFrameDelta;
+  header = params.GetRtpVideoHeader(encoded_image, &codec_info, 20);
   generic =
       absl::get_if<RTPVideoHeaderLegacyGeneric>(&header.video_type_header);
   ASSERT_TRUE(generic);

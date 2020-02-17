@@ -8,11 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <vector>
+
 #import <UIKit/UIKit.h>
 
-#include "test/ios/coverage_util_ios.h"
 #include "test/ios/test_support.h"
-#include "test/testsupport/perf_test.h"
 
 #import "sdk/objc/helpers/NSString+StdString.h"
 
@@ -71,36 +71,8 @@ static bool g_save_chartjson_result;
 }
 
 - (void)runTests {
-  rtc::test::ConfigureCoverageReportPath();
-
-  int exitStatus = g_test_suite();
-
-  if (g_save_chartjson_result) {
-    // Stores data into a json file under the app's document directory.
-    NSString* fileName = @"perf_result.json";
-    NSArray<NSString*>* outputDirectories = NSSearchPathForDirectoriesInDomains(
-        NSDocumentDirectory, NSUserDomainMask, YES);
-    if ([outputDirectories count] != 0) {
-      NSString* outputPath =
-          [outputDirectories[0] stringByAppendingPathComponent:fileName];
-
-      webrtc::test::WritePerfResults(
-          [NSString stdStringForString:outputPath]);
-    }
-  }
-
-  // If a test app is too fast, it will exit before Instruments has has a
-  // a chance to initialize and no test results will be seen.
-  // TODO(crbug.com/137010): Figure out how much time is actually needed, and
-  // sleep only to make sure that much time has elapsed since launch.
-  [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
-
-  // Use the hidden selector to try and cleanly take down the app (otherwise
-  // things can think the app crashed even on a zero exit status).
-  UIApplication *application = [UIApplication sharedApplication];
-  [application _terminateWithStatus:exitStatus];
-
-  exit(exitStatus);
+  std::vector<bool> v;
+  v.begin();
 }
 
 @end

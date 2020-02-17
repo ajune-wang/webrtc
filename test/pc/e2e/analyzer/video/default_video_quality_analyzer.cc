@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "api/units/time_delta.h"
+#include "api/video/i420_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/logging.h"
 
@@ -224,9 +225,9 @@ void DefaultVideoQualityAnalyzer::OnFrameDecoded(
 }
 
 void DefaultVideoQualityAnalyzer::OnFrameRendered(
-    const webrtc::VideoFrame& frame) {
+    const webrtc::VideoFrame& raw_frame) {
   rtc::CritScope crit(&lock_);
-  auto stats_it = frame_stats_.find(frame.id());
+  auto stats_it = frame_stats_.find(raw_frame.id());
   RTC_DCHECK(stats_it != frame_stats_.end());
   FrameStats* frame_stats = &stats_it->second;
   // Update frames counters.
@@ -235,17 +236,22 @@ void DefaultVideoQualityAnalyzer::OnFrameRendered(
 
   // Update current frame stats.
   frame_stats->rendered_time = Now();
-  frame_stats->rendered_frame_width = frame.width();
-  frame_stats->rendered_frame_height = frame.height();
+  frame_stats->rendered_frame_width = raw_frame.width();
+  frame_stats->rendered_frame_height = raw_frame.height();
 
   // Find corresponding captured frame.
-  auto frame_it = captured_frames_in_flight_.find(frame.id());
+  auto frame_it = captured_frames_in_flight_.find(raw_frame.id());
   RTC_DCHECK(frame_it != captured_frames_in_flight_.end());
   const VideoFrame& captured_frame = frame_it->second;
 
   // After we received frame here we need to check if there are any dropped
   // frames between this one and last one, that was rendered for this video
   // stream.
+  // Copy entire video frame including video buffer to ensure that analyzer
+  // won't hold any WebRTC internal buffers.
+  VideoFrame frame = raw_frame;
+  frame.set_video_frame_buffer(
+      I420Buffer::Copy(*raw_frame.video_frame_buffer()->ToI420()));
 
   const std::string& stream_label = frame_stats->stream_label;
   StreamState* state = &stream_states_[stream_label];

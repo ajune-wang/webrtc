@@ -10,8 +10,8 @@
 
 #include <memory>
 
-#include "absl/debugging/failure_signal_handler.h"
-#include "absl/debugging/symbolize.h"
+#include "test/gtest.h"
+#include "test/ios/test_support.h"
 #include "test/test_main_lib.h"
 
 int main(int argc, char* argv[]) {
@@ -22,10 +22,7 @@ int main(int argc, char* argv[]) {
   // absl::FailureSignalHandlerOptions options;
   // absl::InstallFailureSignalHandler(options);
 
-  std::unique_ptr<webrtc::TestMain> main = webrtc::TestMain::Create();
-  int err_code = main->Init(&argc, argv);
-  if (err_code != 0) {
-    return err_code;
-  }
-  return main->Run(argc, argv);
+  rtc::test::InitTestSuite(RUN_ALL_TESTS, argc, argv, false);
+  rtc::test::RunTestsFromIOSApp();
+  return 0;
 }

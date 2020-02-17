@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fe21873_6152f41a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-17T13:17:25Z",
+      "side": 1,
+      "message": "Nit: a necessary -\u003e not necessary",
+      "revId": "8f93f79b8a4a3765a246cc8784f2b074d57029df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b036d0f_dff82a9c",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-17T13:17:25Z",
+      "side": 1,
+      "message": "I do wonder why this function is called in Unified Plan at all.\nIf it does what ibc wants, it should really be called \"updateTracksWithSsrcInfo\" in UP.",
+      "revId": "8f93f79b8a4a3765a246cc8784f2b074d57029df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6cd31c5_5c001c26",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-17T13:17:25Z",
+      "side": 1,
+      "message": "Can you add a LOG(WARNING) about it?\n\nhttps://tools.ietf.org/html/rfc5576#section-6.1 says that it\u0027s mandatory to include the cname attribute if any ssrc attribute is to be present at all.",
+      "revId": "8f93f79b8a4a3765a246cc8784f2b074d57029df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d71f00a_2c0809f3",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4676,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-17T13:17:25Z",
+      "side": 1,
+      "message": "Add a comment here saying that this is a https://tools.ietf.org/html/rfc5576#section-6.1 violation.",
+      "revId": "8f93f79b8a4a3765a246cc8784f2b074d57029df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

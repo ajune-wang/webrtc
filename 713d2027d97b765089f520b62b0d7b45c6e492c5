@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "45345aef_975d1065",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-02-17T20:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c76d144_b34c09d3",
+      "range": {
+        "startLine": 964,
+        "startChar": 4,
+        "endLine": 964,
+        "endChar": 28
+      },
+      "revId": "713d2027d97b765089f520b62b0d7b45c6e492c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c109f4e1_2d465bb1",
         "filename": "pc/media_session.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "32094d07_0ecd01e6",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-02-17T20:14:47Z",
+      "side": 1,
+      "message": "OK, I was grooming for DependencyDescriptor support in a very near future. Will change to bool.",
+      "parentUuid": "c109f4e1_2d465bb1",
+      "range": {
+        "startLine": 1076,
+        "startChar": 2,
+        "endLine": 1076,
+        "endChar": 29
+      },
+      "revId": "713d2027d97b765089f520b62b0d7b45c6e492c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d7208d8_0c432b84",
         "filename": "video/buffered_frame_decryptor.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "713d2027d97b765089f520b62b0d7b45c6e492c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37f64906_53adcb11",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-02-17T20:14:47Z",
+      "side": 1,
+      "message": "Chose the latter.",
+      "parentUuid": "1d7208d8_0c432b84",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 41
+      },
+      "revId": "713d2027d97b765089f520b62b0d7b45c6e492c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

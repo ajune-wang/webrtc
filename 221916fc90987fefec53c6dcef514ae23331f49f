@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01a54a33_7576b6a7",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-17T14:55:41Z",
+      "side": 1,
+      "message": "Intentionally no version number? No longer draft status or similar?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 50
+      },
+      "revId": "221916fc90987fefec53c6dcef514ae23331f49f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c02ccb_90fe1814",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-17T14:55:41Z",
+      "side": 1,
+      "message": "Should the change to use the time controller\u0027s CreateProcessThread really be in this cl?",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 48
+      },
+      "revId": "221916fc90987fefec53c6dcef514ae23331f49f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

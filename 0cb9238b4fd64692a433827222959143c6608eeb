@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "be0273f7_2feeb8c0",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-17T01:57:27Z",
+      "side": 1,
+      "message": "\u003e How would it be possible to accidentally end up with a value that is close to an allowed value but not exact? All the allowed values are powers of 2.\n\nIf you arrive at the value via some sort of computation, as opposed to using a literal constant. Not saying it\u0027s likely, but it\u0027s always nice to not add to our collection of loaded footguns. Also, readers seeing the \"double\" signature will be surprised to learn that only a few specific values are allowed, so if they don\u0027t read the docs, confusion will ensue.\n\n\u003e Also, how should I go about changing the type of this field without breaking chromium?\n\nI saw in another CL that you figured this out.",
+      "parentUuid": "b14e12ac_d1ae85d4",
+      "revId": "0cb9238b4fd64692a433827222959143c6608eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14c69fcb_1cf5b19b",
         "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
         "patchSetId": 3

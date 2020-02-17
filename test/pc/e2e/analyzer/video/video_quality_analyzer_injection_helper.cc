@@ -83,13 +83,19 @@ class AnalyzingVideoSink final : public rtc::VideoSinkInterface<VideoFrame> {
   ~AnalyzingVideoSink() override = default;
 
   void OnFrame(const VideoFrame& frame) override {
-    if (IsDummyFrameBuffer(frame.video_frame_buffer()->ToI420())) {
+    rtc::scoped_refptr<I420BufferInterface> i420_buffer =
+        frame.video_frame_buffer()->ToI420();
+    if (IsDummyFrameBuffer(i420_buffer)) {
       // This is dummy frame, so we  don't need to process it further.
       return;
     }
-    analyzer_->OnFrameRendered(frame);
+    // Force copy rendered frame buffer to ensure that we won't hold any
+    // webrtc internal buffer in analyzer.
+    VideoFrame frame_copy = frame;
+    frame_copy.set_video_frame_buffer(I420Buffer::Copy(*i420_buffer));
+    analyzer_->OnFrameRendered(frame_copy);
     for (auto& sink : sinks_) {
-      sink->OnFrame(frame);
+      sink->OnFrame(frame_copy);
     }
   }
 

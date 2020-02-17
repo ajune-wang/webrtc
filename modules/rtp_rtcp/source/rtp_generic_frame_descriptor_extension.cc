@@ -11,6 +11,7 @@
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 namespace {
@@ -112,6 +113,8 @@ bool RtpGenericFrameDescriptorExtensionParse(
     if (!descriptor->AddFrameDependencyDiff(fdiff))
       return false;
   }
+  //*(volatile int*)0 = 0;
+  RTC_LOG(LS_ERROR) << "GFDv00 parsed!";
   return true;
 }
 

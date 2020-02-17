@@ -66,7 +66,8 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
                                public KeyFrameRequestSender,
                                public video_coding::OnCompleteFrameCallback,
                                public OnDecryptedFrameCallback,
-                               public OnDecryptionStatusChangeCallback {
+                               public OnDecryptionStatusChangeCallback,
+                               public TransformedFrameCallback {
  public:
   RtpVideoStreamReceiver(
       Clock* clock,
@@ -85,7 +86,8 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
       // requests are sent via the internal RtpRtcp module.
       KeyFrameRequestSender* keyframe_request_sender,
       video_coding::OnCompleteFrameCallback* complete_frame_callback,
-      rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor);
+      rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
   ~RtpVideoStreamReceiver() override;
 
   void AddReceiveCodec(const VideoCodec& video_codec,
@@ -156,6 +158,10 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   void OnDecryptionStatusChange(
       FrameDecryptorInterface::Status status) override;
 
+  // Implements TransformedFrameCallback.
+  void OnTransformedFrame(
+      std::unique_ptr<video_coding::EncodedFrame> frame) override;
+
   // Optionally set a frame decryptor after a stream has started. This will not
   // reset the decoder state.
   void SetFrameDecryptor(
@@ -173,6 +179,9 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   // themselves as secondary sinks.
   void AddSecondarySink(RtpPacketSinkInterface* sink);
   void RemoveSecondarySink(const RtpPacketSinkInterface* sink);
+
+  void InsertDepacketizerToDecoderFrameTransformer(
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
 
  private:
   // Used for buffering RTCP feedback messages and sending them all together.
@@ -248,7 +257,8 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   bool IsRedEnabled() const;
   void InsertSpsPpsIntoTracker(uint8_t payload_type);
   void OnInsertedPacket(video_coding::PacketBuffer::InsertResult result);
-  void OnAssembledFrame(std::unique_ptr<video_coding::RtpFrameObject> frame);
+  virtual void OnAssembledFrame(
+      std::unique_ptr<video_coding::RtpFrameObject> frame);
 
   Clock* const clock_;
   // Ownership of this object lies with VideoReceiveStream, which owns |this|.
@@ -327,8 +337,8 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
       RTC_GUARDED_BY(worker_task_checker_);
 
   int64_t last_completed_picture_id_ = 0;
+  rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_;
 };
-
 }  // namespace webrtc
 
 #endif  // VIDEO_RTP_VIDEO_STREAM_RECEIVER_H_

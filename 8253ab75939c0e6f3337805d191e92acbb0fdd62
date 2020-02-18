@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f52f747_e25356b9",
+        "filename": "sdk/objc/components/renderer/metal/RTCMTLVideoView+Private.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-02-18T15:29:12Z",
+      "side": 1,
+      "message": "There is already a category on RTCMTLVideoView in the test file itself, can we add this there rather than introducing this private header? Thanks!",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "8253ab75939c0e6f3337805d191e92acbb0fdd62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "116c0d3d_e697dbb6",
+        "filename": "sdk/objc/components/renderer/metal/RTCMTLVideoView.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-02-18T15:29:12Z",
+      "side": 1,
+      "message": "No need to explicitly specify readwrite.",
+      "range": {
+        "startLine": 37,
+        "startChar": 21,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "8253ab75939c0e6f3337805d191e92acbb0fdd62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

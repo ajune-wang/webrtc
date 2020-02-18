@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eb9c9f05_6c613e41",
+        "filename": "sdk/objc/components/renderer/metal/RTCMTLVideoView+Private.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2020-02-18T19:41:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "2f52f747_e25356b9",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "8253ab75939c0e6f3337805d191e92acbb0fdd62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "116c0d3d_e697dbb6",
         "filename": "sdk/objc/components/renderer/metal/RTCMTLVideoView.m",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8253ab75939c0e6f3337805d191e92acbb0fdd62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1566a39_da4de446",
+        "filename": "sdk/objc/components/renderer/metal/RTCMTLVideoView.m",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9405
+      },
+      "writtenOn": "2020-02-18T19:41:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "116c0d3d_e697dbb6",
+      "range": {
+        "startLine": 37,
+        "startChar": 21,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "8253ab75939c0e6f3337805d191e92acbb0fdd62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aed15033_9c61857d",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-18T13:26:19Z",
+      "side": 1,
+      "message": "Would be nice if unit tests could configure this explicitly, without going via field trial.\n\nIf I understand it correctly, in this test, it affects the RtpPayloadParams class. And it seems natural for the RtpSenderVideo class (and helpers) to have some explicit interface for configuring which RTP extensions to emit.\n\nBut not for this cl to change.",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 655,
+        "endChar": 70
+      },
+      "revId": "07ce67408fe630489384cc09e4585145e975b46a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

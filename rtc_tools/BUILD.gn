@@ -30,7 +30,10 @@ group("rtc_tools") {
   }
 
   if (rtc_include_tests) {
-    deps += [ ":tools_unittests" ]
+    deps += [
+      ":tools_unittests",
+      "../test:ivf_converter",
+    ]
     if (rtc_enable_protobuf) {
       if (!build_with_chromium) {
         deps += [ ":event_log_visualizer" ]

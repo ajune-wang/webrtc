@@ -65,5 +65,9 @@ specific_include_rules = {
   ".*sdp_changer\.(h|cc)": [
     "+pc",
     "+p2p",
-  ]
+  ],
+  ".*ivf_converter\.cc": [
+    "+absl/debugging/failure_signal_handler.h",
+    "+absl/debugging/symbolize.h",
+  ],
 }

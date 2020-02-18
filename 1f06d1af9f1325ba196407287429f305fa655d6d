@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b4830f8f_61227cc6",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-18T15:03:53Z",
+      "side": 1,
+      "message": "We have a \"unofficial policy\" (we should document it) to keep all the public RTC tools under rtc_tools. Can we move this to that folder?",
+      "range": {
+        "startLine": 464,
+        "startChar": 4,
+        "endLine": 464,
+        "endChar": 24
+      },
+      "revId": "1f06d1af9f1325ba196407287429f305fa655d6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a0c0e40_4f3cb9c3",
         "filename": "test/testsupport/ivf_converter.cc",
         "patchSetId": 2

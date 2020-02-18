@@ -70,6 +70,30 @@
       "revId": "07ce67408fe630489384cc09e4585145e975b46a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46860937_4a3bf520",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-18T16:13:22Z",
+      "side": 1,
+      "message": "yep, end state is to always collect and pass information in codec agnostic form,\neven if it will not go on the wire (or go on the wire in a codec specific form)",
+      "parentUuid": "d05104c2_4870c376",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 655,
+        "endChar": 70
+      },
+      "revId": "07ce67408fe630489384cc09e4585145e975b46a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "07ce67408fe630489384cc09e4585145e975b46a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f63e975_39ea108d",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-18T13:42:11Z",
+      "side": 1,
+      "message": "this field trial is an experiment, not sure it would help to turn it into configuration option.\nIt doesn\u0027t control which extensions to emit, but controls if information for generic frame descriptor and dependency descriptor should be gathered.\nExtension to emit is controlled above with config.rtp.extensions parameter.\n\nSubmitted https://webrtc-review.googlesource.com/c/src/+/168661\nchanged this trial from \u0027default false\u0027 to \u0027default true\u0027.\n\nSo now I can just remove this line, but I still would like to keep it, just in case there is some problem with the CL above and it will be reverted.\n\nIn the future, when the experiment is changed from \u0027default true\u0027 to \u0027always true\u0027, this line would be safe to remove.",
+      "parentUuid": "aed15033_9c61857d",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 655,
+        "endChar": 70
+      },
+      "revId": "07ce67408fe630489384cc09e4585145e975b46a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

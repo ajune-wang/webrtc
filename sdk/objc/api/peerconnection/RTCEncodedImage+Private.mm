@@ -10,50 +10,42 @@
 
 #import "RTCEncodedImage+Private.h"
 
-#import <objc/runtime.h>
-
 #include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/ref_counted_object.h"
 
-// A simple wrapper around webrtc::EncodedImageBufferInterface to make it usable with associated
-// objects.
-@interface RTCWrappedEncodedImageBuffer : NSObject
-@property(nonatomic) rtc::scoped_refptr<webrtc::EncodedImageBufferInterface> buffer;
-- (instancetype)initWithEncodedImageBuffer:
-    (rtc::scoped_refptr<webrtc::EncodedImageBufferInterface>)buffer;
-@end
-@implementation RTCWrappedEncodedImageBuffer
-@synthesize buffer = _buffer;
-- (instancetype)initWithEncodedImageBuffer:
-    (rtc::scoped_refptr<webrtc::EncodedImageBufferInterface>)buffer {
-  self = [super init];
-  if (self) {
-    _buffer = buffer;
+namespace {
+// An implementation of EncodedImageBufferInterface that does not take ownership
+// of it's data and doesn't perform any copies.
+class ObjCEncodedImageBuffer : public webrtc::EncodedImageBufferInterface {
+ public:
+  static rtc::scoped_refptr<ObjCEncodedImageBuffer> Create(NSData *data) {
+    return new rtc::RefCountedObject<ObjCEncodedImageBuffer>(data);
   }
-  return self;
+  const uint8_t *data() const override { return buffer_; }
+  // TODO(bugs.webrtc.org/9378): delete this non-const data method.
+  uint8_t *data() override { return const_cast<uint8_t *>(buffer_); }
+  size_t size() const override { return size_; }
+
+ protected:
+  explicit ObjCEncodedImageBuffer(NSData *data) {
+    buffer_ = static_cast<const uint8_t *>(data.bytes);
+    size_ = data.length;
+  }
+  ~ObjCEncodedImageBuffer() {}
+
+  size_t size_;
+  const uint8_t *buffer_;
+};
 }
-@end
 
 @implementation RTCEncodedImage (Private)
 
-- (rtc::scoped_refptr<webrtc::EncodedImageBufferInterface>)encodedData {
-  RTCWrappedEncodedImageBuffer *wrappedBuffer =
-      objc_getAssociatedObject(self, @selector(encodedData));
-  return wrappedBuffer.buffer;
-}
-
-- (void)setEncodedData:(rtc::scoped_refptr<webrtc::EncodedImageBufferInterface>)buffer {
-  return objc_setAssociatedObject(
-      self,
-      @selector(encodedData),
-      [[RTCWrappedEncodedImageBuffer alloc] initWithEncodedImageBuffer:buffer],
-      OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (instancetype)initWithNativeEncodedImage:(const webrtc::EncodedImage &)encodedImage {
   if (self = [super init]) {
+    const auto encodedData = encodedImage.GetEncodedData();
     // Wrap the buffer in NSData without copying, do not take ownership.
-    self.buffer = [NSData dataWithBytesNoCopy:encodedImage.mutable_data()
-                                       length:encodedImage.size()
+    self.buffer = [NSData dataWithBytesNoCopy:encodedData->data()
+                                       length:encodedData->size()
                                  freeWhenDone:NO];
     self.encodedWidth = rtc::dchecked_cast<int32_t>(encodedImage._encodedWidth);
     self.encodedHeight = rtc::dchecked_cast<int32_t>(encodedImage._encodedHeight);
@@ -77,8 +69,9 @@
 
 - (webrtc::EncodedImage)nativeEncodedImage {
   // Return the pointer without copying.
-  webrtc::EncodedImage encodedImage(
-      (uint8_t *)self.buffer.bytes, (size_t)self.buffer.length, (size_t)self.buffer.length);
+  webrtc::EncodedImage encodedImage;
+  encodedImage.SetEncodedData(ObjCEncodedImageBuffer::Create(self.buffer));
+  encodedImage.set_size(self.buffer.length);
   encodedImage._encodedWidth = rtc::dchecked_cast<uint32_t>(self.encodedWidth);
   encodedImage._encodedHeight = rtc::dchecked_cast<uint32_t>(self.encodedHeight);
   encodedImage.SetTimestamp(self.timeStamp);

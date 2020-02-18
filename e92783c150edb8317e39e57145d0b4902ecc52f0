@@ -16,6 +16,24 @@
       "revId": "e92783c150edb8317e39e57145d0b4902ecc52f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "089b7338_386251e7",
+        "filename": "modules/audio_device/include/audio_device_data_observer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 10653
+      },
+      "writtenOn": "2020-02-18T13:14:08Z",
+      "side": 1,
+      "message": "I can\u0027t recall why this was changed initially, and it\u0027s now reverted.",
+      "parentUuid": "997eb133_a3a38e83",
+      "revId": "e92783c150edb8317e39e57145d0b4902ecc52f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

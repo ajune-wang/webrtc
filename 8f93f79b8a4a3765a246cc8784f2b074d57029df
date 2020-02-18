@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "1420bde8_dfad8d52",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-18T22:06:39Z",
+      "side": 1,
+      "message": "Fair point, though this code doesn\u0027t really distinguish between sdp semantics.",
+      "parentUuid": "8b036d0f_dff82a9c",
+      "revId": "8f93f79b8a4a3765a246cc8784f2b074d57029df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6cd31c5_5c001c26",
         "filename": "pc/webrtc_sdp.cc",
         "patchSetId": 1
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "9246eef8_601cab65",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-18T22:06:39Z",
+      "side": 1,
+      "message": "Thanks for pointing that out; done.",
+      "parentUuid": "c6cd31c5_5c001c26",
+      "revId": "8f93f79b8a4a3765a246cc8784f2b074d57029df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d71f00a_2c0809f3",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 1
@@ -67,6 +103,24 @@
       "revId": "8f93f79b8a4a3765a246cc8784f2b074d57029df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "758feac9_eccfc690",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4676,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-18T22:06:39Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7d71f00a_2c0809f3",
+      "revId": "8f93f79b8a4a3765a246cc8784f2b074d57029df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

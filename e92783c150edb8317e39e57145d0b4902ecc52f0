@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "997eb133_a3a38e83",
+        "filename": "modules/audio_device/include/audio_device_data_observer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-18T08:45:18Z",
+      "side": 1,
+      "message": "Why do you want to make this interface reference counted?\n\nMy general advice is to either pass interfaces by raw (non-owning) pointer, or by unique_ptr. It\u0027s seldom the case that the interface itself is naturally reference counted; almost always, it\u0027s the implementation of either the interface or the code that takes the interface that needs to do reference counting, but that can be accomplished without adding reference counting to the definition of the interface (which, as you have noticed, besides mixing implementation details with the interface, is also hard to do in a backwards compatible way).",
+      "revId": "e92783c150edb8317e39e57145d0b4902ecc52f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

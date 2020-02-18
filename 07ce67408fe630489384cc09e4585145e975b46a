@@ -46,6 +46,30 @@
       "revId": "07ce67408fe630489384cc09e4585145e975b46a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d05104c2_4870c376",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-18T14:13:42Z",
+      "side": 1,
+      "message": "So end state should be that these classes always pass on the information related to the descriptor, and then it is decided elsewhere if it is put onto the wire?",
+      "parentUuid": "3f63e975_39ea108d",
+      "range": {
+        "startLine": 655,
+        "startChar": 0,
+        "endLine": 655,
+        "endChar": 70
+      },
+      "revId": "07ce67408fe630489384cc09e4585145e975b46a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

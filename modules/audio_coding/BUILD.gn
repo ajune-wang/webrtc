@@ -1888,6 +1888,18 @@ if (rtc_include_tests) {
     ]
   }
 
+  audio_coding_unittests_resources = [
+    "../../resources/audio_coding/testfile16kHz.pcm",
+    "../../resources/audio_coding/testfile32kHz.pcm",
+  ]
+  if (is_ios) {
+    bundle_data("audio_coding_unittests_bundle_data") {
+      testonly = true
+      sources = audio_coding_unittests_resources
+      outputs = [ "{{bundle_resources_dir}}/{{source_file_part}}" ]
+    }
+  }
+
   rtc_library("audio_coding_unittests") {
     testonly = true
     visibility += webrtc_default_visibility
@@ -2043,6 +2055,11 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
+
+    data = audio_coding_unittests_resources
+    if (is_ios) {
+      deps += [ ":audio_coding_unittests_bundle_data" ]
+    }
 
     defines = audio_coding_defines
 

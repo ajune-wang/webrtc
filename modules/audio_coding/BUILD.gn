@@ -1434,13 +1434,15 @@ if (rtc_include_tests) {
            ]
   }
 
-  audio_decoder_unittests_resources =
-      [ "../../resources/audio_coding/testfile32kHz.pcm" ]
+  audio_coding_unittests_resources = [
+    "../../resources/audio_coding/testfile16kHz.pcm",
+    "../../resources/audio_coding/testfile32kHz.pcm",
+  ]
 
   if (is_ios) {
-    bundle_data("audio_decoder_unittests_bundle_data") {
+    bundle_data("audio_coding_unittests_bundle_data") {
       testonly = true
-      sources = audio_decoder_unittests_resources
+      sources = audio_coding_unittests_resources
       outputs = [ "{{bundle_resources_dir}}/{{source_file_part}}" ]
     }
   }
@@ -1467,14 +1469,14 @@ if (rtc_include_tests) {
              "../../test:test_support",
            ] + audio_coding_deps
 
-    data = audio_decoder_unittests_resources
+    data = audio_coding_unittests_resources
 
     if (is_android) {
       deps += [ "//testing/android/native_test:native_test_native_code" ]
       shard_timeout = 900
     }
     if (is_ios) {
-      deps += [ ":audio_decoder_unittests_bundle_data" ]
+      deps += [ ":audio_coding_unittests_bundle_data" ]
     }
   }
 
@@ -2043,6 +2045,11 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
+
+    data = audio_coding_unittests_resources
+    if (is_ios) {
+      deps += [ ":audio_coding_unittests_bundle_data" ]
+    }
 
     defines = audio_coding_defines
 

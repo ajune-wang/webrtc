@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f52ec424_dfbdcc62",
+        "filename": "test/testsupport/ivf_converter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-18T13:31:01Z",
+      "side": 1,
+      "message": "Method removed",
+      "parentUuid": "99078ebf_f4328510",
+      "range": {
+        "startLine": 98,
+        "startChar": 7,
+        "endLine": 98,
+        "endChar": 36
+      },
+      "revId": "20926cdab4d0bcd738996c4e5776d87b34effc5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83a2b88e_d827861f",
         "filename": "test/testsupport/ivf_converter.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-12-09T10:29:39Z",
       "side": 1,
       "message": "nit: WaitForAllExpectedFramesWritten\n\nor something else having \"allExpected\" in it.",
+      "range": {
+        "startLine": 187,
+        "startChar": 7,
+        "endLine": 187,
+        "endChar": 36
+      },
+      "revId": "20926cdab4d0bcd738996c4e5776d87b34effc5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "043622a5_e2b034c8",
+        "filename": "test/testsupport/ivf_converter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-18T13:31:01Z",
+      "side": 1,
+      "message": "Method removed",
+      "parentUuid": "83a2b88e_d827861f",
       "range": {
         "startLine": 187,
         "startChar": 7,
@@ -68,6 +116,30 @@
       "revId": "20926cdab4d0bcd738996c4e5776d87b34effc5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23dfcb15_aeee94d0",
+        "filename": "test/testsupport/ivf_converter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-18T13:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc62a852_fabb383e",
+      "range": {
+        "startLine": 250,
+        "startChar": 14,
+        "endLine": 250,
+        "endChar": 43
+      },
+      "revId": "20926cdab4d0bcd738996c4e5776d87b34effc5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

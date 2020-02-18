@@ -1892,6 +1892,11 @@ if (rtc_include_tests) {
     testonly = true
     visibility += webrtc_default_visibility
 
+    data = [
+      "../../resources/audio_coding/testfile16kHz.pcm",
+      "../../resources/audio_coding/testfile32kHz.pcm",
+    ]
+
     sources = [
       "acm2/acm_receiver_unittest.cc",
       "acm2/acm_remixing_unittest.cc",

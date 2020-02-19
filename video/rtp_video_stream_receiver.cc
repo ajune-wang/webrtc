@@ -27,6 +27,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/ulpfec_receiver.h"
 #include "modules/rtp_rtcp/source/create_video_rtp_depacketizer.h"
+#include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_format.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
@@ -331,6 +332,72 @@ RtpVideoStreamReceiver::ParseGenericDependenciesResult
 RtpVideoStreamReceiver::ParseGenericDependenciesExtension(
     const RtpPacketReceived& rtp_packet,
     RTPVideoHeader* video_header) {
+  if (rtp_packet.HasExtension<RtpDependencyDescriptorExtension>()) {
+    webrtc::DependencyDescriptor descriptor_v2;
+    if (!rtp_packet.GetExtension<RtpDependencyDescriptorExtension>(
+            video_structure_.get(), &descriptor_v2)) {
+      // Descriptor is there, but failed to parse. Either it is invalid,
+      // or too old packet (after relevant video_structure_ changed),
+      // or too new packet (before relevant video_structure_ arrived).
+      // Drop such packet to be on the safe side.
+      // TODO(bugs.webrtc.org/10342): Stash too new packet.
+      RTC_LOG(LS_WARNING) << "ssrc: " << rtp_packet.Ssrc()
+                          << " Failed to parse dependency descriptor.";
+      return kDropPacket;
+    }
+    if (descriptor_v2.attached_structure != nullptr &&
+        !descriptor_v2.first_packet_in_frame) {
+      RTC_LOG(LS_WARNING) << "ssrc: " << rtp_packet.Ssrc()
+                          << "Invalid dependency descriptor: structure "
+                             "attached to non first packet of a frame.";
+      return kDropPacket;
+    }
+    video_header->is_first_packet_in_frame =
+        descriptor_v2.first_packet_in_frame;
+    video_header->is_last_packet_in_frame = descriptor_v2.last_packet_in_frame;
+
+    int64_t frame_id = frame_id_unwrapper_.Unwrap(descriptor_v2.frame_number);
+    auto& descriptor = video_header->generic.emplace();
+    descriptor.frame_id = frame_id;
+    descriptor.spatial_index = descriptor_v2.frame_dependencies.spatial_id;
+    descriptor.temporal_index = descriptor_v2.frame_dependencies.temporal_id;
+    for (int fdiff : descriptor_v2.frame_dependencies.frame_diffs) {
+      descriptor.dependencies.push_back(frame_id - fdiff);
+    }
+    descriptor.decode_target_indications =
+        descriptor_v2.frame_dependencies.decode_target_indications;
+    descriptor.discardable =
+        absl::c_linear_search(descriptor.decode_target_indications,
+                              DecodeTargetIndication::kDiscardable);
+    if (descriptor_v2.resolution) {
+      video_header->width = descriptor_v2.resolution->Width();
+      video_header->height = descriptor_v2.resolution->Height();
+    }
+
+    // FrameDependencyStructure is sent in dependency descriptor of the first
+    // packet of a key frame and required for parsed dependency descriptor in
+    // all the following packets until next key frame.
+    // Save it if there is a (potentially) new structure.
+    if (descriptor_v2.attached_structure) {
+      RTC_DCHECK(descriptor_v2.first_packet_in_frame);
+      if (video_structure_frame_id_ > frame_id) {
+        RTC_LOG(LS_WARNING)
+            << "Arrived key frame with id " << frame_id << " and structure id "
+            << descriptor_v2.attached_structure->structure_id
+            << " is older than the latest received key frame with id "
+            << *video_structure_frame_id_ << " and structure id "
+            << video_structure_->structure_id;
+        return kDropPacket;
+      }
+      video_structure_ = std::move(descriptor_v2.attached_structure);
+      video_structure_frame_id_ = frame_id;
+      video_header->frame_type = VideoFrameType::kVideoFrameKey;
+    } else {
+      video_header->frame_type = VideoFrameType::kVideoFrameDelta;
+    }
+    return kHasGenericDescriptor;
+  }
+
   if (rtp_packet.HasExtension<RtpGenericFrameDescriptorExtension00>() &&
       rtp_packet.HasExtension<RtpGenericFrameDescriptorExtension01>()) {
     RTC_LOG(LS_WARNING) << "RTP packet had two different GFD versions.";

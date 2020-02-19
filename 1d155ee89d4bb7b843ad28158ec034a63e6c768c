@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d05cc93_a90fa530",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T12:44:29Z",
+      "side": 1,
+      "message": "Remove, and maybe add an \"RTC_DCHECK(descriptor_v2.first_packet_in_frame)\" inside the if block.",
+      "range": {
+        "startLine": 421,
+        "startChar": 52,
+        "endLine": 422,
+        "endChar": 43
+      },
+      "revId": "1d155ee89d4bb7b843ad28158ec034a63e6c768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

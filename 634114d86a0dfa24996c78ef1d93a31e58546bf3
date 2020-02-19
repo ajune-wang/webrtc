@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "5eb1f4fc_38f6c2a3",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T12:44:29Z",
+      "side": 1,
+      "message": "I know it\u0027s not trivial, and because of that it is something I want to see implemented given the descriptor design we developed. I don\u0027t think it\u0027s a problem to achieve this, but the point of implementing before finalizing the spec is to discover things that we might now have though about.\n\nWe can do it later though.",
+      "parentUuid": "828144d4_3f4d31d1",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 5
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b75faa92_b2576975",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 2
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "that will break or complicate GFD01 code below.\nso would prefer to do it while cleaning away GFD01.\n(prefer to continue cleaning GFD01 when can check GFD02 can be used instead)",
       "parentUuid": "b75faa92_b2576975",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 68
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99f40130_e05bf38e",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T12:44:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "064518de_8bfa8ce4",
       "range": {
         "startLine": 402,
         "startChar": 0,
@@ -296,6 +344,30 @@
       "side": 1,
       "message": "DependencyDescriptor provides std::unique_ptr\u003cFrameDependencyStructure\u003e\nStoring it by value would require to copy or move it (where right now it just move of a pointer).\n\nParsing also will be more wordy:\nGetExtension\u003cRtpDependencyDescriptorExtension\u003e(dd_info_ ? \u0026dd_info-\u003evideo_structure : nullptr, \u0026descriptor_v2);\ninstead of current\nGetExtension\u003cRtpDependencyDescriptorExtension\u003e(video_structure_.get(), \u0026descriptor_v2);\n\nWould you find these reasons strong enough to keep as is, or still prefer these two fields be combined into struct?\n(The way it is now it is also possible to remove absl::optional and check video_structure_frame_id_ only when video_structure_ !\u003d nullptr, but that would be less safe)",
       "parentUuid": "a583d812_a4cb1fba",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 43
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b490ec0_02497216",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T12:44:29Z",
+      "side": 1,
+      "message": "Keep as is.",
+      "parentUuid": "796af919_b35232d0",
       "range": {
         "startLine": 287,
         "startChar": 0,

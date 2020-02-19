@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "be1959ff_7341b320",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T11:46:36Z",
+      "side": 1,
+      "message": "let me try... (what make it a bit complicated is output...)\n[stated in a separate change]",
+      "parentUuid": "e287198c_6697b275",
+      "range": {
+        "startLine": 372,
+        "startChar": 7,
+        "endLine": 372,
+        "endChar": 29
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8350982_be80368b",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "828144d4_3f4d31d1",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T11:46:36Z",
+      "side": 1,
+      "message": "far from trivial to cover this corner case:\nfirst need to distinguish listed cases (not that hard, still not trivial by itself)\nthen require stashing before passing to PacketBuffer (that seems harder).\nor passing to PacketBuffer without [fully] parsing the extension.\n\nI would suggest to add that functionality if lack of it would turn out to be problematic.\n(it might become much simpler if I finish refactoring where PacketBuffer is only interested in 3 flags per packet rather than in full video_header)",
+      "parentUuid": "c8350982_be80368b",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 5
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "064518de_8bfa8ce4",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T11:46:36Z",
+      "side": 1,
+      "message": "that will break or complicate GFD01 code below.\nso would prefer to do it while cleaning away GFD01.\n(prefer to continue cleaning GFD01 when can check GFD02 can be used instead)",
+      "parentUuid": "b75faa92_b2576975",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 68
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc401e03_c820a1ee",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cbf95d8_8512f012",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T11:46:36Z",
+      "side": 1,
+      "message": "may be we do. Added the log.\nMay be it is also good idea to discard such packet since it rely on own structure rather than on previously sent one and thus can violate some silent assumptions (e.g. use higher spatial layer than possible by current structure)",
+      "parentUuid": "fc401e03_c820a1ee",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 46
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "25405d17_e2df5c02",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T11:46:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c9081843_bce7476c",
+      "range": {
+        "startLine": 695,
+        "startChar": 54,
+        "endLine": 695,
+        "endChar": 77
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a583d812_a4cb1fba",
         "filename": "video/rtp_video_stream_receiver.h",
         "patchSetId": 2
@@ -137,6 +257,30 @@
       "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "796af919_b35232d0",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T11:46:36Z",
+      "side": 1,
+      "message": "DependencyDescriptor provides std::unique_ptr\u003cFrameDependencyStructure\u003e\nStoring it by value would require to copy or move it (where right now it just move of a pointer).\n\nParsing also will be more wordy:\nGetExtension\u003cRtpDependencyDescriptorExtension\u003e(dd_info_ ? \u0026dd_info-\u003evideo_structure : nullptr, \u0026descriptor_v2);\ninstead of current\nGetExtension\u003cRtpDependencyDescriptorExtension\u003e(video_structure_.get(), \u0026descriptor_v2);\n\nWould you find these reasons strong enough to keep as is, or still prefer these two fields be combined into struct?\n(The way it is now it is also possible to remove absl::optional and check video_structure_frame_id_ only when video_structure_ !\u003d nullptr, but that would be less safe)",
+      "parentUuid": "a583d812_a4cb1fba",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 43
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

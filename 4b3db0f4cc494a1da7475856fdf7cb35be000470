@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e8d2fda8_b4929611",
+        "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T14:03:53Z",
+      "side": 1,
+      "message": "Discussed offline. Looks good.",
+      "parentUuid": "df1d9bc5_bf9f5fe7",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 69
+      },
+      "revId": "4b3db0f4cc494a1da7475856fdf7cb35be000470",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6ca4cd1_6048368a",
         "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "4b3db0f4cc494a1da7475856fdf7cb35be000470",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb1e655_d6b3470a",
+        "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T14:03:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6ca4cd1_6048368a",
+      "range": {
+        "startLine": 247,
+        "startChar": 56,
+        "endLine": 247,
+        "endChar": 66
+      },
+      "revId": "4b3db0f4cc494a1da7475856fdf7cb35be000470",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

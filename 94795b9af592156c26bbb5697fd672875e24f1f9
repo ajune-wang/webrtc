@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f735b890_188f1a2e",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-19T16:29:38Z",
+      "side": 1,
+      "message": "Does parsing work with nullptr?",
+      "range": {
+        "startLine": 338,
+        "startChar": 29,
+        "endLine": 338,
+        "endChar": 34
+      },
+      "revId": "94795b9af592156c26bbb5697fd672875e24f1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b189b84e_82703f1e",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-19T16:29:38Z",
+      "side": 1,
+      "message": "nit: name this |generic_descriptor|? Currently there\u0027re a lot of .*descriptor named variables here. Make them more distinct please.",
+      "range": {
+        "startLine": 362,
+        "startChar": 10,
+        "endLine": 362,
+        "endChar": 20
+      },
+      "revId": "94795b9af592156c26bbb5697fd672875e24f1f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

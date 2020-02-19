@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e3f5dc68_4ad17ecd",
+        "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T10:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ed585e5_040eb9fd",
+      "revId": "f3616ed9fcf00842c36a19a05c77fc7c47194842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "822e21ee_1b9efb91",
         "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4caa37c0_a383997d",
+        "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T10:05:01Z",
+      "side": 1,
+      "message": "We use a lot of things from webrtc::test, so it\u0027s easier to keep this code in webrtc::test. Wrapped it also in anonymous namespace to prevent exporting anywhere.",
+      "parentUuid": "822e21ee_1b9efb91",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 16
+      },
+      "revId": "f3616ed9fcf00842c36a19a05c77fc7c47194842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1b1b13_ade28c15",
         "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
         "patchSetId": 3
@@ -62,6 +104,30 @@
       "revId": "f3616ed9fcf00842c36a19a05c77fc7c47194842",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e84c795f_dd62097b",
+        "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T10:05:01Z",
+      "side": 1,
+      "message": "Didn\u0027t find any :( There is no native conversion from absl::string_view to char* and in other cases we need to propagate std::string. Replaced one with const std::string\u0026",
+      "parentUuid": "0b1b1b13_ade28c15",
+      "range": {
+        "startLine": 204,
+        "startChar": 20,
+        "endLine": 204,
+        "endChar": 31
+      },
+      "revId": "f3616ed9fcf00842c36a19a05c77fc7c47194842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1860,28 +1860,28 @@ void AudioProcessingImpl::InitializeNoiseSuppressor() {
   submodules_.noise_suppressor.reset();
 
   if (config_.noise_suppression.enabled) {
-      auto map_level =
-          [](AudioProcessing::Config::NoiseSuppression::Level level) {
-            using NoiseSuppresionConfig =
-                AudioProcessing::Config::NoiseSuppression;
-            switch (level) {
-              case NoiseSuppresionConfig::kLow:
-                return NsConfig::SuppressionLevel::k6dB;
-              case NoiseSuppresionConfig::kModerate:
-                return NsConfig::SuppressionLevel::k12dB;
-              case NoiseSuppresionConfig::kHigh:
-                return NsConfig::SuppressionLevel::k18dB;
-              case NoiseSuppresionConfig::kVeryHigh:
-                return NsConfig::SuppressionLevel::k21dB;
-              default:
-                RTC_NOTREACHED();
-            }
-          };
+    auto map_level =
+        [](AudioProcessing::Config::NoiseSuppression::Level level) {
+          using NoiseSuppresionConfig =
+              AudioProcessing::Config::NoiseSuppression;
+          switch (level) {
+            case NoiseSuppresionConfig::kLow:
+              return NsConfig::SuppressionLevel::k6dB;
+            case NoiseSuppresionConfig::kModerate:
+              return NsConfig::SuppressionLevel::k12dB;
+            case NoiseSuppresionConfig::kHigh:
+              return NsConfig::SuppressionLevel::k18dB;
+            case NoiseSuppresionConfig::kVeryHigh:
+              return NsConfig::SuppressionLevel::k21dB;
+            default:
+              RTC_NOTREACHED();
+          }
+        };
 
-      NsConfig cfg;
-      cfg.target_level = map_level(config_.noise_suppression.level);
-      submodules_.noise_suppressor = std::make_unique<NoiseSuppressor>(
-          cfg, proc_sample_rate_hz(), num_proc_channels());
+    NsConfig cfg;
+    cfg.target_level = map_level(config_.noise_suppression.level);
+    submodules_.noise_suppressor = std::make_unique<NoiseSuppressor>(
+        cfg, proc_sample_rate_hz(), num_proc_channels());
   }
 }
 
@@ -1968,9 +1968,10 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
 
   apm_config.agc_enabled = !!submodules_.gain_control;
 
-  apm_config.agc_mode = submodules_.gain_control
-                            ? static_cast<int>(submodules_.gain_control->mode())
-                            : GainControl::kAdaptiveAnalog;
+  apm_config.agc_mode =
+      submodules_.agc_manager
+          ? GainControl::kAdaptiveAnalog
+          : static_cast<int>(submodules_.gain_control->mode());
   apm_config.agc_limiter_enabled =
       submodules_.gain_control ? submodules_.gain_control->is_limiter_enabled()
                                : false;

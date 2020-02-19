@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e287198c_6697b275",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T10:55:48Z",
+      "side": 1,
+      "message": "Maybe we could move all the generic descriptor stuff into it\u0027s own function?",
+      "range": {
+        "startLine": 372,
+        "startChar": 7,
+        "endLine": 372,
+        "endChar": 29
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8350982_be80368b",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T10:55:48Z",
+      "side": 1,
+      "message": "I would much prefer if we could handle reordering.",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 5
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b75faa92_b2576975",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T10:55:48Z",
+      "side": 1,
+      "message": "Maybe skip setting descriptor.discardable here and just perform this check in the OnAssembledFrame function?",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 404,
+        "endChar": 68
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc401e03_c820a1ee",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T10:55:48Z",
+      "side": 1,
+      "message": "nit: this works, but maybe we want to log a warning if a structure is attached to a mid or end packet of a frame?",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 46
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9081843_bce7476c",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T10:55:48Z",
+      "side": 1,
+      "message": "absl::c_linear_search(descriptor-\u003edecode_target_indications,\n                      DecodeTargetIndication::kDiscardable);",
+      "range": {
+        "startLine": 695,
+        "startChar": 54,
+        "endLine": 695,
+        "endChar": 77
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a583d812_a4cb1fba",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-02-19T10:55:48Z",
+      "side": 1,
+      "message": "suggestion:\n  struct DependencyDescriptorInfo {\n    FrameDependencyStructure video_structure;\n    int64_t video_structure_frame_id;\n  };\n\nand use one of:\n  std::unique_ptr\u003cDependencyDescriptorInfo\u003e\n  absl::optional\u003cDependencyDescriptorInfo\u003e",
+      "range": {
+        "startLine": 287,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 43
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

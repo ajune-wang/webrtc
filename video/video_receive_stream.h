@@ -133,10 +133,15 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
                                          bool generate_key_frame) override;
   void GenerateKeyFrame() override;
 
+  void InsertDepacketizerToDecoderFrameTransformer(
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
+
  private:
   int64_t GetWaitMs() const;
   void StartNextDecode() RTC_RUN_ON(decode_queue_);
   void HandleEncodedFrame(std::unique_ptr<video_coding::EncodedFrame> frame)
+      RTC_RUN_ON(decode_queue_);
+  void DoHandleEncodedFrame(std::unique_ptr<video_coding::EncodedFrame> frame)
       RTC_RUN_ON(decode_queue_);
   void HandleFrameBufferTimeout() RTC_RUN_ON(decode_queue_);
   void UpdatePlayoutDelays() const

@@ -18,6 +18,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/frame_transformer_interface.h"
 #include "api/transport/rtp/dependency_descriptor.h"
 #include "api/video/video_codec_type.h"
 #include "api/video/video_frame_type.h"
@@ -27,6 +28,7 @@
 #include "modules/rtp_rtcp/source/absolute_capture_time_sender.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video_delegate.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/rtp_rtcp/source/ulpfec_generator.h"
 #include "rtc_base/critical_section.h"
@@ -35,6 +37,7 @@
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
+#include "rtc_base/weak_ptr.h"
 
 namespace webrtc {
 
@@ -74,6 +77,7 @@ class RTPSenderVideo {
     absl::optional<int> red_payload_type;
     absl::optional<int> ulpfec_payload_type;
     const WebRtcKeyValueConfig* field_trials = nullptr;
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer;
   };
 
   explicit RTPSenderVideo(const Config& config);
@@ -85,11 +89,22 @@ class RTPSenderVideo {
   bool SendVideo(int payload_type,
                  absl::optional<VideoCodecType> codec_type,
                  uint32_t rtp_timestamp,
-                 int64_t capture_time_ms,
-                 rtc::ArrayView<const uint8_t> payload,
+                 const EncodedImage& encoded_image,
                  const RTPFragmentationHeader* fragmentation,
                  RTPVideoHeader video_header,
                  absl::optional<int64_t> expected_retransmission_time_ms);
+
+  bool DoSendVideo(int payload_type,
+                   absl::optional<VideoCodecType> codec_type,
+                   uint32_t rtp_timestamp,
+                   int64_t capture_time_ms,
+                   rtc::ArrayView<const uint8_t> payload,
+                   const RTPFragmentationHeader* fragmentation,
+                   RTPVideoHeader video_header,
+                   absl::optional<int64_t> expected_retransmission_time_ms);
+
+  // expected_retransmission_time_ms.has_value() -> retransmission allowed.
+  // Calls to this method is assumed to be externally serialized.
   // Configures video structures produced by encoder to send using the
   // dependency descriptor rtp header extension. Next call to SendVideo should
   // have video_header.frame_type == kVideoFrameKey.
@@ -114,11 +129,16 @@ class RTPSenderVideo {
   // or extension/
   uint32_t PacketizationOverheadBps() const;
 
+  rtc::WeakPtr<RTPSenderVideo> GetWeakPtr() {
+    return weak_ptr_factory_.GetWeakPtr();
+  }
+
  protected:
   static uint8_t GetTemporalId(const RTPVideoHeader& header);
   bool AllowRetransmission(uint8_t temporal_id,
                            int32_t retransmission_settings,
                            int64_t expected_retransmission_time_ms);
+  uint32_t SSRC() { return rtp_sender_->SSRC(); }
 
  private:
   struct TemporalLayerStats {
@@ -222,6 +242,10 @@ class RTPSenderVideo {
   const bool exclude_transport_sequence_number_from_fec_experiment_;
 
   AbsoluteCaptureTimeSender absolute_capture_time_sender_;
+
+  rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_;
+  rtc::scoped_refptr<RTPSenderVideoDelegate> delegate_;
+  rtc::WeakPtrFactory<RTPSenderVideo> weak_ptr_factory_;
 };
 
 }  // namespace webrtc

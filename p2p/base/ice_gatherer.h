@@ -1,0 +1,36 @@
+/*
+ *  Copyright 2016 The WebRTC Project Authors. All rights reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#ifndef P2P_BASE_ICE_GATHERER_H_
+#define P2P_BASE_ICE_GATHERER_H_
+
+#include <memory>
+#include "api/ice_gatherer_interface.h"
+#include "p2p/base/port_allocator.h"
+
+namespace cricket {
+
+// A simple implementation of an IceGatherer that owns the
+// PortAllocator and PortAllocatorSession.
+class BasicIceGatherer : public webrtc::IceGathererInterface {
+ public:
+  BasicIceGatherer(
+      std::unique_ptr<PortAllocator> port_allocator,
+      std::unique_ptr<PortAllocatorSession> port_allocator_session);
+  PortAllocatorSession* port_allocator_session() override;
+
+ private:
+  std::unique_ptr<PortAllocator> port_allocator_;
+  std::unique_ptr<PortAllocatorSession> port_allocator_session_;
+};
+
+}  // namespace cricket
+
+#endif  // P2P_BASE_ICE_GATHERER_H_

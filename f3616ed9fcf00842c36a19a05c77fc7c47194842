@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ed585e5_040eb9fd",
+        "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-19T08:07:00Z",
+      "side": 1,
+      "message": "#include \u003cstring\u003e",
+      "revId": "f3616ed9fcf00842c36a19a05c77fc7c47194842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "822e21ee_1b9efb91",
+        "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-19T08:07:00Z",
+      "side": 1,
+      "message": "Since we are in a .cc file maybe we can avoid to open the webrtc namespace and just keep these in an anonymous namespace?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 16
+      },
+      "revId": "f3616ed9fcf00842c36a19a05c77fc7c47194842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1b1b13_ade28c15",
+        "filename": "rtc_tools/converter/yuv_to_ivf_converter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-19T08:07:00Z",
+      "side": 1,
+      "message": "Some of these std::string parameters can probably be absl::string_view.",
+      "range": {
+        "startLine": 204,
+        "startChar": 20,
+        "endLine": 204,
+        "endChar": 31
+      },
+      "revId": "f3616ed9fcf00842c36a19a05c77fc7c47194842",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

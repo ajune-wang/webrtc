@@ -656,7 +656,8 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
   if not opts.ignore_unclean_workdir and not _IsTreeClean():
-    logging.error('Please clean your local checkout first.')
+    logging.error('Please clean your local checkout first or use -i if you '
+                  'are crafting a manual roll CL.')
     return 1
 
   if opts.clean:

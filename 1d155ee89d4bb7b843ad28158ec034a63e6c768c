@@ -22,6 +22,30 @@
       "revId": "1d155ee89d4bb7b843ad28158ec034a63e6c768c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6db91b43_1f8afb0b",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T14:06:24Z",
+      "side": 1,
+      "message": "done. also moved in setting frame_type into this block to made the key frame check consistent.",
+      "parentUuid": "1d05cc93_a90fa530",
+      "range": {
+        "startLine": 421,
+        "startChar": 52,
+        "endLine": 422,
+        "endChar": 43
+      },
+      "revId": "1d155ee89d4bb7b843ad28158ec034a63e6c768c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

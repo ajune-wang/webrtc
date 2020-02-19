@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b42362ff_25bc6e75",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T14:06:24Z",
+      "side": 1,
+      "message": "Rebased passed that change",
+      "parentUuid": "34aebf38_40d50980",
+      "range": {
+        "startLine": 372,
+        "startChar": 7,
+        "endLine": 372,
+        "endChar": 29
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8350982_be80368b",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 2
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I know it\u0027s not trivial, and because of that it is something I want to see implemented given the descriptor design we developed. I don\u0027t think it\u0027s a problem to achieve this, but the point of implementing before finalizing the spec is to discover things that we might now have though about.\n\nWe can do it later though.",
       "parentUuid": "828144d4_3f4d31d1",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 5
+      },
+      "revId": "634114d86a0dfa24996c78ef1d93a31e58546bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "753dabc0_4ecea505",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-19T14:06:24Z",
+      "side": 1,
+      "message": "good point, added TODO (to block the bug until this reordering is resolved).",
+      "parentUuid": "5eb1f4fc_38f6c2a3",
       "range": {
         "startLine": 374,
         "startChar": 0,

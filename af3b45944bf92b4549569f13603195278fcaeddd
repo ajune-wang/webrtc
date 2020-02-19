@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54210369_b5c41432",
+        "filename": "common_video/generic_frame_descriptor/OWNERS",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-19T14:00:29Z",
+      "side": 1,
+      "message": "Extra blank line.",
+      "revId": "af3b45944bf92b4549569f13603195278fcaeddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -122,6 +122,8 @@ rtc_library("video_coding") {
     "media_opt_util.h",
     "packet_buffer.cc",
     "packet_buffer.h",
+    "rtp_encoded_frame_object.cc",
+    "rtp_encoded_frame_object.h",
     "rtp_frame_reference_finder.cc",
     "rtp_frame_reference_finder.h",
     "rtt_filter.cc",

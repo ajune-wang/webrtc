@@ -28,6 +28,8 @@ rtc_library("video") {
     "rtp_streams_synchronizer.h",
     "rtp_video_stream_receiver.cc",
     "rtp_video_stream_receiver.h",
+    "rtp_video_stream_receiver_delegate.cc",
+    "rtp_video_stream_receiver_delegate.h",
     "send_delay_stats.cc",
     "send_delay_stats.h",
     "send_statistics_proxy.cc",

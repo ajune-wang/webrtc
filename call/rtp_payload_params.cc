@@ -135,12 +135,12 @@ void SetVideoTiming(const EncodedImage& image, VideoSendTiming* timing) {
 }  // namespace
 
 RtpPayloadParams::RtpPayloadParams(const uint32_t ssrc,
-                                   const RtpPayloadState* state)
+                                   const RtpPayloadState* state,
+                                   bool generic_descriptor)
     : ssrc_(ssrc),
       generic_picture_id_experiment_(
           field_trial::IsEnabled("WebRTC-GenericPictureId")),
-      generic_descriptor_experiment_(
-          !field_trial::IsDisabled("WebRTC-GenericDescriptor")) {
+      generic_descriptor_(generic_descriptor) {
   for (auto& spatial_layer : last_shared_frame_id_)
     spatial_layer.fill(-1);
 
@@ -184,7 +184,7 @@ RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
 
   SetCodecSpecific(&rtp_video_header, first_frame_in_picture);
 
-  if (generic_descriptor_experiment_)
+  if (generic_descriptor_)
     SetGeneric(codec_specific_info, shared_frame_id, is_keyframe,
                &rtp_video_header);
 

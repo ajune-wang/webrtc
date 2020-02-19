@@ -126,7 +126,8 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
     RateLimiter* retransmission_rate_limiter,
     OverheadObserver* overhead_observer,
     FrameEncryptorInterface* frame_encryptor,
-    const CryptoOptions& crypto_options) {
+    const CryptoOptions& crypto_options,
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
   RTC_DCHECK_GT(rtp_config.ssrcs.size(), 0);
 
   RtpRtcp::Configuration configuration;
@@ -206,6 +207,8 @@ std::vector<RtpStreamSender> CreateRtpStreamSenders(
         !should_disable_red_and_ulpfec) {
       video_config.ulpfec_payload_type = rtp_config.ulpfec.ulpfec_payload_type;
     }
+
+    video_config.frame_transformer = frame_transformer;
     auto sender_video = std::make_unique<RTPSenderVideo>(video_config);
     rtp_streams.emplace_back(std::move(rtp_rtcp), std::move(sender_video));
   }
@@ -291,7 +294,8 @@ RtpVideoSender::RtpVideoSender(
     RateLimiter* retransmission_limiter,
     std::unique_ptr<FecController> fec_controller,
     FrameEncryptorInterface* frame_encryptor,
-    const CryptoOptions& crypto_options)
+    const CryptoOptions& crypto_options,
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer)
     : send_side_bwe_with_overhead_(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
       account_for_packetization_overhead_(!webrtc::field_trial::IsDisabled(
@@ -318,7 +322,8 @@ RtpVideoSender::RtpVideoSender(
                                           retransmission_limiter,
                                           this,
                                           frame_encryptor,
-                                          crypto_options)),
+                                          crypto_options,
+                                          frame_transformer)),
       rtp_config_(rtp_config),
       codec_type_(GetVideoCodecType(rtp_config)),
       transport_(transport),
@@ -331,6 +336,8 @@ RtpVideoSender::RtpVideoSender(
   if (send_side_bwe_with_overhead_ && has_packet_feedback_)
     transport_->IncludeOverheadInPacedSender();
   module_process_thread_checker_.Detach();
+  bool generic_descriptor =
+      field_trial::IsEnabled("WebRTC-GenericDescriptor") || frame_transformer;
   // SSRCs are assumed to be sorted in the same order as |rtp_modules|.
   for (uint32_t ssrc : rtp_config_.ssrcs) {
     // Restore state if it previously existed.
@@ -340,7 +347,7 @@ RtpVideoSender::RtpVideoSender(
       state = &it->second;
       shared_frame_id_ = std::max(shared_frame_id_, state->shared_frame_id);
     }
-    params_.push_back(RtpPayloadParams(ssrc, state));
+    params_.push_back(RtpPayloadParams(ssrc, state, generic_descriptor));
   }
 
   // RTP/RTCP initialization.
@@ -504,8 +511,8 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   }
 
   bool send_result = rtp_streams_[stream_index].sender_video->SendVideo(
-      rtp_config_.payload_type, codec_type_, rtp_timestamp,
-      encoded_image.capture_time_ms_, encoded_image, fragmentation,
+      rtp_config_.payload_type, codec_type_, rtp_timestamp, encoded_image,
+      fragmentation,
       params_[stream_index].GetRtpVideoHeader(
           encoded_image, codec_specific_info, shared_frame_id_),
       expected_retransmission_time_ms);

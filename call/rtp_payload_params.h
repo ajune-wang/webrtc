@@ -29,7 +29,9 @@ class RtpRtcp;
 // TODO(nisse): Make these properties not codec specific.
 class RtpPayloadParams final {
  public:
-  RtpPayloadParams(const uint32_t ssrc, const RtpPayloadState* state);
+  RtpPayloadParams(const uint32_t ssrc,
+                   const RtpPayloadState* state,
+                   bool generic_descriptor);
   RtpPayloadParams(const RtpPayloadParams& other);
   ~RtpPayloadParams();
 
@@ -109,7 +111,7 @@ class RtpPayloadParams final {
   RtpPayloadState state_;
 
   const bool generic_picture_id_experiment_;
-  const bool generic_descriptor_experiment_;
+  const bool generic_descriptor_;
 };
 }  // namespace webrtc
 #endif  // CALL_RTP_PAYLOAD_PARAMS_H_

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "969c5caf_445ed7b4",
+        "filename": "sdk/objc/api/peerconnection/RTCEncodedImage+Private.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-19T16:16:08Z",
+      "side": 1,
+      "message": "As I understand it, you need to save a reference to this C++ object, otherwise, the pointer passed to NSData may become stale at any point after returning from this method.",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "2bcecaa0401931384f2b5c4314406dadd7b3fd5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

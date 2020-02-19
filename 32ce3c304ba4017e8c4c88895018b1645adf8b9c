@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc542d7c_606b2c77",
+        "filename": "test/testsupport/perf_result_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T15:25:14Z",
+      "side": 1,
+      "message": "In release build this branch will be empty",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98a4bb94_a1dbce32",
+        "filename": "test/testsupport/perf_result_reporter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T15:25:14Z",
+      "side": 1,
+      "message": "Some units need explanation: kMsTs, kSigma",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf34c994_01f6813f",
+        "filename": "test/testsupport/perf_result_reporter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T15:25:14Z",
+      "side": 1,
+      "message": "What I\u0027m worrying about that you need to register each metric and it\u0027s not clear why you need that. IIRC use case is to print add each result once, so basically we will need to do 2 actions every time. Can we just AddResult with metric_suffix, value and MetricInfo?\nOr maybe eve include metrics suffix into metric info and have AddResult(MetricInfo, \u003cvalues\u003e)?",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71c7def4_e8167c7f",
+        "filename": "test/testsupport/perf_result_reporter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T15:25:14Z",
+      "side": 1,
+      "message": "Can we return absl::optional here?",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 20
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecc94fce_e023a6c5",
+        "filename": "test/testsupport/perf_test.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-19T15:25:14Z",
+      "side": 1,
+      "message": "Changes in this file looks absolutely independent to perf_result_reporter. If so, maybe it will make sense to land it separately. Maybe together with step 2)",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

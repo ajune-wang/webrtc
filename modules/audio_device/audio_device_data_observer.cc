@@ -24,12 +24,12 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
  public:
   ADMWrapper(rtc::scoped_refptr<AudioDeviceModule> impl,
              AudioDeviceDataObserver* observer)
-      : impl_(impl), observer_(observer) {
+      : impl_(impl), observer_(std::move(observer)) {
     is_valid_ = impl_.get() != nullptr;
   }
   ADMWrapper(AudioLayer audio_layer,
              TaskQueueFactory* task_queue_factory,
-             AudioDeviceDataObserver* observer)
+             std::unique_ptr<AudioDeviceDataObserver> observer)
       : ADMWrapper(AudioDeviceModule::Create(audio_layer, task_queue_factory),
                    observer) {}
   ~ADMWrapper() override {
@@ -294,9 +294,9 @@ class ADMWrapper : public AudioDeviceModule, public AudioTransport {
 
 rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceWithDataObserver(
     rtc::scoped_refptr<AudioDeviceModule> impl,
-    AudioDeviceDataObserver* observer) {
+    std::unique_ptr<AudioDeviceDataObserver> observer) {
   rtc::scoped_refptr<ADMWrapper> audio_device(
-      new rtc::RefCountedObject<ADMWrapper>(impl, observer));
+      new rtc::RefCountedObject<ADMWrapper>(impl, std::move(observer)));
 
   if (!audio_device->IsValid()) {
     return nullptr;
@@ -308,10 +308,10 @@ rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceWithDataObserver(
 rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceWithDataObserver(
     AudioDeviceModule::AudioLayer audio_layer,
     TaskQueueFactory* task_queue_factory,
-    AudioDeviceDataObserver* observer) {
+    std::unique_ptr<AudioDeviceDataObserver> observer) {
   rtc::scoped_refptr<ADMWrapper> audio_device(
       new rtc::RefCountedObject<ADMWrapper>(audio_layer, task_queue_factory,
-                                            observer));
+                                            std::move(observer)));
 
   if (!audio_device->IsValid()) {
     return nullptr;

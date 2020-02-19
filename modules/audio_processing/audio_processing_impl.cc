@@ -1968,7 +1968,7 @@ void AudioProcessingImpl::WriteAecDumpConfigMessage(bool forced) {
 
   apm_config.agc_enabled = !!submodules_.gain_control;
 
-  apm_config.agc_mode = submodules_.gain_control
+  apm_config.agc_mode = submodules_.agc_manager
                             ? static_cast<int>(submodules_.gain_control->mode())
                             : GainControl::kAdaptiveAnalog;
   apm_config.agc_limiter_enabled =

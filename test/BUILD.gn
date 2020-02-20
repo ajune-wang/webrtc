@@ -394,6 +394,8 @@ if (rtc_include_tests) {
       "../system_wrappers:metrics",
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
+      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp/absl/types:optional",
     ]
   }
 

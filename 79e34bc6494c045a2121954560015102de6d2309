@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f59a40a6_9db17204",
+        "filename": "sdk/objc/api/peerconnection/RTCEncodedImage+Private.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-02-20T11:21:04Z",
+      "side": 1,
+      "message": "Maybe I was a bit too quick. Ownership in this case seems a bit brittle. We pass a refcounted object to SetEncodedData, and the typical usecase, I imagine, will pass this into C++, where we lose control over the life time; I don\u0027t think we can we guarantee that the objc RTCEncodedImage outlives the C++ object? So I think it would be safer to somehow pass ownership to ObjcEncodedImageBuffer, something like\n\nif (!self.encodedData) {\n  self.encodedData \u003d ObjCEncodedImageBuffer::Create(self.buffer)); // Pass ownership\n  self.buffer \u003d [NSData dataWithBytesNoCopy:...]; // Shallow copy, no ownership\n}\nencodedImage.SetEncodedData(self.encodedData());",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 77
+      },
+      "revId": "79e34bc6494c045a2121954560015102de6d2309",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

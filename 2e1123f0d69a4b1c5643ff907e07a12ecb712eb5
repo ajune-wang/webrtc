@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a271d17_2d07b267",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-20T10:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eac5608c_ebcc978c",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4643edc7_612eb613",
         "filename": "api/transport/network_types.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab72d4cd_bf9429d5",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-20T10:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4643edc7_612eb613",
+      "range": {
+        "startLine": 114,
+        "startChar": 1,
+        "endLine": 114,
+        "endChar": 13
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c8593f4f_3134993e",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-20T10:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a28daab4_1376944c",
+      "range": {
+        "startLine": 71,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 62
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72d0b49b_c5b190c8",
         "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e738345b_e17bde57",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-20T10:07:08Z",
+      "side": 1,
+      "message": "I don\u0027t think that instantiating an additional estimator adds a huge overhead, and imo it makes the code slightly more resilient to future changes.",
+      "parentUuid": "72d0b49b_c5b190c8",
+      "range": {
+        "startLine": 105,
+        "startChar": 28,
+        "endLine": 106,
+        "endChar": 77
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "dcdfc66c_0d888a1d",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-20T10:07:08Z",
+      "side": 1,
+      "message": "I added a temporary variable for (kTimestampGroupLengthMs \u003c\u003c kInterArrivalShift) / 1000.\n\nMoving more of the logic into the interarrival class doesn\u0027t seem practical since it is used by remote_bitrate_estimator_single_stream.cc with other parameters. Adding a default constructor also doesn\u0027t seems practical, since these constants are also used elsewhere in this file.",
+      "parentUuid": "19226a99_8dfdebb2",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 57
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7907ed50_c743c6a6",
         "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9aa5591_b0fc219e",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-20T10:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7907ed50_c743c6a6",
+      "range": {
+        "startLine": 215,
+        "startChar": 6,
+        "endLine": 215,
+        "endChar": 29
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "6efb304d_5da2b131",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-20T10:07:08Z",
+      "side": 1,
+      "message": "Intended to check that the common code path actually sets the packet type. Removed.",
+      "parentUuid": "40107f53_d780a250",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 50
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c21f0248_00dd9a1f",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
         "patchSetId": 1
@@ -183,6 +351,30 @@
       "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b18fa0ee_08d4eda7",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-02-20T10:07:08Z",
+      "side": 1,
+      "message": "You\u0027re right. Done.",
+      "parentUuid": "c21f0248_00dd9a1f",
+      "range": {
+        "startLine": 80,
+        "startChar": 22,
+        "endLine": 80,
+        "endChar": 75
+      },
+      "revId": "2e1123f0d69a4b1c5643ff907e07a12ecb712eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

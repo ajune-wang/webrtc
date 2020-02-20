@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d49fbfa_e781a251",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-20T19:20:30Z",
+      "side": 1,
+      "message": "Or \"PriorityType\" if we really wanted it to match... That\u0027s slightly ugly though, and Priority seemed too general to pollute the webrtc namespace with. But I\u0027ll change it if no one else has an opinion.",
+      "parentUuid": "0b544b08_d7e2fe96",
+      "revId": "9141f1296d0b58ff3b02c3aa97ec2cf8efe27e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e203a8f1_5b913303",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f73840ab_4e17170b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-20T19:20:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e203a8f1_5b913303",
+      "revId": "9141f1296d0b58ff3b02c3aa97ec2cf8efe27e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84eca594_2199a596",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2020-02-20T07:54:32Z",
       "side": 1,
       "message": "Please add the reference here too, as well as a TODO to change the priorities to video priorities when this goes together with video.",
+      "revId": "9141f1296d0b58ff3b02c3aa97ec2cf8efe27e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3c1386a_2601ab26",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-20T19:20:30Z",
+      "side": 1,
+      "message": "Doesn\u0027t that only apply when multiplexing over a TCP connection? If so, I\u0027m not sure where that comment should go since this class doesn\u0027t really know if it\u0027s being multiplexed with video (and if so what the video network_priority is). Maybe I\u0027ll just add it in rtp_parameters.h",
+      "parentUuid": "84eca594_2199a596",
       "revId": "9141f1296d0b58ff3b02c3aa97ec2cf8efe27e67",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

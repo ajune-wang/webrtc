@@ -294,7 +294,11 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
       while (true) {
         ++tested_packets;
 
-        if (!is_h264 && buffer_[start_index].frame_begin())
+        const auto& packet = *buffer_[start_index].packet;
+        bool frame_begin_can_be_trusted =
+            !is_h264 || packet.video_header.generic.has_value();
+
+        if (frame_begin_can_be_trusted && buffer_[start_index].frame_begin())
           break;
 
         if (is_h264) {
@@ -339,7 +343,7 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
         // the timestamp of that packet is the same as this one. This may cause
         // the PacketBuffer to hand out incomplete frames.
         // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=7106
-        if (is_h264 &&
+        if (!frame_begin_can_be_trusted &&
             (!buffer_[start_index].used() ||
              buffer_[start_index].packet->timestamp != frame_timestamp)) {
           break;

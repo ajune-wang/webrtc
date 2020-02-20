@@ -20,6 +20,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/container/flat_hash_map.h"
 #include "api/transport/network_types.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -95,7 +96,7 @@ class PacketRouter : public RemoteBitrateObserver,
 
   rtc::CriticalSection modules_crit_;
   // Ssrc to RtpRtcp module;
-  std::unordered_map<uint32_t, RtpRtcp*> send_modules_map_
+  absl::flat_hash_map<uint32_t, RtpRtcp*> send_modules_map_
       RTC_GUARDED_BY(modules_crit_);
   std::list<RtpRtcp*> send_modules_list_ RTC_GUARDED_BY(modules_crit_);
   // The last module used to send media.

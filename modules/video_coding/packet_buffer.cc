@@ -294,7 +294,11 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
       while (true) {
         ++tested_packets;
 
-        if (!is_h264 && buffer_[start_index].frame_begin())
+        const auto& packet = *buffer_[start_index].packet;
+        bool frame_begin_can_be_trusted =
+            !is_h264 || packet.video_header.generic.has_value();
+
+        if (frame_begin_can_be_trusted && buffer_[start_index].frame_begin())
           break;
 
         if (is_h264) {

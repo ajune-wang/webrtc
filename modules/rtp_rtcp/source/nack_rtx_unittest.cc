@@ -160,6 +160,8 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
     for (size_t n = 0; n < sizeof(payload_data); n++) {
       payload_data[n] = n % 10;
     }
+    image_ =
+        EncodedImage(payload_data, sizeof(payload_data), sizeof(payload_data));
   }
 
   int BuildNackList(uint16_t* nack_list) {
@@ -209,7 +211,7 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
       video_header.frame_type = VideoFrameType::kVideoFrameDelta;
       EXPECT_TRUE(rtp_sender_video_->SendVideo(
           kPayloadType, VideoCodecType::kVideoCodecGeneric, timestamp,
-          timestamp / 90, payload_data, nullptr, video_header, 0));
+          timestamp / 90, image_, nullptr, video_header, 0));
       // Min required delay until retransmit = 5 + RTT ms (RTT = 0).
       fake_clock.AdvanceTimeMilliseconds(5);
       int length = BuildNackList(nack_list);
@@ -231,6 +233,7 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
       {kRtxPayloadType, kPayloadType}};
   VerifyingMediaStream media_stream_;
   RtxReceiveStream rtx_stream_;
+  EncodedImage image_;
   uint8_t payload_data[65000];
   SimulatedClock fake_clock;
   RateLimiter retransmission_rate_limiter_;
@@ -259,7 +262,7 @@ TEST_F(RtpRtcpRtxNackTest, LongNackList) {
     video_header.frame_type = VideoFrameType::kVideoFrameDelta;
     EXPECT_TRUE(rtp_sender_video_->SendVideo(
         kPayloadType, VideoCodecType::kVideoCodecGeneric, timestamp,
-        timestamp / 90, payload_data, nullptr, video_header, 0));
+        timestamp / 90, image_, nullptr, video_header, 0));
     // Prepare next frame.
     timestamp += 3000;
     fake_clock.AdvanceTimeMilliseconds(33);

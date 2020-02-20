@@ -293,6 +293,7 @@ rtc_library("video_stream_api") {
   ]
   deps = [
     ":rtp_interfaces",
+    "../api:frame_transformer_interface",
     "../api:rtp_headers",
     "../api:rtp_parameters",
     "../api:transport_api",

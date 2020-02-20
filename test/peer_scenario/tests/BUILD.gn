@@ -19,7 +19,9 @@ if (rtc_include_tests) {
       "..:peer_scenario",
       "../../:field_trial",
       "../../:test_support",
+      "../../../api:rtc_stats_api",
       "../../../modules/rtp_rtcp:rtp_rtcp",
+      "../../../pc:pc_test_utils",
       "../../../pc:rtc_pc_base",
     ]
   }

@@ -933,22 +933,21 @@ webrtc::RTCError WebRtcVideoChannel::SetRtpSendParameters(
   }
 
   if (!parameters.encodings.empty()) {
-    const auto& priority = parameters.encodings[0].network_priority;
     rtc::DiffServCodePoint new_dscp = rtc::DSCP_DEFAULT;
-    if (priority == 0.5 * webrtc::kDefaultBitratePriority) {
-      new_dscp = rtc::DSCP_CS1;
-    } else if (priority == webrtc::kDefaultBitratePriority) {
-      new_dscp = rtc::DSCP_DEFAULT;
-    } else if (priority == 2.0 * webrtc::kDefaultBitratePriority) {
-      new_dscp = rtc::DSCP_AF42;
-    } else if (priority == 4.0 * webrtc::kDefaultBitratePriority) {
-      new_dscp = rtc::DSCP_AF41;
-    } else {
-      RTC_LOG(LS_WARNING) << "Received invalid send network priority: "
-                          << priority;
-      return webrtc::RTCError(webrtc::RTCErrorType::INVALID_RANGE);
+    switch (parameters.encodings[0].network_priority) {
+      case webrtc::NetworkPriority::kVeryLow:
+        new_dscp = rtc::DSCP_CS1;
+        break;
+      case webrtc::NetworkPriority::kLow:
+        new_dscp = rtc::DSCP_DEFAULT;
+        break;
+      case webrtc::NetworkPriority::kMedium:
+        new_dscp = rtc::DSCP_AF42;
+        break;
+      case webrtc::NetworkPriority::kHigh:
+        new_dscp = rtc::DSCP_AF41;
+        break;
     }
-
     SetPreferredDscp(new_dscp);
   }
 

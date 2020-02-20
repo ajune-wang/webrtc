@@ -47,6 +47,14 @@ void MediaChannel::SetFrameDecryptor(
   // Placeholder should be pure virtual once internal supports it.
 }
 
+void MediaChannel::InsertEncoderToPacketizerFrameTransformer(
+    uint32_t ssrc,
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {}
+
+void MediaChannel::InsertDepacketizerToDecoderFrameTransformer(
+    uint32_t ssrc,
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {}
+
 void MediaChannel::SetVideoCodecSwitchingEnabled(bool enabled) {}
 
 MediaSenderInfo::MediaSenderInfo() = default;

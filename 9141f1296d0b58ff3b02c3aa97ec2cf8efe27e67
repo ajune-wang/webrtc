@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b544b08_d7e2fe96",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-20T07:54:32Z",
+      "side": 1,
+      "message": "Should have said this earlier, but I think the enum should be called \"Priority\", long name \"webrtc::Priority\", to reflect the fact that this enum reflects the webrtc spec Priority class.\nSetting the bitrate priority using a webrtc::Priority could be a setter that translates.",
+      "revId": "9141f1296d0b58ff3b02c3aa97ec2cf8efe27e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e203a8f1_5b913303",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-20T07:54:32Z",
+      "side": 1,
+      "message": "Please add a reference to https://tools.ietf.org/html/draft-ietf-tsvwg-rtcweb-qos-16#section-5 and a TODO to change the values dependent on frame type (keyframes are supposed to go AF42/41 and non-keyframes AF43/42). (And good riddance on the float exact comparisons!)",
+      "revId": "9141f1296d0b58ff3b02c3aa97ec2cf8efe27e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84eca594_2199a596",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-20T07:54:32Z",
+      "side": 1,
+      "message": "Please add the reference here too, as well as a TODO to change the priorities to video priorities when this goes together with video.",
+      "revId": "9141f1296d0b58ff3b02c3aa97ec2cf8efe27e67",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

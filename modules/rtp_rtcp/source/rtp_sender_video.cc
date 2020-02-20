@@ -10,6 +10,7 @@
 
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
 
+#include <bits/stdint-uintn.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -28,11 +29,13 @@
 #include "modules/rtp_rtcp/source/absolute_capture_time_sender.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtp_dependency_descriptor_extension.h"
+#include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
 #include "modules/rtp_rtcp/source/rtp_format.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/rtp_rtcp/source/time_util.h"
+#include "modules/video_coding/rtp_encoded_frame_object.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/trace_event.h"
@@ -51,9 +54,9 @@ constexpr int64_t kMaxUnretransmittableFrameIntervalMs = 33 * 4;
 // result recovered packets will be corrupt unless we also remove transport
 // sequence number during FEC calculation.
 //
-// TODO(sukhanov): We need to find find better way to implement FEC with
-// datagram transport, probably moving FEC to datagram integration layter. We
-// should also remove special field trial once we switch datagram path from
+// TODO(sukhanov): We need to find a better way to implement FEC with datagram
+// transport, probably moving FEC to datagram integration layter. We should
+// also remove special field trial once we switch datagram path from
 // RTCConfiguration flags to field trial and use the same field trial for FEC
 // workaround.
 const char kExcludeTransportSequenceNumberFromFecFieldTrial[] =
@@ -274,9 +277,20 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
           config.field_trials
               ->Lookup(kExcludeTransportSequenceNumberFromFecFieldTrial)
               .find("Enabled") == 0),
-      absolute_capture_time_sender_(config.clock) {}
+      absolute_capture_time_sender_(config.clock),
+      frame_transformer_(config.frame_transformer) {
+  if (frame_transformer_) {
+    delegate_ = new rtc::RefCountedObject<RTPSenderVideoDelegate>(
+        this, TaskQueueBase::Current());
+    frame_transformer_->RegisterTransformedFrameCallback(delegate_);
+  }
+}
 
-RTPSenderVideo::~RTPSenderVideo() {}
+RTPSenderVideo::~RTPSenderVideo() {
+  if (frame_transformer_)
+    frame_transformer_->UnregisterTransformedFrameCallback();
+  delegate_->ResetSenderPtr();
+}
 
 void RTPSenderVideo::AppendAsRedMaybeWithUlpfec(
     std::unique_ptr<RtpPacketToSend> media_packet,
@@ -468,12 +482,37 @@ bool RTPSenderVideo::SendVideo(
     int payload_type,
     absl::optional<VideoCodecType> codec_type,
     uint32_t rtp_timestamp,
+    const EncodedImage& encoded_image,
+    const RTPFragmentationHeader* fragmentation,
+    RTPVideoHeader video_header,
+    absl::optional<int64_t> expected_retransmission_time_ms) {
+  RTC_CHECK_RUNS_SERIALIZED(&send_checker_);
+  // Send async once the frame is transformed.
+  if (frame_transformer_) {
+    frame_transformer_->TransformFrame(
+        std::make_unique<video_coding::RtpEncodedFrameObject>(
+            encoded_image.GetEncodedData(), video_header, payload_type,
+            codec_type, rtp_timestamp, encoded_image.capture_time_ms_,
+            fragmentation, expected_retransmission_time_ms),
+        RtpDescriptorAuthentication(video_header), rtp_sender_->SSRC());
+    return true;
+  }
+  return DoSendVideo(payload_type, codec_type, rtp_timestamp,
+                     encoded_image.capture_time_ms_, encoded_image,
+                     fragmentation, video_header,
+                     expected_retransmission_time_ms);
+}
+
+bool RTPSenderVideo::DoSendVideo(
+    int payload_type,
+    absl::optional<VideoCodecType> codec_type,
+    uint32_t rtp_timestamp,
     int64_t capture_time_ms,
     rtc::ArrayView<const uint8_t> payload,
     const RTPFragmentationHeader* fragmentation,
     RTPVideoHeader video_header,
     absl::optional<int64_t> expected_retransmission_time_ms) {
-  #if RTC_TRACE_EVENTS_ENABLED
+#if RTC_TRACE_EVENTS_ENABLED
   TRACE_EVENT_ASYNC_STEP1("webrtc", "Video", capture_time_ms, "Send", "type",
                           FrameTypeToString(video_header.frame_type));
   #endif

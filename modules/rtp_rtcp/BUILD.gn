@@ -194,6 +194,8 @@ rtc_library("rtp_rtcp") {
     "source/rtp_sender_egress.h",
     "source/rtp_sender_video.cc",
     "source/rtp_sender_video.h",
+    "source/rtp_sender_video_delegate.cc",
+    "source/rtp_sender_video_delegate.h",
     "source/rtp_sequence_number_map.cc",
     "source/rtp_sequence_number_map.h",
     "source/rtp_utility.cc",

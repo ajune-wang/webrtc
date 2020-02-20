@@ -14,6 +14,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/** Corresponds to webrtc::NetworkPriority. */
+typedef NS_ENUM(NSInteger, RTCNetworkPriority) {
+  RTCNetworkPriorityVeryLow,
+  RTCNetworkPriorityLow,
+  RTCNetworkPriorityMedium,
+  RTCNetworkPriorityHigh
+};
+
 RTC_OBJC_EXPORT
 @interface RTCRtpEncodingParameters : NSObject
 
@@ -52,7 +60,7 @@ RTC_OBJC_EXPORT
 @property(nonatomic, readonly, nullable) NSNumber *ssrc;
 
 /** The relative DiffServ Code Point priority. */
-@property(nonatomic, assign) double networkPriority;
+@property(nonatomic, assign) NSNumber *networkPriority;
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 

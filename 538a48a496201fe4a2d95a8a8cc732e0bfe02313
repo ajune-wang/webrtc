@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d31a4bb_25647af0",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-21T16:10:41Z",
+      "side": 1,
+      "message": "Rename to target_pixels",
+      "range": {
+        "startLine": 122,
+        "startChar": 35,
+        "endLine": 122,
+        "endChar": 48
+      },
+      "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678f11e6_1e9747c7",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-21T16:10:41Z",
+      "side": 1,
+      "message": "nit: Extract to a local variable for readability.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 59
+      },
+      "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12f7e06_04c43f38",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-21T16:10:41Z",
+      "side": 1,
+      "message": "nit: Extract to a local for readability.",
+      "range": {
+        "startLine": 145,
+        "startChar": 11,
+        "endLine": 147,
+        "endChar": 52
+      },
+      "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a2a227d_412bc760",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-21T16:10:41Z",
+      "side": 1,
+      "message": "Why is this done in two steps (check and then decrease) when the decrease itself does the check as a guard? Is this the intention?\n\nI think it might be ok to replace the guards in the Decrease/Increase methods with DCHECKs instead.",
+      "range": {
+        "startLine": 829,
+        "startChar": 8,
+        "endLine": 829,
+        "endChar": 53
+      },
+      "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

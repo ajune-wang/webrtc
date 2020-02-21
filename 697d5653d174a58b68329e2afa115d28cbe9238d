@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e631035_2c6653bc",
+        "filename": "common_audio/channel_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-21T09:29:41Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be `rtc::ArrayView\u003cconst rtc::ArrayView\u003cT\u003e\u003e`? Otherwise the caller will be able to modify the array of ArrayViews.\n\n(More cases of this below.)",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 35
+      },
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1de47d60_a0e4c961",
+        "filename": "common_audio/channel_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-21T09:29:41Z",
+      "side": 1,
+      "message": "These look like specialized versions of the methods of the same name on line 104. Can you get rid of these, and possibly add a default value to the argument in the others?",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fb15fa9_d9b83386",
+        "filename": "common_audio/channel_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-21T09:29:41Z",
+      "side": 1,
+      "message": "It looks like you never change these, so can you make them const? (A vector\u0027s constness goes deep, so you only need const at the top level.)",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "693db412_ac99f26c",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-21T09:29:41Z",
+      "side": 1,
+      "message": "Beautiful use of fixed-size array views.",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c7ce5a_79f90e9b",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-21T09:29:41Z",
+      "side": 1,
+      "message": "You seem to be assuming that the dimensions of `out` are kNumBands and kSplitBandSize. Encode this in the type by turning both levels into fixed-size array views?",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92aaf7b0_84a4a1b9",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-21T09:29:41Z",
+      "side": 1,
+      "message": "Encode this condition in the type of `in` by making it fixed-size?",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

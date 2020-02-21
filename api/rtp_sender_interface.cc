@@ -30,4 +30,7 @@ rtc::scoped_refptr<DtlsTransportInterface> RtpSenderInterface::dtls_transport()
   return nullptr;
 }
 
+void RtpSenderInterface::InsertEncoderToPacketizerFrameTransformer(
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {}
+
 }  // namespace webrtc

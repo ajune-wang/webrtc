@@ -22,6 +22,30 @@
       "revId": "6eeef9401a8c7b99868754568989c2636d120d46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dc074fe_76cb51c9",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-21T08:49:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fe0a624e_fbe29447",
+      "range": {
+        "startLine": 166,
+        "startChar": 6,
+        "endLine": 169,
+        "endChar": 7
+      },
+      "revId": "6eeef9401a8c7b99868754568989c2636d120d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

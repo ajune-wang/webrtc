@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f1e2aecc_cc31ea6f",
+        "filename": "common_audio/channel_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-21T11:17:33Z",
+      "side": 1,
+      "message": "Thanks! I made this change here, and to 1 place below.\nPTAL",
+      "parentUuid": "4e631035_2c6653bc",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 35
+      },
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1de47d60_a0e4c961",
         "filename": "common_audio/channel_buffer.h",
         "patchSetId": 8
@@ -36,6 +60,24 @@
       "writtenOn": "2020-02-21T09:29:41Z",
       "side": 1,
       "message": "These look like specialized versions of the methods of the same name on line 104. Can you get rid of these, and possibly add a default value to the argument in the others?",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "517bc693_ca44e133",
+        "filename": "common_audio/channel_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-21T11:17:33Z",
+      "side": 1,
+      "message": "Good point!\nI did this change, and also rewrote the comments to match this, as the intended usage  is different for the two variants. \nPTAL",
+      "parentUuid": "1de47d60_a0e4c961",
       "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "78257035_cd999ef2",
+        "filename": "common_audio/channel_buffer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-21T11:17:33Z",
+      "side": 1,
+      "message": "Good point! \nThanks!\nDone.",
+      "parentUuid": "0fb15fa9_d9b83386",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "693db412_ac99f26c",
         "filename": "modules/audio_processing/three_band_filter_bank.cc",
         "patchSetId": 8
@@ -70,6 +130,24 @@
       "writtenOn": "2020-02-21T09:29:41Z",
       "side": 1,
       "message": "Beautiful use of fixed-size array views.",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4429f3af_a4e19322",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-21T11:17:33Z",
+      "side": 1,
+      "message": ":-)",
+      "parentUuid": "693db412_ac99f26c",
       "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "ed4ac893_4ba7bfc3",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-21T11:17:33Z",
+      "side": 1,
+      "message": "Nice!\nI did, however, only manage to make the outer ones fixed size (i.e., kNumBands).\n\nSince there is at compile-time no guarantee from the ChannelBuffer producing the original ArrayView\u003cArrayView\u003c\u003e\u003e on what the size of the inner data is, the only way to enforce the fixed size into the data going to the input of this function is to explicitly create such a view.\n\nI would rather skip enforcing the size of the inner view as it\n-requires extra code to construct and it occurs in code that affects realtime performance.\n-The compile time check can be enforced using DCHECKS.\n-The test coverage for verifying the correctness of the DCHECKS for different rates is quite large.\n\nWDYT? Is that ok?",
+      "parentUuid": "c3c7ce5a_79f90e9b",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "92aaf7b0_84a4a1b9",
         "filename": "modules/audio_processing/three_band_filter_bank.cc",
         "patchSetId": 8
@@ -104,6 +200,24 @@
       "writtenOn": "2020-02-21T09:29:41Z",
       "side": 1,
       "message": "Encode this condition in the type of `in` by making it fixed-size?",
+      "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f6bef8_373fc5ce",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-21T11:17:33Z",
+      "side": 1,
+      "message": "Same comments as above.",
+      "parentUuid": "92aaf7b0_84a4a1b9",
       "revId": "697d5653d174a58b68329e2afa115d28cbe9238d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

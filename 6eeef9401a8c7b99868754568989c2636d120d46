@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe0a624e_fbe29447",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-21T08:06:36Z",
+      "side": 1,
+      "message": "This is a difficult to read default (empty vector -\u003e print all the metrics).\n\nNot related to this CL, but this should be changed to something more explicit.",
+      "range": {
+        "startLine": 166,
+        "startChar": 6,
+        "endLine": 169,
+        "endChar": 7
+      },
+      "revId": "6eeef9401a8c7b99868754568989c2636d120d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

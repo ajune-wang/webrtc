@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88fb1025_7f3c79fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-22T11:20:54Z",
+      "side": 1,
+      "message": "can you change the subject line to \"Relax the ice-ufrag/ice-pwd restrictions more\"?\n\nIf one extends a restriction, one would make it more restrictive, not less permissive.",
+      "revId": "30528762cdf6d5248d73b768268445d3ec74ed19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32e46074_e40bf628",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T13:42:21Z",
+      "side": 1,
+      "message": "Can not? Can now?",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc52c88_0ce21001",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T13:42:21Z",
+      "side": 1,
+      "message": "Not have? Now have?",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03d1b097_3eac1186",
+        "filename": "call/adaptation/resource.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T13:42:21Z",
+      "side": 1,
+      "message": "No strong opinion, but if we DCHECK when attempting to register twice, perhaps we should DCHECK if attempting to unregister twice?",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68e02a53_d288c03f",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T13:42:21Z",
+      "side": 1,
+      "message": "What\u0027s the difference between absl::string_view and std::string?",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cfde14b_a008555b",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T13:42:21Z",
+      "side": 1,
+      "message": "How about a helper method \"AdaptReason GetResourceReason(const Resource\u0026 resource)\"?\nOptional suggestion since we currently only do this in one place.",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cf0fb40_9e44f358",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T13:42:21Z",
+      "side": 1,
+      "message": "nit: Capital first letter? Any of the following? \"Fake CPU resource\", \"Fake CPU Resource\", \"FakeCpuResource\", \"FakeResource[CPU]\"",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff4212c4_0789d95e",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T13:42:21Z",
+      "side": 1,
+      "message": "nit: Same",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

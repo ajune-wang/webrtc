@@ -2690,6 +2690,13 @@ TEST_F(VideoSendStreamTest, EncoderSetupPropagatesVp9Config) {
   RunBaseTest(&test);
 }
 
+// Fails on MSAN: https://bugs.chromium.org/p/webrtc/issues/detail?id=11376.
+#if defined(MEMORY_SANITIZER)
+#define MAYBE_EncoderSetupPropagatesH264Config \
+  DISABLED_EncoderSetupPropagatesH264Config
+#else
+#define MAYBE_EncoderSetupPropagatesH264Config EncoderSetupPropagatesH264Config
+#endif
 TEST_F(VideoSendStreamTest, EncoderSetupPropagatesH264Config) {
   VideoCodecConfigObserver<VideoCodecH264> test(kVideoCodecH264, "H264");
   RunBaseTest(&test);

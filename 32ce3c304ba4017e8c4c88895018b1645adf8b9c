@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "74cb69c0_b54c4504",
+        "filename": "test/testsupport/perf_result_reporter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-02-24T12:12:00Z",
+      "side": 1,
+      "message": "After offline discussion: seems WebRTC rarely, if ever, register+add a metric more than once. We experimented with some alternatives but they\u0027re not significantly better if we want to keep the rigor of the API.",
+      "parentUuid": "e9fe7bb0_8419f9e3",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71c7def4_e8167c7f",
         "filename": "test/testsupport/perf_result_reporter.h",
         "patchSetId": 2

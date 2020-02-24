@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "adbfb4a3_c82e1d0d",
+        "filename": "call/adaptation/resource.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T14:39:22Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "084c3553_34f0e180",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68e02a53_d288c03f",
         "filename": "call/adaptation/resource.h",
         "patchSetId": 1

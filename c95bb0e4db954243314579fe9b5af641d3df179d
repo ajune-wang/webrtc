@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "cca001df_e1a7a50d",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-24T12:40:45Z",
+      "side": 1,
+      "message": "That makes sense.\n\nI\u0027ll try that as a follow-up CL that tries that approach, and benchmarks to make sure that there is no penalty in CPU.",
+      "parentUuid": "2442583e_802a2fe0",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 68
+      },
+      "revId": "c95bb0e4db954243314579fe9b5af641d3df179d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3edc167_b9bcf42a",
         "filename": "modules/audio_processing/three_band_filter_bank.cc",
         "patchSetId": 6

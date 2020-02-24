@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "9d6f5e3a_c8601195",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-02-24T11:44:01Z",
+      "side": 1,
+      "message": "Thanks, lgtm!",
+      "parentUuid": "95e961be_9cbb1627",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 25
+      },
+      "revId": "c95bb0e4db954243314579fe9b5af641d3df179d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf7dbfbd_02a78008",
         "filename": "modules/audio_processing/three_band_filter_bank.cc",
         "patchSetId": 6
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "We could, but it would increase complexity. \n\nThe index computation is quite cheap.\nBut adding the zero filters would increase complexity by 2/12 ~\u003d 16%.\n\nOne way would be to store the zero filters, but never use them. That would, however, anyway require either a zero filter detection or in index lookup.\n\nI would prefer to keep it like this since\n-It is cheaper\n-This is one of the core computational parts of APM, which \n--is expensive  \n--always active. \n--Has a complexity that scales linearly with the number of input channels.\n\nWDYT?",
       "parentUuid": "bf7dbfbd_02a78008",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 68
+      },
+      "revId": "c95bb0e4db954243314579fe9b5af641d3df179d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2442583e_802a2fe0",
+        "filename": "modules/audio_processing/three_band_filter_bank.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-02-24T11:44:01Z",
+      "side": 1,
+      "message": "I agree about prioritizing low complexity.\n\nI meant to store the zero filters, and never use them. The zero filter detection would remain, but the filter index computation disappears. The main outcome is that the code becomes easier to read, at the cost of storing 6 more floats (but no longer storing the instructions to compute the index.)",
+      "parentUuid": "c4fa6e58_caf5b291",
       "range": {
         "startLine": 196,
         "startChar": 0,

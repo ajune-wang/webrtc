@@ -1,0 +1,99 @@
+/*
+ *  Copyright 2020 The WebRTC Project Authors. All rights reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "rtc_base/bounded_inline_vector.h"
+
+#include <memory>
+#include <string>
+#include <utility>
+
+#include "test/gmock.h"
+#include "test/gtest.h"
+
+namespace webrtc {
+namespace {
+
+template <typename T>
+class BoundedInlineVectorTestAllTypes : public ::testing::Test {};
+
+using AllTypes = ::testing::Types<int,
+                                  std::pair<int, float>,
+                                  std::unique_ptr<int>,
+                                  std::shared_ptr<int>>;
+TYPED_TEST_SUITE(BoundedInlineVectorTestAllTypes, AllTypes);
+
+template <typename T>
+class BoundedInlineVectorTestCopyableTypes : public ::testing::Test {};
+
+using CopyableTypes =
+    ::testing::Types<int, std::pair<int, float>, std::shared_ptr<int>>;
+TYPED_TEST_SUITE(BoundedInlineVectorTestCopyableTypes, CopyableTypes);
+
+TYPED_TEST(BoundedInlineVectorTestAllTypes, ConstructEmpty) {
+  BoundedInlineVector<TypeParam, 3> x;
+  EXPECT_EQ(x.size(), 0);
+  EXPECT_EQ(x.begin(), x.end());
+  static_assert(x.capacity() == 3, "");
+}
+
+TYPED_TEST(BoundedInlineVectorTestAllTypes, ConstructNonempty) {
+  BoundedInlineVector<TypeParam, 3> x{TypeParam(), TypeParam()};
+  EXPECT_EQ(x.size(), 2);
+  static_assert(x.capacity() == 3, "");
+}
+
+TYPED_TEST(BoundedInlineVectorTestCopyableTypes, CopyConstruct) {
+  BoundedInlineVector<TypeParam, 3> x{TypeParam(), TypeParam()};
+  BoundedInlineVector<TypeParam, 2> y = x;
+  EXPECT_EQ(y.size(), 2);
+  static_assert(x.capacity() == 3, "");
+  static_assert(y.capacity() == 2, "");
+}
+
+TYPED_TEST(BoundedInlineVectorTestCopyableTypes, CopyAssign) {
+  BoundedInlineVector<TypeParam, 3> x{TypeParam(), TypeParam()};
+  BoundedInlineVector<TypeParam, 2> y;
+  EXPECT_EQ(y.size(), 0);
+  y = x;
+  EXPECT_EQ(y.size(), 2);
+}
+
+TYPED_TEST(BoundedInlineVectorTestAllTypes, MoveConstruct) {
+  BoundedInlineVector<TypeParam, 3> x{TypeParam(), TypeParam()};
+  BoundedInlineVector<TypeParam, 2> y = std::move(x);
+  EXPECT_EQ(y.size(), 2);
+  static_assert(x.capacity() == 3, "");
+  static_assert(y.capacity() == 2, "");
+}
+
+TYPED_TEST(BoundedInlineVectorTestAllTypes, MoveAssign) {
+  BoundedInlineVector<TypeParam, 3> x{TypeParam(), TypeParam()};
+  BoundedInlineVector<TypeParam, 2> y;
+  EXPECT_EQ(y.size(), 0);
+  y = std::move(x);
+  EXPECT_EQ(y.size(), 2);
+}
+
+TEST(BoundedInlineVectorTestOneType, Iteration) {
+  BoundedInlineVector<std::string, 4> sv("one", "two", "three", "four");
+  std::string cat;
+  for (const auto& s : sv) {
+    cat += s;
+  }
+  EXPECT_EQ(cat, "onetwothreefour");
+}
+
+TEST(BoundedInlineVectorTestOneType, Indexing) {
+  BoundedInlineVector<double, 1> x{3.14};
+  EXPECT_EQ(x[0], 3.14);
+}
+
+}  // namespace
+}  // namespace webrtc

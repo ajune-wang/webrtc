@@ -382,6 +382,10 @@ if (rtc_include_tests) {
       "test_main_lib.h",
     ]
 
+    # TODO(https://bugs.chromium.org/1051927): why do we need this, it is in
+    # public_configs??
+    configs += [ absl_flags_config ]
+
     deps = [
       ":field_trial",
       ":perf_test",

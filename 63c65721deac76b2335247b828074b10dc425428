@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "084c3553_34f0e180",
+        "filename": "call/adaptation/resource.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-24T14:35:37Z",
+      "side": 1,
+      "message": "I will leave it for now, logging gets messy quick and since resources don\u0027t have names the output probably won\u0027t be useful.",
+      "parentUuid": "a51bdf2f_0576cd5d",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68e02a53_d288c03f",
         "filename": "call/adaptation/resource.h",
         "patchSetId": 1

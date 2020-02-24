@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4f501f7_53ce5efa",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-24T14:10:18Z",
+      "side": 1,
+      "message": "How can I repro?\n\nFrom my macbook (on master) I see this:\n\n  \u003e gn desc out/Debug test:test_main_lib configs\n  [...]\n  //third_party/abseil-cpp:absl_include_config\n  //third_party/abseil-cpp:absl_define_config\n  //:absl_flags_configs\n  [...]",
+      "range": {
+        "startLine": 387,
+        "startChar": 4,
+        "endLine": 387,
+        "endChar": 36
+      },
+      "revId": "1aaf93f7e16bbde7009f42c4e77f028f5efb843a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

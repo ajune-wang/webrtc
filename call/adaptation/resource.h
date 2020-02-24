@@ -13,6 +13,7 @@
 
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 
 namespace webrtc {
@@ -82,7 +83,11 @@ class Resource {
   // listeners and DCHECK that they're all unregistered in the destructor.
   void RegisterListener(ResourceListener* listener);
 
+  void UnregisterListener(ResourceListener* listener);
+
   ResourceUsageState usage_state() const;
+
+  virtual absl::string_view name() const = 0;
 
  protected:
   // Updates the usage state and informs all registered listeners.

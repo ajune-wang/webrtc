@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c747e2b4_6ba67d1d",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T14:20:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d31a4bb_25647af0",
+      "range": {
+        "startLine": 122,
+        "startChar": 35,
+        "endLine": 122,
+        "endChar": 48
+      },
+      "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "678f11e6_1e9747c7",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e21e1d7_53b2dee7",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T14:20:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "678f11e6_1e9747c7",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 59
+      },
+      "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "16f74e79_30a9ccd2",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T14:20:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d12f7e06_04c43f38",
+      "range": {
+        "startLine": 145,
+        "startChar": 11,
+        "endLine": 147,
+        "endChar": 52
+      },
+      "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a2a227d_412bc760",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f92ea8c_61bcd885",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-24T14:20:57Z",
+      "side": 1,
+      "message": "Done - DCHECKs added and made the Increase/Decrease methods return void.",
+      "parentUuid": "7a2a227d_412bc760",
+      "range": {
+        "startLine": 829,
+        "startChar": 8,
+        "endLine": 829,
+        "endChar": 53
+      },
+      "revId": "538a48a496201fe4a2d95a8a8cc732e0bfe02313",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

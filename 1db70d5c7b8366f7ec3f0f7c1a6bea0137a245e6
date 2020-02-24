@@ -45,6 +45,30 @@
       "revId": "1db70d5c7b8366f7ec3f0f7c1a6bea0137a245e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e0cc0ae_972456a3",
+        "filename": "video/end_to_end_tests/frame_encryption_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-24T15:23:15Z",
+      "side": 0,
+      "message": "it is no longer required since it is now enabled by default.\nWhy keep it?",
+      "parentUuid": "d12f7d27_7d2c2d36",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 77
+      },
+      "revId": "1db70d5c7b8366f7ec3f0f7c1a6bea0137a245e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

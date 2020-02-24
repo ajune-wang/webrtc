@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e05c5e6f_570a5f92",
+        "filename": "test/testsupport/perf_result_reporter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-02-24T08:09:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc542d7c_606b2c77",
+      "range": {
+        "startLine": 72,
+        "startChar": 6,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98a4bb94_a1dbce32",
         "filename": "test/testsupport/perf_result_reporter.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e699064b_fb73ec53",
+        "filename": "test/testsupport/perf_result_reporter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-02-24T08:09:49Z",
+      "side": 1,
+      "message": "These are not documented in catapult, so I have no idea what to write :) \n\nI will point to the proto though, so people can see the documentation as it is (if any gets written in the future).",
+      "parentUuid": "98a4bb94_a1dbce32",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e9fe7bb0_8419f9e3",
+        "filename": "test/testsupport/perf_result_reporter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-02-24T08:09:49Z",
+      "side": 1,
+      "message": "Consider\n\nPrintResult(\"metric\", ..., \"ms\");\nPrintResult(\"metric\", ...\" \"count\");\n\nThe semantics of this is undefined currently. I think the dashboard probably just uses the latest unit it got.\n\nI don\u0027t particularly like to RegisterMetric either since it\u0027s a bit clunky, but it is a clean API. I also think it has value to be as similar as possible to Chromium\u0027s perf test reporter class.",
+      "parentUuid": "cf34c994_01f6813f",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71c7def4_e8167c7f",
         "filename": "test/testsupport/perf_result_reporter.h",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "22d3abd8_3cd0b8c6",
+        "filename": "test/testsupport/perf_result_reporter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-02-24T08:09:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71c7def4_e8167c7f",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 20
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecc94fce_e023a6c5",
         "filename": "test/testsupport/perf_test.h",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6592c7a0_9eed6ab0",
+        "filename": "test/testsupport/perf_test.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-02-24T08:09:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecc94fce_e023a6c5",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "32ce3c304ba4017e8c4c88895018b1645adf8b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

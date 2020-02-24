@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c7fc67d9_ad63b496",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-24T14:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32e46074_e40bf628",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdc52c88_0ce21001",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3925905e_16e4435f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-24T14:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdc52c88_0ce21001",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03d1b097_3eac1186",
         "filename": "call/adaptation/resource.cc",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2020-02-24T13:42:21Z",
       "side": 1,
       "message": "No strong opinion, but if we DCHECK when attempting to register twice, perhaps we should DCHECK if attempting to unregister twice?",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a51bdf2f_0576cd5d",
+        "filename": "call/adaptation/resource.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-24T14:31:41Z",
+      "side": 1,
+      "message": "I don\u0027t know about the validity of unregistering twice. It looks like we are allowed to call Stop() as many times as we want currently, so this reflects that behaviour. If we get more strict about the state, then we can tighten the restiction here. Should I add a debug log or just leave it?",
+      "parentUuid": "03d1b097_3eac1186",
       "revId": "63c65721deac76b2335247b828074b10dc425428",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "da0b669d_b5d969b0",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-24T14:31:41Z",
+      "side": 1,
+      "message": "Replaced with std::string",
+      "parentUuid": "68e02a53_d288c03f",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cfde14b_a008555b",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 1
@@ -84,6 +156,24 @@
       "revId": "63c65721deac76b2335247b828074b10dc425428",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710e48eb_59147321",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-24T14:31:41Z",
+      "side": 1,
+      "message": "I will leave this here for now, extract when we get repetition.",
+      "parentUuid": "4cfde14b_a008555b",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "28eee80e_2e376e69",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-24T14:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cf0fb40_9e44f358",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff4212c4_0789d95e",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 1
@@ -118,6 +226,24 @@
       "revId": "63c65721deac76b2335247b828074b10dc425428",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80543f42_2f9dbb90",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-24T14:31:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff4212c4_0789d95e",
+      "revId": "63c65721deac76b2335247b828074b10dc425428",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

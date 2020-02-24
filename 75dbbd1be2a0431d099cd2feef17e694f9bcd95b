@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56c5a496_c6b4467f",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-24T16:19:31Z",
+      "side": 1,
+      "message": "Not clear why we take lower resolution here. The commend above doesn\u0027t explain that.Can\u0027t we just expand it all here to be target_pixels*3*4/5?",
+      "range": {
+        "startLine": 201,
+        "startChar": 11,
+        "endLine": 201,
+        "endChar": 33
+      },
+      "revId": "75dbbd1be2a0431d099cd2feef17e694f9bcd95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

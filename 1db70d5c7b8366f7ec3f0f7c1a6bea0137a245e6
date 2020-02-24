@@ -22,6 +22,29 @@
       "revId": "1db70d5c7b8366f7ec3f0f7c1a6bea0137a245e6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d12f7d27_7d2c2d36",
+        "filename": "video/end_to_end_tests/frame_encryption_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-02-24T15:05:50Z",
+      "side": 0,
+      "message": "Should we keep it in the new version?",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 77
+      },
+      "revId": "1db70d5c7b8366f7ec3f0f7c1a6bea0137a245e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

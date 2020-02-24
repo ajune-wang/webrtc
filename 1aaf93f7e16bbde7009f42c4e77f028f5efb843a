@@ -22,6 +22,30 @@
       "revId": "1aaf93f7e16bbde7009f42c4e77f028f5efb843a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "999d9f5a_ecf2bed9",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-24T16:29:33Z",
+      "side": 1,
+      "message": "I have tried to change test_main.cc and recompile and I get:\n\n  [1/2] ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF \n  obj/test/test_main_lib/test_main_lib.o.d -DWEBRTC_ANDROID [….] -DABSL_ALLOCATOR_NOTHROW\u003d1 - \n  DABSL_FLAGS_STRIP_NAMES\u003d0 [….] -c .    ./../test/test_main_lib.cc -o \n  obj/test/test_main_lib/test_main_lib.o\n\nSo this library is getting the config. I have also tried with :test_main and with rtc_stats_unittests:\n\n  [1/2] ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF \n  obj/test/test_main/test_main.o.d [….] -DWEBRTC_ANDROID -DABSL_ALLOCATOR_NOTHROW\u003d1 - \n  DABSL_FLAGS_STRIP_NAMES\u003d0 [….] -c ../../test/test_main.    cc -o \n  obj/test/test_main/test_main.o\n\n  [3472/3507] ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF \n  obj/stats/rtc_stats_unittests__library/rtc_stats_unittest.o.d [….] -DWEBRTC_ANDROID - \n  DABSL_ALLOCATOR_NOTHROW\u003d1 -DABSL_FLAGS_STRIP_NAMES\u003d0 [….]-c ../../stats/rtc_stats_unittest.cc \n  -o obj/stats/rtc_stats_unittests__library/rtc_stats_unittest.o\n\nIn all the cases I have -DABSL_FLAGS_STRIP_NAMES\u003d0 so I suspect something more tricky is at play here.\n\nMy gn args are:\n\n  target_os \u003d \"android\"\n  target_cpu \u003d \"arm64\"",
+      "parentUuid": "c4f501f7_53ce5efa",
+      "range": {
+        "startLine": 387,
+        "startChar": 4,
+        "endLine": 387,
+        "endChar": 36
+      },
+      "revId": "1aaf93f7e16bbde7009f42c4e77f028f5efb843a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

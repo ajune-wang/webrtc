@@ -22,7 +22,6 @@
 namespace webrtc {
 namespace test {
 
-// Metrics improver direction.
 enum class ImproveDirection {
   // Direction is undefined.
   kNone,
@@ -44,7 +43,7 @@ enum class ImproveDirection {
 // A typical post-processing step would be to produce graphs of the data
 // produced for various builds, using the combined |measurement| + |modifier|
 // string to specify a particular graph and the |trace| to identify a trace
-// (i.e., data series) on that graph.
+// (i.e., data series) on that graph
 void PrintResult(const std::string& measurement,
                  const std::string& modifier,
                  const std::string& trace,

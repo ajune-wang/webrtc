@@ -48,6 +48,8 @@ class EncodeUsageResource : public Resource,
   void AdaptUp(AdaptReason reason) override;
   bool AdaptDown(AdaptReason reason) override;
 
+  absl::string_view name() const override { return "EncoderUsageResource"; }
+
  private:
   int TargetFrameRateAsInt();
 

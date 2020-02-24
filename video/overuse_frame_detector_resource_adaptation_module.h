@@ -75,6 +75,10 @@ class OveruseFrameDetectorResourceAdaptationModule
   void StartResourceAdaptation(
       ResourceAdaptationModuleListener* adaptation_listener) override;
   void StopResourceAdaptation() override;
+  // Uses a default AdaptReason of kCpu.
+  void AddResource(Resource* resource) override;
+  void AddResource(Resource* resource,
+                   AdaptationObserverInterface::AdaptReason reason);
   void SetHasInputVideo(bool has_input_video) override;
   void SetDegradationPreference(
       DegradationPreference degradation_preference) override;
@@ -108,20 +112,6 @@ class OveruseFrameDetectorResourceAdaptationModule
   // ResourceUsageListener implementation.
   ResourceListenerResponse OnResourceUsageStateMeasured(
       const Resource& resource) override;
-
-  // Public versions of OnResourceUnderuse/OnResourceOveruse only used for
-  // testing.
-  // TODO(https://crbug.com/webrtc/11222): Control overuse/underuse from testing
-  // by injecting fake resources and remove these methods.
-  void OnResourceUnderuseForTesting(
-      AdaptationObserverInterface::AdaptReason reason);
-  // Returns false if OnResourceOveruse() returns
-  // ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency.
-  // TODO(https://crbug.com/webrtc/11222): Get rid of the
-  // ResourceListenerResponse enum and the boolean return value of
-  // AdaptationObserverInterface::AdaptDown() that this method mimics.
-  bool OnResourceOveruseForTesting(
-      AdaptationObserverInterface::AdaptReason reason);
 
  private:
   class VideoSourceRestrictor;
@@ -205,6 +195,19 @@ class OveruseFrameDetectorResourceAdaptationModule
   QualityRampupExperiment quality_rampup_experiment_;
   absl::optional<EncoderSettings> encoder_settings_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;
+
+  // Ties a resource to a reason for statistical reporting. This AdaptReason is
+  // also used by this module to make decisions about how to adapt up/down.
+  struct ResourceAndReason {
+    ResourceAndReason(Resource* resource,
+                      AdaptationObserverInterface::AdaptReason reason)
+        : resource(resource), reason(reason) {}
+    virtual ~ResourceAndReason() = default;
+
+    Resource* const resource;
+    const AdaptationObserverInterface::AdaptReason reason;
+  };
+  std::vector<ResourceAndReason> resources_;
 };
 
 }  // namespace webrtc

@@ -424,8 +424,10 @@ OveruseFrameDetectorResourceAdaptationModule::
       encoder_stats_observer_(encoder_stats_observer) {
   RTC_DCHECK(adaptation_listener_);
   RTC_DCHECK(encoder_stats_observer_);
-  encode_usage_resource_->RegisterListener(this);
-  quality_scaler_resource_->RegisterListener(this);
+  AddResource(encode_usage_resource_.get(),
+              AdaptationObserverInterface::AdaptReason::kCpu);
+  AddResource(quality_scaler_resource_.get(),
+              AdaptationObserverInterface::AdaptReason::kQuality);
 }
 
 OveruseFrameDetectorResourceAdaptationModule::
@@ -439,11 +441,34 @@ void OveruseFrameDetectorResourceAdaptationModule::StartResourceAdaptation(
   // those resources may be started or stopped separately from the module.
   RTC_DCHECK_EQ(adaptation_listener, adaptation_listener_);
   encode_usage_resource_->StartCheckForOveruse(GetCpuOveruseOptions());
+  for (auto& resource_and_reason : resources_) {
+    resource_and_reason.resource->RegisterListener(this);
+  }
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::StopResourceAdaptation() {
   encode_usage_resource_->StopCheckForOveruse();
   quality_scaler_resource_->StopCheckForOveruse();
+  for (auto& resource_and_reason : resources_) {
+    resource_and_reason.resource->UnregisterListener(this);
+  }
+}
+
+void OveruseFrameDetectorResourceAdaptationModule::AddResource(
+    Resource* resource) {
+  return AddResource(resource, AdaptationObserverInterface::AdaptReason::kCpu);
+}
+
+void OveruseFrameDetectorResourceAdaptationModule::AddResource(
+    Resource* resource,
+    AdaptationObserverInterface::AdaptReason reason) {
+  RTC_DCHECK(resource);
+  RTC_DCHECK(absl::c_find_if(resources_,
+                             [resource](const ResourceAndReason& r) {
+                               return r.resource == resource;
+                             }) == resources_.end())
+      << "Resource " << resource->name() << " already was inserted";
+  resources_.emplace_back(resource, reason);
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::SetHasInputVideo(
@@ -623,14 +648,15 @@ void OveruseFrameDetectorResourceAdaptationModule::ConfigureQualityScaler(
 ResourceListenerResponse
 OveruseFrameDetectorResourceAdaptationModule::OnResourceUsageStateMeasured(
     const Resource& resource) {
-  // If we didn't have this dependency on AdaptReason the module could be
-  // listening to other types of Resources.
-  RTC_DCHECK(&resource == encode_usage_resource_.get() ||
-             &resource == quality_scaler_resource_.get());
-  AdaptationObserverInterface::AdaptReason reason =
-      &resource == encode_usage_resource_.get()
-          ? AdaptationObserverInterface::AdaptReason::kCpu
-          : AdaptationObserverInterface::AdaptReason::kQuality;
+  const auto& registered_resource =
+      absl::c_find_if(resources_, [&resource](const ResourceAndReason& r) {
+        return r.resource == &resource;
+      });
+  RTC_DCHECK(registered_resource != resources_.end())
+      << resource.name() << " not found.";
+
+  const AdaptationObserverInterface::AdaptReason reason =
+      registered_resource->reason;
   switch (resource.usage_state()) {
     case ResourceUsageState::kOveruse:
       return OnResourceOveruse(reason);
@@ -647,17 +673,6 @@ OveruseFrameDetectorResourceAdaptationModule::OnResourceUsageStateMeasured(
       OnResourceUnderuse(reason);
       return ResourceListenerResponse::kNothing;
   }
-}
-
-void OveruseFrameDetectorResourceAdaptationModule::OnResourceUnderuseForTesting(
-    AdaptationObserverInterface::AdaptReason reason) {
-  OnResourceUnderuse(reason);
-}
-
-bool OveruseFrameDetectorResourceAdaptationModule::OnResourceOveruseForTesting(
-    AdaptationObserverInterface::AdaptReason reason) {
-  return OnResourceOveruse(reason) !=
-         ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::OnResourceUnderuse(
@@ -1048,7 +1063,6 @@ bool OveruseFrameDetectorResourceAdaptationModule::CanAdaptUpResolution(
   return bitrate_bps >=
          static_cast<uint32_t>(bitrate_limits->min_start_bitrate_bps);
 }
-
 void OveruseFrameDetectorResourceAdaptationModule::
     MaybePerformQualityRampupExperiment() {
   if (!quality_scaler_resource_->is_started())

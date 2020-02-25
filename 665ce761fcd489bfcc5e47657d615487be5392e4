@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc98bd1b_3e2a7293",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-25T11:59:51Z",
+      "side": 1,
+      "message": "What is DependencyDescriptor?\nShipping something through SDP munging (forbidden by the spec) is still shipping a web-exposed API.",
+      "revId": "665ce761fcd489bfcc5e47657d615487be5392e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

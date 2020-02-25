@@ -1433,11 +1433,11 @@ TEST_F(AcmSenderBitExactnessOldApi, MAYBE_G722_stereo_20ms) {
 namespace {
 // Checksum depends on libopus being compiled with or without SSE.
 const std::string audio_maybe_sse =
-    "3e285b74510e62062fbd8142dacd16e9|"
-    "fd5d57d6d766908e6a7211e2a5c7f78a";
+    "e0ddf36854059151cdb7a0c4af3d282a|"
+    "Opus_stereo_20ms_audio_maybe_sse";
 const std::string payload_maybe_sse =
-    "78cf8f03157358acdc69f6835caa0d9b|"
-    "b693bd95c2ee2354f92340dd09e9da68";
+    "b43bdf7638b2bc2a5a6f30bdc640b9ed|"
+    "Opus_stereo_20ms_payload_maybe_sse";
 // Common checksums.
 const std::string audio_checksum =
     AcmReceiverBitExactnessOldApi::PlatformChecksum(
@@ -1455,15 +1455,13 @@ const std::string payload_checksum =
         "27fef7b799393347ec3b5694369a1c36");
 }  // namespace
 
-// TODO(webrtc:11325) Reenable after Opus has been upgraded to 1.3.
-TEST_F(AcmSenderBitExactnessOldApi, DISABLED_Opus_stereo_20ms) {
+TEST_F(AcmSenderBitExactnessOldApi, Opus_stereo_20ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("opus", 48000, 2, 120, 960, 960));
   Run(audio_checksum, payload_checksum, 50,
       test::AcmReceiveTestOldApi::kStereoOutput);
 }
 
-// TODO(webrtc:11325) Reenable after Opus has been upgraded to 1.3.
-TEST_F(AcmSenderBitExactnessNewApi, DISABLED_OpusFromFormat_stereo_20ms) {
+TEST_F(AcmSenderBitExactnessNewApi, MAYBE_OpusFromFormat_stereo_20ms) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}}));
   ASSERT_TRUE(SetUpSender(kTestFileFakeStereo32kHz, 32000));
@@ -1520,8 +1518,7 @@ TEST_F(AcmSenderBitExactnessNewApi, DISABLED_OpusManyChannels) {
       50, test::AcmReceiveTestOldApi::kQuadOutput, decoder_factory);
 }
 
-// TODO(webrtc:11325) Reenable after Opus has been upgraded to 1.3.
-TEST_F(AcmSenderBitExactnessNewApi, DISABLED_OpusFromFormat_stereo_20ms_voip) {
+TEST_F(AcmSenderBitExactnessNewApi, OpusFromFormat_stereo_20ms_voip) {
   auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}}));
   // If not set, default will be kAudio in case of stereo.
@@ -1531,11 +1528,11 @@ TEST_F(AcmSenderBitExactnessNewApi, DISABLED_OpusFromFormat_stereo_20ms_voip) {
       AudioEncoderOpus::MakeAudioEncoder(*config, 120), 120));
   // Checksum depends on libopus being compiled with or without SSE.
   const std::string audio_maybe_sse =
-      "b0325df4e8104f04e03af23c0b75800e|"
-      "3cd4e1bc2acd9440bb9e97af34080ffc";
+      "2d7e5797444f75e5bfeaffbd8c25176b|"
+      "OpusFromFormat_stereo_20ms_voip.audio_maybe_sse";
   const std::string payload_maybe_sse =
-      "4eab2259b6fe24c22dd242a113e0b3d9|"
-      "4fc0af0aa06c26454af09832d3ec1b4e";
+      "b38b5584cfa7b6999b2e8e996c950c88|"
+      "OpusFromFormat_stereo_20ms_voip.payload_maybe_sse";
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(
           audio_maybe_sse, audio_maybe_sse, "1c81121f5d9286a5a865d01dbab22ce8",
           "11d547f89142e9ef03f37d7ca7f32379",
@@ -1621,18 +1618,16 @@ class AcmSetBitRateNewApi : public AcmSetBitRateTest {
   }
 };
 
-// TODO(webrtc:11325) Reenable after Opus has been upgraded to 1.3.
-TEST_F(AcmSetBitRateNewApi, DISABLED_OpusFromFormat_48khz_20ms_10kbps) {
+TEST_F(AcmSetBitRateNewApi, OpusFromFormat_48khz_20ms_10kbps) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"maxaveragebitrate", "10000"}}));
   ASSERT_TRUE(SetUpSender());
   RegisterExternalSendCodec(AudioEncoderOpus::MakeAudioEncoder(*config, 107),
                             107);
-  RunInner(8000, 12000);
+  RunInner(7000, 12000);
 }
 
-// TODO(webrtc:11325) Reenable after Opus has been upgraded to 1.3.
-TEST_F(AcmSetBitRateNewApi, DISABLED_OpusFromFormat_48khz_20ms_50kbps) {
+TEST_F(AcmSetBitRateNewApi, OpusFromFormat_48khz_20ms_50kbps) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"maxaveragebitrate", "50000"}}));
   ASSERT_TRUE(SetUpSender());
@@ -1740,8 +1735,7 @@ TEST_F(AudioCodingModuleTestOldApi, SendingMonoForStereoInput) {
 #define MAYBE_OpusFromFormat_48khz_20ms_100kbps \
   OpusFromFormat_48khz_20ms_100kbps
 #endif
-// TODO(webrtc:11325) Reenable after Opus has been upgraded to 1.3.
-TEST_F(AcmSetBitRateNewApi, DISABLED_OpusFromFormat_48khz_20ms_100kbps) {
+TEST_F(AcmSetBitRateNewApi, MAYBE_OpusFromFormat_48khz_20ms_100kbps) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"maxaveragebitrate", "100000"}}));
   ASSERT_TRUE(SetUpSender());

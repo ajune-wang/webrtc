@@ -22,6 +22,30 @@
       "revId": "75dbbd1be2a0431d099cd2feef17e694f9bcd95b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa58aa9e_921e8cfd",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-25T08:35:35Z",
+      "side": 1,
+      "message": "This code historically expressed it as 4 times the old setting, so I thought GetLowerResolutionThan() of the new target (which should get us the old target) and multiply that by 4 would best show that this is equivalent to the old code.\n\nHowever going forward I don\u0027t think the code should be written to show the history to the old code. It should be written to make sense going forward.\n\nI updated this to simply say target_pixels*3*4/5, i.e. (target_pixels * 12) / 5.\n\nUpdated the comment too.",
+      "parentUuid": "56c5a496_c6b4467f",
+      "range": {
+        "startLine": 201,
+        "startChar": 11,
+        "endLine": 201,
+        "endChar": 33
+      },
+      "revId": "75dbbd1be2a0431d099cd2feef17e694f9bcd95b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

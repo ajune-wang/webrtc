@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5816e727_c56e2a57",
+        "filename": "api/voip/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-25T22:40:58Z",
+      "side": 1,
+      "message": "Is this needed? I thought absl::optional was allowed in the entire tree...",
+      "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c76b4a0_60674b69",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-25T22:40:58Z",
+      "side": 1,
+      "message": "Missing semicolon.",
+      "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2590a4af_ce79fc1a",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-25T22:40:58Z",
+      "side": 1,
+      "message": "Is nullptr an allowed value?",
+      "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64ce9693_b9589e12",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-25T22:40:58Z",
+      "side": 1,
+      "message": "Document what happens if this is unset.",
+      "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02f0e53_2900060e",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-25T22:40:58Z",
+      "side": 1,
+      "message": "As I said elsewhere a few minutes ago, treat ID validity as a method precondition: [D]CHECK it if you want, but don\u0027t have error codes for it.",
+      "range": {
+        "startLine": 59,
+        "startChar": 19,
+        "endLine": 59,
+        "endChar": 46
+      },
+      "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "183a39a6_19b72c6c",
+        "filename": "api/voip/voip_codec.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-25T22:40:58Z",
+      "side": 1,
+      "message": "Can these two methods be removed, and their arguments moved to CreateChannel instead? That way channels would have their codecs fixed from the moment of their creation, which reduces the number of states and state transitions.\n\nEven better, can these be specified at VoipEngine creation (and thus be the same for all channels)? Or do you need the extra flexibility?",
+      "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

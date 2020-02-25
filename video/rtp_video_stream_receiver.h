@@ -47,7 +47,9 @@
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
+#include "rtc_base/weak_ptr.h"
 #include "video/buffered_frame_decryptor.h"
+#include "video/rtp_video_stream_receiver_delegate.h"
 
 namespace webrtc {
 
@@ -86,7 +88,29 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
       // requests are sent via the internal RtpRtcp module.
       KeyFrameRequestSender* keyframe_request_sender,
       video_coding::OnCompleteFrameCallback* complete_frame_callback,
+      rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
+
+  RTC_DEPRECATED
+  RtpVideoStreamReceiver(
+      Clock* clock,
+      Transport* transport,
+      RtcpRttStats* rtt_stats,
+      // The packet router is optional; if provided, the RtpRtcp module for this
+      // stream is registered as a candidate for sending REMB and transport
+      // feedback.
+      PacketRouter* packet_router,
+      const VideoReceiveStream::Config* config,
+      ReceiveStatistics* rtp_receive_statistics,
+      ReceiveStatisticsProxy* receive_stats_proxy,
+      ProcessThread* process_thread,
+      NackSender* nack_sender,
+      // The KeyFrameRequestSender is optional; if not provided, key frame
+      // requests are sent via the internal RtpRtcp module.
+      KeyFrameRequestSender* keyframe_request_sender,
+      video_coding::OnCompleteFrameCallback* complete_frame_callback,
       rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor);
+
   ~RtpVideoStreamReceiver() override;
 
   void AddReceiveCodec(const VideoCodec& video_codec,
@@ -174,6 +198,11 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   // themselves as secondary sinks.
   void AddSecondarySink(RtpPacketSinkInterface* sink);
   void RemoveSecondarySink(const RtpPacketSinkInterface* sink);
+
+  void ManageFrame(std::unique_ptr<video_coding::RtpFrameObject> frame);
+
+  void InsertDepacketizerToDecoderFrameTransformer(
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
 
  private:
   // Used for buffering RTCP feedback messages and sending them all together.
@@ -346,6 +375,10 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
       RTC_GUARDED_BY(worker_task_checker_);
 
   int64_t last_completed_picture_id_ = 0;
+
+  rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_;
+  rtc::scoped_refptr<RtpVideoStreamReceiverDelegate> delegate_;
+  rtc::WeakPtrFactory<RtpVideoStreamReceiver> weak_ptr_factory_;
 };
 
 }  // namespace webrtc

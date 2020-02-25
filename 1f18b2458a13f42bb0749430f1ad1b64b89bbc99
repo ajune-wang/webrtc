@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d365b409_0952f10c",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-02-25T12:41:50Z",
+      "side": 1,
+      "message": "nit: Fix the spacing.",
+      "range": {
+        "startLine": 1184,
+        "startChar": 38,
+        "endLine": 1184,
+        "endChar": 42
+      },
+      "revId": "1f18b2458a13f42bb0749430f1ad1b64b89bbc99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

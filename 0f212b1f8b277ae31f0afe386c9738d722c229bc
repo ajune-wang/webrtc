@@ -22,6 +22,30 @@
       "revId": "0f212b1f8b277ae31f0afe386c9738d722c229bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e408779_55457d5d",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-02-25T10:20:43Z",
+      "side": 1,
+      "message": "GetConstAdaptCounter() used to be non-const. As in, adapt_counters_[degradation_preference_] implicitly inserts a default-constructed AdaptCounter() if the key doesn\u0027t have a mapping.\n\nI couldn\u0027t do \"If mapping exists, return value, otherwise return a newly constructed AdaptCounter\" because the method the return value is a const\u0026, so doing so would return a reference to a temporary local variable.\n\nThis lead to one of two alternatives:\n1. Don\u0027t return const\u0026, instead return-by-value. This would result in copies.\n2. Make sure adapt_counters_ always has a mapping, so that we always have something to const\u0026-return at GetConstAdaptCounter().\n\nI chose 2) to avoid copies, but I can change this to 1) if you prefer.",
+      "parentUuid": "d73f426d_8d0688a7",
+      "range": {
+        "startLine": 1053,
+        "startChar": 2,
+        "endLine": 1060,
+        "endChar": 71
+      },
+      "revId": "0f212b1f8b277ae31f0afe386c9738d722c229bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -148,6 +148,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
       [](PeerConfigurer* alice) {
         VideoConfig video(640, 360, 30);
         video.stream_label = "alice-video";
+        video.sync_group = "group1";
         alice->AddVideoConfig(std::move(video));
 
         AudioConfig audio;
@@ -156,6 +157,7 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
         audio.input_file_name =
             test::ResourcePath("pc_quality_smoke_test_alice_source", "wav");
         audio.sampling_frequency_in_hz = 48000;
+        audio.sync_group = "group1";
         alice->SetAudioConfig(std::move(audio));
       },
       [](PeerConfigurer* bob) {

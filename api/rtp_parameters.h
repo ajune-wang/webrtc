@@ -91,12 +91,11 @@ enum class DegradationPreference {
 
 RTC_EXPORT extern const double kDefaultBitratePriority;
 
-// TODO(deadbeef): Switch to an enum class.
-struct RTC_EXPORT NetworkPriority {
-  static const double kVeryLow;
-  static const double kLow;
-  static const double kMedium;
-  static const double kHigh;
+enum class NetworkPriority {
+  kVeryLow,
+  kLow,
+  kMedium,
+  kHigh,
 };
 
 struct RTC_EXPORT RtcpFeedback {
@@ -401,7 +400,9 @@ struct RTC_EXPORT RtpEncodingParameters {
   // we follow chromium's translation of the allowed string enum values for
   // this field to 1.0, 0.5, et cetera, similar to bitrate_priority above.
   // TODO(http://crbug.com/webrtc/8630): Implement this per encoding parameter.
-  double network_priority = NetworkPriority::kLow;
+  // TODO(http://crbug.com/webrtc/11379): TCP connections should use a single
+  // DSCP value even if shared by multiple senders; this is not implemented.
+  NetworkPriority network_priority = NetworkPriority::kLow;
 
   // If set, this represents the Transport Independent Application Specific
   // maximum bandwidth defined in RFC3890. If unset, there is no maximum

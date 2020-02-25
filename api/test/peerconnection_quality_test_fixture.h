@@ -28,6 +28,7 @@
 #include "api/test/frame_generator_interface.h"
 #include "api/test/simulated_network.h"
 #include "api/test/stats_observer_interface.h"
+#include "api/test/track_id_stream_label_map.h"
 #include "api/test/video_quality_analyzer_interface.h"
 #include "api/transport/media/media_transport_interface.h"
 #include "api/transport/network_control.h"
@@ -225,6 +226,7 @@ class PeerConnectionE2EQualityTestFixture {
     absl::optional<std::string> output_dump_file_name;
     // If true will display input and output video on the user's screen.
     bool show_on_screen = false;
+    absl::optional<std::string> sync_group;
   };
 
   // Contains properties for audio in the call.
@@ -248,6 +250,7 @@ class PeerConnectionE2EQualityTestFixture {
     cricket::AudioOptions audio_options;
     // Sampling frequency of input audio data (from file or generated).
     int sampling_frequency_in_hz = 48000;
+    absl::optional<std::string> sync_group;
   };
 
   // This class is used to fully configure one peer inside the call.
@@ -389,7 +392,12 @@ class PeerConnectionE2EQualityTestFixture {
 
     // Invoked by framework after peer connection factory and peer connection
     // itself will be created but before offer/answer exchange will be started.
-    virtual void Start(absl::string_view test_case_name) = 0;
+    // |track_id_to_stream| is a pointer to a class that will allow track_id to
+    // stream_id matching. It is guaranteed that |track_id_to_stream| will be
+    // valid pointer from Start() to StopAndReportResults(). After
+    // StopAndReportResults() will return |track_id_to_stream| may be deleted.
+    virtual void Start(absl::string_view test_case_name,
+                       TrackIdStreamLabelMap* track_id_to_stream) = 0;
 
     // Invoked by framework after call is ended and peer connection factory and
     // peer connection are destroyed.

@@ -11,13 +11,11 @@
 #ifndef API_VOIP_VOIP_ENGINE_H_
 #define API_VOIP_VOIP_ENGINE_H_
 
-#include <memory>
-
-#include "api/voip/voip_base.h"
-#include "api/voip/voip_codec.h"
-#include "api/voip/voip_network.h"
-
 namespace webrtc {
+
+class VoipBase;
+class VoipCodec;
+class VoipNetwork;
 
 // VoipEngine interfaces
 //
@@ -59,6 +57,8 @@ namespace webrtc {
 //
 class VoipEngine {
  public:
+  virtual ~VoipEngine() = default;
+
   // VoipBase is the audio session management interface that
   // create/release/start/stop one-to-one audio media session.
   virtual VoipBase* Base() = 0;
@@ -70,8 +70,6 @@ class VoipEngine {
 
   // VoipCodec provides codec configuration APIs for encoder and decoders.
   virtual VoipCodec* Codec() = 0;
-
-  virtual ~VoipEngine() = default;
 };
 
 }  // namespace webrtc

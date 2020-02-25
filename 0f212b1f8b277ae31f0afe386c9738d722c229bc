@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d73f426d_8d0688a7",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-25T09:59:21Z",
+      "side": 1,
+      "message": "This looks like an unrelated change. It\u0027s best to separate this to a new CL, or at least describe it in the CL description.",
+      "range": {
+        "startLine": 1053,
+        "startChar": 2,
+        "endLine": 1060,
+        "endChar": 71
+      },
+      "revId": "0f212b1f8b277ae31f0afe386c9738d722c229bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

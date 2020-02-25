@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35eb91bb_b5df8247",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-25T09:12:07Z",
+      "side": 1,
+      "message": "Can we use parameters_.options.is_screencast here to choose between MAINTAIN_FRAMERATE and MAINTAIN_RESOLUTION to not change any default behavior at all? Like:\n\ndegradation_preference \u003d parameters_.options.is_screencast ? \n                         webrtc::DegradationPreference::MAINTAIN_RESOLUTION : \n                         webrtc::DegradationPreference::MAINTAIN_FRAMERATE;\n\nIt might break, for example, chromoting, which depends only on is_screencast() method of videotrack, which is ultimately propagated to options.is_screencast.",
+      "range": {
+        "startLine": 1922,
+        "startChar": 27,
+        "endLine": 1922,
+        "endChar": 28
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -18,6 +18,7 @@
 
 #include "api/crypto/crypto_options.h"
 #include "api/crypto/frame_encryptor_interface.h"
+#include "api/frame_transformer_interface.h"
 #include "api/transport/bitrate_settings.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "modules/pacing/packet_router.h"
@@ -31,17 +32,19 @@ namespace webrtc {
 class MockRtpTransportControllerSend
     : public RtpTransportControllerSendInterface {
  public:
-  MOCK_METHOD9(
+  MOCK_METHOD10(
       CreateRtpVideoSender,
-      RtpVideoSenderInterface*(std::map<uint32_t, RtpState>,
-                               const std::map<uint32_t, RtpPayloadState>&,
-                               const RtpConfig&,
-                               int rtcp_report_interval_ms,
-                               Transport*,
-                               const RtpSenderObservers&,
-                               RtcEventLog*,
-                               std::unique_ptr<FecController>,
-                               const RtpSenderFrameEncryptionConfig&));
+      RtpVideoSenderInterface*(
+          std::map<uint32_t, RtpState>,
+          const std::map<uint32_t, RtpPayloadState>&,
+          const RtpConfig&,
+          int rtcp_report_interval_ms,
+          Transport*,
+          const RtpSenderObservers&,
+          RtcEventLog*,
+          std::unique_ptr<FecController>,
+          const RtpSenderFrameEncryptionConfig&,
+          rtc::scoped_refptr<FrameTransformerInterface> frame_transformer));
   MOCK_METHOD1(DestroyRtpVideoSender, void(RtpVideoSenderInterface*));
   MOCK_METHOD0(GetWorkerQueue, rtc::TaskQueue*());
   MOCK_METHOD0(packet_router, PacketRouter*());

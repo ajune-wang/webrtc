@@ -46,6 +46,30 @@
       "revId": "0f212b1f8b277ae31f0afe386c9738d722c229bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f070067d_c12333d5",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-02-25T10:30:15Z",
+      "side": 1,
+      "message": "Makes sense. Please either add the comment here or near the adapt_counters_ declaration or add a little info about it in the CL description.",
+      "parentUuid": "1e408779_55457d5d",
+      "range": {
+        "startLine": 1053,
+        "startChar": 2,
+        "endLine": 1060,
+        "endChar": 71
+      },
+      "revId": "0f212b1f8b277ae31f0afe386c9738d722c229bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

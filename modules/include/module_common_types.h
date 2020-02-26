@@ -34,6 +34,10 @@ class RTC_EXPORT RTPFragmentationHeader {
 
   void CopyFrom(const RTPFragmentationHeader& src);
   void VerifyAndAllocateFragmentationHeader(size_t size) { Resize(size); }
+  void Set(size_t index, size_t offset, size_t length) {
+    fragmentationOffset[index] = offset;
+    fragmentationLength[index] = length;
+  }
 
   void Resize(size_t size);
   size_t Size() const { return fragmentationVectorSize; }

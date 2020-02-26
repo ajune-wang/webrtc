@@ -18,6 +18,7 @@
 #include "absl/types/optional.h"
 #include "api/video/color_space.h"
 #include "common_video/h264/sps_parser.h"
+#include "modules/include/module_common_types.h"
 #include "rtc_base/buffer.h"
 
 namespace webrtc {
@@ -57,13 +58,10 @@ class SpsVuiRewriter : private SpsParser {
   // to account for any added data.
   static void ParseOutgoingBitstreamAndRewriteSps(
       rtc::ArrayView<const uint8_t> buffer,
-      size_t num_nalus,
-      const size_t* nalu_offsets,
-      const size_t* nalu_lengths,
+      const RTPFragmentationHeader& nalus,
       const ColorSpace* color_space,
       rtc::Buffer* output_buffer,
-      size_t* output_nalu_offsets,
-      size_t* output_nalu_lengths);
+      RTPFragmentationHeader* output_nalus);
 
  private:
   static ParseResult ParseAndRewriteSps(

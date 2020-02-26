@@ -54,6 +54,7 @@ rtc_library("common_video") {
     "../api/video:video_rtp_headers",
     "../api/video_codecs:bitstream_parser_api",
     "../media:rtc_h264_profile_id",
+    "../modules:module_api",
     "../rtc_base",
     "../rtc_base:checks",
     "../rtc_base:rtc_task_queue",

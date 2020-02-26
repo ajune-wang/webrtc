@@ -221,11 +221,8 @@ FrameEncodeMetadataWriter::UpdateBitstream(
   // Make sure that the data is not copied if owned by EncodedImage.
   const EncodedImage& buffer = *encoded_image;
   SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
-      buffer, fragmentation->fragmentationVectorSize,
-      fragmentation->fragmentationOffset, fragmentation->fragmentationLength,
-      encoded_image->ColorSpace(), &modified_buffer,
-      modified_fragmentation->fragmentationOffset,
-      modified_fragmentation->fragmentationLength);
+      buffer, *fragmentation, encoded_image->ColorSpace(), &modified_buffer,
+      modified_fragmentation.get());
 
   encoded_image->SetEncodedData(
       new rtc::RefCountedObject<EncodedImageBufferWrapper>(

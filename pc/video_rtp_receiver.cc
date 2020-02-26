@@ -104,6 +104,17 @@ VideoRtpReceiver::GetFrameDecryptor() const {
   return frame_decryptor_;
 }
 
+void VideoRtpReceiver::InsertDepacketizerToDecoderFrameTransformer(
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
+  frame_transformer_ = std::move(frame_transformer);
+  if (media_channel_ && ssrc_.has_value() && !stopped_) {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      media_channel_->InsertDepacketizerToDecoderFrameTransformer(
+          *ssrc_, frame_transformer_);
+    });
+  }
+}
+
 void VideoRtpReceiver::Stop() {
   // TODO(deadbeef): Need to do more here to fully stop receiving packets.
   if (stopped_) {

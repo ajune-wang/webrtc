@@ -24,6 +24,11 @@ RTPFragmentationHeader::RTPFragmentationHeader()
       fragmentationOffset(nullptr),
       fragmentationLength(nullptr) {}
 
+RTPFragmentationHeader::RTPFragmentationHeader(size_t num_fragments)
+    : RTPFragmentationHeader() {
+  Resize(num_fragments);
+}
+
 RTPFragmentationHeader::RTPFragmentationHeader(RTPFragmentationHeader&& other)
     : RTPFragmentationHeader() {
   swap(*this, other);

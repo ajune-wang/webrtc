@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "963ed4b1_6841bbc3",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-26T16:16:22Z",
+      "side": 1,
+      "message": "`frame` has almost all information to generate `additional_data` the way it is generated now.\nIt might be better to add that missing piece (temporal_id) rather than have this parameter.\n\n[needed information:\nspatial_id, temporal_id,\nframe_id, frame_dependencies,\nvideo resolution (only when frame_dependencies.empty())\nAll these 5 fields likely make sense to make part of the\ninterface RTCEncodedVideoFrame\ninstead of additionalData]",
+      "range": {
+        "startLine": 29,
+        "startChar": 30,
+        "endLine": 29,
+        "endChar": 67
+      },
+      "revId": "78664aa25f4ff1ec6244428b86a1d3e5032dfba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a285463_b61130a2",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-26T16:16:22Z",
+      "side": 1,
+      "message": "default parameters on virtual functions are banned (https://google.github.io/styleguide/cppguide.html#Default_Arguments)\nalso, ssrc \u003d 0 can be a valid ssrc.\nAny reason not to provide ssrc? (it should be know both on sending and receiving sides)",
+      "range": {
+        "startLine": 30,
+        "startChar": 39,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "78664aa25f4ff1ec6244428b86a1d3e5032dfba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b48b752c_21f478a5",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-26T16:16:22Z",
+      "side": 1,
+      "message": "it might help to pass ssrc back too. Is it hard?",
+      "range": {
+        "startLine": 44,
+        "startChar": 67,
+        "endLine": 44,
+        "endChar": 68
+      },
+      "revId": "78664aa25f4ff1ec6244428b86a1d3e5032dfba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

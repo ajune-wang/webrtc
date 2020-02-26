@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "b0dd59f4_7e8355fc",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-26T09:45:26Z",
+      "side": 1,
+      "message": "Talked by person, it is ok to ignore this one.",
+      "parentUuid": "4871b8f2_fb91d1a1",
+      "revId": "6730f61aa95c74d6c360d532b7bcb9cd847a5c82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d212c874_436241e3",
         "filename": "test/pc/e2e/sdp/sdp_changer.cc",
         "patchSetId": 6

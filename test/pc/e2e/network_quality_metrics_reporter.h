@@ -15,6 +15,7 @@
 
 #include "api/test/network_emulation_manager.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
+#include "api/test/track_id_stream_label_map.h"
 #include "rtc_base/critical_section.h"
 
 namespace webrtc {

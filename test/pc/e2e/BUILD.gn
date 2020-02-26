@@ -487,6 +487,7 @@ rtc_library("network_quality_metrics_reporter") {
     "../../../api:libjingle_peerconnection_api",
     "../../../api:network_emulation_manager_api",
     "../../../api:peer_connection_quality_test_fixture_api",
+    "../../../api:track_id_stream_label_map",
     "../../../rtc_base:criticalsection",
     "../../../rtc_base:rtc_event",
     "../../../system_wrappers:field_trial",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ee51973_b9bd0917",
+        "filename": "test/scenario/network_node.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-02-27T15:34:09Z",
+      "side": 1,
+      "message": "We only support UDP in these tests then? :)",
+      "range": {
+        "startLine": 120,
+        "startChar": 26,
+        "endLine": 120,
+        "endChar": 49
+      },
+      "revId": "d54e8812d2724d9d48739724bbbb79edd2ac6a04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

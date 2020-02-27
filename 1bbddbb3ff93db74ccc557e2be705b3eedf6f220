@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b400f2ea_f863b70d",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T15:03:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8ed3bdb_054d59a7",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 19
+      },
+      "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eab046f_3bae9d0a",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "7389fadb_6098e610",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T15:03:55Z",
+      "side": 1,
+      "message": "Yes exactly, this data is calculated by RtpDescriptorAuthentication[1], and it\u0027s passed in later CLs in sender [2] and receiver[3].\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/rtp_descriptor_authentication.cc;drc\u003de209fe6c68f6ad83f1f8ec715ecf45f9934739c2;l\u003d22?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n[2] https://webrtc-review.googlesource.com/c/src/+/169128/3/modules/rtp_rtcp/source/rtp_sender_video.cc\n[3] https://webrtc-review.googlesource.com/c/src/+/169130/4/video/rtp_video_stream_receiver_delegate.cc",
+      "parentUuid": "2eab046f_3bae9d0a",
+      "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "334f5233_b40b11e5",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 5
@@ -53,6 +95,30 @@
       "writtenOn": "2020-02-27T14:20:55Z",
       "side": 1,
       "message": "Since TransformedFrameCallback::OnTransformedFrame() doesn\u0027t take a corresponding parameter, I assume that TransformFrame() will only read from `additional_data`, not take ownership of it? In that case, ArrayView seems like a better choice.",
+      "range": {
+        "startLine": 44,
+        "startChar": 30,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b28d941e_1a816c7a",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T15:03:55Z",
+      "side": 1,
+      "message": "Hmm this interface is implemented in Blink where I don\u0027t think we can use ArrayView. Also in Blink this will be moved to another thread so it\u0027s probably better to pass ownership of it.",
+      "parentUuid": "334f5233_b40b11e5",
       "range": {
         "startLine": 44,
         "startChar": 30,

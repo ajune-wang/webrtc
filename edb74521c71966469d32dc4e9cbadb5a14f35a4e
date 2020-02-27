@@ -34,6 +34,41 @@
       "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60e3cdd7_8872d7fa",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T14:20:30Z",
+      "side": 1,
+      "message": "OK, if it\u0027s not enough for subclasses\u0027 Clone() to return unique_ptr\u003cMediaContentDescription\u003e, then I guess we have to do it this way.\n\nBut in order to make it possible for the subclass to override with a different return type, IIUC Clone() would have to be non-virtual. Example here: https://godbolt.org/z/e4fgx7\n\nAlso, make a default implementation of Copy() that calls CopyInternal(), so that subclasses can choose to stop implementing it?",
+      "parentUuid": "216bf385_8d086745",
+      "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "390e7ea5_53198b94",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T14:20:30Z",
+      "side": 1,
+      "message": "Call it CloneInternal() instead, since Copy() is going away? And document it, especially the nonstandard return value type.",
+      "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

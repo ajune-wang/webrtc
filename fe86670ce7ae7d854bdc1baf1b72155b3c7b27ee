@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf08d33e_d43cd065",
+        "filename": "test/scenario/network_node.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-02-27T13:11:37Z",
+      "side": 1,
+      "message": "Should we add this constant to https://cs.chromium.org/chromium/src/third_party/webrtc/test/scenario/scenario_config.h?l\u003d30\u0026rcl\u003d40b764a6ba4593e300447a2ceb3bde6e8fd25bf8 instead? Maybe as two separate constants.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 31
+      },
+      "revId": "fe86670ce7ae7d854bdc1baf1b72155b3c7b27ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7b91130a_75269772",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T11:48:06Z",
+      "side": 1,
+      "message": "You aren\u0027t including scoped_refptr.h.",
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3b1711a_86d6c8d3",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -22,6 +39,99 @@
       "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c83bb73_1993b0cd",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T11:48:06Z",
+      "side": 1,
+      "message": "+1. If you can define stuff first and use it later, that usually helps with readability.",
+      "parentUuid": "d3b1711a_86d6c8d3",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80424e6d_d3e70ea7",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T11:48:06Z",
+      "side": 1,
+      "message": "Why is the interface reference counted? Can it reasonably be avoided?",
+      "range": {
+        "startLine": 26,
+        "startChar": 34,
+        "endLine": 26,
+        "endChar": 63
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "847c5450_ab5cf37c",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T11:48:06Z",
+      "side": 1,
+      "message": "Document what this is?",
+      "range": {
+        "startLine": 29,
+        "startChar": 51,
+        "endLine": 29,
+        "endChar": 66
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d933f6fe_e5bbe49e",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T11:48:06Z",
+      "side": 1,
+      "message": "Why is the interface reference counted? Can it reasonably be avoided?",
+      "range": {
+        "startLine": 41,
+        "startChar": 33,
+        "endLine": 41,
+        "endChar": 62
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

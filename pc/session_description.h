@@ -87,9 +87,12 @@ class MediaContentDescription {
 
   virtual bool has_codecs() const = 0;
 
-  virtual MediaContentDescription* Copy() const = 0;
+  RTC_DEPRECATED virtual MediaContentDescription* Copy() const = 0;
+  // Copy operator that returns an unique_ptr.
+  // If a type-specific variant of Clone() is desired, use
+  // std::make_unique<typename>(*this) instead of Clone().
   virtual std::unique_ptr<MediaContentDescription> Clone() const {
-    return absl::WrapUnique(Copy());
+    return absl::WrapUnique(CopyInternal());
   }
 
   // |protocol| is the expected media transport protocol, such as RTP/AVPF,
@@ -280,6 +283,9 @@ class MediaContentDescription {
   std::vector<RidDescription> receive_rids_;
 
   absl::optional<std::string> alt_protocol_;
+
+ private:
+  virtual MediaContentDescription* CopyInternal() const = 0;
 };
 
 // TODO(bugs.webrtc.org/8620): Remove this alias once downstream projects have
@@ -337,34 +343,45 @@ class AudioContentDescription : public MediaContentDescriptionImpl<AudioCodec> {
  public:
   AudioContentDescription() {}
 
-  virtual AudioContentDescription* Copy() const {
-    return new AudioContentDescription(*this);
-  }
+  virtual AudioContentDescription* Copy() const { return CopyInternal(); }
   virtual MediaType type() const { return MEDIA_TYPE_AUDIO; }
   virtual AudioContentDescription* as_audio() { return this; }
   virtual const AudioContentDescription* as_audio() const { return this; }
+
+ private:
+  virtual AudioContentDescription* CopyInternal() const {
+    return new AudioContentDescription(*this);
+  }
 };
 
 class VideoContentDescription : public MediaContentDescriptionImpl<VideoCodec> {
  public:
-  virtual VideoContentDescription* Copy() const {
-    return new VideoContentDescription(*this);
-  }
+  virtual VideoContentDescription* Copy() const { return CopyInternal(); }
   virtual MediaType type() const { return MEDIA_TYPE_VIDEO; }
   virtual VideoContentDescription* as_video() { return this; }
   virtual const VideoContentDescription* as_video() const { return this; }
+
+ private:
+  virtual VideoContentDescription* CopyInternal() const {
+    return new VideoContentDescription(*this);
+  }
 };
 
 class RtpDataContentDescription
     : public MediaContentDescriptionImpl<RtpDataCodec> {
  public:
-  RtpDataContentDescription() {}
   RtpDataContentDescription* Copy() const override {
     return new RtpDataContentDescription(*this);
   }
+  RtpDataContentDescription() {}
   MediaType type() const override { return MEDIA_TYPE_DATA; }
   RtpDataContentDescription* as_rtp_data() override { return this; }
   const RtpDataContentDescription* as_rtp_data() const override { return this; }
+
+ private:
+  RtpDataContentDescription* CopyInternal() const override {
+    return new RtpDataContentDescription(*this);
+  }
 };
 
 class SctpDataContentDescription : public MediaContentDescription {
@@ -375,9 +392,7 @@ class SctpDataContentDescription : public MediaContentDescription {
         use_sctpmap_(o.use_sctpmap_),
         port_(o.port_),
         max_message_size_(o.max_message_size_) {}
-  SctpDataContentDescription* Copy() const override {
-    return new SctpDataContentDescription(*this);
-  }
+  SctpDataContentDescription* Copy() const override { return CopyInternal(); }
   MediaType type() const override { return MEDIA_TYPE_DATA; }
   SctpDataContentDescription* as_sctp() override { return this; }
   const SctpDataContentDescription* as_sctp() const override { return this; }
@@ -398,6 +413,9 @@ class SctpDataContentDescription : public MediaContentDescription {
   }
 
  private:
+  SctpDataContentDescription* CopyInternal() const override {
+    return new SctpDataContentDescription(*this);
+  }
   bool use_sctpmap_ = true;  // Note: "true" is no longer conformant.
   // Defaults should be constants imported from SCTP. Quick hack.
   int port_ = 5000;

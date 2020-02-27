@@ -1,0 +1,418 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d14f92ca_bb079d7d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "this uses an assumption RTPSenderVideo created on the same TaskQueue where SendVideo is called.\nlooking at the RTPSenderVideo::send_checker_ I\u0027m not sure it can be relied on:\nsend_checker_ is RaceChecker, which validates only very weak synchronization (caller can use any synchronization, e.g. lock. It doesn\u0027t have to use the same task queue).\n\nIt might good idea first to try replace RaceChecker with a stricter SequenceChecker (rtc_base/syncrhonization/sequence_checker.h)\nand see if it still works.\n\nIf it does, good. Then may capture current task queue, but still it might be better to create delegate_ on first use rather in constructor: constructor doesn\u0027t use send_checker_ and thus not guaranteed to use same TaskQueue as SendVideo.\nOr add send_checker to the constructor too if you are sure how it is used.",
+      "range": {
+        "startLine": 283,
+        "startChar": 14,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "072da520_c1214c32",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "if you shifted #if, shift the #endif too (or undo #if shifting as unrelated)",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 8
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65e9ce77_678c2894",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "may be set in the intializer list too",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2a43696_aa4ced67",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "may be absl::WrapUnique(static_cast\u003cT...\u003e(frame.release());\n\nto stress something suspicious is going here.",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14956b2a_450a1f14",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "why this upcast is safe?\nDoes transform frame interface guarantee to pass exactly the same object back?",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 64
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195a19d1_4b571b21",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "frame_object \u003d std::move(frame_object) or\ntransformed_frame \u003d std::move(transformed_frame)\n\nhttps://google.github.io/styleguide/cppguide.html#Lambda_expressions\n\"Do not use captures with initializers to introduce new names\"",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5674f247_fbc7a98f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "why pass by pointer rather by const\u0026\nor did you plan to move some members?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 31
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2328b2ed_f50907a0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "if all calls to the SendVideo are protected with this lock, then it might be possible to avoid hop back to the encoder_queue_\n(just make sure SetVideoStructure also goes through this delegate when frame transformation is used)\n\nOn the other side you still might want to keep the hop if OnTransformedFrame callback should be fast.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 37
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55595f7d_cf20ed15",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 30
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf0050a_0f5a7fa5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "avoid forward declaration",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b232aa_a041059b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "This is one is hard to avoid, keep it.\nthis one has obvious close relation with the RTPSenderVideoDelegate.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 21
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09e86eae_25bfe4c5",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "this type is huge (~1800 bytes). prefer to pass it by const\u0026",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 18
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d57abf2_00937c9e",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "where is it created?",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "794aca7c_a7254939",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "nit: \"Prefer \u003ddefault\"\n\nhttps://abseil.io/tips/131#recommendations",
+      "range": {
+        "startLine": 35,
+        "startChar": 56,
+        "endLine": 35,
+        "endChar": 58
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8a1747d6_0826a67c",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "nit: may be have an empty line between destructor and accessors [instead of empty line between constructor and destructor]",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fba91b76_b5e6621c",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "prefer to return const reference to the RTPVideoHeader (and mark the accessor const)",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 16
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f387b772_0e358ccc",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "this type small enough, so feel free to return it by value.\n(same for the expected_retransmission_time)",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6d3b0b1_19c63f6b",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:20:29Z",
+      "side": 1,
+      "message": "feel free to inline the accessors.",
+      "range": {
+        "startLine": 36,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 73
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

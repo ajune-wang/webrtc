@@ -114,6 +114,8 @@ void NetworkNodeTransport::Connect(EmulatedEndpoint* endpoint,
       receiver_address.ipaddr().v4AddressAsHostOrderInteger());
   route.remote_network_id = static_cast<uint16_t>(
       receiver_address.ipaddr().v4AddressAsHostOrderInteger());
+  size_t kIpv4UdpOverhead = 28;
+  route.packet_overhead = packet_overhead.bytes() + kIpv4UdpOverhead;
   {
     // Only IPv4 address is supported.
     RTC_CHECK_EQ(receiver_address.family(), AF_INET);

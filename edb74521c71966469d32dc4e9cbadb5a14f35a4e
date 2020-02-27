@@ -16,6 +16,24 @@
       "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "216bf385_8d086745",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-27T13:46:39Z",
+      "side": 1,
+      "message": "I tried something like that, but it turned out that some existing user of Copy() was depending on Copy() returning a subtyped pointer (requiring that AudioContentDescription::Copy returned an AudioContentDescription*), so there couldn\u0027t be a default Copy().\n\nThe default Clone() (which doesn\u0027t really need to be virtual, it could actually be final instead to ensure nobody tries to override it) needs to call a virtual copy method in order to call the subclass-specific copy operator. And the whole point of the exercise is to deprecate Copy() for external usage, so it can\u0027t call Copy().\n\nYou can\u0027t have subclass methods return a std::unique_ptr\u003csubclass\u003e - that was the first thing I tried.\n\nThe page I pointed to goes into some detail about this.",
+      "parentUuid": "fb8dde33_43f3eedb",
+      "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

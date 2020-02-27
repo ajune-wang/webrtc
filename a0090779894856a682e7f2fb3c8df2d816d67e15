@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74777749_768e4ed4",
+        "filename": "sdk/objc/api/peerconnection/RTCRtpEncodingParameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2020-02-27T10:51:46Z",
+      "side": 1,
+      "message": "This can just be a `RTCNetworkPriority` I think? If for any reason it needs to be boxed into an NSNumber*, the `assign` setter semantic should generally only be used for scalar types. Use `copy` instead to match the rest of the class in that case.",
+      "range": {
+        "startLine": 63,
+        "startChar": 29,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "a0090779894856a682e7f2fb3c8df2d816d67e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a6c9390_8fd40829",
+        "filename": "sdk/objc/api/peerconnection/RTCRtpEncodingParameters.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2020-02-27T10:51:46Z",
+      "side": 1,
+      "message": "Unnecessary boxing.",
+      "range": {
+        "startLine": 59,
+        "startChar": 23,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "a0090779894856a682e7f2fb3c8df2d816d67e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13990d47_b6a48ad2",
+        "filename": "sdk/objc/api/peerconnection/RTCRtpEncodingParameters.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2020-02-27T10:51:46Z",
+      "side": 1,
+      "message": "Can also get rid of this if the property type changes.",
+      "range": {
+        "startLine": 91,
+        "startChar": 83,
+        "endLine": 91,
+        "endChar": 92
+      },
+      "revId": "a0090779894856a682e7f2fb3c8df2d816d67e15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

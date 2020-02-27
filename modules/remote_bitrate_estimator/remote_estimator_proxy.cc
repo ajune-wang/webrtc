@@ -19,6 +19,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_minmax.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -33,10 +34,12 @@ static constexpr int64_t kMaxTimeMs =
 
 RemoteEstimatorProxy::RemoteEstimatorProxy(
     Clock* clock,
+    TaskQueueBase* task_queue,
     TransportFeedbackSenderInterface* feedback_sender,
     const WebRtcKeyValueConfig* key_value_config,
     NetworkStateEstimator* network_state_estimator)
     : clock_(clock),
+      task_queue_(task_queue),
       feedback_sender_(feedback_sender),
       send_config_(key_value_config),
       last_process_time_ms_(-1),
@@ -50,9 +53,15 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
   RTC_LOG(LS_INFO)
       << "Maximum interval between transport feedback RTCP messages (ms): "
       << send_config_.max_interval->ms();
+  StartPeriodicSending();
 }
 
-RemoteEstimatorProxy::~RemoteEstimatorProxy() {}
+RemoteEstimatorProxy::~RemoteEstimatorProxy() = default;
+
+void RemoteEstimatorProxy::Stop() {
+  rtc::CritScope cs(&lock_);
+  periodic_sending_.Stop();
+}
 
 void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
                                           size_t payload_size,
@@ -146,6 +155,26 @@ int64_t RemoteEstimatorProxy::TimeUntilNextProcess() {
   return 0;
 }
 
+void RemoteEstimatorProxy::StartPeriodicSending() {
+  if (!task_queue_)
+    return;
+  periodic_sending_ = RepeatingTaskHandle::Start(task_queue_, [this] {
+    rtc::CritScope cs(&lock_);
+    if (send_periodic_feedback_)
+      SendPeriodicFeedbacks();
+    return TimeDelta::Millis(send_interval_ms_);
+  });
+}
+
+void RemoteEstimatorProxy::StopPeriodicSending() {
+  if (!task_queue_)
+    return;
+  task_queue_->PostTask(ToQueuedTask(
+      [periodic_sending_ = std::move(periodic_sending_)]() mutable {
+        periodic_sending_.Stop();
+      }));
+}
+
 void RemoteEstimatorProxy::Process() {
   rtc::CritScope cs(&lock_);
   if (!send_periodic_feedback_) {
@@ -179,6 +208,11 @@ void RemoteEstimatorProxy::OnBitrateChanged(int bitrate_bps) {
 void RemoteEstimatorProxy::SetSendPeriodicFeedback(
     bool send_periodic_feedback) {
   rtc::CritScope cs(&lock_);
+  if (send_periodic_feedback_ && !send_periodic_feedback) {
+    StopPeriodicSending();
+  } else if (!send_periodic_feedback_ && send_periodic_feedback) {
+    StartPeriodicSending();
+  }
   send_periodic_feedback_ = send_periodic_feedback;
 }
 

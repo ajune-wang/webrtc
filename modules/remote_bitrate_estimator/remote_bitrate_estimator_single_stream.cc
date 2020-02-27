@@ -174,6 +174,13 @@ int64_t RemoteBitrateEstimatorSingleStream::TimeUntilNextProcess() {
          clock_->TimeInMilliseconds();
 }
 
+TimeDelta RemoteBitrateEstimatorSingleStream::PeriodicProcess() {
+  rtc::CritScope cs(&crit_sect_);
+  UpdateEstimate(clock_->TimeInMilliseconds());
+  RTC_DCHECK_GT(process_interval_ms_, 0);
+  return TimeDelta::Millis(process_interval_ms_);
+}
+
 void RemoteBitrateEstimatorSingleStream::UpdateEstimate(int64_t now_ms) {
   BandwidthUsage bw_state = BandwidthUsage::kBwNormal;
   SsrcOveruseEstimatorMap::iterator it = overuse_detectors_.begin();

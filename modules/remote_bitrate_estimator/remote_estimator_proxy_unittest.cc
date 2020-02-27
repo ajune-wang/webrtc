@@ -75,6 +75,7 @@ class RemoteEstimatorProxyTest : public ::testing::Test {
   RemoteEstimatorProxyTest()
       : clock_(0),
         proxy_(&clock_,
+               nullptr,
                &router_,
                &field_trial_config_,
                &network_state_estimator_) {}

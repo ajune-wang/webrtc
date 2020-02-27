@@ -26,8 +26,12 @@ rtc_library("congestion_controller") {
 
   deps = [
     "..:module_api",
+    "../../api/task_queue",
     "../../api/transport:field_trial_based_config",
     "../../api/transport:network_control",
+    "../../rtc_base:deprecation",
+    "../../rtc_base/task_utils:repeating_task",
+    "../../rtc_base/task_utils:to_queued_task",
     "../pacing",
     "../remote_bitrate_estimator",
     "../rtp_rtcp:rtp_rtcp_format",
@@ -45,6 +49,7 @@ if (rtc_include_tests) {
     sources = [ "receive_side_congestion_controller_unittest.cc" ]
     deps = [
       ":congestion_controller",
+      "../../rtc_base:task_queue_for_test",
       "../../system_wrappers",
       "../../test:test_support",
       "../../test/scenario",

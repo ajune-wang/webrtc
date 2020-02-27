@@ -1406,7 +1406,8 @@ void EventLogAnalyzer::CreateReceiveSideBweSimulationGraph(Plot* plot) {
   RembInterceptingPacketRouter packet_router;
   // TODO(terelius): The PacketRouter is used as the RemoteBitrateObserver.
   // Is this intentional?
-  ReceiveSideCongestionController rscc(&clock, &packet_router);
+  ReceiveSideCongestionController rscc(&clock, nullptr, &packet_router,
+                                       nullptr);
   // TODO(holmer): Log the call config and use that here instead.
   // static const uint32_t kDefaultStartBitrateBps = 300000;
   // rscc.SetBweBitrates(0, kDefaultStartBitrateBps, -1);

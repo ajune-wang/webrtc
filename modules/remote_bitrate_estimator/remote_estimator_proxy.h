@@ -20,6 +20,7 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/numerics/sequence_number_util.h"
+#include "rtc_base/task_utils/repeating_task.h"
 
 namespace webrtc {
 
@@ -36,6 +37,7 @@ class TransportFeedback;
 class RemoteEstimatorProxy : public RemoteBitrateEstimator {
  public:
   RemoteEstimatorProxy(Clock* clock,
+                       TaskQueueBase* task_queue,
                        TransportFeedbackSenderInterface* feedback_sender,
                        const WebRtcKeyValueConfig* key_value_config,
                        NetworkStateEstimator* network_state_estimator);
@@ -53,6 +55,9 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   void Process() override;
   void OnBitrateChanged(int bitrate);
   void SetSendPeriodicFeedback(bool send_periodic_feedback);
+
+  // Stops the |periodic_sending_|. Must be called from the |task_queue|.
+  void Stop();
 
  private:
   struct TransportWideFeedbackConfig {
@@ -87,12 +92,17 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
           end_iterator,  // |end_iterator| is exclusive.
       rtcp::TransportFeedback* feedback_packet);
 
+  void StartPeriodicSending() RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
+  void StopPeriodicSending() RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
+
   Clock* const clock_;
+  TaskQueueBase* const task_queue_;
   TransportFeedbackSenderInterface* const feedback_sender_;
   const TransportWideFeedbackConfig send_config_;
   int64_t last_process_time_ms_;
 
   rtc::CriticalSection lock_;
+  RepeatingTaskHandle periodic_sending_ RTC_GUARDED_BY(&lock_);
   //  |network_state_estimator_| may be null.
   NetworkStateEstimator* const network_state_estimator_
       RTC_PT_GUARDED_BY(&lock_);

@@ -11,6 +11,7 @@
 #include "modules/congestion_controller/include/receive_side_congestion_controller.h"
 
 #include "modules/pacing/packet_router.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "system_wrappers/include/clock.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -51,7 +52,8 @@ TEST(ReceiveSideCongestionControllerTest, OnReceivedPacketWithAbsSendTime) {
   StrictMock<MockPacketRouter> packet_router;
   SimulatedClock clock_(123456);
 
-  ReceiveSideCongestionController controller(&clock_, &packet_router);
+  ReceiveSideCongestionController controller(&clock_, nullptr, &packet_router,
+                                             nullptr);
 
   size_t payload_size = 1000;
   RTPHeader header;

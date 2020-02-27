@@ -19,6 +19,7 @@
 #include <vector>
 
 #include "api/transport/field_trial_based_config.h"
+#include "api/units/time_delta.h"
 #include "modules/remote_bitrate_estimator/aimd_rate_control.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "rtc_base/constructor_magic.h"
@@ -40,6 +41,7 @@ class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
   void IncomingPacket(int64_t arrival_time_ms,
                       size_t payload_size,
                       const RTPHeader& header) override;
+  TimeDelta PeriodicProcess();
   void Process() override;
   int64_t TimeUntilNextProcess() override;
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;

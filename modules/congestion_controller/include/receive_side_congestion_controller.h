@@ -14,12 +14,15 @@
 #include <memory>
 #include <vector>
 
+#include "api/task_queue/task_queue_base.h"
 #include "api/transport/field_trial_based_config.h"
 #include "api/transport/network_control.h"
 #include "modules/include/module.h"
 #include "modules/remote_bitrate_estimator/remote_estimator_proxy.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/critical_section.h"
+#include "rtc_base/deprecation.h"
+#include "rtc_base/task_utils/repeating_task.h"
 
 namespace webrtc {
 class RemoteBitrateEstimator;
@@ -33,13 +36,28 @@ class RemoteBitrateObserver;
 class ReceiveSideCongestionController : public CallStatsObserver,
                                         public Module {
  public:
-  ReceiveSideCongestionController(Clock* clock, PacketRouter* packet_router);
+  RTC_DEPRECATED
+  ReceiveSideCongestionController(Clock* clock, PacketRouter* packet_router)
+      : ReceiveSideCongestionController(clock,
+                                        nullptr,
+                                        packet_router,
+                                        nullptr) {}
+  RTC_DEPRECATED
   ReceiveSideCongestionController(
       Clock* clock,
       PacketRouter* packet_router,
+      NetworkStateEstimator* network_state_estimator)
+      : ReceiveSideCongestionController(clock,
+                                        nullptr,
+                                        packet_router,
+                                        network_state_estimator) {}
+  ReceiveSideCongestionController(
+      Clock* clock,
+      TaskQueueBase* task_queue,
+      PacketRouter* packet_router,
       NetworkStateEstimator* network_state_estimator);
 
-  ~ReceiveSideCongestionController() override {}
+  ~ReceiveSideCongestionController() override;
 
   virtual void OnReceivedPacket(int64_t arrival_time_ms,
                                 size_t payload_size,
@@ -58,13 +76,15 @@ class ReceiveSideCongestionController : public CallStatsObserver,
   void OnBitrateChanged(int bitrate_bps);
 
   // Implements Module.
-  int64_t TimeUntilNextProcess() override;
-  void Process() override;
+  RTC_DEPRECATED int64_t TimeUntilNextProcess() override;
+  RTC_DEPRECATED void Process() override;
 
  private:
   class WrappingBitrateEstimator : public RemoteBitrateEstimator {
    public:
-    WrappingBitrateEstimator(RemoteBitrateObserver* observer, Clock* clock);
+    WrappingBitrateEstimator(RemoteBitrateObserver* observer,
+                             Clock* clock,
+                             TaskQueueBase* task_queue);
 
     ~WrappingBitrateEstimator() override;
 
@@ -89,8 +109,15 @@ class ReceiveSideCongestionController : public CallStatsObserver,
     void PickEstimatorFromHeader(const RTPHeader& header)
         RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
     void PickEstimator() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
+    void StartRemoteBitrateEstimatorOnTaskQueue()
+        RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
+    void StopAndDeleteRemoteBitrateEstimatorOnTaskQueue()
+        RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
+
     RemoteBitrateObserver* observer_;
     Clock* const clock_;
+    TaskQueueBase* const task_queue_;
+    RepeatingTaskHandle rbe_updater_;
     rtc::CriticalSection crit_sect_;
     std::unique_ptr<RemoteBitrateEstimator> rbe_;
     bool using_absolute_send_time_;
@@ -101,8 +128,9 @@ class ReceiveSideCongestionController : public CallStatsObserver,
   };
 
   const FieldTrialBasedConfig field_trial_config_;
+  TaskQueueBase* const task_queue_;
   WrappingBitrateEstimator remote_bitrate_estimator_;
-  RemoteEstimatorProxy remote_estimator_proxy_;
+  std::unique_ptr<RemoteEstimatorProxy> remote_estimator_proxy_;
 };
 
 }  // namespace webrtc

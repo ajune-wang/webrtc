@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "55fc3eb0_37865ad0",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T15:19:23Z",
+      "side": 1,
+      "message": "OK. Add a sentence here pointing to where the data comes from?",
+      "parentUuid": "7389fadb_6098e610",
+      "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "334f5233_b40b11e5",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 5
@@ -128,6 +146,30 @@
       "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0abb2c3b_ab5dedfb",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T15:19:23Z",
+      "side": 1,
+      "message": "If you\u0027re interacting with WebRTC APIs, you can use ArrayView. (Same goes for rtc::Buffer, absl::optional, rtc::scoped_refptr, or anything that we use in the API.)\n\nThe thread-hopping argument makes ownership passing a more reasonable solution, though.",
+      "parentUuid": "b28d941e_1a816c7a",
+      "range": {
+        "startLine": 44,
+        "startChar": 30,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

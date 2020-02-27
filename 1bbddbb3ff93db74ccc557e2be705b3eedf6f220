@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8ed3bdb_054d59a7",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T14:20:55Z",
+      "side": 1,
+      "message": "speling",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 19
+      },
+      "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2eab046f_3bae9d0a",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T14:20:55Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand where this data will come from, but maybe that will become clear in later CLs?",
+      "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "334f5233_b40b11e5",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T14:20:55Z",
+      "side": 1,
+      "message": "Since TransformedFrameCallback::OnTransformedFrame() doesn\u0027t take a corresponding parameter, I assume that TransformFrame() will only read from `additional_data`, not take ownership of it? In that case, ArrayView seems like a better choice.",
+      "range": {
+        "startLine": 44,
+        "startChar": 30,
+        "endLine": 44,
+        "endChar": 50
+      },
+      "revId": "1bbddbb3ff93db74ccc557e2be705b3eedf6f220",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a44e878_8071e2e5",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 2
+      },
+      "revId": "ffea9a5e240966caa8b45d2bfc5cfa4b31585832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7cd4379_0aad0d02",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "With `transport` being a mandatory argument and there just being two arguments in total, might it be better to just have them as normal function arguments? You decide.",
+      "revId": "ffea9a5e240966caa8b45d2bfc5cfa4b31585832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88c1c370_77a9b519",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "No longer true. (More cases below.)",
+      "range": {
+        "startLine": 65,
+        "startChar": 26,
+        "endLine": 65,
+        "endChar": 52
+      },
+      "revId": "ffea9a5e240966caa8b45d2bfc5cfa4b31585832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65ab6466_2c8048e1",
+        "filename": "api/voip/voip_codec.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "Like elsewhere, just DCHECK that this doesn\u0027t happen.",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 55
+      },
+      "revId": "ffea9a5e240966caa8b45d2bfc5cfa4b31585832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0c6afe5_b71fbdb7",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "Why remove the forward declarations?",
+      "revId": "ffea9a5e240966caa8b45d2bfc5cfa4b31585832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db94ba4b_1f8f8e1f",
+        "filename": "api/voip/voip_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "void",
+      "range": {
+        "startLine": 30,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 14
+      },
+      "revId": "ffea9a5e240966caa8b45d2bfc5cfa4b31585832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c457ee_c11a4024",
+        "filename": "api/voip/voip_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "void",
+      "range": {
+        "startLine": 37,
+        "startChar": 10,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "ffea9a5e240966caa8b45d2bfc5cfa4b31585832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

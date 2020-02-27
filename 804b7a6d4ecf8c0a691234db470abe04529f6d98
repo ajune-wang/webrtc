@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "66e97abb_c3dbf9a3",
+        "filename": "api/voip/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "Ack.\n\nChange it to allow optional for *.h, though? No need to allow it for just this one file.",
+      "parentUuid": "5226a7ed_9a29f58c",
+      "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1c76b4a0_60674b69",
         "filename": "api/voip/voip_base.h",
         "patchSetId": 2
@@ -218,6 +236,24 @@
       "side": 1,
       "message": "Yeah, we need that flexibility as application may use SetSendCodec multiple times to change currently sending codec. Also codec payload types are decided after offer and answer exchange is completed.  There will be additional APIs required such as Dtmf related APIs.",
       "parentUuid": "183a39a6_19b72c6c",
+      "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab3cb900_c1d57df5",
+        "filename": "api/voip/voip_codec.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:21:55Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "14dd5ff3_2ab7b56f",
       "revId": "804b7a6d4ecf8c0a691234db470abe04529f6d98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

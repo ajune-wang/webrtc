@@ -215,7 +215,8 @@ VideoReceiveStream::VideoReceiveStream(
                                  this,     // NackSender
                                  nullptr,  // Use default KeyFrameRequestSender
                                  this,     // OnCompleteFrameCallback
-                                 config_.frame_decryptor),
+                                 config_.frame_decryptor,
+                                 config_.frame_transformer),
       rtp_stream_sync_(this),
       max_wait_for_keyframe_ms_(KeyframeIntervalSettings::ParseFromFieldTrials()
                                     .MaxWaitForKeyframeMs()
@@ -783,6 +784,12 @@ void VideoReceiveStream::GenerateKeyFrame() {
     RequestKeyFrame(clock_->TimeInMilliseconds());
     keyframe_generation_requested_ = true;
   });
+}
+
+void VideoReceiveStream::InsertDepacketizerToDecoderFrameTransformer(
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
+  rtp_video_stream_receiver_.InsertDepacketizerToDecoderFrameTransformer(
+      std::move(frame_transformer));
 }
 
 }  // namespace internal

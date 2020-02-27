@@ -2933,6 +2933,13 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::GenerateKeyFrame() {
   }
 }
 
+void WebRtcVideoChannel::WebRtcVideoReceiveStream::
+    InsertDepacketizerToDecoderFrameTransformer(
+        rtc::scoped_refptr<webrtc::FrameTransformerInterface>
+            frame_transformer) {
+  config_.frame_transformer = frame_transformer;
+}
+
 WebRtcVideoChannel::VideoCodecSettings::VideoCodecSettings()
     : flexfec_payload_type(-1), rtx_payload_type(-1) {}
 
@@ -3130,6 +3137,17 @@ void WebRtcVideoChannel::GenerateKeyFrame(uint32_t ssrc) {
     RTC_LOG(LS_ERROR)
         << "Absent receive stream; ignoring key frame generation for ssrc "
         << ssrc;
+  }
+}
+
+void WebRtcVideoChannel::InsertDepacketizerToDecoderFrameTransformer(
+    uint32_t ssrc,
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  auto matching_stream = receive_streams_.find(ssrc);
+  if (matching_stream != receive_streams_.end()) {
+    matching_stream->second->InsertDepacketizerToDecoderFrameTransformer(
+        std::move(frame_transformer));
   }
 }
 

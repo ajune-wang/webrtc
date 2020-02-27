@@ -224,6 +224,11 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   void ClearRecordableEncodedFrameCallback(uint32_t ssrc) override;
   void GenerateKeyFrame(uint32_t ssrc) override;
 
+  void InsertDepacketizerToDecoderFrameTransformer(
+      uint32_t ssrc,
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
+      override;
+
  private:
   class WebRtcVideoReceiveStream;
 
@@ -453,6 +458,10 @@ class WebRtcVideoChannel : public VideoMediaChannel,
         std::function<void(const webrtc::RecordableEncodedFrame&)> callback);
     void ClearRecordableEncodedFrameCallback();
     void GenerateKeyFrame();
+
+    void InsertDepacketizerToDecoderFrameTransformer(
+        rtc::scoped_refptr<webrtc::FrameTransformerInterface>
+            frame_transformer);
 
    private:
     void RecreateWebRtcVideoStream();

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9797e315_929182c8",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T10:49:41Z",
+      "side": 1,
+      "message": "I think this is a great idea. I looked a bit into it and I think it\u0027s worth going ahead with additional_data for now to start experimenting and see what else we might need to expose, and address this in the next iteration.\n\nLooks like we might have access to all these fields in EncodedFrame::_codedSpecificInfo. We just need to make sure we set that struct properly, I logged https://crbug.com/webrtc/11387 to track this work.",
+      "parentUuid": "963ed4b1_6841bbc3",
+      "range": {
+        "startLine": 29,
+        "startChar": 30,
+        "endLine": 29,
+        "endChar": 67
+      },
+      "revId": "78664aa25f4ff1ec6244428b86a1d3e5032dfba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a285463_b61130a2",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "93de3ae3_159794fc",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T10:49:41Z",
+      "side": 1,
+      "message": "Done.\nThe ssrc was optional because it\u0027s only used in frame transformation on the sender side. We are not super happy with exposing it in JS altogether, we might revisit this in the next iteration to see if we can go around not using it.",
+      "parentUuid": "6a285463_b61130a2",
+      "range": {
+        "startLine": 30,
+        "startChar": 39,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "78664aa25f4ff1ec6244428b86a1d3e5032dfba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b48b752c_21f478a5",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2020-02-26T16:16:22Z",
       "side": 1,
       "message": "it might help to pass ssrc back too. Is it hard?",
+      "range": {
+        "startLine": 44,
+        "startChar": 67,
+        "endLine": 44,
+        "endChar": 68
+      },
+      "revId": "78664aa25f4ff1ec6244428b86a1d3e5032dfba3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e997578_570f255f",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T10:49:41Z",
+      "side": 1,
+      "message": "This is only used in JS to transform the frame, and because the insertion points are in sender and receiver, which are one per ssrc we don\u0027t need to pass it back too.",
+      "parentUuid": "b48b752c_21f478a5",
       "range": {
         "startLine": 44,
         "startChar": 67,

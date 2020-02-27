@@ -34,9 +34,52 @@ size_t Call(ArrayView<T> av) {
 }
 
 template <typename T, size_t N>
-void CallFixed(ArrayView<T, N> av) {}
+size_t CallFixed(ArrayView<T, N> av) {
+  return av.size();
+}
+
+size_t CallFixedFloat(ArrayView<float, 4> av) {
+  return av.size();
+}
+
 
 }  // namespace
+
+
+
+TEST(ArrayViewTest, TestArrayView) {
+  std::array<float, 4> arr;
+  rtc::ArrayView<float, 4> arr_view_fixed(arr);
+  rtc::ArrayView<float> arr_view(arr);
+  rtc::ArrayView<const float, 4> arr_view_fixed_const(arr);
+  rtc::ArrayView<const float> arr_view_const(arr);
+
+  EXPECT_EQ(4u, Call<const float>(arr_view_fixed));
+  EXPECT_EQ(4u, Call<const float>(arr_view_fixed_const));
+  EXPECT_EQ(4u, Call<const float>(arr_view));
+  EXPECT_EQ(4u, Call<const float>(arr_view_const));
+
+  EXPECT_EQ(4u, Call< float>(arr_view_fixed));
+  // EXPECT_EQ(4u, Call< float>(arr_view_fixed_const);)              // Expected to  fail to compile
+  EXPECT_EQ(4u, Call< float>(arr_view));
+  // EXPECT_EQ(4u, Call< float>(arr_view_const);)                    // Expected to  fail to compile
+
+
+  // EXPECT_EQ(4u, CallFixed< float, 4>(arr_view_fixed));            // Should not fail to compile
+  // EXPECT_EQ(4u, CallFixed< float, 4>(arr_view_fixed_const));      // Expected to  fail to compile
+  // EXPECT_EQ(4u, CallFixed<const float, 4>(arr_view_fixed));       // Should not fail to compile
+  // EXPECT_EQ(4u, CallFixed<const float, 4>(arr_view_fixed_const)); // Should not fail to compile
+
+
+  EXPECT_EQ(4u, CallFixedFloat(arr_view_fixed));
+
+  size_t len =  CallFixed< float, 4>(arr_view_fixed);
+  EXPECT_EQ(4u, len);
+
+
+}
+
+
 
 TEST(ArrayViewTest, TestConstructFromPtrAndArray) {
   char arr[] = "Arrr!";

@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b902ba52_b7adc77c",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1435,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T18:12:32Z",
+      "side": 1,
+      "message": "It\u0027s probably no longer warranted to have these as named constants; compare the ones at lines 1442-1443 and 1449-1450.",
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "026ea908_de6254ec",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T18:12:32Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6103418a_e565e15c",
+        "filename": "modules/audio_coding/neteq/audio_decoder_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T18:12:32Z",
+      "side": 1,
+      "message": "constexpr",
+      "range": {
+        "startLine": 604,
+        "startChar": 2,
+        "endLine": 604,
+        "endChar": 7
+      },
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e06706c_7203be51",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T18:12:32Z",
+      "side": 1,
+      "message": "This too.",
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "188165a6_c3403552",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T18:12:32Z",
+      "side": 1,
+      "message": "And this.",
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

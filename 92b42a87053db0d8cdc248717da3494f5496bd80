@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5bc1af01_cff7b952",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T13:22:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b91130a_75269772",
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3b1711a_86d6c8d3",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -66,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "5e761a93_d3bfd45e",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T13:22:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c83bb73_1993b0cd",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80424e6d_d3e70ea7",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -77,6 +119,30 @@
       "writtenOn": "2020-02-27T11:48:06Z",
       "side": 1,
       "message": "Why is the interface reference counted? Can it reasonably be avoided?",
+      "range": {
+        "startLine": 26,
+        "startChar": 34,
+        "endLine": 26,
+        "endChar": 63
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9abec1e_84d8b96a",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T13:22:56Z",
+      "side": 1,
+      "message": "It can\u0027t really be avoided, it\u0027s refcounted because the implementing objects are created in Blink and used in WebRTC, and Blink and WebRTC each needs a reference to ensure the objects don\u0027t go away before being cleaned up on the right threads.",
+      "parentUuid": "80424e6d_d3e70ea7",
       "range": {
         "startLine": 26,
         "startChar": 34,
@@ -112,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "41c4efd2_f23a43ee",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T13:22:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "847c5450_ab5cf37c",
+      "range": {
+        "startLine": 29,
+        "startChar": 51,
+        "endLine": 29,
+        "endChar": 66
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d933f6fe_e5bbe49e",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -135,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "0fd5bbbb_96c4ba7f",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T13:22:56Z",
+      "side": 1,
+      "message": "Same as with FrameTransformInterface, except here the implementing objects are created in WebRTC and used in Blink.",
+      "parentUuid": "d933f6fe_e5bbe49e",
+      "range": {
+        "startLine": 41,
+        "startChar": 33,
+        "endLine": 41,
+        "endChar": 62
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8de464d_3cb5229f",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -146,6 +260,30 @@
       "writtenOn": "2020-02-27T11:36:54Z",
       "side": 1,
       "message": "ref counted interface with a single function.\n\nmay be use\nstd::function\u003cvoid(std::unique_ptr\u003cvideo_coding::EncodedFrame\u003e)\u003e\ninstead of this interface",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 2
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b2d51ae_ce4fa881",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-27T13:22:56Z",
+      "side": 1,
+      "message": "That wouldn\u0027t work because this interface is used in blink and Chrome does not allow std::function usage; and also because the implementing classes in webrtc do some object lifetime management.",
+      "parentUuid": "c8de464d_3cb5229f",
       "range": {
         "startLine": 41,
         "startChar": 0,

@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "f6012d04_678ca8de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-02-27T13:39:04Z",
+      "side": 1,
+      "message": "Update the description to make it more clear what this CL does.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 54
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22995489_9a47050c",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-02-27T13:39:04Z",
+      "side": 1,
+      "message": "This sounds like we disable all types of adaptation if we have disabled CPU-based adaptation. Does that mean we wouldn\u0027t adapt to BW/qp?",
+      "range": {
+        "startLine": 1897,
+        "startChar": 0,
+        "endLine": 1897,
+        "endChar": 51
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35eb91bb_b5df8247",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 6
@@ -46,6 +92,30 @@
       "revId": "15b29a7123de57003f49cb18839be82747f6b372",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b272f763_a63127c5",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-02-27T13:39:04Z",
+      "side": 1,
+      "message": "I don\u0027t follow this. Why do we switch to MAINTAIN_FRAMERATE if the preferred degradation is BALANCED and the BalancedDegradation field trial is on? Definitely needs a comment, if it is at all the right thing to do.",
+      "parentUuid": "f8c396a4_50ff759c",
+      "range": {
+        "startLine": 1922,
+        "startChar": 27,
+        "endLine": 1922,
+        "endChar": 28
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

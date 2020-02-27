@@ -47,7 +47,9 @@
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
+#include "rtc_base/weak_ptr.h"
 #include "video/buffered_frame_decryptor.h"
+#include "video/rtp_video_stream_receiver_delegate.h"
 
 namespace webrtc {
 
@@ -195,6 +197,8 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   // themselves as secondary sinks.
   void AddSecondarySink(RtpPacketSinkInterface* sink);
   void RemoveSecondarySink(const RtpPacketSinkInterface* sink);
+
+  void ManageFrame(std::unique_ptr<video_coding::RtpFrameObject> frame);
 
   void InsertDepacketizerToDecoderFrameTransformer(
       rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
@@ -372,6 +376,8 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   int64_t last_completed_picture_id_ = 0;
 
   rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_;
+  rtc::scoped_refptr<RtpVideoStreamReceiverDelegate> delegate_;
+  rtc::WeakPtrFactory<RtpVideoStreamReceiver> weak_ptr_factory_;
 };
 
 }  // namespace webrtc

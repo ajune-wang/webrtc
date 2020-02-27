@@ -16,6 +16,24 @@
       "revId": "06291e57d10dbd9e098d9a38a9f43bad03147532",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79e64598_ad261a65",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T10:39:10Z",
+      "side": 1,
+      "message": "no, no need, lock scope reduced.",
+      "parentUuid": "6d54ed0f_65da0ad9",
+      "revId": "06291e57d10dbd9e098d9a38a9f43bad03147532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

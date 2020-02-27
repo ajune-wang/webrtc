@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bce6f0cc_3959c0be",
+        "filename": "modules/utility/include/mock/mock_process_thread.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:40:50Z",
+      "side": 1,
+      "message": "Yes, they\u0027ve did.\nUpdated this mock to new style. (which resolves nisse\u0027s TODO and make second comment unneeded too)\n\nlet\u0027s see if all platforms support it.",
+      "parentUuid": "fdeec00b_1036c0f1",
+      "range": {
+        "startLine": 43,
+        "startChar": 42,
+        "endLine": 43,
+        "endChar": 54
+      },
+      "revId": "35fcc90cadead16713aad8ccb1288267f911ae64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d2fbc00_dcaaaa7c",
         "filename": "modules/utility/source/process_thread_impl.h",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "35fcc90cadead16713aad8ccb1288267f911ae64",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1abc3fd8_94dabe87",
+        "filename": "modules/utility/source/process_thread_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T12:40:50Z",
+      "side": 1,
+      "message": "I didn\u0027t manage to.\nI\u0027ve expanded comment above explaining why unique_ptr doesn\u0027t work here.",
+      "parentUuid": "5d2fbc00_dcaaaa7c",
+      "revId": "35fcc90cadead16713aad8ccb1288267f911ae64",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

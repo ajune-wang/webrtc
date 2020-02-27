@@ -22,6 +22,30 @@
       "revId": "a8f089445157d065dca4e83d6228af36c7c8d5de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b3d4e31_f7a12c9c",
+        "filename": "test/fuzzers/audio_encoder_isax_fixed_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T14:50:01Z",
+      "side": 1,
+      "message": "Ah, there\u0027s a prequel CL. Got it.",
+      "parentUuid": "dc25c196_dfc95387",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "a8f089445157d065dca4e83d6228af36c7c8d5de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

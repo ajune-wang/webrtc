@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "463d249f_40eff391",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T14:01:24Z",
+      "side": 1,
+      "message": "dependency on rtc_base is discouraged\n(dependencies that are not discourages are called rtc_base_approved)\n\ndoesn\u0027t look like you are really using direct dependency on the rtc::Thread.",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 26
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "add8f7d7_1988410e",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T14:01:24Z",
+      "side": 1,
+      "message": "where is it used (where weak pointers are invalidated?)\ninvalidation should happen on the same sequence weak pointers are checked, so it might not be right class for this case\n(currently weak pointers are checked on network thread, but I guess this class is deleted on a different thread)",
+      "range": {
+        "startLine": 229,
+        "startChar": 6,
+        "endLine": 229,
+        "endChar": 23
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc5f3490_e7c921c3",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T14:01:24Z",
+      "side": 1,
+      "message": "remote_ssrc (ssrc of the packets the frame was assembled from) probably make a bit more sense",
+      "range": {
+        "startLine": 816,
+        "startChar": 66,
+        "endLine": 816,
+        "endChar": 76
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15683004_03eb2671",
+        "filename": "video/rtp_video_stream_receiver_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T14:01:24Z",
+      "side": 1,
+      "message": "since that is the only function you are using from the rtc::Thread, you might as well save the thread as TaskQueueBase.\n\nOn the other side overall it might not be a good idea to delegate this particular task to the network thread. Is it a problem not to have this hop?",
+      "range": {
+        "startLine": 28,
+        "startChar": 19,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef21230_3642776e",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T14:01:24Z",
+      "side": 1,
+      "message": "prefer webrtc::SequenceChecker\n\n(ThreadChecker is just an alias to the SequenceChecker now with a TODO to eliminate it)",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

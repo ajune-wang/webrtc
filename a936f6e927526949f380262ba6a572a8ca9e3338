@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "375308c8_c02ed7d8",
+        "filename": "api/array_view.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T19:38:05Z",
+      "side": 1,
+      "message": "Hmmm... this case is supposed to be handled by the constructor on line 212. Why isn\u0027t it working...?\n\nOh, I think I see it. There\u0027s only a single constructor, for U\u0026. The corresponding constructors for variable-sized ArrayViews takes either U\u0026 or const U\u0026 (lines 241 and 247).\n\nI was going to say that the fixed-size constructor should do the same, but I wonder why they don\u0027t take U\u0026\u0026 instead. The U\u0026 + const U\u0026 combo seems like it should disallow mutable rvalues, so that e.g. this case won\u0027t work:\n\n  void TakesArrayView(ArrayView\u003cfloat\u003e);\n  std::vector\u003cfloat\u003e ReturnsVector();\n\n  ...\n\n    TakesArrayView(ReturnsVector());\n\nLet me whip up a CL...",
+      "revId": "a936f6e927526949f380262ba6a572a8ca9e3338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -31,7 +31,6 @@ VideoStreamDecoderImpl::VideoStreamDecoderImpl(
       keyframe_required_(true),
       decoder_factory_(decoder_factory),
       decoder_settings_(std::move(decoder_settings)),
-      shut_down_(false),
       frame_buffer_(Clock::GetRealTimeClock(), &timing_, nullptr),
       bookkeeping_queue_(task_queue_factory->CreateTaskQueue(
           "video_stream_decoder_bookkeeping_queue",
@@ -40,24 +39,24 @@ VideoStreamDecoderImpl::VideoStreamDecoderImpl(
           "video_stream_decoder_decode_queue",
           TaskQueueFactory::Priority::NORMAL)) {
   frame_timestamps_.fill({-1, -1, -1});
-  bookkeeping_queue_.PostTask([this]() {
+  bookkeeping_queue_.PostTask(task_manager_.CreateTask([this]() {
     RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
     StartNextDecode();
-  });
+  }));
 }
 
 VideoStreamDecoderImpl::~VideoStreamDecoderImpl() {
-  rtc::CritScope lock(&shut_down_crit_);
-  shut_down_ = true;
+  task_manager_.Stop();
 }
 
 void VideoStreamDecoderImpl::OnFrame(
     std::unique_ptr<video_coding::EncodedFrame> frame) {
   if (!bookkeeping_queue_.IsCurrent()) {
-    bookkeeping_queue_.PostTask([this, frame = std::move(frame)]() mutable {
-      OnFrame(std::move(frame));
-      return true;
-    });
+    bookkeeping_queue_.PostTask(
+        task_manager_.CreateTask([this, frame = std::move(frame)]() mutable {
+          OnFrame(std::move(frame));
+          return true;
+        }));
 
     return;
   }
@@ -157,35 +156,32 @@ void VideoStreamDecoderImpl::OnNextFrameCallback(
       RTC_DCHECK(frame);
       SaveFrameTimestamps(*frame);
 
-      rtc::CritScope lock(&shut_down_crit_);
-      if (shut_down_) {
-        return;
-      }
-
-      decode_queue_.PostTask([this, frame = std::move(frame)]() mutable {
-        RTC_DCHECK_RUN_ON(&decode_queue_);
-        DecodeResult decode_result = DecodeFrame(std::move(frame));
-        bookkeeping_queue_.PostTask([this, decode_result]() {
-          RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
-          switch (decode_result) {
-            case kOk: {
-              keyframe_required_ = false;
-              break;
-            }
-            case kOkRequestKeyframe: {
-              callbacks_->OnNonDecodableState();
-              keyframe_required_ = false;
-              break;
-            }
-            case kDecodeFailure: {
-              callbacks_->OnNonDecodableState();
-              keyframe_required_ = true;
-              break;
-            }
-          }
-          StartNextDecode();
-        });
-      });
+      decode_queue_.PostTask(
+          task_manager_.CreateTask([this, frame = std::move(frame)]() mutable {
+            RTC_DCHECK_RUN_ON(&decode_queue_);
+            DecodeResult decode_result = DecodeFrame(std::move(frame));
+            bookkeeping_queue_.PostTask(
+                task_manager_.CreateTask([this, decode_result]() {
+                  RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
+                  switch (decode_result) {
+                    case kOk: {
+                      keyframe_required_ = false;
+                      break;
+                    }
+                    case kOkRequestKeyframe: {
+                      callbacks_->OnNonDecodableState();
+                      keyframe_required_ = false;
+                      break;
+                    }
+                    case kDecodeFailure: {
+                      callbacks_->OnNonDecodableState();
+                      keyframe_required_ = true;
+                      break;
+                    }
+                  }
+                  StartNextDecode();
+                }));
+          }));
       break;
     }
     case video_coding::FrameBuffer::kTimeout: {
@@ -193,10 +189,10 @@ void VideoStreamDecoderImpl::OnNextFrameCallback(
       // The |frame_buffer_| requires the frame callback function to complete
       // before NextFrame is called again. For this reason we call
       // StartNextDecode in a later task to allow this task to complete first.
-      bookkeeping_queue_.PostTask([this]() {
+      bookkeeping_queue_.PostTask(task_manager_.CreateTask([this]() {
         RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
         StartNextDecode();
-      });
+      }));
       break;
     }
     case video_coding::FrameBuffer::kStopped: {
@@ -249,8 +245,10 @@ void VideoStreamDecoderImpl::OnDecodedFrameCallback(
     absl::optional<uint8_t> qp) {
   int64_t decode_stop_time_ms = rtc::TimeMillis();
 
-  bookkeeping_queue_.PostTask([this, decode_stop_time_ms, decoded_image,
-                               decode_time_ms, qp]() {
+  bookkeeping_queue_.PostTask(task_manager_.CreateTask([this,
+                                                        decode_stop_time_ms,
+                                                        decoded_image,
+                                                        decode_time_ms, qp]() {
     RTC_DCHECK_RUN_ON(&bookkeeping_queue_);
 
     FrameTimestamps* frame_timestamps =
@@ -273,7 +271,7 @@ void VideoStreamDecoderImpl::OnDecodedFrameCallback(
     VideoFrame copy = decoded_image;
     copy.set_timestamp_us(frame_timestamps->render_time_us);
     callbacks_->OnDecodedFrame(copy, casted_decode_time_ms, casted_qp);
-  });
+  }));
 }
 
 VideoStreamDecoderImpl::DecodeCallbacks::DecodeCallbacks(

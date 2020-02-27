@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3b1711a_86d6c8d3",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T11:36:54Z",
+      "side": 1,
+      "message": "may be swap the classes around to avoid forward declaration",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 31
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8de464d_3cb5229f",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T11:36:54Z",
+      "side": 1,
+      "message": "ref counted interface with a single function.\n\nmay be use\nstd::function\u003cvoid(std::unique_ptr\u003cvideo_coding::EncodedFrame\u003e)\u003e\ninstead of this interface",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 2
+      },
+      "revId": "92b42a87053db0d8cdc248717da3494f5496bd80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

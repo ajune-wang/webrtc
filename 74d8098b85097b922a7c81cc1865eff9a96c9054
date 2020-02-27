@@ -22,6 +22,30 @@
       "revId": "74d8098b85097b922a7c81cc1865eff9a96c9054",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0db0f0e_0d80e3e1",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T11:03:42Z",
+      "side": 1,
+      "message": "it is reached in the test that validates process thread can be used as task queue.\nbut normally yes, shouldn\u0027t be used. added a warning.",
+      "parentUuid": "c778435b_680507cc",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 14
+      },
+      "revId": "74d8098b85097b922a7c81cc1865eff9a96c9054",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

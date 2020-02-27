@@ -214,6 +214,15 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
     static_assert(U::size() == Size, "Sizes must match exactly");
   }
 
+  // (Only if size is fixed.) Construct a fixed size ArrayView<T, N> where T is
+  // const from an ArrayView instance. For an ArrayView with variable size, the
+  // used ctor is ArrayView(U& u) instead.
+  template <typename U,
+            std::ptrdiff_t N,
+            typename std::enable_if<Size == N>::type* = nullptr>
+  ArrayView(ArrayView<U, N> u)  // NOLINT
+      : ArrayView(u.data(), u.size()) {}
+
   // (Only if size is variable.) Construct an ArrayView from any type U that
   // has a size() method whose return value converts implicitly to size_t, and
   // a data() method whose return value converts implicitly to T*. In

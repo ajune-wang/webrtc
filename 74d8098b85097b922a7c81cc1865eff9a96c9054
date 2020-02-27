@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c778435b_680507cc",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-27T10:58:17Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this also be NOT_REACHED?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 14
+      },
+      "revId": "74d8098b85097b922a7c81cc1865eff9a96c9054",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

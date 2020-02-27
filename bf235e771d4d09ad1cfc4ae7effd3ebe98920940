@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ac23054_88ee71fc",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T10:51:57Z",
+      "side": 1,
+      "message": "std::move(), here and some places below.\n(scoped_refptr is not expensive to copy, but still cheaper to move)",
+      "range": {
+        "startLine": 151,
+        "startChar": 46,
+        "endLine": 151,
+        "endChar": 63
+      },
+      "revId": "bf235e771d4d09ad1cfc4ae7effd3ebe98920940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "707faf1d_17ed9e8d",
+        "filename": "call/rtp_transport_controller_send_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T10:51:57Z",
+      "side": 1,
+      "message": "prefer include over forward declaration in webrtc\nhttps://webrtc.googlesource.com/src/+/refs/heads/master/style-guide.md#forward-declarations",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 32
+      },
+      "revId": "bf235e771d4d09ad1cfc4ae7effd3ebe98920940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef811c10_81646bea",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T10:51:57Z",
+      "side": 1,
+      "message": "also\n#include \"api/scoped_refptr.h\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 44
+      },
+      "revId": "bf235e771d4d09ad1cfc4ae7effd3ebe98920940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87ffa277_c7cfe9ff",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T10:51:57Z",
+      "side": 1,
+      "message": "probably const (there is not plan to change the transformer in the middle of the stream?):\nconst rtc::scoped_refptr\u003cFrameTransformerInterface\u003e frame_transformer_;",
+      "range": {
+        "startLine": 228,
+        "startChar": 48,
+        "endLine": 228,
+        "endChar": 66
+      },
+      "revId": "bf235e771d4d09ad1cfc4ae7effd3ebe98920940",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

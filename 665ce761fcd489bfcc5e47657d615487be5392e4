@@ -16,6 +16,24 @@
       "revId": "665ce761fcd489bfcc5e47657d615487be5392e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea5454a8_b8971a65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-27T13:24:40Z",
+      "side": 1,
+      "message": "it is a new rtp header extension (I\u0027ve updated the description a bit to note it).\n\nyes, exposing it this way is hacky, but better api is not implemented yet (crbug.com/1051821)",
+      "parentUuid": "cc98bd1b_3e2a7293",
+      "revId": "665ce761fcd489bfcc5e47657d615487be5392e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

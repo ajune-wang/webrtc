@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb8dde33_43f3eedb",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-27T13:28:19Z",
+      "side": 1,
+      "message": "Instead of introducing CopyInternal(), make the default Copy() call the default Clone()? That way subclasses can implement either one.",
+      "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

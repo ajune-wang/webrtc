@@ -34,7 +34,30 @@ size_t Call(ArrayView<T> av) {
 }
 
 template <typename T, size_t N>
-void CallFixed(ArrayView<T, N> av) {}
+size_t CallFixed(ArrayView<T, N> av) {
+  return av.size();
+}
+
+template <typename T, size_t N>
+rtc::ArrayView<T, N> MakeArrayViewFixed(std::array<T,N>& a) {
+  return rtc::ArrayView<T, N>(a);
+}
+
+template <typename T, size_t N>
+rtc::ArrayView<const T, N> MakeArrayViewFixedConst(const std::array<T,N>& a) {
+  return rtc::ArrayView<const T, N>(a);
+}
+
+template <typename T, size_t N>
+rtc::ArrayView<T> MakeArrayView(std::array<T,N>& a) {
+  return rtc::ArrayView<T>(a);
+}
+
+template <typename T, size_t N>
+rtc::ArrayView<const T> MakeArrayViewConst(const std::array<T,N>& a) {
+  return rtc::ArrayView<const T>(a);
+}
+
 
 }  // namespace
 
@@ -185,6 +208,145 @@ TEST(ArrayViewTest, TestCopyAssignmentFixed) {
   EXPECT_EQ(arr, wv.data());
   // ArrayView<char> v;
   // v = z;  // Compile error, because can't drop const.
+}
+
+TEST(ArrayViewTest, TestArrayView) {
+  constexpr size_t kArrSize = 4;
+
+  std::array<float, kArrSize> arr;
+  rtc::ArrayView<float, kArrSize> arr_view_fixed(arr);
+  rtc::ArrayView<float> arr_view(arr);
+  rtc::ArrayView<const float, kArrSize> arr_view_fixed_const(arr);
+  rtc::ArrayView<const float> arr_view_const(arr);
+
+  // Call with const float input of nonfixed size.
+  size_t len;
+  len = Call<const float>(arr_view_fixed);
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(arr_view_fixed_const);
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(arr_view);
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(arr_view_const);
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with  float input of nonfixed size.
+  len = Call<float>(arr_view_fixed);
+  EXPECT_EQ(kArrSize, len);
+  // len = Call<float>(arr_view_fixed_const);)
+  EXPECT_EQ(kArrSize, len);
+  len = Call<float>(arr_view);
+  EXPECT_EQ(kArrSize, len);
+  // len = Call<float>(arr_view_const);)
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with const float input of fixed size.
+  len = CallFixed<const float, kArrSize>(arr_view_fixed);
+  EXPECT_EQ(kArrSize, len);
+  len = CallFixed<const float, kArrSize>(arr_view_fixed_const);
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<const float, kArrSize>(arr_view);
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<const float, kArrSize>(arr_view_const);
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with float input of fixed size.
+  len = CallFixed<float, kArrSize>(arr_view_fixed);
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<float, kArrSize>(arr_view_fixed_const);
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<float, kArrSize>(arr_view);
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<float, kArrSize>(arr_view_const);
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with const float input of nonfixed size using on-the-fly created
+  // ArrayView.
+  len = Call<const float>(
+      rtc::ArrayView<float, kArrSize>(arr.data(), arr.size()));
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(
+      rtc::ArrayView<const float, kArrSize>(arr.data(), arr.size()));
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(rtc::ArrayView<float>(arr));
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(rtc::ArrayView<const float>(arr));
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with float input of nonfixed size using on-the-fly created ArrayView.
+  len = Call<float>(rtc::ArrayView<float, kArrSize>(arr.data(), arr.size()));
+  EXPECT_EQ(kArrSize, len);
+  // len = Call<float>(rtc::ArrayView<const float, kArrSize>(arr.data(),
+  // arr.size()));
+  EXPECT_EQ(kArrSize, len);
+  len = Call<float>(rtc::ArrayView<float>(arr));
+  EXPECT_EQ(kArrSize, len);
+  // len = Call<float>(rtc::ArrayView<const float>(arr));)
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with const float input of fixed size using on-the-fly created
+  // ArrayView.
+  len = CallFixed<float, kArrSize>(
+      rtc::ArrayView<float, kArrSize>(arr.data(), arr.size()));
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<float, kArrSize>(rtc::ArrayView<const float,
+  // kArrSize>(arr.data(), arr.size()));
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<float, kArrSize>(rtc::ArrayView<float>(arr));
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<float, kArrSize>(rtc::ArrayView<const float>(arr));
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with float input of fixed size using on-the-fly created ArrayView.
+  // len = CallFixed<const float, kArrSize>(rtc::ArrayView<float, kArrSize>(arr.data(), arr.size()));                                // Expected to Compile!!!
+  EXPECT_EQ(kArrSize, len);
+  len = CallFixed<const float, kArrSize>(
+      rtc::ArrayView<const float, kArrSize>(arr.data(), arr.size()));
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<const float, kArrSize>(rtc::ArrayView<float>(arr));
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<const float, kArrSize>(rtc::ArrayView<const float>(arr));
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with const float input of nonfixed size using ArrayView from maker method.
+  len = Call<const float>(MakeArrayView(arr));
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(MakeArrayViewConst(arr));
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(MakeArrayViewFixed(arr));
+  EXPECT_EQ(kArrSize, len);
+  len = Call<const float>(MakeArrayViewFixedConst(arr));
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with float input of nonfixed size using ArrayView from maker method.
+  len = Call<float>(MakeArrayView(arr));
+  EXPECT_EQ(kArrSize, len);
+  //len = Call<float>(MakeArrayViewConst(arr));
+  EXPECT_EQ(kArrSize, len);
+  len = Call<float>(MakeArrayViewFixed(arr));
+  EXPECT_EQ(kArrSize, len);
+  //len = Call<float>(MakeArrayViewFixedConst(arr));
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with float input of fixed size using ArrayView from maker method.
+  //len = CallFixed<const float, kArrSize>(MakeArrayView(arr));
+  EXPECT_EQ(kArrSize, len);
+  //len = CallFixed<const float, kArrSize>(MakeArrayViewConst(arr));
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<const float, kArrSize>(MakeArrayViewFixed(arr));               // Expected to Compile!!!
+  EXPECT_EQ(kArrSize, len);
+  len = CallFixed<const float, kArrSize>(MakeArrayViewFixedConst(arr));
+  EXPECT_EQ(kArrSize, len);
+
+  // Call with const float input of fixed size using ArrayView from maker method.
+  //len = CallFixed<float, kArrSize>(MakeArrayView(arr));
+  EXPECT_EQ(kArrSize, len);
+  //len = CallFixed<float, kArrSize>(MakeArrayViewConst(arr));
+  EXPECT_EQ(kArrSize, len);
+   len = CallFixed<float, kArrSize>(MakeArrayViewFixed(arr));
+  EXPECT_EQ(kArrSize, len);
+  // len = CallFixed<float, kArrSize>(MakeArrayViewFixedConst(arr));
+  EXPECT_EQ(kArrSize, len);
 }
 
 TEST(ArrayViewTest, TestStdArray) {

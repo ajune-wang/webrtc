@@ -22,6 +22,30 @@
       "revId": "fe86670ce7ae7d854bdc1baf1b72155b3c7b27ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "394fe8fd_035c0357",
+        "filename": "test/scenario/network_node.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-02-27T14:58:05Z",
+      "side": 1,
+      "message": "Not really there, but we should reuse the elsewhere defined constants, refactored to make this easier.",
+      "parentUuid": "bf08d33e_d43cd065",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 31
+      },
+      "revId": "fe86670ce7ae7d854bdc1baf1b72155b3c7b27ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

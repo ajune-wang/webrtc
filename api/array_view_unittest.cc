@@ -34,9 +34,125 @@ size_t Call(ArrayView<T> av) {
 }
 
 template <typename T, size_t N>
-void CallFixed(ArrayView<T, N> av) {}
+size_t CallFixed(ArrayView<T, N> av) {
+  return av.size();
+}
+
+// // size_t CallFixedFloat(ArrayView<float, 4> av) {
+// //   return av.size();
+// // }
+
+// bool CheckOk(size_t ref, size_t v) {
+//   return ref == v;
+// }
+
+// template <typename T>
+// bool CheckOkT(T ref, T v) {
+//   return ref == v;
+// }
+
+
+
+void PrintSizeFixedConstRef(const rtc::ArrayView<const float,4>& x) {
+  printf("a:%zu\n", x.size());
+}
+
+
+void PrintSizeFixedConst( rtc::ArrayView<const float,4> x) {
+  printf("a:%zu\n", x.size());
+}
+
+
+
+void PrintSizeConst( rtc::ArrayView<const float> x) {
+  printf("a:%zu\n", x.size());
+}
+
+void PrintSizeFixed( rtc::ArrayView< float,4> x) {
+  printf("a:%zu\n", x.size());
+}
+
+void PrintSize( rtc::ArrayView< float> x) {
+  printf("a:%zu\n", x.size());
+}
+
 
 }  // namespace
+
+
+TEST(ArrayViewTest, TestFunctionCall) {
+  std::array<float, 4> arr;
+  //PrintSizeFixedConst(rtc::ArrayView<float, 4>(arr.data(),arr.size()));          // Does not compile
+  //PrintSizeFixedConstRef(rtc::ArrayView<float, 4>(arr.data(),arr.size()));          // Does not compile
+
+  rtc::ArrayView<float, 4> arr_view(arr.data(),arr.size());
+  PrintSizeFixedConst(arr_view);
+  PrintSizeFixedConstRef(arr_view);
+
+  rtc::ArrayView<const float, 4> arr_view_const(arr.data(),arr.size());
+  PrintSizeFixedConst(arr_view_const);
+  PrintSizeFixedConstRef(arr_view_const);
+
+
+
+  PrintSizeConst(rtc::ArrayView<float, 4>(arr.data(),arr.size()));
+  PrintSizeFixedConst(rtc::ArrayView<const float, 4>(arr.data(),arr.size()));
+  PrintSizeConst(rtc::ArrayView<const float, 4>(arr.data(),arr.size()));
+  PrintSizeFixed(rtc::ArrayView<float, 4>(arr.data(),arr.size()));
+  PrintSize(rtc::ArrayView<float, 4>(arr.data(),arr.size()));
+
+  PrintSizeFixedConst(arr);
+  PrintSizeConst(arr);
+  PrintSizeFixed(arr);
+  PrintSize(arr);
+}
+
+
+// TEST(ArrayViewTest, TestArrayView) {
+//   std::array<float, 4> arr;
+//   rtc::ArrayView<float, 4> arr_view_fixed(arr);
+//   rtc::ArrayView<float> arr_view(arr);
+//   rtc::ArrayView<const float, 4> arr_view_fixed_const(arr);
+//   rtc::ArrayView<const float> arr_view_const(arr);
+
+//   EXPECT_EQ(4u, Call<const float>(arr_view_fixed));
+//   EXPECT_EQ(4u, Call<const float>(arr_view_fixed_const));
+//   EXPECT_EQ(4u, Call<const float>(arr_view));
+//   EXPECT_EQ(4u, Call<const float>(arr_view_const));
+
+//   EXPECT_EQ(4u, Call< float>(arr_view_fixed));
+//   // EXPECT_EQ(4u, Call< float>(arr_view_fixed_const);)              // Expected to  fail to compile
+//   EXPECT_EQ(4u, Call< float>(arr_view));
+//   // EXPECT_EQ(4u, Call< float>(arr_view_const);)                    // Expected to  fail to compile
+
+
+//   // EXPECT_EQ(4u, CallFixed< float, 4>(arr_view_fixed));            // Should not fail to compile
+//   // EXPECT_EQ(4u, CallFixed< float, 4>(arr_view_fixed_const));      // Expected to  fail to compile
+//   // EXPECT_EQ(4u, CallFixed<const float, 4>(arr_view_fixed));       // Should not fail to compile
+//   // EXPECT_EQ(4u, CallFixed<const float, 4>(arr_view_fixed_const)); // Should not fail to compile
+//   // EXPECT_TRUE(4u == CallFixed<const float, 4>(arr_view_fixed_const)); // Should not fail to compile
+//   EXPECT_EQ(4u, (CallFixed<const float, 4>(arr_view_fixed_const))); // Should not fail to compile
+
+
+//   EXPECT_EQ(4u, CallFixedFloat(arr_view_fixed));
+
+//   size_t len =  CallFixed< float, 4>(arr_view_fixed);
+//   EXPECT_EQ(4u, len);
+
+
+//   EXPECT_TRUE(CheckOk(4u, CallFixedFloat(arr_view_fixed)));
+//   EXPECT_TRUE(CheckOk(4u, CallFixed<const float, 4>(arr_view_fixed)));
+
+//   // bool test = CheckOkT<size_t>(4u, (CallFixedFloat(arr_view_fixed)));
+//   EXPECT_TRUE(CheckOkT<size_t>(4u, CallFixed<const float, 4>(arr_view_fixed)));
+
+//   std::array<float, 64> e_main;
+//   aZeroPaddedFft(rtc::ArrayView<float, 64>(e_main.data(),e_main.size()));
+
+
+// }
+
+
 
 TEST(ArrayViewTest, TestConstructFromPtrAndArray) {
   char arr[] = "Arrr!";

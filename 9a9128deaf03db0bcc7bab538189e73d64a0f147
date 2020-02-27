@@ -67,6 +67,24 @@
       "revId": "9a9128deaf03db0bcc7bab538189e73d64a0f147",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85912bd2_37637805",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-02-27T14:54:53Z",
+      "side": 1,
+      "message": "Yes, please try to followup with the deletion of this :)",
+      "parentUuid": "e4b6eb9f_3a849729",
+      "revId": "9a9128deaf03db0bcc7bab538189e73d64a0f147",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8694536_a356c177",
+        "filename": "api/rtp_receiver_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-27T11:35:39Z",
+      "side": 1,
+      "message": "Same comment on Set vs Insert as in the other CL. Won\u0027t repeat!",
+      "revId": "9a9128deaf03db0bcc7bab538189e73d64a0f147",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69c2e8a7_04518fd6",
+        "filename": "pc/video_rtp_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-27T11:35:39Z",
+      "side": 1,
+      "message": "Which thread are we running on when this function is called?",
+      "revId": "9a9128deaf03db0bcc7bab538189e73d64a0f147",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7667e9a9_c01191eb",
+        "filename": "pc/video_rtp_receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-27T11:35:39Z",
+      "side": 1,
+      "message": "I\u0027m kind of enamored of RTC_GUARDED_BY as a way to force yourself to consider which thread is updating these variables. I see that this class has some RTC_GUARDED_BY and many unguarded ones. It\u0027s easier to add them now than to figure out that we have a threading problem later.",
+      "revId": "9a9128deaf03db0bcc7bab538189e73d64a0f147",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4b6eb9f_3a849729",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-27T11:35:39Z",
+      "side": 1,
+      "message": "Can you make a comment about the plan to get rid of this variant?",
+      "revId": "9a9128deaf03db0bcc7bab538189e73d64a0f147",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

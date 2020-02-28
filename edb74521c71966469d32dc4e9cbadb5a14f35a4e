@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "84d316a9_40d7dfd3",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-28T09:41:19Z",
+      "side": 1,
+      "message": "Done. I needed two subclasses to implement Copy() to satisfy a test, but it was OK to mark them RTC_DEPRECATED.",
+      "parentUuid": "60e3cdd7_8872d7fa",
+      "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "390e7ea5_53198b94",
         "filename": "pc/session_description.h",
         "patchSetId": 2
@@ -69,6 +87,24 @@
       "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb0c242c_a79fa8c1",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-28T09:41:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390e7ea5_53198b94",
+      "revId": "edb74521c71966469d32dc4e9cbadb5a14f35a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

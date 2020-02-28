@@ -16,6 +16,24 @@
       "revId": "a936f6e927526949f380262ba6a572a8ca9e3338",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d96117_9c9874d2",
+        "filename": "api/array_view.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T04:05:10Z",
+      "side": 1,
+      "message": "CL https://webrtc-review.googlesource.com/c/src/+/169346 and https://webrtc-review.googlesource.com/c/src/+/169347.\n\n(Also, I realized that disallowing binding a non-const ArrayView to a temporary was by design; there are few good reasons to modify an array that\u0027ll die right afterwards, but many ways to shoot yourself in the foot with such a mechanism.)",
+      "parentUuid": "375308c8_c02ed7d8",
+      "revId": "a936f6e927526949f380262ba6a572a8ca9e3338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

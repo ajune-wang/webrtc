@@ -88,12 +88,6 @@ void SetupVideoCall(Scenario& s, VideoQualityAnalyzer* analyzer) {
 }
 }  // namespace
 
-// TODO(bugs.webrtc.org/10515): Remove this when performance has been improved.
-#if defined(WEBRTC_IOS) && defined(WEBRTC_ARCH_ARM64) && !defined(NDEBUG)
-#define MAYBE_SimTimeEncoding DISABLED_SimTimeEncoding
-#else
-#define MAYBE_SimTimeEncoding SimTimeEncoding
-#endif
 TEST(ScenarioTest, MAYBE_SimTimeEncoding) {
   VideoQualityAnalyzerConfig analyzer_config;
   analyzer_config.psnr_coverage = 0.1;
@@ -105,6 +99,7 @@ TEST(ScenarioTest, MAYBE_SimTimeEncoding) {
   }
   // Regression tests based on previous runs.
   EXPECT_EQ(analyzer.stats().lost_count, 0);
+
   EXPECT_NEAR(analyzer.stats().psnr_with_freeze.Mean(), 38, 2);
 }
 

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e088185_6baf0fcc",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2020-02-28T16:34:20Z",
+      "side": 1,
+      "message": "nit: is",
+      "range": {
+        "startLine": 865,
+        "startChar": 43,
+        "endLine": 865,
+        "endChar": 46
+      },
+      "revId": "1cdc08014a3c88ac9e4fd49c9c5d679c34cf9f6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8207f30_944460bc",
+        "filename": "rtc_base/thread_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2020-02-28T16:34:20Z",
+      "side": 1,
+      "message": "nit: missing empty line between tests.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 1
+      },
+      "revId": "1cdc08014a3c88ac9e4fd49c9c5d679c34cf9f6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

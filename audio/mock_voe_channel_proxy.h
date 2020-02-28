@@ -47,6 +47,7 @@ class MockChannelReceive : public voe::ChannelReceiveInterface {
                AudioMixer::Source::AudioFrameInfo(int sample_rate_hz,
                                                   AudioFrame* audio_frame));
   MOCK_CONST_METHOD0(PreferredSampleRate, int());
+  MOCK_METHOD1(set_source_tracker, void(SourceTracker*));
   MOCK_METHOD1(SetAssociatedSendChannel,
                void(const voe::ChannelSendInterface* send_channel));
   MOCK_CONST_METHOD2(GetPlayoutRtpTimestamp,

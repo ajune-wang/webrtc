@@ -37,6 +37,36 @@
 
 namespace webrtc {
 
+struct AdaptationCounters {
+  int resolutions_adaptations = 0;
+  int fps_adaptations = 0;
+
+  int Total() const { return fps_adaptations + resolutions_adaptations; }
+
+  std::string ToString() const {
+    rtc::StringBuilder ss;
+    ss << "{res=" << resolutions_adaptations << ", fps=" << fps_adaptations
+       << "}";
+    return ss.Release();
+  }
+
+  bool operator==(const AdaptationCounters& rhs) const {
+    return fps_adaptations == rhs.fps_adaptations &&
+           resolutions_adaptations == rhs.resolutions_adaptations;
+  }
+  bool operator!=(const AdaptationCounters& rhs) const {
+    return !(rhs == *this);
+  }
+
+  AdaptationCounters operator+(const AdaptationCounters& other) const {
+    AdaptationCounters result;
+    result.fps_adaptations = fps_adaptations + other.fps_adaptations;
+    result.resolutions_adaptations =
+        resolutions_adaptations + other.resolutions_adaptations;
+    return result;
+  }
+};
+
 class VideoStreamEncoder;
 
 // This class is used by the VideoStreamEncoder and is responsible for adapting
@@ -114,9 +144,12 @@ class OveruseFrameDetectorResourceAdaptationModule
   ResourceListenerResponse OnResourceUsageStateMeasured(
       const Resource& resource) override;
 
+  static void ComputeActiveCounts(AdaptationCounters* active_count,
+                                  AdaptationCounters* other_count,
+                                  const AdaptationCounters& totals);
+
  private:
   class VideoSourceRestrictor;
-  class AdaptCounter;
   class InitialFrameDropper;
 
   enum class State { kStopped, kStarted };
@@ -152,8 +185,6 @@ class OveruseFrameDetectorResourceAdaptationModule
   int LastInputFrameSizeOrDefault() const;
   VideoStreamEncoderObserver::AdaptationSteps GetActiveCounts(
       AdaptationObserverInterface::AdaptReason reason);
-  void ClearAdaptCounters();
-  const AdaptCounter& GetConstAdaptCounter() const;
 
   // Makes |video_source_restrictions_| up-to-date and informs the
   // |adaptation_listener_| if restrictions are changed, allowing the listener
@@ -169,7 +200,6 @@ class OveruseFrameDetectorResourceAdaptationModule
 
   void UpdateAdaptationStats(AdaptationObserverInterface::AdaptReason reason);
   DegradationPreference EffectiveDegradationPreference() const;
-  AdaptCounter& GetAdaptCounter();
   bool CanAdaptUpResolution(int pixels, uint32_t bitrate_bps) const;
 
   // Checks to see if we should execute the quality rampup experiment. The
@@ -193,7 +223,7 @@ class OveruseFrameDetectorResourceAdaptationModule
   // basis.
   // TODO(sprang): Replace this with a state holding a relative overuse measure
   // instead, that can be translated into suitable down-scale or fps limit.
-  std::map<const DegradationPreference, AdaptCounter> adapt_counters_;
+  //  std::map<const DegradationPreference, AdaptCounter> adapt_counters_;
   const BalancedDegradationSettings balanced_settings_;
   // Stores a snapshot of the last adaptation request triggered by an AdaptUp
   // or AdaptDown signal.
@@ -226,6 +256,9 @@ class OveruseFrameDetectorResourceAdaptationModule
     const AdaptationObserverInterface::AdaptReason reason;
   };
   std::vector<ResourceAndReason> resources_;
+  // TODO(eshr): Move all active count logic to encoer_stats_observer_;
+  std::array<AdaptationCounters, AdaptationObserverInterface::kScaleReasonSize>
+      active_counts_;
 };
 
 }  // namespace webrtc

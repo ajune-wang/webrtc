@@ -924,7 +924,8 @@ void SendStatisticsProxy::OnSendEncodedImage(
 
   if (static_cast<size_t>(simulcast_idx) >= rtp_config_.ssrcs.size()) {
     RTC_LOG(LS_ERROR) << "Encoded image outside simulcast range ("
-                      << simulcast_idx << " >= " << rtp_config_.ssrcs.size()
+                      << simulcast_idx << " >= " <<
+                      //                      rtp_config_.ssrcs.size()
                       << ").";
     return;
   }
@@ -1047,6 +1048,17 @@ void SendStatisticsProxy::OnFrameDropped(DropReason reason) {
     case DropReason::kCongestionWindow:
       ++stats_.frames_dropped_by_congestion_window;
       break;
+  }
+}
+
+std::string ToString(VideoStreamEncoderObserver::AdaptationReason reason) {
+  switch (reason) {
+    case VideoStreamEncoderObserver::AdaptationReason::kNone:
+      return "kNone";
+    case VideoStreamEncoderObserver::AdaptationReason::kCpu:
+      return "kCpu";
+    case VideoStreamEncoderObserver::AdaptationReason::kQuality:
+      return "kQuality";
   }
 }
 

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e0295ac3_b4e615d0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T15:25:24Z",
+      "side": 1,
+      "message": "I see, it is not just you are using `this`, but you are actually wrapping it into scoped_refptr.\n\nMay be add explicit wrapping to show that call gives a reference away:\nInit {\nframe_transformer_-\u003eRegisterTransformedFrameCallback(rtc::scoped_refptr\u003cTransformedFrameCallback\u003e(this));\n  \n}",
+      "parentUuid": "09e08dfc_0fde4f1e",
+      "range": {
+        "startLine": 284,
+        "startChar": 4,
+        "endLine": 284,
+        "endChar": 40
+      },
+      "revId": "ca1105f8a934c1ed545edd72686d50f26ddee301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66f6c292_f8ed04ad",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
         "patchSetId": 5

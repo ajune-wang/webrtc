@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "c0812b64_2efeca97",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "add an empty line between c and c++ includes\nhttps://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e86d31b_1426da9f",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "why is it safe?",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ba94c75_52e217ac",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "since comment and code do not fit on the same line, may be put the comment before the code:\n// comment\n::new ...",
+      "range": {
+        "startLine": 69,
+        "startChar": 38,
+        "endLine": 70,
+        "endChar": 76
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d7dab45_4fb99c2f",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#General_Naming_Rules\n\n\"Template parameters should follow the naming style for their category: type template parameters should follow the rules for type names, and non-type template parameters should follow the rules for variable names.\"",
+      "range": {
+        "startLine": 92,
+        "startChar": 14,
+        "endLine": 92,
+        "endChar": 22
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "addda6b5_66e4ce90",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "it might be better to make it a class because it has invariant \u0027exactly size fields of the data array are constructed\u0027:\nhttps://google.github.io/styleguide/cppguide.html#Structs_vs._Classes\n\n\"The struct must not have invariants that imply relationships between different fields\"",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 6
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f8cf81_fe5a8687",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "for safety likely need to handle self assign:\n\"a \u003d a;\"",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 113,
+        "endChar": 42
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09dd1c01_9dd8a098",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -16,6 +154,121 @@
       "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f29af0_091b4d5c",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "I can image a usecase where T is const,\nbut agree better not to worry about it until such use case is practical.",
+      "range": {
+        "startLine": 192,
+        "startChar": 43,
+        "endLine": 192,
+        "endChar": 61
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c88414_d3c27b4b",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "why?",
+      "range": {
+        "startLine": 195,
+        "startChar": 17,
+        "endLine": 195,
+        "endChar": 44
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa69dfcd_9516a085",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "should be possible to use (), right?\n\nhttps://abseil.io/tips/88#best-practices-for-initialization\n\n\"Use {} initialization without the \u003d only if the above options don’t compile:\"",
+      "range": {
+        "startLine": 214,
+        "startChar": 16,
+        "endLine": 214,
+        "endChar": 17
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93d05c38_1f4a4103",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "other_capacity",
+      "range": {
+        "startLine": 218,
+        "startChar": 16,
+        "endLine": 218,
+        "endChar": 29
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cc4063a_9b2d5e69",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "nit: since c++14 there is \"enable_if_t\u003c...\u003e\" to shortcut \"enable_if\u003c...\u003e::type\"",
+      "range": {
+        "startLine": 219,
+        "startChar": 21,
+        "endLine": 219,
+        "endChar": 35
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -35,6 +288,98 @@
         "startChar": 11,
         "endLine": 260,
         "endChar": 16
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "425ce7e9_249a0f53",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "is this a property class should guarantee?\n(i.e. can some future change make copy trivial even for large vectors?)",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 68
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdc202_02c45a0b",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "why this selection of types? may be comment about each one what special property they have that you want to test.\n(primitive, trivial_but_not_primitive, move_only, ...)",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "412620cd_4dfd16dd",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "since std::shared_ptr is not allowed in webrtc, it might not be a good idea to use it in test either.\nCan you use some other type. what is special about this one?",
+      "range": {
+        "startLine": 38,
+        "startChar": 34,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85690829_043f512a",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:10:10Z",
+      "side": 1,
+      "message": "why brace initialization?",
+      "range": {
+        "startLine": 103,
+        "startChar": 34,
+        "endLine": 103,
+        "endChar": 40
       },
       "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

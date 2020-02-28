@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44096da1_d1293afd",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_metrics_reporter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-28T14:54:32Z",
+      "side": 1,
+      "message": "Do we ever use this method?\n\nIf not we may want to remove in a follow-up CL.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 64
+      },
+      "revId": "bb5bde74ab2634754731758f9b8e4bf9ebdd74df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

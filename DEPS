@@ -5,16 +5,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '73a396877b2cd5195629f794cbadcd2b22f8fe2a',
+  'chromium_revision': '4ea5f928dcf9ea8f716609ff0613004a87e726a8',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@63ecbb77ca54d306feac341acedb8d8475ee2f0e',
+    'https://chromium.googlesource.com/chromium/src/base@3efaf3ce2578dafa1c21627fa7b2a768434aad67',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@2b17c8652188504a65a58d17de7970cdf3e53d6f',
+    'https://chromium.googlesource.com/chromium/src/build@9426f360c3318ad36f459d2fbaba60ca59f6b3f4',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@ef2f1b324945dd1451ef58653e7723b92dcb23cc',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -23,13 +23,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@2a438f6dab41ca90672659424dd14f7d47a824d9',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@68b5025e1aee18ff4d53b3bf124f175b8ae773c6',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@22bc9c25238a4c4a124f2720eabbccb11dbb98e5',
+    'https://chromium.googlesource.com/chromium/src/testing@5f5befb83ffb2781c89a24ecb6df8bc67e4d0c06',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@ac875ae5393d0516243cfd5d078cd4b098388f6b',
+    'https://chromium.googlesource.com/chromium/src/third_party@0364fa5b19b7ba58b15c3ce64edfe57110f77961',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -237,7 +237,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@b011cd98308aa8eeca97c36fa0533422fb29bb62',
+    'https://chromium.googlesource.com/chromium/src/tools@4e9ae9c19c25fd0d41d5397664738ee1b5df210e',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@0ac28472d073a515124c85b128c4378a914e0a4d',
 

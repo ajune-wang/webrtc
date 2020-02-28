@@ -13,6 +13,7 @@
 #include <map>
 #include <memory>
 #include <set>
+#include <utility>
 
 #include "api/transport/field_trial_based_config.h"
 #include "api/video_codecs/video_codec.h"
@@ -209,23 +210,24 @@ class RtpRtcpImplTest : public ::testing::Test {
                  uint8_t tid) {
     RTPVideoHeaderVP8 vp8_header = {};
     vp8_header.temporalIdx = tid;
-    RTPVideoHeader rtp_video_header;
-    rtp_video_header.frame_type = VideoFrameType::kVideoFrameKey;
-    rtp_video_header.width = codec_.width;
-    rtp_video_header.height = codec_.height;
-    rtp_video_header.rotation = kVideoRotation_0;
-    rtp_video_header.content_type = VideoContentType::UNSPECIFIED;
-    rtp_video_header.playout_delay = {-1, -1};
-    rtp_video_header.is_first_packet_in_frame = true;
-    rtp_video_header.simulcastIdx = 0;
-    rtp_video_header.codec = kVideoCodecVP8;
-    rtp_video_header.video_type_header = vp8_header;
-    rtp_video_header.video_timing = {0u, 0u, 0u, 0u, 0u, 0u, false};
+    auto rtp_video_header = std::make_unique<RTPVideoHeader>();
+    rtp_video_header->frame_type = VideoFrameType::kVideoFrameKey;
+    rtp_video_header->width = codec_.width;
+    rtp_video_header->height = codec_.height;
+    rtp_video_header->rotation = kVideoRotation_0;
+    rtp_video_header->content_type = VideoContentType::UNSPECIFIED;
+    rtp_video_header->playout_delay = {-1, -1};
+    rtp_video_header->is_first_packet_in_frame = true;
+    rtp_video_header->simulcastIdx = 0;
+    rtp_video_header->codec = kVideoCodecVP8;
+    rtp_video_header->video_type_header = vp8_header;
+    rtp_video_header->video_timing = {0u, 0u, 0u, 0u, 0u, 0u, false};
 
     const uint8_t payload[100] = {0};
     EXPECT_TRUE(module->impl_->OnSendingRtpFrame(0, 0, codec_.plType, true));
     EXPECT_TRUE(sender->SendVideo(codec_.plType, VideoCodecType::kVideoCodecVP8,
-                                  0, 0, payload, nullptr, rtp_video_header, 0));
+                                  0, 0, payload, nullptr,
+                                  std::move(rtp_video_header), 0));
   }
 
   void IncomingRtcpNack(const RtpRtcpModule* module, uint16_t sequence_number) {

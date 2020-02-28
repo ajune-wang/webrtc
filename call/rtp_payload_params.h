@@ -12,6 +12,7 @@
 #define CALL_RTP_PAYLOAD_PARAMS_H_
 
 #include <array>
+#include <memory>
 
 #include "absl/types/optional.h"
 #include "api/video_codecs/video_encoder.h"
@@ -33,9 +34,10 @@ class RtpPayloadParams final {
   RtpPayloadParams(const RtpPayloadParams& other);
   ~RtpPayloadParams();
 
-  RTPVideoHeader GetRtpVideoHeader(const EncodedImage& image,
-                                   const CodecSpecificInfo* codec_specific_info,
-                                   int64_t shared_frame_id);
+  std::unique_ptr<RTPVideoHeader> GetRtpVideoHeader(
+      const EncodedImage& image,
+      const CodecSpecificInfo* codec_specific_info,
+      int64_t shared_frame_id);
 
   uint32_t ssrc() const;
 

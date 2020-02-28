@@ -91,7 +91,7 @@ class RTPSenderVideo {
                  int64_t capture_time_ms,
                  rtc::ArrayView<const uint8_t> payload,
                  const RTPFragmentationHeader* fragmentation,
-                 RTPVideoHeader video_header,
+                 std::unique_ptr<RTPVideoHeader> video_header,
                  absl::optional<int64_t> expected_retransmission_time_ms);
   // Configures video structures produced by encoder to send using the
   // dependency descriptor rtp header extension. Next call to SendVideo should

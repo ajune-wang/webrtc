@@ -156,25 +156,25 @@ RtpPayloadParams::RtpPayloadParams(const RtpPayloadParams& other) = default;
 
 RtpPayloadParams::~RtpPayloadParams() {}
 
-RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
+std::unique_ptr<RTPVideoHeader> RtpPayloadParams::GetRtpVideoHeader(
     const EncodedImage& image,
     const CodecSpecificInfo* codec_specific_info,
     int64_t shared_frame_id) {
-  RTPVideoHeader rtp_video_header;
+  auto rtp_video_header = std::make_unique<RTPVideoHeader>();
   if (codec_specific_info) {
     PopulateRtpWithCodecSpecifics(*codec_specific_info, image.SpatialIndex(),
-                                  &rtp_video_header);
+                                  rtp_video_header.get());
   }
-  rtp_video_header.frame_type = image._frameType,
-  rtp_video_header.rotation = image.rotation_;
-  rtp_video_header.content_type = image.content_type_;
-  rtp_video_header.playout_delay = image.playout_delay_;
-  rtp_video_header.width = image._encodedWidth;
-  rtp_video_header.height = image._encodedHeight;
-  rtp_video_header.color_space = image.ColorSpace()
-                                     ? absl::make_optional(*image.ColorSpace())
-                                     : absl::nullopt;
-  SetVideoTiming(image, &rtp_video_header.video_timing);
+  rtp_video_header->frame_type = image._frameType,
+  rtp_video_header->rotation = image.rotation_;
+  rtp_video_header->content_type = image.content_type_;
+  rtp_video_header->playout_delay = image.playout_delay_;
+  rtp_video_header->width = image._encodedWidth;
+  rtp_video_header->height = image._encodedHeight;
+  rtp_video_header->color_space = image.ColorSpace()
+                                      ? absl::make_optional(*image.ColorSpace())
+                                      : absl::nullopt;
+  SetVideoTiming(image, &rtp_video_header->video_timing);
 
   const bool is_keyframe = image._frameType == VideoFrameType::kVideoFrameKey;
   const bool first_frame_in_picture =
@@ -182,11 +182,11 @@ RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
           ? codec_specific_info->codecSpecific.VP9.first_frame_in_picture
           : true;
 
-  SetCodecSpecific(&rtp_video_header, first_frame_in_picture);
+  SetCodecSpecific(rtp_video_header.get(), first_frame_in_picture);
 
   if (generic_descriptor_experiment_)
     SetGeneric(codec_specific_info, shared_frame_id, is_keyframe,
-               &rtp_video_header);
+               rtp_video_header.get());
 
   return rtp_video_header;
 }

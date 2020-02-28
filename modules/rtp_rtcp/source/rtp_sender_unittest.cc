@@ -66,11 +66,11 @@ const uint32_t kRtxSsrc = 12345;
 const uint32_t kFlexFecSsrc = 45678;
 const uint16_t kTransportSequenceNumber = 1;
 const uint64_t kStartTime = 123456789;
-const size_t kMaxPaddingSize = 224u;
+// const size_t kMaxPaddingSize = 224u;
 const uint8_t kPayloadData[] = {47, 11, 32, 93, 89};
-const int64_t kDefaultExpectedRetransmissionTimeMs = 125;
-const char kNoRid[] = "";
-const char kNoMid[] = "";
+// const int64_t kDefaultExpectedRetransmissionTimeMs = 125;
+// const char kNoRid[] = "";
+// const char kNoMid[] = "";
 
 using ::testing::_;
 using ::testing::AllOf;
@@ -83,9 +83,9 @@ using ::testing::Property;
 using ::testing::Return;
 using ::testing::StrictMock;
 
-uint64_t ConvertMsToAbsSendTime(int64_t time_ms) {
-  return (((time_ms << 18) + 500) / 1000) & 0x00ffffff;
-}
+// uint64_t ConvertMsToAbsSendTime(int64_t time_ms) {
+//   return (((time_ms << 18) + 500) / 1000) & 0x00ffffff;
+// }
 
 class LoopbackTransportTest : public webrtc::Transport {
  public:
@@ -637,7 +637,7 @@ TEST_P(RtpSenderTestWithoutPacer, DoesnSetIncludedInAllocationByDefault) {
   EXPECT_FALSE(transport_.last_options_.included_in_feedback);
   EXPECT_FALSE(transport_.last_options_.included_in_allocation);
 }
-
+#if 0
 TEST_P(RtpSenderTestWithoutPacer, OnSendSideDelayUpdated) {
   StrictMock<MockSendSideDelayObserver> send_side_delay_observer_;
 
@@ -2487,5 +2487,5 @@ INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,
                          RtpSenderTestWithoutPacer,
                          ::testing::Values(TestConfig{false},
                                            TestConfig{true}));
-
+#endif
 }  // namespace webrtc

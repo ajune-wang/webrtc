@@ -23,6 +23,8 @@ namespace webrtc {
 // Objects implement this interface to be notified with the transformed frame.
 class TransformedFrameCallback : public rtc::RefCountInterface {
  public:
+  // Sends back the transformed frame. |transformed_frame| must be the same
+  // object passed in FrameTransformerInterface::TransformFrame().
   virtual void OnTransformedFrame(
       std::unique_ptr<video_coding::EncodedFrame> transformed_frame) = 0;
 

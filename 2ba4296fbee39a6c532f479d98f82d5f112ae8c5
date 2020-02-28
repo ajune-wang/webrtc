@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f472960_54d418c0",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0812b64_2efeca97",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93221276_9796f7ae",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "c9803155_1980a0ee",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e86d31b_1426da9f",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ba94c75_52e217ac",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -82,6 +130,30 @@
       "writtenOn": "2020-02-28T12:10:10Z",
       "side": 1,
       "message": "since comment and code do not fit on the same line, may be put the comment before the code:\n// comment\n::new ...",
+      "range": {
+        "startLine": 69,
+        "startChar": 38,
+        "endLine": 70,
+        "endChar": 76
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd88e60e_3b05a142",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ba94c75_52e217ac",
       "range": {
         "startLine": 69,
         "startChar": 38,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "2a00b981_c4bf6643",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d7dab45_4fb99c2f",
+      "range": {
+        "startLine": 92,
+        "startChar": 14,
+        "endLine": 92,
+        "endChar": 22
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "addda6b5_66e4ce90",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -128,6 +224,30 @@
       "writtenOn": "2020-02-28T12:10:10Z",
       "side": 1,
       "message": "it might be better to make it a class because it has invariant \u0027exactly size fields of the data array are constructed\u0027:\nhttps://google.github.io/styleguide/cppguide.html#Structs_vs._Classes\n\n\"The struct must not have invariants that imply relationships between different fields\"",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 6
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e989cff1_00008a6b",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "I chose not to go that route, because then I would have had to add methods to that class to encapsulate all temporarily invariant-violating operations, and it\u0027s better to have that in the outer class---of which there is only one---than in each of the three internal structs.\n\nThe contract is that Storage has a data array and a size, and handles initialization, copy construction, copy assignment, and destruction; it is the responsibility of the outer class to ensure that size \u003d\u003d number of stored elements whenever any of those operations happen.\n\nShould simply I document this? Or do you have another suggestion?",
+      "parentUuid": "addda6b5_66e4ce90",
       "range": {
         "startLine": 95,
         "startChar": 0,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "c0272112_fde16a4a",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "c9f8cf81_fe5a8687",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 113,
+        "endChar": 42
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09dd1c01_9dd8a098",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -180,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "12a382cf_28edb973",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "\u003e It feels like the ability to explicitly set the vector size would be very handy.\n\u003e If I understand the code correctly, currently the size can only be set at construction or via assignment of another vector, is that correct?\n\nYes.\n\n\u003e Would it be hard to also allow a resize of the vector content (but limit that to lengths that are lower than the capacity)? \n\u003e \n\u003e I have a feeling that limiting the way to change the size to not allow a resize will complicate some usecases.\n\nAdding more methods isn\u0027t hard---it just takes some time. I can add some in a follow-up CL. Which ones would you like? clear, resize, and push_back?",
+      "parentUuid": "09dd1c01_9dd8a098",
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3f29af0_091b4d5c",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -191,6 +353,30 @@
       "writtenOn": "2020-02-28T12:10:10Z",
       "side": 1,
       "message": "I can image a usecase where T is const,\nbut agree better not to worry about it until such use case is practical.",
+      "range": {
+        "startLine": 192,
+        "startChar": 43,
+        "endLine": 192,
+        "endChar": 61
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d961fc03_57b032c3",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d3f29af0_091b4d5c",
       "range": {
         "startLine": 192,
         "startChar": 43,
@@ -226,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "131211a5_ffea4ae4",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "I used to store size in an uint8_t, until I found that that was less efficient than using int. Removed.",
+      "parentUuid": "c4c88414_d3c27b4b",
+      "range": {
+        "startLine": 195,
+        "startChar": 17,
+        "endLine": 195,
+        "endChar": 44
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa69dfcd_9516a085",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -246,6 +456,30 @@
       "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bebe19f_f993a449",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa69dfcd_9516a085",
+      "range": {
+        "startLine": 214,
+        "startChar": 16,
+        "endLine": 214,
+        "endChar": 17
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "072b0dbc_de77a2c2",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93d05c38_1f4a4103",
+      "range": {
+        "startLine": 218,
+        "startChar": 16,
+        "endLine": 218,
+        "endChar": 29
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cc4063a_9b2d5e69",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -283,6 +541,30 @@
       "writtenOn": "2020-02-28T12:10:10Z",
       "side": 1,
       "message": "nit: since c++14 there is \"enable_if_t\u003c...\u003e\" to shortcut \"enable_if\u003c...\u003e::type\"",
+      "range": {
+        "startLine": 219,
+        "startChar": 21,
+        "endLine": 219,
+        "endChar": 35
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "689c8c31_e9042549",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cc4063a_9b2d5e69",
       "range": {
         "startLine": 219,
         "startChar": 21,
@@ -315,6 +597,30 @@
       "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dfcb3e5_d4e3e7d2",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "It returns a constant pointer to the data regardless of whether *this is const. Compare with cbegin() and cend().",
+      "parentUuid": "7703744b_fff9cd8e",
+      "range": {
+        "startLine": 260,
+        "startChar": 11,
+        "endLine": 260,
+        "endChar": 16
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -364,6 +670,30 @@
     },
     {
       "key": {
+        "uuid": "c6d674d3_ad88eb26",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done. (Feel free to suggest additional types to test.)",
+      "parentUuid": "adfdc202_02c45a0b",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "412620cd_4dfd16dd",
         "filename": "rtc_base/bounded_inline_vector_unittest.cc",
         "patchSetId": 11
@@ -387,6 +717,30 @@
     },
     {
       "key": {
+        "uuid": "4bf6b566_8f9e095c",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "412620cd_4dfd16dd",
+      "range": {
+        "startLine": 38,
+        "startChar": 34,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85690829_043f512a",
         "filename": "rtc_base/bounded_inline_vector_unittest.cc",
         "patchSetId": 11
@@ -398,6 +752,30 @@
       "writtenOn": "2020-02-28T12:10:10Z",
       "side": 1,
       "message": "why brace initialization?",
+      "range": {
+        "startLine": 103,
+        "startChar": 34,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee1ccfb_384de572",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T13:24:17Z",
+      "side": 1,
+      "message": "Because normal constructor function call syntax looks very awkward with container initialization...",
+      "parentUuid": "85690829_043f512a",
       "range": {
         "startLine": 103,
         "startChar": 34,

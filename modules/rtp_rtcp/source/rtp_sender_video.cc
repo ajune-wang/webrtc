@@ -34,6 +34,7 @@
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "modules/rtp_rtcp/source/time_util.h"
+#include "modules/rtp_rtcp/source/transformable_encoded_frame.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/trace_event.h"
@@ -275,10 +276,19 @@ RTPSenderVideo::RTPSenderVideo(const Config& config)
           config.field_trials
               ->Lookup(kExcludeTransportSequenceNumberFromFecFieldTrial)
               .find("Enabled") == 0),
-      absolute_capture_time_sender_(config.clock),
-      frame_transformer_(config.frame_transformer) {}
+      absolute_capture_time_sender_(config.clock) {
+  if (config.frame_transformer) {
+    frame_transformer_delegate_ =
+        new rtc::RefCountedObject<RTPSenderVideoFrameTransformerDelegate>(
+            this, std::move(config.frame_transformer));
+    frame_transformer_delegate_->Init();
+  }
+}
 
-RTPSenderVideo::~RTPSenderVideo() {}
+RTPSenderVideo::~RTPSenderVideo() {
+  if (frame_transformer_delegate_)
+    frame_transformer_delegate_->ResetSenderPtr();
+}
 
 void RTPSenderVideo::AppendAsRedMaybeWithUlpfec(
     std::unique_ptr<RtpPacketToSend> media_packet,
@@ -475,11 +485,11 @@ bool RTPSenderVideo::SendVideo(
     const RTPFragmentationHeader* fragmentation,
     RTPVideoHeader video_header,
     absl::optional<int64_t> expected_retransmission_time_ms) {
-  #if RTC_TRACE_EVENTS_ENABLED
+#if RTC_TRACE_EVENTS_ENABLED
   TRACE_EVENT_ASYNC_STEP1("webrtc", "Video", capture_time_ms, "Send", "type",
                           FrameTypeToString(video_header.frame_type));
-  #endif
-  RTC_CHECK_RUNS_SERIALIZED(&send_checker_);
+#endif
+  RTC_DCHECK_RUNS_SERIALIZED(&send_checker_);
 
   if (video_header.frame_type == VideoFrameType::kEmptyFrame)
     return true;
@@ -780,6 +790,25 @@ bool RTPSenderVideo::SendVideo(
   TRACE_EVENT_ASYNC_END1("webrtc", "Video", capture_time_ms, "timestamp",
                          rtp_timestamp);
   return true;
+}
+
+bool RTPSenderVideo::SendEncodedImage(
+    int payload_type,
+    absl::optional<VideoCodecType> codec_type,
+    uint32_t rtp_timestamp,
+    const EncodedImage& encoded_image,
+    const RTPFragmentationHeader* fragmentation,
+    RTPVideoHeader video_header,
+    absl::optional<int64_t> expected_retransmission_time_ms) {
+  // Send async once the frame is transformed.
+  if (frame_transformer_delegate_) {
+    return frame_transformer_delegate_->TransformFrame(
+        payload_type, codec_type, rtp_timestamp, encoded_image, fragmentation,
+        video_header, expected_retransmission_time_ms, rtp_sender_->SSRC());
+  }
+  return SendVideo(payload_type, codec_type, rtp_timestamp,
+                   encoded_image.capture_time_ms_, encoded_image, fragmentation,
+                   video_header, expected_retransmission_time_ms);
 }
 
 uint32_t RTPSenderVideo::VideoBitrateSent() const {

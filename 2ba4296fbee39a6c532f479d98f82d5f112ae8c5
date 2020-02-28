@@ -342,6 +342,24 @@
     },
     {
       "key": {
+        "uuid": "0a105a2c_32735315",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-28T13:29:59Z",
+      "side": 1,
+      "message": "Resize was the one I had primarily in mind. clear and push_back are not important for me to have (but I can only speak for myself).\n\nSince the bound is set during compile-time, I envision a common usage being that the bound is set liberal to allow anything possible, but that one at run-time limits it to the configuration at hand.",
+      "parentUuid": "12a382cf_28edb973",
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3f29af0_091b4d5c",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11

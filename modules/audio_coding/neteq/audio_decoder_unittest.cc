@@ -485,6 +485,7 @@ void TestSetAndGetTargetBitratesWithFixedCodec(AudioEncoder* audio_encoder,
 
 TEST_F(AudioDecoderPcmUTest, SetTargetBitrate) {
   TestSetAndGetTargetBitratesWithFixedCodec(audio_encoder_.get(), 64000);
+  EXPECT_EQ(0, 1) << "Fail!";
 }
 
 TEST_F(AudioDecoderPcmATest, EncodeDecode) {

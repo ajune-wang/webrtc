@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "09e08dfc_0fde4f1e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T14:26:57Z",
+      "side": 1,
+      "message": "I can\u0027t because the delegate is refcounted, and in Init() I\u0027m passing \"this\", which I cannot do in the constructor.",
+      "parentUuid": "82857dd1_8ef630e5",
+      "range": {
+        "startLine": 284,
+        "startChar": 4,
+        "endLine": 284,
+        "endChar": 40
+      },
+      "revId": "ca1105f8a934c1ed545edd72686d50f26ddee301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66f6c292_f8ed04ad",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "ca1105f8a934c1ed545edd72686d50f26ddee301",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78f8ecc5_20cfab70",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T14:26:57Z",
+      "side": 1,
+      "message": "It should say encoder, fixed it now.",
+      "parentUuid": "66f6c292_f8ed04ad",
+      "range": {
+        "startLine": 51,
+        "startChar": 59,
+        "endLine": 51,
+        "endChar": 73
+      },
+      "revId": "ca1105f8a934c1ed545edd72686d50f26ddee301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

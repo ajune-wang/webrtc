@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e08f0f81_55c99991",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T14:26:57Z",
+      "side": 1,
+      "message": "I realized that SequenceChecker doesn\u0027t work because the encoder_queue is a pool of threads, and OnEncodedImage gets called on any of the threads in the pool, so SendVideo and SetVideoStruct are not called on the same sequence; but because SendVideo was synchronous, it would finish before calling SetVideoStruct.\n\nI think synchronizing access to SetVideoStruct in the delegate makes sense, implemented it.",
+      "parentUuid": "7c36b2a5_4ab4b6f6",
+      "range": {
+        "startLine": 283,
+        "startChar": 14,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "072da520_c1214c32",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 3
@@ -272,6 +296,30 @@
       "side": 1,
       "message": "Now that I moved the creation of TransformableEncodedFrame passed in TransformFrame into the delegate it should be more obvious that the upcast is safe. The interface does not enforce passing the exact same object at the moment, I added a comment in the interface to make it part of its contract. I\u0027ll think of ways to enforce this programmatically in next iteration, I might need to split FrameTranformerInterface in different interfaces for the sender and receiver.",
       "parentUuid": "14956b2a_450a1f14",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 64
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3078b019_530bd80b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T14:26:57Z",
+      "side": 1,
+      "message": "Moving the api/ comment to a separate CL",
+      "parentUuid": "79efed92_eb2dcdbb",
       "range": {
         "startLine": 34,
         "startChar": 2,
@@ -681,6 +729,30 @@
       "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad990c6_c1b2487d",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T14:26:57Z",
+      "side": 1,
+      "message": "Aah sorry I misread that. Good point, I fixed it now.",
+      "parentUuid": "de1256f5_ddb26848",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

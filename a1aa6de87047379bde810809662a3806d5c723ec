@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d98f45a_b8845eef",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T14:42:53Z",
+      "side": 1,
+      "message": "when this accessor is useful?\n(cbegin/cend exists in std::vector, so those make sense to keep for functions that expect vector-like class, but cdata doesn\u0027t look like a standard name)",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 50
+      },
+      "revId": "a1aa6de87047379bde810809662a3806d5c723ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

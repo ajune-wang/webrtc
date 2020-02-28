@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "d098a0f8_1a361ceb",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T14:42:53Z",
+      "side": 1,
+      "message": "since it is a private helper structure documentation might be enough.",
+      "parentUuid": "e989cff1_00008a6b",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 6
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c9f8cf81_fe5a8687",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -378,6 +402,24 @@
       "side": 1,
       "message": "Resize was the one I had primarily in mind. clear and push_back are not important for me to have (but I can only speak for myself).\n\nSince the bound is set during compile-time, I envision a common usage being that the bound is set liberal to allow anything possible, but that one at run-time limits it to the configuration at hand.",
       "parentUuid": "12a382cf_28edb973",
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f661a245_2fed36e3",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T14:42:53Z",
+      "side": 1,
+      "message": "I agree this class is not that useful without mutating functions (push_back, emplace_back, resize)\nBut I would prefer these methods to be added in the follow up (I\u0027m happy with the current TODO)",
+      "parentUuid": "0a105a2c_32735315",
       "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -818,6 +860,30 @@
       "side": 1,
       "message": "Because normal constructor function call syntax looks very awkward with container initialization...",
       "parentUuid": "85690829_043f512a",
+      "range": {
+        "startLine": 103,
+        "startChar": 34,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd22cb1c_25a31ffe",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T14:42:53Z",
+      "side": 1,
+      "message": "may be it is an indication current multi parameter constructor is surprising (any other container has such constructor?)\ne.g. one surprise is\nstd::vector\u003cint\u003e v1(7, 24);\nand \nBounedInlineVector\u003cint\u003e v2(7, 24);\n\nproduce different results:\nv1.size() \u003d\u003d 7\nv2.size() \u003d\u003d 2\n\n(and so are std::vector\u003cdouble\u003e v3(13);\nand BoundedInlineVector\u003cdouble\u003e v4(13);}\n\n\nCan you make constainer intialization work?, i.e.\nBoundedInlineVector\u003cdouble, 1\u003e pi \u003d {3.14};",
+      "parentUuid": "dee1ccfb_384de572",
       "range": {
         "startLine": 103,
         "startChar": 34,

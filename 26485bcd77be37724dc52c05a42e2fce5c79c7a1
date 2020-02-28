@@ -45,6 +45,29 @@
       "revId": "26485bcd77be37724dc52c05a42e2fce5c79c7a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53ba7720_67ebf8b1",
+        "filename": "rtc_base/bounded_inline_vector_impl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T14:42:53Z",
+      "side": 1,
+      "message": "nit: may be place the comment above the code line",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 45,
+        "endChar": 74
+      },
+      "revId": "26485bcd77be37724dc52c05a42e2fce5c79c7a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

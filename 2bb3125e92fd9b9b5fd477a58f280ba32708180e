@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7c36b2a5_4ab4b6f6",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:52:08Z",
+      "side": 1,
+      "message": "SetVideoStructure is called for a key frame just before call to SendVideo.\n\nfact that it crash when you replace RaceChecker with a SequenceChecker means that SendVideo is called on different sequences. That mean posting SendTask to the encoder_queue_ is not enough, it introduces a potential race.\n\nReading RtpVideoSender::OnEncodedImage I see that access to the SendVideo is actually protected by a critical section, not by a sequence.\n\n(I\u0027m not sure why different sequences are used. Might be related how encoders callback with a frame, might be test specific thing, may be something else).\n\nOne solution can be to wire SetVideoStructure (sure only when transform is used) through the new (in rtp_rtcp) RTPSenderVideoDelegate where calls to SendVideo are protected with a critical section. That might be the smallest change.\n\nAlternative solution might be to change (in call) RtpVideoSender to serialize calls to rtp_sender_video to some task queue. That might be better long-term, but that change is likely far from trivial.",
+      "parentUuid": "d72a62f0_a12f5cf8",
+      "range": {
+        "startLine": 283,
+        "startChar": 14,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "072da520_c1214c32",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 3
@@ -89,6 +113,29 @@
         "startChar": 0,
         "endLine": 493,
         "endChar": 8
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8002e9fd_206a6b9f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:52:08Z",
+      "side": 1,
+      "message": "I\u0027m a bit worried RTPVideoHeader is now copied several times.\n(where before, thanks to RVO, copy was avoided).\nsince this structure is huge may be it would be good idea to pass it by unique_ptr.\nLet me look into that.",
+      "range": {
+        "startLine": 803,
+        "startChar": 4,
+        "endLine": 803,
+        "endChar": 31
       },
       "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -601,6 +648,30 @@
       "side": 1,
       "message": "This is created in the encoder (in some encoders, VP9 for ex[1]), and passed as a raw pointer to to RtpVideoSender::OnEncodedImange -\u003e RTPSendVideo::SendEncodedImage. It goes out of scope when SendEncodedImage execution is done, so I\u0027m making a copy of it here to use it when we get the frame back in OnTransformedFrame.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/codecs/vp9/vp9_impl.cc;drc\u003d7e3843b722bda29c236e9cb49111f3296dc2ce20;l\u003d1510?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
       "parentUuid": "5d57abf2_00937c9e",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de1256f5_ddb26848",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:52:08Z",
+      "side": 1,
+      "message": "I mean where fragmentation_header_ member is constructed? (can\u0027t find that, which mean you are calling CopyFrom on a null object when fragmentation is used).",
+      "parentUuid": "071a1f37_1d2d1f36",
       "range": {
         "startLine": 32,
         "startChar": 4,

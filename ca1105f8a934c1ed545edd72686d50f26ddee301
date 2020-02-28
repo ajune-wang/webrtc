@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82857dd1_8ef630e5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:52:08Z",
+      "side": 1,
+      "message": "if you always call this function right after the constructor, might be easier to move it\u0027s content into constructor.",
+      "range": {
+        "startLine": 284,
+        "startChar": 4,
+        "endLine": 284,
+        "endChar": 40
+      },
+      "revId": "ca1105f8a934c1ed545edd72686d50f26ddee301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66f6c292_f8ed04ad",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:52:08Z",
+      "side": 1,
+      "message": "encoded_queue_ or encoder_queue ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 59,
+        "endLine": 51,
+        "endChar": 73
+      },
+      "revId": "ca1105f8a934c1ed545edd72686d50f26ddee301",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

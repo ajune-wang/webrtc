@@ -46,6 +46,30 @@
       "revId": "4a0950d509e0664152d9e91d916897d1cd0fdcfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb75bc43_c095ea98",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-28T10:00:29Z",
+      "side": 1,
+      "message": "Makes sense! It may be good to explicit point out in the TODO that the missing features is an intentional design choice, and nothing that is incomplete.\n\nWDYT?",
+      "parentUuid": "51088f86_2d87ffb0",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 186,
+        "endChar": 28
+      },
+      "revId": "4a0950d509e0664152d9e91d916897d1cd0fdcfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

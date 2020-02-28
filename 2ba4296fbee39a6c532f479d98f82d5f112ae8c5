@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09dd1c01_9dd8a098",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-28T10:00:29Z",
+      "side": 1,
+      "message": "It feels like the ability to explicitly set the vector size would be very handy.\nIf I understand the code correctly, currently the size can only be set at construction or via assignment of another vector, is that correct?\n\nWould it be hard to also allow a resize of the vector content (but limit that to lengths that are lower than the capacity)? \n\nI have a feeling that limiting the way to change the size to not allow a resize will complicate some usecases.",
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7703744b_fff9cd8e",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-02-28T10:00:29Z",
+      "side": 1,
+      "message": "What is the purpose of this method? It seems to be used nowhere, and it is identical to the data() method from what I can see.",
+      "range": {
+        "startLine": 260,
+        "startChar": 11,
+        "endLine": 260,
+        "endChar": 16
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

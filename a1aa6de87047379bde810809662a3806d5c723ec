@@ -22,6 +22,30 @@
       "revId": "a1aa6de87047379bde810809662a3806d5c723ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa35e40_803b230e",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-02-28T14:47:37Z",
+      "side": 1,
+      "message": "We have that in rtc::CopyOnWriteBuffer but I agree it is confusing if we try to mimic std containers.",
+      "parentUuid": "0d98f45a_b8845eef",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 50
+      },
+      "revId": "a1aa6de87047379bde810809662a3806d5c723ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

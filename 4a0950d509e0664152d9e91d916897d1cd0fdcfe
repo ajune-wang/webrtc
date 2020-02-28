@@ -22,6 +22,30 @@
       "revId": "4a0950d509e0664152d9e91d916897d1cd0fdcfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51088f86_2d87ffb0",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-28T07:40:38Z",
+      "side": 1,
+      "message": "My preference is to wait until we need them. Making a fully fledged std::vector-like container is a lot of work.",
+      "parentUuid": "73cd6fbc_4a428a49",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 186,
+        "endChar": 28
+      },
+      "revId": "4a0950d509e0664152d9e91d916897d1cd0fdcfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

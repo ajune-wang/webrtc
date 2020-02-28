@@ -100,6 +100,7 @@ struct ConfigHelper {
         .WillRepeatedly(Invoke([](const std::map<int, SdpAudioFormat>& codecs) {
           EXPECT_THAT(codecs, ::testing::IsEmpty());
         }));
+    EXPECT_CALL(*channel_receive_, set_source_tracker(_));
 
     stream_config_.rtp.local_ssrc = kLocalSsrc;
     stream_config_.rtp.remote_ssrc = kRemoteSsrc;

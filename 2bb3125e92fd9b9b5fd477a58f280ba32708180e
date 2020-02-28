@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d72a62f0_a12f5cf8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "You\u0027re right, the sender is not created on the encoder queue. I changed the delegate to get the queue on first transformed frame, now it should be correct. I also moved the frame transformer into the delegate to keep the sender cleaner and to have the delegate create the TransformableEncodedFrame, as it\u0027s the delegate doing the downcast in OnTransformedFrame.\n(Note I haven\u0027t renamed the delegate file yet to match the new class name because gerrit doesn\u0027t handle file renames very well, I\u0027ll rename it when we\u0027re done with the review.)\n\nI tried replacing the RaceChecker with a SequenceChecker on top of master (without my changes) but it crashes in SetVideoStructure, which apparently is called from some other sequence. I\u0027ll see if I figure out how to fix this, alternatively we can do this change in another CL if it turns out to be too convoluted.",
+      "parentUuid": "d14f92ca_bb079d7d",
+      "range": {
+        "startLine": 283,
+        "startChar": 14,
+        "endLine": 283,
+        "endChar": 38
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "072da520_c1214c32",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "389ce24b_fda59638",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "072da520_c1214c32",
+      "range": {
+        "startLine": 493,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 8
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7249b4d3_497c3818",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65e9ce77_678c2894",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2a43696_aa4ced67",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2020-02-27T12:20:29Z",
       "side": 1,
       "message": "may be absl::WrapUnique(static_cast\u003cT...\u003e(frame.release());\n\nto stress something suspicious is going here.",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27c3703a_9c6bce9f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2a43696_aa4ced67",
       "range": {
         "startLine": 34,
         "startChar": 22,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "79efed92_eb2dcdbb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Now that I moved the creation of TransformableEncodedFrame passed in TransformFrame into the delegate it should be more obvious that the upcast is safe. The interface does not enforce passing the exact same object at the moment, I added a comment in the interface to make it part of its contract. I\u0027ll think of ways to enforce this programmatically in next iteration, I might need to split FrameTranformerInterface in different interfaces for the sender and receiver.",
+      "parentUuid": "14956b2a_450a1f14",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 64
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "195a19d1_4b571b21",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "281d0a02_81df7c1e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "195a19d1_4b571b21",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "d50bf020_6ccaa2c8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "No you\u0027re right, it can be const\u0026.",
+      "parentUuid": "5674f247_fbc7a98f",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 31
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2328b2ed_f50907a0",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
         "patchSetId": 3
@@ -174,6 +342,30 @@
       "writtenOn": "2020-02-27T12:20:29Z",
       "side": 1,
       "message": "if all calls to the SendVideo are protected with this lock, then it might be possible to avoid hop back to the encoder_queue_\n(just make sure SetVideoStructure also goes through this delegate when frame transformation is used)\n\nOn the other side you still might want to keep the hop if OnTransformedFrame callback should be fast.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 37
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17b66099_b2a90e7c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "It would be good to hop to the encoder_queue_ because the OnTransformedFrame callback come on Chrome main thread and don\u0027t want to keep it busy with sending the frame.",
+      "parentUuid": "2328b2ed_f50907a0",
       "range": {
         "startLine": 47,
         "startChar": 0,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "b612c469_1503dffb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55595f7d_cf20ed15",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 30
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebf0050a_0f5a7fa5",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
         "patchSetId": 3
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "33ac0e8d_69e79f1d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebf0050a_0f5a7fa5",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7b232aa_a041059b",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
         "patchSetId": 3
@@ -243,6 +483,30 @@
       "writtenOn": "2020-02-27T12:20:29Z",
       "side": 1,
       "message": "This is one is hard to avoid, keep it.\nthis one has obvious close relation with the RTPSenderVideoDelegate.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 21
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a83237b_467106ad",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_delegate.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c7b232aa_a041059b",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "63188232_cfa73c95",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09e86eae_25bfe4c5",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 18
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d57abf2_00937c9e",
         "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
         "patchSetId": 3
@@ -289,6 +577,30 @@
       "writtenOn": "2020-02-27T12:20:29Z",
       "side": 1,
       "message": "where is it created?",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "071a1f37_1d2d1f36",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "This is created in the encoder (in some encoders, VP9 for ex[1]), and passed as a raw pointer to to RtpVideoSender::OnEncodedImange -\u003e RTPSendVideo::SendEncodedImage. It goes out of scope when SendEncodedImage execution is done, so I\u0027m making a copy of it here to use it when we get the frame back in OnTransformedFrame.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/codecs/vp9/vp9_impl.cc;drc\u003d7e3843b722bda29c236e9cb49111f3296dc2ce20;l\u003d1510?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "parentUuid": "5d57abf2_00937c9e",
       "range": {
         "startLine": 32,
         "startChar": 4,
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "73d71af0_3614bb03",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "794aca7c_a7254939",
+      "range": {
+        "startLine": 35,
+        "startChar": 56,
+        "endLine": 35,
+        "endChar": 58
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a1747d6_0826a67c",
         "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
         "patchSetId": 3
@@ -335,6 +671,30 @@
       "writtenOn": "2020-02-27T12:20:29Z",
       "side": 1,
       "message": "nit: may be have an empty line between destructor and accessors [instead of empty line between constructor and destructor]",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "741c74a6_f6816008",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a1747d6_0826a67c",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -370,6 +730,30 @@
     },
     {
       "key": {
+        "uuid": "079de9ae_16ad0147",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fba91b76_b5e6621c",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 16
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f387b772_0e358ccc",
         "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
         "patchSetId": 3
@@ -381,6 +765,30 @@
       "writtenOn": "2020-02-27T12:20:29Z",
       "side": 1,
       "message": "this type small enough, so feel free to return it by value.\n(same for the expected_retransmission_time)",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 39
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fc3f3bf_9f11f23f",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f387b772_0e358ccc",
       "range": {
         "startLine": 37,
         "startChar": 2,
@@ -413,6 +821,30 @@
       "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eb36dbd_146b8101",
+        "filename": "modules/rtp_rtcp/source/transformable_encoded_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-02-28T09:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6d3b0b1_19c63f6b",
+      "range": {
+        "startLine": 36,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 73
+      },
+      "revId": "2bb3125e92fd9b9b5fd477a58f280ba32708180e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "93221276_9796f7ae",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-02-28T12:13:44Z",
+      "side": 1,
+      "message": "suggestion:\nto make it easier to see BoundedInlinedVector interface, move this namespace into a separate file (as an implementation detail).\ne.g. bounded_inline_vector_impl.h\n(and then it might be good idea in the BUILD.gn to have _impl.h in sources and bounded_inline_vector.h in public)",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 38
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e86d31b_1426da9f",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5818923a_4dbe5fcd",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2156,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-02-29T00:00:31Z",
+      "side": 1,
+      "message": "Oh, but maybe this will be removed from the media level and added to the session level? Guess it depends on how we fix https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d7443. Might as well leave the comment.",
+      "parentUuid": "38644370_8f840da5",
+      "revId": "893f761d803ad50ba8b1079ce09dd460c747e85d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e385cee2_1697a2df",
         "filename": "pc/peer_connection_interface_unittest.cc",
         "patchSetId": 2

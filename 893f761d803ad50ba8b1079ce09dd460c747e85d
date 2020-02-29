@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a0c78f91_9a1760fa",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2156,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-02-29T09:13:30Z",
+      "side": 1,
+      "message": "I think descriptions should reflect session level parameters at the session level; it reduces the chance of getting into silly states like divergent values. And it\u0027s actually forbidden at transport level in the SDP, not just \"can be present at both\".\n\nbut this is an API design decision.\n\nMy thought is that once we have it in the struct at session level, we\u0027ll make this into \"if present at either session or transport level, we say it\u0027s true\", with a note to remove looking at the transport level after some time.\n\nSomething like:\n\nif (true at session)\n  if (true at transport || missing at transport)\n     return true (new or transitional client, expected)\n  else (false at transport)\n     log error (transitional, confused client); return true\n  fi\nelse if (missing at session)\n  if (present at transport)\n     log warning (old client)\n  fi\n  return value at transport\nelse (false at session)\n  same logic as for true\nfi",
+      "parentUuid": "5818923a_4dbe5fcd",
+      "revId": "893f761d803ad50ba8b1079ce09dd460c747e85d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e385cee2_1697a2df",
         "filename": "pc/peer_connection_interface_unittest.cc",
         "patchSetId": 2

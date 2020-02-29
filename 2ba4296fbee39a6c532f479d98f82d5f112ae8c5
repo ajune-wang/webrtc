@@ -308,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "3cff1483_2965a2c1",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-29T13:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d098a0f8_1a361ceb",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 6
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9f8cf81_fe5a8687",
         "filename": "rtc_base/bounded_inline_vector.h",
         "patchSetId": 11
@@ -423,6 +447,24 @@
       "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96838a2c_b50f3c90",
+        "filename": "rtc_base/bounded_inline_vector.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-29T13:02:16Z",
+      "side": 1,
+      "message": "My guess is that when using this to return stuff, no mutation will typically be necessary. E.g.\n\n  BoundedInlineVector\u003cArrayView\u003cint\u003e, 4\u003e Foo() {\n    return {first_array_, second_array_};\n  }\n\nThe situations when dynamic population of the vector is required are often incompatible with a compile-time-fixed max size in the fist place.",
+      "parentUuid": "f661a245_2fed36e3",
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -893,6 +935,30 @@
       "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c56a80_21316e74",
+        "filename": "rtc_base/bounded_inline_vector_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-02-29T13:02:16Z",
+      "side": 1,
+      "message": "The constructor arguments for std::vector et al. have come about because of historical accidents and pre-C++11 language restrictions. I don\u0027t consider them particularly worth emulating. Having just one form of constructor, in which the initial elements are listed, seems like a sweet spot to me in terms of usability and complexity.\n\nI did make container initialization work. I just needed to make the constructor non-explicit.",
+      "parentUuid": "cd22cb1c_25a31ffe",
+      "range": {
+        "startLine": 103,
+        "startChar": 34,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "2ba4296fbee39a6c532f479d98f82d5f112ae8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

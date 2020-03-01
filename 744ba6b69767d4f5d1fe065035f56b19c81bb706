@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19cb53c3_2480de8c",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T13:27:59Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 865,
+        "startChar": 18,
+        "endLine": 865,
+        "endChar": 20
+      },
+      "revId": "744ba6b69767d4f5d1fe065035f56b19c81bb706",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30bce853_340ae3fd",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T13:27:59Z",
+      "side": 1,
+      "message": "Here, you hold this-\u003ecrit_ and (*it)-\u003ecrit_, which you acquired in that order. Since *it may be doing the same thing, but in reverse, we could deadlock.\n\nIt looks like you can avoid the problem by releasing this-\u003ecrit_ after copying this-\u003esend_targets_ into `targets`. And to make this easier, it looks like a method that locks internally and appends the current contents of send_targets_ to a provided deque would be useful:\n\n  #if RTC_DCHECK_IS_ON\n  void AppendSendTargets(std::deque\u003cThread*\u003e* targets) {\n    CritScope cs(\u0026crit_);\n    targets-\u003einsert(targets-\u003eend(), send_targets_.begin(), send_targets_.end());\n  }\n  #endif",
+      "revId": "744ba6b69767d4f5d1fe065035f56b19c81bb706",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f11e67_db66fe10",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T13:27:59Z",
+      "side": 1,
+      "message": "Nit: \"deadlock\" is one word.",
+      "range": {
+        "startLine": 547,
+        "startChar": 74,
+        "endLine": 548,
+        "endChar": 9
+      },
+      "revId": "744ba6b69767d4f5d1fe065035f56b19c81bb706",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

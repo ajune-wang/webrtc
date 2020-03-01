@@ -1,0 +1,449 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "222b7991_b5582ca1",
+        "filename": "audio/voip/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Nit: space after #",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed5cfc1_2ab6baca",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Use absl::WrapUnique when taking ownership of a raw pointer; that makes it easier to see what\u0027s happening.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee35abdc_5f5d59c2",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "inline?",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 0
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52075226_b0183d4d",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Variables should have snake_case names: https://google.github.io/styleguide/cppguide.html#Variable_Names",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a25c133_422aa870",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Nice use of ArrayView.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f266cd7_e618e82d",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Declare a descriptive name for the dummy time?",
+      "range": {
+        "startLine": 94,
+        "startChar": 36,
+        "endLine": 97,
+        "endChar": 39
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a31b17c4_54482fc7",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Per the DCHECK above, this cannot happen.",
+      "range": {
+        "startLine": 123,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 3
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "422a3932_0db18d1b",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Can you use rtc::dchecked_cast?",
+      "range": {
+        "startLine": 181,
+        "startChar": 22,
+        "endLine": 181,
+        "endChar": 33
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ecf6e9_ad3b1ec5",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "If you document the member variables where they\u0027re declared as I suggested, this comment will likely become superfluous.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "445d22e4_8df8e9ec",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "General comment for this file: Ensure that methods are documented (except for the interface methods you implement; just document that they implement the interface).",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b46bff4_be890ec9",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Document this class.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2419392e_f3fa0fb3",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "final?",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f7765b_8ab7dfca",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "shared_ptr is banned in WebRTC and Chromium, unfortunately.",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e8d700d_2df22e46",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "I don\u0027t understand. Will you be subclassing AudioEgress and overriding these?",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0719783a_f0c90ec1",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Consider `IsSending`, `SetMuted`.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f04d259_b0785808",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "In a class where you handle concurrency explicitly, (1) ensure that every member variable is a constant, is GUARDED_BY something, or has a comment that explains why no synchronization is needed; and (2) since you protect subsets of the state differently (with the thread checker and the encoder queue), lead with a comment that explains this high level split.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec51e75f_aad29391",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Move these into the unnamed namespace. https://abseil.io/tips/119",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6dcf205_3e4b64c1",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "SdpAudioFormat has a nontrivial destructor, so isn\u0027t allowed as a global variable. https://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e521480_c0172811",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "IIRC nothing prevents you from extending the unnamed namespace to the end of this file.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "209067f1_354c4c1f",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "This is a nontrivial test harness, which can be problematic: https://abseil.io/tips/122\n\nAt the very least, document its methods and members as if it were any other class.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c8063c1_47c14699",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "int?",
+      "range": {
+        "startLine": 82,
+        "startChar": 44,
+        "endLine": 82,
+        "endChar": 52
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80e045d8_c6b8b2c0",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "int?",
+      "range": {
+        "startLine": 92,
+        "startChar": 21,
+        "endLine": 92,
+        "endChar": 27
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d4851e_7334b06f",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T21:10:53Z",
+      "side": 1,
+      "message": "Try something like\n\n  EXPECT_THAT(rtc::ArrayView(audio_frame-\u003edata(), length),\n              ElementsAreArray(copy_frame.data(), length));\n\ngmock matchers are flexible and have good error messages when the expectation fails. https://github.com/google/googletest/blob/master/googlemock/docs/cheat_sheet.md#matchers-matcherlist",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 11
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

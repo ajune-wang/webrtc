@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c3bd862_35b30fc9",
+        "filename": "rtc_base/ip_address.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T13:39:14Z",
+      "side": 1,
+      "message": "This should probably be `int`: https://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 11
+      },
+      "revId": "efca7323636f87a4fb43ac9fc4563e5670ce3611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

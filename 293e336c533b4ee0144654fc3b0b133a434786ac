@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0f125b1_87acc591",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-01T13:59:25Z",
+      "side": 1,
+      "message": "Nit: Blank line between the comment an the enum, since the former isn\u0027t specifically about the latter.",
+      "revId": "293e336c533b4ee0144654fc3b0b133a434786ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

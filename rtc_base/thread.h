@@ -14,8 +14,10 @@
 #include <stdint.h>
 
 #include <list>
+#include <map>
 #include <memory>
 #include <queue>
+#include <set>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -111,6 +113,14 @@ class RTC_EXPORT ThreadManager {
   void UnwrapCurrentThread();
 
   bool IsMainThread();
+  enum class SenderCycle { kOk, kCycle };
+
+#if RTC_DCHECK_IS_ON
+  // Registers that a Send operation is to be performed between |source| and
+  // |target|, while checking that this does not cause a send cycle that could
+  // potentially cause a deadlock.
+  void RegisterSendAndCheckForCycles(Thread* source, Thread* target);
+#endif
 
  private:
   ThreadManager();
@@ -130,6 +140,9 @@ class RTC_EXPORT ThreadManager {
   // calls.
   CriticalSection crit_;
   size_t processing_ RTC_GUARDED_BY(crit_) = 0;
+#if RTC_DCHECK_IS_ON
+  std::map<Thread*, std::set<Thread*>> send_graph_ RTC_GUARDED_BY(crit_);
+#endif
 
 #if defined(WEBRTC_POSIX)
   pthread_key_t key_;
@@ -143,13 +156,6 @@ class RTC_EXPORT ThreadManager {
   const PlatformThreadRef main_thread_ref_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(ThreadManager);
-};
-
-struct _SendMessage {
-  _SendMessage() {}
-  Thread* thread;
-  Message msg;
-  bool* ready;
 };
 
 // WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().
@@ -537,16 +543,6 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Return true if the thread is currently running.
   bool IsRunning();
 
-  // Processes received "Send" requests. If |source| is not null, only requests
-  // from |source| are processed, otherwise, all requests are processed.
-  void ReceiveSendsFromThread(const Thread* source);
-
-  // If |source| is not null, pops the first "Send" message from |source| in
-  // |sendlist_|, otherwise, pops the first "Send" message of |sendlist_|.
-  // The caller must lock |crit_| before calling.
-  // Returns true if there is such a message.
-  bool PopSendMessageFromThread(const Thread* source, _SendMessage* msg);
-
   void InvokeInternal(const Location& posted_from,
                       rtc::FunctionView<void()> functor);
 
@@ -570,7 +566,6 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   // Used if SocketServer ownership lies with |this|.
   std::unique_ptr<SocketServer> own_ss_;
 
-  std::list<_SendMessage> sendlist_;
   std::string name_;
 
   // TODO(tommi): Add thread checks for proper use of control methods.

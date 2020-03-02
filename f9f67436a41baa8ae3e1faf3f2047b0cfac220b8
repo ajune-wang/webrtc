@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99b355a1_d8bfc027",
+        "filename": "rtc_base/bounded_inline_vector_impl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-02T19:12:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ac8891a_5d290493",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 45,
+        "endChar": 74
+      },
+      "revId": "f9f67436a41baa8ae3e1faf3f2047b0cfac220b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "feacfa80_662edbec",
         "filename": "rtc_base/bounded_inline_vector_impl.h",
         "patchSetId": 16
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8a6ab2b6_0d12840e",
+        "filename": "rtc_base/bounded_inline_vector_impl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-02T19:12:08Z",
+      "side": 1,
+      "message": "My impression is that it\u0027s universally accepted that self copy assignment needs to be a no-op, but that opinions vary on self move assignment. For example, https://en.cppreference.com/w/cpp/string/basic_string/operator%3D promises that self copy assignment is a no-op for std::string but doesn\u0027t make such a claim for self move assignment; and https://isocpp.org/wiki/faq/assignment-operators#self-assignment-what bluntly states that \"Self-assignment is not valid for move assignment.\"\n\nPersonally, I feel that since\n\n  Foo\u0026 operator\u003d(Foo\u0026\u0026 other);\n\nis generally allowed to leave `other` in an arbitrary valid state,\n\n  a \u003d std::move(a);\n\ncan\u0027t be expected to leave `a` unchanged.",
+      "parentUuid": "feacfa80_662edbec",
+      "range": {
+        "startLine": 138,
+        "startChar": 38,
+        "endLine": 138,
+        "endChar": 39
+      },
+      "revId": "f9f67436a41baa8ae3e1faf3f2047b0cfac220b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72f3c33e_eee8f087",
         "filename": "rtc_base/bounded_inline_vector_impl.h",
         "patchSetId": 16
@@ -68,6 +116,30 @@
       "revId": "f9f67436a41baa8ae3e1faf3f2047b0cfac220b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9beb3e61_636a4e49",
+        "filename": "rtc_base/bounded_inline_vector_impl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-02T19:12:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72f3c33e_eee8f087",
+      "range": {
+        "startLine": 198,
+        "startChar": 2,
+        "endLine": 198,
+        "endChar": 3
+      },
+      "revId": "f9f67436a41baa8ae3e1faf3f2047b0cfac220b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

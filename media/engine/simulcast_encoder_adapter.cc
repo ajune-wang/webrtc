@@ -97,7 +97,7 @@ int VerifyCodec(const webrtc::VideoCodec* inst) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   if (inst->codecType == webrtc::kVideoCodecVP8 &&
-      inst->VP8().automaticResizeOn && inst->numberOfSimulcastStreams > 1) {
+      inst->VP8().automaticResizeOn && NumActiveStreams(*inst) > 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   return WEBRTC_VIDEO_CODEC_OK;
@@ -585,6 +585,7 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
   stream_codec->minBitrate = inst.simulcastStream[stream_index].minBitrate;
   stream_codec->maxFramerate = inst.simulcastStream[stream_index].maxFramerate;
   stream_codec->qpMax = inst.simulcastStream[stream_index].qpMax;
+  stream_codec->active = inst.simulcastStream[stream_index].active;
   // Settings that are based on stream/resolution.
   if (stream_resolution == StreamResolution::LOWEST) {
     // Settings for lowest spatial resolutions.

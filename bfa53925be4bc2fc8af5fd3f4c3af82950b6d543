@@ -36,6 +36,52 @@
     },
     {
       "key": {
+        "uuid": "3a795183_7312574d",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "This looks odd to me. Could we use consistent terminology here? I guess we are talking about the rtp payload type in both cases? So maybe rtp_payload_type_ \u003d rtp_payload_type; Possibly current_codec_rtp_payload_type_ if you want to be more explicit?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 32
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54519919_1b170eca",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "Similar concern here as above, I\u0027d like them to be more similar in naming.",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee35abdc_5f5d59c2",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1
@@ -116,6 +162,29 @@
     },
     {
       "key": {
+        "uuid": "443601af_032974f1",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "This looks confusing to me in this context.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 47
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a31b17c4_54482fc7",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1
@@ -139,6 +208,29 @@
     },
     {
       "key": {
+        "uuid": "c6e933c4_844ca7e3",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "Don\u0027t add blocking on task queue. We only have the in the code base for legacy reasons, if you need the caller to be able to continue when the operation is finished, add a callback parameter to StopSend.\n\nNote that this also means that you\u0027ll have to ensure that the destructor is save to run without requiring blocking on the task queue. Typically this is not a problem to achieve for new code, but it can be an issue if you have some action that must run on the task queue just before destruction.",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1
@@ -155,6 +247,29 @@
         "startChar": 22,
         "endLine": 181,
         "endChar": 33
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4d0c7e_fbff78b6",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "Inline this instead, it\u0027s only called once, and it\u0027s only two lines if you skip the extra assignment.",
+      "range": {
+        "startLine": 185,
+        "startChar": 18,
+        "endLine": 185,
+        "endChar": 34
       },
       "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -236,6 +351,29 @@
     },
     {
       "key": {
+        "uuid": "35d88810_cf949c43",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "It looks like a lot of this is based on channel send? It would be nice with an explanation of how these relate in the class documentation. Would it be possible to share parts of the code to avoid having to maintain duplicate functionality?",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70f7765b_8ab7dfca",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -283,6 +421,30 @@
     },
     {
       "key": {
+        "uuid": "b41c8408_14361021",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "Using shared pointers should be avoided, instead, figure out where the module should be owned and provide raw pointer to non-owning classes.",
+      "parentUuid": "b4f2f20e_14f82b84",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e8d700d_2df22e46",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -317,6 +479,98 @@
     },
     {
       "key": {
+        "uuid": "6995dec7_635171ce",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "What is the meaning of frequency in this context and is this in hz?",
+      "range": {
+        "startLine": 54,
+        "startChar": 56,
+        "endLine": 54,
+        "endChar": 73
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26395755_974830f6",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "Is this the rtp payload type?",
+      "range": {
+        "startLine": 54,
+        "startChar": 38,
+        "endLine": 54,
+        "endChar": 50
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "912f801f_f4f0dc4c",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "It would be nice if some of the signature were better explained. What is event, and what values are valid? What does the return value represent? How is the duration used? What does \"Outband\" mean?",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 61
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa85cabd_752e6b5a",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "Why is this private, but the interface is public? Also for method below.",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 6
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f04d259_b0785808",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -328,6 +582,184 @@
       "writtenOn": "2020-03-01T21:10:53Z",
       "side": 1,
       "message": "In a class where you handle concurrency explicitly, (1) ensure that every member variable is a constant, is GUARDED_BY something, or has a comment that explains why no synchronization is needed; and (2) since you protect subsets of the state differently (with the thread checker and the encoder queue), lead with a comment that explains this high level split.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcdded85_2dc5212b",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "It seems like these don\u0027t change during the lifetime of the object, make the pointers const to indicate this. You can still operate on the pointer target as mutable.",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e04d15_ba4a8c92",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "Please add some indication of the unit to the name. Also try to add some indication of what it represents, is it the time of creating the class, last send packet, last capture?",
+      "range": {
+        "startLine": 77,
+        "startChar": 11,
+        "endLine": 77,
+        "endChar": 21
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ac018c5_9defd5ae",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "I think \"muted_\" would be clearer in relation to previous_frame_muted_\n\nOr \"mute_incoming_frames_\" if you want to elaborate.",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95fd9f0b_21721871",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "could this be rephrased in a more behavioral way? AFAICT it essentially indicates whether we are encoding or not? Maybe encoder_stopped_/encoder_running_?",
+      "range": {
+        "startLine": 81,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 31
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acf6c76b_61f0a3b0",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be entirely try, accident?",
+      "range": {
+        "startLine": 83,
+        "startChar": 5,
+        "endLine": 83,
+        "endChar": 17
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf11b799_10c6f219",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "I suggest using absl::optional\u003cint\u003e so you can indicate unset value in a more explicit way.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 5
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6e49c63_b15a0dfd",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "Maybe absl::optional\u003cSdpAudioFormat\u003e?",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dc8cd00_702c40ce",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T19:28:33Z",
+      "side": 1,
+      "message": "It\u0027s quite unfortunate if we need to access internals to be able to test the code, this might indicate that the tests are testing the implementation rather than the functionality.\n\nSee https://abseil.io/tips/135 for more info on this",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 32
+      },
       "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

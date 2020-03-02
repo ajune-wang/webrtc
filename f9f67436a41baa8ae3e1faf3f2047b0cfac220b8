@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ac8891a_5d290493",
+        "filename": "rtc_base/bounded_inline_vector_impl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-02T11:41:39Z",
+      "side": 1,
+      "message": "may be put this comment above the code.",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 45,
+        "endChar": 74
+      },
+      "revId": "f9f67436a41baa8ae3e1faf3f2047b0cfac220b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "feacfa80_662edbec",
+        "filename": "rtc_base/bounded_inline_vector_impl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-02T11:41:39Z",
+      "side": 1,
+      "message": "is there there need to handle self assignment here too?\n\nVector\u0026\u0026 FetchValueOrDefault(Vector* default) \u0026\u0026 {\n  if (member_) { return *std::move(member_); }\n  else { return *default; }\n}\n\nVector reused \u003d Something();\nreused \u003d s.FetchValueOrDefault(\u0026reused);",
+      "range": {
+        "startLine": 138,
+        "startChar": 38,
+        "endLine": 138,
+        "endChar": 39
+      },
+      "revId": "f9f67436a41baa8ae3e1faf3f2047b0cfac220b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72f3c33e_eee8f087",
+        "filename": "rtc_base/bounded_inline_vector_impl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-02T11:41:39Z",
+      "side": 1,
+      "message": "return *this;\n\n(and in other operator\u003d above too)",
+      "range": {
+        "startLine": 198,
+        "startChar": 2,
+        "endLine": 198,
+        "endChar": 3
+      },
+      "revId": "f9f67436a41baa8ae3e1faf3f2047b0cfac220b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

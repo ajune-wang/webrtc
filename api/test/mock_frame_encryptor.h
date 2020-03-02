@@ -21,16 +21,20 @@ class MockFrameEncryptor : public FrameEncryptorInterface {
   MockFrameEncryptor();
   ~MockFrameEncryptor() override;
 
-  MOCK_METHOD6(Encrypt,
-               int(cricket::MediaType,
-                   uint32_t,
-                   rtc::ArrayView<const uint8_t>,
-                   rtc::ArrayView<const uint8_t>,
-                   rtc::ArrayView<uint8_t>,
-                   size_t*));
+  MOCK_METHOD(int,
+              Encrypt,
+              (cricket::MediaType,
+               uint32_t,
+               rtc::ArrayView<const uint8_t>,
+               rtc::ArrayView<const uint8_t>,
+               rtc::ArrayView<uint8_t>,
+               size_t*),
+              (override));
 
-  MOCK_METHOD2(GetMaxCiphertextByteSize,
-               size_t(cricket::MediaType media_type, size_t frame_size));
+  MOCK_METHOD(size_t,
+              GetMaxCiphertextByteSize,
+              (cricket::MediaType media_type, size_t frame_size),
+              (override));
 };
 
 }  // namespace webrtc

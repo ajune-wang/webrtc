@@ -22,10 +22,14 @@ namespace webrtc {
 
 class MockVideoEncoderFactory : public webrtc::VideoEncoderFactory {
  public:
-  MOCK_CONST_METHOD0(GetSupportedFormats,
-                     std::vector<webrtc::SdpVideoFormat>());
-  MOCK_CONST_METHOD1(QueryVideoEncoder,
-                     CodecInfo(const webrtc::SdpVideoFormat&));
+  MOCK_METHOD(std::vector<webrtc::SdpVideoFormat>,
+              GetSupportedFormats,
+              (),
+              (const, override));
+  MOCK_METHOD(CodecInfo,
+              QueryVideoEncoder,
+              (const webrtc::SdpVideoFormat&),
+              (const, override));
 
   // We need to proxy to a return type that is copyable.
   std::unique_ptr<webrtc::VideoEncoder> CreateVideoEncoder(
@@ -33,10 +37,12 @@ class MockVideoEncoderFactory : public webrtc::VideoEncoderFactory {
     return std::unique_ptr<webrtc::VideoEncoder>(
         CreateVideoEncoderProxy(format));
   }
-  MOCK_METHOD1(CreateVideoEncoderProxy,
-               webrtc::VideoEncoder*(const webrtc::SdpVideoFormat&));
+  MOCK_METHOD(webrtc::VideoEncoder*,
+              CreateVideoEncoderProxy,
+              (const webrtc::SdpVideoFormat&),
+              (override));
 
-  MOCK_METHOD0(Die, void());
+  MOCK_METHOD(void, Die, (), (override));
   ~MockVideoEncoderFactory() { Die(); }
 };
 

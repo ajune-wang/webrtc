@@ -23,15 +23,19 @@ class MockFrameDecryptor : public FrameDecryptorInterface {
   MockFrameDecryptor();
   ~MockFrameDecryptor() override;
 
-  MOCK_METHOD5(Decrypt,
-               Result(cricket::MediaType,
-                      const std::vector<uint32_t>&,
-                      rtc::ArrayView<const uint8_t>,
-                      rtc::ArrayView<const uint8_t>,
-                      rtc::ArrayView<uint8_t>));
+  MOCK_METHOD(Result,
+              Decrypt,
+              (cricket::MediaType,
+               const std::vector<uint32_t>&,
+               rtc::ArrayView<const uint8_t>,
+               rtc::ArrayView<const uint8_t>,
+               rtc::ArrayView<uint8_t>),
+              (override));
 
-  MOCK_METHOD2(GetMaxPlaintextByteSize,
-               size_t(cricket::MediaType, size_t encrypted_frame_size));
+  MOCK_METHOD(size_t,
+              GetMaxPlaintextByteSize,
+              (cricket::MediaType, size_t encrypted_frame_size),
+              (override));
 };
 
 }  // namespace webrtc

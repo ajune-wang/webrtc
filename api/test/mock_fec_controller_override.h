@@ -20,7 +20,7 @@ class MockFecControllerOverride : public FecControllerOverride {
  public:
   ~MockFecControllerOverride() override = default;
 
-  MOCK_METHOD1(SetFecAllowed, void(bool fec_allowed));
+  MOCK_METHOD(void, SetFecAllowed, (bool fec_allowed), (override));
 };
 
 }  // namespace webrtc

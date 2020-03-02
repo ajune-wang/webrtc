@@ -27,16 +27,21 @@ class MockEchoRemover : public EchoRemover {
   MockEchoRemover();
   virtual ~MockEchoRemover();
 
-  MOCK_METHOD6(ProcessCapture,
-               void(EchoPathVariability echo_path_variability,
-                    bool capture_signal_saturation,
-                    const absl::optional<DelayEstimate>& delay_estimate,
-                    RenderBuffer* render_buffer,
-                    std::vector<std::vector<std::vector<float>>>* linear_output,
-                    std::vector<std::vector<std::vector<float>>>* capture));
-  MOCK_CONST_METHOD0(Delay, absl::optional<int>());
-  MOCK_METHOD1(UpdateEchoLeakageStatus, void(bool leakage_detected));
-  MOCK_CONST_METHOD1(GetMetrics, void(EchoControl::Metrics* metrics));
+  MOCK_METHOD(void,
+              ProcessCapture,
+              (EchoPathVariability echo_path_variability,
+               bool capture_signal_saturation,
+               const absl::optional<DelayEstimate>& delay_estimate,
+               RenderBuffer*,
+               std::vector<std::vector<std::vector<float>>>*,
+               std::vector<std::vector<std::vector<float>>>*),
+              (override));
+  MOCK_METHOD(absl::optional<int>, Delay, (), (const, override));
+  MOCK_METHOD(void,
+              UpdateEchoLeakageStatus,
+              (bool leakage_detected),
+              (override));
+  MOCK_METHOD(void, GetMetrics, (EchoControl::Metrics*), (const, override));
 };
 
 }  // namespace test

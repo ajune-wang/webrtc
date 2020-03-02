@@ -25,35 +25,45 @@ namespace test {
 class MockCustomProcessing : public CustomProcessing {
  public:
   virtual ~MockCustomProcessing() {}
-  MOCK_METHOD2(Initialize, void(int sample_rate_hz, int num_channels));
-  MOCK_METHOD1(Process, void(AudioBuffer* audio));
-  MOCK_METHOD1(SetRuntimeSetting,
-               void(AudioProcessing::RuntimeSetting setting));
-  MOCK_CONST_METHOD0(ToString, std::string());
+  MOCK_METHOD(void,
+              Initialize,
+              (int sample_rate_hz, int num_channels),
+              (override));
+  MOCK_METHOD(void, Process, (AudioBuffer*), (override));
+  MOCK_METHOD(void,
+              SetRuntimeSetting,
+              (AudioProcessing::RuntimeSetting setting),
+              (override));
+  MOCK_METHOD(std::string, ToString, (), (const, override));
 };
 
 class MockCustomAudioAnalyzer : public CustomAudioAnalyzer {
  public:
   virtual ~MockCustomAudioAnalyzer() {}
-  MOCK_METHOD2(Initialize, void(int sample_rate_hz, int num_channels));
-  MOCK_METHOD1(Analyze, void(const AudioBuffer* audio));
-  MOCK_CONST_METHOD0(ToString, std::string());
+  MOCK_METHOD(void,
+              Initialize,
+              (int sample_rate_hz, int num_channels),
+              (override));
+  MOCK_METHOD(void, Analyze, (const AudioBuffer*), (override));
+  MOCK_METHOD(std::string, ToString, (), (const, override));
 };
 
 class MockEchoControl : public EchoControl {
  public:
   virtual ~MockEchoControl() {}
-  MOCK_METHOD1(AnalyzeRender, void(AudioBuffer* render));
-  MOCK_METHOD1(AnalyzeCapture, void(AudioBuffer* capture));
-  MOCK_METHOD2(ProcessCapture,
-               void(AudioBuffer* capture, bool echo_path_change));
-  MOCK_METHOD3(ProcessCapture,
-               void(AudioBuffer* capture,
-                    AudioBuffer* linear_output,
-                    bool echo_path_change));
-  MOCK_CONST_METHOD0(GetMetrics, Metrics());
-  MOCK_METHOD1(SetAudioBufferDelay, void(int delay_ms));
-  MOCK_CONST_METHOD0(ActiveProcessing, bool());
+  MOCK_METHOD(void, AnalyzeRender, (AudioBuffer*), (override));
+  MOCK_METHOD(void, AnalyzeCapture, (AudioBuffer*), (override));
+  MOCK_METHOD(void,
+              ProcessCapture,
+              (AudioBuffer*, bool echo_path_change),
+              (override));
+  MOCK_METHOD(void,
+              ProcessCapture,
+              (AudioBuffer*, AudioBuffer*, bool echo_path_change),
+              (override));
+  MOCK_METHOD(Metrics, GetMetrics, (), (const, override));
+  MOCK_METHOD(void, SetAudioBufferDelay, (int delay_ms), (override));
+  MOCK_METHOD(bool, ActiveProcessing, (), (const, override));
 };
 
 class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {

@@ -62,59 +62,74 @@ using ::testing::UnorderedElementsAre;
 
 class MockRtcpPacketTypeCounterObserver : public RtcpPacketTypeCounterObserver {
  public:
-  MOCK_METHOD2(RtcpPacketTypesCounterUpdated,
-               void(uint32_t, const RtcpPacketTypeCounter&));
+  MOCK_METHOD(void,
+              RtcpPacketTypesCounterUpdated,
+              (uint32_t, const RtcpPacketTypeCounter&),
+              (override));
 };
 
 class MockRtcpIntraFrameObserver : public RtcpIntraFrameObserver {
  public:
-  MOCK_METHOD1(OnReceivedIntraFrameRequest, void(uint32_t));
+  MOCK_METHOD(void, OnReceivedIntraFrameRequest, (uint32_t), (override));
 };
 
 class MockRtcpLossNotificationObserver : public RtcpLossNotificationObserver {
  public:
   ~MockRtcpLossNotificationObserver() override = default;
-  MOCK_METHOD4(OnReceivedLossNotification,
-               void(uint32_t ssrc,
-                    uint16_t seq_num_of_last_decodable,
-                    uint16_t seq_num_of_last_received,
-                    bool decodability_flag));
+  MOCK_METHOD(void,
+              OnReceivedLossNotification,
+              (uint32_t ssrc,
+               uint16_t seq_num_of_last_decodable,
+               uint16_t seq_num_of_last_received,
+               bool decodability_flag),
+              (override));
 };
 
 class MockRtcpCallbackImpl : public RtcpStatisticsCallback {
  public:
-  MOCK_METHOD2(StatisticsUpdated, void(const RtcpStatistics&, uint32_t));
+  MOCK_METHOD(void,
+              StatisticsUpdated,
+              (const RtcpStatistics&, uint32_t),
+              (override));
 };
 
 class MockCnameCallbackImpl : public RtcpCnameCallback {
  public:
-  MOCK_METHOD2(OnCname, void(uint32_t, absl::string_view));
+  MOCK_METHOD(void, OnCname, (uint32_t, absl::string_view), (override));
 };
 
 class MockReportBlockDataObserverImpl : public ReportBlockDataObserver {
  public:
-  MOCK_METHOD1(OnReportBlockDataUpdated, void(ReportBlockData));
+  MOCK_METHOD(void, OnReportBlockDataUpdated, (ReportBlockData), (override));
 };
 
 class MockTransportFeedbackObserver : public TransportFeedbackObserver {
  public:
-  MOCK_METHOD1(OnAddPacket, void(const RtpPacketSendInfo&));
-  MOCK_METHOD1(OnTransportFeedback, void(const rtcp::TransportFeedback&));
+  MOCK_METHOD(void, OnAddPacket, (const RtpPacketSendInfo&), (override));
+  MOCK_METHOD(void,
+              OnTransportFeedback,
+              (const rtcp::TransportFeedback&),
+              (override));
 };
 
 class MockModuleRtpRtcp : public RTCPReceiver::ModuleRtpRtcp {
  public:
-  MOCK_METHOD1(SetTmmbn, void(std::vector<rtcp::TmmbItem>));
-  MOCK_METHOD0(OnRequestSendReport, void());
-  MOCK_METHOD1(OnReceivedNack, void(const std::vector<uint16_t>&));
-  MOCK_METHOD1(OnReceivedRtcpReportBlocks, void(const ReportBlockList&));
+  MOCK_METHOD(void, SetTmmbn, (std::vector<rtcp::TmmbItem>), (override));
+  MOCK_METHOD(void, OnRequestSendReport, (), (override));
+  MOCK_METHOD(void, OnReceivedNack, (const std::vector<uint16_t>&), (override));
+  MOCK_METHOD(void,
+              OnReceivedRtcpReportBlocks,
+              (const ReportBlockList&),
+              (override));
 };
 
 class MockVideoBitrateAllocationObserver
     : public VideoBitrateAllocationObserver {
  public:
-  MOCK_METHOD1(OnBitrateAllocationUpdated,
-               void(const VideoBitrateAllocation& allocation));
+  MOCK_METHOD(void,
+              OnBitrateAllocationUpdated,
+              (const VideoBitrateAllocation& allocation),
+              (override));
 };
 
 // SSRC of remote peer, that sends rtcp packet to the rtcp receiver under test.

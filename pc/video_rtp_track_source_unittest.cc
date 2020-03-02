@@ -19,8 +19,8 @@ namespace {
 
 class MockCallback : public VideoRtpTrackSource::Callback {
  public:
-  MOCK_METHOD0(OnGenerateKeyFrame, void());
-  MOCK_METHOD1(OnEncodedSinkEnabled, void(bool));
+  MOCK_METHOD(void, OnGenerateKeyFrame, (), (override));
+  MOCK_METHOD(void, OnEncodedSinkEnabled, (bool), (override));
 };
 
 class MockSink : public rtc::VideoSinkInterface<RecordableEncodedFrame> {

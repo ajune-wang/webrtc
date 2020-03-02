@@ -40,8 +40,8 @@ class MockCpuOveruseObserver : public AdaptationObserverInterface {
   MockCpuOveruseObserver() {}
   virtual ~MockCpuOveruseObserver() {}
 
-  MOCK_METHOD1(AdaptUp, void(AdaptReason));
-  MOCK_METHOD1(AdaptDown, bool(AdaptReason));
+  MOCK_METHOD(void, AdaptUp, (AdaptReason), (override));
+  MOCK_METHOD(bool, AdaptDown, (AdaptReason), (override));
 };
 
 class CpuOveruseObserverImpl : public AdaptationObserverInterface {

@@ -1059,8 +1059,8 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
 class MockRtcEventLogOutput : public webrtc::RtcEventLogOutput {
  public:
   virtual ~MockRtcEventLogOutput() = default;
-  MOCK_CONST_METHOD0(IsActive, bool());
-  MOCK_METHOD1(Write, bool(const std::string&));
+  MOCK_METHOD(bool, IsActive, (), (const, override));
+  MOCK_METHOD(bool, Write, (const std::string&), (override));
 };
 
 // This helper object is used for both specifying how many audio/video frames
@@ -1193,7 +1193,7 @@ class MockIceTransportFactory : public IceTransportFactory {
     return new rtc::RefCountedObject<MockIceTransport>(transport_name,
                                                        component);
   }
-  MOCK_METHOD0(RecordIceTransportCreated, void());
+  MOCK_METHOD(void, RecordIceTransportCreated, (), (override));
 };
 
 // Tests two PeerConnections connecting to each other end-to-end, using a

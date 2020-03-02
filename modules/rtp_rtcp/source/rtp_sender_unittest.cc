@@ -153,38 +153,60 @@ class MockRtpPacketPacer : public RtpPacketSender {
   MockRtpPacketPacer() {}
   virtual ~MockRtpPacketPacer() {}
 
-  MOCK_METHOD1(EnqueuePackets,
-               void(std::vector<std::unique_ptr<RtpPacketToSend>>));
+  MOCK_METHOD(void,
+              EnqueuePackets,
+              (std::vector<std::unique_ptr<RtpPacketToSend>>),
+              (override));
 
-  MOCK_METHOD2(CreateProbeCluster, void(int bitrate_bps, int cluster_id));
+  MOCK_METHOD(void,
+              CreateProbeCluster,
+              (int bitrate_bps, int cluster_id),
+              (override));
 
-  MOCK_METHOD0(Pause, void());
-  MOCK_METHOD0(Resume, void());
-  MOCK_METHOD1(SetCongestionWindow,
-               void(absl::optional<int64_t> congestion_window_bytes));
-  MOCK_METHOD1(UpdateOutstandingData, void(int64_t outstanding_bytes));
-  MOCK_METHOD1(SetAccountForAudioPackets, void(bool account_for_audio));
+  MOCK_METHOD(void, Pause, (), (override));
+  MOCK_METHOD(void, Resume, (), (override));
+  MOCK_METHOD(void,
+              SetCongestionWindow,
+              (absl::optional<int64_t> congestion_window_bytes),
+              (override));
+  MOCK_METHOD(void,
+              UpdateOutstandingData,
+              (int64_t outstanding_bytes),
+              (override));
+  MOCK_METHOD(void,
+              SetAccountForAudioPackets,
+              (bool account_for_audio),
+              (override));
 };
 
 class MockSendSideDelayObserver : public SendSideDelayObserver {
  public:
-  MOCK_METHOD4(SendSideDelayUpdated, void(int, int, uint64_t, uint32_t));
+  MOCK_METHOD(void,
+              SendSideDelayUpdated,
+              (int, int, uint64_t, uint32_t),
+              (override));
 };
 
 class MockSendPacketObserver : public SendPacketObserver {
  public:
-  MOCK_METHOD3(OnSendPacket, void(uint16_t, int64_t, uint32_t));
+  MOCK_METHOD(void, OnSendPacket, (uint16_t, int64_t, uint32_t), (override));
 };
 
 class MockTransportFeedbackObserver : public TransportFeedbackObserver {
  public:
-  MOCK_METHOD1(OnAddPacket, void(const RtpPacketSendInfo&));
-  MOCK_METHOD1(OnTransportFeedback, void(const rtcp::TransportFeedback&));
+  MOCK_METHOD(void, OnAddPacket, (const RtpPacketSendInfo&), (override));
+  MOCK_METHOD(void,
+              OnTransportFeedback,
+              (const rtcp::TransportFeedback&),
+              (override));
 };
 
 class MockOverheadObserver : public OverheadObserver {
  public:
-  MOCK_METHOD1(OnOverheadChanged, void(size_t overhead_bytes_per_packet));
+  MOCK_METHOD(void,
+              OnOverheadChanged,
+              (size_t overhead_bytes_per_packet),
+              (override));
 };
 
 class StreamDataTestCallback : public StreamDataCountersCallback {

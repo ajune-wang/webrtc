@@ -19,13 +19,13 @@ namespace webrtc {
 class MockVad : public Vad {
  public:
   virtual ~MockVad() { Die(); }
-  MOCK_METHOD0(Die, void());
+  MOCK_METHOD(void, Die, (), (override));
 
-  MOCK_METHOD3(VoiceActivity,
-               enum Activity(const int16_t* audio,
-                             size_t num_samples,
-                             int sample_rate_hz));
-  MOCK_METHOD0(Reset, void());
+  MOCK_METHOD(enum Activity,
+              VoiceActivity,
+              (const int16_t*, size_t num_samples, int sample_rate_hz),
+              (override));
+  MOCK_METHOD(void, Reset, (), (override));
 };
 
 }  // namespace webrtc

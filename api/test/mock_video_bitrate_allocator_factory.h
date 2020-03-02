@@ -27,9 +27,11 @@ class MockVideoBitrateAllocatorFactory
         CreateVideoBitrateAllocatorProxy(codec));
   }
   ~MockVideoBitrateAllocatorFactory() { Die(); }
-  MOCK_METHOD1(CreateVideoBitrateAllocatorProxy,
-               VideoBitrateAllocator*(const VideoCodec&));
-  MOCK_METHOD0(Die, void());
+  MOCK_METHOD(VideoBitrateAllocator*,
+              CreateVideoBitrateAllocatorProxy,
+              (const VideoCodec&),
+              (override));
+  MOCK_METHOD(void, Die, (), (override));
 };
 
 }  // namespace webrtc

@@ -23,7 +23,8 @@ class MockResourceListener : public ResourceListener {
  public:
   MOCK_METHOD(ResourceListenerResponse,
               OnResourceUsageStateMeasured,
-              (const Resource& resource));
+              (const Resource& resource),
+              (override));
 };
 
 TEST(ResourceTest, AddingListenerReceivesCallbacks) {

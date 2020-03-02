@@ -184,7 +184,7 @@ class MockIceControllerFactory : public cricket::IceControllerFactoryInterface {
     return std::make_unique<cricket::BasicIceController>(args);
   }
 
-  MOCK_METHOD0(RecordIceControllerCreated, void());
+  MOCK_METHOD(void, RecordIceControllerCreated, (), (override));
 };
 
 }  // namespace
@@ -5155,10 +5155,14 @@ TEST_F(P2PTransportChannelTest,
 
 class MockMdnsResponder : public webrtc::MdnsResponderInterface {
  public:
-  MOCK_METHOD2(CreateNameForAddress,
-               void(const rtc::IPAddress&, NameCreatedCallback));
-  MOCK_METHOD2(RemoveNameForAddress,
-               void(const rtc::IPAddress&, NameRemovedCallback));
+  MOCK_METHOD(void,
+              CreateNameForAddress,
+              (const rtc::IPAddress&, NameCreatedCallback),
+              (override));
+  MOCK_METHOD(void,
+              RemoveNameForAddress,
+              (const rtc::IPAddress&, NameRemovedCallback),
+              (override));
 };
 
 TEST_F(P2PTransportChannelTest,

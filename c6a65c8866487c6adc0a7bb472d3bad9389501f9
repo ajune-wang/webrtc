@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "095694d5_dc945d13",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1114,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-02T09:42:44Z",
+      "side": 1,
+      "message": "can you please add a (temporary) default implementation to avoid breaking downstream projects",
+      "range": {
+        "startLine": 1114,
+        "startChar": 60,
+        "endLine": 1114,
+        "endChar": 64
+      },
+      "revId": "c6a65c8866487c6adc0a7bb472d3bad9389501f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

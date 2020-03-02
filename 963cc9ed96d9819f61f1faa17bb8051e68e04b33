@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1bbdb39_0f1218fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-02T11:28:51Z",
+      "side": 1,
+      "message": "I should add an OWNERS file in this CL too, I forgot",
+      "revId": "963cc9ed96d9819f61f1faa17bb8051e68e04b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

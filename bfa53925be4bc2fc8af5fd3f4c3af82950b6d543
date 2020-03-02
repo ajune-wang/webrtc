@@ -259,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "b4f2f20e_14f82b84",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-02T08:31:01Z",
+      "side": 1,
+      "message": "Alternative: https://cs.chromium.org/chromium/src/third_party/webrtc/api/scoped_refptr.h",
+      "parentUuid": "70f7765b_8ab7dfca",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e8d700d_2df22e46",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -417,6 +441,29 @@
         "startChar": 21,
         "endLine": 92,
         "endChar": 27
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad9869a6_55f915df",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-02T08:31:01Z",
+      "side": 1,
+      "message": "Karl, should we talk about this (maybe at today\u0027s meeting)?\n\nA common pattern in WebRTC code is to use rtc::Event for this, see https://cs.chromium.org/chromium/src/third_party/webrtc/audio/channel_send.cc?l\u003d556-561\u0026rcl\u003dff0e4dbd1f0b5549c9cd90687b8599131e909b10.",
+      "range": {
+        "startLine": 100,
+        "startChar": 38,
+        "endLine": 100,
+        "endChar": 56
       },
       "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

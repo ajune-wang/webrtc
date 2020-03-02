@@ -45,6 +45,30 @@
       "revId": "1cdc08014a3c88ac9e4fd49c9c5d679c34cf9f6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19130480_0a49290c",
+        "filename": "rtc_base/thread_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-02T17:51:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8207f30_944460bc",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 1
+      },
+      "revId": "1cdc08014a3c88ac9e4fd49c9c5d679c34cf9f6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

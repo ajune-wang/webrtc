@@ -16,6 +16,29 @@
       "revId": "963cc9ed96d9819f61f1faa17bb8051e68e04b33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85bf6846_2ad391cb",
+        "filename": "video/adaptation/video_stream_adaptor.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-02T12:32:06Z",
+      "side": 1,
+      "message": "Why have the inner class when it looks like it just composes the VideoSourceRestrictor? Is there a follow up where this composition is neeed?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 30
+      },
+      "revId": "963cc9ed96d9819f61f1faa17bb8051e68e04b33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

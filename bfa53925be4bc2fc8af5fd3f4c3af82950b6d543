@@ -495,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "102794d1_d85e052f",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-02T08:59:55Z",
+      "side": 1,
+      "message": "Yes, the only thing in favor of allowing it is that this is testing code so we don\u0027t really measure binary size bloat.\n\nOn the other hand it is better to use the same utilities in production and test code. So I guess the decision here is just to switch to rtc::Event.\n\nYes, the tool caught this one (see the exception in the audio/voip/test/DEPS file).",
+      "parentUuid": "72d149b7_56ceef51",
+      "range": {
+        "startLine": 100,
+        "startChar": 38,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15d4851e_7334b06f",
         "filename": "audio/voip/test/audio_egress_unittest.cc",
         "patchSetId": 1

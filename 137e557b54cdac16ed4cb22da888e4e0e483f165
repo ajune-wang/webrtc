@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "dfbcc273_628ba36d",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-02T14:05:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "acb3c5a7_5c1eff0f",
+      "range": {
+        "startLine": 51,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 19
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "302a1729_9fae785a",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-02T14:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a9742ff_679f990c",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be022314_d6fd101a",
         "filename": "modules/video_coding/utility/vp8_header_parser.cc",
         "patchSetId": 5
@@ -68,6 +116,30 @@
       "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29c7e517_4cc2ce2a",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-02T14:05:23Z",
+      "side": 1,
+      "message": "Not necessary. Total amount of read parsed data is quite low (~20 bytes).",
+      "parentUuid": "be022314_d6fd101a",
+      "range": {
+        "startLine": 69,
+        "startChar": 14,
+        "endLine": 69,
+        "endChar": 18
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "313c78f2_eb66ed05",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-02T14:05:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "83e6d178_b40892b8",
+      "range": {
+        "startLine": 77,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c4eb80d_3694dd0a",
         "filename": "modules/video_coding/utility/vp8_header_parser.cc",
         "patchSetId": 5
@@ -114,6 +210,30 @@
       "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a19fc3a0_77aaddd5",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-02T14:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c4eb80d_3694dd0a",
+      "range": {
+        "startLine": 80,
+        "startChar": 43,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "5a1f4ebb_09f3ea25",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-02T14:05:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a9dfc4d_38204ae9",
+      "range": {
+        "startLine": 88,
+        "startChar": 11,
+        "endLine": 88,
+        "endChar": 14
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab154fa7_9caffa22",
         "filename": "modules/video_coding/utility/vp8_header_parser.cc",
         "patchSetId": 5
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ccc927d7_f864703d",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-02T14:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab154fa7_9caffa22",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b351fad7_e520daeb",
         "filename": "modules/video_coding/utility/vp8_header_parser.cc",
         "patchSetId": 5
@@ -183,6 +351,30 @@
       "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "937999a0_4d8feb21",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-02T14:05:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b351fad7_e520daeb",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 17
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

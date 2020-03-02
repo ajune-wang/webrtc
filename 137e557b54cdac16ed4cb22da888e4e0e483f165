@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a9742ff_679f990c",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-02T13:56:30Z",
+      "side": 1,
+      "message": "Please document that it is implementation as it is done in RFC",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acb3c5a7_5c1eff0f",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-02T13:56:30Z",
+      "side": 1,
+      "message": "Maybe Read?",
+      "range": {
+        "startLine": 51,
+        "startChar": 16,
+        "endLine": 51,
+        "endChar": 19
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be022314_d6fd101a",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-02T13:56:30Z",
+      "side": 1,
+      "message": "Should we do some \"fail fast\" if we reached end of the buffer?",
+      "range": {
+        "startLine": 69,
+        "startChar": 14,
+        "endLine": 69,
+        "endChar": 18
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e6d178_b40892b8",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-02T13:56:30Z",
+      "side": 1,
+      "message": "Read?",
+      "range": {
+        "startLine": 77,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c4eb80d_3694dd0a",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-02T13:56:30Z",
+      "side": 1,
+      "message": "Maybe put it into const or add some comment why 128?",
+      "range": {
+        "startLine": 80,
+        "startChar": 43,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a9dfc4d_38204ae9",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-02T13:56:30Z",
+      "side": 1,
+      "message": "Read?",
+      "range": {
+        "startLine": 88,
+        "startChar": 11,
+        "endLine": 88,
+        "endChar": 14
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab154fa7_9caffa22",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-02T13:56:30Z",
+      "side": 1,
+      "message": "Maybe inline this method? The name doesn\u0027t really simplifies understanding of the code.",
+      "range": {
+        "startLine": 94,
+        "startChar": 7,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b351fad7_e520daeb",
+        "filename": "modules/video_coding/utility/vp8_header_parser.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-02T13:56:30Z",
+      "side": 1,
+      "message": "Please flip this two lines",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 17
+      },
+      "revId": "137e557b54cdac16ed4cb22da888e4e0e483f165",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

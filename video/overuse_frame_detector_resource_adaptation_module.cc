@@ -32,8 +32,6 @@ namespace webrtc {
 
 namespace {
 
-const int kMinFramerateFps = 2;
-
 bool IsResolutionScalingEnabled(DegradationPreference degradation_preference) {
   return degradation_preference == DegradationPreference::MAINTAIN_FRAMERATE ||
          degradation_preference == DegradationPreference::BALANCED;
@@ -68,148 +66,6 @@ VideoSourceRestrictions ApplyDegradationPreference(
 }
 
 }  // namespace
-
-// VideoSourceRestrictor is responsible for keeping track of current
-// VideoSourceRestrictions and how to modify them in response to adapting up or
-// down. It is not reponsible for determining when we should adapt up or down -
-// for that, see
-// OveruseFrameDetectorResourceAdaptationModule::OnResourceUnderuse() and
-// OnResourceOveruse() - only how to modify the source/sink restrictions when
-// this happens. Note that it is also not responsible for reconfigruring the
-// source/sink, it is only a keeper of desired restrictions.
-class OveruseFrameDetectorResourceAdaptationModule::VideoSourceRestrictor {
- public:
-  // For frame rate, the steps we take are 2/3 (down) and 3/2 (up).
-  static int GetLowerFrameRateThan(int fps) {
-    RTC_DCHECK(fps != std::numeric_limits<int>::max());
-    return (fps * 2) / 3;
-  }
-  // TODO(hbos): Use absl::optional<> instead?
-  static int GetHigherFrameRateThan(int fps) {
-    return fps != std::numeric_limits<int>::max()
-               ? (fps * 3) / 2
-               : std::numeric_limits<int>::max();
-  }
-
-  // For resolution, the steps we take are 3/5 (down) and 5/3 (up).
-  // Notice the asymmetry of which restriction property is set depending on if
-  // we are adapting up or down:
-  // - DecreaseResolution() sets the max_pixels_per_frame() to the desired
-  //   target and target_pixels_per_frame() to null.
-  // - IncreaseResolutionTo() sets the target_pixels_per_frame() to the desired
-  //   target, and max_pixels_per_frame() is set according to
-  //   GetIncreasedMaxPixelsWanted().
-  static int GetLowerResolutionThan(int pixel_count) {
-    RTC_DCHECK(pixel_count != std::numeric_limits<int>::max());
-    return (pixel_count * 3) / 5;
-  }
-  // TODO(hbos): Use absl::optional<> instead?
-  static int GetHigherResolutionThan(int pixel_count) {
-    return pixel_count != std::numeric_limits<int>::max()
-               ? (pixel_count * 5) / 3
-               : std::numeric_limits<int>::max();
-  }
-
-  VideoSourceRestrictor() {}
-
-  VideoSourceRestrictions source_restrictions() {
-    return source_restrictions_;
-  }
-  void ClearRestrictions() {
-    source_restrictions_ = VideoSourceRestrictions();
-  }
-
-  bool CanDecreaseResolutionTo(int target_pixels, int min_pixels_per_frame) {
-    int max_pixels_per_frame = rtc::dchecked_cast<int>(
-        source_restrictions_.max_pixels_per_frame().value_or(
-            std::numeric_limits<int>::max()));
-    return target_pixels < max_pixels_per_frame &&
-           target_pixels >= min_pixels_per_frame;
-  }
-  void DecreaseResolutionTo(int target_pixels, int min_pixels_per_frame) {
-    RTC_DCHECK(CanDecreaseResolutionTo(target_pixels, min_pixels_per_frame));
-    RTC_LOG(LS_INFO) << "Scaling down resolution, max pixels: "
-                     << target_pixels;
-    source_restrictions_.set_max_pixels_per_frame(
-        target_pixels != std::numeric_limits<int>::max()
-            ? absl::optional<size_t>(target_pixels)
-            : absl::nullopt);
-    source_restrictions_.set_target_pixels_per_frame(absl::nullopt);
-  }
-
-  bool CanIncreaseResolutionTo(int target_pixels) {
-    int max_pixels_wanted = GetIncreasedMaxPixelsWanted(target_pixels);
-    int max_pixels_per_frame = rtc::dchecked_cast<int>(
-        source_restrictions_.max_pixels_per_frame().value_or(
-            std::numeric_limits<int>::max()));
-    return max_pixels_wanted > max_pixels_per_frame;
-  }
-  void IncreaseResolutionTo(int target_pixels) {
-    RTC_DCHECK(CanIncreaseResolutionTo(target_pixels));
-    int max_pixels_wanted = GetIncreasedMaxPixelsWanted(target_pixels);
-    RTC_LOG(LS_INFO) << "Scaling up resolution, max pixels: "
-                     << max_pixels_wanted;
-    source_restrictions_.set_max_pixels_per_frame(
-        max_pixels_wanted != std::numeric_limits<int>::max()
-            ? absl::optional<size_t>(max_pixels_wanted)
-            : absl::nullopt);
-    source_restrictions_.set_target_pixels_per_frame(
-        max_pixels_wanted != std::numeric_limits<int>::max()
-            ? absl::optional<size_t>(target_pixels)
-            : absl::nullopt);
-  }
-
-  bool CanDecreaseFrameRateTo(int max_frame_rate) {
-    const int fps_wanted = std::max(kMinFramerateFps, max_frame_rate);
-    return fps_wanted < rtc::dchecked_cast<int>(
-                            source_restrictions_.max_frame_rate().value_or(
-                                std::numeric_limits<int>::max()));
-  }
-  void DecreaseFrameRateTo(int max_frame_rate) {
-    RTC_DCHECK(CanDecreaseFrameRateTo(max_frame_rate));
-    max_frame_rate = std::max(kMinFramerateFps, max_frame_rate);
-    RTC_LOG(LS_INFO) << "Scaling down framerate: " << max_frame_rate;
-    source_restrictions_.set_max_frame_rate(
-        max_frame_rate != std::numeric_limits<int>::max()
-            ? absl::optional<double>(max_frame_rate)
-            : absl::nullopt);
-  }
-
-  bool CanIncreaseFrameRateTo(int max_frame_rate) {
-    return max_frame_rate > rtc::dchecked_cast<int>(
-                                source_restrictions_.max_frame_rate().value_or(
-                                    std::numeric_limits<int>::max()));
-  }
-  void IncreaseFrameRateTo(int max_frame_rate) {
-    RTC_DCHECK(CanIncreaseFrameRateTo(max_frame_rate));
-    RTC_LOG(LS_INFO) << "Scaling up framerate: " << max_frame_rate;
-    source_restrictions_.set_max_frame_rate(
-        max_frame_rate != std::numeric_limits<int>::max()
-            ? absl::optional<double>(max_frame_rate)
-            : absl::nullopt);
-  }
-
- private:
-  static int GetIncreasedMaxPixelsWanted(int target_pixels) {
-    if (target_pixels == std::numeric_limits<int>::max())
-      return std::numeric_limits<int>::max();
-    // When we decrease resolution, we go down to at most 3/5 of current pixels.
-    // Thus to increase resolution, we need 3/5 to get back to where we started.
-    // When going up, the desired max_pixels_per_frame() has to be significantly
-    // higher than the target because the source's native resolutions might not
-    // match the target. We pick 12/5 of the target.
-    //
-    // (This value was historically 4 times the old target, which is (3/5)*4 of
-    // the new target - or 12/5 - assuming the target is adjusted according to
-    // the above steps.)
-    RTC_DCHECK(target_pixels != std::numeric_limits<int>::max());
-    return (target_pixels * 12) / 5;
-  }
-
-  VideoSourceRestrictions source_restrictions_;
-
-  RTC_DISALLOW_COPY_AND_ASSIGN(VideoSourceRestrictor);
-};
 
 class OveruseFrameDetectorResourceAdaptationModule::AdaptCounter final {
  public:
@@ -405,7 +261,7 @@ OveruseFrameDetectorResourceAdaptationModule::
       adapt_counters_(),
       balanced_settings_(),
       last_adaptation_request_(absl::nullopt),
-      source_restrictor_(std::make_unique<VideoSourceRestrictor>()),
+      stream_adaptor_(std::make_unique<VideoStreamAdaptor>()),
       encode_usage_resource_(
           std::make_unique<EncodeUsageResource>(std::move(overuse_detector))),
       quality_scaler_resource_(std::make_unique<QualityScalerResource>()),
@@ -490,7 +346,7 @@ void OveruseFrameDetectorResourceAdaptationModule::SetDegradationPreference(
         degradation_preference_ == DegradationPreference::BALANCED) {
       // TODO(asapersson): Consider removing |adapt_counters_| map and use one
       // AdaptCounter for all modes.
-      source_restrictor_->ClearRestrictions();
+      stream_adaptor_->ClearRestrictions();
       ClearAdaptCounters();
     }
   }
@@ -532,7 +388,7 @@ void OveruseFrameDetectorResourceAdaptationModule::SetEncoderRates(
 void OveruseFrameDetectorResourceAdaptationModule::
     ResetVideoSourceRestrictions() {
   last_adaptation_request_.reset();
-  source_restrictor_->ClearRestrictions();
+  stream_adaptor_->ClearRestrictions();
   ClearAdaptCounters();
   MaybeUpdateVideoSourceRestrictions();
 }
@@ -720,7 +576,7 @@ OveruseFrameDetectorResourceAdaptationModule::GetAdaptUpTarget(
       // Attempt to increase target frame rate.
       int target_fps =
           balanced_settings_.MaxFps(GetVideoCodecTypeOrGeneric(), input_pixels);
-      if (source_restrictor_->CanIncreaseFrameRateTo(target_fps)) {
+      if (stream_adaptor_->CanIncreaseFrameRateTo(target_fps)) {
         return AdaptationTarget(AdaptationAction::kIncreaseFrameRate,
                                 target_fps);
       }
@@ -750,8 +606,8 @@ OveruseFrameDetectorResourceAdaptationModule::GetAdaptUpTarget(
         target_pixels = std::numeric_limits<int>::max();
       }
       target_pixels =
-          VideoSourceRestrictor::GetHigherResolutionThan(target_pixels);
-      if (!source_restrictor_->CanIncreaseResolutionTo(target_pixels))
+          VideoStreamAdaptor::GetHigherResolutionThan(target_pixels);
+      if (!stream_adaptor_->CanIncreaseResolutionTo(target_pixels))
         return absl::nullopt;
       return AdaptationTarget(AdaptationAction::kIncreaseResolution,
                               target_pixels);
@@ -763,8 +619,8 @@ OveruseFrameDetectorResourceAdaptationModule::GetAdaptUpTarget(
         RTC_LOG(LS_INFO) << "Removing framerate down-scaling setting.";
         target_fps = std::numeric_limits<int>::max();
       }
-      target_fps = VideoSourceRestrictor::GetHigherFrameRateThan(target_fps);
-      if (!source_restrictor_->CanIncreaseFrameRateTo(target_fps))
+      target_fps = VideoStreamAdaptor::GetHigherFrameRateThan(target_fps);
+      if (!stream_adaptor_->CanIncreaseFrameRateTo(target_fps))
         return absl::nullopt;
       return AdaptationTarget(AdaptationAction::kIncreaseFrameRate, target_fps);
     }
@@ -798,8 +654,8 @@ OveruseFrameDetectorResourceAdaptationModule::GetAdaptDownTarget(
       DegradationPreference::MAINTAIN_RESOLUTION) {
     // TODO(hbos): This usage of |last_adaptation_was_down| looks like a mistake
     // - delete it.
-    if (input_fps <= 0 ||
-        (last_adaptation_was_down && input_fps < kMinFramerateFps)) {
+    if (input_fps <= 0 || (last_adaptation_was_down &&
+                           input_fps < VideoStreamAdaptor::kMinFramerateFps)) {
       return absl::nullopt;
     }
   }
@@ -818,7 +674,7 @@ OveruseFrameDetectorResourceAdaptationModule::GetAdaptDownTarget(
       // Try scale down framerate, if lower.
       int target_fps =
           balanced_settings_.MinFps(GetVideoCodecTypeOrGeneric(), input_pixels);
-      if (source_restrictor_->CanDecreaseFrameRateTo(target_fps)) {
+      if (stream_adaptor_->CanDecreaseFrameRateTo(target_fps)) {
         return AdaptationTarget(AdaptationAction::kDecreaseFrameRate,
                                 target_fps);
       }
@@ -828,22 +684,22 @@ OveruseFrameDetectorResourceAdaptationModule::GetAdaptDownTarget(
     case DegradationPreference::MAINTAIN_FRAMERATE: {
       // Scale down resolution.
       int target_pixels =
-          VideoSourceRestrictor::GetLowerResolutionThan(input_pixels);
+          VideoStreamAdaptor::GetLowerResolutionThan(input_pixels);
       // TODO(https://crbug.com/webrtc/11222): Move this logic to
       // ApplyAdaptationTarget() or elsewhere - simply checking which adaptation
       // target is available should not have side-effects.
       if (target_pixels < min_pixels_per_frame)
         encoder_stats_observer_->OnMinPixelLimitReached();
-      if (!source_restrictor_->CanDecreaseResolutionTo(target_pixels,
-                                                       min_pixels_per_frame)) {
+      if (!stream_adaptor_->CanDecreaseResolutionTo(target_pixels,
+                                                    min_pixels_per_frame)) {
         return absl::nullopt;
       }
       return AdaptationTarget(AdaptationAction::kDecreaseResolution,
                               target_pixels);
     }
     case DegradationPreference::MAINTAIN_RESOLUTION: {
-      int target_fps = VideoSourceRestrictor::GetLowerFrameRateThan(input_fps);
-      if (!source_restrictor_->CanDecreaseFrameRateTo(target_fps))
+      int target_fps = VideoStreamAdaptor::GetLowerFrameRateThan(input_fps);
+      if (!stream_adaptor_->CanDecreaseFrameRateTo(target_fps))
         return absl::nullopt;
       return AdaptationTarget(AdaptationAction::kDecreaseFrameRate, target_fps);
     }
@@ -859,16 +715,15 @@ void OveruseFrameDetectorResourceAdaptationModule::ApplyAdaptationTarget(
     AdaptationObserverInterface::AdaptReason reason) {
   switch (target.action) {
     case AdaptationAction::kIncreaseResolution:
-      source_restrictor_->IncreaseResolutionTo(target.value);
+      stream_adaptor_->IncreaseResolutionTo(target.value);
       GetAdaptCounter().DecrementResolution(reason);
       return;
     case AdaptationAction::kDecreaseResolution:
-      source_restrictor_->DecreaseResolutionTo(target.value,
-                                               min_pixels_per_frame);
+      stream_adaptor_->DecreaseResolutionTo(target.value, min_pixels_per_frame);
       GetAdaptCounter().IncrementResolution(reason);
       return;
     case AdaptationAction::kIncreaseFrameRate:
-      source_restrictor_->IncreaseFrameRateTo(target.value);
+      stream_adaptor_->IncreaseFrameRateTo(target.value);
       GetAdaptCounter().DecrementFramerate(reason, target.value);
       // TODO(https://crbug.com/webrtc/11222): Don't adapt in two steps.
       // GetAdaptUpTarget() should tell us the correct value, but BALANCED logic
@@ -878,12 +733,11 @@ void OveruseFrameDetectorResourceAdaptationModule::ApplyAdaptationTarget(
           GetConstAdaptCounter().FramerateCount() == 0 &&
           target.value != std::numeric_limits<int>::max()) {
         RTC_LOG(LS_INFO) << "Removing framerate down-scaling setting.";
-        source_restrictor_->IncreaseFrameRateTo(
-            std::numeric_limits<int>::max());
+        stream_adaptor_->IncreaseFrameRateTo(std::numeric_limits<int>::max());
       }
       return;
     case AdaptationAction::kDecreaseFrameRate:
-      source_restrictor_->DecreaseFrameRateTo(target.value);
+      stream_adaptor_->DecreaseFrameRateTo(target.value);
       GetAdaptCounter().IncrementFramerate(reason);
       return;
   }
@@ -1003,7 +857,7 @@ int OveruseFrameDetectorResourceAdaptationModule::MinPixelsPerFrame() const {
 void OveruseFrameDetectorResourceAdaptationModule::
     MaybeUpdateVideoSourceRestrictions() {
   VideoSourceRestrictions new_restrictions = ApplyDegradationPreference(
-      source_restrictor_->source_restrictions(), degradation_preference_);
+      stream_adaptor_->source_restrictions(), degradation_preference_);
   if (video_source_restrictions_ != new_restrictions) {
     video_source_restrictions_ = std::move(new_restrictions);
     adaptation_listener_->OnVideoSourceRestrictionsUpdated(
@@ -1024,7 +878,7 @@ void OveruseFrameDetectorResourceAdaptationModule::
   // module. This is used to make sure overuse detection doesn't needlessly
   // trigger in low and/or variable framerate scenarios.
   absl::optional<double> target_frame_rate =
-      ApplyDegradationPreference(source_restrictor_->source_restrictions(),
+      ApplyDegradationPreference(stream_adaptor_->source_restrictions(),
                                  degradation_preference_)
           .max_frame_rate();
   if (!target_frame_rate.has_value() ||
@@ -1126,7 +980,7 @@ bool OveruseFrameDetectorResourceAdaptationModule::CanAdaptUpResolution(
       encoder_settings_.has_value()
           ? GetEncoderBitrateLimits(
                 encoder_settings_->encoder_info(),
-                VideoSourceRestrictor::GetHigherResolutionThan(pixels))
+                VideoStreamAdaptor::GetHigherResolutionThan(pixels))
           : absl::nullopt;
   if (!bitrate_limits.has_value() || bitrate_bps == 0) {
     return true;  // No limit configured or bitrate provided.

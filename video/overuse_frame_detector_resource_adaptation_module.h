@@ -31,6 +31,7 @@
 #include "rtc_base/experiments/quality_rampup_experiment.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "system_wrappers/include/clock.h"
+#include "video/adaptation/video_stream_adaptor.h"
 #include "video/encode_usage_resource.h"
 #include "video/overuse_frame_detector.h"
 #include "video/quality_scaler_resource.h"
@@ -49,10 +50,8 @@ class VideoStreamEncoder;
 // TODO(hbos): Add unittests specific to this class, it is currently only tested
 // indirectly in video_stream_encoder_unittest.cc and other tests exercising
 // VideoStreamEncoder.
-// TODO(hbos): Create and implement an abstract interface
-// ResourceAdaptationModuleInterface and make this class inherit it. Use the
-// generic interface in VideoStreamEncoder, unblocking other modules from being
-// implemented and used.
+// TODO(https://crbug.com/webrtc/11222): Rename this class to something more
+// appropriate and move it to the video/adaptation/ subdirectory.
 class OveruseFrameDetectorResourceAdaptationModule
     : public ResourceAdaptationModuleInterface,
       public ResourceListener {
@@ -115,7 +114,6 @@ class OveruseFrameDetectorResourceAdaptationModule
       const Resource& resource) override;
 
  private:
-  class VideoSourceRestrictor;
   class AdaptCounter;
   class InitialFrameDropper;
 
@@ -226,7 +224,7 @@ class OveruseFrameDetectorResourceAdaptationModule
   // or AdaptDown signal.
   absl::optional<AdaptationRequest> last_adaptation_request_;
   // Keeps track of source restrictions that this adaptation module outputs.
-  const std::unique_ptr<VideoSourceRestrictor> source_restrictor_;
+  const std::unique_ptr<VideoStreamAdaptor> stream_adaptor_;
   const std::unique_ptr<EncodeUsageResource> encode_usage_resource_;
   const std::unique_ptr<QualityScalerResource> quality_scaler_resource_;
   const std::unique_ptr<InitialFrameDropper> initial_frame_dropper_;

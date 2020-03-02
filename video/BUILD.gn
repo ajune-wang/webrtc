@@ -237,6 +237,7 @@ rtc_library("video_stream_encoder_impl") {
     "../rtc_base/task_utils:repeating_task",
     "../system_wrappers",
     "../system_wrappers:field_trial",
+    "adaptation:video_adaptation",
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",
     "//third_party/abseil-cpp/absl/types:optional",

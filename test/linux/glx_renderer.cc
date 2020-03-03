@@ -57,7 +57,8 @@ bool GlxRenderer::Init(const char* window_title) {
   window_attributes.colormap = XCreateColormap(
       display_, RootWindow(display_, vi->screen), vi->visual, AllocNone);
   window_attributes.border_pixel = 0;
-  window_attributes.event_mask = StructureNotifyMask | ExposureMask;
+  window_attributes.event_mask =
+      KeyPressMask | StructureNotifyMask | ExposureMask;
   window_ = XCreateWindow(display_, RootWindow(display_, vi->screen), 0, 0,
                           width_, height_, 0, vi->depth, InputOutput,
                           vi->visual, CWBorderPixel | CWColormap | CWEventMask,
@@ -153,12 +154,21 @@ void GlxRenderer::OnFrame(const webrtc::VideoFrame& frame) {
   if (!glXMakeCurrent(display_, window_, context_)) {
     abort();
   }
+  KeySym sym;
   while (XPending(display_)) {
     XNextEvent(display_, &event);
     switch (event.type) {
       case ConfigureNotify:
         GlRenderer::ResizeViewport(event.xconfigure.width,
                                    event.xconfigure.height);
+        break;
+      case KeyPress:
+        sym = XLookupKeysym(&event.xkey, 0);
+        if (sym == XK_Up) {
+          OnArrowUp();
+        } else if (sym == XK_Down) {
+          OnArrowDown();
+        }
         break;
       default:
         break;

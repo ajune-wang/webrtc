@@ -74,6 +74,30 @@ constexpr int kDefaultMaxQp = cricket::WebRtcVideoChannel::kDefaultQpMax;
 
 const VideoEncoder::Capabilities kCapabilities(false);
 
+class FakeCpuResource : public Resource,
+                        public test::ForceOveruseListener {
+ public:
+   FakeCpuResource(rtc::TaskQueue* encoder_queue) : encoder_queue_(
+       encoder_queue) {}
+  virtual  ~FakeCpuResource() = default;
+
+   std::string name() const override {
+    return "up-down-key-cpu-resource";
+  }
+   void OnKeyUp() override {
+     encoder_queue_->PostTask([this]() {
+       OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+     });
+   }
+   void OnKeyDown() override {
+     encoder_queue_->PostTask([this]() {
+       OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+     });
+   }
+  private:
+   rtc::TaskQueue* const encoder_queue_;
+ };
+
 std::pair<uint32_t, uint32_t> GetMinMaxBitratesBps(const VideoCodec& codec,
                                                    size_t spatial_idx) {
   uint32_t min_bitrate = codec.minBitrate;
@@ -525,7 +549,10 @@ void VideoQualityTest::CheckParamsAndInjectionComponents() {
                  params_.video[video_idx].target_bitrate_bps);
     RTC_CHECK_GE(params_.video[video_idx].target_bitrate_bps,
                  params_.video[video_idx].min_bitrate_bps);
-    int selected_stream = params_.ss[video_idx].selected_stream;
+    size_t selected_stream = params_.ss[video_idx].selected_stream;
+    if (selected_stream == params_.ss[video_idx].streams.size()) {
+      selected_stream = 0;
+    }
     int stream_tl = params_.ss[video_idx]
                         .streams[selected_stream]
                         .num_temporal_layers.value_or(1);
@@ -848,6 +875,7 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
         params_.call.send_side_bwe, &video_decoder_factory_, decode_sub_stream,
         true, kNackRtpHistoryMs);
 
+    degradation_preference_ = DegradationPreference::BALANCED;
     if (params_.screenshare[video_idx].enabled) {
       // Fill out codec settings.
       video_encoder_configs_[video_idx].content_type =
@@ -1450,6 +1478,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
   std::unique_ptr<test::DirectTransport> recv_transport;
   std::unique_ptr<test::VideoRenderer> local_preview;
   std::vector<std::unique_ptr<test::VideoRenderer>> loopback_renderers;
+  std::unique_ptr<FakeCpuResource> fake_cpu_resource;
 
   if (!params.logging.rtc_event_log_name.empty()) {
     send_event_log_ = rtc_event_log_factory_.CreateRtcEventLog(
@@ -1542,6 +1571,13 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
       }
       CreateFlexfecStreams();
       CreateVideoStreams();
+      // HACK only works with one send stream!
+      fake_cpu_resource = std::make_unique<FakeCpuResource>(
+          video_send_streams_[0]->encoder_queue());
+      video_send_streams_[0]->AddCpuResource(fake_cpu_resource.get());
+      for (auto& view : loopback_renderers) {
+        view->AttachOveruseListener(fake_cpu_resource.get());
+      }
 
       CreateCapturers();
       if (params_.video[0].enabled) {
@@ -1551,6 +1587,7 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
 
         video_sources_[0]->AddOrUpdateSink(local_preview.get(),
                                            rtc::VideoSinkWants());
+        local_preview->AttachOveruseListener(fake_cpu_resource.get());
       }
       ConnectVideoSourcesToStreams();
     }

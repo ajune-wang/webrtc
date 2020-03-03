@@ -18,6 +18,15 @@ namespace webrtc {
 class VideoFrame;
 
 namespace test {
+
+class ForceOveruseListener {
+ public:
+  ForceOveruseListener() = default;
+  virtual ~ForceOveruseListener() = default;
+  virtual void OnKeyUp() = 0;
+  virtual void OnKeyDown() = 0;
+};
+
 class VideoRenderer : public rtc::VideoSinkInterface<VideoFrame> {
  public:
   // Creates a platform-specific renderer if possible, or a null implementation
@@ -33,10 +42,28 @@ class VideoRenderer : public rtc::VideoSinkInterface<VideoFrame> {
   static VideoRenderer* CreatePlatformRenderer(const char* window_title,
                                                size_t width,
                                                size_t height);
+
+  void AttachOveruseListener(ForceOveruseListener* overuse_listener) {
+    overuse_listener_ = overuse_listener;
+  }
+
   virtual ~VideoRenderer() {}
 
  protected:
   VideoRenderer() {}
+
+  void OnArrowUp() {
+    if (overuse_listener_)
+      overuse_listener_->OnKeyUp();
+  }
+
+  void OnArrowDown() {
+    if (overuse_listener_)
+      overuse_listener_->OnKeyDown();
+  }
+
+ private:
+  ForceOveruseListener* overuse_listener_ = nullptr;
 };
 }  // namespace test
 }  // namespace webrtc

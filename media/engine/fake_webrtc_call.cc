@@ -314,6 +314,9 @@ void FakeVideoSendStream::InjectVideoSinkWants(
   sink_wants_ = wants;
   source_->AddOrUpdateSink(this, wants);
 }
+void FakeVideoSendStream::AddCpuResource(webrtc::Resource* resource) {
+
+}
 
 FakeVideoReceiveStream::FakeVideoReceiveStream(
     webrtc::VideoReceiveStream::Config config)

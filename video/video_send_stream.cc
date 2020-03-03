@@ -228,5 +228,12 @@ void VideoSendStream::DeliverRtcp(const uint8_t* packet, size_t length) {
   send_stream_->DeliverRtcp(packet, length);
 }
 
+void VideoSendStream::AddCpuResource(Resource* resource) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  worker_queue_->PostTask([this, resource]() {
+    video_stream_encoder_->AddCpuResource(resource);
+  });
+}
+
 }  // namespace internal
 }  // namespace webrtc

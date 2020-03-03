@@ -84,6 +84,10 @@ class VideoSendStream : public webrtc::VideoSendStream {
 
   void ReconfigureVideoEncoder(VideoEncoderConfig) override;
   Stats GetStats() override;
+  rtc::TaskQueue* encoder_queue() override {
+    return video_stream_encoder_->encoder_queue();
+  }
+  void AddCpuResource(Resource* resource) override;
 
   void StopPermanentlyAndGetRtpStates(RtpStateMap* rtp_state_map,
                                       RtpPayloadStateMap* payload_state_map);

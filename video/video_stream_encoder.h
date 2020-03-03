@@ -113,10 +113,22 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   DataRate UpdateTargetBitrate(DataRate target_bitrate,
                                double cwnd_reduce_ratio);
 
+  // HACK!
+  rtc::TaskQueue* encoder_queue() override {
+    return &encoder_queue_;
+  }
+
+  void AddCpuResource(Resource* resource) override {
+    encoder_queue_.PostTask([this, resource]() {
+      RTC_DCHECK_RUN_ON(&encoder_queue_);
+      InjectAdaptationResource(resource, AdaptationObserverInterface::AdaptReason::kCpu);
+    });
+  }
+
  protected:
   // Used for testing. For example the |ScalingObserverInterface| methods must
   // be called on |encoder_queue_|.
-  rtc::TaskQueue* encoder_queue() { return &encoder_queue_; }
+//  rtc::TaskQueue* encoder_queue() { return &encoder_queue_; }
 
   void OnVideoSourceRestrictionsUpdated(
       VideoSourceRestrictions restrictions) override;

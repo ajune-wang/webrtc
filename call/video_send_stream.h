@@ -29,10 +29,12 @@
 #include "api/video/video_stream_encoder_settings.h"
 #include "api/video_codecs/video_encoder_config.h"
 #include "call/rtp_config.h"
+#include "call/adaptation/resource.h"
 #include "common_video/include/quality_limitation_reason.h"
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtcp_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 
@@ -199,6 +201,9 @@ class VideoSendStream {
   virtual void ReconfigureVideoEncoder(VideoEncoderConfig config) = 0;
 
   virtual Stats GetStats() = 0;
+
+  virtual rtc::TaskQueue* encoder_queue() { return nullptr; }
+  virtual void AddCpuResource(Resource* resource) = 0;
 
  protected:
   virtual ~VideoSendStream() {}

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3332449a_4b68d632",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-03T09:25:49Z",
+      "side": 1,
+      "message": "Document here that we check the pre-existing who-sends-to-who graph for any path from target to source. And that this loop is guaranteed to terminate because per the invariant, there are no cycles in the graph.",
+      "revId": "b21293488c5cc2b1a3dc4d2ef4e131ad69c0a97c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ee23879_559d5ef2",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-03T09:25:49Z",
+      "side": 1,
+      "message": "Comment here that since there was no path from target to source, we may now insert source -\u003e target without creating a cycle.",
+      "revId": "b21293488c5cc2b1a3dc4d2ef4e131ad69c0a97c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a776f92e_1c09c4db",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-03T09:25:49Z",
+      "side": 1,
+      "message": "Document invariant: This graph has no cycles.",
+      "revId": "b21293488c5cc2b1a3dc4d2ef4e131ad69c0a97c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

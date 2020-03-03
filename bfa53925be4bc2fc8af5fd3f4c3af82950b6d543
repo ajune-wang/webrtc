@@ -311,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "971b8168_2112fe16",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "will do. thanks.",
+      "parentUuid": "445d22e4_8df8e9ec",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b46bff4_be890ec9",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -362,6 +380,54 @@
       "writtenOn": "2020-03-02T19:28:33Z",
       "side": 1,
       "message": "It looks like a lot of this is based on channel send? It would be nice with an explanation of how these relate in the class documentation. Would it be possible to share parts of the code to avoid having to maintain duplicate functionality?",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a115913b_1aa5a8f1",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "I am planning to have AudioChannel inherit this as to avoid the need to add accessors for each AudioEgress/Ingress API.  Hope the comment helps in the link.\n\nhttps://webrtc-review.googlesource.com/c/src/+/169023/2/audio/voip/audio_channel.h",
+      "parentUuid": "2419392e_f3fa0fb3",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ecaed84_925beff6",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "Yes, originally we considered refactoring so that we don\u0027t need to deal with duplicate codes but as I was working closely to remove all unwanted to logic and examine the use case, it became clear that it would be better to keep this separate. I have put some comment around https://webrtc-review.googlesource.com/c/src/+/169023/2/audio/voip/audio_channel.h but I will try to add more comment around the relationship here as well.",
+      "parentUuid": "35d88810_cf949c43",
       "range": {
         "startLine": 31,
         "startChar": 6,
@@ -445,6 +511,30 @@
     },
     {
       "key": {
+        "uuid": "d7b37647_c7c36521",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "ok thanks.  I will go with scoped_refprt.  The issue is with AudioChannel inheriting both AudioIngress and AudioEgress and they all share one instance of RTP stack.  As virtual destruction sequence will remove in sequence of AudioChannel -\u003e AudioEgress -\u003e AudioIngress, AudioChannel no longer couldn\u0027t manage the scope of rtp stack anymore.  I could have AudioIngress holds the unique_ptr\u003cRtpRtcp\u003e but rather thought it would be ideal to use shared ptr to handle this to avoid future confusion.",
+      "parentUuid": "b41c8408_14361021",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e8d700d_2df22e46",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -462,6 +552,24 @@
     },
     {
       "key": {
+        "uuid": "24649774_ff11cd0a",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "Yes, that\u0027s the plan as shown here https://webrtc-review.googlesource.com/c/src/+/169023/2/audio/voip/audio_channel.h.\n\nThe main reason is to avoid providing additional accessor API in audio channel for this.",
+      "parentUuid": "8e8d700d_2df22e46",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0719783a_f0c90ec1",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -473,6 +581,24 @@
       "writtenOn": "2020-03-01T21:10:53Z",
       "side": 1,
       "message": "Consider `IsSending`, `SetMuted`.",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11b24f19_1cd87efa",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "Will do thanks.",
+      "parentUuid": "0719783a_f0c90ec1",
       "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -525,6 +651,54 @@
     },
     {
       "key": {
+        "uuid": "e9b4350f_b004986c",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "yea they are.",
+      "parentUuid": "26395755_974830f6",
+      "range": {
+        "startLine": 54,
+        "startChar": 38,
+        "endLine": 54,
+        "endChar": 50
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7889dc87_786b2e92",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "It\u0027s the sampling rate so yes in hz.  \n\nhttps://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/audio/channel_send.cc?rcl\u003d291705042\u0026l\u003d114",
+      "parentUuid": "6995dec7_635171ce",
+      "range": {
+        "startLine": 54,
+        "startChar": 56,
+        "endLine": 54,
+        "endChar": 73
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "912f801f_f4f0dc4c",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -548,6 +722,30 @@
     },
     {
       "key": {
+        "uuid": "f8fcf47f_5ca15e5c",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "I will add some more detail comment on DTMF usage.",
+      "parentUuid": "912f801f_f4f0dc4c",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 61
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa85cabd_752e6b5a",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -559,6 +757,30 @@
       "writtenOn": "2020-03-02T19:28:33Z",
       "side": 1,
       "message": "Why is this private, but the interface is public? Also for method below.",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 6
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1e99391_f32c3652",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "These are inherited method from AudioSender and SendData.  Yes, these will be accessible as public to AudioSender/AudioPacketizationCallback users and we could place this under public section of this class as well but I thought it would be less confusing for AudioEgress user as they are more of internal communication method (meaning actual AudioEgress user shouldn\u0027t be accessing these interfaces directly as they were inherited for the purpose of interacting with other internal class). I hope it makes sense.",
+      "parentUuid": "aa85cabd_752e6b5a",
       "range": {
         "startLine": 61,
         "startChar": 2,
@@ -599,6 +821,30 @@
       "writtenOn": "2020-03-02T19:28:33Z",
       "side": 1,
       "message": "It seems like these don\u0027t change during the lifetime of the object, make the pointers const to indicate this. You can still operate on the pointer target as mutable.",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53d6419_5cb1b6e0",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "Do you mean like this?  std::unique_ptr\u003cconst RTPSenderAudio\u003e",
+      "parentUuid": "fcdded85_2dc5212b",
       "range": {
         "startLine": 72,
         "startChar": 1,
@@ -703,6 +949,30 @@
     },
     {
       "key": {
+        "uuid": "0b2ed21b_707488c2",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "It\u0027s same comment from channel_send.  I will put it the last.",
+      "parentUuid": "acf6c76b_61f0a3b0",
+      "range": {
+        "startLine": 83,
+        "startChar": 5,
+        "endLine": 83,
+        "endChar": 17
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf11b799_10c6f219",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -714,6 +984,30 @@
       "writtenOn": "2020-03-02T19:28:33Z",
       "side": 1,
       "message": "I suggest using absl::optional\u003cint\u003e so you can indicate unset value in a more explicit way.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 5
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06a30fd8_ff0d51f6",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "agree.",
+      "parentUuid": "cf11b799_10c6f219",
       "range": {
         "startLine": 87,
         "startChar": 2,
@@ -743,6 +1037,24 @@
     },
     {
       "key": {
+        "uuid": "c1c62a30_c5f8c0bc",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "agree.",
+      "parentUuid": "e6e49c63_b15a0dfd",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4dc8cd00_702c40ce",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -754,6 +1066,30 @@
       "writtenOn": "2020-03-02T19:28:33Z",
       "side": 1,
       "message": "It\u0027s quite unfortunate if we need to access internals to be able to test the code, this might indicate that the tests are testing the implementation rather than the functionality.\n\nSee https://abseil.io/tips/135 for more info on this",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 32
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd2755fa_23d7cb18",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-03T01:32:33Z",
+      "side": 1,
+      "message": "This is mainly due to placing inherited public APIs into private.  Let me see if I can use upcast to remove these usage.",
+      "parentUuid": "4dc8cd00_702c40ce",
       "range": {
         "startLine": 90,
         "startChar": 0,

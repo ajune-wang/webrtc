@@ -49,30 +49,26 @@ GenericFrameInfo::~GenericFrameInfo() = default;
 GenericFrameInfo::Builder::Builder() = default;
 GenericFrameInfo::Builder::~Builder() = default;
 
-GenericFrameInfo GenericFrameInfo::Builder::Build() const {
-  return info_;
-}
 
 GenericFrameInfo::Builder& GenericFrameInfo::Builder::T(int temporal_id) {
-  info_.temporal_id = temporal_id;
+  this->temporal_id = temporal_id;
   return *this;
 }
 
 GenericFrameInfo::Builder& GenericFrameInfo::Builder::S(int spatial_id) {
-  info_.spatial_id = spatial_id;
+  this->spatial_id = spatial_id;
   return *this;
 }
 
 GenericFrameInfo::Builder& GenericFrameInfo::Builder::Dtis(
     absl::string_view indication_symbols) {
-  info_.decode_target_indications = DecodeTargetInfo(indication_symbols);
+  this->decode_target_indications = DecodeTargetInfo(indication_symbols);
   return *this;
 }
 
 GenericFrameInfo::Builder& GenericFrameInfo::Builder::Fdiffs(
     std::initializer_list<int> frame_diffs) {
-  info_.frame_diffs.insert(info_.frame_diffs.end(), frame_diffs.begin(),
-                           frame_diffs.end());
+  this->frame_diffs.assign(frame_diffs.begin(), frame_diffs.end());
   return *this;
 }
 

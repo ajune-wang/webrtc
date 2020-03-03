@@ -469,6 +469,7 @@ rtc_library("webrtc_vp8_temporal_layers") {
     "../..:webrtc_common",
     "../../api:fec_controller_api",
     "../../api/video_codecs:video_codecs_api",
+    "../../common_video/generic_frame_descriptor",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:rtc_numerics",

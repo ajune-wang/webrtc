@@ -42,21 +42,39 @@ struct GenericFrameInfo : public FrameDependencyTemplate {
 
   int64_t frame_id = 0;
   absl::InlinedVector<CodecBufferUsage, kMaxEncoderBuffers> encoder_buffers;
+  bool freeze_entropy = false;
 };
 
-class GenericFrameInfo::Builder {
+class GenericFrameInfo::Builder : public GenericFrameInfo {
  public:
   Builder();
   ~Builder();
 
-  GenericFrameInfo Build() const;
+  GenericFrameInfo Build() const { return *this; }
   Builder& T(int temporal_id);
   Builder& S(int spatial_id);
   Builder& Dtis(absl::string_view indication_symbols);
   Builder& Fdiffs(std::initializer_list<int> frame_diffs);
-
- private:
-  GenericFrameInfo info_;
+  // Buffer setters
+  Builder& ReferenceAndUpdate(int buffer_id) {
+    encoder_buffers.emplace_back(buffer_id, /*referenced=*/true,
+                                 /*updated=*/true);
+    return *this;
+  }
+  Builder& Reference(int buffer_id) {
+    encoder_buffers.emplace_back(buffer_id, /*referenced=*/true,
+                                 /*updated=*/false);
+    return *this;
+  }
+  Builder& Update(int buffer_id) {
+    encoder_buffers.emplace_back(buffer_id, /*referenced=*/false,
+                                 /*updated=*/true);
+    return *this;
+  }
+  Builder& FreezeEntropy() {
+    freeze_entropy = true;
+    return *this;
+  }
 };
 
 }  // namespace webrtc

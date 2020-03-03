@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "44b5f8a8_3637a779",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1920,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-03T09:56:43Z",
+      "side": 1,
+      "message": "Florent, can we as a first step of rolling balanced degradation on the web, do it in a safer way?\n\nCould you please move this |if| 4 lines above, to the default \u0027BALANCED\u0027 case? So that if the user requested balanced, they will get it always, but default value is controlled by the trial.\n\nThe problem with the current set-up is that we can\u0027t experiment in the controlled environment. Everyone with no set defaults will get the BALANCED, once we roll the experiment. \n\nSetting degradation from the client doesn\u0027t make a lot of sense, because with no field trial it will have no effect, but if the trial is there, there\u0027s no need to set the degradation manually in the first place (for default case).\n\nIf you leave this field trial to control only the default value, we could roll the experiment from the front-end.",
+      "range": {
+        "startLine": 1920,
+        "startChar": 2,
+        "endLine": 1920,
+        "endChar": 4
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35eb91bb_b5df8247",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 6
@@ -107,6 +130,30 @@
       "side": 1,
       "message": "I don\u0027t follow this. Why do we switch to MAINTAIN_FRAMERATE if the preferred degradation is BALANCED and the BalancedDegradation field trial is on? Definitely needs a comment, if it is at all the right thing to do.",
       "parentUuid": "f8c396a4_50ff759c",
+      "range": {
+        "startLine": 1922,
+        "startChar": 27,
+        "endLine": 1922,
+        "endChar": 28
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0a9d0c7_1e27b873",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-03T09:56:43Z",
+      "side": 1,
+      "message": "It\u0027s !IsEnabled() there. We switch to MAINTAIN_FRAMERATE if the experiment is not on.",
+      "parentUuid": "b272f763_a63127c5",
       "range": {
         "startLine": 1922,
         "startChar": 27,

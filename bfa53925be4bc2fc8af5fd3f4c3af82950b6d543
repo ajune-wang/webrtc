@@ -535,6 +535,30 @@
     },
     {
       "key": {
+        "uuid": "b4698eff_ea2cb207",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-03T08:26:42Z",
+      "side": 1,
+      "message": "I see, my suggestion to solve this is that you use composition, make rtprtcp, egress, ingress members of AudioChannel. this has other readability benefits as well, but will solve the destruction order problem and make it much easier for the reader to understand where rtprtcp is destroyed.",
+      "parentUuid": "d7b37647_c7c36521",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e8d700d_2df22e46",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -699,6 +723,54 @@
     },
     {
       "key": {
+        "uuid": "cd9d869d_23756222",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-03T08:26:42Z",
+      "side": 1,
+      "message": "Then I suggest sample_rate_hz as the parameter name.",
+      "parentUuid": "7889dc87_786b2e92",
+      "range": {
+        "startLine": 54,
+        "startChar": 56,
+        "endLine": 54,
+        "endChar": 73
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21aad8ac_1c9e1990",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-03T08:26:42Z",
+      "side": 1,
+      "message": "Then I suggest rtp_payload_type for clarity.",
+      "parentUuid": "e9b4350f_b004986c",
+      "range": {
+        "startLine": 54,
+        "startChar": 38,
+        "endLine": 54,
+        "endChar": 50
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "912f801f_f4f0dc4c",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -793,6 +865,30 @@
     },
     {
       "key": {
+        "uuid": "e3aaf83b_982c2455",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-03T08:26:42Z",
+      "side": 1,
+      "message": "As long as the inheritance is kept public I think it\u0027s appropriate to keep these public as well. An alternative would be to have a GetAudioSender() method that returns an upcasted this (but allow changing the implementation in the future) and use private inheritance.",
+      "parentUuid": "e1e99391_f32c3652",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 6
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f04d259_b0785808",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 1
@@ -845,6 +941,30 @@
       "side": 1,
       "message": "Do you mean like this?  std::unique_ptr\u003cconst RTPSenderAudio\u003e",
       "parentUuid": "fcdded85_2dc5212b",
+      "range": {
+        "startLine": 72,
+        "startChar": 1,
+        "endLine": 75,
+        "endChar": 0
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b355e8c1_5a669b7a",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-03T08:26:42Z",
+      "side": 1,
+      "message": "No, that would make the member const, I meant like: const std::unique_ptr\u003cRTPSenderAudio\u003e (and RtpRtcp* const rtp_rtcp_ for raw pointer)",
+      "parentUuid": "a53d6419_5cb1b6e0",
       "range": {
         "startLine": 72,
         "startChar": 1,
@@ -1090,6 +1210,30 @@
       "side": 1,
       "message": "This is mainly due to placing inherited public APIs into private.  Let me see if I can use upcast to remove these usage.",
       "parentUuid": "4dc8cd00_702c40ce",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 32
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81704a88_a65129f8",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-03T08:26:42Z",
+      "side": 1,
+      "message": "I think the value of that information hiding is questionable (it\u0027s still indirectly public anyway), prefer to leave them exposed.",
+      "parentUuid": "dd2755fa_23d7cb18",
       "range": {
         "startLine": 90,
         "startChar": 0,

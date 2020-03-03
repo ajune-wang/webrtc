@@ -104,6 +104,24 @@
     },
     {
       "key": {
+        "uuid": "e06897b3_508823b5",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:56:07Z",
+      "side": 1,
+      "message": "NVM resolved offline",
+      "parentUuid": "50868640_2b289f63",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54995421_a14860c0",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 9
@@ -121,6 +139,24 @@
     },
     {
       "key": {
+        "uuid": "6e0a9157_16ebcab8",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:56:07Z",
+      "side": 1,
+      "message": "NVM resolved offline",
+      "parentUuid": "54995421_a14860c0",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ee531cd_5ed41116",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 9
@@ -132,6 +168,24 @@
       "writtenOn": "2020-03-03T09:41:27Z",
       "side": 1,
       "message": "I love it. I want to discuss and think about the concept of active counts a bit before I LGTM it.\n\nI would like if we could merge the list of counters into a single list of counters, or if we could calculate active counts on the fly based on other counters and not needing to remember a history of counters. But I have a feeling that would break things.",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c7a7a39_ed8e860e",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:56:07Z",
+      "side": 1,
+      "message": "NVM resolved offline",
+      "parentUuid": "8ee531cd_5ed41116",
       "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

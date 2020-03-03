@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "bc4bc9db_b3f417a7",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1920,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-03-03T15:26:13Z",
+      "side": 1,
+      "message": "I agree that it would be preferable to not switch the default at this time. Better to do that later once we know what would be useful good default settings to go with it.",
+      "parentUuid": "44b5f8a8_3637a779",
+      "range": {
+        "startLine": 1920,
+        "startChar": 2,
+        "endLine": 1920,
+        "endChar": 4
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35eb91bb_b5df8247",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 6
@@ -154,6 +178,30 @@
       "side": 1,
       "message": "It\u0027s !IsEnabled() there. We switch to MAINTAIN_FRAMERATE if the experiment is not on.",
       "parentUuid": "b272f763_a63127c5",
+      "range": {
+        "startLine": 1922,
+        "startChar": 27,
+        "endLine": 1922,
+        "endChar": 28
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41ff447f_3f988ee5",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-03-03T15:26:13Z",
+      "side": 1,
+      "message": "Ah, even if the user requests BALANCED. In some way MAINTAIN_FRAMERATE is a special case of BALANCED, so I think that\u0027s fine for now.",
+      "parentUuid": "b0a9d0c7_1e27b873",
       "range": {
         "startLine": 1922,
         "startChar": 27,

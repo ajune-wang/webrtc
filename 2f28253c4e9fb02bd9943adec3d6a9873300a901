@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "425ffa85_7fea6498",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-03T13:12:06Z",
+      "side": 1,
+      "message": "I think we should leave this \"as-is\". In the future I would like the counts to be changed automatically with the restrictions. \n\nIf the restrictions are generative then this counting is free - current_restrictions-\u003enext() has adaptations + 1, and current_restrictions-\u003eprev() has adaptations - 1.",
+      "parentUuid": "fec44d21_92307a5a",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb3b0e18_bc574a13",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 9
@@ -142,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "eebf98cd_0db6a61f",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-03T13:12:06Z",
+      "side": 1,
+      "message": "I have fixed this and added a test.",
+      "parentUuid": "18a0d998_f5853cde",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2da18a36_498e6ecd",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 9
@@ -174,6 +210,24 @@
       "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed757436_f1eb5361",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-03T13:12:06Z",
+      "side": 1,
+      "message": "I have renamed this.",
+      "parentUuid": "45ad38cd_7a9d8099",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

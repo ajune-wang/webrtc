@@ -25,6 +25,7 @@
 #include "absl/types/optional.h"
 #include "api/video_codecs/vp8_frame_config.h"
 #include "api/video_codecs/vp8_temporal_layers.h"
+#include "common_video/generic_frame_descriptor/generic_frame_info.h"
 #include "modules/video_coding/codecs/vp8/include/temporal_layers_checker.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 
@@ -70,27 +71,14 @@ class DefaultTemporalLayers final : public Vp8FrameBufferController {
       const VideoEncoder::LossNotification& loss_notification) override;
 
  private:
-  struct DependencyInfo {
-    DependencyInfo() = default;
-    DependencyInfo(absl::string_view indication_symbols,
-                   Vp8FrameConfig frame_config)
-        : decode_target_indications(
-              GenericFrameInfo::DecodeTargetInfo(indication_symbols)),
-          frame_config(frame_config) {}
-
-    absl::InlinedVector<DecodeTargetIndication, 10> decode_target_indications;
-    Vp8FrameConfig frame_config;
-  };
-
-  static std::vector<DependencyInfo> GetDependencyInfo(size_t num_layers);
+  static std::vector<GenericFrameInfo> GetDependencyInfo(size_t num_layers);
   bool IsSyncFrame(const Vp8FrameConfig& config) const;
   void ValidateReferences(Vp8FrameConfig::BufferFlags* flags,
                           Vp8FrameConfig::Vp8BufferReference ref) const;
   void UpdateSearchOrder(Vp8FrameConfig* config);
 
   const size_t num_layers_;
-  const std::vector<unsigned int> temporal_ids_;
-  const std::vector<DependencyInfo> temporal_pattern_;
+  const std::vector<GenericFrameInfo> temporal_pattern_;
   // Set of buffers that are never updated except by keyframes.
   std::set<Vp8FrameConfig::Vp8BufferReference> kf_buffers_;
   FrameDependencyStructure GetTemplateStructure(int num_layers) const;
@@ -100,10 +88,15 @@ class DefaultTemporalLayers final : public Vp8FrameBufferController {
   absl::optional<std::vector<uint32_t>> new_bitrates_bps_;
 
   struct PendingFrame {
-    PendingFrame();
+    PendingFrame() = default;
     PendingFrame(bool expired,
                  uint8_t updated_buffers_mask,
-                 const DependencyInfo& dependency_info);
+                 rtc::ArrayView<const DecodeTargetIndication> dtis,
+                 const Vp8FrameConfig& frame_config)
+        : expired(expired),
+          updated_buffer_mask(updated_buffers_mask),
+          decode_target_indications(dtis.begin(), dtis.end()),
+          frame_config(frame_config) {}
     // Flag indicating if this frame has expired, ie it belongs to a previous
     // iteration of the temporal pattern.
     bool expired = false;
@@ -111,7 +104,8 @@ class DefaultTemporalLayers final : public Vp8FrameBufferController {
     // updates.
     uint8_t updated_buffer_mask = 0;
     // The frame config returned by NextFrameConfig() for this frame.
-    DependencyInfo dependency_info;
+    absl::InlinedVector<DecodeTargetIndication, 10> decode_target_indications;
+    Vp8FrameConfig frame_config;
   };
   // Map from rtp timestamp to pending frame status. Reset on pattern loop.
   std::map<uint32_t, PendingFrame> pending_frames_;

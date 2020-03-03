@@ -53,6 +53,40 @@
     },
     {
       "key": {
+        "uuid": "eb3b0e18_bc574a13",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T10:04:55Z",
+      "side": 1,
+      "message": "Are we at risk of a DCHECK-failure later on due to taking more than 2 steps unless we do?\n\nactive_counts_.fill(AdaptationCounters());",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2da18a36_498e6ecd",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T10:04:55Z",
+      "side": 1,
+      "message": "Should this be called MaybeUpdateActiveCounts() or something like that? If diffs is 0 it would be a NO-OP. However this would not work if diffs is \u003e 2",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85ce3338_401ff7c4",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 9
@@ -189,6 +223,24 @@
       "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81d62401_db52676e",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T10:04:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c7a7a39_ed8e860e",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

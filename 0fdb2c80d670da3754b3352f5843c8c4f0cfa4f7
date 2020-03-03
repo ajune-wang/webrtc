@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7966805_83ec9fac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-03T10:40:20Z",
+      "side": 1,
+      "message": "webrtc:11398\n\nThe format is \u003cnumber\u003e to refer to chromium bugs (even if we force ourselves to use \u003cchromium:number\u003e to make it more clear.\n\nFor webrtc bugs we need to prefix with webrtc: in order to have the correct link and send updates to the correct bug.",
+      "range": {
+        "startLine": 10,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "0fdb2c80d670da3754b3352f5843c8c4f0cfa4f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

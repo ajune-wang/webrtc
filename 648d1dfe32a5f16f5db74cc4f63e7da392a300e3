@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3788e43b_8678fcbe",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1435,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-03-03T16:20:59Z",
+      "side": 1,
+      "message": "I\u0027ve reintroduced SSE-specific checksums, since the checksums are different on internal tests. Although I\u0027m not entirely convinced that SSE is really responsible for the differences, I also didn\u0027t figure out what the true cause of the differences is, so I propose to just leave it unchanged for now.",
+      "parentUuid": "b902ba52_b7adc77c",
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "026ea908_de6254ec",
         "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bca3143a_b6fdde72",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-03-03T16:20:59Z",
+      "side": 1,
+      "message": "See other reply",
+      "parentUuid": "026ea908_de6254ec",
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c87282d_eba6c91f",
         "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
         "patchSetId": 7
@@ -47,6 +83,30 @@
       "writtenOn": "2020-03-02T16:46:24Z",
       "side": 1,
       "message": "Is this a known change with the new version?",
+      "range": {
+        "startLine": 972,
+        "startChar": 5,
+        "endLine": 972,
+        "endChar": 70
+      },
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "731d6032_b9b10125",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-03-03T16:20:59Z",
+      "side": 1,
+      "message": "The release notes mention changes to the VAD, so I think this was expected to change at least somewhat. Do you think the change to 15 is large enough to look into further?",
+      "parentUuid": "4c87282d_eba6c91f",
       "range": {
         "startLine": 972,
         "startChar": 5,
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "be61210a_d7d7f1d0",
+        "filename": "modules/audio_coding/neteq/audio_decoder_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-03-03T16:20:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6103418a_e565e15c",
+      "range": {
+        "startLine": 604,
+        "startChar": 2,
+        "endLine": 604,
+        "endChar": 7
+      },
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e06706c_7203be51",
         "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
         "patchSetId": 7
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "52e8ebda_acc92a16",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-03-03T16:20:59Z",
+      "side": 1,
+      "message": "See other reply.",
+      "parentUuid": "0e06706c_7203be51",
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "188165a6_c3403552",
         "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
         "patchSetId": 7
@@ -113,6 +215,24 @@
       "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40fe0350_3ba5d692",
+        "filename": "modules/audio_coding/neteq/neteq_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-03-03T16:20:59Z",
+      "side": 1,
+      "message": "See other reply.",
+      "parentUuid": "188165a6_c3403552",
+      "revId": "648d1dfe32a5f16f5db74cc4f63e7da392a300e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

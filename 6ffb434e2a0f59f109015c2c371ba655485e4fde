@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fec3cbb9_009c0337",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T11:23:22Z",
+      "side": 1,
+      "message": "nit: Any [changes] to that...",
+      "revId": "6ffb434e2a0f59f109015c2c371ba655485e4fde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f85946a_5423b1fe",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T11:23:22Z",
+      "side": 1,
+      "message": "nit: Add a comment here or for the function explaining this must be called every time any of the total counter changes.",
+      "revId": "6ffb434e2a0f59f109015c2c371ba655485e4fde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e0ea63_c5aef046",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T11:23:22Z",
+      "side": 1,
+      "message": "Suggestion: Also add \"The sum of adaptations per reason MUST always result in the current total adaptation counts provided by the VideoSourceRestrictor.\"",
+      "revId": "6ffb434e2a0f59f109015c2c371ba655485e4fde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "fec44d21_92307a5a",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T11:23:22Z",
+      "side": 1,
+      "message": "Should we add a TODO, leave as-is, or make this part of the \"CanIncreaseResolutionTo\"?",
+      "parentUuid": "6e1a77c4_ff8099ec",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb3b0e18_bc574a13",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 9
@@ -100,6 +118,24 @@
       "writtenOn": "2020-03-03T10:04:55Z",
       "side": 1,
       "message": "Are we at risk of a DCHECK-failure later on due to taking more than 2 steps unless we do?\n\nactive_counts_.fill(AdaptationCounters());",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18a0d998_f5853cde",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T11:23:22Z",
+      "side": 1,
+      "message": "Does this need to be addressed? If not, why?",
+      "parentUuid": "eb3b0e18_bc574a13",
       "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -123,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "45ad38cd_7a9d8099",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T11:23:22Z",
+      "side": 1,
+      "message": "Can this be addressed? This would be nice but I don\u0027t consider it a blocker if its documented.\n\nAlternative name if this is something that we call if and only if total counters changed: OnTotalCounterChanged().",
+      "parentUuid": "2da18a36_498e6ecd",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85ce3338_401ff7c4",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 9
@@ -137,6 +191,24 @@
       "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c40620c1_99dc2a85",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T11:23:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85ce3338_401ff7c4",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

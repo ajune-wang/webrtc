@@ -40,7 +40,7 @@ class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
                       uint32_t rtp_timestamp,
                       const EncodedImage& encoded_image,
                       const RTPFragmentationHeader* fragmentation,
-                      RTPVideoHeader video_header,
+                      std::unique_ptr<RTPVideoHeader> video_header,
                       absl::optional<int64_t> expected_retransmission_time_ms,
                       uint32_t ssrc);
 
@@ -50,7 +50,8 @@ class RTPSenderVideoFrameTransformerDelegate : public TransformedFrameCallback {
       std::unique_ptr<video_coding::EncodedFrame> frame) override;
 
   // Delegates the call to RTPSendVideo::SendVideo on the |encoder_queue_|.
-  void SendVideo(const TransformableEncodedFrame& transformed_frame) const;
+  void SendVideo(
+      std::unique_ptr<TransformableEncodedFrame> transformed_frame) const;
 
   // Delegates the call to RTPSendVideo::SendVideo under |sender_lock_|.
   void SetVideoStructureUnderLock(

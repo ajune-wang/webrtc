@@ -8,20 +8,23 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <memory>
+#include <utility>
+
 #include "modules/rtp_rtcp/source/transformable_encoded_frame.h"
 
 namespace webrtc {
 
 TransformableEncodedFrame::TransformableEncodedFrame(
     rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data,
-    const RTPVideoHeader& video_header,
+    std::unique_ptr<RTPVideoHeader> video_header,
     int payload_type,
     absl::optional<VideoCodecType> codec_type,
     uint32_t rtp_timestamp,
     int64_t capture_time_ms,
     const RTPFragmentationHeader* fragmentation,
     absl::optional<int64_t> expected_retransmission_time_ms)
-    : video_header_(video_header),
+    : video_header_(std::move(video_header)),
       codec_type_(codec_type),
       expected_retransmission_time_ms_(expected_retransmission_time_ms) {
   SetEncodedData(encoded_data);
@@ -35,14 +38,6 @@ TransformableEncodedFrame::TransformableEncodedFrame(
 }
 
 TransformableEncodedFrame::~TransformableEncodedFrame() = default;
-
-const RTPVideoHeader& TransformableEncodedFrame::video_header() const {
-  return video_header_;
-}
-
-absl::optional<VideoCodecType> TransformableEncodedFrame::codec_type() const {
-  return codec_type_;
-}
 
 int64_t TransformableEncodedFrame::ReceivedTime() const {
   return 0;

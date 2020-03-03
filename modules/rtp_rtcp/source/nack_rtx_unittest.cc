@@ -203,13 +203,13 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
     uint32_t timestamp = 3000;
     uint16_t nack_list[kVideoNackListSize];
     for (int frame = 0; frame < kNumFrames; ++frame) {
-      RTPVideoHeader video_header;
+      auto video_header = std::make_unique<RTPVideoHeader>();
       EXPECT_TRUE(rtp_rtcp_module_->OnSendingRtpFrame(timestamp, timestamp / 90,
                                                       kPayloadType, false));
-      video_header.frame_type = VideoFrameType::kVideoFrameDelta;
+      video_header->frame_type = VideoFrameType::kVideoFrameDelta;
       EXPECT_TRUE(rtp_sender_video_->SendVideo(
           kPayloadType, VideoCodecType::kVideoCodecGeneric, timestamp,
-          timestamp / 90, payload_data, nullptr, video_header, 0));
+          timestamp / 90, payload_data, nullptr, std::move(video_header), 0));
       // Min required delay until retransmit = 5 + RTT ms (RTT = 0).
       fake_clock.AdvanceTimeMilliseconds(5);
       int length = BuildNackList(nack_list);
@@ -253,13 +253,13 @@ TEST_F(RtpRtcpRtxNackTest, LongNackList) {
   // Send 30 frames which at the default size is roughly what we need to get
   // enough packets.
   for (int frame = 0; frame < kNumFrames; ++frame) {
-    RTPVideoHeader video_header;
+    auto video_header = std::make_unique<RTPVideoHeader>();
     EXPECT_TRUE(rtp_rtcp_module_->OnSendingRtpFrame(timestamp, timestamp / 90,
                                                     kPayloadType, false));
-    video_header.frame_type = VideoFrameType::kVideoFrameDelta;
+    video_header->frame_type = VideoFrameType::kVideoFrameDelta;
     EXPECT_TRUE(rtp_sender_video_->SendVideo(
         kPayloadType, VideoCodecType::kVideoCodecGeneric, timestamp,
-        timestamp / 90, payload_data, nullptr, video_header, 0));
+        timestamp / 90, payload_data, nullptr, std::move(video_header), 0));
     // Prepare next frame.
     timestamp += 3000;
     fake_clock.AdvanceTimeMilliseconds(33);

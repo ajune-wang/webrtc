@@ -12,6 +12,7 @@
 #define MODULES_RTP_RTCP_SOURCE_TRANSFORMABLE_ENCODED_FRAME_H_
 
 #include <memory>
+#include <utility>
 
 #include "absl/types/optional.h"
 #include "api/video/encoded_frame.h"
@@ -24,7 +25,7 @@ class TransformableEncodedFrame : public video_coding::EncodedFrame {
  public:
   TransformableEncodedFrame(
       rtc::scoped_refptr<EncodedImageBufferInterface> encoded_data,
-      const RTPVideoHeader& video_header,
+      std::unique_ptr<RTPVideoHeader> video_header,
       int payload_type,
       absl::optional<VideoCodecType> codec_type,
       uint32_t rtp_timestamp,
@@ -33,8 +34,10 @@ class TransformableEncodedFrame : public video_coding::EncodedFrame {
       absl::optional<int64_t> expected_retransmission_time_ms);
   ~TransformableEncodedFrame() override;
 
-  const RTPVideoHeader& video_header() const;
-  absl::optional<VideoCodecType> codec_type() const;
+  std::unique_ptr<RTPVideoHeader> ExtractVideoHeader() {
+    return std::move(video_header_);
+  }
+  absl::optional<VideoCodecType> codec_type() const { return codec_type_; }
   int64_t capture_time_ms() const { return capture_time_ms_; }
   RTPFragmentationHeader* fragmentation_header() const {
     return fragmentation_header_.get();
@@ -48,7 +51,7 @@ class TransformableEncodedFrame : public video_coding::EncodedFrame {
   int64_t RenderTime() const override;
 
  private:
-  RTPVideoHeader video_header_;
+  std::unique_ptr<RTPVideoHeader> video_header_;
   absl::optional<VideoCodecType> codec_type_ = absl::nullopt;
   std::unique_ptr<RTPFragmentationHeader> fragmentation_header_;
   absl::optional<int64_t> expected_retransmission_time_ms_ = absl::nullopt;

@@ -36,17 +36,18 @@ bool RTPSenderVideoFrameTransformerDelegate::TransformFrame(
     uint32_t rtp_timestamp,
     const EncodedImage& encoded_image,
     const RTPFragmentationHeader* fragmentation,
-    RTPVideoHeader video_header,
+    std::unique_ptr<RTPVideoHeader> video_header,
     absl::optional<int64_t> expected_retransmission_time_ms,
     uint32_t ssrc) {
   if (!encoder_queue_)
     encoder_queue_ = TaskQueueBase::Current();
+  auto additional_bytes = RtpDescriptorAuthentication(*video_header);
   frame_transformer_->TransformFrame(
       std::make_unique<TransformableEncodedFrame>(
-          encoded_image.GetEncodedData(), video_header, payload_type,
+          encoded_image.GetEncodedData(), std::move(video_header), payload_type,
           codec_type, rtp_timestamp, encoded_image.capture_time_ms_,
           fragmentation, expected_retransmission_time_ms),
-      RtpDescriptorAuthentication(video_header), ssrc);
+      std::move(additional_bytes), ssrc);
   return true;
 }
 
@@ -60,26 +61,26 @@ void RTPSenderVideoFrameTransformerDelegate::OnTransformedFrame(
   auto transformed_frame = absl::WrapUnique(
       static_cast<TransformableEncodedFrame*>(frame.release()));
   rtc::scoped_refptr<RTPSenderVideoFrameTransformerDelegate> delegate = this;
-  encoder_queue_->PostTask(
-      ToQueuedTask([delegate = std::move(delegate),
-                    transformed_frame = std::move(transformed_frame)]() {
-        delegate->SendVideo(*transformed_frame.get());
+  encoder_queue_->PostTask(ToQueuedTask(
+      [delegate = std::move(delegate),
+       transformed_frame = std::move(transformed_frame)]() mutable {
+        delegate->SendVideo(std::move(transformed_frame));
       }));
 }
 
 void RTPSenderVideoFrameTransformerDelegate::SendVideo(
-    const TransformableEncodedFrame& transformed_frame) const {
+    std::unique_ptr<TransformableEncodedFrame> transformed_frame) const {
   RTC_CHECK(encoder_queue_->IsCurrent());
   rtc::CritScope lock(&sender_lock_);
   if (!sender_)
     return;
   sender_->SendVideo(
-      transformed_frame.PayloadType(), transformed_frame.codec_type(),
-      transformed_frame.Timestamp(), transformed_frame.capture_time_ms(),
-      transformed_frame.EncodedImage(),
-      transformed_frame.fragmentation_header(),
-      transformed_frame.video_header(),
-      transformed_frame.expected_retransmission_time_ms());
+      transformed_frame->PayloadType(), transformed_frame->codec_type(),
+      transformed_frame->Timestamp(), transformed_frame->capture_time_ms(),
+      transformed_frame->EncodedImage(),
+      transformed_frame->fragmentation_header(),
+      transformed_frame->ExtractVideoHeader(),
+      transformed_frame->expected_retransmission_time_ms());
 }
 
 void RTPSenderVideoFrameTransformerDelegate::SetVideoStructureUnderLock(

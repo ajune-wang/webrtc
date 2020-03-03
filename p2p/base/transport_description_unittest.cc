@@ -16,43 +16,53 @@ using webrtc::RTCErrorType;
 namespace cricket {
 
 TEST(IceParameters, SuccessfulParse) {
-  auto result = IceParameters::Parse("ufrag", "22+characters+long+pwd");
+  auto result =
+      IceParameters("ufrag", "22+characters+long+pwd", /* renomination= */ true)
+          .Validate();
   ASSERT_TRUE(result.ok());
-  IceParameters parameters = result.MoveValue();
-  EXPECT_EQ("ufrag", parameters.ufrag);
-  EXPECT_EQ("22+characters+long+pwd", parameters.pwd);
 }
 
 TEST(IceParameters, FailedParseShortUfrag) {
-  auto result = IceParameters::Parse("3ch", "22+characters+long+pwd");
-  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.error().type());
+  auto result =
+      IceParameters("3ch", "22+characters+long+pwd", /* renomination= */ true)
+          .Validate();
+  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.type());
 }
 
 TEST(IceParameters, FailedParseLongUfrag) {
   std::string ufrag(257, '+');
-  auto result = IceParameters::Parse(ufrag, "22+characters+long+pwd");
-  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.error().type());
+  auto result =
+      IceParameters(ufrag, "22+characters+long+pwd", /* renomination= */ true)
+          .Validate();
+  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.type());
 }
 
 TEST(IceParameters, FailedParseShortPwd) {
-  auto result = IceParameters::Parse("ufrag", "21+character+long+pwd");
-  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.error().type());
+  auto result =
+      IceParameters("ufrag", "21+character+long+pwd", /* renomination= */ true)
+          .Validate();
+  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.type());
 }
 
 TEST(IceParameters, FailedParseLongPwd) {
   std::string pwd(257, '+');
-  auto result = IceParameters::Parse("ufrag", pwd);
-  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.error().type());
+  auto result =
+      IceParameters("ufrag", pwd, /* renomination= */ true).Validate();
+  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.type());
 }
 
 TEST(IceParameters, FailedParseBadUfragChar) {
-  auto result = IceParameters::Parse("ufrag\r\n", "22+characters+long+pwd");
-  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.error().type());
+  auto result = IceParameters("ufrag\r\n", "22+characters+long+pwd",
+                              /* renomination= */ true)
+                    .Validate();
+  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.type());
 }
 
 TEST(IceParameters, FailedParseBadPwdChar) {
-  auto result = IceParameters::Parse("ufrag", "22+characters+long+pwd\r\n");
-  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.error().type());
+  auto result = IceParameters("ufrag", "22+characters+long+pwd\r\n",
+                              /* renomination= */ true)
+                    .Validate();
+  EXPECT_EQ(RTCErrorType::SYNTAX_ERROR, result.type());
 }
 
 }  // namespace cricket

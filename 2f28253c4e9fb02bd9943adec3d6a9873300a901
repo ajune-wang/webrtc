@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a760cf12_24133f14",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "Can you document the fact that this modifies the counters in a way that correspond to the same way that we modify the restrictions in ApplyDegradationPreference()? Making it clear that modifying one without the other would necessarily be a bug.",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d604ce9_9ba4de65",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "micro-nit: For order consistency, can we place adaptation_counters() below source_restrictions()?",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e1a77c4_ff8099ec",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "I think you have exposed what is, in fact, a precondition to calling this method.\nHere and in other places: Should we move this to \"CanIncreaseResolutionTo\"? That way the DCHECK that we can adapt would make it crash.\n\nHowever a side-effect might be that we avoid this crash with an if-statement, not realizing we\u0027ve changed behavior, so perhaps we still want a DCHECK somewhere? Let\u0027s talk in person about this one.",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85ce3338_401ff7c4",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "nit: You already have operator+(), if you add operator-() you could have the diff as an AdaptationCounters.",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360d63f1_1fcf7536",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "The following comments are me asking how it works rather than code review comments to address...",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50868640_2b289f63",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "Is this basically saying?\n\n\"For the current reason (active_count), if we\u0027ve adapted resolution this much, then the current reason must be this limited in resolution\"\n\nThe DCHECK above ensures that we never take more than one step but could this otherwise be expressed as?\n\nif (active_count-\u003eresolution_adaptations \u003c total_counts.resolution_adaptations)\n  active_count-\u003eresolution_adaptations \u003d total_counts.resolution_adaptations;",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54995421_a14860c0",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "Is this basically saying?\n\n\"The current reason (active_count) is going down, so we need to decrease it. Due to balanced and switching things around we may have to borrow reasons elsewhere.\"\n\nThis is the only part of the code that confuses me. And I am happy to see it isolated into one testable function.\n\nIt also feels like we\u0027re covering up a mistake... Which is fine for backwards compat reasons. But would the following make sense or would it describe something different than our counters are meant to describe?\n\n\"We are only as limited as total_counts, so if any reason-specific counter is higher than this it needs to be adjusted.\"\n\nactive_count-\u003eresolution_adaptation \u003d std::min(active_count-\u003eresolution_adaptation,\n                                               total_count.resolution_adaptation);",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ee531cd_5ed41116",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "I love it. I want to discuss and think about the concept of active counts a bit before I LGTM it.\n\nI would like if we could merge the list of counters into a single list of counters, or if we could calculate active counts on the fly based on other counters and not needing to remember a history of counters. But I have a feeling that would break things.",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f10ff41_d26d407c",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "Can you add a comment explaining what the counters are?\nAlso: I love this way of expressing it!",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7399c934_d76e348b",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "nit: I hesitate what the style guide says now but shouldn\u0027t variables be at the bottom even for structs?",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe4caae4_541145a4",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "Can you add a method explaining what \"active counts\" are (what is being calculated)?\nAnd what \"active\" and \"other\" is.\n\nIs there two different definitions for \"active\" here? One for the input and one for the output.",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18799c74_0f15b1d2",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "nit: Was adding \"OveruseFrameDetectorResourceAdaptationModule::\" here on purpose? Not needed in header file due to scope and other methods in the header don\u0027t fully-qualify it.",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6aaf1b8_4ccb0ddf",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-03T09:41:27Z",
+      "side": 1,
+      "message": "Can you explain why we have multiple AdaptationCounters?",
+      "revId": "2f28253c4e9fb02bd9943adec3d6a9873300a901",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

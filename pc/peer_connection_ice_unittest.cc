@@ -1413,4 +1413,23 @@ TEST_P(PeerConnectionIceTest, CloseDoesNotTransitionGatheringStateToComplete) {
             pc->pc()->ice_gathering_state());
 }
 
+TEST_P(PeerConnectionIceTest, IceRenomination) {
+  RTCConfiguration config;
+  config.ice_candidate_pool_size = 1;
+  config.enable_ice_renomination = true;
+  auto pc = CreatePeerConnectionWithAudioVideo(config);
+  ASSERT_NE(pc->port_allocator_, nullptr);
+  auto offer = pc->CreateOffer();
+  auto credentials = pc->port_allocator_->GetPooledIceCredentials();
+  ASSERT_EQ(1u, credentials.size());
+
+  auto* desc = offer->description();
+  for (const auto& content : desc->contents()) {
+    auto* transport_info = desc->GetTransportInfoByName(content.name);
+    EXPECT_EQ(transport_info->description.ice_ufrag, credentials[0].ufrag);
+    EXPECT_EQ(transport_info->description.ice_pwd, credentials[0].pwd);
+    EXPECT_TRUE(transport_info->description.GetIceParameters().renomination);
+  }
+}
+
 }  // namespace webrtc

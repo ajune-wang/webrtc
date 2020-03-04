@@ -34,6 +34,24 @@
       "revId": "f52d3ed084e30860bfecdc2dcbbc9c3919df779f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91135022_c1041b6c",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2020-03-04T21:36:56Z",
+      "side": 0,
+      "message": "Yes. I will revert this change.",
+      "parentUuid": "cf11d638_e61cb1a4",
+      "revId": "f52d3ed084e30860bfecdc2dcbbc9c3919df779f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

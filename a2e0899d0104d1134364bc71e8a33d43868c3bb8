@@ -115,6 +115,30 @@
       "revId": "a2e0899d0104d1134364bc71e8a33d43868c3bb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bec246bd_5a6841f1",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-04T15:09:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ff15a8a2_3878147d",
+      "range": {
+        "startLine": 486,
+        "startChar": 2,
+        "endLine": 488,
+        "endChar": 3
+      },
+      "revId": "a2e0899d0104d1134364bc71e8a33d43868c3bb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

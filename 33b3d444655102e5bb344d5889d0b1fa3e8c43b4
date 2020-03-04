@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97f172d1_4b512761",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-04T07:01:30Z",
+      "side": 1,
+      "message": "Expand this TODO with a bug reference?",
+      "revId": "33b3d444655102e5bb344d5889d0b1fa3e8c43b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f3c0bf0_6c310464",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-04T07:01:30Z",
+      "side": 1,
+      "message": "I\u0027d add an \"else RTC_LOG(LS_WARNING), \u003c\u003c \"protocol violation, ICE options differ across transports, this will stop working in the future\".",
+      "revId": "33b3d444655102e5bb344d5889d0b1fa3e8c43b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "976def3a_ec7f9f4f",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-04T07:01:30Z",
+      "side": 1,
+      "message": "This draft is -04, and expired in 2013, so I think it\u0027s no longer pursued.\nAdd a comment saying that \"this was proposed, but abandoned\"?",
+      "revId": "33b3d444655102e5bb344d5889d0b1fa3e8c43b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

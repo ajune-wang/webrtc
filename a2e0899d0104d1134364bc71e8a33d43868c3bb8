@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d0789d4_d2442351",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-04T10:42:02Z",
+      "side": 1,
+      "message": "FYI, this used for both vp8 and vp9, see the comment below.",
+      "range": {
+        "startLine": 343,
+        "startChar": 7,
+        "endLine": 343,
+        "endChar": 23
+      },
+      "revId": "a2e0899d0104d1134364bc71e8a33d43868c3bb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a703cd4_09d84046",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-04T10:42:02Z",
+      "side": 1,
+      "message": "FYI: This is supposed to enable internal VP9 scaling.\nThis setting is forwarded to libvpx encoder as is without any additional checks.\nTherefore, no change to vp9_impl.cc is needed for this CL.",
+      "range": {
+        "startLine": 396,
+        "startChar": 37,
+        "endLine": 396,
+        "endChar": 53
+      },
+      "revId": "a2e0899d0104d1134364bc71e8a33d43868c3bb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

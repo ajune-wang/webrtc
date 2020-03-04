@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "97c588f7_7eecba6b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1897,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-03-04T14:48:55Z",
+      "side": 1,
+      "message": "It is to my knowledge only used in test scenarios and code paths that are likely obsolete (targeting extremely old browsers).",
+      "parentUuid": "22995489_9a47050c",
+      "range": {
+        "startLine": 1897,
+        "startChar": 0,
+        "endLine": 1897,
+        "endChar": 51
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44b5f8a8_3637a779",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 6
@@ -92,6 +116,30 @@
       "revId": "15b29a7123de57003f49cb18839be82747f6b372",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4596bc0c_de07a4d2",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1920,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-03-04T14:48:55Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "bc4bc9db_b3f417a7",
+      "range": {
+        "startLine": 1920,
+        "startChar": 2,
+        "endLine": 1920,
+        "endChar": 4
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -211,6 +259,30 @@
       "revId": "15b29a7123de57003f49cb18839be82747f6b372",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a685a1a3_c6b3959b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1922,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-03-04T14:48:55Z",
+      "side": 1,
+      "message": "Correct, this is just to update the internal behavior when the experiment is on while maintaining a correct user facing value.\n\nIf they ask for BALANCED using get/setParameters(), they will see in next getParameters() call that BALANCED is set, but get the MAINTAIN_FRAMERATE behavior (until we release it properly).",
+      "parentUuid": "41ff447f_3f988ee5",
+      "range": {
+        "startLine": 1922,
+        "startChar": 27,
+        "endLine": 1922,
+        "endChar": 28
+      },
+      "revId": "15b29a7123de57003f49cb18839be82747f6b372",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

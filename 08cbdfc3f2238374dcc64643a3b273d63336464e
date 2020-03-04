@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "123e1c80_fcaa2404",
+        "filename": "config.star",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2020-03-04T09:25:54Z",
+      "side": 1,
+      "message": "BTW, you are using the same toolchain as Chromium, right? I would assume that to be the case, since these were working on the old Goma backend before.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 29
+      },
+      "revId": "08cbdfc3f2238374dcc64643a3b273d63336464e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

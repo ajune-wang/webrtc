@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5aa96a4_351eab20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-04T09:46:08Z",
+      "side": 1,
+      "message": "Not directly related to this CL: Having lower-level C++ namespaces with the same name as top level namespaces can cause problems (as you have just discovered!); it\u0027s usually best to avoid it if possible. https://abseil.io/tips/130 is a good resource on the topic.",
+      "revId": "413a78b68af28fe8da419bd4ea59dc4a2c47a604",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

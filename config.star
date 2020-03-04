@@ -16,6 +16,14 @@ GOMA_BACKEND_RBE_PROD = {
     }
 }
 
+GOMA_BACKEND_RBE_PROD_LUCI_AUTH = {
+    "$build/goma": {
+        "server_host": "goma.chromium.org",
+        "rpc_extra_params": "?prod",
+        "use_luci_auth": True
+    }
+}
+
 GOMA_BACKEND_RBE_ATS_PROD = {
     "$build/goma": {
         "server_host": "goma.chromium.org",
@@ -439,7 +447,7 @@ def normal_builder_factory(**common_kwargs):
 
 linux_builder, linux_try_job = normal_builder_factory(
     dimensions = {"os": "Linux", "inside_docker": "0"},
-    properties = GOMA_BACKEND_RBE_PROD,
+    properties = GOMA_BACKEND_RBE_PROD_LUCI_AUTH,
 )
 
 android_builder, android_try_job = normal_builder_factory(

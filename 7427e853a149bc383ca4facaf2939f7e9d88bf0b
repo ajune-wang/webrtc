@@ -46,6 +46,30 @@
       "revId": "7427e853a149bc383ca4facaf2939f7e9d88bf0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04ef2af_a10c76bf",
+        "filename": "DEPS",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-04T21:49:23Z",
+      "side": 1,
+      "message": "Ok, I need to read more about this mechanism.",
+      "parentUuid": "137e7fdd_b19f2a13",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 20
+      },
+      "revId": "7427e853a149bc383ca4facaf2939f7e9d88bf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

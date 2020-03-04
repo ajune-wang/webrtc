@@ -565,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "4c8c8c91_fe857171",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-04T21:17:01Z",
+      "side": 1,
+      "message": "This is removed and inline-d now.",
+      "parentUuid": "f1b432ec_3d2b32dc",
+      "range": {
+        "startLine": 185,
+        "startChar": 18,
+        "endLine": 185,
+        "endChar": 34
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38ecf6e9_ad3b1ec5",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1
@@ -2048,6 +2072,24 @@
     },
     {
       "key": {
+        "uuid": "eaac8e49_9ded12b0",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-04T21:17:01Z",
+      "side": 1,
+      "message": "Thanks. forgot they had std::map inside. moved them into AudioEgressTest.",
+      "parentUuid": "c6dcf205_3e4b64c1",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e521480_c0172811",
         "filename": "audio/voip/test/audio_egress_unittest.cc",
         "patchSetId": 1
@@ -2097,6 +2139,24 @@
       "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd5de5e5_7d8eaf0f",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-04T21:17:01Z",
+      "side": 1,
+      "message": "I tried to make it as simple as possible but since AudioEgress is made of other heavy duty modules, this is the best I could do for now event after consulting through other previous unit tests.  I will add some comments.",
+      "parentUuid": "209067f1_354c4c1f",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -2289,6 +2349,30 @@
     },
     {
       "key": {
+        "uuid": "23b1db44_7ab0f3da",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-04T21:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f69acbc_dd048881",
+      "range": {
+        "startLine": 100,
+        "startChar": 38,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15d4851e_7334b06f",
         "filename": "audio/voip/test/audio_egress_unittest.cc",
         "patchSetId": 1
@@ -2333,6 +2417,30 @@
       "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad761b93_adec091e",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-04T21:17:01Z",
+      "side": 1,
+      "message": "I changed the way to test mute using pcmu encoder result.",
+      "parentUuid": "ddca1d08_298e43d9",
+      "range": {
+        "startLine": 136,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 11
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

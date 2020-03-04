@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0dc1a856_9ab1febc",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-04T12:28:08Z",
+      "side": 1,
+      "message": "I can add a constructor, makes sense.",
+      "parentUuid": "5cfcf1b1_e7d02ef6",
+      "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27442224_fa87b9ef",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 12
@@ -33,6 +51,24 @@
       "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "385a3f98_d6971865",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-04T12:28:08Z",
+      "side": 1,
+      "message": "This is git cl format yes.",
+      "parentUuid": "27442224_fa87b9ef",
+      "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b5a5f1e9_3d75b1e0",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-04T12:28:08Z",
+      "side": 1,
+      "message": "Added a comment.",
+      "parentUuid": "151b8eea_52905eea",
+      "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9eee8459_d23f8975",
         "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
         "patchSetId": 12
@@ -67,6 +121,24 @@
       "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb891c3b_a3e6476a",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-04T12:28:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9eee8459_d23f8975",
+      "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

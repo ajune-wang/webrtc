@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d86de0e_9a7a52a5",
+        "filename": "config.star",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5535
+      },
+      "writtenOn": "2020-03-04T08:37:52Z",
+      "side": 1,
+      "message": "Remove this flag.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "470783a6f4fdca8054c77287004f5b97cd6600db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

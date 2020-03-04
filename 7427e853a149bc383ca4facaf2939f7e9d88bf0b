@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98386537_3dcc0542",
+        "filename": "DEPS",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-04T17:55:00Z",
+      "side": 1,
+      "message": "Are these lines needed?\n\nWe are not using gclient_gn_args at the moment.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 20
+      },
+      "revId": "7427e853a149bc383ca4facaf2939f7e9d88bf0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

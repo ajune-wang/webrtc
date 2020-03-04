@@ -260,6 +260,7 @@ static void BuildMediaDescription(const ContentInfo* content_info,
                                   const cricket::MediaType media_type,
                                   const std::vector<Candidate>& candidates,
                                   int msid_signaling,
+                                  bool ice_options_on_media_level,
                                   std::string* message);
 static void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
                                       const cricket::MediaType media_type,
@@ -936,6 +937,37 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
     }
   }
 
+  // a=ice-options
+  //
+  // Again, this is a session-level attribute, but it's stored at the media
+  // level for historical reasons. If all the media-level options are
+  // identical (they should be), we'll insert the attribute at the session
+  // level, otherwise we'll insert it at the media level as we did
+  // historically.
+  bool ice_options_on_media_level = true;
+  if (!desc->transport_infos().empty()) {
+    bool identical = true;
+    const std::vector<std::string>* first_options = nullptr;
+    for (size_t i = 0; i < desc->contents().size(); ++i) {
+      // Only look at non rejected sections; rejected may have empty options.
+      if (desc->contents()[i].rejected) {
+        continue;
+      }
+      if (!first_options) {
+        first_options =
+            &desc->transport_infos()[i].description.transport_options;
+      } else if (*first_options !=
+                 desc->transport_infos()[i].description.transport_options) {
+        identical = false;
+        break;
+      }
+    }
+    if (identical && first_options) {
+      BuildIceOptions(*first_options, &message);
+      ice_options_on_media_level = false;
+    }
+  }
+
   // Preserve the order of the media contents.
   int mline_index = -1;
   for (const ContentInfo& content : desc->contents()) {
@@ -943,7 +975,8 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
     GetCandidatesByMindex(jdesc, ++mline_index, &candidates);
     BuildMediaDescription(&content, desc->GetTransportInfoByName(content.name),
                           content.media_description()->type(), candidates,
-                          desc->msid_signaling(), &message);
+                          desc->msid_signaling(), ice_options_on_media_level,
+                          &message);
   }
   return message;
 }
@@ -1351,6 +1384,7 @@ void BuildMediaDescription(const ContentInfo* content_info,
                            const cricket::MediaType media_type,
                            const std::vector<Candidate>& candidates,
                            int msid_signaling,
+                           bool ice_options_on_media_level,
                            std::string* message) {
   RTC_DCHECK(message != NULL);
   if (content_info == NULL || message == NULL) {
@@ -1497,7 +1531,9 @@ void BuildMediaDescription(const ContentInfo* content_info,
     }
 
     // draft-petithuguenin-mmusic-ice-attributes-level-03
-    BuildIceOptions(transport_info->description.transport_options, message);
+    if (ice_options_on_media_level) {
+      BuildIceOptions(transport_info->description.transport_options, message);
+    }
 
     // RFC 4572
     // fingerprint-attribute  =

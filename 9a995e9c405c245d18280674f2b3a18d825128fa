@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93f129f5_73d6ca96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2020-03-04T17:21:46Z",
+      "side": 1,
+      "message": "Hi Danil,\n\nCan you add this bug here for tracking\nhttps://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11404\n\nThanks.",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "9a995e9c405c245d18280674f2b3a18d825128fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cfcf1b1_e7d02ef6",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-04T10:08:12Z",
+      "side": 1,
+      "message": "Optional:\nNot sure if style guide or personal preference, but I like explicit constructors even for structs.\nIn that case these would be \"return AdaptationCounters(foo - bar, foo - bar);\"",
+      "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27442224_fa87b9ef",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-04T10:08:12Z",
+      "side": 1,
+      "message": "(Is this the result of \"git cl format .\"? looks a bit weird?)",
+      "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "151b8eea_52905eea",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-04T10:08:12Z",
+      "side": 1,
+      "message": "Can we perhaps remove this in a future CL?",
+      "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eee8459_d23f8975",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-04T10:08:12Z",
+      "side": 1,
+      "message": "Can we replace this by restrictor\u0027s total counts instead in a future CL? Add a TODO?",
+      "revId": "6a27dd6625d7d26303c6720f083b2cd56ab6cca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

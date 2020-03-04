@@ -91,6 +91,30 @@
       "revId": "a2e0899d0104d1134364bc71e8a33d43868c3bb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff15a8a2_3878147d",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-04T12:07:33Z",
+      "side": 1,
+      "message": "This is a special case for non-simulcast. numberOfSimulcastStreams\u003d0 and all simulcastStream[] are empty.\n\nThis is the way it\u0027s signaled by e.g. SimulcastEncoderAdapter:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/simulcast_encoder_adapter.cc?l\u003d581\u0026rcl\u003d80636981052754dcdaaf90a5d83a1cd9eb786dfb\n\nIt\u0027s also taken into account here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/utility/simulcast_utility.cc?l\u003d32\u0026rcl\u003d80636981052754dcdaaf90a5d83a1cd9eb786dfb\n\nI could\u0027ve used SimulcastUtility::NumberOfSimulcastStreams, but it also checks for 0 bitrate, which I don\u0027t care in this scenario.",
+      "parentUuid": "60b5c8d7_738b2bdd",
+      "range": {
+        "startLine": 486,
+        "startChar": 2,
+        "endLine": 488,
+        "endChar": 3
+      },
+      "revId": "a2e0899d0104d1134364bc71e8a33d43868c3bb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

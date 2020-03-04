@@ -22,6 +22,30 @@
       "revId": "08cbdfc3f2238374dcc64643a3b273d63336464e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd5bb469_5e9d7c34",
+        "filename": "config.star",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-04T09:28:08Z",
+      "side": 1,
+      "message": "Yes, we closely follow Chromium rolling DEPS multiple times per day (https://cs.chromium.org/chromium/src/third_party/webrtc/DEPS?l\u003d16-17\u0026rcl\u003d80636981052754dcdaaf90a5d83a1cd9eb786dfb).\n\nWhere we diverge (e.g. to keep some community level of MSVC support) we don\u0027t use goma.",
+      "parentUuid": "123e1c80_fcaa2404",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 29
+      },
+      "revId": "08cbdfc3f2238374dcc64643a3b273d63336464e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

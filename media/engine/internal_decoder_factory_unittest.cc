@@ -13,15 +13,27 @@
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_decoder.h"
 #include "media/base/media_constants.h"
+#include "modules/video_coding/codecs/av1/libaom_av1_decoder.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
+
+using ::testing::Contains;
+using ::testing::Field;
 
 TEST(InternalDecoderFactory, TestVP8) {
   InternalDecoderFactory factory;
   std::unique_ptr<VideoDecoder> decoder =
       factory.CreateVideoDecoder(SdpVideoFormat(cricket::kVp8CodecName));
   EXPECT_TRUE(decoder);
+}
+
+TEST(InternalDecoderFactory, Av1) {
+  InternalDecoderFactory factory;
+  EXPECT_THAT(factory.GetSupportedFormats(),
+              Contains(Field(&SdpVideoFormat::name, "AV1X")));
+  EXPECT_TRUE(factory.CreateVideoDecoder(SdpVideoFormat("AV1X")));
 }
 
 }  // namespace webrtc

@@ -33,6 +33,12 @@ const VideoCodec& EncoderSettings::video_codec() const {
   return video_codec_;
 }
 
+VideoCodecType GetVideoCodecTypeOrGeneric(
+    const absl::optional<EncoderSettings>& settings) {
+  return settings.has_value() ? settings->encoder_config().codec_type
+                              : kVideoCodecGeneric;
+}
+
 ResourceAdaptationModuleListener::~ResourceAdaptationModuleListener() {}
 
 ResourceAdaptationModuleInterface::~ResourceAdaptationModuleInterface() {}

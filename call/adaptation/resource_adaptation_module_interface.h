@@ -22,6 +22,7 @@
 namespace webrtc {
 
 // Information about an encoder available when reconfiguring the encoder.
+// TODO(hbos): Move this to a separate file.
 class EncoderSettings {
  public:
   EncoderSettings(VideoEncoder::EncoderInfo encoder_info,
@@ -40,6 +41,9 @@ class EncoderSettings {
   VideoEncoderConfig encoder_config_;
   VideoCodec video_codec_;
 };
+
+VideoCodecType GetVideoCodecTypeOrGeneric(
+    const absl::optional<EncoderSettings>& settings);
 
 // The listener is responsible for carrying out the reconfiguration of the video
 // source such that the VideoSourceRestrictions are fulfilled.

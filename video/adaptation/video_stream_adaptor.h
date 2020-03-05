@@ -13,7 +13,13 @@
 
 #include <memory>
 
+#include "absl/types/optional.h"
+#include "api/rtp_parameters.h"
+#include "api/video/video_stream_encoder_observer.h"
+#include "call/adaptation/resource_adaptation_module_interface.h"
 #include "call/adaptation/video_source_restrictions.h"
+#include "modules/video_coding/utility/quality_scaler.h"
+#include "rtc_base/experiments/balanced_degradation_settings.h"
 #include "video/adaptation/adaptation_counters.h"
 
 namespace webrtc {
@@ -22,10 +28,36 @@ class VideoStreamAdaptor {
  public:
   static const int kMinFramerateFps;
 
-  static int GetLowerFrameRateThan(int fps);
-  static int GetHigherFrameRateThan(int fps);
-  static int GetLowerResolutionThan(int pixel_count);
-  static int GetHigherResolutionThan(int pixel_count);
+  enum class VideoInputMode {
+    kNoVideo,
+    kNormalVideo,
+    kScreenshareVideo,
+  };
+
+  enum class AdaptationAction {
+    kIncreaseResolution,
+    kDecreaseResolution,
+    kIncreaseFrameRate,
+    kDecreaseFrameRate,
+  };
+
+  // Describes an adaptation step: increasing or decreasing resolution or frame
+  // rate to a given value.
+  // TODO(https://crbug.com/webrtc/11393): Make these private implementation
+  // details, and expose something that allows you to inspect the
+  // VideoSourceRestrictions instead. The adaptation steps could be expressed as
+  // a graph, for instance.
+  struct AdaptationTarget {
+    AdaptationTarget(AdaptationAction action, int value);
+    // Which action the VideoSourceRestrictor needs to take.
+    const AdaptationAction action;
+    // Target pixel count or frame rate depending on |action|.
+    const int value;
+
+    // Allow this struct to be instantiated as an optional, even though it's in
+    // a private namespace.
+    friend class absl::optional<AdaptationTarget>;
+  };
 
   VideoStreamAdaptor();
   ~VideoStreamAdaptor();
@@ -35,24 +67,71 @@ class VideoStreamAdaptor {
   const AdaptationCounters& adaptation_counters() const;
   void ClearRestrictions();
 
-  // "Can adapt?" and "do adapt!" methods.
-  // TODO(https://crbug.com/webrtc/11393): Make the adaptor responsible for
-  // deciding what the next step are, i.e. taking on degradation preference
-  // logic. Then, these can be expressed either as CanAdaptUp() and DoAdaptUp()
-  // or as GetNextRestrictionsUp() and ApplyRestrictions().
-  bool CanDecreaseResolutionTo(int target_pixels, int min_pixels_per_frame);
-  void DecreaseResolutionTo(int target_pixels, int min_pixels_per_frame);
-  bool CanIncreaseResolutionTo(int target_pixels);
-  void IncreaseResolutionTo(int target_pixels);
-  bool CanDecreaseFrameRateTo(int max_frame_rate);
-  void DecreaseFrameRateTo(int max_frame_rate);
-  bool CanIncreaseFrameRateTo(int max_frame_rate);
-  void IncreaseFrameRateTo(int max_frame_rate);
+  // --- The above can be private now ---
+
+  const BalancedDegradationSettings& balanced_settings() const;
+
+  void SetVideoInputMode(VideoInputMode input_mode);
+  void SetDegradationPreference(DegradationPreference degradation_preference);
+  DegradationPreference EffectiveDegradationPreference() const;
+
+  bool CanAdaptUpResolution(
+      const absl::optional<EncoderSettings>& encoder_settings,
+      absl::optional<uint32_t> encoder_target_bitrate_bps,
+      int input_pixels) const;
+
+  // Returns a target that we are guaranteed to be able to adapt to, or null if
+  // adaptation is not desired or not possible.
+  absl::optional<AdaptationTarget> GetAdaptUpTarget(
+      // TODO(hbos): Maybe target bps should also be considered settings?
+      const absl::optional<EncoderSettings>& encoder_settings,
+      absl::optional<uint32_t> encoder_target_bitrate_bps,
+      int input_pixels,
+      int input_fps,
+      AdaptationObserverInterface::AdaptReason reason) const;
+  // TODO(hbos): Encoder stats observer barf
+  absl::optional<AdaptationTarget> GetAdaptDownTarget(
+      const absl::optional<EncoderSettings>& encoder_settings,
+      int input_pixels,
+      int input_fps,
+      int min_pixels_per_frame,
+      VideoStreamEncoderObserver* encoder_stats_observer) const;
+  // Applies the |target| to |source_restrictor_|.
+  void ApplyAdaptationTarget(const AdaptationTarget& target,
+                             int input_pixels,
+                             int input_fps,
+                             int min_pixels_per_frame);
 
  private:
   class VideoSourceRestrictor;
 
+  // Describes an adaptation request.
+  // TODO(https://crbug.com/webrtc/11393): Can this be renamed? Can this be
+  // merged with AdaptationTarget?
+  struct AdaptationRequest {
+    // The pixel count produced by the source at the time of the adaptation.
+    int input_pixel_count_;
+    // Framerate received from the source at the time of the adaptation.
+    int framerate_fps_;
+    // Indicates if request was to adapt up or down.
+    enum class Mode { kAdaptUp, kAdaptDown } mode_;
+
+    static Mode GetModeFromAdaptationAction(AdaptationAction action);
+  };
+
+  // Owner and modifier of the VideoSourceRestriction of this stream adaptor.
   const std::unique_ptr<VideoSourceRestrictor> source_restrictor_;
+  // Decides the next adaptation target in DegradationPreference::BALANCED.
+  const BalancedDegradationSettings balanced_settings_;
+  // TODO(hbos): Take as input, don't store the state.
+  VideoInputMode input_mode_;
+  // When deciding the next target up or down, different strategies are used
+  // depending on the DegradationPreference.
+  // https://w3c.github.io/mst-content-hint/#dom-rtcdegradationpreference
+  DegradationPreference degradation_preference_;
+
+  // asdasdasda
+  absl::optional<AdaptationRequest> last_adaptation_request_;
 };
 
 }  // namespace webrtc

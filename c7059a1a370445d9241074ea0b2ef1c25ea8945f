@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cbc2d89_bb5d3b4b",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-03-05T17:12:47Z",
+      "side": 1,
+      "message": "Now comparing total fps adaptations to quality fps adaptations, right?\nIs checking if OnResourceOveruse adapted in fps (currently checked for quality but totals should be ok since a change would be due to quality).",
+      "range": {
+        "startLine": 504,
+        "startChar": 6,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "c7059a1a370445d9241074ea0b2ef1c25ea8945f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

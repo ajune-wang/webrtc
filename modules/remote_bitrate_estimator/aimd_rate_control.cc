@@ -101,13 +101,11 @@ AimdRateControl::AimdRateControl(const WebRtcKeyValueConfig* key_value_config,
           IsNotDisabled(*key_value_config,
                         "WebRTC-Bwe-EstimateBoundedIncrease")),
       initial_backoff_interval_("initial_backoff_interval"),
-      low_throughput_threshold_("low_throughput", DataRate::Zero()),
       link_capacity_fix_("link_capacity_fix") {
   // E.g
   // WebRTC-BweAimdRateControlConfig/initial_backoff_interval:100ms,
   // low_throughput:50kbps/
-  ParseFieldTrial({&initial_backoff_interval_, &low_throughput_threshold_,
-                   &link_capacity_fix_},
+  ParseFieldTrial({&initial_backoff_interval_, &link_capacity_fix_},
                   key_value_config->Lookup("WebRTC-BweAimdRateControlConfig"));
   if (initial_backoff_interval_) {
     RTC_LOG(LS_INFO) << "Using aimd rate control with initial back-off interval"
@@ -247,14 +245,13 @@ double AimdRateControl::GetNearMaxIncreaseRateBpsPerSecond() const {
 }
 
 TimeDelta AimdRateControl::GetExpectedBandwidthPeriod() const {
-  const TimeDelta kMinPeriod =
-      smoothing_experiment_ ? TimeDelta::Millis(500) : TimeDelta::Seconds(2);
+  const TimeDelta kMinPeriod = TimeDelta::Seconds(2);
   const TimeDelta kDefaultPeriod = TimeDelta::Seconds(3);
   const TimeDelta kMaxPeriod = TimeDelta::Seconds(50);
 
   double increase_rate_bps_per_second = GetNearMaxIncreaseRateBpsPerSecond();
   if (!last_decrease_)
-    return smoothing_experiment_ ? kMinPeriod : kDefaultPeriod;
+    return kDefaultPeriod;
   double time_to_recover_decrease_seconds =
       last_decrease_->bps() / increase_rate_bps_per_second;
   TimeDelta period = TimeDelta::Seconds(time_to_recover_decrease_seconds);
@@ -323,48 +320,31 @@ void AimdRateControl::ChangeBitrate(const RateControlInput& input,
 
     case kRcDecrease: {
       DataRate decreased_bitrate = DataRate::PlusInfinity();
-      if (estimated_throughput > low_throughput_threshold_) {
-        // Set bit rate to something slightly lower than the measured throughput
-        // to get rid of any self-induced delay.
-        decreased_bitrate = estimated_throughput * beta_;
-        if (decreased_bitrate > current_bitrate_ && !link_capacity_fix_) {
-          // TODO(terelius): The link_capacity estimate may be based on old
-          // throughput measurements. Relying on them may lead to unnecessary
-          // BWE drops.
-          if (link_capacity_.has_estimate()) {
-            decreased_bitrate = beta_ * link_capacity_.estimate();
-          }
-        }
-        if (estimate_bounded_backoff_ && network_estimate_) {
-          decreased_bitrate =
-              std::max(decreased_bitrate,
-                       network_estimate_->link_capacity_lower * beta_);
-        }
-      } else {
-        decreased_bitrate = estimated_throughput;
+
+      // Set bit rate to something slightly lower than the measured throughput
+      // to get rid of any self-induced delay.
+      decreased_bitrate = estimated_throughput * beta_;
+      if (decreased_bitrate > current_bitrate_ && !link_capacity_fix_) {
+        // TODO(terelius): The link_capacity estimate may be based on old
+        // throughput measurements. Relying on them may lead to unnecessary
+        // BWE drops.
         if (link_capacity_.has_estimate()) {
-          decreased_bitrate =
-              std::max(decreased_bitrate, link_capacity_.estimate());
+          decreased_bitrate = beta_ * link_capacity_.estimate();
         }
-        decreased_bitrate =
-            std::min(decreased_bitrate, low_throughput_threshold_.Get());
       }
+      if (estimate_bounded_backoff_ && network_estimate_) {
+        decreased_bitrate = std::max(
+            decreased_bitrate, network_estimate_->link_capacity_lower * beta_);
+      }
+
       // Avoid increasing the rate when over-using.
       if (decreased_bitrate < current_bitrate_) {
         new_bitrate = decreased_bitrate;
       }
 
       if (bitrate_is_initialized_ && estimated_throughput < current_bitrate_) {
-        constexpr double kDegradationFactor = 0.9;
         if (!new_bitrate.has_value()) {
           last_decrease_ = DataRate::Zero();
-        } else if (smoothing_experiment_ &&
-                   *new_bitrate <
-                       kDegradationFactor * beta_ * current_bitrate_) {
-          // If bitrate decreases more than a normal back off after overuse, it
-          // indicates a real network degradation. We do not let such a decrease
-          // to determine the bandwidth estimation period.
-          last_decrease_ = absl::nullopt;
         } else {
           last_decrease_ = current_bitrate_ - *new_bitrate;
         }

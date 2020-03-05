@@ -46,6 +46,30 @@
       "revId": "c7059a1a370445d9241074ea0b2ef1c25ea8945f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2cb337f_8a207d56",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-05T17:39:52Z",
+      "side": 1,
+      "message": "Ah but the totals are good enough since we know we have adapted due to quality. I will remove the TODO then.",
+      "parentUuid": "b5c3345d_0a4ff06a",
+      "range": {
+        "startLine": 504,
+        "startChar": 6,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "c7059a1a370445d9241074ea0b2ef1c25ea8945f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -15,7 +15,7 @@ specific_include_rules = {
     "+rtc_base/async_invoker.h",
     "+rtc_base/critical_section.h",
     "+rtc_base/thread.h",
-    "+rtc_base/thread_checker.h",
+    "+rtc_base/synchronization/sequence_checker.h",
   ],
   "neteq_factory_with_codecs\.h": [
     "+system_wrappers/include/clock.h",

@@ -175,6 +175,7 @@ rtc_library("rtp_sender") {
     "../rtc_base:rate_limiter",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
+    "../rtc_base/synchronization:sequence_checker",
     "../rtc_base/task_utils:repeating_task",
     "../system_wrappers:field_trial",
     "//third_party/abseil-cpp/absl/algorithm:container",

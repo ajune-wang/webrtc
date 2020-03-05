@@ -482,8 +482,8 @@ void BaseChannel::UpdateRtpHeaderExtensionMap(
   RTC_DCHECK(rtp_transport_);
   // Update the header extension map on network thread in case there is data
   // race.
-  // TODO(zhihuang): Add an rtc::ThreadChecker make sure to RtpTransport won't
-  // be accessed from different threads.
+  // TODO(zhihuang): Add an SequenceChecker make sure to RtpTransport won't be
+  // accessed from different threads.
   //
   // NOTE: This doesn't take the BUNDLE case in account meaning the RTP header
   // extension maps are not merged when BUNDLE is enabled. This is fine because

@@ -26,7 +26,6 @@
 #include "rtc_base/one_time_event.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
-#include "rtc_base/thread_checker.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -96,9 +95,9 @@ class VideoReceiver : public Module {
   // In builds where DCHECKs aren't enabled, it will return true.
   bool IsDecoderThreadRunning();
 
-  rtc::ThreadChecker construction_thread_checker_;
-  rtc::ThreadChecker decoder_thread_checker_;
-  rtc::ThreadChecker module_thread_checker_;
+  SequenceChecker construction_thread_checker_;
+  SequenceChecker decoder_thread_checker_;
+  SequenceChecker module_thread_checker_;
   Clock* const clock_;
   rtc::CriticalSection process_crit_;
   VCMTiming* _timing;

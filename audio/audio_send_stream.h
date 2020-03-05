@@ -24,8 +24,8 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/experiments/struct_parameters_parser.h"
 #include "rtc_base/race_checker.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/thread_checker.h"
 
 namespace webrtc {
 class RtcEventLog;
@@ -151,8 +151,8 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   void RegisterCngPayloadType(int payload_type, int clockrate_hz);
   Clock* clock_;
 
-  rtc::ThreadChecker worker_thread_checker_;
-  rtc::ThreadChecker pacer_thread_checker_;
+  SequenceChecker worker_thread_checker_;
+  SequenceChecker pacer_thread_checker_;
   rtc::RaceChecker audio_capture_race_checker_;
   rtc::TaskQueue* worker_queue_;
 

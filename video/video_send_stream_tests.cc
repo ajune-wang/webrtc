@@ -1807,8 +1807,8 @@ TEST_F(VideoSendStreamTest, ChangingNetworkRoute) {
     }
 
    private:
-    webrtc::SequenceChecker module_process_thread_;
-    webrtc::SequenceChecker task_queue_thread_;
+    SequenceChecker module_process_thread_;
+    SequenceChecker task_queue_thread_;
     TaskQueueBase* const task_queue_;
     RtpHeaderExtensionMap extensions_;
     Call* call_ RTC_GUARDED_BY(task_queue_thread_);
@@ -1997,11 +1997,11 @@ class MaxPaddingSetTest : public test::SendTest {
   }
 
  private:
-  webrtc::SequenceChecker task_queue_thread_;
+  SequenceChecker task_queue_thread_;
   Call* call_ RTC_GUARDED_BY(task_queue_thread_) = nullptr;
   VideoSendStream::Config send_stream_config_{nullptr};
   VideoEncoderConfig encoder_config_;
-  webrtc::SequenceChecker module_process_thread_;
+  SequenceChecker module_process_thread_;
   uint32_t packets_sent_ RTC_GUARDED_BY(task_queue_thread_) = 0;
   bool running_without_padding_ RTC_GUARDED_BY(task_queue_thread_);
   T* const stream_resetter_;

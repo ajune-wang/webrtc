@@ -22,6 +22,30 @@
       "revId": "c7059a1a370445d9241074ea0b2ef1c25ea8945f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5c3345d_0a4ff06a",
+        "filename": "video/overuse_frame_detector_resource_adaptation_module.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-05T17:21:01Z",
+      "side": 1,
+      "message": "Good catch. I don\u0027t think this is Ok, since if there was a CPU change previously then this case would trigger when previously it wouldn\u0027t have. \n\nIf the counters are \ncpu\u003d{res:0, fps:1} qp\u003d{res:0, fps:1} \nthen we adapt resolution\ncpu\u003d{res:0, fps:1} qp\u003d{res:1, fps:1}\nPreviously we would not adapt again (quality fps didn\u0027t change).\nNow we would adapt with the total (total fps was 2, qp was 1).\n\nWill fix!",
+      "parentUuid": "1cbc2d89_bb5d3b4b",
+      "range": {
+        "startLine": 504,
+        "startChar": 6,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "c7059a1a370445d9241074ea0b2ef1c25ea8945f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

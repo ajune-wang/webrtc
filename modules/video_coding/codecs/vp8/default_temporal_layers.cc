@@ -164,6 +164,11 @@ DefaultTemporalLayers::GetDependencyInfo(size_t num_layers) {
         // TL1  references 'last' and references and updates 'golden'.
         // TL2 references both 'last' & 'golden' and references and updates
         // 'arf'.
+        //   2---2   2---2
+        //  /   /   /   /
+        // |   1   |   1
+        // |__/    |__/
+        // 0-------0-------0
         return {{"SSS", {kReferenceAndUpdate, kNone, kNone}},
                 {"--S", {kReference, kNone, kUpdate}},
                 {"-DR", {kReference, kUpdate, kNone}},
@@ -174,6 +179,11 @@ DefaultTemporalLayers::GetDependencyInfo(size_t num_layers) {
         // TL0 also references and updates the 'last' buffer.
         // TL1 also references 'last' and references and updates 'golden'.
         // TL2 references both 'last' and 'golden' but updates no buffer.
+        //   2   2 __2   2
+        //  /   /_/ /   /
+        // |   1---+---1
+        // |__/    |__/
+        // 0-------0-------0
         return {{"SSS", {kReferenceAndUpdate, kNone, kNone}},
                 {"--D", {kReference, kNone, kNone, kFreezeEntropy}},
                 {"-SS", {kReference, kUpdate, kNone}},

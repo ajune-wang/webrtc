@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d74c9fa8_2d90431f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1958,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-03-05T08:25:17Z",
+      "side": 1,
+      "message": "Let\u0027s swap the if and else cases so this becomes:\n\nif (IsEnabled(Balanced)) {\n  preference \u003d balanced;\n} else {\n  preference \u003d maintain_fr;\n}\n\nAlso probably good to merge this if with the else above to get an \"else if\" and avoid three levels of nested if-statements.",
+      "range": {
+        "startLine": 1958,
+        "startChar": 0,
+        "endLine": 1958,
+        "endChar": 80
+      },
+      "revId": "196e3b433ad5e2a98b7fe40eb81d9befe66ddb37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

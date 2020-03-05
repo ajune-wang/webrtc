@@ -55,6 +55,7 @@ rtc_library("rtc_base_approved") {
     ":type_traits",
     "../api:array_view",
     "../api:scoped_refptr",
+    "synchronization:sequence_checker",
     "system:arch",
     "system:rtc_export",
     "system:unused",
@@ -198,8 +199,8 @@ rtc_library("platform_thread") {
     ":macromagic",
     ":platform_thread_types",
     ":rtc_event",
-    ":thread_checker",
     ":timeutils",
+    "synchronization:sequence_checker",
     "//third_party/abseil-cpp/absl/strings",
   ]
 }
@@ -1195,6 +1196,7 @@ if (rtc_include_tests) {
       "../test:test_main",
       "../test:test_support",
       "memory:unittests",
+      "synchronization:sequence_checker",
       "task_utils:to_queued_task",
       "third_party/base64",
       "third_party/sigslot",

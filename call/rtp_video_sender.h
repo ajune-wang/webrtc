@@ -36,8 +36,8 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/rate_limiter.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
-#include "rtc_base/thread_checker.h"
 
 namespace webrtc {
 
@@ -170,7 +170,7 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   bool active_ RTC_GUARDED_BY(crit_);
 
   ProcessThread* module_process_thread_;
-  rtc::ThreadChecker module_process_thread_checker_;
+  SequenceChecker module_process_thread_checker_;
   std::map<uint32_t, RtpState> suspended_ssrcs_;
 
   std::unique_ptr<FlexfecSender> flexfec_sender_;

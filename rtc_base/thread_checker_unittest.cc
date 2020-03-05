@@ -10,7 +10,7 @@
 
 // Borrowed from Chromium's src/base/threading/thread_checker_unittest.cc.
 
-#include "rtc_base/thread_checker.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 
 #include <memory>
 #include <utility>
@@ -34,14 +34,12 @@ namespace {
 // Simple class to exercise the basics of ThreadChecker.
 // Both the destructor and DoStuff should verify that they were
 // called on the same thread as the constructor.
-class ThreadCheckerClass : public ThreadChecker {
+class ThreadCheckerClass : public webrtc::SequenceChecker {
  public:
   ThreadCheckerClass() {}
 
   // Verifies that it was called on the same thread as the constructor.
   void DoStuff() { RTC_DCHECK(IsCurrent()); }
-
-  void Detach() { ThreadChecker::Detach(); }
 
   static void MethodOnDifferentThreadImpl();
   static void DetachThenCallFromDifferentThreadImpl();
@@ -239,7 +237,7 @@ class ThreadAnnotateTest {
   void fun_acccess_var() RTC_RUN_ON(thread_) { var_thread_ = 13; }
 
   rtc::Thread* thread_;
-  rtc::ThreadChecker checker_;
+  webrtc::SequenceChecker checker_;
   rtc::TaskQueue* queue_;
 
   int var_thread_ RTC_GUARDED_BY(thread_);

@@ -20,7 +20,6 @@
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/synchronization/sequence_checker.h"
-#include "rtc_base/thread_checker.h"
 
 namespace webrtc {
 

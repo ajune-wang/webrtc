@@ -13,8 +13,8 @@
 
 #include "api/ice_transport_interface.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread.h"
-#include "rtc_base/thread_checker.h"
 
 namespace webrtc {
 

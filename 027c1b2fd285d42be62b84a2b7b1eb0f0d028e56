@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "930e1457_1d5898d1",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 10107
+      },
+      "writtenOn": "2020-03-05T13:43:15Z",
+      "side": 1,
+      "message": "To redeem myself after my +1: This is not equivalent to the old code since it is possible that current_bitrate_ \u003e max_bitrate, in which case new_bitrate would be set to current_bitrate_.",
+      "range": {
+        "startLine": 385,
+        "startChar": 0,
+        "endLine": 385,
+        "endChar": 63
+      },
+      "revId": "027c1b2fd285d42be62b84a2b7b1eb0f0d028e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

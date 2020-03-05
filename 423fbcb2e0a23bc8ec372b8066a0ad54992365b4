@@ -22,6 +22,30 @@
       "revId": "423fbcb2e0a23bc8ec372b8066a0ad54992365b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f83c921d_c3a83c5b",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-05T13:19:55Z",
+      "side": 1,
+      "message": "I would like to have some picture that demonstrates the dependencies.\nDid I understood the word \u0027expand\u0027 the way you mean it?",
+      "parentUuid": "481b8c7b_389c2153",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 28
+      },
+      "revId": "423fbcb2e0a23bc8ec372b8066a0ad54992365b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -44,19 +44,24 @@ struct GenericFrameInfo : public FrameDependencyTemplate {
   absl::InlinedVector<CodecBufferUsage, kMaxEncoderBuffers> encoder_buffers;
 };
 
-class GenericFrameInfo::Builder {
+class GenericFrameInfo::Builder : public GenericFrameInfo {
  public:
-  Builder();
-  ~Builder();
-
-  GenericFrameInfo Build() const;
-  Builder& T(int temporal_id);
-  Builder& S(int spatial_id);
-  Builder& Dtis(absl::string_view indication_symbols);
-  Builder& Fdiffs(std::initializer_list<int> frame_diffs);
-
- private:
-  GenericFrameInfo info_;
+  Builder& T(int temporal_id) {
+    this->temporal_id = temporal_id;
+    return *this;
+  }
+  Builder& S(int spatial_id) {
+    this->spatial_id = spatial_id;
+    return *this;
+  }
+  Builder& Dtis(absl::string_view indication_symbols) {
+    decode_target_indications = DecodeTargetInfo(indication_symbols);
+    return *this;
+  }
+  Builder& Fdiffs(std::initializer_list<int> frame_diffs) {
+    this->frame_diffs.assign(frame_diffs.begin(), frame_diffs.end());
+    return *this;
+  }
 };
 
 }  // namespace webrtc

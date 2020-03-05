@@ -1,0 +1,464 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9215b6b0_31824cbe",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "Move this to below SendAudioData to 1. match the order in the header, 2. make it easier to follow the program flow.",
+      "range": {
+        "startLine": 89,
+        "startChar": 21,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9ae5fad_fc186cd6",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "This can be replaced by a const:\nconstexpr uint32_t kUndefinedCaptureTime \u003d -1;\nIt would be nice with an explanation of why it\u0027s undefined and what the expected consequence is (will it be set later in the pipeline?)",
+      "range": {
+        "startLine": 101,
+        "startChar": 36,
+        "endLine": 103,
+        "endChar": 67
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ede4e55_afde1b35",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "I think this should be removed, it will get outdated if channel_send.cc is removed and then it will be only confusing.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 46
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28d6bed2_31cfbdd4",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "This doesn\u0027t really provide more insight than the code below, can be removed.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 64
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92bf85d4_4dee6165",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "If you set mute_ on the encoder queue you can skip this step, this way is a bit dangerous since it\u0027s not obvious to the reader that mute_ actually can be changed while in this scope)",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 26
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded687a5_957e51a0",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "Try to be more brew, focus on this specific class. Answer the question \"What is an AudioEgress?\" first.\n\nSomething like \"AudioEgress is responsible for Encoding and packetization of audio. It\u0027s created by ... and owned by... always called on worker thread, has encoder task queue and must be destroyed by...\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 44
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35df3d9d_d9da230c",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "This is a bit verbose, we can skip the parts that are clearly visible from signature. Also it\u0027s typically good to try to explain the class behavior from what it does rather than what it interacts with, since the former tends to get outdated rather fast, making comments confusing.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 33
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69cf46a7_7539b0db",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "Skip this IMO, you can mention something about what\u0027s different, but design discussions typically have a short half-life, so it\u0027s better to keep it elsewhere, either commit message, tracking bug or a design doc.",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3516e50a_80ef8e2f",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "Is there a reason why we don\u0027t simply have an accessor for the encoder format struct?",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 29
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aceddea_20a055d3",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "Excellent, the RFC reference makes it easy for a reader to find out more!\n\nCould be formulated as \"Registers the payload type and [timestamp?] sample rate for DTMF (RFC 4733) messages.\" If I understood it correctly.",
+      "range": {
+        "startLine": 84,
+        "startChar": 5,
+        "endLine": 84,
+        "endChar": 65
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cfe91b8_394433b0",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "IMO this can be removed, it\u0027s true for all rtp payload types that they must be negotiated to have any meaning.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 78
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31139844_8c782105",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "specified",
+      "range": {
+        "startLine": 88,
+        "startChar": 46,
+        "endLine": 88,
+        "endChar": 54
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4d73632_b092e44c",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "s/outband/out-of-band/ IIUIC",
+      "range": {
+        "startLine": 88,
+        "startChar": 30,
+        "endLine": 88,
+        "endChar": 37
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c991dfb5_d93b88bd",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "Nit: https://tools.ietf.org/html/rfc4733#section-3.2",
+      "range": {
+        "startLine": 89,
+        "startChar": 5,
+        "endLine": 89,
+        "endChar": 48
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beb64276_b09cf609",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "I don\u0027t follow, will it send one packet per millisecond?",
+      "range": {
+        "startLine": 90,
+        "startChar": 19,
+        "endLine": 91,
+        "endChar": 40
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93c1616c_ba99a25d",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "Nit, this is deprecated, use webrtc::SequenceChecker instead.\n\n\n(Seems like I have a TODO on removing the rtc::ThreadChecker, I should get onto that...)",
+      "range": {
+        "startLine": 106,
+        "startChar": 2,
+        "endLine": 106,
+        "endChar": 20
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b62f1d8_79fd88a6",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "Not sure if I understand this entirely, maybe a short comment per member saying that \"synchronization is handled internally\" would suffice, if the goal is to explain why we don\u0027t protect them.",
+      "range": {
+        "startLine": 108,
+        "startChar": 2,
+        "endLine": 110,
+        "endChar": 13
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5036ee63_c7a8d6a2",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "this won\u0027t do anything since you override it in the constructor. (And it supresses the check that otherwise would ensure that you do, indeed set in in the constructor.)",
+      "range": {
+        "startLine": 111,
+        "startChar": 26,
+        "endLine": 111,
+        "endChar": 36
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cb52fd0_cb0595f8",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "next_frame_rtp_timestamp_?",
+      "range": {
+        "startLine": 117,
+        "startChar": 11,
+        "endLine": 117,
+        "endChar": 32
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24c047ae_e43e96fd",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-05T09:40:49Z",
+      "side": 1,
+      "message": "I think this can trigger a TSAN failure, Instead, post a task to the encoder queue that sets the value.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 51
+      },
+      "revId": "ed8dcbc2501e3854bc5acc4ccfa08326fc790483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

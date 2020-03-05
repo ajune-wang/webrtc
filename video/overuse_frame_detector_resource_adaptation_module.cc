@@ -164,10 +164,6 @@ class OveruseFrameDetectorResourceAdaptationModule::InitialFrameDropper {
   int initial_framedrop_;
 };
 
-OveruseFrameDetectorResourceAdaptationModule::AdaptationTarget::
-    AdaptationTarget(AdaptationAction action, int value)
-    : action(action), value(value) {}
-
 OveruseFrameDetectorResourceAdaptationModule::
     OveruseFrameDetectorResourceAdaptationModule(
         Clock* clock,
@@ -181,8 +177,6 @@ OveruseFrameDetectorResourceAdaptationModule::
       experiment_cpu_load_estimator_(experiment_cpu_load_estimator),
       has_input_video_(false),
       degradation_preference_(DegradationPreference::DISABLED),
-      balanced_settings_(),
-      last_adaptation_request_(absl::nullopt),
       stream_adaptor_(std::make_unique<VideoStreamAdaptor>()),
       encode_usage_resource_(
           std::make_unique<EncodeUsageResource>(std::move(overuse_detector))),
@@ -256,26 +250,28 @@ void OveruseFrameDetectorResourceAdaptationModule::SetHasInputVideo(
     bool has_input_video) {
   // While false, OnResourceUnderuse() and OnResourceOveruse() are NO-OPS.
   has_input_video_ = has_input_video;
+  // This may have modified the video input mode.
+  stream_adaptor_->SetVideoInputMode(GetVideoInputMode());
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::SetDegradationPreference(
     DegradationPreference degradation_preference) {
   if (degradation_preference_ != degradation_preference) {
-    // Reset adaptation state, so that we're not tricked into thinking there's
-    // an already pending request of the same type.
-    last_adaptation_request_.reset();
     if (degradation_preference == DegradationPreference::BALANCED ||
         degradation_preference_ == DegradationPreference::BALANCED) {
       stream_adaptor_->ClearRestrictions();
     }
   }
   degradation_preference_ = degradation_preference;
+  stream_adaptor_->SetDegradationPreference(degradation_preference);
   MaybeUpdateVideoSourceRestrictions();
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::SetEncoderSettings(
     EncoderSettings encoder_settings) {
   encoder_settings_ = std::move(encoder_settings);
+  // This may have modified the video input mode.
+  stream_adaptor_->SetVideoInputMode(GetVideoInputMode());
 
   quality_rampup_experiment_.SetMaxBitrate(
       LastInputFrameSizeOrDefault(),
@@ -306,7 +302,6 @@ void OveruseFrameDetectorResourceAdaptationModule::SetEncoderRates(
 
 void OveruseFrameDetectorResourceAdaptationModule::
     ResetVideoSourceRestrictions() {
-  last_adaptation_request_.reset();
   stream_adaptor_->ClearRestrictions();
   active_counts_.fill(AdaptationCounters());
   MaybeUpdateVideoSourceRestrictions();
@@ -399,7 +394,7 @@ void OveruseFrameDetectorResourceAdaptationModule::ConfigureQualityScaler(
       absl::optional<VideoEncoder::QpThresholds> experimental_thresholds;
       if (quality_scaling_experiment_enabled_) {
         experimental_thresholds = QualityScalingExperiment::GetQpThresholds(
-            GetVideoCodecTypeOrGeneric());
+            GetVideoCodecTypeOrGeneric(encoder_settings_));
       }
       UpdateQualityScalerSettings(experimental_thresholds
                                       ? *experimental_thresholds
@@ -413,8 +408,9 @@ void OveruseFrameDetectorResourceAdaptationModule::ConfigureQualityScaler(
   if (degradation_preference_ == DegradationPreference::BALANCED &&
       quality_scaler_resource_->is_started()) {
     absl::optional<VideoEncoder::QpThresholds> thresholds =
-        balanced_settings_.GetQpThresholds(GetVideoCodecTypeOrGeneric(),
-                                           LastInputFrameSizeOrDefault());
+        stream_adaptor_->balanced_settings().GetQpThresholds(
+            GetVideoCodecTypeOrGeneric(encoder_settings_),
+            LastInputFrameSizeOrDefault());
     if (thresholds) {
       quality_scaler_resource_->SetQpThresholds(*thresholds);
     }
@@ -456,14 +452,12 @@ OveruseFrameDetectorResourceAdaptationModule::OnResourceUsageStateMeasured(
   }
 }
 
-absl::optional<OveruseFrameDetectorResourceAdaptationModule::AdaptationTarget>
+absl::optional<VideoStreamAdaptor::AdaptationTarget>
 OveruseFrameDetectorResourceAdaptationModule::GetAdaptUpTarget(
     int input_pixels,
     int input_fps,
     AdaptationObserverInterface::AdaptReason reason) const {
-  // Preconditions for being able to adapt up:
-  if (!has_input_video_)
-    return absl::nullopt;
+  // sdadsadsadasdad
   // 1. We can't adapt up if we're already at the highest setting.
   // Note that this only includes counts relevant to the current degradation
   // preference. e.g. we previously adapted resolution, now prefer adpating fps,
@@ -476,192 +470,28 @@ OveruseFrameDetectorResourceAdaptationModule::GetAdaptUpTarget(
   RTC_DCHECK_GE(num_downgrades, 0);
   if (num_downgrades == 0)
     return absl::nullopt;
-  // 2. We shouldn't adapt up if we're currently waiting for a previous upgrade
-  // to have an effect.
-  // TODO(hbos): What about in the case of other degradation preferences?
-  bool last_adaptation_was_up =
-      last_adaptation_request_ &&
-      last_adaptation_request_->mode_ == AdaptationRequest::Mode::kAdaptUp;
-  if (last_adaptation_was_up &&
-      degradation_preference_ == DegradationPreference::MAINTAIN_FRAMERATE &&
-      input_pixels <= last_adaptation_request_->input_pixel_count_) {
-    return absl::nullopt;
-  }
-  // 3. We shouldn't adapt up if BalancedSettings doesn't allow it, which is
-  // only applicable if reason is kQuality and preference is BALANCED.
-  if (reason == AdaptationObserverInterface::AdaptReason::kQuality &&
-      EffectiveDegradationPreference() == DegradationPreference::BALANCED &&
-      !balanced_settings_.CanAdaptUp(GetVideoCodecTypeOrGeneric(), input_pixels,
-                                     encoder_target_bitrate_bps_.value_or(0))) {
-    return absl::nullopt;
-  }
-
-  // Attempt to find an allowed adaptation target.
-  switch (EffectiveDegradationPreference()) {
-    case DegradationPreference::BALANCED: {
-      // Attempt to increase target frame rate.
-      int target_fps =
-          balanced_settings_.MaxFps(GetVideoCodecTypeOrGeneric(), input_pixels);
-      if (stream_adaptor_->CanIncreaseFrameRateTo(target_fps)) {
-        return AdaptationTarget(AdaptationAction::kIncreaseFrameRate,
-                                target_fps);
-      }
-      // Fall-through to maybe-adapting resolution, unless |balanced_settings_|
-      // forbids it based on bitrate.
-      if (reason == AdaptationObserverInterface::AdaptReason::kQuality &&
-          !balanced_settings_.CanAdaptUpResolution(
-              GetVideoCodecTypeOrGeneric(), input_pixels,
-              encoder_target_bitrate_bps_.value_or(0))) {
-        return absl::nullopt;
-      }
-      // Scale up resolution.
-      ABSL_FALLTHROUGH_INTENDED;
-    }
-    case DegradationPreference::MAINTAIN_FRAMERATE: {
-      // Don't adapt resolution if CanAdaptUpResolution() forbids it based on
-      // bitrate and limits specified by encoder capabilities.
-      if (reason == AdaptationObserverInterface::AdaptReason::kQuality &&
-          !CanAdaptUpResolution(input_pixels,
-                                encoder_target_bitrate_bps_.value_or(0))) {
-        return absl::nullopt;
-      }
-      // Attempt to increase pixel count.
-      int target_pixels = input_pixels;
-      if (stream_adaptor_->adaptation_counters().resolutions_adaptations == 1) {
-        RTC_LOG(LS_INFO) << "Removing resolution down-scaling setting.";
-        target_pixels = std::numeric_limits<int>::max();
-      }
-      target_pixels =
-          VideoStreamAdaptor::GetHigherResolutionThan(target_pixels);
-      if (!stream_adaptor_->CanIncreaseResolutionTo(target_pixels))
-        return absl::nullopt;
-      return AdaptationTarget(AdaptationAction::kIncreaseResolution,
-                              target_pixels);
-    }
-    case DegradationPreference::MAINTAIN_RESOLUTION: {
-      // Scale up framerate.
-      int target_fps = input_fps;
-      if (stream_adaptor_->adaptation_counters().fps_adaptations == 1) {
-        RTC_LOG(LS_INFO) << "Removing framerate down-scaling setting.";
-        target_fps = std::numeric_limits<int>::max();
-      }
-      target_fps = VideoStreamAdaptor::GetHigherFrameRateThan(target_fps);
-      if (!stream_adaptor_->CanIncreaseFrameRateTo(target_fps))
-        return absl::nullopt;
-      return AdaptationTarget(AdaptationAction::kIncreaseFrameRate, target_fps);
-    }
-    case DegradationPreference::DISABLED:
-      return absl::nullopt;
-  }
+  return stream_adaptor_->GetAdaptUpTarget(encoder_settings_,
+                                           encoder_target_bitrate_bps_,
+                                           input_pixels, input_fps, reason);
 }
 
-absl::optional<OveruseFrameDetectorResourceAdaptationModule::AdaptationTarget>
+absl::optional<VideoStreamAdaptor::AdaptationTarget>
 OveruseFrameDetectorResourceAdaptationModule::GetAdaptDownTarget(
     int input_pixels,
     int input_fps,
     int min_pixels_per_frame) const {
-  // Preconditions for being able to adapt down:
-  if (!has_input_video_)
-    return absl::nullopt;
-  // 1. We are not disabled.
-  // TODO(hbos): Don't support DISABLED, it doesn't exist in the spec and it
-  // causes scaling due to bandwidth constraints (QualityScalerResource) to be
-  // ignored, not just CPU signals. This is not a use case we want to support;
-  // remove the enum value.
-  if (degradation_preference_ == DegradationPreference::DISABLED)
-    return absl::nullopt;
-  bool last_adaptation_was_down =
-      last_adaptation_request_ &&
-      last_adaptation_request_->mode_ == AdaptationRequest::Mode::kAdaptDown;
-  // 2. We shouldn't adapt down if our frame rate is below the minimum or if its
-  // currently unknown.
-  if (EffectiveDegradationPreference() ==
-      DegradationPreference::MAINTAIN_RESOLUTION) {
-    // TODO(hbos): This usage of |last_adaptation_was_down| looks like a mistake
-    // - delete it.
-    if (input_fps <= 0 || (last_adaptation_was_down &&
-                           input_fps < VideoStreamAdaptor::kMinFramerateFps)) {
-      return absl::nullopt;
-    }
-  }
-  // 3. We shouldn't adapt down if we're currently waiting for a previous
-  // downgrade to have an effect.
-  // TODO(hbos): What about in the case of other degradation preferences?
-  if (last_adaptation_was_down &&
-      degradation_preference_ == DegradationPreference::MAINTAIN_FRAMERATE &&
-      input_pixels >= last_adaptation_request_->input_pixel_count_) {
-    return absl::nullopt;
-  }
-
-  // Attempt to find an allowed adaptation target.
-  switch (EffectiveDegradationPreference()) {
-    case DegradationPreference::BALANCED: {
-      // Try scale down framerate, if lower.
-      int target_fps =
-          balanced_settings_.MinFps(GetVideoCodecTypeOrGeneric(), input_pixels);
-      if (stream_adaptor_->CanDecreaseFrameRateTo(target_fps)) {
-        return AdaptationTarget(AdaptationAction::kDecreaseFrameRate,
-                                target_fps);
-      }
-      // Scale down resolution.
-      ABSL_FALLTHROUGH_INTENDED;
-    }
-    case DegradationPreference::MAINTAIN_FRAMERATE: {
-      // Scale down resolution.
-      int target_pixels =
-          VideoStreamAdaptor::GetLowerResolutionThan(input_pixels);
-      // TODO(https://crbug.com/webrtc/11222): Move this logic to
-      // ApplyAdaptationTarget() or elsewhere - simply checking which adaptation
-      // target is available should not have side-effects.
-      if (target_pixels < min_pixels_per_frame)
-        encoder_stats_observer_->OnMinPixelLimitReached();
-      if (!stream_adaptor_->CanDecreaseResolutionTo(target_pixels,
-                                                    min_pixels_per_frame)) {
-        return absl::nullopt;
-      }
-      return AdaptationTarget(AdaptationAction::kDecreaseResolution,
-                              target_pixels);
-    }
-    case DegradationPreference::MAINTAIN_RESOLUTION: {
-      int target_fps = VideoStreamAdaptor::GetLowerFrameRateThan(input_fps);
-      if (!stream_adaptor_->CanDecreaseFrameRateTo(target_fps))
-        return absl::nullopt;
-      return AdaptationTarget(AdaptationAction::kDecreaseFrameRate, target_fps);
-    }
-    case DegradationPreference::DISABLED:
-      RTC_NOTREACHED();
-      return absl::nullopt;
-  }
+  return stream_adaptor_->GetAdaptDownTarget(encoder_settings_, input_pixels,
+                                             input_fps, min_pixels_per_frame,
+                                             encoder_stats_observer_);
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::ApplyAdaptationTarget(
-    const AdaptationTarget& target,
-    int min_pixels_per_frame,
-    AdaptationObserverInterface::AdaptReason reason) {
-  switch (target.action) {
-    case AdaptationAction::kIncreaseResolution:
-      stream_adaptor_->IncreaseResolutionTo(target.value);
-      return;
-    case AdaptationAction::kDecreaseResolution:
-      stream_adaptor_->DecreaseResolutionTo(target.value, min_pixels_per_frame);
-      return;
-    case AdaptationAction::kIncreaseFrameRate:
-      stream_adaptor_->IncreaseFrameRateTo(target.value);
-      // TODO(https://crbug.com/webrtc/11222): Don't adapt in two steps.
-      // GetAdaptUpTarget() should tell us the correct value, but BALANCED logic
-      // in DecrementFramerate() makes it hard to predict whether this will be
-      // the last step. Remove the dependency on GetConstAdaptCounter().
-      if (EffectiveDegradationPreference() == DegradationPreference::BALANCED &&
-          stream_adaptor_->adaptation_counters().fps_adaptations == 0 &&
-          target.value != std::numeric_limits<int>::max()) {
-        RTC_LOG(LS_INFO) << "Removing framerate down-scaling setting.";
-        stream_adaptor_->IncreaseFrameRateTo(std::numeric_limits<int>::max());
-      }
-      return;
-    case AdaptationAction::kDecreaseFrameRate:
-      stream_adaptor_->DecreaseFrameRateTo(target.value);
-      return;
-  }
+    const VideoStreamAdaptor::AdaptationTarget& target,
+    int input_pixels,
+    int input_fps,
+    int min_pixels_per_frame) {
+  stream_adaptor_->ApplyAdaptationTarget(target, input_pixels, input_fps,
+                                         min_pixels_per_frame);
 }
 
 void OveruseFrameDetectorResourceAdaptationModule::OnResourceUnderuse(
@@ -670,14 +500,13 @@ void OveruseFrameDetectorResourceAdaptationModule::OnResourceUnderuse(
   int input_fps = encoder_stats_observer_->GetInputFrameRate();
   int min_pixels_per_frame = MinPixelsPerFrame();
   // Should we adapt, if so to what target?
-  absl::optional<AdaptationTarget> target =
+  absl::optional<VideoStreamAdaptor::AdaptationTarget> target =
       GetAdaptUpTarget(input_pixels, input_fps, reason);
   if (!target.has_value())
     return;
   // Apply target.
-  ApplyAdaptationTarget(target.value(), min_pixels_per_frame, reason);
-  last_adaptation_request_.emplace(AdaptationRequest{
-      input_pixels, input_fps, AdaptationRequest::Mode::kAdaptUp});
+  ApplyAdaptationTarget(target.value(), input_pixels, input_fps,
+                        min_pixels_per_frame);
   // Update VideoSourceRestrictions based on adaptation. This also informs the
   // |adaptation_listener_|.
   MaybeUpdateVideoSourceRestrictions();
@@ -695,14 +524,13 @@ OveruseFrameDetectorResourceAdaptationModule::OnResourceOveruse(
   int input_fps = encoder_stats_observer_->GetInputFrameRate();
   int min_pixels_per_frame = MinPixelsPerFrame();
   // Should we adapt, if so to what target?
-  absl::optional<AdaptationTarget> target =
+  absl::optional<VideoStreamAdaptor::AdaptationTarget> target =
       GetAdaptDownTarget(input_pixels, input_fps, min_pixels_per_frame);
   if (!target.has_value())
     return ResourceListenerResponse::kNothing;
   // Apply target.
-  ApplyAdaptationTarget(target.value(), min_pixels_per_frame, reason);
-  last_adaptation_request_.emplace(AdaptationRequest{
-      input_pixels, input_fps, AdaptationRequest::Mode::kAdaptDown});
+  ApplyAdaptationTarget(target.value(), input_pixels, input_fps,
+                        min_pixels_per_frame);
   // Update VideoSourceRestrictions based on adaptation. This also informs the
   // |adaptation_listener_|.
   MaybeUpdateVideoSourceRestrictions();
@@ -711,9 +539,12 @@ OveruseFrameDetectorResourceAdaptationModule::OnResourceOveruse(
   RTC_LOG(INFO) << ActiveCountsToString();
   // In BALANCED, if requested FPS is higher or close to input FPS to the target
   // we tell the QualityScaler to increase its frequency.
-  if (EffectiveDegradationPreference() == DegradationPreference::BALANCED &&
-      target->action == AdaptationAction::kDecreaseFrameRate) {
-    absl::optional<int> min_diff = balanced_settings_.MinFpsDiff(input_pixels);
+  if (stream_adaptor_->EffectiveDegradationPreference() ==
+          DegradationPreference::BALANCED &&
+      target->action ==
+          VideoStreamAdaptor::AdaptationAction::kDecreaseFrameRate) {
+    absl::optional<int> min_diff =
+        stream_adaptor_->balanced_settings().MinFpsDiff(input_pixels);
     if (min_diff && input_fps > 0) {
       int fps_diff = input_fps - target->value;
       if (fps_diff < min_diff.value()) {
@@ -744,14 +575,6 @@ OveruseFrameDetectorResourceAdaptationModule::GetCpuOveruseOptions() const {
     options.filter_time_ms = 5 * rtc::kNumMillisecsPerSec;
   }
   return options;
-}
-
-VideoCodecType
-OveruseFrameDetectorResourceAdaptationModule::GetVideoCodecTypeOrGeneric()
-    const {
-  return encoder_settings_.has_value()
-             ? encoder_settings_->encoder_config().codec_type
-             : kVideoCodecGeneric;
 }
 
 int OveruseFrameDetectorResourceAdaptationModule::LastInputFrameSizeOrDefault()
@@ -924,37 +747,17 @@ OveruseFrameDetectorResourceAdaptationModule::GetActiveCounts(
   return counts;
 }
 
-DegradationPreference
-OveruseFrameDetectorResourceAdaptationModule::EffectiveDegradationPreference()
-    const {
-  // Balanced mode for screenshare works via automatic animation detection:
-  // Resolution is capped for fullscreen animated content.
-  // Adapatation is done only via framerate downgrade.
-  // Thus effective degradation preference is MAINTAIN_RESOLUTION.
+VideoStreamAdaptor::VideoInputMode
+OveruseFrameDetectorResourceAdaptationModule::GetVideoInputMode() const {
+  if (!has_input_video_)
+    return VideoStreamAdaptor::VideoInputMode::kNoVideo;
   return (encoder_settings_.has_value() &&
           encoder_settings_->encoder_config().content_type ==
-              VideoEncoderConfig::ContentType::kScreen &&
-          degradation_preference_ == DegradationPreference::BALANCED)
-             ? DegradationPreference::MAINTAIN_RESOLUTION
-             : degradation_preference_;
+              VideoEncoderConfig::ContentType::kScreen)
+             ? VideoStreamAdaptor::VideoInputMode::kScreenshareVideo
+             : VideoStreamAdaptor::VideoInputMode::kNormalVideo;
 }
 
-bool OveruseFrameDetectorResourceAdaptationModule::CanAdaptUpResolution(
-    int pixels,
-    uint32_t bitrate_bps) const {
-  absl::optional<VideoEncoder::ResolutionBitrateLimits> bitrate_limits =
-      encoder_settings_.has_value()
-          ? GetEncoderBitrateLimits(
-                encoder_settings_->encoder_info(),
-                VideoStreamAdaptor::GetHigherResolutionThan(pixels))
-          : absl::nullopt;
-  if (!bitrate_limits.has_value() || bitrate_bps == 0) {
-    return true;  // No limit configured or bitrate provided.
-  }
-  RTC_DCHECK_GE(bitrate_limits->frame_size_pixels, pixels);
-  return bitrate_bps >=
-         static_cast<uint32_t>(bitrate_limits->min_start_bitrate_bps);
-}
 void OveruseFrameDetectorResourceAdaptationModule::
     MaybePerformQualityRampupExperiment() {
   if (!quality_scaler_resource_->is_started())

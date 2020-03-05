@@ -429,20 +429,23 @@ FrameDependencyStructure ScreenshareLayers::GetTemplateStructure(
   FrameDependencyStructure template_structure;
   template_structure.num_decode_targets = num_layers;
 
-  using Builder = GenericFrameInfo::Builder;
+  // alias GenericFrameInfo builder
+  auto T = [](int temporal_id) {
+    return GenericFrameInfo::Builder().T(temporal_id);
+  };
   switch (num_layers) {
     case 1: {
       template_structure.templates = {
-          Builder().T(0).Dtis("S").Build(),
-          Builder().T(0).Dtis("S").Fdiffs({1}).Build(),
+          T(0).Dtis("S"),
+          T(0).Dtis("S").Fdiffs({1}),
       };
       return template_structure;
     }
     case 2: {
       template_structure.templates = {
-          Builder().T(0).Dtis("SS").Build(),
-          Builder().T(0).Dtis("SS").Fdiffs({1}).Build(),
-          Builder().T(1).Dtis("-S").Fdiffs({1}).Build(),
+          T(0).Dtis("SS"),
+          T(0).Dtis("SS").Fdiffs({1}),
+          T(1).Dtis("-S").Fdiffs({1}),
       };
       return template_structure;
     }

@@ -549,9 +549,9 @@ TEST_P(RtpSenderVideoTest, SendsDependencyDescriptorWhenVideoStructureIsSet) {
   FrameDependencyStructure video_structure;
   video_structure.num_decode_targets = 2;
   video_structure.templates = {
-      GenericFrameInfo::Builder().S(0).T(0).Dtis("SS").Build(),
-      GenericFrameInfo::Builder().S(1).T(0).Dtis("-S").Build(),
-      GenericFrameInfo::Builder().S(1).T(1).Dtis("-D").Build(),
+      GenericFrameInfo::Builder().S(0).T(0).Dtis("SS"),
+      GenericFrameInfo::Builder().S(1).T(0).Dtis("-S"),
+      GenericFrameInfo::Builder().S(1).T(1).Dtis("-D"),
   };
   rtp_sender_video_.SetVideoStructure(&video_structure);
 
@@ -618,14 +618,14 @@ TEST_P(RtpSenderVideoTest,
   FrameDependencyStructure video_structure1;
   video_structure1.num_decode_targets = 2;
   video_structure1.templates = {
-      GenericFrameInfo::Builder().S(0).T(0).Dtis("SS").Build(),
-      GenericFrameInfo::Builder().S(0).T(1).Dtis("D-").Build(),
+      GenericFrameInfo::Builder().S(0).T(0).Dtis("SS"),
+      GenericFrameInfo::Builder().S(0).T(1).Dtis("D-"),
   };
   FrameDependencyStructure video_structure2;
   video_structure2.num_decode_targets = 2;
   video_structure2.templates = {
-      GenericFrameInfo::Builder().S(0).T(0).Dtis("SS").Build(),
-      GenericFrameInfo::Builder().S(0).T(1).Dtis("R-").Build(),
+      GenericFrameInfo::Builder().S(0).T(0).Dtis("SS"),
+      GenericFrameInfo::Builder().S(0).T(1).Dtis("R-"),
   };
 
   // Send 1st key frame.
@@ -708,7 +708,7 @@ TEST_P(RtpSenderVideoTest,
 
   FrameDependencyStructure video_structure;
   video_structure.num_decode_targets = 1;
-  video_structure.templates = {GenericFrameInfo::Builder().Dtis("S").Build()};
+  video_structure.templates = {GenericFrameInfo::Builder().Dtis("S")};
   rtp_sender_video.SetVideoStructure(&video_structure);
 
   // Send key frame.

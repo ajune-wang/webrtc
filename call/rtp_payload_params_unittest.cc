@@ -384,7 +384,7 @@ TEST(RtpPayloadParamsTest, SetsGenericFromGenericFrameInfo) {
 
   encoded_image._frameType = VideoFrameType::kVideoFrameKey;
   codec_info.generic_frame_info =
-      GenericFrameInfo::Builder().S(1).T(0).Dtis("S").Build();
+      GenericFrameInfo::Builder().S(1).T(0).Dtis("S");
   codec_info.generic_frame_info->encoder_buffers = {
       {/*id=*/0, /*referenced=*/false, /*updated=*/true}};
   RTPVideoHeader key_header =
@@ -401,7 +401,7 @@ TEST(RtpPayloadParamsTest, SetsGenericFromGenericFrameInfo) {
 
   encoded_image._frameType = VideoFrameType::kVideoFrameDelta;
   codec_info.generic_frame_info =
-      GenericFrameInfo::Builder().S(2).T(3).Dtis("D").Build();
+      GenericFrameInfo::Builder().S(2).T(3).Dtis("D");
   codec_info.generic_frame_info->encoder_buffers = {
       {/*id=*/0, /*referenced=*/true, /*updated=*/false}};
   RTPVideoHeader delta_header =

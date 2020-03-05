@@ -681,16 +681,16 @@ TEST(RtpVideoSenderTest, SupportsDependencyDescriptor) {
   codec_specific.template_structure.emplace();
   codec_specific.template_structure->num_decode_targets = 1;
   codec_specific.template_structure->templates = {
-      GenericFrameInfo::Builder().T(0).Dtis("S").Build(),
-      GenericFrameInfo::Builder().T(0).Dtis("S").Fdiffs({2}).Build(),
-      GenericFrameInfo::Builder().T(1).Dtis("D").Fdiffs({1}).Build(),
+      GenericFrameInfo::Builder().T(0).Dtis("S"),
+      GenericFrameInfo::Builder().T(0).Dtis("S").Fdiffs({2}),
+      GenericFrameInfo::Builder().T(1).Dtis("D").Fdiffs({1}),
   };
 
   // Send two tiny images, mapping to single RTP packets.
   // Send in key frame.
   encoded_image._frameType = VideoFrameType::kVideoFrameKey;
   codec_specific.generic_frame_info =
-      GenericFrameInfo::Builder().T(0).Dtis("S").Build();
+      GenericFrameInfo::Builder().T(0).Dtis("S");
   codec_specific.generic_frame_info->encoder_buffers = {{0, false, true}};
   EXPECT_EQ(test.router()
                 ->OnEncodedImage(encoded_image, &codec_specific, nullptr)
@@ -705,7 +705,7 @@ TEST(RtpVideoSenderTest, SupportsDependencyDescriptor) {
   encoded_image._frameType = VideoFrameType::kVideoFrameDelta;
   codec_specific.template_structure = absl::nullopt;
   codec_specific.generic_frame_info =
-      GenericFrameInfo::Builder().T(1).Dtis("D").Build();
+      GenericFrameInfo::Builder().T(1).Dtis("D");
   codec_specific.generic_frame_info->encoder_buffers = {{0, true, false}};
   EXPECT_EQ(test.router()
                 ->OnEncodedImage(encoded_image, &codec_specific, nullptr)
@@ -747,16 +747,16 @@ TEST(RtpVideoSenderTest, SupportsStoppingUsingDependencyDescriptor) {
   codec_specific.template_structure.emplace();
   codec_specific.template_structure->num_decode_targets = 1;
   codec_specific.template_structure->templates = {
-      GenericFrameInfo::Builder().T(0).Dtis("S").Build(),
-      GenericFrameInfo::Builder().T(0).Dtis("S").Fdiffs({2}).Build(),
-      GenericFrameInfo::Builder().T(1).Dtis("D").Fdiffs({1}).Build(),
+      GenericFrameInfo::Builder().T(0).Dtis("S"),
+      GenericFrameInfo::Builder().T(0).Dtis("S").Fdiffs({2}),
+      GenericFrameInfo::Builder().T(1).Dtis("D").Fdiffs({1}),
   };
 
   // Send two tiny images, mapping to single RTP packets.
   // Send in a key frame.
   encoded_image._frameType = VideoFrameType::kVideoFrameKey;
   codec_specific.generic_frame_info =
-      GenericFrameInfo::Builder().T(0).Dtis("S").Build();
+      GenericFrameInfo::Builder().T(0).Dtis("S");
   codec_specific.generic_frame_info->encoder_buffers = {{0, false, true}};
   EXPECT_EQ(test.router()
                 ->OnEncodedImage(encoded_image, &codec_specific, nullptr)

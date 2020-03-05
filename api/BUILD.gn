@@ -172,6 +172,7 @@ rtc_library("libjingle_peerconnection_api") {
     ":rtp_packet_info",
     ":rtp_parameters",
     ":scoped_refptr",
+    "../rtc_base/synchronization:sequence_checker",
     "audio:audio_mixer_api",
     "audio_codecs:audio_codecs_api",
     "crypto:frame_decryptor_interface",
@@ -392,6 +393,7 @@ rtc_library("test_dependency_factory") {
     ":video_quality_test_fixture_api",
     "../rtc_base:checks",
     "../rtc_base:thread_checker",
+    "../rtc_base/synchronization:sequence_checker",
   ]
 }
 
@@ -938,6 +940,7 @@ if (rtc_include_tests) {
     deps = [
       "../rtc_base",
       "../rtc_base:checks",
+      "../rtc_base/synchronization:sequence_checker",
       "transport:datagram_transport_interface",
       "transport/media:media_transport_interface",
       "//third_party/abseil-cpp/absl/algorithm:container",

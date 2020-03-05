@@ -39,8 +39,8 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/ssl_stream_adapter.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
-#include "rtc_base/thread_checker.h"
 
 namespace cricket {
 

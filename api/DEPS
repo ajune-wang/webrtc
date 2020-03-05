@@ -185,7 +185,7 @@ specific_include_rules = {
     "+rtc_base/constructor_magic.h",
     "+rtc_base/ref_count.h",
     "+rtc_base/string_encode.h",
-    "+rtc_base/thread_checker.h",
+    "+rtc_base/synchronization/sequence_checker.h",
   ],
 
   "uma_metrics\.h": [

@@ -14,14 +14,14 @@
 #include <utility>
 
 #include "rtc_base/checks.h"
-#include "rtc_base/thread_checker.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 
 namespace webrtc {
 
 // This checks everything in this file gets called on the same thread. It's
 // static because it needs to look at the static methods too.
-rtc::ThreadChecker* GetThreadChecker() {
-  static rtc::ThreadChecker checker;
+SequenceChecker* GetThreadChecker() {
+  static SequenceChecker checker;
   return &checker;
 }
 

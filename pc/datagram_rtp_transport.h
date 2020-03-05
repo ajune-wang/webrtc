@@ -30,7 +30,7 @@
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/strings/string_builder.h"
-#include "rtc_base/thread_checker.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 
 namespace webrtc {
 
@@ -138,7 +138,7 @@ class DatagramRtpTransport : public RtpTransportInternal,
   // Propagates network route changes from ICE.
   void OnNetworkRouteChanged(absl::optional<rtc::NetworkRoute> network_route);
 
-  rtc::ThreadChecker thread_checker_;
+  SequenceChecker thread_checker_;
   cricket::IceTransportInternal* ice_transport_;
   webrtc::DatagramTransportInterface* datagram_transport_;
 

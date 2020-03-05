@@ -37,8 +37,8 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/rate_limiter.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/thread_checker.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
@@ -167,8 +167,8 @@ class ChannelSend : public ChannelSendInterface,
   // specific threads we know about. The goal is to eventually split up
   // voe::Channel into parts with single-threaded semantics, and thereby reduce
   // the need for locks.
-  rtc::ThreadChecker worker_thread_checker_;
-  rtc::ThreadChecker module_process_thread_checker_;
+  SequenceChecker worker_thread_checker_;
+  SequenceChecker module_process_thread_checker_;
   // Methods accessed from audio and video threads are checked for sequential-
   // only access. We don't necessarily own and control these threads, so thread
   // checkers cannot be used. E.g. Chromium may transfer "ownership" from one
@@ -206,8 +206,7 @@ class ChannelSend : public ChannelSendInterface,
   const std::unique_ptr<RtpPacketSenderProxy> rtp_packet_pacer_proxy_;
   const std::unique_ptr<RateLimiter> retransmission_rate_limiter_;
 
-  rtc::ThreadChecker construction_thread_;
-
+  SequenceChecker construction_thread_;
 
   bool encoder_queue_is_active_ RTC_GUARDED_BY(encoder_queue_) = false;
 
@@ -258,9 +257,9 @@ class TransportFeedbackProxy : public TransportFeedbackObserver {
 
  private:
   rtc::CriticalSection crit_;
-  rtc::ThreadChecker thread_checker_;
-  rtc::ThreadChecker pacer_thread_;
-  rtc::ThreadChecker network_thread_;
+  SequenceChecker thread_checker_;
+  SequenceChecker pacer_thread_;
+  SequenceChecker network_thread_;
   TransportFeedbackObserver* feedback_observer_ RTC_GUARDED_BY(&crit_);
 };
 
@@ -281,7 +280,7 @@ class RtpPacketSenderProxy : public RtpPacketSender {
   }
 
  private:
-  rtc::ThreadChecker thread_checker_;
+  SequenceChecker thread_checker_;
   rtc::CriticalSection crit_;
   RtpPacketSender* rtp_packet_pacer_ RTC_GUARDED_BY(&crit_);
 };

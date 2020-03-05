@@ -27,9 +27,9 @@
 #include "rtc_base/network.h"
 #include "rtc_base/network_constants.h"
 #include "rtc_base/socket_address.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/task_utils/repeating_task.h"
-#include "rtc_base/thread_checker.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -169,7 +169,7 @@ class EmulatedEndpointImpl : public EmulatedEndpoint {
   void UpdateReceiveStats(const EmulatedIpPacket& packet);
 
   rtc::CriticalSection receiver_lock_;
-  rtc::ThreadChecker enabled_state_checker_;
+  SequenceChecker enabled_state_checker_;
 
   uint64_t id_;
   // Peer's local IP address for this endpoint network interface.

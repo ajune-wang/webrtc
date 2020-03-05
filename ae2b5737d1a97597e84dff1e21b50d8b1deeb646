@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "273f4258_50e09359",
+        "filename": "video/adaptation/adaptation_counters_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-05T15:33:19Z",
+      "side": 1,
+      "message": "This has been updated in my patch. Should rebase.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "ae2b5737d1a97597e84dff1e21b50d8b1deeb646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43127750_7f2fca7b",
+        "filename": "video/adaptation/video_stream_adaptor.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-05T15:33:19Z",
+      "side": 1,
+      "message": "Hate asking for a rename, but the most common spelling is \"adapter\" https://www.merriam-webster.com/dictionary/adapter",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "ae2b5737d1a97597e84dff1e21b50d8b1deeb646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ad877ab_07a092c5",
+        "filename": "video/adaptation/video_stream_adaptor.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-05T15:33:19Z",
+      "side": 1,
+      "message": "Is it normal to reference a code review here like this?",
+      "range": {
+        "startLine": 48,
+        "startChar": 60,
+        "endLine": 49,
+        "endChar": 59
+      },
+      "revId": "ae2b5737d1a97597e84dff1e21b50d8b1deeb646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

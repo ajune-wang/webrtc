@@ -25,8 +25,6 @@ constexpr int kMinBwePeriodMsSmoothingExp = 500;
 constexpr int kMinBwePeriodMsNoSmoothingExp = 2000;
 constexpr int kDefaultPeriodMsNoSmoothingExp = 3000;
 constexpr int kMaxBwePeriodMs = 50000;
-constexpr char kSmoothingExpFieldTrial[] =
-    "WebRTC-Audio-BandwidthSmoothing/Enabled/";
 
 // After an overuse, we back off to 85% to the received bitrate.
 constexpr double kFractionAfterOveruse = 0.85;
@@ -106,21 +104,6 @@ TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriod) {
             states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
 }
 
-TEST(AimdRateControlTest, GetIncreaseRateAndBandwidthPeriodSmoothingExp) {
-  // Smoothing experiment enabled
-  test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
-  auto states = CreateAimdRateControlStates();
-  constexpr int kBitrate = 300000;
-  SetEstimate(states, kBitrate);
-  UpdateRateControl(states, BandwidthUsage::kBwOverusing, kBitrate,
-                    states.simulated_clock->TimeInMilliseconds());
-  EXPECT_NEAR(14000,
-              states.aimd_rate_control->GetNearMaxIncreaseRateBpsPerSecond(),
-              1000);
-  EXPECT_EQ(kMinBwePeriodMsSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
-}
-
 TEST(AimdRateControlTest, BweLimitedByAckedBitrate) {
   auto states = CreateAimdRateControlStates();
   constexpr int kAckedBitrate = 10000;
@@ -171,20 +154,6 @@ TEST(AimdRateControlTest, DefaultPeriodUntilFirstOveruse) {
             states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
 }
 
-TEST(AimdRateControlTest, MinPeriodUntilFirstOveruseSmoothingExp) {
-  // Smoothing experiment enabled
-  test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
-  auto states = CreateAimdRateControlStates();
-  states.aimd_rate_control->SetStartBitrate(DataRate::KilobitsPerSec(300));
-  EXPECT_EQ(kMinBwePeriodMsSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
-  states.simulated_clock->AdvanceTimeMilliseconds(100);
-  UpdateRateControl(states, BandwidthUsage::kBwOverusing, 280000,
-                    states.simulated_clock->TimeInMilliseconds());
-  EXPECT_NE(kMinBwePeriodMsSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
-}
-
 TEST(AimdRateControlTest, ExpectedPeriodAfter20kbpsDropAnd5kbpsIncrease) {
   auto states = CreateAimdRateControlStates();
   constexpr int kInitialBitrate = 110000;
@@ -201,22 +170,6 @@ TEST(AimdRateControlTest, ExpectedPeriodAfter20kbpsDropAnd5kbpsIncrease) {
   EXPECT_EQ(4000, states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
 }
 
-TEST(AimdRateControlTest, MinPeriodAfterLargeBitrateDecreaseSmoothingExp) {
-  // Smoothing experiment enabled
-  test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
-  auto states = CreateAimdRateControlStates();
-  constexpr int kInitialBitrate = 110000;
-  SetEstimate(states, kInitialBitrate);
-  states.simulated_clock->AdvanceTimeMilliseconds(100);
-  // Make such a large drop in bitrate that should be treated as network
-  // degradation.
-  constexpr int kAckedBitrate = kInitialBitrate * 3 / 4 / kFractionAfterOveruse;
-  UpdateRateControl(states, BandwidthUsage::kBwOverusing, kAckedBitrate,
-                    states.simulated_clock->TimeInMilliseconds());
-  EXPECT_EQ(kMinBwePeriodMsSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
-}
-
 TEST(AimdRateControlTest, BandwidthPeriodIsNotBelowMin) {
   auto states = CreateAimdRateControlStates();
   constexpr int kInitialBitrate = 10000;
@@ -226,21 +179,6 @@ TEST(AimdRateControlTest, BandwidthPeriodIsNotBelowMin) {
   UpdateRateControl(states, BandwidthUsage::kBwOverusing, kInitialBitrate - 1,
                     states.simulated_clock->TimeInMilliseconds());
   EXPECT_EQ(kMinBwePeriodMsNoSmoothingExp,
-            states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
-}
-
-TEST(AimdRateControlTest, BandwidthPeriodIsNotAboveMaxSmoothingExp) {
-  // Smoothing experiment enabled
-  test::ScopedFieldTrials override_field_trials(kSmoothingExpFieldTrial);
-  auto states = CreateAimdRateControlStates();
-  constexpr int kInitialBitrate = 50000000;
-  SetEstimate(states, kInitialBitrate);
-  states.simulated_clock->AdvanceTimeMilliseconds(100);
-  // Make a large (10 Mbps) bitrate drop to 10 kbps.
-  constexpr int kAckedBitrate = 40000000 / kFractionAfterOveruse;
-  UpdateRateControl(states, BandwidthUsage::kBwOverusing, kAckedBitrate,
-                    states.simulated_clock->TimeInMilliseconds());
-  EXPECT_EQ(kMaxBwePeriodMs,
             states.aimd_rate_control->GetExpectedBandwidthPeriod().ms());
 }
 

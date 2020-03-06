@@ -71,8 +71,6 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
     }
   };
 
-  static const int kMaxNumberOfPackets;
-
   void SendPeriodicFeedbacks() RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
   void SendFeedbackOnRequest(int64_t sequence_number,
                              const FeedbackRequest& feedback_request)
@@ -90,7 +88,7 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   Clock* const clock_;
   TransportFeedbackSenderInterface* const feedback_sender_;
   const TransportWideFeedbackConfig send_config_;
-  int64_t last_process_time_ms_;
+  Timestamp last_process_time_;
 
   rtc::CriticalSection lock_;
   //  |network_state_estimator_| may be null.
@@ -102,7 +100,7 @@ class RemoteEstimatorProxy : public RemoteBitrateEstimator {
   absl::optional<int64_t> periodic_window_start_seq_ RTC_GUARDED_BY(&lock_);
   // Map unwrapped seq -> time.
   std::map<int64_t, int64_t> packet_arrival_times_ RTC_GUARDED_BY(&lock_);
-  int64_t send_interval_ms_ RTC_GUARDED_BY(&lock_);
+  TimeDelta send_interval_ RTC_GUARDED_BY(&lock_);
   bool send_periodic_feedback_ RTC_GUARDED_BY(&lock_);
 
   // Unwraps absolute send times.

@@ -22,14 +22,14 @@
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
-
+namespace {
 // Impossible to request feedback older than what can be represented by 15 bits.
-const int RemoteEstimatorProxy::kMaxNumberOfPackets = (1 << 15);
+constexpr int kMaxNumberOfPackets = (1 << 15);
 
 // The maximum allowed value for a timestamp in milliseconds. This is lower
 // than the numerical limit since we often convert to microseconds.
-static constexpr int64_t kMaxTimeMs =
-    std::numeric_limits<int64_t>::max() / 1000;
+constexpr int64_t kMaxTimeMs = std::numeric_limits<int64_t>::max() / 1000;
+}  // namespace
 
 RemoteEstimatorProxy::RemoteEstimatorProxy(
     Clock* clock,
@@ -39,11 +39,11 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
     : clock_(clock),
       feedback_sender_(feedback_sender),
       send_config_(key_value_config),
-      last_process_time_ms_(-1),
+      last_process_time_(Timestamp::MinusInfinity()),
       network_state_estimator_(network_state_estimator),
       media_ssrc_(0),
       feedback_packet_count_(0),
-      send_interval_ms_(send_config_.default_interval->ms()),
+      send_interval_(send_config_.default_interval.Get()),
       send_periodic_feedback_(true),
       previous_abs_send_time_(0),
       abs_send_timestamp_(clock->CurrentTime()) {
@@ -52,7 +52,7 @@ RemoteEstimatorProxy::RemoteEstimatorProxy(
       << send_config_.max_interval->ms();
 }
 
-RemoteEstimatorProxy::~RemoteEstimatorProxy() {}
+RemoteEstimatorProxy::~RemoteEstimatorProxy() = default;
 
 void RemoteEstimatorProxy::IncomingPacket(int64_t arrival_time_ms,
                                           size_t payload_size,
@@ -138,10 +138,10 @@ int64_t RemoteEstimatorProxy::TimeUntilNextProcess() {
   if (!send_periodic_feedback_) {
     // Wait a day until next process.
     return 24 * 60 * 60 * 1000;
-  } else if (last_process_time_ms_ != -1) {
-    int64_t now = clock_->TimeInMilliseconds();
-    if (now - last_process_time_ms_ < send_interval_ms_)
-      return last_process_time_ms_ + send_interval_ms_ - now;
+  } else if (last_process_time_.IsFinite()) {
+    Timestamp now = clock_->CurrentTime();
+    if (now - last_process_time_ < send_interval_)
+      return (last_process_time_ + send_interval_ - now).ms();
   }
   return 0;
 }
@@ -151,7 +151,7 @@ void RemoteEstimatorProxy::Process() {
   if (!send_periodic_feedback_) {
     return;
   }
-  last_process_time_ms_ = clock_->TimeInMilliseconds();
+  last_process_time_ = clock_->CurrentTime();
 
   SendPeriodicFeedbacks();
 }
@@ -170,10 +170,10 @@ void RemoteEstimatorProxy::OnBitrateChanged(int bitrate_bps) {
 
   // Let TWCC reports occupy 5% of total bandwidth.
   rtc::CritScope cs(&lock_);
-  send_interval_ms_ = static_cast<int>(
-      0.5 + kTwccReportSize * 8.0 * 1000.0 /
-                rtc::SafeClamp(send_config_.bandwidth_fraction * bitrate_bps,
-                               kMinTwccRate, kMaxTwccRate));
+  send_interval_ = TimeDelta::Millis(
+      kTwccReportSize * 8.0 * 1000.0 /
+      rtc::SafeClamp(send_config_.bandwidth_fraction * bitrate_bps,
+                     kMinTwccRate, kMaxTwccRate));
 }
 
 void RemoteEstimatorProxy::SetSendPeriodicFeedback(

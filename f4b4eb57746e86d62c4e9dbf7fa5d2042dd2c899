@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4dd8e76d_f131123a",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-03-06T08:32:44Z",
+      "side": 1,
+      "message": "I find this kind of weird.\n\nThe motivation for having a separate Builder class to begin with was so that we did not muddle the GenericFrameInfo struct. Now we would have something that is a GenericFrameInfo that support a builder pattern, but via one layer of indirection. I think either use composition or simply move the build related functions directly into the GenericFrameInfo.\n\nI don\u0027t think having a Build() function or not makes a big difference in readability, but I think it would be slightly clearer if the class was a GenericFrameInfo to begin with, instead of a builder that also happens to be the thing we are building.\n\nIf you want to keep the Builder without having to call Build() you could implement an operator that implicitly converts the Builder to a GenericFrameInfo.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "f4b4eb57746e86d62c4e9dbf7fa5d2042dd2c899",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31831384_0fa62fd7",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-03-06T08:32:44Z",
+      "side": 1,
+      "message": "This I don\u0027t particularly like.",
+      "range": {
+        "startLine": 612,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 4
+      },
+      "revId": "f4b4eb57746e86d62c4e9dbf7fa5d2042dd2c899",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

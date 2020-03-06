@@ -495,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "8ab567e0_de28062e",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-06T16:41:18Z",
+      "side": 1,
+      "message": "I understand that but I do wonder if I am missing other reasons by turning into asynchronous flow as I don\u0027t have the whole scope the user cases and flow yet. IMHO, I think it\u0027s fine to be synchronous for this logic like channe_send.cc as some codes are expected to operate in synchronous mode when dealing with lower level code (e.g microphone/speaker init/start in OS device layer) and the nature of RTP stack is that it runs in real time and do not anticipate it will prolong the operation by keeping this synchronous. It does simplify logic for application and also internally.",
+      "parentUuid": "ee8bb455_d57b8277",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

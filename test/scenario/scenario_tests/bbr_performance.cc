@@ -146,7 +146,7 @@ class BbrScenarioTest
 
 TEST_P(BbrScenarioTest, ReceivesVideo) {
   BbrNetworkControllerFactory bbr_factory;
-  Scenario s("bbr_test_gen/bbr__" + conf_.Name());
+  Scenario s;
   CallClientConfig call_config;
   if (conf_.tuning.use_bbr) {
     call_config.transport.cc_factory = &bbr_factory;

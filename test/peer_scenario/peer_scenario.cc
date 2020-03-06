@@ -14,6 +14,7 @@
 #include "rtc_base/null_socket_server.h"
 #include "rtc_base/string_encode.h"
 #include "rtc_base/strings/string_builder.h"
+#include "test/gtest.h"
 #include "test/logging/file_log_writer.h"
 #include "test/testsupport/file_utils.h"
 #include "test/time_controller/real_time_controller.h"
@@ -43,13 +44,8 @@ std::unique_ptr<FileLogWriterFactory> GetPeerScenarioLogManager(
 }
 }  // namespace
 
-PeerScenario::PeerScenario(const testing::TestInfo& test_info, TimeMode mode)
-    : PeerScenario(
-          std::string(test_info.test_suite_name()) + "/" + test_info.name(),
-          mode) {}
-
-PeerScenario::PeerScenario(std::string file_name, TimeMode mode)
-    : PeerScenario(GetPeerScenarioLogManager(file_name), mode) {}
+PeerScenario::PeerScenario(TimeMode mode)
+    : PeerScenario(GetPeerScenarioLogManager(BuildTestCasePath()), mode) {}
 
 PeerScenario::PeerScenario(
     std::unique_ptr<LogWriterFactoryInterface> log_writer_manager,

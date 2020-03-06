@@ -41,7 +41,7 @@ absl::optional<RTPHeaderExtension> GetRtpPacketExtensions(
 }  // namespace
 
 TEST(RemoteEstimateEndToEnd, OfferedCapabilityIsInAnswer) {
-  PeerScenario s(*test_info_);
+  PeerScenario s;
 
   auto* caller = s.CreateClient(PeerScenarioClient::Config());
   auto* callee = s.CreateClient(PeerScenarioClient::Config());
@@ -73,7 +73,7 @@ TEST(RemoteEstimateEndToEnd, OfferedCapabilityIsInAnswer) {
 TEST(RemoteEstimateEndToEnd, AudioUsesAbsSendTimeExtension) {
   // Defined before PeerScenario so it gets destructed after, to avoid use after free.
   std::atomic<bool> received_abs_send_time(false);
-  PeerScenario s(*test_info_);
+  PeerScenario s;
 
   auto* caller = s.CreateClient(PeerScenarioClient::Config());
   auto* callee = s.CreateClient(PeerScenarioClient::Config());

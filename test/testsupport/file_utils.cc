@@ -56,10 +56,24 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/string_utils.h"
+#include "test/gtest.h"
 #include "test/testsupport/file_utils_override.h"
 
 namespace webrtc {
 namespace test {
+namespace {
+std::vector<std::string> StrSplit(const std::string& s,
+                                  const std::string& delimiter) {
+  std::vector<std::string> v;
+  size_t pos = 0;
+  while (pos < s.length()) {
+    const std::string token = s.substr(pos, s.find(delimiter, pos) - pos);
+    pos += token.length() + delimiter.length();
+    v.push_back(token);
+  }
+  return v;
+}
+}  // namespace
 
 #if defined(WEBRTC_WIN)
 const char* kPathDelimiter = "\\";
@@ -241,6 +255,21 @@ size_t GetFileSize(const std::string& filename) {
     fclose(f);
   }
   return size;
+}
+
+std::string BuildTestCasePath() {
+  auto test_info = ::testing::UnitTest::GetInstance()->current_test_info();
+  std::vector<std::string> suite = StrSplit(test_info->test_suite_name(), "/");
+  std::vector<std::string> case_name = StrSplit(test_info->name(), "/");
+  RTC_CHECK_GT(suite.size(), 0);
+  RTC_CHECK_GT(case_name.size(), 0);
+  if (suite.size() == 1 && case_name.size() == 1) {
+    return JoinFilename(suite[0], case_name[0]);
+  }
+  RTC_CHECK_EQ(suite.size(), 2);
+  RTC_CHECK_EQ(case_name.size(), 2);
+  return JoinFilename(suite[1],
+                      case_name[0] + "_" + suite[0] + "_" + case_name[1]);
 }
 
 }  // namespace test

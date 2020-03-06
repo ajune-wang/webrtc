@@ -103,6 +103,10 @@ std::string DirName(const std::string& path);
 // empty or if the file does not exist/is readable.
 size_t GetFileSize(const std::string& filename);
 
+// Returns an appropriate sub path for the current test case, eg.
+// "TestSuite/TestCase" For parameterized tests the path is
+// "TestSuite/TestCase_InstantiationName_ParamName to preserve sorting behavior.
+std::string BuildTestCasePath();
 }  // namespace test
 }  // namespace webrtc
 

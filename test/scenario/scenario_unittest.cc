@@ -93,7 +93,7 @@ TEST(ScenarioTest, SimTimeEncoding) {
   analyzer_config.psnr_coverage = 0.1;
   VideoQualityAnalyzer analyzer(analyzer_config);
   {
-    Scenario s("scenario/encode_sim", false);
+    Scenario s(TimeMode::kSimulated);
     SetupVideoCall(s, &analyzer);
     s.RunFor(TimeDelta::Seconds(2));
   }
@@ -113,7 +113,7 @@ TEST(ScenarioTest, MAYBE_RealTimeEncoding) {
   analyzer_config.psnr_coverage = 0.1;
   VideoQualityAnalyzer analyzer(analyzer_config);
   {
-    Scenario s("scenario/encode_real", true);
+    Scenario s(TimeMode::kSimulated);
     SetupVideoCall(s, &analyzer);
     s.RunFor(TimeDelta::Seconds(2));
   }
@@ -123,7 +123,7 @@ TEST(ScenarioTest, MAYBE_RealTimeEncoding) {
 }
 
 TEST(ScenarioTest, SimTimeFakeing) {
-  Scenario s("scenario/encode_sim", false);
+  Scenario s(TimeMode::kSimulated);
   SetupVideoCall(s, nullptr);
   s.RunFor(TimeDelta::Seconds(2));
 }

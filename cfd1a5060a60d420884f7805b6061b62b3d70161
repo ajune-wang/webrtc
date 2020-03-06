@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38eb45bb_6abf1704",
+        "filename": "video/adaptation/video_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-06T20:03:01Z",
+      "side": 1,
+      "message": "Regardless of this wall of text, perhaps we should simply let the return value of GetAdaptDownTarget() be able to say why it couldn\u0027t go down, e.g. kMinimumResolutionReached or kOther...\n\nThen we are not blocked on changing what \"limit reached\" means and the code is easy to follow.",
+      "revId": "cfd1a5060a60d420884f7805b6061b62b3d70161",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

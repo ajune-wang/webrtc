@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77416561_aad7ff92",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-06T10:56:31Z",
+      "side": 1,
+      "message": "Is this `git cl format`? (same below)",
+      "range": {
+        "startLine": 313,
+        "startChar": 4,
+        "endLine": 313,
+        "endChar": 83
+      },
+      "revId": "b4e7b5604845da85fa653cb7ab10c2e5e4ea0a92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3887ae05_c3ca364d",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-06T10:56:31Z",
+      "side": 1,
+      "message": "Why not https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/string_encode.h?l\u003d65\u0026rcl\u003da4d873786f10eedd72de25ad0d94ad7c53c1f68a?",
+      "revId": "b4e7b5604845da85fa653cb7ab10c2e5e4ea0a92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

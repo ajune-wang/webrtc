@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1f0f847_6596437d",
+        "filename": "video/adaptation/adaptation_counters_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-06T09:41:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "273f4258_50e09359",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "ae2b5737d1a97597e84dff1e21b50d8b1deeb646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43127750_7f2fca7b",
         "filename": "video/adaptation/video_stream_adaptor.h",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "006e786f_44efeb16",
+        "filename": "video/adaptation/video_stream_adaptor.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-06T09:41:59Z",
+      "side": 1,
+      "message": "MaybeVideoStreamAdapterModuleInterfaceImpl",
+      "parentUuid": "43127750_7f2fca7b",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "ae2b5737d1a97597e84dff1e21b50d8b1deeb646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ad877ab_07a092c5",
         "filename": "video/adaptation/video_stream_adaptor.h",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "ae2b5737d1a97597e84dff1e21b50d8b1deeb646",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "766f8669_ea843af3",
+        "filename": "video/adaptation/video_stream_adaptor.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-06T09:41:59Z",
+      "side": 1,
+      "message": "Definitely not. 😊\n\nOk I removed it, saddest story.",
+      "parentUuid": "7ad877ab_07a092c5",
+      "range": {
+        "startLine": 48,
+        "startChar": 60,
+        "endLine": 49,
+        "endChar": 59
+      },
+      "revId": "ae2b5737d1a97597e84dff1e21b50d8b1deeb646",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

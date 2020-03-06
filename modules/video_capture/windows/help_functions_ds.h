@@ -98,8 +98,7 @@ class ComRefCount : public T {
   }
 
   STDMETHOD_(ULONG, Release)() override {
-    const auto status = ref_count_.DecRef();
-    if (status == rtc::RefCountReleaseStatus::kDroppedLastRef) {
+    if (ref_count_.DecRefDroppedLastRef()) {
       delete this;
       return 0;
     }

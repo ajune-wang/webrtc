@@ -21,12 +21,10 @@ class RefCountedBase {
   RefCountedBase() = default;
 
   void AddRef() const { ref_count_.IncRef(); }
-  RefCountReleaseStatus Release() const {
-    const auto status = ref_count_.DecRef();
-    if (status == RefCountReleaseStatus::kDroppedLastRef) {
+  void Release() const {
+    if (ref_count_.DecRefDroppedLastRef()) {
       delete this;
     }
-    return status;
   }
 
  protected:

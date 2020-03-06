@@ -194,7 +194,7 @@ TEST_P(TaskQueueTest, PostALot) {
     explicit BlockingCounter(int initial_count) : count_(initial_count) {}
 
     void DecrementCount() {
-      if (count_.DecRef() == rtc::RefCountReleaseStatus::kDroppedLastRef) {
+      if (count_.DecRefDroppedLastRef()) {
         event_.Set();
       }
     }

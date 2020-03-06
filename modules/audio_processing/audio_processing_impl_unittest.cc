@@ -38,7 +38,7 @@ class MockInitialize : public AudioProcessingImpl {
   }
 
   MOCK_CONST_METHOD0(AddRef, void());
-  MOCK_CONST_METHOD0(Release, rtc::RefCountReleaseStatus());
+  MOCK_CONST_METHOD0(Release, void());
 };
 
 // Creates MockEchoControl instances and provides a raw pointer access to

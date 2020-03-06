@@ -368,7 +368,7 @@ VideoStreamAdapter::GetAdaptDownTarget(
     VideoInputMode input_mode,
     int input_pixels,
     int input_fps,
-    VideoStreamEncoderObserver* encoder_stats_observer) const {
+    bool* min_pixel_limit_reached) const {
   const int min_pixels_per_frame = MinPixelsPerFrame(encoder_settings);
   // Preconditions for being able to adapt down:
   if (input_mode == VideoInputMode::kNoVideo)
@@ -419,11 +419,21 @@ VideoStreamAdapter::GetAdaptDownTarget(
     case DegradationPreference::MAINTAIN_FRAMERATE: {
       // Scale down resolution.
       int target_pixels = GetLowerResolutionThan(input_pixels);
-      // TODO(https://crbug.com/webrtc/11393): Move this logic to
-      // ApplyAdaptationTarget() or elsewhere - simply checking which adaptation
-      // target is available should not have side-effects.
+      // This condition is triggered when the next target down is too low, even
+      // if the current target it higher than that. This means that we might
+      // never reach the minimum.
+      // TODO(hbos): Adapt to the minimum if this is lower than |input_pixels|,
+      // i.e. set |target_pixels| to |min_pixels_per_frame| to avoid
+      // CanDecreaseResolutionTo() returning false. When this is achieved,
+      // |min_pixel_limit_reached| can be removed in favor of AdaptationTarget
+      // knowing if it represents "min_pixel_limit_reached". Careful though,
+      // |min_pixels_per_frame| depends on |encoder_settings|, so it's possible
+      // for SetEncoderSettings() to trigger "min_pixel_limit_reached" even if
+      // this is not handled today. Therefore, ideally,
+      // "min_pixel_limit_reached" would be inferred from the
+      // VideoSourceRestrictions instead.
       if (target_pixels < min_pixels_per_frame)
-        encoder_stats_observer->OnMinPixelLimitReached();
+        *min_pixel_limit_reached = true;
       if (!source_restrictor_->CanDecreaseResolutionTo(target_pixels,
                                                        min_pixels_per_frame)) {
         return absl::nullopt;

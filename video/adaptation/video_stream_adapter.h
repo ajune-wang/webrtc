@@ -15,7 +15,6 @@
 
 #include "absl/types/optional.h"
 #include "api/rtp_parameters.h"
-#include "api/video/video_stream_encoder_observer.h"
 #include "call/adaptation/encoder_settings.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/video_source_restrictions.h"
@@ -96,15 +95,14 @@ class VideoStreamAdapter {
       int input_pixels,
       int input_fps,
       AdaptationObserverInterface::AdaptReason reason) const;
-  // TODO(https://crbug.com/webrtc/11393): Remove the dependency on
-  // |encoder_stats_observer| - simply checking which adaptation target is
-  // available should not have side-effects.
+  // |min_pixel_limit_reached| is set to true if resolution would have adapted
+  // down but couldn't due to the next target being too low.
   absl::optional<AdaptationTarget> GetAdaptDownTarget(
       const absl::optional<EncoderSettings>& encoder_settings,
       VideoInputMode input_mode,
       int input_pixels,
       int input_fps,
-      VideoStreamEncoderObserver* encoder_stats_observer) const;
+      bool* min_pixel_limit_reached) const;
   // Applies the |target| to |source_restrictor_|.
   // TODO(hbos): Delete ResourceListenerResponse!
   ResourceListenerResponse ApplyAdaptationTarget(

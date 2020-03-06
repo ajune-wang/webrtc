@@ -494,10 +494,13 @@ OveruseFrameDetectorResourceAdaptationModule::OnResourceOveruse(
   const int input_pixels = LastInputFrameSizeOrDefault();
   const int input_fps = encoder_stats_observer_->GetInputFrameRate();
   // Should we adapt, if so to what target?
+  bool min_pixel_limit_reached = false;
   absl::optional<VideoStreamAdapter::AdaptationTarget> target =
       stream_adapter_->GetAdaptDownTarget(encoder_settings_, input_mode,
                                           input_pixels, input_fps,
-                                          encoder_stats_observer_);
+                                          &min_pixel_limit_reached);
+  if (min_pixel_limit_reached)
+    encoder_stats_observer_->OnMinPixelLimitReached();
   if (!target.has_value())
     return ResourceListenerResponse::kNothing;
   // Apply target.

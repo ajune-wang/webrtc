@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f64803aa_ab0ed346",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-06T10:05:10Z",
+      "side": 1,
+      "message": "this code already in webrtc namespace",
+      "range": {
+        "startLine": 979,
+        "startChar": 10,
+        "endLine": 979,
+        "endChar": 18
+      },
+      "revId": "1e71626001d7092563101141e4c29e12bb9dbc78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -101,8 +101,7 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       last_report_block_time_(Timestamp::Millis(clock_->TimeInMilliseconds())),
       reset_feedback_on_route_change_(
           !IsEnabled(trials, "WebRTC-Bwe-NoFeedbackReset")),
-      send_side_bwe_with_overhead_(
-          IsEnabled(trials, "WebRTC-SendSideBwe-WithOverhead")),
+      send_side_bwe_with_overhead_(true),
       add_pacing_to_cwin_(
           IsEnabled(trials, "WebRTC-AddPacingToCongestionWindowPushback")),
       transport_overhead_bytes_per_packet_(0),

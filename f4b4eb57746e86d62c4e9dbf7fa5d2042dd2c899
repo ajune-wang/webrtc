@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "653a1209_6e638cf7",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-06T08:52:17Z",
+      "side": 1,
+      "message": "If that looks weird, then it is better not to do it.\nI\u0027ll drop it (may be later will come up with some better idea or better motivation)",
+      "parentUuid": "4dd8e76d_f131123a",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "f4b4eb57746e86d62c4e9dbf7fa5d2042dd2c899",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "31831384_0fa62fd7",
         "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "f4b4eb57746e86d62c4e9dbf7fa5d2042dd2c899",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "894632f8_8287ad20",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-06T08:52:17Z",
+      "side": 1,
+      "message": "it also rely on non trivial rules of \"Reference Lifetime Extension\".\n(it may look like it returns a reference to a temporary. Not trivial to explain why it is safe)",
+      "parentUuid": "31831384_0fa62fd7",
+      "range": {
+        "startLine": 612,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 4
+      },
+      "revId": "f4b4eb57746e86d62c4e9dbf7fa5d2042dd2c899",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

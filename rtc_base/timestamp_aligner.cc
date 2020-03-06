@@ -34,6 +34,10 @@ int64_t TimestampAligner::TranslateTimestamp(int64_t capturer_time_us,
       system_time_us);
 }
 
+int64_t TimestampAligner::TranslateTimestamp(int64_t capturer_time_us) const {
+  return capturer_time_us + offset_us_ - clip_bias_us_;
+}
+
 int64_t TimestampAligner::UpdateOffset(int64_t capturer_time_us,
                                        int64_t system_time_us) {
   // Estimate the offset between system monotonic time and the capturer's

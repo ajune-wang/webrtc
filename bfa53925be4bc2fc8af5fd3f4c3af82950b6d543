@@ -471,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "ee8bb455_d57b8277",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-06T08:55:49Z",
+      "side": 1,
+      "message": "Missed this, if we need to send RTCP BYE at the end based on a signal from the encoder queue, then we will need to ensure that the class is stopped before destruction, with a async Stop call. For en example of how this can be designed, see RtcEventLogImpl::StopLogging(std::function\u003cvoid()\u003e callback)\n\nNote that it will be up to the caller to ensure that the callback has been called before calling the destructor.",
+      "parentUuid": "042c84f6_d41513dc",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

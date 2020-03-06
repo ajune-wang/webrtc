@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5dd2fb53_2f9f60b9",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-06T10:16:42Z",
+      "side": 1,
+      "message": "nit: It\u0027s const now, remove this TODO",
+      "revId": "aea7101c7eea4028f0af2208a08700a646994b2f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

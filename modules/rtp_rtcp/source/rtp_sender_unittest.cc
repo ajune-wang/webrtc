@@ -2480,12 +2480,10 @@ TEST_P(RtpSenderTest, IgnoresNackAfterDisablingMedia) {
 
 INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,
                          RtpSenderTest,
-                         ::testing::Values(TestConfig{false},
-                                           TestConfig{true}));
+                         ::testing::Values(TestConfig{true}));
 
 INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,
                          RtpSenderTestWithoutPacer,
-                         ::testing::Values(TestConfig{false},
-                                           TestConfig{true}));
+                         ::testing::Values(TestConfig{true}));
 
 }  // namespace webrtc

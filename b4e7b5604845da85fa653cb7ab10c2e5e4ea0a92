@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "599cba57_5b2ea11f",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-06T13:54:32Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "77416561_aad7ff92",
+      "range": {
+        "startLine": 313,
+        "startChar": 4,
+        "endLine": 313,
+        "endChar": 83
+      },
+      "revId": "b4e7b5604845da85fa653cb7ab10c2e5e4ea0a92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3887ae05_c3ca364d",
         "filename": "test/testsupport/file_utils.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "b4e7b5604845da85fa653cb7ab10c2e5e4ea0a92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6d04c4_3c485f6b",
+        "filename": "test/testsupport/file_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-06T13:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3887ae05_c3ca364d",
+      "revId": "b4e7b5604845da85fa653cb7ab10c2e5e4ea0a92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

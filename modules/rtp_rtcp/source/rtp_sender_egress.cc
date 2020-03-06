@@ -61,8 +61,7 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcp::Configuration& config,
                         ? absl::make_optional(config.flexfec_sender->ssrc())
                         : absl::nullopt),
       populate_network2_timestamp_(config.populate_network2_timestamp),
-      send_side_bwe_with_overhead_(
-          IsEnabled("WebRTC-SendSideBwe-WithOverhead", config.field_trials)),
+      send_side_bwe_with_overhead_(true),
       clock_(config.clock),
       packet_history_(packet_history),
       transport_(config.outgoing_transport),

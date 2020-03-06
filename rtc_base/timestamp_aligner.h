@@ -45,6 +45,8 @@ class RTC_EXPORT TimestampAligner {
   // translated timestamp.
   int64_t TranslateTimestamp(int64_t capturer_time_us, int64_t system_time_us);
 
+  int64_t prev_translated_time_us() const { return prev_translated_time_us_; }
+
  protected:
   // Update the estimated offset between capturer's time and system monotonic
   // time.

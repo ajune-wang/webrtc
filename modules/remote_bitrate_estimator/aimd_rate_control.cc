@@ -67,10 +67,10 @@ double ReadBackoffFactor(const WebRtcKeyValueConfig& key_value_config) {
 
 }  // namespace
 
-AimdRateControl::AimdRateControl(const WebRtcKeyValueConfig* key_value_config)
+AimdRateControl::AimdRateControl(const WebRtcKeyValueConfig& key_value_config)
     : AimdRateControl(key_value_config, /* send_side =*/false) {}
 
-AimdRateControl::AimdRateControl(const WebRtcKeyValueConfig* key_value_config,
+AimdRateControl::AimdRateControl(const WebRtcKeyValueConfig& key_value_config,
                                  bool send_side)
     : min_configured_bitrate_(congestion_controller::GetMinBitrate()),
       max_configured_bitrate_(DataRate::KilobitsPerSec(30000)),
@@ -82,23 +82,21 @@ AimdRateControl::AimdRateControl(const WebRtcKeyValueConfig* key_value_config,
       time_last_bitrate_decrease_(Timestamp::MinusInfinity()),
       time_first_throughput_estimate_(Timestamp::MinusInfinity()),
       bitrate_is_initialized_(false),
-      beta_(IsEnabled(*key_value_config, kBweBackOffFactorExperiment)
-                ? ReadBackoffFactor(*key_value_config)
+      beta_(IsEnabled(key_value_config, kBweBackOffFactorExperiment)
+                ? ReadBackoffFactor(key_value_config)
                 : kDefaultBackoffFactor),
       in_alr_(false),
       rtt_(kDefaultRtt),
       send_side_(send_side),
-      in_experiment_(!AdaptiveThresholdExperimentIsDisabled(*key_value_config)),
+      in_experiment_(!AdaptiveThresholdExperimentIsDisabled(key_value_config)),
       no_bitrate_increase_in_alr_(
-          IsEnabled(*key_value_config,
-                    "WebRTC-DontIncreaseDelayBasedBweInAlr")),
+          IsEnabled(key_value_config, "WebRTC-DontIncreaseDelayBasedBweInAlr")),
       smoothing_experiment_(
-          IsEnabled(*key_value_config, "WebRTC-Audio-BandwidthSmoothing")),
+          IsEnabled(key_value_config, "WebRTC-Audio-BandwidthSmoothing")),
       estimate_bounded_backoff_(
-          IsNotDisabled(*key_value_config,
-                        "WebRTC-Bwe-EstimateBoundedBackoff")),
+          IsNotDisabled(key_value_config, "WebRTC-Bwe-EstimateBoundedBackoff")),
       estimate_bounded_increase_(
-          IsNotDisabled(*key_value_config,
+          IsNotDisabled(key_value_config,
                         "WebRTC-Bwe-EstimateBoundedIncrease")),
       initial_backoff_interval_("initial_backoff_interval"),
       low_throughput_threshold_("low_throughput", DataRate::Zero()),
@@ -108,7 +106,7 @@ AimdRateControl::AimdRateControl(const WebRtcKeyValueConfig* key_value_config,
   // low_throughput:50kbps/
   ParseFieldTrial({&initial_backoff_interval_, &low_throughput_threshold_,
                    &link_capacity_fix_},
-                  key_value_config->Lookup("WebRTC-BweAimdRateControlConfig"));
+                  key_value_config.Lookup("WebRTC-BweAimdRateControlConfig"));
   if (initial_backoff_interval_) {
     RTC_LOG(LS_INFO) << "Using aimd rate control with initial back-off interval"
                         " "

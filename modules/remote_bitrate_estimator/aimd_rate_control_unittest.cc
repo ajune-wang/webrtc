@@ -40,7 +40,7 @@ struct AimdRateControlStates {
 AimdRateControlStates CreateAimdRateControlStates(bool send_side = false) {
   AimdRateControlStates states;
   states.aimd_rate_control.reset(
-      new AimdRateControl(&states.field_trials, send_side));
+      new AimdRateControl(states.field_trials, send_side));
   states.simulated_clock.reset(new SimulatedClock(kClockInitialTime));
   return states;
 }

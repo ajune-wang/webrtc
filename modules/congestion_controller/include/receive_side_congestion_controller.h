@@ -17,14 +17,13 @@
 #include "api/transport/field_trial_based_config.h"
 #include "api/transport/network_control.h"
 #include "modules/include/module.h"
+#include "modules/pacing/packet_router.h"
+#include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
 #include "modules/remote_bitrate_estimator/remote_estimator_proxy.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/critical_section.h"
 
 namespace webrtc {
-class RemoteBitrateEstimator;
-class RemoteBitrateObserver;
-
 // This class represents the congestion control state for receive
 // streams. For send side bandwidth estimation, this is simply
 // relaying for each received RTP packet back to the sender. While for

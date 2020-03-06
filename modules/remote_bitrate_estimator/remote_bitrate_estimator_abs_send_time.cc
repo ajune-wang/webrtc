@@ -104,7 +104,7 @@ RemoteBitrateEstimatorAbsSendTime::RemoteBitrateEstimatorAbsSendTime(
       first_packet_time_ms_(-1),
       last_update_ms_(-1),
       uma_recorded_(false),
-      remote_rate_(&field_trials_) {
+      remote_rate_(field_trials_) {
   RTC_DCHECK(clock_);
   RTC_DCHECK(observer_);
   RTC_LOG(LS_INFO) << "RemoteBitrateEstimatorAbsSendTime: Instantiating.";

@@ -30,8 +30,8 @@ namespace webrtc {
 // multiplicatively.
 class AimdRateControl {
  public:
-  explicit AimdRateControl(const WebRtcKeyValueConfig* key_value_config);
-  AimdRateControl(const WebRtcKeyValueConfig* key_value_config, bool send_side);
+  explicit AimdRateControl(const WebRtcKeyValueConfig& key_value_config);
+  AimdRateControl(const WebRtcKeyValueConfig& key_value_config, bool send_side);
   ~AimdRateControl();
 
   // Returns true if the target bitrate has been initialized. This happens

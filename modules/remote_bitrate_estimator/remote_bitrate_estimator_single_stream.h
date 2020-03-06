@@ -18,6 +18,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/rtp_headers.h"
 #include "api/transport/field_trial_based_config.h"
 #include "modules/remote_bitrate_estimator/aimd_rate_control.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
@@ -25,11 +26,9 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/thread_annotations.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
-
-class Clock;
-struct RTPHeader;
 
 class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
  public:
@@ -51,29 +50,23 @@ class RemoteBitrateEstimatorSingleStream : public RemoteBitrateEstimator {
  private:
   struct Detector;
 
-  typedef std::map<uint32_t, Detector*> SsrcOveruseEstimatorMap;
-
   // Triggers a new estimate calculation.
   void UpdateEstimate(int64_t time_now)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
 
-  void GetSsrcs(std::vector<uint32_t>* ssrcs) const
-      RTC_SHARED_LOCKS_REQUIRED(crit_sect_);
-
-  // Returns |remote_rate_| if the pointed to object exists,
-  // otherwise creates it.
-  AimdRateControl* GetRemoteRate() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
+  std::vector<uint32_t> GetSsrcs() const RTC_SHARED_LOCKS_REQUIRED(crit_sect_);
 
   Clock* const clock_;
   const FieldTrialBasedConfig field_trials_;
-  SsrcOveruseEstimatorMap overuse_detectors_ RTC_GUARDED_BY(crit_sect_);
+  std::map<uint32_t, std::unique_ptr<Detector>> overuse_detectors_
+      RTC_GUARDED_BY(crit_sect_);
   RateStatistics incoming_bitrate_ RTC_GUARDED_BY(crit_sect_);
   uint32_t last_valid_incoming_bitrate_ RTC_GUARDED_BY(crit_sect_);
-  std::unique_ptr<AimdRateControl> remote_rate_ RTC_GUARDED_BY(crit_sect_);
+  AimdRateControl remote_rate_ RTC_GUARDED_BY(crit_sect_);
   RemoteBitrateObserver* const observer_ RTC_GUARDED_BY(crit_sect_);
   rtc::CriticalSection crit_sect_;
-  int64_t last_process_time_;
-  int64_t process_interval_ms_ RTC_GUARDED_BY(crit_sect_);
+  Timestamp last_process_time_;
+  TimeDelta process_interval_ RTC_GUARDED_BY(crit_sect_);
   bool uma_recorded_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RemoteBitrateEstimatorSingleStream);

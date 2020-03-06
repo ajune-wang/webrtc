@@ -87,6 +87,7 @@ std::unique_ptr<AudioEncoderOpusStates> CreateCodec(int sample_rate_hz,
   states->encoder.reset(
       new AudioEncoderOpusImpl(states->config, kDefaultOpusPayloadType, creator,
                                std::move(bitrate_smoother)));
+  states->encoder->OnReceivedOverhead(0);
   return states;
 }
 

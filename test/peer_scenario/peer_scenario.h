@@ -22,7 +22,6 @@
 #include <vector>
 
 #include "api/test/time_controller.h"
-#include "test/gtest.h"
 #include "test/logging/log_writer.h"
 #include "test/network/network_emulation_manager.h"
 #include "test/peer_scenario/peer_scenario_client.h"
@@ -41,15 +40,12 @@ namespace test {
 // connections that are created. This means that the process methods must be
 // used when waiting to ensure that messages are processed on the signaling
 // thread.
+//
+// Add --peer_logs to the command line when running the test to save logs to
+// --peer_logs_root or a default output path.
 class PeerScenario {
  public:
-  // The name is used for log output when those are enabled by the --peer_logs
-  // command line flag. Optionally, the TestInfo struct available in gtest can
-  // be used to automatically generate a path based on the test name.
-  explicit PeerScenario(const testing::TestInfo& test_info,
-                        TimeMode mode = TimeMode::kSimulated);
-  explicit PeerScenario(std::string file_name,
-                        TimeMode mode = TimeMode::kSimulated);
+  explicit PeerScenario(TimeMode mode = TimeMode::kSimulated);
   explicit PeerScenario(
       std::unique_ptr<LogWriterFactoryInterface> log_writer_manager,
       TimeMode mode = TimeMode::kSimulated);

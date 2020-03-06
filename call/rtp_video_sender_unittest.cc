@@ -502,7 +502,7 @@ TEST(RtpVideoSenderTest, DoesNotRetrasmitAckedPackets) {
 // detect and retreansmit the lost packets from the lossy stream.
 TEST(RtpVideoSenderTest, RetransmitsOnTransportWideLossInfo) {
   int rtx_packets;
-  test::Scenario s(test_info_);
+  test::Scenario s;
   test::CallClientConfig call_conf;
   // Keeping the bitrate fixed to avoid RTX due to probing.
   call_conf.transport.rates.max_rate = DataRate::KilobitsPerSec(300);

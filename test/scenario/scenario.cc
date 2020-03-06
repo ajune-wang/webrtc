@@ -46,25 +46,22 @@ std::unique_ptr<FileLogWriterFactory> GetScenarioLogManager(
 }
 }  // namespace
 
-Scenario::Scenario()
-    : Scenario(std::unique_ptr<LogWriterFactoryInterface>(),
-               /*real_time=*/false) {}
+Scenario::Scenario() : Scenario(TimeMode::kSimulated) {}
 
-Scenario::Scenario(const testing::TestInfo* test_info)
-    : Scenario(std::string(test_info->test_suite_name()) + "/" +
-               test_info->name()) {}
-
-Scenario::Scenario(std::string file_name)
-    : Scenario(file_name, /*real_time=*/false) {}
-
-Scenario::Scenario(std::string file_name, bool real_time)
-    : Scenario(GetScenarioLogManager(file_name), real_time) {}
+Scenario::Scenario(TimeMode mode)
+    : Scenario(GetScenarioLogManager(BuildTestCasePath()), mode) {}
 
 Scenario::Scenario(
     std::unique_ptr<LogWriterFactoryInterface> log_writer_factory,
     bool real_time)
+    : Scenario(std::move(log_writer_factory),
+               real_time ? TimeMode::kRealTime : TimeMode::kSimulated) {}
+
+Scenario::Scenario(
+    std::unique_ptr<LogWriterFactoryInterface> log_writer_factory,
+    TimeMode mode)
     : log_writer_factory_(std::move(log_writer_factory)),
-      network_manager_(real_time ? TimeMode::kRealTime : TimeMode::kSimulated),
+      network_manager_(mode),
       clock_(network_manager_.time_controller()->GetClock()),
       audio_decoder_factory_(CreateBuiltinAudioDecoderFactory()),
       audio_encoder_factory_(CreateBuiltinAudioEncoderFactory()),

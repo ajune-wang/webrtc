@@ -55,7 +55,9 @@
 #endif
 
 #include "rtc_base/checks.h"
+#include "rtc_base/string_encode.h"
 #include "rtc_base/string_utils.h"
+#include "test/gtest.h"
 #include "test/testsupport/file_utils_override.h"
 
 namespace webrtc {
@@ -241,6 +243,23 @@ size_t GetFileSize(const std::string& filename) {
     fclose(f);
   }
   return size;
+}
+
+std::string BuildTestCasePath() {
+  auto test_info = ::testing::UnitTest::GetInstance()->current_test_info();
+  std::vector<std::string> suite;
+  rtc::split(test_info->test_suite_name(), '/', &suite);
+  std::vector<std::string> case_name;
+  rtc::split(test_info->name(), '/', &case_name);
+  RTC_CHECK_GT(suite.size(), 0);
+  RTC_CHECK_GT(case_name.size(), 0);
+  if (suite.size() == 1 && case_name.size() == 1) {
+    return JoinFilename(suite[0], case_name[0]);
+  }
+  RTC_CHECK_EQ(suite.size(), 2);
+  RTC_CHECK_EQ(case_name.size(), 2);
+  return JoinFilename(suite[1],
+                      case_name[0] + "_" + suite[0] + "_" + case_name[1]);
 }
 
 }  // namespace test

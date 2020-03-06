@@ -21,7 +21,7 @@ namespace test {
 TEST(PeerScenarioQualityTest, MAYBE_PsnrIsCollected) {
   VideoQualityAnalyzer analyzer;
   {
-    PeerScenario s(*test_info_);
+    PeerScenario s;
     auto caller = s.CreateClient(PeerScenarioClient::Config());
     auto callee = s.CreateClient(PeerScenarioClient::Config());
     PeerScenarioClient::VideoSendTrackConfig video_conf;

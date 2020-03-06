@@ -121,7 +121,7 @@ TEST_F(BbrNetworkControllerTest, SendsConfigurationOnNetworkRouteChanged) {
 // Feedbacks which show an increasing delay cause the estimation to be reduced.
 TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
   BbrNetworkControllerFactory factory;
-  Scenario s("bbr_unit/updates_rate", false);
+  Scenario s;
   CallClientConfig config;
   config.transport.cc_factory = &factory;
   config.transport.rates.min_rate = DataRate::KilobitsPerSec(10);

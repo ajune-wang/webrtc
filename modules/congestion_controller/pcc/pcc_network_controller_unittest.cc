@@ -77,7 +77,7 @@ TEST(PccNetworkControllerTest, SendsConfigurationOnFirstProcess) {
 
 TEST(PccNetworkControllerTest, UpdatesTargetSendRate) {
   PccNetworkControllerFactory factory;
-  Scenario s("pcc_unit/updates_rate", false);
+  Scenario s;
   CallClientConfig config;
   config.transport.cc_factory = &factory;
   config.transport.rates.min_rate = DataRate::KilobitsPerSec(10);

@@ -310,8 +310,7 @@ rtc_source_set("test_support") {
 
   public_deps = []  # no-presubmit-check TODO(webrtc:8603)
   if (is_ios) {
-    public_deps +=  # no-presubmit-check TODO(webrtc:8603)
-        [ ":test_support_objc" ]
+    public_deps += [ ":test_support_objc" ]  # no-presubmit-check TODO(webrtc:8603)
   }
 
   public_configs = [ ":test_main_direct_config" ]
@@ -582,6 +581,7 @@ rtc_library("fileutils") {
   deps = [
     ":fileutils_override_api",
     ":fileutils_override_impl",
+    ":test_support",
     "../rtc_base:checks",
     "../rtc_base:stringutils",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -641,8 +641,7 @@ rtc_source_set("run_test") {
   if (is_mac) {
     public_deps = [ ":run_test_objc" ]  # no-presubmit-check TODO(webrtc:8603)
   } else {
-    public_deps =  # no-presubmit-check TODO(webrtc:8603)
-        [ ":run_test_generic" ]
+    public_deps = [ ":run_test_generic" ]  # no-presubmit-check TODO(webrtc:8603)
   }
 }
 
@@ -699,8 +698,7 @@ rtc_library("direct_transport") {
     "../rtc_base/task_utils:repeating_task",
     "//third_party/abseil-cpp/absl/memory",
   ]
-  public_deps =  # no-presubmit-check TODO(webrtc:8603)
-      [ "../call:fake_network" ]
+  public_deps = [ "../call:fake_network" ]  # no-presubmit-check TODO(webrtc:8603)
 }
 
 rtc_library("fake_video_codecs") {
@@ -866,12 +864,10 @@ rtc_library("mock_transport") {
 }
 
 rtc_source_set("test_renderer") {
-  public_deps =  # no-presubmit-check TODO(webrtc:8603)
-      [ ":test_renderer_generic" ]
+  public_deps = [ ":test_renderer_generic" ]  # no-presubmit-check TODO(webrtc:8603)
   testonly = true
   if (is_mac) {
-    public_deps +=  # no-presubmit-check TODO(webrtc:8603)
-        [ ":test_renderer_objc" ]
+    public_deps += [ ":test_renderer_objc" ]  # no-presubmit-check TODO(webrtc:8603)
   }
 }
 

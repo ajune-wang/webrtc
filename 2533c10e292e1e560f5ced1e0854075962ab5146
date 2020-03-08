@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a42e54e3_2c3a6b73",
+        "filename": "rtc_base/timestamp_aligner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-08T11:11:02Z",
+      "side": 1,
+      "message": "Please add docs. Does this simply return the result of the most recent TranslateTimestamp() call? And if so, would it make sense for the caller to remember this number instead?",
+      "revId": "2533c10e292e1e560f5ced1e0854075962ab5146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

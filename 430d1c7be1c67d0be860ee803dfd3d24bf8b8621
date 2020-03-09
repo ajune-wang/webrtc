@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2fd45d3_7a1c0e5c",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-09T12:55:54Z",
+      "side": 1,
+      "message": "Hmm I didn\u0027t manage to get rid of this because I\u0027m including thread.h in the delegate.",
+      "parentUuid": "463d249f_40eff391",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 26
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add8f7d7_1988410e",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b753470c_467b4048",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-09T12:55:54Z",
+      "side": 1,
+      "message": "This class is actually destroyed on the network thread so we can use weak ptr here. I added more checks in the delegate.",
+      "parentUuid": "add8f7d7_1988410e",
+      "range": {
+        "startLine": 229,
+        "startChar": 6,
+        "endLine": 229,
+        "endChar": 23
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4eb2932c_311647ea",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-09T12:55:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc5f3490_e7c921c3",
+      "range": {
+        "startLine": 816,
+        "startChar": 66,
+        "endLine": 816,
+        "endChar": 76
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15683004_03eb2671",
         "filename": "video/rtp_video_stream_receiver_delegate.cc",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "34d53b82_762b2e56",
+        "filename": "video/rtp_video_stream_receiver_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-09T12:55:54Z",
+      "side": 1,
+      "message": "I saved the thread in a TaskQueueBase.\n\nThe transformed frame is received on Blink main thread, we need to make the hop to not keep the main thread busy, and also the receiver expects to manage the frame on the network thread.",
+      "parentUuid": "15683004_03eb2671",
+      "range": {
+        "startLine": 28,
+        "startChar": 19,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eef21230_3642776e",
         "filename": "video/rtp_video_stream_receiver_delegate.h",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de7bcc64_1ca288e2",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-09T12:55:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eef21230_3642776e",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 20
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -29,6 +29,7 @@ rtc_library("video_adaptation") {
     "../../rtc_base:rtc_numerics",
     "../../rtc_base/experiments:balanced_degradation_settings",
     "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp/absl/types:variant",
   ]
 }
 

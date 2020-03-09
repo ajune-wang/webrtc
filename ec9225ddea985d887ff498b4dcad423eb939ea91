@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "11a14755_64c1a51a",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2020-03-09T18:37:57Z",
+      "side": 1,
+      "message": "IsDisabled is FindFullName(name).find(\"Disabled\") \u003d\u003d 0;\n\nIs the intention to have this disabled by default and to only be enabled with specific policy configurations in enterprise? (If so this is fine).",
+      "range": {
+        "startLine": 281,
+        "startChar": 44,
+        "endLine": 281,
+        "endChar": 50
+      },
+      "revId": "ec9225ddea985d887ff498b4dcad423eb939ea91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7b3086a_74949895",
         "filename": "rtc_base/ssl_stream_adapter.h",
         "patchSetId": 5

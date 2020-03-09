@@ -225,14 +225,15 @@ void AudioBuffer::set_num_channels(size_t num_channels) {
 }
 
 // The resampler is only for supporting 48kHz to 16kHz in the reverse stream.
-void AudioBuffer::CopyFrom(const AudioFrame* frame) {
-  RTC_DCHECK_EQ(frame->num_channels_, input_num_channels_);
-  RTC_DCHECK_EQ(frame->samples_per_channel_, input_num_frames_);
+void AudioBuffer::CopyFrom(const int16_t* const data,
+                           const StreamConfig& stream_config) {
+  RTC_DCHECK_EQ(stream_config.num_channels(), input_num_channels_);
+  RTC_DCHECK_EQ(stream_config.num_frames(), input_num_frames_);
   RestoreNumChannels();
 
   const bool resampling_required = input_num_frames_ != buffer_num_frames_;
 
-  const int16_t* interleaved = frame->data();
+  const int16_t* interleaved = data;
   if (num_channels_ == 1) {
     if (input_num_channels_ == 1) {
       if (resampling_required) {
@@ -297,13 +298,16 @@ void AudioBuffer::CopyFrom(const AudioFrame* frame) {
   }
 }
 
-void AudioBuffer::CopyTo(AudioFrame* frame) const {
-  RTC_DCHECK(frame->num_channels_ == num_channels_ || num_channels_ == 1);
-  RTC_DCHECK_EQ(frame->samples_per_channel_, output_num_frames_);
+void AudioBuffer::CopyTo(const StreamConfig& stream_config,
+                         int16_t* const data) {
+  const size_t config_num_channels = stream_config.num_channels();
+
+  RTC_DCHECK(config_num_channels == num_channels_ || num_channels_ == 1);
+  RTC_DCHECK_EQ(stream_config.num_frames(), output_num_frames_);
 
   const bool resampling_required = buffer_num_frames_ != output_num_frames_;
 
-  int16_t* interleaved = frame->mutable_data();
+  int16_t* interleaved = data;
   if (num_channels_ == 1) {
     std::array<float, kMaxSamplesPerChannel> float_buffer;
 
@@ -314,14 +318,14 @@ void AudioBuffer::CopyTo(AudioFrame* frame) const {
     const float* deinterleaved =
         resampling_required ? float_buffer.data() : data_->channels()[0];
 
-    if (frame->num_channels_ == 1) {
+    if (config_num_channels == 1) {
       for (size_t j = 0; j < output_num_frames_; ++j) {
         interleaved[j] = FloatS16ToS16(deinterleaved[j]);
       }
     } else {
       for (size_t i = 0, k = 0; i < output_num_frames_; ++i) {
         float tmp = FloatS16ToS16(deinterleaved[i]);
-        for (size_t j = 0; j < frame->num_channels_; ++j, ++k) {
+        for (size_t j = 0; j < config_num_channels; ++j, ++k) {
           interleaved[k] = tmp;
         }
       }
@@ -342,19 +346,19 @@ void AudioBuffer::CopyTo(AudioFrame* frame) const {
         output_resamplers_[i]->Resample(data_->channels()[i],
                                         buffer_num_frames_, float_buffer.data(),
                                         output_num_frames_);
-        interleave_channel(i, frame->num_channels_, output_num_frames_,
+        interleave_channel(i, config_num_channels, output_num_frames_,
                            float_buffer.data(), interleaved);
       }
     } else {
       for (size_t i = 0; i < num_channels_; ++i) {
-        interleave_channel(i, frame->num_channels_, output_num_frames_,
+        interleave_channel(i, config_num_channels, output_num_frames_,
                            data_->channels()[i], interleaved);
       }
     }
 
-    for (size_t i = num_channels_; i < frame->num_channels_; ++i) {
+    for (size_t i = num_channels_; i < config_num_channels; ++i) {
       for (size_t j = 0, k = i, n = num_channels_; j < output_num_frames_;
-           ++j, k += frame->num_channels_, n += frame->num_channels_) {
+           ++j, k += config_num_channels, n += config_num_channels) {
         interleaved[k] = interleaved[n];
       }
     }

@@ -95,6 +95,12 @@ class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {
                    const StreamConfig& input_config,
                    const StreamConfig& output_config,
                    float* const* dest));
+  MOCK_METHOD5(ProcessStream,
+               int(const int16_t* const src,
+                   const StreamConfig& input_config,
+                   const StreamConfig& output_config,
+                   int16_t* const dest,
+                   int* const vad_result));
   MOCK_METHOD1(ProcessReverseStream, int(AudioFrame* frame));
   MOCK_METHOD4(AnalyzeReverseStream,
                int(const float* const* data,
@@ -109,6 +115,11 @@ class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {
                    const StreamConfig& input_config,
                    const StreamConfig& output_config,
                    float* const* dest));
+  MOCK_METHOD4(ProcessReverseStream,
+               int(const int16_t* const src,
+                   const StreamConfig& input_config,
+                   const StreamConfig& output_config,
+                   int16_t* const dest));
   MOCK_CONST_METHOD1(
       GetLinearAecOutput,
       bool(rtc::ArrayView<std::array<float, 160>> linear_output));

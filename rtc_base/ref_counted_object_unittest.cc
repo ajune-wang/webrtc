@@ -71,7 +71,7 @@ TEST(RefCountedObject, HasOneRef) {
   EXPECT_TRUE(aref->HasOneRef());
   aref->AddRef();
   EXPECT_FALSE(aref->HasOneRef());
-  EXPECT_EQ(aref->Release(), RefCountReleaseStatus::kOtherRefsRemained);
+  aref->Release();
   EXPECT_TRUE(aref->HasOneRef());
 }
 

@@ -39,11 +39,7 @@ class RefCountedBindTester : public RefCountInterface {
  public:
   RefCountedBindTester() : count_(0) {}
   void AddRef() const override { ++count_; }
-  RefCountReleaseStatus Release() const override {
-    --count_;
-    return count_ == 0 ? RefCountReleaseStatus::kDroppedLastRef
-                       : RefCountReleaseStatus::kOtherRefsRemained;
-  }
+  void Release() const override { --count_; }
   int RefCount() const { return count_; }
 
  private:

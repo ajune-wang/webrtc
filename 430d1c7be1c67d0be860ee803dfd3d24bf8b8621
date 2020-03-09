@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a7fec850_ce96e6d1",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-09T13:43:18Z",
+      "side": 1,
+      "message": "you do not need thread.h:\nnetwork_queue_(TaskQueueBase::Current())\n\n(Though might be even better to pass the queue_ as a construction parameter instead of through global variable. But that is likely topic for another change)",
+      "parentUuid": "e2fd45d3_7a1c0e5c",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 26
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add8f7d7_1988410e",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4

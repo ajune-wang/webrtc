@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9f789cf_e7dbb46e",
+        "filename": "video/rtp_video_stream_receiver_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-09T13:43:18Z",
+      "side": 1,
+      "message": "are you sure it is created on the same queue as used?\n(currently you are creating the Delegate in the RtpVideoStreamReceiver constructor)",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "26921df348935b25dd0d822b0818d45376983b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9296e514_cc379fac",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-09T13:43:18Z",
+      "side": 1,
+      "message": "May be mention that one of the purpose of this class is to route calls to correct TaskQueue",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 12
+      },
+      "revId": "26921df348935b25dd0d822b0818d45376983b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "057d6ba7_bae989f1",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-09T13:43:18Z",
+      "side": 1,
+      "message": "RTC_GUARDED_BY(network_sequence_checker_)\n(since it is modified and thus can\u0027t be const)",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 67
+      },
+      "revId": "26921df348935b25dd0d822b0818d45376983b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c49ffed_386f770b",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-09T13:43:18Z",
+      "side": 1,
+      "message": "make it const:\nTaskQueueBase* const network_queue_;",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "26921df348935b25dd0d822b0818d45376983b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

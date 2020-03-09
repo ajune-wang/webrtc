@@ -57,7 +57,7 @@ void CopyFromConfigToEvent(const webrtc::InternalAPMConfig& config,
 
 AecDumpImpl::AecDumpImpl(FileWrapper debug_file,
                          int64_t max_log_size_bytes,
-                         rtc::TaskQueue* worker_queue)
+                         ::TaskQueue* worker_queue)
     : debug_file_(std::move(debug_file)),
       num_bytes_left_for_log_(max_log_size_bytes),
       worker_queue_(worker_queue),
@@ -65,19 +65,19 @@ AecDumpImpl::AecDumpImpl(FileWrapper debug_file,
 
 AecDumpImpl::~AecDumpImpl() {
   // Block until all tasks have finished running.
-  rtc::Event thread_sync_event;
+  ::Event thread_sync_event;
   worker_queue_->PostTask([&thread_sync_event] { thread_sync_event.Set(); });
   // Wait until the event has been signaled with .Set(). By then all
   // pending tasks will have finished.
-  thread_sync_event.Wait(rtc::Event::kForever);
+  thread_sync_event.Wait(::Event::kForever);
 }
 
 void AecDumpImpl::WriteInitMessage(const ProcessingConfig& api_format,
                                    int64_t time_now_ms) {
   auto task = CreateWriteToFileTask();
   auto* event = task->GetEvent();
-  event->set_type(audioproc::Event::INIT);
-  audioproc::Init* msg = event->mutable_init();
+  event->set_type(webrtc::audioproc::Event::INIT);
+  webrtc::audioproc::Init* msg = event->mutable_init();
 
   msg->set_sample_rate(api_format.input_stream().sample_rate_hz());
   msg->set_output_sample_rate(api_format.output_stream().sample_rate_hz());
@@ -109,12 +109,16 @@ void AecDumpImpl::AddCaptureStreamOutput(
   capture_stream_info_.AddOutput(src);
 }
 
-void AecDumpImpl::AddCaptureStreamInput(const AudioFrame& frame) {
-  capture_stream_info_.AddInput(frame);
+void AecDumpImpl::AddCaptureStreamInput(const int16_t* const data,
+                                        int num_channels,
+                                        int samples_per_channel) {
+  capture_stream_info_.AddInput(data, num_channels, samples_per_channel);
 }
 
-void AecDumpImpl::AddCaptureStreamOutput(const AudioFrame& frame) {
-  capture_stream_info_.AddOutput(frame);
+void AecDumpImpl::AddCaptureStreamOutput(const int16_t* const data,
+                                         int num_channels,
+                                         int samples_per_channel) {
+  capture_stream_info_.AddOutput(data, num_channels, samples_per_channel);
 }
 
 void AecDumpImpl::AddAudioProcessingState(const AudioProcessingState& state) {
@@ -128,15 +132,16 @@ void AecDumpImpl::WriteCaptureStreamMessage() {
   capture_stream_info_.SetTask(CreateWriteToFileTask());
 }
 
-void AecDumpImpl::WriteRenderStreamMessage(const AudioFrame& frame) {
+void AecDumpImpl::WriteRenderStreamMessage(const int16_t* const data,
+                                           int num_channels,
+                                           int samples_per_channel) {
   auto task = CreateWriteToFileTask();
   auto* event = task->GetEvent();
 
-  event->set_type(audioproc::Event::REVERSE_STREAM);
-  audioproc::ReverseStream* msg = event->mutable_reverse_stream();
-  const size_t data_size =
-      sizeof(int16_t) * frame.samples_per_channel_ * frame.num_channels_;
-  msg->set_data(frame.data(), data_size);
+  event->set_type(webrtc::audioproc::Event::REVERSE_STREAM);
+  webrtc::audioproc::ReverseStream* msg = event->mutable_reverse_stream();
+  const size_t data_size = sizeof(int16_t) * samples_per_channel * num_channels;
+  msg->set_data(data, data_size);
 
   worker_queue_->PostTask(std::move(task));
 }
@@ -146,9 +151,9 @@ void AecDumpImpl::WriteRenderStreamMessage(
   auto task = CreateWriteToFileTask();
   auto* event = task->GetEvent();
 
-  event->set_type(audioproc::Event::REVERSE_STREAM);
+  event->set_type(webrtc::audioproc::Event::REVERSE_STREAM);
 
-  audioproc::ReverseStream* msg = event->mutable_reverse_stream();
+  webrtc::audioproc::ReverseStream* msg = event->mutable_reverse_stream();
 
   for (size_t i = 0; i < src.num_channels(); ++i) {
     const auto& channel_view = src.channel(i);
@@ -162,7 +167,7 @@ void AecDumpImpl::WriteConfig(const InternalAPMConfig& config) {
   RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
   auto task = CreateWriteToFileTask();
   auto* event = task->GetEvent();
-  event->set_type(audioproc::Event::CONFIG);
+  event->set_type(webrtc::audioproc::Event::CONFIG);
   CopyFromConfigToEvent(config, event->mutable_config());
   worker_queue_->PostTask(std::move(task));
 }
@@ -172,8 +177,8 @@ void AecDumpImpl::WriteRuntimeSetting(
   RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
   auto task = CreateWriteToFileTask();
   auto* event = task->GetEvent();
-  event->set_type(audioproc::Event::RUNTIME_SETTING);
-  audioproc::RuntimeSetting* setting = event->mutable_runtime_setting();
+  event->set_type(webrtc::audioproc::Event::RUNTIME_SETTING);
+  webrtc::audioproc::RuntimeSetting* setting = event->mutable_runtime_setting();
   switch (runtime_setting.type()) {
     case AudioProcessing::RuntimeSetting::Type::kCapturePreGain: {
       float x;
@@ -226,7 +231,7 @@ std::unique_ptr<WriteToFileTask> AecDumpImpl::CreateWriteToFileTask() {
 
 std::unique_ptr<AecDump> AecDumpFactory::Create(webrtc::FileWrapper file,
                                                 int64_t max_log_size_bytes,
-                                                rtc::TaskQueue* worker_queue) {
+                                                ::TaskQueue* worker_queue) {
   RTC_DCHECK(worker_queue);
   if (!file.is_open())
     return nullptr;
@@ -237,14 +242,14 @@ std::unique_ptr<AecDump> AecDumpFactory::Create(webrtc::FileWrapper file,
 
 std::unique_ptr<AecDump> AecDumpFactory::Create(std::string file_name,
                                                 int64_t max_log_size_bytes,
-                                                rtc::TaskQueue* worker_queue) {
+                                                ::TaskQueue* worker_queue) {
   return Create(FileWrapper::OpenWriteOnly(file_name.c_str()),
                 max_log_size_bytes, worker_queue);
 }
 
 std::unique_ptr<AecDump> AecDumpFactory::Create(FILE* handle,
                                                 int64_t max_log_size_bytes,
-                                                rtc::TaskQueue* worker_queue) {
+                                                ::TaskQueue* worker_queue) {
   return Create(FileWrapper(handle), max_log_size_bytes, worker_queue);
 }
 

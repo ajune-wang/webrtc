@@ -40,8 +40,12 @@ class CaptureStreamInfo {
   void AddInput(const AudioFrameView<const float>& src);
   void AddOutput(const AudioFrameView<const float>& src);
 
-  void AddInput(const AudioFrame& frame);
-  void AddOutput(const AudioFrame& frame);
+  void AddInput(const int16_t* const data,
+                int num_channels,
+                int samples_per_channel);
+  void AddOutput(const int16_t* const data,
+                 int num_channels,
+                 int samples_per_channel);
 
   void AddAudioProcessingState(const AecDump::AudioProcessingState& state);
 
@@ -54,7 +58,7 @@ class CaptureStreamInfo {
     RTC_DCHECK(!task_);
     RTC_DCHECK(task);
     task_ = std::move(task);
-    task_->GetEvent()->set_type(audioproc::Event::STREAM);
+    task_->GetEvent()->set_type(webrtc::audioproc::Event::STREAM);
   }
 
  private:

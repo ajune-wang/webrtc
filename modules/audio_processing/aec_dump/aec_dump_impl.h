@@ -15,7 +15,6 @@
 #include <string>
 #include <vector>
 
-#include "api/audio/audio_frame.h"
 #include "modules/audio_processing/aec_dump/capture_stream_info.h"
 #include "modules/audio_processing/aec_dump/write_to_file_task.h"
 #include "modules/audio_processing/include/aec_dump.h"
@@ -55,12 +54,18 @@ class AecDumpImpl : public AecDump {
                         int64_t time_now_ms) override;
   void AddCaptureStreamInput(const AudioFrameView<const float>& src) override;
   void AddCaptureStreamOutput(const AudioFrameView<const float>& src) override;
-  void AddCaptureStreamInput(const AudioFrame& frame) override;
-  void AddCaptureStreamOutput(const AudioFrame& frame) override;
+  void AddCaptureStreamInput(const int16_t* const data,
+                             int num_channels,
+                             int samples_per_channel) override;
+  void AddCaptureStreamOutput(const int16_t* const data,
+                              int num_channels,
+                              int samples_per_channel) override;
   void AddAudioProcessingState(const AudioProcessingState& state) override;
   void WriteCaptureStreamMessage() override;
 
-  void WriteRenderStreamMessage(const AudioFrame& frame) override;
+  void WriteRenderStreamMessage(const int16_t* const data,
+                                int num_channels,
+                                int samples_per_channel) override;
   void WriteRenderStreamMessage(
       const AudioFrameView<const float>& src) override;
 
@@ -74,8 +79,8 @@ class AecDumpImpl : public AecDump {
 
   FileWrapper debug_file_;
   int64_t num_bytes_left_for_log_ = 0;
-  rtc::RaceChecker race_checker_;
-  rtc::TaskQueue* worker_queue_;
+  apmg3_rtc::RaceChecker race_checker_;
+  apmg3_rtc::TaskQueue* worker_queue_;
   CaptureStreamInfo capture_stream_info_;
 };
 }  // namespace webrtc

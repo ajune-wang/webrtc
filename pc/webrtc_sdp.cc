@@ -1596,9 +1596,10 @@ void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
       InitAttrLine(kAttributeRecvOnly, &os);
       break;
     case RtpTransceiverDirection::kSendRecv:
-    default:
       InitAttrLine(kAttributeSendRecv, &os);
       break;
+    default:
+      RTC_NOTREACHED();
   }
   AddLine(os.str(), message);
 

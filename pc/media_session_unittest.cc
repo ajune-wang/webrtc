@@ -4706,10 +4706,13 @@ void TestAudioCodecsAnswer(RtpTransceiverDirection offer_direction,
           target_codecs =
               VectorFromIndices(kOfferAnswerCodecs, kResultSendrecv_RecvCodecs);
         } else {
+          RTC_DCHECK_EQ(acd->direction(), RtpTransceiverDirection::kSendRecv);
           target_codecs = VectorFromIndices(kOfferAnswerCodecs,
                                             kResultSendrecv_SendrecvCodecs);
         }
         break;
+      default:
+        RTC_NOTREACHED();
     }
 
     auto format_codecs = [](const std::vector<AudioCodec>& codecs) {

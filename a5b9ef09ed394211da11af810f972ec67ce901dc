@@ -16,6 +16,24 @@
       "revId": "a5b9ef09ed394211da11af810f972ec67ce901dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87c57a39_d08e481d",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-09T16:28:08Z",
+      "side": 1,
+      "message": "OK so I had to add \"// NOLINT\" to get rid of the presubmit error.",
+      "parentUuid": "defb225c_1f534479",
+      "revId": "a5b9ef09ed394211da11af810f972ec67ce901dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

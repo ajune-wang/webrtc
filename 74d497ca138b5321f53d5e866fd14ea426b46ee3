@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a738426d_23950ed3",
+        "filename": "video/adaptation/video_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-09T13:58:50Z",
+      "side": 1,
+      "message": "optional: Could replace this with 2 constructors:\n\nAdaptationTargetOrReason(AdaptationTarget, bool)\nAdaptationTargetOrReason(CannotAdaptReason, bool).\n\nThis removes the DCHECK and avoids passing nullopts.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 0
+      },
+      "revId": "74d497ca138b5321f53d5e866fd14ea426b46ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2ba7f2e_602e0506",
+        "filename": "video/adaptation/video_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-09T13:58:50Z",
+      "side": 1,
+      "message": "optional: A bit verbose now with these static calls. I wonder if its possible to construct things so its just \"return CannotAdaptReason::...\" instead, and the object gets constructed as needed.",
+      "range": {
+        "startLine": 386,
+        "startChar": 41,
+        "endLine": 386,
+        "endChar": 51
+      },
+      "revId": "74d497ca138b5321f53d5e866fd14ea426b46ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc603260_8a89a41b",
+        "filename": "video/adaptation/video_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-09T13:58:50Z",
+      "side": 1,
+      "message": "optional: Instead of having the optional bool argument, perhaps have a separate construction method for this. `FromTargetWithMinPixelLimit`",
+      "range": {
+        "startLine": 484,
+        "startChar": 39,
+        "endLine": 484,
+        "endChar": 49
+      },
+      "revId": "74d497ca138b5321f53d5e866fd14ea426b46ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

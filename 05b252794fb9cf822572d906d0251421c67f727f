@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e29500e2_03491c1d",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-09T16:37:43Z",
+      "side": 1,
+      "message": "nit: can both be const",
+      "range": {
+        "startLine": 140,
+        "startChar": 1,
+        "endLine": 141,
+        "endChar": 34
+      },
+      "revId": "05b252794fb9cf822572d906d0251421c67f727f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

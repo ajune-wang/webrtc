@@ -94,6 +94,8 @@ class RTC_EXPORT EncodedImage {
 
   void SetEncodeTime(int64_t encode_start_ms, int64_t encode_finish_ms);
 
+  int64_t ntp_time_ms() const { return ntp_time_ms_; }
+
   absl::optional<int> SpatialIndex() const { return spatial_index_; }
   void SetSpatialIndex(absl::optional<int> spatial_index) {
     RTC_DCHECK_GE(spatial_index.value_or(0), 0);

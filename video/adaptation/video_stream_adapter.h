@@ -15,7 +15,6 @@
 
 #include "absl/types/optional.h"
 #include "api/rtp_parameters.h"
-#include "api/video/video_stream_encoder_observer.h"
 #include "call/adaptation/encoder_settings.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/video_source_restrictions.h"
@@ -69,6 +68,59 @@ class VideoStreamAdapter {
     friend class absl::optional<AdaptationTarget>;
   };
 
+  // Reasons for not being able to get an AdaptationTarget that can be applied.
+  enum class CannotAdaptReason {
+    kTempOther,
+    // Adaptation is refused because we have no stream to adapt.
+    // TODO(hbos): Check this condition outside the adapter class and remove
+    // this enum value.
+    kNoInput,
+    // The minimum or maximum adaptation has already been reached. There are no
+    // more steps to take.
+    kLimitReached,
+    // The resolution or frame rate requested by a recent adaptation has not yet
+    // been reflected in the input resolution or frame rate; adaptation is
+    // refused to avoid "double-adapting".
+    // TODO(hbos): Can this be rephrased as a resource usage measurement
+    // cooldown mechanism? In a multi-stream setup, we need to wait before
+    // adapting again across streams. The best way to achieve this is probably
+    // to not act on racy resource usage measurements, regardless of individual
+    // adapters. When this logic is moved or replaceed then remove this enum
+    // value.
+    kAwaitingPreviousAdaptation,
+    // The adaptation that would have been proposed violates bitrate constraints
+    // and is therefore not valid.
+    // TODO(hbos): This is a version of being resource limited, except in order
+    // to know if we are constrained we need to have a proposed adaptation in
+    // mind - so the resource alone cannot determine this in isolation.
+    // Proposal: ask resources for permission to apply a proposed adaptation.
+    // This allows rejecting a given resolution or frame rate based on bitrate
+    // limits. When this is possible, move the kIsBitrateConstrained logic to a
+    // resource and remove this enum value.
+    kIsBitrateConstrained,
+  };
+
+  // Describes the next adaptation target that can be applied, or a reason
+  // explaining why there is no next adaptation step to take.
+  // TODO(hbos): Make "AdaptationTarget" a private implementation detail and
+  // expose the resulting VideoSourceRestrictions instead.
+  class AdaptationTargetOrReason {
+   public:
+    static AdaptationTargetOrReason FromTarget(AdaptationTarget target);
+    static AdaptationTargetOrReason FromReason(CannotAdaptReason reason);
+
+    bool has_target() const;
+    const AdaptationTarget& target() const;
+    CannotAdaptReason reason() const;
+
+   private:
+    AdaptationTargetOrReason(absl::optional<AdaptationTarget> target,
+                             absl::optional<CannotAdaptReason> reason);
+
+    absl::optional<AdaptationTarget> target_;
+    absl::optional<CannotAdaptReason> reason_;
+  };
+
   VideoStreamAdapter();
   ~VideoStreamAdapter();
 
@@ -89,22 +141,21 @@ class VideoStreamAdapter {
 
   // Returns a target that we are guaranteed to be able to adapt to, or null if
   // adaptation is not desired or not possible.
-  absl::optional<AdaptationTarget> GetAdaptUpTarget(
+  AdaptationTargetOrReason GetAdaptUpTarget(
       const absl::optional<EncoderSettings>& encoder_settings,
       absl::optional<uint32_t> encoder_target_bitrate_bps,
       VideoInputMode input_mode,
       int input_pixels,
       int input_fps,
       AdaptationObserverInterface::AdaptReason reason) const;
-  // TODO(https://crbug.com/webrtc/11393): Remove the dependency on
-  // |encoder_stats_observer| - simply checking which adaptation target is
-  // available should not have side-effects.
-  absl::optional<AdaptationTarget> GetAdaptDownTarget(
+  // |min_pixel_limit_reached| is set to true if resolution would have adapted
+  // down but couldn't due to the next target being too low.
+  AdaptationTargetOrReason GetAdaptDownTarget(
       const absl::optional<EncoderSettings>& encoder_settings,
       VideoInputMode input_mode,
       int input_pixels,
       int input_fps,
-      VideoStreamEncoderObserver* encoder_stats_observer) const;
+      bool* min_pixel_limit_reached) const;
   // Applies the |target| to |source_restrictor_|.
   // TODO(hbos): Delete ResourceListenerResponse!
   ResourceListenerResponse ApplyAdaptationTarget(

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3cae7964_a8f1c8f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2020-03-09T18:39:07Z",
+      "side": 1,
+      "message": "This is no longer a revert, we should update the commit message. A comment about expected defaults here would also be helpful and how users can enable / disable it with the flags.",
+      "range": {
+        "startLine": 11,
+        "startChar": 30,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "ec9225ddea985d887ff498b4dcad423eb939ea91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11a14755_64c1a51a",
         "filename": "rtc_base/openssl_stream_adapter.cc",
         "patchSetId": 5

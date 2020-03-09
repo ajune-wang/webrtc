@@ -550,6 +550,15 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
                             const StreamConfig& output_config,
                             float* const* dest) = 0;
 
+  // Accepts and produces a 10 ms frame interleaved 16 bit integer audio as
+  // specified in |input_config| and |output_config|. |src| and |dest| may use
+  // the same memory, if desired.
+  virtual int ProcessStream(const int16_t* const src,
+                            const StreamConfig& input_config,
+                            const StreamConfig& output_config,
+                            int16_t* const dest,
+                            int* vad_state);
+
   // Processes a 10 ms |frame| of the reverse direction audio stream. The frame
   // may be modified. On the client-side, this is the far-end (or to be
   // rendered) audio.
@@ -563,6 +572,14 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   // The |sample_rate_hz_|, |num_channels_|, and |samples_per_channel_|
   // members of |frame| must be valid.
   virtual int ProcessReverseStream(AudioFrame* frame) = 0;
+
+  // Accepts and produces a 10 ms frame of interleaved 16 bit integer audio for
+  // the reverse direction audio stream as specified in |input_config| and
+  // |output_config|. |src| and |dest| may use the same memory, if desired.
+  int ProcessReverseStream(const int16_t* const src,
+                           const StreamConfig& input_config,
+                           const StreamConfig& output_config,
+                           int16_t* const dest);
 
   // Accepts deinterleaved float audio with the range [-1, 1]. Each element of
   // |data| points to a channel buffer, arranged according to |reverse_config|.

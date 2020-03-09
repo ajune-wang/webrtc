@@ -519,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "e4c79b8e_6e6ac492",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-09T08:04:01Z",
+      "side": 1,
+      "message": "An option if you don\u0027t need the async behavior is to skip the task queue completely, and run the encoder on the same thread as the rest. That simplifies things a lot, in particular for running on servers, depending on the run environment it might even be more efficient.",
+      "parentUuid": "8ab567e0_de28062e",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

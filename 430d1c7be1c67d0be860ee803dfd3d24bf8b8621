@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "df7d5a3a_d3fe0f97",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-09T15:02:49Z",
+      "side": 1,
+      "message": "I am testing this in a local Chrome build, with ToT Chrome and WebRTC, plus checks for current thread/queue in RtpVideoStreamReceiver constructor and/or in RtpVideoStreamReceiver::OnAssembledFrame. Go to peerconnection sample https://webrtc.github.io/samples/src/content/peerconnection/pc1/, press Start and then Call. The sample creates an RtpVideoStreamReceiver, and TaskQueueBase::Current() is nullptr and rtc::Thread::Current() is not.",
+      "parentUuid": "7ec39b9d_572fe1a6",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 26
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "add8f7d7_1988410e",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4

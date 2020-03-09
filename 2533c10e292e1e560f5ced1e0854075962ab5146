@@ -34,6 +34,24 @@
       "revId": "2533c10e292e1e560f5ced1e0854075962ab5146",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c12baf_b9261445",
+        "filename": "rtc_base/timestamp_aligner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-03-09T08:28:19Z",
+      "side": 1,
+      "message": "good point. I think it makes better sense to go back to my previous proposal and just add method to translate a timestamp without providing new system_time.\n\nConceptually, it is better to let TimestampAligner to translate from capturer\u0027s time to system time, rather than letting the caller to play any tricks.",
+      "parentUuid": "a42e54e3_2c3a6b73",
+      "revId": "2533c10e292e1e560f5ced1e0854075962ab5146",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

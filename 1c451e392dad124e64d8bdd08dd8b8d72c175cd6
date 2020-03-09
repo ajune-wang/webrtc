@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f234b8d_0632ba78",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-03-09T16:11:55Z",
+      "side": 1,
+      "message": "Would be great with a followup to remove all direct uses of this member :)",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 44
+      },
+      "revId": "1c451e392dad124e64d8bdd08dd8b8d72c175cd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

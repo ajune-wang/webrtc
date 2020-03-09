@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd99ebf5_6e739fb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-03-09T16:11:55Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5d6bc68a_34fd33d1",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "5db4fc43dab0d6b54350062c281da62eaf39aefc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5e96a30_7c633d45",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 1

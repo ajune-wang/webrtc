@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "604cd215_53ba7ea5",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-09T14:13:46Z",
+      "side": 1,
+      "message": "The problem is that the thread is not associated with a queue, TaskQueueBase::Current returns nullptr. That\u0027s actually the reason why I used the current thread instead of current queue to begin with, sorry I missed mentioning that earlier. What do you recommend?",
+      "parentUuid": "a7fec850_ce96e6d1",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 26
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add8f7d7_1988410e",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4

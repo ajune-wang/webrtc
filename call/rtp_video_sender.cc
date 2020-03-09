@@ -295,8 +295,7 @@ RtpVideoSender::RtpVideoSender(
     FrameEncryptorInterface* frame_encryptor,
     const CryptoOptions& crypto_options,
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer)
-    : send_side_bwe_with_overhead_(
-          webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+    : send_side_bwe_with_overhead_(true),
       account_for_packetization_overhead_(!webrtc::field_trial::IsDisabled(
           "WebRTC-SubtractPacketizationOverhead")),
       use_early_loss_detection_(

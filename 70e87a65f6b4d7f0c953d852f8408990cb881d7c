@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60ecef2b_f9495aa9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-09T14:34:07Z",
+      "side": 1,
+      "message": "If referring to an identifier (rather than the concept), use either the exact name of the member (with trailing _), or the name of the method.",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "70e87a65f6b4d7f0c953d852f8408990cb881d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e48a92fb_7d51a975",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-09T14:34:07Z",
+      "side": 1,
+      "message": "Consider dropping the \"Get\" prefix, for consistency with the majority of recently added getter methods (GetEncodedData being an exception).",
+      "range": {
+        "startLine": 97,
+        "startChar": 10,
+        "endLine": 97,
+        "endChar": 13
+      },
+      "revId": "70e87a65f6b4d7f0c953d852f8408990cb881d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66d335be_f4aff6b3",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-09T14:34:07Z",
+      "side": 1,
+      "message": "Can you add a TODO item to make this member private, and follow up on that?",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "70e87a65f6b4d7f0c953d852f8408990cb881d7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

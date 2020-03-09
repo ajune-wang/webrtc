@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/match.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
 #include "api/audio_codecs/audio_format.h"
@@ -147,8 +148,7 @@ AudioSendStream::AudioSendStream(
           field_trial::IsEnabled("WebRTC-Audio-ABWENoTWCC")),
       enable_audio_alr_probing_(
           !field_trial::IsDisabled("WebRTC-Audio-AlrProbing")),
-      send_side_bwe_with_overhead_(
-          field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+      send_side_bwe_with_overhead_(true),
       config_(Config(/*send_transport=*/nullptr)),
       audio_state_(audio_state),
       channel_send_(std::move(channel_send)),
@@ -362,7 +362,8 @@ void AudioSendStream::Start() {
   }
   if (!config_.has_dscp && config_.min_bitrate_bps != -1 &&
       config_.max_bitrate_bps != -1 &&
-      (allocate_audio_without_feedback_ || TransportSeqNumId(config_) != 0)) {
+      (allocate_audio_without_feedback_ || TransportSeqNumId(config_) != 0) &&
+      absl::EqualsIgnoreCase(config_.send_codec_spec->format.name, "opus")) {
     rtp_transport_->AccountForAudioPacketsInPacedSender(true);
     if (send_side_bwe_with_overhead_)
       rtp_transport_->IncludeOverheadInPacedSender();
@@ -817,6 +818,7 @@ void AudioSendStream::ConfigureBitrateObserver() {
 
   DataRate priority_bitrate = allocation_settings_.priority_bitrate;
   if (send_side_bwe_with_overhead_) {
+    // if (use_legacy_overhead_calculation_ || !frame_length_range_) {
     if (use_legacy_overhead_calculation_) {
       // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
       constexpr int kOverheadPerPacket = 20 + 8 + 10 + 12;
@@ -873,6 +875,7 @@ AudioSendStream::GetMinMaxBitrateConstraints() const {
   RTC_DCHECK_GE(constraints.max, DataRate::Zero());
   RTC_DCHECK_GE(constraints.max, constraints.min);
   if (send_side_bwe_with_overhead_) {
+    // if (use_legacy_overhead_calculation_ || !frame_length_range_) {
     if (use_legacy_overhead_calculation_) {
       // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
       const DataSize kOverheadPerPacket = DataSize::Bytes(20 + 8 + 10 + 12);

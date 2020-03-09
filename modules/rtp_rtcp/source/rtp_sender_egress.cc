@@ -27,12 +27,6 @@ constexpr int kSendSideDelayWindowMs = 1000;
 constexpr int kBitrateStatisticsWindowMs = 1000;
 constexpr size_t kRtpSequenceNumberMapMaxEntries = 1 << 13;
 
-bool IsEnabled(absl::string_view name,
-               const WebRtcKeyValueConfig* field_trials) {
-  FieldTrialBasedConfig default_trials;
-  auto& trials = field_trials ? *field_trials : default_trials;
-  return absl::StartsWith(trials.Lookup(name), "Enabled");
-}
 }  // namespace
 
 RtpSenderEgress::NonPacedPacketSender::NonPacedPacketSender(
@@ -61,8 +55,7 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcp::Configuration& config,
                         ? absl::make_optional(config.flexfec_sender->ssrc())
                         : absl::nullopt),
       populate_network2_timestamp_(config.populate_network2_timestamp),
-      send_side_bwe_with_overhead_(
-          IsEnabled("WebRTC-SendSideBwe-WithOverhead", config.field_trials)),
+      send_side_bwe_with_overhead_(true),
       clock_(config.clock),
       packet_history_(packet_history),
       transport_(config.outgoing_transport),

@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "7ec39b9d_572fe1a6",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-09T14:29:40Z",
+      "side": 1,
+      "message": "That looks like a bug:\nevery rtc::Thread should also register itself as a TaskQueue.\n(that was done to eventually reduce usage of rtc::Thread)\n\nHow can I reproduce scenario where\nrtc::Thread::Current() !\u003d nullptr \u0026\u0026\nTaskQueueBase::Current() \u003d\u003d nullptr",
+      "parentUuid": "604cd215_53ba7ea5",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 26
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "add8f7d7_1988410e",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4

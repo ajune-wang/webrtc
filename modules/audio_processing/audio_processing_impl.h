@@ -84,6 +84,12 @@ class AudioProcessingImpl : public AudioProcessing {
                     const StreamConfig& input_config,
                     const StreamConfig& output_config,
                     float* const* dest) override;
+  int ProcessStream(const int16_t* const src,
+                    const StreamConfig& input_config,
+                    const StreamConfig& output_config,
+                    int16_t* const dest,
+                    int* vad_state) override;
+
   bool GetLinearAecOutput(
       rtc::ArrayView<std::array<float, 160>> linear_output) const override;
   void set_output_will_be_muted(bool muted) override;
@@ -95,6 +101,10 @@ class AudioProcessingImpl : public AudioProcessing {
   // Render-side exclusive methods possibly running APM in a
   // multi-threaded manner. Acquire the render lock.
   int ProcessReverseStream(AudioFrame* frame) override;
+  int ProcessReverseStream(const int16_t* const src,
+                           const StreamConfig& input_config,
+                           const StreamConfig& output_config,
+                           int16_t* const dest) override;
   int AnalyzeReverseStream(const float* const* data,
                            const StreamConfig& reverse_config) override;
   int ProcessReverseStream(const float* const* src,
@@ -292,7 +302,8 @@ class AudioProcessingImpl : public AudioProcessing {
   void RecordUnprocessedCaptureStream(const float* const* capture_stream)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
-  void RecordUnprocessedCaptureStream(const AudioFrame& capture_frame)
+  void RecordUnprocessedCaptureStream(const int16_t* const data,
+                                      const StreamConfig& config)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
   // Notifies attached AecDump of current configuration and
@@ -302,7 +313,8 @@ class AudioProcessingImpl : public AudioProcessing {
       const float* const* processed_capture_stream)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
-  void RecordProcessedCaptureStream(const AudioFrame& processed_capture_frame)
+  void RecordProcessedCaptureStream(const int16_t* const data,
+                                    const StreamConfig& config)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
   // Notifies attached AecDump about current state (delay, drift, etc).

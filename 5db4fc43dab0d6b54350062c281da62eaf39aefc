@@ -45,6 +45,30 @@
       "revId": "5db4fc43dab0d6b54350062c281da62eaf39aefc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea2188c9_55a27836",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-03-09T15:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5e96a30_7c633d45",
+      "range": {
+        "startLine": 97,
+        "startChar": 10,
+        "endLine": 97,
+        "endChar": 21
+      },
+      "revId": "5db4fc43dab0d6b54350062c281da62eaf39aefc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -92,6 +92,52 @@
       "revId": "ec9225ddea985d887ff498b4dcad423eb939ea91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "160d254b_3f5285ef",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2020-03-09T18:45:33Z",
+      "side": 1,
+      "message": "We should be clear that the default doesn\u0027t disable DTLS 1.0 in the commit message.",
+      "range": {
+        "startLine": 1501,
+        "startChar": 0,
+        "endLine": 1501,
+        "endChar": 75
+      },
+      "revId": "ec9225ddea985d887ff498b4dcad423eb939ea91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce035e5_55abdb63",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1513,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2020-03-09T18:45:33Z",
+      "side": 1,
+      "message": "nit:\n\nGetSslVersion should be refactored into\nGetClientSslVersion()\nGetServerSslVersion()\n\nThe current approach is difficult to read and reason about.",
+      "range": {
+        "startLine": 1513,
+        "startChar": 53,
+        "endLine": 1513,
+        "endChar": 57
+      },
+      "revId": "ec9225ddea985d887ff498b4dcad423eb939ea91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

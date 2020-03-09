@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "defb225c_1f534479",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-09T16:25:46Z",
+      "side": 1,
+      "message": "FYI this causes presubmit warnings \"Single-parameter constructors should be marked explicit.  [runtime/explicit]\" that I\u0027m ignoring. I figured this would be an acceptable breaking of that rule unless the bots complain too.",
+      "revId": "a5b9ef09ed394211da11af810f972ec67ce901dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

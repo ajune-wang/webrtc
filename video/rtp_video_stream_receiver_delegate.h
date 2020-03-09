@@ -1,0 +1,64 @@
+/*
+ *  Copyright (c) 2020 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#ifndef VIDEO_RTP_VIDEO_STREAM_RECEIVER_DELEGATE_H_
+#define VIDEO_RTP_VIDEO_STREAM_RECEIVER_DELEGATE_H_
+
+#include <memory>
+
+#include "api/frame_transformer_interface.h"
+#include "api/task_queue/task_queue_base.h"
+#include "modules/video_coding/frame_object.h"
+#include "rtc_base/synchronization/sequence_checker.h"
+#include "rtc_base/weak_ptr.h"
+
+namespace webrtc {
+
+class RtpVideoStreamReceiver;
+
+// Delegates calls to FrameTransformerInterface to transform frames, and to
+// RtpVideoStreamReceiver to manage transformed frames.
+class RtpVideoReceiverFrameTransformerDelegate
+    : public TransformedFrameCallback {
+ public:
+  RtpVideoReceiverFrameTransformerDelegate(
+      rtc::WeakPtr<RtpVideoStreamReceiver> receiver,
+      rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
+
+  void Init();
+  void Reset();
+
+  // Delegates the call to FrameTransformerInterface::TransformFrame.
+  void TransformFrame(std::unique_ptr<video_coding::RtpFrameObject> frame,
+                      uint32_t ssrc);
+
+  // Implements TransformedFrameCallback. Can be called on any thread. Posts
+  // the transformed frame to be managed on the |network_queue_|.
+  void OnTransformedFrame(
+      std::unique_ptr<video_coding::EncodedFrame> frame) override;
+
+  // Delegates the call to RtpVideoReceiver::ManageFrame on the
+  // |network_queue_|.
+  void ManageFrame(std::unique_ptr<video_coding::EncodedFrame> frame);
+
+ protected:
+  ~RtpVideoReceiverFrameTransformerDelegate() override = default;
+
+ private:
+  SequenceChecker network_sequence_checker_;
+  const rtc::WeakPtr<RtpVideoStreamReceiver> receiver_
+      RTC_PT_GUARDED_BY(network_sequence_checker_);
+  rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_;
+  TaskQueueBase* network_queue_;
+};
+
+}  // namespace webrtc
+
+#endif  // VIDEO_RTP_VIDEO_STREAM_RECEIVER_DELEGATE_H_

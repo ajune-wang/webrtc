@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "1165c212_b1f40ae5",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-10T15:46:31Z",
+      "side": 1,
+      "message": "Using thread instead of queue until this bug is fixed as discussed offline.",
+      "parentUuid": "df7d5a3a_d3fe0f97",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 26
+      },
+      "revId": "430d1c7be1c67d0be860ee803dfd3d24bf8b8621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add8f7d7_1988410e",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 4

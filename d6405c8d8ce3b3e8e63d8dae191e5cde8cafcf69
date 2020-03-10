@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3d33d1d_601fdbcf",
+        "filename": "rtc_base/timestamp_aligner.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-10T10:21:57Z",
+      "side": 1,
+      "message": "We already have three state variables (one each for offset-estimation, monotonicity, and causality). You don\u0027t see a way to produce the return value based on existing state?",
+      "range": {
+        "startLine": 41,
+        "startChar": 28,
+        "endLine": 41,
+        "endChar": 48
+      },
+      "revId": "d6405c8d8ce3b3e8e63d8dae191e5cde8cafcf69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

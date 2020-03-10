@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fca0a7f_a13a744f",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 10720
+      },
+      "writtenOn": "2020-03-10T14:13:04Z",
+      "side": 1,
+      "message": "could you make it explicit that this is RTC_NOT_REACHED()? meaning, could you move the RTC_NOTREACHED below here?",
+      "range": {
+        "startLine": 1740,
+        "startChar": 6,
+        "endLine": 1740,
+        "endChar": 11
+      },
+      "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8448f12c_6d20ca02",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1761,
+      "author": {
+        "id": 10720
+      },
+      "writtenOn": "2020-03-10T14:13:04Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 1761,
+        "startChar": 6,
+        "endLine": 1761,
+        "endChar": 11
+      },
+      "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef5eee3f_4b332688",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 10720
+      },
+      "writtenOn": "2020-03-10T14:13:04Z",
+      "side": 1,
+      "message": "This seems risky. Wouldn\u0027t it be better to keep the previous behavior the same and rather add an extra case specific for kStopped and mark that as NOTREACHED?",
+      "range": {
+        "startLine": 1601,
+        "startChar": 0,
+        "endLine": 1602,
+        "endChar": 23
+      },
+      "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ea93a0_605cfdbf",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 10720
+      },
+      "writtenOn": "2020-03-10T14:13:04Z",
+      "side": 1,
+      "message": "Same as above: possibly better to keep the assumptions as before and add the specific case for kStopped.",
+      "range": {
+        "startLine": 984,
+        "startChar": 0,
+        "endLine": 985,
+        "endChar": 23
+      },
+      "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

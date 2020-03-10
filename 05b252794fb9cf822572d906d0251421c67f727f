@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e5441de4_d7594b87",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-10T09:27:16Z",
+      "side": 1,
+      "message": "This really doesn\u0027t fit here. Why is it so important to move the stats reporting\nto the module? Maybe it should be made a kLimitReached reason and be a part of an actual\nAdaptationTarget (it makes sense to be a property of a target. Like, this target is the rock-bottom or not).",
+      "range": {
+        "startLine": 137,
+        "startChar": 9,
+        "endLine": 137,
+        "endChar": 32
+      },
+      "revId": "05b252794fb9cf822572d906d0251421c67f727f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e29500e2_03491c1d",
         "filename": "video/adaptation/video_stream_adapter.h",
         "patchSetId": 8
@@ -13,6 +36,30 @@
       "writtenOn": "2020-03-09T16:37:43Z",
       "side": 1,
       "message": "nit: can both be const",
+      "range": {
+        "startLine": 140,
+        "startChar": 1,
+        "endLine": 141,
+        "endChar": 34
+      },
+      "revId": "05b252794fb9cf822572d906d0251421c67f727f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f276e97_00fe9cbe",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-10T09:27:16Z",
+      "side": 1,
+      "message": "Are you sure it\u0027s a best approach to use the variant?\n\nI would simply include the status to the AdaptationTarget itself.\nThen it makes sense to either return the \u0027next\u0027 step and kValid status or\nsome impossible values or \u0027current\u0027 settings and a status why it can\u0027t be changed.",
+      "parentUuid": "e29500e2_03491c1d",
       "range": {
         "startLine": 140,
         "startChar": 1,

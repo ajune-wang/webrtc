@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6d99034e_ede11dd8",
+        "filename": "video/rtp_video_stream_receiver_delegate.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-10T10:40:34Z",
+      "side": 1,
+      "message": "I\u0027m sure it\u0027s the same thread, the receiver is created, destroyed and is managing frames on the network thread.",
+      "parentUuid": "d9f789cf_e7dbb46e",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "26921df348935b25dd0d822b0818d45376983b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9296e514_cc379fac",
         "filename": "video/rtp_video_stream_receiver_delegate.h",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-09T13:43:18Z",
       "side": 1,
       "message": "May be mention that one of the purpose of this class is to route calls to correct TaskQueue",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 12
+      },
+      "revId": "26921df348935b25dd0d822b0818d45376983b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06f48be8_ad02445e",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-10T10:40:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9296e514_cc379fac",
       "range": {
         "startLine": 26,
         "startChar": 3,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "de7b00c6_8027b42b",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-10T10:40:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "057d6ba7_bae989f1",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 67
+      },
+      "revId": "26921df348935b25dd0d822b0818d45376983b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c49ffed_386f770b",
         "filename": "video/rtp_video_stream_receiver_delegate.h",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "26921df348935b25dd0d822b0818d45376983b96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac813685_7fc7bbb6",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-10T10:40:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c49ffed_386f770b",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "26921df348935b25dd0d822b0818d45376983b96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1736,6 +1736,8 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForOffer(
       return audio_send_codecs_;
     case RtpTransceiverDirection::kRecvOnly:
       return audio_recv_codecs_;
+    default:
+      break;
   }
   RTC_NOTREACHED();
   return audio_sendrecv_codecs_;
@@ -1755,6 +1757,8 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForAnswer(
       return audio_send_codecs_;
     case RtpTransceiverDirection::kRecvOnly:
       return audio_recv_codecs_;
+    default:
+      break;
   }
   RTC_NOTREACHED();
   return audio_sendrecv_codecs_;

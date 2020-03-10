@@ -23,15 +23,22 @@ TimestampAligner::TimestampAligner()
     : frames_seen_(0),
       offset_us_(0),
       clip_bias_us_(0),
-      prev_translated_time_us_(std::numeric_limits<int64_t>::min()) {}
+      prev_translated_time_us_(std::numeric_limits<int64_t>::min()),
+      prev_time_offset_us_(0) {}
 
 TimestampAligner::~TimestampAligner() {}
 
 int64_t TimestampAligner::TranslateTimestamp(int64_t capturer_time_us,
                                              int64_t system_time_us) {
-  return ClipTimestamp(
+  const int64_t translated_timestamp = ClipTimestamp(
       capturer_time_us + UpdateOffset(capturer_time_us, system_time_us),
       system_time_us);
+  prev_time_offset_us_ = translated_timestamp - capturer_time_us;
+  return translated_timestamp;
+}
+
+int64_t TimestampAligner::TranslateTimestamp(int64_t capturer_time_us) const {
+  return capturer_time_us + prev_time_offset_us_;
 }
 
 int64_t TimestampAligner::UpdateOffset(int64_t capturer_time_us,
@@ -128,9 +135,9 @@ int64_t TimestampAligner::ClipTimestamp(int64_t filtered_time_us,
       time_us = system_time_us;
     }
   }
+  prev_translated_time_us_ = time_us;
   RTC_DCHECK_GE(time_us, prev_translated_time_us_);
   RTC_DCHECK_LE(time_us, system_time_us);
-  prev_translated_time_us_ = time_us;
   return time_us;
 }
 

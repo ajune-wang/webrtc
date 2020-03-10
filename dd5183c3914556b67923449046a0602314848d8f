@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "078416ef_acc8f54c",
+        "filename": "rtc_base/timestamp_aligner.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-10T14:13:15Z",
+      "side": 1,
+      "message": "Remove these two.",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "dd5183c3914556b67923449046a0602314848d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc40120_5fae7f27",
+        "filename": "rtc_base/timestamp_aligner_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-10T14:13:15Z",
+      "side": 1,
+      "message": "This is not a compile-time constant, so kCamelCase naming isn\u0027t appropriate. https://google.github.io/styleguide/cppguide.html#Constant_Names\n\n(More cases of this below.)",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "dd5183c3914556b67923449046a0602314848d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

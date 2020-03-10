@@ -567,6 +567,30 @@
     },
     {
       "key": {
+        "uuid": "c638f090_96f7857e",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-10T17:12:26Z",
+      "side": 1,
+      "message": "Making an API simple but dangerous (can cause deadlocks if it\u0027s not called correctly) seems less preferable compared to making it slightly more complex while putting the onus on the app to handle the potentially dangerous parts.\n\nIt\u0027s fine if the client app handles this in the same way, by posting a task and blocking, then the assumption is not built into the API itself. This makes it easy for the app to change the behaviour in the future to handle everything on task queues, using a post-back rather than a blocking event.",
+      "parentUuid": "47344c5e_71afff76",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a69b6511_fca36a25",
+        "filename": "rtc_base/timestamp_aligner.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-03-10T14:58:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "078416ef_acc8f54c",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "dd5183c3914556b67923449046a0602314848d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adc40120_5fae7f27",
         "filename": "rtc_base/timestamp_aligner_unittest.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-10T14:13:15Z",
       "side": 1,
       "message": "This is not a compile-time constant, so kCamelCase naming isn\u0027t appropriate. https://google.github.io/styleguide/cppguide.html#Constant_Names\n\n(More cases of this below.)",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 26
+      },
+      "revId": "dd5183c3914556b67923449046a0602314848d8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374b590c_af3c02e3",
+        "filename": "rtc_base/timestamp_aligner_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-03-10T14:58:21Z",
+      "side": 1,
+      "message": "oh, thanks. I did not mean to change this. It was accidentally changed by find and replace. reverting now.",
+      "parentUuid": "adc40120_5fae7f27",
       "range": {
         "startLine": 69,
         "startChar": 12,

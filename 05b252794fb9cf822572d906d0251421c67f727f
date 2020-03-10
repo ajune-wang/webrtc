@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a2f68e1_346b670b",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-10T10:40:10Z",
+      "side": 1,
+      "message": "TL;DR: The boolean is ugly, but I\u0027d rather expose the ugliness with a TODO than to hide the ugliness by taking on questionable responsibilities and constness.\n\nRESPONSIBILITIES\n\nPart of the reason why I want to split things up into separate classes is to isolate responsibilities into separate files. Including how we test things and how we reason about components fitting together. I want the adapter to be responsible for determining and executing adaptation steps - nothing else.\n\nWe could also make it responsible for stats reporting, but I don\u0027t think VideoStreamEncoderObserver is the right dependency for VideoStreamAdapter to have, and considering future changes I want to do I don\u0027t think adding a \"VideoStreamAdapterObserver\" is the right thing to do either. We really don\u0027t need a class with a getter/setter-like interface to have callbacks, IMO.\n\nCONSTNESS\n\nIn my opinion, simply checking what adaptation is available for a stream should not trigger stats reporting. It\u0027s a getter. It\u0027s const by signature, it should also be const in spirit. Triggering stats reporting is invoking non-const methods.\n\nSo for example, in the future when we might loop through several adapters before deciding what to do; we should not trigger stats reporting multiple times because we may have accessed a getter multiple times.\n\nWHY NOT TRIGGER STATS REPORTING ON kLimitReached?\n\nThis would make the most sense. The only reason for adding a edge-case boolean is to not break existing behavior. If the TODO is fixed, we would get rid of it, but I would want CLs that change behaviors to be separate CLs - not this one.",
+      "parentUuid": "e5441de4_d7594b87",
+      "range": {
+        "startLine": 137,
+        "startChar": 9,
+        "endLine": 137,
+        "endChar": 32
+      },
+      "revId": "05b252794fb9cf822572d906d0251421c67f727f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e29500e2_03491c1d",
         "filename": "video/adaptation/video_stream_adapter.h",
         "patchSetId": 8
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "Are you sure it\u0027s a best approach to use the variant?\n\nI would simply include the status to the AdaptationTarget itself.\nThen it makes sense to either return the \u0027next\u0027 step and kValid status or\nsome impossible values or \u0027current\u0027 settings and a status why it can\u0027t be changed.",
       "parentUuid": "e29500e2_03491c1d",
+      "range": {
+        "startLine": 140,
+        "startChar": 1,
+        "endLine": 141,
+        "endChar": 34
+      },
+      "revId": "05b252794fb9cf822572d906d0251421c67f727f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2d20658_00bc6e74",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-10T10:40:10Z",
+      "side": 1,
+      "message": "const: Yes, done.\n\nMerging status and target: Let me investigate, I might do this either in this CL or in the follow-up CL I\u0027m working on. I\u0027ll get back to you, and won\u0027t merge this CL in the meantime.",
+      "parentUuid": "0f276e97_00fe9cbe",
       "range": {
         "startLine": 140,
         "startChar": 1,

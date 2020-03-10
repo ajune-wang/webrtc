@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f633658e_8c0c6491",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1740,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-10T14:44:45Z",
+      "side": 1,
+      "message": "There\u0027s no difference, but sure. I think I\u0027ll follow the explicit kStopped suggestion you had on the other file instead.",
+      "parentUuid": "0fca0a7f_a13a744f",
+      "range": {
+        "startLine": 1740,
+        "startChar": 6,
+        "endLine": 1740,
+        "endChar": 11
+      },
+      "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8448f12c_6d20ca02",
         "filename": "pc/media_session.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0833d168_6308a1bb",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1761,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-10T14:44:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8448f12c_6d20ca02",
+      "range": {
+        "startLine": 1761,
+        "startChar": 6,
+        "endLine": 1761,
+        "endChar": 11
+      },
+      "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f2e9c85f_3def6759",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-10T14:44:45Z",
+      "side": 1,
+      "message": "That enum is full, so if we\u0027d end up there we\u0027d be looking at memory corruption... but agree better with full switch.",
+      "parentUuid": "ef5eee3f_4b332688",
+      "range": {
+        "startLine": 1601,
+        "startChar": 0,
+        "endLine": 1602,
+        "endChar": 23
+      },
+      "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8ea93a0_605cfdbf",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5944158b_7141e28a",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-10T14:44:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8ea93a0_605cfdbf",
+      "range": {
+        "startLine": 984,
+        "startChar": 0,
+        "endLine": 985,
+        "endChar": 23
+      },
+      "revId": "6b49e8cd2f1ff2bfb59cda3052812e24f3e31ffb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

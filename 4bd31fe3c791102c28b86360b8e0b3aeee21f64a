@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "941a0d42_cd00bf4a",
+        "filename": "video/rtp_video_stream_receiver_delegate.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T16:51:34Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "4bd31fe3c791102c28b86360b8e0b3aeee21f64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c366caf_abfd4629",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T16:51:34Z",
+      "side": 1,
+      "message": "why is it a separate class?\nhttps://google.github.io/styleguide/cppguide.html#Inheritance\n\"Composition is often more appropriate than inheritance.\"\n\nMay be something like:\npublic:\n TestRtpVideoStreamReceiver() : test_config_(...), dep3_(...), rtp_video_stream_receiver_(\u0026test_Config,\u0026dep3_) {}\n\n RtpVideoStreamReceiver\u0026 rtp_video_stream_receiver() { return rtp_video_stream_receiver_; }\n\nprivate:\n ... test_config_;\n ... calback_;\n ... dep3_;\n ... rtp_video_stream_receiver_;\n}",
+      "range": {
+        "startLine": 84,
+        "startChar": 42,
+        "endLine": 84,
+        "endChar": 79
+      },
+      "revId": "4bd31fe3c791102c28b86360b8e0b3aeee21f64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b20c9f1_31bc9ad7",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T16:51:34Z",
+      "side": 1,
+      "message": "nit: prefer \u003d default.\nhttps://abseil.io/tips/131",
+      "range": {
+        "startLine": 102,
+        "startChar": 41,
+        "endLine": 102,
+        "endChar": 43
+      },
+      "revId": "4bd31fe3c791102c28b86360b8e0b3aeee21f64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbfa5030_d43d3d17",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T16:51:34Z",
+      "side": 1,
+      "message": "add (override) as 4th parameter\n\n(and in the next mock too)",
+      "range": {
+        "startLine": 106,
+        "startChar": 66,
+        "endLine": 106,
+        "endChar": 68
+      },
+      "revId": "4bd31fe3c791102c28b86360b8e0b3aeee21f64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddfbe319_c20bb4f7",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T16:51:34Z",
+      "side": 1,
+      "message": "either omit parameter names in this mock method, or add it in the next mock method.\nfor local consistency.",
+      "range": {
+        "startLine": 114,
+        "startChar": 59,
+        "endLine": 114,
+        "endChar": 64
+      },
+      "revId": "4bd31fe3c791102c28b86360b8e0b3aeee21f64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb186f35_1fd4cdb5",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T16:51:34Z",
+      "side": 1,
+      "message": "to avoid mentioning delegate type twice \nyou may use just Invoke\u003cvoid\u003e (internally Invoke\u003cT\u003e is converted to Invoke\u003cvoid\u003e anyway):\n\nrtc::scoped_refptr\u003cRtpVideoReceiverFrameTransformerDelegate\u003e delegate;\nnetwork_thread-\u003eInvoke\u003cvoid\u003e(RTC_FROM_HERE, [\u0026] {\n  delegate \u003d new rtc::RefCountedObject\u003c\n                RtpVideoReceiverFrameTransformerDelegate\u003e(\n                \u0026receiver, frame_transformer, network_thread.get());\n});\n\n(or use auto delegate. Since it should be expected that Invoke\u003cT\u003e return T)",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 13
+      },
+      "revId": "4bd31fe3c791102c28b86360b8e0b3aeee21f64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67ab8cbb_73540437",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T16:51:34Z",
+      "side": 1,
+      "message": "May be\nEXPECT_CALL(receiver, ManagerFrame).WillOnce([\u0026] {\n  EXPECT_TRUE(network_thread-\u003eIsCurrent());\n});",
+      "range": {
+        "startLine": 182,
+        "startChar": 36,
+        "endLine": 182,
+        "endChar": 37
+      },
+      "revId": "4bd31fe3c791102c28b86360b8e0b3aeee21f64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

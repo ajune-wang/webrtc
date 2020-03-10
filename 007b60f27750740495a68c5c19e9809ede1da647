@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6b5fecb_d85fc6be",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-10T15:10:00Z",
+      "side": 1,
+      "message": "Really needed?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 0
+      },
+      "revId": "007b60f27750740495a68c5c19e9809ede1da647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12b62208_489a4cae",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-10T15:10:00Z",
+      "side": 1,
+      "message": "Really needed?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 0
+      },
+      "revId": "007b60f27750740495a68c5c19e9809ede1da647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ff89618_ed44cf63",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-10T15:10:00Z",
+      "side": 1,
+      "message": "Please describe threading assumptions/requirements in the class-level comment.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 41
+      },
+      "revId": "007b60f27750740495a68c5c19e9809ede1da647",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

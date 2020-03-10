@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "83002e98_7885143b",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "in new file prefer universal MOCK_METHOD macro\nSee http://go/totw/164",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 14
+      },
+      "revId": "8c4cc0f64cd4a6a6905384ce81e4400bc2810bea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be76724_9c3ff264",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "personally I prefer to put everything in a test file into unnamed namespace, i.e. including test fixtures and tests, speciall when there is already one\n\nhttp://go/c-readability-advice#anonymous-namespaces-in-tests",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 15
+      },
+      "revId": "8c4cc0f64cd4a6a6905384ce81e4400bc2810bea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "993c0053_b34dbd21",
         "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
         "patchSetId": 6
@@ -16,6 +62,52 @@
       "revId": "8c4cc0f64cd4a6a6905384ce81e4400bc2810bea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c0a2fd8_b05bd570",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "feel free to use auto for result of std::make_unique\n\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction\n\n\"you can assume that the return type of make_unique\u003cFoo\u003e() is obvious\"",
+      "range": {
+        "startLine": 1224,
+        "startChar": 2,
+        "endLine": 1224,
+        "endChar": 41
+      },
+      "revId": "8c4cc0f64cd4a6a6905384ce81e4400bc2810bea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15519df4_44c96ddd",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "Why do you need to explicitly delete receiver?\n\nnit: prefer\nreceiver \u003d nullptr;\nhttp://go/c-readability-advice#prefer-assignment-over-reset",
+      "range": {
+        "startLine": 1247,
+        "startChar": 2,
+        "endLine": 1247,
+        "endChar": 19
+      },
+      "revId": "8c4cc0f64cd4a6a6905384ce81e4400bc2810bea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

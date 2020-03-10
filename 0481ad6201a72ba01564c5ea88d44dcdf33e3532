@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecf81c8a_64c4404e",
+        "filename": "video/rtp_video_stream_receiver_delegate.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "why WeakPtr? wouldn\u0027t raw pointer work as well?\n\n(I can see WeakPtr reset, but I do not see WeakPtrFactory reset)",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 44
+      },
+      "revId": "0481ad6201a72ba01564c5ea88d44dcdf33e3532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80ecfe8d_0fc3ed10",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "https://abseil.io/tips/119\n\n\"Declare namespace aliases and using-declarations inside the innermost namespace, whether named or anonymous.\"",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 19
+      },
+      "revId": "0481ad6201a72ba01564c5ea88d44dcdf33e3532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "273b1c94_a5d0f3ae",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "is this delegation used?",
+      "range": {
+        "startLine": 71,
+        "startChar": 4,
+        "endLine": 71,
+        "endChar": 20
+      },
+      "revId": "0481ad6201a72ba01564c5ea88d44dcdf33e3532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e59f73d1_8ba22aa8",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "See https://github.com/google/googletest/blob/master/googlemock/docs/cook_book.md#delegating-calls-to-a-real-object\n\nalternative approach might be to add default behavior to the mocked functions:\npublic:\n  MockFrameTransformer() {\n    ON_CALL(*this, RegisterTransformedFrameCallback).WillByDefault(SaveArg\u003c0\u003e(\u0026callback_));\n    ON_CALL(*this, UnregisterTransformedFrameCallback).WillByDefault([this] { callback_ \u003d nullptr; });\n  }\n\n  MOCK_METHOD(void, RegisterTransformedFrameCallback, rtc::scoped_refptr\u003cTransformedFrameCallback\u003e, (override));\n  ...",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 0
+      },
+      "revId": "0481ad6201a72ba01564c5ea88d44dcdf33e3532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b273b2e_6e34137c",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "please mention what behavior you are testing\nhttps://testing.googleblog.com/2014/10/testing-on-toilet-writing-descriptive.html\n\ne.g. \nRegistersFrameCallBackOnInit",
+      "range": {
+        "startLine": 164,
+        "startChar": 53,
+        "endLine": 164,
+        "endChar": 57
+      },
+      "revId": "0481ad6201a72ba01564c5ea88d44dcdf33e3532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8ed4635_c750a3ae",
+        "filename": "video/rtp_video_stream_receiver_delegate_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "It might be clearer not to hide relationship between delegate and the frame_transformer inside the fixture.\n\nhttps://abseil.io/tips/122\n\ne.g.\nTEST(RtpVideoReceiverFrameTransformerDelegateTest, RegistersSelfToTransformerOnInit) {\n  // Assemble\n  rtc::scoped_refptr\u003cMockFrameTransformer\u003e frame_transformer(new MockFrameTransformer())\n  rtc::scoped_refptr\u003cRtpVideoReceiverFrameTransformerDelegate\u003e delegate(\n     new RtpVideoReceiverFrameTransformerDelegate(receiver_.get(), frame_transformer));\n  // Assert\n  EXPECT_CALL(*frame_transformer, RegisterTransformedFrameCallback(delegate));\n  // Act\n  delegate-\u003eInit();\n}\n\n(side note, since MockFrameTransformer and RtpVideoReceiverFrameTransformerDelegate are suppose to be used with shared ownership, might be better to embed AddRef/Release directly into them instead of wrapping these object into RefCountedObject)",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 20
+      },
+      "revId": "0481ad6201a72ba01564c5ea88d44dcdf33e3532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f165012d_03c52287",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1223,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-10T11:43:15Z",
+      "side": 1,
+      "message": "can be removed\nhttp://go/totw/150",
+      "range": {
+        "startLine": 1223,
+        "startChar": 71,
+        "endLine": 1223,
+        "endChar": 74
+      },
+      "revId": "0481ad6201a72ba01564c5ea88d44dcdf33e3532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

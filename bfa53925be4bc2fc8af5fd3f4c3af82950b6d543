@@ -543,6 +543,30 @@
     },
     {
       "key": {
+        "uuid": "47344c5e_71afff76",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-10T16:31:39Z",
+      "side": 1,
+      "message": "Added thread assumption/requirement on class level comment as requested by Niels.  I think we need to keep encoder_queue_ to protect the OS input thread\u0027s real time operation.  Let\u0027s keep this as it is as turning this into asynchronous mode (which is putting the onus on caller) would complicate the API usage.  I wouldn\u0027t think this will cause any issue as it has been designed and used this way for a while already and don\u0027t any foreseeable issue with it.",
+      "parentUuid": "e4c79b8e_6e6ac492",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

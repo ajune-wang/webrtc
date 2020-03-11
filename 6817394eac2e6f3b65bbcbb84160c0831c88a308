@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34df2fe7_0cfa3e50",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-11T15:28:06Z",
+      "side": 1,
+      "message": "Is it supposed to be that way? Sounds strange to me, and would, e.g., defeat some of the benefit of using overlapping protection windows, if we ever try to implement that.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 5
+      },
+      "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

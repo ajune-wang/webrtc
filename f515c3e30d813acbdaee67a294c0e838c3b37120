@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4324e3fe_e8908493",
+        "filename": "rtc_base/system/gcd_helpers.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-11T15:38:26Z",
+      "side": 1,
+      "message": "Can we instead do:\n\nnamespace rtc {\ndispatch_queue_t DispatchQueueCreateWithTarget(const char* label,\n...\n\n\nNote also to update variable names, where to place the asterisk etc according to the coding guidelines.",
+      "revId": "f515c3e30d813acbdaee67a294c0e838c3b37120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e51d6ede_689c70bf",
+        "filename": "rtc_base/system/gcd_helpers.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-11T15:38:26Z",
+      "side": 1,
+      "message": "nit: \u0027else\u0027 not needed, could be:\n\nif (@available(iOS 10, macOS 10.12, tvOS 10, watchOS 3, *))\n  return dispatch_queue_create_with_target(label, attr, target);\n\ndispatch_queue_t queue \u003d dispatch_queue_create(label, attr);\ndispatch_set_target_queue(queue, target);\nreturn queue;",
+      "revId": "f515c3e30d813acbdaee67a294c0e838c3b37120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

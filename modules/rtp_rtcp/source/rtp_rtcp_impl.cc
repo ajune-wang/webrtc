@@ -204,7 +204,7 @@ absl::optional<uint32_t> ModuleRtpRtcpImpl::FlexfecSsrc() const {
 
 void ModuleRtpRtcpImpl::IncomingRtcpPacket(const uint8_t* rtcp_packet,
                                            const size_t length) {
-  rtcp_receiver_.IncomingPacket(rtcp_packet, length);
+  rtcp_receiver_.IncomingPacket(rtc::MakeArrayView(rtcp_packet, length));
 }
 
 void ModuleRtpRtcpImpl::RegisterSendPayloadFrequency(int payload_type,

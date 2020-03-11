@@ -94,6 +94,30 @@
       "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d41a9305_af1a9d7a",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-11T16:16:36Z",
+      "side": 1,
+      "message": "I think we can distinguish RTX and FEC. When we add newly arrived packet in UlpfecReceiverImpl::AddReceivedRedPacket right now we can get there only regular packets or RTX. FEC recovered packet right now can\u0027t get into received_packets IIUC. So when we will add this ability we can rename is_recovered to is_rtx and for FEC recovered packet set it to false. But maybe we will need some insurance, that only RTX recovered packets will be coming to UlpfecReceiverImpl::AddReceivedRedPacket in future.",
+      "parentUuid": "67f2847b_428bc422",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 5
+      },
+      "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

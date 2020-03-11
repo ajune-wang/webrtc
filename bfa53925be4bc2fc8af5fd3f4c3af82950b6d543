@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "11b07825_a8d484cd",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-11T10:17:43Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem done?",
+      "parentUuid": "a98fbd88_cdfc27d3",
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a795183_7312574d",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1
@@ -639,6 +657,30 @@
     },
     {
       "key": {
+        "uuid": "ea5691a2_2e692e5f",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-11T10:17:43Z",
+      "side": 1,
+      "message": "\u003e [...]  It does make sense as audio encoding shouldn\u0027t take much load.\n\nAudio encoding (specifically, Opus encoding) is rather CPU intensive.",
+      "parentUuid": "35f66e6d_c234d1d4",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1
@@ -674,6 +716,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "422a3932_0db18d1b",
+      "range": {
+        "startLine": 181,
+        "startChar": 22,
+        "endLine": 181,
+        "endChar": 33
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ccd19925_f99eb567",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-11T10:17:43Z",
+      "side": 1,
+      "message": "Thanks. Please use it often; it\u0027s a static_cast in production builds, but in debug builds it checks that the conversion was non-lossy.",
+      "parentUuid": "19403c26_a647aae1",
       "range": {
         "startLine": 181,
         "startChar": 22,

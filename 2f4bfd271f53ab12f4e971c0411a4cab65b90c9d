@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e1b046d_4af80437",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-11T18:03:14Z",
+      "side": 1,
+      "message": "If they offer something, it is OK that we override the default and answer with it. (Not really clear what we should do in a spec-compliant future, but I believe this is what we do for other SDP munged protocols.)\n\nHowever if we don\u0027t offer it, and their answer contains it, we must reject the answer.\n\nCan you test this?",
+      "revId": "2f4bfd271f53ab12f4e971c0411a4cab65b90c9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

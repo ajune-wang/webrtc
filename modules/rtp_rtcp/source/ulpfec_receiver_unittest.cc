@@ -20,6 +20,7 @@
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/fec_test_helper.h"
 #include "modules/rtp_rtcp/source/forward_error_correction.h"
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -121,12 +122,13 @@ void UlpfecReceiverTest::PacketizeFrame(
 }
 
 void UlpfecReceiverTest::BuildAndAddRedMediaPacket(AugmentedPacket* packet) {
-  RtpPacket red_packet = packet_generator_.BuildMediaRedPacket(*packet);
+  RtpPacketReceived red_packet = packet_generator_.BuildMediaRedPacket(*packet);
   EXPECT_TRUE(receiver_fec_->AddReceivedRedPacket(red_packet, kFecPayloadType));
 }
 
 void UlpfecReceiverTest::BuildAndAddRedFecPacket(Packet* packet) {
-  RtpPacket red_packet = packet_generator_.BuildUlpfecRedPacket(*packet);
+  RtpPacketReceived red_packet =
+      packet_generator_.BuildUlpfecRedPacket(*packet);
   EXPECT_TRUE(receiver_fec_->AddReceivedRedPacket(red_packet, kFecPayloadType));
 }
 
@@ -174,7 +176,7 @@ void UlpfecReceiverTest::SurvivesMaliciousPacket(const uint8_t* data,
   std::unique_ptr<UlpfecReceiver> receiver_fec(
       UlpfecReceiver::Create(kMediaSsrc, &null_callback, {}));
 
-  RtpPacket rtp_packet;
+  RtpPacketReceived rtp_packet;
   ASSERT_TRUE(rtp_packet.Parse(data, length));
   receiver_fec->AddReceivedRedPacket(rtp_packet, ulpfec_payload_type);
 }

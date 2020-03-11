@@ -70,6 +70,30 @@
       "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67f2847b_428bc422",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2020-03-11T16:11:47Z",
+      "side": 1,
+      "message": "I think the problem Nisse mentiond here is that is_recovered is set with both RTX and FEC packets. (https://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/modules/rtp_rtcp/source/rtp_packet_received.h?q\u003dRtpPacketReceived+\u0026g\u003d0\u0026l\u003d50)\nAs we have multi-layer FEC protection, disable using FEC recovered packet for FEC recovering will reduce FEC efficiency.\nOne solution is to differentiate RTX and FEC recovered packets, another way is that we revert the change in https://webrtc-review.googlesource.com/c/src/+/146480.",
+      "parentUuid": "15b6a197_30993a6f",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 5
+      },
+      "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

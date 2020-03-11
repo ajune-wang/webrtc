@@ -591,6 +591,30 @@
     },
     {
       "key": {
+        "uuid": "5831dafd_e59b890a",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-11T02:41:51Z",
+      "side": 1,
+      "message": "Thanks. Please take a look at this logic below which is the immediate layer one above this AudioEgress::StopSend. \n\nhttps://webrtc-review.googlesource.com/c/src/+/169023/2/audio/voip/voip_core.cc#234.\n\nThere is some post logic that is somewhat involved which needs to run after every AudioEgress::StopSend() occurrence.  Currently AudioEgress::IsSending() status is tracked via RtpRtcp::SendingMedia() and as we convert AudioEgress::StopSend() into asynchronous mode, now status of RTP Stack also needs to be queried asynchronously to know the real status as we would need to incorporate RtpRtcp::SetSendingMediaStatue(false) within encoder_queue_ thread context.  Therefore, we need to create a post VoipCore::StopSend() method that must be invoked once by application as it receives its callback as shutting off audio device module must happen after queue is drained.  I don\u0027t think this is a slight change but rather somewhat involved process even on API usage itself.  I would prefer to set reasonable boundary on rtc::Event::Wait() (about 1 second) instead of rtc::Event::Forever with some error logging if it doesn\u0027t occur within expected time frame.",
+      "parentUuid": "c638f090_96f7857e",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

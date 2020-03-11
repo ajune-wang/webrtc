@@ -46,6 +46,30 @@
       "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15b6a197_30993a6f",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-11T15:40:19Z",
+      "side": 1,
+      "message": "yes. unfortunately. e.g. there is repaired rtp stream id (rrsid) extension that only makes sense on an rtx packet, rtp stream id means slightly different on rtx and on media packet it protects (might have different values). Transport sequence number of a media packet is unrecoverable too (and now we have mechanics to include it only sometimes).\nso it is non-trivial to restore same extensions (and in the same order) of a media packet from an rtx packet.\n\nbut ulpfec makes no difference between rtp payload and metadata (rtp header extensions): it treats everything after first base 12 bytes of rtp header as payload.\nthat was sort of ok while we had stable size and order of the header extensions (same header extensions that are not important for the rtp payload got corrupted that way), but we are more dynamic these days.",
+      "parentUuid": "34df2fe7_0cfa3e50",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 5
+      },
+      "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

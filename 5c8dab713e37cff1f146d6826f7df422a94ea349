@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "330fa542_fbc44112",
+        "filename": "api/rtp_transceiver_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-11T09:40:10Z",
+      "side": 1,
+      "message": "Trailing comma, so that the next CL adding to this enum won\u0027t have to touch two lines too?",
+      "revId": "5c8dab713e37cff1f146d6826f7df422a94ea349",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

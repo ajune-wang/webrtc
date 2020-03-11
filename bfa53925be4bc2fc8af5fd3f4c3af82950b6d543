@@ -615,6 +615,30 @@
     },
     {
       "key": {
+        "uuid": "35f66e6d_c234d1d4",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-11T03:59:59Z",
+      "side": 1,
+      "message": "Actually on second thought, I take it back.  It could be done by wrapping the application callback within a new callback in VoipCore::StopSend which can later be sequenced to be called together.\n\nI actually gave a second thought on why we are using encoder_queue_ here and I checked the old legacy webrtc::voe::channel.cc and it doesn\u0027t use any sort of queue for OS audio thread but rather we let it serve from APM/ACM all the way up to RTP stack and even socket transmission.  It does make sense as audio encoding shouldn\u0027t take much load.\n\nI tried to see when this encoder_queue_ was introduced and I found this in the changeset log.\n\n45 237453569 rtc-webrtc-importer-jobs 2019-03-08 08:28:08 (local) Import range e01857cca4..62c7b39c71 (27037:27039)\n\n* Adds ChannelSend specific encoder task queue. (srte@webrtc.org)\n\nDo you remember the context for adding the task queue? :) It would indeed be better to remove the queue to simplify it as original voe::channel.cc implementation.",
+      "parentUuid": "5831dafd_e59b890a",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

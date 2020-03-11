@@ -79,6 +79,7 @@ struct MediaDescriptionOptions {
   std::vector<SenderOptions> sender_options;
   std::vector<webrtc::RtpCodecCapability> codec_preferences;
   absl::optional<std::string> alt_protocol;
+  std::vector<webrtc::RtpHeaderExtensionCapability> header_extensions;
 
  private:
   // Doesn't DCHECK on |type|.

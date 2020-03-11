@@ -36,4 +36,9 @@ std::vector<RtpCodecCapability> RtpTransceiverInterface::codec_preferences()
   return {};
 }
 
+std::vector<RtpHeaderExtensionCapability>
+RtpTransceiverInterface::header_extensions_to_offer() const {
+  return {};
+}
+
 }  // namespace webrtc

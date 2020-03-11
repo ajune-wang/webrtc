@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f6d18b4b_bad698df",
+        "filename": ".gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-11T09:55:46Z",
+      "side": 1,
+      "message": "Licenses? binary size? I guess these are small reasons, so I won\u0027t insist.",
+      "parentUuid": "fa9e76de_a2a2d496",
+      "range": {
+        "startLine": 74,
+        "startChar": 1,
+        "endLine": 74,
+        "endChar": 2
+      },
+      "revId": "149971a062e53b0b62985c6ce25a9a7b19b60532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d2d3366_acb7dd09",
         "filename": "media/engine/internal_decoder_factory.cc",
         "patchSetId": 7
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "I prefer to avoid #ifdef when possible (https://google.github.io/styleguide/cppguide.html#Preprocessor_Macros)\n\nI tried to rely on a macro, but that adds extra dependencies and public configs to BUILD files. I found that discouraging.\nUnlike preprocessor checking this boolean adds a bit of extra binary size even when feature is not used, but my understanding is that extra size is negligible (one static constant bool and one function that always returns nullptr)\n\nwhy IsLibaomAv1DecoderSupported() function is better than a constant?\n(constant makes it clear it doesn\u0027t change at runtime. both to human and compiler)",
       "parentUuid": "621cf76d_182b2017",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "149971a062e53b0b62985c6ce25a9a7b19b60532",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8d729fc_ce99c229",
+        "filename": "media/engine/internal_decoder_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-11T09:55:46Z",
+      "side": 1,
+      "message": "It\u0027s not clear that that constant can change from build to build. With macros it\u0027s clear, but my first thought was, if it\u0027s constant, why can\u0027t you just remove the if alltogether depending on it\u0027s value?\n\nBut, it\u0027s probably a style question, so lgtm.",
+      "parentUuid": "ed0060dc_941268ea",
       "range": {
         "startLine": 53,
         "startChar": 6,

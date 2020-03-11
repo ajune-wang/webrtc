@@ -75,10 +75,14 @@ class ChannelManager final {
   // Can be called before starting the media engine.
   void GetSupportedAudioSendCodecs(std::vector<AudioCodec>* codecs) const;
   void GetSupportedAudioReceiveCodecs(std::vector<AudioCodec>* codecs) const;
-  void GetSupportedAudioRtpHeaderExtensions(RtpHeaderExtensions* ext) const;
   void GetSupportedVideoCodecs(std::vector<VideoCodec>* codecs) const;
-  void GetSupportedVideoRtpHeaderExtensions(RtpHeaderExtensions* ext) const;
   void GetSupportedDataCodecs(std::vector<DataCodec>* codecs) const;
+  RtpHeaderExtensions LegacyGetSupportedAudioRtpHeaderExtensions() const;
+  std::vector<webrtc::RtpHeaderExtensionCapability>
+  GetSupportedAudioRtpHeaderExtensions() const;
+  RtpHeaderExtensions LegacyGetSupportedVideoRtpHeaderExtensions() const;
+  std::vector<webrtc::RtpHeaderExtensionCapability>
+  GetSupportedVideoRtpHeaderExtensions() const;
 
   // Indicates whether the media engine is started.
   bool initialized() const { return initialized_; }

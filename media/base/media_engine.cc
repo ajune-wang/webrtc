@@ -179,4 +179,20 @@ const VideoEngineInterface& CompositeMediaEngine::video() const {
   return *video_engine_.get();
 }
 
+RtpCapabilities CapabilityQueryMixin::GetCapabilities() const {
+  RtpCapabilities capabilities;
+  capabilities.header_extensions = LegacyGetRtpHeaderExtensions();
+  return capabilities;
+}
+
+std::vector<webrtc::RtpExtension>
+CapabilityQueryMixin::LegacyGetRtpHeaderExtensions() const {
+  std::vector<webrtc::RtpExtension> extensions;
+  for (const auto& entry : GetRtpHeaderExtensions()) {
+    if (entry.direction != webrtc::RtpTransceiverDirection::kStopped)
+      extensions.emplace_back(entry.uri, *entry.preferred_id);
+  }
+  return extensions;
+}
+
 }  // namespace cricket

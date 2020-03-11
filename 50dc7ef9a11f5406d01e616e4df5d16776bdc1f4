@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "195e7683_5f61a2c5",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-11T22:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ad18425_b282cfca",
+      "range": {
+        "startLine": 186,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 36
+      },
+      "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e92356a1_73574304",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74df8b5_ef8189a2",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-11T22:33:52Z",
+      "side": 1,
+      "message": "Thanks for catching it.",
+      "parentUuid": "e92356a1_73574304",
+      "range": {
+        "startLine": 33,
+        "startChar": 50,
+        "endLine": 33,
+        "endChar": 51
+      },
+      "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e6309f02_d4225fa7",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-11T22:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4bc9ec4_45bf6830",
+      "range": {
+        "startLine": 77,
+        "startChar": 60,
+        "endLine": 77,
+        "endChar": 68
+      },
+      "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5eac4c74_41a1e5d5",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa55312_2ef06559",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-11T22:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5eac4c74_41a1e5d5",
+      "range": {
+        "startLine": 108,
+        "startChar": 42,
+        "endLine": 108,
+        "endChar": 50
+      },
+      "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "66520331_7cdbd4a7",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-11T22:33:52Z",
+      "side": 1,
+      "message": "Agreed. Thanks.",
+      "parentUuid": "81e3a36b_af1440e8",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 0
+      },
+      "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f55ab33_1a1a4e56",
         "filename": "audio/voip/test/audio_egress_unittest.cc",
         "patchSetId": 7
@@ -137,6 +257,30 @@
       "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92da2814_735cac04",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-11T22:33:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f55ab33_1a1a4e56",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 8
+      },
+      "revId": "50dc7ef9a11f5406d01e616e4df5d16776bdc1f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -203,7 +203,7 @@ absl::optional<uint32_t> ModuleRtpRtcpImpl::FlexfecSsrc() const {
 }
 
 void ModuleRtpRtcpImpl::IncomingRtcpPacket(const uint8_t* rtcp_packet,
-                                           const size_t length) {
+                                           size_t length) {
   rtcp_receiver_.IncomingPacket(rtcp_packet, length);
 }
 
@@ -668,19 +668,6 @@ void ModuleRtpRtcpImpl::SetStorePacketsStatus(const bool enable,
 bool ModuleRtpRtcpImpl::StorePackets() const {
   return rtp_sender_->packet_history.GetStorageMode() !=
          RtpPacketHistory::StorageMode::kDisabled;
-}
-
-void ModuleRtpRtcpImpl::RegisterRtcpStatisticsCallback(
-    RtcpStatisticsCallback* callback) {
-  rtcp_receiver_.RegisterRtcpStatisticsCallback(callback);
-}
-
-RtcpStatisticsCallback* ModuleRtpRtcpImpl::GetRtcpStatisticsCallback() {
-  return rtcp_receiver_.GetRtcpStatisticsCallback();
-}
-
-void ModuleRtpRtcpImpl::RegisterRtcpCnameCallback(RtcpCnameCallback* callback) {
-  rtcp_receiver_.RegisterRtcpCnameCallback(callback);
 }
 
 void ModuleRtpRtcpImpl::SetReportBlockDataObserver(

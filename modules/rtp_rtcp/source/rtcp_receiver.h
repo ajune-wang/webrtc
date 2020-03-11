@@ -113,9 +113,6 @@ class RTCPReceiver final {
   // Set new bandwidth and notify remote clients about it.
   void NotifyTmmbrUpdated();
 
-  void RegisterRtcpStatisticsCallback(RtcpStatisticsCallback* callback);
-  void RegisterRtcpCnameCallback(RtcpCnameCallback* callback);
-  RtcpStatisticsCallback* GetRtcpStatisticsCallback();
   void SetReportBlockDataObserver(ReportBlockDataObserver* observer);
 
  private:
@@ -267,8 +264,9 @@ class RTCPReceiver final {
   // delivered RTP packet to the remote side.
   int64_t last_increased_sequence_number_ms_;
 
-  RtcpStatisticsCallback* stats_callback_ RTC_GUARDED_BY(feedbacks_lock_);
-  RtcpCnameCallback* cname_callback_ RTC_GUARDED_BY(feedbacks_lock_);
+  RtcpStatisticsCallback* const stats_callback_
+      RTC_PT_GUARDED_BY(feedbacks_lock_);
+  RtcpCnameCallback* const cname_callback_ RTC_PT_GUARDED_BY(feedbacks_lock_);
   // TODO(hbos): Remove RtcpStatisticsCallback in favor of
   // ReportBlockDataObserver; the ReportBlockData contains a superset of the
   // RtcpStatistics data.

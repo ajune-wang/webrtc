@@ -1736,9 +1736,10 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForOffer(
       return audio_send_codecs_;
     case RtpTransceiverDirection::kRecvOnly:
       return audio_recv_codecs_;
+    case RtpTransceiverDirection::kStopped:
+      RTC_NOTREACHED();
+      return audio_sendrecv_codecs_;
   }
-  RTC_NOTREACHED();
-  return audio_sendrecv_codecs_;
 }
 
 const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForAnswer(
@@ -1755,9 +1756,10 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForAnswer(
       return audio_send_codecs_;
     case RtpTransceiverDirection::kRecvOnly:
       return audio_recv_codecs_;
+    case RtpTransceiverDirection::kStopped:
+      RTC_NOTREACHED();
+      return audio_sendrecv_codecs_;
   }
-  RTC_NOTREACHED();
-  return audio_sendrecv_codecs_;
 }
 
 void MergeCodecsFromDescription(

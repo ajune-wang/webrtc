@@ -33,36 +33,6 @@ import org.webrtc.RtpParameters;
  * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver
  */
 public class RtpTransceiver {
-  /** Java version of webrtc::RtpTransceiverDirection - the ordering must be kept in sync. */
-  public enum RtpTransceiverDirection {
-    SEND_RECV(0),
-    SEND_ONLY(1),
-    RECV_ONLY(2),
-    INACTIVE(3);
-
-    private final int nativeIndex;
-
-    private RtpTransceiverDirection(int nativeIndex) {
-      this.nativeIndex = nativeIndex;
-    }
-
-    @CalledByNative("RtpTransceiverDirection")
-    int getNativeIndex() {
-      return nativeIndex;
-    }
-
-    @CalledByNative("RtpTransceiverDirection")
-    static RtpTransceiverDirection fromNativeIndex(int nativeIndex) {
-      for (RtpTransceiverDirection type : RtpTransceiverDirection.values()) {
-        if (type.getNativeIndex() == nativeIndex) {
-          return type;
-        }
-      }
-      throw new IllegalArgumentException(
-          "Uknown native RtpTransceiverDirection type" + nativeIndex);
-    }
-  }
-
   /**
    * Tracks webrtc::RtpTransceiverInit. https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiverinit
    * A structure for initializing an RtpTransceiver in a call to addTransceiver.
@@ -70,7 +40,7 @@ public class RtpTransceiver {
    * not being used natively.
    */
   public static final class RtpTransceiverInit {
-    private final RtpTransceiverDirection direction;
+    @RtpTransceiverDirection private final int direction;
     private final List<String> streamIds;
     private final List<RtpParameters.Encoding> sendEncodings;
 
@@ -78,15 +48,15 @@ public class RtpTransceiver {
       this(RtpTransceiverDirection.SEND_RECV);
     }
 
-    public RtpTransceiverInit(RtpTransceiverDirection direction) {
+    public RtpTransceiverInit(@RtpTransceiverDirection int direction) {
       this(direction, Collections.emptyList(), Collections.emptyList());
     }
 
-    public RtpTransceiverInit(RtpTransceiverDirection direction, List<String> streamIds) {
+    public RtpTransceiverInit(@RtpTransceiverDirection int direction, List<String> streamIds) {
       this(direction, streamIds, Collections.emptyList());
     }
 
-    public RtpTransceiverInit(RtpTransceiverDirection direction, List<String> streamIds,
+    public RtpTransceiverInit(@RtpTransceiverDirection int direction, List<String> streamIds,
         List<RtpParameters.Encoding> sendEncodings) {
       this.direction = direction;
       this.streamIds = new ArrayList<String>(streamIds);
@@ -94,8 +64,9 @@ public class RtpTransceiver {
     }
 
     @CalledByNative("RtpTransceiverInit")
-    int getDirectionNativeIndex() {
-      return direction.getNativeIndex();
+    @RtpTransceiverDirection
+    int getDirection() {
+      return direction;
     }
 
     @CalledByNative("RtpTransceiverInit")
@@ -177,7 +148,7 @@ public class RtpTransceiver {
    * transceiver, which will be used in calls to CreateOffer and CreateAnswer.
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-direction
    */
-  public RtpTransceiverDirection getDirection() {
+  public @RtpTransceiverDirection int getDirection() {
     checkRtpTransceiverExists();
     return nativeDirection(nativeRtpTransceiver);
   }
@@ -185,10 +156,10 @@ public class RtpTransceiver {
   /**
    * The current_direction attribute indicates the current direction negotiated
    * for this transceiver. If this transceiver has never been represented in an
-   * offer/answer exchange, or if the transceiver is stopped, the value is null.
+   * offer/answer exchange the value is RtpTransceiverDirection.STOPPED.
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-currentdirection
    */
-  public RtpTransceiverDirection getCurrentDirection() {
+  public @RtpTransceiverDirection int getCurrentDirection() {
     checkRtpTransceiverExists();
     return nativeCurrentDirection(nativeRtpTransceiver);
   }
@@ -200,7 +171,7 @@ public class RtpTransceiver {
    * sendrecv, sendonly, recvonly, or inactive.
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-direction
    */
-  public void setDirection(RtpTransceiverDirection rtpTransceiverDirection) {
+  public void setDirection(@RtpTransceiverDirection int rtpTransceiverDirection) {
     checkRtpTransceiverExists();
     nativeSetDirection(nativeRtpTransceiver, rtpTransceiverDirection);
   }
@@ -235,9 +206,9 @@ public class RtpTransceiver {
   private static native RtpSender nativeGetSender(long rtpTransceiver);
   private static native RtpReceiver nativeGetReceiver(long rtpTransceiver);
   private static native boolean nativeStopped(long rtpTransceiver);
-  private static native RtpTransceiverDirection nativeDirection(long rtpTransceiver);
-  private static native RtpTransceiverDirection nativeCurrentDirection(long rtpTransceiver);
+  private static native @RtpTransceiverDirection int nativeDirection(long rtpTransceiver);
+  private static native @RtpTransceiverDirection int nativeCurrentDirection(long rtpTransceiver);
   private static native void nativeStop(long rtpTransceiver);
   private static native void nativeSetDirection(
-      long rtpTransceiver, RtpTransceiverDirection rtpTransceiverDirection);
+      long rtpTransceiver, @RtpTransceiverDirection int rtpTransceiverDirection);
 }

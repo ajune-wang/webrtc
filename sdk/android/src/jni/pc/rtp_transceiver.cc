@@ -23,17 +23,6 @@
 namespace webrtc {
 namespace jni {
 
-namespace {
-
-ScopedJavaLocalRef<jobject> NativeToJavaRtpTransceiverDirection(
-    JNIEnv* jni,
-    RtpTransceiverDirection rtp_transceiver_direction) {
-  return Java_RtpTransceiverDirection_fromNativeIndex(
-      jni, static_cast<int>(rtp_transceiver_direction));
-}
-
-}  // namespace
-
 RtpTransceiverInit JavaToNativeRtpTransceiverInit(
     JNIEnv* jni,
     const JavaRef<jobject>& j_init) {
@@ -41,7 +30,7 @@ RtpTransceiverInit JavaToNativeRtpTransceiverInit(
 
   // Convert the direction.
   init.direction = static_cast<RtpTransceiverDirection>(
-      Java_RtpTransceiverInit_getDirectionNativeIndex(jni, j_init));
+      Java_RtpTransceiverInit_getDirection(jni, j_init));
 
   // Convert the stream ids.
   ScopedJavaLocalRef<jobject> j_stream_ids =
@@ -121,22 +110,12 @@ jboolean JNI_RtpTransceiver_Stopped(JNIEnv* jni,
       ->stopped();
 }
 
-ScopedJavaLocalRef<jobject> JNI_RtpTransceiver_Direction(
+RtpTransceiverDirection JNI_RtpTransceiver_CurrentDirection(
     JNIEnv* jni,
     jlong j_rtp_transceiver_pointer) {
-  return NativeToJavaRtpTransceiverDirection(
-      jni, reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)
-               ->direction());
-}
-
-ScopedJavaLocalRef<jobject> JNI_RtpTransceiver_CurrentDirection(
-    JNIEnv* jni,
-    jlong j_rtp_transceiver_pointer) {
-  absl::optional<RtpTransceiverDirection> direction =
-      reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)
-          ->current_direction();
-  return direction ? NativeToJavaRtpTransceiverDirection(jni, *direction)
-                   : nullptr;
+  return reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)
+      ->current_direction()
+      .value_or(RtpTransceiverDirection::kStopped);
 }
 
 void JNI_RtpTransceiver_Stop(JNIEnv* jni,
@@ -144,18 +123,11 @@ void JNI_RtpTransceiver_Stop(JNIEnv* jni,
   reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)->Stop();
 }
 
-void JNI_RtpTransceiver_SetDirection(
-    JNIEnv* jni,
-    jlong j_rtp_transceiver_pointer,
-    const base::android::JavaParamRef<jobject>& j_rtp_transceiver_direction) {
-  if (IsNull(jni, j_rtp_transceiver_direction)) {
-    return;
-  }
-  RtpTransceiverDirection direction = static_cast<RtpTransceiverDirection>(
-      Java_RtpTransceiverDirection_getNativeIndex(jni,
-                                                  j_rtp_transceiver_direction));
+void JNI_RtpTransceiver_SetDirection(JNIEnv* jni,
+                                     jlong j_rtp_transceiver_pointer,
+                                     jint direction) {
   reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)
-      ->SetDirection(direction);
+      ->SetDirection(static_cast<RtpTransceiverDirection>(direction));
 }
 
 }  // namespace jni

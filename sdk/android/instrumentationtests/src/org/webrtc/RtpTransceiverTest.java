@@ -56,7 +56,7 @@ public class RtpTransceiverTest {
     encodings.add(new Encoding("H", true, null));
 
     RtpTransceiverInit init = new RtpTransceiverInit(
-        RtpTransceiver.RtpTransceiverDirection.SEND_ONLY, Collections.emptyList(), encodings);
+        RtpTransceiverDirection.SEND_ONLY, Collections.emptyList(), encodings);
     RtpTransceiver transceiver =
         pc.addTransceiver(MediaStreamTrack.MediaType.MEDIA_TYPE_VIDEO, init);
 

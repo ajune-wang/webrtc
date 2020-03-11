@@ -214,6 +214,12 @@ rtc_library("libjingle_peerconnection_api") {
   ]
 }
 
+if (is_android) {
+  java_cpp_enum("libjingle_peerconnection_api_enums") {
+    sources = [ "rtp_transceiver_interface.h" ]
+  }
+}
+
 rtc_source_set("frame_transformer_interface") {
   visibility = [ "*" ]
   sources = [ "frame_transformer_interface.h" ]

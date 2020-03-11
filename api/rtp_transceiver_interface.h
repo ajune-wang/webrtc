@@ -27,6 +27,7 @@
 namespace webrtc {
 
 // https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiverdirection
+// GENERATED_JAVA_ENUM_PACKAGE: org.webrtc
 enum class RtpTransceiverDirection {
   kSendRecv,
   kSendOnly,

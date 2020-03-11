@@ -675,19 +675,6 @@ void ModuleRtpRtcpImpl::RegisterRtcpStatisticsCallback(
   rtcp_receiver_.RegisterRtcpStatisticsCallback(callback);
 }
 
-RtcpStatisticsCallback* ModuleRtpRtcpImpl::GetRtcpStatisticsCallback() {
-  return rtcp_receiver_.GetRtcpStatisticsCallback();
-}
-
-void ModuleRtpRtcpImpl::RegisterRtcpCnameCallback(RtcpCnameCallback* callback) {
-  rtcp_receiver_.RegisterRtcpCnameCallback(callback);
-}
-
-void ModuleRtpRtcpImpl::SetReportBlockDataObserver(
-    ReportBlockDataObserver* observer) {
-  return rtcp_receiver_.SetReportBlockDataObserver(observer);
-}
-
 void ModuleRtpRtcpImpl::SendCombinedRtcpPacket(
     std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) {
   rtcp_sender_.SendCombinedRtcpPacket(std::move(rtcp_packets));

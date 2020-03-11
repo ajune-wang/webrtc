@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e436f73_24f67b60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-11T15:08:16Z",
+      "side": 1,
+      "message": "... new syntax recommended in go/totw/164",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 31
+      },
+      "revId": "42ebb41de5b89ac61bed19c67db2bb4932f1db0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

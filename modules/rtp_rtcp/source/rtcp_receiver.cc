@@ -161,8 +161,8 @@ RTCPReceiver::RTCPReceiver(const RtpRtcp::Configuration& config,
       oldest_tmmbr_info_ms_(0),
       last_received_rb_ms_(0),
       last_increased_sequence_number_ms_(0),
-      stats_callback_(nullptr),
-      cname_callback_(nullptr),
+      stats_callback_(config.rtcp_statistics_callback),
+      cname_callback_(config.rtcp_cname_callback),
       report_block_data_observer_(nullptr),
       packet_type_counter_observer_(config.rtcp_packet_type_counter_observer),
       num_skipped_packets_(0),
@@ -987,22 +987,6 @@ void RTCPReceiver::NotifyTmmbrUpdated() {
 
   // Send tmmbn to inform remote clients about the new bandwidth.
   rtp_rtcp_->SetTmmbn(std::move(bounding));
-}
-
-void RTCPReceiver::RegisterRtcpStatisticsCallback(
-    RtcpStatisticsCallback* callback) {
-  rtc::CritScope cs(&feedbacks_lock_);
-  stats_callback_ = callback;
-}
-
-RtcpStatisticsCallback* RTCPReceiver::GetRtcpStatisticsCallback() {
-  rtc::CritScope cs(&feedbacks_lock_);
-  return stats_callback_;
-}
-
-void RTCPReceiver::RegisterRtcpCnameCallback(RtcpCnameCallback* callback) {
-  rtc::CritScope cs(&feedbacks_lock_);
-  cname_callback_ = callback;
 }
 
 void RTCPReceiver::SetReportBlockDataObserver(

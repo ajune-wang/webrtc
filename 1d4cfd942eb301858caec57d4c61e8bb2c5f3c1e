@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b84d75aa_034d1fa6",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-12T13:36:53Z",
+      "side": 1,
+      "message": "Should we use communicate() here?\n\nSee https://docs.python.org/2/library/subprocess.html#subprocess.Popen.wait.",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "1d4cfd942eb301858caec57d4c61e8bb2c5f3c1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

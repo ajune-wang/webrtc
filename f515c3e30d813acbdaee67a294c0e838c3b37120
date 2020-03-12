@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "2512ed86_e2f2e4a9",
+        "filename": "rtc_base/system/gcd_helpers.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-03-12T10:05:10Z",
+      "side": 1,
+      "message": "The * placement is consistent with what we do elsewhere, so that\u0027s fine IMO. I also think the RTC prefix is preferable to a namespace for the reasons mentioned. \n\nHowever, I think we should still do as Tommi suggests and change the function name to be consistent with our C++ styleguide[0], rather than Apple\u0027s style. I\u0027d prefer RTCDispatchQueueCreateWithTarget.\n\nThanks!\n\n[0]: https://engdoc.corp.google.com/eng/doc/devguide/cpp/styleguide.md?cl\u003dhead#Function_Names",
+      "parentUuid": "9e4c184f_79d79b18",
+      "revId": "f515c3e30d813acbdaee67a294c0e838c3b37120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e51d6ede_689c70bf",
         "filename": "rtc_base/system/gcd_helpers.m",
         "patchSetId": 10

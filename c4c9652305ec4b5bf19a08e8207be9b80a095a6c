@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4a748081_acaa74f8",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-12T10:37:43Z",
+      "side": 1,
+      "message": "No idea. But it does not really affect this CL, right?",
+      "parentUuid": "7593e5e9_9446bab5",
+      "range": {
+        "startLine": 36,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 2
+      },
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15fe079b_71b24102",
         "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
         "patchSetId": 3
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "194c6ef7_39a52aa5",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-12T10:37:43Z",
+      "side": 1,
+      "message": "Buffer size and sample rate are related but not fully as the buffer size also dependes on the number of channels.\n\nI definitely think it would make sense to define kInitialInputDataBufferSize as being dependent on kMaxIncomingSampleRateHz.\n\nBut I\u0027d prefer to do that in another CL",
+      "parentUuid": "15fe079b_71b24102",
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1ed6927_78c9aed1",
         "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
         "patchSetId": 3
@@ -53,6 +95,30 @@
       "writtenOn": "2020-03-12T10:08:53Z",
       "side": 1,
       "message": "Why does it say \"If a resampling is required..\" when we are within a scope where we know that resampling is required?",
+      "range": {
+        "startLine": 471,
+        "startChar": 7,
+        "endLine": 471,
+        "endChar": 34
+      },
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53032ac_8fb2aab0",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-12T10:37:43Z",
+      "side": 1,
+      "message": "No, I cannot see that we know that resampling is required.\n\nThe need for down_mix and resampling is detected differently and assigned to different bools (lines 422 and 429). From what I can see that means that we could have a situation where we need to downmix, and not resample).\n\n(there is another potential bug related to that that I found and it is being address in another CL, but regardless I think this comment is correct and valid)",
+      "parentUuid": "e1ed6927_78c9aed1",
       "range": {
         "startLine": 471,
         "startChar": 7,

@@ -22,6 +22,30 @@
       "revId": "2896bf697b6602575dc1b2717f214e39b1d57f09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fa64724_1bc478d2",
+        "filename": "modules/audio_coding/include/audio_coding_module.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-12T10:37:43Z",
+      "side": 0,
+      "message": "Yes, This CL also changes that usage. Please look at the file EncodeDecodeTest.cc",
+      "parentUuid": "27e997e8_9943c9ec",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "2896bf697b6602575dc1b2717f214e39b1d57f09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

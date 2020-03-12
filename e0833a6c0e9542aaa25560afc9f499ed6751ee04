@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5357c27_18cef3c9",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-12T01:54:45Z",
+      "side": 1,
+      "message": "Use string_view? Or pass std::string by value, so that you can move it into place.",
+      "range": {
+        "startLine": 235,
+        "startChar": 31,
+        "endLine": 235,
+        "endChar": 49
+      },
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14bb757e_9469343e",
+        "filename": "api/rtp_transceiver_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-12T01:54:45Z",
+      "side": 1,
+      "message": "I would recommend CamelCase. https://google.github.io/styleguide/cppguide.html#Function_Names allows, but does not encourage, getters and setters to have snake_case names; I find it best not to take advantage of this, since whether a method is a getter/setter is often an implementation detail that has no business being advertised in the class\u0027s API.",
+      "range": {
+        "startLine": 133,
+        "startChar": 52,
+        "endLine": 133,
+        "endChar": 78
+      },
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -747,6 +747,30 @@
     },
     {
       "key": {
+        "uuid": "8fa7b5af_1ca63798",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-12T06:27:30Z",
+      "side": 1,
+      "message": "Thanks, Karl.  Would you happen to know the ticket on that issue? If not, I will try to dig and find that as well.  It does make sense that when both audio and video are involved plus we are doing ptime with 120 ms, we may hit that kind of issue.  From my experience of using old voice engine without task queue in the middle, it was fine to use opus with 20 ms ptime and didn\u0027t hear any audio stutter issues on mobile devices.  I am curious to know the CPU impact on using longer ptime as 120 ms.  However, what I heard of 120 ms use case is for fairly low bandwidth network where we already reduce bit rate to the minimum and to even reduce further on bit rate, we are adjusting ptime to save more bytes from IP/RTP headers. IMHO, in that kind of environment, audio quality impact may have been easily due to other network factors (e.g jitter, packet loss).  But I would agree that we should do more investigation on that and make sure we don\u0027t make the same mistake if that is the root cause.",
+      "parentUuid": "69ace132_902cd0bf",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

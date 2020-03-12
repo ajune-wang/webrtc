@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7593e5e9_9446bab5",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-03-12T10:08:53Z",
+      "side": 1,
+      "message": "Why do we have this rather random comment? Many other combinations also apply.",
+      "range": {
+        "startLine": 36,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 2
+      },
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15fe079b_71b24102",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-03-12T10:08:53Z",
+      "side": 1,
+      "message": "We seem to use \"Input\" kInitialInputDataBufferSize above. Should we be consistent?",
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ed6927_78c9aed1",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-03-12T10:08:53Z",
+      "side": 1,
+      "message": "Why does it say \"If a resampling is required..\" when we are within a scope where we know that resampling is required?",
+      "range": {
+        "startLine": 471,
+        "startChar": 7,
+        "endLine": 471,
+        "endChar": 34
+      },
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

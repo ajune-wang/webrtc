@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e4c184f_79d79b18",
+        "filename": "rtc_base/system/gcd_helpers.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-03-12T09:45:54Z",
+      "side": 1,
+      "message": "Tommi, thanks a lot for review and comments. Unfortunately I can\u0027t add `namespace rtc`, because it means using Objective C++ for gcd_helpers, while there are RTCCameraVideoCapture.m and RTCFileVideoCapture.m which are written in Objective C and hence they can\u0027t include C++ headers. \nDo I still need to update * usage? I\u0027m asking because files were formatted via `git cl format` and they seem to match the style of an existing files like sdk/objc/components/capturer/RTCCameraVideoCapturer.m.",
+      "parentUuid": "4324e3fe_e8908493",
+      "revId": "f515c3e30d813acbdaee67a294c0e838c3b37120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e51d6ede_689c70bf",
         "filename": "rtc_base/system/gcd_helpers.m",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "f515c3e30d813acbdaee67a294c0e838c3b37120",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be19f6ed_089db9c2",
+        "filename": "rtc_base/system/gcd_helpers.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-03-12T09:45:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e51d6ede_689c70bf",
+      "revId": "f515c3e30d813acbdaee67a294c0e838c3b37120",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3bfa140_70c881b4",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-12T06:46:35Z",
+      "side": 1,
+      "message": "Use an atomic or a lock for this, if there is too much overhead you can use read and write lock/atomic operations.",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 12
+      },
+      "revId": "d8e25d3519adc1575c484de40022ffe8b2efb168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

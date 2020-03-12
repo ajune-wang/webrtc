@@ -2909,9 +2909,11 @@ TEST_F(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
         if (target_bitrate_ == expected_bitrate) {
           return;
         }
+        // } while (bitrate_changed_event_.Wait(
+        //     std::max(int64_t{1}, VideoSendStreamTest::kDefaultTimeoutMs -
+        //                              (rtc::TimeMillis() - start_time))));
       } while (bitrate_changed_event_.Wait(
-          std::max(int64_t{1}, VideoSendStreamTest::kDefaultTimeoutMs -
-                                   (rtc::TimeMillis() - start_time))));
+          std::max(int64_t{1}, 60000 - (rtc::TimeMillis() - start_time))));
       rtc::CritScope lock(&crit_);
       EXPECT_EQ(target_bitrate_, expected_bitrate)
           << "Timed out while waiting encoder rate to be set.";

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "76a83113_2790780e",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-12T15:01:40Z",
+      "side": 1,
+      "message": "slightly rephrased the comment.",
+      "parentUuid": "19b08801_d9d5c508",
+      "range": {
+        "startLine": 259,
+        "startChar": 17,
+        "endLine": 259,
+        "endChar": 48
+      },
+      "revId": "8ac017e109d2582078eea16186f815b347a88a9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6653768f_e3277855",
         "filename": "modules/video_coding/packet_buffer.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "8ac017e109d2582078eea16186f815b347a88a9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "973e6422_b5bd93bc",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-12T15:01:40Z",
+      "side": 1,
+      "message": "That was my first choice (https://webrtc-review.googlesource.com/c/src/+/165690)\nBut I found flat vector a bit nicer:\nit avoids extra allocations, avoids extra inner loop.\ntype std::vector\u003cstd::vector\u003cstd::unique_ptr\u003cPacket\u003e\u003e\u003e is harder to read.\nbinary size also in small favor of the flat vector.\nit adds setting/reading bof and eof flags, but that looks smaller to me.",
+      "parentUuid": "6653768f_e3277855",
+      "range": {
+        "startLine": 122,
+        "startChar": 2,
+        "endLine": 122,
+        "endChar": 38
+      },
+      "revId": "8ac017e109d2582078eea16186f815b347a88a9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

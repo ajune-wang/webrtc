@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8eae85a5_33648e26",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-03-12T10:44:26Z",
+      "side": 1,
+      "message": "Agree. Just looked odd to me.",
+      "parentUuid": "4a748081_acaa74f8",
+      "range": {
+        "startLine": 36,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 2
+      },
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15fe079b_71b24102",
         "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
         "patchSetId": 3
@@ -81,6 +105,24 @@
       "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae0a3ec4_e31c2be1",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-03-12T10:44:26Z",
+      "side": 1,
+      "message": "I meant, should we use \"kMaxInputSampleRateHz\" instead?",
+      "parentUuid": "194c6ef7_39a52aa5",
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +161,30 @@
       "side": 1,
       "message": "No, I cannot see that we know that resampling is required.\n\nThe need for down_mix and resampling is detected differently and assigned to different bools (lines 422 and 429). From what I can see that means that we could have a situation where we need to downmix, and not resample).\n\n(there is another potential bug related to that that I found and it is being address in another CL, but regardless I think this comment is correct and valid)",
       "parentUuid": "e1ed6927_78c9aed1",
+      "range": {
+        "startLine": 471,
+        "startChar": 7,
+        "endLine": 471,
+        "endChar": 34
+      },
+      "revId": "c4c9652305ec4b5bf19a08e8207be9b80a095a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "283a4ef0_355ed5cd",
+        "filename": "modules/audio_coding/acm2/audio_coding_module.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-03-12T10:44:26Z",
+      "side": 1,
+      "message": "Got it, (nit) should at least be changed to \"If a resampling is required, the ...\"",
+      "parentUuid": "a53032ac_8fb2aab0",
       "range": {
         "startLine": 471,
         "startChar": 7,

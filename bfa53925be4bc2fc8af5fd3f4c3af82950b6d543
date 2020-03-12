@@ -723,6 +723,30 @@
     },
     {
       "key": {
+        "uuid": "69ace132_902cd0bf",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-12T01:10:03Z",
+      "side": 1,
+      "message": "I wasn\u0027t involved in the details, but I seem to recall problems with occasional audio stuttering being caused by failure to poll the microphone input buffer often enough. Moving audio encoding (which is usually the single most CPU intensive thing that WebRTC does, unless a software video codec is in use) back into the time critical audio input polling loop seems like a step backwards.\n\nIIRC the problem wasn\u0027t that encoding 10 ms of audio in itself takes more than 10 ms, it\u0027s that (1) audio encoding is more bursty than that, since we may accumulate up to 120 ms of audio that we then encode in one go; and (2) we may be sharing the CPU with some other process, and the tighter our margins, the higher the risk that that contention will push us over the edge and cause us to drop incoming audio.",
+      "parentUuid": "732bb620_7b40c550",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

@@ -142,6 +142,30 @@
       "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e64293f2_d398d3dc",
+        "filename": "modules/rtp_rtcp/source/ulpfec_receiver_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-12T08:05:23Z",
+      "side": 1,
+      "message": "Thanks for explaining. So the issue is that RTX doesn\u0027t work nicely together with FEC. While packets recovered by FEC should be identical to the original transmission, and work with more advanced FEC modes like the \"multi-layer\" mode Ying mentions.\n\nAs for the is_recovered flag, as I understand it it\u0027s mainly intended to aid stats. E.g, to get receive rate counting original transmissions only, or network latency measures excluding recovered packets. In principle, I think it\u0027s nice to not have to expose distinctions between different kinds of recovery to those layers.",
+      "parentUuid": "c5d90452_062941b8",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 5
+      },
+      "revId": "6817394eac2e6f3b65bbcbb84160c0831c88a308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

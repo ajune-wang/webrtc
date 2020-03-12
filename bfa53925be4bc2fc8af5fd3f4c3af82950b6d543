@@ -771,6 +771,30 @@
     },
     {
       "key": {
+        "uuid": "03f1ab20_bfc1cab0",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-12T08:06:33Z",
+      "side": 1,
+      "message": "Sorry, no, all I remember is a coworker spending one or a few weeks getting to the bottom of why we were unable to reliably poll the mic input often enough to keep its ring buffer from wrapping, which produced a curious stuttering sound when input data from time t was overwritten with input data from time t + k before we got around to reading it. (This was in Chromium on one of the desktop platforms IIRC.) It left me with the impression that trying to live with less than generous margins in the polling might land you with very hard to debug audio dropout bugs that manifest only sporadically.\n\nThus my gut feeling that offloading the encoding to a different thread is a splendid idea...",
+      "parentUuid": "8fa7b5af_1ca63798",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

@@ -70,6 +70,30 @@
       "revId": "1d4cfd942eb301858caec57d4c61e8bb2c5f3c1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "446b4776_860a2dd1",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-03-13T11:27:40Z",
+      "side": 1,
+      "message": "Nope, luci-auth outputs a single oauth token.",
+      "parentUuid": "1f46b31e_59e58f16",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "1d4cfd942eb301858caec57d4c61e8bb2c5f3c1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

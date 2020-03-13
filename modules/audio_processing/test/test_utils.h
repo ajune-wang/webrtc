@@ -20,7 +20,6 @@
 #include <string>
 #include <vector>
 
-#include "api/audio/audio_frame.h"
 #include "common_audio/channel_buffer.h"
 #include "common_audio/wav_file.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -43,6 +42,26 @@ class RawFile final {
   FILE* file_handle_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RawFile);
+};
+
+// Coninter class for int16 frame content.
+struct Int16FrameData {
+  static const int kMaxDataSizeSamples = 7680;
+  void CopyFrom(const Int16FrameData& src) {
+    samples_per_channel_ = src.samples_per_channel_;
+    sample_rate_hz_ = src.sample_rate_hz_;
+    vad_activity = src.vad_activity;
+    num_channels_ = src.num_channels_;
+
+    const size_t length = samples_per_channel_ * num_channels_;
+    RTC_CHECK_LE(length, kMaxDataSizeSamples);
+    memcpy(data.data(), src.data.data(), sizeof(int16_t) * length);
+  }
+  std::array<int16_t, kMaxDataSizeSamples> data;
+  int32_t sample_rate_hz_;
+  size_t num_channels_;
+  size_t samples_per_channel_;
+  AudioProcessing::VoiceDetectionResult vad_activity;
 };
 
 // Reads ChannelBuffers from a provided WavReader.
@@ -113,12 +132,12 @@ FILE* OpenFile(const std::string& filename, const char* mode);
 
 size_t SamplesFromRate(int rate);
 
-void SetFrameSampleRate(AudioFrame* frame, int sample_rate_hz);
+void SetFrameSampleRate(Int16FrameData* frame, int sample_rate_hz);
 
 template <typename T>
 void SetContainerFormat(int sample_rate_hz,
                         size_t num_channels,
-                        AudioFrame* frame,
+                        Int16FrameData* frame,
                         std::unique_ptr<ChannelBuffer<T> >* cb) {
   SetFrameSampleRate(frame, sample_rate_hz);
   frame->num_channels_ = num_channels;

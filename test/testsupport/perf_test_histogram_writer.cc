@@ -78,6 +78,8 @@ class PerfTestHistogramWriter : public PerfTestResultWriter {
     rtc::CritScope lock(&crit_);
     for (const auto& histogram : histograms_) {
       std::unique_ptr<proto::Histogram> proto = histogram.second->toProto();
+      proto->mutable_bin_boundaries()->set_first_bin_boundary(
+          1.7976931348623157e+308);
       histogram_set.mutable_histograms()->AddAllocated(proto.release());
     }
 

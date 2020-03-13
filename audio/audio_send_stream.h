@@ -121,6 +121,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
 
   internal::AudioState* audio_state();
   const internal::AudioState* audio_state() const;
+  bool CurrentCodecIsOpus() const;
 
   void StoreEncoderProperties(int sample_rate_hz, size_t num_channels);
 
@@ -149,6 +150,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
       RTC_EXCLUSIVE_LOCKS_REQUIRED(overhead_per_packet_lock_);
 
   void RegisterCngPayloadType(int payload_type, int clockrate_hz);
+
   Clock* clock_;
 
   rtc::ThreadChecker worker_thread_checker_;

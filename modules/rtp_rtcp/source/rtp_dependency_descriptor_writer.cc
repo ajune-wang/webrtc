@@ -323,7 +323,7 @@ void RtpDependencyDescriptorWriter::WriteExtendedFields() {
   if (template_dependency_structure_present_flag)
     WriteTemplateDependencyStructure();
   if (active_decode_targets_present_flag)
-    WriteBits(*descriptor_.active_decode_targets_bitmask,
+    WriteBits(descriptor_.active_decode_targets_bitmask->to_ulong(),
               structure_.num_decode_targets);
 }
 

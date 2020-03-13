@@ -11,8 +11,7 @@
 #ifndef API_TRANSPORT_RTP_DEPENDENCY_DESCRIPTOR_H_
 #define API_TRANSPORT_RTP_DEPENDENCY_DESCRIPTOR_H_
 
-#include <stdint.h>
-
+#include <bitset>
 #include <memory>
 #include <vector>
 
@@ -95,7 +94,7 @@ struct DependencyDescriptor {
   int frame_number = 0;
   FrameDependencyTemplate frame_dependencies;
   absl::optional<RenderResolution> resolution;
-  absl::optional<uint32_t> active_decode_targets_bitmask;
+  absl::optional<std::bitset<32>> active_decode_targets_bitmask;
   std::unique_ptr<FrameDependencyStructure> attached_structure;
 };
 

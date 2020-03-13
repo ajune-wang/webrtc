@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0e46066e_db9317f4",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-13T08:14:51Z",
+      "side": 1,
+      "message": "Just want to gripe about how much I hate structs.\nNot a task for this CL to change it.",
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5357c27_18cef3c9",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 4
@@ -42,6 +59,57 @@
         "endLine": 133,
         "endChar": 78
       },
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2345ea90_8700a886",
+        "filename": "media/base/media_engine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-13T08:14:51Z",
+      "side": 1,
+      "message": "Do we really want to encourage multiple inheritance?\nThe usual guidance is that inheritance of implementations should be single, with multiple inheritance limited to fully virtual interfaces; multiple inheritance for implementation should rather be done by encapsulation - have an owned object that implements the interface, then have each class that implements the interface own an object of that class and forward calls to it.\n\nhttps://google.github.io/styleguide/cppguide.html#Inheritance\n\nMI is tricky.",
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1db90f_35a0b085",
+        "filename": "pc/channel_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-13T08:14:51Z",
+      "side": 1,
+      "message": "I don\u0027t like the name \"Legacy\" - at least when we don\u0027t have a plan with a timeline and a reason to get it out of the codebase. Things tend to not fade away.\nWhat about GetDefaultEnabledVideoRtpHeaderExtensions() and friends?",
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea72a23b_6b94d10f",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-13T08:14:51Z",
+      "side": 1,
+      "message": "We need tests for the \"legacy\" variants, and that it omits the right URIs.",
       "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

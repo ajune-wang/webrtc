@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51366da4_3bec08df",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-03-13T11:48:27Z",
+      "side": 0,
+      "message": "Are we sure that we want to nuke them and on PC level?",
+      "range": {
+        "startLine": 1414,
+        "startChar": 22,
+        "endLine": 1414,
+        "endChar": 59
+      },
+      "revId": "86eb5d9703db177bfcb7c85617d4551f5f9b9490",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

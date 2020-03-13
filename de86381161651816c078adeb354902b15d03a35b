@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10ea9ace_a91f85d7",
+        "filename": "rtc_base/system/BUILD.gn",
+        "patchSetId": 14
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-13T08:38:15Z",
+      "side": 1,
+      "message": "I am not sure it fixes but I can help to verify.\n\nCan you add:\n\ninclude_dirs \u003d [\"../..\"]\n\nto this target in the reland CL? I will the try to test it.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 5
+      },
+      "revId": "de86381161651816c078adeb354902b15d03a35b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

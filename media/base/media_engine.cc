@@ -55,6 +55,16 @@ webrtc::RtpParameters CreateRtpParametersWithEncodings(StreamParams sp) {
   return parameters;
 }
 
+std::vector<webrtc::RtpExtension> GetDefaultEnabledRtpHeaderExtensions(
+    const RtpHeaderExtensionQueryInterface& interface) {
+  std::vector<webrtc::RtpExtension> extensions;
+  for (const auto& entry : interface.GetRtpHeaderExtensions()) {
+    if (entry.direction != webrtc::RtpTransceiverDirection::kStopped)
+      extensions.emplace_back(entry.uri, *entry.preferred_id);
+  }
+  return extensions;
+}
+
 webrtc::RTCError CheckRtpParametersValues(
     const webrtc::RtpParameters& rtp_parameters) {
   using webrtc::RTCErrorType;

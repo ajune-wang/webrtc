@@ -233,6 +233,24 @@
       "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "242731eb_6f1c9e8a",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-13T21:57:52Z",
+      "side": 1,
+      "message": "Oh now I see what you might have meant. The test already tested the legacy variants, but I\u0027ve added a media_session_unittest in the previous iteration and also uploaded receiver/sender capability unittests splitted out from TransceiverOffersHeaderExtensions for clarity.",
+      "parentUuid": "f4ad7a5b_f4a70516",
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

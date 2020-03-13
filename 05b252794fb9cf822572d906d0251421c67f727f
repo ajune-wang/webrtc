@@ -141,6 +141,30 @@
       "revId": "05b252794fb9cf822572d906d0251421c67f727f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44834881_9e838d09",
+        "filename": "video/adaptation/video_stream_adapter.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-13T11:35:26Z",
+      "side": 1,
+      "message": "I merged the states in the follow-up CL, please take a look: https://webrtc-review.googlesource.com/c/src/+/170111\nCan I land this CL in the meantime?",
+      "parentUuid": "b2d20658_00bc6e74",
+      "range": {
+        "startLine": 140,
+        "startChar": 1,
+        "endLine": 141,
+        "endChar": 34
+      },
+      "revId": "05b252794fb9cf822572d906d0251421c67f727f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

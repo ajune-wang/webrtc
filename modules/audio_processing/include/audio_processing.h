@@ -697,7 +697,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
     kBadStreamParameterWarning = -13
   };
 
-  // Native rates supported by the AudioFrame interfaces.
+  // Native rates supported by the integer interfaces.
   enum NativeRate {
     kSampleRate8kHz = 8000,
     kSampleRate16kHz = 16000,

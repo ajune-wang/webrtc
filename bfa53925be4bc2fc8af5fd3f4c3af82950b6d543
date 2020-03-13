@@ -795,6 +795,30 @@
     },
     {
       "key": {
+        "uuid": "66addb3e_81e90139",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-03-13T22:19:28Z",
+      "side": 1,
+      "message": "Thanks Karl, I asked for some rationale around this and per henrika@, \n\n\"The issue that caused this change was that, on iOS, input and output audio shares one thread. Hence, doing complex stuff on the input side could cause glitches on the output side.\nTo combat that, we added the queue. The main goal was to fix iOS but it turned out to be effective on Android as well. So we kept it.\"\n\nI will add the task queue back.",
+      "parentUuid": "03f1ab20_bfc1cab0",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 35
+      },
+      "revId": "bfa53925be4bc2fc8af5fd3f4c3af82950b6d543",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "422a3932_0db18d1b",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 1

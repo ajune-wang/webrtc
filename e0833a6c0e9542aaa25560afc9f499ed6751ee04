@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "16620388_1c98ace2",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-13T20:44:26Z",
+      "side": 1,
+      "message": "Shame on you structs!",
+      "parentUuid": "0e46066e_db9317f4",
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5357c27_18cef3c9",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb5f1f07_1406a631",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-13T20:44:26Z",
+      "side": 1,
+      "message": "Agree, but I think this is a topic for another CL, right now I just kept the style for consistency.",
+      "parentUuid": "c5357c27_18cef3c9",
+      "range": {
+        "startLine": 235,
+        "startChar": 31,
+        "endLine": 235,
+        "endChar": 49
+      },
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "5aacbdad_a9d4a089",
+        "filename": "api/rtp_transceiver_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-13T20:44:26Z",
+      "side": 1,
+      "message": "OK, will fix.",
+      "parentUuid": "14bb757e_9469343e",
+      "range": {
+        "startLine": 133,
+        "startChar": 52,
+        "endLine": 133,
+        "endChar": 78
+      },
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2345ea90_8700a886",
         "filename": "media/base/media_engine.h",
         "patchSetId": 4
@@ -79,6 +145,24 @@
       "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "599da6e7_4997a56e",
+        "filename": "media/base/media_engine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-13T20:44:26Z",
+      "side": 1,
+      "message": "It\u0027s not to promote or use MI, just keep the RtpCapabilities interface the same prototype between voice/video.\n\nAs we chatted about, I\u0027ll make the non-virtual method a utility fn (np since GetRtpHeaderExtension is public), but keep this interface inheritance to keep the text mass down (leaning back on that pure virtual interface inheritance is ok in webrtc). Also changes name to something else than mixin.",
+      "parentUuid": "2345ea90_8700a886",
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "967193f8_018d6c43",
+        "filename": "pc/channel_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-13T20:44:26Z",
+      "side": 1,
+      "message": "Sg.",
+      "parentUuid": "0b1db90f_35a0b085",
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea72a23b_6b94d10f",
         "filename": "pc/peer_connection_header_extension_unittest.cc",
         "patchSetId": 4
@@ -113,6 +215,24 @@
       "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4ad7a5b_f4a70516",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-03-13T20:44:26Z",
+      "side": 1,
+      "message": "Ack, adding UTs for this specifically. This test also integration tests that capability.",
+      "parentUuid": "ea72a23b_6b94d10f",
+      "revId": "e0833a6c0e9542aaa25560afc9f499ed6751ee04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

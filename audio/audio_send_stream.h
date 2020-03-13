@@ -121,6 +121,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
 
   internal::AudioState* audio_state();
   const internal::AudioState* audio_state() const;
+  bool CurrentCodecIsOpus() const;
 
   void StoreEncoderProperties(int sample_rate_hz, size_t num_channels);
 

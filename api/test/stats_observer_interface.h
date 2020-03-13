@@ -13,6 +13,7 @@
 
 #include <string>
 
+#include "api/stats/rtc_stats_report.h"
 #include "api/stats_types.h"
 
 namespace webrtc {
@@ -27,6 +28,9 @@ class StatsObserverInterface {
   // identified by |pc_label|.
   virtual void OnStatsReports(const std::string& pc_label,
                               const StatsReports& reports) = 0;
+  virtual void OnStatsReports(
+      const std::string& pc_label,
+      const rtc::scoped_refptr<const RTCStatsReport>& report) {}
 };
 
 }  // namespace webrtc_pc_e2e

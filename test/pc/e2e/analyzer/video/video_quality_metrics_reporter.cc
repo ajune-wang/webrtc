@@ -10,6 +10,9 @@
 
 #include "test/pc/e2e/analyzer/video/video_quality_metrics_reporter.h"
 
+#include "api/stats/rtcstats_objects.h"
+#include "api/units/time_delta.h"
+
 namespace webrtc {
 namespace webrtc_pc_e2e {
 namespace {
@@ -20,6 +23,7 @@ constexpr int kBitsInByte = 8;
 
 void VideoQualityMetricsReporter::Start(absl::string_view test_case_name) {
   test_case_name_ = std::string(test_case_name);
+  start_time_ = Now();
 }
 
 // TODO(bugs.webrtc.org/10430): Migrate to the new GetStats as soon as
@@ -69,6 +73,84 @@ void VideoQualityMetricsReporter::OnStatsReports(
   }
 }
 
+void VideoQualityMetricsReporter::OnStatsReports(
+    const std::string& pc_label,
+    const rtc::scoped_refptr<const RTCStatsReport>& report) {
+  rtc::CritScope crit(&video_bwe_stats_lock_);
+
+  auto transport_stats = report->GetStatsOfType<RTCTransportStats>();
+  if (transport_stats.size() == 0u ||
+      !transport_stats[0]->selected_candidate_pair_id.is_defined()) {
+    return;
+  }
+  std::string selected_ice_id =
+      transport_stats[0]->selected_candidate_pair_id.ValueToString();
+  // Use the selected ICE candidate pair ID to get the appropriate ICE stats.
+  const RTCIceCandidatePairStats ice_candidate_pair_stats =
+      report->Get(selected_ice_id)->cast_to<const RTCIceCandidatePairStats>();
+
+  VideoBweStats& video_bwe_stats = video_bwe_stats_[pc_label];
+  if (ice_candidate_pair_stats.available_outgoing_bitrate.is_defined()) {
+    video_bwe_stats.available_send_bandwidth_new.AddSample(
+        *ice_candidate_pair_stats.available_outgoing_bitrate);
+  }
+
+  auto outbound_rtp_stats = report->GetStatsOfType<RTCOutboundRTPStreamStats>();
+  StatsSample sample(Now());
+  for (auto& s : outbound_rtp_stats) {
+    if (!s->media_type.is_defined()) {
+      continue;
+    }
+    if (!(*s->media_type == "video")) {
+      continue;
+    }
+    if (s->retransmitted_bytes_sent.is_defined()) {
+      sample.retransmitted_bytes_sent += *s->retransmitted_bytes_sent;
+    }
+    if (s->bytes_sent.is_defined()) {
+      sample.bytes_sent += *s->bytes_sent;
+    }
+    if (s->total_encoded_bytes_target.is_defined()) {
+      sample.total_encoded_bytes_target += *s->total_encoded_bytes_target;
+    }
+  }
+  auto samples_it = last_stats_sample_.find(pc_label);
+  RTC_CHECK(start_time_)
+      << "Please invoke Start(...) method before calling OnStatsReports(...)";
+  StatsSample prev_sample(*start_time_);
+  if (samples_it != last_stats_sample_.end()) {
+    prev_sample = samples_it->second;
+    last_stats_sample_.erase(samples_it);
+  }
+  last_stats_sample_.insert({pc_label, sample});
+  std::printf("Debug log:\n");
+  prev_sample.DebugLog();
+  sample.DebugLog();
+
+  if (sample.IsEmpty()) {
+    return;
+  }
+
+  double time_between_samples_sec =
+      (sample.sample_time - prev_sample.sample_time).us() / 1000000.0;
+  video_bwe_stats.retransmission_bitrate_new.AddSample(
+      static_cast<double>(sample.retransmitted_bytes_sent -
+                          prev_sample.retransmitted_bytes_sent) /
+      time_between_samples_sec);
+  video_bwe_stats.transmission_bitrate_new.AddSample(
+      static_cast<double>(sample.bytes_sent - prev_sample.bytes_sent) /
+      time_between_samples_sec);
+  video_bwe_stats.actual_encode_bitrate_new.AddSample(
+      static_cast<double>(
+          (sample.bytes_sent - sample.retransmitted_bytes_sent) -
+          (prev_sample.bytes_sent - prev_sample.retransmitted_bytes_sent)) /
+      time_between_samples_sec);
+  video_bwe_stats.target_encode_bitrate_new.AddSample(
+      static_cast<double>((sample.total_encoded_bytes_target -
+                           prev_sample.total_encoded_bytes_target)) /
+      time_between_samples_sec);
+}
+
 void VideoQualityMetricsReporter::StopAndReportResults() {
   rtc::CritScope video_bwe_crit(&video_bwe_stats_lock_);
   for (const auto& item : video_bwe_stats_) {
@@ -87,18 +169,29 @@ void VideoQualityMetricsReporter::ReportVideoBweResults(
   ReportResult("available_send_bandwidth", test_case_name,
                video_bwe_stats.available_send_bandwidth / kBitsInByte,
                "bytesPerSecond");
+  ReportResult("available_send_bandwidth_new", test_case_name,
+               video_bwe_stats.available_send_bandwidth_new / kBitsInByte,
+               "bytesPerSecond");
   ReportResult("transmission_bitrate", test_case_name,
                video_bwe_stats.transmission_bitrate / kBitsInByte,
                "bytesPerSecond");
+  ReportResult("transmission_bitrate_new", test_case_name,
+               video_bwe_stats.transmission_bitrate_new, "bytesPerSecond");
   ReportResult("retransmission_bitrate", test_case_name,
                video_bwe_stats.retransmission_bitrate / kBitsInByte,
                "bytesPerSecond");
+  ReportResult("retransmission_bitrate_new", test_case_name,
+               video_bwe_stats.retransmission_bitrate_new, "bytesPerSecond");
   ReportResult("actual_encode_bitrate", test_case_name,
                video_bwe_stats.actual_encode_bitrate / kBitsInByte,
                "bytesPerSecond");
+  ReportResult("actual_encode_bitrate_new", test_case_name,
+               video_bwe_stats.actual_encode_bitrate_new, "bytesPerSecond");
   ReportResult("target_encode_bitrate", test_case_name,
                video_bwe_stats.target_encode_bitrate / kBitsInByte,
                "bytesPerSecond");
+  ReportResult("target_encode_bitrate_new", test_case_name,
+               video_bwe_stats.target_encode_bitrate_new, "bytesPerSecond");
 }
 
 void VideoQualityMetricsReporter::ReportResult(

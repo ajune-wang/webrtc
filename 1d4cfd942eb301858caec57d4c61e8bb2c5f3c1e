@@ -22,6 +22,30 @@
       "revId": "1d4cfd942eb301858caec57d4c61e8bb2c5f3c1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e309c4a0_632e0fa7",
+        "filename": "tools_webrtc/perf/catapult_uploader.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-03-13T11:21:27Z",
+      "side": 1,
+      "message": "Nyeh, I think it reads quite well like it is. Unless you have some specific reason to use communicate?",
+      "parentUuid": "b84d75aa_034d1fa6",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "1d4cfd942eb301858caec57d4c61e8bb2c5f3c1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

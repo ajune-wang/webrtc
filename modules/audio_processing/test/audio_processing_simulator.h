@@ -19,6 +19,7 @@
 
 #include "absl/types/optional.h"
 #include "common_audio/channel_buffer.h"
+#include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/test/api_call_statistics.h"
 #include "modules/audio_processing/test/fake_recording_device.h"
@@ -29,6 +30,51 @@
 
 namespace webrtc {
 namespace test {
+
+static const int kChunksPerSecond = 1000 / AudioProcessing::kChunkSizeMs;
+
+struct Int16Frame {
+  void SetFormat(int sample_rate_hz, int num_channels) {
+    sample_rate_hz_ = sample_rate_hz;
+    samples_per_channel_ =
+        rtc::CheckedDivExact(sample_rate_hz_, kChunksPerSecond);
+    num_channels_ = num_channels;
+    config =
+        StreamConfig(sample_rate_hz_, num_channels_, /*has_keyboard=*/false);
+  }
+
+  void CopyTo(ChannelBuffer<float>* dest) {
+    RTC_DCHECK(dest);
+    RTC_CHECK_EQ(num_channels_, dest->num_channels());
+    RTC_CHECK_EQ(samples_per_channel_, dest->num_frames());
+    // Copy the data from the input buffer.
+    std::vector<float> tmp(samples_per_channel_ * num_channels_);
+    S16ToFloat(data.data(), tmp.size(), tmp.data());
+    Deinterleave(tmp.data(), samples_per_channel_, num_channels_,
+                 dest->channels());
+  }
+
+  void CopyFrom(const ChannelBuffer<float>& src) {
+    RTC_CHECK_EQ(src.num_channels(), num_channels_);
+    RTC_CHECK_EQ(src.num_frames(), samples_per_channel_);
+    data.resize(num_channels_ * samples_per_channel_);
+    int16_t* dest_data = data.data();
+    for (int ch = 0; ch < num_channels_; ++ch) {
+      for (int sample = 0; sample < samples_per_channel_; ++sample) {
+        dest_data[sample * num_channels_ + ch] =
+            src.channels()[ch][sample] * 32767;
+      }
+    }
+  }
+
+  int sample_rate_hz_;
+  int samples_per_channel_;
+  int num_channels_;
+
+  StreamConfig config;
+
+  std::vector<int16_t> data;
+};
 
 // Holds all the parameters available for controlling the simulation.
 struct SimulationSettings {
@@ -107,7 +153,6 @@ void CopyToAudioFrame(const ChannelBuffer<float>& src, AudioFrame* dest);
 // Provides common functionality for performing audioprocessing simulations.
 class AudioProcessingSimulator {
  public:
-  static const int kChunksPerSecond = 1000 / AudioProcessing::kChunkSizeMs;
 
   AudioProcessingSimulator(const SimulationSettings& settings,
                            std::unique_ptr<AudioProcessingBuilder> ap_builder);
@@ -158,8 +203,8 @@ class AudioProcessingSimulator {
   StreamConfig reverse_out_config_;
   std::unique_ptr<ChannelBufferWavReader> buffer_reader_;
   std::unique_ptr<ChannelBufferWavReader> reverse_buffer_reader_;
-  AudioFrame rev_frame_;
-  AudioFrame fwd_frame_;
+  Int16Frame rev_frame_;
+  Int16Frame fwd_frame_;
   bool bitexact_output_ = true;
   int aec_dump_mic_level_ = 0;
 

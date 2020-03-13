@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "api/peer_connection_interface.h"
+#include "api/stats/rtc_stats_collector_callback.h"
 #include "api/test/stats_observer_interface.h"
 #include "test/pc/e2e/test_peer.h"
 
@@ -44,6 +45,26 @@ class InternalStatsObserver : public StatsObserver {
   std::vector<StatsObserverInterface*> observers_;
 };
 
+class InternalStatsObserverNew : public RTCStatsCollectorCallback {
+ public:
+  InternalStatsObserverNew(std::string pc_label,
+                           TestPeer* peer,
+                           std::vector<StatsObserverInterface*> observers)
+      : pc_label_(std::move(pc_label)),
+        peer_(peer),
+        observers_(std::move(observers)) {}
+
+  void PollStats();
+
+  void OnStatsDelivered(
+      const rtc::scoped_refptr<const RTCStatsReport>& report) override;
+
+ private:
+  std::string pc_label_;
+  TestPeer* peer_;
+  std::vector<StatsObserverInterface*> observers_;
+};
+
 // Helper class to invoke GetStats on a PeerConnection by passing a
 // webrtc::StatsObserver that will notify all the
 // webrtc::test::StatsObserverInterface subscribed.
@@ -56,6 +77,7 @@ class StatsPoller {
 
  private:
   std::vector<rtc::scoped_refptr<InternalStatsObserver>> pollers_;
+  std::vector<rtc::scoped_refptr<InternalStatsObserverNew>> pollers_new_;
 };
 
 }  // namespace webrtc_pc_e2e

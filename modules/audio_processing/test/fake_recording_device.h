@@ -56,7 +56,7 @@ class FakeRecordingDevice final {
   // If |real_device_level| is a valid level, the unmodified mic signal is
   // virtually restored. To skip the latter step set |real_device_level| to
   // an empty value.
-  void SimulateAnalogGain(AudioFrame* buffer);
+  void SimulateAnalogGain(rtc::ArrayView<int16_t> buffer);
 
   // Simulates the analog gain.
   // If |real_device_level| is a valid level, the unmodified mic signal is

@@ -96,9 +96,13 @@ struct AudioFrameData {
     output_frame.resize(2);
     output_frame[0] = &output_frame_channels[0];
     output_frame[1] = &output_frame_channels[max_frame_size];
+
+    frame.resize(2 * max_frame_size);
   }
 
-  AudioFrame frame;
+  StreamConfig frame_config;
+  std::vector<int16_t> frame;
+
   std::vector<float*> output_frame;
   std::vector<float> output_frame_channels;
   AudioProcessing::ChannelLayout output_channel_layout =
@@ -476,17 +480,18 @@ void PopulateAudioFrame(float** frame,
 }
 
 // Populates an audioframe frame of AudioFrame type with random data.
-void PopulateAudioFrame(AudioFrame* frame,
-                        int16_t amplitude,
+void PopulateAudioFrame(float amplitude,
+                        size_t num_channels,
+                        size_t samples_per_channel,
+                        rtc::ArrayView<int16_t> frame,
                         RandomGenerator* rand_gen) {
   ASSERT_GT(amplitude, 0);
   ASSERT_LE(amplitude, 32767);
-  int16_t* frame_data = frame->mutable_data();
-  for (size_t ch = 0; ch < frame->num_channels_; ch++) {
-    for (size_t k = 0; k < frame->samples_per_channel_; k++) {
+  for (size_t ch = 0; ch < num_channels; ch++) {
+    for (size_t k = 0; k < samples_per_channel; k++) {
       // Store random 16 bit number between -(amplitude+1) and
       // amplitude.
-      frame_data[k * ch] = rand_gen->RandInt(2 * amplitude + 1) - amplitude - 1;
+      frame[k * ch] = rand_gen->RandInt(2 * amplitude + 1) - amplitude - 1;
     }
   }
 }
@@ -639,14 +644,12 @@ void CaptureProcessor::PrepareFrame() {
     frame_data_.output_sample_rate_hz = test_config_->initial_sample_rate_hz;
   }
 
-  // Prepare the audioframe data and metadata.
+  // Prepare the int16 data and metadata.
   frame_data_.input_samples_per_channel =
       frame_data_.input_sample_rate_hz * AudioProcessing::kChunkSizeMs / 1000;
-  frame_data_.frame.sample_rate_hz_ = frame_data_.input_sample_rate_hz;
-  frame_data_.frame.num_channels_ = frame_data_.input_number_of_channels;
-  frame_data_.frame.samples_per_channel_ =
-      frame_data_.input_samples_per_channel;
-  PopulateAudioFrame(&frame_data_.frame, kCaptureInputFixLevel, rand_gen_);
+  PopulateAudioFrame(
+      kCaptureInputFixLevel, frame_data_.input_number_of_channels,
+      frame_data_.input_samples_per_channel, frame_data_.frame, rand_gen_);
 
   // Prepare the float audio input data and metadata.
   frame_data_.input_stream_config.set_sample_rate_hz(
@@ -691,7 +694,10 @@ void CaptureProcessor::CallApmCaptureSide() {
   int result = AudioProcessing::kNoError;
   switch (test_config_->capture_api_function) {
     case CaptureApiImpl::ProcessStreamImplAudioFrame:
-      result = apm_->ProcessStream(&frame_data_.frame);
+      result = apm_->ProcessStream(
+          frame_data_.frame.data(), frame_data_.input_stream_config,
+          frame_data_.output_stream_config, frame_data_.frame.data(),
+          /*vad_result*/ nullptr);
       break;
     case CaptureApiImpl::ProcessStreamImplStreamConfig:
       result = apm_->ProcessStream(
@@ -896,14 +902,12 @@ void RenderProcessor::PrepareFrame() {
     frame_data_.output_sample_rate_hz = test_config_->initial_sample_rate_hz;
   }
 
-  // Prepare the audioframe data and metadata
+  // Prepare the int16 data and metadata.
   frame_data_.input_samples_per_channel =
       frame_data_.input_sample_rate_hz * AudioProcessing::kChunkSizeMs / 1000;
-  frame_data_.frame.sample_rate_hz_ = frame_data_.input_sample_rate_hz;
-  frame_data_.frame.num_channels_ = frame_data_.input_number_of_channels;
-  frame_data_.frame.samples_per_channel_ =
-      frame_data_.input_samples_per_channel;
-  PopulateAudioFrame(&frame_data_.frame, kRenderInputFixLevel, rand_gen_);
+  PopulateAudioFrame(kRenderInputFixLevel, frame_data_.input_number_of_channels,
+                     frame_data_.input_samples_per_channel, frame_data_.frame,
+                     rand_gen_);
 
   // Prepare the float audio input data and metadata.
   frame_data_.input_stream_config.set_sample_rate_hz(
@@ -942,7 +946,9 @@ void RenderProcessor::CallApmRenderSide() {
   int result = AudioProcessing::kNoError;
   switch (test_config_->render_api_function) {
     case RenderApiImpl::ProcessReverseStreamImplAudioFrame:
-      result = apm_->ProcessReverseStream(&frame_data_.frame);
+      result = apm_->ProcessReverseStream(
+          frame_data_.frame.data(), frame_data_.input_stream_config,
+          frame_data_.output_stream_config, frame_data_.frame.data());
       break;
     case RenderApiImpl::ProcessReverseStreamImplStreamConfig:
       result = apm_->ProcessReverseStream(

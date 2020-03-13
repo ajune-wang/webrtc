@@ -538,7 +538,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   // The |sample_rate_hz_|, |num_channels_|, and |samples_per_channel_|
   // members of |frame| must be valid. If changed from the previous call to this
   // method, it will trigger an initialization.
-  virtual int ProcessStream(AudioFrame* frame) = 0;
+  // virtual int ProcessStream(AudioFrame* frame) = 0;
 
   // Accepts and produces a 10 ms frame interleaved 16 bit integer audio as
   // specified in |input_config| and |output_config|. |src| and |dest| may use
@@ -573,7 +573,7 @@ class RTC_EXPORT AudioProcessing : public rtc::RefCountInterface {
   //
   // The |sample_rate_hz_|, |num_channels_|, and |samples_per_channel_|
   // members of |frame| must be valid.
-  virtual int ProcessReverseStream(AudioFrame* frame) = 0;
+  // virtual int ProcessReverseStream(AudioFrame* frame) = 0;
 
   // Accepts and produces a 10 ms frame of interleaved 16 bit integer audio for
   // the reverse direction audio stream as specified in |input_config| and

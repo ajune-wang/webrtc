@@ -60,6 +60,22 @@ TEST(PerfHistogramWriterUnittest, WritesSamplesAndUserStory) {
   EXPECT_EQ(stories.generic_set().values(0), "\"user_story\"");
 }
 
+TEST(PerfHistogramWriterUnittest, NoSlashesInUserStories) {
+  std::unique_ptr<PerfTestResultWriter> writer =
+      std::unique_ptr<PerfTestResultWriter>(CreateHistogramWriter());
+
+  writer->LogResult("whatever", "user_story/alice", 0, "ms", false,
+                    ImproveDirection::kNone);
+
+  proto::HistogramSet histogram_set;
+  histogram_set.ParseFromString(writer->Serialize());
+  const proto::Histogram& hist1 = histogram_set.histograms(0);
+
+  const proto::Diagnostic& stories =
+      hist1.diagnostics().diagnostic_map().at("stories");
+  EXPECT_EQ(stories.generic_set().values(0), "\"user_story_alice\"");
+}
+
 TEST(PerfHistogramWriterUnittest, WritesOneHistogramPerMeasurementAndStory) {
   std::unique_ptr<PerfTestResultWriter> writer =
       std::unique_ptr<PerfTestResultWriter>(CreateHistogramWriter());

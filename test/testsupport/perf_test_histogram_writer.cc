@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 
+#include <algorithm>
 #include <map>
 #include <memory>
 
@@ -115,9 +116,13 @@ class PerfTestHistogramWriter : public PerfTestResultWriter {
           std::make_unique<catapult::HistogramBuilder>(graph_name, unit);
       histograms_[measurement_and_story] = std::move(builder);
 
+      std::string story_name = trace_name;
+      std::replace(story_name.begin(), story_name.end(), '/', '_');
+
       proto::Diagnostic stories;
       proto::GenericSet* generic_set = stories.mutable_generic_set();
-      generic_set->add_values(AsJsonString(trace_name));
+      generic_set->add_values(AsJsonString(story_name));
+
       histograms_[measurement_and_story]->AddDiagnostic(
           catapult::kStoriesDiagnostic, stories);
     }

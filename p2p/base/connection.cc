@@ -1283,6 +1283,7 @@ void Connection::MaybeUpdateLocalCandidate(ConnectionRequest* request,
       local_candidate().relay_protocol(), local_candidate().address()));
   new_local_candidate.set_network_id(local_candidate().network_id());
   new_local_candidate.set_network_cost(local_candidate().network_cost());
+  new_local_candidate.set_tcptype(local_candidate().tcptype());
 
   // Change the local candidate of this Connection to the new prflx candidate.
   RTC_LOG(LS_INFO) << ToString() << ": Updating local candidate type to prflx.";

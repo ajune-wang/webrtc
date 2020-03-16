@@ -85,6 +85,24 @@
       "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cd6320b_5d17cc0b",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1822,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-16T22:44:11Z",
+      "side": 1,
+      "message": "Where you going to fix the latter in a follow up CL?",
+      "parentUuid": "bcb4394f_5a3b6d3a",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

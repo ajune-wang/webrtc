@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5e5042e0_35f0407b",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-16T08:36:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bc40d889_9e223921",
+      "range": {
+        "startLine": 235,
+        "startChar": 31,
+        "endLine": 235,
+        "endChar": 49
+      },
+      "revId": "99847d356f91e91ee0b880fd3c895cffa44d6f12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7aea1b7_93c9c988",
         "filename": "media/base/media_engine.h",
         "patchSetId": 7
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Unfortunately that would make things worse (2 copies in the worst case) as the underlying code constructs a vector and returns it. With this solution we have return value elision.",
       "parentUuid": "a7aea1b7_93c9c988",
+      "range": {
+        "startLine": 57,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 59
+      },
+      "revId": "99847d356f91e91ee0b880fd3c895cffa44d6f12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d725d5fa_ef25437d",
+        "filename": "media/base/media_engine.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-16T08:36:34Z",
+      "side": 1,
+      "message": "Yes, you have copy elision---of empty vectors, IIRC. Those are cheap to copy, especially if the optimizer sees that they are statically empty.\n\nStill, probably not worth arguing about.",
+      "parentUuid": "23f23e44_8dd66878",
       "range": {
         "startLine": 57,
         "startChar": 10,
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Not in this CL (go/tott/535, Make the diff easy to understand), I\u0027ll create a follow up CL for that change.",
       "parentUuid": "c494e1e9_8ddce4ad",
+      "range": {
+        "startLine": 740,
+        "startChar": 16,
+        "endLine": 740,
+        "endChar": 35
+      },
+      "revId": "99847d356f91e91ee0b880fd3c895cffa44d6f12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c1dc257_cb579733",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-16T08:36:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a1c089e_c1f77348",
       "range": {
         "startLine": 740,
         "startChar": 16,
@@ -319,6 +391,30 @@
       "side": 1,
       "message": "Ack. std::tie here is a better solution since it\u0027s possible to call accessors from contexts where GetParam() is not permitted. Also - GetParam in the test class is not good because it makes lazy people write unnecessary TEST_P cases when they could have used TEST_F but the harness is hopelessly dependent on the GetParam() calls. (seen this quite a bit in Chrome).\nAlso, I haven\u0027t found references against std::tie and a code search reveals it\u0027s quite extensively used.",
       "parentUuid": "53978e56_43a8fc53",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 47
+      },
+      "revId": "99847d356f91e91ee0b880fd3c895cffa44d6f12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6340e61a_3db8e4b6",
+        "filename": "pc/peer_connection_header_extension_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-16T08:36:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "68cd546e_f3de152d",
       "range": {
         "startLine": 85,
         "startChar": 2,

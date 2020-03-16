@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d481c78a_911d6d6c",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1270,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-16T13:26:27Z",
+      "side": 1,
+      "message": "This is silly. cricket::Candidate has a (default) copy operator.",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d283336e_31f43535",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-16T13:26:27Z",
+      "side": 1,
+      "message": "Is the new candidate supposed to be the counterpart of the old candidate, or a clone of it?\nIf it\u0027s the counterpart, then you need to map active -\u003e passive, passive -\u003e active, so -\u003e so\n\nhttps://tools.ietf.org/html/rfc6544#section-6.2",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30cd027b_e8d6009a",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-16T13:26:27Z",
+      "side": 1,
+      "message": "I must admit that I don\u0027t understand the logic here; the comment says it\u0027s replacing or updating the local canididate, but the code says it\u0027s adding it.",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcadf5ce_2dee127e",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1822,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-16T13:26:27Z",
+      "side": 1,
+      "message": "Isn\u0027t this behavior what this CL is supposed to fix?",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

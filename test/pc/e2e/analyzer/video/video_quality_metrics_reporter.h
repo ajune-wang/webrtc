@@ -14,7 +14,9 @@
 #include <map>
 #include <string>
 
+#include "api/stats/rtc_stats_report.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
+#include "api/units/timestamp.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/numerics/samples_stats_counter.h"
 #include "test/testsupport/perf_test.h"
@@ -28,20 +30,52 @@ struct VideoBweStats {
   SamplesStatsCounter retransmission_bitrate;
   SamplesStatsCounter actual_encode_bitrate;
   SamplesStatsCounter target_encode_bitrate;
+
+  SamplesStatsCounter available_send_bandwidth_new;
+  SamplesStatsCounter transmission_bitrate_new;
+  SamplesStatsCounter retransmission_bitrate_new;
+  SamplesStatsCounter actual_encode_bitrate_new;
+  SamplesStatsCounter target_encode_bitrate_new;
 };
 
 class VideoQualityMetricsReporter
     : public PeerConnectionE2EQualityTestFixture::QualityMetricsReporter {
  public:
-  VideoQualityMetricsReporter() = default;
+  VideoQualityMetricsReporter() : clock_(Clock::GetRealTimeClock()) {}
   ~VideoQualityMetricsReporter() override = default;
 
   void Start(absl::string_view test_case_name) override;
   void OnStatsReports(const std::string& pc_label,
                       const StatsReports& reports) override;
+  void OnStatsReports(
+      const std::string& pc_label,
+      const rtc::scoped_refptr<const RTCStatsReport>& report) override;
   void StopAndReportResults() override;
 
  private:
+  struct StatsSample {
+    uint64_t bytes_sent = 0;
+    uint64_t header_bytes_sent = 0;
+    uint64_t retransmitted_bytes_sent = 0;
+    uint64_t total_encoded_bytes_target = 0;
+
+    int64_t sample_time_us = 0;
+
+    bool IsEmpty() const {
+      return sample_time_us == 0 ||
+             (bytes_sent == 0 && retransmitted_bytes_sent == 0 &&
+              total_encoded_bytes_target == 0);
+    }
+
+    void DebugLog() {
+      std::printf(
+          "[%lu] bytes_sent=%lu; header_bytes_sent=%lu; "
+          "retransmitted_bytes_sent=%lu; total_encoded_bytes_target=%lu\n",
+          sample_time_us, bytes_sent, header_bytes_sent,
+          retransmitted_bytes_sent, total_encoded_bytes_target);
+    }
+  };
+
   std::string GetTestCaseName(const std::string& stream_label) const;
   static void ReportVideoBweResults(const std::string& test_case_name,
                                     const VideoBweStats& video_bwe_stats);
@@ -52,13 +86,19 @@ class VideoQualityMetricsReporter
                            const std::string& unit,
                            webrtc::test::ImproveDirection improve_direction =
                                webrtc::test::ImproveDirection::kNone);
+  Timestamp Now() const { return clock_->CurrentTime(); }
+
+  Clock* const clock_;
 
   std::string test_case_name_;
+  absl::optional<Timestamp> start_time_;
 
   rtc::CriticalSection video_bwe_stats_lock_;
   // Map between a peer connection label (provided by the framework) and
   // its video BWE stats.
   std::map<std::string, VideoBweStats> video_bwe_stats_
+      RTC_GUARDED_BY(video_bwe_stats_lock_);
+  std::map<std::string, StatsSample> last_stats_sample_
       RTC_GUARDED_BY(video_bwe_stats_lock_);
 };
 

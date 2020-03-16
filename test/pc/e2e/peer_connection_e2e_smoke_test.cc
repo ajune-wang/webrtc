@@ -134,7 +134,7 @@ class PeerConnectionE2EQualityTestSmokeTest : public ::testing::Test {
 #define MAYBE_Smoke Smoke
 #endif
 TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
-  RunParams run_params(TimeDelta::Seconds(2));
+  RunParams run_params(TimeDelta::Seconds(45));
   run_params.video_codecs = {
       VideoCodecConfig(cricket::kVp9CodecName, {{"profile-id", "0"}})};
   run_params.use_flex_fec = true;

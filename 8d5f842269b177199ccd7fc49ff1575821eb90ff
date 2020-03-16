@@ -67,6 +67,24 @@
       "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb4394f_5a3b6d3a",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1822,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-03-16T13:28:47Z",
+      "side": 1,
+      "message": "without the change you have two instances of \"\"",
+      "parentUuid": "fcadf5ce_2dee127e",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

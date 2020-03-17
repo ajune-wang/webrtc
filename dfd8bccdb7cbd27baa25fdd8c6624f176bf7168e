@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "54f58dd4_60c562a2",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "That we very possibly should.\nHowever, the current behavior (before this CL) is not do to it immediately at the start of the API call as it is done here.\n\nHowever, the check is done for the capture side at a later stage (Initialize).\n\nI\u0027d prefer not to change this here but to instead wait with the changes until we revisit the error messages in APM (webrtc:11371).",
+      "parentUuid": "46b7b4b0_8f08ef78",
+      "range": {
+        "startLine": 1437,
+        "startChar": 0,
+        "endLine": 1440,
+        "endChar": 3
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed1eccc4_fada8357",
         "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f5963957_4f8a07d1",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed1eccc4_fada8357",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78dd9190_bdcde44e",
         "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
         "patchSetId": 12
@@ -59,6 +107,30 @@
       "writtenOn": "2020-03-17T08:42:32Z",
       "side": 1,
       "message": "This seems unused, or am I missing something?\n\nIf not, should it be? Can we pare down the contents of this struct to just frame + config?\n\nint_frame\nint_config\n\nfloat_input_frame\nfloat_input_config\n\nfloat_output_frame\nfloat_output_config",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 28
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2749f3f_e49efb98",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Great find!\n\nI changed this, but I did not include the configs into the struct as more code would then need to be modified.\n\nPTAL",
+      "parentUuid": "78dd9190_bdcde44e",
       "range": {
         "startLine": 102,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5def759f_eb30d5d4",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Good find!\nRemoved",
+      "parentUuid": "32d88986_1711e046",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 44
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c73b89df_c1c6250b",
         "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
         "patchSetId": 12
@@ -114,6 +210,30 @@
       "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb48131c_15344bfd",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Good find!\nRemoved",
+      "parentUuid": "c73b89df_c1c6250b",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 44
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "93b651de_6ad1f2a4",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff2a7ac9_35bb40ff",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 14
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74d7bf24_80447cbb",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 12
@@ -160,6 +304,30 @@
       "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "291ee944_8373e251",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74d7bf24_80447cbb",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "989b02e6_d8f3a1c3",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97c38d8a_b8df1b06",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 14
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ec616c7_e6c753eb",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 12
@@ -206,6 +398,30 @@
       "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b6a1349_151cd1d0",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ec616c7_e6c753eb",
+      "range": {
+        "startLine": 228,
+        "startChar": 43,
+        "endLine": 228,
+        "endChar": 53
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "7f125a7a_9c271c77",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2790,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Good point!\nDone.",
+      "parentUuid": "faf6a49d_1964e6df",
+      "range": {
+        "startLine": 2790,
+        "startChar": 20,
+        "endLine": 2790,
+        "endChar": 34
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "044e01fd_7ec40cdd",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 12
@@ -252,6 +492,30 @@
       "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2f470f5_e30b2d0f",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "044e01fd_7ec40cdd",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 51
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "627efe32_70975b59",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "205cbaa4_57b1114a",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7bc4fa2_c48b4a7e",
         "filename": "modules/audio_processing/test/audio_processing_simulator.h",
         "patchSetId": 12
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "037c32e3_bd85cc53",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7bc4fa2_c48b4a7e",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 73
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5632c0c_8dd96d5b",
         "filename": "modules/audio_processing/test/test_utils.h",
         "patchSetId": 12
@@ -312,6 +624,30 @@
       "writtenOn": "2020-03-17T08:42:32Z",
       "side": 1,
       "message": "Can you add a comment to say where this is coming from?\n40 ms at 192 kHz?",
+      "range": {
+        "startLine": 49,
+        "startChar": 41,
+        "endLine": 49,
+        "endChar": 45
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8862a01_2cae506c",
+        "filename": "modules/audio_processing/test/test_utils.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "It matches the datasize of the audioframe class.\nI added a comment about it.\n\nI guess that it is 8 channels at 96 kHz. I added a comment about that.",
+      "parentUuid": "b5632c0c_8dd96d5b",
       "range": {
         "startLine": 49,
         "startChar": 41,
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "ebcd8082_84bfb8cc",
+        "filename": "modules/audio_processing/test/test_utils.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "I like that suggestion but I\u0027d prefer not to do it now. That would require changing a lot of the code in the unittests.\nWDYT? Can we postpone that to another CL?",
+      "parentUuid": "3911f4b8_70d4ff33",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ab1fcb20_d5b19345",
         "filename": "modules/audio_processing/test/test_utils.h",
         "patchSetId": 12
@@ -358,6 +718,30 @@
       "writtenOn": "2020-03-17T08:42:32Z",
       "side": 1,
       "message": "These functions can be made members of Int16FrameData, since they are all always visible together.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 1
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd2fc46_e4b56fb2",
+        "filename": "modules/audio_processing/test/test_utils.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-17T22:01:53Z",
+      "side": 1,
+      "message": "Yes, that makes sense. Here as well, I would like to postpone that to another CL.\n\nWDYT?",
+      "parentUuid": "ab1fcb20_d5b19345",
       "range": {
         "startLine": 144,
         "startChar": 0,

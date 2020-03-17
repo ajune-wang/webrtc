@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45e2e7e5_df577ba9",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-17T14:06:32Z",
+      "side": 1,
+      "message": "Avoid using overloaded \u003d\u003d for things that are not obvious, in this case it\u0027s not obvious how this is different from the check below.",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 283,
+        "endChar": 34
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "656e6f54_b854e50b",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-17T14:06:32Z",
+      "side": 1,
+      "message": "I\u0027d rather see that we keep this inlined, makes it easier to debug as the reader don\u0027t have to hop around in the source code.",
+      "range": {
+        "startLine": 288,
+        "startChar": 6,
+        "endLine": 288,
+        "endChar": 47
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaacd6e9_8f211a39",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-17T14:06:32Z",
+      "side": 1,
+      "message": "Probably not, ideally, it\u0027s only used to throw away packet data for old routes.",
+      "range": {
+        "startLine": 308,
+        "startChar": 7,
+        "endLine": 309,
+        "endChar": 52
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "162615d9_c9d07257",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-17T14:06:32Z",
+      "side": 1,
+      "message": "This will have a binary size cost that I think we want to avoid. Note that if it\u0027s inlined in a RTC_LOG macro it\u0027s possible to avoid the binary cost by turning the log macro off.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cea9384_69eaf580",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-17T14:06:32Z",
+      "side": 1,
+      "message": "This is quite vaguely defined here, I think it\u0027s helpful to be clear in how values as these are collected and what they represent. RTT can for instance relate to minimum/unloaded RTT or to the current loaded rtt etc.\n\nWe already have some differently defined rtt values, so adding one without further explanation can become confusing to someone who does not have intricate knowledge of the system.\n\nConfidence interval is usually quite hard to define, are you sure that we have a good enough model that it can be defined in a meaningful way? Maybe simply having the value as optional is sufficient to account for missing data?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 39
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0acd3a10_1410c370",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-17T14:06:32Z",
+      "side": 1,
+      "message": "TimeDelta?",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d14d381_db775860",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-17T14:06:32Z",
+      "side": 1,
+      "message": "Add RTC_DEPRECATED? That way we enforce no usage in WebRTC and it triggers a warning downstream.",
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d0f16d3_9c759b69",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-17T14:06:32Z",
+      "side": 1,
+      "message": "This was intentionally missing as such overloads tend to be unclear to the reader (it\u0027s for instance not obvious that this would not compare all fields).\n\nIf you need to makes the same check in several places you can add an explicit helper function that more clearly describes how the comparison is made (but consider the tradeoff in terms of reader indirection)",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 1
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

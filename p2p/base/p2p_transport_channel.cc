@@ -57,6 +57,39 @@ uint32_t GetWeakPingIntervalInFieldTrial() {
   return cricket::WEAK_PING_INTERVAL;
 }
 
+rtc::AdapterType GuessAdapterTypeFromNetworkCost(int network_cost) {
+  switch (network_cost) {
+    case rtc::kNetworkCostMin:
+      return rtc::ADAPTER_TYPE_ETHERNET;
+    case rtc::kNetworkCostLow:
+      return rtc::ADAPTER_TYPE_WIFI;
+    case rtc::kNetworkCostHigh:
+      return rtc::ADAPTER_TYPE_CELLULAR;
+    case rtc::kNetworkCostUnknown:
+      return rtc::ADAPTER_TYPE_UNKNOWN;
+    case rtc::kNetworkCostMax:
+      return rtc::ADAPTER_TYPE_ANY;
+  }
+  return rtc::ADAPTER_TYPE_UNKNOWN;
+}
+
+rtc::RouteEndpoint CreateRouteEndpointFromCandidate(
+    bool local,
+    const cricket::Candidate& candidate,
+    bool relay) {
+  rtc::RouteEndpoint endpoint;
+  endpoint.adapter_type = candidate.network_type();
+  if (!local && endpoint.adapter_type == rtc::ADAPTER_TYPE_UNKNOWN) {
+    endpoint.adapter_type =
+        GuessAdapterTypeFromNetworkCost(candidate.network_cost());
+  }
+  endpoint.adapter_id =
+      static_cast<int>(endpoint.adapter_type);  // TODO(jonaso)
+  endpoint.network_id = candidate.network_id();
+  endpoint.relay = relay;
+  return endpoint;
+}
+
 }  // unnamed namespace
 
 namespace cricket {
@@ -1687,14 +1720,27 @@ void P2PTransportChannel::SwitchSelectedConnection(Connection* conn,
 
     network_route_.emplace(rtc::NetworkRoute());
     network_route_->connected = ReadyToSend(selected_connection_);
-    network_route_->local_network_id =
-        selected_connection_->local_candidate().network_id();
-    network_route_->remote_network_id =
-        selected_connection_->remote_candidate().network_id();
+    network_route_->local = CreateRouteEndpointFromCandidate(
+        /* local= */ true, selected_connection_->local_candidate(),
+        selected_connection_->port()->Type() == RELAY_PORT_TYPE);
+    network_route_->remote = CreateRouteEndpointFromCandidate(
+        /* local= */ false, selected_connection_->remote_candidate(),
+        selected_connection_->remote_candidate().type() == RELAY_PORT_TYPE);
+
+    // Downstream projects depend on the old representation,
+    // populate that until they have been migrated.
+    // TODO(jonaso): remove.
+    network_route_->local_network_id = network_route_->local.network_id;
+    network_route_->remote_network_id = network_route_->remote.network_id;
+
     network_route_->last_sent_packet_id = last_sent_packet_id_;
     network_route_->packet_overhead =
         selected_connection_->local_candidate().address().ipaddr().overhead() +
         GetProtocolOverhead(selected_connection_->local_candidate().protocol());
+    network_route_->rtt_ms =
+        static_cast<int>(selected_connection_->GetRttEstimate().GetAverage());
+    network_route_->rtt_ms_confidence =
+        selected_connection_->GetRttEstimate().GetConfidenceInterval();
   } else {
     RTC_LOG(LS_INFO) << ToString() << ": No selected connection";
   }

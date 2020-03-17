@@ -19,12 +19,13 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/string_encode.h"
 
 namespace webrtc {
 
-namespace {
+const int kMinFrameRateFps = 2;
 
-const int kMinFramerateFps = 2;
+namespace {
 
 int MinPixelsPerFrame(const absl::optional<EncoderSettings>& encoder_settings) {
   return encoder_settings.has_value()
@@ -179,7 +180,7 @@ class VideoStreamAdapter::VideoSourceRestrictor {
   }
 
   bool CanDecreaseFrameRateTo(int max_frame_rate) {
-    const int fps_wanted = std::max(kMinFramerateFps, max_frame_rate);
+    const int fps_wanted = std::max(kMinFrameRateFps, max_frame_rate);
     return fps_wanted < rtc::dchecked_cast<int>(
                             source_restrictions_.max_frame_rate().value_or(
                                 std::numeric_limits<int>::max()));
@@ -270,7 +271,7 @@ class VideoStreamAdapter::VideoSourceRestrictor {
 
   void DecreaseFrameRateTo(int max_frame_rate) {
     RTC_DCHECK(CanDecreaseFrameRateTo(max_frame_rate));
-    max_frame_rate = std::max(kMinFramerateFps, max_frame_rate);
+    max_frame_rate = std::max(kMinFrameRateFps, max_frame_rate);
     RTC_LOG(LS_INFO) << "Scaling down framerate: " << max_frame_rate;
     source_restrictions_.set_max_frame_rate(
         max_frame_rate != std::numeric_limits<int>::max()
@@ -501,7 +502,7 @@ Adaptation VideoStreamAdapter::GetAdaptationDown() const {
     // TODO(hbos): This usage of |last_adaptation_was_down| looks like a mistake
     // - delete it.
     if (input_fps_ <= 0 ||
-        (last_adaptation_was_down && input_fps_ < kMinFramerateFps)) {
+        (last_adaptation_was_down && input_fps_ < kMinFrameRateFps)) {
       return Adaptation(adaptation_validation_id_,
                         Adaptation::Status::kInsufficientInput);
     }
@@ -565,6 +566,7 @@ Adaptation VideoStreamAdapter::GetAdaptationDown() const {
 
 VideoSourceRestrictions VideoStreamAdapter::PeekNextRestrictions(
     const Adaptation& adaptation) const {
+  RTC_DCHECK_EQ(adaptation.validation_id_, adaptation_validation_id_);
   if (adaptation.status() != Adaptation::Status::kValid)
     return source_restrictor_->source_restrictions();
   VideoSourceRestrictor restrictor_copy = *source_restrictor_;
@@ -576,9 +578,8 @@ VideoSourceRestrictions VideoStreamAdapter::PeekNextRestrictions(
 ResourceListenerResponse VideoStreamAdapter::ApplyAdaptation(
     const Adaptation& adaptation) {
   RTC_DCHECK_EQ(adaptation.validation_id_, adaptation_validation_id_);
-  if (adaptation.status() != Adaptation::Status::kValid) {
+  if (adaptation.status() != Adaptation::Status::kValid)
     return ResourceListenerResponse::kNothing;
-  }
   // Remember the input pixels and fps of this adaptation. Used to avoid
   // adapting again before this adaptation has had an effect.
   last_adaptation_request_.emplace(AdaptationRequest{

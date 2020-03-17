@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a514277_edd27972",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-17T09:16:14Z",
+      "side": 1,
+      "message": "EXPECT_EQ(1, adapter.adaptation_counters().resolution_adaptations);",
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a2b9732_cfda2015",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-17T09:16:14Z",
+      "side": 1,
+      "message": "kLimitReached works but there is an edge-case where we can get kAwaitingPreviosAdaptation as the Status instead which is a strange code to return if we had reached the limit anyway, see https://crbug.com/webrtc/11435",
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "750009cd_ad3da153",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-17T09:16:14Z",
+      "side": 1,
+      "message": "EXPECT_EQ(0, adapter.adaptation_counters().resolution_adaptations);\n EXPECT_EQ(1, adapter.adaptation_counters().fps_adaptations);",
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d86221f_cc3d528c",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-17T09:16:14Z",
+      "side": 1,
+      "message": "(Did not due out of laziness)",
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

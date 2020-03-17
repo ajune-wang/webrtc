@@ -111,9 +111,9 @@ void NetworkNodeTransport::Connect(EmulatedEndpoint* endpoint,
   rtc::NetworkRoute route;
   route.connected = true;
   // We assume that the address will be unique in the lower bytes.
-  route.local_network_id = static_cast<uint16_t>(
+  route.local.network_id = static_cast<uint16_t>(
       receiver_address.ipaddr().v4AddressAsHostOrderInteger());
-  route.remote_network_id = static_cast<uint16_t>(
+  route.remote.network_id = static_cast<uint16_t>(
       receiver_address.ipaddr().v4AddressAsHostOrderInteger());
   route.packet_overhead = packet_overhead.bytes() +
                           receiver_address.ipaddr().overhead() +

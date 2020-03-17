@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "1fc0ccc7_fa048a69",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 141,
+        "startChar": 62,
+        "endLine": 141,
+        "endChar": 75
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd2876e_23ec0cec",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "Maybe just check that we get less pixels? Exact scale ratio is an implementation detail which can change in the future.",
+      "range": {
+        "startLine": 151,
+        "startChar": 32,
+        "endLine": 151,
+        "endChar": 55
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec17659b_33bdc03e",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "nit: remove",
+      "range": {
+        "startLine": 177,
+        "startChar": 61,
+        "endLine": 177,
+        "endChar": 72
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7958580_35c9ec5e",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "nit: Again, maybe it\u0027s a good idea to change these to check only that max_pixels/target is more than input_pixels and max_pixels is more than target.",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 194,
+        "endChar": 69
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a514277_edd27972",
         "filename": "video/adaptation/video_stream_adapter_unittest.cc",
         "patchSetId": 5
@@ -36,6 +128,98 @@
     },
     {
       "key": {
+        "uuid": "b7634c1b_a6fbc652",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "again, exact ratio probably shouldn\u0027t be fixed in tests.",
+      "range": {
+        "startLine": 215,
+        "startChar": 60,
+        "endLine": 215,
+        "endChar": 71
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "055a876b_7e082986",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "LT",
+      "range": {
+        "startLine": 228,
+        "startChar": 9,
+        "endLine": 228,
+        "endChar": 11
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "124cfb48_b5d3832a",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 252,
+        "startChar": 59,
+        "endLine": 252,
+        "endChar": 72
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "268e557f_d814d0d4",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "gt",
+      "range": {
+        "startLine": 271,
+        "startChar": 9,
+        "endLine": 271,
+        "endChar": 11
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "750009cd_ad3da153",
         "filename": "video/adaptation/video_stream_adapter_unittest.cc",
         "patchSetId": 5
@@ -53,6 +237,29 @@
     },
     {
       "key": {
+        "uuid": "50626485_42c20662",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "Please add a hard limit on number of loop iterations. So that if something is broken and test never achieves kLimitReached, it would fail and not hang.",
+      "range": {
+        "startLine": 523,
+        "startChar": 2,
+        "endLine": 523,
+        "endChar": 16
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8d86221f_cc3d528c",
         "filename": "video/adaptation/video_stream_adapter_unittest.cc",
         "patchSetId": 5
@@ -64,6 +271,29 @@
       "writtenOn": "2020-03-17T09:16:14Z",
       "side": 1,
       "message": "(Did not due out of laziness)",
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4acbf84a_0bfc01ed",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-17T10:02:50Z",
+      "side": 1,
+      "message": "ToFrom?",
+      "range": {
+        "startLine": 699,
+        "startChar": 29,
+        "endLine": 699,
+        "endChar": 35
+      },
       "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

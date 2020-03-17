@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46b7b4b0_8f08ef78",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "Should we be checking this in other places, too? Like ProcessStream.",
+      "range": {
+        "startLine": 1437,
+        "startChar": 0,
+        "endLine": 1440,
+        "endChar": 3
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed1eccc4_fada8357",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "Integer?",
+      "range": {
+        "startLine": 40,
+        "startChar": 19,
+        "endLine": 40,
+        "endChar": 29
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78dd9190_bdcde44e",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "This seems unused, or am I missing something?\n\nIf not, should it be? Can we pare down the contents of this struct to just frame + config?\n\nint_frame\nint_config\n\nfloat_input_frame\nfloat_input_config\n\nfloat_output_frame\nfloat_output_config",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 28
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32d88986_1711e046",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "This seems unused, can it be removed?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 44
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c73b89df_c1c6250b",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "This seems unused, can it be removed?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 44
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff2a7ac9_35bb40ff",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "This variable can be replaced by indexing frame-\u003edata directly, right? To avoid handling the raw pointer.",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 14
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d7bf24_80447cbb",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "This variable can be replaced by indexing frame-\u003edata directly, right? To avoid handling the raw pointer.",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 14
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97c38d8a_b8df1b06",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "This variable can be replaced by indexing frame-\u003edata directly, right? To avoid handling the raw pointer.",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 14
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec616c7_e6c753eb",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "This variable can be replaced by indexing frame-\u003edata directly, right? To avoid handling the raw pointer.",
+      "range": {
+        "startLine": 228,
+        "startChar": 43,
+        "endLine": 228,
+        "endChar": 53
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faf6a49d_1964e6df",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2790,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "While we\u0027re at it, this test can also check that frame.vad_activity is populated. I do not know if that is tested anywhere else, currently.",
+      "range": {
+        "startLine": 2790,
+        "startChar": 20,
+        "endLine": 2790,
+        "endChar": 34
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "205cbaa4_57b1114a",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "Should these be private? Or drop the trailing underscores.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7bc4fa2_c48b4a7e",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "Can this one be deleted now?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 73
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5632c0c_8dd96d5b",
+        "filename": "modules/audio_processing/test/test_utils.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "Can you add a comment to say where this is coming from?\n40 ms at 192 kHz?",
+      "range": {
+        "startLine": 49,
+        "startChar": 41,
+        "endLine": 49,
+        "endChar": 45
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3911f4b8_70d4ff33",
+        "filename": "modules/audio_processing/test/test_utils.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "What do you think about storing these in a StreamConfig? It would streamline some parts of audio_processing_unittest (all the StreamConfig creations in Process*Stream calls), at the cost of an extra level of referencing when modifying the values.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 29
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab1fcb20_d5b19345",
+        "filename": "modules/audio_processing/test/test_utils.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-17T08:42:32Z",
+      "side": 1,
+      "message": "These functions can be made members of Int16FrameData, since they are all always visible together.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 1
+      },
+      "revId": "dfd8bccdb7cbd27baa25fdd8c6624f176bf7168e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

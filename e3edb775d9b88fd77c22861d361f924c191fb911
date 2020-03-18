@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0484e977_72322d1d",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-18T16:24:47Z",
+      "side": 1,
+      "message": "I would add a comment here explaining why we do this.",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 31
+      },
+      "revId": "e3edb775d9b88fd77c22861d361f924c191fb911",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

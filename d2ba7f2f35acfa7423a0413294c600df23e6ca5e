@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "074f32f9_8ba33704",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T08:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45e2e7e5_df577ba9",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 283,
+        "endChar": 34
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "656e6f54_b854e50b",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-17T14:06:32Z",
       "side": 1,
       "message": "I\u0027d rather see that we keep this inlined, makes it easier to debug as the reader don\u0027t have to hop around in the source code.",
+      "range": {
+        "startLine": 288,
+        "startChar": 6,
+        "endLine": 288,
+        "endChar": 47
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a863b945_f30af0ac",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T08:34:17Z",
+      "side": 1,
+      "message": "the existing code considers all of these router the same\nlocal \u003c\u003d\u003e remote\nlocal \u003c\u003d\u003e turn \u003c\u003d\u003e remote\nlocal \u003c\u003d\u003e turn \u003c\u003d\u003e turn \u003c\u003d\u003e remote\n\ncause they will all have same local/remote network_id\nshall a route change between any of them really not trigger behavior in\nBWE.\n\nI created a method, cause I don\u0027t it by means obvious what is intended,\nnor what is best. Inlining it makes the code seem obviously correct\ncause you don\u0027t even notice the things that is not in the if-statement\n\nWDYT",
+      "parentUuid": "656e6f54_b854e50b",
       "range": {
         "startLine": 288,
         "startChar": 6,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5eb607cc_ef27a257",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T08:34:17Z",
+      "side": 1,
+      "message": "but that is my point,\nthe existing code considers all of these router the same\nlocal \u003c\u003d\u003e remote\nlocal \u003c\u003d\u003e turn \u003c\u003d\u003e remote\nlocal \u003c\u003d\u003e turn \u003c\u003d\u003e turn \u003c\u003d\u003e remote\n\ncause they will all have same local/remote network_id\n\nshall a route change between any of them really not trigger behavior in\nBWE/transport_feedback_adapter.",
+      "parentUuid": "aaacd6e9_8f211a39",
+      "range": {
+        "startLine": 308,
+        "startChar": 7,
+        "endLine": 309,
+        "endChar": 52
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "162615d9_c9d07257",
         "filename": "rtc_base/network_route.cc",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2020-03-17T14:06:32Z",
       "side": 1,
       "message": "This will have a binary size cost that I think we want to avoid. Note that if it\u0027s inlined in a RTC_LOG macro it\u0027s possible to avoid the binary cost by turning the log macro off.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ec9760d_1d1aca0c",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T08:34:17Z",
+      "side": 1,
+      "message": "i don\u0027t understand what you mean ?\nare you suggesting making the method an inline\nor removing the ToString() all-together ?\n\nThe value of good log printouts shall not be under valued.\nI can say that having this printer method would already have saved me from looking at\n5-10 bug reports (and i\u0027ve only been the \"ice guy\" for a month)\n\nPlease clarify",
+      "parentUuid": "162615d9_c9d07257",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "144548d9_3b1f9e43",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T08:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cea9384_69eaf580",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 39
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0acd3a10_1410c370",
         "filename": "rtc_base/network_route.h",
         "patchSetId": 6
@@ -128,6 +248,30 @@
       "writtenOn": "2020-03-17T14:06:32Z",
       "side": 1,
       "message": "TimeDelta?",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c55a9e_41188ea8",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T08:34:17Z",
+      "side": 1,
+      "message": "I would prefer not to add more dependencies in the ICE layer.\nDoes it add any substantial value to use TimeDelta here ?",
+      "parentUuid": "0acd3a10_1410c370",
       "range": {
         "startLine": 45,
         "startChar": 2,
@@ -157,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "c3c127e4_4d9e9ee0",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T08:34:17Z",
+      "side": 1,
+      "message": "Does not work due to the implicitly generated copy constructor...\nI.e the code fails to compile if I added even if the field is never referenced...",
+      "parentUuid": "4d14d381_db775860",
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d0f16d3_9c759b69",
         "filename": "rtc_base/network_route.h",
         "patchSetId": 6
@@ -177,6 +339,30 @@
       "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56ab9aee_e8f64c7b",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T08:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d0f16d3_9c759b69",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 1
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

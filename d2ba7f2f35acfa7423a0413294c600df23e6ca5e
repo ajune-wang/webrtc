@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "bb399726_e42bd2f9",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-18T11:52:54Z",
+      "side": 1,
+      "message": "I don\u0027t at all follow how CheckResetBitratesOnRouteChange show intention more clearly here. Maybe an option is to add a comment (a why-comment - the good kind of comment) or a local bool?",
+      "parentUuid": "a863b945_f30af0ac",
+      "range": {
+        "startLine": 288,
+        "startChar": 6,
+        "endLine": 288,
+        "endChar": 47
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aaacd6e9_8f211a39",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 6
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "98e7988c_1cf57a6f",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-18T11:52:54Z",
+      "side": 1,
+      "message": "I\u0027d say that that should most likely not mean that we throw way prior data. It\u0027s unlikely that a turn server would add a narrow section, changing the route behavior significantly. Either way, I think it\u0027s more appropriate as an issue in the bug tracker than as a TODO. It\u0027s a bit too large of a project to be useful as a TODO.",
+      "parentUuid": "5eb607cc_ef27a257",
+      "range": {
+        "startLine": 308,
+        "startChar": 7,
+        "endLine": 309,
+        "endChar": 52
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "162615d9_c9d07257",
         "filename": "rtc_base/network_route.cc",
         "patchSetId": 6
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "i don\u0027t understand what you mean ?\nare you suggesting making the method an inline\nor removing the ToString() all-together ?\n\nThe value of good log printouts shall not be under valued.\nI can say that having this printer method would already have saved me from looking at\n5-10 bug reports (and i\u0027ve only been the \"ice guy\" for a month)\n\nPlease clarify",
       "parentUuid": "162615d9_c9d07257",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fdfe5be_f15958f8",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-18T11:52:54Z",
+      "side": 1,
+      "message": "I suggest removing the ToString method, but it\u0027s fine to keep any log statements that print the same information, those can be turned off in scenarios where binary size takes precedence over debugability,",
+      "parentUuid": "4ec9760d_1d1aca0c",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -272,6 +344,30 @@
       "side": 1,
       "message": "I would prefer not to add more dependencies in the ICE layer.\nDoes it add any substantial value to use TimeDelta here ?",
       "parentUuid": "0acd3a10_1410c370",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "915c0796_d8ac0b2d",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-18T11:52:54Z",
+      "side": 1,
+      "message": "It adds substantial value to always use the unit types since we avoid risky conversions. Why would it be bad to depend on api/units?",
+      "parentUuid": "46c55a9e_41188ea8",
       "range": {
         "startLine": 45,
         "startChar": 2,

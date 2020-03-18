@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3bc8b5e9_4497d1a1",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-18T11:52:54Z",
+      "side": 1,
+      "message": "Is this actually important? AFAIK, the only usage of the RTT is to determine the increase rate, which is not very sensitive to the actual RTT values. Do you have repro of the benefit that having an RTT provides? Is it something that will be used in the near future? Preferably we want to avoid adding mechanisms that are not currently used or which does not provide a meaningful benefit when used.",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "1bb48ae3edd92cf5413aa09297592a4f43acbe1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec8f97ff_e43d8698",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-18T11:52:54Z",
+      "side": 1,
+      "message": "Same reasoning as for the NetworkRoute \u003d\u003d.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "1bb48ae3edd92cf5413aa09297592a4f43acbe1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

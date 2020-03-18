@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1a49336e_b8643631",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T13:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb399726_e42bd2f9",
+      "range": {
+        "startLine": 288,
+        "startChar": 6,
+        "endLine": 288,
+        "endChar": 47
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aaacd6e9_8f211a39",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 6
@@ -191,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "5738062a_afbff20b",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T13:13:44Z",
+      "side": 1,
+      "message": "The entire purpose of this effort is to protect our TURN servers so that they\ndon\u0027t crash due to load, or being forced to throw packets. If any of those were to\nhappended, it would most certainly mean that the turn server would be a narrow section.\n\nAnyway, I referenced the bug I created rather than a TODO",
+      "parentUuid": "98e7988c_1cf57a6f",
+      "range": {
+        "startLine": 308,
+        "startChar": 7,
+        "endLine": 309,
+        "endChar": 52
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "162615d9_c9d07257",
         "filename": "rtc_base/network_route.cc",
         "patchSetId": 6
@@ -259,6 +307,30 @@
       "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f95c264_3a7429e5",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T13:13:44Z",
+      "side": 1,
+      "message": "I think removing the ToString-method is really bad for readability and structure of code.\nWhat do you think about letting hta@ cast a deciding vote ?",
+      "parentUuid": "6fdfe5be_f15958f8",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -377,6 +449,30 @@
       "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b5446d_0ee074b2",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-18T13:13:44Z",
+      "side": 1,
+      "message": "1) this is struct propagated from ICE to media/BWE,\nIf BWE wants to do conversions and/or other operations on it, it should copy\nit into a format that it finds useful.\nHaving a single usage of TimeDelta in a very large code base (ICE) makes working\nin that code a hazard.\n\n2) It is very unclear how TimeDelta deals with NAN and inf,\nboth which are well defined in double.",
+      "parentUuid": "915c0796_d8ac0b2d",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

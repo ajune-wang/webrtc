@@ -63,6 +63,16 @@ bool IsEnabled(const WebRtcKeyValueConfig* trials, absl::string_view key) {
   return trials->Lookup(key).find("Enabled") == 0;
 }
 
+// Check if route has changed enough for us to reset bitrates.
+bool CheckResetBitratesOnRouteChange(const rtc::NetworkRoute& old_route,
+                                     const rtc::NetworkRoute& new_route) {
+  // TODO(bugs.webrtc.org/11438) : Experiment with using more information/
+  // other conditions.
+  return (old_route.connected != new_route.connected ||
+          old_route.local.network_id != new_route.local.network_id ||
+          old_route.local.network_id != new_route.local.network_id);
+}
+
 }  // namespace
 
 RtpTransportControllerSend::RtpTransportControllerSend(
@@ -269,17 +279,15 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
     // No need to reset BWE if this is the first time the network connects.
     return;
   }
-  if (kv->second.connected != network_route.connected ||
-      kv->second.local_network_id != network_route.local_network_id ||
-      kv->second.remote_network_id != network_route.remote_network_id) {
-    kv->second = network_route;
+  //
+  auto old_route = kv->second;
+  kv->second = network_route;
+  RTC_LOG(LS_INFO) << "Network route changed on transport " << transport_name
+                   << ": " << network_route.ToString();
+
+  if (CheckResetBitratesOnRouteChange(old_route, network_route)) {
     BitrateConstraints bitrate_config = bitrate_configurator_.GetConfig();
-    RTC_LOG(LS_INFO) << "Network route changed on transport " << transport_name
-                     << ": new local network id "
-                     << network_route.local_network_id
-                     << " new remote network id "
-                     << network_route.remote_network_id
-                     << " Reset bitrates to min: "
+    RTC_LOG(LS_INFO) << " Reset bitrates to min: "
                      << bitrate_config.min_bitrate_bps
                      << " bps, start: " << bitrate_config.start_bitrate_bps
                      << " bps,  max: " << bitrate_config.max_bitrate_bps
@@ -297,8 +305,13 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
       RTC_DCHECK_RUN_ON(&task_queue_);
       transport_overhead_bytes_per_packet_ = network_route.packet_overhead;
       if (reset_feedback_on_route_change_) {
+        // TODO(bugs.webrtc.org/11438) : Experiment with using more information/
+        // other conditions. The transport_feedback_adapter shall probably
+        // have same condition as above...hence need the same information.
+        // I.e should transport_feedback_adapter have a real "route"
+        // rather than just local/remote network_id.
         transport_feedback_adapter_.SetNetworkIds(
-            network_route.local_network_id, network_route.remote_network_id);
+            network_route.local.network_id, network_route.remote.network_id);
       }
       if (controller_) {
         PostUpdates(controller_->OnNetworkRouteChange(msg));

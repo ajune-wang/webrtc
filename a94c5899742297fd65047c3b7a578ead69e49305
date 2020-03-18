@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c12c862a_631f8003",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-18T15:53:54Z",
+      "side": 1,
+      "message": "Yes, I would prefer an RTC_LOG(INFO) \u003c\u003c ... here.\n\nBut if you really want to build the string we may want to provide an empty implementation guarded by the macro RTC_DISABLE_LOGGING (if defined return \"\").\n\nBoth solutions are not clean, so let me +kwiberg@ as well for a second opinion.\n\nIt worth pointing out that this is printed only in one place so moving all the string creation to the RTC_LOG(INFO) where it needs to be printed might be the best solution.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

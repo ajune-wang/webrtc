@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5867dc75_b850a3b0",
+        "filename": "video/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-18T10:33:05Z",
+      "side": 1,
+      "message": "I agree with Henrik here. Since this is where the implementation is done, we should test it. But yes, in things that depend on this they shouldn\u0027t depend on these specifics. Furthermore, if these details change or move, then so should the tests.",
+      "parentUuid": "9e373981_2fded6be",
+      "range": {
+        "startLine": 151,
+        "startChar": 32,
+        "endLine": 151,
+        "endChar": 55
+      },
+      "revId": "d1aff8b356d0b8c298e2d82643e468079a72a5cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec17659b_33bdc03e",
         "filename": "video/adaptation/video_stream_adapter_unittest.cc",
         "patchSetId": 5

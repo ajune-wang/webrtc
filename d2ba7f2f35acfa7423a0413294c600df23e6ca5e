@@ -334,6 +334,30 @@
     },
     {
       "key": {
+        "uuid": "ffc060da_6f04e7ca",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-18T13:30:04Z",
+      "side": 1,
+      "message": "Independently it probably should be std::string Tostring(const NetworkRoute\u0026) to be consistent with how it\u0027s done elsewhere in the code base. That also makes it possible to put it behind a compile time flag.\n\nCheck with mbonadei@, he has been working on low binary size issues.",
+      "parentUuid": "2f95c264_3a7429e5",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "d2ba7f2f35acfa7423a0413294c600df23e6ca5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cea9384_69eaf580",
         "filename": "rtc_base/network_route.h",
         "patchSetId": 6

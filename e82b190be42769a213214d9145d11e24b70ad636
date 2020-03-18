@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "336ca281_62729af6",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-18T13:30:04Z",
+      "side": 1,
+      "message": "Given that the comment is added, can we inline this again?",
+      "range": {
+        "startLine": 292,
+        "startChar": 6,
+        "endLine": 292,
+        "endChar": 37
+      },
+      "revId": "e82b190be42769a213214d9145d11e24b70ad636",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

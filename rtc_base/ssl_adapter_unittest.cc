@@ -12,6 +12,7 @@
 #include <string>
 #include <utility>
 
+#include "absl/memory/memory.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/message_digest.h"
@@ -254,9 +255,9 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
 
  private:
   void DoHandshake(rtc::AsyncSocket* socket) {
-    rtc::SocketStream* stream = new rtc::SocketStream(socket);
+    auto stream = std::make_unique<rtc::SocketStream>(socket);
 
-    ssl_stream_adapter_.reset(rtc::SSLStreamAdapter::Create(stream));
+    ssl_stream_adapter_ = rtc::SSLStreamAdapter::Create(std::move(stream));
 
     ssl_stream_adapter_->SetMode(ssl_mode_);
     ssl_stream_adapter_->SetServerRole();
@@ -268,7 +269,8 @@ class SSLAdapterTestDummyServer : public sigslot::has_slots<> {
     // Accordingly, we must disable client authentication here.
     ssl_stream_adapter_->SetClientAuthEnabledForTesting(false);
 
-    ssl_stream_adapter_->SetIdentity(ssl_identity_->GetReference());
+    ssl_stream_adapter_->SetIdentity(
+        absl::WrapUnique(ssl_identity_->GetReference()));
 
     // Set a bogus peer certificate digest.
     unsigned char digest[20];

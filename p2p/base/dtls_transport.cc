@@ -14,6 +14,7 @@
 #include <memory>
 #include <utility>
 
+#include "absl/memory/memory.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_transport_state.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_writable_state.h"
@@ -327,7 +328,7 @@ bool DtlsTransport::SetupDtls() {
   RTC_DCHECK(dtls_role_);
   StreamInterfaceChannel* downward = new StreamInterfaceChannel(ice_transport_);
 
-  dtls_.reset(rtc::SSLStreamAdapter::Create(downward));
+  dtls_ = rtc::SSLStreamAdapter::Create(absl::WrapUnique(downward));
   if (!dtls_) {
     RTC_LOG(LS_ERROR) << ToString() << ": Failed to create DTLS adapter.";
     delete downward;
@@ -336,7 +337,8 @@ bool DtlsTransport::SetupDtls() {
 
   downward_ = downward;
 
-  dtls_->SetIdentity(local_certificate_->identity()->GetReference());
+  dtls_->SetIdentity(
+      absl::WrapUnique(local_certificate_->identity()->GetReference()));
   dtls_->SetMode(rtc::SSL_MODE_DTLS);
   dtls_->SetMaxProtocolVersion(ssl_max_version_);
   dtls_->SetServerRole(*dtls_role_);

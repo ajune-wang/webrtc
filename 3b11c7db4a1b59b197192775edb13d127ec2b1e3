@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "528e622d_6cfbbb66",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-03-18T12:04:51Z",
+      "side": 1,
+      "message": "minor nit: Right now |frame_boundary| is just used for the DCHECKs, if you changed this to \"if(frame_boundary)\" it would also have a functional use. I think it would motivate the (slightly intrusive) set-and-test on line 743.\n\nIf not it would suggest that you change line 734 to:\n    frame_boundary \u003d packet-\u003eis_last_packet_in_frame();\n    if (packet-\u003eis_last_packet_in_frame()) {",
+      "range": {
+        "startLine": 724,
+        "startChar": 8,
+        "endLine": 724,
+        "endChar": 42
+      },
+      "revId": "3b11c7db4a1b59b197192775edb13d127ec2b1e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

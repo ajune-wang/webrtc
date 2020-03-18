@@ -93,6 +93,30 @@
       "revId": "8ac017e109d2582078eea16186f815b347a88a9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d9d5ec7_8d647568",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-03-18T12:04:51Z",
+      "side": 1,
+      "message": "\u003e it avoids extra allocations, avoids extra inner loop.\n\nThat\u0027s good\n\n\u003e type std::vector\u003cstd::vector\u003cstd::unique_ptr\u003cPacket\u003e\u003e\u003e is harder to read.\n\nSure, the type is (slightly) harder to read, but to understand what it represents is easier I would say.\n\n\u003e binary size also in small favor of the flat vector.\n\nOf course there is a trade off, but in general I\u0027m not sure if we should sacrifice API clarity for binary size.\n\nI think the current solution is good enough, but I would still prefer if we could return a list of frames instead of packets. WDYT about something like this:\n\n  class InsertResult {\n   public:\n    InsertResult(std::vector\u003cstd::unique_ptr\u003cPacket\u003e\u003e packets,\n                 std::vector\u003cArrayView\u003cstd::unique_ptr\u003cPacket\u003e\u003e\u003e frames);\n    // Indicates if the packet buffer was cleared, which means that a key\n    // frame request should be sent.\n    bool buffer_cleared \u003d false;\n\n    ArrayView\u003cArrayView\u003cstd::unique_ptr\u003cPacket\u003e\u003e\u003e frames();\n   private:\n    // Maybe absl::InlinedVector instead?\n    std::vector\u003cArrayView\u003cstd::unique_ptr\u003cPacket\u003e\u003e\u003e frames_;\n    std::vector\u003cstd::unique_ptr\u003cPacket\u003e\u003e packets;\n  };\n\nIf you agree then please update, otherwise just skip this. I don\u0027t feel strongly about it and as I said, I don\u0027t think there is anything particularly wrong with the current solution.",
+      "parentUuid": "973e6422_b5bd93bc",
+      "range": {
+        "startLine": 122,
+        "startChar": 2,
+        "endLine": 122,
+        "endChar": 38
+      },
+      "revId": "8ac017e109d2582078eea16186f815b347a88a9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

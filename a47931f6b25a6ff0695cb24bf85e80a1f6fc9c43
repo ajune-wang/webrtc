@@ -16,6 +16,24 @@
       "revId": "a47931f6b25a6ff0695cb24bf85e80a1f6fc9c43",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e4fa73b_0e9c5e70",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2434,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-18T16:43:23Z",
+      "side": 1,
+      "message": "As FEC can in theory protect multiple ssrcs, we can\u0027t just sum it in the same way as rtx in simulcast case. It\u0027s not visible now, while all simulcast streams are aggregated, but it will cause us pain later if we also sum fec in the same way as done with rtx.",
+      "parentUuid": "9cb4c93f_c34d83b0",
+      "revId": "a47931f6b25a6ff0695cb24bf85e80a1f6fc9c43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

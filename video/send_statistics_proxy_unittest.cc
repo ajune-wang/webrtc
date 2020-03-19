@@ -65,10 +65,14 @@ class SendStatisticsProxyTest : public ::testing::Test {
         &fake_clock_, GetTestConfig(),
         VideoEncoderConfig::ContentType::kRealtimeVideo));
     expected_ = VideoSendStream::Stats();
-    for (const auto& ssrc : config_.rtp.ssrcs)
-      expected_.substreams[ssrc].is_rtx = false;
-    for (const auto& ssrc : config_.rtp.rtx.ssrcs)
-      expected_.substreams[ssrc].is_rtx = true;
+    for (const auto& ssrc : config_.rtp.ssrcs) {
+      expected_.substreams[ssrc].type =
+          VideoSendStream::StreamStats::StreamType::kMedia;
+    }
+    for (const auto& ssrc : config_.rtp.rtx.ssrcs) {
+      expected_.substreams[ssrc].type =
+          VideoSendStream::StreamStats::StreamType::kRtx;
+    }
   }
 
   VideoSendStream::Config GetTestConfig() {
@@ -123,7 +127,7 @@ class SendStatisticsProxyTest : public ::testing::Test {
       const VideoSendStream::StreamStats& a = it->second;
       const VideoSendStream::StreamStats& b = corresponding_it->second;
 
-      EXPECT_EQ(a.is_rtx, b.is_rtx);
+      EXPECT_EQ(a.type, b.type);
       EXPECT_EQ(a.frame_counts.key_frames, b.frame_counts.key_frames);
       EXPECT_EQ(a.frame_counts.delta_frames, b.frame_counts.delta_frames);
       EXPECT_EQ(a.total_bitrate_bps, b.total_bitrate_bps);
@@ -2390,8 +2394,10 @@ TEST_F(SendStatisticsProxyTest, GetStatsReportsIsFlexFec) {
   proxy->DataCountersUpdated(counters, kFirstSsrc);
   proxy->DataCountersUpdated(counters, kFlexFecSsrc);
 
-  EXPECT_FALSE(GetStreamStats(kFirstSsrc).is_flexfec);
-  EXPECT_TRUE(GetStreamStats(kFlexFecSsrc).is_flexfec);
+  EXPECT_NE(GetStreamStats(kFirstSsrc).type,
+            VideoSendStream::StreamStats::StreamType::kFlexfec);
+  EXPECT_EQ(GetStreamStats(kFlexFecSsrc).type,
+            VideoSendStream::StreamStats::StreamType::kFlexfec);
 }
 
 TEST_F(SendStatisticsProxyTest, SendBitratesAreReportedWithFlexFecEnabled) {

@@ -2358,6 +2358,54 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::AddOrUpdateSink(
   }
 }
 
+std::map<uint32_t, webrtc::VideoSendStream::StreamStats>
+GetOutboundRtpSubstreams(
+    const std::map<uint32_t, webrtc::VideoSendStream::StreamStats>&
+        substreams) {
+  std::map<uint32_t, webrtc::VideoSendStream::StreamStats> outbound_rtps;
+  // Add substreams for all RTP media streams.
+  for (const auto& pair : substreams) {
+    uint32_t ssrc = pair.first;
+    const webrtc::VideoSendStream::StreamStats& substream = pair.second;
+    if (substream.type !=
+            webrtc::VideoSendStream::StreamStats::StreamType::kMedia &&
+        // TODO(hbos): Don't land - also creating "outbound-rtp" for FlexFEC...
+        substream.type !=
+            webrtc::VideoSendStream::StreamStats::StreamType::kFlexfec) {
+      continue;
+    }
+    outbound_rtps.insert(std::make_pair(ssrc, substream));
+  }
+  // Complement the RTP streams with RTX data.
+  for (const auto& pair : substreams) {
+    const webrtc::VideoSendStream::StreamStats& rtx_substream = pair.second;
+    if (rtx_substream.type !=
+        webrtc::VideoSendStream::StreamStats::StreamType::kRtx) {
+      continue;
+    }
+    RTC_DCHECK(rtx_substream.associated_ssrc.has_value());
+    uint32_t media_ssrc = rtx_substream.associated_ssrc.value();
+    RTC_DCHECK(substreams.find(media_ssrc) != substreams.end());
+    webrtc::VideoSendStream::StreamStats& outbound_rtp =
+        outbound_rtps[media_ssrc];
+
+    outbound_rtp.frame_counts.key_frames +=
+        rtx_substream.frame_counts.key_frames;
+    outbound_rtp.frame_counts.delta_frames +=
+        rtx_substream.frame_counts.delta_frames;
+    outbound_rtp.total_packet_send_delay_ms +=
+        rtx_substream.total_packet_send_delay_ms;
+    outbound_rtp.rtp_stats.Add(rtx_substream.rtp_stats);
+    outbound_rtp.rtcp_packet_type_counts.Add(
+        rtx_substream.rtcp_packet_type_counts);
+    outbound_rtp.rtcp_stats.fraction_lost +=
+        rtx_substream.rtcp_stats.fraction_lost;
+    outbound_rtp.rtcp_stats.packets_lost +=
+        rtx_substream.rtcp_stats.packets_lost;
+  }
+  return outbound_rtps;
+}
+
 VideoSenderInfo WebRtcVideoChannel::WebRtcVideoSendStream::GetVideoSenderInfo(
     bool log_stats) {
   VideoSenderInfo info;
@@ -2420,9 +2468,11 @@ VideoSenderInfo WebRtcVideoChannel::WebRtcVideoSendStream::GetVideoSenderInfo(
   info.send_frame_width = 0;
   info.send_frame_height = 0;
   info.total_packet_send_delay_ms = 0;
+  std::map<uint32_t, webrtc::VideoSendStream::StreamStats>
+      outbound_rtp_substreams = GetOutboundRtpSubstreams(stats.substreams);
   for (std::map<uint32_t, webrtc::VideoSendStream::StreamStats>::iterator it =
-           stats.substreams.begin();
-       it != stats.substreams.end(); ++it) {
+           outbound_rtp_substreams.begin();
+       it != outbound_rtp_substreams.end(); ++it) {
     // TODO(pbos): Wire up additional stats, such as padding bytes.
     webrtc::VideoSendStream::StreamStats stream_stats = it->second;
     info.payload_bytes_sent += stream_stats.rtp_stats.transmitted.payload_bytes;
@@ -2431,7 +2481,8 @@ VideoSenderInfo WebRtcVideoChannel::WebRtcVideoSendStream::GetVideoSenderInfo(
         stream_stats.rtp_stats.transmitted.padding_bytes;
     info.packets_sent += stream_stats.rtp_stats.transmitted.packets;
     info.total_packet_send_delay_ms += stream_stats.total_packet_send_delay_ms;
-    if (!stream_stats.is_flexfec) {
+    if (stream_stats.type !=
+        webrtc::VideoSendStream::StreamStats::StreamType::kFlexfec) {
       // Retransmissions can happen over the same SSRC that media is sent over,
       // or a separate RTX stream is negotiated per SSRC, in which case there
       // will be a |stream_stats| with "is_rtx == true". Since we are currently
@@ -2454,8 +2505,9 @@ VideoSenderInfo WebRtcVideoChannel::WebRtcVideoSendStream::GetVideoSenderInfo(
     info.firs_rcvd += stream_stats.rtcp_packet_type_counts.fir_packets;
     info.nacks_rcvd += stream_stats.rtcp_packet_type_counts.nack_packets;
     info.plis_rcvd += stream_stats.rtcp_packet_type_counts.pli_packets;
-    if (stream_stats.report_block_data.has_value() && !stream_stats.is_rtx &&
-        !stream_stats.is_flexfec) {
+    if (stream_stats.report_block_data.has_value() &&
+        stream_stats.type ==
+            webrtc::VideoSendStream::StreamStats::StreamType::kMedia) {
       info.report_block_datas.push_back(stream_stats.report_block_data.value());
     }
   }

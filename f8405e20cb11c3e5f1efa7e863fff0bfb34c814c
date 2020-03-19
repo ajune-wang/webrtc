@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94eeb4d5_9c79aa2e",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-19T08:00:43Z",
+      "side": 1,
+      "message": "I would change this to \"This flag is similar to...\".",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "f8405e20cb11c3e5f1efa7e863fff0bfb34c814c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

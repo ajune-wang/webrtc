@@ -1,0 +1,328 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b704a673_9c5fdeb3",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "It\u0027s almost always possible (and desirable) to avoid new and especially delete. I think this will work:\n\n  auto downward \u003d std::make_unique\u003cStreamInterfaceChannel\u003e(ice_transport_);\n  StreamInterfaceChannel* downward_ptr \u003d downward.get();\n  dtls_ \u003d rtc::SSLStreamAdapter::Create(std::move(downward));\n  if (!dtls_) {\n    RTC_LOG(LS_ERROR) \u003c\u003c ToString() \u003c\u003c \": Failed to create DTLS adapter.\";\n    return false;\n  }\n  downward_ \u003d downward_ptr;",
+      "range": {
+        "startLine": 329,
+        "startChar": 2,
+        "endLine": 338,
+        "endChar": 23
+      },
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "337d74e8_10095978",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "It\u0027s good that you now use WrapUnique here, because now this looks plainly dangerous. Does GetReference really return a raw pointer that owns what it points to? If so, please add a comment saying this.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "715c62cf_58d4e57c",
+        "filename": "rtc_base/ssl_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "Easier to omit the temporary:\n\n  ssl_stream_adapter_ \u003d rtc::SSLStreamAdapter::Create(\n      std::make_unique\u003crtc::SocketStream\u003e(socket));",
+      "range": {
+        "startLine": 258,
+        "startChar": 3,
+        "endLine": 260,
+        "endChar": 75
+      },
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06b8476f_ff822c9e",
+        "filename": "rtc_base/ssl_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "Again, this now looks dangerous. GetReference doesn\u0027t sound like it would return a new object...",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50a4ee96_e70a1a9d",
+        "filename": "rtc_base/ssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "If OpenSSLStreamAdapter is a subclass of SSLStreamAdapter, this can be written\n\n  return std::make_unique\u003cOpenSSLStreamAdapter\u003e(std::move(stream));\n\nsince unique_ptr\u003cB\u003e converts implicitly to unique_ptr\u003cA\u003e iff B* converts implicitly to A*.",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 73
+      },
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4678a0b2_0d440448",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "This is troubling: before the SetUp() call, client_stream_ is an owning raw pointer, and after the call, it\u0027s a non-owning raw pointer. That is very hard to reason about.\n\nCan you null client_stream_ here, so that it\u0027s always an owning raw pointer?",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46fee24f_db66e15c",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "Same problem here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00adfe8e_0d7fc4ed",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bad0436_cb7e6d2b",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48970b52_3c37ed4f",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcc34352_42dbe368",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b86b0b2_75f31603",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30e9c3fe_3b3a51b9",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "445c516a_f400a30b",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1019,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8455cc2_df209f49",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "706115a5_3a4de06b",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1492,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b7dfb9a_4621bdcd",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1500,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6eb5416_15578305",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1505,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T14:13:51Z",
+      "side": 1,
+      "message": "And here.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

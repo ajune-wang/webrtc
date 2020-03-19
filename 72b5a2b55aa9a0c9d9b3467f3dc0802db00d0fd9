@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a34f3b08_72d5013a",
+        "filename": "modules/audio_processing/agc/legacy/digital_agc.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-19T21:42:22Z",
+      "side": 1,
+      "message": "Super-Nit: We can probably remove these comments.\n\n(I see them in other files as well)",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 3
+      },
+      "revId": "72b5a2b55aa9a0c9d9b3467f3dc0802db00d0fd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

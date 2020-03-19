@@ -12,10 +12,28 @@
 
 #include <cstdint>
 
+#include "absl/algorithm/container.h"
 #include "api/array_view.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
+
+namespace {
+
+uint32_t FindAssociatedSsrc(uint32_t ssrc,
+                            const std::vector<uint32_t>& ssrcs,
+                            const std::vector<uint32_t>& associated_ssrcs) {
+  RTC_DCHECK_EQ(ssrcs.size(), associated_ssrcs.size());
+  for (size_t i = 0; i < ssrcs.size(); ++i) {
+    if (ssrcs[i] == ssrc)
+      return associated_ssrcs[i];
+  }
+  RTC_NOTREACHED();
+  return 0;
+}
+
+}  // namespace
 
 std::string LntfConfig::ToString() const {
   return enabled ? "{enabled: true}" : "{enabled: false}";
@@ -124,4 +142,31 @@ std::string RtpConfig::Rtx::ToString() const {
   ss << '}';
   return ss.str();
 }
+
+bool RtpConfig::IsMediaSsrc(uint32_t ssrc) const {
+  return absl::c_linear_search(ssrcs, ssrc);
+}
+
+bool RtpConfig::IsRtxSsrc(uint32_t ssrc) const {
+  return absl::c_linear_search(rtx.ssrcs, ssrc);
+}
+
+absl::optional<uint32_t> RtpConfig::GetRtxSsrcAssociatedWithMediaSsrc(
+    uint32_t media_ssrc) const {
+  RTC_DCHECK(IsMediaSsrc(media_ssrc));
+  // If we don't use RTX there is no association.
+  if (rtx.ssrcs.empty())
+    return absl::nullopt;
+  // If we use RTX there MUST be an association ssrcs[i] <-> rtx.ssrcs[i].
+  RTC_DCHECK_EQ(ssrcs.size(), rtx.ssrcs.size());
+  return FindAssociatedSsrc(media_ssrc, ssrcs, rtx.ssrcs);
+}
+
+uint32_t RtpConfig::GetMediaSsrcAssociatedWithRtxSsrc(uint32_t rtx_ssrc) const {
+  RTC_DCHECK(IsRtxSsrc(rtx_ssrc));
+  // If we use RTX there MUST be an association ssrcs[i] <-> rtx.ssrcs[i].
+  RTC_DCHECK_EQ(ssrcs.size(), rtx.ssrcs.size());
+  return FindAssociatedSsrc(rtx_ssrc, rtx.ssrcs, ssrcs);
+}
+
 }  // namespace webrtc

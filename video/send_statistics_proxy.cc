@@ -16,7 +16,6 @@
 #include <limits>
 #include <utility>
 
-#include "absl/algorithm/container.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_codec_type.h"
 #include "api/video_codecs/video_codec.h"
@@ -206,10 +205,12 @@ void SendStatisticsProxy::UmaSamplesContainer::InitializeBitrateCounters(
     retransmit_byte_counter_.SetLast(
         it.second.rtp_stats.retransmitted.TotalBytes(), ssrc);
     fec_byte_counter_.SetLast(it.second.rtp_stats.fec.TotalBytes(), ssrc);
-    if (it.second.is_rtx) {
+    if (it.second.type == VideoSendStream::StreamStats::StreamType::kRtx) {
       rtx_byte_counter_.SetLast(it.second.rtp_stats.transmitted.TotalBytes(),
                                 ssrc);
     } else {
+      // This code path is triggered for kMedia, but it is also triggered for
+      // kFlexfec. Is this on purpose?
       media_byte_counter_.SetLast(it.second.rtp_stats.MediaPayloadBytes(),
                                   ssrc);
     }
@@ -761,17 +762,30 @@ VideoSendStream::StreamStats* SendStatisticsProxy::GetStatsEntry(
   if (it != stats_.substreams.end())
     return &it->second;
 
-  bool is_media = absl::c_linear_search(rtp_config_.ssrcs, ssrc);
+  bool is_media = rtp_config_.IsMediaSsrc(ssrc);
   bool is_flexfec = rtp_config_.flexfec.payload_type != -1 &&
                     ssrc == rtp_config_.flexfec.ssrc;
-  bool is_rtx = absl::c_linear_search(rtp_config_.rtx.ssrcs, ssrc);
+  bool is_rtx = rtp_config_.IsRtxSsrc(ssrc);
   if (!is_media && !is_flexfec && !is_rtx)
     return nullptr;
 
   // Insert new entry and return ptr.
   VideoSendStream::StreamStats* entry = &stats_.substreams[ssrc];
-  entry->is_rtx = is_rtx;
-  entry->is_flexfec = is_flexfec;
+  if (is_media) {
+    RTC_DCHECK(!is_flexfec && !is_rtx);
+    entry->type = VideoSendStream::StreamStats::StreamType::kMedia;
+    entry->associated_ssrc =
+        rtp_config_.GetRtxSsrcAssociatedWithMediaSsrc(ssrc);
+  } else if (is_rtx) {
+    RTC_DCHECK(!is_flexfec);
+    entry->type = VideoSendStream::StreamStats::StreamType::kRtx;
+    entry->associated_ssrc =
+        rtp_config_.GetMediaSsrcAssociatedWithRtxSsrc(ssrc);
+  } else {
+    RTC_DCHECK(is_flexfec);
+    entry->type = VideoSendStream::StreamStats::StreamType::kFlexfec;
+    entry->associated_ssrc = absl::nullopt;
+  }
 
   return entry;
 }
@@ -1252,7 +1266,7 @@ void SendStatisticsProxy::DataCountersUpdated(
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
   RTC_DCHECK(stats) << "DataCountersUpdated reported for unknown ssrc " << ssrc;
 
-  if (stats->is_flexfec) {
+  if (stats->type == VideoSendStream::StreamStats::StreamType::kFlexfec) {
     // The same counters are reported for both the media ssrc and flexfec ssrc.
     // Bitrate stats are summed for all SSRCs. Use fec stats from media update.
     return;
@@ -1273,10 +1287,12 @@ void SendStatisticsProxy::DataCountersUpdated(
   uma_container_->retransmit_byte_counter_.Set(
       counters.retransmitted.TotalBytes(), ssrc);
   uma_container_->fec_byte_counter_.Set(counters.fec.TotalBytes(), ssrc);
-  if (stats->is_rtx) {
+  if (stats->type == VideoSendStream::StreamStats::StreamType::kRtx) {
     uma_container_->rtx_byte_counter_.Set(counters.transmitted.TotalBytes(),
                                           ssrc);
   } else {
+    // This code path is triggered for kMedia, but it is also triggered for
+    // kFlexfec. Is this on purpose?
     uma_container_->media_byte_counter_.Set(counters.MediaPayloadBytes(), ssrc);
   }
 }

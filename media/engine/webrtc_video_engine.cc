@@ -2431,7 +2431,8 @@ VideoSenderInfo WebRtcVideoChannel::WebRtcVideoSendStream::GetVideoSenderInfo(
         stream_stats.rtp_stats.transmitted.padding_bytes;
     info.packets_sent += stream_stats.rtp_stats.transmitted.packets;
     info.total_packet_send_delay_ms += stream_stats.total_packet_send_delay_ms;
-    if (!stream_stats.is_flexfec) {
+    if (stream_stats.type !=
+        webrtc::VideoSendStream::StreamStats::StreamType::kFlexfec) {
       // Retransmissions can happen over the same SSRC that media is sent over,
       // or a separate RTX stream is negotiated per SSRC, in which case there
       // will be a |stream_stats| with "is_rtx == true". Since we are currently
@@ -2454,8 +2455,9 @@ VideoSenderInfo WebRtcVideoChannel::WebRtcVideoSendStream::GetVideoSenderInfo(
     info.firs_rcvd += stream_stats.rtcp_packet_type_counts.fir_packets;
     info.nacks_rcvd += stream_stats.rtcp_packet_type_counts.nack_packets;
     info.plis_rcvd += stream_stats.rtcp_packet_type_counts.pli_packets;
-    if (stream_stats.report_block_data.has_value() && !stream_stats.is_rtx &&
-        !stream_stats.is_flexfec) {
+    if (stream_stats.report_block_data.has_value() &&
+        stream_stats.type ==
+            webrtc::VideoSendStream::StreamStats::StreamType::kMedia) {
       info.report_block_datas.push_back(stream_stats.report_block_data.value());
     }
   }

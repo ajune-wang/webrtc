@@ -41,14 +41,23 @@ class FrameEncryptorInterface;
 class VideoSendStream {
  public:
   struct StreamStats {
+    enum class StreamType {
+      kMedia,
+      kRtx,
+      kFlexfec,
+    };
+
     StreamStats();
     ~StreamStats();
 
     std::string ToString() const;
 
+    StreamType type = StreamType::kMedia;
+    // If |type| is kMedia and RTX is used, |associated_ssrc| is the SSRC of the
+    // associated RTX stream.
+    // If |type| is kRtx, |associated_ssrc| is the associated RTP media stream.
+    absl::optional<uint32_t> associated_ssrc;
     FrameCounts frame_counts;
-    bool is_rtx = false;
-    bool is_flexfec = false;
     int width = 0;
     int height = 0;
     // TODO(holmer): Move bitrate_bps out to the webrtc::Call layer.

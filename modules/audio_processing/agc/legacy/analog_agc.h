@@ -16,6 +16,8 @@
 #include "modules/audio_processing/agc/legacy/digital_agc.h"
 #include "modules/audio_processing/agc/legacy/gain_control.h"
 
+namespace webrtc {
+
 /* Analog Automatic Gain Control variables:
  * Constant declarations (inner limits inside which no changes are done)
  * In the beginning the range is narrower to widen as soon as the measure
@@ -28,7 +30,7 @@
  * of our measure Rxx160_LP. Remember that the levels are in blocks of 16 in
  * Q(-7). (Example matlab code: round(db2pow(-21.2)*16/2^7) )
  */
-#define RXX_BUFFER_LEN 10
+constexpr int16_t kRxxBufferLen = 10;
 
 static const int16_t kMsecSpeechInner = 520;
 static const int16_t kMsecSpeechOuter = 340;
@@ -54,13 +56,13 @@ typedef struct {
 
   // Target level parameters
   // Based on the above: analogTargetLevel = round((32767*10^(-22/20))^2*16/2^7)
-  int32_t analogTargetLevel;    // = RXX_BUFFER_LEN * 846805;       -22 dBfs
-  int32_t startUpperLimit;      // = RXX_BUFFER_LEN * 1066064;      -21 dBfs
-  int32_t startLowerLimit;      // = RXX_BUFFER_LEN * 672641;       -23 dBfs
-  int32_t upperPrimaryLimit;    // = RXX_BUFFER_LEN * 1342095;      -20 dBfs
-  int32_t lowerPrimaryLimit;    // = RXX_BUFFER_LEN * 534298;       -24 dBfs
-  int32_t upperSecondaryLimit;  // = RXX_BUFFER_LEN * 2677832;      -17 dBfs
-  int32_t lowerSecondaryLimit;  // = RXX_BUFFER_LEN * 267783;       -27 dBfs
+  int32_t analogTargetLevel;    // = kRxxBufferLen * 846805;       -22 dBfs
+  int32_t startUpperLimit;      // = kRxxBufferLen * 1066064;      -21 dBfs
+  int32_t startLowerLimit;      // = kRxxBufferLen * 672641;       -23 dBfs
+  int32_t upperPrimaryLimit;    // = kRxxBufferLen * 1342095;      -20 dBfs
+  int32_t lowerPrimaryLimit;    // = kRxxBufferLen * 534298;       -24 dBfs
+  int32_t upperSecondaryLimit;  // = kRxxBufferLen * 2677832;      -17 dBfs
+  int32_t lowerSecondaryLimit;  // = kRxxBufferLen * 267783;       -27 dBfs
   uint16_t targetIdx;           // Table index for corresponding target level
 #ifdef MIC_LEVEL_FEEDBACK
   uint16_t targetIdxOffset;  // Table index offset for level compensation
@@ -75,7 +77,7 @@ typedef struct {
   int32_t Rxx16_LPw32;     // Low pass filtered subframe energies
   int32_t Rxx160_LPw32;    // Low pass filtered frame energies
   int32_t Rxx16_LPw32Max;  // Keeps track of largest energy subframe
-  int32_t Rxx16_vectorw32[RXX_BUFFER_LEN];  // Array with subframe energies
+  int32_t Rxx16_vectorw32[kRxxBufferLen];  // Array with subframe energies
   int32_t Rxx16w32_array[2][5];  // Energy values of microphone signal
   int32_t env[2][10];            // Envelope values of subframes
 
@@ -118,5 +120,7 @@ typedef struct {
 
   int16_t lowLevelSignal;
 } LegacyAgc;
+
+}  // namespace webrtc
 
 #endif  // MODULES_AUDIO_PROCESSING_AGC_LEGACY_ANALOG_AGC_H_

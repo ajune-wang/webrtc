@@ -20,6 +20,7 @@ TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
   cfg.delay.down_sampling_factor = 1u;
   cfg.delay.log_warning_on_delay_changes = true;
   cfg.filter.shadow_initial.length_blocks = 7u;
+  cfg.filter.coarse_initial.length_blocks = 7u;
   cfg.suppressor.normal_tuning.mask_hf.enr_suppress = .5f;
   cfg.suppressor.subband_nearend_detection.nearend_average_blocks = 3;
   cfg.suppressor.subband_nearend_detection.subband1 = {1, 3};
@@ -46,8 +47,8 @@ TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
             cfg_transformed.delay.down_sampling_factor);
   EXPECT_EQ(cfg.delay.log_warning_on_delay_changes,
             cfg_transformed.delay.log_warning_on_delay_changes);
-  EXPECT_EQ(cfg.filter.shadow_initial.length_blocks,
-            cfg_transformed.filter.shadow_initial.length_blocks);
+  EXPECT_EQ(cfg.filter.coarse_initial.length_blocks,
+            cfg_transformed.filter.coarse_initial.length_blocks);
   EXPECT_EQ(cfg.suppressor.normal_tuning.mask_hf.enr_suppress,
             cfg_transformed.suppressor.normal_tuning.mask_hf.enr_suppress);
   EXPECT_EQ(cfg.suppressor.subband_nearend_detection.nearend_average_blocks,

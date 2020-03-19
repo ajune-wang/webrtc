@@ -22,6 +22,30 @@
       "revId": "6cbd701a8562267d2b966acd00e4cc40a3ab68c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365ad0eb_b6b959f1",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-19T11:35:33Z",
+      "side": 1,
+      "message": "I\u0027m not sure. Looking at it now, I think that initializing them to 1 is the sensible thing to do (since the rest of the code anyway does not check for -1 to ensure that explicit initialization is done).\n\nI changed them to 1 instead!\n\nGood find!",
+      "parentUuid": "d73625a5_ae13a783",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 37
+      },
+      "revId": "6cbd701a8562267d2b966acd00e4cc40a3ab68c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

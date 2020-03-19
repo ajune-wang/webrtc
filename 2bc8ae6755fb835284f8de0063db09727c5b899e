@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e0581df7_8be819eb",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "915cf485_e8221c60",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ff61810_1b17b8df",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 17
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-19T09:54:55Z",
       "side": 1,
       "message": "Don\u0027t just log what you are doing, log what happened. \"Network information changed\" should be good enough.",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70ad2c0a_519140b5",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "that part is logged outside of the if, i.e what happened.\nwdyt ?",
+      "parentUuid": "3ff61810_1b17b8df",
       "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7d04885f_73669822",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb398c11_8f61497e",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7577debb_a8cb2e06",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 17
@@ -67,6 +121,24 @@
       "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e37f38a6_424e9a30",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7577debb_a8cb2e06",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "bd7fdb56_f42af4b3",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d070cc6_088f2daa",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9e16db5_7d780e89",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 17
@@ -101,6 +191,24 @@
       "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "670beae3_6994c6c8",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9e16db5_7d780e89",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "833cb4a2_321411de",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "That was actually my intent...thinking that compile error is better than randomly\ncensored log-messages...\nDone",
+      "parentUuid": "fd2ce01a_9ce3df8a",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aec2f32_d6f4734b",
         "filename": "rtc_base/network_route.h",
         "patchSetId": 17
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "83365800_9f0dcf2d",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "After struggling some back and forth, I made it into a class instead.\nDone",
+      "parentUuid": "5aec2f32_d6f4734b",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b22a524b_278664e0",
         "filename": "rtc_base/network_route.h",
         "patchSetId": 17
@@ -152,6 +296,24 @@
       "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d48d724_7dffc795",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T14:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b22a524b_278664e0",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

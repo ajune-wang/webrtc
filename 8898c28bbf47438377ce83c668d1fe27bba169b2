@@ -22,6 +22,29 @@
       "revId": "8898c28bbf47438377ce83c668d1fe27bba169b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d154cf5f_82ccbd97",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2020-03-19T18:16:51Z",
+      "side": 1,
+      "message": "Also set AV1E_SET_AQ_MODE to 3",
+      "range": {
+        "startLine": 183,
+        "startChar": 33,
+        "endLine": 183,
+        "endChar": 49
+      },
+      "revId": "8898c28bbf47438377ce83c668d1fe27bba169b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

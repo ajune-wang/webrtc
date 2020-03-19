@@ -70,6 +70,30 @@
       "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b441616c_e69c28ae",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-19T18:25:15Z",
+      "side": 1,
+      "message": "1) it is used twice in more recent versions of patch\n2) the first version of the #ifdef removed the method competly RTC_DISABLE_LOGGING\nthat is guaranteed to not add to binary size. but subsequent review suggested i rather return\nempty string.\n3) as a perspective on size: an earlier (bigger version) of  patch added 601 bytes (code and everything) to android duo (https://screenshot.googleplex.com/b6Ghxsc4aQy)\n\nhow do you want me to proceed to get this in ?",
+      "parentUuid": "33b26ff5_27f27fa7",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

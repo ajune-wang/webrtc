@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "1b8c4c86_1700468c",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-19T23:59:48Z",
+      "side": 1,
+      "message": "A copy, but with a prflx address/priority.",
+      "parentUuid": "d283336e_31f43535",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30cd027b_e8d6009a",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 3
@@ -50,6 +68,24 @@
       "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8bb7fd5_815c5a55",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-19T23:59:48Z",
+      "side": 1,
+      "message": "Adding the candidate to the Port, while changing the candidate of the Connection.",
+      "parentUuid": "30cd027b_e8d6009a",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -100,6 +136,24 @@
       "side": 1,
       "message": "Where you going to fix the latter in a follow up CL?",
       "parentUuid": "bcb4394f_5a3b6d3a",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50223ece_ba39feb2",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1822,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-19T23:59:48Z",
+      "side": 1,
+      "message": "If you do, this is where you need to look: https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/p2p_transport_channel.cc?type\u003dcs\u0026q\u003dp2p_transport_channel\u0026g\u003d0\u0026l\u003d970\n\nBut then you need to fix this too: https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/tcp_port.cc?q\u003dtcp_port\u0026dr\u003dC\u0026l\u003d125\n\nIt should be possible to pair a server TCP port to such an active candidate if it\u0027s in the incoming_ list.",
+      "parentUuid": "1cd6320b_5d17cc0b",
       "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

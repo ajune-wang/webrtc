@@ -117,6 +117,30 @@
       "revId": "8ac017e109d2582078eea16186f815b347a88a9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97bd54ef_3c640ad2",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-19T12:57:52Z",
+      "side": 1,
+      "message": "I do not see how api can be noticeably improved.\nArrayView can\u0027t be created until vector is fully assembled (since pushing into vector may reallocate making earlier array_view pointing to wrong data).\nusing anything more stable (e.g. indexes) seems less nice than using reliable bof and eof flags.\n\nI\u0027ll proceed with current solution for now.",
+      "parentUuid": "0d9d5ec7_8d647568",
+      "range": {
+        "startLine": 122,
+        "startChar": 2,
+        "endLine": 122,
+        "endChar": 38
+      },
+      "revId": "8ac017e109d2582078eea16186f815b347a88a9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

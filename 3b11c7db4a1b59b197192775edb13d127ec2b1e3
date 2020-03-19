@@ -22,6 +22,30 @@
       "revId": "3b11c7db4a1b59b197192775edb13d127ec2b1e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "713179be_1161c3e2",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-19T12:57:52Z",
+      "side": 1,
+      "message": "prefer 2nd option: if (frame_boundary) check in the beginning of the loop and in the end of the loop have different meanings, so prefer to spell them differently.",
+      "parentUuid": "528e622d_6cfbbb66",
+      "range": {
+        "startLine": 724,
+        "startChar": 8,
+        "endLine": 724,
+        "endChar": 42
+      },
+      "revId": "3b11c7db4a1b59b197192775edb13d127ec2b1e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

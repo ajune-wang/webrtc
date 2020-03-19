@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC3_MAIN_FILTER_UPDATE_GAIN_H_
-#define MODULES_AUDIO_PROCESSING_AEC3_MAIN_FILTER_UPDATE_GAIN_H_
+#ifndef MODULES_AUDIO_PROCESSING_AEC3_REFINED_FILTER_UPDATE_GAIN_H_
+#define MODULES_AUDIO_PROCESSING_AEC3_REFINED_FILTER_UPDATE_GAIN_H_
 
 #include <stddef.h>
 
@@ -29,16 +29,17 @@ struct FftData;
 class RenderSignalAnalyzer;
 struct SubtractorOutput;
 
-// Provides functionality for  computing the adaptive gain for the main filter.
-class MainFilterUpdateGain {
+// Provides functionality for  computing the adaptive gain for the refined
+// filter.
+class RefinedFilterUpdateGain {
  public:
-  MainFilterUpdateGain(
+  RefinedFilterUpdateGain(
       const EchoCanceller3Config::Filter::MainConfiguration& config,
       size_t config_change_duration_blocks);
-  ~MainFilterUpdateGain();
+  ~RefinedFilterUpdateGain();
 
-  MainFilterUpdateGain(const MainFilterUpdateGain&) = delete;
-  MainFilterUpdateGain& operator=(const MainFilterUpdateGain&) = delete;
+  RefinedFilterUpdateGain(const RefinedFilterUpdateGain&) = delete;
+  RefinedFilterUpdateGain& operator=(const RefinedFilterUpdateGain&) = delete;
 
   // Takes action in the case of a known echo path change.
   void HandleEchoPathChange(const EchoPathVariability& echo_path_variability);
@@ -84,4 +85,4 @@ class MainFilterUpdateGain {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AEC3_MAIN_FILTER_UPDATE_GAIN_H_
+#endif  // MODULES_AUDIO_PROCESSING_AEC3_REFINED_FILTER_UPDATE_GAIN_H_

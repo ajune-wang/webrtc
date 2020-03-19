@@ -32,6 +32,10 @@ TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
   // Expect unchanged values to remain default.
   EXPECT_EQ(cfg.filter.main.error_floor,
             cfg_transformed.filter.main.error_floor);
+  EXPECT_EQ(cfg.filter.refined.error_floor,
+            cfg_transformed.filter.refined.error_floor);
+  EXPECT_EQ(cfg.filter.refined.error_floor,
+            cfg_transformed.filter.refined.error_floor);
   EXPECT_EQ(cfg.ep_strength.default_len,
             cfg_transformed.ep_strength.default_len);
   EXPECT_EQ(cfg.suppressor.normal_tuning.mask_lf.enr_suppress,

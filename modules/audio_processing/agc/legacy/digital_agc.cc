@@ -59,8 +59,7 @@ int32_t WebRtcAgc_CalculateGainTable(int32_t* gainTable,       // Q16
                                      int16_t digCompGaindB,    // Q0
                                      int16_t targetLevelDbfs,  // Q0
                                      uint8_t limiterEnable,
-                                     int16_t analogTarget)  // Q0
-{
+                                     int16_t analogTarget) {  // Q0
   // This function generates the compressor gain table used in the fixed digital
   // part.
   uint32_t tmpU32no1, tmpU32no2, absInLevel, logApprox;
@@ -186,8 +185,7 @@ int32_t WebRtcAgc_CalculateGainTable(int32_t* gainTable,       // Q16
     // Calculate ratio
     // Shift |numFIX| as much as possible.
     // Ensure we avoid wrap-around in |den| as well.
-    if (numFIX > (den >> 8) || -numFIX > (den >> 8))  // |den| is Q8.
-    {
+    if (numFIX > (den >> 8) || -numFIX > (den >> 8)) {  // |den| is Q8.
       zeros = WebRtcSpl_NormW32(numFIX);
     } else {
       zeros = WebRtcSpl_NormW32(den) + 8;
@@ -531,11 +529,9 @@ int32_t WebRtcAgc_ApplyDigitalGains(const int32_t gains[11], size_t num_bands,
         tmp64 = tmp64 >> 16;
         if (tmp64 > 32767) {
           out[i][k * L + n] = 32767;
-        }
-        else if (tmp64 < -32768) {
+        } else if (tmp64 < -32768) {
           out[i][k * L + n] = -32768;
-        }
-        else {
+        } else {
           out[i][k * L + n] = (int16_t)(tmp64);
         }
       }
@@ -572,10 +568,9 @@ void WebRtcAgc_InitVad(AgcVad* state) {
   }
 }
 
-int16_t WebRtcAgc_ProcessVad(AgcVad* state,      // (i) VAD state
-                             const int16_t* in,  // (i) Speech signal
-                             size_t nrSamples)   // (i) number of samples
-{
+int16_t WebRtcAgc_ProcessVad(AgcVad* state,       // (i) VAD state
+                             const int16_t* in,   // (i) Speech signal
+                             size_t nrSamples) {  // (i) number of samples
   uint32_t nrg;
   int32_t out, tmp32, tmp32b;
   uint16_t tmpU16;

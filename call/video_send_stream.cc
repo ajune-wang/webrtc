@@ -20,6 +20,7 @@ namespace webrtc {
 VideoSendStream::StreamStats::StreamStats() = default;
 VideoSendStream::StreamStats::~StreamStats() = default;
 
+// TODO(hbos): Update ToString().
 std::string VideoSendStream::StreamStats::ToString() const {
   char buf[1024];
   rtc::SimpleStringBuilder ss(buf);
@@ -64,7 +65,8 @@ std::string VideoSendStream::Stats::ToString(int64_t time_ms) const {
   ss << "#quality_adaptations: " << number_of_quality_adapt_changes;
   ss << '}';
   for (const auto& substream : substreams) {
-    if (!substream.second.is_rtx && !substream.second.is_flexfec) {
+    if (substream.second.type ==
+        VideoSendStream::StreamStats::StreamType::kMedia) {
       ss << " {ssrc: " << substream.first << ", ";
       ss << substream.second.ToString();
       ss << '}';

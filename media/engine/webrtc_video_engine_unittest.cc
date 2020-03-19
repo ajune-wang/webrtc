@@ -5272,9 +5272,12 @@ TEST_F(WebRtcVideoChannelTest, GetStatsReportsAdaptationAndBandwidthStats) {
 TEST_F(WebRtcVideoChannelTest,
        GetStatsReportsTransmittedAndRetransmittedBytesAndPacketsCorrectly) {
   FakeVideoSendStream* stream = AddSendStream();
+  // TODO(hbos): Fix stream association.
+  // TODO(hbos): Add a flexfec stream...
   webrtc::VideoSendStream::Stats stats;
   // Simulcast layer 1, RTP stream. header+padding=10, payload=20, packets=3.
-  stats.substreams[101].is_rtx = false;
+  stats.substreams[101].type =
+      webrtc::VideoSendStream::StreamStats::StreamType::kMedia;
   stats.substreams[101].rtp_stats.transmitted.header_bytes = 5;
   stats.substreams[101].rtp_stats.transmitted.padding_bytes = 5;
   stats.substreams[101].rtp_stats.transmitted.payload_bytes = 20;
@@ -5283,16 +5286,20 @@ TEST_F(WebRtcVideoChannelTest,
   stats.substreams[101].rtp_stats.retransmitted.padding_bytes = 0;
   stats.substreams[101].rtp_stats.retransmitted.payload_bytes = 0;
   stats.substreams[101].rtp_stats.retransmitted.packets = 0;
+  stats.substreams[101].referenced_media_ssrc = absl::nullopt;
   // Simulcast layer 1, RTX stream. header+padding=5, payload=10, packets=1.
-  stats.substreams[102].is_rtx = true;
+  stats.substreams[102].type =
+      webrtc::VideoSendStream::StreamStats::StreamType::kRtx;
   stats.substreams[102].rtp_stats.retransmitted.header_bytes = 3;
   stats.substreams[102].rtp_stats.retransmitted.padding_bytes = 2;
   stats.substreams[102].rtp_stats.retransmitted.payload_bytes = 10;
   stats.substreams[102].rtp_stats.retransmitted.packets = 1;
   stats.substreams[102].rtp_stats.transmitted =
       stats.substreams[102].rtp_stats.retransmitted;
+  stats.substreams[102].referenced_media_ssrc = 101;
   // Simulcast layer 2, RTP stream. header+padding=20, payload=40, packets=7.
-  stats.substreams[201].is_rtx = false;
+  stats.substreams[201].type =
+      webrtc::VideoSendStream::StreamStats::StreamType::kMedia;
   stats.substreams[201].rtp_stats.transmitted.header_bytes = 10;
   stats.substreams[201].rtp_stats.transmitted.padding_bytes = 10;
   stats.substreams[201].rtp_stats.transmitted.payload_bytes = 40;
@@ -5301,14 +5308,30 @@ TEST_F(WebRtcVideoChannelTest,
   stats.substreams[201].rtp_stats.retransmitted.padding_bytes = 0;
   stats.substreams[201].rtp_stats.retransmitted.payload_bytes = 0;
   stats.substreams[201].rtp_stats.retransmitted.packets = 0;
+  stats.substreams[201].referenced_media_ssrc = absl::nullopt;
   // Simulcast layer 2, RTX stream. header+padding=10, payload=20, packets=4.
-  stats.substreams[202].is_rtx = true;
+  stats.substreams[202].type =
+      webrtc::VideoSendStream::StreamStats::StreamType::kRtx;
   stats.substreams[202].rtp_stats.retransmitted.header_bytes = 6;
   stats.substreams[202].rtp_stats.retransmitted.padding_bytes = 4;
   stats.substreams[202].rtp_stats.retransmitted.payload_bytes = 20;
   stats.substreams[202].rtp_stats.retransmitted.packets = 4;
   stats.substreams[202].rtp_stats.transmitted =
       stats.substreams[202].rtp_stats.retransmitted;
+  stats.substreams[202].referenced_media_ssrc = 201;
+  // FlexFEC stream associated with the Simulcast layer 2.
+  // header+padding=15, payload=17, packets=5.
+  stats.substreams[301].type =
+      webrtc::VideoSendStream::StreamStats::StreamType::kFlexfec;
+  stats.substreams[301].rtp_stats.transmitted.header_bytes = 13;
+  stats.substreams[301].rtp_stats.transmitted.padding_bytes = 2;
+  stats.substreams[301].rtp_stats.transmitted.payload_bytes = 17;
+  stats.substreams[301].rtp_stats.transmitted.packets = 5;
+  stats.substreams[301].rtp_stats.retransmitted.header_bytes = 0;
+  stats.substreams[301].rtp_stats.retransmitted.padding_bytes = 0;
+  stats.substreams[301].rtp_stats.retransmitted.payload_bytes = 0;
+  stats.substreams[301].rtp_stats.retransmitted.packets = 0;
+  stats.substreams[301].referenced_media_ssrc = 201;
   stream->SetStats(stats);
 
   cricket::VideoMediaInfo info;
@@ -5321,9 +5344,9 @@ TEST_F(WebRtcVideoChannelTest,
   // to be set up correctly, it may need to be updated such that the
   // relationship between RTP and RTX streams are known. See also
   // https://crbug.com/webrtc/11439.
-  EXPECT_EQ(45u, info.senders[0].header_and_padding_bytes_sent);
-  EXPECT_EQ(90u, info.senders[0].payload_bytes_sent);
-  EXPECT_EQ(15, info.senders[0].packets_sent);
+  EXPECT_EQ(60u, info.senders[0].header_and_padding_bytes_sent);
+  EXPECT_EQ(107u, info.senders[0].payload_bytes_sent);
+  EXPECT_EQ(20, info.senders[0].packets_sent);
   EXPECT_EQ(30u, info.senders[0].retransmitted_bytes_sent);
   EXPECT_EQ(5u, info.senders[0].retransmitted_packets_sent);
 }

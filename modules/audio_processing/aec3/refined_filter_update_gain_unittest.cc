@@ -52,13 +52,13 @@ void RunFilterUpdateTest(int num_blocks_to_process,
 
   EchoCanceller3Config config;
   config.filter.refined.length_blocks = filter_length_blocks;
-  config.filter.shadow.length_blocks = filter_length_blocks;
+  config.filter.coarse.length_blocks = filter_length_blocks;
   AdaptiveFirFilter refined_filter(
       config.filter.refined.length_blocks, config.filter.refined.length_blocks,
       config.filter.config_change_duration_blocks, kNumRenderChannels,
       optimization, &data_dumper);
-  AdaptiveFirFilter shadow_filter(
-      config.filter.shadow.length_blocks, config.filter.shadow.length_blocks,
+  AdaptiveFirFilter coarse_filter(
+      config.filter.coarse.length_blocks, config.filter.coarse.length_blocks,
       config.filter.config_change_duration_blocks, kNumRenderChannels,
       optimization, &data_dumper);
   std::vector<std::vector<std::array<float, kFftLengthBy2Plus1>>> H2(
@@ -79,8 +79,8 @@ void RunFilterUpdateTest(int num_blocks_to_process,
   Aec3Fft fft;
   std::array<float, kBlockSize> x_old;
   x_old.fill(0.f);
-  ShadowFilterUpdateGain shadow_gain(
-      config.filter.shadow, config.filter.config_change_duration_blocks);
+  CoarseFilterUpdateGain coarse_gain(
+      config.filter.coarse, config.filter.config_change_duration_blocks);
   RefinedFilterUpdateGain refined_gain(
       config.filter.refined, config.filter.config_change_duration_blocks);
   Random random_generator(42U);
@@ -103,12 +103,12 @@ void RunFilterUpdateTest(int num_blocks_to_process,
     subtractor_output.Reset();
   }
   FftData& E_refined = output[0].E_refined;
-  FftData E_shadow;
+  FftData E_coarse;
   std::vector<std::array<float, kFftLengthBy2Plus1>> Y2(kNumCaptureChannels);
   std::vector<std::array<float, kFftLengthBy2Plus1>> E2_refined(
       kNumCaptureChannels);
   std::array<float, kBlockSize>& e_refined = output[0].e_refined;
-  std::array<float, kBlockSize>& e_shadow = output[0].e_shadow;
+  std::array<float, kBlockSize>& e_coarse = output[0].e_coarse;
   for (auto& Y2_ch : Y2) {
     Y2_ch.fill(0.f);
   }
@@ -167,27 +167,27 @@ void RunFilterUpdateTest(int num_blocks_to_process,
       s[k] = kScale * s_scratch[k + kFftLengthBy2];
     }
 
-    // Apply the shadow filter.
-    shadow_filter.Filter(*render_delay_buffer->GetRenderBuffer(), &S);
+    // Apply the coarse filter.
+    coarse_filter.Filter(*render_delay_buffer->GetRenderBuffer(), &S);
     fft.Ifft(S, &s_scratch);
     std::transform(y.begin(), y.end(), s_scratch.begin() + kFftLengthBy2,
-                   e_shadow.begin(),
+                   e_coarse.begin(),
                    [&](float a, float b) { return a - b * kScale; });
-    std::for_each(e_shadow.begin(), e_shadow.end(),
+    std::for_each(e_coarse.begin(), e_coarse.end(),
                   [](float& a) { a = rtc::SafeClamp(a, -32768.f, 32767.f); });
-    fft.ZeroPaddedFft(e_shadow, Aec3Fft::Window::kRectangular, &E_shadow);
+    fft.ZeroPaddedFft(e_coarse, Aec3Fft::Window::kRectangular, &E_coarse);
 
     // Compute spectra for future use.
     E_refined.Spectrum(Aec3Optimization::kNone, output[0].E2_refined);
-    E_shadow.Spectrum(Aec3Optimization::kNone, output[0].E2_shadow);
+    E_coarse.Spectrum(Aec3Optimization::kNone, output[0].E2_coarse);
 
-    // Adapt the shadow filter.
+    // Adapt the coarse filter.
     std::array<float, kFftLengthBy2Plus1> render_power;
     render_delay_buffer->GetRenderBuffer()->SpectralSum(
-        shadow_filter.SizePartitions(), &render_power);
-    shadow_gain.Compute(render_power, render_signal_analyzer, E_shadow,
-                        shadow_filter.SizePartitions(), saturation, &G);
-    shadow_filter.Adapt(*render_delay_buffer->GetRenderBuffer(), G);
+        coarse_filter.SizePartitions(), &render_power);
+    coarse_gain.Compute(render_power, render_signal_analyzer, E_coarse,
+                        coarse_filter.SizePartitions(), saturation, &G);
+    coarse_filter.Adapt(*render_delay_buffer->GetRenderBuffer(), G);
 
     // Adapt the refined filter
     render_delay_buffer->GetRenderBuffer()->SpectralSum(

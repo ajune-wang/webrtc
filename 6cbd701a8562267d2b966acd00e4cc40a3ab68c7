@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d73625a5_ae13a783",
+        "filename": "modules/audio_processing/audio_processing_impl_locking_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-19T11:26:43Z",
+      "side": 1,
+      "message": "The channel counts are initialized with invalid values but the sample rates are valid. Is there a reason for this difference? Does it make sense to either initialize all of them to -1, or maybe to default the channel counts to 1?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 37
+      },
+      "revId": "6cbd701a8562267d2b966acd00e4cc40a3ab68c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

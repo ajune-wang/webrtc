@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b1d0244c_0dfcf427",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T21:35:02Z",
+      "side": 1,
+      "message": "The pattern of handing ownership over and then retaining a non-owning pointer is one I heartily dislike. The only excuse for keeping this here is to limit the size of the refactoring (a better pattern would be to make the stream adapter available via an accessor on SSLStreamAdapter.\n\nThanks for the suggested pattern!",
+      "parentUuid": "b704a673_9c5fdeb3",
+      "range": {
+        "startLine": 329,
+        "startChar": 2,
+        "endLine": 338,
+        "endChar": 23
+      },
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "337d74e8_10095978",
         "filename": "p2p/base/dtls_transport.cc",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2020-03-19T14:13:51Z",
       "side": 1,
       "message": "It\u0027s good that you now use WrapUnique here, because now this looks plainly dangerous. Does GetReference really return a raw pointer that owns what it points to? If so, please add a comment saying this.",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f980dfd_6b96ed7e",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T21:35:02Z",
+      "side": 1,
+      "message": "GetReference is awful. I\u0027m planning to add a Clone() method and RTC_DEPRECATE GetReference. The only reason it isn\u0027t part of this version is that I discovered it late in the day. Will fix!",
+      "parentUuid": "337d74e8_10095978",
       "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "40146e08_bb2e118c",
+        "filename": "rtc_base/ssl_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T21:35:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "715c62cf_58d4e57c",
+      "range": {
+        "startLine": 258,
+        "startChar": 3,
+        "endLine": 260,
+        "endChar": 75
+      },
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06b8476f_ff822c9e",
         "filename": "rtc_base/ssl_adapter_unittest.cc",
         "patchSetId": 1
@@ -76,6 +142,24 @@
       "writtenOn": "2020-03-19T14:13:51Z",
       "side": 1,
       "message": "Again, this now looks dangerous. GetReference doesn\u0027t sound like it would return a new object...",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10d21812_71a42f2e",
+        "filename": "rtc_base/ssl_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T21:35:02Z",
+      "side": 1,
+      "message": "Replaced with Clone().",
+      "parentUuid": "06b8476f_ff822c9e",
       "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "bedba0c1_cdd923c2",
+        "filename": "rtc_base/ssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T21:35:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50a4ee96_e70a1a9d",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 97,
+        "endChar": 73
+      },
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4678a0b2_0d440448",
         "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
         "patchSetId": 1
@@ -116,6 +224,24 @@
       "writtenOn": "2020-03-19T14:13:51Z",
       "side": 1,
       "message": "This is troubling: before the SetUp() call, client_stream_ is an owning raw pointer, and after the call, it\u0027s a non-owning raw pointer. That is very hard to reason about.\n\nCan you null client_stream_ here, so that it\u0027s always an owning raw pointer?",
+      "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "420fd649_531b8bce",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T21:35:02Z",
+      "side": 1,
+      "message": "This was the pattern that got me started on this rampage :-)\nWill fix.",
+      "parentUuid": "4678a0b2_0d440448",
       "revId": "c8aaad6a642754e05262457f07a1bca34f96996f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "cfc97563_41215bf1",
+        "filename": "api/audio/echo_canceller3_config.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-19T11:58:35Z",
+      "side": 1,
+      "message": "Maybe add a brief comment to mention which version is legacy and which is modern.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 41
+      },
+      "revId": "c7998017d58bfdc582a7994bcc66fbe0dd393fda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a429d0c_5b1e2837",
         "filename": "api/audio/echo_canceller3_config_json.cc",
         "patchSetId": 10

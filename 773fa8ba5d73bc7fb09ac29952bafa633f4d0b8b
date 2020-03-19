@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "445a9917_6a587397",
+        "filename": "modules/audio_processing/include/audio_frame_proxies.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-19T11:10:28Z",
+      "side": 1,
+      "message": "Explicitly using AudioProcessingStats here does not make the code more convoluted, and for an unfamiliar reader it might help.\n\n\"Use type deduction only if it makes the code clearer to readers who aren\u0027t familiar with the project, or if it makes the code safer. Do not use it merely to avoid the inconvenience of writing an explicit type.\"\nhttps://google.github.io/styleguide/cppguide.html#Type_deduction",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 6
+      },
+      "revId": "773fa8ba5d73bc7fb09ac29952bafa633f4d0b8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

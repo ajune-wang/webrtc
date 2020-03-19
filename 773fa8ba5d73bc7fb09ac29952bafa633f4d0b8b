@@ -22,6 +22,30 @@
       "revId": "773fa8ba5d73bc7fb09ac29952bafa633f4d0b8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94932e95_596034a2",
+        "filename": "modules/audio_processing/include/audio_frame_proxies.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-19T11:16:18Z",
+      "side": 1,
+      "message": "I fully agree.\nDone.",
+      "parentUuid": "445a9917_6a587397",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 6
+      },
+      "revId": "773fa8ba5d73bc7fb09ac29952bafa633f4d0b8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

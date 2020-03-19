@@ -23,6 +23,10 @@
 
 #include "rtc_base/checks.h"
 
+namespace webrtc {
+
+namespace {
+
 /* The slope of in Q13*/
 static const int16_t kSlope1[8] = {21793, 12517, 7189, 4129,
                                    2372,  1362,  472,  78};
@@ -125,6 +129,8 @@ static const int32_t kTargetLevelTable[64] = {
     337,       268,       213,      169,      134,      107,      85,
     67};
 
+}  // namespace
+
 int WebRtcAgc_AddMic(void* state,
                      int16_t* const* in_mic,
                      size_t num_bands,
@@ -135,7 +141,7 @@ int WebRtcAgc_AddMic(void* state,
   size_t i;
   int16_t n, L, tmp16, tmp_speech[16];
   LegacyAgc* stt;
-  stt = (LegacyAgc*)state;
+  stt = reinterpret_cast<LegacyAgc*>(state);
 
   if (stt->fs == 8000) {
     L = 8;
@@ -222,7 +228,7 @@ int WebRtcAgc_AddMic(void* state,
       WebRtcSpl_DownsampleBy2(&in_mic[0][i * 32], 32, tmp_speech,
                               stt->filterState);
     } else {
-      memcpy(tmp_speech, &in_mic[0][i * 16], 16 * sizeof(short));
+      memcpy(tmp_speech, &in_mic[0][i * 16], 16 * sizeof(int16_t));
     }
     /* Compute energy in blocks of 16 samples */
     ptr[i] = WebRtcSpl_DotProductWithScale(tmp_speech, tmp_speech, 16, 4);
@@ -242,7 +248,7 @@ int WebRtcAgc_AddMic(void* state,
 }
 
 int WebRtcAgc_AddFarend(void* state, const int16_t* in_far, size_t samples) {
-  LegacyAgc* stt = (LegacyAgc*)state;
+  LegacyAgc* stt = reinterpret_cast<LegacyAgc*>(state);
 
   int err = WebRtcAgc_GetAddFarendError(state, samples);
 
@@ -254,7 +260,7 @@ int WebRtcAgc_AddFarend(void* state, const int16_t* in_far, size_t samples) {
 
 int WebRtcAgc_GetAddFarendError(void* state, size_t samples) {
   LegacyAgc* stt;
-  stt = (LegacyAgc*)state;
+  stt = reinterpret_cast<LegacyAgc*>(state);
 
   if (stt == NULL)
     return -1;
@@ -291,7 +297,7 @@ int WebRtcAgc_VirtualMic(void* agcInst,
   const int16_t kZeroCrossingLowLim = 15;
   const int16_t kZeroCrossingHighLim = 20;
 
-  stt = (LegacyAgc*)agcInst;
+  stt = reinterpret_cast<LegacyAgc*>(agcInst);
 
   /*
    *  Before applying gain decide if this is a low-level signal.
@@ -507,7 +513,6 @@ void WebRtcAgc_ZeroCtrl(LegacyAgc* stt, int32_t* inMicLevel, int32_t* env) {
       stt->micVol = *inMicLevel;
     }
 
-
     stt->activeSpeech = 0;
     stt->Rxx16_LPw32Max = 0;
 
@@ -592,7 +597,7 @@ int32_t WebRtcAgc_ProcessAnalog(void* state,
   uint8_t saturated = 0;
   LegacyAgc* stt;
 
-  stt = (LegacyAgc*)state;
+  stt = reinterpret_cast<LegacyAgc*>(state);
   inMicLevelTmp = inMicLevel << stt->scale;
 
   if (inMicLevelTmp > stt->maxAnalog) {
@@ -675,7 +680,6 @@ int32_t WebRtcAgc_ProcessAnalog(void* state,
       stt->micVol = lastMicVol - 2;
     }
     inMicLevelTmp = stt->micVol;
-
 
     if (stt->micVol < stt->minOutput) {
       *saturationWarning = 1;
@@ -998,7 +1002,7 @@ int WebRtcAgc_Analyze(void* agcInst,
                       int16_t echo,
                       uint8_t* saturationWarning,
                       int32_t gains[11]) {
-  LegacyAgc* stt = (LegacyAgc*)agcInst;
+  LegacyAgc* stt = reinterpret_cast<LegacyAgc*>(agcInst);
 
   if (stt == NULL) {
     return -1;
@@ -1019,7 +1023,6 @@ int WebRtcAgc_Analyze(void* agcInst,
   *saturationWarning = 0;
   // TODO(minyue): PUT IN RANGE CHECKING FOR INPUT LEVELS
   *outMicLevel = inMicLevel;
-
 
   int32_t error =
       WebRtcAgc_ComputeDigitalGains(&stt->digitalAgc, in_near, num_bands,
@@ -1051,17 +1054,17 @@ int WebRtcAgc_Analyze(void* agcInst,
 }
 
 int WebRtcAgc_Process(const void* agcInst,
-                       const int32_t gains[11],
+                      const int32_t gains[11],
                       const int16_t* const* in_near,
                       size_t num_bands,
-                       int16_t* const* out) {
+                      int16_t* const* out) {
   const LegacyAgc* stt = (const LegacyAgc*)agcInst;
   return WebRtcAgc_ApplyDigitalGains(gains, num_bands, stt->fs, in_near, out);
 }
 
 int WebRtcAgc_set_config(void* agcInst, WebRtcAgcConfig agcConfig) {
   LegacyAgc* stt;
-  stt = (LegacyAgc*)agcInst;
+  stt = reinterpret_cast<LegacyAgc*>(agcInst);
 
   if (stt == NULL) {
     return -1;
@@ -1109,7 +1112,7 @@ int WebRtcAgc_set_config(void* agcInst, WebRtcAgcConfig agcConfig) {
 
 int WebRtcAgc_get_config(void* agcInst, WebRtcAgcConfig* config) {
   LegacyAgc* stt;
-  stt = (LegacyAgc*)agcInst;
+  stt = reinterpret_cast<LegacyAgc*>(agcInst);
 
   if (stt == NULL) {
     return -1;
@@ -1133,7 +1136,7 @@ int WebRtcAgc_get_config(void* agcInst, WebRtcAgcConfig* config) {
 }
 
 void* WebRtcAgc_Create() {
-  LegacyAgc* stt = malloc(sizeof(LegacyAgc));
+  LegacyAgc* stt = static_cast<LegacyAgc*>(malloc(sizeof(LegacyAgc)));
 
   stt->initFlag = 0;
   stt->lastError = 0;
@@ -1144,7 +1147,7 @@ void* WebRtcAgc_Create() {
 void WebRtcAgc_Free(void* state) {
   LegacyAgc* stt;
 
-  stt = (LegacyAgc*)state;
+  stt = reinterpret_cast<LegacyAgc*>(state);
   free(stt);
 }
 
@@ -1162,7 +1165,7 @@ int WebRtcAgc_Init(void* agcInst,
   LegacyAgc* stt;
 
   /* typecast state pointer */
-  stt = (LegacyAgc*)agcInst;
+  stt = reinterpret_cast<LegacyAgc*>(agcInst);
 
   if (WebRtcAgc_InitDigital(&stt->digitalAgc, agcMode) != 0) {
     stt->lastError = AGC_UNINITIALIZED_ERROR;
@@ -1172,13 +1175,13 @@ int WebRtcAgc_Init(void* agcInst,
   /* Analog AGC variables */
   stt->envSum = 0;
 
-/* mode     = 0 - Only saturation protection
- *            1 - Analog Automatic Gain Control [-targetLevelDbfs (default -3
- * dBOv)]
- *            2 - Digital Automatic Gain Control [-targetLevelDbfs (default -3
- * dBOv)]
- *            3 - Fixed Digital Gain [compressionGaindB (default 8 dB)]
- */
+  /* mode     = 0 - Only saturation protection
+   *            1 - Analog Automatic Gain Control [-targetLevelDbfs (default -3
+   * dBOv)]
+   *            2 - Digital Automatic Gain Control [-targetLevelDbfs (default -3
+   * dBOv)]
+   *            3 - Fixed Digital Gain [compressionGaindB (default 8 dB)]
+   */
   if (agcMode < kAgcModeUnchanged || agcMode > kAgcModeFixedDigital) {
     return -1;
   }
@@ -1301,3 +1304,5 @@ int WebRtcAgc_Init(void* agcInst,
     return 0;
   }
 }
+
+}  // namespace webrtc

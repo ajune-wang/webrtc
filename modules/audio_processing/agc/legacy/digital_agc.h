@@ -13,6 +13,8 @@
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 
+namespace webrtc {
+
 // the 32 most significant bits of A(19) * B(26) >> 13
 #define AGC_MUL32(A, B) (((B) >> 13) * (A) + (((0x00001FFF & (B)) * (A)) >> 13))
 // C + the 32 most significant bits of A * B
@@ -73,5 +75,7 @@ int32_t WebRtcAgc_CalculateGainTable(int32_t* gainTable,         // Q16
                                      int16_t targetLevelDbfs,    // Q0 (in dB)
                                      uint8_t limiterEnable,
                                      int16_t analogTarget);
+
+}  // namespace webrtc
 
 #endif  // MODULES_AUDIO_PROCESSING_AGC_LEGACY_DIGITAL_AGC_H_

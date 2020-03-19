@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ec9d378_98720dc4",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2020-03-19T17:46:10Z",
+      "side": 1,
+      "message": "It\u0027s better to set other control explicitly:\n\nset AV1E_SET_ENABLE_TPL_MODEL to 0\nset AV1E_SET_DELTAQ_MODE to 0",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 183,
+        "endChar": 25
+      },
+      "revId": "8898c28bbf47438377ce83c668d1fe27bba169b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

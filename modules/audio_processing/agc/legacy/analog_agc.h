@@ -16,6 +16,8 @@
 #include "modules/audio_processing/agc/legacy/digital_agc.h"
 #include "modules/audio_processing/agc/legacy/gain_control.h"
 
+namespace webrtc {
+
 /* Analog Automatic Gain Control variables:
  * Constant declarations (inner limits inside which no changes are done)
  * In the beginning the range is narrower to widen as soon as the measure
@@ -118,5 +120,7 @@ typedef struct {
 
   int16_t lowLevelSignal;
 } LegacyAgc;
+
+}  // namespace webrtc
 
 #endif  // MODULES_AUDIO_PROCESSING_AGC_LEGACY_ANALOG_AGC_H_

@@ -11,6 +11,8 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC_LEGACY_GAIN_CONTROL_H_
 #define MODULES_AUDIO_PROCESSING_AGC_LEGACY_GAIN_CONTROL_H_
 
+namespace webrtc {
+
 // Errors
 #define AGC_UNSPECIFIED_ERROR 18000
 #define AGC_UNSUPPORTED_FUNCTION_ERROR 18001
@@ -263,5 +265,7 @@ int WebRtcAgc_Init(void* agcInst,
 #if defined(__cplusplus)
 }
 #endif
+
+}  // namespace webrtc
 
 #endif  // MODULES_AUDIO_PROCESSING_AGC_LEGACY_GAIN_CONTROL_H_

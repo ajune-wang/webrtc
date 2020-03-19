@@ -29,16 +29,17 @@ struct FftData;
 class RenderSignalAnalyzer;
 struct SubtractorOutput;
 
-// Provides functionality for  computing the adaptive gain for the main filter.
-class MainFilterUpdateGain {
+// Provides functionality for  computing the adaptive gain for the refined
+// filter.
+class RefinedFilterUpdateGain {
  public:
-  MainFilterUpdateGain(
+  RefinedFilterUpdateGain(
       const EchoCanceller3Config::Filter::MainConfiguration& config,
       size_t config_change_duration_blocks);
-  ~MainFilterUpdateGain();
+  ~RefinedFilterUpdateGain();
 
-  MainFilterUpdateGain(const MainFilterUpdateGain&) = delete;
-  MainFilterUpdateGain& operator=(const MainFilterUpdateGain&) = delete;
+  RefinedFilterUpdateGain(const RefinedFilterUpdateGain&) = delete;
+  RefinedFilterUpdateGain& operator=(const RefinedFilterUpdateGain&) = delete;
 
   // Takes action in the case of a known echo path change.
   void HandleEchoPathChange(const EchoPathVariability& echo_path_variability);

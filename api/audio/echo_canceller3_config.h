@@ -78,10 +78,13 @@ struct RTC_EXPORT EchoCanceller3Config {
 
     MainConfiguration main = {13, 0.00005f, 0.05f, 0.001f, 2.f, 20075344.f};
     ShadowConfiguration shadow = {13, 0.7f, 20075344.f};
+    MainConfiguration refined = {13, 0.00005f, 0.05f, 0.001f, 2.f, 20075344.f};
 
     MainConfiguration main_initial = {12,     0.005f, 0.5f,
                                       0.001f, 2.f,    20075344.f};
     ShadowConfiguration shadow_initial = {12, 0.9f, 20075344.f};
+    MainConfiguration refined_initial = {12,     0.005f, 0.5f,
+                                         0.001f, 2.f,    20075344.f};
 
     size_t config_change_duration_blocks = 250;
     float initial_state_seconds = 2.5f;
@@ -89,6 +92,7 @@ struct RTC_EXPORT EchoCanceller3Config {
     bool enable_shadow_filter_output_usage = true;
     bool use_linear_filter = true;
     bool export_linear_aec_output = false;
+    bool use_legacy_filter_naming = true;
   } filter;
 
   struct Erle {

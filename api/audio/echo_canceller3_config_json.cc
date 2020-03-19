@@ -215,9 +215,9 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
   }
 
   if (rtc::GetValueFromJsonObject(aec3_root, "filter", &section)) {
-    ReadParam(section, "main", &cfg.filter.main);
+    ReadParam(section, "main", &cfg.filter.refined);
     ReadParam(section, "shadow", &cfg.filter.shadow);
-    ReadParam(section, "main_initial", &cfg.filter.main_initial);
+    ReadParam(section, "main_initial", &cfg.filter.refined_initial);
     ReadParam(section, "shadow_initial", &cfg.filter.shadow_initial);
     ReadParam(section, "config_change_duration_blocks",
               &cfg.filter.config_change_duration_blocks);
@@ -460,12 +460,12 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
 
   ost << "\"filter\": {";
   ost << "\"main\": [";
-  ost << config.filter.main.length_blocks << ",";
-  ost << config.filter.main.leakage_converged << ",";
-  ost << config.filter.main.leakage_diverged << ",";
-  ost << config.filter.main.error_floor << ",";
-  ost << config.filter.main.error_ceil << ",";
-  ost << config.filter.main.noise_gate;
+  ost << config.filter.refined.length_blocks << ",";
+  ost << config.filter.refined.leakage_converged << ",";
+  ost << config.filter.refined.leakage_diverged << ",";
+  ost << config.filter.refined.error_floor << ",";
+  ost << config.filter.refined.error_ceil << ",";
+  ost << config.filter.refined.noise_gate;
   ost << "],";
 
   ost << "\"shadow\": [";
@@ -475,12 +475,12 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << "],";
 
   ost << "\"main_initial\": [";
-  ost << config.filter.main_initial.length_blocks << ",";
-  ost << config.filter.main_initial.leakage_converged << ",";
-  ost << config.filter.main_initial.leakage_diverged << ",";
-  ost << config.filter.main_initial.error_floor << ",";
-  ost << config.filter.main_initial.error_ceil << ",";
-  ost << config.filter.main_initial.noise_gate;
+  ost << config.filter.refined_initial.length_blocks << ",";
+  ost << config.filter.refined_initial.leakage_converged << ",";
+  ost << config.filter.refined_initial.leakage_diverged << ",";
+  ost << config.filter.refined_initial.error_floor << ",";
+  ost << config.filter.refined_initial.error_ceil << ",";
+  ost << config.filter.refined_initial.noise_gate;
   ost << "],";
 
   ost << "\"shadow_initial\": [";

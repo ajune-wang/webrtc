@@ -25,6 +25,7 @@
 #include "modules/video_coding/codecs/vp8/libvpx_interface.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/utility/framerate_controller.h"
+#include "rtc_base/deprecation.h"
 #include "rtc_base/experiments/cpu_speed_experiment.h"
 #include "rtc_base/experiments/rate_control_settings.h"
 #include "vpx/vp8cx.h"
@@ -34,14 +35,25 @@ namespace webrtc {
 
 class LibvpxVp8Encoder : public VideoEncoder {
  public:
+  struct Settings {
+    std::unique_ptr<LibvpxInterface> interface = nullptr;
+    std::unique_ptr<Vp8FrameBufferControllerFactory>
+        frame_buffer_controller_factory = nullptr;
+  };
+
   LibvpxVp8Encoder();
-  explicit LibvpxVp8Encoder(std::unique_ptr<Vp8FrameBufferControllerFactory>
-                                frame_buffer_controller_factory);
-  explicit LibvpxVp8Encoder(std::unique_ptr<LibvpxInterface> interface);
-  LibvpxVp8Encoder(std::unique_ptr<Vp8FrameBufferControllerFactory>
-                       frame_buffer_controller_factory,
-                   std::unique_ptr<LibvpxInterface> interface);
+  explicit LibvpxVp8Encoder(Settings settings);
   ~LibvpxVp8Encoder() override;
+
+  RTC_DEPRECATED explicit LibvpxVp8Encoder(
+      std::unique_ptr<Vp8FrameBufferControllerFactory>
+          frame_buffer_controller_factory);
+  RTC_DEPRECATED explicit LibvpxVp8Encoder(
+      std::unique_ptr<LibvpxInterface> interface);
+  RTC_DEPRECATED LibvpxVp8Encoder(
+      std::unique_ptr<Vp8FrameBufferControllerFactory>
+          frame_buffer_controller_factory,
+      std::unique_ptr<LibvpxInterface> interface);
 
   int Release() override;
 

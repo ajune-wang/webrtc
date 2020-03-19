@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6da0010e_db2b0936",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-19T12:04:39Z",
+      "side": 1,
+      "message": "See my concerns in https://webrtc-review.googlesource.com/c/src/+/170825 regarding directly replacing the JSON instead of duplicating",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 61
+      },
+      "revId": "2d7257c42dd6a73c1fb347a11437698662990f35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca0f0a43_0ed8ef87",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-19T12:04:39Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 473,
+        "startChar": 0,
+        "endLine": 491,
+        "endChar": 49
+      },
+      "revId": "2d7257c42dd6a73c1fb347a11437698662990f35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0506839c_689df5b5",
+        "filename": "api/audio/test/echo_canceller3_config_json_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-19T12:04:39Z",
+      "side": 1,
+      "message": "Use a different value, to ensure there is no mixup of variable names anywhere.",
+      "range": {
+        "startLine": 23,
+        "startChar": 44,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "2d7257c42dd6a73c1fb347a11437698662990f35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

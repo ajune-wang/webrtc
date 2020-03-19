@@ -22,6 +22,30 @@
       "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee9ab82a_e42cdbff",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-19T15:11:02Z",
+      "side": 1,
+      "message": "Inlining this at the single point of call SGTM. Alternatively, make the function inline; this will somewhat reliably eliminate the binary size overhead if we\u0027re not calling it.",
+      "parentUuid": "c12c862a_631f8003",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

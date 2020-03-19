@@ -94,6 +94,30 @@
       "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93ac0bb9_edaa62e4",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-19T21:52:53Z",
+      "side": 1,
+      "message": "Here is my point of view.\n\nIf the #ifdef is inside the function then the name of the function should reflect the fact that it my return the string representation (ToString is too generic). If you do that, I think it is fine.\n\nKarl\u0027s idea sounds more clean. If you can test it locally and ensure that the compiler eliminate the binary size impact the the macro is defined, then using an inline function is definitely the best solution. This should be easy to do, if you don\u0027t have time please open a bug on me.",
+      "parentUuid": "b441616c_e69c28ae",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

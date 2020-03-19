@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "915cf485_e8221c60",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "Rewrite comment. You\u0027re also checking \"connected\".",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ff61810_1b17b8df",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "Don\u0027t just log what you are doing, log what happened. \"Network information changed\" should be good enough.",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb398c11_8f61497e",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "If this is a question, include the question mark. Or rewrite as \"Consider if\".",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7577debb_a8cb2e06",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "since added -\u003e since they were added.",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d070cc6_088f2daa",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "Not good to write a TODO in terms of a CL. What about \"TODO(bug): Rewrite if information about remote network adapter becomes available.\" ?",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e16db5_7d780e89",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "TODO(bug).\nAside: If route had been a class with accessors, we could have \"just\" rewritten the accessor. Did I mention how much I love structs? :-)",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd2ce01a_9ce3df8a",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "Should the #ifndef be inside the function? This placement will cause a link error unless all calls to the function are also #ifndef\u0027ed with the same flag; doing it inside the function will make the function be very fast and small (but present) when RTC_DISABLE_LOGGING is true.",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aec2f32_d6f4734b",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "Did I mention something about structs?\nConsider if there are advantages to making it a class with accessors.\nAlso consider if any of the properties can be made const.",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b22a524b_278664e0",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-19T09:54:55Z",
+      "side": 1,
+      "message": "As commented in the designdoc, add a comment defining \"relay\". In particular, is \"relay\" really a property of the endpoint, or is it a property of the route?\n\nif \"relay\" means \"this endpoint is connected to a TURN server\", say so. (That\u0027s a property of the endpoint, not of the route.)",
+      "revId": "2bc8ae6755fb835284f8de0063db09727c5b899e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

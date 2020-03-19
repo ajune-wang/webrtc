@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dac2a91b_6ded1d51",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-19T07:28:07Z",
+      "side": 1,
+      "message": "Please add a comment explaining why this is safe to do and what expectations that need to hold for it to continue to be safe.",
+      "range": {
+        "startLine": 60,
+        "startChar": 17,
+        "endLine": 60,
+        "endChar": 48
+      },
+      "revId": "ccdb74aca03bbc2e2f5659a45dfc2069ba1bd29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73137e2_8b523db1",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-19T07:28:07Z",
+      "side": 1,
+      "message": "I\u0027d much prefer to see this inlined, currently, much of the complexity is to handle the fact that this is called in different ways. In practise I\u0027m not even sure that we save on line count if we account for boilerplate etc.",
+      "range": {
+        "startLine": 76,
+        "startChar": 19,
+        "endLine": 76,
+        "endChar": 51
+      },
+      "revId": "ccdb74aca03bbc2e2f5659a45dfc2069ba1bd29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb95d8fe_392f26d8",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-19T07:28:07Z",
+      "side": 1,
+      "message": "Looks like a bug here, two adapters with the same type will have the same id, maybe we ca propagate the type instead for now as is (as enum) and then change this if needed in the future.",
+      "range": {
+        "startLine": 86,
+        "startChar": 11,
+        "endLine": 86,
+        "endChar": 21
+      },
+      "revId": "ccdb74aca03bbc2e2f5659a45dfc2069ba1bd29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29dbe6a4_746daa31",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-19T07:28:07Z",
+      "side": 1,
+      "message": "Missing comment",
+      "range": {
+        "startLine": 87,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 63
+      },
+      "revId": "ccdb74aca03bbc2e2f5659a45dfc2069ba1bd29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dbfb3a9_0f54291d",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-19T07:28:07Z",
+      "side": 1,
+      "message": "Should this also be under #ifndef?",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 31
+      },
+      "revId": "ccdb74aca03bbc2e2f5659a45dfc2069ba1bd29f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

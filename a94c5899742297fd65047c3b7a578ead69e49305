@@ -142,6 +142,30 @@
       "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8241e7a7_ab7f083b",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-20T10:17:36Z",
+      "side": 1,
+      "message": "I have a trick for this: __attribute__((noinline)) inline :-)\n\nIf the function is called, the call is never inlined, no matter how trivial the function is: https://godbolt.org/z/U4Atb7\n\nAnd if the function is never called, it isn\u0027t emitted: https://godbolt.org/z/cqj6rB\n\n(__attribute__((noinline)) is available as RTC_NO_INLINE in WebRTC.)",
+      "parentUuid": "3ec47338_8d6d0c32",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "a94c5899742297fd65047c3b7a578ead69e49305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

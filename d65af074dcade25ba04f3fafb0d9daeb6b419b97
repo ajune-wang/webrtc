@@ -22,6 +22,30 @@
       "revId": "d65af074dcade25ba04f3fafb0d9daeb6b419b97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b12d282_7fff75e7",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-20T11:35:16Z",
+      "side": 1,
+      "message": "No---member functions defined inside the class body are implicitly inline.\n\nHowever, this function is only declared here, not defined here, so it isn\u0027t inline, and will be emitted in network_route.o whether it\u0027s used or not. For the \"noinline inline\" trick to work, the function need to actually be inline.",
+      "parentUuid": "aa791563_ce9d267d",
+      "range": {
+        "startLine": 77,
+        "startChar": 15,
+        "endLine": 77,
+        "endChar": 16
+      },
+      "revId": "d65af074dcade25ba04f3fafb0d9daeb6b419b97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

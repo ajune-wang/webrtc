@@ -237,6 +237,8 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
     return 0;
   }
 
+  RTC_LOG(LS_ERROR) << "### ReSendPacket: " << packet_id;
+
   const int32_t packet_size = static_cast<int32_t>(stored_packet->packet_size);
   const bool rtx = (RtxStatus() & kRtxRetransmitted) > 0;
 
@@ -289,7 +291,9 @@ void RTPSender::OnReceivedNack(
     const std::vector<uint16_t>& nack_sequence_numbers,
     int64_t avg_rtt) {
   packet_history_->SetRtt(5 + avg_rtt);
+  RTC_LOG(LS_ERROR) << "### NACK size: " << nack_sequence_numbers.size();
   for (uint16_t seq_no : nack_sequence_numbers) {
+    RTC_LOG(LS_ERROR) << "### Got NACK for seqNum " << seq_no;
     const int32_t bytes_sent = ReSendPacket(seq_no);
     if (bytes_sent < 0) {
       // Failed to send one Sequence number. Give up the rest in this nack.
@@ -429,6 +433,9 @@ std::vector<std::unique_ptr<RtpPacketToSend>> RTPSender::GeneratePadding(
 bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet) {
   RTC_DCHECK(packet);
   int64_t now_ms = clock_->TimeInMilliseconds();
+
+  RTC_LOG(LS_ERROR) << "### SendToNetwork: " << packet->Timestamp() << " "
+                    << packet->SequenceNumber() << " " << packet->Marker();
 
   auto packet_type = packet->packet_type();
   RTC_CHECK(packet_type) << "Packet type must be set before sending.";

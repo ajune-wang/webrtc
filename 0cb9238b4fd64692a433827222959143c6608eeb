@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "205034c3_713e558b",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-20T01:09:01Z",
+      "side": 1,
+      "message": "Changed to an enum.",
+      "parentUuid": "be0273f7_2feeb8c0",
+      "revId": "0cb9238b4fd64692a433827222959143c6608eeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14c69fcb_1cf5b19b",
         "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
         "patchSetId": 3

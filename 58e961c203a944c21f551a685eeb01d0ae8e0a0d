@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "292aa9f4_3d8d0264",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-20T14:48:10Z",
+      "side": 1,
+      "message": "Combine into one statement:\n\n  return absl::WrapUnique(new OpenSSLIdentity(std::move(key_pair), std::move(certificate)));",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 223,
+        "endChar": 36
+      },
+      "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0ceb64e_8c179b5b",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-20T14:48:10Z",
+      "side": 1,
+      "message": "Eliminate the temporary.",
+      "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e582fe5_ae99b291",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-20T14:48:10Z",
+      "side": 1,
+      "message": "Eliminate `temp`.",
+      "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f79fd1e_e9143678",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-20T14:48:10Z",
+      "side": 1,
+      "message": "Here too.",
+      "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa791563_ce9d267d",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-20T11:05:14Z",
+      "side": 1,
+      "message": "I think we still miss an \"inline\" here between RTC_NO_INLINE and std::string.\n\n(if I understand Karl\u0027s example correctly)",
+      "range": {
+        "startLine": 77,
+        "startChar": 15,
+        "endLine": 77,
+        "endChar": 16
+      },
+      "revId": "d65af074dcade25ba04f3fafb0d9daeb6b419b97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "733b8787_6b088b2a",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-20T10:56:03Z",
+      "side": 1,
+      "message": "Should\u0027t this be\n\n  RTC_NO_INLINE inline std::string DebugString() const;",
+      "range": {
+        "startLine": 77,
+        "startChar": 2,
+        "endLine": 77,
+        "endChar": 48
+      },
+      "revId": "49786805081d09aed2ae90b1e4685c76565ce4f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

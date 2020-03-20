@@ -417,6 +417,7 @@ rtc_library("ice_log") {
     "../api:libjingle_peerconnection_api",  # For api/dtls_transport_interface.h
     "../api/rtc_event_log",
     "../rtc_base:rtc_base_approved",
+    "//third_party/abseil-cpp/absl/container:flat_hash_map",
     "//third_party/abseil-cpp/absl/memory",
   ]
 }

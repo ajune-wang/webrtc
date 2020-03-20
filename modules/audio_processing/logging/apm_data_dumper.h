@@ -18,7 +18,7 @@
 #include <string>
 #if WEBRTC_APM_DEBUG_DUMP == 1
 #include <memory>
-#include <unordered_map>
+#include "absl/container/flat_hash_map.h"
 #endif
 
 #include "api/array_view.h"
@@ -267,9 +267,9 @@ class ApmDataDumper {
   static char output_dir_[kOutputDirMaxLength];
   const int instance_index_;
   int recording_set_index_ = 0;
-  std::unordered_map<std::string, std::unique_ptr<FILE, RawFileCloseFunctor>>
+  absl::flat_hash_map<std::string, std::unique_ptr<FILE, RawFileCloseFunctor>>
       raw_files_;
-  std::unordered_map<std::string, std::unique_ptr<WavWriter>> wav_files_;
+  absl::flat_hash_map<std::string, std::unique_ptr<WavWriter>> wav_files_;
 
   FILE* GetRawFile(const char* name);
   WavWriter* GetWavFile(const char* name,

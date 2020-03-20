@@ -13,9 +13,9 @@
 
 #include <cstdint>
 #include <list>
-#include <unordered_map>
 #include <utility>
 #include <vector>
+#include "absl/container/flat_hash_map.h"
 
 #include "absl/types/optional.h"
 #include "api/rtp_packet_infos.h"
@@ -58,24 +58,20 @@ class SourceTracker {
     SourceKey(RtpSourceType source_type, uint32_t source)
         : source_type(source_type), source(source) {}
 
+    friend bool operator==(const SourceKey& lhs, const SourceKey& rhs) {
+      return (lhs.source_type == rhs.source_type) && (lhs.source == rhs.source);
+    }
+
+    template <typename H>
+    friend H AbslHashValue(H h, const SourceKey& s) {
+      return H::combine(std::move(h), s.source_type, s.source);
+    }
+
     // Type of |source|.
     RtpSourceType source_type;
 
     // CSRC or SSRC identifier of the contributing or synchronization source.
     uint32_t source;
-  };
-
-  struct SourceKeyComparator {
-    bool operator()(const SourceKey& lhs, const SourceKey& rhs) const {
-      return (lhs.source_type == rhs.source_type) && (lhs.source == rhs.source);
-    }
-  };
-
-  struct SourceKeyHasher {
-    size_t operator()(const SourceKey& value) const {
-      return static_cast<size_t>(value.source_type) +
-             static_cast<size_t>(value.source) * 11076425802534262905ULL;
-    }
   };
 
   struct SourceEntry {
@@ -101,10 +97,7 @@ class SourceTracker {
   };
 
   using SourceList = std::list<std::pair<const SourceKey, SourceEntry>>;
-  using SourceMap = std::unordered_map<SourceKey,
-                                       SourceList::iterator,
-                                       SourceKeyHasher,
-                                       SourceKeyComparator>;
+  using SourceMap = absl::flat_hash_map<SourceKey, SourceList::iterator>;
 
   // Updates an entry by creating it (if it didn't previously exist) and moving
   // it to the front of the list. Returns a reference to the entry.

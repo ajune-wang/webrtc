@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a508edfd_59c082cd",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-20T15:07:11Z",
+      "side": 1,
+      "message": "I thought the point was to use either this #ifdef *or* the noinline inline hack. Either one should ensure that we pay the code size cost once if logging is on and zero times if logging is off.\n\nSo: either use noinline + inline, or #ifdef + inline.",
+      "revId": "0946b7508fe269d9636e243d2e7c4279f03b788a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

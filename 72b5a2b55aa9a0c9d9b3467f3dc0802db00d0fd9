@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b796c240_c56700a3",
+        "filename": "modules/audio_processing/agc/legacy/analog_agc.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-03-20T10:32:51Z",
+      "side": 1,
+      "message": "[not applicable here, existing issue with C code]\n\nI imagine that \"void* state\" receives suitable types, but this can be UB.\nSo, when possible and when we don\u0027t expect to negatively impact the code complexity, it is safer to make a copy, for instance:\n\nauto stt \u003d reinterpret_cast\u003cLegacyAgc\u003e(*state);\n\nhttps://google.github.io/styleguide/cppguide.html#Casting",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 44
+      },
+      "revId": "72b5a2b55aa9a0c9d9b3467f3dc0802db00d0fd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a34f3b08_72d5013a",
         "filename": "modules/audio_processing/agc/legacy/digital_agc.cc",
         "patchSetId": 10

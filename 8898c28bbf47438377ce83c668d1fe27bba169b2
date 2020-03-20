@@ -45,6 +45,54 @@
       "revId": "8898c28bbf47438377ce83c668d1fe27bba169b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01782c2b_7e35aaa8",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-20T10:31:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ec9d378_98720dc4",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 183,
+        "endChar": 25
+      },
+      "revId": "8898c28bbf47438377ce83c668d1fe27bba169b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed726583_6b0a049b",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-20T10:31:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d154cf5f_82ccbd97",
+      "range": {
+        "startLine": 183,
+        "startChar": 33,
+        "endLine": 183,
+        "endChar": 49
+      },
+      "revId": "8898c28bbf47438377ce83c668d1fe27bba169b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

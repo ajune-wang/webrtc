@@ -42,11 +42,34 @@ webrtc::DegradationPreference JavaToNativeDegradationPreference(
   return webrtc::DegradationPreference::DISABLED;
 }
 
+webrtc::Priority JavaToNativePriority(JNIEnv* jni,
+                                      const JavaRef<jobject>& j_priority) {
+  std::string enum_name = GetJavaEnumName(jni, j_priority);
+
+  if (enum_name == "VERY_LOW")
+    return webrtc::Priority::kVeryLow;
+
+  if (enum_name == "LOW")
+    return webrtc::Priority::kLow;
+
+  if (enum_name == "MEDIUM")
+    return webrtc::Priority::kMedium;
+
+  if (enum_name == "HIGH")
+    return webrtc::Priority::kHigh;
+
+  RTC_CHECK(false) << "Unexpected Priority enum_name " << enum_name;
+  return webrtc::Priority::kLow;
+}
+
 ScopedJavaLocalRef<jobject> NativeToJavaRtpEncodingParameter(
     JNIEnv* env,
     const RtpEncodingParameters& encoding) {
   return Java_Encoding_Constructor(
       env, NativeToJavaString(env, encoding.rid), encoding.active,
+      encoding.bitrate_priority,
+      Java_Priority_fromNativeIndex(
+          env, static_cast<int>(encoding.network_priority)),
       NativeToJavaInteger(env, encoding.max_bitrate_bps),
       NativeToJavaInteger(env, encoding.min_bitrate_bps),
       NativeToJavaInteger(env, encoding.max_framerate),
@@ -95,6 +118,11 @@ RtpEncodingParameters JavaToNativeRtpEncodingParameters(
   encoding.active = Java_Encoding_getActive(jni, j_encoding_parameters);
   ScopedJavaLocalRef<jobject> j_max_bitrate =
       Java_Encoding_getMaxBitrateBps(jni, j_encoding_parameters);
+  encoding.bitrate_priority =
+      Java_Encoding_getBitratePriority(jni, j_encoding_parameters);
+  ScopedJavaLocalRef<jobject> j_network_priority =
+      Java_Encoding_getNetworkPriority(jni, j_encoding_parameters);
+  encoding.network_priority = JavaToNativePriority(jni, j_network_priority);
   encoding.max_bitrate_bps = JavaToNativeOptionalInt(jni, j_max_bitrate);
   ScopedJavaLocalRef<jobject> j_min_bitrate =
       Java_Encoding_getMinBitrateBps(jni, j_encoding_parameters);

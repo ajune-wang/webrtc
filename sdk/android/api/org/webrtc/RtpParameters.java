@@ -44,12 +44,36 @@ public class RtpParameters {
   }
 
   public static class Encoding {
+    public enum Priority {
+      VERY_LOW,
+      LOW,
+      MEDIUM,
+      HIGH;
+
+      @CalledByNative("Priority")
+      static Priority fromNativeIndex(int nativeIndex) {
+        return values()[nativeIndex];
+      }
+    }
     // If non-null, this represents the RID that identifies this encoding layer.
     // RIDs are used to identify layers in simulcast.
     @Nullable public String rid;
     // Set to true to cause this encoding to be sent, and false for it not to
     // be sent.
     public boolean active = true;
+    // The relative bitrate priority of this encoding. Currently this is
+    // implemented for the entire RTP sender by using the value of the first
+    // encoding parameter.
+    // See: https://w3c.github.io/webrtc-priority/#enumdef-rtcprioritytype
+    // "very-low" = 0.5
+    // "low" = 1.0
+    // "medium" = 2.0
+    // "high" = 4.0
+    public double bitratePriority = 1.0;
+    // The relative DiffServ Code Point priority for this encoding, allowing
+    // packets to be marked relatively higher or lower without affecting
+    // bandwidth allocations.
+    public Priority networkPriority = Priority.LOW;
     // If non-null, this represents the Transport Independent Application
     // Specific maximum bandwidth defined in RFC3890. If null, there is no
     // maximum bitrate.
@@ -75,10 +99,13 @@ public class RtpParameters {
     }
 
     @CalledByNative("Encoding")
-    Encoding(String rid, boolean active, Integer maxBitrateBps, Integer minBitrateBps,
-        Integer maxFramerate, Integer numTemporalLayers, Double scaleResolutionDownBy, Long ssrc) {
+    Encoding(String rid, boolean active, double bitratePriority, Priority networkPriority,
+        Integer maxBitrateBps, Integer minBitrateBps, Integer maxFramerate,
+        Integer numTemporalLayers, Double scaleResolutionDownBy, Long ssrc) {
       this.rid = rid;
       this.active = active;
+      this.bitratePriority = bitratePriority;
+      this.networkPriority = networkPriority;
       this.maxBitrateBps = maxBitrateBps;
       this.minBitrateBps = minBitrateBps;
       this.maxFramerate = maxFramerate;
@@ -96,6 +123,16 @@ public class RtpParameters {
     @CalledByNative("Encoding")
     boolean getActive() {
       return active;
+    }
+
+    @CalledByNative("Encoding")
+    double getBitratePriority() {
+      return bitratePriority;
+    }
+
+    @CalledByNative("Encoding")
+    Priority getNetworkPriority() {
+      return networkPriority;
     }
 
     @Nullable

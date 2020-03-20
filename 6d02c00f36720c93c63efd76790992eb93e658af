@@ -1,0 +1,642 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8af78fe_3a90bbb1",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "What happens if this fails in Release builds? Is the rest of the code safe in the sense that it can handle that?",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 27
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17de29b8_c58282a4",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "This method does not check that it is run on worker_thread_checker_. Is that intended? In that case, please comment on that, both here and in the header file.",
+      "range": {
+        "startLine": 45,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 35
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7a6e49c_d74e4bc7",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "This corresponds to a DTMF duration of 65 seconds. Is that intended?",
+      "range": {
+        "startLine": 176,
+        "startChar": 29,
+        "endLine": 176,
+        "endChar": 34
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a7edeca_b5823af1",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "This does only enforce this in Debug builds.\nIn Release builds, the SendTelephoneEvent will still be called.\n\nWould it make sense to refrain from calling SendTelephoneEvent if IsSending() returns false?",
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fda97bd2_58819058",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "This method does not check that it is run on worker_thread_checker_. Is that intended? In that case, please comment on that, both here and in the header file.",
+      "range": {
+        "startLine": 187,
+        "startChar": 18,
+        "endLine": 187,
+        "endChar": 25
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94f2263a_9b012969",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "-\u003e by the RTP",
+      "range": {
+        "startLine": 34,
+        "startChar": 38,
+        "endLine": 34,
+        "endChar": 44
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39ef0429_ed925d62",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "The sequence checker does only enforce this on Debug builds. \n\nDoes all usage of this guarantee single-threaded access? Are there multi-threaded test in place to verify this?\n\nAnother concern I have is that the sequence checker is not entirely enforced. In particularly in IsSending() and SetMute(). There is a comment that synchronization is handled by those objects, but this still makes the allowed thread-usage of this class very tricky, both to guarantee from the code but also to as a user see what is allowed.\n\nWould it be possible to disallow multi-threaded for the whole class?",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5023957_3bc109d5",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "Please add an ending period",
+      "range": {
+        "startLine": 51,
+        "startChar": 49,
+        "endLine": 51,
+        "endChar": 66
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec8294ef_b4677123",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "-\u003ethrough",
+      "range": {
+        "startLine": 53,
+        "startChar": 66,
+        "endLine": 53,
+        "endChar": 70
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be2ba277_5b83a1c8",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "This sentence seems incomplete. Please have another look at it.",
+      "range": {
+        "startLine": 60,
+        "startChar": 15,
+        "endLine": 60,
+        "endChar": 53
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba5de0fc_ba5fed3a",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "-\u003e the RTP stack",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 14
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bc3dd1e_42b7dadf",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "I think what this means is that it returns true if StartSend has been called.\nThe sentence is, however, not as clear as it could be. Furthermore, it does not state what happens when StopSend has been called (I guess it will return false then?)\n\nPlease revise this comment.",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 65,
+        "endChar": 21
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29eb57ce_7d171e50",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "This method returns an optional. Please describe under what conditions the returned optional will, and will not, have an assigned value.",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 42
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "498c2b05_d9951f09",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "Can this be made const?",
+      "range": {
+        "startLine": 72,
+        "startChar": 33,
+        "endLine": 72,
+        "endChar": 49
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6978c15_e0291ea0",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "Please rename to dmtf_event to let the code speak for itself that this is an dtmf event.\n\nAlso, would it be possible to define an enum for the events instead of passing an int? The RFC is quite strict on what events can be passed and having an enum would simplify for the user as well as avoid a lot of error handling on the input.\n\nThe method returns a bool. Please explain in the comment what that returned value means.",
+      "range": {
+        "startLine": 81,
+        "startChar": 30,
+        "endLine": 81,
+        "endChar": 35
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "077ebce3_c80f3fd0",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "(also below)\nWhat is meant by this comment? The sequence checker enforces synchronization, right? Then no additional synchronization should be needed, or am I missing something?",
+      "range": {
+        "startLine": 97,
+        "startChar": 3,
+        "endLine": 97,
+        "endChar": 42
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe4b4f5_b61f1746",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "Should start with a capital letter and end with a period.",
+      "range": {
+        "startLine": 97,
+        "startChar": 5,
+        "endLine": 97,
+        "endChar": 20
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8655e224_fa8c31d9",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "Should start with a capital letter and end with a period.",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff57b8c6_81058e02",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "synchronization",
+      "range": {
+        "startLine": 103,
+        "startChar": 5,
+        "endLine": 103,
+        "endChar": 20
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18e1346_d5eae804",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "I don\u0027t really understand this comment. The name of the variable seems to indicate that it stores the next timestamp, but to me the comment says something different.",
+      "range": {
+        "startLine": 106,
+        "startChar": 3,
+        "endLine": 107,
+        "endChar": 52
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abd25ce_e328aee0",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "Would it be possible to bundle all variables that only can be accessed from the encoder_queue_ into one struct to more clearly localize that. Also, now the encoder_format_ variable is sandwiched inbetween variables that can only be accessed from the encoder_queue_.",
+      "range": {
+        "startLine": 108,
+        "startChar": 37,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "103574eb_d56dc433",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "This comment is not clear to me. Could you please elaborate?",
+      "range": {
+        "startLine": 110,
+        "startChar": 43,
+        "endLine": 112,
+        "endChar": 37
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89a3ed61_86f8797d",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "What is VoipCore? Would it be possible to change this comment so that it is easier to understand for someone not familiar with VoipCore?\n\nAlso it would make sense to change\n\"will be\" -\u003e \"is being\"\nor something similar",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 117,
+        "endChar": 70
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d025c9b_50970a29",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "I think this comment could be simplified. It has to do with the start and stopping of the sending of the data, right? Could the comment explain the purpose of the variable in terms of that?",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 53
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11fc493_255f8aa9",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "Begin with capital letter and end with period.",
+      "range": {
+        "startLine": 50,
+        "startChar": 51,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c14e8a6_8ae1cb95",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "-?\u003e PCMu",
+      "range": {
+        "startLine": 63,
+        "startChar": 43,
+        "endLine": 63,
+        "endChar": 47
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c7f8bc_ae101a59",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "-\u003e RTP",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 84,
+        "endChar": 22
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea370589_48de180b",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-20T15:22:17Z",
+      "side": 1,
+      "message": "Nit: Parenthesis not needed.",
+      "range": {
+        "startLine": 132,
+        "startChar": 25,
+        "endLine": 132,
+        "endChar": 40
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "f51ca46974705fcd08f48f65be5ed29b29c7315e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0bf5ca1_4e2d7247",
+        "filename": "sdk/android/src/jni/pc/rtp_parameters.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-20T20:34:10Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "28667648_774426fd",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 0
+      },
+      "revId": "f51ca46974705fcd08f48f65be5ed29b29c7315e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

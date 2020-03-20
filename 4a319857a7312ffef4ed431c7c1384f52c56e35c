@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f65a3362_04d6b6a9",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-20T09:28:22Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 225,
+        "endChar": 69
+      },
+      "revId": "4a319857a7312ffef4ed431c7c1384f52c56e35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17b256e8_2aa140f0",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-20T09:28:22Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 61
+      },
+      "revId": "4a319857a7312ffef4ed431c7c1384f52c56e35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3115118e_b55abb39",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-20T09:28:22Z",
+      "side": 1,
+      "message": "nit, for ease of reading the code:\n\nThis ordering is not consistent with the \"version\" of the filter names. Here it is:\nmain - refined - coarse - shadow\nI would expect either \"old then new\" or \"main/refined then shadow/coarse\" (or swapped). One of:\n\nmain - refined - shadow - coarse\nmain - shadow - refined - coarse\nrefined - main - coarse - shadow\nrefined - coarse - main - shadow",
+      "range": {
+        "startLine": 470,
+        "startChar": 1,
+        "endLine": 528,
+        "endChar": 14
+      },
+      "revId": "4a319857a7312ffef4ed431c7c1384f52c56e35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b6c5f16_38c054d3",
+        "filename": "api/audio/echo_canceller3_config_json.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-20T09:28:22Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 536,
+        "startChar": 0,
+        "endLine": 541,
+        "endChar": 13
+      },
+      "revId": "4a319857a7312ffef4ed431c7c1384f52c56e35c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

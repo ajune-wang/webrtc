@@ -313,8 +313,15 @@ const SSLCertChain& OpenSSLIdentity::cert_chain() const {
 }
 
 OpenSSLIdentity* OpenSSLIdentity::GetReference() const {
-  return new OpenSSLIdentity(absl::WrapUnique(key_pair_->GetReference()),
-                             cert_chain_->Clone());
+  return static_cast<OpenSSLIdentity*>(CloneInternal().release());
+}
+
+std::unique_ptr<SSLIdentity> OpenSSLIdentity::CloneInternal() const {
+  // We cannot use std::make_unique here because the referenced OpenSSLIdentity
+  // constructor is private.
+  auto temp = new OpenSSLIdentity(absl::WrapUnique(key_pair_->GetReference()),
+                                  cert_chain_->Clone());
+  return absl::WrapUnique(temp);
 }
 
 bool OpenSSLIdentity::ConfigureIdentity(SSL_CTX* ctx) {

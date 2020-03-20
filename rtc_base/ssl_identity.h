@@ -15,8 +15,10 @@
 
 #include <stdint.h>
 #include <ctime>
+#include <memory>
 #include <string>
 
+#include "rtc_base/deprecation.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace rtc {
@@ -134,7 +136,8 @@ class RTC_EXPORT SSLIdentity {
   // identity information.
   // Caller is responsible for freeing the returned object.
   // TODO(hbos,torbjorng): Rename to a less confusing name.
-  virtual SSLIdentity* GetReference() const = 0;
+  RTC_DEPRECATED virtual SSLIdentity* GetReference() const = 0;
+  std::unique_ptr<SSLIdentity> Clone() const { return CloneInternal(); }
 
   // Returns a temporary reference to the end-entity (leaf) certificate.
   virtual const SSLCertificate& certificate() const = 0;
@@ -150,6 +153,9 @@ class RTC_EXPORT SSLIdentity {
   static std::string DerToPem(const std::string& pem_type,
                               const unsigned char* data,
                               size_t length);
+
+ protected:
+  virtual std::unique_ptr<SSLIdentity> CloneInternal() const = 0;
 };
 
 bool operator==(const SSLIdentity& a, const SSLIdentity& b);

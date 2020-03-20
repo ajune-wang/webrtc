@@ -17,6 +17,8 @@
 #include <utility>
 #include <vector>
 
+#include "absl/container/flat_hash_map.h"
+
 namespace webrtc {
 
 class RtpPacketReceived;
@@ -179,7 +181,7 @@ class RtpDemuxer {
   // SSRC mapping which receives all MID, payload type, or RSID to SSRC bindings
   // discovered when demuxing packets).
   std::map<std::string, RtpPacketSinkInterface*> sink_by_mid_;
-  std::map<uint32_t, RtpPacketSinkInterface*> sink_by_ssrc_;
+  absl::flat_hash_map<uint32_t, RtpPacketSinkInterface*> sink_by_ssrc_;
   std::multimap<uint8_t, RtpPacketSinkInterface*> sinks_by_pt_;
   std::map<std::pair<std::string, std::string>, RtpPacketSinkInterface*>
       sink_by_mid_and_rsid_;

@@ -12,6 +12,8 @@ adds the first use.
 ## **Allowed**
 
 * `absl::InlinedVector`
+* `absl::flat_hash_map`
+* `absl::flat_hash_set`
 * `absl::WrapUnique`
 * `absl::optional` and related stuff from `absl/types/optional.h`.
 * `absl::string_view`

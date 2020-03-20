@@ -76,7 +76,7 @@ void ReadParam(const Json::Value& root,
 
 void ReadParam(const Json::Value& root,
                std::string param_name,
-               EchoCanceller3Config::Filter::ShadowConfiguration* param) {
+               EchoCanceller3Config::Filter::CoarseConfiguration* param) {
   RTC_DCHECK(param);
   Json::Value json_array;
   if (rtc::GetValueFromJsonObject(root, param_name, &json_array)) {
@@ -217,9 +217,11 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
   if (rtc::GetValueFromJsonObject(aec3_root, "filter", &section)) {
     ReadParam(section, "main", &cfg.filter.main);
     ReadParam(section, "refined", &cfg.filter.refined);
+    ReadParam(section, "coarse", &cfg.filter.coarse);
     ReadParam(section, "shadow", &cfg.filter.shadow);
     ReadParam(section, "main_initial", &cfg.filter.main_initial);
     ReadParam(section, "refined_initial", &cfg.filter.refined_initial);
+    ReadParam(section, "coarse_initial", &cfg.filter.coarse_initial);
     ReadParam(section, "shadow_initial", &cfg.filter.shadow_initial);
     ReadParam(section, "config_change_duration_blocks",
               &cfg.filter.config_change_duration_blocks);
@@ -227,6 +229,8 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
               &cfg.filter.initial_state_seconds);
     ReadParam(section, "conservative_initial_phase",
               &cfg.filter.conservative_initial_phase);
+    ReadParam(section, "enable_coarse_filter_output_usage",
+              &cfg.filter.enable_coarse_filter_output_usage);
     ReadParam(section, "enable_shadow_filter_output_usage",
               &cfg.filter.enable_shadow_filter_output_usage);
     ReadParam(section, "use_linear_filter", &cfg.filter.use_linear_filter);
@@ -481,6 +485,12 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << config.filter.refined.noise_gate;
   ost << "],";
 
+  ost << "\"coarse\": [";
+  ost << config.filter.coarse.length_blocks << ",";
+  ost << config.filter.coarse.rate << ",";
+  ost << config.filter.coarse.noise_gate;
+  ost << "],";
+
   ost << "\"shadow\": [";
   ost << config.filter.shadow.length_blocks << ",";
   ost << config.filter.shadow.rate << ",";
@@ -505,6 +515,12 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << config.filter.refined_initial.noise_gate;
   ost << "],";
 
+  ost << "\"coarse_initial\": [";
+  ost << config.filter.coarse_initial.length_blocks << ",";
+  ost << config.filter.coarse_initial.rate << ",";
+  ost << config.filter.coarse_initial.noise_gate;
+  ost << "],";
+
   ost << "\"shadow_initial\": [";
   ost << config.filter.shadow_initial.length_blocks << ",";
   ost << config.filter.shadow_initial.rate << ",";
@@ -517,6 +533,9 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
       << ",";
   ost << "\"conservative_initial_phase\": "
       << (config.filter.conservative_initial_phase ? "true" : "false") << ",";
+  ost << "\"enable_coarse_filter_output_usage\": "
+      << (config.filter.enable_coarse_filter_output_usage ? "true" : "false")
+      << ",";
   ost << "\"enable_shadow_filter_output_usage\": "
       << (config.filter.enable_shadow_filter_output_usage ? "true" : "false")
       << ",";

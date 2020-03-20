@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "993f1587_09031643",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-20T21:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "292aa9f4_3d8d0264",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 223,
+        "endChar": 36
+      },
+      "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0ceb64e_8c179b5b",
         "filename": "rtc_base/openssl_identity.cc",
         "patchSetId": 6
@@ -39,6 +63,24 @@
       "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9db4fc7f_b349d235",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-20T21:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0ceb64e_8c179b5b",
+      "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "cda77e5f_277213d5",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-20T21:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e582fe5_ae99b291",
+      "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f79fd1e_e9143678",
         "filename": "rtc_base/openssl_identity.cc",
         "patchSetId": 6
@@ -73,6 +133,24 @@
       "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942c579d_036515b9",
+        "filename": "rtc_base/openssl_identity.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-20T21:52:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f79fd1e_e9143678",
+      "revId": "58e961c203a944c21f551a685eeb01d0ae8e0a0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

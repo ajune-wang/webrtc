@@ -58,6 +58,20 @@ size_t RemoveFromMapByValue(Map* map, const Value& value) {
   return count;
 }
 
+template <typename Map, typename Value>
+size_t RemoveFromHashMapByValue(Map* map, const Value& value) {
+  size_t count = 0;
+  for (auto it = map->begin(); it != map->end();) {
+    if (it->second == value) {
+      map->erase(it++);
+      ++count;
+    } else {
+      ++it;
+    }
+  }
+  return count;
+}
+
 template <typename Container, typename Key>
 bool ContainerHasKey(const Container& c, const Key& k) {
   return std::find(c.cbegin(), c.cend(), k) != c.cend();

@@ -8,16 +8,16 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '2a41e24b46163b0fbc111a0a21967e18e80fe9ca',
+  'chromium_revision': '385221e7c2869b1571ba328fbb076547fec3f11b',
 }
 
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@8bd950b78c3d9fccabef04ebc6d524767d48534f',
+    'https://chromium.googlesource.com/chromium/src/base@ed110746464e597be67f3d96d223cfc69eb8ea8f',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@9aed1900e09341623d0a0aa8ae5d3e1b80b9d70e',
+    'https://chromium.googlesource.com/chromium/src/build@7f23cdf774b020db0762ba2e9ed8d09e486e8427',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@4164a305626786b1912d467003acf4c4995bec7d',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -26,13 +26,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@62c7a5ec7577b18f5f93fb018cafc1ead4f30126',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@bbb913aad7d019bee89331329a09742afccb6fd1',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@15d2f7b647eeebf5a61bec6f3362efeb7539c767',
+    'https://chromium.googlesource.com/chromium/src/testing@a6b54fc35395f8dcfd5e630774ce7a6b958be789',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@76d4817dee9249e8f07ddd4113613a381cae30c2',
+    'https://chromium.googlesource.com/chromium/src/third_party@0bc22ca5879296ff96b301d64ee7a1fd8f714118',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -130,7 +130,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@464e9ff4f3682426b0cb3b68ee38e7be6fa4a2be',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@44baaea9783ea1c44e915b2e9792834da9e5f288',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@d2350e1645b5dea766056e15dbf20004e141840d',
   'src/third_party/findbugs': {
@@ -259,7 +259,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@59917a0548c6af6b3afe08f004c5ec701a0504ab',
+    'https://chromium.googlesource.com/chromium/src/tools@2083c1f46a77cec566fdaa740a3d6e8f685818b4',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@cc958279ffd6853e0a1b227a7e957ca334fe56af',
 
@@ -1057,6 +1057,28 @@ deps = {
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_test_core',
               'version': 'version:1.2.0-cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/androidx_test_espresso_espresso_core': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/androidx_test_espresso_espresso_core',
+              'version': 'version:3.1.0-cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/androidx_test_espresso_espresso_idling_resource': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/androidx_test_espresso_espresso_idling_resource',
+              'version': 'version:3.1.0-cr0',
           },
       ],
       'condition': 'checkout_android',
@@ -2146,6 +2168,17 @@ deps = {
           {
               'package': 'chromium/third_party/android_deps/libs/com_squareup_javapoet',
               'version': 'version:1.11.1-cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/com_squareup_javawriter': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/com_squareup_javawriter',
+              'version': 'version:2.1.1-cr0',
           },
       ],
       'condition': 'checkout_android',

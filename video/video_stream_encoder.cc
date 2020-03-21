@@ -1323,6 +1323,10 @@ void VideoStreamEncoder::OnLossNotification(
   }
 
   RTC_DCHECK_RUN_ON(&encoder_queue_);
+  RTC_LOG(LS_ERROR)
+      << "### OnLossNotification:"
+      << " last_decodable=" << loss_notification.timestamp_of_last_decodable
+      << " last_received=" << loss_notification.timestamp_of_last_received;
   if (encoder_) {
     encoder_->OnLossNotification(loss_notification);
   }

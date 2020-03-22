@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "97d0fb88_dbb57c48",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-03-22T20:24:34Z",
+      "side": 1,
+      "message": "then a copy of the local candidate and changing the things that need to be changed would be better? Or at least sorting things in a way that address, priority and foundation are set last and with a comment?",
+      "parentUuid": "1b8c4c86_1700468c",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30cd027b_e8d6009a",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 3

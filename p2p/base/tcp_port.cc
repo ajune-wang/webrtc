@@ -122,8 +122,7 @@ Connection* TCPPort::CreateConnection(const Candidate& address,
     return NULL;
   }
 
-  if (address.tcptype() == TCPTYPE_ACTIVE_STR ||
-      (address.tcptype().empty() && address.address().port() == 0)) {
+  if (address.tcptype().empty() && address.address().port() == 0) {
     // It's active only candidate, we should not try to create connections
     // for these candidates.
     return NULL;

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b5d448d_864f463e",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-23T11:14:50Z",
+      "side": 1,
+      "message": "With this implementation,\nthe code will initiate a probe \"IsRelevant...\"\nbut not throw away packets from previous probe (inside transport_feedback_adapter)\n\nI.e previously the condition was identical, and now it has changed.\nI\u0027m not sure that this matters...but it is a potentially unintended change.",
+      "revId": "24b640c0b7c10b50a7141a7c4b5ef035fe019c23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b6115d_539daaef",
+        "filename": "rtc_base/network_route.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-23T11:14:50Z",
+      "side": 1,
+      "message": "given all my effort to keep this immutable, how about instead\n\nRouteEndpoint CreateWithTurn(bool uses_turn) const {\n  return RouteEndpoint(adapter_type_, adapter_id_, network_id_, uses_turn);\n}",
+      "range": {
+        "startLine": 49,
+        "startChar": 7,
+        "endLine": 49,
+        "endChar": 14
+      },
+      "revId": "24b640c0b7c10b50a7141a7c4b5ef035fe019c23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

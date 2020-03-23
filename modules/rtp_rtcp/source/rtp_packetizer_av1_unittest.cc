@@ -104,7 +104,8 @@ Av1Frame ReassembleFrame(rtc::ArrayView<const RtpPayload> rtp_payloads) {
   for (size_t i = 0; i < rtp_payloads.size(); ++i) {
     payloads[i] = rtp_payloads[i];
   }
-  return Av1Frame(VideoRtpDepacketizerAv1::AssembleFrame(payloads));
+  VideoRtpDepacketizerAv1 depacketizer;
+  return Av1Frame(depacketizer.AssembleFrame(payloads));
 }
 
 class Obu {

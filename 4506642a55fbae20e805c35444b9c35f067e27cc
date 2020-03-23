@@ -19,6 +19,52 @@
     },
     {
       "key": {
+        "uuid": "59c797be_19b9e023",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2472,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-23T10:33:42Z",
+      "side": 1,
+      "message": "nit: you can do it in a single for loop. Combined with a single switch/case clause the code should be more readable.\n\nIt will work because  StreamStats has a default constructor initializing it with all zeros. Then you can just add current substream to ssrc or associated_ssrc depending on the stream type.",
+      "range": {
+        "startLine": 2472,
+        "startChar": 2,
+        "endLine": 2472,
+        "endChar": 39
+      },
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbf3f6a7_b5953248",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2495,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-23T10:33:42Z",
+      "side": 1,
+      "message": "You should instead have a switch/case here. Thus, if extra type is added later, it will\nbe automatically a compile error if someone forgets to update this part also.",
+      "range": {
+        "startLine": 2492,
+        "startChar": 4,
+        "endLine": 2495,
+        "endChar": 79
+      },
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "198e2e8d_e0285825",
         "filename": "media/engine/webrtc_video_engine.h",
         "patchSetId": 8
@@ -70,6 +116,29 @@
     },
     {
       "key": {
+        "uuid": "56b93746_d9b4856b",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-23T10:33:42Z",
+      "side": 1,
+      "message": "Clearly, it\u0027s an oversight. THere\u0027s an explicit fec_byte_counter_ at L207.",
+      "range": {
+        "startLine": 212,
+        "startChar": 6,
+        "endLine": 213,
+        "endChar": 38
+      },
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "638d71e9_ddc1c0df",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 8
@@ -81,6 +150,24 @@
       "writtenOn": "2020-03-23T07:40:06Z",
       "side": 1,
       "message": "Case on \"type\"? Would avoid the RTC_DCHECK on type consistency.",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b038a713_03fac77f",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-03-23T10:33:42Z",
+      "side": 1,
+      "message": "I second this suggestion!",
+      "parentUuid": "638d71e9_ddc1c0df",
       "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

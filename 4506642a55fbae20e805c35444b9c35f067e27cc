@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c04ba3f7_103e5a90",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-23T14:39:13Z",
+      "side": 1,
+      "message": "I hate structs too but because they\u0027re used by downstream projects I can\u0027t touch them or make them private. I can\u0027t even make them const and initialize them based on StreamType because of std::map usage that requires them to be non-const.\n\nI can update downstream usage after this CL lands and then delete them, but this CL has to land with the bools intact before I can change anything or else the importer breaks.",
+      "parentUuid": "5658cfb1_1c431f49",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59c797be_19b9e023",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 8
@@ -30,6 +48,30 @@
       "writtenOn": "2020-03-23T10:33:42Z",
       "side": 1,
       "message": "nit: you can do it in a single for loop. Combined with a single switch/case clause the code should be more readable.\n\nIt will work because  StreamStats has a default constructor initializing it with all zeros. Then you can just add current substream to ssrc or associated_ssrc depending on the stream type.",
+      "range": {
+        "startLine": 2472,
+        "startChar": 2,
+        "endLine": 2472,
+        "endChar": 39
+      },
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0cba6485_381f7604",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2472,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-23T14:39:13Z",
+      "side": 1,
+      "message": "I tried to address this comment but due to having to take into account that you might hit the kRtx stream before the kMedia stream, that some metrics don\u0027t make sense to \"add\" together (like rtcp metrics with fraction_lost and timestamp), there being a lot of fields if we want to go through all of them and other structs not having an Add() method... I think it ended up more confusing so I reverted the changes. I changed it into a switch statement though.",
+      "parentUuid": "59c797be_19b9e023",
       "range": {
         "startLine": 2472,
         "startChar": 2,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ab243b29_47173a64",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2495,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-23T14:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbf3f6a7_b5953248",
+      "range": {
+        "startLine": 2492,
+        "startChar": 4,
+        "endLine": 2495,
+        "endChar": 79
+      },
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "198e2e8d_e0285825",
         "filename": "media/engine/webrtc_video_engine.h",
         "patchSetId": 8
@@ -79,6 +145,24 @@
       "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8c35888_b7c4cf32",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-23T14:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198e2e8d_e0285825",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "0951f35f_8d4cd769",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-23T14:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e2270b_ae43c334",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3d6ebab_79e2bc69",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 8
@@ -113,6 +215,24 @@
       "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "475981eb_6b6e1f03",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-23T14:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3d6ebab_79e2bc69",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -136,6 +256,30 @@
       "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f34f4199_49d51c52",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-23T14:39:13Z",
+      "side": 1,
+      "message": "I added a switch-statement and stopped adding to the media counter on kFlexfec. It\u0027s a drive-by bugfix, then.",
+      "parentUuid": "56b93746_d9b4856b",
+      "range": {
+        "startLine": 212,
+        "startChar": 6,
+        "endLine": 213,
+        "endChar": 38
+      },
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -171,6 +315,24 @@
       "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be0d570f_17254beb",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-23T14:39:13Z",
+      "side": 1,
+      "message": "Switch-statement: Done. But note that these booleans are used to assign the \"type\" in the first place. This is where the StreamStats is initially constructed (and the booleans come from rtp_config_, not StreamStats) so I can\u0027t completely get rid of the ifs.",
+      "parentUuid": "b038a713_03fac77f",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

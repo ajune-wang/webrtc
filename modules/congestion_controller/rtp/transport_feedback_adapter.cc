@@ -31,12 +31,11 @@ constexpr TimeDelta kSendTimeHistoryWindow = TimeDelta::Seconds(60);
 void InFlightBytesTracker::AddInFlightPacketBytes(
     const PacketFeedback& packet) {
   RTC_DCHECK(packet.sent.send_time.IsFinite());
-  auto it = in_flight_data_.find({packet.local_net_id, packet.remote_net_id});
+  auto it = in_flight_data_.find(packet.route_id);
   if (it != in_flight_data_.end()) {
     it->second += packet.sent.size;
   } else {
-    in_flight_data_.insert(
-        {{packet.local_net_id, packet.remote_net_id}, packet.sent.size});
+    in_flight_data_.insert({packet.route_id, packet.sent.size});
   }
 }
 
@@ -44,7 +43,7 @@ void InFlightBytesTracker::RemoveInFlightPacketBytes(
     const PacketFeedback& packet) {
   if (packet.sent.send_time.IsInfinite())
     return;
-  auto it = in_flight_data_.find({packet.local_net_id, packet.remote_net_id});
+  auto it = in_flight_data_.find(packet.route_id);
   if (it != in_flight_data_.end()) {
     RTC_DCHECK_GE(it->second, packet.sent.size);
     it->second -= packet.sent.size;
@@ -54,9 +53,8 @@ void InFlightBytesTracker::RemoveInFlightPacketBytes(
 }
 
 DataSize InFlightBytesTracker::GetOutstandingData(
-    uint16_t local_net_id,
-    uint16_t remote_net_id) const {
-  auto it = in_flight_data_.find({local_net_id, remote_net_id});
+    const RouteId& route_id) const {
+  auto it = in_flight_data_.find(route_id);
   if (it != in_flight_data_.end()) {
     return it->second;
   } else {
@@ -76,8 +74,7 @@ void TransportFeedbackAdapter::AddPacket(const RtpPacketSendInfo& packet_info,
       seq_num_unwrapper_.Unwrap(packet_info.transport_sequence_number);
   packet.sent.size = DataSize::Bytes(packet_info.length + overhead_bytes);
   packet.sent.audio = packet_info.packet_type == RtpPacketMediaType::kAudio;
-  packet.local_net_id = local_net_id_;
-  packet.remote_net_id = remote_net_id_;
+  packet.route_id = route_id_;
   packet.sent.pacing_info = packet_info.pacing_info;
 
   while (!history_.empty() &&
@@ -142,8 +139,7 @@ TransportFeedbackAdapter::ProcessTransportFeedback(
   TransportPacketsFeedback msg;
   msg.feedback_time = feedback_receive_time;
 
-  msg.prior_in_flight =
-      in_flight_.GetOutstandingData(local_net_id_, remote_net_id_);
+  msg.prior_in_flight = in_flight_.GetOutstandingData(route_id_);
   msg.packet_feedbacks =
       ProcessTransportFeedbackInner(feedback, feedback_receive_time);
   if (msg.packet_feedbacks.empty())
@@ -153,20 +149,17 @@ TransportFeedbackAdapter::ProcessTransportFeedback(
   if (it != history_.end()) {
     msg.first_unacked_send_time = it->second.sent.send_time;
   }
-  msg.data_in_flight =
-      in_flight_.GetOutstandingData(local_net_id_, remote_net_id_);
+  msg.data_in_flight = in_flight_.GetOutstandingData(route_id_);
 
   return msg;
 }
 
-void TransportFeedbackAdapter::SetNetworkIds(uint16_t local_id,
-                                             uint16_t remote_id) {
-  local_net_id_ = local_id;
-  remote_net_id_ = remote_id;
+void TransportFeedbackAdapter::SetRouteId(const RouteId& route_id) {
+  route_id_ = route_id;
 }
 
 DataSize TransportFeedbackAdapter::GetOutstandingData() const {
-  return in_flight_.GetOutstandingData(local_net_id_, remote_net_id_);
+  return in_flight_.GetOutstandingData(route_id_);
 }
 
 std::vector<PacketResult>
@@ -234,8 +227,7 @@ TransportFeedbackAdapter::ProcessTransportFeedbackInner(
       // reported as received by a later feedback.
       history_.erase(it);
     }
-    if (packet_feedback.local_net_id == local_net_id_ &&
-        packet_feedback.remote_net_id == remote_net_id_) {
+    if (packet_feedback.route_id == route_id_) {
       PacketResult result;
       result.sent_packet = packet_feedback.sent;
       result.receive_time = packet_feedback.receive_time;

@@ -33,7 +33,9 @@ int MinPositive(int a, int b) {
 namespace webrtc {
 RtpBitrateConfigurator::RtpBitrateConfigurator(
     const BitrateConstraints& bitrate_config)
-    : bitrate_config_(bitrate_config), base_bitrate_config_(bitrate_config) {
+    : bitrate_config_(bitrate_config),
+      base_bitrate_config_(bitrate_config),
+      relay_cap_bps_(-1) {
   RTC_DCHECK_GE(bitrate_config.min_bitrate_bps, 0);
   RTC_DCHECK_GE(bitrate_config.start_bitrate_bps,
                 bitrate_config.min_bitrate_bps);
@@ -79,6 +81,16 @@ RtpBitrateConfigurator::UpdateWithClientPreferences(
   return UpdateConstraints(bitrate_mask.start_bitrate_bps);
 }
 
+// Relay cap can change only max bitrate.
+absl::optional<BitrateConstraints> RtpBitrateConfigurator::UpdateWithRelayCap(
+    int cap_bps) {
+  if (cap_bps != -1) {
+    RTC_DCHECK_GT(cap_bps, 0);
+  }
+  relay_cap_bps_ = cap_bps;
+  return UpdateConstraints(absl::nullopt);
+}
+
 absl::optional<BitrateConstraints> RtpBitrateConfigurator::UpdateConstraints(
     const absl::optional<int>& new_start) {
   BitrateConstraints updated;
@@ -89,6 +101,8 @@ absl::optional<BitrateConstraints> RtpBitrateConfigurator::UpdateConstraints(
   updated.max_bitrate_bps =
       MinPositive(bitrate_config_mask_.max_bitrate_bps.value_or(-1),
                   base_bitrate_config_.max_bitrate_bps);
+  updated.max_bitrate_bps =
+      MinPositive(updated.max_bitrate_bps, relay_cap_bps_);
 
   // If the combined min ends up greater than the combined max, the max takes
   // priority.

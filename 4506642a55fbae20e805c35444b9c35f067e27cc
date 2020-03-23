@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5658cfb1_1c431f49",
+        "filename": "call/video_send_stream.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:40:06Z",
+      "side": 1,
+      "message": "Did I mention that I hate structs?\nCan we make these private so that we reduce the amount by which they contaminate the rest of the codebase with stuff that doesn\u0027t use |type|?\nOr replace them with accessors that interpret |type|; the best way to handle redundancy is to not add it.",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "198e2e8d_e0285825",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:40:06Z",
+      "side": 1,
+      "message": "Is it better to make it private (in which case it doesn\u0027t need to be a static member function) and expose a GetOutboundRtpSubstreamsForTesting() that calls it?",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e2270b_ae43c334",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:40:06Z",
+      "side": 1,
+      "message": "According to the description, it is not a getter, so its name should not start with Get.\nMergeInfoAboutOutboundRtpSubstreams() would be long, but accurate.",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3d6ebab_79e2bc69",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:40:06Z",
+      "side": 1,
+      "message": "Should this be a case on \"type\"? that would make the miup on kFlexfec even more obvious than the comment.",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "638d71e9_ddc1c0df",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:40:06Z",
+      "side": 1,
+      "message": "Case on \"type\"? Would avoid the RTC_DCHECK on type consistency.",
+      "revId": "4506642a55fbae20e805c35444b9c35f067e27cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

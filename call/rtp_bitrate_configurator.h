@@ -44,6 +44,9 @@ class RtpBitrateConfigurator {
   absl::optional<BitrateConstraints> UpdateWithClientPreferences(
       const BitrateSettings& bitrate_mask);
 
+  // Apply a cap for relayed calls; -1 to clear existing cap.
+  absl::optional<BitrateConstraints> UpdateWithRelayCap(int cap_bps);
+
  private:
   // Applies update to the BitrateConstraints cached in |config_|, resetting
   // with |new_start| if set.
@@ -61,6 +64,9 @@ class RtpBitrateConfigurator {
   // The config set by SetSdpBitrateParameters.
   // min >= 0, start != 0, max == -1 || max > 0
   BitrateConstraints base_bitrate_config_;
+
+  // Bandwidth cap applied for relayed calls.
+  int relay_cap_bps_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(RtpBitrateConfigurator);
 };

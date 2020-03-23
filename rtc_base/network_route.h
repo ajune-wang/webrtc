@@ -46,6 +46,7 @@ class RouteEndpoint {
                          /* adapter_id = */ 0, network_id,
                          /* uses_turn = */ false);
   }
+  void SetTurn(bool uses_turn) { uses_turn_ = uses_turn; }
 
   AdapterType adapter_type() const { return adapter_type_; }
   uint16_t adapter_id() const { return adapter_id_; }

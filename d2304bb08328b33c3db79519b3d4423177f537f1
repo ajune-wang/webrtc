@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f94322bf_6996a1da",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T21:46:06Z",
+      "side": 1,
+      "message": "What field is not being compared here?\nIf all fields are compared, it should be \u003ddefault.",
+      "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae27cee9_f45a664f",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T21:46:06Z",
+      "side": 1,
+      "message": "\u0027cause is an ellipsis - say \"because\", or \", last_sent_packet_id is really\".\n\nThe theory seems doubtful - \"last_sent_packet_id\" is part of the state of the route, as is \"connected\". It\u0027s not clear what identity of two routes means - identity of state, identity of address, or what\u0027s being compared here?",
+      "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b13ca35_27d229d0",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T21:46:06Z",
+      "side": 1,
+      "message": "propery -\u003e property",
+      "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe303a2_0452559f",
+        "filename": "rtc_base/network_route_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T21:46:06Z",
+      "side": 1,
+      "message": "EqualsIgnoresLastSentPacketId",
+      "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

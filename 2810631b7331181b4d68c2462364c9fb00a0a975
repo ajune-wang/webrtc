@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a76478d_c5437478",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:57:13Z",
+      "side": 1,
+      "message": "Nit: This is -\u003e This",
+      "revId": "2810631b7331181b4d68c2462364c9fb00a0a975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4fc84d_ba975825",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:57:13Z",
+      "side": 1,
+      "message": "Nit: Comma after \"interfaces.",
+      "revId": "2810631b7331181b4d68c2462364c9fb00a0a975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bafc6187_d16173c8",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:57:13Z",
+      "side": 1,
+      "message": "Note: Using [] for adding objects is a discouraged practice, due to the fact that you get to init an object twice (once to create the empty object, once to create the new object that is then copied into it).\n\nUse .insert or other appropriate function instead.",
+      "revId": "2810631b7331181b4d68c2462364c9fb00a0a975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8595d17_bb6809de",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:57:13Z",
+      "side": 1,
+      "message": "It seems to me that network ID should never change. Can you make a DCHECK here to check that it is zero (uninitialized) before you set it?\n\n(Due to the fact that setting is done in MergeNetworkList while creation is done somewhere Very Far Away, I\u0027m not asking you to refactor this to set it in the constructor and make it const.)",
+      "revId": "2810631b7331181b4d68c2462364c9fb00a0a975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c27cc52_b0bc5c36",
+        "filename": "rtc_base/network_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:57:13Z",
+      "side": 1,
+      "message": "[] on the left hand side is a bad habit. Here it does no harm, but it\u0027s good to avoid it anyway.",
+      "revId": "2810631b7331181b4d68c2462364c9fb00a0a975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6808dedf_fa56f447",
+        "filename": "rtc_base/network_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-23T07:57:13Z",
+      "side": 1,
+      "message": "You should also EXPECT_EQ(networks_per_interface(interface_id(test_eth0)) \u003d\u003d 2 and the same (test_eth1) \u003d\u003d 1.",
+      "revId": "2810631b7331181b4d68c2462364c9fb00a0a975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

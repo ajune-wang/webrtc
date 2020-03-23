@@ -11,11 +11,13 @@
 #ifndef MODULES_CONGESTION_CONTROLLER_RTP_TRANSPORT_FEEDBACK_ADAPTER_H_
 #define MODULES_CONGESTION_CONTROLLER_RTP_TRANSPORT_FEEDBACK_ADAPTER_H_
 
+#include <cstdint>
 #include <deque>
 #include <map>
 #include <utility>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/transport/network_types.h"
 #include "modules/include/module_common_types_public.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -26,6 +28,39 @@
 
 namespace webrtc {
 
+class RouteId {
+ public:
+  RouteId() = default;
+  RouteId(uint16_t local_net_id,
+          uint16_t remote_net_id,
+          absl::optional<bool> relayed)
+      : local_net_id_(local_net_id),
+        remote_net_id_(remote_net_id),
+        relayed_(relayed) {}
+
+  bool operator==(const RouteId& other) const {
+    return local_net_id_ == other.local_net_id_ &&
+           remote_net_id_ == other.remote_net_id_ && relayed_ == other.relayed_;
+  }
+
+  bool operator!=(const RouteId& other) const { return !(*this == other); }
+
+  bool operator<(const RouteId& other) const {
+    if (local_net_id_ < other.local_net_id_)
+      return true;
+    if (remote_net_id_ < other.remote_net_id_)
+      return true;
+    if (relayed_ < other.relayed_)
+      return true;
+    return false;
+  }
+
+ private:
+  uint16_t local_net_id_ = 0;
+  uint16_t remote_net_id_ = 0;
+  absl::optional<bool> relayed_;
+};
+
 struct PacketFeedback {
   PacketFeedback() = default;
   // Time corresponding to when this object was created.
@@ -35,21 +70,18 @@ struct PacketFeedback {
   // receiver's clock. For unreceived packet, Timestamp::PlusInfinity() is used.
   Timestamp receive_time = Timestamp::PlusInfinity();
 
-  // The network route ids that this packet is associated with.
-  uint16_t local_net_id = 0;
-  uint16_t remote_net_id = 0;
+  // The network route that this packet is associated with.
+  RouteId route_id;
 };
 
 class InFlightBytesTracker {
  public:
   void AddInFlightPacketBytes(const PacketFeedback& packet);
   void RemoveInFlightPacketBytes(const PacketFeedback& packet);
-  DataSize GetOutstandingData(uint16_t local_net_id,
-                              uint16_t remote_net_id) const;
+  DataSize GetOutstandingData(const RouteId& route_id) const;
 
  private:
-  using RemoteAndLocalNetworkId = std::pair<uint16_t, uint16_t>;
-  std::map<RemoteAndLocalNetworkId, DataSize> in_flight_data_;
+  std::map<RouteId, DataSize> in_flight_data_;
 };
 
 class TransportFeedbackAdapter {
@@ -66,7 +98,7 @@ class TransportFeedbackAdapter {
       const rtcp::TransportFeedback& feedback,
       Timestamp feedback_time);
 
-  void SetNetworkIds(uint16_t local_id, uint16_t remote_id);
+  void SetRouteId(const RouteId& route_id);
 
   DataSize GetOutstandingData() const;
 
@@ -91,8 +123,7 @@ class TransportFeedbackAdapter {
   Timestamp current_offset_ = Timestamp::MinusInfinity();
   TimeDelta last_timestamp_ = TimeDelta::MinusInfinity();
 
-  uint16_t local_net_id_ = 0;
-  uint16_t remote_net_id_ = 0;
+  RouteId route_id_;
 };
 
 }  // namespace webrtc

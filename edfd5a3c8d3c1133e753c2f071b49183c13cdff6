@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b8cf0db_3ecb5787",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-03-23T18:03:32Z",
+      "side": 1,
+      "message": "Change to -\u003e AOME_SET_CPUUSED.",
+      "range": {
+        "startLine": 186,
+        "startChar": 40,
+        "endLine": 186,
+        "endChar": 56
+      },
+      "revId": "edfd5a3c8d3c1133e753c2f071b49183c13cdff6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

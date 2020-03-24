@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cef08f81_40a9b817",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-24T22:43:16Z",
+      "side": 1,
+      "message": "It might seem odd to put this above the ice servers instead of with the other boolean values, but I\u0027m just doing this to keep the order consistent between this and C++.",
+      "revId": "1f8a749495393929fd1af2ddc0eff5acac340e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

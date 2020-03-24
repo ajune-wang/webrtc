@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96a43ac1_e303b451",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-03-24T16:05:45Z",
+      "side": 1,
+      "message": "I guess this should be noise_floor_dbfs?",
+      "range": {
+        "startLine": 38,
+        "startChar": 49,
+        "endLine": 38,
+        "endChar": 58
+      },
+      "revId": "60b69a9272188876534fd5141f2ee79ec333cd21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

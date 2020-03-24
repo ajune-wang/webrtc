@@ -107,7 +107,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   rtc::TaskQueue* encoder_queue() { return &encoder_queue_; }
 
   void OnVideoSourceRestrictionsUpdated(
-      VideoSourceRestrictions restrictions) override;
+      VideoSourceRestrictions restrictions,
+      const AdaptationCounters& adaptation_counters,
+      const Resource* reason) override;
 
   // Used for injected test resources.
   // TODO(eshr): Move all adaptation tests out of VideoStreamEncoder tests.
@@ -406,6 +408,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // VideoSourceSinkController can be made single-threaded, and its lock can be
   // replaced with a sequence checker.
   std::unique_ptr<VideoSourceSinkController> video_source_sink_controller_;
+  std::unique_ptr<VideoStreamEncoderResourceManager> stream_resource_manager_
+      RTC_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<ResourceAdaptationProcessor> resource_adaptation_processor_
       RTC_GUARDED_BY(&encoder_queue_);
 

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffa3772a_19abb6df",
+        "filename": "call/rtp_bitrate_configurator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-24T10:33:44Z",
+      "side": 1,
+      "message": "DataRate ... \u003d DataRate::PlusInfinity();",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3c15bfe_00fb3e8b",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-24T10:33:44Z",
+      "side": 1,
+      "message": "Use the WebRtcKeyValueConfig* trials parameter to the constructor instead.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 48
+      },
+      "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69b8064e_f6e7fbef",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-24T10:33:44Z",
+      "side": 1,
+      "message": "Could this be part of the rtc::NetworkRoute struct? AFAICT it should only change when the route changes.",
+      "range": {
+        "startLine": 107,
+        "startChar": 7,
+        "endLine": 107,
+        "endChar": 18
+      },
+      "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

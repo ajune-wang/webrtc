@@ -11,8 +11,7 @@
 #ifndef LOGGING_RTC_EVENT_LOG_ICE_LOGGER_H_
 #define LOGGING_RTC_EVENT_LOG_ICE_LOGGER_H_
 
-#include <unordered_map>
-
+#include "absl/container/flat_hash_map.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 
@@ -47,7 +46,7 @@ class IceEventLog {
 
  private:
   RtcEventLog* event_log_ = nullptr;
-  std::unordered_map<uint32_t, IceCandidatePairDescription>
+  absl::flat_hash_map<uint32_t, IceCandidatePairDescription>
       candidate_pair_desc_by_id_;
 };
 

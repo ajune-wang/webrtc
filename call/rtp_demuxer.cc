@@ -123,7 +123,7 @@ bool RtpDemuxer::CriteriaWouldConflict(
   }
 
   for (uint32_t ssrc : criteria.ssrcs) {
-    if (sink_by_ssrc_.find(ssrc) != sink_by_ssrc_.end()) {
+    if (sink_by_ssrc_.contains(ssrc)) {
       return true;
     }
   }
@@ -164,7 +164,7 @@ bool RtpDemuxer::RemoveSink(const RtpPacketSinkInterface* sink) {
   RTC_DCHECK(sink);
   size_t num_removed = RemoveFromMapByValue(&sink_by_mid_, sink) +
                        RemoveFromMapByValue(&sink_by_ssrc_, sink) +
-                       RemoveFromMultimapByValue(&sinks_by_pt_, sink) +
+                       RemoveFromMapByValue(&sinks_by_pt_, sink) +
                        RemoveFromMapByValue(&sink_by_mid_and_rsid_, sink) +
                        RemoveFromMapByValue(&sink_by_rsid_, sink);
   RefreshKnownMids();

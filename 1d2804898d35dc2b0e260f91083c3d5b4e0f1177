@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc5abe31_c40d9d17",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-03-24T15:53:23Z",
+      "side": 1,
+      "message": "Is the plan to make AssembleFrame pure virtual in the future? If so, should this not be a  \"RTC_NOTREACHED\" implementation?",
+      "range": {
+        "startLine": 23,
+        "startChar": 61,
+        "endLine": 23,
+        "endChar": 74
+      },
+      "revId": "1d2804898d35dc2b0e260f91083c3d5b4e0f1177",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

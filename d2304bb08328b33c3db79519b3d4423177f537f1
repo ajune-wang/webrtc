@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0000204f_9470e30b",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-24T06:41:05Z",
+      "side": 1,
+      "message": "yes, but defaulted comparisons is a c++ 20 feature,\n\n\u003e../../rtc_base/network_route.h:55:55: error: defaulted comparison operators are a C++20 extension [-Werror,-Wc++20-extensions] bool operator\u003d\u003d(const RouteEndpoint\u0026 other) const \u003d default;\n                                                      ^\n\nDone",
+      "parentUuid": "f94322bf_6996a1da",
+      "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae27cee9_f45a664f",
         "filename": "rtc_base/network_route.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9214335_dd25d97d",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-24T06:41:05Z",
+      "side": 1,
+      "message": "i made it \"default\" operator\u003d\u003d, that is well defined.",
+      "parentUuid": "ae27cee9_f45a664f",
+      "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "312b2746_3e1d2970",
+        "filename": "rtc_base/network_route.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-24T06:41:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b13ca35_27d229d0",
+      "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfe303a2_0452559f",
         "filename": "rtc_base/network_route_unittest.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad6104c4_35556623",
+        "filename": "rtc_base/network_route_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-24T06:41:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dfe303a2_0452559f",
+      "revId": "d2304bb08328b33c3db79519b3d4423177f537f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

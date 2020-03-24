@@ -30,9 +30,6 @@ class ResourceAdaptationProcessorListener {
       VideoSourceRestrictions restrictions) = 0;
 };
 
-// Responsible for reconfiguring encoded streams based on resource consumption,
-// such as scaling down resolution or frame rate when CPU is overused. This
-// interface is meant to be injectable into VideoStreamEncoder.
 class ResourceAdaptationProcessorInterface {
  public:
   virtual ~ResourceAdaptationProcessorInterface();
@@ -43,8 +40,14 @@ class ResourceAdaptationProcessorInterface {
 
   // The resource must out-live the module.
   virtual void AddResource(Resource* resource) = 0;
+};
 
-  // The following methods are callable whether or not adaption is started.
+// Responsible for reconfiguring encoded streams based on resource consumption,
+// such as scaling down resolution or frame rate when CPU is overused. This
+// interface is meant to be injectable into VideoStreamEncoder.
+class VideoStreamEncoderResourceManagerInterface {
+ public:
+  virtual ~VideoStreamEncoderResourceManagerInterface();
 
   // Informs the module whether we have input video. By default, the module must
   // assume the value is false.

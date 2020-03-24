@@ -406,6 +406,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // VideoSourceSinkController can be made single-threaded, and its lock can be
   // replaced with a sequence checker.
   std::unique_ptr<VideoSourceSinkController> video_source_sink_controller_;
+  std::unique_ptr<VideoStreamEncoderResourceManager> stream_resource_manager_
+      RTC_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<ResourceAdaptationProcessor> resource_adaptation_processor_
       RTC_GUARDED_BY(&encoder_queue_);
 

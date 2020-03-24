@@ -22,6 +22,30 @@
       "revId": "1d2804898d35dc2b0e260f91083c3d5b4e0f1177",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3e59385_812c0694",
+        "filename": "modules/rtp_rtcp/source/video_rtp_depacketizer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-24T15:58:07Z",
+      "side": 1,
+      "message": "no, I do not have such plans.\nIt might make sense to have custom implementation for H264,\nbut raw, vp8 and vp9 all can share this implementation.",
+      "parentUuid": "fc5abe31_c40d9d17",
+      "range": {
+        "startLine": 23,
+        "startChar": 61,
+        "endLine": 23,
+        "endChar": 74
+      },
+      "revId": "1d2804898d35dc2b0e260f91083c3d5b4e0f1177",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "c3f4128f_d8eda3f6",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-03-24T07:13:51Z",
+      "side": 1,
+      "message": "will give it a try. One thing I didn\u0027t understand was why the related address is set to the address of the local candidate. But then it is related *somehow* and the related address is for debugging purposes only anyway.",
+      "parentUuid": "1c7a8d4e_c9206c93",
+      "revId": "8d5f842269b177199ccd7fc49ff1575821eb90ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30cd027b_e8d6009a",
         "filename": "p2p/base/connection.cc",
         "patchSetId": 3

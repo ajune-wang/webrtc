@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06f08090_6b93a237",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "This is now the same as AdaptationCounters. Use that instead?",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e90b657f_1f870c6c",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "If AdaptationCounts are used, this can be replaced by...\n\nencoder_stats_observer_-\u003eOnAdaptationChanged(\n    reason,\n    active_counts_[AdaptationObserverInterface::AdaptReason::kCpu],\n    active_counts_[AdaptationObserverInterface::AdaptReason::kQuality]);\n\nNo switch case needeed.",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f0dcba7_49b643d8",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "It looks to me like this isn\u0027t really resetting any counters, it\u0027s just updating the settings, which may cause counters to look different due to masking, but it hasn\u0027t reset any counter. Should this be UpdateMaskingSettings() too?",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c7e0695_5ebacc1f",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "Looks like cpu_downscales_ and quality_downscales_ is not used a lot. Could we delete cpu_downscales_ and quality_downscales_ in favor of invoking \"adaptations_.MaskedCpuCounts().resolution_adaptations\" directly instead? Then there is no risk of the values getting out-of-sync and it\u0027s more descriptive than \"cpu_downscales_\".",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "309c676e_68381846",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "nit: If we use AdaptationCounters or similar struct this could be cpu_counts.Total() \u003e 0.",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a33ca8e2_0e4f32b0",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "If AdaptationCounters is used instead of AdaptationSteps, rename this MaskedAdaptationCounters and for consistency, how about renaming the members to resolution_adaptations/fps_adaptations (same as in AdaptationCounters)?",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dde0a68_f239122a",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "nit: masked_cpu_counts(), masked_quality_counts()\n\nOr MaskedCpuCounts() and MaskedQualityCounts() since this is not a raw getter.",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "531dc4f8_64f8c596",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "nit: Even though this just sets stuff it\u0027s not a pure set_foo() so I think it should be UpdateAdaptationSettings().\n\nActually I think UpdateMaskingSettings() is more descriptive, how about it?",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cff2c85e_dd61cf40",
+        "filename": "video/send_statistics_proxy_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-25T15:43:54Z",
+      "side": 1,
+      "message": "Unless this is already covered by other tests, can you add a test that performs adaptations for both reasons and both resolution and fps, and then go through different combinations of masking settings and make sure the appropriate counters show up.",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

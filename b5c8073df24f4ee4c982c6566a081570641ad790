@@ -22,6 +22,30 @@
       "revId": "b5c8073df24f4ee4c982c6566a081570641ad790",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91d334cb_e26d18ed",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-25T09:04:14Z",
+      "side": 1,
+      "message": "It could work, but it would not be a noop on frequent network toggling A-\u003eB-\u003eA. Currently, data-in-flight from first use of A will be remember on 2nd visit. Whereas with suggested change, at TransportFeedbackAdapter level, the two uses of A would look like completely different routes. But maybe that is ok? In that case, I guess there is no need to store data-in-flight per route, but only one number counted, reset to 0 on a route change?\n\nA bit worried about making this change without any larger scale testing.",
+      "parentUuid": "8327a132_f7cfc57a",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "b5c8073df24f4ee4c982c6566a081570641ad790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

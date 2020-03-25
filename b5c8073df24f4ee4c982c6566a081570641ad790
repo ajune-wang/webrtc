@@ -46,6 +46,30 @@
       "revId": "b5c8073df24f4ee4c982c6566a081570641ad790",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df459e11_8fb0494c",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-25T09:08:51Z",
+      "side": 1,
+      "message": "My reply assumes that the ID is generated in RtpTransportControllerSend, whereas you say \"where the NetworkRoute is create\" which means above that. I would not recommend putting it above RtpTransportControllerSend as it is the ID that determines how route changes are handled in bandwodth control. That should happen close to the bandwidth control itself.",
+      "parentUuid": "91d334cb_e26d18ed",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "b5c8073df24f4ee4c982c6566a081570641ad790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

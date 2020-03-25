@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8327a132_f7cfc57a",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-25T08:51:41Z",
+      "side": 1,
+      "message": "I wonder if it would be possible to make this simpler. If the only thins feedback adapter cares about is identity, could we assign an integer, increasing by one for each new unique route (as defined here) already where the NetworkRoute is created. That way we can propagate just that number.\n\nThis scales well, since any new criteria for uniqueness will only affect the calculation at one single point.\n\n(I considered doing something similar already when we only cared about local and remote ID, but as we add criteria, I think it becomes even more appealing)",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "b5c8073df24f4ee4c982c6566a081570641ad790",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

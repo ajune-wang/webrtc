@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a3f17a9_8a035d41",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-03-25T08:45:36Z",
+      "side": 1,
+      "message": "You increment the next_available_interface_id twice (here and on line 359). This should cause the networks_map_ to point to different numbers than interface_ids_by_name_ if a new network name is found (not if the network names are the same). Can you add an unit test that will fail if this happens?",
+      "revId": "eff8d6906d9d88aa4d2947b1056044dd7d57816a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

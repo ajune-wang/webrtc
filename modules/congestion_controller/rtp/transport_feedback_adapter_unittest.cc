@@ -410,6 +410,28 @@ TEST_F(TransportFeedbackAdapterTest, IgnoreDuplicatePacketSentCalls) {
   EXPECT_FALSE(duplicate_packet.has_value());
 }
 
+TEST_F(TransportFeedbackAdapterTest, TestRouteId) {
+  RouteId route_a(1, 2, absl::nullopt);
+  RouteId route_a2(1, 2, absl::nullopt);
+  EXPECT_EQ(route_a, route_a2);
+
+  // Check that relay:false differs from relay unset.
+  RouteId route_b(1, 2, absl::optional<bool>(false));
+  EXPECT_LT(route_a, route_b);
+
+  // Check that relay true differs from relay false.
+  RouteId route_c(1, 2, absl::optional<bool>(true));
+  EXPECT_LT(route_b, route_c);
+
+  // Check that comparison differs on remote_net_id.
+  RouteId route_d(1, 3, absl::optional<bool>(true));
+  EXPECT_LT(route_c, route_d);
+
+  // Check that comparison differs on local_net_id.
+  RouteId route_e(2, 3, absl::optional<bool>(true));
+  EXPECT_LT(route_d, route_e);
+}
+
 }  // namespace test
 }  // namespace webrtc_cc
 }  // namespace webrtc

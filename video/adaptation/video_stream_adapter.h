@@ -25,6 +25,7 @@
 namespace webrtc {
 
 extern const int kMinFrameRateFps;
+int GetHigherResolutionThan(int pixel_count);
 
 class VideoStreamAdapter;
 
@@ -138,6 +139,9 @@ class VideoStreamAdapter {
   ~VideoStreamAdapter();
 
   VideoSourceRestrictions source_restrictions() const;
+  VideoSourceRestrictions filtered_source_restrictions() const;
+  AdaptationCounters FilterAdaptationCounters(
+      AdaptationCounters counters) const;
   const AdaptationCounters& adaptation_counters() const;
   // TODO(hbos): Can we get rid of any external dependencies on
   // BalancedDegradationPreference? How the adaptor generates possible next

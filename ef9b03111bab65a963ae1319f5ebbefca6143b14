@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c3832572_7ce799e5",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-25T21:45:05Z",
+      "side": 1,
+      "message": "It was possible indeed. I was worried about introducing different methods for deciding what is a \"relevant\" route change in between RtpTransportControllerSend and TransportFeedbackAdapter, but as long as the latter checks on a superset of the prior we are fine.",
+      "parentUuid": "ca1be2f6_7b2f5a2f",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "ef9b03111bab65a963ae1319f5ebbefca6143b14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "961aa6f4_0a0bd3a7",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-25T15:03:19Z",
       "side": 1,
       "message": "Replace these with explicit checks, preferably inlined where they are used. IF the same check need to be doen several times, define a bool CheckSame...(a,b).\n\nThe expected behavior of comparison operators on structs is not obvious to a reader. bBetter name it based on the actual chek that is being done (or better, explicitly check the field that needs to be checked where it\u0027s done)",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "ef9b03111bab65a963ae1319f5ebbefca6143b14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe099a5a_15c30b47",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-25T21:45:05Z",
+      "side": 1,
+      "message": "As I read it, the uses of \u003d\u003d and !\u003d are completely in line with the style guide. The use of \u0027\u003c\u0027 however is not, as it was added simply to allow using the class as key for a map. A custom comparator should be used instead. \n\nAnyway, both are deleted now that NetworkRoute is used instead.",
+      "parentUuid": "961aa6f4_0a0bd3a7",
       "range": {
         "startLine": 45,
         "startChar": 1,

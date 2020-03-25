@@ -73,6 +73,10 @@ class SendStatisticsProxy : public VideoStreamEncoderObserver,
   void OnAdaptationChanged(AdaptationReason reason,
                            const AdaptationSteps& cpu_counts,
                            const AdaptationSteps& quality_counts) override;
+  void ClearAdaptationStats() override;
+  void ResetAdaptationStatistics(bool can_scale_resolution,
+                                 bool can_scale_framerate,
+                                 bool quality_scaling_enabled) override;
 
   void OnBitrateAllocationUpdated(
       const VideoCodec& codec,
@@ -223,11 +227,36 @@ class SendStatisticsProxy : public VideoStreamEncoderObserver,
   VideoSendStream::StreamStats* GetStatsEntry(uint32_t ssrc)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
-  void SetAdaptTimer(const AdaptationSteps& counts, StatsTimer* timer)
+  struct MaskedAdaptationSteps {
+    absl::optional<int> num_resolution_reductions = absl::nullopt;
+    absl::optional<int> num_framerate_reductions = absl::nullopt;
+  };
+
+  struct Adaptations {
+   public:
+    MaskedAdaptationSteps cpu_counts() const;
+    MaskedAdaptationSteps quality_counts() const;
+
+    void set_cpu_counts(const AdaptationSteps& cpu_steps);
+    void set_quality_counts(const AdaptationSteps& quality_steps);
+
+    void update_adaptation_settings(bool can_scale_resolution,
+                                    bool can_scale_framerate,
+                                    bool quality_scaling_enabled);
+
+   private:
+    AdaptationSteps cpu_counts_;
+    AdaptationSteps quality_counts_;
+    bool can_scale_resolution_ = false;
+    bool can_scale_framerate_ = false;
+    bool quality_scaling_enabled_ = false;
+  };
+
+  void SetAdaptTimer(const MaskedAdaptationSteps& counts, StatsTimer* timer)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
   void UpdateAdaptationStats() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
   void TryUpdateInitialQualityResolutionAdaptUp(
-      const AdaptationSteps& quality_counts)
+      const MaskedAdaptationSteps& quality_counts)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   void UpdateEncoderFallbackStats(const CodecSpecificInfo* codec_info,
@@ -268,8 +297,7 @@ class SendStatisticsProxy : public VideoStreamEncoderObserver,
   bool bw_limited_layers_ RTC_GUARDED_BY(crit_);
   // Indicastes if the encoder internally downscales input image.
   bool internal_encoder_scaler_ RTC_GUARDED_BY(crit_);
-  AdaptationSteps cpu_counts_ RTC_GUARDED_BY(crit_);
-  AdaptationSteps quality_counts_ RTC_GUARDED_BY(crit_);
+  Adaptations adaptations_ RTC_GUARDED_BY(crit_);
 
   struct EncoderChangeEvent {
     std::string previous_encoder_implementation;

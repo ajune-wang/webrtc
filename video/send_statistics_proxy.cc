@@ -1051,39 +1051,56 @@ void SendStatisticsProxy::OnFrameDropped(DropReason reason) {
   }
 }
 
+void SendStatisticsProxy::ClearAdaptationStats() {
+  rtc::CritScope lock(&crit_);
+  adaptations_.set_cpu_counts(AdaptationSteps());
+  adaptations_.set_quality_counts(AdaptationSteps());
+  UpdateAdaptationStats();
+}
+
+void SendStatisticsProxy::ResetAdaptationStatistics(
+    bool can_scale_resolution,
+    bool can_scale_framerate,
+    bool quality_scaling_enabled) {
+  rtc::CritScope lock(&crit_);
+  adaptations_.update_adaptation_settings(
+      can_scale_resolution, can_scale_framerate, quality_scaling_enabled);
+  SetAdaptTimer(adaptations_.cpu_counts(), &uma_container_->cpu_adapt_timer_);
+  SetAdaptTimer(adaptations_.quality_counts(),
+                &uma_container_->quality_adapt_timer_);
+  UpdateAdaptationStats();
+}
+
 void SendStatisticsProxy::OnAdaptationChanged(
     AdaptationReason reason,
     const AdaptationSteps& cpu_counts,
     const AdaptationSteps& quality_counts) {
   rtc::CritScope lock(&crit_);
+  adaptations_.set_cpu_counts(cpu_counts);
+  adaptations_.set_quality_counts(quality_counts);
+
   switch (reason) {
-    case AdaptationReason::kNone:
-      SetAdaptTimer(cpu_counts, &uma_container_->cpu_adapt_timer_);
-      SetAdaptTimer(quality_counts, &uma_container_->quality_adapt_timer_);
-      break;
     case AdaptationReason::kCpu:
       ++stats_.number_of_cpu_adapt_changes;
       break;
     case AdaptationReason::kQuality:
-      TryUpdateInitialQualityResolutionAdaptUp(quality_counts);
+      TryUpdateInitialQualityResolutionAdaptUp(adaptations_.quality_counts());
       ++stats_.number_of_quality_adapt_changes;
       break;
   }
-
-  cpu_downscales_ = cpu_counts.num_resolution_reductions.value_or(-1);
-  quality_downscales_ = quality_counts.num_resolution_reductions.value_or(-1);
-
-  cpu_counts_ = cpu_counts;
-  quality_counts_ = quality_counts;
-
   UpdateAdaptationStats();
 }
 
 void SendStatisticsProxy::UpdateAdaptationStats() {
-  bool is_cpu_limited = cpu_counts_.num_resolution_reductions > 0 ||
-                        cpu_counts_.num_framerate_reductions > 0;
-  bool is_bandwidth_limited = quality_counts_.num_resolution_reductions > 0 ||
-                              quality_counts_.num_framerate_reductions > 0 ||
+  auto cpu_counts = adaptations_.cpu_counts();
+  auto quality_counts = adaptations_.quality_counts();
+  cpu_downscales_ = cpu_counts.num_resolution_reductions.value_or(-1);
+  quality_downscales_ = quality_counts.num_resolution_reductions.value_or(-1);
+
+  bool is_cpu_limited = cpu_counts.num_resolution_reductions > 0 ||
+                        cpu_counts.num_framerate_reductions > 0;
+  bool is_bandwidth_limited = quality_counts.num_resolution_reductions > 0 ||
+                              quality_counts.num_framerate_reductions > 0 ||
                               bw_limited_layers_ || internal_encoder_scaler_;
   if (is_bandwidth_limited) {
     // We may be both CPU limited and bandwidth limited at the same time but
@@ -1100,10 +1117,10 @@ void SendStatisticsProxy::UpdateAdaptationStats() {
         QualityLimitationReason::kNone);
   }
 
-  stats_.cpu_limited_resolution = cpu_counts_.num_resolution_reductions > 0;
-  stats_.cpu_limited_framerate = cpu_counts_.num_framerate_reductions > 0;
-  stats_.bw_limited_resolution = quality_counts_.num_resolution_reductions > 0;
-  stats_.bw_limited_framerate = quality_counts_.num_framerate_reductions > 0;
+  stats_.cpu_limited_resolution = cpu_counts.num_resolution_reductions > 0;
+  stats_.cpu_limited_framerate = cpu_counts.num_framerate_reductions > 0;
+  stats_.bw_limited_resolution = quality_counts.num_resolution_reductions > 0;
+  stats_.bw_limited_framerate = quality_counts.num_framerate_reductions > 0;
   // If bitrate allocator has disabled some layers frame-rate or resolution are
   // limited depending on the encoder configuration.
   if (bw_limited_layers_) {
@@ -1185,7 +1202,7 @@ void SendStatisticsProxy::OnInitialQualityResolutionAdaptDown() {
 }
 
 void SendStatisticsProxy::TryUpdateInitialQualityResolutionAdaptUp(
-    const AdaptationSteps& quality_counts) {
+    const MaskedAdaptationSteps& quality_counts) {
   if (uma_container_->initial_quality_changes_.down == 0)
     return;
 
@@ -1200,7 +1217,7 @@ void SendStatisticsProxy::TryUpdateInitialQualityResolutionAdaptUp(
   }
 }
 
-void SendStatisticsProxy::SetAdaptTimer(const AdaptationSteps& counts,
+void SendStatisticsProxy::SetAdaptTimer(const MaskedAdaptationSteps& counts,
                                         StatsTimer* timer) {
   if (counts.num_resolution_reductions || counts.num_framerate_reductions) {
     // Adaptation enabled.
@@ -1377,4 +1394,51 @@ int SendStatisticsProxy::BoolSampleCounter::Fraction(
     return -1;
   return static_cast<int>((sum * multiplier / num_samples) + 0.5f);
 }
+
+SendStatisticsProxy::MaskedAdaptationSteps
+SendStatisticsProxy::Adaptations::cpu_counts() const {
+  MaskedAdaptationSteps steps;
+  if (can_scale_resolution_) {
+    steps.num_resolution_reductions = cpu_counts_.num_resolution_reductions;
+  }
+  if (can_scale_framerate_) {
+    steps.num_framerate_reductions = cpu_counts_.num_framerate_reductions;
+  }
+  return steps;
+}
+
+SendStatisticsProxy::MaskedAdaptationSteps
+SendStatisticsProxy::Adaptations::quality_counts() const {
+  MaskedAdaptationSteps steps;
+  if (!quality_scaling_enabled_) {
+    return steps;
+  }
+  if (can_scale_resolution_) {
+    steps.num_resolution_reductions = quality_counts_.num_resolution_reductions;
+  }
+  if (can_scale_framerate_) {
+    steps.num_framerate_reductions = quality_counts_.num_framerate_reductions;
+  }
+  return steps;
+}
+
+void SendStatisticsProxy::Adaptations::set_cpu_counts(
+    const VideoStreamEncoderObserver::AdaptationSteps& cpu_steps) {
+  cpu_counts_ = cpu_steps;
+}
+
+void SendStatisticsProxy::Adaptations::set_quality_counts(
+    const VideoStreamEncoderObserver::AdaptationSteps& quality_steps) {
+  quality_counts_ = quality_steps;
+}
+
+void SendStatisticsProxy::Adaptations::update_adaptation_settings(
+    bool can_scale_resolution,
+    bool can_scale_framerate,
+    bool quality_scaling_enabled) {
+  can_scale_resolution_ = can_scale_resolution;
+  can_scale_framerate_ = can_scale_framerate;
+  quality_scaling_enabled_ = quality_scaling_enabled;
+}
+
 }  // namespace webrtc

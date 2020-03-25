@@ -253,10 +253,15 @@ void ResourceAdaptationProcessor::SetHasInputVideo(bool has_input_video) {
 void ResourceAdaptationProcessor::SetDegradationPreference(
     DegradationPreference degradation_preference) {
   degradation_preference_ = degradation_preference;
+  encoder_stats_observer_->ResetAdaptationStatistics(
+      IsResolutionScalingEnabled(degradation_preference_),
+      IsFramerateScalingEnabled(degradation_preference_),
+      quality_scaler_resource_->is_started());
   if (stream_adapter_->SetDegradationPreference(degradation_preference) ==
       VideoStreamAdapter::SetDegradationPreferenceResult::
           kRestrictionsCleared) {
     active_counts_.fill(AdaptationCounters());
+    encoder_stats_observer_->ClearAdaptationStats();
   }
   MaybeUpdateVideoSourceRestrictions();
 }
@@ -293,6 +298,7 @@ void ResourceAdaptationProcessor::SetEncoderRates(
 void ResourceAdaptationProcessor::ResetVideoSourceRestrictions() {
   stream_adapter_->ClearRestrictions();
   active_counts_.fill(AdaptationCounters());
+  encoder_stats_observer_->ClearAdaptationStats();
   MaybeUpdateVideoSourceRestrictions();
 }
 
@@ -400,11 +406,10 @@ void ResourceAdaptationProcessor::ConfigureQualityScaler(
       quality_scaler_resource_->SetQpThresholds(*thresholds);
     }
   }
-
-  encoder_stats_observer_->OnAdaptationChanged(
-      VideoStreamEncoderObserver::AdaptationReason::kNone,
-      GetActiveCounts(AdaptationObserverInterface::AdaptReason::kCpu),
-      GetActiveCounts(AdaptationObserverInterface::AdaptReason::kQuality));
+  encoder_stats_observer_->ResetAdaptationStatistics(
+      IsResolutionScalingEnabled(degradation_preference_),
+      IsFramerateScalingEnabled(degradation_preference_),
+      quality_scaler_resource_->is_started());
 }
 
 ResourceListenerResponse
@@ -664,24 +669,6 @@ ResourceAdaptationProcessor::GetActiveCounts(
       VideoStreamEncoderObserver::AdaptationSteps();
   counts.num_resolution_reductions = counters.resolution_adaptations;
   counts.num_framerate_reductions = counters.fps_adaptations;
-  switch (reason) {
-    case AdaptationObserverInterface::AdaptReason::kCpu:
-      if (!IsFramerateScalingEnabled(degradation_preference_))
-        counts.num_framerate_reductions = absl::nullopt;
-      if (!IsResolutionScalingEnabled(degradation_preference_))
-        counts.num_resolution_reductions = absl::nullopt;
-      break;
-    case AdaptationObserverInterface::AdaptReason::kQuality:
-      if (!IsFramerateScalingEnabled(degradation_preference_) ||
-          !quality_scaler_resource_->is_started()) {
-        counts.num_framerate_reductions = absl::nullopt;
-      }
-      if (!IsResolutionScalingEnabled(degradation_preference_) ||
-          !quality_scaler_resource_->is_started()) {
-        counts.num_resolution_reductions = absl::nullopt;
-      }
-      break;
-  }
   return counts;
 }
 

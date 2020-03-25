@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5de7aff8_4a71dfed",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-25T18:55:10Z",
+      "side": 1,
+      "message": "Extra spaces.",
+      "range": {
+        "startLine": 192,
+        "startChar": 40,
+        "endLine": 192,
+        "endChar": 44
+      },
+      "revId": "7dfe4885bfad2a113ec035a628a9cd1da78e8d8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

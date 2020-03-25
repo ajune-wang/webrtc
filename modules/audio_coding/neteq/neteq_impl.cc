@@ -1500,9 +1500,7 @@ void NetEqImpl::DoNormal(const int16_t* decoded_buffer,
   assert(normal_.get());
   normal_->Process(decoded_buffer, decoded_length, last_mode_,
                    algorithm_buffer_.get());
-  if (decoded_length != 0) {
-    last_mode_ = Mode::kNormal;
-  }
+  last_mode_ = Mode::kNormal;
 
   // If last packet was decoded as an inband CNG, set mode to CNG instead.
   if ((speech_type == AudioDecoder::kComfortNoise) ||

@@ -16,6 +16,24 @@
       "revId": "eff8d6906d9d88aa4d2947b1056044dd7d57816a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4219fd32_4a062d5b",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-03-25T11:25:19Z",
+      "side": 1,
+      "message": "hmm...\non 357 next_available_interface_id_ is incremented\non 363 next_available_network_id_ is incremented\n\ni don\u0027t see a bug, and I think you missed the subtle difference\nin the names of the variables...but is not sure.\n\nWDYT ?",
+      "parentUuid": "4a3f17a9_8a035d41",
+      "revId": "eff8d6906d9d88aa4d2947b1056044dd7d57816a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

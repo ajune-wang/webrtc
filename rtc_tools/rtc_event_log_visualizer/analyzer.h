@@ -59,6 +59,8 @@ class EventLogAnalyzer {
 
   void CreatePacketGraph(PacketDirection direction, Plot* plot);
 
+  void CreateCsrcGraph(Plot* plot);
+
   void CreateRtcpTypeGraph(PacketDirection direction, Plot* plot);
 
   void CreateAccumulatedPacketsGraph(PacketDirection direction, Plot* plot);
@@ -80,8 +82,12 @@ class EventLogAnalyzer {
                                        bool show_detector_state = false,
                                        bool show_alr_state = false);
 
+  void CreateTotalIncomingPacketRateGraph(Plot* plot);
+
   void CreateStreamBitrateGraph(PacketDirection direction, Plot* plot);
   void CreateBitrateAllocationGraph(PacketDirection direction, Plot* plot);
+
+  void CreateStreamPacketRateGraph(PacketDirection direction, Plot* plot);
 
   void CreateGoogCcSimulationGraph(Plot* plot);
   void CreateSendSideBweSimulationGraph(Plot* plot);

@@ -232,7 +232,21 @@ int main(int argc, char* argv[]) {
         "simulated_neteq_concealment_events",
         "simulated_neteq_packet_loss_rate", "simulated_neteq_preemptive_rate",
         "simulated_neteq_accelerate_rate", "simulated_neteq_speech_expand_rate",
-        "simulated_neteq_expand_rate"}}};
+        "simulated_neteq_expand_rate"}},
+      {"talker switching",
+       {
+           "talker_switching",
+           "incoming_packet_rate",
+           "incoming_stream_packet_rate",
+           "simulated_neteq_preferred_buffer_size",
+           "simulated_neteq_concealment_events",
+           "simulated_neteq_packet_loss_rate",
+           "simulated_neteq_preemptive_rate",
+           "simulated_neteq_accelerate_rate",
+           "simulated_neteq_speech_expand_rate",
+           "simulated_neteq_expand_rate",
+           "simulated_neteq_jitter_buffer_delay",
+       }}};
 
   std::vector<std::string> plot_flags =
       StrSplit(absl::GetFlag(FLAGS_plot), ",");
@@ -279,6 +293,10 @@ int main(int argc, char* argv[]) {
   plots.RegisterPlot("outgoing_packet_sizes", [&](Plot* plot) {
     analyzer.CreatePacketGraph(webrtc::kOutgoingPacket, plot);
   });
+
+  plots.RegisterPlot("talker_switching",
+                     [&](Plot* plot) { analyzer.CreateCsrcGraph(plot); });
+
   plots.RegisterPlot("incoming_rtcp_types", [&](Plot* plot) {
     analyzer.CreateRtcpTypeGraph(webrtc::kIncomingPacket, plot);
   });
@@ -316,8 +334,14 @@ int main(int argc, char* argv[]) {
         plot, absl::GetFlag(FLAGS_show_detector_state),
         absl::GetFlag(FLAGS_show_alr_state));
   });
+  plots.RegisterPlot("incoming_packet_rate", [&](Plot* plot) {
+    analyzer.CreateTotalIncomingPacketRateGraph(plot);
+  });
   plots.RegisterPlot("incoming_stream_bitrate", [&](Plot* plot) {
     analyzer.CreateStreamBitrateGraph(webrtc::kIncomingPacket, plot);
+  });
+  plots.RegisterPlot("incoming_stream_packet_rate", [&](Plot* plot) {
+    analyzer.CreateStreamPacketRateGraph(webrtc::kIncomingPacket, plot);
   });
   plots.RegisterPlot("outgoing_stream_bitrate", [&](Plot* plot) {
     analyzer.CreateStreamBitrateGraph(webrtc::kOutgoingPacket, plot);

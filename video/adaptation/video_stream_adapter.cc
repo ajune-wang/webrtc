@@ -26,6 +26,54 @@ const int kMinFrameRateFps = 2;
 
 namespace {
 
+// Returns modified restrictions where any constraints that don't apply to the
+// degradation preference are cleared.
+VideoSourceRestrictions FilterRestrictionsByDegradationPreference(
+    VideoSourceRestrictions source_restrictions,
+    DegradationPreference degradation_preference) {
+  switch (degradation_preference) {
+    case DegradationPreference::BALANCED:
+      break;
+    case DegradationPreference::MAINTAIN_FRAMERATE:
+      source_restrictions.set_max_frame_rate(absl::nullopt);
+      break;
+    case DegradationPreference::MAINTAIN_RESOLUTION:
+      source_restrictions.set_max_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_target_pixels_per_frame(absl::nullopt);
+      break;
+    case DegradationPreference::DISABLED:
+      source_restrictions.set_max_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_target_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_max_frame_rate(absl::nullopt);
+  }
+  return source_restrictions;
+}
+
+// Returns AdaptationCounters where constraints that don't apply to the
+// degredation preference are cleared. This behaviour must reflect the same
+// filtering as in FilterRestrictionsByDegradationPreference().
+AdaptationCounters FilterAdaptationCountersByDegradationPreference(
+    AdaptationCounters counters,
+    DegradationPreference degradation_preference) {
+  switch (degradation_preference) {
+    case DegradationPreference::BALANCED:
+      break;
+    case DegradationPreference::MAINTAIN_FRAMERATE:
+      counters.fps_adaptations = 0;
+      break;
+    case DegradationPreference::MAINTAIN_RESOLUTION:
+      counters.resolution_adaptations = 0;
+      break;
+    case DegradationPreference::DISABLED:
+      counters.resolution_adaptations = 0;
+      counters.fps_adaptations = 0;
+      break;
+    default:
+      RTC_NOTREACHED();
+  }
+  return counters;
+}
+
 int MinPixelsPerFrame(const absl::optional<EncoderSettings>& encoder_settings) {
   return encoder_settings.has_value()
              ? encoder_settings->encoder_info()
@@ -329,6 +377,18 @@ VideoStreamAdapter::~VideoStreamAdapter() {}
 
 VideoSourceRestrictions VideoStreamAdapter::source_restrictions() const {
   return source_restrictor_->source_restrictions();
+}
+
+VideoSourceRestrictions
+VideoStreamAdapter::filtered_source_restrictions() const {
+  return FilterRestrictionsByDegradationPreference(
+      source_restrictor_->source_restrictions(), degradation_preference_);
+}
+
+AdaptationCounters VideoStreamAdapter::FilterAdaptationCounters(
+    AdaptationCounters counters) const {
+  return FilterAdaptationCountersByDegradationPreference(
+      counters, degradation_preference_);
 }
 
 const AdaptationCounters& VideoStreamAdapter::adaptation_counters() const {

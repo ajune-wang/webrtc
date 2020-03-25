@@ -44,13 +44,6 @@ RtpHeaderExtensionCapability::RtpHeaderExtensionCapability(
     : uri(std::move(uri)), preferred_id(preferred_id), direction(direction) {}
 RtpHeaderExtensionCapability::~RtpHeaderExtensionCapability() = default;
 
-RtpExtension::RtpExtension() = default;
-RtpExtension::RtpExtension(std::string uri, int id)
-    : uri(std::move(uri)), id(id) {}
-RtpExtension::RtpExtension(std::string uri, int id, bool encrypt)
-    : uri(std::move(uri)), id(id), encrypt(encrypt) {}
-RtpExtension::~RtpExtension() = default;
-
 RtpFecParameters::RtpFecParameters() = default;
 RtpFecParameters::RtpFecParameters(FecMechanism mechanism)
     : mechanism(mechanism) {}

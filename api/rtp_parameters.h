@@ -250,10 +250,11 @@ struct RTC_EXPORT RtpHeaderExtensionCapability {
 
 // RTP header extension, see RFC8285.
 struct RTC_EXPORT RtpExtension {
-  RtpExtension();
-  RtpExtension(std::string uri, int id);
-  RtpExtension(std::string uri, int id, bool encrypt);
-  ~RtpExtension();
+  RtpExtension() = default;
+  RtpExtension(absl::string_view uri, int id) : uri(uri), id(id) {}
+  RtpExtension(absl::string_view uri, int id, bool encrypt)
+      : uri(uri), id(id), encrypt(encrypt) {}
+  ~RtpExtension() = default;
 
   std::string ToString() const;
   bool operator==(const RtpExtension& rhs) const {

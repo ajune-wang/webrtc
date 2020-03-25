@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca1be2f6_7b2f5a2f",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-25T15:03:19Z",
+      "side": 1,
+      "message": "Why can\u0027t we reuse the rtc::NetworkRoute instead? Introducing extra types adds congnitive overhead and makes debugging harder. The reader will have to trace the initialization of the fields through each conversion point.\n\nIf there is a natural subset of a rtc::NetworkRoute that is persostent while other properties are not persistent, maybe it makes sense to refacotr it into two structs, one with the persistent state and one that has the persistent state as a member and adds the dynamic state as other mebers.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "ef9b03111bab65a963ae1319f5ebbefca6143b14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "961aa6f4_0a0bd3a7",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-25T15:03:19Z",
+      "side": 1,
+      "message": "Replace these with explicit checks, preferably inlined where they are used. IF the same check need to be doen several times, define a bool CheckSame...(a,b).\n\nThe expected behavior of comparison operators on structs is not obvious to a reader. bBetter name it based on the actual chek that is being done (or better, explicitly check the field that needs to be checked where it\u0027s done)",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "ef9b03111bab65a963ae1319f5ebbefca6143b14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

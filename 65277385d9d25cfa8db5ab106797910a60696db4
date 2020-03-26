@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "260aabf6_fef2b26f",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T11:27:10Z",
+      "side": 1,
+      "message": "I don\u0027t know if that works from a dependency perspective. Api folder shouldn\u0027t be depending on Video/ afaik. Is this correct?",
+      "parentUuid": "06f08090_6b93a237",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e90b657f_1f870c6c",
         "filename": "video/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-03-25T15:43:54Z",
       "side": 1,
       "message": "If AdaptationCounts are used, this can be replaced by...\n\nencoder_stats_observer_-\u003eOnAdaptationChanged(\n    reason,\n    active_counts_[AdaptationObserverInterface::AdaptReason::kCpu],\n    active_counts_[AdaptationObserverInterface::AdaptReason::kQuality]);\n\nNo switch case needeed.",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13a8d10_a1b240a6",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T11:27:10Z",
+      "side": 1,
+      "message": "Still need the switch to convert the types (enum and counts). Can remove the switch though, and replace with conversion functions.",
+      "parentUuid": "e90b657f_1f870c6c",
       "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "41893b0b_4a30a301",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T11:27:10Z",
+      "side": 1,
+      "message": "Good call.",
+      "parentUuid": "1c7e0695_5ebacc1f",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "309c676e_68381846",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 1
@@ -81,6 +135,24 @@
       "writtenOn": "2020-03-25T15:43:54Z",
       "side": 1,
       "message": "nit: If we use AdaptationCounters or similar struct this could be cpu_counts.Total() \u003e 0.",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b5b1b12_c7aefdb2",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T11:27:10Z",
+      "side": 1,
+      "message": "Same dependency point as above.",
+      "parentUuid": "309c676e_68381846",
       "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "7ac19860_abcffcff",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T11:27:10Z",
+      "side": 1,
+      "message": "I don\u0027t think I can pull in the AdaptationCounters due to dependency trees. Perhaps I am wrong though.",
+      "parentUuid": "a33ca8e2_0e4f32b0",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3dde0a68_f239122a",
         "filename": "video/send_statistics_proxy.h",
         "patchSetId": 1
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "a19dcb9d_86f436a3",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T11:27:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dde0a68_f239122a",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "531dc4f8_64f8c596",
         "filename": "video/send_statistics_proxy.h",
         "patchSetId": 1
@@ -135,6 +243,24 @@
       "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f4298e_0713b142",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T11:27:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "531dc4f8_64f8c596",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

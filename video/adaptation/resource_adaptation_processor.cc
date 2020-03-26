@@ -93,6 +93,24 @@ AdaptationCounters ApplyDegradationPreference(
   return counters;
 }
 
+VideoStreamEncoderObserver::AdaptationReason ToAdaptationReason(
+    AdaptationObserverInterface::AdaptReason reason) {
+  switch (reason) {
+    case AdaptationObserverInterface::kQuality:
+      return VideoStreamEncoderObserver::AdaptationReason::kQuality;
+    case AdaptationObserverInterface::kCpu:
+      return VideoStreamEncoderObserver::AdaptationReason::kCpu;
+  }
+}
+
+VideoStreamEncoderObserver::AdaptationSteps ToAdaptationSteps(
+    const AdaptationCounters& counters) {
+  VideoStreamEncoderObserver::AdaptationSteps counts;
+  counts.num_resolution_reductions = counters.resolution_adaptations;
+  counts.num_framerate_reductions = counters.fps_adaptations;
+  return counts;
+}
+
 }  // namespace
 
 class ResourceAdaptationProcessor::InitialFrameDropper {
@@ -253,10 +271,15 @@ void ResourceAdaptationProcessor::SetHasInputVideo(bool has_input_video) {
 void ResourceAdaptationProcessor::SetDegradationPreference(
     DegradationPreference degradation_preference) {
   degradation_preference_ = degradation_preference;
+  encoder_stats_observer_->UpdateMaskingSettings(
+      IsResolutionScalingEnabled(degradation_preference_),
+      IsFramerateScalingEnabled(degradation_preference_),
+      quality_scaler_resource_->is_started());
   if (stream_adapter_->SetDegradationPreference(degradation_preference) ==
       VideoStreamAdapter::SetDegradationPreferenceResult::
           kRestrictionsCleared) {
     active_counts_.fill(AdaptationCounters());
+    encoder_stats_observer_->ClearAdaptationStats();
   }
   MaybeUpdateVideoSourceRestrictions();
 }
@@ -293,6 +316,7 @@ void ResourceAdaptationProcessor::SetEncoderRates(
 void ResourceAdaptationProcessor::ResetVideoSourceRestrictions() {
   stream_adapter_->ClearRestrictions();
   active_counts_.fill(AdaptationCounters());
+  encoder_stats_observer_->ClearAdaptationStats();
   MaybeUpdateVideoSourceRestrictions();
 }
 
@@ -400,11 +424,10 @@ void ResourceAdaptationProcessor::ConfigureQualityScaler(
       quality_scaler_resource_->SetQpThresholds(*thresholds);
     }
   }
-
-  encoder_stats_observer_->OnAdaptationChanged(
-      VideoStreamEncoderObserver::AdaptationReason::kNone,
-      GetActiveCounts(AdaptationObserverInterface::AdaptReason::kCpu),
-      GetActiveCounts(AdaptationObserverInterface::AdaptReason::kQuality));
+  encoder_stats_observer_->UpdateMaskingSettings(
+      IsResolutionScalingEnabled(degradation_preference_),
+      IsFramerateScalingEnabled(degradation_preference_),
+      quality_scaler_resource_->is_started());
 }
 
 ResourceListenerResponse
@@ -637,52 +660,14 @@ void ResourceAdaptationProcessor::UpdateAdaptationStats(
 
   OnAdaptationCountChanged(total_counts, &active_count, &other_active);
 
-  switch (reason) {
-    case AdaptationObserverInterface::AdaptReason::kCpu:
-      encoder_stats_observer_->OnAdaptationChanged(
-          VideoStreamEncoderObserver::AdaptationReason::kCpu,
-          GetActiveCounts(AdaptationObserverInterface::AdaptReason::kCpu),
-          GetActiveCounts(AdaptationObserverInterface::AdaptReason::kQuality));
-      break;
-    case AdaptationObserverInterface::AdaptReason::kQuality:
-      encoder_stats_observer_->OnAdaptationChanged(
-          VideoStreamEncoderObserver::AdaptationReason::kQuality,
-          GetActiveCounts(AdaptationObserverInterface::AdaptReason::kCpu),
-          GetActiveCounts(AdaptationObserverInterface::AdaptReason::kQuality));
-      break;
-  }
-}
-
-VideoStreamEncoderObserver::AdaptationSteps
-ResourceAdaptationProcessor::GetActiveCounts(
-    AdaptationObserverInterface::AdaptReason reason) {
-  // TODO(https://crbug.com/webrtc/11392) Ideally this shuold be moved out of
-  // this class and into the encoder_stats_observer_.
-  const AdaptationCounters counters = active_counts_[reason];
-
-  VideoStreamEncoderObserver::AdaptationSteps counts =
-      VideoStreamEncoderObserver::AdaptationSteps();
-  counts.num_resolution_reductions = counters.resolution_adaptations;
-  counts.num_framerate_reductions = counters.fps_adaptations;
-  switch (reason) {
-    case AdaptationObserverInterface::AdaptReason::kCpu:
-      if (!IsFramerateScalingEnabled(degradation_preference_))
-        counts.num_framerate_reductions = absl::nullopt;
-      if (!IsResolutionScalingEnabled(degradation_preference_))
-        counts.num_resolution_reductions = absl::nullopt;
-      break;
-    case AdaptationObserverInterface::AdaptReason::kQuality:
-      if (!IsFramerateScalingEnabled(degradation_preference_) ||
-          !quality_scaler_resource_->is_started()) {
-        counts.num_framerate_reductions = absl::nullopt;
-      }
-      if (!IsResolutionScalingEnabled(degradation_preference_) ||
-          !quality_scaler_resource_->is_started()) {
-        counts.num_resolution_reductions = absl::nullopt;
-      }
-      break;
-  }
-  return counts;
+  encoder_stats_observer_->OnAdaptationChanged(
+      ToAdaptationReason(reason),
+      ToAdaptationSteps(
+          std::get<AdaptationObserverInterface::AdaptReason::kCpu>(
+              active_counts_)),
+      ToAdaptationSteps(
+          std::get<AdaptationObserverInterface::AdaptReason::kQuality>(
+              active_counts_)));
 }
 
 VideoStreamAdapter::VideoInputMode

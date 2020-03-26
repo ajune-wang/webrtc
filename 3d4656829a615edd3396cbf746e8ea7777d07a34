@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fd9b9a8_faf4fc01",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-26T06:46:57Z",
+      "side": 1,
+      "message": "Could you add a comment on wether there is there some specific logic to this, or if it\u0027s just to keep a stable sort?\n\nAlso consider moving it into the private section of InFlightBytesTracker to avoid cluttering global namespace.",
+      "range": {
+        "startLine": 31,
+        "startChar": 7,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "3d4656829a615edd3396cbf746e8ea7777d07a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

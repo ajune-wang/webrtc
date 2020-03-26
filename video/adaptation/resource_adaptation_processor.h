@@ -19,6 +19,7 @@
 
 #include "absl/types/optional.h"
 #include "api/rtp_parameters.h"
+#include "api/video/adaptation_counters.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_source_interface.h"
 #include "api/video/video_stream_encoder_observer.h"
@@ -31,7 +32,6 @@
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/clock.h"
-#include "video/adaptation/adaptation_counters.h"
 #include "video/adaptation/encode_usage_resource.h"
 #include "video/adaptation/overuse_frame_detector.h"
 #include "video/adaptation/quality_scaler_resource.h"
@@ -140,8 +140,6 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
 
   CpuOveruseOptions GetCpuOveruseOptions() const;
   int LastInputFrameSizeOrDefault() const;
-  VideoStreamEncoderObserver::AdaptationSteps GetActiveCounts(
-      AdaptationObserverInterface::AdaptReason reason);
   VideoStreamAdapter::VideoInputMode GetVideoInputMode() const;
 
   // Makes |video_source_restrictions_| up-to-date and informs the

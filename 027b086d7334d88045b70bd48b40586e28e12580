@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9101f5c3_7e1144f7",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T14:05:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa4c58bd_b3a9f4a7",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "deda3fb4_5d5d8f65",
         "filename": "video/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "027b086d7334d88045b70bd48b40586e28e12580",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9ce38f_0fcdbf09",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T14:05:48Z",
+      "side": 1,
+      "message": "Will do in a follow-up cl.",
+      "parentUuid": "deda3fb4_5d5d8f65",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -260,6 +296,24 @@
       "revId": "027b086d7334d88045b70bd48b40586e28e12580",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dc64010_97e91470",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-26T14:05:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "827a867e_44f258c2",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

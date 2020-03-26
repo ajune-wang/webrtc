@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27950da2_fb407063",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-03-26T11:44:40Z",
+      "side": 0,
+      "message": "the rationale for removing this is that we explicitly set active more often now. Not removing it fails the new test and with this change all tests still pass.",
+      "revId": "457c8cfd4763fd0c30d28761256390191962fb6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

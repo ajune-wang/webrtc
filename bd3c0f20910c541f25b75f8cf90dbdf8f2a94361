@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67ad397f_d93dc0c0",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Can\u0027t this be allocated without a pointer?\n\nWouldn\u0027t\n...\n//audio_egress.h\nRTPSenderAudio rtp_sender_audio_;\n\n...\n//audio_egress.cc\nrtp_sender_audio_(clock, rtp_rtcp_-\u003eRtpSender())\n\nwork?",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 75
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaba913c_c1633e9a",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Not clear what this comment is for. I guess that what is meant is that the ACM will re-sample internally which may affect the timestamp?\n\nRegardless, I think that the comment either should be made more clear, or be removed.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 40
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8db2e2c_d5e3dc72",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Please explain more why this is left as this for now. And consider adding a TODO for how to address it when it is to be updated.",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e117be_8499b7ea",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Maybe change to\n// Synchronization is handled internally by RtpRtcp.\n\n(otherwise the comment is a bit ambiguous and could mean that the synchronization is handled internally inside the AudioEgress class (at least that is how I interpret the comment).",
+      "range": {
+        "startLine": 106,
+        "startChar": 2,
+        "endLine": 106,
+        "endChar": 43
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1d3e607_28fd12b8",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Maybe change to \n// Synchronization is handled internally RTPSenderAudio.\n\n(otherwise the comment is a bit ambiguous and could mean that the synchronization is handled internally inside the AudioEgress class (at least that is how I interpret the comment).",
+      "range": {
+        "startLine": 109,
+        "startChar": 2,
+        "endLine": 109,
+        "endChar": 43
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eac456c2_a9459f75",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Maybe change to.\n// Synchronization is handled internally AudioCodingModule.\n\n(otherwise the comment is a bit ambiguous and could mean that the synchronization is handled internally inside the AudioEgress class (at least that is how I interpret the comment).",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 42
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2405fff6_c9665870",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "rtp -\u003e RTP",
+      "range": {
+        "startLine": 47,
+        "startChar": 13,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a08791_b1831752",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Consider writing this out instead of abbreviating it. This is already a long comment so adding the extra length should be fine.",
+      "range": {
+        "startLine": 84,
+        "startChar": 23,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f67878_bb65ec12",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Nit:\nParenthesis not needed.",
+      "range": {
+        "startLine": 202,
+        "startChar": 25,
+        "endLine": 202,
+        "endChar": 40
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2053d212_68c787d8",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Nit:\nParenthesis not needed.",
+      "range": {
+        "startLine": 216,
+        "startChar": 25,
+        "endLine": 216,
+        "endChar": 40
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d241bbff_97984a97",
+        "filename": "audio/voip/test/audio_egress_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Nit:\nParenthesis not needed.",
+      "range": {
+        "startLine": 278,
+        "startChar": 25,
+        "endLine": 278,
+        "endChar": 40
+      },
+      "revId": "bd3c0f20910c541f25b75f8cf90dbdf8f2a94361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

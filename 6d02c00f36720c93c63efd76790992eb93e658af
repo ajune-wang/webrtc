@@ -319,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "2c9ac9ad_794e68e6",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c021bd4e_c62b2016",
+      "range": {
+        "startLine": 37,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 64
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5023957_3bc109d5",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 14
@@ -683,6 +707,30 @@
       "side": 1,
       "message": "Thanks, changed per comments. \n\nRegarding defining enum, I would like to that happen in one layer above here where appropriate enum class can be exposed to user via VoipCodec API and used internally without the need to force audio egress class to include it.  The underlying RTPSenderAudio uses same int type and it would be better keep the same type at this layer.  Currently the VoipCodec API doesn\u0027t expose DTMF API yet and will do so later.",
       "parentUuid": "d6978c15_e0291ea0",
+      "range": {
+        "startLine": 81,
+        "startChar": 30,
+        "endLine": 81,
+        "endChar": 35
+      },
+      "revId": "6d02c00f36720c93c63efd76790992eb93e658af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be5d0e1b_ded65324",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-26T11:11:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7b42a3af_49df3f9c",
       "range": {
         "startLine": 81,
         "startChar": 30,

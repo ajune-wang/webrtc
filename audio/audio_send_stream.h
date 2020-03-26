@@ -149,6 +149,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
       RTC_EXCLUSIVE_LOCKS_REQUIRED(overhead_per_packet_lock_);
 
   void RegisterCngPayloadType(int payload_type, int clockrate_hz);
+
   Clock* clock_;
 
   rtc::ThreadChecker worker_thread_checker_;

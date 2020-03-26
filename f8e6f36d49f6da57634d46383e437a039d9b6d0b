@@ -49,6 +49,53 @@
     },
     {
       "key": {
+        "uuid": "c1e7e419_0bb9320a",
+        "filename": "call/rtp_bitrate_configurator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-26T13:44:28Z",
+      "side": 1,
+      "message": "nit: max_bitrate_over_relay_",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 20
+      },
+      "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98548581_28f423ec",
+        "filename": "call/rtp_bitrate_configurator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-26T13:44:28Z",
+      "side": 1,
+      "message": "There shouldn\u0027t be any problem mixing the unsafe and safe types. Since those struct are define elsewhere, updating them should be done separately, and probably one struct at a time.",
+      "parentUuid": "c6308919_1df0d349",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f3c15bfe_00fb3e8b",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 8

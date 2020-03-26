@@ -215,6 +215,7 @@ if (rtc_include_tests) {
     group("low_bandwidth_audio_perf_test") {
       testonly = true
 
+      data_deps = []
       deps = [ ":low_bandwidth_audio_test" ]
 
       data = [
@@ -225,10 +226,11 @@ if (rtc_include_tests) {
       deps += [ "//third_party/catapult/tracing/tracing/proto:histogram_proto" ]
       data +=
           [ "${root_out_dir}/pyproto/tracing/tracing/proto/histogram_pb2.py" ]
+      data += [ "//third_party/protobuf:py_proto_runtime" ]
 
       # TODO(http://crbug.com/1029452): Create a cleaner target with just the
       # tracing python code. We don't need Polymer for instance.
-      data_deps = [ "//third_party/catapult/tracing:convert_chart_json" ]
+      data_deps += [ "//third_party/catapult/tracing:convert_chart_json" ]
 
       if (is_win) {
         data += [ "${root_out_dir}/low_bandwidth_audio_test.exe" ]

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c6308919_1df0d349",
+        "filename": "call/rtp_bitrate_configurator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-26T13:36:09Z",
+      "side": 1,
+      "message": "struct BitrateConstraints {\n  int min_bitrate_bps \u003d 0;\n  int start_bitrate_bps \u003d kDefaultStartBitrateBps;\n  int max_bitrate_bps \u003d -1;\n...\n} \n\nSo everything else in this class uses unsafe types. I would make sense to change that but that should be a separate item. Adding a TODO for it.",
+      "parentUuid": "ffa3772a_19abb6df",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3c15bfe_00fb3e8b",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c5779351_1f996d3e",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-26T13:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3c15bfe_00fb3e8b",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 48
+      },
+      "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69b8064e_f6e7fbef",
         "filename": "call/rtp_transport_controller_send.h",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e7395ec_6c931cfb",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-26T13:36:09Z",
+      "side": 1,
+      "message": "Not really, but the method being public is a bug; it should be private. Also renamed it to clarify what it does.",
+      "parentUuid": "69b8064e_f6e7fbef",
+      "range": {
+        "startLine": 107,
+        "startChar": 7,
+        "endLine": 107,
+        "endChar": 18
+      },
+      "revId": "f8e6f36d49f6da57634d46383e437a039d9b6d0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

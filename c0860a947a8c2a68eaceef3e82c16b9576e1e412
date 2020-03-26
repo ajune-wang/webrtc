@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0360f707_fb075467",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T16:32:37Z",
+      "side": 1,
+      "message": "nit: Accidental {}? They\u0027re around the method call not the whole case.",
+      "revId": "c0860a947a8c2a68eaceef3e82c16b9576e1e412",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

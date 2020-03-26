@@ -54,4 +54,10 @@ std::string IceControllerEvent::ToString() const {
   return reason;
 }
 
+IceControllerInterface::PingResult
+IceControllerInterface::SelectConnectionToPing2(int64_t last_ping_sent_ms) {
+  auto res = SelectConnectionToPing(last_ping_sent_ms);
+  return {res.first, res.second};
+}
+
 }  // namespace cricket

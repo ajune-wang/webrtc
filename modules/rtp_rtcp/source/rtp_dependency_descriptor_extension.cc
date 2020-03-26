@@ -12,6 +12,7 @@
 
 #include <cstdint>
 
+#include "absl/strings/string_view.h"
 #include "api/array_view.h"
 #include "api/transport/rtp/dependency_descriptor.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -22,7 +23,7 @@
 namespace webrtc {
 
 constexpr RTPExtensionType RtpDependencyDescriptorExtension::kId;
-constexpr char RtpDependencyDescriptorExtension::kUri[];
+constexpr absl::string_view RtpDependencyDescriptorExtension::kUri;
 
 bool RtpDependencyDescriptorExtension::Parse(
     rtc::ArrayView<const uint8_t> data,

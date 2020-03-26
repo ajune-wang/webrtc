@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b8763125_42eeded8",
+        "filename": "call/rtp_bitrate_configurator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-26T15:05:07Z",
+      "side": 1,
+      "message": "Right, data rate cannot be negative.",
+      "parentUuid": "5deada75_6e2d749c",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "5ccf4d400fb21cf3c7fc25aee1f2f8c0b05a4dac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91a6f897_8a662f92",
         "filename": "call/rtp_bitrate_configurator.h",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-26T14:28:59Z",
       "side": 1,
       "message": "Missed this before, but from this class point of view, does it matter that it\u0027s over relay? Seems like we only set it under relay circumstances?\n\nI suggest:\nUpdateConnectionBasedMaxRate(DataRate max_bitrate) and DataRate connection_based_max \u003d DataRate::PlusInfinity()\n\nThen you can have a comment explaining that it\u0027s currently used for relay if you think it is appropriate.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 36
+      },
+      "revId": "5ccf4d400fb21cf3c7fc25aee1f2f8c0b05a4dac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f23414_c484dd17",
+        "filename": "call/rtp_bitrate_configurator.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-26T15:05:07Z",
+      "side": 1,
+      "message": "This class is used to take a set of limitations from different places and combine them. If we later on add limits based on e.g. the remote adapter type (which we very likely will), that will be added as well. We could off course calculate the minimum of all such caps externally, and set the combined value on the interface as you suggest but then we need to add new logic for that; and why split the logic of doing similar things into two different places?\n\nComment is wrong ofc, fixed that.",
+      "parentUuid": "91a6f897_8a662f92",
       "range": {
         "startLine": 48,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "5ccf4d400fb21cf3c7fc25aee1f2f8c0b05a4dac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c673e2c6_e58e9b66",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-03-26T15:05:07Z",
+      "side": 1,
+      "message": "I strongly prefer not to. Reason: the value propagates down to RtpBitrateConfigurator, where it must be compared to bitrates described by int\u0027s. That would require very clumsy casting of ints to DataRate for min comparison, then casting back to int for return value.",
+      "parentUuid": "626a2abf_5f5ad66a",
+      "range": {
+        "startLine": 188,
+        "startChar": 2,
+        "endLine": 188,
+        "endChar": 30
+      },
+      "revId": "5ccf4d400fb21cf3c7fc25aee1f2f8c0b05a4dac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

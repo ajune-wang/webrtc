@@ -16,6 +16,24 @@
       "revId": "457c8cfd4763fd0c30d28761256390191962fb6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666b8de6_c34ef4a1",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-26T22:50:29Z",
+      "side": 0,
+      "message": "Does this mean we\u0027ll be trying to create connections *from* active candidates *to* active candidates? Even if it doesn\u0027t make tests fail, we don\u0027t want that.\n\nMaybe re-add this check below:\n\n  if (rtc::AsyncPacketSocket* socket \u003d GetIncoming(address.address(), true)) {\n    // Incoming connection; we already created a socket and connected signals,\n    // so we need to hand off the \"read packet\" responsibility to\n    // TCPConnection.\n    socket-\u003eSignalReadPacket.disconnect(this);\n    conn \u003d new TCPConnection(this, address, socket);\n  } else if (address.tcptype() !\u003d TCPTYPE_ACTIVE_STR) {\n  ...\n\nOr something equivalent.",
+      "parentUuid": "27950da2_fb407063",
+      "revId": "457c8cfd4763fd0c30d28761256390191962fb6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

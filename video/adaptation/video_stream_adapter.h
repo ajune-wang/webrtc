@@ -15,12 +15,12 @@
 
 #include "absl/types/optional.h"
 #include "api/rtp_parameters.h"
+#include "api/video/adaptation_counters.h"
 #include "call/adaptation/encoder_settings.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/video_source_restrictions.h"
 #include "modules/video_coding/utility/quality_scaler.h"
 #include "rtc_base/experiments/balanced_degradation_settings.h"
-#include "video/adaptation/adaptation_counters.h"
 
 namespace webrtc {
 

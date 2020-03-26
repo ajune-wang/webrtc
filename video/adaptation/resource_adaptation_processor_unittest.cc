@@ -10,9 +10,9 @@
 
 #include "video/adaptation/resource_adaptation_processor.h"
 
+#include "api/video/adaptation_counters.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
-#include "video/adaptation/adaptation_counters.h"
 
 namespace webrtc {
 

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "609e49e7_70f6e373",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "Ah I think you\u0027re probably right, and we would probably end up creating a circular dependency sooner or later. Things tend to depend on api.\n\nYou can feel free to do either of the following:\n- Move adaptation_counters.h to api/ and then depend on it, addressing all the related comments.\n- Stick with AdaptationSteps and don\u0027t change anything.",
+      "parentUuid": "260aabf6_fef2b26f",
+      "revId": "65277385d9d25cfa8db5ab106797910a60696db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e90b657f_1f870c6c",
         "filename": "video/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 1

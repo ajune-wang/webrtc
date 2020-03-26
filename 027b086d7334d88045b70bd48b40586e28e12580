@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa4c58bd_b3a9f4a7",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "nit: Sorry one more rename. Since this interface is used for multiple things the context might not be clear: UpdateAdaptationMaskingSettings()?",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deda3fb4_5d5d8f65",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "Without kNone, these are the same. Can they be merged? Whichever one is in the api/ folder we could depend on from either place?",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f2a53b7_64431cea",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "if (adaptations_.MaskedCpuSteps().num_resolution_reductions.has_value())",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c91667de_d8945b7f",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "absl::optional\u003cint\u003e downscales \u003d adaptations_.MaskedQualitySteps().num_resolution_reductions;\nstats_.bw_limited_resolution |\u003d downscales.has_value() \u0026\u0026 downscales.value() \u003e 0",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8d68848_ea95c531",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "downscales.has_value() and downscales.value()",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e722111b_6759e10f",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": ".has_value()",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b39bc5c_dcc560bb",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "optional here as well",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "810b67f5_2c404a0a",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "old_quality_downscales.has_value() \u0026\u0026 old_quality_downscales.value() \u003e 0 \u0026\u0026\n(!updated_quality_downscales.has_value() ||\n updated_quality_downscales.value() \u003c old_quality_downscales.value())",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "827a867e_44f258c2",
+        "filename": "video/send_statistics_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-26T11:49:31Z",
+      "side": 1,
+      "message": "I don\u0027t think this method is needed, see other comment.",
+      "revId": "027b086d7334d88045b70bd48b40586e28e12580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

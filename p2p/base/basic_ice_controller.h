@@ -40,8 +40,11 @@ class BasicIceController : public IceControllerInterface {
 
   bool HasPingableConnection() const override;
 
+  PingResult SelectConnectionToPing2(int64_t last_ping_sent_ms) override;
+
   std::pair<Connection*, int> SelectConnectionToPing(
       int64_t last_ping_sent_ms) override;
+
   bool GetUseCandidateAttr(const Connection* conn,
                            NominationMode mode,
                            IceMode remote_ice_mode) const override;

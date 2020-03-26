@@ -26,6 +26,54 @@ const int kMinFrameRateFps = 2;
 
 namespace {
 
+// Returns modified restrictions where any constraints that don't apply to the
+// degradation preference are cleared.
+VideoSourceRestrictions FilterRestrictionsByDegradationPreference(
+    VideoSourceRestrictions source_restrictions,
+    DegradationPreference degradation_preference) {
+  switch (degradation_preference) {
+    case DegradationPreference::BALANCED:
+      break;
+    case DegradationPreference::MAINTAIN_FRAMERATE:
+      source_restrictions.set_max_frame_rate(absl::nullopt);
+      break;
+    case DegradationPreference::MAINTAIN_RESOLUTION:
+      source_restrictions.set_max_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_target_pixels_per_frame(absl::nullopt);
+      break;
+    case DegradationPreference::DISABLED:
+      source_restrictions.set_max_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_target_pixels_per_frame(absl::nullopt);
+      source_restrictions.set_max_frame_rate(absl::nullopt);
+  }
+  return source_restrictions;
+}
+
+// Returns AdaptationCounters where constraints that don't apply to the
+// degredation preference are cleared. This behaviour must reflect the same
+// filtering as in FilterRestrictionsByDegradationPreference().
+AdaptationCounters FilterAdaptationCountersByDegradationPreference(
+    AdaptationCounters counters,
+    DegradationPreference degradation_preference) {
+  switch (degradation_preference) {
+    case DegradationPreference::BALANCED:
+      break;
+    case DegradationPreference::MAINTAIN_FRAMERATE:
+      counters.fps_adaptations = 0;
+      break;
+    case DegradationPreference::MAINTAIN_RESOLUTION:
+      counters.resolution_adaptations = 0;
+      break;
+    case DegradationPreference::DISABLED:
+      counters.resolution_adaptations = 0;
+      counters.fps_adaptations = 0;
+      break;
+    default:
+      RTC_NOTREACHED();
+  }
+  return counters;
+}
+
 int MinPixelsPerFrame(const absl::optional<EncoderSettings>& encoder_settings) {
   return encoder_settings.has_value()
              ? encoder_settings->encoder_info()
@@ -64,36 +112,15 @@ int GetLowerResolutionThan(int pixel_count) {
   RTC_DCHECK(pixel_count != std::numeric_limits<int>::max());
   return (pixel_count * 3) / 5;
 }
+
+}  // namespace
+
 // TODO(hbos): Use absl::optional<> instead?
 int GetHigherResolutionThan(int pixel_count) {
   return pixel_count != std::numeric_limits<int>::max()
              ? (pixel_count * 5) / 3
              : std::numeric_limits<int>::max();
 }
-
-// One of the conditions used in VideoStreamAdapter::GetAdaptationUp().
-// TODO(hbos): Whether or not we can adapt up due to encoder settings and
-// bitrate should be expressed as a bandwidth-related Resource.
-bool CanAdaptUpResolution(
-    const absl::optional<EncoderSettings>& encoder_settings,
-    absl::optional<uint32_t> encoder_target_bitrate_bps,
-    int input_pixels) {
-  uint32_t bitrate_bps = encoder_target_bitrate_bps.value_or(0);
-  absl::optional<VideoEncoder::ResolutionBitrateLimits> bitrate_limits =
-      encoder_settings.has_value()
-          ? encoder_settings->encoder_info()
-                .GetEncoderBitrateLimitsForResolution(
-                    GetHigherResolutionThan(input_pixels))
-          : absl::nullopt;
-  if (!bitrate_limits.has_value() || bitrate_bps == 0) {
-    return true;  // No limit configured or bitrate provided.
-  }
-  RTC_DCHECK_GE(bitrate_limits->frame_size_pixels, input_pixels);
-  return bitrate_bps >=
-         static_cast<uint32_t>(bitrate_limits->min_start_bitrate_bps);
-}
-
-}  // namespace
 
 Adaptation::Step::Step(StepType type, int target)
     : type(type), target(target) {}
@@ -331,6 +358,18 @@ VideoSourceRestrictions VideoStreamAdapter::source_restrictions() const {
   return source_restrictor_->source_restrictions();
 }
 
+VideoSourceRestrictions
+VideoStreamAdapter::filtered_source_restrictions() const {
+  return FilterRestrictionsByDegradationPreference(
+      source_restrictor_->source_restrictions(), degradation_preference_);
+}
+
+AdaptationCounters VideoStreamAdapter::FilterAdaptationCounters(
+    AdaptationCounters counters) const {
+  return FilterAdaptationCountersByDegradationPreference(
+      counters, degradation_preference_);
+}
+
 const AdaptationCounters& VideoStreamAdapter::adaptation_counters() const {
   return source_restrictor_->adaptation_counters();
 }
@@ -435,14 +474,6 @@ Adaptation VideoStreamAdapter::GetAdaptationUp(
       ABSL_FALLTHROUGH_INTENDED;
     }
     case DegradationPreference::MAINTAIN_FRAMERATE: {
-      // Don't adapt resolution if CanAdaptUpResolution() forbids it based on
-      // bitrate and limits specified by encoder capabilities.
-      if (reason == AdaptationObserverInterface::AdaptReason::kQuality &&
-          !CanAdaptUpResolution(encoder_settings_, encoder_target_bitrate_bps_,
-                                input_pixels_)) {
-        return Adaptation(adaptation_validation_id_,
-                          Adaptation::Status::kIsBitrateConstrained);
-      }
       // Attempt to increase pixel count.
       int target_pixels = input_pixels_;
       if (source_restrictor_->adaptation_counters().resolution_adaptations ==

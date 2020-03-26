@@ -49,46 +49,50 @@ ConsumerConfigurationPair::ConsumerConfigurationPair(
 
 absl::optional<ConsumerConfigurationPair>
 NewResourceAdaptationProcessorPoc::FindNextConfiguration() {
-  ResourceUsageState overall_usage = ResourceUsageState::kUnderuse;
+  absl::optional<ResourceUsageState> overall_usage = absl::nullopt;
   for (auto& resource : resources_) {
-    if (resource->usage_state() == ResourceUsageState::kStable) {
-      // If any resource is "stable", we are not underusing.
-      if (overall_usage == ResourceUsageState::kUnderuse)
-        overall_usage = ResourceUsageState::kStable;
-    } else if (resource->usage_state() == ResourceUsageState::kOveruse) {
-      // If any resource is "overuse", we are overusing.
+    if (!resource->usage_state().has_value())
+      continue;
+    if (resource->usage_state().value() == ResourceUsageState::kUnderuse) {
+      overall_usage = ResourceUsageState::kUnderuse;
+    } else if (resource->usage_state().value() ==
+               ResourceUsageState::kOveruse) {
       overall_usage = ResourceUsageState::kOveruse;
       break;
+    } else {
+      RTC_NOTREACHED();
     }
   }
   // If we are stable we should neither adapt up or down: stay where we are.
-  if (overall_usage == ResourceUsageState::kStable)
+  if (!overall_usage.has_value())
     return absl::nullopt;
-  if (overall_usage == ResourceUsageState::kOveruse) {
-    // If we are overusing, we adapt down the most expensive consumer to its
-    // most preferred lower neighbor.
-    ResourceConsumer* max_cost_consumer =
-        FindMostExpensiveConsumerThatCanBeAdaptedDown();
-    if (!max_cost_consumer)
-      return absl::nullopt;
-    ResourceConsumerConfiguration* next_configuration =
-        FindMostPreferredConfiguration(
-            max_cost_consumer->configuration()->lower_neighbors());
-    RTC_DCHECK(next_configuration);
-    return ConsumerConfigurationPair(max_cost_consumer, next_configuration);
-  } else {
-    RTC_DCHECK_EQ(overall_usage, ResourceUsageState::kUnderuse);
-    // If we are underusing, we adapt up the least expensive consumer to its
-    // most preferred upper neighbor.
-    ResourceConsumer* min_cost_consumer =
-        FindLeastExpensiveConsumerThatCanBeAdaptedUp();
-    if (!min_cost_consumer)
-      return absl::nullopt;
-    ResourceConsumerConfiguration* next_configuration =
-        FindMostPreferredConfiguration(
-            min_cost_consumer->configuration()->upper_neighbors());
-    RTC_DCHECK(next_configuration);
-    return ConsumerConfigurationPair(min_cost_consumer, next_configuration);
+  switch (overall_usage.value()) {
+    case ResourceUsageState::kOveruse: {
+      // If we are overusing, we adapt down the most expensive consumer to its
+      // most preferred lower neighbor.
+      ResourceConsumer* max_cost_consumer =
+          FindMostExpensiveConsumerThatCanBeAdaptedDown();
+      if (!max_cost_consumer)
+        return absl::nullopt;
+      ResourceConsumerConfiguration* next_configuration =
+          FindMostPreferredConfiguration(
+              max_cost_consumer->configuration()->lower_neighbors());
+      RTC_DCHECK(next_configuration);
+      return ConsumerConfigurationPair(max_cost_consumer, next_configuration);
+    }
+    case ResourceUsageState::kUnderuse: {
+      // If we are underusing, we adapt up the least expensive consumer to its
+      // most preferred upper neighbor.
+      ResourceConsumer* min_cost_consumer =
+          FindLeastExpensiveConsumerThatCanBeAdaptedUp();
+      if (!min_cost_consumer)
+        return absl::nullopt;
+      ResourceConsumerConfiguration* next_configuration =
+          FindMostPreferredConfiguration(
+              min_cost_consumer->configuration()->upper_neighbors());
+      RTC_DCHECK(next_configuration);
+      return ConsumerConfigurationPair(min_cost_consumer, next_configuration);
+    }
   }
 }
 

@@ -140,8 +140,6 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
 
   CpuOveruseOptions GetCpuOveruseOptions() const;
   int LastInputFrameSizeOrDefault() const;
-  VideoStreamEncoderObserver::AdaptationSteps GetActiveCounts(
-      AdaptationObserverInterface::AdaptReason reason);
   VideoStreamAdapter::VideoInputMode GetVideoInputMode() const;
 
   // Makes |video_source_restrictions_| up-to-date and informs the

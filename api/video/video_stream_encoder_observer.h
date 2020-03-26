@@ -41,15 +41,14 @@ class VideoStreamEncoderObserver : public CpuOveruseMetricsObserver {
   // Number of resolution and framerate reductions (unset if disabled).
   struct AdaptationSteps {
     AdaptationSteps();
-    absl::optional<int> num_resolution_reductions = 0;
-    absl::optional<int> num_framerate_reductions = 0;
+    int num_resolution_reductions = 0;
+    int num_framerate_reductions = 0;
   };
 
   // TODO(nisse): There are too many enums to represent this. Besides
   // this one, see AdaptationObserverInterface::AdaptReason and
   // WebRtcVideoChannel::AdaptReason.
   enum class AdaptationReason {
-    kNone,  // Used for reset of counters.
     kCpu,
     kQuality,
   };
@@ -86,6 +85,10 @@ class VideoStreamEncoderObserver : public CpuOveruseMetricsObserver {
   virtual void OnAdaptationChanged(AdaptationReason reason,
                                    const AdaptationSteps& cpu_steps,
                                    const AdaptationSteps& quality_steps) = 0;
+  virtual void ClearAdaptationStats() = 0;
+  virtual void UpdateMaskingSettings(bool can_scale_resolution,
+                                     bool can_scale_framerate,
+                                     bool quality_scaling_enabled) = 0;
   virtual void OnMinPixelLimitReached() = 0;
   virtual void OnInitialQualityResolutionAdaptDown() = 0;
 

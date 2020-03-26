@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5deada75_6e2d749c",
+        "filename": "call/rtp_bitrate_configurator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-26T14:28:59Z",
+      "side": 1,
+      "message": "RTC_DCHECK(!cap.IsZero())?",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 33
+      },
+      "revId": "5ccf4d400fb21cf3c7fc25aee1f2f8c0b05a4dac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91a6f897_8a662f92",
+        "filename": "call/rtp_bitrate_configurator.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-26T14:28:59Z",
+      "side": 1,
+      "message": "Missed this before, but from this class point of view, does it matter that it\u0027s over relay? Seems like we only set it under relay circumstances?\n\nI suggest:\nUpdateConnectionBasedMaxRate(DataRate max_bitrate) and DataRate connection_based_max \u003d DataRate::PlusInfinity()\n\nThen you can have a comment explaining that it\u0027s currently used for relay if you think it is appropriate.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 36
+      },
+      "revId": "5ccf4d400fb21cf3c7fc25aee1f2f8c0b05a4dac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "626a2abf_5f5ad66a",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-03-26T14:28:59Z",
+      "side": 1,
+      "message": "Nit: FieldTrialParameter\u003cDataRate\u003e and set default to PlusInfinity()",
+      "range": {
+        "startLine": 188,
+        "startChar": 2,
+        "endLine": 188,
+        "endChar": 30
+      },
+      "revId": "5ccf4d400fb21cf3c7fc25aee1f2f8c0b05a4dac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

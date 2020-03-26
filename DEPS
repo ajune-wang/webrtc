@@ -8,7 +8,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'e8ae36dede5327abe983435ad9a8575ee78f4c99',
+  'chromium_revision': 'bc31655139ec8d245918376228686656c4747e84',
 }
 
 deps = {
@@ -30,9 +30,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@7355573ba50bd0b591af29a4257dbae8ba5eced4',
+    'https://chromium.googlesource.com/chromium/src/testing@d10b4abe238556386761e4f7f32b40e83d86d4b2',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@62270d226f47de5d0f92ae76493f8d180925eafe',
+    'https://chromium.googlesource.com/chromium/src/third_party@619afcd7d895991adc6ba5b635ec508b2629aeb6',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -123,7 +123,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@f32b83eb08e9ee158d3037b2114357187fd45a05',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@8351d2182b54cb47484d7228db3240a0d44bb550',
+    'https://chromium.googlesource.com/catapult.git@a8bbccaabeff0b1a8fd0c4eaf9f32c5128776976',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -259,7 +259,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9b0be5f02a074c4d0915d2f3c2923077d0b6ca8b',
+    'https://chromium.googlesource.com/chromium/src/tools@513506b154f58a7ad3a7ad100ea5ab1520e84fbe',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@cc958279ffd6853e0a1b227a7e957ca334fe56af',
 

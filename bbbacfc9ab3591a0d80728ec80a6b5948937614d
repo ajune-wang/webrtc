@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5f59bca_1b170718",
+        "filename": "audio/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-26T20:52:56Z",
+      "side": 1,
+      "message": "Nit: why not having something like:\n\n  data \u003d [\n    # All data here\n  ]\n  data_deps \u003d [\n    # All data_deps here\n  ]\n\nThe +\u003d pattern makes sense with ifs but this part is sequential.",
+      "range": {
+        "startLine": 218,
+        "startChar": 6,
+        "endLine": 233,
+        "endChar": 74
+      },
+      "revId": "bbbacfc9ab3591a0d80728ec80a6b5948937614d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

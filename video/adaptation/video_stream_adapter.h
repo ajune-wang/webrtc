@@ -25,6 +25,7 @@
 namespace webrtc {
 
 extern const int kMinFrameRateFps;
+int GetHigherResolutionThan(int pixel_count);
 
 class VideoStreamAdapter;
 
@@ -138,6 +139,9 @@ class VideoStreamAdapter {
   ~VideoStreamAdapter();
 
   VideoSourceRestrictions source_restrictions() const;
+  VideoSourceRestrictions filtered_source_restrictions() const;
+  AdaptationCounters FilterAdaptationCounters(
+      AdaptationCounters counters) const;
   const AdaptationCounters& adaptation_counters() const;
   // TODO(hbos): Can we get rid of any external dependencies on
   // BalancedDegradationPreference? How the adaptor generates possible next
@@ -191,12 +195,6 @@ class VideoStreamAdapter {
     // to namespace visiblity.
     static Mode GetModeFromAdaptationAction(Adaptation::StepType step_type);
   };
-
-  // Reinterprets "balanced + screenshare" as "maintain-resolution".
-  // TODO(hbos): Don't do this. This is not what "balanced" means. If the
-  // application wants to maintain resolution it should set that degradation
-  // preference rather than depend on non-standard behaviors.
-  DegradationPreference EffectiveDegradationPreference() const;
 
   // Owner and modifier of the VideoSourceRestriction of this stream adaptor.
   const std::unique_ptr<VideoSourceRestrictor> source_restrictor_;

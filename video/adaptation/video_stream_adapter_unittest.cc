@@ -115,20 +115,20 @@ EncoderSettings EncoderSettingsWithMinPixelsPerFrame(int min_pixels_per_frame) {
                          VideoCodec());
 }
 
-EncoderSettings EncoderSettingsWithBitrateLimits(int resolution_pixels,
-                                                 int min_start_bitrate_bps) {
-  VideoEncoder::EncoderInfo encoder_info;
-  // For bitrate limits, we only care about the next resolution up's
-  // min_start_bitrate_bps. (...Why do we look at start bitrate and not min
-  // bitrate?)
-  encoder_info.resolution_bitrate_limits.emplace_back(
-      resolution_pixels,
-      /* min_start_bitrate_bps */ min_start_bitrate_bps,
-      /* min_bitrate_bps */ 0,
-      /* max_bitrate_bps */ 0);
-  return EncoderSettings(std::move(encoder_info), VideoEncoderConfig(),
-                         VideoCodec());
-}
+// EncoderSettings EncoderSettingsWithBitrateLimits(int resolution_pixels,
+//                                                  int min_start_bitrate_bps) {
+//   VideoEncoder::EncoderInfo encoder_info;
+//   // For bitrate limits, we only care about the next resolution up's
+//   // min_start_bitrate_bps. (...Why do we look at start bitrate and not min
+//   // bitrate?)
+//   encoder_info.resolution_bitrate_limits.emplace_back(
+//       resolution_pixels,
+//       /* min_start_bitrate_bps */ min_start_bitrate_bps,
+//       /* min_bitrate_bps */ 0,
+//       /* max_bitrate_bps */ 0);
+//   return EncoderSettings(std::move(encoder_info), VideoEncoderConfig(),
+//                          VideoCodec());
+// }
 
 }  // namespace
 
@@ -614,34 +614,34 @@ TEST(VideoStreamAdapterTest, MaintainFramerate_AwaitingPreviousAdaptationUp) {
   }
 }
 
-// TODO(hbos): Also add BitrateConstrained test coverage for the BALANCED
-// degradation preference.
-TEST(VideoStreamAdapterTest, BitrateConstrained_MaintainFramerate) {
-  const int kInputPixels = 1280 * 720;
-  const int kBitrateLimit = 1000;
-  VideoStreamAdapter adapter;
-  adapter.SetDegradationPreference(DegradationPreference::MAINTAIN_FRAMERATE);
-  FakeVideoStream fake_stream(
-      &adapter, VideoStreamAdapter::VideoInputMode::kNormalVideo, kInputPixels,
-      30, EncoderSettingsWithBitrateLimits(kInputPixels, kBitrateLimit),
-      // The target bitrate is one less than necessary
-      // to adapt up.
-      kBitrateLimit - 1);
-  // Adapt down so that it would be possible to adapt up if we weren't bitrate
-  // constrainted.
-  fake_stream.ApplyAdaptation(adapter.GetAdaptationDown());
-  EXPECT_EQ(1, adapter.adaptation_counters().resolution_adaptations);
-  // Adapting up for reason kQuality should not work because this exceeds the
-  // bitrate limit.
-  // TODO(hbos): Why would the reason matter? If the signal was kCpu then the
-  // current code allows us to violate this bitrate constraint. This does not
-  // make any sense: either we are limited or we are not, end of story.
-  EXPECT_EQ(
-      Adaptation::Status::kIsBitrateConstrained,
-      adapter
-          .GetAdaptationUp(AdaptationObserverInterface::AdaptReason::kQuality)
-          .status());
-}
+// // TODO(hbos): Also add BitrateConstrained test coverage for the BALANCED
+// // degradation preference.
+// TEST(VideoStreamAdapterTest, BitrateConstrained_MaintainFramerate) {
+//   const int kInputPixels = 1280 * 720;
+//   const int kBitrateLimit = 1000;
+//   VideoStreamAdapter adapter;
+//   adapter.SetDegradationPreference(DegradationPreference::MAINTAIN_FRAMERATE);
+//   FakeVideoStream fake_stream(
+//       &adapter, VideoStreamAdapter::VideoInputMode::kNormalVideo, kInputPixels,
+//       30, EncoderSettingsWithBitrateLimits(kInputPixels, kBitrateLimit),
+//       // The target bitrate is one less than necessary
+//       // to adapt up.
+//       kBitrateLimit - 1);
+//   // Adapt down so that it would be possible to adapt up if we weren't bitrate
+//   // constrainted.
+//   fake_stream.ApplyAdaptation(adapter.GetAdaptationDown());
+//   EXPECT_EQ(1, adapter.adaptation_counters().resolution_adaptations);
+//   // Adapting up for reason kQuality should not work because this exceeds the
+//   // bitrate limit.
+//   // TODO(hbos): Why would the reason matter? If the signal was kCpu then the
+//   // current code allows us to violate this bitrate constraint. This does not
+//   // make any sense: either we are limited or we are not, end of story.
+//   EXPECT_EQ(
+//       Adaptation::Status::kIsBitrateConstrained,
+//       adapter
+//           .GetAdaptationUp(AdaptationObserverInterface::AdaptReason::kQuality)
+//           .status());
+// }
 
 TEST(VideoStreamAdapterTest, PeekNextRestrictions) {
   VideoStreamAdapter adapter;
@@ -677,31 +677,31 @@ TEST(VideoStreamAdapterTest, PeekNextRestrictions) {
   }
 }
 
-// This test covers non-standard behavior. If the application desires
-// "maintain-resolution" it should ask for it rather than relying on this
-// behavior, which should become unsupported.
-TEST(VideoStreamAdapterTest, BalancedScreenshareBehavesLikeMaintainResolution) {
-  const int kInputPixels = 1280 * 720;
-  const int kInputFps = 30;
-  VideoStreamAdapter balanced_adapter;
-  balanced_adapter.SetDegradationPreference(DegradationPreference::BALANCED);
-  balanced_adapter.SetInput(
-      VideoStreamAdapter::VideoInputMode::kScreenshareVideo, kInputPixels,
-      kInputFps, absl::nullopt, absl::nullopt);
-  VideoStreamAdapter maintain_resolution_adapter;
-  maintain_resolution_adapter.SetDegradationPreference(
-      DegradationPreference::MAINTAIN_RESOLUTION);
-  maintain_resolution_adapter.SetInput(
-      VideoStreamAdapter::VideoInputMode::kNormalVideo, kInputPixels, kInputFps,
-      absl::nullopt, absl::nullopt);
-  EXPECT_EQ(balanced_adapter.source_restrictions(),
-            maintain_resolution_adapter.source_restrictions());
-  balanced_adapter.ApplyAdaptation(balanced_adapter.GetAdaptationDown());
-  maintain_resolution_adapter.ApplyAdaptation(
-      maintain_resolution_adapter.GetAdaptationDown());
-  EXPECT_EQ(balanced_adapter.source_restrictions(),
-            maintain_resolution_adapter.source_restrictions());
-}
+// // This test covers non-standard behavior. If the application desires
+// // "maintain-resolution" it should ask for it rather than relying on this
+// // behavior, which should become unsupported.
+// TEST(VideoStreamAdapterTest, BalancedScreenshareBehavesLikeMaintainResolution) {
+//   const int kInputPixels = 1280 * 720;
+//   const int kInputFps = 30;
+//   VideoStreamAdapter balanced_adapter;
+//   balanced_adapter.SetDegradationPreference(DegradationPreference::BALANCED);
+//   balanced_adapter.SetInput(
+//       VideoStreamAdapter::VideoInputMode::kScreenshareVideo, kInputPixels,
+//       kInputFps, absl::nullopt, absl::nullopt);
+//   VideoStreamAdapter maintain_resolution_adapter;
+//   maintain_resolution_adapter.SetDegradationPreference(
+//       DegradationPreference::MAINTAIN_RESOLUTION);
+//   maintain_resolution_adapter.SetInput(
+//       VideoStreamAdapter::VideoInputMode::kNormalVideo, kInputPixels, kInputFps,
+//       absl::nullopt, absl::nullopt);
+//   EXPECT_EQ(balanced_adapter.source_restrictions(),
+//             maintain_resolution_adapter.source_restrictions());
+//   balanced_adapter.ApplyAdaptation(balanced_adapter.GetAdaptationDown());
+//   maintain_resolution_adapter.ApplyAdaptation(
+//       maintain_resolution_adapter.GetAdaptationDown());
+//   EXPECT_EQ(balanced_adapter.source_restrictions(),
+//             maintain_resolution_adapter.source_restrictions());
+// }
 
 TEST(VideoStreamAdapterTest,
      SetDegradationPreferenceToOrFromBalancedClearsRestrictions) {

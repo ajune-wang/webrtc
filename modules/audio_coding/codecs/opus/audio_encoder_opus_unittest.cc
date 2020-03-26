@@ -200,6 +200,7 @@ TEST_P(AudioEncoderOpusTest, ToggleDtx) {
 TEST_P(AudioEncoderOpusTest,
        OnReceivedUplinkBandwidthWithoutAudioNetworkAdaptor) {
   auto states = CreateCodec(sample_rate_hz_, 1);
+  states->encoder->OnReceivedOverhead(0);
   // Constants are replicated from audio_states->encoderopus.cc.
   const int kMinBitrateBps = 6000;
   const int kMaxBitrateBps = 510000;

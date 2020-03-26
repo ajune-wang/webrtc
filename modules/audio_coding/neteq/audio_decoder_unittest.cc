@@ -451,6 +451,7 @@ class AudioDecoderOpusTest
                              ? AudioEncoderOpusConfig::ApplicationMode::kVoip
                              : AudioEncoderOpusConfig::ApplicationMode::kAudio;
     audio_encoder_ = AudioEncoderOpus::MakeAudioEncoder(config, payload_type_);
+    audio_encoder_->OnReceivedOverhead(0);
   }
   const int opus_sample_rate_hz_{std::get<0>(GetParam())};
   const int opus_num_channels_{std::get<1>(GetParam())};

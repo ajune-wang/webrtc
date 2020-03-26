@@ -54,4 +54,18 @@ std::string IceControllerEvent::ToString() const {
   return reason;
 }
 
+std::pair<Connection*, int> IceControllerInterface::SelectConnectionToPing(
+    int64_t last_ping_sent_ms) {
+  // This method is overriden by subclass and only put here
+  // during transition.
+  RTC_DCHECK(false);
+  return std::make_pair(nullptr, 0);
+}
+
+IceControllerInterface::PingResult
+IceControllerInterface::SelectConnectionToPing2(int64_t last_ping_sent_ms) {
+  auto res = SelectConnectionToPing(last_ping_sent_ms);
+  return {res.first, res.second};
+}
+
 }  // namespace cricket

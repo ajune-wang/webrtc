@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "video/adaptation/adaptation_counters.h"
+#include "api/video/adaptation_counters.h"
 
 namespace webrtc {
 

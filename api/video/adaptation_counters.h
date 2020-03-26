@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_ADAPTATION_ADAPTATION_COUNTERS_H_
-#define VIDEO_ADAPTATION_ADAPTATION_COUNTERS_H_
+#ifndef API_VIDEO_ADAPTATION_COUNTERS_H_
+#define API_VIDEO_ADAPTATION_COUNTERS_H_
 
 namespace webrtc {
 
@@ -35,4 +35,4 @@ struct AdaptationCounters {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_ADAPTATION_ADAPTATION_COUNTERS_H_
+#endif  // API_VIDEO_ADAPTATION_COUNTERS_H_

@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/video/adaptation_counters.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video_codecs/video_encoder.h"
@@ -38,18 +39,10 @@ class CpuOveruseMetricsObserver {
 
 class VideoStreamEncoderObserver : public CpuOveruseMetricsObserver {
  public:
-  // Number of resolution and framerate reductions (unset if disabled).
-  struct AdaptationSteps {
-    AdaptationSteps();
-    absl::optional<int> num_resolution_reductions = 0;
-    absl::optional<int> num_framerate_reductions = 0;
-  };
-
   // TODO(nisse): There are too many enums to represent this. Besides
   // this one, see AdaptationObserverInterface::AdaptReason and
   // WebRtcVideoChannel::AdaptReason.
   enum class AdaptationReason {
-    kNone,  // Used for reset of counters.
     kCpu,
     kQuality,
   };
@@ -84,8 +77,12 @@ class VideoStreamEncoderObserver : public CpuOveruseMetricsObserver {
       const std::vector<VideoStream>& streams) = 0;
 
   virtual void OnAdaptationChanged(AdaptationReason reason,
-                                   const AdaptationSteps& cpu_steps,
-                                   const AdaptationSteps& quality_steps) = 0;
+                                   const AdaptationCounters& cpu_steps,
+                                   const AdaptationCounters& quality_steps) = 0;
+  virtual void ClearAdaptationStats() = 0;
+  virtual void UpdateMaskingSettings(bool can_scale_resolution,
+                                     bool can_scale_framerate,
+                                     bool quality_scaling_enabled) = 0;
   virtual void OnMinPixelLimitReached() = 0;
   virtual void OnInitialQualityResolutionAdaptDown() = 0;
 

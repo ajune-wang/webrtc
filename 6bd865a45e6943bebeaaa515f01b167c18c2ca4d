@@ -22,6 +22,30 @@
       "revId": "6bd865a45e6943bebeaaa515f01b167c18c2ca4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d035aa27_b352e75a",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2020-03-27T12:26:07Z",
+      "side": 1,
+      "message": "Nah, I think this is OK. ATS_PROD is an inherent part about being a win builder, so calling it a win builder makes sense rather than having all win bots pass the right goma property for the platform.\n\nAlso we already have win_builder etc so this follows that pattern.",
+      "parentUuid": "10262724_cab576b4",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 5
+      },
+      "revId": "6bd865a45e6943bebeaaa515f01b167c18c2ca4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

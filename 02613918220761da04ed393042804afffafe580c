@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bc84a4c_43f034c6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "Is it safe to call this before the call to frame_transformer_delegate_-\u003eReset(); ?\n\nI guess that frame_transformer_delegate_ in-between these two calls could call the SendRtpAudio method?",
+      "range": {
+        "startLine": 546,
+        "startChar": 1,
+        "endLine": 547,
+        "endChar": 61
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed8d8ec9_7cc455ba",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "Maybe add a comment explaining what the reset achieves?",
+      "range": {
+        "startLine": 549,
+        "startChar": 2,
+        "endLine": 549,
+        "endChar": 39
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4994098_e1e7def5",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "Is it expected/allowed that this method is called with a null frame_transformer?\n\nIf not, I think it would be good with a DCHECK on that.",
+      "range": {
+        "startLine": 923,
+        "startChar": 58,
+        "endLine": 923,
+        "endChar": 75
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea14c780_bad52672",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "Nit:\nOne option would also be to have this check at the call of the Method, so that the method is never called if there is no frame_transformer to initialize  the delegate with.",
+      "range": {
+        "startLine": 940,
+        "startChar": 7,
+        "endLine": 940,
+        "endChar": 24
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115fe61d_4581b55e",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "What should happen with the existing frame_transformer_delegate_ \nif InitFrameTransformerDelegate is called with a null frame_transformer?\n\nShould the old one be kept regardless, or should it be nulled?",
+      "range": {
+        "startLine": 942,
+        "startChar": 2,
+        "endLine": 942,
+        "endChar": 29
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1c4e4a2_40ac6533",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "I think it would be very good to comment this code to explain what is achieved.\n\nAt least to me, this is fairly complex code and from reading the code it it is very clear that the purpose is that the delegate will transform the audio before calling the SendRtpAudio to send it.",
+      "range": {
+        "startLine": 943,
+        "startChar": 5,
+        "endLine": 951,
+        "endChar": 57
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d55c1583_249a508b",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "In channel_send.cc, this is called immediately after the constructor.\n\nWhat is the reason for not putting it inside the constructor?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "595dff4e_0697bb2b",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "The extra braces for the scope of the lock. should not be needed. Afaict the lock duration is the same without them since this block is at the end of the method.",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 3
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1d3596c_0b6438a1",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "What is the intention with this return value? As it is now it will always return 0. Can it be skipped?",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 11
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b18f4227_5279acf5",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "Please add a comment describing the purpose of the class",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba8e246c_292ecb08",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "Please add a comment describing this method.\n\nOne particular aspect that needs to be explained is the return value since this is not at all described by any variable name.",
+      "range": {
+        "startLine": 40,
+        "startChar": 1,
+        "endLine": 46,
+        "endChar": 35
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26814490_97d21528",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "Please add comments describing what these methods do and when to call them.",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7516ce96_bbc37ec8",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:31Z",
+      "side": 1,
+      "message": "Please add a comment describing this method.",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 75
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

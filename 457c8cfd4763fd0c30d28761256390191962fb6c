@@ -34,6 +34,24 @@
       "revId": "457c8cfd4763fd0c30d28761256390191962fb6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eb8694a_c31265de",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-03-27T08:57:19Z",
+      "side": 0,
+      "message": "It is quite weird. I put logging for tcptype + port there, ran the test and got this:\n(port.cc:396): Received STUN BINDING request id\u003d43374b7144745a34756d3269 from unknown address 11.11.11.11:49156\n(tcp_port.cc:128): FIPPO BAILING OUT active port 49156\n\nMore logging showed that this active type came the change in p2p_transport_channel. I still think that setting the type to \"active\" there is correct since the port is not connectible and for symmetry reasons. But it means our prflx active candidate has a port that is not 9. Which is ok I think. Updated!",
+      "parentUuid": "666b8de6_c34ef4a1",
+      "revId": "457c8cfd4763fd0c30d28761256390191962fb6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

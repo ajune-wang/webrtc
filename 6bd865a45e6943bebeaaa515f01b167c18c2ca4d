@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10262724_cab576b4",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-27T12:20:14Z",
+      "side": 1,
+      "message": "There is a bit of duplication here, maybe I can only differentiate on the goma param?",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 5
+      },
+      "revId": "6bd865a45e6943bebeaaa515f01b167c18c2ca4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

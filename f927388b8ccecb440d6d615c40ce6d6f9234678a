@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c96576d_d573d9fb",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T12:31:56Z",
+      "side": 1,
+      "message": "Prefer constexpr when it works. Also, `static` is largely an optimization in cases like this, so no need to bother with it in tests.",
+      "range": {
+        "startLine": 1824,
+        "startChar": 9,
+        "endLine": 1824,
+        "endChar": 14
+      },
+      "revId": "f927388b8ccecb440d6d615c40ce6d6f9234678a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "570f2e65_231dfd7f",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1852,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T12:31:56Z",
+      "side": 1,
+      "message": "In general, there\u0027s ~never any reason to prefer DCHECK to CHECK in test code.",
+      "range": {
+        "startLine": 1852,
+        "startChar": 6,
+        "endLine": 1852,
+        "endChar": 16
+      },
+      "revId": "f927388b8ccecb440d6d615c40ce6d6f9234678a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e92f500a_2c82cc2b",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1918,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T12:31:56Z",
+      "side": 1,
+      "message": "It\u0027s been a while since I did this, so I may be wrong, but IIRC you can do RTC_GUARDED_BY(task_queue_) instead, and delete the task_queue_thread_ checker.",
+      "range": {
+        "startLine": 1918,
+        "startChar": 31,
+        "endLine": 1918,
+        "endChar": 49
+      },
+      "revId": "f927388b8ccecb440d6d615c40ce6d6f9234678a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

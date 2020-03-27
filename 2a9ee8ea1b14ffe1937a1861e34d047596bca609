@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57f581e8_f9258ed8",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:26Z",
+      "side": 1,
+      "message": "Please add a comment describing this member.",
+      "range": {
+        "startLine": 155,
+        "startChar": 2,
+        "endLine": 155,
+        "endChar": 76
+      },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d257770_82ada9ea",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:26Z",
+      "side": 1,
+      "message": "Please add a comment specifying why the AudioReceiveStream needs to be recreated.",
+      "range": {
+        "startLine": 1217,
+        "startChar": 4,
+        "endLine": 1217,
+        "endChar": 33
+      },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81eda363_ef9860b0",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2330,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:26Z",
+      "side": 1,
+      "message": "Since this may fail silently, I want to flag for that we may end up in a situation where a transformer does not have any decoder assigned, and none of the other code would be aware.\n\nWhat would the effect then be? Would the audio be silently dropped?",
+      "range": {
+        "startLine": 2329,
+        "startChar": 4,
+        "endLine": 2330,
+        "endChar": 18
+      },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a303a4c4_6b890c86",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:26Z",
+      "side": 1,
+      "message": "As mentioned for the send-side this may fail silently if there is no matching_stream.\n\nDoes it make sense to add a return value to inform the caller that this was the case?",
+      "range": {
+        "startLine": 2332,
+        "startChar": 1,
+        "endLine": 2340,
+        "endChar": 1
+      },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb307f16_e5f34785",
+        "filename": "media/engine/webrtc_voice_engine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:26Z",
+      "side": 1,
+      "message": "I have a feeling that this should have a different name. The reasoning is the same as mentioned for the send-side in another CL.",
+      "range": {
+        "startLine": 212,
+        "startChar": 7,
+        "endLine": 212,
+        "endChar": 47
+      },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "015fb65e_6fcb1fed",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:26Z",
+      "side": 1,
+      "message": "This member is not protected by a lock. Is that thread-safe?",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 20
+      },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

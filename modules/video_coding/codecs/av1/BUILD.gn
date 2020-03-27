@@ -48,6 +48,7 @@ rtc_library("libaom_av1_encoder") {
   if (enable_libaom) {
     sources = [ "libaom_av1_encoder.cc" ]
     deps += [
+      ":libaom_av1_decoder",
       "../..:video_codec_interface",
       "../../../../api:scoped_refptr",
       "../../../../api/video:encoded_image",

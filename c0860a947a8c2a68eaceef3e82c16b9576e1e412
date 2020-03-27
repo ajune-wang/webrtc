@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "35707f3a_601bef77",
+        "filename": "api/video/adaptation_counters.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-27T12:30:13Z",
+      "side": 1,
+      "message": "It can underflow. It is used for converting the total adaptations to the \"active counts\". It is not strictly needed, but makes the accounting.",
+      "parentUuid": "529e3bbe_b2b54f22",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 1
+      },
+      "revId": "c0860a947a8c2a68eaceef3e82c16b9576e1e412",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0360f707_fb075467",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 8

@@ -23,6 +23,7 @@
 #include "api/frame_transformer_interface.h"
 #include "api/rtc_event_log/rtc_event_log.h"
 #include "audio/audio_level.h"
+#include "audio/channel_receive_frame_transformer_delegate.h"
 #include "audio/channel_send.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_playout.h"
@@ -168,6 +169,9 @@ class ChannelReceive : public ChannelReceiveInterface {
   void ReceivePacket(const uint8_t* packet,
                      size_t packet_length,
                      const RTPHeader& header);
+  void DoReceivePacket(const uint8_t* packet,
+                       size_t packet_length,
+                       const RTPHeader& header);
   int ResendPackets(const uint16_t* sequence_numbers, int length);
   void UpdatePlayoutTimestamp(bool rtcp, int64_t now_ms);
 
@@ -266,7 +270,8 @@ class ChannelReceive : public ChannelReceiveInterface {
 
   webrtc::AbsoluteCaptureTimeReceiver absolute_capture_time_receiver_;
 
-  rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_;
+  rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate>
+      frame_transformer_delegate_;
 };
 
 void ChannelReceive::OnReceivedPayloadData(
@@ -450,8 +455,7 @@ ChannelReceive::ChannelReceive(
       associated_send_channel_(nullptr),
       frame_decryptor_(frame_decryptor),
       crypto_options_(crypto_options),
-      absolute_capture_time_receiver_(clock),
-      frame_transformer_(std::move(frame_transformer)) {
+      absolute_capture_time_receiver_(clock) {
   // TODO(nisse): Use _moduleProcessThreadPtr instead?
   module_process_thread_checker_.Detach();
 
@@ -483,6 +487,16 @@ ChannelReceive::ChannelReceive(
 
   // Ensure that RTCP is enabled for the created channel.
   _rtpRtcpModule->SetRTCPStatus(RtcpMode::kCompound);
+  if (frame_transformer) {
+    frame_transformer_delegate_ =
+        new rtc::RefCountedObject<ChannelReceiveFrameTransformerDelegate>(
+            [this](const uint8_t* packet, size_t packet_length,
+                   const RTPHeader& header) {
+              DoReceivePacket(packet, packet_length, header);
+            },
+            std::move(frame_transformer), rtc::Thread::Current());
+    frame_transformer_delegate_->Init();
+  }
 }
 
 ChannelReceive::~ChannelReceive() {
@@ -569,6 +583,17 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
 void ChannelReceive::ReceivePacket(const uint8_t* packet,
                                    size_t packet_length,
                                    const RTPHeader& header) {
+  if (frame_transformer_delegate_) {
+    frame_transformer_delegate_->TransformFrame(packet, packet_length, header,
+                                                remote_ssrc_);
+    return;
+  }
+  DoReceivePacket(packet, packet_length, header);
+}
+
+void ChannelReceive::DoReceivePacket(const uint8_t* packet,
+                                     size_t packet_length,
+                                     const RTPHeader& header) {
   const uint8_t* payload = packet + header.headerLength;
   assert(packet_length >= header.headerLength);
   size_t payload_length = packet_length - header.headerLength;

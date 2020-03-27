@@ -52,6 +52,12 @@ class TransformableVideoFrameInterface : public TransformableFrameInterface {
   virtual std::vector<uint8_t> additional_data() const = 0;
 };
 
+class TransformableAudioFrameInterface : public TransformableFrameInterface {
+ public:
+  virtual ~TransformableAudioFrameInterface() = default;
+  virtual const RTPHeader& header() const = 0;
+};
+
 // Objects implement this interface to be notified with the transformed frame.
 class TransformedFrameCallback : public rtc::RefCountInterface {
  public:

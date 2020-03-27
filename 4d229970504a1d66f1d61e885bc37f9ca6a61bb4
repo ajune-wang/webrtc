@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20bbeeb8_aae04536",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "this two fields can be joined into rtc::ArrayView\u003cconst uint8_t\u003e data\nhttps://chromium.googlesource.com/external/webrtc/+/refs/heads/master/style-guide.md#arrayview",
+      "range": {
+        "startLine": 33,
+        "startChar": 23,
+        "endLine": 33,
+        "endChar": 55
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d93476_9a4c6486",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "if you want this interface to behave like a buffer, rename GetData to just data()\n(e.g. then it will be implicitly convertable to rtc::ArrayView and similar)\nif not - rename this to Size()\n\ni.e. use consistent names for Data() and Size()\n\nor... may be better to merge them into single function:\nvirtual rtc::ArrayView\u003cconst uint8_t\u003e Data() const \u003d 0;",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36aa7c6e_d1ecfe3f",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "Timestamp (or may be RtpTimestamp)\nwould recommend regular function name for virtual functions.\n(https://google.github.io/styleguide/cppguide.html#Function_Names)\n\nwhile lowcase names are allowed for accessors, personally I find it questionable if virtual function can be counted as one. accessor gives impression that it is extremely cheap to call, it is usually inlined. When unsure, regular naming style is preferred.\n(same for other virtual lowcase functions in these interfaces)",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 28
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "358994bd_c8fca110",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "remove one",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 11
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8951ab64_a34cf832",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1a5a463_f952ad94",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "why? \n\nYou set all the fields in the constructor anyway.\nbesides, default constructor for optional sets it to nullopt anyway,\nso if you want it to be safer, support more constructors, it might be better to initialise other, primitive fields instead.",
+      "range": {
+        "startLine": 90,
+        "startChar": 44,
+        "endLine": 90,
+        "endChar": 60
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abb921bc_f2404344",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "may be \u0027video_frame\u0027\nto make the upcast more visible here",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 25
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d59db62_8ae54f32",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "or rtc::MakeArrayView(transformed_frame-\u003eGetData(), transformed_frame-\u003esize());",
+      "range": {
+        "startLine": 190,
+        "startChar": 6,
+        "endLine": 190,
+        "endChar": 35
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76a9190e_11f43bbe",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "I think common verb for this kind of method (destructive getter) is \u0027Extract\u0027.\ne.g. \nhttps://en.cppreference.com/w/cpp/container/map/extract",
+      "range": {
+        "startLine": 28,
+        "startChar": 55,
+        "endLine": 28,
+        "endChar": 77
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b43f6d76_b1d9d202",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "put it after constructor/destructor.\n\nonly factory function suppose to be placed before the constructors.\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 8
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c5946a7_f5274bf8",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-27T11:13:22Z",
+      "side": 1,
+      "message": "not needed: since unique_ptr passed by value it will be destroyed when function returns anyway.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

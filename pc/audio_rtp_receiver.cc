@@ -225,6 +225,17 @@ std::vector<RtpSource> AudioRtpReceiver::GetSources() const {
       RTC_FROM_HERE, [&] { return media_channel_->GetSources(*ssrc_); });
 }
 
+void AudioRtpReceiver::SetDepacketizerToDecoderFrameTransformer(
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+  frame_transformer_ = std::move(frame_transformer);
+  if (media_channel_ && ssrc_.has_value() && !stopped_) {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      media_channel_->SetDepacketizerToDecoderFrameTransformer(
+          *ssrc_, frame_transformer_);
+    });
+  }
+}
+
 void AudioRtpReceiver::Reconfigure() {
   if (!media_channel_ || stopped_) {
     RTC_LOG(LS_ERROR)
@@ -237,6 +248,13 @@ void AudioRtpReceiver::Reconfigure() {
   // Reattach the frame decryptor if we were reconfigured.
   MaybeAttachFrameDecryptorToMediaChannel(
       ssrc_, worker_thread_, frame_decryptor_, media_channel_, stopped_);
+
+  if (media_channel_ && frame_transformer_ && ssrc_.has_value() && !stopped_) {
+    worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+      media_channel_->SetDepacketizerToDecoderFrameTransformer(
+          *ssrc_, frame_transformer_);
+    });
+  }
 }
 
 void AudioRtpReceiver::SetObserver(RtpReceiverObserverInterface* observer) {

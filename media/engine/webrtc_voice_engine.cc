@@ -1056,7 +1056,8 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       int jitter_buffer_min_delay_ms,
       bool jitter_buffer_enable_rtx_handling,
       rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor,
-      const webrtc::CryptoOptions& crypto_options)
+      const webrtc::CryptoOptions& crypto_options,
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
       : call_(call), config_() {
     RTC_DCHECK(call);
     config_.rtp.remote_ssrc = remote_ssrc;
@@ -1078,6 +1079,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     config_.codec_pair_id = codec_pair_id;
     config_.frame_decryptor = frame_decryptor;
     config_.crypto_options = crypto_options;
+    config_.frame_transformer = frame_transformer;
     RecreateAudioReceiveStream();
   }
 
@@ -1206,6 +1208,13 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     rtp_parameters.header_extensions = config_.rtp.extensions;
 
     return rtp_parameters;
+  }
+
+  void SetDepacketizerToDecoderFrameTransformer(
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+    RTC_DCHECK(worker_thread_checker_.IsCurrent());
+    config_.frame_transformer = std::move(frame_transformer);
+    RecreateAudioReceiveStream();
   }
 
  private:
@@ -1853,15 +1862,16 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
 
   // Create a new channel for receiving audio data.
   recv_streams_.insert(std::make_pair(
-      ssrc, new WebRtcAudioReceiveStream(
-                ssrc, receiver_reports_ssrc_, recv_transport_cc_enabled_,
-                recv_nack_enabled_, sp.stream_ids(), recv_rtp_extensions_,
-                call_, this, engine()->decoder_factory_, decoder_map_,
-                codec_pair_id_, engine()->audio_jitter_buffer_max_packets_,
-                engine()->audio_jitter_buffer_fast_accelerate_,
-                engine()->audio_jitter_buffer_min_delay_ms_,
-                engine()->audio_jitter_buffer_enable_rtx_handling_,
-                unsignaled_frame_decryptor_, crypto_options_)));
+      ssrc,
+      new WebRtcAudioReceiveStream(
+          ssrc, receiver_reports_ssrc_, recv_transport_cc_enabled_,
+          recv_nack_enabled_, sp.stream_ids(), recv_rtp_extensions_, call_,
+          this, engine()->decoder_factory_, decoder_map_, codec_pair_id_,
+          engine()->audio_jitter_buffer_max_packets_,
+          engine()->audio_jitter_buffer_fast_accelerate_,
+          engine()->audio_jitter_buffer_min_delay_ms_,
+          engine()->audio_jitter_buffer_enable_rtx_handling_,
+          unsignaled_frame_decryptor_, crypto_options_, frame_transformer_)));
   recv_streams_[ssrc]->SetPlayout(playout_);
 
   return true;
@@ -2314,6 +2324,19 @@ std::vector<webrtc::RtpSource> WebRtcVoiceMediaChannel::GetSources(
     return std::vector<webrtc::RtpSource>();
   }
   return it->second->GetSources();
+}
+
+void WebRtcVoiceMediaChannel::SetDepacketizerToDecoderFrameTransformer(
+    uint32_t ssrc,
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+  RTC_DCHECK(worker_thread_checker_.IsCurrent());
+  auto matching_stream = recv_streams_.find(ssrc);
+  if (matching_stream != recv_streams_.end()) {
+    matching_stream->second->SetDepacketizerToDecoderFrameTransformer(
+        std::move(frame_transformer));
+  } else {
+    frame_transformer_ = std::move(frame_transformer);
+  }
 }
 
 bool WebRtcVoiceMediaChannel::MaybeDeregisterUnsignaledRecvStream(

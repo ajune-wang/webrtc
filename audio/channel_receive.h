@@ -22,6 +22,7 @@
 #include "api/call/audio_sink.h"
 #include "api/call/transport.h"
 #include "api/crypto/crypto_options.h"
+#include "api/frame_transformer_interface.h"
 #include "api/neteq/neteq_factory.h"
 #include "api/transport/rtp/rtp_source.h"
 #include "call/rtp_packet_sink_interface.h"
@@ -155,7 +156,8 @@ std::unique_ptr<ChannelReceiveInterface> CreateChannelReceive(
     rtc::scoped_refptr<AudioDecoderFactory> decoder_factory,
     absl::optional<AudioCodecPairId> codec_pair_id,
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor,
-    const webrtc::CryptoOptions& crypto_options);
+    const webrtc::CryptoOptions& crypto_options,
+    rtc::scoped_refptr<FrameTransformerInterface> frame_transformer);
 
 }  // namespace voe
 }  // namespace webrtc

@@ -209,6 +209,11 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
 
   std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const override;
 
+  void SetDepacketizerToDecoderFrameTransformer(
+      uint32_t ssrc,
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
+      override;
+
   // implements Transport interface
   bool SendRtp(const uint8_t* data,
                size_t len,
@@ -321,6 +326,7 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   rtc::scoped_refptr<webrtc::FrameDecryptorInterface>
       unsignaled_frame_decryptor_;
 
+  rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer_;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(WebRtcVoiceMediaChannel);
 };
 }  // namespace cricket

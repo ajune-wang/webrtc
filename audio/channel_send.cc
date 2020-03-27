@@ -21,6 +21,7 @@
 #include "api/call/transport.h"
 #include "api/crypto/frame_encryptor_interface.h"
 #include "api/rtc_event_log/rtc_event_log.h"
+#include "audio/channel_send_frame_transformer_delegate.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_playout.h"
@@ -168,6 +169,9 @@ class ChannelSend : public ChannelSendInterface,
 
   void OnReceivedRtt(int64_t rtt_ms);
 
+  void InitFrameTransformerDelegate(
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer);
+
   // Thread checkers document and lock usage of some methods on voe::Channel to
   // specific threads we know about. The goal is to eventually split up
   // voe::Channel into parts with single-threaded semantics, and thereby reduce
@@ -222,8 +226,8 @@ class ChannelSend : public ChannelSendInterface,
   // E2EE Frame Encryption Options
   const webrtc::CryptoOptions crypto_options_;
 
-  rtc::scoped_refptr<FrameTransformerInterface> frame_transformer_
-      RTC_GUARDED_BY(encoder_queue_);
+  rtc::scoped_refptr<ChannelSendFrameTransformerDelegate>
+      frame_transformer_delegate_ RTC_GUARDED_BY(encoder_queue_);
 
   rtc::CriticalSection bitrate_crit_section_;
   int configured_bitrate_bps_ RTC_GUARDED_BY(bitrate_crit_section_) = 0;
@@ -376,6 +380,11 @@ int32_t ChannelSend::SendData(AudioFrameType frameType,
                               int64_t absolute_capture_timestamp_ms) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
   rtc::ArrayView<const uint8_t> payload(payloadData, payloadSize);
+  if (frame_transformer_delegate_) {
+    return frame_transformer_delegate_->Transform(
+        frameType, payloadType, rtp_timestamp, payloadData, payloadSize,
+        absolute_capture_timestamp_ms, _rtpRtcpModule->SSRC());
+  }
   return SendRtpAudio(frameType, payloadType, rtp_timestamp, payload,
                       absolute_capture_timestamp_ms);
 }
@@ -488,7 +497,6 @@ ChannelSend::ChannelSend(
           new RateLimiter(clock, kMaxRetransmissionWindowMs)),
       frame_encryptor_(frame_encryptor),
       crypto_options_(crypto_options),
-      frame_transformer_(std::move(frame_transformer)),
       encoder_queue_(task_queue_factory->CreateTaskQueue(
           "AudioEncoder",
           TaskQueueFactory::Priority::NORMAL)) {
@@ -529,6 +537,7 @@ ChannelSend::ChannelSend(
 
   int error = audio_coding_->RegisterTransportCallback(this);
   RTC_DCHECK_EQ(0, error);
+  InitFrameTransformerDelegate(std::move(frame_transformer));
 }
 
 ChannelSend::~ChannelSend() {
@@ -537,6 +546,7 @@ ChannelSend::~ChannelSend() {
   StopSend();
   int error = audio_coding_->RegisterTransportCallback(NULL);
   RTC_DCHECK_EQ(0, error);
+  frame_transformer_delegate_->Reset();
 
   if (_moduleProcessThreadPtr)
     _moduleProcessThreadPtr->DeRegisterModule(_rtpRtcpModule.get());
@@ -914,7 +924,7 @@ void ChannelSend::SetEncoderToPacketizerFrameTransformer(
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   encoder_queue_.PostTask([this, frame_transformer]() mutable {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
-    frame_transformer_ = std::move(frame_transformer);
+    InitFrameTransformerDelegate(std::move(frame_transformer));
   });
 }
 
@@ -922,6 +932,24 @@ void ChannelSend::OnReceivedRtt(int64_t rtt_ms) {
   // Invoke audio encoders OnReceivedRtt().
   CallEncoder(
       [rtt_ms](AudioEncoder* encoder) { encoder->OnReceivedRtt(rtt_ms); });
+}
+
+void ChannelSend::InitFrameTransformerDelegate(
+    rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer) {
+  RTC_DCHECK_RUN_ON(&encoder_queue_);
+  if (!frame_transformer)
+    return;
+  frame_transformer_delegate_ =
+      new rtc::RefCountedObject<ChannelSendFrameTransformerDelegate>(
+          [this](AudioFrameType frameType, uint8_t payloadType,
+                 uint32_t rtp_timestamp, rtc::ArrayView<const uint8_t> payload,
+                 int64_t absolute_capture_timestamp_ms) {
+            RTC_DCHECK_RUN_ON(&encoder_queue_);
+            return SendRtpAudio(frameType, payloadType, rtp_timestamp, payload,
+                                absolute_capture_timestamp_ms);
+          },
+          std::move(frame_transformer), &encoder_queue_);
+  frame_transformer_delegate_->Init();
 }
 
 }  // namespace

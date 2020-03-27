@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d03db559_8e218623",
+        "filename": "p2p/base/tcp_port.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-03-27T21:44:24Z",
+      "side": 1,
+      "message": "I think my suggestion would be a bit more foolproof (one could theoretically call CreateConnection on a port other than the one that generated the prflx candidate), but because that doesn\u0027t happen currently (and should never happen) we should be okay.",
+      "revId": "9a995de7932ef4a8a8698d47290bfeaa341105f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

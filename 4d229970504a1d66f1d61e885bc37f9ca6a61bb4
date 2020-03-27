@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6d5bc7cd_b61dc0cc",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "Please return an ArrayView\u003cconst uint8_t\u003e instead. https://webrtc.googlesource.com/src/+/master/style-guide.md#arrayview\n\nAlso, document how long the returned pointer is valid. Until the next call to a non-const method?",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20bbeeb8_aae04536",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -19,6 +36,23 @@
         "endLine": 33,
         "endChar": 55
       },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b29bd3a2_3e1fa3a6",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "ArrayView\u003cconst uint8_t\u003e here too.",
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -48,6 +82,23 @@
     },
     {
       "key": {
+        "uuid": "162e62fb_beeea6eb",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "Not necessary when GetData() returns an ArrayView?",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36aa7c6e_d1ecfe3f",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -71,6 +122,23 @@
     },
     {
       "key": {
+        "uuid": "3c9b292f_ba3d17fd",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "On naming: snake_case is allowed for accessors and mutators [https://google.github.io/styleguide/cppguide.html#Function_Names], but it is somewhat dodgy for an interface to impose such restrictions on how subclasses implement their methods. I would suggest that you use CamelCase for all method names.",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "358994bd_c8fca110",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -87,6 +155,29 @@
         "startChar": 9,
         "endLine": 50,
         "endChar": 11
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64211839_40c8cc43",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "ArrayView\u003cconst uint8_t\u003e? Or is there a particular reason to want a vector here?",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 30
       },
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -140,6 +231,63 @@
     },
     {
       "key": {
+        "uuid": "b41a2214_4528580d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "It looks like a number of these could be const.",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d0dde3a_a2aa5b73",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "Can you change this to `const std::unique_ptr\u003cRTPFragmentationHeader\u003e`? Looks like a small change in the constructor is all that\u0027s needed.",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 41
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53f6d405_dd3a4378",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "It looks like you convert a unique_ptr to an owning raw pointer, and then forget to manually delete it? Consider using a unique_ptr instead by passing the current rhs to WrapUnique.",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abb921bc_f2404344",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -160,6 +308,23 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad7a4f8e_72698bd8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "Same problem here?",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -249,6 +414,23 @@
         "endLine": 31,
         "endChar": 32
       },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f3f22de_2f291e5f",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-27T11:35:19Z",
+      "side": 1,
+      "message": "Exactly this is what I was expecting to see in the two places I flagged for possible leaks above.",
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

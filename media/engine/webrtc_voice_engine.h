@@ -209,6 +209,11 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
 
   std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const override;
 
+  void SetEncoderToPacketizerFrameTransformer(
+      uint32_t ssrc,
+      rtc::scoped_refptr<webrtc::FrameTransformerInterface> frame_transformer)
+      override;
+
   // implements Transport interface
   bool SendRtp(const uint8_t* data,
                size_t len,

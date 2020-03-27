@@ -95,26 +95,9 @@ void RtpVideoStreamReceiverFrameTransformerDelegate::TransformFrame(
     std::unique_ptr<video_coding::RtpFrameObject> frame,
     uint32_t ssrc) {
   RTC_DCHECK_RUN_ON(&network_sequence_checker_);
-  // TODO(bugs.webrtc.org/11380) remove once this version of TransformFrame is
-  // deprecated.
-  auto additional_data =
-      RtpDescriptorAuthentication(frame->GetRtpVideoHeader());
-  frame_transformer_->TransformFrame(std::move(frame),
-                                     std::move(additional_data), ssrc);
-
   frame_transformer_->Transform(
       std::make_unique<TransformableVideoReceiverFrame>(std::move(frame),
                                                         ssrc));
-}
-
-void RtpVideoStreamReceiverFrameTransformerDelegate::OnTransformedFrame(
-    std::unique_ptr<video_coding::EncodedFrame> frame) {
-  rtc::scoped_refptr<RtpVideoStreamReceiverFrameTransformerDelegate> delegate =
-      this;
-  network_thread_->PostTask(ToQueuedTask(
-      [delegate = std::move(delegate), frame = std::move(frame)]() mutable {
-        delegate->ManageFrame(std::move(frame));
-      }));
 }
 
 void RtpVideoStreamReceiverFrameTransformerDelegate::OnTransformedFrame(
@@ -125,16 +108,6 @@ void RtpVideoStreamReceiverFrameTransformerDelegate::OnTransformedFrame(
       [delegate = std::move(delegate), frame = std::move(frame)]() mutable {
         delegate->ManageFrame(std::move(frame));
       }));
-}
-
-void RtpVideoStreamReceiverFrameTransformerDelegate::ManageFrame(
-    std::unique_ptr<video_coding::EncodedFrame> frame) {
-  RTC_DCHECK_RUN_ON(&network_sequence_checker_);
-  if (!receiver_)
-    return;
-  auto transformed_frame = absl::WrapUnique(
-      static_cast<video_coding::RtpFrameObject*>(frame.release()));
-  receiver_->ManageFrame(std::move(transformed_frame));
 }
 
 void RtpVideoStreamReceiverFrameTransformerDelegate::ManageFrame(

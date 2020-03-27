@@ -454,8 +454,8 @@ std::string GetDirectionAsShortString(PacketDirection direction) {
 EventLogAnalyzer::EventLogAnalyzer(const ParsedRtcEventLog& log,
                                    bool normalize_time)
     : parsed_log_(log) {
-  config_.window_duration_ = 250000;
-  config_.step_ = 10000;
+  config_.window_duration_ = 1000000;
+  config_.step_ = 250000;
   config_.normalize_time_ = normalize_time;
   config_.begin_time_ = parsed_log_.first_timestamp();
   config_.end_time_ = parsed_log_.last_timestamp();
@@ -544,6 +544,48 @@ void EventLogAnalyzer::CreatePacketGraph(PacketDirection direction,
   plot->SetSuggestedYAxis(0, 1, "Packet size (bytes)", kBottomMargin,
                           kTopMargin);
   plot->SetTitle(GetDirectionAsString(direction) + " RTP packets");
+}
+
+void EventLogAnalyzer::CreateCsrcGraph(Plot* plot) {
+  std::map<uint32_t, int> csrc_map;
+
+  for (const auto& stream : parsed_log_.rtp_packets_by_ssrc(kIncomingPacket)) {
+    // Filter on SSRC.
+    if (!IsAudioSsrc(kIncomingPacket, stream.ssrc))
+      continue;
+    if (!MatchingSsrc(stream.ssrc, desired_ssrc_)) {
+      continue;
+    }
+
+    TimeSeries time_series(GetStreamName(kIncomingPacket, stream.ssrc),
+                           LineStyle::kLine);
+    auto GetCsrc = [&csrc_map](const LoggedRtpPacket& packet) {
+      if (packet.header.numCSRCs > 0) {
+        const uint32_t csrc =
+            packet.header.arrOfCSRCs[packet.header.numCSRCs - 1];
+        const auto& it = csrc_map.find(csrc);
+        if (it != csrc_map.end()) {
+          return absl::optional<float>(it->second);
+        } else {
+          const int next_csrc_id = csrc_map.size();
+          csrc_map[csrc] = next_csrc_id;
+          return absl::optional<float>(next_csrc_id);
+        }
+      }
+      return absl::optional<float>();
+    };
+    auto ToCallTime = [this](const LoggedRtpPacket& packet) {
+      return this->config_.GetCallTimeSec(packet.log_time_us());
+    };
+    ProcessPoints<LoggedRtpPacket>(ToCallTime, GetCsrc, stream.packet_view,
+                                   &time_series);
+    plot->AppendTimeSeries(std::move(time_series));
+  }
+
+  plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
+                 "Time (s)", kLeftMargin, kRightMargin);
+  plot->SetSuggestedYAxis(0, 1, "Speaker ID", kBottomMargin, kTopMargin);
+  plot->SetTitle("Speakers");
 }
 
 void EventLogAnalyzer::CreateRtcpTypeGraph(PacketDirection direction,
@@ -1093,6 +1135,52 @@ void EventLogAnalyzer::CreateTotalOutgoingBitrateGraph(Plot* plot,
   plot->SetTitle("Outgoing RTP bitrate");
 }
 
+// Plot the total bandwidth used by all RTP streams.
+void EventLogAnalyzer::CreateTotalIncomingPacketRateGraph(Plot* plot) {
+  // TODO(terelius): This could be provided by the parser.
+  std::multimap<int64_t, size_t> packets_in_order;
+  for (const auto& stream : parsed_log_.incoming_rtp_packets_by_ssrc()) {
+    if (!IsAudioSsrc(kIncomingPacket, stream.ssrc))
+      continue;
+    for (const LoggedRtpPacketIncoming& packet : stream.incoming_packets)
+      packets_in_order.insert(
+          std::make_pair(packet.rtp.log_time_us(), packet.rtp.total_length));
+  }
+
+  auto window_begin = packets_in_order.begin();
+  auto window_end = packets_in_order.begin();
+  size_t packets_in_window = 0;
+
+  if (!packets_in_order.empty()) {
+    // Calculate a moving average of the bitrate and store in a TimeSeries.
+    TimeSeries packet_rate_series("Packet rate", LineStyle::kLine);
+    for (int64_t time = config_.begin_time_;
+         time < config_.end_time_ + config_.step_; time += config_.step_) {
+      while (window_end != packets_in_order.end() && window_end->first < time) {
+        packets_in_window++;
+        ++window_end;
+      }
+      while (window_begin != packets_in_order.end() &&
+             window_begin->first < time - config_.window_duration_) {
+        RTC_DCHECK_GE(packets_in_window, 1);
+        packets_in_window--;
+        ++window_begin;
+      }
+      float window_duration_in_seconds =
+          static_cast<float>(config_.window_duration_) / kNumMicrosecsPerSec;
+      float x = config_.GetCallTimeSec(time);
+      float y = packets_in_window / window_duration_in_seconds;
+      packet_rate_series.points.emplace_back(x, y);
+    }
+    plot->AppendTimeSeries(std::move(packet_rate_series));
+  }
+
+  plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
+                 "Time (s)", kLeftMargin, kRightMargin);
+  plot->SetSuggestedYAxis(0, 1, "Frame rate (pps)", kBottomMargin, kTopMargin);
+  plot->SetTitle("Incoming RTP bitrate");
+}
+
 // For each SSRC, plot the bandwidth used by that stream.
 void EventLogAnalyzer::CreateStreamBitrateGraph(PacketDirection direction,
                                                 Plot* plot) {
@@ -1115,6 +1203,31 @@ void EventLogAnalyzer::CreateStreamBitrateGraph(PacketDirection direction,
   plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
                  "Time (s)", kLeftMargin, kRightMargin);
   plot->SetSuggestedYAxis(0, 1, "Bitrate (kbps)", kBottomMargin, kTopMargin);
+  plot->SetTitle(GetDirectionAsString(direction) + " bitrate per stream");
+}
+
+// For each SSRC, plot the bandwidth used by that stream.
+void EventLogAnalyzer::CreateStreamPacketRateGraph(PacketDirection direction,
+                                                   Plot* plot) {
+  for (const auto& stream : parsed_log_.rtp_packets_by_ssrc(direction)) {
+    // Filter on SSRC.
+    if (!IsAudioSsrc(direction, stream.ssrc))
+      continue;
+    if (!MatchingSsrc(stream.ssrc, desired_ssrc_)) {
+      continue;
+    }
+
+    TimeSeries time_series(GetStreamName(direction, stream.ssrc),
+                           LineStyle::kLine);
+    MovingAverage<LoggedRtpPacket, double>(
+        [](const LoggedRtpPacket& packet) { return 1; }, stream.packet_view,
+        config_, &time_series);
+    plot->AppendTimeSeries(std::move(time_series));
+  }
+
+  plot->SetXAxis(config_.CallBeginTimeSec(), config_.CallEndTimeSec(),
+                 "Time (s)", kLeftMargin, kRightMargin);
+  plot->SetSuggestedYAxis(0, 1, "Packet rate (pps)", kBottomMargin, kTopMargin);
   plot->SetTitle(GetDirectionAsString(direction) + " bitrate per stream");
 }
 

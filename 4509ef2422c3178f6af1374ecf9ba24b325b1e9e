@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "852a5c34_908684de",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "Please add a comment describing the class.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 77
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143631eb_1a404f0b",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "Since the name is so very similar to the name of the ReceivePacket method, please add a description of this method.\nAlso, please consider if it would be possible to change the name to something less similar.",
+      "range": {
+        "startLine": 172,
+        "startChar": 7,
+        "endLine": 172,
+        "endChar": 22
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c94a0f04_bc76e5ec",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "As commented in another CL. It would be nice if it would be possible to bundle the Init call in the constructor of the delegate.\n\nThe benefit would be both readability and less easy for the user to use this wrongly.",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 40
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0e76f40_c07df780",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "Looking at this usage, one very descriptive name would be\nHandlePacketReceivalInTheAbsenceOfAFrameTransformerDelegate.\n\nI definitely don\u0027t think that name should be used but it would be very nice to have a name that similarly to that is able to convey what this method actually does, so that the code becomes self-describing.",
+      "range": {
+        "startLine": 591,
+        "startChar": 2,
+        "endLine": 591,
+        "endChar": 17
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e5cbc92_db7b9e1a",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "Is there a strong reason for why this cannot be put into the constructor?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 1
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2863723_134207e5",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "What does this line do? Does it create a new callback? Or an empty callback?",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 51
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67303de7_2b9e2e4a",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "This is always returning 0. If this is intended for future use, please add a comment about that.",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 11
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3f26cc5_8a9115cb",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "I know too little about std::function I realize.\nWill assigning receive_frame_callback_ \u003d ReceiveFrameCallback();\nensure that \n(!receive_frame_callback_) becomes true?",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 91,
+        "endChar": 30
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bbd8706_3d23eb9d",
+        "filename": "audio/channel_receive_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "Please add a comment describing the class.\nAlso, I think there should be an empty row between the namespace and the class",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 80
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "719eee01_ff09637f",
+        "filename": "audio/channel_receive_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "Please add comments.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 78
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34c18532_4bc7454d",
+        "filename": "audio/channel_receive_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-27T13:50:23Z",
+      "side": 1,
+      "message": "On the send-side some of these are protected with a lock. Is this not needed herein?",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

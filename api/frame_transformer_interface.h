@@ -20,17 +20,55 @@
 
 namespace webrtc {
 
+// Owns the frame payload data.
+class TransformableFrameInterface {
+ public:
+  virtual ~TransformableFrameInterface() = default;
+
+  // Returns a pointer to the owned frame payload data. Does not change data
+  // ownership.
+  virtual uint8_t* GetData() const = 0;
+
+  // Copies |data| into the owned frame payload data.
+  virtual void SetData(const uint8_t* data, size_t size) = 0;
+
+  virtual size_t size() const = 0;
+  virtual uint32_t timestamp() const = 0;
+  virtual uint32_t ssrc() const = 0;
+};
+
+class TransformableVideoFrameInterface : public TransformableFrameInterface {
+ public:
+  virtual ~TransformableVideoFrameInterface() = default;
+  virtual const RTPVideoHeader& header() const = 0;
+  virtual bool is_keyframe() const = 0;
+
+  // Returns data needed in the frame transformation logic; for example,
+  // when the transformation applied to the frame is encryption/decryption, the
+  // additional data holds the serialized generic frame descriptor extension
+  // calculated in webrtc::RtpDescriptorAuthentication.
+  // TODO((bugs.webrtc.org/11380) remove from interface once
+  // webrtc::RtpDescriptorAuthentication is exposed in api/.
+  virtual std::vector<uint8_t> additional_data() const = 0;
+};
+
 // Objects implement this interface to be notified with the transformed frame.
 class TransformedFrameCallback : public rtc::RefCountInterface {
  public:
+  // TODO(bugs.webrtc.org/11380) remove after updating downstream dependencies
+  // to use new OnTransformedFrame signature.
   virtual void OnTransformedFrame(
-      std::unique_ptr<video_coding::EncodedFrame> transformed_frame) = 0;
+      std::unique_ptr<video_coding::EncodedFrame> transformed_frame) {}
+  // TODO((bugs.webrtc.org/11380) make pure virtual after updating usage
+  // downstream.
+  virtual void OnTransformedFrame(
+      std::unique_ptr<TransformableFrameInterface> transformed_frame) {}
 
  protected:
   ~TransformedFrameCallback() override = default;
 };
 
-// Transformes encoded frames. The transformed frame is sent in a callback using
+// Transforms encoded frames. The transformed frame is sent in a callback using
 // the TransformedFrameCallback interface (see below).
 class FrameTransformerInterface : public rtc::RefCountInterface {
  public:
@@ -41,9 +79,17 @@ class FrameTransformerInterface : public rtc::RefCountInterface {
   // holds the serialized generic frame descriptor extension calculated in
   // webrtc::RtpDescriptorAuthentication, needed in the encryption/decryption
   // algorithms.
+  // TODO(bugs.webrtc.org/11380) remove after updating downstream dependencies
+  // to use new OnTransformedFrame() signature.
   virtual void TransformFrame(std::unique_ptr<video_coding::EncodedFrame> frame,
                               std::vector<uint8_t> additional_data,
-                              uint32_t ssrc) = 0;
+                              uint32_t ssrc) {}
+
+  // Transforms |frame| using the implementing class' processing logic.
+  // TODO((bugs.webrtc.org/11380) make pure virtual after updating usage
+  // downstream.
+  virtual void Transform(
+      std::unique_ptr<TransformableFrameInterface> transformable_frame) {}
 
   virtual void RegisterTransformedFrameCallback(
       rtc::scoped_refptr<TransformedFrameCallback>) = 0;

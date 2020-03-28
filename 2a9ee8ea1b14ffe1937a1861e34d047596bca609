@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "c77721db_6e6d7a78",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:36:22Z",
+      "side": 1,
+      "message": "is the move implicit here? (noticed you explicitly do it below)",
+      "range": {
+        "startLine": 1082,
+        "startChar": 32,
+        "endLine": 1082,
+        "endChar": 49
+      },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d257770_82ada9ea",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 1
@@ -134,6 +157,47 @@
         "endLine": 230,
         "endChar": 20
       },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82f219b0_c996c397",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:36:22Z",
+      "side": 1,
+      "message": "Would be good to have clarity on what methods are called on what thread/queue.\n\nAny problems if frame_transformer_ is not nullptr at this point?\n\nBtw something to consider too is that frame_transformer_ seems to be consistently used on the |worker_thread_| although access to it is given via sending a pointer via an Invoke(). You could consider to not pass the member variable this way but instead only access/check/set it from within SetDepacketiserToDecoderFrameTransformer(). That way you know for sure on what thread you are, you can DCHECK it, no lock required so you\u0027re sure you\u0027re not going to have a race. Down the line you might also not need to use synchronous Invoke()s.",
+      "parentUuid": "015fb65e_6fcb1fed",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 20
+      },
+      "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40262a21_0aed64bd",
+        "filename": "pc/audio_rtp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:36:22Z",
+      "side": 1,
+      "message": "do you need all the scope or is [this] enough?",
       "revId": "2a9ee8ea1b14ffe1937a1861e34d047596bca609",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -208,6 +208,23 @@
     },
     {
       "key": {
+        "uuid": "7ce3c19e_df045075",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T02:03:50Z",
+      "side": 1,
+      "message": "would prefer to be able to set this variable in an initializer list instead of like this (e.g. by passing |fragmentation| to a parent ctor that handles the conditional).\n\ni.e. a pattern along the lines of:\n\nnamespace {\nT CreateFragmentationHeader(F* fragment) {\n  if (!fragment)\n    return nullptr;\n  auto ret \u003d std::make_unique\u003cT\u003e();\n  ret-\u003eCopyFrom(*fragment);  // BTW: Is this CopyFrom step necessary? Could fragment be passed to a ctor?\n  return ret;\n}\n}\n\nclass Parent {\n public:\n  Parent(F* fragment) : fragmentation_header_(CreateFragmentationHeader(fragment) {}\n protected:\n  T const fragmentation_header_;\n};\n\nclass Derived : public Parent {\n public:\n  Derived(F* fragment) : Parent(f) {}\n};",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1a5a463_f952ad94",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -271,6 +288,47 @@
     },
     {
       "key": {
+        "uuid": "92da71fe_bcc0b4cf",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T02:03:50Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "7d0dde3a_a2aa5b73",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 41
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bf84f5_4d9abbdb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T02:03:50Z",
+      "side": 1,
+      "message": "Do you know why this lock is needed? Seems like a flaky optimisation to me if a lock is really needed, and potentially racy :-/",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53f6d405_dd3a4378",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -282,6 +340,24 @@
       "writtenOn": "2020-03-27T11:35:19Z",
       "side": 1,
       "message": "It looks like you convert a unique_ptr to an owning raw pointer, and then forget to manually delete it? Consider using a unique_ptr instead by passing the current rhs to WrapUnique.",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1f84ee7_c838177f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T02:03:50Z",
+      "side": 1,
+      "message": "perhaps .get() was intended here?",
+      "parentUuid": "53f6d405_dd3a4378",
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -328,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "31619883_90f3c489",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T02:03:50Z",
+      "side": 1,
+      "message": "using .get() here not .release(), in case you\u0027re comparing to line 169 (looks like there\u0027s a bug there)",
+      "parentUuid": "ad7a4f8e_72698bd8",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d59db62_8ae54f32",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -348,6 +442,40 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8751a6f_75541309",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T02:03:50Z",
+      "side": 1,
+      "message": "fwiw it would be great if we could limit use of sender_ to the encoder_queue_ and get rid of the sender_lock_. The lock seems to be conflicting with the queue in any case and using the sender purely from there, might simplify the sender implementation itself.",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e38ecf6f_1ffae643",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T02:03:50Z",
+      "side": 1,
+      "message": "here, we could just post the null-ing to the encoder queue",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

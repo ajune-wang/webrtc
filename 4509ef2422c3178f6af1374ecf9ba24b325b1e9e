@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "c2a31fa4_57af5b78",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:42:11Z",
+      "side": 1,
+      "message": "+1. Also opens the possibility of making frame_transformer_delegate_ const, which simplifies locking and thread usage.",
+      "parentUuid": "c94a0f04_bc76e5ec",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 40
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0e76f40_c07df780",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 2
@@ -88,6 +112,23 @@
         "endLine": 591,
         "endChar": 17
       },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8425f7f7_944e9948",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:42:11Z",
+      "side": 1,
+      "message": "thread/sequence checks to guard against races between get/set data?\n\n(could make the sequence/thread checkers enabled only for dcheck enabled builds)",
       "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

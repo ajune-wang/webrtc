@@ -140,6 +140,23 @@
     },
     {
       "key": {
+        "uuid": "e13af4fa_c4e778a2",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:23:29Z",
+      "side": 1,
+      "message": "would be good to have a thread check here for clarity. Same for all methods where we know the threading model.",
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d55c1583_249a508b",
         "filename": "audio/channel_send_frame_transformer_delegate.cc",
         "patchSetId": 1
@@ -157,6 +174,23 @@
         "endLine": 69,
         "endChar": 1
       },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0efdad65_611e5925",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:23:29Z",
+      "side": 1,
+      "message": "this suggests that Reset() runs on the same thread/queue as Init().",
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -186,6 +220,40 @@
     },
     {
       "key": {
+        "uuid": "2b6b7be7_d533c96f",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:23:29Z",
+      "side": 1,
+      "message": "On what thread does Reset() run?\nIs resetting the callback necessary? If so, suggest that it be done via a PostTask to encoder_queuer_ and avoid send_lock_.",
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a63be57_62b78a75",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:23:29Z",
+      "side": 1,
+      "message": "and this method too (same thread as the above methods)",
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a1d3596c_0b6438a1",
         "filename": "audio/channel_send_frame_transformer_delegate.cc",
         "patchSetId": 1
@@ -203,6 +271,40 @@
         "endLine": 91,
         "endChar": 11
       },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00d44d88_158e49f2",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:23:29Z",
+      "side": 1,
+      "message": "this check seems to introduce unnecessary locking for send_frame_callback_ which isn\u0027t really needed for this function. The scope is also the entire function which I don\u0027t think is needed.\n\nI\u0027d prefer to not have the send_lock_ and instead only touch send_frame_callback_ on the encoder_queue_.",
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25e2db44_a743c289",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:23:29Z",
+      "side": 1,
+      "message": "ideally not needed",
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -295,6 +397,40 @@
         "endLine": 52,
         "endChar": 75
       },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4edf477_d6a1395e",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:23:29Z",
+      "side": 1,
+      "message": "I don\u0027t think that this lock is needed. Instead send_frame_callback_ could be accessed only from encoder_queue_ (aside from being set in the ctor)",
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27b32f87_6fbed07e",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-03-28T01:23:29Z",
+      "side": 1,
+      "message": "I don\u0027t think you need a lock for encoder_queue_. You should be able to make it a const pointer, requiring it to be set in the ctor. (DCHECKing for non-nullptr might also be a good idea)\n\nrtc::TaskQueue* const encoder_queue_;",
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6061fff_4b66b133",
+        "filename": "modules/audio_processing/test/py_quality_assessment/quality_assessment/sound_level.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-03-29T16:28:39Z",
+      "side": 1,
+      "message": "This is redundant, let me know if you want to revert it.",
+      "range": {
+        "startLine": 104,
+        "startChar": 16,
+        "endLine": 104,
+        "endChar": 17
+      },
+      "revId": "3be0f0cdbfcd645a4ba84f860e4a84563ccd333c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

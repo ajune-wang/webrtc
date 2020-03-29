@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c73acc9_db4ad3ac",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-29T16:43:23Z",
+      "side": 1,
+      "message": "generally it is recommended to have less negations.\nmay be\nbool (enable_)?rtx_padding_prioritization \u003d true;",
+      "range": {
+        "startLine": 152,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 16
+      },
+      "revId": "6419caf70c769ccef0875c682f578d62353d5c3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f5bc159_48453296",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-29T16:43:23Z",
+      "side": 1,
+      "message": "e.g. here it would look better without double negation:\nif (enable_padding_prioritization_)",
+      "range": {
+        "startLine": 162,
+        "startChar": 6,
+        "endLine": 162,
+        "endChar": 29
+      },
+      "revId": "6419caf70c769ccef0875c682f578d62353d5c3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bedc1a4_4fc8f32a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-29T16:43:23Z",
+      "side": 1,
+      "message": "is it expected to get into this loop when prioritization is enabled and padding_priority.empty()?",
+      "range": {
+        "startLine": 324,
+        "startChar": 7,
+        "endLine": 324,
+        "endChar": 21
+      },
+      "revId": "6419caf70c769ccef0875c682f578d62353d5c3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec670f87_0642d1e8",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_history_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-29T16:43:23Z",
+      "side": 1,
+      "message": "::testing::Bool()",
+      "range": {
+        "startLine": 840,
+        "startChar": 25,
+        "endLine": 840,
+        "endChar": 56
+      },
+      "revId": "6419caf70c769ccef0875c682f578d62353d5c3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

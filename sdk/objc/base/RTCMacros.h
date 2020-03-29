@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+// TEST
+
 #ifndef SDK_OBJC_BASE_RTCMACROS_H_
 #define SDK_OBJC_BASE_RTCMACROS_H_
 

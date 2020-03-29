@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4b1a01e0_5a5958d6",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d5bc7cd_b61dc0cc",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20bbeeb8_aae04536",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -56,6 +74,48 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3756ea73_b4063cc4",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20bbeeb8_aae04536",
+      "range": {
+        "startLine": 33,
+        "startChar": 23,
+        "endLine": 33,
+        "endChar": 55
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "763a47ff_5ff515c1",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b29bd3a2_3e1fa3a6",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +159,48 @@
     },
     {
       "key": {
+        "uuid": "c1f1e2a7_6412f6ba",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "162e62fb_beeea6eb",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10800797_8ee34b27",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74d93476_9a4c6486",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36aa7c6e_d1ecfe3f",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -110,6 +212,30 @@
       "writtenOn": "2020-03-27T11:13:22Z",
       "side": 1,
       "message": "Timestamp (or may be RtpTimestamp)\nwould recommend regular function name for virtual functions.\n(https://google.github.io/styleguide/cppguide.html#Function_Names)\n\nwhile lowcase names are allowed for accessors, personally I find it questionable if virtual function can be counted as one. accessor gives impression that it is extremely cheap to call, it is usually inlined. When unsure, regular naming style is preferred.\n(same for other virtual lowcase functions in these interfaces)",
+      "range": {
+        "startLine": 36,
+        "startChar": 19,
+        "endLine": 36,
+        "endChar": 28
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ddc6684e_47948a5d",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36aa7c6e_d1ecfe3f",
       "range": {
         "startLine": 36,
         "startChar": 19,
@@ -139,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "01f604ca_183a6f99",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c9b292f_ba3d17fd",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "358994bd_c8fca110",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -159,6 +303,30 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94fe3474_b6bfedae",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "358994bd_c8fca110",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 11
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -185,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "f9c488bf_2a245163",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64211839_40c8cc43",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 30
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8951ab64_a34cf832",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 3
@@ -208,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "839301eb_28671923",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8951ab64_a34cf832",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ce3c19e_df045075",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -222,6 +438,24 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f896601e_6f0faa06",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done - initialized the fragmentation header in the initializer list. Why add a parent class though and not call CreateFragmentationHeader in Derived ctor\u0027s initializer list?",
+      "parentUuid": "7ce3c19e_df045075",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +482,30 @@
     },
     {
       "key": {
+        "uuid": "3324e986_27100683",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Oversight, this class is a copy of modules/rtp_rtcp/source/transformable_encoded_frame.h removed in follow-up CL https://webrtc-review.googlesource.com/c/src/+/171864. Removed initialization.",
+      "parentUuid": "f1a5a463_f952ad94",
+      "range": {
+        "startLine": 90,
+        "startChar": 44,
+        "endLine": 90,
+        "endChar": 60
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b41a2214_4528580d",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -262,6 +520,24 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "830bdd6d_3849668b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b41a2214_4528580d",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -312,6 +588,30 @@
     },
     {
       "key": {
+        "uuid": "619ebaef_303ed0cc",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92da71fe_bcc0b4cf",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 41
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4bf84f5_4d9abbdb",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -326,6 +626,24 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2983e4cf_84d4fad2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Essentially this lock implements a thread-safe weak ptr to the sender. RTPSenderVideoFrameTransformerDelegate implements the TransformedFrameCallback interface which is refcounted, one ref is held in Blink and one in webrtc by RTPSenderVideo. The lock ensures that when the sender is destroyed, the sender raw pointer held by the delegate is reset (using Reset() called from sender dtor) while holding the lock, so that if a OnTransformedFrame() callback arrives from blink, it doesn\u0027t end up using a dangling pointer.\n\nCalling SetVideoStructureUnderLock under lock as well has been a side effect of making RTPSenderVideo::SendVideo asynchronous, as needed for insertable streams. Before, SetVideoStructureUnderLock and SendVideo were serialized; making SendVideo async made SetVideoStructureUnderLock racey, so I moved it under lock as well. SetVideoStructureUnderLock is called under lock only when insertable streams are used though: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/rtp_sender_video.cc;drc\u003d5efb02b1c6539e2bf1c9cbaf930c3199a69380fd;l\u003d239?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "parentUuid": "b4bf84f5_4d9abbdb",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -364,6 +682,24 @@
     },
     {
       "key": {
+        "uuid": "f4b3fca1_2c19fa3e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Exactly, get() was intended here, fixed.",
+      "parentUuid": "c1f84ee7_c838177f",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abb921bc_f2404344",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -375,6 +711,30 @@
       "writtenOn": "2020-03-27T11:13:22Z",
       "side": 1,
       "message": "may be \u0027video_frame\u0027\nto make the upcast more visible here",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 25
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7449aff_26214bb3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "I think it\u0027s more relevant that the frame is transformed than that it\u0027s a video frame. Added _video to the name.",
+      "parentUuid": "abb921bc_f2404344",
       "range": {
         "startLine": 185,
         "startChar": 8,
@@ -422,6 +782,24 @@
     },
     {
       "key": {
+        "uuid": "e46b2c05_adf2701d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "What Tommi said :)",
+      "parentUuid": "31619883_90f3c489",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d59db62_8ae54f32",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -462,6 +840,24 @@
     },
     {
       "key": {
+        "uuid": "f7cf277f_a09b4f39",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Covered by the explanation on why the lock is needed in a comment above.",
+      "parentUuid": "d8751a6f_75541309",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e38ecf6f_1ffae643",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -476,6 +872,24 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62d47d56_563adeea",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "No because the sender is destroyed on some other thread than the encoder queue. The encoder queue is used for sending frames, but creation and destruction of the sender happens on some other thread - the network thread iirc.",
+      "parentUuid": "e38ecf6f_1ffae643",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -525,6 +939,54 @@
     },
     {
       "key": {
+        "uuid": "4d49007f_0de26ff6",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b43f6d76_b1d9d202",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 8
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5ded7ac_4e57af57",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76a9190e_11f43bbe",
+      "range": {
+        "startLine": 28,
+        "startChar": 55,
+        "endLine": 28,
+        "endChar": 77
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c5946a7_f5274bf8",
         "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -545,6 +1007,30 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "499f6a34_e225478a",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Agree, though this was intentional - to make it explicit that the object is reset as the function name claims, at the cost of an almost noop unique_ptr destructor.",
+      "parentUuid": "6c5946a7_f5274bf8",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -571,6 +1057,30 @@
     },
     {
       "key": {
+        "uuid": "e40a69ef_587287c7",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Cool! Thanks for the tip.",
+      "parentUuid": "c693f133_b3f4eea3",
+      "range": {
+        "startLine": 65,
+        "startChar": 48,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f3f22de_2f291e5f",
         "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -585,6 +1095,24 @@
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b68c59c_ce74e355",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-29T23:51:32Z",
+      "side": 1,
+      "message": "Here the object ownership is transferred. In the other two places I only needed a const\u0026 to the cast object for the SendVideo() call, and then the frame can be destroyed when the unique_ptr goes out of scope; didn\u0027t see the need to wrap the object in another unique_ptr of the cast type.",
+      "parentUuid": "7f3f22de_2f291e5f",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

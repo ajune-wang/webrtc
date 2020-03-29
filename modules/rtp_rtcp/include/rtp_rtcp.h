@@ -149,6 +149,13 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
 
     bool need_rtp_packet_infos = false;
 
+    // If false, the RTP packet history will select RTX packets based on
+    // heuristics such as send time, retransmission count etc, in order to
+    // make padding potentially more useful.
+    // If true, the last packet will always be picked. This may reduce CPU
+    // overhead.
+    bool disable_rtx_padding_prioritization = false;
+
    private:
     RTC_DISALLOW_COPY_AND_ASSIGN(Configuration);
   };

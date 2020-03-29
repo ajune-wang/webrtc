@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+// TEST
+
 #ifndef RTC_BASE_ARRAYSIZE_H_
 #define RTC_BASE_ARRAYSIZE_H_
 

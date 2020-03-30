@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7363a7c_aa6618d7",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:52:28Z",
+      "side": 1,
+      "message": "or add an early return here :\nif (received_rrtrs_.empty()) {\n  return last_xr_rtis;\n}",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 290,
+        "endChar": 0
+      },
+      "revId": "458c3c2882828d0d7bf37a0f5c87b03a0536b8c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb1efec0_2ae991ed",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:52:28Z",
+      "side": 1,
+      "message": "int64_t",
+      "range": {
+        "startLine": 504,
+        "startChar": 8,
+        "endLine": 504,
+        "endChar": 12
+      },
+      "revId": "458c3c2882828d0d7bf37a0f5c87b03a0536b8c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17195219_1a28f3e6",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:52:28Z",
+      "side": 1,
+      "message": "no.\nnow_ms use unspecified time base,\nhere it need to be well defined time base for spec compliance. (thus it uses more expensive UTC version to get ntp time)",
+      "range": {
+        "startLine": 528,
+        "startChar": 5,
+        "endLine": 528,
+        "endChar": 33
+      },
+      "revId": "458c3c2882828d0d7bf37a0f5c87b03a0536b8c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4259354_d3d28d1b",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:52:28Z",
+      "side": 1,
+      "message": "yes, now_ms should work here\n(no expensive calls in-between to make a difference)",
+      "range": {
+        "startLine": 547,
+        "startChar": 4,
+        "endLine": 547,
+        "endChar": 79
+      },
+      "revId": "458c3c2882828d0d7bf37a0f5c87b03a0536b8c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b36a296f_e495641b",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:52:28Z",
+      "side": 1,
+      "message": "or add an early return:\nif (fir.requests().empty()) {\n  return;\n}\nint64_t now_ms \u003d clock_-\u003eTimeInMilliseconds();\nfor (...",
+      "range": {
+        "startLine": 940,
+        "startChar": 0,
+        "endLine": 940,
+        "endChar": 0
+      },
+      "revId": "458c3c2882828d0d7bf37a0f5c87b03a0536b8c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

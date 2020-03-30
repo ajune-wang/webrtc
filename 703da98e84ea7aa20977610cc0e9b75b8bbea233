@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4c7eab39_afb2f911",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T21:08:06Z",
+      "side": 1,
+      "message": "No, the delegate takes an RtpFrameObject and constructs a transformable frame with it.",
+      "parentUuid": "b853638f_80ccd60f",
+      "range": {
+        "startLine": 197,
+        "startChar": 15,
+        "endLine": 197,
+        "endChar": 35
+      },
+      "revId": "703da98e84ea7aa20977610cc0e9b75b8bbea233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acb73b8b_64b9b0ba",
         "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-30T17:49:26Z",
       "side": 1,
       "message": "you may omit (_)\ngo/totw/150",
+      "range": {
+        "startLine": 198,
+        "startChar": 43,
+        "endLine": 198,
+        "endChar": 47
+      },
+      "revId": "703da98e84ea7aa20977610cc0e9b75b8bbea233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3c410de_93589b0a",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T21:08:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acb73b8b_64b9b0ba",
       "range": {
         "startLine": 198,
         "startChar": 43,

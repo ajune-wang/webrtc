@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3934dee1_82ce15c2",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1824,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-30T12:35:49Z",
+      "side": 1,
+      "message": "Yes, if it\u0027s a local variable, the lambda needs to capture it (by reference or by value).",
+      "parentUuid": "27261e2c_cc1aefc9",
+      "range": {
+        "startLine": 1824,
+        "startChar": 9,
+        "endLine": 1824,
+        "endChar": 14
+      },
+      "revId": "f927388b8ccecb440d6d615c40ce6d6f9234678a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "570f2e65_231dfd7f",
         "filename": "video/video_send_stream_tests.cc",
         "patchSetId": 1

@@ -904,10 +904,8 @@ TEST_P(RtpSenderVideoTest, PopulatesPlayoutDelay) {
 
 class MockFrameTransformer : public FrameTransformerInterface {
  public:
-  MOCK_METHOD3(TransformFrame,
-               void(std::unique_ptr<video_coding::EncodedFrame> frame,
-                    std::vector<uint8_t> additional_data,
-                    uint32_t ssrc));
+  MOCK_METHOD1(Transform,
+               void(std::unique_ptr<TransformableFrameInterface> frame));
   MOCK_METHOD1(RegisterTransformedFrameCallback,
                void(rtc::scoped_refptr<TransformedFrameCallback>));
   MOCK_METHOD0(UnregisterTransformedFrameCallback, void());
@@ -931,8 +929,7 @@ TEST_P(RtpSenderVideoTest, SendEncodedImageWithFrameTransformer) {
   encoded_image.SetEncodedData(
       webrtc::EncodedImageBuffer::Create(data, sizeof(data)));
   RTPVideoHeader hdr;
-  EXPECT_CALL(*transformer, TransformFrame(_, RtpDescriptorAuthentication(hdr),
-                                           rtp_module_->RtpSender()->SSRC()));
+  EXPECT_CALL(*transformer, Transform(_));
   rtp_sender_video->SendEncodedImage(kPayload, kType, kTimestamp, encoded_image,
                                      nullptr, hdr,
                                      kDefaultExpectedRetransmissionTimeMs);

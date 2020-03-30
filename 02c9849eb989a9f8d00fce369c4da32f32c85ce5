@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af7d3128_f55b5482",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "Oh I see where the confusion is. The function sets a FrameTransformer in the insertion point Encoder-to-Packetizer, so the function name should be read Set(EncoderToPacketizer)FrameTransformer. FWIW I plan to replace the Set(EncoderToPacketizer/DepacketizerToDecoder)FrameTransformer with SetFrameTransformer(InsertionPoint::kEncoderToPacketizer/kDepacketizerToDecoder) in a future CL for both audio and video.\n\nFor now though I would prefer to keep this name because it\u0027s used on the video side as well, and in the common audio/video code paths between rtp sender/receiver and media channel.",
+      "parentUuid": "94d3dc8e_c7770b37",
+      "range": {
+        "startLine": 255,
+        "startChar": 19,
+        "endLine": 255,
+        "endChar": 57
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0213784d_8fe45f04",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "edcb6872_6df17b76",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "Explained in another comment.",
+      "parentUuid": "530f0423_530ba541",
+      "range": {
+        "startLine": 146,
+        "startChar": 7,
+        "endLine": 146,
+        "endChar": 45
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e47cb41_e9964090",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0213784d_8fe45f04",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 146,
+        "endChar": 46
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad10114_27ad1280",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "bbd29dbc_b0ecad54",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad10114_27ad1280",
+      "range": {
+        "startLine": 225,
+        "startChar": 2,
+        "endLine": 226,
+        "endChar": 37
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3584cdc_cd546f94",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -108,6 +204,24 @@
       "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5dcb767_e572f710",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 915,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "Yes, that\u0027s better.",
+      "parentUuid": "c3584cdc_cd546f94",
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "157f3b1a_1efe5b3a",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0305d266_17a41154",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 76
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc8d0393_31f55917",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 1
@@ -154,6 +292,30 @@
       "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37f8b18d_8126531a",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2328,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "Because of how the web API is defined, the stream should always exists when the transformer is set on the rtp sender. But I might need to revisit this depending on how experimentation goes, and what the final web API will look like.",
+      "parentUuid": "cc8d0393_31f55917",
+      "range": {
+        "startLine": 2325,
+        "startChar": 0,
+        "endLine": 2328,
+        "endChar": 49
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "6c34fe12_d9f0e744",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2335,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "As I explained in another comment, this code sets the frame transformer between encoder and packetizer. For now the same, as with the function name, I would keep the common return type with video, but this might change in the future.",
+      "parentUuid": "7c4e57df_4ebc356e",
+      "range": {
+        "startLine": 2330,
+        "startChar": 1,
+        "endLine": 2335,
+        "endChar": 1
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61068ad1_065a7db7",
         "filename": "media/engine/webrtc_voice_engine.h",
         "patchSetId": 1
@@ -200,6 +386,30 @@
       "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0958b619_eaa84085",
+        "filename": "media/engine/webrtc_voice_engine.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T13:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61068ad1_065a7db7",
+      "range": {
+        "startLine": 212,
+        "startChar": 7,
+        "endLine": 212,
+        "endChar": 45
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

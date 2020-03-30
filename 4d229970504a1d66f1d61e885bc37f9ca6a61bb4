@@ -459,6 +459,24 @@
     },
     {
       "key": {
+        "uuid": "278a0ef1_70a6693c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-30T07:58:15Z",
+      "side": 1,
+      "message": "+1---no parent class needed just a utility function. (And since the utility function in question is very short, a lambda can be used instead of a named function if you like.)",
+      "parentUuid": "f896601e_6f0faa06",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1a5a463_f952ad94",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3
@@ -535,6 +553,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "b41a2214_4528580d",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64494ab3_0f9db981",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-30T07:58:15Z",
+      "side": 1,
+      "message": "Excellent. This really helps with the readability of the code.",
+      "parentUuid": "830bdd6d_3849668b",
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -1134,6 +1170,24 @@
       "side": 1,
       "message": "Here the object ownership is transferred. In the other two places I only needed a const\u0026 to the cast object for the SendVideo() call, and then the frame can be destroyed when the unique_ptr goes out of scope; didn\u0027t see the need to wrap the object in another unique_ptr of the cast type.",
       "parentUuid": "7f3f22de_2f291e5f",
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49fd0bf6_cfd96930",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-30T07:58:15Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "1b68c59c_ce74e355",
       "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

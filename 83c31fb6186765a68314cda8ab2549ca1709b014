@@ -137,6 +137,30 @@
       "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd423d5a_8a774387",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-30T07:58:15Z",
+      "side": 1,
+      "message": "+1. ArrayView is always non-owning, so it makes sense as a return value in the same sort of cases as e.g. const vector\u0026.",
+      "parentUuid": "3c675ad9_36eaf888",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

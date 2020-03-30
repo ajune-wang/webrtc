@@ -284,7 +284,11 @@ bool RTCPReceiver::NTP(uint32_t* received_ntp_secs,
 
 std::vector<rtcp::ReceiveTimeInfo>
 RTCPReceiver::ConsumeReceivedXrReferenceTimeInfo() {
+  std::vector<rtcp::ReceiveTimeInfo> last_xr_rtis;
+
   rtc::CritScope lock(&rtcp_receiver_lock_);
+  if (received_rrtrs_.empty())
+    return last_xr_rtis;
 
   const size_t last_xr_rtis_size = std::min(
       received_rrtrs_.size(), rtcp::ExtendedReports::kMaxNumberOfDlrrItems);
@@ -294,6 +298,7 @@ RTCPReceiver::ConsumeReceivedXrReferenceTimeInfo() {
   const uint32_t now_ntp =
       CompactNtp(TimeMicrosToNtp(clock_->TimeInMicroseconds()));
 
+  last_xr_rtis.reserve(last_xr_rtis_size);
   for (size_t i = 0; i < last_xr_rtis_size; ++i) {
     RrtrInformation& rrtr = received_rrtrs_.front();
     last_xr_rtis.emplace_back(rrtr.ssrc, rrtr.received_remote_mid_ntp_time,

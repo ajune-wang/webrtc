@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9377ac24_c965e4a8",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T09:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34a34a08_373d09e4",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 74
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "462757c9_d60721c4",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-30T07:29:52Z",
       "side": 1,
       "message": "I thought idea was different:\nexpose enough information and move assembling of the additional data from webrtc to application level.\nas I understand it RtpDescriptorAuthentication shouldn\u0027t be moved to api.",
+      "range": {
+        "startLine": 49,
+        "startChar": 33,
+        "endLine": 50,
+        "endChar": 58
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ef9591e_8660a16e",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T09:43:47Z",
+      "side": 1,
+      "message": "Yes, we want to give the application the flexibility to assemble the additional data, but I was thinking that it might be good to expose RtpDescriptorAuthentication in api/ as well, to be used by clients that don\u0027t want to implement their own custom assembling.",
+      "parentUuid": "462757c9_d60721c4",
       "range": {
         "startLine": 49,
         "startChar": 33,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "86278b7e_486373d8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T09:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaba88b5_7185c7bb",
+      "range": {
+        "startLine": 61,
+        "startChar": 11,
+        "endLine": 61,
+        "endChar": 44
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "559d1620_01cb33c7",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "0df32c82_b0f91dac",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T09:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "559d1620_01cb33c7",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 3
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12423816_13d200ed",
         "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbc161ff_df3ff698",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T09:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12423816_13d200ed",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 79
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +281,30 @@
       "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "093d2ce4_8ef2cb18",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-30T09:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd423d5a_8a774387",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

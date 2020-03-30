@@ -61,7 +61,7 @@ class RtpPacket {
 
   size_t headers_size() const { return payload_offset_; }
 
-  // Payload.
+  // payload_size(), payload(), PayloadBuffer() all include RED header if set.
   size_t payload_size() const { return payload_size_; }
   size_t padding_size() const { return padding_size_; }
   rtc::ArrayView<const uint8_t> payload() const {
@@ -85,7 +85,7 @@ class RtpPacket {
   void Clear();
 
   // Header setters.
-  void CopyHeaderFrom(const RtpPacket& packet);
+  void CopyHeaderFrom(const RtpPacket& packet);  // Does NOT copy RED header.
   void SetMarker(bool marker_bit);
   void SetPayloadType(uint8_t payload_type);
   void SetSequenceNumber(uint16_t seq_no);
@@ -106,6 +106,13 @@ class RtpPacket {
   // a) There is enough room left in buffer.
   // b) Extension headers, payload or padding data has not already been added.
   void SetCsrcs(rtc::ArrayView<const uint32_t> csrcs);
+
+  // Enables RED encapsulation and indicates the payload type that should
+  // immediately preceed the normal payload. This method must be called before
+  // allocating payload.
+  void SetRedEncapuslatedPayloadType(uint8_t payload_type);
+  void ParseRedHeader();  // Indicates RED header is present in playload.
+  absl::optional<uint8_t> GetRedEncapsulatedPayloadType() const;
 
   // Header extensions.
   template <typename Extension>
@@ -136,7 +143,9 @@ class RtpPacket {
   // Returns view of the raw extension or empty view on failure.
   rtc::ArrayView<const uint8_t> FindExtension(ExtensionType type) const;
 
-  // Reserve size_bytes for payload. Returns nullptr on failure.
+  // Reserve size_bytes for payload. Returns nullptr on failure. If RED
+  // is set, one extra byte for that header is allocated but the returned
+  // pointer indicates where actual payload starts.
   uint8_t* SetPayloadSize(size_t size_bytes);
   // Same as SetPayloadSize but doesn't guarantee to keep current payload.
   uint8_t* AllocatePayload(size_t size_bytes);
@@ -191,6 +200,7 @@ class RtpPacket {
   uint32_t ssrc_;
   size_t payload_offset_;  // Match header size with csrcs and extensions.
   size_t payload_size_;
+  absl::optional<uint8_t> red_encapsulated_payload_type_;
 
   ExtensionManager extensions_;
   std::vector<ExtensionInfo> extension_entries_;

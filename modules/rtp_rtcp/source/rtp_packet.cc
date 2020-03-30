@@ -30,6 +30,7 @@ constexpr uint16_t kTwoByteExtensionProfileId = 0x1000;
 constexpr size_t kOneByteExtensionHeaderLength = 1;
 constexpr size_t kTwoByteExtensionHeaderLength = 2;
 constexpr size_t kDefaultPacketSize = 1500;
+constexpr size_t kRedHeaderLength = 1;
 }  // namespace
 
 //  0                   1                   2                   3
@@ -223,6 +224,21 @@ void RtpPacket::SetCsrcs(rtc::ArrayView<const uint32_t> csrcs) {
   buffer_.SetSize(payload_offset_);
 }
 
+void RtpPacket::SetRedEncapuslatedPayloadType(uint8_t payload_type) {
+  RTC_DCHECK_EQ(payload_size_, 0);
+  RTC_DCHECK_EQ(padding_size_, 0);
+  red_encapsulated_payload_type_ = payload_type;
+}
+
+void RtpPacket::ParseRedHeader() {
+  RTC_DCHECK_GE(payload_size_, kRedHeaderLength);
+  red_encapsulated_payload_type_ = *ReadAt(payload_offset_);
+}
+
+absl::optional<uint8_t> RtpPacket::GetRedEncapsulatedPayloadType() const {
+  return red_encapsulated_payload_type_;
+}
+
 rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
   RTC_DCHECK_GE(id, RtpExtension::kMinId);
   RTC_DCHECK_LE(id, RtpExtension::kMaxId);
@@ -396,12 +412,19 @@ uint8_t* RtpPacket::AllocatePayload(size_t size_bytes) {
 
 uint8_t* RtpPacket::SetPayloadSize(size_t size_bytes) {
   RTC_DCHECK_EQ(padding_size_, 0);
+  if (red_encapsulated_payload_type_.has_value()) {
+    size_bytes += kRedHeaderLength;
+  }
   if (payload_offset_ + size_bytes > capacity()) {
     RTC_LOG(LS_WARNING) << "Cannot set payload, not enough space in buffer.";
     return nullptr;
   }
   payload_size_ = size_bytes;
   buffer_.SetSize(payload_offset_ + payload_size_);
+  if (red_encapsulated_payload_type_.has_value()) {
+    WriteAt(payload_offset_, *red_encapsulated_payload_type_);
+    return WriteAt(payload_offset_ + kRedHeaderLength);
+  }
   return WriteAt(payload_offset_);
 }
 
@@ -433,6 +456,7 @@ void RtpPacket::Clear() {
   sequence_number_ = 0;
   timestamp_ = 0;
   ssrc_ = 0;
+  red_encapsulated_payload_type_.reset();
   payload_offset_ = kFixedHeaderSize;
   payload_size_ = 0;
   padding_size_ = 0;

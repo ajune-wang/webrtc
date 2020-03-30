@@ -1141,5 +1141,33 @@ TEST(RtpPacketTest, RemoveExtensionFailure) {
   EXPECT_THAT(kPacketWithTO, ElementsAreArray(packet.data(), packet.size()));
 }
 
+TEST(RtpPacketTest, ReadAndWriteRedHeader) {
+  RtpPacket packet(nullptr);
+  constexpr size_t kPayloadSize = 42;
+  constexpr uint8_t kEncapsulatedPayloadType = 77;
+  packet.SetPayloadType(kPayloadType);
+  packet.SetRedEncapuslatedPayloadType(kEncapsulatedPayloadType);
+
+  // Real payload is allocated efter the initial RED header, but after
+  // allocation RED header is considered part of the payload.
+  uint8_t* payload_addr = packet.SetPayloadSize(kPayloadSize);
+  payload_addr[0] = 100;
+  payload_addr[kPayloadSize - 1] = 101;
+  EXPECT_EQ(packet.payload_size(), kPayloadSize + 1);
+  EXPECT_EQ(packet.payload()[0], kEncapsulatedPayloadType);
+  EXPECT_EQ(payload_addr - &packet.payload()[0], ptrdiff_t{1});
+
+  RtpPacketReceived parsed(nullptr);
+  EXPECT_TRUE(parsed.Parse(packet.Buffer()));
+  EXPECT_EQ(parsed.PayloadType(), kPayloadType);
+  EXPECT_EQ(parsed.payload_size(), kPayloadSize + 1);
+  EXPECT_FALSE(parsed.GetRedEncapsulatedPayloadType().has_value());
+  parsed.ParseRedHeader();
+  EXPECT_EQ(parsed.GetRedEncapsulatedPayloadType(), kEncapsulatedPayloadType);
+  EXPECT_EQ(parsed.payload_size(), kPayloadSize + 1);
+  EXPECT_EQ(parsed.payload()[1], 100);
+  EXPECT_EQ(parsed.payload()[kPayloadSize], 101);
+}
+
 }  // namespace
 }  // namespace webrtc

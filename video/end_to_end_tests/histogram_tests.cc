@@ -65,8 +65,16 @@ void HistogramTest::VerifyHistogramStats(bool use_rtx,
     }
 
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
-      if (MinMetricRunTimePassed() && MinNumberOfFramesReceived())
+      const bool min_metric_runtime_passed = MinMetricRunTimePassed();
+      const bool min_number_of_frames_received = MinNumberOfFramesReceived();
+      if (min_metric_runtime_passed && min_number_of_frames_received) {
         observation_complete_.Set();
+      } else {
+        RTC_LOG(LS_WARNING)
+            << "OnSendRtp - min_metric_runtime_passed="
+            << min_metric_runtime_passed << "min_number_of_frames_received="
+            << min_number_of_frames_received;
+      }
 
       return SEND_PACKET;
     }

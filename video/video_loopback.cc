@@ -13,15 +13,20 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/flags/flag.h"
 #include "absl/flags/parse.h"
+#include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/test/simulated_network.h"
 #include "api/test/video_quality_test_fixture.h"
 #include "api/transport/bitrate_settings.h"
 #include "api/video_codecs/video_codec.h"
+#include "media/base/media_constants.h"
+#include "media/engine/internal_encoder_factory.h"
+#include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
@@ -358,6 +363,29 @@ std::string Clip() {
   return absl::GetFlag(FLAGS_clip);
 }
 
+class VideoEncoderFactoryWithAv1 : public InternalEncoderFactory {
+ public:
+  VideoEncoderFactoryWithAv1() = default;
+  VideoEncoderFactoryWithAv1(const VideoEncoderFactoryWithAv1&) = delete;
+  VideoEncoderFactoryWithAv1& operator=(const VideoEncoderFactoryWithAv1&) =
+      delete;
+  ~VideoEncoderFactoryWithAv1() = default;
+
+  std::vector<SdpVideoFormat> GetSupportedFormats() const {
+    std::vector<SdpVideoFormat> result =
+        InternalEncoderFactory::GetSupportedFormats();
+    result.emplace_back(cricket::kAv1CodecName);
+    return result;
+  }
+
+  std::unique_ptr<VideoEncoder> CreateVideoEncoder(
+      const SdpVideoFormat& format) override {
+    if (absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName))
+      return CreateLibaomAv1Encoder();
+    return InternalEncoderFactory::CreateVideoEncoder(format);
+  }
+};
+
 }  // namespace
 
 void Loopback() {
@@ -420,7 +448,14 @@ void Loopback() {
       &params, 0, stream_descriptors, NumStreams(), SelectedStream(),
       NumSpatialLayers(), SelectedSL(), InterLayerPred(), SL_descriptors);
 
-  auto fixture = std::make_unique<VideoQualityTest>(nullptr);
+  std::unique_ptr<VideoQualityTest::InjectionComponents> components;
+  if (kIsLibaomAv1EncoderSupported) {
+    components = std::make_unique<VideoQualityTest::InjectionComponents>();
+    components->video_encoder_factory =
+        std::make_unique<VideoEncoderFactoryWithAv1>();
+  }
+
+  auto fixture = std::make_unique<VideoQualityTest>(std::move(components));
   if (DurationSecs()) {
     fixture->RunWithAnalyzer(params);
   } else {

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48fed802_c36ce59b",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-30T08:53:11Z",
+      "side": 1,
+      "message": "Could add a method \"OnAdaptation\" or something. This probably could remove that tricky enum used on OnResourceOveruse as well, for the QP resource.",
+      "range": {
+        "startLine": 86,
+        "startChar": 30,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "1ed9a24575291439e197492b1469579556d2649e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8cc2455_78d860c6",
+        "filename": "call/adaptation/resource_adaptation_processor_interface.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-30T08:53:11Z",
+      "side": 1,
+      "message": "Would be great if this could somehow live in video/adaptation instead of in call/.",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "1ed9a24575291439e197492b1469579556d2649e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "327997b2_0773c9c3",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-30T08:53:11Z",
+      "side": 1,
+      "message": "Perhaps we can add/remove this when degredation preference changes? Maybe it doesn\u0027t matter though",
+      "range": {
+        "startLine": 431,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 66
+      },
+      "revId": "1ed9a24575291439e197492b1469579556d2649e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "827f3af5_e951f4dc",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-30T08:53:11Z",
+      "side": 1,
+      "message": "WithReason?",
+      "range": {
+        "startLine": 697,
+        "startChar": 63,
+        "endLine": 697,
+        "endChar": 70
+      },
+      "revId": "1ed9a24575291439e197492b1469579556d2649e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

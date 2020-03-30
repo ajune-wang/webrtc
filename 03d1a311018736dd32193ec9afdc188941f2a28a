@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6072270f_f0f56ae6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-30T19:39:43Z",
+      "side": 1,
+      "message": "I\u0027m not good at lambdas, but looking at line 909 it seems that it should be possible for line 919 to read\n [this, frame_transformer]() mutable {\nIs there a strong reason for having the std:move? if not I\u0027d prefer the version above which is shorter and more readable.",
+      "range": {
+        "startLine": 919,
+        "startChar": 13,
+        "endLine": 919,
+        "endChar": 61
+      },
+      "revId": "03d1a311018736dd32193ec9afdc188941f2a28a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcf9b442_6ebaf4b7",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-30T19:39:43Z",
+      "side": 1,
+      "message": "A comment is needed here as well for describing the method.\n\nThe files implementing the interface stated \n\" \n// Sets a frame transformer between encoder and packetizer, to transform\n// encoded frames before sending them out the network.\n\"\nWould that work here as well?",
+      "range": {
+        "startLine": 120,
+        "startChar": 15,
+        "endLine": 120,
+        "endChar": 53
+      },
+      "revId": "03d1a311018736dd32193ec9afdc188941f2a28a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

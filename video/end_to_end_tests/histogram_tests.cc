@@ -56,17 +56,33 @@ void HistogramTest::VerifyHistogramStats(bool use_rtx,
       // The RTT is needed to estimate |ntp_time_ms| which is used by
       // end-to-end delay stats. Therefore, start counting received frames once
       // |ntp_time_ms| is valid.
-      if (video_frame.ntp_time_ms() > 0 &&
-          Clock::GetRealTimeClock()->CurrentNtpInMilliseconds() >=
-              video_frame.ntp_time_ms()) {
-        rtc::CritScope lock(&crit_);
-        ++num_frames_received_;
+      const auto ntp_time = video_frame.ntp_time_ms();
+      if (ntp_time > 0) {
+        auto current = Clock::GetRealTimeClock()->CurrentNtpInMilliseconds();
+        if (current >= ntp_time) {
+          rtc::CritScope lock(&crit_);
+          ++num_frames_received_;
+        } else {
+          RTC_LOG(LS_WARNING) << "OnFrame: time not valid, current < ntp_time;"
+                              << current << " < " << ntp_time;
+        }
+      } else {
+        RTC_LOG(LS_WARNING)
+            << "OnFrame: not valid - ntp_time_ms <= 0; " << ntp_time;
       }
     }
 
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
-      if (MinMetricRunTimePassed() && MinNumberOfFramesReceived())
+      const bool min_metric_runtime_passed = MinMetricRunTimePassed();
+      const bool min_number_of_frames_received = MinNumberOfFramesReceived();
+      if (min_metric_runtime_passed && min_number_of_frames_received) {
         observation_complete_.Set();
+      } else {
+        RTC_LOG(LS_WARNING)
+            << "OnSendRtp - min_metric_runtime_passed="
+            << min_metric_runtime_passed << "min_number_of_frames_received="
+            << min_number_of_frames_received;
+      }
 
       return SEND_PACKET;
     }

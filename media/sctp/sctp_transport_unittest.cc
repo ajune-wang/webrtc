@@ -519,6 +519,26 @@ TEST_F(SctpTransportTest, SendData) {
                       << ", recv1.last_data=" << receiver1()->last_data();
 }
 
+// This is a regression test that fails with earlier versions of SCTP in
+// unordered mode. See bugs.webrtc.org/.
+TEST_F(SctpTransportTest, SendsLargeDataBufferedBySctpLib) {
+  SetupConnectedTransportsWithTwoStreams();
+  // Wait for initial SCTP association to be formed.
+  EXPECT_EQ_WAIT(1, transport1_ready_to_send_count(), kDefaultTimeout);
+  // Make the fake transport unwritable so that messages pile up for the SCTP
+  // socket.
+  fake_dtls1()->SetWritable(false);
+
+  SendDataResult result;
+  std::string buffered_message(kSctpSendBufferSize - 1, 'a');
+  ASSERT_TRUE(SendData(transport1(), 1, buffered_message, &result));
+
+  fake_dtls1()->SetWritable(true);
+  EXPECT_EQ_WAIT(1, transport1_ready_to_send_count(), kDefaultTimeout);
+  EXPECT_TRUE_WAIT(ReceivedData(receiver2(), 1, buffered_message),
+                   kDefaultTimeout);
+}
+
 // Sends a lot of large messages at once and verifies SDR_BLOCK is returned.
 TEST_F(SctpTransportTest, SendDataBlocked) {
   SetupConnectedTransportsWithTwoStreams();

@@ -399,9 +399,14 @@ TEST_F(SctpTransportTest, SignalReadyToSendDataAfterBlocked) {
                  kDefaultTimeout);
 }
 
+// Run the below tests using both ordered and unordered mode.
+class SctpTransportTestWithOrdered
+    : public SctpTransportTest,
+      public ::testing::WithParamInterface<bool> {};
+
 // Tests that a small message gets buffered and later sent by the SctpTransport
 // when the sctp library only accepts the message partially.
-TEST_F(SctpTransportTest, SendSmallBufferedOutgoingMessage) {
+TEST_P(SctpTransportTestWithOrdered, SendSmallBufferedOutgoingMessage) {
   SetupConnectedTransportsWithTwoStreams();
   // Wait for initial SCTP association to be formed.
   EXPECT_EQ_WAIT(1, transport1_ready_to_send_count(), kDefaultTimeout);
@@ -409,10 +414,7 @@ TEST_F(SctpTransportTest, SendSmallBufferedOutgoingMessage) {
   // socket.
   fake_dtls1()->SetWritable(false);
   SendDataResult result;
-  // TODO(bugs.webrtc.org/10939): We can't test this behavior unless we are
-  // sending in ordered mode becuase the sctp lib drops large buffered data in
-  // unordered mode.
-  bool ordered = true;
+  bool ordered = GetParam();
 
   // Fill almost all of sctp library's send buffer.
   ASSERT_TRUE(SendData(transport1(), /*sid=*/1,
@@ -444,7 +446,7 @@ TEST_F(SctpTransportTest, SendSmallBufferedOutgoingMessage) {
 
 // Tests that a large message gets buffered and later sent by the SctpTransport
 // when the sctp library only accepts the message partially.
-TEST_F(SctpTransportTest, SendLargeBufferedOutgoingMessage) {
+TEST_P(SctpTransportTestWithOrdered, SendLargeBufferedOutgoingMessage) {
   SetupConnectedTransportsWithTwoStreams();
   // Wait for initial SCTP association to be formed.
   EXPECT_EQ_WAIT(1, transport1_ready_to_send_count(), kDefaultTimeout);
@@ -452,10 +454,7 @@ TEST_F(SctpTransportTest, SendLargeBufferedOutgoingMessage) {
   // socket.
   fake_dtls1()->SetWritable(false);
   SendDataResult result;
-  // TODO(bugs.webrtc.org/10939): We can't test this behavior unless we are
-  // sending in ordered mode becuase the sctp lib drops large buffered data in
-  // unordered mode.
-  bool ordered = true;
+  bool ordered = GetParam();
 
   // Fill almost all of sctp library's send buffer.
   ASSERT_TRUE(SendData(transport1(), /*sid=*/1,
@@ -484,6 +483,10 @@ TEST_F(SctpTransportTest, SendLargeBufferedOutgoingMessage) {
                    kDefaultTimeout);
   EXPECT_EQ(2u, receiver2()->num_messages_received());
 }
+
+INSTANTIATE_TEST_SUITE_P(SctpTransportTest,
+                         SctpTransportTestWithOrdered,
+                         ::testing::Bool());
 
 TEST_F(SctpTransportTest, SendData) {
   SetupConnectedTransportsWithTwoStreams();
@@ -517,6 +520,26 @@ TEST_F(SctpTransportTest, SendData) {
                       << ", recv1.last_params.seq_num="
                       << receiver1()->last_params().seq_num
                       << ", recv1.last_data=" << receiver1()->last_data();
+}
+
+// This is a regression test that fails with earlier versions of SCTP in
+// unordered mode. See bugs.webrtc.org/10939.
+TEST_F(SctpTransportTest, SendsLargeDataBufferedBySctpLib) {
+  SetupConnectedTransportsWithTwoStreams();
+  // Wait for initial SCTP association to be formed.
+  EXPECT_EQ_WAIT(1, transport1_ready_to_send_count(), kDefaultTimeout);
+  // Make the fake transport unwritable so that messages pile up for the SCTP
+  // socket.
+  fake_dtls1()->SetWritable(false);
+
+  SendDataResult result;
+  std::string buffered_message(kSctpSendBufferSize - 1, 'a');
+  ASSERT_TRUE(SendData(transport1(), 1, buffered_message, &result));
+
+  fake_dtls1()->SetWritable(true);
+  EXPECT_EQ_WAIT(1, transport1_ready_to_send_count(), kDefaultTimeout);
+  EXPECT_TRUE_WAIT(ReceivedData(receiver2(), 1, buffered_message),
+                   kDefaultTimeout);
 }
 
 // Sends a lot of large messages at once and verifies SDR_BLOCK is returned.

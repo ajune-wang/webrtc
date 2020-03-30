@@ -231,11 +231,17 @@ void HistogramTest::VerifyHistogramStats(bool use_rtx,
   EXPECT_METRIC_EQ(1, metrics::NumSamples("WebRTC.Video.CurrentDelayInMs"));
   EXPECT_METRIC_EQ(1, metrics::NumSamples("WebRTC.Video.OnewayDelayInMs"));
 
+#if !defined(WEBRTC_WIN)
+  // Tick count resolution on Windows by default can be in the order of 8ms
+  // per tick. When we gather samples for this metric, we ignore deltas of
+  // 0, which due to the resolution, may unknowingly drop samples.
   EXPECT_METRIC_EQ(1, metrics::NumSamples(video_prefix + "EndToEndDelayInMs" +
                                           video_suffix));
   EXPECT_METRIC_EQ(1,
                    metrics::NumSamples(video_prefix + "EndToEndDelayMaxInMs" +
                                        video_suffix));
+#endif
+
   EXPECT_METRIC_EQ(1, metrics::NumSamples(video_prefix + "InterframeDelayInMs" +
                                           video_suffix));
   EXPECT_METRIC_EQ(1,

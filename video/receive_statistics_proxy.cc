@@ -316,7 +316,7 @@ void ReceiveStatisticsProxy::UpdateHistograms(
                  << *e2e_delay_ms << '\n';
     }
     absl::optional<int> e2e_delay_max_ms = stats.e2e_delay_counter.Max();
-    if (e2e_delay_max_ms && e2e_delay_ms) {
+    if (e2e_delay_max_ms /*&& e2e_delay_ms*/) {
       RTC_HISTOGRAM_COUNTS_SPARSE_100000(
           uma_prefix + ".EndToEndDelayMaxInMs" + uma_suffix, *e2e_delay_max_ms);
       log_stream << uma_prefix << ".EndToEndDelayMaxInMs" << uma_suffix << " "

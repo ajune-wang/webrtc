@@ -747,6 +747,30 @@
     },
     {
       "key": {
+        "uuid": "faa95be2_226a30c3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:29:52Z",
+      "side": 1,
+      "message": "Now it is clear, thank you!\n(before when name changed from frame to transformed_frame while type changed from TransformedFrame to TransformedVideoFrame, it was confusing).\nnow change in name align with the actual transformation.",
+      "parentUuid": "a7449aff_26214bb3",
+      "range": {
+        "startLine": 185,
+        "startChar": 8,
+        "endLine": 185,
+        "endChar": 25
+      },
+      "revId": "4d229970504a1d66f1d61e885bc37f9ca6a61bb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad7a4f8e_72698bd8",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
         "patchSetId": 3

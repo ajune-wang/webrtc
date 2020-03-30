@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34a34a08_373d09e4",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:29:52Z",
+      "side": 1,
+      "message": "Rewrite this comment:\nthen function no longer returns pointer (and there is no need to mention returned type),\nNo ownership transfer is implied by the return type.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 74
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "462757c9_d60721c4",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:29:52Z",
+      "side": 1,
+      "message": "I thought idea was different:\nexpose enough information and move assembling of the additional data from webrtc to application level.\nas I understand it RtpDescriptorAuthentication shouldn\u0027t be moved to api.",
+      "range": {
+        "startLine": 49,
+        "startChar": 33,
+        "endLine": 50,
+        "endChar": 58
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eaba88b5_7185c7bb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:29:52Z",
+      "side": 1,
+      "message": "no need to specialize the type:\nreturn rtc::MakeArrayView(encoded_data_-\u003edata(), encoded_data_-\u003esize());\n\nactually... since there are functions data() and size, you can use implicit rtc::ArrayView construtor:\nreturn *encoded_data_;",
+      "range": {
+        "startLine": 61,
+        "startChar": 11,
+        "endLine": 61,
+        "endChar": 44
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "559d1620_01cb33c7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:29:52Z",
+      "side": 1,
+      "message": "can you add comment why you check sender_ here\n(e.g. what would break if you post a task when sender_ \u003d\u003d nullptr)\n\nif nothing would break, then likely it is better no to take the lock here.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 3
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12423816_13d200ed",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:29:52Z",
+      "side": 1,
+      "message": "ditto:\nreturn *frame_-\u003eGetEncodedData();",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 79
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c675ad9_36eaf888",
+        "filename": "video/rtp_video_stream_receiver_frame_transformer_delegate.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-03-30T07:29:52Z",
+      "side": 1,
+      "message": "std::vector\u003cuint8_t\u003e\n\nRtpDescriptorAuthentication returns a (temporary) vector,\nbut converting it to reference type ArrayView, you are returning a reference to a temporary. It  will not be valid.",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "83c31fb6186765a68314cda8ab2549ca1709b014",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

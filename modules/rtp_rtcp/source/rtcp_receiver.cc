@@ -284,11 +284,14 @@ bool RTCPReceiver::NTP(uint32_t* received_ntp_secs,
 
 std::vector<rtcp::ReceiveTimeInfo>
 RTCPReceiver::ConsumeReceivedXrReferenceTimeInfo() {
+  std::vector<rtcp::ReceiveTimeInfo> last_xr_rtis;
+
   rtc::CritScope lock(&rtcp_receiver_lock_);
+  if (received_rrtrs_.empty())
+    return last_xr_rtis;
 
   const size_t last_xr_rtis_size = std::min(
       received_rrtrs_.size(), rtcp::ExtendedReports::kMaxNumberOfDlrrItems);
-  std::vector<rtcp::ReceiveTimeInfo> last_xr_rtis;
   last_xr_rtis.reserve(last_xr_rtis_size);
 
   const uint32_t now_ntp =
@@ -415,15 +418,16 @@ bool RTCPReceiver::ParseCompoundPacket(rtc::ArrayView<const uint8_t> packet,
         main_ssrc_, packet_type_counter_);
   }
 
-  int64_t now_ms = clock_->TimeInMilliseconds();
-  if (now_ms - last_skipped_packets_warning_ms_ >= kMaxWarningLogIntervalMs &&
-      num_skipped_packets_ > 0) {
-    last_skipped_packets_warning_ms_ = now_ms;
-    RTC_LOG(LS_WARNING)
-        << num_skipped_packets_
-        << " RTCP blocks were skipped due to being malformed or of "
-           "unrecognized/unsupported type, during the past "
-        << (kMaxWarningLogIntervalMs / 1000) << " second period.";
+  if (num_skipped_packets_ > 0) {
+    const int64_t now_ms = clock_->TimeInMilliseconds();
+    if (now_ms - last_skipped_packets_warning_ms_ >= kMaxWarningLogIntervalMs) {
+      last_skipped_packets_warning_ms_ = now_ms;
+      RTC_LOG(LS_WARNING)
+          << num_skipped_packets_
+          << " RTCP blocks were skipped due to being malformed or of "
+             "unrecognized/unsupported type, during the past "
+          << (kMaxWarningLogIntervalMs / 1000) << " second period.";
+    }
   }
 
   return true;
@@ -497,7 +501,8 @@ void RTCPReceiver::HandleReportBlock(const ReportBlock& report_block,
   if (registered_ssrcs_.count(report_block.source_ssrc()) == 0)
     return;
 
-  last_received_rb_ms_ = clock_->TimeInMilliseconds();
+  const int64_t now_ms = clock_->TimeInMilliseconds();
+  last_received_rb_ms_ = now_ms;
 
   ReportBlockData* report_block_data =
       &received_report_blocks_[report_block.source_ssrc()][remote_ssrc];
@@ -510,7 +515,7 @@ void RTCPReceiver::HandleReportBlock(const ReportBlock& report_block,
       report_block_data->report_block().extended_highest_sequence_number) {
     // We have successfully delivered new RTP packets to the remote side after
     // the last RR was sent from the remote side.
-    last_increased_sequence_number_ms_ = clock_->TimeInMilliseconds();
+    last_increased_sequence_number_ms_ = now_ms;
   }
   rtcp_report_block.extended_highest_sequence_number =
       report_block.extended_high_seq_num();

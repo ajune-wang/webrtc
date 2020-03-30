@@ -37,6 +37,48 @@ std::unique_ptr<video_coding::RtpFrameObject> CreateRtpFrameObject() {
       absl::nullopt, RtpPacketInfos(), EncodedImageBuffer::Create(0));
 }
 
+class TestTransformableVideoReceiverFrame
+    : public TransformableVideoFrameInterface {
+ public:
+  TestTransformableVideoReceiverFrame(
+      std::unique_ptr<video_coding::RtpFrameObject> frame,
+      uint32_t ssrc)
+      : frame_(std::move(frame)), ssrc_(ssrc) {}
+  ~TestTransformableVideoReceiverFrame() override = default;
+
+  rtc::ArrayView<const uint8_t> GetData() const override {
+    return *frame_->GetEncodedData();
+  }
+
+  void SetData(rtc::ArrayView<const uint8_t> data) override {
+    frame_->SetEncodedData(
+        EncodedImageBuffer::Create(data.data(), data.size()));
+  }
+
+  uint32_t GetTimestamp() const override { return frame_->Timestamp(); }
+  uint32_t GetSsrc() const override { return ssrc_; }
+
+  bool IsKeyFrame() const override { return frame_->is_keyframe(); }
+
+  std::vector<uint8_t> GetAdditionalData() const override {
+    return RtpDescriptorAuthentication(frame_->GetRtpVideoHeader());
+  }
+
+  std::unique_ptr<video_coding::RtpFrameObject> ExtractFrame() && {
+    return std::move(frame_);
+  }
+
+ private:
+  std::unique_ptr<video_coding::RtpFrameObject> frame_;
+  const uint32_t ssrc_;
+};
+
+std::unique_ptr<TestTransformableVideoReceiverFrame>
+CreateTransformableVideoFrame(uint32_t ssrc) {
+  return std::make_unique<TestTransformableVideoReceiverFrame>(
+      CreateRtpFrameObject(), ssrc);
+}
+
 class FakeTransport : public Transport {
  public:
   bool SendRtp(const uint8_t* packet,
@@ -111,10 +153,8 @@ class MockFrameTransformer : public FrameTransformerInterface {
  public:
   ~MockFrameTransformer() override = default;
   MOCK_METHOD(void,
-              TransformFrame,
-              (std::unique_ptr<video_coding::EncodedFrame>,
-               std::vector<uint8_t>,
-               uint32_t),
+              Transform,
+              (std::unique_ptr<TransformableFrameInterface>),
               (override));
   MOCK_METHOD(void,
               RegisterTransformedFrameCallback,
@@ -155,10 +195,8 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest, TransformFrame) {
       new rtc::RefCountedObject<RtpVideoStreamReceiverFrameTransformerDelegate>(
           &receiver, frame_transformer, rtc::Thread::Current()));
   auto frame = CreateRtpFrameObject();
-  EXPECT_CALL(*frame_transformer,
-              TransformFrame(_, RtpDescriptorAuthentication(RTPVideoHeader()),
-                             /*remote_ssrc*/ 1111));
-  delegate->TransformFrame(std::move(frame), /*remote_ssrc*/ 1111);
+  EXPECT_CALL(*frame_transformer, Transform(_));
+  delegate->TransformFrame(std::move(frame), 1111);
 }
 
 TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
@@ -179,7 +217,7 @@ TEST(RtpVideoStreamReceiverFrameTransformerDelegateTest,
             &receiver, frame_transformer, network_thread.get());
       });
 
-  auto frame = CreateRtpFrameObject();
+  auto frame = CreateTransformableVideoFrame(/*remote_ssrc*/ 1111);
 
   EXPECT_CALL(receiver, ManageFrame)
       .WillOnce([&network_thread](

@@ -284,11 +284,14 @@ bool RTCPReceiver::NTP(uint32_t* received_ntp_secs,
 
 std::vector<rtcp::ReceiveTimeInfo>
 RTCPReceiver::ConsumeReceivedXrReferenceTimeInfo() {
+  std::vector<rtcp::ReceiveTimeInfo> last_xr_rtis;
+
   rtc::CritScope lock(&rtcp_receiver_lock_);
+  if (received_rrtrs_.empty())
+    return last_xr_rtis;
 
   const size_t last_xr_rtis_size = std::min(
       received_rrtrs_.size(), rtcp::ExtendedReports::kMaxNumberOfDlrrItems);
-  std::vector<rtcp::ReceiveTimeInfo> last_xr_rtis;
   last_xr_rtis.reserve(last_xr_rtis_size);
 
   const uint32_t now_ntp =
@@ -415,15 +418,16 @@ bool RTCPReceiver::ParseCompoundPacket(rtc::ArrayView<const uint8_t> packet,
         main_ssrc_, packet_type_counter_);
   }
 
-  int64_t now_ms = clock_->TimeInMilliseconds();
-  if (now_ms - last_skipped_packets_warning_ms_ >= kMaxWarningLogIntervalMs &&
-      num_skipped_packets_ > 0) {
-    last_skipped_packets_warning_ms_ = now_ms;
-    RTC_LOG(LS_WARNING)
-        << num_skipped_packets_
-        << " RTCP blocks were skipped due to being malformed or of "
-           "unrecognized/unsupported type, during the past "
-        << (kMaxWarningLogIntervalMs / 1000) << " second period.";
+  if (num_skipped_packets_ > 0) {
+    const int64_t now_ms = clock_->TimeInMilliseconds();
+    if (now_ms - last_skipped_packets_warning_ms_ >= kMaxWarningLogIntervalMs) {
+      last_skipped_packets_warning_ms_ = now_ms;
+      RTC_LOG(LS_WARNING)
+          << num_skipped_packets_
+          << " RTCP blocks were skipped due to being malformed or of "
+             "unrecognized/unsupported type, during the past "
+          << (kMaxWarningLogIntervalMs / 1000) << " second period.";
+    }
   }
 
   return true;

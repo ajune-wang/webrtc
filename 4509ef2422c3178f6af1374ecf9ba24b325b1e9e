@@ -25,6 +25,64 @@
     },
     {
       "key": {
+        "uuid": "23a39176_aa8a620f",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-30T08:23:41Z",
+      "side": 1,
+      "message": "+1. Also docs for its method.",
+      "parentUuid": "852a5c34_908684de",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 77
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa0298f_8b0f8570",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-30T08:23:41Z",
+      "side": 1,
+      "message": "CamelCase here too, as in the other CL?",
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6efd78d5_45447e3d",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-03-30T08:23:41Z",
+      "side": 1,
+      "message": "The entire point of this interface appears to be to be able to produce a const RTPHeader\u0026 on demand. Is the \"on demand\" part important, or would it be possible to just pass around a const RTPHeader\u0026 or a const RTPHeader* instead? (It\u0027s OK if it\u0027s not possible---just checking.)",
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "143631eb_1a404f0b",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 2

@@ -410,6 +410,16 @@ void RtpSenderEgress::UpdateOnSendPacket(int packet_id,
 bool RtpSenderEgress::SendPacketToNetwork(const RtpPacketToSend& packet,
                                           const PacketOptions& options,
                                           const PacedPacketInfo& pacing_info) {
+  const auto& packet_type = packet.packet_type();
+  int type = -1;
+  if (packet_type.has_value()) {
+    type = static_cast<int>(packet_type.value());
+  }
+  RTC_LOG(LS_ERROR) << "### SendPacket: type " << type
+                    << " size " << packet.size()
+                    << " ssrc " << packet.Ssrc()
+                    << " seq " << packet.SequenceNumber()
+                    << " is_rtx " << options.is_retransmit;
   int bytes_sent = -1;
   if (transport_) {
     UpdateRtpOverhead(packet);

@@ -16,6 +16,24 @@
       "revId": "1f8a749495393929fd1af2ddc0eff5acac340e9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10c3d9a1_c58017e5",
+        "filename": "sdk/objc/api/peerconnection/RTCConfiguration.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2020-03-31T08:34:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cef08f81_40a9b817",
+      "revId": "1f8a749495393929fd1af2ddc0eff5acac340e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

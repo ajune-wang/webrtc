@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "ee62a772_fe1ff257",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-03-31T07:55:36Z",
+      "side": 1,
+      "message": "I think that looks better, thanks!",
+      "parentUuid": "52a68550_a0fb3358",
+      "range": {
+        "startLine": 84,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "c0860a947a8c2a68eaceef3e82c16b9576e1e412",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01ba58ab_5d384ecf",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 8
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "I am not sure of the original intention, but it seems it was checking to see if the scaling was enabled. Before that was the same as downscales \u003d\u003d -1. The equivalent today is if the masked value is absent.",
       "parentUuid": "01ba58ab_5d384ecf",
+      "range": {
+        "startLine": 713,
+        "startChar": 65,
+        "endLine": 713,
+        "endChar": 74
+      },
+      "revId": "c0860a947a8c2a68eaceef3e82c16b9576e1e412",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c87984aa_feb5f339",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-03-31T07:55:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2ca4a245_399766bb",
       "range": {
         "startLine": 713,
         "startChar": 65,

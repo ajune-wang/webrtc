@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4ffab6cf_914daff7",
+        "filename": "api/video/adaptation_counters.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-31T07:27:36Z",
+      "side": 1,
+      "message": "I have gone ahead and removed it. Please take a look, and leave that +1 if it looks good. 😊",
+      "parentUuid": "35707f3a_601bef77",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 1
+      },
+      "revId": "c0860a947a8c2a68eaceef3e82c16b9576e1e412",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c13b417_9c66ae04",
         "filename": "api/video/video_stream_encoder_observer.h",
         "patchSetId": 8
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Agree here. It was exposed before but indirectly. It was the caller\u0027s responsibility to null out the stats that they couldn\u0027t affect. I could change this API to make it less implementation detaily, but allowing the enumeration of all \u003creason, scaling\u003e pairs that are allowed as the input here. I don\u0027t know if that is worth doing or not.",
       "parentUuid": "9c13b417_9c66ae04",
+      "range": {
+        "startLine": 84,
+        "startChar": 6,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "c0860a947a8c2a68eaceef3e82c16b9576e1e412",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52a68550_a0fb3358",
+        "filename": "api/video/video_stream_encoder_observer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-03-31T07:27:36Z",
+      "side": 1,
+      "message": "I have changed the API, please take a look.",
+      "parentUuid": "ce878240_1178c449",
       "range": {
         "startLine": 84,
         "startChar": 6,

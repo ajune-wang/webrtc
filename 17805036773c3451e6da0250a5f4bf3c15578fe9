@@ -22,6 +22,30 @@
       "revId": "17805036773c3451e6da0250a5f4bf3c15578fe9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e835823_a2711f2a",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T20:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7787a9c7_3059b311",
+      "range": {
+        "startLine": 389,
+        "startChar": 7,
+        "endLine": 389,
+        "endChar": 62
+      },
+      "revId": "17805036773c3451e6da0250a5f4bf3c15578fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

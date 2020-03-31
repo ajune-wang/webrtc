@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "video/adaptation/adaptation_counters.h"
+#include "api/video/adaptation_counters.h"
 
 namespace webrtc {
 
@@ -26,13 +26,6 @@ AdaptationCounters AdaptationCounters::operator+(
   return AdaptationCounters(
       resolution_adaptations + other.resolution_adaptations,
       fps_adaptations + other.fps_adaptations);
-}
-
-AdaptationCounters AdaptationCounters::operator-(
-    const AdaptationCounters& other) const {
-  return AdaptationCounters(
-      resolution_adaptations - other.resolution_adaptations,
-      fps_adaptations - other.fps_adaptations);
 }
 
 }  // namespace webrtc

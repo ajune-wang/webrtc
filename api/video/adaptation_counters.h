@@ -8,8 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_ADAPTATION_ADAPTATION_COUNTERS_H_
-#define VIDEO_ADAPTATION_ADAPTATION_COUNTERS_H_
+#ifndef API_VIDEO_ADAPTATION_COUNTERS_H_
+#define API_VIDEO_ADAPTATION_COUNTERS_H_
+
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 
@@ -19,7 +21,10 @@ struct AdaptationCounters {
   AdaptationCounters() : resolution_adaptations(0), fps_adaptations(0) {}
   AdaptationCounters(int resolution_adaptations, int fps_adaptations)
       : resolution_adaptations(resolution_adaptations),
-        fps_adaptations(fps_adaptations) {}
+        fps_adaptations(fps_adaptations) {
+    RTC_DCHECK_GE(resolution_adaptations, 0);
+    RTC_DCHECK_GE(fps_adaptations, 0);
+  }
 
   int Total() const { return fps_adaptations + resolution_adaptations; }
 
@@ -27,7 +32,6 @@ struct AdaptationCounters {
   bool operator!=(const AdaptationCounters& rhs) const;
 
   AdaptationCounters operator+(const AdaptationCounters& other) const;
-  AdaptationCounters operator-(const AdaptationCounters& other) const;
 
   int resolution_adaptations;
   int fps_adaptations;
@@ -35,4 +39,4 @@ struct AdaptationCounters {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_ADAPTATION_ADAPTATION_COUNTERS_H_
+#endif  // API_VIDEO_ADAPTATION_COUNTERS_H_

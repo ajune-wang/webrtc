@@ -93,6 +93,16 @@ AdaptationCounters ApplyDegradationPreference(
   return counters;
 }
 
+VideoStreamEncoderObserver::AdaptationReason ToAdaptationReason(
+    AdaptationObserverInterface::AdaptReason reason) {
+  switch (reason) {
+    case AdaptationObserverInterface::kQuality:
+      return VideoStreamEncoderObserver::AdaptationReason::kQuality;
+    case AdaptationObserverInterface::kCpu:
+      return VideoStreamEncoderObserver::AdaptationReason::kCpu;
+  }
+}
+
 }  // namespace
 
 class ResourceAdaptationProcessor::InitialFrameDropper {
@@ -253,10 +263,13 @@ void ResourceAdaptationProcessor::SetHasInputVideo(bool has_input_video) {
 void ResourceAdaptationProcessor::SetDegradationPreference(
     DegradationPreference degradation_preference) {
   degradation_preference_ = degradation_preference;
+  UpdateStatsAdaptationSettings();
+
   if (stream_adapter_->SetDegradationPreference(degradation_preference) ==
       VideoStreamAdapter::SetDegradationPreferenceResult::
           kRestrictionsCleared) {
     active_counts_.fill(AdaptationCounters());
+    encoder_stats_observer_->ClearAdaptationStats();
   }
   MaybeUpdateVideoSourceRestrictions();
 }
@@ -293,6 +306,7 @@ void ResourceAdaptationProcessor::SetEncoderRates(
 void ResourceAdaptationProcessor::ResetVideoSourceRestrictions() {
   stream_adapter_->ClearRestrictions();
   active_counts_.fill(AdaptationCounters());
+  encoder_stats_observer_->ClearAdaptationStats();
   MaybeUpdateVideoSourceRestrictions();
 }
 
@@ -400,11 +414,7 @@ void ResourceAdaptationProcessor::ConfigureQualityScaler(
       quality_scaler_resource_->SetQpThresholds(*thresholds);
     }
   }
-
-  encoder_stats_observer_->OnAdaptationChanged(
-      VideoStreamEncoderObserver::AdaptationReason::kNone,
-      GetActiveCounts(AdaptationObserverInterface::AdaptReason::kCpu),
-      GetActiveCounts(AdaptationObserverInterface::AdaptReason::kQuality));
+  UpdateStatsAdaptationSettings();
 }
 
 ResourceListenerResponse
@@ -578,16 +588,20 @@ void ResourceAdaptationProcessor::OnAdaptationCountChanged(
   const int active_total = active_count->Total();
   const int other_total = other_active->Total();
   const AdaptationCounters prev_total = *active_count + *other_active;
-  const AdaptationCounters delta = adaptation_count - prev_total;
+  const int delta_resolution_adaptations =
+      adaptation_count.resolution_adaptations -
+      prev_total.resolution_adaptations;
+  const int delta_fps_adaptations =
+      adaptation_count.fps_adaptations - prev_total.fps_adaptations;
 
   RTC_DCHECK_EQ(
-      std::abs(delta.resolution_adaptations) + std::abs(delta.fps_adaptations),
+      std::abs(delta_resolution_adaptations) + std::abs(delta_fps_adaptations),
       1)
       << "Adaptation took more than one step!";
 
-  if (delta.resolution_adaptations > 0) {
+  if (delta_resolution_adaptations > 0) {
     ++active_count->resolution_adaptations;
-  } else if (delta.resolution_adaptations < 0) {
+  } else if (delta_resolution_adaptations < 0) {
     if (active_count->resolution_adaptations == 0) {
       RTC_DCHECK_GT(active_count->fps_adaptations, 0) << "No downgrades left";
       RTC_DCHECK_GT(other_active->resolution_adaptations, 0)
@@ -600,9 +614,9 @@ void ResourceAdaptationProcessor::OnAdaptationCountChanged(
       --active_count->resolution_adaptations;
     }
   }
-  if (delta.fps_adaptations > 0) {
+  if (delta_fps_adaptations > 0) {
     ++active_count->fps_adaptations;
-  } else if (delta.fps_adaptations < 0) {
+  } else if (delta_fps_adaptations < 0) {
     if (active_count->fps_adaptations == 0) {
       RTC_DCHECK_GT(active_count->resolution_adaptations, 0)
           << "No downgrades left";
@@ -619,7 +633,9 @@ void ResourceAdaptationProcessor::OnAdaptationCountChanged(
 
   RTC_DCHECK(*active_count + *other_active == adaptation_count);
   RTC_DCHECK_EQ(other_active->Total(), other_total);
-  RTC_DCHECK_EQ(active_count->Total(), active_total + delta.Total());
+  RTC_DCHECK_EQ(
+      active_count->Total(),
+      active_total + delta_resolution_adaptations + delta_fps_adaptations);
   RTC_DCHECK_GE(active_count->resolution_adaptations, 0);
   RTC_DCHECK_GE(active_count->fps_adaptations, 0);
   RTC_DCHECK_GE(other_active->resolution_adaptations, 0);
@@ -637,52 +653,24 @@ void ResourceAdaptationProcessor::UpdateAdaptationStats(
 
   OnAdaptationCountChanged(total_counts, &active_count, &other_active);
 
-  switch (reason) {
-    case AdaptationObserverInterface::AdaptReason::kCpu:
-      encoder_stats_observer_->OnAdaptationChanged(
-          VideoStreamEncoderObserver::AdaptationReason::kCpu,
-          GetActiveCounts(AdaptationObserverInterface::AdaptReason::kCpu),
-          GetActiveCounts(AdaptationObserverInterface::AdaptReason::kQuality));
-      break;
-    case AdaptationObserverInterface::AdaptReason::kQuality:
-      encoder_stats_observer_->OnAdaptationChanged(
-          VideoStreamEncoderObserver::AdaptationReason::kQuality,
-          GetActiveCounts(AdaptationObserverInterface::AdaptReason::kCpu),
-          GetActiveCounts(AdaptationObserverInterface::AdaptReason::kQuality));
-      break;
-  }
+  encoder_stats_observer_->OnAdaptationChanged(
+      ToAdaptationReason(reason),
+      std::get<AdaptationObserverInterface::AdaptReason::kCpu>(active_counts_),
+      std::get<AdaptationObserverInterface::AdaptReason::kQuality>(
+          active_counts_));
 }
 
-VideoStreamEncoderObserver::AdaptationSteps
-ResourceAdaptationProcessor::GetActiveCounts(
-    AdaptationObserverInterface::AdaptReason reason) {
-  // TODO(https://crbug.com/webrtc/11392) Ideally this shuold be moved out of
-  // this class and into the encoder_stats_observer_.
-  const AdaptationCounters counters = active_counts_[reason];
+void ResourceAdaptationProcessor::UpdateStatsAdaptationSettings() const {
+  VideoStreamEncoderObserver::AdaptationSettings cpu_settings(
+      IsResolutionScalingEnabled(degradation_preference_),
+      IsFramerateScalingEnabled(degradation_preference_));
 
-  VideoStreamEncoderObserver::AdaptationSteps counts =
-      VideoStreamEncoderObserver::AdaptationSteps();
-  counts.num_resolution_reductions = counters.resolution_adaptations;
-  counts.num_framerate_reductions = counters.fps_adaptations;
-  switch (reason) {
-    case AdaptationObserverInterface::AdaptReason::kCpu:
-      if (!IsFramerateScalingEnabled(degradation_preference_))
-        counts.num_framerate_reductions = absl::nullopt;
-      if (!IsResolutionScalingEnabled(degradation_preference_))
-        counts.num_resolution_reductions = absl::nullopt;
-      break;
-    case AdaptationObserverInterface::AdaptReason::kQuality:
-      if (!IsFramerateScalingEnabled(degradation_preference_) ||
-          !quality_scaler_resource_->is_started()) {
-        counts.num_framerate_reductions = absl::nullopt;
-      }
-      if (!IsResolutionScalingEnabled(degradation_preference_) ||
-          !quality_scaler_resource_->is_started()) {
-        counts.num_resolution_reductions = absl::nullopt;
-      }
-      break;
-  }
-  return counts;
+  VideoStreamEncoderObserver::AdaptationSettings quality_settings =
+      quality_scaler_resource_->is_started()
+          ? cpu_settings
+          : VideoStreamEncoderObserver::AdaptationSettings();
+  encoder_stats_observer_->UpdateAdaptationSettings(cpu_settings,
+                                                    quality_settings);
 }
 
 VideoStreamAdapter::VideoInputMode

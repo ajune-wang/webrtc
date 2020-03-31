@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5f57038f_0324f4c0",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "No you\u0027re right, fixed.",
+      "parentUuid": "1bc84a4c_43f034c6",
+      "range": {
+        "startLine": 546,
+        "startChar": 1,
+        "endLine": 547,
+        "endChar": 61
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed8d8ec9_7cc455ba",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f187ec75_40fb8ec5",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed8d8ec9_7cc455ba",
+      "range": {
+        "startLine": 549,
+        "startChar": 2,
+        "endLine": 549,
+        "endChar": 39
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6cb9085f_3552afdc",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "No, it should not be null, added a check.",
+      "parentUuid": "d4994098_e1e7def5",
+      "range": {
+        "startLine": 923,
+        "startChar": 58,
+        "endLine": 923,
+        "endChar": 75
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea14c780_bad52672",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d0ff5b_197fe7f7",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea14c780_bad52672",
+      "range": {
+        "startLine": 940,
+        "startChar": 7,
+        "endLine": 940,
+        "endChar": 24
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9099bba0_9c35d656",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "It shouldn\u0027t be called with a null frame_transfomer, and the delegate should be set initialized either through the constructor or through SetFrameTransformer, added dchecks.",
+      "parentUuid": "115fe61d_4581b55e",
+      "range": {
+        "startLine": 942,
+        "startChar": 2,
+        "endLine": 942,
+        "endChar": 29
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1c4e4a2_40ac6533",
         "filename": "audio/channel_send.cc",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9099a000_071f30ea",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 951,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1c4e4a2_40ac6533",
+      "range": {
+        "startLine": 943,
+        "startChar": 5,
+        "endLine": 951,
+        "endChar": 57
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +324,30 @@
     },
     {
       "key": {
+        "uuid": "d5b8525d_f7b595fd",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Because the delegate is refcounted (implements TransformableFrameCallback which is refcounted), we cannot pass |this| while the delegate is being contrsucted. That\u0027s what I wanted to indicate by explicitly casting this to its interface type.",
+      "parentUuid": "d55c1583_249a508b",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0efdad65_611e5925",
         "filename": "audio/channel_send_frame_transformer_delegate.cc",
         "patchSetId": 1
@@ -217,6 +385,30 @@
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f1f871e_02a4aa19",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Good point.",
+      "parentUuid": "595dff4e_0697bb2b",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 3
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -277,6 +469,30 @@
     },
     {
       "key": {
+        "uuid": "4f626f0e_746f5e85",
+        "filename": "audio/channel_send_frame_transformer_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Done, the intention was to not clutter ChannelSend with the fact that this async call will always return success, but I\u0027m fine with either option.",
+      "parentUuid": "a1d3596c_0b6438a1",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 11
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00d44d88_158e49f2",
         "filename": "audio/channel_send_frame_transformer_delegate.cc",
         "patchSetId": 1
@@ -334,6 +550,30 @@
     },
     {
       "key": {
+        "uuid": "beb716d5_3b6b1b5d",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b18f4227_5279acf5",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba8e246c_292ecb08",
         "filename": "audio/channel_send_frame_transformer_delegate.h",
         "patchSetId": 1
@@ -354,6 +594,30 @@
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e78bb151_a0dec10d",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba8e246c_292ecb08",
+      "range": {
+        "startLine": 40,
+        "startChar": 1,
+        "endLine": 46,
+        "endChar": 35
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -380,6 +644,30 @@
     },
     {
       "key": {
+        "uuid": "338aa95b_f8bf75cc",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26814490_97d21528",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 47,
+        "endChar": 0
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7516ce96_bbc37ec8",
         "filename": "audio/channel_send_frame_transformer_delegate.h",
         "patchSetId": 1
@@ -400,6 +688,30 @@
       "revId": "02613918220761da04ed393042804afffafe580c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4139e020_64560605",
+        "filename": "audio/channel_send_frame_transformer_delegate.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T11:58:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7516ce96_bbc37ec8",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 75
+      },
+      "revId": "02613918220761da04ed393042804afffafe580c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

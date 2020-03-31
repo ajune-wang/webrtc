@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b5cda55_3a052a1f",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2360,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-31T20:52:38Z",
+      "side": 1,
+      "message": "I realized I don\u0027t fully understand this step.\n\nThe behavior here is somewhat strange.\n1)\nIf there is a matching ssrc (which I take it that it is expected) then the transformer is moved to the matching stream.\n\n2) If there is NOT a matching ssrc, then transformer is cached in frame_transformer_.\n\nMy concern then is that in 2) the same cached transformer will be applied in any following calls to AddRecvStream().\n\nHowever, that does not happen if 1) has occured and in that case any following calls to AddRecvStream() won\u0027t receive any transformer.\n\n\nThe different side-effects of 1) and 2) above are to me confusing and seems error-prone.\n\nIs the above how it is intended? In that case, please explain it further in comments.",
+      "range": {
+        "startLine": 2358,
+        "startChar": 0,
+        "endLine": 2360,
+        "endChar": 3
+      },
+      "revId": "a505d43b7aac3d8ff7986ec7e79056a79cb00a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

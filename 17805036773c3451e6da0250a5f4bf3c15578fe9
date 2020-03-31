@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7787a9c7_3059b311",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-03-31T20:26:22Z",
+      "side": 1,
+      "message": "Nit: Since this also end up calling SendRtpAudio, maybe it would make sense to explicitly mention that in the comment? For a casual reader it looks like the SendRtpAudio may be bypassed.",
+      "range": {
+        "startLine": 389,
+        "startChar": 7,
+        "endLine": 389,
+        "endChar": 62
+      },
+      "revId": "17805036773c3451e6da0250a5f4bf3c15578fe9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -127,10 +127,8 @@ class MockRtpPacketSink : public RtpPacketSinkInterface {
 
 class MockFrameTransformer : public FrameTransformerInterface {
  public:
-  MOCK_METHOD3(TransformFrame,
-               void(std::unique_ptr<video_coding::EncodedFrame> frame,
-                    std::vector<uint8_t> additional_data,
-                    uint32_t ssrc));
+  MOCK_METHOD1(Transform,
+               void(std::unique_ptr<TransformableFrameInterface> frame));
   MOCK_METHOD1(RegisterTransformedFrameCallback,
                void(rtc::scoped_refptr<TransformedFrameCallback>));
   MOCK_METHOD0(UnregisterTransformedFrameCallback, void());
@@ -1243,9 +1241,7 @@ TEST_F(RtpVideoStreamReceiverTest, TransformFrame) {
   video_header.frame_type = VideoFrameType::kVideoFrameKey;
   mock_on_complete_frame_callback_.AppendExpectedBitstream(data.data(),
                                                            data.size());
-  EXPECT_CALL(*mock_frame_transformer,
-              TransformFrame(_, RtpDescriptorAuthentication(video_header),
-                             config_.rtp.remote_ssrc));
+  EXPECT_CALL(*mock_frame_transformer, Transform(_));
   receiver->OnReceivedPayloadData(data, rtp_packet, video_header);
 
   EXPECT_CALL(*mock_frame_transformer, UnregisterTransformedFrameCallback());

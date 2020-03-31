@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "539ef480_486ac490",
+        "filename": "api/video/adaptation_counters.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-03-31T08:04:48Z",
+      "side": 1,
+      "message": "VideoAdaptationCounters, since this is at top-level in the webrtc namespace.",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 25
+      },
+      "revId": "8228e44dea30b3177db12e4b12e4f12d8358feab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

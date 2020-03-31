@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "adaccd0a_a5aca83b",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-31T12:54:25Z",
+      "side": 1,
+      "message": "Great idea",
+      "parentUuid": "48fed802_c36ce59b",
+      "range": {
+        "startLine": 86,
+        "startChar": 30,
+        "endLine": 86,
+        "endChar": 38
+      },
+      "revId": "1ed9a24575291439e197492b1469579556d2649e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8cc2455_78d860c6",
         "filename": "call/adaptation/resource_adaptation_processor_interface.h",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-30T08:53:11Z",
       "side": 1,
       "message": "Would be great if this could somehow live in video/adaptation instead of in call/.",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "1ed9a24575291439e197492b1469579556d2649e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff2c165e_cef0b065",
+        "filename": "call/adaptation/resource_adaptation_processor_interface.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-31T12:54:25Z",
+      "side": 1,
+      "message": "Yeah I think we can move it. In fact, since this is now just handling VideoStreamEncoder-specific stuff I don\u0027t even think we need an interface for it. There\u0027s just one implementation of VideoStreamEncoder and this is like a helper for it. As far as the Processor is concerned, all you have are Resource*",
+      "parentUuid": "d8cc2455_78d860c6",
       "range": {
         "startLine": 52,
         "startChar": 6,
@@ -82,6 +130,30 @@
       "writtenOn": "2020-03-30T08:53:11Z",
       "side": 1,
       "message": "WithReason?",
+      "range": {
+        "startLine": 697,
+        "startChar": 63,
+        "endLine": 697,
+        "endChar": 70
+      },
+      "revId": "1ed9a24575291439e197492b1469579556d2649e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "612d5f33_5142149d",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-03-31T12:54:25Z",
+      "side": 1,
+      "message": "Oh, yes!",
+      "parentUuid": "827f3af5_e951f4dc",
       "range": {
         "startLine": 697,
         "startChar": 63,

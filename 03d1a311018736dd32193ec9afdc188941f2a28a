@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "019e7aa8_b214086d",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T08:57:29Z",
+      "side": 1,
+      "message": "I used move because frame_transformer is an rtc::scoped_refptr and it\u0027s cheaper to move it.",
+      "parentUuid": "6072270f_f0f56ae6",
+      "range": {
+        "startLine": 919,
+        "startChar": 13,
+        "endLine": 919,
+        "endChar": 61
+      },
+      "revId": "03d1a311018736dd32193ec9afdc188941f2a28a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcf9b442_6ebaf4b7",
         "filename": "audio/channel_send.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "03d1a311018736dd32193ec9afdc188941f2a28a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e9017db_5a30cd96",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T08:57:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf9b442_6ebaf4b7",
+      "range": {
+        "startLine": 120,
+        "startChar": 15,
+        "endLine": 120,
+        "endChar": 53
+      },
+      "revId": "03d1a311018736dd32193ec9afdc188941f2a28a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

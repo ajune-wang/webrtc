@@ -391,6 +391,30 @@
     },
     {
       "key": {
+        "uuid": "576b42a4_71e6cd29",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2328,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-03-31T08:57:29Z",
+      "side": 1,
+      "message": "I added a log line (with LS_INFO, see why below). I will add a return code when I change the function name in a follow-up CL, this is an override from media channel base, overriden on video side as well.\n\nRegarding the DCHECK, I thought about it some more and I think it\u0027s possible that the stream does not exist here depending on which participant of the peer connection initiates the connection in JS. And if the stream does not exist when the sender is created, the transformer will be set when setting the ssrc[1], which will call this method again and then the stream should exist.\n\nIn conclusion, I think it is ok if the stream is not found at first, because this method gets called again when the stream does exists, and the transformer ends up being set on the stream.\n\nThat said, it\u0027s possible that I discover more corner cases when the blink and JS changes are in place as well, now I\u0027m testing with a loopback blink implementation, without reaching JS. I might need to follow up with bug fixes once we integrate this end to end.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/rtp_sender.cc;drc\u003db05ca4b6168ccad0db5f6350d438272e59a3b9ca;l\u003d300?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "parentUuid": "9ac571ac_1e1d789b",
+      "range": {
+        "startLine": 2325,
+        "startChar": 0,
+        "endLine": 2328,
+        "endChar": 49
+      },
+      "revId": "02c9849eb989a9f8d00fce369c4da32f32c85ce5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7c4e57df_4ebc356e",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 1

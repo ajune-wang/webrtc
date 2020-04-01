@@ -71,7 +71,7 @@ class SendStatisticsProxy : public VideoStreamEncoderObserver,
 
   // Adaptation stats.
   void OnAdaptationChanged(
-      AdaptationReason reason,
+      adaptation::VideoAdaptationReason reason,
       const VideoAdaptationCounters& cpu_counters,
       const VideoAdaptationCounters& quality_counters) override;
   void ClearAdaptationStats() override;

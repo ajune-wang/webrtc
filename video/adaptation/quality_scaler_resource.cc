@@ -62,13 +62,14 @@ void QualityScalerResource::OnFrameDropped(
   }
 }
 
-void QualityScalerResource::AdaptUp(AdaptReason reason) {
-  RTC_DCHECK_EQ(reason, AdaptReason::kQuality);
+void QualityScalerResource::AdaptUp(adaptation::VideoAdaptationReason reason) {
+  RTC_DCHECK_EQ(reason, adaptation::VideoAdaptationReason::kQuality);
   OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
 }
 
-bool QualityScalerResource::AdaptDown(AdaptReason reason) {
-  RTC_DCHECK_EQ(reason, AdaptReason::kQuality);
+bool QualityScalerResource::AdaptDown(
+    adaptation::VideoAdaptationReason reason) {
+  RTC_DCHECK_EQ(reason, adaptation::VideoAdaptationReason::kQuality);
   return OnResourceUsageStateMeasured(ResourceUsageState::kOveruse) !=
          ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
 }

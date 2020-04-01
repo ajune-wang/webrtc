@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86598113_6fe83f87",
+        "filename": "api/video/video_adaptation_reason.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-01T08:34:37Z",
+      "side": 1,
+      "message": "Can we make it enum class while we\u0027re at it?\nThen the \"namespace\" of the enum makes it clear that it is adaptation-related. And personally, the static_cast\u003csize_t\u003e(reason) does not hurt my eyes.",
+      "revId": "760cb9104fc411d754abbdce07e9cdc1490fb3e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75a8221b_93317ad9",
+        "filename": "api/video/video_adaptation_reason.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-01T08:34:37Z",
+      "side": 1,
+      "message": "For consistency with other things and use of namespaces in webrtc in general, perhaps we shouldn\u0027t invent a sub-namespace for adaptation? No strong opinion here though",
+      "revId": "760cb9104fc411d754abbdce07e9cdc1490fb3e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

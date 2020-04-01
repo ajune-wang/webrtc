@@ -22,6 +22,30 @@
       "revId": "d7b7c2df82726f10d368cdf968ab2d02e847770f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc4ac38f_71655667",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T08:15:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4b1734a_76966a3d",
+      "range": {
+        "startLine": 602,
+        "startChar": 8,
+        "endLine": 602,
+        "endChar": 77
+      },
+      "revId": "d7b7c2df82726f10d368cdf968ab2d02e847770f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

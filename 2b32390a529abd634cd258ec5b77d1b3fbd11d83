@@ -46,6 +46,30 @@
       "revId": "2b32390a529abd634cd258ec5b77d1b3fbd11d83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee2fd86d_e24de178",
+        "filename": "api/video/video_adaptation_reason.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-01T14:52:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5aac998b_36545f24",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "2b32390a529abd634cd258ec5b77d1b3fbd11d83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

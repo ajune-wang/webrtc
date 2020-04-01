@@ -22,6 +22,30 @@
       "revId": "2b32390a529abd634cd258ec5b77d1b3fbd11d83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aac998b_36545f24",
+        "filename": "api/video/video_adaptation_reason.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-01T13:54:52Z",
+      "side": 1,
+      "message": "I agree this should be removed. \n\nI prefered std::array to std::unordered_map here because clearing is easier and the size is known at compile time. With a map, methods like ActiveCountsToString can\u0027t be const because operator[] is not const for the map (although you can DCHECK the iterator has a value and use at of course). Additionally std::get\u003c\u003e allows bounds checked access at compile time.\n\nA map is likely cleaner now though as it avoids all the static_casts.",
+      "parentUuid": "94b66dd3_4f0492e1",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "2b32390a529abd634cd258ec5b77d1b3fbd11d83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

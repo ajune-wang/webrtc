@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccdbc36a_1a4beb2e",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-04-01T10:57:20Z",
+      "side": 1,
+      "message": "My overall nervousness might be assuaged if the set_ function did a check that the connection type and adapter type were in sync - ie that if adapter type is already ethernet, setting connection type to 4g would RTC_CHECK.",
+      "revId": "607e4a53c9ae35626a4735212ca59df5c9d5d23d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfd3b73_7009bd66",
+        "filename": "rtc_base/network_constants.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-04-01T10:57:20Z",
+      "side": 1,
+      "message": "Can you make this an \"enum class\"?\nYes, it\u0027s more typing every time you use the constant, but a) it stops polluting the global namespace, and b) you don\u0027t get accidental dependency on the integer values.",
+      "revId": "607e4a53c9ae35626a4735212ca59df5c9d5d23d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b1059b2_95894944",
+        "filename": "rtc_base/network_monitor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-04-01T10:57:20Z",
+      "side": 1,
+      "message": "This makes me nervous. By skipping \"any\", you are not making CONNECTION_TYPE a complete superset of the ADAPTER_TYPE enum.",
+      "revId": "607e4a53c9ae35626a4735212ca59df5c9d5d23d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

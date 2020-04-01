@@ -106,18 +106,24 @@ webrtc::IceCandidatePairAddressFamily GetAddressFamilyByInt(
 }
 
 webrtc::IceCandidateNetworkType ConvertNetworkType(rtc::AdapterType type) {
-  if (type == rtc::ADAPTER_TYPE_ETHERNET) {
-    return webrtc::IceCandidateNetworkType::kEthernet;
-  } else if (type == rtc::ADAPTER_TYPE_LOOPBACK) {
-    return webrtc::IceCandidateNetworkType::kLoopback;
-  } else if (type == rtc::ADAPTER_TYPE_WIFI) {
-    return webrtc::IceCandidateNetworkType::kWifi;
-  } else if (type == rtc::ADAPTER_TYPE_VPN) {
-    return webrtc::IceCandidateNetworkType::kVpn;
-  } else if (type == rtc::ADAPTER_TYPE_CELLULAR) {
-    return webrtc::IceCandidateNetworkType::kCellular;
+  switch (type) {
+    case rtc::ADAPTER_TYPE_ETHERNET:
+      return webrtc::IceCandidateNetworkType::kEthernet;
+    case rtc::ADAPTER_TYPE_LOOPBACK:
+      return webrtc::IceCandidateNetworkType::kLoopback;
+    case rtc::ADAPTER_TYPE_WIFI:
+      return webrtc::IceCandidateNetworkType::kWifi;
+    case rtc::ADAPTER_TYPE_VPN:
+      return webrtc::IceCandidateNetworkType::kVpn;
+    case rtc::ADAPTER_TYPE_CELLULAR:
+    case rtc::ADAPTER_TYPE_CELLULAR_2G:
+    case rtc::ADAPTER_TYPE_CELLULAR_3G:
+    case rtc::ADAPTER_TYPE_CELLULAR_4G:
+    case rtc::ADAPTER_TYPE_CELLULAR_5G:
+      return webrtc::IceCandidateNetworkType::kCellular;
+    default:
+      return webrtc::IceCandidateNetworkType::kUnknown;
   }
-  return webrtc::IceCandidateNetworkType::kUnknown;
 }
 
 // When we don't have any RTT data, we have to pick something reasonable.  We
@@ -179,7 +185,17 @@ void ConnectionRequest::Prepare(StunMessage* request) {
                               1)));
   }
   uint32_t network_info = connection_->port()->Network()->id();
-  network_info = (network_info << 16) | connection_->port()->network_cost();
+  uint16_t network_cost = connection_->port()->network_cost();
+  if (connection_->port()->Network()->IsCellular()) {
+    // TODO(jonaso) : Add support for cellular network cost in
+    // STUN_BINDING_REQUEST
+    //
+    // We have added (local) support new network costs, but we don't know
+    // what remote side might do. Fallback to sending old value here
+    // until we figure out clever way of rolling this out.
+    network_cost = rtc::kNetworkCostCellular;
+  }
+  network_info = (network_info << 16) | network_cost;
   request->AddAttribute(std::make_unique<StunUInt32Attribute>(
       STUN_ATTR_NETWORK_INFO, network_info));
 

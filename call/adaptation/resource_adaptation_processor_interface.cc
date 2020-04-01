@@ -16,4 +16,7 @@ ResourceAdaptationProcessorListener::~ResourceAdaptationProcessorListener() {}
 
 ResourceAdaptationProcessorInterface::~ResourceAdaptationProcessorInterface() {}
 
+VideoStreamEncoderResourceManagerInterface::
+    ~VideoStreamEncoderResourceManagerInterface() {}
+
 }  // namespace webrtc

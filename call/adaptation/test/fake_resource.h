@@ -20,11 +20,12 @@ namespace webrtc {
 // Fake resource used for testing.
 class FakeResource : public Resource {
  public:
-  explicit FakeResource(ResourceUsageState usage_state);
-  FakeResource(ResourceUsageState usage_state, const std::string& name);
+  explicit FakeResource(absl::optional<ResourceUsageState> usage_state);
+  FakeResource(absl::optional<ResourceUsageState> usage_state,
+               const std::string& name);
   ~FakeResource() override;
 
-  void set_usage_state(ResourceUsageState usage_state);
+  void set_usage_state(absl::optional<ResourceUsageState> usage_state);
 
   absl::optional<ResourceListenerResponse> last_response() const {
     return last_response_;

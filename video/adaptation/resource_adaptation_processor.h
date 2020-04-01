@@ -27,6 +27,8 @@
 #include "api/video_codecs/video_encoder_config.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/resource_adaptation_processor_interface.h"
+#include "call/adaptation/video_source_restrictions.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/experiments/quality_rampup_experiment.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "rtc_base/strings/string_builder.h"
@@ -45,6 +47,82 @@ namespace webrtc {
 extern const int kDefaultInputPixelsWidth;
 extern const int kDefaultInputPixelsHeight;
 
+class VideoStreamEncoderResourceManager;
+
+// Will be multi-threaded.
+class VideoStreamInputStateProvider {
+ public:
+  VideoStreamInputStateProvider(
+      VideoStreamEncoderObserver* frame_rate_provider);
+
+  void OnHasInputChanged(bool has_input);
+  void OnFrameSizeObserved(int frame_size_pixels);
+  void OnEncoderSettingsChanged(EncoderSettings encoder_settings);
+
+  VideoStreamInputState InputState();
+
+ private:
+  mutable rtc::CriticalSection crit_;
+  VideoStreamEncoderObserver* const frame_rate_provider_;
+  VideoStreamInputState input_state_;
+};
+
+class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
+                                    public ResourceListener {
+ public:
+  friend class VideoStreamEncoderResourceManager;
+
+  ResourceAdaptationProcessor(
+      VideoStreamEncoderResourceManager* manager,
+      ResourceAdaptationProcessorListener* adaptation_listener,
+      VideoStreamEncoderObserver* encoder_stats_observer);
+  ~ResourceAdaptationProcessor() override;
+
+  DegradationPreference degradation_preference() const {
+    return degradation_preference_;
+  }
+  DegradationPreference effective_degradation_preference() const {
+    return effective_degradation_preference_;
+  }
+
+  void SetDegradationPreference(DegradationPreference degradation_preference);
+  void SetIsScreenshare(bool is_screenshare);
+  void SetHasInputVideo(bool has_input_video);
+  void ResetVideoSourceRestrictions();
+
+  void StartResourceAdaptation(
+      ResourceAdaptationProcessorListener* adaptation_listener) override;
+  void StopResourceAdaptation() override;
+  void AddResource(Resource* resource) override;
+
+  // ResourceUsageListener implementation.
+  ResourceListenerResponse OnResourceUsageStateMeasured(
+      const Resource& resource) override;
+
+ private:
+  bool HasInsufficientInput(const VideoStreamInputState& input_state) const;
+
+  // Performs the adaptation by getting the next target, applying it and
+  // informing listeners of the new VideoSourceRestriction and adapt counters.
+  void OnResourceUnderuse(const Resource& reason_resource);
+  ResourceListenerResponse OnResourceOveruse(const Resource& reason_resource);
+
+  void UpdateEffectiveDegradationPreference();
+  void MaybeUpdateVideoSourceRestrictions(const Resource* reason);
+
+  ResourceAdaptationProcessorListener* adaptation_listener_;
+  VideoSourceRestrictions video_source_restrictions_;
+  const std::unique_ptr<VideoStreamAdapter> stream_adapter_;
+
+  DegradationPreference degradation_preference_;
+  DegradationPreference effective_degradation_preference_;
+  bool is_screenshare_;
+  std::vector<Resource*> resources_;
+
+  VideoStreamEncoderObserver* const encoder_stats_observer_;
+  std::unique_ptr<VideoStreamInputStateProvider> const input_state_provider_;
+};
+
 // This class is used by the VideoStreamEncoder and is responsible for adapting
 // resolution up or down based on encode usage percent. It keeps track of video
 // source settings, adaptation counters and may get influenced by
@@ -55,34 +133,43 @@ extern const int kDefaultInputPixelsHeight;
 // TODO(hbos): Add unittests specific to this class, it is currently only tested
 // indirectly in video_stream_encoder_unittest.cc and other tests exercising
 // VideoStreamEncoder.
-class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
-                                    public ResourceListener {
+class VideoStreamEncoderResourceManager
+    : public VideoStreamEncoderResourceManagerInterface {
  public:
+  // TODO(hbos): Don't friend class.
+  friend class ResourceAdaptationProcessor;
+  friend class VideoStreamInputStateProvider;
+  ResourceAdaptationProcessor* processor_ = nullptr;
+
   // The processor can be constructed on any sequence, but must be initialized
   // and used on a single sequence, e.g. the encoder queue.
-  ResourceAdaptationProcessor(
+  VideoStreamEncoderResourceManager(
       Clock* clock,
       bool experiment_cpu_load_estimator,
       std::unique_ptr<OveruseFrameDetector> overuse_detector,
       VideoStreamEncoderObserver* encoder_stats_observer,
       ResourceAdaptationProcessorListener* adaptation_listener);
-  ~ResourceAdaptationProcessor() override;
+  ~VideoStreamEncoderResourceManager() override;
 
-  DegradationPreference degradation_preference() const {
-    return degradation_preference_;
-  }
+  void OnVideoSourceRestrictionsUpdated(
+      VideoSourceRestrictions restrictions,
+      const AdaptationCounters& adaptation_counters,
+      const Resource* reason);
 
-  // ResourceAdaptationProcessorInterface implementation.
-  void StartResourceAdaptation(
-      ResourceAdaptationProcessorListener* adaptation_listener) override;
-  void StopResourceAdaptation() override;
-  // Uses a default AdaptReason of kCpu.
-  void AddResource(Resource* resource) override;
   void AddResource(Resource* resource,
                    AdaptationObserverInterface::AdaptReason reason);
-  void SetHasInputVideo(bool has_input_video) override;
-  void SetDegradationPreference(
-      DegradationPreference degradation_preference) override;
+  std::vector<Resource*> Resources() const;
+
+  AdaptationObserverInterface::AdaptReason ReasonFromResource(
+      const Resource& resource) const;
+  const Resource& ResourceWithReason(
+      AdaptationObserverInterface::AdaptReason reason) const;
+
+  // Thug lyfe.
+  void StartResourceAdaptation();
+  void StopResourceAdaptation();
+
+  // VideoStreamEncoderResourceManagerInterface implementation.
   void SetEncoderSettings(EncoderSettings encoder_settings) override;
   void SetStartBitrate(DataRate start_bitrate) override;
   void SetTargetBitrate(DataRate target_bitrate) override;
@@ -111,10 +198,6 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // (https://crbug.com/webrtc/11338)
   void ConfigureQualityScaler(const VideoEncoder::EncoderInfo& encoder_info);
 
-  // ResourceUsageListener implementation.
-  ResourceListenerResponse OnResourceUsageStateMeasured(
-      const Resource& resource) override;
-
   // For reasons of adaptation and statistics, we not only count the total
   // number of adaptations, but we also count the number of adaptations per
   // reason.
@@ -129,25 +212,15 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
 
  private:
   class InitialFrameDropper;
+  friend class BitrateConstraintResource;
 
   enum class State { kStopped, kStarted };
-
-  // Performs the adaptation by getting the next target, applying it and
-  // informing listeners of the new VideoSourceRestriction and adapt counters.
-  void OnResourceUnderuse(AdaptationObserverInterface::AdaptReason reason);
-  ResourceListenerResponse OnResourceOveruse(
-      AdaptationObserverInterface::AdaptReason reason);
 
   CpuOveruseOptions GetCpuOveruseOptions() const;
   int LastInputFrameSizeOrDefault() const;
   VideoStreamEncoderObserver::AdaptationSteps GetActiveCounts(
       AdaptationObserverInterface::AdaptReason reason);
-  VideoStreamAdapter::VideoInputMode GetVideoInputMode() const;
 
-  // Makes |video_source_restrictions_| up-to-date and informs the
-  // |adaptation_listener_| if restrictions are changed, allowing the listener
-  // to reconfigure the source accordingly.
-  void MaybeUpdateVideoSourceRestrictions();
   // Calculates an up-to-date value of the target frame rate and informs the
   // |encode_usage_resource_| of the new value.
   void MaybeUpdateTargetFrameRate();
@@ -164,27 +237,79 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // TODO(https://crbug.com/webrtc/11222) Move experiment details into an inner
   // class.
   void MaybePerformQualityRampupExperiment();
-  void ResetVideoSourceRestrictions();
 
   std::string ActiveCountsToString() const;
 
-  ResourceAdaptationProcessorListener* const adaptation_listener_;
+  // Does not trigger adaptations, only prevents adapting up based on
+  // |active_counts_|.
+  class PreventAdaptUpDueToActiveCounts final : public Resource {
+   public:
+    explicit PreventAdaptUpDueToActiveCounts(
+        VideoStreamEncoderResourceManager* manager);
+    ~PreventAdaptUpDueToActiveCounts() override = default;
+
+    std::string name() const override {
+      return "PreventAdaptUpDueToActiveCounts";
+    }
+
+    bool CanApplyAdaptation(const VideoStreamInputState& input_state,
+                            const VideoSourceRestrictions& restrictions_before,
+                            const VideoSourceRestrictions& restrictions_after,
+                            const Resource* reason_resource) const override;
+
+   private:
+    VideoStreamEncoderResourceManager* manager_;
+  } prevent_adapt_up_due_to_active_counts_;
+
+  // Does not trigger adaptations, only prevents adapting up resolution.
+  class PreventIncreaseResolutionDueToBitrateResource final : public Resource {
+   public:
+    explicit PreventIncreaseResolutionDueToBitrateResource(
+        VideoStreamEncoderResourceManager* manager);
+    ~PreventIncreaseResolutionDueToBitrateResource() override = default;
+
+    std::string name() const override {
+      return "PreventIncreaseResolutionDueToBitrateResource";
+    }
+
+    bool CanApplyAdaptation(const VideoStreamInputState& input_state,
+                            const VideoSourceRestrictions& restrictions_before,
+                            const VideoSourceRestrictions& restrictions_after,
+                            const Resource* reason_resource) const override;
+
+   private:
+    VideoStreamEncoderResourceManager* manager_;
+  } prevent_increase_resolution_due_to_bitrate_resource_;
+
+  // Does not trigger adaptations, only prevents adapting up in BALANCED.
+  class PreventAdaptUpInBalancedResource final : public Resource {
+   public:
+    explicit PreventAdaptUpInBalancedResource(
+        VideoStreamEncoderResourceManager* manager);
+    ~PreventAdaptUpInBalancedResource() override = default;
+
+    std::string name() const override {
+      return "PreventAdaptUpInBalancedResource";
+    }
+
+    bool CanApplyAdaptation(const VideoStreamInputState& input_state,
+                            const VideoSourceRestrictions& restrictions_before,
+                            const VideoSourceRestrictions& restrictions_after,
+                            const Resource* reason_resource) const override;
+
+   private:
+    VideoStreamEncoderResourceManager* manager_;
+  } prevent_adapt_up_in_balanced_resource_;
+
+  EncodeUsageResource encode_usage_resource_;
+  QualityScalerResource quality_scaler_resource_;
+
+  // TODO(hbos): Use processor_->video_stream_adapter_->balanced_settings()
+  // instead?
+  const BalancedDegradationSettings balanced_settings_;
   Clock* clock_;
   State state_;
   const bool experiment_cpu_load_estimator_;
-  // The restrictions that |adaptation_listener_| is informed of.
-  VideoSourceRestrictions video_source_restrictions_;
-  bool has_input_video_;
-  // TODO(https://crbug.com/webrtc/11393): DegradationPreference has mostly
-  // moved to VideoStreamAdapter. Move it entirely and delete it from this
-  // class. If the responsibility of generating next steps for adaptations is
-  // owned by the adapter, this class has no buisness relying on implementation
-  // details of the adapter.
-  DegradationPreference degradation_preference_;
-  // Keeps track of source restrictions that this adaptation processor outputs.
-  const std::unique_ptr<VideoStreamAdapter> stream_adapter_;
-  const std::unique_ptr<EncodeUsageResource> encode_usage_resource_;
-  const std::unique_ptr<QualityScalerResource> quality_scaler_resource_;
   const std::unique_ptr<InitialFrameDropper> initial_frame_dropper_;
   const bool quality_scaling_experiment_enabled_;
   absl::optional<int> last_input_frame_size_;
@@ -196,6 +321,9 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   QualityRampupExperiment quality_rampup_experiment_;
   absl::optional<EncoderSettings> encoder_settings_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;
+
+  VideoSourceRestrictions restrictions_;
+  AdaptationCounters adaptation_counters_;
 
   // Ties a resource to a reason for statistical reporting. This AdaptReason is
   // also used by this module to make decisions about how to adapt up/down.
@@ -209,6 +337,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
     const AdaptationObserverInterface::AdaptReason reason;
   };
   std::vector<ResourceAndReason> resources_;
+
   // One AdaptationCounter for each reason, tracking the number of times we have
   // adapted for each reason. The sum of active_counts_ MUST always equal the
   // total adaptation provided by the VideoSourceRestrictions.

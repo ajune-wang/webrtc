@@ -15,6 +15,7 @@
 #include <memory>
 #include <string>
 
+#include "absl/strings/match.h"
 #include "api/units/data_rate.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
@@ -130,11 +131,9 @@ ProbeController::ProbeController(const WebRtcKeyValueConfig* key_value_config,
                                  RtcEventLog* event_log)
     : enable_periodic_alr_probing_(false),
       in_rapid_recovery_experiment_(
-          key_value_config->Lookup(kBweRapidRecoveryExperiment)
-              .find("Enabled") == 0),
+          absl::StartsWith(key_value_config->Lookup(kBweRapidRecoveryExperiment), "Enabled"),
       limit_probes_with_allocateable_rate_(
-          key_value_config->Lookup(kCappedProbingFieldTrialName)
-              .find("Disabled") != 0),
+          absl::StartsWith(key_value_config->Lookup(kCappedProbingFieldTrialName), "Disabled"),
       event_log_(event_log),
       config_(ProbeControllerConfig(key_value_config)) {
   Reset(0);

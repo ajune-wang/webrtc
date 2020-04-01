@@ -93,7 +93,15 @@ uint16_t ComputeNetworkCostByType(int type) {
     case rtc::ADAPTER_TYPE_WIFI:
       return kNetworkCostLow;
     case rtc::ADAPTER_TYPE_CELLULAR:
-      return kNetworkCostHigh;
+      return kNetworkCostCellular;
+    case rtc::ADAPTER_TYPE_CELLULAR_2G:
+      return kNetworkCostCellular2G;
+    case rtc::ADAPTER_TYPE_CELLULAR_3G:
+      return kNetworkCostCellular3G;
+    case rtc::ADAPTER_TYPE_CELLULAR_4G:
+      return kNetworkCostCellular4G;
+    case rtc::ADAPTER_TYPE_CELLULAR_5G:
+      return kNetworkCostCellular5G;
     case rtc::ADAPTER_TYPE_ANY:
       // Candidates gathered from the any-address/wildcard ports, as backups,
       // are given the maximum cost so that if there are other candidates with

@@ -56,6 +56,17 @@ class FakeNetworkMonitor : public NetworkMonitorBase {
     return ADAPTER_TYPE_UNKNOWN;
   }
 
+  ConnectionType GetConnectionType(const std::string& if_name) override {
+    AdapterType adapter_type = GetAdapterType(if_name);
+    if (adapter_type == ADAPTER_TYPE_WIFI) {
+      return CONNECTION_TYPE_WIFI;
+    }
+    if (adapter_type == ADAPTER_TYPE_CELLULAR) {
+      return CONNECTION_TYPE_CELLULAR_2G;
+    }
+    return CONNECTION_TYPE_UNKNOWN;
+  }
+
  private:
   bool started_ = false;
 };
@@ -127,6 +138,13 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
     network_manager.GetNetworks(&list);
     RTC_CHECK_EQ(1, list.size());
     return list[0]->type();
+  }
+
+  ConnectionType GetConnectionType(BasicNetworkManager& network_manager) {
+    BasicNetworkManager::NetworkList list;
+    network_manager.GetNetworks(&list);
+    RTC_CHECK_EQ(1, list.size());
+    return list[0]->connection_type();
   }
 
 #if defined(WEBRTC_POSIX)
@@ -803,6 +821,7 @@ TEST_F(NetworkTest, TestGetAdapterTypeFromNetworkMonitor) {
   ifaddrs* addr_list =
       InstallIpv6Network(if_name1, ipv6_address1, ipv6_mask, manager);
   EXPECT_EQ(ADAPTER_TYPE_UNKNOWN, GetAdapterType(manager));
+  EXPECT_EQ(CONNECTION_TYPE_UNKNOWN, GetConnectionType(manager));
   ReleaseIfAddrs(addr_list);
   // Note: Do not call ClearNetworks here in order to test that the type
   // of an existing network can be changed after the network monitor starts
@@ -817,13 +836,15 @@ TEST_F(NetworkTest, TestGetAdapterTypeFromNetworkMonitor) {
   // detected by the network monitor now.
   addr_list = InstallIpv6Network(if_name1, ipv6_address1, ipv6_mask, manager);
   EXPECT_EQ(ADAPTER_TYPE_WIFI, GetAdapterType(manager));
+  EXPECT_EQ(CONNECTION_TYPE_WIFI, GetConnectionType(manager));
   ReleaseIfAddrs(addr_list);
   ClearNetworks(manager);
 
   // Add another network with the type inferred from the network monitor.
-  char if_name2[20] = "cellular0";
+  char if_name2[20] = "cellular 2G";
   addr_list = InstallIpv6Network(if_name2, ipv6_address2, ipv6_mask, manager);
   EXPECT_EQ(ADAPTER_TYPE_CELLULAR, GetAdapterType(manager));
+  EXPECT_EQ(CONNECTION_TYPE_CELLULAR_2G, GetConnectionType(manager));
   ReleaseIfAddrs(addr_list);
   ClearNetworks(manager);
 }
@@ -1115,6 +1136,65 @@ TEST_F(NetworkTest, MAYBE_DefaultLocalAddress) {
   EXPECT_EQ(static_cast<IPAddress>(ip1), ip);
 
   manager.StopUpdating();
+}
+
+// Test MergeNetworkList successfully handles change of connection type.
+TEST_F(NetworkTest, TestMergeNetworkListChangeConnectionType) {
+  BasicNetworkManager manager;
+
+  IPAddress ip1;
+  EXPECT_TRUE(IPFromString("2400:4030:1:2c00:be30:0:0:1", &ip1));
+  Network* net1 = new Network("em1", "em1", TruncateIP(ip1, 64), 64);
+  net1->set_connection_type(CONNECTION_TYPE_CELLULAR_3G);
+  net1->AddIP(ip1);
+  NetworkManager::NetworkList list;
+  list.push_back(net1);
+
+  bool changed;
+  MergeNetworkList(manager, list, &changed);
+  {
+    EXPECT_TRUE(changed);
+    NetworkManager::NetworkList list2;
+    manager.GetNetworks(&list2);
+    EXPECT_EQ(list2.size(), 1uL);
+    EXPECT_EQ(CONNECTION_TYPE_CELLULAR_3G, list2[0]->connection_type());
+  }
+
+  // Modify net1
+  {
+    Network* net2 = new Network("em1", "em1", TruncateIP(ip1, 64), 64);
+    net2->set_connection_type(CONNECTION_TYPE_CELLULAR_4G);
+    net2->AddIP(ip1);
+    list.clear();
+    list.push_back(net2);
+    MergeNetworkList(manager, list, &changed);
+  }
+
+  {
+    EXPECT_TRUE(changed);
+    NetworkManager::NetworkList list2;
+    manager.GetNetworks(&list2);
+    ASSERT_EQ(list2.size(), 1uL);
+    EXPECT_EQ(CONNECTION_TYPE_CELLULAR_4G, list2[0]->connection_type());
+  }
+
+  // Don't modify.
+  {
+    Network* net2 = new Network("em1", "em1", TruncateIP(ip1, 64), 64);
+    net2->set_connection_type(CONNECTION_TYPE_CELLULAR_4G);
+    net2->AddIP(ip1);
+    list.clear();
+    list.push_back(net2);
+    MergeNetworkList(manager, list, &changed);
+  }
+
+  {
+    EXPECT_FALSE(changed);
+    NetworkManager::NetworkList list2;
+    manager.GetNetworks(&list2);
+    ASSERT_EQ(list2.size(), 1uL);
+    EXPECT_EQ(CONNECTION_TYPE_CELLULAR_4G, list2[0]->connection_type());
+  }
 }
 
 }  // namespace rtc

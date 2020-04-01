@@ -41,6 +41,24 @@ enum AdapterType {
 
 std::string AdapterTypeToString(AdapterType type);
 
+// Connection type.
+// For all adapter types except CELLULAR there is a one-to-one mapping,
+// but a cellular adapter can have different connection types.
+enum ConnectionType {
+  CONNECTION_TYPE_UNKNOWN,
+  CONNECTION_TYPE_ETHERNET,
+  CONNECTION_TYPE_WIFI,
+  CONNECTION_TYPE_CELLULAR,
+  CONNECTION_TYPE_CELLULAR_2G,
+  CONNECTION_TYPE_CELLULAR_3G,
+  CONNECTION_TYPE_CELLULAR_4G,
+  CONNECTION_TYPE_CELLULAR_5G,
+  CONNECTION_TYPE_VPN,
+  CONNECTION_TYPE_LOOPBACK,
+};
+
+std::string ConnectionTypeToString(AdapterType type);
+
 }  // namespace rtc
 
 #endif  // RTC_BASE_NETWORK_CONSTANTS_H_

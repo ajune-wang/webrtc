@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94b66dd3_4f0492e1",
+        "filename": "api/video/video_adaptation_reason.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-04-01T12:01:53Z",
+      "side": 1,
+      "message": "This isn\u0027t one of the recommended idioms in totw/140.\n\nIt seems the constant is used in only one place, in OveruseFrameDetectorResourceAdaptationModule, where the enum value is used to index an array (which is somewhat questionable)?\n\nI\u0027d suggest deleting the constant, and RTC_CHECK that enum values are in expected range when indexing the array. And maybe change the array to a mapping indexed by enum?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "2b32390a529abd634cd258ec5b77d1b3fbd11d83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

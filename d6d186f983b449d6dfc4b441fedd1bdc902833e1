@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b7fde01_bd7f681a",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-04-01T07:18:50Z",
+      "side": 1,
+      "message": "nit: created",
+      "range": {
+        "startLine": 795,
+        "startChar": 44,
+        "endLine": 795,
+        "endChar": 45
+      },
+      "revId": "d6d186f983b449d6dfc4b441fedd1bdc902833e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d9a741_7eeb1522",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-04-01T07:18:50Z",
+      "side": 1,
+      "message": "nit: override\n(or perhaps overwrite or replace is more accurate)",
+      "revId": "d6d186f983b449d6dfc4b441fedd1bdc902833e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c63b80c5_f6318825",
+        "filename": "audio/channel_receive_frame_transformer_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-04-01T07:18:50Z",
+      "side": 1,
+      "message": "would it be appropriate to use rtc::ArrayView here?",
+      "revId": "d6d186f983b449d6dfc4b441fedd1bdc902833e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "392d0618_b605856a",
+        "filename": "audio/channel_receive_frame_transformer_delegate.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-04-01T07:18:50Z",
+      "side": 1,
+      "message": "and here",
+      "revId": "d6d186f983b449d6dfc4b441fedd1bdc902833e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

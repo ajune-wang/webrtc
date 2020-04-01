@@ -407,6 +407,12 @@ class RTC_EXPORT Network {
     SignalTypeChanged(this);
   }
 
+  void set_connection_type(ConnectionType connection_type) {
+    connection_type_ = connection_type;
+  }
+
+  ConnectionType connection_type() const { return connection_type_; }
+
   bool IsVpn() const { return type_ == ADAPTER_TYPE_VPN; }
 
   uint16_t GetCost() const;
@@ -444,6 +450,7 @@ class RTC_EXPORT Network {
   bool ignored_;
   AdapterType type_;
   AdapterType underlying_type_for_vpn_ = ADAPTER_TYPE_UNKNOWN;
+  ConnectionType connection_type_ = CONNECTION_TYPE_UNKNOWN;
   int preference_;
   bool active_ = true;
   uint16_t id_ = 0;

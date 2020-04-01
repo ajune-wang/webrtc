@@ -48,6 +48,32 @@ AdapterType NetworkMonitorBase::GetVpnUnderlyingAdapterType(
   return ADAPTER_TYPE_UNKNOWN;
 }
 
+ConnectionType NetworkMonitorBase::GetConnectionType(
+    const std::string& interface_name) {
+  return GetDefaultConnectionTypeFromAdapterType(
+      GetAdapterType(interface_name));
+}
+
+ConnectionType NetworkMonitorBase::GetDefaultConnectionTypeFromAdapterType(
+    AdapterType adapter_type) {
+  switch (adapter_type) {
+    case rtc::ADAPTER_TYPE_ETHERNET:
+      return rtc::CONNECTION_TYPE_ETHERNET;
+    case rtc::ADAPTER_TYPE_WIFI:
+      return rtc::CONNECTION_TYPE_WIFI;
+    case rtc::ADAPTER_TYPE_CELLULAR:
+      return rtc::CONNECTION_TYPE_CELLULAR;
+    case rtc::ADAPTER_TYPE_VPN:
+      return rtc::CONNECTION_TYPE_VPN;
+    case rtc::ADAPTER_TYPE_LOOPBACK:
+      return rtc::CONNECTION_TYPE_LOOPBACK;
+    case rtc::ADAPTER_TYPE_ANY:
+    case rtc::ADAPTER_TYPE_UNKNOWN:
+      return rtc::CONNECTION_TYPE_UNKNOWN;
+  }
+  return rtc::CONNECTION_TYPE_UNKNOWN;
+}
+
 NetworkMonitorFactory::NetworkMonitorFactory() {}
 NetworkMonitorFactory::~NetworkMonitorFactory() {}
 

@@ -72,6 +72,8 @@ class NetworkMonitorInterface {
   // and the base will fire SignalNetworksChanged on the right thread.
   virtual void OnNetworksChanged() = 0;
 
+  virtual ConnectionType GetConnectionType(
+      const std::string& interface_name) = 0;
   virtual AdapterType GetAdapterType(const std::string& interface_name) = 0;
   virtual AdapterType GetVpnUnderlyingAdapterType(
       const std::string& interface_name) = 0;
@@ -90,6 +92,13 @@ class NetworkMonitorBase : public NetworkMonitorInterface,
 
   AdapterType GetVpnUnderlyingAdapterType(
       const std::string& interface_name) override;
+
+  // Return ConnectionType based on AdapterType,
+  // calling GetDefaultConnectionTypeFromAdapterType().
+  ConnectionType GetConnectionType(const std::string& interface_name) override;
+
+  static ConnectionType GetDefaultConnectionTypeFromAdapterType(
+      AdapterType adapter_type);
 
  protected:
   Thread* worker_thread() { return worker_thread_; }

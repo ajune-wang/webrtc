@@ -36,4 +36,32 @@ std::string AdapterTypeToString(AdapterType type) {
   }
 }
 
+std::string ConnectionTypeToString(ConnectionType connection_type) {
+  switch (connection_type) {
+    case CONNECTION_TYPE_UNKNOWN:
+      return "Unknown";
+    case CONNECTION_TYPE_ETHERNET:
+      return "Ethernet";
+    case CONNECTION_TYPE_WIFI:
+      return "Wifi";
+    case CONNECTION_TYPE_CELLULAR:
+      return "Cellular";
+    case CONNECTION_TYPE_CELLULAR_2G:
+      return "Cellular2G";
+    case CONNECTION_TYPE_CELLULAR_3G:
+      return "Cellular3G";
+    case CONNECTION_TYPE_CELLULAR_4G:
+      return "Cellular4G";
+    case CONNECTION_TYPE_CELLULAR_5G:
+      return "Cellular5G";
+    case CONNECTION_TYPE_VPN:
+      return "VPN";
+    case CONNECTION_TYPE_LOOPBACK:
+      return "Loopback";
+    default:
+      RTC_NOTREACHED() << "Invalid type " << connection_type;
+      return std::string();
+  }
+}
+
 }  // namespace rtc

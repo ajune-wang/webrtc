@@ -347,6 +347,12 @@ void NetworkManagerBase::MergeNetworkList(const NetworkList& new_networks,
         existing_net->set_type(net->type());
         *changed = true;
       }
+
+      if (net->connection_type() != existing_net->connection_type()) {
+        existing_net->set_connection_type(net->connection_type());
+        *changed = true;
+      }
+
       // If the existing network was not active, networks have changed.
       if (!existing_net->active()) {
         *changed = true;
@@ -501,6 +507,7 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
 
     AdapterType adapter_type = ADAPTER_TYPE_UNKNOWN;
     AdapterType vpn_underlying_adapter_type = ADAPTER_TYPE_UNKNOWN;
+    ConnectionType connection_type = CONNECTION_TYPE_UNKNOWN;
     if (cursor->ifa_flags & IFF_LOOPBACK) {
       adapter_type = ADAPTER_TYPE_LOOPBACK;
     } else {
@@ -508,9 +515,15 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
       // Otherwise, get the adapter type based on a few name matching rules.
       if (network_monitor_) {
         adapter_type = network_monitor_->GetAdapterType(cursor->ifa_name);
+        connection_type = network_monitor_->GetConnectionType(cursor->ifa_name);
       }
       if (adapter_type == ADAPTER_TYPE_UNKNOWN) {
         adapter_type = GetAdapterTypeFromName(cursor->ifa_name);
+      }
+      if (connection_type == CONNECTION_TYPE_UNKNOWN) {
+        connection_type =
+            NetworkMonitorBase::GetDefaultConnectionTypeFromAdapterType(
+                adapter_type);
       }
     }
 
@@ -533,6 +546,7 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
       network->AddIP(ip);
       network->set_ignored(IsIgnoredNetwork(*network));
       network->set_underlying_type_for_vpn(vpn_underlying_adapter_type);
+      network->set_connection_type(connection_type);
       if (include_ignored || !network->ignored()) {
         current_networks[key] = network.get();
         networks->push_back(network.release());
@@ -544,6 +558,9 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
         existing_network->set_type(adapter_type);
         existing_network->set_underlying_type_for_vpn(
             vpn_underlying_adapter_type);
+      }
+      if (connection_type != CONNECTION_TYPE_UNKNOWN) {
+        existing_network->set_connection_type(connection_type);
       }
     }
   }
@@ -712,6 +729,8 @@ bool BasicNetworkManager::CreateNetworks(bool include_ignored,
           network->set_mdns_responder_provider(this);
           network->set_scope_id(scope_id);
           network->AddIP(ip);
+          network->set_connection_type(
+              GetConnectionTypeFromAdapterType(adapter_type));
           bool ignored = IsIgnoredNetwork(*network);
           network->set_ignored(ignored);
           if (include_ignored || !network->ignored()) {

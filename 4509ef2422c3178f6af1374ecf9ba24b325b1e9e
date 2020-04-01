@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "15afdedf_11719043",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23a39176_aa8a620f",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 77
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3aa0298f_8b0f8570",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2
@@ -66,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "fce14af8_fa930828",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3aa0298f_8b0f8570",
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6efd78d5_45447e3d",
         "filename": "api/frame_transformer_interface.h",
         "patchSetId": 2
@@ -80,6 +122,24 @@
       "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7036f29_f52421d6",
+        "filename": "api/frame_transformer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "No, it makes the header of the frame accessible from the upper layer. This way we will be able to expose the whole header to the application (if needed) as the web api evolves. For now the blink layer will compile a vector of csrcs using the info in the header, it might do more in the future.",
+      "parentUuid": "6efd78d5_45447e3d",
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -103,6 +163,30 @@
       "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00bc6546_e81e382f",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "Removed DoReceivePacket after moving the frame transformation where ReceivePacket is called, in OnRtpPacket.",
+      "parentUuid": "143631eb_1a404f0b",
+      "range": {
+        "startLine": 172,
+        "startChar": 7,
+        "endLine": 172,
+        "endChar": 22
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -153,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "3011bd77_2ad3dc7c",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "As I mentioned in the other CL, I cannot call init in the constructor because the delegate implements RefCountInterface, which does not allow pass |this| before it is fully constructed.",
+      "parentUuid": "c2a31fa4_57af5b78",
+      "range": {
+        "startLine": 498,
+        "startChar": 4,
+        "endLine": 498,
+        "endChar": 40
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0e76f40_c07df780",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 2
@@ -173,6 +281,30 @@
       "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e969d5e8_5242ea6f",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "I realized I can get rid of the extra DoReceivePacket by moving the frame transformation in OnRtpPacket where ReceivePacket is called.",
+      "parentUuid": "c0e76f40_c07df780",
+      "range": {
+        "startLine": 591,
+        "startChar": 2,
+        "endLine": 591,
+        "endChar": 17
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -216,6 +348,30 @@
     },
     {
       "key": {
+        "uuid": "9912c497_dead74b5",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "Explained above.",
+      "parentUuid": "3e5cbc92_db7b9e1a",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 1
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2863723_134207e5",
         "filename": "audio/channel_receive_frame_transformer_delegate.cc",
         "patchSetId": 2
@@ -236,6 +392,30 @@
       "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f97599b3_61fe1df3",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "It creates an empty callback, and the std::function bool operator will return false when tested.",
+      "parentUuid": "d2863723_134207e5",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 51
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -262,6 +442,30 @@
     },
     {
       "key": {
+        "uuid": "30e86df2_8a7599be",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "This shouldn\u0027t return anything, removed.",
+      "parentUuid": "67303de7_2b9e2e4a",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 11
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3f26cc5_8a9115cb",
         "filename": "audio/channel_receive_frame_transformer_delegate.cc",
         "patchSetId": 2
@@ -282,6 +486,30 @@
       "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52062833_bdf93ef6",
+        "filename": "audio/channel_receive_frame_transformer_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "Yes, the bool operator of std::function returns if the function is callable or not.",
+      "parentUuid": "f3f26cc5_8a9115cb",
+      "range": {
+        "startLine": 91,
+        "startChar": 7,
+        "endLine": 91,
+        "endChar": 30
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -308,6 +536,30 @@
     },
     {
       "key": {
+        "uuid": "084804b5_0fd0ef45",
+        "filename": "audio/channel_receive_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bbd8706_3d23eb9d",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 80
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "719eee01_ff09637f",
         "filename": "audio/channel_receive_frame_transformer_delegate.h",
         "patchSetId": 2
@@ -331,6 +583,30 @@
     },
     {
       "key": {
+        "uuid": "d59b809b_1a0db078",
+        "filename": "audio/channel_receive_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "719eee01_ff09637f",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 78
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34c18532_4bc7454d",
         "filename": "audio/channel_receive_frame_transformer_delegate.h",
         "patchSetId": 2
@@ -351,6 +627,30 @@
       "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "044e9d6c_e5de3299",
+        "filename": "audio/channel_receive_frame_transformer_delegate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:14:07Z",
+      "side": 1,
+      "message": "It is not needed here because the receive channel operates on a single thread, construction to receiving packets to destruction. The send channel is created and destroyed on a thread, and sends audio on the encoder queue.",
+      "parentUuid": "34c18532_4bc7454d",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "4509ef2422c3178f6af1374ecf9ba24b325b1e9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

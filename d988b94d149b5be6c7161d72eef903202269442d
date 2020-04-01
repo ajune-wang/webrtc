@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c57f2520_6c46bbe3",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 6262
+      },
+      "writtenOn": "2020-04-01T12:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e567055e_2e4a5d60",
+      "range": {
+        "startLine": 497,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 15
+      },
+      "revId": "d988b94d149b5be6c7161d72eef903202269442d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8d7888e_ffb20f8e",
         "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2020-04-01T10:51:38Z",
       "side": 1,
       "message": "We\u0027d normally use RtcEventProcessor to process heterogeneous lists of RtcEvents in timestamp order. The problem is that you want to use MovingAverage which wasn\u0027t written to work with different types.\n\nIf asymptotic efficiency is a concern, you could still consider using the RtcEventProcessor to merge the various lists as it should be slightly faster. (n*log(k) vs n*log(n) where n is the total number of events and k is the number of different lists)",
+      "revId": "d988b94d149b5be6c7161d72eef903202269442d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6be1dbf2_478a74aa",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 6262
+      },
+      "writtenOn": "2020-04-01T12:36:06Z",
+      "side": 1,
+      "message": "Changed to use RtcEventProcessor.",
+      "parentUuid": "b8d7888e_ffb20f8e",
       "revId": "d988b94d149b5be6c7161d72eef903202269442d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -62,6 +104,30 @@
       "revId": "d988b94d149b5be6c7161d72eef903202269442d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55c93ed4_6fd15c12",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 6262
+      },
+      "writtenOn": "2020-04-01T12:36:06Z",
+      "side": 1,
+      "message": "nice, thanks!",
+      "parentUuid": "1b9b20e0_236f390e",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 43
+      },
+      "revId": "d988b94d149b5be6c7161d72eef903202269442d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

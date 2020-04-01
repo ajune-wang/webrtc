@@ -22,6 +22,30 @@
       "revId": "a505d43b7aac3d8ff7986ec7e79056a79cb00a03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ee35bec_c66cb71a",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2360,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2020-04-01T00:20:22Z",
+      "side": 1,
+      "message": "No you\u0027re right, this doesn\u0027t make sense, removed. Now I am creating the stream without a transformer and let it be set later when the stream is found in the map.",
+      "parentUuid": "2b5cda55_3a052a1f",
+      "range": {
+        "startLine": 2358,
+        "startChar": 0,
+        "endLine": 2360,
+        "endChar": 3
+      },
+      "revId": "a505d43b7aac3d8ff7986ec7e79056a79cb00a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

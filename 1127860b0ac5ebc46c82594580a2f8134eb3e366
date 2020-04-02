@@ -22,6 +22,30 @@
       "revId": "1127860b0ac5ebc46c82594580a2f8134eb3e366",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7a0c808_0c177968",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-02T15:05:51Z",
+      "side": 1,
+      "message": "Yeah the old way didn\u0027t scale to a third reason. I don\u0027t think much of this logic scales to a third reason (I am looking at you borrowing logic...)",
+      "parentUuid": "8661e87b_b9cdec86",
+      "range": {
+        "startLine": 106,
+        "startChar": 22,
+        "endLine": 106,
+        "endChar": 27
+      },
+      "revId": "1127860b0ac5ebc46c82594580a2f8134eb3e366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

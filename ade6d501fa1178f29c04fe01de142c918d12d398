@@ -46,6 +46,29 @@
       "revId": "ade6d501fa1178f29c04fe01de142c918d12d398",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64634d78_1c055212",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-02T11:36:41Z",
+      "side": 1,
+      "message": "Sets up",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 11
+      },
+      "revId": "ade6d501fa1178f29c04fe01de142c918d12d398",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -12,9 +12,30 @@
 
 #include <utility>
 
+#include "video/adaptation/resource_adaptation_processor.h"
+
 namespace webrtc {
 
-QualityScalerResource::QualityScalerResource() : quality_scaler_(nullptr) {}
+namespace {
+
+bool DidDecreaseFrameRate(VideoSourceRestrictions restrictions_before,
+                          VideoSourceRestrictions restrictions_after) {
+  if (!restrictions_before.max_frame_rate().has_value()) {
+    return restrictions_after.max_frame_rate().has_value();
+  }
+  if (!restrictions_after.max_frame_rate().has_value())
+    return true;
+  return restrictions_after.max_frame_rate().value() <
+         restrictions_before.max_frame_rate().value();
+}
+
+}  // namespace
+
+QualityScalerResource::QualityScalerResource(
+    ResourceAdaptationProcessor* adaptation_processor)
+    : quality_scaler_(nullptr),
+      adaptation_processor_(adaptation_processor),
+      last_adaptation_applied_response_(absl::nullopt) {}
 
 bool QualityScalerResource::is_started() const {
   return quality_scaler_.get();
@@ -69,8 +90,34 @@ void QualityScalerResource::AdaptUp(AdaptReason reason) {
 
 bool QualityScalerResource::AdaptDown(AdaptReason reason) {
   RTC_DCHECK_EQ(reason, AdaptReason::kQuality);
-  return OnResourceUsageStateMeasured(ResourceUsageState::kOveruse) !=
+  last_adaptation_applied_response_ = absl::nullopt;
+  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+  RTC_DCHECK(last_adaptation_applied_response_.has_value());
+  return last_adaptation_applied_response_.value() !=
          ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
+}
+
+void QualityScalerResource::DidApplyAdaptation(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource* reason_resource) {
+  if (adaptation_processor_->effective_degradation_preference() ==
+          DegradationPreference::BALANCED &&
+      DidDecreaseFrameRate(restrictions_before, restrictions_after)) {
+    absl::optional<int> min_diff = BalancedDegradationSettings().MinFpsDiff(
+        input_state.frame_size_pixels().value());
+    if (min_diff && input_state.frames_per_second().value() > 0) {
+      int fps_diff = input_state.frames_per_second().value() -
+                     restrictions_after.max_frame_rate().value();
+      if (fps_diff < min_diff.value()) {
+        last_adaptation_applied_response_ =
+            ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
+        return;
+      }
+    }
+  }
+  last_adaptation_applied_response_ = ResourceListenerResponse::kNothing;
 }
 
 }  // namespace webrtc

@@ -20,6 +20,8 @@
 
 namespace webrtc {
 
+struct AdaptationCounters;
+
 // The listener is responsible for carrying out the reconfiguration of the video
 // source such that the VideoSourceRestrictions are fulfilled.
 class ResourceAdaptationProcessorListener {
@@ -27,12 +29,11 @@ class ResourceAdaptationProcessorListener {
   virtual ~ResourceAdaptationProcessorListener();
 
   virtual void OnVideoSourceRestrictionsUpdated(
-      VideoSourceRestrictions restrictions) = 0;
+      VideoSourceRestrictions restrictions,
+      const AdaptationCounters& adaptation_counters,
+      const Resource* reason) = 0;
 };
 
-// Responsible for reconfiguring encoded streams based on resource consumption,
-// such as scaling down resolution or frame rate when CPU is overused. This
-// interface is meant to be injectable into VideoStreamEncoder.
 class ResourceAdaptationProcessorInterface {
  public:
   virtual ~ResourceAdaptationProcessorInterface();
@@ -43,14 +44,17 @@ class ResourceAdaptationProcessorInterface {
 
   // The resource must out-live the module.
   virtual void AddResource(Resource* resource) = 0;
+};
 
-  // The following methods are callable whether or not adaption is started.
+// Responsible for reconfiguring encoded streams based on resource consumption,
+// such as scaling down resolution or frame rate when CPU is overused. This
+// interface is meant to be injectable into VideoStreamEncoder.
+class VideoStreamEncoderResourceManagerInterface {
+ public:
+  virtual ~VideoStreamEncoderResourceManagerInterface();
 
   // Informs the module whether we have input video. By default, the module must
   // assume the value is false.
-  virtual void SetHasInputVideo(bool has_input_video) = 0;
-  virtual void SetDegradationPreference(
-      DegradationPreference degradation_preference) = 0;
   virtual void SetEncoderSettings(EncoderSettings encoder_settings) = 0;
   // TODO(bugs.webrtc.org/11222): This function shouldn't be needed, start
   // bitrates should be apart of the constructor ideally. See the comment on
@@ -77,7 +81,7 @@ class ResourceAdaptationProcessorInterface {
   // 1. A frame is delivered to the encoder, e.g. from the camera. Next up: it
   // may get dropped or it may get encoded, see OnFrameDroppedDueToSize() and
   // OnEncodeStarted().
-  virtual void OnFrame(const VideoFrame& frame) = 0;
+  virtual void OnFrameSizeObserved(int frame_size_pixels) = 0;
   // 2.i) An input frame was dropped because its resolution is too big (e.g. for
   // the target bitrate). This frame will not continue through the rest of the
   // pipeline. The module should adapt down in resolution to avoid subsequent

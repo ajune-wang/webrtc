@@ -14,15 +14,16 @@
 
 namespace webrtc {
 
-FakeResource::FakeResource(ResourceUsageState usage_state)
+FakeResource::FakeResource(absl::optional<ResourceUsageState> usage_state)
     : FakeResource(usage_state, "FakeResource") {}
 
 FakeResource::~FakeResource() {}
 
-void FakeResource::set_usage_state(ResourceUsageState usage_state) {
+void FakeResource::set_usage_state(
+    absl::optional<ResourceUsageState> usage_state) {
   last_response_ = OnResourceUsageStateMeasured(usage_state);
 }
-FakeResource::FakeResource(ResourceUsageState usage_state,
+FakeResource::FakeResource(absl::optional<ResourceUsageState> usage_state,
                            const std::string& name)
     : Resource(), name_(name) {
   set_usage_state(usage_state);

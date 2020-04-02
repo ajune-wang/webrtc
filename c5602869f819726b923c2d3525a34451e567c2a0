@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8956b949_deee0972",
+        "filename": "test/pc/e2e/media/media_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-04-02T14:31:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48fa82a5_40894f8f",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 76
+      },
+      "revId": "c5602869f819726b923c2d3525a34451e567c2a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8da7fbae_5c8047bf",
         "filename": "test/pc/e2e/media/media_helper.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "23ed5850_1ac580d4",
+        "filename": "test/pc/e2e/media/media_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-04-02T14:31:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8da7fbae_5c8047bf",
+      "range": {
+        "startLine": 43,
+        "startChar": 62,
+        "endLine": 45,
+        "endChar": 59
+      },
+      "revId": "c5602869f819726b923c2d3525a34451e567c2a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7247fab_57d9fb9d",
         "filename": "test/pc/e2e/media/media_helper.h",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "c5602869f819726b923c2d3525a34451e567c2a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2acd1d2_4ae9d284",
+        "filename": "test/pc/e2e/media/media_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-04-02T14:31:59Z",
+      "side": 1,
+      "message": "test::VideoFrameWriter is interface, so I can\u0027t return optional of it and I think it won\u0027t make sense to have optional of pointer. But in future we will probably need to rethink this API a bit and polish it. For now I want first to cut big fixture into reasonable separate pieces that  could be reused.",
+      "parentUuid": "d7247fab_57d9fb9d",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 48
+      },
+      "revId": "c5602869f819726b923c2d3525a34451e567c2a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

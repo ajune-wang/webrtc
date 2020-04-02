@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8661e87b_b9cdec86",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-04-02T14:45:09Z",
+      "side": 1,
+      "message": "not sure that will scale, but I get where the legacy is coming from....",
+      "range": {
+        "startLine": 106,
+        "startChar": 22,
+        "endLine": 106,
+        "endChar": 27
+      },
+      "revId": "1127860b0ac5ebc46c82594580a2f8134eb3e366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

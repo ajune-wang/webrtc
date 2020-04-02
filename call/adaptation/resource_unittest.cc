@@ -21,20 +21,17 @@ using ::testing::StrictMock;
 
 class MockResourceListener : public ResourceListener {
  public:
-  MOCK_METHOD(ResourceListenerResponse,
-              OnResourceUsageStateMeasured,
-              (const Resource& resource));
+  MOCK_METHOD(void, OnResourceUsageStateMeasured, (const Resource& resource));
 };
 
 TEST(ResourceTest, AddingListenerReceivesCallbacks) {
   StrictMock<MockResourceListener> resource_listener;
-  FakeResource fake_resource(ResourceUsageState::kStable);
+  FakeResource fake_resource(absl::nullopt);
   fake_resource.RegisterListener(&resource_listener);
   EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_))
       .Times(1)
       .WillOnce([](const Resource& resource) {
         EXPECT_EQ(ResourceUsageState::kOveruse, resource.usage_state());
-        return ResourceListenerResponse::kNothing;
       });
   fake_resource.set_usage_state(ResourceUsageState::kOveruse);
   fake_resource.UnregisterListener(&resource_listener);
@@ -42,7 +39,7 @@ TEST(ResourceTest, AddingListenerReceivesCallbacks) {
 
 TEST(ResourceTest, RemovingListenerStopsCallbacks) {
   StrictMock<MockResourceListener> resource_listener;
-  FakeResource fake_resource(ResourceUsageState::kStable);
+  FakeResource fake_resource(absl::nullopt);
   fake_resource.RegisterListener(&resource_listener);
   fake_resource.UnregisterListener(&resource_listener);
   EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_)).Times(0);

@@ -15,6 +15,7 @@
 
 #include "absl/types/optional.h"
 #include "api/rtp_parameters.h"
+#include "api/video/video_codec_type.h"
 #include "call/adaptation/encoder_settings.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/video_source_restrictions.h"
@@ -24,9 +25,48 @@
 
 namespace webrtc {
 
-extern const int kMinFrameRateFps;
-
 class VideoStreamAdapter;
+
+extern const int kMinFrameRateFps;
+int GetHigherResolutionThan(int pixel_count);
+
+// Returns modified restrictions where any constraints that don't apply to the
+// degradation preference are cleared.
+VideoSourceRestrictions FilterRestrictionsByDegradationPreference(
+    VideoSourceRestrictions source_restrictions,
+    DegradationPreference degradation_preference);
+// Returns AdaptationCounters where constraints that don't apply to the
+// degredation preference are cleared. This behaviour must reflect the same
+// filtering as in FilterRestrictionsByDegradationPreference().
+AdaptationCounters FilterAdaptationCountersByDegradationPreference(
+    AdaptationCounters counters,
+    DegradationPreference degradation_preference);
+
+class VideoStreamInputState {
+ public:
+  VideoStreamInputState();
+
+  void set_has_input(bool has_input);
+  void set_frame_size_pixels(absl::optional<int> frame_size_pixels);
+  void set_frames_per_second(absl::optional<int> frames_per_second);
+  void set_video_codec_type(VideoCodecType video_codec_type);
+  void set_min_pixels_per_frame(int min_pixels_per_frame);
+
+  bool has_input() const;
+  absl::optional<int> frame_size_pixels() const;
+  absl::optional<int> frames_per_second() const;
+  VideoCodecType video_codec_type() const;
+  int min_pixels_per_frame() const;
+
+  bool HasInputFrameSizeAndFramesPerSecond() const;
+
+ private:
+  bool has_input_;
+  absl::optional<int> frame_size_pixels_;
+  absl::optional<int> frames_per_second_;
+  VideoCodecType video_codec_type_;
+  int min_pixels_per_frame_;
+};
 
 // Represents one step that the VideoStreamAdapter can take when adapting the
 // VideoSourceRestrictions up or down. Or, if adaptation is not valid, provides
@@ -37,37 +77,13 @@ class Adaptation final {
     // Applying this adaptation will have an effect. All other Status codes
     // indicate that adaptation is not possible and why.
     kValid,
-    // Cannot adapt. DegradationPreference is DISABLED.
-    // TODO(hbos): Don't support DISABLED, it doesn't exist in the spec and it
-    // causes all adaptation to be ignored, even QP-scaling.
-    kAdaptationDisabled,
-    // Cannot adapt. Adaptation is refused because we don't have video, the
-    // input frame rate is not known yet or is less than the minimum allowed
-    // (below the limit).
-    kInsufficientInput,
     // Cannot adapt. The minimum or maximum adaptation has already been reached.
     // There are no more steps to take.
     kLimitReached,
     // Cannot adapt. The resolution or frame rate requested by a recent
     // adaptation has not yet been reflected in the input resolution or frame
     // rate; adaptation is refused to avoid "double-adapting".
-    // TODO(hbos): Can this be rephrased as a resource usage measurement
-    // cooldown mechanism? In a multi-stream setup, we need to wait before
-    // adapting again across streams. The best way to achieve this is probably
-    // to not act on racy resource usage measurements, regardless of individual
-    // adapters. When this logic is moved or replaced then remove this enum
-    // value.
     kAwaitingPreviousAdaptation,
-    // Cannot adapt. The adaptation that would have been proposed by the adapter
-    // violates bitrate constraints and is therefore rejected.
-    // TODO(hbos): This is a version of being resource limited, except in order
-    // to know if we are constrained we need to have a proposed adaptation in
-    // mind, thus the resource alone cannot determine this in isolation.
-    // Proposal: ask resources for permission to apply a proposed adaptation.
-    // This allows rejecting a given resolution or frame rate based on bitrate
-    // limits without coupling it with the adapter's proposal logic. When this
-    // is done, remove this enum value.
-    kIsBitrateConstrained,
   };
 
   // The status of this Adaptation. To find out how this Adaptation affects
@@ -123,21 +139,10 @@ class Adaptation final {
 // 3. Modify the stream's restrictions in one of the valid ways.
 class VideoStreamAdapter {
  public:
-  enum class SetDegradationPreferenceResult {
-    kRestrictionsNotCleared,
-    kRestrictionsCleared,
-  };
-
-  enum class VideoInputMode {
-    kNoVideo,
-    kNormalVideo,
-    kScreenshareVideo,
-  };
-
   VideoStreamAdapter();
   ~VideoStreamAdapter();
 
-  VideoSourceRestrictions source_restrictions() const;
+  const VideoSourceRestrictions& source_restrictions() const;
   const AdaptationCounters& adaptation_counters() const;
   // TODO(hbos): Can we get rid of any external dependencies on
   // BalancedDegradationPreference? How the adaptor generates possible next
@@ -146,22 +151,16 @@ class VideoStreamAdapter {
   const BalancedDegradationSettings& balanced_settings() const;
   void ClearRestrictions();
 
-  // TODO(hbos): Setting the degradation preference should not clear
-  // restrictions! This is not defined in the spec and is unexpected, there is a
-  // tiny risk that people would discover and rely on this behavior.
-  SetDegradationPreferenceResult SetDegradationPreference(
-      DegradationPreference degradation_preference);
+  void SetDegradationPreference(DegradationPreference degradation_preference);
   // The adaptaiton logic depends on these inputs.
-  void SetInput(VideoInputMode input_mode,
-                int input_pixels,
-                int input_fps,
-                absl::optional<EncoderSettings> encoder_settings,
-                absl::optional<uint32_t> encoder_target_bitrate_bps);
+  void SetInput(VideoStreamInputState input_state);
+  void SetInputForTesting(int input_pixels,
+                          int input_fps,
+                          absl::optional<EncoderSettings> encoder_settings);
 
   // Returns an adaptation that we are guaranteed to be able to apply, or a
   // status code indicating the reason why we cannot adapt.
-  Adaptation GetAdaptationUp(
-      AdaptationObserverInterface::AdaptReason reason) const;
+  Adaptation GetAdaptationUp() const;
   Adaptation GetAdaptationDown() const;
   // Returns the restrictions that result from applying the adaptation, without
   // actually applying it. If the adaptation is not valid, current restrictions
@@ -192,12 +191,6 @@ class VideoStreamAdapter {
     static Mode GetModeFromAdaptationAction(Adaptation::StepType step_type);
   };
 
-  // Reinterprets "balanced + screenshare" as "maintain-resolution".
-  // TODO(hbos): Don't do this. This is not what "balanced" means. If the
-  // application wants to maintain resolution it should set that degradation
-  // preference rather than depend on non-standard behaviors.
-  DegradationPreference EffectiveDegradationPreference() const;
-
   // Owner and modifier of the VideoSourceRestriction of this stream adaptor.
   const std::unique_ptr<VideoSourceRestrictor> source_restrictor_;
   // Decides the next adaptation target in DegradationPreference::BALANCED.
@@ -209,11 +202,7 @@ class VideoStreamAdapter {
   // depending on the DegradationPreference.
   // https://w3c.github.io/mst-content-hint/#dom-rtcdegradationpreference
   DegradationPreference degradation_preference_;
-  VideoInputMode input_mode_;
-  int input_pixels_;
-  int input_fps_;
-  absl::optional<EncoderSettings> encoder_settings_;
-  absl::optional<uint32_t> encoder_target_bitrate_bps_;
+  VideoStreamInputState input_state_;
   // The input frame rate, resolution and adaptation direction of the last
   // ApplyAdaptationTarget(). Used to avoid adapting twice if a recent
   // adaptation has not had an effect on the input frame rate or resolution yet.

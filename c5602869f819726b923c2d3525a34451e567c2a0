@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48fa82a5_40894f8f",
+        "filename": "test/pc/e2e/media/media_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-02T14:17:47Z",
+      "side": 1,
+      "message": "Can we add more context here for future readers?",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 76
+      },
+      "revId": "c5602869f819726b923c2d3525a34451e567c2a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da7fbae_5c8047bf",
+        "filename": "test/pc/e2e/media/media_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-02T14:17:47Z",
+      "side": 1,
+      "message": "Mentioning that writers are owned by this object but they need to be closed by the client might be confusing (given that the client will have to explicitly handle the lifetime of them).\n\nIs it possible to move CloseWriters to the destructor?\n\nThen you can:\n\n  media_helper_.reset()\n\nat the end of the call.",
+      "range": {
+        "startLine": 43,
+        "startChar": 62,
+        "endLine": 45,
+        "endChar": 59
+      },
+      "revId": "c5602869f819726b923c2d3525a34451e567c2a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7247fab_57d9fb9d",
+        "filename": "test/pc/e2e/media/media_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-02T14:17:47Z",
+      "side": 1,
+      "message": "Why not absl::optional?",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 48
+      },
+      "revId": "c5602869f819726b923c2d3525a34451e567c2a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

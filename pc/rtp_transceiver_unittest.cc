@@ -44,7 +44,7 @@ TEST(RtpTransceiverTest, CannotSetChannelOnStoppedTransceiver) {
   EXPECT_EQ(&channel1, transceiver.channel());
 
   // Stop the transceiver.
-  transceiver.Stop();
+  transceiver.StopInternal();
   EXPECT_EQ(&channel1, transceiver.channel());
 
   cricket::MockChannelInterface channel2;
@@ -70,7 +70,7 @@ TEST(RtpTransceiverTest, CanUnsetChannelOnStoppedTransceiver) {
   EXPECT_EQ(&channel, transceiver.channel());
 
   // Stop the transceiver.
-  transceiver.Stop();
+  transceiver.StopInternal();
   EXPECT_EQ(&channel, transceiver.channel());
 
   // Set the channel to |nullptr|.

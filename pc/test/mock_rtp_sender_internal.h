@@ -54,6 +54,7 @@ class MockRtpSenderInternal : public RtpSenderInternal {
   MOCK_CONST_METHOD0(AttachmentId, int());
   MOCK_METHOD1(DisableEncodingLayers,
                RTCError(const std::vector<std::string>&));
+  MOCK_METHOD0(SetTransceiverAsStopped, void());
 };
 
 }  // namespace webrtc

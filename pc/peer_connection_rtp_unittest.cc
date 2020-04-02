@@ -1433,11 +1433,66 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   auto caller = CreatePeerConnection();
 
   auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
-  transceiver->Stop();
+  transceiver->StopInternal();
 
   caller->observer()->clear_negotiation_needed();
   transceiver->SetDirection(RtpTransceiverDirection::kInactive);
   EXPECT_FALSE(caller->observer()->negotiation_needed());
+}
+
+// Test that currentDirection returnes "stopped" if the transceiver was stopped.
+TEST_F(PeerConnectionRtpTestUnifiedPlan,
+       CheckStoppedCurrentDirectionOnStoppedTransceiver) {
+  auto caller = CreatePeerConnection();
+
+  auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  transceiver->StopInternal();
+
+  EXPECT_TRUE(transceiver->stopping());
+  EXPECT_TRUE(transceiver->stopped());
+  EXPECT_EQ(RtpTransceiverDirection::kStopped,
+            transceiver->current_direction());
+}
+
+// Test that InvalidState is thrown on a stopping transceiver.
+TEST_F(PeerConnectionRtpTestUnifiedPlan,
+       CheckForInvalidStateOnStoppingTransceiver) {
+  auto caller = CreatePeerConnection();
+
+  auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  transceiver->Stop();
+
+  EXPECT_TRUE(transceiver->stopping());
+  EXPECT_FALSE(transceiver->stopped());
+  EXPECT_EQ(
+      RTCErrorType::INVALID_STATE,
+      transceiver->SetDirection(RtpTransceiverDirection::kInactive).type());
+}
+
+// Test that InvalidState is thrown on a stopped transceiver.
+TEST_F(PeerConnectionRtpTestUnifiedPlan,
+       CheckForInvalidStateOnStoppedTransceiver) {
+  auto caller = CreatePeerConnection();
+
+  auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  transceiver->StopInternal();
+
+  EXPECT_TRUE(transceiver->stopping());
+  EXPECT_TRUE(transceiver->stopped());
+  EXPECT_EQ(
+      RTCErrorType::INVALID_STATE,
+      transceiver->SetDirection(RtpTransceiverDirection::kInactive).type());
+}
+
+// Test that TypeError is thrown if the direction is set to "stopped".
+TEST_F(PeerConnectionRtpTestUnifiedPlan,
+       CheckForTypeErrorForStoppedOnTransceiver) {
+  auto caller = CreatePeerConnection();
+
+  auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
+  EXPECT_EQ(
+      RTCErrorType::INVALID_PARAMETER,
+      transceiver->SetDirection(RtpTransceiverDirection::kStopped).type());
 }
 
 // Test that AddTransceiver fails if trying to use unimplemented RTP encoding

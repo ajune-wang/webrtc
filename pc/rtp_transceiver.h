@@ -183,11 +183,13 @@ class RtpTransceiver final
   rtc::scoped_refptr<RtpSenderInterface> sender() const override;
   rtc::scoped_refptr<RtpReceiverInterface> receiver() const override;
   bool stopped() const override;
+  bool stopping() const override;
   RtpTransceiverDirection direction() const override;
-  void SetDirection(RtpTransceiverDirection new_direction) override;
+  RTCError SetDirection(RtpTransceiverDirection new_direction) override;
   absl::optional<RtpTransceiverDirection> current_direction() const override;
   absl::optional<RtpTransceiverDirection> fired_direction() const override;
-  void Stop() override;
+  RTCError Stop() override;
+  void StopInternal() override;
   RTCError SetCodecPreferences(
       rtc::ArrayView<RtpCodecCapability> codecs) override;
   std::vector<RtpCodecCapability> codec_preferences() const override {
@@ -195,9 +197,11 @@ class RtpTransceiver final
   }
   std::vector<RtpHeaderExtensionCapability> HeaderExtensionsToOffer()
       const override;
+  void SetPeerConnectionClosed() override;
 
  private:
   void OnFirstPacketReceived(cricket::ChannelInterface* channel);
+  void StopSendingAndReceiving();
 
   const bool unified_plan_;
   const cricket::MediaType media_type_;
@@ -208,6 +212,8 @@ class RtpTransceiver final
       receivers_;
 
   bool stopped_ = false;
+  bool stopping_ = false;
+  bool is_pc_closed_ = false;
   RtpTransceiverDirection direction_ = RtpTransceiverDirection::kInactive;
   absl::optional<RtpTransceiverDirection> current_direction_;
   absl::optional<RtpTransceiverDirection> fired_direction_;
@@ -230,17 +236,20 @@ PROXY_CONSTMETHOD0(absl::optional<std::string>, mid)
 PROXY_CONSTMETHOD0(rtc::scoped_refptr<RtpSenderInterface>, sender)
 PROXY_CONSTMETHOD0(rtc::scoped_refptr<RtpReceiverInterface>, receiver)
 PROXY_CONSTMETHOD0(bool, stopped)
+PROXY_CONSTMETHOD0(bool, stopping)
 PROXY_CONSTMETHOD0(RtpTransceiverDirection, direction)
-PROXY_METHOD1(void, SetDirection, RtpTransceiverDirection)
+PROXY_METHOD1(webrtc::RTCError, SetDirection, RtpTransceiverDirection)
 PROXY_CONSTMETHOD0(absl::optional<RtpTransceiverDirection>, current_direction)
 PROXY_CONSTMETHOD0(absl::optional<RtpTransceiverDirection>, fired_direction)
-PROXY_METHOD0(void, Stop)
+PROXY_METHOD0(webrtc::RTCError, Stop)
+PROXY_METHOD0(void, StopInternal)
 PROXY_METHOD1(webrtc::RTCError,
               SetCodecPreferences,
               rtc::ArrayView<RtpCodecCapability>)
 PROXY_CONSTMETHOD0(std::vector<RtpCodecCapability>, codec_preferences)
 PROXY_CONSTMETHOD0(std::vector<RtpHeaderExtensionCapability>,
                    HeaderExtensionsToOffer)
+PROXY_METHOD0(void, SetPeerConnectionClosed)
 END_PROXY_MAP()
 
 }  // namespace webrtc

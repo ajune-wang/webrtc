@@ -212,7 +212,7 @@ TEST_F(PeerConnectionJsepTest,
        StoppedTransceiverHasNoMediaSectionInInitialOffer) {
   auto caller = CreatePeerConnection();
   auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
-  transceiver->Stop();
+  transceiver->StopInternal();
 
   auto offer = caller->CreateOffer();
   EXPECT_EQ(0u, offer->description()->contents().size());
@@ -358,7 +358,7 @@ TEST_F(PeerConnectionJsepTest, SetRemoteOfferDoesNotReuseStoppedTransceiver) {
   caller->AddAudioTrack("a");
   auto callee = CreatePeerConnection();
   callee->AddAudioTrack("a");
-  callee->pc()->GetTransceivers()[0]->Stop();
+  callee->pc()->GetTransceivers()[0]->StopInternal();
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
 
@@ -432,7 +432,7 @@ TEST_F(PeerConnectionJsepTest, CreateAnswerRejectsStoppedTransceiver) {
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
 
-  callee->pc()->GetTransceivers()[0]->Stop();
+  callee->pc()->GetTransceivers()[0]->StopInternal();
 
   auto answer = callee->CreateAnswer();
   auto contents = answer->description()->contents();
@@ -543,7 +543,7 @@ TEST_F(PeerConnectionJsepTest,
       caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
 
   ASSERT_TRUE(transceiver->mid());
-  transceiver->Stop();
+  transceiver->StopInternal();
 
   auto reoffer = caller->CreateOffer();
   auto contents = reoffer->description()->contents();
@@ -564,7 +564,7 @@ TEST_F(PeerConnectionJsepTest,
   ASSERT_TRUE(
       caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
 
-  transceiver->Stop();
+  transceiver->StopInternal();
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
 
@@ -586,7 +586,7 @@ TEST_F(PeerConnectionJsepTest,
       caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
 
   auto second_transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
-  first_transceiver->Stop();
+  first_transceiver->StopInternal();
 
   auto reoffer = caller->CreateOffer();
   auto contents = reoffer->description()->contents();
@@ -605,7 +605,7 @@ TEST_F(PeerConnectionJsepTest,
   auto callee = CreatePeerConnection();
 
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
-  callee->pc()->GetTransceivers()[0]->Stop();
+  callee->pc()->GetTransceivers()[0]->StopInternal();
   ASSERT_TRUE(
       caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
   EXPECT_TRUE(first_transceiver->stopped());
@@ -664,7 +664,7 @@ TEST_F(PeerConnectionJsepTest, CreateOfferRecyclesWhenOfferingTwice) {
   auto first_transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
   auto callee = CreatePeerConnection();
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
-  first_transceiver->Stop();
+  first_transceiver->StopInternal();
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
   caller->AddAudioTrack("audio2");
 
@@ -729,7 +729,7 @@ TEST_P(RecycleMediaSectionTest, CurrentLocalAndCurrentRemoteRejected) {
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   std::string first_mid = *first_transceiver->mid();
-  first_transceiver->Stop();
+  first_transceiver->StopInternal();
 
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
@@ -793,7 +793,7 @@ TEST_P(RecycleMediaSectionTest, CurrentRemoteOnlyRejected) {
   std::string first_mid = *caller_first_transceiver->mid();
   ASSERT_EQ(1u, callee->pc()->GetTransceivers().size());
   auto callee_first_transceiver = callee->pc()->GetTransceivers()[0];
-  callee_first_transceiver->Stop();
+  callee_first_transceiver->StopInternal();
 
   // The answer will have a rejected m= section.
   ASSERT_TRUE(
@@ -858,7 +858,7 @@ TEST_P(RecycleMediaSectionTest, CurrentLocalOnlyRejected) {
   std::string first_mid = *caller_first_transceiver->mid();
   ASSERT_EQ(1u, callee->pc()->GetTransceivers().size());
   auto callee_first_transceiver = callee->pc()->GetTransceivers()[0];
-  callee_first_transceiver->Stop();
+  callee_first_transceiver->StopInternal();
 
   // The answer will have a rejected m= section.
   ASSERT_TRUE(
@@ -921,7 +921,7 @@ TEST_P(RecycleMediaSectionTest, PendingLocalRejectedAndNoRemote) {
   ASSERT_TRUE(caller->SetLocalDescription(caller->CreateOffer()));
 
   std::string first_mid = *caller_first_transceiver->mid();
-  caller_first_transceiver->Stop();
+  caller_first_transceiver->StopInternal();
 
   // The reoffer will have a rejected m= section.
   ASSERT_TRUE(caller->SetLocalDescription(caller->CreateOffer()));
@@ -959,7 +959,7 @@ TEST_P(RecycleMediaSectionTest, PendingLocalRejectedAndNotRejectedRemote) {
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   std::string first_mid = *caller_first_transceiver->mid();
-  caller_first_transceiver->Stop();
+  caller_first_transceiver->StopInternal();
 
   // The reoffer will have a rejected m= section.
   ASSERT_TRUE(caller->SetLocalDescription(caller->CreateOffer()));
@@ -999,7 +999,7 @@ TEST_P(RecycleMediaSectionTest, PendingRemoteRejectedAndNoLocal) {
   ASSERT_EQ(1u, callee->pc()->GetTransceivers().size());
   auto callee_first_transceiver = callee->pc()->GetTransceivers()[0];
   std::string first_mid = *callee_first_transceiver->mid();
-  caller_first_transceiver->Stop();
+  caller_first_transceiver->StopInternal();
 
   // The reoffer will have a rejected m= section.
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
@@ -1036,7 +1036,7 @@ TEST_P(RecycleMediaSectionTest, PendingRemoteRejectedAndNotRejectedLocal) {
   ASSERT_EQ(1u, callee->pc()->GetTransceivers().size());
   auto callee_first_transceiver = callee->pc()->GetTransceivers()[0];
   std::string first_mid = *callee_first_transceiver->mid();
-  caller_first_transceiver->Stop();
+  caller_first_transceiver->StopInternal();
 
   // The reoffer will have a rejected m= section.
   ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
@@ -1080,7 +1080,7 @@ TEST_F(PeerConnectionJsepTest, DataChannelDoesNotRecycleMediaSection) {
 
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
-  transceiver->Stop();
+  transceiver->StopInternal();
 
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
@@ -1395,7 +1395,7 @@ TEST_F(PeerConnectionJsepTest, RemoveMsidIfTransceiverStopped) {
 
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
-  transceiver->Stop();
+  transceiver->StopInternal();
 
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
@@ -1552,8 +1552,10 @@ TEST_F(PeerConnectionJsepTest, CurrentDirectionResetWhenRtpTransceiverStopped) {
   ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
 
   ASSERT_TRUE(transceiver->current_direction());
-  transceiver->Stop();
-  EXPECT_FALSE(transceiver->current_direction());
+  transceiver->StopInternal();
+  // TODO(armax): should this return kStopped or nullopt?
+  EXPECT_EQ(transceiver->current_direction(),
+            RtpTransceiverDirection::kStopped);
 }
 
 // Test that you can't set an answer on a PeerConnection before setting the

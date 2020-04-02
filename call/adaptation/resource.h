@@ -15,18 +15,17 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "call/adaptation/video_source_restrictions.h"
 
 namespace webrtc {
 
 class Resource;
+class VideoStreamInputState;  // TODO(hbos): This should move to call/.
 
 enum class ResourceUsageState {
   // Action is needed to minimze the load on this resource.
   kOveruse,
-  // No action needed for this resource, increasing the load on this resource
-  // is not allowed.
-  kStable,
-  // Increasing the load on this resource is allowed.
+  // Increasing the load on this resource is desirable, if possible.
   kUnderuse,
 };
 
@@ -82,19 +81,33 @@ class Resource {
   void RegisterListener(ResourceListener* listener);
   void UnregisterListener(ResourceListener* listener);
 
-  ResourceUsageState usage_state() const;
-
   virtual std::string name() const = 0;
+
+  // TODO(hbos): Let's add a "DidAdapt" to let the State go to null until next
+  // measurement?
+  absl::optional<ResourceUsageState> usage_state() const;
+  virtual bool IsAdaptationAllowed(
+      const VideoStreamInputState& input_state,
+      const VideoSourceRestrictions& restrictions_before,
+      const VideoSourceRestrictions& restrictions_after,
+      const Resource* reason_resource) const;
+
+  // TODO(hbos): Foo
+  virtual void DidApplyAdaptation(
+      const VideoStreamInputState& input_state,
+      const VideoSourceRestrictions& restrictions_before,
+      const VideoSourceRestrictions& restrictions_after,
+      const Resource* reason_resource) const {}
 
  protected:
   // Updates the usage state and informs all registered listeners.
   // Returns the result of the last listener's OnResourceUsageStateMeasured()
   // call that was not kNothing, else kNothing.
   ResourceListenerResponse OnResourceUsageStateMeasured(
-      ResourceUsageState usage_state);
+      absl::optional<ResourceUsageState> usage_state);
 
  private:
-  ResourceUsageState usage_state_;
+  absl::optional<ResourceUsageState> usage_state_;
   std::vector<ResourceListener*> listeners_;
 };
 

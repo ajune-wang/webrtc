@@ -17,7 +17,7 @@ namespace webrtc {
 
 ResourceListener::~ResourceListener() {}
 
-Resource::Resource() : usage_state_(ResourceUsageState::kStable) {}
+Resource::Resource() : usage_state_(absl::nullopt) {}
 
 Resource::~Resource() {
   RTC_DCHECK(listeners_.empty());
@@ -37,12 +37,20 @@ void Resource::UnregisterListener(ResourceListener* listener) {
     listeners_.erase(it);
 }
 
-ResourceUsageState Resource::usage_state() const {
+absl::optional<ResourceUsageState> Resource::usage_state() const {
   return usage_state_;
 }
 
+bool Resource::IsAdaptationAllowed(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource* reason_resource) const {
+  return true;
+}
+
 ResourceListenerResponse Resource::OnResourceUsageStateMeasured(
-    ResourceUsageState usage_state) {
+    absl::optional<ResourceUsageState> usage_state) {
   ResourceListenerResponse response = ResourceListenerResponse::kNothing;
   usage_state_ = usage_state;
   for (auto* listener : listeners_) {

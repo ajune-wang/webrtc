@@ -28,7 +28,7 @@ class MockResourceListener : public ResourceListener {
 
 TEST(ResourceTest, AddingListenerReceivesCallbacks) {
   StrictMock<MockResourceListener> resource_listener;
-  FakeResource fake_resource(ResourceUsageState::kStable);
+  FakeResource fake_resource(absl::nullopt);
   fake_resource.RegisterListener(&resource_listener);
   EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_))
       .Times(1)
@@ -42,7 +42,7 @@ TEST(ResourceTest, AddingListenerReceivesCallbacks) {
 
 TEST(ResourceTest, RemovingListenerStopsCallbacks) {
   StrictMock<MockResourceListener> resource_listener;
-  FakeResource fake_resource(ResourceUsageState::kStable);
+  FakeResource fake_resource(absl::nullopt);
   fake_resource.RegisterListener(&resource_listener);
   fake_resource.UnregisterListener(&resource_listener);
   EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_)).Times(0);

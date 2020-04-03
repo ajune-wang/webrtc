@@ -22,6 +22,30 @@
       "revId": "c938954b9865404a8b27506d65fe78f8a4eb4f62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52c68ae6_7ba20011",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-03T13:06:52Z",
+      "side": 1,
+      "message": "We could, but since I was not able to verify that they worked from command line in the previous CL, we then decided to go with something very basic that we know works for now so that we had something before the cut. \n\nI chose the same here so that we get something in ASAP in case we want to apply for a merge.",
+      "parentUuid": "81e31040_7d907758",
+      "range": {
+        "startLine": 175,
+        "startChar": 51,
+        "endLine": 175,
+        "endChar": 66
+      },
+      "revId": "c938954b9865404a8b27506d65fe78f8a4eb4f62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

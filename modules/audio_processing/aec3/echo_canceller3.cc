@@ -16,6 +16,7 @@
 #include "modules/audio_processing/high_pass_filter.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomic_ops.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -32,6 +33,39 @@ bool DetectSaturation(rtc::ArrayView<const float> y) {
     }
   }
   return false;
+}
+
+// Retrieves a value from a field trial if it is available. If no value is
+// present, the default value is returned. If the retrieved value is beyond the
+// specified limits, the default value is returned instead.
+void RetrieveFieldTrialValue(const char* name,
+                             float min,
+                             float max,
+                             float* value_to_update) {
+  const std::string field_trial_str = field_trial::FindFullName(name);
+
+  FieldTrialParameter<double> field_trial_param(/*key=*/"", *value_to_update);
+  ParseFieldTrial({&field_trial_param}, field_trial_str);
+  float field_trial_value = field_trial_param.Get();
+
+  if (field_trial_value >= min && field_trial_value <= max) {
+    *value_to_update = field_trial_value;
+  }
+}
+
+void RetrieveFieldTrialValue(const char* name,
+                             int min,
+                             int max,
+                             int* value_to_update) {
+  const std::string field_trial_str = field_trial::FindFullName(name);
+
+  FieldTrialParameter<int> field_trial_param(/*key=*/"", *value_to_update);
+  ParseFieldTrial({&field_trial_param}, field_trial_str);
+  float field_trial_value = field_trial_param.Get();
+
+  if (field_trial_value >= min && field_trial_value <= max) {
+    *value_to_update = field_trial_value;
+  }
 }
 
 // Method for adjusting config parameter dependencies..
@@ -211,6 +245,174 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
                  "WebRTC-Aec3EnforceVeryLowActiveRenderLimit")) {
     adjusted_cfg.render_levels.active_render_limit = 30.f;
   }
+
+  // Field-trial based override for the whole suppressor tuning.
+  const std::string suppressor_tuning_override_trial_name =
+      field_trial::FindFullName("WebRTC-Aec3SuppressorTuningOverride");
+
+  FieldTrialParameter<double> nearend_tuning_mask_lf_enr_transparent(
+      /*key=*/"",
+      adjusted_cfg.suppressor.nearend_tuning.mask_lf.enr_transparent);
+  FieldTrialParameter<double> nearend_tuning_mask_lf_enr_suppress(
+      /*key=*/"", adjusted_cfg.suppressor.nearend_tuning.mask_lf.enr_suppress);
+  FieldTrialParameter<double> nearend_tuning_mask_hf_enr_transparent(
+      /*key=*/"",
+      adjusted_cfg.suppressor.nearend_tuning.mask_hf.enr_transparent);
+  FieldTrialParameter<double> nearend_tuning_mask_hf_enr_suppress(
+      /*key=*/"", adjusted_cfg.suppressor.nearend_tuning.mask_hf.enr_suppress);
+  FieldTrialParameter<double> nearend_tuning_max_inc_factor(
+      /*key=*/"", adjusted_cfg.suppressor.nearend_tuning.max_inc_factor);
+  FieldTrialParameter<double> nearend_tuning_max_dec_factor_lf(
+      /*key=*/"", adjusted_cfg.suppressor.nearend_tuning.max_dec_factor_lf);
+  FieldTrialParameter<double> normal_tuning_mask_lf_enr_transparent(
+      /*key=*/"",
+      adjusted_cfg.suppressor.normal_tuning.mask_lf.enr_transparent);
+  FieldTrialParameter<double> normal_tuning_mask_lf_enr_suppress(
+      /*key=*/"", adjusted_cfg.suppressor.normal_tuning.mask_lf.enr_suppress);
+  FieldTrialParameter<double> normal_tuning_mask_hf_enr_transparent(
+      /*key=*/"",
+      adjusted_cfg.suppressor.normal_tuning.mask_hf.enr_transparent);
+  FieldTrialParameter<double> normal_tuning_mask_hf_enr_suppress(
+      /*key=*/"", adjusted_cfg.suppressor.normal_tuning.mask_hf.enr_suppress);
+  FieldTrialParameter<double> normal_tuning_max_inc_factor(
+      /*key=*/"", adjusted_cfg.suppressor.normal_tuning.max_inc_factor);
+  FieldTrialParameter<double> normal_tuning_max_dec_factor_lf(
+      /*key=*/"", adjusted_cfg.suppressor.normal_tuning.max_dec_factor_lf);
+  FieldTrialParameter<double> dominant_nearend_detection_enr_threshold(
+      /*key=*/"",
+      adjusted_cfg.suppressor.dominant_nearend_detection.enr_threshold);
+  FieldTrialParameter<double> dominant_nearend_detection_enr_exit_threshold(
+      /*key=*/"",
+      adjusted_cfg.suppressor.dominant_nearend_detection.enr_exit_threshold);
+  FieldTrialParameter<double> dominant_nearend_detection_snr_threshold(
+      /*key=*/"",
+      adjusted_cfg.suppressor.dominant_nearend_detection.snr_threshold);
+  FieldTrialParameter<int> dominant_nearend_detection_hold_duration(
+      /*key=*/"",
+      adjusted_cfg.suppressor.dominant_nearend_detection.hold_duration);
+  FieldTrialParameter<int> dominant_nearend_detection_trigger_threshold(
+      /*key=*/"",
+      adjusted_cfg.suppressor.dominant_nearend_detection.trigger_threshold);
+
+  ParseFieldTrial(
+      {&nearend_tuning_mask_lf_enr_transparent,
+       &nearend_tuning_mask_lf_enr_suppress,
+       &nearend_tuning_mask_hf_enr_transparent,
+       &nearend_tuning_mask_hf_enr_suppress, &nearend_tuning_max_inc_factor,
+       &nearend_tuning_max_dec_factor_lf,
+       &normal_tuning_mask_lf_enr_transparent,
+       &normal_tuning_mask_lf_enr_suppress,
+       &normal_tuning_mask_hf_enr_transparent,
+       &normal_tuning_mask_hf_enr_suppress, &normal_tuning_max_inc_factor,
+       &normal_tuning_max_dec_factor_lf,
+       &dominant_nearend_detection_enr_threshold,
+       &dominant_nearend_detection_enr_exit_threshold,
+       &dominant_nearend_detection_snr_threshold,
+       &dominant_nearend_detection_hold_duration,
+       &dominant_nearend_detection_trigger_threshold},
+      suppressor_tuning_override_trial_name);
+
+  adjusted_cfg.suppressor.nearend_tuning.mask_lf.enr_transparent =
+      nearend_tuning_mask_lf_enr_transparent;
+  adjusted_cfg.suppressor.nearend_tuning.mask_lf.enr_suppress =
+      nearend_tuning_mask_lf_enr_suppress;
+  adjusted_cfg.suppressor.nearend_tuning.mask_hf.enr_transparent =
+      nearend_tuning_mask_hf_enr_transparent;
+  adjusted_cfg.suppressor.nearend_tuning.mask_hf.enr_suppress =
+      nearend_tuning_mask_hf_enr_suppress;
+  adjusted_cfg.suppressor.nearend_tuning.max_inc_factor =
+      nearend_tuning_max_inc_factor;
+  adjusted_cfg.suppressor.nearend_tuning.max_dec_factor_lf =
+      nearend_tuning_max_dec_factor_lf;
+  adjusted_cfg.suppressor.normal_tuning.mask_lf.enr_transparent =
+      normal_tuning_mask_lf_enr_transparent;
+  adjusted_cfg.suppressor.normal_tuning.mask_lf.enr_suppress =
+      normal_tuning_mask_lf_enr_suppress;
+  adjusted_cfg.suppressor.normal_tuning.mask_hf.enr_transparent =
+      normal_tuning_mask_hf_enr_transparent;
+  adjusted_cfg.suppressor.normal_tuning.mask_hf.enr_suppress =
+      normal_tuning_mask_hf_enr_suppress;
+  adjusted_cfg.suppressor.normal_tuning.max_inc_factor =
+      normal_tuning_max_inc_factor;
+  adjusted_cfg.suppressor.normal_tuning.max_dec_factor_lf =
+      normal_tuning_max_dec_factor_lf;
+  adjusted_cfg.suppressor.dominant_nearend_detection.enr_threshold =
+      dominant_nearend_detection_enr_threshold;
+  adjusted_cfg.suppressor.dominant_nearend_detection.enr_exit_threshold =
+      dominant_nearend_detection_enr_exit_threshold;
+  adjusted_cfg.suppressor.dominant_nearend_detection.snr_threshold =
+      dominant_nearend_detection_snr_threshold;
+  adjusted_cfg.suppressor.dominant_nearend_detection.hold_duration =
+      dominant_nearend_detection_hold_duration;
+  adjusted_cfg.suppressor.dominant_nearend_detection.trigger_threshold =
+      dominant_nearend_detection_trigger_threshold;
+
+  // Field trial-based overrides of individual suppressor parameters.
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNearendLfMaskTransparentOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.nearend_tuning.mask_lf.enr_transparent);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNearendLfMaskSuppressOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.nearend_tuning.mask_lf.enr_suppress);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNearendHfMaskTransparentOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.nearend_tuning.mask_hf.enr_transparent);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNearendHfMaskSuppressOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.nearend_tuning.mask_hf.enr_suppress);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNearendMaxIncFactorOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.nearend_tuning.max_inc_factor);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNearendMaxDecFactorLfOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.nearend_tuning.max_dec_factor_lf);
+
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNormalLfMaskTransparentOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.normal_tuning.mask_lf.enr_transparent);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNormalLfMaskSuppressOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.normal_tuning.mask_lf.enr_suppress);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNormalHfMaskTransparentOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.normal_tuning.mask_hf.enr_transparent);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNormalHfMaskSuppressOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.normal_tuning.mask_hf.enr_suppress);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNormalMaxIncFactorOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.normal_tuning.max_inc_factor);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorNormalMaxDecFactorLfOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.normal_tuning.max_dec_factor_lf);
+
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorDominantNearendEnrThresholdOverride", 0.f, 100.f,
+      &adjusted_cfg.suppressor.dominant_nearend_detection.enr_threshold);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorDominantNearendEnrExitThresholdOverride", 0.f,
+      100.f,
+      &adjusted_cfg.suppressor.dominant_nearend_detection.enr_exit_threshold);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorDominantNearendSnrThresholdOverride", 0.f, 100.f,
+      &adjusted_cfg.suppressor.dominant_nearend_detection.snr_threshold);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorDominantNearendHoldDurationOverride", 0, 1000,
+      &adjusted_cfg.suppressor.dominant_nearend_detection.hold_duration);
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorDominantNearendTriggerThresholdOverride", 0, 1000,
+      &adjusted_cfg.suppressor.dominant_nearend_detection.trigger_threshold);
+
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorAntiHowlingGainOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.high_bands_suppression.anti_howling_gain);
+
+  RetrieveFieldTrialValue(
+      "WebRTC-Aec3SuppressorAntiHowlingGainOverride", 0.f, 10.f,
+      &adjusted_cfg.suppressor.high_bands_suppression.anti_howling_gain);
+
+  RetrieveFieldTrialValue("WebRTC-Aec3SuppressorEpStrengthDefaultLenOverride",
+                          -1.f, 1.f, &adjusted_cfg.ep_strength.default_len);
 
   return adjusted_cfg;
 }

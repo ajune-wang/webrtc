@@ -16,6 +16,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "test/gtest.h"
+#include "test/video_codec_settings.h"
 
 namespace webrtc {
 namespace {
@@ -29,6 +30,7 @@ TEST(LibaomAv1EncoderTest, InitAndRelease) {
   std::unique_ptr<VideoEncoder> encoder = CreateLibaomAv1Encoder();
   ASSERT_TRUE(encoder);
   VideoCodec codec_settings;
+  webrtc::test::CodecSettings(kVideoCodecAV1, &codec_settings);
   codec_settings.width = 1280;
   codec_settings.height = 720;
   codec_settings.maxFramerate = 30;

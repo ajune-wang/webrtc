@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6b0f4df_a1a0c446",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 6888
+      },
+      "writtenOn": "2020-04-03T10:55:18Z",
+      "side": 1,
+      "message": "drive-by question\n\nIs this different than e.g. doing\n\nwhile (it !\u003d receive_streams_.end()) {\n  if (it-\u003esecond-\u003eIsDefaultStream()) {\n    DeleteReceiveStream(it-\u003esecond);\n    receive_streams_.erase(it++);\n  } else {\n    ++it;\n  }\n}\n\n?",
+      "revId": "de6fa1ef2946002c305861742561f94b8606426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

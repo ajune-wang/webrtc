@@ -108,6 +108,11 @@ std::unique_ptr<VideoEncoder> JavaToNativeVideoEncoder(
 
 bool IsHardwareVideoEncoder(JNIEnv* jni, const JavaRef<jobject>& j_encoder);
 
+std::vector<VideoEncoder::ResolutionBitrateLimits>
+JavaToNativeResolutionBitrateLimits(
+    JNIEnv* jni,
+    const JavaRef<jobjectArray>& j_bitrate_limits_array);
+
 }  // namespace jni
 }  // namespace webrtc
 

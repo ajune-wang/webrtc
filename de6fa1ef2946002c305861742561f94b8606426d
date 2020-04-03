@@ -34,6 +34,24 @@
       "revId": "de6fa1ef2946002c305861742561f94b8606426d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1775379_213b0f8a",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-04-03T13:06:03Z",
+      "side": 1,
+      "message": "It\u0027s just the way I think it\u0027s most commonly done and it seems simpler (subjectively). I was mostly wondering if there was something here that I wasn\u0027t seeing such as a non-obvious side-effect to watch out for with DeleteReceiveStream().\nNo action needed unless you want to.",
+      "parentUuid": "7c105cb7_5d97e69e",
+      "revId": "de6fa1ef2946002c305861742561f94b8606426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

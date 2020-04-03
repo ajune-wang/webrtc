@@ -11,6 +11,7 @@
 #include "media/engine/webrtc_voice_engine.h"
 
 #include <algorithm>
+#include <cstdarg>
 #include <cstdio>
 #include <functional>
 #include <string>
@@ -97,6 +98,19 @@ std::string ToString(const AudioCodec& codec) {
   }
   ss << " (" << codec.id << ")";
   return ss.Release();
+}
+
+// Helper for logging formated RTC_LOG(severity) messages.
+#if defined(__GNUC__)
+__attribute__((__format__(__printf__, 2, 3)))
+#endif
+void LogRtcMessage(rtc::LoggingSeverity severity, const char* format, ...) {
+  char str[512];
+  va_list ap;
+  va_start(ap, format);
+  vsnprintf(str, sizeof(str), format, ap);
+  RTC_LOG_V(severity) << "WRVMC: " << str;
+  va_end(ap);
 }
 
 bool IsCodec(const AudioCodec& codec, const char* ref_name) {
@@ -1934,6 +1948,8 @@ bool WebRtcVoiceMediaChannel::SetLocalSource(uint32_t ssrc,
 
 bool WebRtcVoiceMediaChannel::SetOutputVolume(uint32_t ssrc, double volume) {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
+  LogRtcMessage(rtc::LS_WARNING, "%s({ssrc=%u}, {volume=%.2f})", __func__, ssrc,
+                volume);
   const auto it = recv_streams_.find(ssrc);
   if (it == recv_streams_.end()) {
     RTC_LOG(LS_WARNING) << "SetOutputVolume: no recv stream " << ssrc;

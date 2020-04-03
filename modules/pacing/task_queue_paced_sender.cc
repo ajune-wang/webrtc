@@ -182,19 +182,22 @@ void TaskQueuePacedSender::MaybeProcessPackets(
     return;
   }
 
+  // Run ProcessPackets() only if this is the schedules task, or if the next
+  // process time is lower than the current scheduled one.
   const Timestamp now = clock_->CurrentTime();
-  // Run ProcessPackets() only if this is the schedules task, or if there is
-  // no scheduled task and we need to process immediately.
+  Timestamp next_process_time = pacing_controller_.NextSendTime();
   if ((scheduled_process_time.IsFinite() &&
        scheduled_process_time == next_process_time_) ||
-      (next_process_time_.IsInfinite() &&
-       pacing_controller_.NextSendTime() <= now)) {
+      (next_process_time_.IsInfinite() && next_process_time <= now) ||
+      (next_process_time_.IsFinite() &&
+       next_process_time <
+           next_process_time_ - PacingController::kMinSleepTime)) {
     pacing_controller_.ProcessPackets();
     next_process_time_ = Timestamp::MinusInfinity();
   }
 
-  Timestamp next_process_time = std::max(now + PacingController::kMinSleepTime,
-                                         pacing_controller_.NextSendTime());
+  next_process_time = std::max(now + PacingController::kMinSleepTime,
+                               pacing_controller_.NextSendTime());
   TimeDelta sleep_time = next_process_time - now;
   if (next_process_time_.IsMinusInfinity() ||
       next_process_time <=

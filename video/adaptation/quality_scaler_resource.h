@@ -14,11 +14,14 @@
 #include <memory>
 #include <string>
 
+#include "absl/types/optional.h"
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource.h"
 #include "modules/video_coding/utility/quality_scaler.h"
 
 namespace webrtc {
+
+class ResourceAdaptationProcessor;
 
 // Handles interaction with the QualityScaler.
 // TODO(hbos): Add unittests specific to this class, it is currently only tested
@@ -30,7 +33,8 @@ namespace webrtc {
 class QualityScalerResource : public Resource,
                               public AdaptationObserverInterface {
  public:
-  QualityScalerResource();
+  explicit QualityScalerResource(
+      ResourceAdaptationProcessor* adaptation_processor);
 
   bool is_started() const;
 
@@ -51,8 +55,15 @@ class QualityScalerResource : public Resource,
 
   std::string name() const override { return "QualityScalerResource"; }
 
+  void DidApplyAdaptation(const VideoStreamInputState& input_state,
+                          const VideoSourceRestrictions& restrictions_before,
+                          const VideoSourceRestrictions& restrictions_after,
+                          const Resource* reason_resource) override;
+
  private:
   std::unique_ptr<QualityScaler> quality_scaler_;
+  ResourceAdaptationProcessor* adaptation_processor_;
+  bool should_increase_frequency_;
 };
 
 }  // namespace webrtc

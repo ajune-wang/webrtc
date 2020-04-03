@@ -28,6 +28,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor_interface.h"
 #include "call/adaptation/video_source_restrictions.h"
+#include "call/adaptation/video_stream_input_state_provider.h"
 #include "modules/video_coding/utility/frame_dropper.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
@@ -107,7 +108,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   rtc::TaskQueue* encoder_queue() { return &encoder_queue_; }
 
   void OnVideoSourceRestrictionsUpdated(
-      VideoSourceRestrictions restrictions) override;
+      VideoSourceRestrictions restrictions,
+      const AdaptationCounters& adaptation_counters,
+      const Resource* reason) override;
 
   // Used for injected test resources.
   // TODO(eshr): Move all adaptation tests out of VideoStreamEncoder tests.
@@ -148,6 +151,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   };
 
   void ReconfigureEncoder() RTC_RUN_ON(&encoder_queue_);
+  void OnEncoderSettingsChanged() RTC_RUN_ON(&encoder_queue_);
 
   // Implements VideoSinkInterface.
   void OnFrame(const VideoFrame& video_frame) override;
@@ -406,7 +410,11 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // VideoSourceSinkController can be made single-threaded, and its lock can be
   // replaced with a sequence checker.
   std::unique_ptr<VideoSourceSinkController> video_source_sink_controller_;
+  std::unique_ptr<VideoStreamInputStateProvider> input_state_provider_
+      RTC_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<ResourceAdaptationProcessor> resource_adaptation_processor_
+      RTC_GUARDED_BY(&encoder_queue_);
+  std::unique_ptr<VideoStreamEncoderResourceManager> stream_resource_manager_
       RTC_GUARDED_BY(&encoder_queue_);
 
   // All public methods are proxied to |encoder_queue_|. It must must be

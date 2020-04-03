@@ -16,6 +16,24 @@
       "revId": "de6fa1ef2946002c305861742561f94b8606426d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c105cb7_5d97e69e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-04-03T11:26:50Z",
+      "side": 1,
+      "message": "No, that should be functionally identical. I\u0027m happy to followup with that change, if you prefer that style?",
+      "parentUuid": "e6b0f4df_a1a0c446",
+      "revId": "de6fa1ef2946002c305861742561f94b8606426d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

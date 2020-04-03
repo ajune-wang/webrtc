@@ -17,7 +17,7 @@ namespace webrtc {
 
 ResourceListener::~ResourceListener() {}
 
-Resource::Resource() : usage_state_(ResourceUsageState::kStable) {}
+Resource::Resource() : usage_state_(absl::nullopt) {}
 
 Resource::~Resource() {
   RTC_DCHECK(listeners_.empty());
@@ -37,21 +37,34 @@ void Resource::UnregisterListener(ResourceListener* listener) {
     listeners_.erase(it);
 }
 
-ResourceUsageState Resource::usage_state() const {
+absl::optional<ResourceUsageState> Resource::usage_state() const {
   return usage_state_;
 }
 
-ResourceListenerResponse Resource::OnResourceUsageStateMeasured(
-    ResourceUsageState usage_state) {
-  ResourceListenerResponse response = ResourceListenerResponse::kNothing;
+void Resource::ClearUsageState() {
+  usage_state_ = absl::nullopt;
+}
+
+bool Resource::IsAdaptationAllowed(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource* reason_resource) const {
+  return true;
+}
+
+void Resource::DidApplyAdaptation(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource* reason_resource) {}
+
+void Resource::OnResourceUsageStateMeasured(
+    absl::optional<ResourceUsageState> usage_state) {
   usage_state_ = usage_state;
   for (auto* listener : listeners_) {
-    ResourceListenerResponse listener_response =
-        listener->OnResourceUsageStateMeasured(*this);
-    if (listener_response != ResourceListenerResponse::kNothing)
-      response = listener_response;
+    listener->OnResourceUsageStateMeasured(*this);
   }
-  return response;
 }
 
 }  // namespace webrtc

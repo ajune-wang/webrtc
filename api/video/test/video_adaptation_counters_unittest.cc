@@ -8,38 +8,38 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "video/adaptation/adaptation_counters.h"
+#include "api/video/video_adaptation_counters.h"
 
 #include "test/gtest.h"
 
 namespace webrtc {
 
-TEST(AdaptationCountersTest, Addition) {
-  AdaptationCounters a{0, 0};
-  AdaptationCounters b{1, 2};
-  AdaptationCounters total = a + b;
+TEST(VideoAdaptationCountersTest, Addition) {
+  VideoAdaptationCounters a{0, 0};
+  VideoAdaptationCounters b{1, 2};
+  VideoAdaptationCounters total = a + b;
   EXPECT_EQ(1, total.resolution_adaptations);
   EXPECT_EQ(2, total.fps_adaptations);
 }
 
-TEST(AdaptationCountersTest, Subtraction) {
-  AdaptationCounters a{0, 1};
-  AdaptationCounters b{2, 1};
-  AdaptationCounters diff = a - b;
+TEST(VideoAdaptationCountersTest, Subtraction) {
+  VideoAdaptationCounters a{0, 1};
+  VideoAdaptationCounters b{2, 1};
+  VideoAdaptationCounters diff = a - b;
   EXPECT_EQ(-2, diff.resolution_adaptations);
   EXPECT_EQ(0, diff.fps_adaptations);
 }
 
-TEST(AdaptationCountersTest, Equality) {
-  AdaptationCounters a{1, 2};
-  AdaptationCounters b{2, 1};
+TEST(VideoAdaptationCountersTest, Equality) {
+  VideoAdaptationCounters a{1, 2};
+  VideoAdaptationCounters b{2, 1};
   EXPECT_EQ(a, a);
   EXPECT_NE(a, b);
 }
 
-TEST(AdaptationCountersTest, SelfAdditionSubtraction) {
-  AdaptationCounters a{1, 0};
-  AdaptationCounters b{0, 1};
+TEST(VideoAdaptationCountersTest, SelfAdditionSubtraction) {
+  VideoAdaptationCounters a{1, 0};
+  VideoAdaptationCounters b{0, 1};
 
   EXPECT_EQ(a, a + b - b);
   EXPECT_EQ(a, b + a - b);

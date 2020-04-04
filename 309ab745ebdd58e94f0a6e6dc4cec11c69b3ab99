@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "752d2719_1ea1625e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-04-04T11:08:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c52245f1_1afec3db",
+      "range": {
+        "startLine": 14,
+        "startChar": 56,
+        "endLine": 14,
+        "endChar": 60
+      },
+      "revId": "309ab745ebdd58e94f0a6e6dc4cec11c69b3ab99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ed430cf_5a73f1fa",
         "filename": "modules/pacing/round_robin_packet_queue.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-30T16:53:01Z",
       "side": 1,
       "message": "nit: Clearer way INHO:\nRTC_CHECK((!stream_priorities_.empty() \u0026\u0026 size_packets_ \u003e 1) ||\n            (stream_priorities_.empty() \u0026\u0026 size_packets_ \u003c\u003d 1));",
+      "range": {
+        "startLine": 220,
+        "startChar": 36,
+        "endLine": 220,
+        "endChar": 71
+      },
+      "revId": "309ab745ebdd58e94f0a6e6dc4cec11c69b3ab99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc26bee5_84b20fad",
+        "filename": "modules/pacing/round_robin_packet_queue.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-04-04T11:08:01Z",
+      "side": 1,
+      "message": "Actually, I think I\u0027ll split this up for simplicity.\n..and I\u0027m changing these to DCHECKs.",
+      "parentUuid": "1ed430cf_5a73f1fa",
       "range": {
         "startLine": 220,
         "startChar": 36,

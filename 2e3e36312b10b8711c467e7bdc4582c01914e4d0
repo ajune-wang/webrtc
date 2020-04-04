@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ac78da5_0a6f1a69",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-04-04T15:41:24Z",
+      "side": 0,
+      "message": "This behavior was removed (we used to allowed processing send events up to 1ms into the future). This incorrect test hid another bug, see above.",
+      "range": {
+        "startLine": 1730,
+        "startChar": 44,
+        "endLine": 1730,
+        "endChar": 61
+      },
+      "revId": "2e3e36312b10b8711c467e7bdc4582c01914e4d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

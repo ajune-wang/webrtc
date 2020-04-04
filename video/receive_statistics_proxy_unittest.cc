@@ -478,8 +478,6 @@ TEST_F(ReceiveStatisticsProxyTest, GetStatsReportsDecodeTimingStats) {
   const int kJitterBufferMs = 5;
   const int kMinPlayoutDelayMs = 6;
   const int kRenderDelayMs = 7;
-  const int64_t kRttMs = 8;
-  statistics_proxy_->OnRttUpdate(kRttMs, 0);
   statistics_proxy_->OnFrameBufferTimingsUpdated(
       kMaxDecodeMs, kCurrentDelayMs, kTargetDelayMs, kJitterBufferMs,
       kMinPlayoutDelayMs, kRenderDelayMs);

@@ -161,6 +161,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   const VideoReceiveStream::Config config_;
   const int num_cpu_cores_;
   ProcessThread* const process_thread_;
+  TaskQueueBase* const worker_thread_;
   Clock* const clock_;
 
   CallStats* const call_stats_;

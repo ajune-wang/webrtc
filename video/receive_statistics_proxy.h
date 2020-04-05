@@ -17,6 +17,8 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/scoped_refptr.h"
+#include "api/task_queue/task_queue_base.h"
 #include "call/video_receive_stream.h"
 #include "modules/include/module_common_types.h"
 #include "modules/video_coding/include/video_coding_defines.h"
@@ -26,6 +28,8 @@
 #include "rtc_base/numerics/sample_counter.h"
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/rate_tracker.h"
+#include "rtc_base/ref_count.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
 #include "video/quality_threshold.h"
@@ -43,8 +47,9 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
                                public CallStatsObserver {
  public:
   ReceiveStatisticsProxy(const VideoReceiveStream::Config* config,
-                         Clock* clock);
-  ~ReceiveStatisticsProxy() = default;
+                         Clock* clock,
+                         TaskQueueBase* worker_thread);
+  ~ReceiveStatisticsProxy();
 
   VideoReceiveStream::Stats GetStats() const;
 
@@ -124,6 +129,25 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
     rtc::HistogramPercentileCounter interframe_delay_percentiles;
   };
 
+  // We use this flag to drop any pending tasks that have been posted
+  // to the worker thread and end up running after the ReceiveStatisticsProxy
+  // instance has been deleted. When posting a task, we post a copy (capture
+  // by-value) of an instance of this class and before performing the work,
+  // we check the |alive()| state and abort if it's |false|.
+  // Note that checking the state only works on the construction/destruction
+  // thread of the ReceiveStatisticsProxy instance.
+  class PendingTaskSafetyFlag : public rtc::RefCountInterface {
+   public:
+    PendingTaskSafetyFlag() = default;
+
+    void SetNotAlive();
+    bool alive() const;
+
+   private:
+    bool alive_ = true;
+    rtc::ThreadChecker main_thread_;
+  };
+
   void QualitySample() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Removes info about old frames and then updates the framerate.
@@ -139,14 +163,6 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
       int64_t now_ms) const RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   Clock* const clock_;
-  // Ownership of this object lies with the owner of the ReceiveStatisticsProxy
-  // instance.  Lifetime is guaranteed to outlive |this|.
-  // TODO(tommi): In practice the config_ reference is only used for accessing
-  // config_.rtp.ulpfec.ulpfec_payload_type.  Instead of holding a pointer back,
-  // we could just store the value of ulpfec_payload_type and change the
-  // ReceiveStatisticsProxy() ctor to accept a const& of Config (since we'll
-  // then no longer store a pointer to the object).
-  const VideoReceiveStream::Config& config_;
   const int64_t start_ms_;
   const bool enable_decode_time_histograms_;
 
@@ -177,7 +193,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
   std::map<VideoContentType, ContentSpecificStats> content_specific_stats_
       RTC_GUARDED_BY(crit_);
   MaxCounter freq_offset_counter_ RTC_GUARDED_BY(crit_);
-  QpCounters qp_counters_ RTC_GUARDED_BY(decode_thread_);
+  QpCounters qp_counters_ RTC_GUARDED_BY(decode_queue_);
   int64_t avg_rtt_ms_ RTC_GUARDED_BY(crit_);
   mutable std::map<int64_t, size_t> frame_window_ RTC_GUARDED_BY(&crit_);
   VideoContentType last_content_type_ RTC_GUARDED_BY(&crit_);
@@ -196,9 +212,16 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
       RTC_GUARDED_BY(&crit_);
   absl::optional<int64_t> last_estimated_playout_time_ms_
       RTC_GUARDED_BY(&crit_);
-  rtc::ThreadChecker decode_thread_;
-  rtc::ThreadChecker network_thread_;
+
+  // The thread on which this instance is constructed and some of its main
+  // methods are invoked on such as GetStats().
+  TaskQueueBase* const worker_thread_;
+
+  rtc::scoped_refptr<PendingTaskSafetyFlag> task_safety_flag_;
+
+  SequenceChecker decode_queue_;
   rtc::ThreadChecker main_thread_;
+  SequenceChecker incoming_render_queue_;
 };
 
 }  // namespace webrtc

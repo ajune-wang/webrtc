@@ -25,9 +25,19 @@
 
 namespace webrtc {
 
+class VideoStreamAdapter;
+
 extern const int kMinFrameRateFps;
 
-class VideoStreamAdapter;
+VideoSourceRestrictions FilterRestrictionsByDegradationPreference(
+    VideoSourceRestrictions source_restrictions,
+    DegradationPreference degradation_preference);
+
+VideoAdaptationCounters FilterVideoAdaptationCountersByDegradationPreference(
+    VideoAdaptationCounters counters,
+    DegradationPreference degradation_preference);
+
+int GetHigherResolutionThan(int pixel_count);
 
 // Represents one step that the VideoStreamAdapter can take when adapting the
 // VideoSourceRestrictions up or down. Or, if adaptation is not valid, provides
@@ -44,23 +54,7 @@ class Adaptation final {
     // Cannot adapt. The resolution or frame rate requested by a recent
     // adaptation has not yet been reflected in the input resolution or frame
     // rate; adaptation is refused to avoid "double-adapting".
-    // TODO(hbos): Can this be rephrased as a resource usage measurement
-    // cooldown mechanism? In a multi-stream setup, we need to wait before
-    // adapting again across streams. The best way to achieve this is probably
-    // to not act on racy resource usage measurements, regardless of individual
-    // adapters. When this logic is moved or replaced then remove this enum
-    // value.
     kAwaitingPreviousAdaptation,
-    // Cannot adapt. The adaptation that would have been proposed by the adapter
-    // violates bitrate constraints and is therefore rejected.
-    // TODO(hbos): This is a version of being resource limited, except in order
-    // to know if we are constrained we need to have a proposed adaptation in
-    // mind, thus the resource alone cannot determine this in isolation.
-    // Proposal: ask resources for permission to apply a proposed adaptation.
-    // This allows rejecting a given resolution or frame rate based on bitrate
-    // limits without coupling it with the adapter's proposal logic. When this
-    // is done, remove this enum value.
-    kIsBitrateConstrained,
   };
 
   // The status of this Adaptation. To find out how this Adaptation affects

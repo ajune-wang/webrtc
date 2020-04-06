@@ -504,8 +504,6 @@ bool VideoReceiveStream::SetBaseMinimumPlayoutDelayMs(int delay_ms) {
     return false;
   }
 
-  // TODO(webrtc:11489): Consider posting to worker.
-  rtc::CritScope cs(&playout_delay_lock_);
   base_minimum_playout_delay_ms_ = delay_ms;
   UpdatePlayoutDelays();
   return true;
@@ -513,8 +511,6 @@ bool VideoReceiveStream::SetBaseMinimumPlayoutDelayMs(int delay_ms) {
 
 int VideoReceiveStream::GetBaseMinimumPlayoutDelayMs() const {
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
-
-  rtc::CritScope cs(&playout_delay_lock_);
   return base_minimum_playout_delay_ms_;
 }
 
@@ -582,11 +578,11 @@ void VideoReceiveStream::OnCompleteFrame(
                       max_ms = playout_delay.max_ms, this]() {
           if (!safety->alive())
             return;
-          rtc::CritScope cs(&playout_delay_lock_);
+          RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
           if (min_ms >= 0)
             frame_minimum_playout_delay_ms_ = min_ms;
           if (max_ms >= 0)
-            frame_minimum_playout_delay_ms_ = max_ms;
+            frame_maximum_playout_delay_ms_ = max_ms;
           UpdatePlayoutDelays();
         }));
   }
@@ -637,7 +633,7 @@ void VideoReceiveStream::SetMinimumPlayoutDelay(int delay_ms) {
       ToQueuedTask([safety = task_safety_flag_, delay_ms, this]() {
         if (!safety->alive())
           return;
-        rtc::CritScope cs(&playout_delay_lock_);
+        RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
         syncable_minimum_playout_delay_ms_ = delay_ms;
         UpdatePlayoutDelays();
       }));

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "feb55126_37224d0b",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-06T12:47:28Z",
+      "side": 1,
+      "message": "have been drained",
+      "range": {
+        "startLine": 371,
+        "startChar": 9,
+        "endLine": 371,
+        "endChar": 10
+      },
+      "revId": "a06d65d7fe6aaf7cb13b92b149b8e20dcd3f3693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b74771c_22d1fa3d",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-06T12:47:28Z",
+      "side": 1,
+      "message": "What if -infinity \u003c next_send_time \u003c now?\ntarget_send_time will be non-updated here, unlike it was in the past.\nIn some cases it will already be |now|, in others it will be |last_process_time_| (L409). \n\nAre you sure it won\u0027t cause any issues?",
+      "range": {
+        "startLine": 560,
+        "startChar": 45,
+        "endLine": 560,
+        "endChar": 67
+      },
+      "revId": "a06d65d7fe6aaf7cb13b92b149b8e20dcd3f3693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "591571d7_812254ec",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1964,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-06T12:47:28Z",
+      "side": 1,
+      "message": "disabled",
+      "range": {
+        "startLine": 1964,
+        "startChar": 50,
+        "endLine": 1964,
+        "endChar": 57
+      },
+      "revId": "a06d65d7fe6aaf7cb13b92b149b8e20dcd3f3693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eabc9362_5adabc21",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1980,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-06T12:47:28Z",
+      "side": 1,
+      "message": "precendence",
+      "range": {
+        "startLine": 1980,
+        "startChar": 43,
+        "endLine": 1980,
+        "endChar": 53
+      },
+      "revId": "a06d65d7fe6aaf7cb13b92b149b8e20dcd3f3693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "355fd8fa_feca97c3",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-06T12:47:28Z",
+      "side": 1,
+      "message": "scheduled",
+      "range": {
+        "startLine": 185,
+        "startChar": 56,
+        "endLine": 185,
+        "endChar": 65
+      },
+      "revId": "a06d65d7fe6aaf7cb13b92b149b8e20dcd3f3693",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

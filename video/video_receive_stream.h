@@ -26,6 +26,7 @@
 #include "modules/video_coding/video_receiver2.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "system_wrappers/include/clock.h"
 #include "video/receive_statistics_proxy.h"
 #include "video/rtp_streams_synchronizer.h"
@@ -238,6 +239,9 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   // Defined last so they are destroyed before all other members.
   rtc::TaskQueue decode_queue_;
+  // Used to signal destruction to potentially pending tasks.
+  PendingTaskSafetyFlag::Pointer task_safety_flag_{
+      PendingTaskSafetyFlag::Create()};
 };
 }  // namespace internal
 }  // namespace webrtc

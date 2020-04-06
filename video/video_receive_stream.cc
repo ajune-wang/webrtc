@@ -300,6 +300,7 @@ VideoReceiveStream::~VideoReceiveStream() {
   RTC_LOG(LS_INFO) << "~VideoReceiveStream: " << config_.ToString();
   Stop();
   process_thread_->DeRegisterModule(&rtp_stream_sync_);
+  task_safety_flag_->SetNotAlive();
 }
 
 void VideoReceiveStream::SignalNetworkState(NetworkState state) {
@@ -574,20 +575,20 @@ void VideoReceiveStream::OnCompleteFrame(
   }
   last_complete_frame_time_ms_ = time_now_ms;
 
-  // TODO(webrtc:11489): We grab the playout_delay_lock_ lock potentially twice.
-  // Consider checking both min/max and posting to worker if there's a change.
-  // If we always update playout delays on the worker, we don't need a lock.
   const PlayoutDelay& playout_delay = frame->EncodedImage().playout_delay_;
-  if (playout_delay.min_ms >= 0) {
-    rtc::CritScope cs(&playout_delay_lock_);
-    frame_minimum_playout_delay_ms_ = playout_delay.min_ms;
-    UpdatePlayoutDelays();
-  }
-
-  if (playout_delay.max_ms >= 0) {
-    rtc::CritScope cs(&playout_delay_lock_);
-    frame_maximum_playout_delay_ms_ = playout_delay.max_ms;
-    UpdatePlayoutDelays();
+  if (playout_delay.min_ms >= 0 || playout_delay.max_ms >= 0) {
+    worker_thread_->PostTask(
+        ToQueuedTask([safety = task_safety_flag_, min_ms = playout_delay.min_ms,
+                      max_ms = playout_delay.max_ms, this]() {
+          if (!safety->alive())
+            return;
+          rtc::CritScope cs(&playout_delay_lock_);
+          if (min_ms >= 0)
+            frame_minimum_playout_delay_ms_ = min_ms;
+          if (max_ms >= 0)
+            frame_minimum_playout_delay_ms_ = max_ms;
+          UpdatePlayoutDelays();
+        }));
   }
 
   int64_t last_continuous_pid = frame_buffer_->InsertFrame(std::move(frame));
@@ -632,10 +633,14 @@ void VideoReceiveStream::SetEstimatedPlayoutNtpTimestampMs(
 
 void VideoReceiveStream::SetMinimumPlayoutDelay(int delay_ms) {
   RTC_DCHECK_RUN_ON(&module_process_sequence_checker_);
-  // TODO(webrtc:11489): Consider posting to worker.
-  rtc::CritScope cs(&playout_delay_lock_);
-  syncable_minimum_playout_delay_ms_ = delay_ms;
-  UpdatePlayoutDelays();
+  worker_thread_->PostTask(
+      ToQueuedTask([safety = task_safety_flag_, delay_ms, this]() {
+        if (!safety->alive())
+          return;
+        rtc::CritScope cs(&playout_delay_lock_);
+        syncable_minimum_playout_delay_ms_ = delay_ms;
+        UpdatePlayoutDelays();
+      }));
 }
 
 int64_t VideoReceiveStream::GetWaitMs() const {
@@ -755,6 +760,7 @@ bool VideoReceiveStream::IsReceivingKeyFrame(int64_t timestamp_ms) const {
 }
 
 void VideoReceiveStream::UpdatePlayoutDelays() const {
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   const int minimum_delay_ms =
       std::max({frame_minimum_playout_delay_ms_, base_minimum_playout_delay_ms_,
                 syncable_minimum_playout_delay_ms_});

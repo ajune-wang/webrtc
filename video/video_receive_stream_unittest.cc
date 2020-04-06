@@ -88,12 +88,17 @@ class FrameObjectFake : public video_coding::EncodedFrame {
 class VideoReceiveStreamTest : public ::testing::Test {
  public:
   VideoReceiveStreamTest()
-      : process_thread_(ProcessThread::Create("TestThread")),
+      : worker_thread_(&socket_server_),
+        process_thread_(ProcessThread::Create("TestThread")),
         task_queue_factory_(CreateDefaultTaskQueueFactory()),
         config_(&mock_transport_),
         call_stats_(Clock::GetRealTimeClock(), process_thread_.get()),
         h264_decoder_factory_(&mock_h264_video_decoder_),
-        null_decoder_factory_(&mock_null_video_decoder_) {}
+        null_decoder_factory_(&mock_null_video_decoder_) {
+  }
+
+  ~VideoReceiveStreamTest() override {
+  }
 
   void SetUp() {
     constexpr int kDefaultNumCpuCores = 2;
@@ -123,7 +128,55 @@ class VideoReceiveStreamTest : public ::testing::Test {
             process_thread_.get(), &call_stats_, clock_, timing_);
   }
 
+  class FakeSocketServer : public rtc::SocketServer {
+   public:
+    FakeSocketServer() = default;
+    ~FakeSocketServer() = default;
+
+    bool Wait(int cms, bool process_io) override {
+      if (fail_next_wait_) {
+        fail_next_wait_ = false;
+        return false;
+      }
+      return true;
+    }
+
+    void WakeUp() override {}
+
+    rtc::Socket* CreateSocket(int family, int type) override { return nullptr; }
+    rtc::AsyncSocket* CreateAsyncSocket(int family, int type) override {
+      return nullptr;
+    }
+
+    void FailNextWait() { fail_next_wait_ = true; }
+
+   private:
+    bool fail_next_wait_ = false;
+  };
+
+  class WorkerThread : public rtc::Thread {
+   public:
+    explicit WorkerThread(rtc::SocketServer* ss)
+        : rtc::Thread(ss), tq_setter_(this) {
+      WrapCurrent();
+    }
+    ~WorkerThread() override {
+      UnwrapCurrent();
+    }
+
+   private:
+    CurrentTaskQueueSetter tq_setter_;
+  };
+
+  void FlushWorker() {
+    worker_thread_.PostTask(
+        ToQueuedTask([this]() { socket_server_.FailNextWait(); }));
+    worker_thread_.ProcessMessages(1000);
+  }
+
  protected:
+  FakeSocketServer socket_server_;
+  WorkerThread worker_thread_;
   std::unique_ptr<ProcessThread> process_thread_;
   const std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   VideoReceiveStream::Config config_;
@@ -176,6 +229,7 @@ TEST_F(VideoReceiveStreamTest, PlayoutDelay) {
   test_frame->SetPlayoutDelay(kPlayoutDelayMs);
 
   video_receive_stream_->OnCompleteFrame(std::move(test_frame));
+  FlushWorker();
   EXPECT_EQ(kPlayoutDelayMs.min_ms, timing_->min_playout_delay());
   EXPECT_EQ(kPlayoutDelayMs.max_ms, timing_->max_playout_delay());
 
@@ -207,6 +261,7 @@ TEST_F(VideoReceiveStreamTest, PlayoutDelayPreservesDefaultMaxValue) {
   test_frame->SetPlayoutDelay(kPlayoutDelayMs);
 
   video_receive_stream_->OnCompleteFrame(std::move(test_frame));
+  FlushWorker();
 
   // Ensure that -1 preserves default maximum value from |timing_|.
   EXPECT_EQ(kPlayoutDelayMs.min_ms, timing_->min_playout_delay());
@@ -223,6 +278,7 @@ TEST_F(VideoReceiveStreamTest, PlayoutDelayPreservesDefaultMinValue) {
   test_frame->SetPlayoutDelay(kPlayoutDelayMs);
 
   video_receive_stream_->OnCompleteFrame(std::move(test_frame));
+  FlushWorker();
 
   // Ensure that -1 preserves default minimum value from |timing_|.
   EXPECT_NE(kPlayoutDelayMs.min_ms, timing_->min_playout_delay());

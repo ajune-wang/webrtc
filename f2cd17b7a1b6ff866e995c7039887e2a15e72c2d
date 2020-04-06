@@ -93,6 +93,30 @@
       "revId": "f2cd17b7a1b6ff866e995c7039887e2a15e72c2d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dd63521_7fd78a88",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2020-04-06T14:02:09Z",
+      "side": 1,
+      "message": "I assumed that was the case, SGTM.",
+      "parentUuid": "320c0d18_263275bb",
+      "range": {
+        "startLine": 555,
+        "startChar": 5,
+        "endLine": 555,
+        "endChar": 33
+      },
+      "revId": "f2cd17b7a1b6ff866e995c7039887e2a15e72c2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

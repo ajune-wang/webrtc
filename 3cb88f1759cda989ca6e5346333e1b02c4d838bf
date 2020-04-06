@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98c6c1a9_d69c68d7",
+        "filename": "video/receive_statistics_proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-06T18:16:11Z",
+      "side": 1,
+      "message": "Looks like we need to guard this one as well.",
+      "range": {
+        "startLine": 655,
+        "startChar": 2,
+        "endLine": 655,
+        "endChar": 35
+      },
+      "revId": "3cb88f1759cda989ca6e5346333e1b02c4d838bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3807d038_a03c60c4",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-06T12:09:06Z",
+      "side": 1,
+      "message": "Awesome! That is a great suggestion!!!\nDone.",
+      "parentUuid": "41237436_a0762cd9",
+      "range": {
+        "startLine": 249,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 57
+      },
+      "revId": "22d08e4a2c1138b6bc4d236301e688af3b69688c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "34ea56fc_7a4821f0",
         "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "22d08e4a2c1138b6bc4d236301e688af3b69688c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "650601b8_00e7e469",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-06T12:09:06Z",
+      "side": 1,
+      "message": "Thanks!\nI removed that.",
+      "parentUuid": "34ea56fc_7a4821f0",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 413,
+        "endChar": 0
+      },
+      "revId": "22d08e4a2c1138b6bc4d236301e688af3b69688c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

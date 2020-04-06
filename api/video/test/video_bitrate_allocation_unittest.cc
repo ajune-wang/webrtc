@@ -16,6 +16,19 @@
 #include "test/gtest.h"
 
 namespace webrtc {
+
+TEST(VideoBitrateAllocation, SetBitrateWithInvalidTemporalId) {
+  VideoBitrateAllocation bitrate;
+  EXPECT_DEBUG_DEATH(EXPECT_FALSE(bitrate.SetBitrate(0, 7, 10000)), "");
+}
+
+// Video parsing of packets allow 8 temporal ids for Vp9.
+// Dont crash in release builds if such layer is queried.
+TEST(VideoBitrateAllocation, GetBitrateWithInvalidTemporalId) {
+  VideoBitrateAllocation bitrate;
+  EXPECT_DEBUG_DEATH(EXPECT_EQ(bitrate.GetBitrate(1, 7), 0u), "");
+}
+
 TEST(VideoBitrateAllocation, SimulcastTargetBitrate) {
   VideoBitrateAllocation bitrate;
   bitrate.SetBitrate(0, 0, 10000);

@@ -28,6 +28,7 @@
 #include "api/video_codecs/video_encoder_config.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/resource_adaptation_processor_interface.h"
+#include "call/adaptation/video_stream_input_state_provider.h"
 #include "rtc_base/experiments/quality_rampup_experiment.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "rtc_base/strings/string_builder.h"
@@ -61,6 +62,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // The processor can be constructed on any sequence, but must be initialized
   // and used on a single sequence, e.g. the encoder queue.
   ResourceAdaptationProcessor(
+      VideoStreamInputStateProvider* input_state_provider,
       Clock* clock,
       bool experiment_cpu_load_estimator,
       std::unique_ptr<OveruseFrameDetector> overuse_detector,
@@ -83,7 +85,6 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   void AddResource(Resource* resource) override;
   void AddResource(Resource* resource,
                    AdaptationObserverInterface::AdaptReason reason);
-  void SetHasInputVideo(bool has_input_video) override;
   void SetDegradationPreference(
       DegradationPreference degradation_preference) override;
   void SetEncoderSettings(EncoderSettings encoder_settings) override;
@@ -92,7 +93,6 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   void SetEncoderRates(
       const VideoEncoder::RateControlParameters& encoder_rates) override;
 
-  void OnFrame(const VideoFrame& frame) override;
   void OnFrameDroppedDueToSize() override;
   void OnMaybeEncodeFrame() override;
   void OnEncodeStarted(const VideoFrame& cropped_frame,
@@ -135,6 +135,9 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
 
   enum class State { kStopped, kStarted };
 
+  bool HasSufficientInputForAdaptation(
+      const VideoStreamInputState& input_state) const;
+
   // Performs the adaptation by getting the next target, applying it and
   // informing listeners of the new VideoSourceRestriction and adapt counters.
   void OnResourceUnderuse(AdaptationObserverInterface::AdaptReason reason);
@@ -175,13 +178,13 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
 
   std::string ActiveCountsToString() const;
 
+  VideoStreamInputStateProvider* const input_state_provider_;
   ResourceAdaptationProcessorListener* const adaptation_listener_;
   Clock* clock_;
   State state_;
   const bool experiment_cpu_load_estimator_;
   // The restrictions that |adaptation_listener_| is informed of.
   VideoSourceRestrictions video_source_restrictions_;
-  bool has_input_video_;
   DegradationPreference degradation_preference_;
   DegradationPreference effective_degradation_preference_;
   // Keeps track of source restrictions that this adaptation processor outputs.

@@ -48,7 +48,6 @@ class ResourceAdaptationProcessorInterface {
 
   // Informs the module whether we have input video. By default, the module must
   // assume the value is false.
-  virtual void SetHasInputVideo(bool has_input_video) = 0;
   virtual void SetDegradationPreference(
       DegradationPreference degradation_preference) = 0;
   virtual void SetEncoderSettings(EncoderSettings encoder_settings) = 0;
@@ -74,10 +73,8 @@ class ResourceAdaptationProcessorInterface {
   // TODO(hbos): Can we replace VideoFrame with a different struct, maybe width
   // and height is enough, and some sort of way to identify it at each step?
 
-  // 1. A frame is delivered to the encoder, e.g. from the camera. Next up: it
-  // may get dropped or it may get encoded, see OnFrameDroppedDueToSize() and
-  // OnEncodeStarted().
-  virtual void OnFrame(const VideoFrame& frame) = 0;
+  // --- Just Nuke It?
+
   // 2.i) An input frame was dropped because its resolution is too big (e.g. for
   // the target bitrate). This frame will not continue through the rest of the
   // pipeline. The module should adapt down in resolution to avoid subsequent

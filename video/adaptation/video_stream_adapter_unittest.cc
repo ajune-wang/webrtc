@@ -530,25 +530,6 @@ TEST(VideoStreamAdapterTest, Balanced_LimitReached) {
   EXPECT_EQ(1, adapter.adaptation_counters().fps_adaptations);
 }
 
-TEST(VideoStreamAdapterTest, AdaptationDisabled) {
-  VideoStreamAdapter adapter;
-  adapter.SetDegradationPreference(DegradationPreference::DISABLED);
-  adapter.SetInput(1280 * 720, 30, absl::nullopt, absl::nullopt);
-  EXPECT_EQ(Adaptation::Status::kAdaptationDisabled,
-            adapter.GetAdaptationDown().status());
-  EXPECT_EQ(Adaptation::Status::kAdaptationDisabled,
-            adapter.GetAdaptationUp(kReasonDontCare).status());
-}
-
-TEST(VideoStreamAdapterTest, InsufficientInput) {
-  VideoStreamAdapter adapter;
-  adapter.SetDegradationPreference(DegradationPreference::MAINTAIN_RESOLUTION);
-  // No frame rate is insufficient when going down.
-  adapter.SetInput(1280 * 720, 0, absl::nullopt, absl::nullopt);
-  EXPECT_EQ(Adaptation::Status::kInsufficientInput,
-            adapter.GetAdaptationDown().status());
-}
-
 // kAwaitingPreviousAdaptation is only supported in "maintain-framerate".
 TEST(VideoStreamAdapterTest, MaintainFramerate_AwaitingPreviousAdaptationDown) {
   VideoStreamAdapter adapter;

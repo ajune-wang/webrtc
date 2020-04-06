@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "012baef9_cf13a736",
+        "filename": "rtc_base/task_utils/pending_task_safety_flag_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2020-04-06T12:35:30Z",
+      "side": 1,
+      "message": "\"task on\"",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 23
+      },
+      "revId": "f2cd17b7a1b6ff866e995c7039887e2a15e72c2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "306613c2_13e1a611",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2020-04-06T12:35:30Z",
+      "side": 1,
+      "message": "Do you want to add thread/TQ check here as well or are you skipping since it\u0027s not modifying anything in this class? Or is this happening from different threads/TQs?\n\nSame for methods above and below.",
+      "range": {
+        "startLine": 555,
+        "startChar": 5,
+        "endLine": 555,
+        "endChar": 33
+      },
+      "revId": "f2cd17b7a1b6ff866e995c7039887e2a15e72c2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

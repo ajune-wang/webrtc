@@ -28,6 +28,7 @@
 #include "api/video_codecs/video_encoder_config.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/resource_adaptation_processor_interface.h"
+#include "call/adaptation/video_stream_input_state_provider.h"
 #include "rtc_base/experiments/quality_rampup_experiment.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "rtc_base/strings/string_builder.h"
@@ -61,6 +62,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // The processor can be constructed on any sequence, but must be initialized
   // and used on a single sequence, e.g. the encoder queue.
   ResourceAdaptationProcessor(
+      VideoStreamInputStateProvider* input_state_provider,
       Clock* clock,
       bool experiment_cpu_load_estimator,
       std::unique_ptr<OveruseFrameDetector> overuse_detector,
@@ -83,24 +85,22 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   void AddResource(Resource* resource) override;
   void AddResource(Resource* resource,
                    AdaptationObserverInterface::AdaptReason reason);
-  void SetHasInputVideo(bool has_input_video) override;
   void SetDegradationPreference(
       DegradationPreference degradation_preference) override;
-  void SetEncoderSettings(EncoderSettings encoder_settings) override;
-  void SetStartBitrate(DataRate start_bitrate) override;
-  void SetTargetBitrate(DataRate target_bitrate) override;
+  void SetEncoderSettings(EncoderSettings encoder_settings);
+  void SetStartBitrate(DataRate start_bitrate);
+  void SetTargetBitrate(DataRate target_bitrate);
   void SetEncoderRates(
-      const VideoEncoder::RateControlParameters& encoder_rates) override;
+      const VideoEncoder::RateControlParameters& encoder_rates);
 
-  void OnFrame(const VideoFrame& frame) override;
-  void OnFrameDroppedDueToSize() override;
-  void OnMaybeEncodeFrame() override;
+  void OnFrameDroppedDueToSize();
+  void OnMaybeEncodeFrame();
   void OnEncodeStarted(const VideoFrame& cropped_frame,
-                       int64_t time_when_first_seen_us) override;
+                       int64_t time_when_first_seen_us);
   void OnEncodeCompleted(const EncodedImage& encoded_image,
                          int64_t time_sent_in_us,
-                         absl::optional<int> encode_duration_us) override;
-  void OnFrameDropped(EncodedImageCallback::DropReason reason) override;
+                         absl::optional<int> encode_duration_us);
+  void OnFrameDropped(EncodedImageCallback::DropReason reason);
 
   // TODO(hbos): Is dropping initial frames really just a special case of "don't
   // encode frames right now"? Can this be part of VideoSourceRestrictions,
@@ -134,6 +134,9 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   class InitialFrameDropper;
 
   enum class State { kStopped, kStarted };
+
+  bool HasSufficientInputForAdaptation(
+      const VideoStreamInputState& input_state) const;
 
   // Performs the adaptation by getting the next target, applying it and
   // informing listeners of the new VideoSourceRestriction and adapt counters.
@@ -175,13 +178,13 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
 
   std::string ActiveCountsToString() const;
 
+  VideoStreamInputStateProvider* const input_state_provider_;
   ResourceAdaptationProcessorListener* const adaptation_listener_;
   Clock* clock_;
   State state_;
   const bool experiment_cpu_load_estimator_;
   // The restrictions that |adaptation_listener_| is informed of.
   VideoSourceRestrictions video_source_restrictions_;
-  bool has_input_video_;
   DegradationPreference degradation_preference_;
   DegradationPreference effective_degradation_preference_;
   // Keeps track of source restrictions that this adaptation processor outputs.
@@ -190,8 +193,6 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   const std::unique_ptr<QualityScalerResource> quality_scaler_resource_;
   const std::unique_ptr<InitialFrameDropper> initial_frame_dropper_;
   const bool quality_scaling_experiment_enabled_;
-  absl::optional<int> last_input_frame_size_;
-  absl::optional<double> target_frame_rate_;
   // This is the last non-zero target bitrate for the encoder.
   absl::optional<uint32_t> encoder_target_bitrate_bps_;
   absl::optional<VideoEncoder::RateControlParameters> encoder_rates_;

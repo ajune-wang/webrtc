@@ -320,7 +320,6 @@ VideoStreamAdapter::VideoStreamAdapter()
       balanced_settings_(),
       adaptation_validation_id_(0),
       degradation_preference_(DegradationPreference::DISABLED),
-      input_mode_(VideoInputMode::kNoVideo),
       input_pixels_(0),
       input_fps_(0),
       encoder_settings_(absl::nullopt),
@@ -368,14 +367,12 @@ VideoStreamAdapter::SetDegradationPreference(
 }
 
 void VideoStreamAdapter::SetInput(
-    VideoInputMode input_mode,
     int input_pixels,
     int input_fps,
     absl::optional<EncoderSettings> encoder_settings,
     absl::optional<uint32_t> encoder_target_bitrate_bps) {
   // Invalidate any previously returned Adaptation.
   ++adaptation_validation_id_;
-  input_mode_ = input_mode;
   input_pixels_ = input_pixels;
   input_fps_ = input_fps;
   encoder_settings_ = encoder_settings;
@@ -386,11 +383,6 @@ void VideoStreamAdapter::SetInput(
 
 Adaptation VideoStreamAdapter::GetAdaptationUp(
     AdaptationObserverInterface::AdaptReason reason) const {
-  // Don't adapt if we don't have sufficient input.
-  if (input_mode_ == VideoInputMode::kNoVideo) {
-    return Adaptation(adaptation_validation_id_,
-                      Adaptation::Status::kInsufficientInput);
-  }
   // Don't adapt if we're awaiting a previous adaptation to have an effect.
   bool last_adaptation_was_up =
       last_adaptation_request_ &&
@@ -404,7 +396,7 @@ Adaptation VideoStreamAdapter::GetAdaptationUp(
   // Don't adapt if BalancedDegradationSettings applies and determines this will
   // exceed bitrate constraints.
   if (reason == AdaptationObserverInterface::AdaptReason::kQuality &&
-      EffectiveDegradationPreference() == DegradationPreference::BALANCED &&
+      degradation_preference_ == DegradationPreference::BALANCED &&
       !balanced_settings_.CanAdaptUp(
           GetVideoCodecTypeOrGeneric(encoder_settings_), input_pixels_,
           encoder_target_bitrate_bps_.value_or(0))) {
@@ -413,7 +405,7 @@ Adaptation VideoStreamAdapter::GetAdaptationUp(
   }
 
   // Maybe propose targets based on degradation preference.
-  switch (EffectiveDegradationPreference()) {
+  switch (degradation_preference_) {
     case DegradationPreference::BALANCED: {
       // Attempt to increase target frame rate.
       int target_fps = balanced_settings_.MaxFps(
@@ -486,11 +478,7 @@ Adaptation VideoStreamAdapter::GetAdaptationUp(
 }
 
 Adaptation VideoStreamAdapter::GetAdaptationDown() const {
-  // Don't adapt if we don't have sufficient input or adaptation is disabled.
-  if (input_mode_ == VideoInputMode::kNoVideo) {
-    return Adaptation(adaptation_validation_id_,
-                      Adaptation::Status::kInsufficientInput);
-  }
+  // Don't adapt adaptation is disabled.
   if (degradation_preference_ == DegradationPreference::DISABLED) {
     return Adaptation(adaptation_validation_id_,
                       Adaptation::Status::kAdaptationDisabled);
@@ -498,8 +486,7 @@ Adaptation VideoStreamAdapter::GetAdaptationDown() const {
   bool last_adaptation_was_down =
       last_adaptation_request_ &&
       last_adaptation_request_->mode_ == AdaptationRequest::Mode::kAdaptDown;
-  if (EffectiveDegradationPreference() ==
-      DegradationPreference::MAINTAIN_RESOLUTION) {
+  if (degradation_preference_ == DegradationPreference::MAINTAIN_RESOLUTION) {
     // TODO(hbos): This usage of |last_adaptation_was_down| looks like a mistake
     // - delete it.
     if (input_fps_ <= 0 ||
@@ -517,7 +504,7 @@ Adaptation VideoStreamAdapter::GetAdaptationDown() const {
   }
 
   // Maybe propose targets based on degradation preference.
-  switch (EffectiveDegradationPreference()) {
+  switch (degradation_preference_) {
     case DegradationPreference::BALANCED: {
       // Try scale down framerate, if lower.
       int target_fps = balanced_settings_.MinFps(
@@ -572,7 +559,7 @@ VideoSourceRestrictions VideoStreamAdapter::PeekNextRestrictions(
     return source_restrictor_->source_restrictions();
   VideoSourceRestrictor restrictor_copy = *source_restrictor_;
   restrictor_copy.ApplyAdaptationStep(adaptation.step(),
-                                      EffectiveDegradationPreference());
+                                      degradation_preference_);
   return restrictor_copy.source_restrictions();
 }
 
@@ -589,14 +576,14 @@ ResourceListenerResponse VideoStreamAdapter::ApplyAdaptation(
       AdaptationRequest::GetModeFromAdaptationAction(adaptation.step().type)});
   // Adapt!
   source_restrictor_->ApplyAdaptationStep(adaptation.step(),
-                                          EffectiveDegradationPreference());
+                                          degradation_preference_);
   // In BALANCED, if requested FPS is higher or close to input FPS to the target
   // we tell the QualityScaler to increase its frequency.
   // TODO(hbos): Don't have QualityScaler-specific logic here. If the
   // QualityScaler wants to add special logic depending on what effects
   // adaptation had, it should listen to changes to the VideoSourceRestrictions
   // instead.
-  if (EffectiveDegradationPreference() == DegradationPreference::BALANCED &&
+  if (degradation_preference_ == DegradationPreference::BALANCED &&
       adaptation.step().type == Adaptation::StepType::kDecreaseFrameRate) {
     absl::optional<int> min_diff = balanced_settings_.MinFpsDiff(input_pixels_);
     if (min_diff && input_fps_ > 0) {
@@ -607,18 +594,6 @@ ResourceListenerResponse VideoStreamAdapter::ApplyAdaptation(
     }
   }
   return ResourceListenerResponse::kNothing;
-}
-
-DegradationPreference VideoStreamAdapter::EffectiveDegradationPreference()
-    const {
-  // Balanced mode for screenshare works via automatic animation detection:
-  // Resolution is capped for fullscreen animated content.
-  // Adapatation is done only via framerate downgrade.
-  // Thus effective degradation preference is MAINTAIN_RESOLUTION.
-  return (input_mode_ == VideoInputMode::kScreenshareVideo &&
-          degradation_preference_ == DegradationPreference::BALANCED)
-             ? DegradationPreference::MAINTAIN_RESOLUTION
-             : degradation_preference_;
 }
 
 }  // namespace webrtc

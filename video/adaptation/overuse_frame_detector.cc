@@ -676,7 +676,7 @@ void OveruseFrameDetector::CheckForOveruse(
   int rampup_delay =
       in_quick_rampup_ ? kQuickRampUpDelayMs : current_rampup_delay_ms_;
 
-  RTC_LOG(LS_VERBOSE) << " Frame stats: "
+  RTC_DLOG(LS_VERBOSE) << " Frame stats: "
                          " encode usage "
                       << *encode_usage_percent_ << " overuse detections "
                       << num_overuse_detections_ << " rampup delay "

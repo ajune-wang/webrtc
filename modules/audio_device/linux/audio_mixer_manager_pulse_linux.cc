@@ -72,7 +72,7 @@ int32_t AudioMixerManagerLinuxPulse::SetPulseAudioObjects(
     pa_threaded_mainloop* mainloop,
     pa_context* context) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_DLOG(LS_VERBOSE) << __FUNCTION__;
 
   if (!mainloop || !context) {
     RTC_LOG(LS_ERROR) << "could not set PulseAudio objects for mixer";
@@ -83,14 +83,14 @@ int32_t AudioMixerManagerLinuxPulse::SetPulseAudioObjects(
   _paContext = context;
   _paObjectsSet = true;
 
-  RTC_LOG(LS_VERBOSE) << "the PulseAudio objects for the mixer has been set";
+  RTC_DLOG(LS_VERBOSE) << "the PulseAudio objects for the mixer has been set";
 
   return 0;
 }
 
 int32_t AudioMixerManagerLinuxPulse::Close() {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_DLOG(LS_VERBOSE) << __FUNCTION__;
 
   CloseSpeaker();
   CloseMicrophone();
@@ -104,7 +104,7 @@ int32_t AudioMixerManagerLinuxPulse::Close() {
 
 int32_t AudioMixerManagerLinuxPulse::CloseSpeaker() {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_DLOG(LS_VERBOSE) << __FUNCTION__;
 
   // Reset the index to -1
   _paOutputDeviceIndex = -1;
@@ -115,7 +115,7 @@ int32_t AudioMixerManagerLinuxPulse::CloseSpeaker() {
 
 int32_t AudioMixerManagerLinuxPulse::CloseMicrophone() {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_DLOG(LS_VERBOSE) << __FUNCTION__;
 
   // Reset the index to -1
   _paInputDeviceIndex = -1;
@@ -126,7 +126,7 @@ int32_t AudioMixerManagerLinuxPulse::CloseMicrophone() {
 
 int32_t AudioMixerManagerLinuxPulse::SetPlayStream(pa_stream* playStream) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "AudioMixerManagerLinuxPulse::SetPlayStream(playStream)";
 
   _paPlayStream = playStream;
@@ -135,7 +135,7 @@ int32_t AudioMixerManagerLinuxPulse::SetPlayStream(pa_stream* playStream) {
 
 int32_t AudioMixerManagerLinuxPulse::SetRecStream(pa_stream* recStream) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SetRecStream(recStream)";
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SetRecStream(recStream)";
 
   _paRecStream = recStream;
   return 0;
@@ -143,7 +143,7 @@ int32_t AudioMixerManagerLinuxPulse::SetRecStream(pa_stream* recStream) {
 
 int32_t AudioMixerManagerLinuxPulse::OpenSpeaker(uint16_t deviceIndex) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::OpenSpeaker(deviceIndex="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::OpenSpeaker(deviceIndex="
                       << deviceIndex << ")";
 
   // No point in opening the speaker
@@ -157,14 +157,14 @@ int32_t AudioMixerManagerLinuxPulse::OpenSpeaker(uint16_t deviceIndex) {
   // output device to control
   _paOutputDeviceIndex = deviceIndex;
 
-  RTC_LOG(LS_VERBOSE) << "the output mixer device is now open";
+  RTC_DLOG(LS_VERBOSE) << "the output mixer device is now open";
 
   return 0;
 }
 
 int32_t AudioMixerManagerLinuxPulse::OpenMicrophone(uint16_t deviceIndex) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "AudioMixerManagerLinuxPulse::OpenMicrophone(deviceIndex="
       << deviceIndex << ")";
 
@@ -179,7 +179,7 @@ int32_t AudioMixerManagerLinuxPulse::OpenMicrophone(uint16_t deviceIndex) {
   // input device to control
   _paInputDeviceIndex = deviceIndex;
 
-  RTC_LOG(LS_VERBOSE) << "the input mixer device is now open";
+  RTC_DLOG(LS_VERBOSE) << "the input mixer device is now open";
 
   return 0;
 }
@@ -200,7 +200,7 @@ bool AudioMixerManagerLinuxPulse::MicrophoneIsInitialized() const {
 
 int32_t AudioMixerManagerLinuxPulse::SetSpeakerVolume(uint32_t volume) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SetSpeakerVolume(volume="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SetSpeakerVolume(volume="
                       << volume << ")";
 
   if (_paOutputDeviceIndex == -1) {
@@ -271,7 +271,7 @@ int32_t AudioMixerManagerLinuxPulse::SpeakerVolume(uint32_t& volume) const {
     volume = _paSpeakerVolume;
   }
 
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SpeakerVolume() => vol="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SpeakerVolume() => vol="
                       << volume;
 
   return 0;
@@ -331,7 +331,7 @@ int32_t AudioMixerManagerLinuxPulse::SpeakerMuteIsAvailable(bool& available) {
 
 int32_t AudioMixerManagerLinuxPulse::SetSpeakerMute(bool enable) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SetSpeakerMute(enable="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerLinuxPulse::SetSpeakerMute(enable="
                       << enable << ")";
 
   if (_paOutputDeviceIndex == -1) {
@@ -387,7 +387,7 @@ int32_t AudioMixerManagerLinuxPulse::SpeakerMute(bool& enabled) const {
   } else {
     enabled = _paSpeakerMute;
   }
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "AudioMixerManagerLinuxPulse::SpeakerMute() => enabled=" << enabled;
 
   return 0;
@@ -453,7 +453,7 @@ int32_t AudioMixerManagerLinuxPulse::StereoRecordingIsAvailable(
 
   available = static_cast<bool>(_paChannels == 2);
 
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "AudioMixerManagerLinuxPulse::StereoRecordingIsAvailable()"
          " => available="
       << available;
@@ -477,7 +477,7 @@ int32_t AudioMixerManagerLinuxPulse::MicrophoneMuteIsAvailable(
 
 int32_t AudioMixerManagerLinuxPulse::SetMicrophoneMute(bool enable) {
   RTC_DCHECK(thread_checker_.IsCurrent());
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "AudioMixerManagerLinuxPulse::SetMicrophoneMute(enable=" << enable
       << ")";
 
@@ -546,7 +546,7 @@ int32_t AudioMixerManagerLinuxPulse::MicrophoneMute(bool& enabled) const {
 
   enabled = static_cast<bool>(_paMute);
 
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "AudioMixerManagerLinuxPulse::MicrophoneMute() => enabled=" << enabled;
 
   return 0;
@@ -567,7 +567,7 @@ int32_t AudioMixerManagerLinuxPulse::MicrophoneVolumeIsAvailable(
 }
 
 int32_t AudioMixerManagerLinuxPulse::SetMicrophoneVolume(uint32_t volume) {
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "AudioMixerManagerLinuxPulse::SetMicrophoneVolume(volume=" << volume
       << ")";
 
@@ -657,7 +657,7 @@ int32_t AudioMixerManagerLinuxPulse::MicrophoneVolume(uint32_t& volume) const {
     volume = static_cast<uint32_t>(_paVolume);
   }
 
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "AudioMixerManagerLinuxPulse::MicrophoneVolume() => vol=" << volume;
 
   return 0;

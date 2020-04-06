@@ -193,43 +193,43 @@ bool AudioEncoderMultiChannelOpusImpl::RecreateEncoderInstance(
              config.channel_mapping.data()));
   const int bitrate = GetBitrateBps(config);
   RTC_CHECK_EQ(0, WebRtcOpus_SetBitRate(inst_, bitrate));
-  RTC_LOG(LS_VERBOSE) << "Set Opus bitrate to " << bitrate << " bps.";
+  RTC_DLOG(LS_VERBOSE) << "Set Opus bitrate to " << bitrate << " bps.";
   if (config.fec_enabled) {
     RTC_CHECK_EQ(0, WebRtcOpus_EnableFec(inst_));
-    RTC_LOG(LS_VERBOSE) << "Opus enable FEC";
+    RTC_DLOG(LS_VERBOSE) << "Opus enable FEC";
   } else {
     RTC_CHECK_EQ(0, WebRtcOpus_DisableFec(inst_));
-    RTC_LOG(LS_VERBOSE) << "Opus disable FEC";
+    RTC_DLOG(LS_VERBOSE) << "Opus disable FEC";
   }
   RTC_CHECK_EQ(
       0, WebRtcOpus_SetMaxPlaybackRate(inst_, config.max_playback_rate_hz));
-  RTC_LOG(LS_VERBOSE) << "Set Opus playback rate to "
+  RTC_DLOG(LS_VERBOSE) << "Set Opus playback rate to "
                       << config.max_playback_rate_hz << " hz.";
 
   // Use the DEFAULT complexity.
   RTC_CHECK_EQ(
       0, WebRtcOpus_SetComplexity(inst_, AudioEncoderOpusConfig().complexity));
-  RTC_LOG(LS_VERBOSE) << "Set Opus coding complexity to "
+  RTC_DLOG(LS_VERBOSE) << "Set Opus coding complexity to "
                       << AudioEncoderOpusConfig().complexity;
 
   if (config.dtx_enabled) {
     RTC_CHECK_EQ(0, WebRtcOpus_EnableDtx(inst_));
-    RTC_LOG(LS_VERBOSE) << "Opus enable DTX";
+    RTC_DLOG(LS_VERBOSE) << "Opus enable DTX";
   } else {
     RTC_CHECK_EQ(0, WebRtcOpus_DisableDtx(inst_));
-    RTC_LOG(LS_VERBOSE) << "Opus disable DTX";
+    RTC_DLOG(LS_VERBOSE) << "Opus disable DTX";
   }
 
   if (config.cbr_enabled) {
     RTC_CHECK_EQ(0, WebRtcOpus_EnableCbr(inst_));
-    RTC_LOG(LS_VERBOSE) << "Opus enable CBR";
+    RTC_DLOG(LS_VERBOSE) << "Opus enable CBR";
   } else {
     RTC_CHECK_EQ(0, WebRtcOpus_DisableCbr(inst_));
-    RTC_LOG(LS_VERBOSE) << "Opus disable CBR";
+    RTC_DLOG(LS_VERBOSE) << "Opus disable CBR";
   }
   num_channels_to_encode_ = NumChannels();
   next_frame_length_ms_ = config_.frame_size_ms;
-  RTC_LOG(LS_VERBOSE) << "Set Opus frame length to " << config_.frame_size_ms
+  RTC_DLOG(LS_VERBOSE) << "Set Opus frame length to " << config_.frame_size_ms
                       << " ms";
   return true;
 }

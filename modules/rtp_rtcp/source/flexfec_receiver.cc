@@ -168,7 +168,7 @@ void FlexfecReceiver::ProcessReceivedPacket(
     if (now_ms - last_recovered_packet_ms_ > kPacketLogIntervalMs) {
       uint32_t media_ssrc =
           ForwardErrorCorrection::ParseSsrc(recovered_packet->pkt->data.data());
-      RTC_LOG(LS_VERBOSE) << "Recovered media packet with SSRC: " << media_ssrc
+      RTC_DLOG(LS_VERBOSE) << "Recovered media packet with SSRC: " << media_ssrc
                           << " from FlexFEC stream with SSRC: " << ssrc_ << ".";
       last_recovered_packet_ms_ = now_ms;
     }

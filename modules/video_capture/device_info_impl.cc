@@ -208,7 +208,7 @@ int32_t DeviceInfoImpl::GetBestMatchedCapability(
     }  // else height not good
   }    // end for
 
-  RTC_LOG(LS_VERBOSE) << "Best camera format: " << bestWidth << "x"
+  RTC_DLOG(LS_VERBOSE) << "Best camera format: " << bestWidth << "x"
                       << bestHeight << "@" << bestFrameRate
                       << "fps, color format: "
                       << static_cast<int>(bestVideoType);

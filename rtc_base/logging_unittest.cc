@@ -150,7 +150,7 @@ TEST(LogTest, SingleStream) {
   EXPECT_EQ(LS_INFO, LogMessage::GetLogToStream(&stream));
 
   RTC_LOG(LS_INFO) << "INFO";
-  RTC_LOG(LS_VERBOSE) << "VERBOSE";
+  RTC_DLOG(LS_VERBOSE) << "VERBOSE";
   EXPECT_NE(std::string::npos, str.find("INFO"));
   EXPECT_EQ(std::string::npos, str.find("VERBOSE"));
 
@@ -214,7 +214,7 @@ TEST(LogTest, MultipleStreams) {
   EXPECT_EQ(LS_VERBOSE, LogMessage::GetLogToStream(&stream2));
 
   RTC_LOG(LS_INFO) << "INFO";
-  RTC_LOG(LS_VERBOSE) << "VERBOSE";
+  RTC_DLOG(LS_VERBOSE) << "VERBOSE";
 
   EXPECT_NE(std::string::npos, str1.find("INFO"));
   EXPECT_EQ(std::string::npos, str1.find("VERBOSE"));
@@ -237,7 +237,7 @@ class LogThread {
   void Start() { thread_.Start(); }
 
  private:
-  void Run() { RTC_LOG(LS_VERBOSE) << "RTC_LOG"; }
+  void Run() { RTC_DLOG(LS_VERBOSE) << "RTC_LOG"; }
 
   static void ThreadEntry(void* p) { static_cast<LogThread*>(p)->Run(); }
 

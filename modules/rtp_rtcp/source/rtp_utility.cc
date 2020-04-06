@@ -334,7 +334,7 @@ void RtpHeaderParser::ParseOneByteExtensionHeader(
     }
 
     if (id == 15) {
-      RTC_LOG(LS_VERBOSE)
+      RTC_DLOG(LS_VERBOSE)
           << "RTP extension header 15 encountered. Terminate parsing.";
       return;
     }

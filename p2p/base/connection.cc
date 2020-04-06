@@ -360,7 +360,7 @@ void Connection::set_write_state(WriteState value) {
   WriteState old_value = write_state_;
   write_state_ = value;
   if (value != old_value) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": set_write_state from: " << old_value
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": set_write_state from: " << old_value
                         << " to " << value;
     SignalStateChange(this);
   }
@@ -385,7 +385,7 @@ void Connection::UpdateReceiving(int64_t now) {
   if (receiving_ == receiving) {
     return;
   }
-  RTC_LOG(LS_VERBOSE) << ToString() << ": set_receiving to " << receiving;
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": set_receiving to " << receiving;
   receiving_ = receiving;
   receiving_unchanged_since_ = now;
   SignalStateChange(this);
@@ -395,7 +395,7 @@ void Connection::set_state(IceCandidatePairState state) {
   IceCandidatePairState old_state = state_;
   state_ = state;
   if (state != old_state) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": set_state";
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": set_state";
   }
 }
 
@@ -403,7 +403,7 @@ void Connection::set_connected(bool value) {
   bool old_value = connected_;
   connected_ = value;
   if (value != old_value) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": Change connected_ to " << value;
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": Change connected_ to " << value;
     SignalStateChange(this);
   }
 }
@@ -750,7 +750,7 @@ void Connection::Destroy() {
   // with the networking thread on which this message is posted). Also affects
   // tests, with a workaround in
   // AutoSocketServerThread::~AutoSocketServerThread.
-  RTC_LOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection destroyed";
   port_->thread()->Post(RTC_FROM_HERE, this, MSG_DELETE);
   LogCandidatePairConfig(webrtc::IceCandidatePairConfigType::kDestroyed);
 }
@@ -787,7 +787,7 @@ void Connection::UpdateState(int64_t now) {
   if (RTC_LOG_CHECK_LEVEL(LS_VERBOSE)) {
     std::string pings;
     PrintPingsSinceLastResponse(&pings, 5);
-    RTC_LOG(LS_VERBOSE) << ToString()
+    RTC_DLOG(LS_VERBOSE) << ToString()
                         << ": UpdateState()"
                            ", ms since last received response="
                         << now - last_ping_response_received_
@@ -849,7 +849,7 @@ void Connection::Ping(int64_t now) {
     nomination = nomination_;
   }
   pings_since_last_response_.push_back(SentPing(req->id(), now, nomination));
-  RTC_LOG(LS_VERBOSE) << ToString() << ": Sending STUN ping, id="
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Sending STUN ping, id="
                       << rtc::hex_encode(req->id())
                       << ", nomination=" << nomination_;
   requests_.Send(req);

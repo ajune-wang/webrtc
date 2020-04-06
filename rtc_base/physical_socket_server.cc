@@ -198,7 +198,7 @@ int PhysicalSocket::Bind(const SocketAddress& bind_addr) {
       if (bind_addr.IsLoopbackIP()) {
         // If we couldn't bind to a loopback IP (which should only happen in
         // test scenarios), continue on. This may be expected behavior.
-        RTC_LOG(LS_VERBOSE) << "Binding socket to loopback address"
+        RTC_DLOG(LS_VERBOSE) << "Binding socket to loopback address"
                             << " failed; result: " << static_cast<int>(result);
       } else {
         RTC_LOG(LS_WARNING) << "Binding socket to network address"
@@ -233,7 +233,7 @@ int PhysicalSocket::Connect(const SocketAddress& addr) {
     return SOCKET_ERROR;
   }
   if (addr.IsUnresolvedIP()) {
-    RTC_LOG(LS_VERBOSE) << "Resolving addr in PhysicalSocket::Connect";
+    RTC_DLOG(LS_VERBOSE) << "Resolving addr in PhysicalSocket::Connect";
     resolver_ = new AsyncResolver();
     resolver_->SignalDone.connect(this, &PhysicalSocket::OnResolveResult);
     resolver_->Start(addr);
@@ -767,7 +767,7 @@ void SocketDispatcher::OnEvent(uint32_t ff, int err) {
   // something like a READ followed by a CONNECT, which would be odd.
   if (((ff & DE_CONNECT) != 0) && (id_ == cache_id)) {
     if (ff != DE_CONNECT)
-      RTC_LOG(LS_VERBOSE) << "Signalled with DE_CONNECT: " << ff;
+      RTC_DLOG(LS_VERBOSE) << "Signalled with DE_CONNECT: " << ff;
     DisableEvents(DE_CONNECT);
 #if !defined(NDEBUG)
     dbg_addr_ = "Connected @ ";

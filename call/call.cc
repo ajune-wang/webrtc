@@ -1049,7 +1049,7 @@ void Call::UpdateAggregateNetworkState() {
         << "UpdateAggregateNetworkState: aggregate_state change to "
         << (aggregate_network_up ? "up" : "down");
   } else {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "UpdateAggregateNetworkState: aggregate_state remains at "
         << (aggregate_network_up ? "up" : "down");
   }

@@ -271,7 +271,7 @@ void StunRequest::OnSent() {
        retransmissions >= STUN_MAX_RETRANSMISSIONS_RFC_5389)) {
     timeout_ = true;
   }
-  RTC_LOG(LS_VERBOSE) << "Sent STUN request " << count_
+  RTC_DLOG(LS_VERBOSE) << "Sent STUN request " << count_
                       << "; resend delay = " << resend_delay();
 }
 

@@ -600,7 +600,7 @@ int32_t AudioDeviceLinuxALSA::SetPlayoutDevice(uint16_t index) {
   }
 
   uint32_t nDevices = GetDevicesInfo(0, true);
-  RTC_LOG(LS_VERBOSE) << "number of available audio output devices is "
+  RTC_DLOG(LS_VERBOSE) << "number of available audio output devices is "
                       << nDevices;
 
   if (index > (nDevices - 1)) {
@@ -669,7 +669,7 @@ int32_t AudioDeviceLinuxALSA::SetRecordingDevice(uint16_t index) {
   }
 
   uint32_t nDevices = GetDevicesInfo(0, false);
-  RTC_LOG(LS_VERBOSE) << "number of availiable audio input devices is "
+  RTC_DLOG(LS_VERBOSE) << "number of availiable audio input devices is "
                       << nDevices;
 
   if (index > (nDevices - 1)) {
@@ -781,7 +781,7 @@ int32_t AudioDeviceLinuxALSA::InitPlayout() {
   GetDevicesInfo(2, true, _outputDeviceIndex, deviceName,
                  kAdmMaxDeviceNameSize);
 
-  RTC_LOG(LS_VERBOSE) << "InitPlayout open (" << deviceName << ")";
+  RTC_DLOG(LS_VERBOSE) << "InitPlayout open (" << deviceName << ")";
 
   errVal = LATE(snd_pcm_open)(&_handlePlayout, deviceName,
                               SND_PCM_STREAM_PLAYBACK, SND_PCM_NONBLOCK);
@@ -836,7 +836,7 @@ int32_t AudioDeviceLinuxALSA::InitPlayout() {
     _playoutBufferSizeInFrame = 0;
     _playoutPeriodSizeInFrame = 0;
   } else {
-    RTC_LOG(LS_VERBOSE) << "playout snd_pcm_get_params buffer_size:"
+    RTC_DLOG(LS_VERBOSE) << "playout snd_pcm_get_params buffer_size:"
                         << _playoutBufferSizeInFrame
                         << " period_size :" << _playoutPeriodSizeInFrame;
   }
@@ -904,7 +904,7 @@ int32_t AudioDeviceLinuxALSA::InitRecording() {
   GetDevicesInfo(2, false, _inputDeviceIndex, deviceName,
                  kAdmMaxDeviceNameSize);
 
-  RTC_LOG(LS_VERBOSE) << "InitRecording open (" << deviceName << ")";
+  RTC_DLOG(LS_VERBOSE) << "InitRecording open (" << deviceName << ")";
   errVal = LATE(snd_pcm_open)(&_handleRecord, deviceName,
                               SND_PCM_STREAM_CAPTURE, SND_PCM_NONBLOCK);
 
@@ -978,7 +978,7 @@ int32_t AudioDeviceLinuxALSA::InitRecording() {
     _recordingBuffersizeInFrame = 0;
     _recordingPeriodSizeInFrame = 0;
   } else {
-    RTC_LOG(LS_VERBOSE) << "capture snd_pcm_get_params, buffer_size:"
+    RTC_DLOG(LS_VERBOSE) << "capture snd_pcm_get_params, buffer_size:"
                         << _recordingBuffersizeInFrame
                         << ", period_size:" << _recordingPeriodSizeInFrame;
   }
@@ -1202,7 +1202,7 @@ int32_t AudioDeviceLinuxALSA::StopPlayout() {
   // set the pcm input handle to NULL
   _playIsInitialized = false;
   _handlePlayout = NULL;
-  RTC_LOG(LS_VERBOSE) << "handle_playout is now set to NULL";
+  RTC_DLOG(LS_VERBOSE) << "handle_playout is now set to NULL";
 
   return 0;
 }
@@ -1300,7 +1300,7 @@ int32_t AudioDeviceLinuxALSA::GetDevicesInfo(const int32_t function,
         }
 
         if (FUNC_GET_NUM_OF_DEVICE == function) {
-          RTC_LOG(LS_VERBOSE) << "Enum device " << enumCount << " - " << name;
+          RTC_DLOG(LS_VERBOSE) << "Enum device " << enumCount << " - " << name;
         }
         if ((FUNC_GET_DEVICE_NAME == function) && (enumDeviceNo == enumCount)) {
           // We have found the enum device, copy the name to buffer.
@@ -1378,7 +1378,7 @@ int32_t AudioDeviceLinuxALSA::OutputSanityCheckAfterUnlockedPeriod() const {
 int32_t AudioDeviceLinuxALSA::ErrorRecovery(int32_t error,
                                             snd_pcm_t* deviceHandle) {
   int st = LATE(snd_pcm_state)(deviceHandle);
-  RTC_LOG(LS_VERBOSE) << "Trying to recover from "
+  RTC_DLOG(LS_VERBOSE) << "Trying to recover from "
                       << ((LATE(snd_pcm_stream)(deviceHandle) ==
                            SND_PCM_STREAM_CAPTURE)
                               ? "capture"
@@ -1418,7 +1418,7 @@ int32_t AudioDeviceLinuxALSA::ErrorRecovery(int32_t error,
 
   int res = LATE(snd_pcm_recover)(deviceHandle, error, 1);
   if (0 == res) {
-    RTC_LOG(LS_VERBOSE) << "Recovery - snd_pcm_recover OK";
+    RTC_DLOG(LS_VERBOSE) << "Recovery - snd_pcm_recover OK";
 
     if ((error == -EPIPE || error == -ESTRPIPE) &&  // Buf underrun/overrun.
         _recording &&
@@ -1492,7 +1492,7 @@ bool AudioDeviceLinuxALSA::PlayThreadProcess() {
     // maximum tixe in milliseconds to wait, a negative value means infinity
     err = LATE(snd_pcm_wait)(_handlePlayout, 2);
     if (err == 0) {  // timeout occured
-      RTC_LOG(LS_VERBOSE) << "playout snd_pcm_wait timeout";
+      RTC_DLOG(LS_VERBOSE) << "playout snd_pcm_wait timeout";
     }
 
     return true;
@@ -1516,7 +1516,7 @@ bool AudioDeviceLinuxALSA::PlayThreadProcess() {
       avail_frames);
 
   if (frames < 0) {
-    RTC_LOG(LS_VERBOSE) << "playout snd_pcm_writei error: "
+    RTC_DLOG(LS_VERBOSE) << "playout snd_pcm_writei error: "
                         << LATE(snd_strerror)(frames);
     _playoutFramesLeft = 0;
     ErrorRecovery(frames, _handlePlayout);
@@ -1556,7 +1556,7 @@ bool AudioDeviceLinuxALSA::RecThreadProcess() {
     // maximum time in milliseconds to wait, a negative value means infinity
     err = LATE(snd_pcm_wait)(_handleRecord, ALSA_CAPTURE_WAIT_TIMEOUT);
     if (err == 0)  // timeout occured
-      RTC_LOG(LS_VERBOSE) << "capture snd_pcm_wait timeout";
+      RTC_DLOG(LS_VERBOSE) << "capture snd_pcm_wait timeout";
 
     return true;
   }

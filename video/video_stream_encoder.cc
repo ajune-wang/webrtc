@@ -643,7 +643,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     next_frame_types_.resize(
         std::max(static_cast<int>(codec.numberOfSimulcastStreams), 1),
         VideoFrameType::kVideoFrameKey);
-    RTC_LOG(LS_VERBOSE) << " max bitrate " << codec.maxBitrate
+    RTC_DLOG(LS_VERBOSE) << " max bitrate " << codec.maxBitrate
                         << " start bitrate " << codec.startBitrate
                         << " max frame rate " << codec.maxFramerate
                         << " max payload size " << max_data_payload_length_;
@@ -809,7 +809,7 @@ void VideoStreamEncoder::OnFrame(const VideoFrame& video_frame) {
                 VideoStreamEncoderObserver::DropReason::kCongestionWindow);
           } else {
             // There is a newer frame in flight. Do not encode this frame.
-            RTC_LOG(LS_VERBOSE)
+            RTC_DLOG(LS_VERBOSE)
                 << "Incoming frame dropped due to that the encoder is blocked.";
             ++dropped_frame_encoder_block_count_;
             encoder_stats_observer_->OnFrameDropped(
@@ -909,7 +909,7 @@ VideoStreamEncoder::UpdateBitrateAllocationAndNotifyObserver(
   if (bitrate_adjuster_) {
     VideoBitrateAllocation adjusted_allocation =
         bitrate_adjuster_->AdjustRateAllocation(new_rate_settings.rate_control);
-    RTC_LOG(LS_VERBOSE) << "Adjusting allocation, fps = "
+    RTC_DLOG(LS_VERBOSE) << "Adjusting allocation, fps = "
                         << rate_settings.rate_control.framerate_fps << ", from "
                         << new_allocation.ToString() << ", to "
                         << adjusted_allocation.ToString();
@@ -1077,7 +1077,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
       !encoder_info_.has_trusted_rate_controller;
   frame_dropper_.Enable(frame_dropping_enabled);
   if (frame_dropping_enabled && frame_dropper_.DropFrame()) {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "Drop Frame: "
            "target bitrate "
         << (last_encoder_rate_settings_
@@ -1584,7 +1584,7 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
 
   RTC_DCHECK(sink_) << "sink_ must be set before the encoder is active.";
 
-  RTC_LOG(LS_VERBOSE) << "OnBitrateUpdated, bitrate " << target_bitrate.bps()
+  RTC_DLOG(LS_VERBOSE) << "OnBitrateUpdated, bitrate " << target_bitrate.bps()
                       << " stable bitrate = " << stable_target_bitrate.bps()
                       << " link allocation bitrate = " << link_allocation.bps()
                       << " packet loss " << static_cast<int>(fraction_lost)

@@ -726,7 +726,7 @@ class VirtualSocketServerTest : public ::testing::Test {
   // address.
   void DelayTest(const SocketAddress& initial_addr) {
     time_t seed = ::time(nullptr);
-    RTC_LOG(LS_VERBOSE) << "seed = " << seed;
+    RTC_DLOG(LS_VERBOSE) << "seed = " << seed;
     srand(static_cast<unsigned int>(seed));
 
     const uint32_t mean = 2000;
@@ -763,7 +763,7 @@ class VirtualSocketServerTest : public ::testing::Test {
         receiver.samples * receiver.sum_sq - receiver.sum * receiver.sum;
     double den = receiver.samples * (receiver.samples - 1);
     const double sample_stddev = sqrt(num / den);
-    RTC_LOG(LS_VERBOSE) << "mean=" << sample_mean
+    RTC_DLOG(LS_VERBOSE) << "mean=" << sample_mean
                         << " stddev=" << sample_stddev;
 
     EXPECT_LE(500u, receiver.samples);

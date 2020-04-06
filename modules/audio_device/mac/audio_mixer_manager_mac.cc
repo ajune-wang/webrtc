@@ -59,7 +59,7 @@ AudioMixerManagerMac::~AudioMixerManagerMac() {
 // ============================================================================
 
 int32_t AudioMixerManagerMac::Close() {
-  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_DLOG(LS_VERBOSE) << __FUNCTION__;
 
   rtc::CritScope lock(&_critSect);
 
@@ -70,7 +70,7 @@ int32_t AudioMixerManagerMac::Close() {
 }
 
 int32_t AudioMixerManagerMac::CloseSpeaker() {
-  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_DLOG(LS_VERBOSE) << __FUNCTION__;
 
   rtc::CritScope lock(&_critSect);
 
@@ -81,7 +81,7 @@ int32_t AudioMixerManagerMac::CloseSpeaker() {
 }
 
 int32_t AudioMixerManagerMac::CloseMicrophone() {
-  RTC_LOG(LS_VERBOSE) << __FUNCTION__;
+  RTC_DLOG(LS_VERBOSE) << __FUNCTION__;
 
   rtc::CritScope lock(&_critSect);
 
@@ -92,7 +92,7 @@ int32_t AudioMixerManagerMac::CloseMicrophone() {
 }
 
 int32_t AudioMixerManagerMac::OpenSpeaker(AudioDeviceID deviceID) {
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::OpenSpeaker(id=" << deviceID
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::OpenSpeaker(id=" << deviceID
                       << ")";
 
   rtc::CritScope lock(&_critSect);
@@ -114,11 +114,11 @@ int32_t AudioMixerManagerMac::OpenSpeaker(AudioDeviceID deviceID) {
         _outputDeviceID, &propertyAddress, 0, NULL, &size, &hogPid));
 
     if (hogPid == -1) {
-      RTC_LOG(LS_VERBOSE) << "No process has hogged the output device";
+      RTC_DLOG(LS_VERBOSE) << "No process has hogged the output device";
     }
     // getpid() is apparently "always successful"
     else if (hogPid == getpid()) {
-      RTC_LOG(LS_VERBOSE) << "Our process has hogged the output device";
+      RTC_DLOG(LS_VERBOSE) << "Our process has hogged the output device";
     } else {
       RTC_LOG(LS_WARNING) << "Another process (pid = "
                           << static_cast<int>(hogPid)
@@ -144,7 +144,7 @@ int32_t AudioMixerManagerMac::OpenSpeaker(AudioDeviceID deviceID) {
 }
 
 int32_t AudioMixerManagerMac::OpenMicrophone(AudioDeviceID deviceID) {
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::OpenMicrophone(id=" << deviceID
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::OpenMicrophone(id=" << deviceID
                       << ")";
 
   rtc::CritScope lock(&_critSect);
@@ -162,11 +162,11 @@ int32_t AudioMixerManagerMac::OpenMicrophone(AudioDeviceID deviceID) {
   WEBRTC_CA_RETURN_ON_ERR(AudioObjectGetPropertyData(
       _inputDeviceID, &propertyAddress, 0, NULL, &size, &hogPid));
   if (hogPid == -1) {
-    RTC_LOG(LS_VERBOSE) << "No process has hogged the input device";
+    RTC_DLOG(LS_VERBOSE) << "No process has hogged the input device";
   }
   // getpid() is apparently "always successful"
   else if (hogPid == getpid()) {
-    RTC_LOG(LS_VERBOSE) << "Our process has hogged the input device";
+    RTC_DLOG(LS_VERBOSE) << "Our process has hogged the input device";
   } else {
     RTC_LOG(LS_WARNING) << "Another process (pid = " << static_cast<int>(hogPid)
                         << ") has hogged the input device";
@@ -202,7 +202,7 @@ bool AudioMixerManagerMac::MicrophoneIsInitialized() const {
 }
 
 int32_t AudioMixerManagerMac::SetSpeakerVolume(uint32_t volume) {
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetSpeakerVolume(volume="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::SetSpeakerVolume(volume="
                       << volume << ")";
 
   rtc::CritScope lock(&_critSect);
@@ -310,7 +310,7 @@ int32_t AudioMixerManagerMac::SpeakerVolume(uint32_t& volume) const {
     volume = static_cast<uint32_t>(255 * vol / channels + 0.5);
   }
 
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SpeakerVolume() => vol=" << vol;
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::SpeakerVolume() => vol=" << vol;
 
   return 0;
 }
@@ -418,7 +418,7 @@ int32_t AudioMixerManagerMac::SpeakerMuteIsAvailable(bool& available) {
 }
 
 int32_t AudioMixerManagerMac::SetSpeakerMute(bool enable) {
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetSpeakerMute(enable="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::SetSpeakerMute(enable="
                       << enable << ")";
 
   rtc::CritScope lock(&_critSect);
@@ -521,7 +521,7 @@ int32_t AudioMixerManagerMac::SpeakerMute(bool& enabled) const {
     enabled = static_cast<bool>(muted);
   }
 
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SpeakerMute() => enabled="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::SpeakerMute() => enabled="
                       << enabled;
 
   return 0;
@@ -586,7 +586,7 @@ int32_t AudioMixerManagerMac::MicrophoneMuteIsAvailable(bool& available) {
 }
 
 int32_t AudioMixerManagerMac::SetMicrophoneMute(bool enable) {
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetMicrophoneMute(enable="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::SetMicrophoneMute(enable="
                       << enable << ")";
 
   rtc::CritScope lock(&_critSect);
@@ -689,7 +689,7 @@ int32_t AudioMixerManagerMac::MicrophoneMute(bool& enabled) const {
     enabled = static_cast<bool>(muted);
   }
 
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::MicrophoneMute() => enabled="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::MicrophoneMute() => enabled="
                       << enabled;
 
   return 0;
@@ -734,7 +734,7 @@ int32_t AudioMixerManagerMac::MicrophoneVolumeIsAvailable(bool& available) {
 }
 
 int32_t AudioMixerManagerMac::SetMicrophoneVolume(uint32_t volume) {
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::SetMicrophoneVolume(volume="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::SetMicrophoneVolume(volume="
                       << volume << ")";
 
   rtc::CritScope lock(&_critSect);
@@ -842,7 +842,7 @@ int32_t AudioMixerManagerMac::MicrophoneVolume(uint32_t& volume) const {
     volume = static_cast<uint32_t>(255 * volFloat32 / channels + 0.5);
   }
 
-  RTC_LOG(LS_VERBOSE) << "AudioMixerManagerMac::MicrophoneVolume() => vol="
+  RTC_DLOG(LS_VERBOSE) << "AudioMixerManagerMac::MicrophoneVolume() => vol="
                       << volume;
 
   return 0;

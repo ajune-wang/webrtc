@@ -137,7 +137,7 @@ bool RtpHeaderExtensionMap::Register(int id,
 
   RTPExtensionType registered_type = GetType(id);
   if (registered_type == type) {  // Same type/id pair already registered.
-    RTC_LOG(LS_VERBOSE) << "Reregistering extension uri:'" << uri
+    RTC_DLOG(LS_VERBOSE) << "Reregistering extension uri:'" << uri
                         << "', id:" << id;
     return true;
   }

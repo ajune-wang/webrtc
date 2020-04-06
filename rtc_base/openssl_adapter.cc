@@ -414,7 +414,7 @@ int OpenSSLAdapter::ContinueSSL() {
       break;
 
     case SSL_ERROR_WANT_READ:
-      RTC_LOG(LS_VERBOSE) << " -- error want read";
+      RTC_DLOG(LS_VERBOSE) << " -- error want read";
       struct timeval timeout;
       if (DTLSv1_get_timeout(ssl_, &timeout)) {
         int delay = timeout.tv_sec * 1000 + timeout.tv_usec / 1000;
@@ -921,7 +921,7 @@ std::string TransformAlpnProtocols(
     }
     transformed_alpn += static_cast<char>(proto.size());
     transformed_alpn += proto;
-    RTC_LOG(LS_VERBOSE) << "TransformAlpnProtocols: Adding proto: " << proto;
+    RTC_DLOG(LS_VERBOSE) << "TransformAlpnProtocols: Adding proto: " << proto;
   }
   return transformed_alpn;
 }

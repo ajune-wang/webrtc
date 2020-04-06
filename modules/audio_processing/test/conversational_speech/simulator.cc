@@ -48,12 +48,12 @@ InitSpeakerOutputFilePaths(const std::set<std::string>& speaker_names,
   for (const auto& speaker_name : speaker_names) {
     const std::string near_end_path =
         test::JoinFilename(output_path, "s_" + speaker_name + "-near_end.wav");
-    RTC_LOG(LS_VERBOSE) << "The near-end audio track will be created in "
+    RTC_DLOG(LS_VERBOSE) << "The near-end audio track will be created in "
                         << near_end_path << ".";
 
     const std::string far_end_path =
         test::JoinFilename(output_path, "s_" + speaker_name + "-far_end.wav");
-    RTC_LOG(LS_VERBOSE) << "The far-end audio track will be created in "
+    RTC_DLOG(LS_VERBOSE) << "The far-end audio track will be created in "
                         << far_end_path << ".";
 
     // Add to map.

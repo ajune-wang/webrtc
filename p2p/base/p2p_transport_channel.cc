@@ -408,7 +408,7 @@ IceTransportState P2PTransportChannel::ComputeState() const {
     if (networks.find(network) == networks.end()) {
       networks.insert(network);
     } else {
-      RTC_LOG(LS_VERBOSE) << ToString()
+      RTC_DLOG(LS_VERBOSE) << ToString()
                           << ": Ice not completed yet for this channel as "
                           << network->ToString()
                           << " has more than 1 connection.";
@@ -1278,7 +1278,7 @@ void P2PTransportChannel::RemoveRemoteCandidate(
                        return cand_to_remove.MatchesForRemoval(candidate);
                      });
   if (iter != remote_candidates_.end()) {
-    RTC_LOG(LS_VERBOSE) << "Removed remote candidate "
+    RTC_DLOG(LS_VERBOSE) << "Removed remote candidate "
                         << cand_to_remove.ToSensitiveString();
     remote_candidates_.erase(iter, remote_candidates_.end());
   }
@@ -2127,7 +2127,7 @@ void P2PTransportChannel::SetWritable(bool writable) {
   if (writable_ == writable) {
     return;
   }
-  RTC_LOG(LS_VERBOSE) << ToString() << ": Changed writable_ to " << writable;
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Changed writable_ to " << writable;
   writable_ = writable;
   if (writable_) {
     has_been_writable_ = true;

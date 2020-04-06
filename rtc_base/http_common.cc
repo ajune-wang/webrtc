@@ -492,10 +492,10 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
         auth_id.Password = passbuf;
         auth_id.Flags = SEC_WINNT_AUTH_IDENTITY_ANSI;
         pauth_id = &auth_id;
-        RTC_LOG(LS_VERBOSE)
+        RTC_DLOG(LS_VERBOSE)
             << "Negotiate protocol: Using specified credentials";
       } else {
-        RTC_LOG(LS_VERBOSE) << "Negotiate protocol: Using default credentials";
+        RTC_DLOG(LS_VERBOSE) << "Negotiate protocol: Using default credentials";
       }
 
       CredHandle cred;
@@ -530,7 +530,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
     if ((ret == SEC_I_COMPLETE_NEEDED) ||
         (ret == SEC_I_COMPLETE_AND_CONTINUE)) {
       ret = CompleteAuthToken(&neg->ctx, &out_buf_desc);
-      RTC_LOG(LS_VERBOSE) << "CompleteAuthToken returned: "
+      RTC_DLOG(LS_VERBOSE) << "CompleteAuthToken returned: "
                           << GetErrorName(ret, SECURITY_ERRORS);
       if (FAILED(ret)) {
         return HAR_ERROR;

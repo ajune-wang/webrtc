@@ -149,11 +149,11 @@ class SctpTransportTest : public ::testing::Test, public sigslot::has_slots<> {
     bool asymmetric = false;
     fake_dtls1_->SetDestination(fake_dtls2_.get(), asymmetric);
 
-    RTC_LOG(LS_VERBOSE) << "Transport setup ----------------------------- ";
+    RTC_DLOG(LS_VERBOSE) << "Transport setup ----------------------------- ";
     AddStream(1);
     AddStream(2);
 
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "Connect the transports -----------------------------";
     // Both transports need to have started (with matching ports) for an
     // association to be formed.
@@ -455,12 +455,12 @@ TEST_P(SctpTransportTestWithOrdered, SendData) {
   SetupConnectedTransportsWithTwoStreams();
 
   SendDataResult result;
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "transport1 sending: 'hello?' -----------------------------";
   ASSERT_TRUE(SendData(transport1(), 1, "hello?", &result, ordered));
   EXPECT_EQ(SDR_SUCCESS, result);
   EXPECT_TRUE_WAIT(ReceivedData(receiver2(), 1, "hello?"), kDefaultTimeout);
-  RTC_LOG(LS_VERBOSE) << "recv2.received=" << receiver2()->received()
+  RTC_DLOG(LS_VERBOSE) << "recv2.received=" << receiver2()->received()
                       << ", recv2.last_params.sid="
                       << receiver2()->last_params().sid
                       << ", recv2.last_params.timestamp="
@@ -469,13 +469,13 @@ TEST_P(SctpTransportTestWithOrdered, SendData) {
                       << receiver2()->last_params().seq_num
                       << ", recv2.last_data=" << receiver2()->last_data();
 
-  RTC_LOG(LS_VERBOSE)
+  RTC_DLOG(LS_VERBOSE)
       << "transport2 sending: 'hi transport1' -----------------------------";
   ASSERT_TRUE(SendData(transport2(), 2, "hi transport1", &result, ordered));
   EXPECT_EQ(SDR_SUCCESS, result);
   EXPECT_TRUE_WAIT(ReceivedData(receiver1(), 2, "hi transport1"),
                    kDefaultTimeout);
-  RTC_LOG(LS_VERBOSE) << "recv1.received=" << receiver1()->received()
+  RTC_DLOG(LS_VERBOSE) << "recv1.received=" << receiver1()->received()
                       << ", recv1.last_params.sid="
                       << receiver1()->last_params().sid
                       << ", recv1.last_params.timestamp="

@@ -709,7 +709,7 @@ bool TurnPort::HandleIncomingPacket(rtc::AsyncPacketSocket* socket,
 
   if (SharedSocket() && (msg_type == STUN_BINDING_RESPONSE ||
                          msg_type == STUN_BINDING_ERROR_RESPONSE)) {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << ToString()
         << ": Ignoring STUN binding response message on shared socket.";
     return false;

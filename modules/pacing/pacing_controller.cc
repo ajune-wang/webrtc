@@ -210,7 +210,7 @@ void PacingController::SetPacingRates(DataRate pacing_rate,
   pacing_bitrate_ = pacing_rate;
   padding_budget_.set_target_rate_kbps(padding_rate.kbps());
 
-  RTC_LOG(LS_VERBOSE) << "bwe:pacer_updated pacing_kbps="
+  RTC_DLOG(LS_VERBOSE) << "bwe:pacer_updated pacing_kbps="
                       << pacing_bitrate_.kbps()
                       << " padding_budget_kbps=" << padding_rate.kbps();
 }
@@ -450,7 +450,7 @@ void PacingController::ProcessPackets() {
         DataRate min_rate_needed = queue_size_data / avg_time_left;
         if (min_rate_needed > target_rate) {
           target_rate = min_rate_needed;
-          RTC_LOG(LS_VERBOSE) << "bwe:large_pacing_queue pacing_rate_kbps="
+          RTC_DLOG(LS_VERBOSE) << "bwe:large_pacing_queue pacing_rate_kbps="
                               << target_rate.kbps();
         }
       }

@@ -1387,7 +1387,7 @@ void AllocationSequence::OnMessage(rtc::Message* msg) {
 
 void AllocationSequence::CreateUDPPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_UDP)) {
-    RTC_LOG(LS_VERBOSE) << "AllocationSequence: UDP ports disabled, skipping.";
+    RTC_DLOG(LS_VERBOSE) << "AllocationSequence: UDP ports disabled, skipping.";
     return;
   }
 
@@ -1435,7 +1435,7 @@ void AllocationSequence::CreateUDPPorts() {
 
 void AllocationSequence::CreateTCPPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_TCP)) {
-    RTC_LOG(LS_VERBOSE) << "AllocationSequence: TCP ports disabled, skipping.";
+    RTC_DLOG(LS_VERBOSE) << "AllocationSequence: TCP ports disabled, skipping.";
     return;
   }
 
@@ -1453,7 +1453,7 @@ void AllocationSequence::CreateTCPPorts() {
 
 void AllocationSequence::CreateStunPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_STUN)) {
-    RTC_LOG(LS_VERBOSE) << "AllocationSequence: STUN ports disabled, skipping.";
+    RTC_DLOG(LS_VERBOSE) << "AllocationSequence: STUN ports disabled, skipping.";
     return;
   }
 
@@ -1482,7 +1482,7 @@ void AllocationSequence::CreateStunPorts() {
 
 void AllocationSequence::CreateRelayPorts() {
   if (IsFlagSet(PORTALLOCATOR_DISABLE_RELAY)) {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "AllocationSequence: Relay ports disabled, skipping.";
     return;
   }

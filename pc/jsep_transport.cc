@@ -257,7 +257,7 @@ webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
     rtc::CritScope scope(&accessor_lock_);
     if (needs_ice_restart_ && ice_restarting) {
       needs_ice_restart_ = false;
-      RTC_LOG(LS_VERBOSE) << "needs-ice-restart flag cleared for transport "
+      RTC_DLOG(LS_VERBOSE) << "needs-ice-restart flag cleared for transport "
                           << mid();
     }
   }
@@ -366,7 +366,7 @@ void JsepTransport::SetNeedsIceRestartFlag() {
   rtc::CritScope scope(&accessor_lock_);
   if (!needs_ice_restart_) {
     needs_ice_restart_ = true;
-    RTC_LOG(LS_VERBOSE) << "needs-ice-restart flag set for transport " << mid();
+    RTC_DLOG(LS_VERBOSE) << "needs-ice-restart flag set for transport " << mid();
   }
 }
 

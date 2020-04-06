@@ -427,7 +427,7 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
   RTC_DCHECK(params.type == cricket::DMT_BINARY ||
              params.type == cricket::DMT_TEXT);
 
-  RTC_LOG(LS_VERBOSE) << "DataChannel received DATA message, sid = "
+  RTC_DLOG(LS_VERBOSE) << "DataChannel received DATA message, sid = "
                       << params.sid;
   // We can send unordered as soon as we receive any DATA message since the
   // remote side must have received the OPEN (and old clients do not send
@@ -629,7 +629,7 @@ bool DataChannel::SendDataMessage(const DataBuffer& buffer,
     // Send as ordered if it is still going through OPEN/ACK signaling.
     if (handshake_state_ != kHandshakeReady && !config_.ordered) {
       send_params.ordered = true;
-      RTC_LOG(LS_VERBOSE)
+      RTC_DLOG(LS_VERBOSE)
           << "Sending data as ordered for unordered DataChannel "
              "because the OPEN_ACK message has not been received.";
     }
@@ -722,7 +722,7 @@ bool DataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
   cricket::SendDataResult send_result = cricket::SDR_SUCCESS;
   bool retval = provider_->SendData(send_params, buffer, &send_result);
   if (retval) {
-    RTC_LOG(LS_VERBOSE) << "Sent CONTROL message on channel " << config_.id;
+    RTC_DLOG(LS_VERBOSE) << "Sent CONTROL message on channel " << config_.id;
 
     if (handshake_state_ == kHandshakeShouldSendAck) {
       handshake_state_ = kHandshakeReady;

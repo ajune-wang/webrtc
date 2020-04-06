@@ -554,7 +554,7 @@ bool Port::GetStunMessage(const char* data,
     // NOTE: Username should not be used in verifying response messages.
     out_username->clear();
   } else if (stun_msg->type() == STUN_BINDING_INDICATION) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": Received "
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": Received "
                         << StunMethodToString(stun_msg->type()) << ": from "
                         << addr.ToSensitiveString();
     out_username->clear();
@@ -579,14 +579,14 @@ bool Port::GetStunMessage(const char* data,
                                STUN_ERROR_REASON_UNAUTHORIZED);
       return true;
     }
-    RTC_LOG(LS_VERBOSE) << ToString() << ": Received "
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": Received "
                         << StunMethodToString(stun_msg->type()) << " from "
                         << addr.ToSensitiveString();
     out_username->clear();
   } else if (stun_msg->type() == GOOG_PING_RESPONSE ||
              stun_msg->type() == GOOG_PING_ERROR_RESPONSE) {
     // note: the MessageIntegrity32 will be verified in Connection.cc
-    RTC_LOG(LS_VERBOSE) << ToString() << ": Received "
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": Received "
                         << StunMethodToString(stun_msg->type()) << " from "
                         << addr.ToSensitiveString();
     out_username->clear();

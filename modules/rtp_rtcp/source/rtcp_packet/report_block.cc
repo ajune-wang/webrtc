@@ -90,7 +90,7 @@ bool ReportBlock::SetCumulativeLost(int32_t cumulative_lost) {
 
 uint32_t ReportBlock::cumulative_lost() const {
   if (cumulative_lost_ < 0) {
-    RTC_LOG(LS_VERBOSE) << "Ignoring negative value of cumulative_lost";
+    RTC_DLOG(LS_VERBOSE) << "Ignoring negative value of cumulative_lost";
     return 0;
   }
   return cumulative_lost_;

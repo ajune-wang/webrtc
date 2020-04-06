@@ -169,7 +169,7 @@ void TCPPort::PrepareAddress() {
     // If socket isn't bound yet the address will be added in
     // OnAddressReady(). Socket may be in the CLOSED state if Listen()
     // failed, we still want to add the socket address.
-    RTC_LOG(LS_VERBOSE) << "Preparing TCP address, current state: "
+    RTC_DLOG(LS_VERBOSE) << "Preparing TCP address, current state: "
                         << socket_->GetState();
     if (socket_->GetState() == rtc::AsyncPacketSocket::STATE_BOUND ||
         socket_->GetState() == rtc::AsyncPacketSocket::STATE_CLOSED)
@@ -284,7 +284,7 @@ void TCPPort::OnNewConnection(rtc::AsyncPacketSocket* socket,
   incoming.socket->SignalReadyToSend.connect(this, &TCPPort::OnReadyToSend);
   incoming.socket->SignalSentPacket.connect(this, &TCPPort::OnSentPacket);
 
-  RTC_LOG(LS_VERBOSE) << ToString() << ": Accepted connection from "
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": Accepted connection from "
                       << incoming.addr.ToSensitiveString();
   incoming_.push_back(incoming);
 }
@@ -361,7 +361,7 @@ TCPConnection::TCPConnection(TCPPort* port,
   } else {
     // Incoming connections should match one of the network addresses. Same as
     // what's being checked in OnConnect, but just DCHECKing here.
-    RTC_LOG(LS_VERBOSE) << ToString() << ": socket ipaddr: "
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": socket ipaddr: "
                         << socket_->GetLocalAddress().ToSensitiveString()
                         << ", port() Network:" << port->Network()->ToString();
     RTC_DCHECK(absl::c_any_of(
@@ -452,7 +452,7 @@ void TCPConnection::OnConnect(rtc::AsyncPacketSocket* socket) {
                      [socket_address](const rtc::InterfaceAddress& addr) {
                        return socket_address.ipaddr() == addr;
                      })) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": Connection established to "
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": Connection established to "
                         << socket->GetRemoteAddress().ToSensitiveString();
   } else {
     if (socket->GetLocalAddress().IsLoopbackIP()) {
@@ -570,7 +570,7 @@ void TCPConnection::CreateOutgoingTcpSocket() {
       remote_candidate().address(), port()->proxy(), port()->user_agent(),
       tcp_opts));
   if (socket_) {
-    RTC_LOG(LS_VERBOSE) << ToString() << ": Connecting from "
+    RTC_DLOG(LS_VERBOSE) << ToString() << ": Connecting from "
                         << socket_->GetLocalAddress().ToSensitiveString()
                         << " to "
                         << remote_candidate().address().ToSensitiveString();

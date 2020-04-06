@@ -299,7 +299,7 @@ bool RtpDataMediaChannel::SendData(const SendDataParams& params,
       rtc::TimeMicros() / static_cast<double>(rtc::kNumMicrosecsPerSec);
 
   if (!send_limiter_->CanUse(packet_len, now)) {
-    RTC_LOG(LS_VERBOSE) << "Dropped data packet of len=" << packet_len
+    RTC_DLOG(LS_VERBOSE) << "Dropped data packet of len=" << packet_len
                         << "; already sent " << send_limiter_->used_in_period()
                         << "/" << send_limiter_->max_per_period();
     return false;
@@ -318,7 +318,7 @@ bool RtpDataMediaChannel::SendData(const SendDataParams& params,
   packet.AppendData(kReservedSpace);
   packet.AppendData(payload);
 
-  RTC_LOG(LS_VERBOSE) << "Sent RTP data packet: "
+  RTC_DLOG(LS_VERBOSE) << "Sent RTP data packet: "
                          " stream="
                       << found_stream->id << " ssrc=" << header.ssrc
                       << ", seqnum=" << header.seq_num

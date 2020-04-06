@@ -669,7 +669,7 @@ int32_t AudioDeviceLinuxPulse::SetPlayoutDevice(uint16_t index) {
 
   const uint16_t nDevices = PlayoutDevices();
 
-  RTC_LOG(LS_VERBOSE) << "number of availiable output devices is " << nDevices;
+  RTC_DLOG(LS_VERBOSE) << "number of availiable output devices is " << nDevices;
 
   if (index > (nDevices - 1)) {
     RTC_LOG(LS_ERROR) << "device index is out of range [0," << (nDevices - 1)
@@ -790,7 +790,7 @@ int32_t AudioDeviceLinuxPulse::SetRecordingDevice(uint16_t index) {
 
   const uint16_t nDevices(RecordingDevices());
 
-  RTC_LOG(LS_VERBOSE) << "number of availiable input devices is " << nDevices;
+  RTC_DLOG(LS_VERBOSE) << "number of availiable input devices is " << nDevices;
 
   if (index > (nDevices - 1)) {
     RTC_LOG(LS_ERROR) << "device index is out of range [0," << (nDevices - 1)
@@ -892,7 +892,7 @@ int32_t AudioDeviceLinuxPulse::InitPlayout() {
     _ptrAudioBuffer->SetPlayoutChannels((uint8_t)_playChannels);
   }
 
-  RTC_LOG(LS_VERBOSE) << "stream state "
+  RTC_DLOG(LS_VERBOSE) << "stream state "
                       << LATE(pa_stream_get_state)(_playStream);
 
   // Set stream flags
@@ -1103,7 +1103,7 @@ int32_t AudioDeviceLinuxPulse::StopRecording() {
   _recIsInitialized = false;
   _recording = false;
 
-  RTC_LOG(LS_VERBOSE) << "stopping recording";
+  RTC_DLOG(LS_VERBOSE) << "stopping recording";
 
   // Stop Recording
   PaLock();
@@ -1123,7 +1123,7 @@ int32_t AudioDeviceLinuxPulse::StopRecording() {
       return -1;
     }
 
-    RTC_LOG(LS_VERBOSE) << "disconnected recording";
+    RTC_DLOG(LS_VERBOSE) << "disconnected recording";
   }
 
   LATE(pa_stream_unref)(_recStream);
@@ -1219,7 +1219,7 @@ int32_t AudioDeviceLinuxPulse::StopPlayout() {
   _playing = false;
   _sndCardPlayDelay = 0;
 
-  RTC_LOG(LS_VERBOSE) << "stopping playback";
+  RTC_DLOG(LS_VERBOSE) << "stopping playback";
 
   // Stop Playout
   PaLock();
@@ -1239,7 +1239,7 @@ int32_t AudioDeviceLinuxPulse::StopPlayout() {
       return -1;
     }
 
-    RTC_LOG(LS_VERBOSE) << "disconnected playback";
+    RTC_DLOG(LS_VERBOSE) << "disconnected playback";
   }
 
   LATE(pa_stream_unref)(_playStream);
@@ -1307,26 +1307,26 @@ void AudioDeviceLinuxPulse::PaStreamStateCallback(pa_stream* p, void* pThis) {
 }
 
 void AudioDeviceLinuxPulse::PaContextStateCallbackHandler(pa_context* c) {
-  RTC_LOG(LS_VERBOSE) << "context state cb";
+  RTC_DLOG(LS_VERBOSE) << "context state cb";
 
   pa_context_state_t state = LATE(pa_context_get_state)(c);
   switch (state) {
     case PA_CONTEXT_UNCONNECTED:
-      RTC_LOG(LS_VERBOSE) << "unconnected";
+      RTC_DLOG(LS_VERBOSE) << "unconnected";
       break;
     case PA_CONTEXT_CONNECTING:
     case PA_CONTEXT_AUTHORIZING:
     case PA_CONTEXT_SETTING_NAME:
-      RTC_LOG(LS_VERBOSE) << "no state";
+      RTC_DLOG(LS_VERBOSE) << "no state";
       break;
     case PA_CONTEXT_FAILED:
     case PA_CONTEXT_TERMINATED:
-      RTC_LOG(LS_VERBOSE) << "failed";
+      RTC_DLOG(LS_VERBOSE) << "failed";
       _paStateChanged = true;
       LATE(pa_threaded_mainloop_signal)(_paMainloop, 0);
       break;
     case PA_CONTEXT_READY:
-      RTC_LOG(LS_VERBOSE) << "ready";
+      RTC_DLOG(LS_VERBOSE) << "ready";
       _paStateChanged = true;
       LATE(pa_threaded_mainloop_signal)(_paMainloop, 0);
       break;
@@ -1417,22 +1417,22 @@ void AudioDeviceLinuxPulse::PaServerInfoCallbackHandler(
 }
 
 void AudioDeviceLinuxPulse::PaStreamStateCallbackHandler(pa_stream* p) {
-  RTC_LOG(LS_VERBOSE) << "stream state cb";
+  RTC_DLOG(LS_VERBOSE) << "stream state cb";
 
   pa_stream_state_t state = LATE(pa_stream_get_state)(p);
   switch (state) {
     case PA_STREAM_UNCONNECTED:
-      RTC_LOG(LS_VERBOSE) << "unconnected";
+      RTC_DLOG(LS_VERBOSE) << "unconnected";
       break;
     case PA_STREAM_CREATING:
-      RTC_LOG(LS_VERBOSE) << "creating";
+      RTC_DLOG(LS_VERBOSE) << "creating";
       break;
     case PA_STREAM_FAILED:
     case PA_STREAM_TERMINATED:
-      RTC_LOG(LS_VERBOSE) << "failed";
+      RTC_DLOG(LS_VERBOSE) << "failed";
       break;
     case PA_STREAM_READY:
-      RTC_LOG(LS_VERBOSE) << "ready";
+      RTC_DLOG(LS_VERBOSE) << "ready";
       break;
   }
 
@@ -1452,7 +1452,7 @@ int32_t AudioDeviceLinuxPulse::CheckPulseAudioVersion() {
 
   PaUnLock();
 
-  RTC_LOG(LS_VERBOSE) << "checking PulseAudio version: " << _paServerVersion;
+  RTC_DLOG(LS_VERBOSE) << "checking PulseAudio version: " << _paServerVersion;
 
   return 0;
 }
@@ -1573,7 +1573,7 @@ int32_t AudioDeviceLinuxPulse::InitPulseAudio() {
     return -1;
   }
 
-  RTC_LOG(LS_VERBOSE) << "mainloop running!";
+  RTC_DLOG(LS_VERBOSE) << "mainloop running!";
 
   PaLock();
 
@@ -1690,7 +1690,7 @@ int32_t AudioDeviceLinuxPulse::TerminatePulseAudio() {
 
   _paMainloop = NULL;
 
-  RTC_LOG(LS_VERBOSE) << "PulseAudio terminated";
+  RTC_DLOG(LS_VERBOSE) << "PulseAudio terminated";
 
   return 0;
 }
@@ -1865,7 +1865,7 @@ int32_t AudioDeviceLinuxPulse::LatencyUsecs(pa_stream* stream) {
   }
 
   if (negative) {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "warning: pa_stream_get_latency reported negative delay";
 
     // The delay can be negative for monitoring streams if the captured
@@ -2005,7 +2005,7 @@ bool AudioDeviceLinuxPulse::PlayThreadProcess() {
   }
 
   if (_startPlay) {
-    RTC_LOG(LS_VERBOSE) << "_startPlay true, performing initial actions";
+    RTC_DLOG(LS_VERBOSE) << "_startPlay true, performing initial actions";
 
     _startPlay = false;
     _playDeviceName = NULL;
@@ -2057,14 +2057,14 @@ bool AudioDeviceLinuxPulse::PlayThreadProcess() {
                         << LATE(pa_context_errno)(_paContext);
     }
 
-    RTC_LOG(LS_VERBOSE) << "play stream connected";
+    RTC_DLOG(LS_VERBOSE) << "play stream connected";
 
     // Wait for state change
     while (LATE(pa_stream_get_state)(_playStream) != PA_STREAM_READY) {
       LATE(pa_threaded_mainloop_wait)(_paMainloop);
     }
 
-    RTC_LOG(LS_VERBOSE) << "play stream ready";
+    RTC_DLOG(LS_VERBOSE) << "play stream ready";
 
     // We can now handle write callbacks
     EnableWriteCallback();
@@ -2119,7 +2119,7 @@ bool AudioDeviceLinuxPulse::PlayThreadProcess() {
       // AudioDeviceBuffer ensure that this callback is executed
       // without taking the audio-thread lock.
       UnLock();
-      RTC_LOG(LS_VERBOSE) << "requesting data";
+      RTC_DLOG(LS_VERBOSE) << "requesting data";
       uint32_t nSamples = _ptrAudioBuffer->RequestPlayoutData(numPlaySamples);
       Lock();
 
@@ -2139,7 +2139,7 @@ bool AudioDeviceLinuxPulse::PlayThreadProcess() {
         write = _tempBufferSpace;
       }
 
-      RTC_LOG(LS_VERBOSE) << "will write";
+      RTC_DLOG(LS_VERBOSE) << "will write";
       PaLock();
       if (LATE(pa_stream_write)(_playStream, (void*)&_playBuffer[0], write,
                                 NULL, (int64_t)0, PA_SEEK_RELATIVE) != PA_OK) {
@@ -2175,7 +2175,7 @@ bool AudioDeviceLinuxPulse::RecThreadProcess() {
     return false;
   }
   if (_startRec) {
-    RTC_LOG(LS_VERBOSE) << "_startRec true, performing initial actions";
+    RTC_DLOG(LS_VERBOSE) << "_startRec true, performing initial actions";
 
     _recDeviceName = NULL;
 
@@ -2189,7 +2189,7 @@ bool AudioDeviceLinuxPulse::RecThreadProcess() {
 
     PaLock();
 
-    RTC_LOG(LS_VERBOSE) << "connecting stream";
+    RTC_DLOG(LS_VERBOSE) << "connecting stream";
 
     // Connect the stream to a source
     if (LATE(pa_stream_connect_record)(
@@ -2199,14 +2199,14 @@ bool AudioDeviceLinuxPulse::RecThreadProcess() {
                         << LATE(pa_context_errno)(_paContext);
     }
 
-    RTC_LOG(LS_VERBOSE) << "connected";
+    RTC_DLOG(LS_VERBOSE) << "connected";
 
     // Wait for state change
     while (LATE(pa_stream_get_state)(_recStream) != PA_STREAM_READY) {
       LATE(pa_threaded_mainloop_wait)(_paMainloop);
     }
 
-    RTC_LOG(LS_VERBOSE) << "done";
+    RTC_DLOG(LS_VERBOSE) << "done";
 
     // We can now handle read callbacks
     EnableReadCallback();

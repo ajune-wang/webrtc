@@ -88,7 +88,7 @@ void AudioDeviceMac::logCAMsg(const rtc::LoggingSeverity sev,
                           << err[3];
       break;
     case rtc::LS_VERBOSE:
-      RTC_LOG(LS_VERBOSE) << msg << ": " << err[0] << err[1] << err[2]
+      RTC_DLOG(LS_VERBOSE) << msg << ": " << err[0] << err[1] << err[2]
                           << err[3];
       break;
     default:
@@ -105,7 +105,7 @@ void AudioDeviceMac::logCAMsg(const rtc::LoggingSeverity sev,
                           << err[0];
       break;
     case rtc::LS_VERBOSE:
-      RTC_LOG(LS_VERBOSE) << msg << ": " << err[3] << err[2] << err[1]
+      RTC_DLOG(LS_VERBOSE) << msg << ": " << err[3] << err[2] << err[1]
                           << err[0];
       break;
     default:
@@ -324,7 +324,7 @@ AudioDeviceGeneric::InitStatus AudioDeviceMac::Init() {
   if (intErr != 0) {
     RTC_LOG(LS_ERROR) << "Error in sysctlbyname(): " << err;
   } else {
-    RTC_LOG(LS_VERBOSE) << "Hardware model: " << buf;
+    RTC_DLOG(LS_VERBOSE) << "Hardware model: " << buf;
     if (strncmp(buf, "MacBookPro", 10) == 0) {
       _macBookPro = true;
     }
@@ -805,7 +805,7 @@ int32_t AudioDeviceMac::SetPlayoutDevice(uint16_t index) {
   AudioDeviceID playDevices[MaxNumberDevices];
   uint32_t nDevices = GetNumberDevices(kAudioDevicePropertyScopeOutput,
                                        playDevices, MaxNumberDevices);
-  RTC_LOG(LS_VERBOSE) << "number of available waveform-audio output devices is "
+  RTC_DLOG(LS_VERBOSE) << "number of available waveform-audio output devices is "
                       << nDevices;
 
   if (index > (nDevices - 1)) {
@@ -876,7 +876,7 @@ int32_t AudioDeviceMac::SetRecordingDevice(uint16_t index) {
   AudioDeviceID recDevices[MaxNumberDevices];
   uint32_t nDevices = GetNumberDevices(kAudioDevicePropertyScopeInput,
                                        recDevices, MaxNumberDevices);
-  RTC_LOG(LS_VERBOSE) << "number of available waveform-audio input devices is "
+  RTC_DLOG(LS_VERBOSE) << "number of available waveform-audio input devices is "
                       << nDevices;
 
   if (index > (nDevices - 1)) {
@@ -1000,10 +1000,10 @@ int32_t AudioDeviceMac::InitPlayout() {
 
       if (dataSource == 'ispk') {
         _macBookProPanRight = true;
-        RTC_LOG(LS_VERBOSE)
+        RTC_DLOG(LS_VERBOSE)
             << "MacBook Pro using internal speakers; stereo panning right";
       } else {
-        RTC_LOG(LS_VERBOSE) << "MacBook Pro not using internal speakers";
+        RTC_DLOG(LS_VERBOSE) << "MacBook Pro not using internal speakers";
       }
 
       // Add a listener to determine if the status changes.
@@ -1038,18 +1038,18 @@ int32_t AudioDeviceMac::InitPlayout() {
     return -1;
   }
 
-  RTC_LOG(LS_VERBOSE) << "Ouput stream format:";
-  RTC_LOG(LS_VERBOSE) << "mSampleRate = " << _outStreamFormat.mSampleRate
+  RTC_DLOG(LS_VERBOSE) << "Ouput stream format:";
+  RTC_DLOG(LS_VERBOSE) << "mSampleRate = " << _outStreamFormat.mSampleRate
                       << ", mChannelsPerFrame = "
                       << _outStreamFormat.mChannelsPerFrame;
-  RTC_LOG(LS_VERBOSE) << "mBytesPerPacket = "
+  RTC_DLOG(LS_VERBOSE) << "mBytesPerPacket = "
                       << _outStreamFormat.mBytesPerPacket
                       << ", mFramesPerPacket = "
                       << _outStreamFormat.mFramesPerPacket;
-  RTC_LOG(LS_VERBOSE) << "mBytesPerFrame = " << _outStreamFormat.mBytesPerFrame
+  RTC_DLOG(LS_VERBOSE) << "mBytesPerFrame = " << _outStreamFormat.mBytesPerFrame
                       << ", mBitsPerChannel = "
                       << _outStreamFormat.mBitsPerChannel;
-  RTC_LOG(LS_VERBOSE) << "mFormatFlags = " << _outStreamFormat.mFormatFlags;
+  RTC_DLOG(LS_VERBOSE) << "mFormatFlags = " << _outStreamFormat.mFormatFlags;
   logCAMsg(rtc::LS_VERBOSE, "mFormatID",
            (const char*)&_outStreamFormat.mFormatID);
 
@@ -1057,7 +1057,7 @@ int32_t AudioDeviceMac::InitPlayout() {
   if (_outStreamFormat.mChannelsPerFrame < 2) {
     // Disable stereo playout when we only have one channel on the device.
     _playChannels = 1;
-    RTC_LOG(LS_VERBOSE) << "Stereo playout unavailable on this device";
+    RTC_DLOG(LS_VERBOSE) << "Stereo playout unavailable on this device";
   }
   WEBRTC_CA_RETURN_ON_ERR(SetDesiredPlayoutFormat());
 
@@ -1152,17 +1152,17 @@ int32_t AudioDeviceMac::InitRecording() {
     return -1;
   }
 
-  RTC_LOG(LS_VERBOSE) << "Input stream format:";
-  RTC_LOG(LS_VERBOSE) << "mSampleRate = " << _inStreamFormat.mSampleRate
+  RTC_DLOG(LS_VERBOSE) << "Input stream format:";
+  RTC_DLOG(LS_VERBOSE) << "mSampleRate = " << _inStreamFormat.mSampleRate
                       << ", mChannelsPerFrame = "
                       << _inStreamFormat.mChannelsPerFrame;
-  RTC_LOG(LS_VERBOSE) << "mBytesPerPacket = " << _inStreamFormat.mBytesPerPacket
+  RTC_DLOG(LS_VERBOSE) << "mBytesPerPacket = " << _inStreamFormat.mBytesPerPacket
                       << ", mFramesPerPacket = "
                       << _inStreamFormat.mFramesPerPacket;
-  RTC_LOG(LS_VERBOSE) << "mBytesPerFrame = " << _inStreamFormat.mBytesPerFrame
+  RTC_DLOG(LS_VERBOSE) << "mBytesPerFrame = " << _inStreamFormat.mBytesPerFrame
                       << ", mBitsPerChannel = "
                       << _inStreamFormat.mBitsPerChannel;
-  RTC_LOG(LS_VERBOSE) << "mFormatFlags = " << _inStreamFormat.mFormatFlags;
+  RTC_DLOG(LS_VERBOSE) << "mFormatFlags = " << _inStreamFormat.mFormatFlags;
   logCAMsg(rtc::LS_VERBOSE, "mFormatID",
            (const char*)&_inStreamFormat.mFormatID);
 
@@ -1173,7 +1173,7 @@ int32_t AudioDeviceMac::InitRecording() {
     // Disable stereo recording when we only have one channel on the device.
     _inDesiredFormat.mChannelsPerFrame = 1;
     _recChannels = 1;
-    RTC_LOG(LS_VERBOSE) << "Stereo recording unavailable on this device";
+    RTC_DLOG(LS_VERBOSE) << "Stereo recording unavailable on this device";
   }
 
   if (_ptrAudioBuffer) {
@@ -1877,7 +1877,7 @@ OSStatus AudioDeviceMac::SetDesiredPlayoutFormat() {
   _renderLatencyUs +=
       static_cast<uint32_t>((1.0e6 * latency) / _outStreamFormat.mSampleRate);
 
-  RTC_LOG(LS_VERBOSE) << "initial playout status: _renderDelayOffsetSamples="
+  RTC_DLOG(LS_VERBOSE) << "initial playout status: _renderDelayOffsetSamples="
                       << _renderDelayOffsetSamples
                       << ", _renderDelayUs=" << _renderDelayUs
                       << ", _renderLatencyUs=" << _renderLatencyUs;
@@ -1902,7 +1902,7 @@ OSStatus AudioDeviceMac::implObjectListenerProc(
     const AudioObjectID objectId,
     const UInt32 numberAddresses,
     const AudioObjectPropertyAddress addresses[]) {
-  RTC_LOG(LS_VERBOSE) << "AudioDeviceMac::implObjectListenerProc()";
+  RTC_DLOG(LS_VERBOSE) << "AudioDeviceMac::implObjectListenerProc()";
 
   for (UInt32 i = 0; i < numberAddresses; i++) {
     if (addresses[i].mSelector == kAudioHardwarePropertyDevices) {
@@ -1922,7 +1922,7 @@ OSStatus AudioDeviceMac::implObjectListenerProc(
 int32_t AudioDeviceMac::HandleDeviceChange() {
   OSStatus err = noErr;
 
-  RTC_LOG(LS_VERBOSE) << "kAudioHardwarePropertyDevices";
+  RTC_DLOG(LS_VERBOSE) << "kAudioHardwarePropertyDevices";
 
   // A device has changed. Check if our registered devices have been removed.
   // Ensure the devices have been initialized, meaning the IDs are valid.
@@ -1972,7 +1972,7 @@ int32_t AudioDeviceMac::HandleStreamFormatChange(
     const AudioObjectPropertyAddress propertyAddress) {
   OSStatus err = noErr;
 
-  RTC_LOG(LS_VERBOSE) << "Stream format changed";
+  RTC_DLOG(LS_VERBOSE) << "Stream format changed";
 
   if (objectId != _inputDeviceID && objectId != _outputDeviceID) {
     return 0;
@@ -2002,16 +2002,16 @@ int32_t AudioDeviceMac::HandleStreamFormatChange(
     return -1;
   }
 
-  RTC_LOG(LS_VERBOSE) << "Stream format:";
-  RTC_LOG(LS_VERBOSE) << "mSampleRate = " << streamFormat.mSampleRate
+  RTC_DLOG(LS_VERBOSE) << "Stream format:";
+  RTC_DLOG(LS_VERBOSE) << "mSampleRate = " << streamFormat.mSampleRate
                       << ", mChannelsPerFrame = "
                       << streamFormat.mChannelsPerFrame;
-  RTC_LOG(LS_VERBOSE) << "mBytesPerPacket = " << streamFormat.mBytesPerPacket
+  RTC_DLOG(LS_VERBOSE) << "mBytesPerPacket = " << streamFormat.mBytesPerPacket
                       << ", mFramesPerPacket = "
                       << streamFormat.mFramesPerPacket;
-  RTC_LOG(LS_VERBOSE) << "mBytesPerFrame = " << streamFormat.mBytesPerFrame
+  RTC_DLOG(LS_VERBOSE) << "mBytesPerFrame = " << streamFormat.mBytesPerFrame
                       << ", mBitsPerChannel = " << streamFormat.mBitsPerChannel;
-  RTC_LOG(LS_VERBOSE) << "mFormatFlags = " << streamFormat.mFormatFlags;
+  RTC_DLOG(LS_VERBOSE) << "mFormatFlags = " << streamFormat.mFormatFlags;
   logCAMsg(rtc::LS_VERBOSE, "mFormatID", (const char*)&streamFormat.mFormatID);
 
   if (propertyAddress.mScope == kAudioDevicePropertyScopeInput) {
@@ -2033,7 +2033,7 @@ int32_t AudioDeviceMac::HandleStreamFormatChange(
       // Disable stereo recording when we only have one channel on the device.
       _inDesiredFormat.mChannelsPerFrame = 1;
       _recChannels = 1;
-      RTC_LOG(LS_VERBOSE) << "Stereo recording unavailable on this device";
+      RTC_DLOG(LS_VERBOSE) << "Stereo recording unavailable on this device";
     }
 
     // Recreate the converter with the new format
@@ -2048,7 +2048,7 @@ int32_t AudioDeviceMac::HandleStreamFormatChange(
     // Our preferred format to work with
     if (_outStreamFormat.mChannelsPerFrame < 2) {
       _playChannels = 1;
-      RTC_LOG(LS_VERBOSE) << "Stereo playout unavailable on this device";
+      RTC_DLOG(LS_VERBOSE) << "Stereo playout unavailable on this device";
     }
     WEBRTC_CA_RETURN_ON_ERR(SetDesiredPlayoutFormat());
   }
@@ -2062,7 +2062,7 @@ int32_t AudioDeviceMac::HandleDataSourceChange(
 
   if (_macBookPro &&
       propertyAddress.mScope == kAudioDevicePropertyScopeOutput) {
-    RTC_LOG(LS_VERBOSE) << "Data source changed";
+    RTC_DLOG(LS_VERBOSE) << "Data source changed";
 
     _macBookProPanRight = false;
     UInt32 dataSource = 0;
@@ -2071,10 +2071,10 @@ int32_t AudioDeviceMac::HandleDataSourceChange(
         objectId, &propertyAddress, 0, NULL, &size, &dataSource));
     if (dataSource == 'ispk') {
       _macBookProPanRight = true;
-      RTC_LOG(LS_VERBOSE)
+      RTC_DLOG(LS_VERBOSE)
           << "MacBook Pro using internal speakers; stereo panning right";
     } else {
-      RTC_LOG(LS_VERBOSE) << "MacBook Pro not using internal speakers";
+      RTC_DLOG(LS_VERBOSE) << "MacBook Pro not using internal speakers";
     }
   }
 
@@ -2184,7 +2184,7 @@ OSStatus AudioDeviceMac::implDeviceIOProc(const AudioBufferList* inputData,
         WEBRTC_CA_LOG_WARN(
             AudioDeviceDestroyIOProcID(_outputDeviceID, _deviceIOProcID));
         if (err == noErr) {
-          RTC_LOG(LS_VERBOSE) << "Playout or shared device stopped";
+          RTC_DLOG(LS_VERBOSE) << "Playout or shared device stopped";
         }
       }
 
@@ -2277,7 +2277,7 @@ OSStatus AudioDeviceMac::implInDeviceIOProc(const AudioBufferList* inputData,
       WEBRTC_CA_LOG_WARN(
           AudioDeviceDestroyIOProcID(_inputDeviceID, _inDeviceIOProcID));
       if (err == noErr) {
-        RTC_LOG(LS_VERBOSE) << "Recording device stopped";
+        RTC_DLOG(LS_VERBOSE) << "Recording device stopped";
       }
 
       _doStopRec = false;

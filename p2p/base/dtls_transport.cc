@@ -506,7 +506,7 @@ void DtlsTransport::ConnectToIceTransport() {
 void DtlsTransport::OnWritableState(rtc::PacketTransportInternal* transport) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(transport == ice_transport_);
-  RTC_LOG(LS_VERBOSE) << ToString()
+  RTC_DLOG(LS_VERBOSE) << ToString()
                       << ": ice_transport writable state changed to "
                       << ice_transport_->writable();
 
@@ -546,7 +546,7 @@ void DtlsTransport::OnWritableState(rtc::PacketTransportInternal* transport) {
 void DtlsTransport::OnReceivingState(rtc::PacketTransportInternal* transport) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_DCHECK(transport == ice_transport_);
-  RTC_LOG(LS_VERBOSE) << ToString()
+  RTC_DLOG(LS_VERBOSE) << ToString()
                       << ": ice_transport "
                          "receiving state changed to "
                       << ice_transport_->receiving();
@@ -791,7 +791,7 @@ void DtlsTransport::set_writable(bool writable) {
     event_log_->Log(
         std::make_unique<webrtc::RtcEventDtlsWritableState>(writable));
   }
-  RTC_LOG(LS_VERBOSE) << ToString() << ": set_writable to: " << writable;
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": set_writable to: " << writable;
   writable_ = writable;
   if (writable_) {
     SignalReadyToSend(this);
@@ -807,7 +807,7 @@ void DtlsTransport::set_dtls_state(DtlsTransportState state) {
     event_log_->Log(std::make_unique<webrtc::RtcEventDtlsTransportState>(
         ConvertDtlsTransportState(state)));
   }
-  RTC_LOG(LS_VERBOSE) << ToString() << ": set_dtls_state from:" << dtls_state_
+  RTC_DLOG(LS_VERBOSE) << ToString() << ": set_dtls_state from:" << dtls_state_
                       << " to " << state;
   dtls_state_ = state;
   SignalDtlsState(this, state);

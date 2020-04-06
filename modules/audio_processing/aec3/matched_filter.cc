@@ -447,7 +447,7 @@ void MatchedFilter::LogFilterProperties(int sample_rate_hz,
     int start = static_cast<int>(alignment_shift * downsampling_factor);
     int end = static_cast<int>((alignment_shift + filters_[k].size()) *
                                downsampling_factor);
-    RTC_LOG(LS_VERBOSE) << "Filter " << k << ": start: "
+    RTC_DLOG(LS_VERBOSE) << "Filter " << k << ": start: "
                         << (start - static_cast<int>(shift)) / kFsBy1000
                         << " ms, end: "
                         << (end - static_cast<int>(shift)) / kFsBy1000

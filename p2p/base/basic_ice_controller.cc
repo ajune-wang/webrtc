@@ -538,10 +538,10 @@ BasicIceController::SortAndSwitchConnection(IceControllerEvent reason) {
         return a->rtt() < b->rtt();
       });
 
-  RTC_LOG(LS_VERBOSE) << "Sorting " << connections_.size()
+  RTC_DLOG(LS_VERBOSE) << "Sorting " << connections_.size()
                       << " available connections";
   for (size_t i = 0; i < connections_.size(); ++i) {
-    RTC_LOG(LS_VERBOSE) << connections_[i]->ToString();
+    RTC_DLOG(LS_VERBOSE) << connections_[i]->ToString();
   }
 
   const Connection* top_connection =

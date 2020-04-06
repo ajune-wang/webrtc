@@ -134,7 +134,7 @@ bool DatagramRtpTransport::SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
     // Save packet info without transport sequence number.
     sent_rtp_packet_map_[datagram_id] = SentPacketInfo(options.packet_id);
 
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "Sending rtp packet without transport sequence number, packet="
         << rtp_packet.ToString();
 
@@ -155,7 +155,7 @@ bool DatagramRtpTransport::SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
     return -1;
   }
 
-  RTC_LOG(LS_VERBOSE) << "Removed transport_senquence_number="
+  RTC_DLOG(LS_VERBOSE) << "Removed transport_senquence_number="
                       << transport_senquence_number
                       << " from packet=" << rtp_packet.ToString()
                       << ", saved bytes=" << packet->size() - rtp_packet.size();
@@ -260,7 +260,7 @@ void DatagramRtpTransport::OnDatagramAcked(const DatagramAck& ack) {
     return;
   }
 
-  RTC_LOG(LS_VERBOSE) << "Datagram acked, ack.datagram_id=" << ack.datagram_id
+  RTC_DLOG(LS_VERBOSE) << "Datagram acked, ack.datagram_id=" << ack.datagram_id
                       << ", sent_packet_info.packet_id="
                       << sent_packet_info.packet_id
                       << ", sent_packet_info.transport_sequence_number="

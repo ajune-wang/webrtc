@@ -231,7 +231,7 @@ AsyncHttpsProxySocket::~AsyncHttpsProxySocket() {
 
 int AsyncHttpsProxySocket::Connect(const SocketAddress& addr) {
   int ret;
-  RTC_LOG(LS_VERBOSE) << "AsyncHttpsProxySocket::Connect("
+  RTC_DLOG(LS_VERBOSE) << "AsyncHttpsProxySocket::Connect("
                       << proxy_.ToSensitiveString() << ")";
   dest_ = addr;
   state_ = PS_INIT;
@@ -267,7 +267,7 @@ Socket::ConnState AsyncHttpsProxySocket::GetState() const {
 }
 
 void AsyncHttpsProxySocket::OnConnectEvent(AsyncSocket* socket) {
-  RTC_LOG(LS_VERBOSE) << "AsyncHttpsProxySocket::OnConnectEvent";
+  RTC_DLOG(LS_VERBOSE) << "AsyncHttpsProxySocket::OnConnectEvent";
   if (!ShouldIssueConnect()) {
     state_ = PS_TUNNEL;
     BufferedReadAdapter::OnConnectEvent(socket);
@@ -277,7 +277,7 @@ void AsyncHttpsProxySocket::OnConnectEvent(AsyncSocket* socket) {
 }
 
 void AsyncHttpsProxySocket::OnCloseEvent(AsyncSocket* socket, int err) {
-  RTC_LOG(LS_VERBOSE) << "AsyncHttpsProxySocket::OnCloseEvent(" << err << ")";
+  RTC_DLOG(LS_VERBOSE) << "AsyncHttpsProxySocket::OnCloseEvent(" << err << ")";
   if ((state_ == PS_WAIT_CLOSE) && (err == 0)) {
     state_ = PS_ERROR;
     Connect(dest_);
@@ -351,11 +351,11 @@ void AsyncHttpsProxySocket::SendRequest() {
   content_length_ = 0;
   headers_.clear();
 
-  RTC_LOG(LS_VERBOSE) << "AsyncHttpsProxySocket >> " << str;
+  RTC_DLOG(LS_VERBOSE) << "AsyncHttpsProxySocket >> " << str;
 }
 
 void AsyncHttpsProxySocket::ProcessLine(char* data, size_t len) {
-  RTC_LOG(LS_VERBOSE) << "AsyncHttpsProxySocket << " << data;
+  RTC_DLOG(LS_VERBOSE) << "AsyncHttpsProxySocket << " << data;
 
   if (len == 0) {
     if (state_ == PS_TUNNEL_HEADERS) {
@@ -407,7 +407,7 @@ void AsyncHttpsProxySocket::ProcessLine(char* data, size_t len) {
     switch (HttpAuthenticate(data + 19, len - 19, proxy_, "CONNECT", "/", user_,
                              pass_, context_, response, auth_method)) {
       case HAR_IGNORE:
-        RTC_LOG(LS_VERBOSE) << "Ignoring Proxy-Authenticate: " << auth_method;
+        RTC_DLOG(LS_VERBOSE) << "Ignoring Proxy-Authenticate: " << auth_method;
         if (!unknown_mechanisms_.empty())
           unknown_mechanisms_.append(", ");
         unknown_mechanisms_.append(auth_method);
@@ -559,19 +559,19 @@ void AsyncSocksProxySocket::ProcessInput(char* data, size_t* len) {
       uint32_t addr;
       if (!response.ReadUInt32(&addr) || !response.ReadUInt16(&port))
         return;
-      RTC_LOG(LS_VERBOSE) << "Bound on " << addr << ":" << port;
+      RTC_DLOG(LS_VERBOSE) << "Bound on " << addr << ":" << port;
     } else if (atyp == 3) {
       uint8_t len;
       std::string addr;
       if (!response.ReadUInt8(&len) || !response.ReadString(&addr, len) ||
           !response.ReadUInt16(&port))
         return;
-      RTC_LOG(LS_VERBOSE) << "Bound on " << addr << ":" << port;
+      RTC_DLOG(LS_VERBOSE) << "Bound on " << addr << ":" << port;
     } else if (atyp == 4) {
       std::string addr;
       if (!response.ReadString(&addr, 16) || !response.ReadUInt16(&port))
         return;
-      RTC_LOG(LS_VERBOSE) << "Bound on <IPV6>:" << port;
+      RTC_DLOG(LS_VERBOSE) << "Bound on <IPV6>:" << port;
     } else {
       Error(0);
       return;

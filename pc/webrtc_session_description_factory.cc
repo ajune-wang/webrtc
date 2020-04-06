@@ -149,7 +149,7 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
   // SRTP-SDES is disabled if DTLS is on.
   SetSdesPolicy(dtls_enabled ? cricket::SEC_DISABLED : cricket::SEC_REQUIRED);
   if (!dtls_enabled) {
-    RTC_LOG(LS_VERBOSE) << "DTLS-SRTP disabled.";
+    RTC_DLOG(LS_VERBOSE) << "DTLS-SRTP disabled.";
     return;
   }
 
@@ -157,7 +157,7 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
     // Use |certificate|.
     certificate_request_state_ = CERTIFICATE_WAITING;
 
-    RTC_LOG(LS_VERBOSE) << "DTLS-SRTP enabled; has certificate parameter.";
+    RTC_DLOG(LS_VERBOSE) << "DTLS-SRTP enabled; has certificate parameter.";
     // We already have a certificate but we wait to do |SetIdentity|; if we do
     // it in the constructor then the caller has not had a chance to connect to
     // |SignalCertificateReady|.
@@ -176,7 +176,7 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
         this, &WebRtcSessionDescriptionFactory::SetCertificate);
 
     rtc::KeyParams key_params = rtc::KeyParams();
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "DTLS-SRTP enabled; sending DTLS identity request (key type: "
         << key_params.type() << ").";
 
@@ -478,7 +478,7 @@ void WebRtcSessionDescriptionFactory::OnCertificateRequestFailed() {
 void WebRtcSessionDescriptionFactory::SetCertificate(
     const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) {
   RTC_DCHECK(certificate);
-  RTC_LOG(LS_VERBOSE) << "Setting new certificate.";
+  RTC_DLOG(LS_VERBOSE) << "Setting new certificate.";
 
   certificate_request_state_ = CERTIFICATE_SUCCEEDED;
   SignalCertificateReady(certificate);

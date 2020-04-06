@@ -537,7 +537,7 @@ bool RtpPacket::ParseBuffer(const uint8_t* buffer, size_t size) {
 
         ExtensionInfo& extension_info = FindOrCreateExtensionInfo(id);
         if (extension_info.length != 0) {
-          RTC_LOG(LS_VERBOSE)
+          RTC_DLOG(LS_VERBOSE)
               << "Duplicate rtp header extension id " << id << ". Overwriting.";
         }
 

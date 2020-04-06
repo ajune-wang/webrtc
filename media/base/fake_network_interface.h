@@ -170,7 +170,7 @@ class FakeNetworkInterface : public MediaChannel::NetworkInterface,
       if (msg->message_id == ST_RTP) {
         dest_->OnPacketReceived(msg_data->data(), rtc::TimeMicros());
       } else {
-        RTC_LOG(LS_VERBOSE) << "Dropping RTCP packet, they not handled by "
+        RTC_DLOG(LS_VERBOSE) << "Dropping RTCP packet, they not handled by "
                                "MediaChannel anymore.";
       }
     }

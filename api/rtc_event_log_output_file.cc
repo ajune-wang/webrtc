@@ -69,7 +69,7 @@ bool RtcEventLogOutputFile::Write(const std::string& output) {
       RTC_LOG(LS_ERROR) << "Write to WebRtcEventLog file failed.";
     }
   } else {
-    RTC_LOG(LS_VERBOSE) << "Max file size reached.";
+    RTC_DLOG(LS_VERBOSE) << "Max file size reached.";
   }
 
   // Failed, for one of above reasons. Close output file.

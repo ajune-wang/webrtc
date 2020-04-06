@@ -1223,7 +1223,7 @@ void VP9EncoderImpl::FillReferenceIndices(const vpx_codec_cx_pkt& pkt,
       }
     }
 
-    RTC_LOG(LS_VERBOSE) << "Frame " << pic_num << " sl "
+    RTC_DLOG(LS_VERBOSE) << "Frame " << pic_num << " sl "
                         << layer_id.spatial_layer_id << " tl "
                         << layer_id.temporal_layer_id << " refered buffers "
                         << (ref_buf_flags & (1 << 0) ? 1 : 0)
@@ -1312,7 +1312,7 @@ void VP9EncoderImpl::UpdateReferenceBuffers(const vpx_codec_cx_pkt& pkt,
       }
     }
 
-    RTC_LOG(LS_VERBOSE) << "Frame " << pic_num << " sl "
+    RTC_DLOG(LS_VERBOSE) << "Frame " << pic_num << " sl "
                         << layer_id.spatial_layer_id << " tl "
                         << layer_id.temporal_layer_id << " updated buffers "
                         << (update_buffer_slot & (1 << 0) ? 1 : 0)

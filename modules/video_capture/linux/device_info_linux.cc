@@ -262,7 +262,7 @@ int32_t DeviceInfoLinux::FillCapabilities(int fd) {
           }
 
           _captureCapabilities.push_back(cap);
-          RTC_LOG(LS_VERBOSE) << "Camera capability, width:" << cap.width
+          RTC_DLOG(LS_VERBOSE) << "Camera capability, width:" << cap.width
                               << " height:" << cap.height
                               << " type:" << static_cast<int32_t>(cap.videoType)
                               << " fps:" << cap.maxFPS;

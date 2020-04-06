@@ -158,7 +158,7 @@ void VerboseLogPacket(const void* data, size_t length, int direction) {
     // need to cast the const away here to avoid a compiler error.
     if ((dump_buf = usrsctp_dumppacket(const_cast<void*>(data), length,
                                        direction)) != NULL) {
-      RTC_LOG(LS_VERBOSE) << dump_buf;
+      RTC_DLOG(LS_VERBOSE) << dump_buf;
       usrsctp_freedumpbuffer(dump_buf);
     }
   }
@@ -283,7 +283,7 @@ class SctpTransport::UsrSctpWrapper {
                                   uint8_t tos,
                                   uint8_t set_df) {
     SctpTransport* transport = static_cast<SctpTransport*>(addr);
-    RTC_LOG(LS_VERBOSE) << "global OnSctpOutboundPacket():"
+    RTC_DLOG(LS_VERBOSE) << "global OnSctpOutboundPacket():"
                            "addr: "
                         << addr << "; length: " << length
                         << "; tos: " << rtc::ToHex(tos)
@@ -551,7 +551,7 @@ bool SctpTransport::ResetStream(int sid) {
     return false;
   }
 
-  RTC_LOG(LS_VERBOSE) << debug_name_ << "->ResetStream(" << sid
+  RTC_DLOG(LS_VERBOSE) << debug_name_ << "->ResetStream(" << sid
                       << "): "
                          "Queuing RE-CONFIG chunk.";
   it->second.closure_initiated = true;
@@ -685,7 +685,7 @@ void SctpTransport::DisconnectTransportSignals() {
 
 bool SctpTransport::Connect() {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_LOG(LS_VERBOSE) << debug_name_ << "->Connect().";
+  RTC_DLOG(LS_VERBOSE) << debug_name_ << "->Connect().";
 
   // If we already have a socket connection (which shouldn't ever happen), just
   // return.
@@ -893,7 +893,7 @@ bool SctpTransport::SendQueuedStreamResets() {
     return true;
   }
 
-  RTC_LOG(LS_VERBOSE) << "SendQueuedStreamResets[" << debug_name_
+  RTC_DLOG(LS_VERBOSE) << "SendQueuedStreamResets[" << debug_name_
                       << "]: Resetting " << num_streams << " outgoing streams.";
 
   const size_t num_bytes =
@@ -990,7 +990,7 @@ void SctpTransport::OnPacketRead(rtc::PacketTransportInternal* transport,
     return;
   }
 
-  RTC_LOG(LS_VERBOSE) << debug_name_
+  RTC_DLOG(LS_VERBOSE) << debug_name_
                       << "->OnPacketRead(...): "
                          " length="
                       << len << ", started: " << started_;
@@ -1065,7 +1065,7 @@ void SctpTransport::OnInboundPacketFromSctpToTransport(
     ReceiveDataParams params,
     int flags) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_LOG(LS_VERBOSE) << debug_name_
+  RTC_DLOG(LS_VERBOSE) << debug_name_
                       << "->OnInboundPacketFromSctpToTransport(...): "
                          "Received SCTP data:"
                          " sid="
@@ -1091,7 +1091,7 @@ void SctpTransport::OnDataFromSctpToTransport(
     const ReceiveDataParams& params,
     const rtc::CopyOnWriteBuffer& buffer) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  RTC_LOG(LS_VERBOSE) << debug_name_
+  RTC_DLOG(LS_VERBOSE) << debug_name_
                       << "->OnDataFromSctpToTransport(...): "
                          "Posting with length: "
                       << buffer.size() << " on stream " << params.sid;
@@ -1110,7 +1110,7 @@ void SctpTransport::OnNotificationFromSctp(
   // TODO(ldixon): handle notifications appropriately.
   switch (notification.sn_header.sn_type) {
     case SCTP_ASSOC_CHANGE:
-      RTC_LOG(LS_VERBOSE) << "SCTP_ASSOC_CHANGE";
+      RTC_DLOG(LS_VERBOSE) << "SCTP_ASSOC_CHANGE";
       OnNotificationAssocChange(notification.sn_assoc_change);
       break;
     case SCTP_REMOTE_ERROR:
@@ -1129,7 +1129,7 @@ void SctpTransport::OnNotificationFromSctp(
       RTC_LOG(LS_INFO) << "SCTP_AUTHENTICATION_EVENT";
       break;
     case SCTP_SENDER_DRY_EVENT:
-      RTC_LOG(LS_VERBOSE) << "SCTP_SENDER_DRY_EVENT";
+      RTC_DLOG(LS_VERBOSE) << "SCTP_SENDER_DRY_EVENT";
       SetReadyToSendData();
       break;
     // TODO(ldixon): Unblock after congestion.
@@ -1176,7 +1176,7 @@ void SctpTransport::OnNotificationAssocChange(const sctp_assoc_change& change) {
   RTC_DCHECK_RUN_ON(network_thread_);
   switch (change.sac_state) {
     case SCTP_COMM_UP:
-      RTC_LOG(LS_VERBOSE) << "Association change SCTP_COMM_UP, stream # is "
+      RTC_DLOG(LS_VERBOSE) << "Association change SCTP_COMM_UP, stream # is "
                           << change.sac_outbound_streams << " outbound, "
                           << change.sac_inbound_streams << " inbound.";
       max_outbound_streams_ = change.sac_outbound_streams;
@@ -1234,14 +1234,14 @@ void SctpTransport::OnStreamResetEvent(
     if (it == stream_status_by_sid_.end()) {
       // This stream is unknown. Sometimes this can be from a
       // RESET_FAILED-related retransmit.
-      RTC_LOG(LS_VERBOSE) << "SCTP_STREAM_RESET_EVENT(" << debug_name_
+      RTC_DLOG(LS_VERBOSE) << "SCTP_STREAM_RESET_EVENT(" << debug_name_
                           << "): Unknown sid " << sid;
       continue;
     }
     StreamStatus& status = it->second;
 
     if (evt->strreset_flags & SCTP_STREAM_RESET_INCOMING_SSN) {
-      RTC_LOG(LS_VERBOSE) << "SCTP_STREAM_RESET_INCOMING_SSN(" << debug_name_
+      RTC_DLOG(LS_VERBOSE) << "SCTP_STREAM_RESET_INCOMING_SSN(" << debug_name_
                           << "): sid " << sid;
       status.incoming_reset_complete = true;
       // If we receive an incoming stream reset and we haven't started the
@@ -1254,7 +1254,7 @@ void SctpTransport::OnStreamResetEvent(
       }
     }
     if (evt->strreset_flags & SCTP_STREAM_RESET_OUTGOING_SSN) {
-      RTC_LOG(LS_VERBOSE) << "SCTP_STREAM_RESET_OUTGOING_SSN(" << debug_name_
+      RTC_DLOG(LS_VERBOSE) << "SCTP_STREAM_RESET_OUTGOING_SSN(" << debug_name_
                           << "): sid " << sid;
       status.outgoing_reset_complete = true;
     }

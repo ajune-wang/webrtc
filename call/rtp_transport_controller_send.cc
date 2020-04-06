@@ -347,7 +347,7 @@ void RtpTransportControllerSend::OnNetworkRouteChanged(
   }
 }
 void RtpTransportControllerSend::OnNetworkAvailability(bool network_available) {
-  RTC_LOG(LS_VERBOSE) << "SignalNetworkState "
+  RTC_DLOG(LS_VERBOSE) << "SignalNetworkState "
                       << (network_available ? "Up" : "Down");
   NetworkAvailability msg;
   msg.at_time = Timestamp::Millis(clock_->TimeInMilliseconds());
@@ -436,7 +436,7 @@ void RtpTransportControllerSend::SetSdpBitrateParameters(
   if (updated.has_value()) {
     UpdateBitrateConstraints(*updated);
   } else {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "WebRTC.RtpTransportControllerSend.SetSdpBitrateParameters: "
            "nothing to update";
   }
@@ -449,7 +449,7 @@ void RtpTransportControllerSend::SetClientBitratePreferences(
   if (updated.has_value()) {
     UpdateBitrateConstraints(*updated);
   } else {
-    RTC_LOG(LS_VERBOSE)
+    RTC_DLOG(LS_VERBOSE)
         << "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: "
            "nothing to update";
   }

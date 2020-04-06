@@ -527,7 +527,7 @@ void ReceiveStatisticsProxy::QualitySample() {
     RTC_LOG(LS_INFO) << "Bad call (variance) end: " << now;
   }
 
-  RTC_LOG(LS_VERBOSE) << "SAMPLE: sample_length: " << (now - last_sample_time_)
+  RTC_DLOG(LS_VERBOSE) << "SAMPLE: sample_length: " << (now - last_sample_time_)
                       << " fps: " << fps << " fps_bad: " << fps_bad
                       << " qp: " << qp.value_or(-1) << " qp_bad: " << qp_bad
                       << " variance_bad: " << variance_bad

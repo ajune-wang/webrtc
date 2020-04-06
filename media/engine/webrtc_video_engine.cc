@@ -1180,7 +1180,7 @@ std::string WebRtcVideoChannel::CodecSettingsVectorToString(
 bool WebRtcVideoChannel::GetSendCodec(VideoCodec* codec) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   if (!send_codec_) {
-    RTC_LOG(LS_VERBOSE) << "GetSendCodec: No send codec set.";
+    RTC_DLOG(LS_VERBOSE) << "GetSendCodec: No send codec set.";
     return false;
   }
   *codec = send_codec_->codec;
@@ -1190,7 +1190,7 @@ bool WebRtcVideoChannel::GetSendCodec(VideoCodec* codec) {
 bool WebRtcVideoChannel::SetSend(bool send) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   TRACE_EVENT0("webrtc", "WebRtcVideoChannel::SetSend");
-  RTC_LOG(LS_VERBOSE) << "SetSend: " << (send ? "true" : "false");
+  RTC_DLOG(LS_VERBOSE) << "SetSend: " << (send ? "true" : "false");
   if (send && !send_codec_) {
     RTC_DLOG(LS_ERROR) << "SetSend(true) called before setting codec.";
     return false;
@@ -1712,7 +1712,7 @@ void WebRtcVideoChannel::BackfillBufferedPackets(
 
 void WebRtcVideoChannel::OnReadyToSend(bool ready) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
-  RTC_LOG(LS_VERBOSE) << "OnReadyToSend: " << (ready ? "Ready." : "Not ready.");
+  RTC_DLOG(LS_VERBOSE) << "OnReadyToSend: " << (ready ? "Ready." : "Not ready.");
   call_->SignalChannelNetworkState(
       webrtc::MediaType::VIDEO,
       ready ? webrtc::kNetworkUp : webrtc::kNetworkDown);

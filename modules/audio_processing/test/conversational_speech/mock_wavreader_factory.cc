@@ -45,17 +45,17 @@ std::unique_ptr<WavReaderInterface> MockWavReaderFactory::CreateMock(
 
   // If not found, use default parameters.
   if (it == audiotrack_names_params_.end()) {
-    RTC_LOG(LS_VERBOSE) << "using default parameters for " << filepath;
+    RTC_DLOG(LS_VERBOSE) << "using default parameters for " << filepath;
     return std::unique_ptr<WavReaderInterface>(new MockWavReader(
         default_params_.sample_rate, default_params_.num_channels,
         default_params_.num_samples));
   }
 
   // Found, use the audiotrack-specific parameters.
-  RTC_LOG(LS_VERBOSE) << "using ad-hoc parameters for " << filepath;
-  RTC_LOG(LS_VERBOSE) << "sample_rate " << it->second.sample_rate;
-  RTC_LOG(LS_VERBOSE) << "num_channels " << it->second.num_channels;
-  RTC_LOG(LS_VERBOSE) << "num_samples " << it->second.num_samples;
+  RTC_DLOG(LS_VERBOSE) << "using ad-hoc parameters for " << filepath;
+  RTC_DLOG(LS_VERBOSE) << "sample_rate " << it->second.sample_rate;
+  RTC_DLOG(LS_VERBOSE) << "num_channels " << it->second.num_channels;
+  RTC_DLOG(LS_VERBOSE) << "num_samples " << it->second.num_samples;
   return std::unique_ptr<WavReaderInterface>(new MockWavReader(
       it->second.sample_rate, it->second.num_channels, it->second.num_samples));
 }

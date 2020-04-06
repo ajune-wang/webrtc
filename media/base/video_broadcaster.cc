@@ -65,7 +65,7 @@ void VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) {
       // When rotation_applied is set to true, one or a few frames may get here
       // with rotation still pending. Protect sinks that don't expect any
       // pending rotation.
-      RTC_LOG(LS_VERBOSE) << "Discarding frame with unexpected rotation.";
+      RTC_DLOG(LS_VERBOSE) << "Discarding frame with unexpected rotation.";
       sink_pair.sink->OnDiscardedFrame();
       current_frame_was_discarded = true;
       continue;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "196ea88a_a0f57252",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6425
+      },
+      "writtenOn": "2020-04-06T11:25:28Z",
+      "side": 1,
+      "message": "Code outside the codebase should never depend on anything inside src/. Please expose this through native_api/codecs since the intention seems to be to depend on this from outside.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 35
+      },
+      "revId": "63865b4885b3f426c4a6f1ed33c777b8b87f6e4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

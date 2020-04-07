@@ -12,13 +12,12 @@
 
 #include <stdio.h>
 
+#include "absl/strings/str_format.h"
+
 namespace rtc {
 
 std::string Location::ToString() const {
-  char buf[256];
-  snprintf(buf, sizeof(buf), "%s@%s:%d", function_name_, file_name_,
-           line_number_);
-  return buf;
+  return absl::StrFormat("%s@%s:%d", function_name_, file_name_, line_number_);
 }
 
 }  // namespace rtc

@@ -17,6 +17,7 @@ adds the first use.
 * `absl::string_view`
 * The functions in `absl/strings/ascii.h`, `absl/strings/match.h`,
   and `absl/strings/str_replace.h`.
+* TODO: absl::StrFormat
 * `absl::is_trivially_copy_constructible`,
   `absl::is_trivially_copy_assignable`, and
   `absl::is_trivially_destructible` from `absl/meta/type_traits.h`.

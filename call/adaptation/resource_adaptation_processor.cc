@@ -26,7 +26,8 @@ ResourceAdaptationProcessor::ResourceAdaptationProcessor(
       effective_degradation_preference_(DegradationPreference::DISABLED),
       is_screenshare_(false),
       stream_adapter_(std::make_unique<VideoStreamAdapter>()),
-      last_reported_source_restrictions_() {}
+      last_reported_source_restrictions_(),
+      processing_in_progress_(false) {}
 
 ResourceAdaptationProcessor::~ResourceAdaptationProcessor() {}
 
@@ -97,16 +98,16 @@ void ResourceAdaptationProcessor::MaybeUpdateVideoSourceRestrictions(
   }
 }
 
-ResourceListenerResponse
-ResourceAdaptationProcessor::OnResourceUsageStateMeasured(
+void ResourceAdaptationProcessor::OnResourceUsageStateMeasured(
     const Resource& resource) {
   RTC_DCHECK(resource.usage_state().has_value());
   switch (resource.usage_state().value()) {
     case ResourceUsageState::kOveruse:
-      return OnResourceOveruse(resource);
+      OnResourceOveruse(resource);
+      break;
     case ResourceUsageState::kUnderuse:
       OnResourceUnderuse(resource);
-      return ResourceListenerResponse::kNothing;
+      break;
   }
 }
 
@@ -120,17 +121,22 @@ bool ResourceAdaptationProcessor::HasSufficientInputForAdaptation(
 
 void ResourceAdaptationProcessor::OnResourceUnderuse(
     const Resource& reason_resource) {
+  RTC_DCHECK(!processing_in_progress_);
+  processing_in_progress_ = true;
   VideoStreamInputState input_state = input_state_provider_->InputState();
   if (effective_degradation_preference_ == DegradationPreference::DISABLED ||
       !HasSufficientInputForAdaptation(input_state)) {
+    processing_in_progress_ = false;
     return;
   }
   // Update video input states and encoder settings for accurate adaptation.
   stream_adapter_->SetInput(input_state);
   // Should we adapt, and if so: how?
   Adaptation adaptation = stream_adapter_->GetAdaptationUp();
-  if (adaptation.status() != Adaptation::Status::kValid)
+  if (adaptation.status() != Adaptation::Status::kValid) {
+    processing_in_progress_ = false;
     return;
+  }
   // Are all resources OK with this adaptation being applied?
   // TODO(hbos): If rejection can only happen when attempting to adapt up,
   // rename IsAdaptationUpAllowed to IsAdaptationUpAllowedUp?
@@ -148,6 +154,7 @@ void ResourceAdaptationProcessor::OnResourceUnderuse(
     }
   }
   if (!can_apply_adaptation) {
+    processing_in_progress_ = false;
     return;
   }
   // Apply adaptation.
@@ -155,20 +162,29 @@ void ResourceAdaptationProcessor::OnResourceUnderuse(
   for (Resource* resource : resources_) {
     resource->ClearUsageState();
   }
+  for (Resource* resource : resources_) {
+    resource->DidApplyAdaptation(input_state, restrictions_before,
+                                 restrictions_after, &reason_resource);
+  }
   // Update VideoSourceRestrictions based on adaptation. This also informs the
   // |adaptation_listener_|.
   MaybeUpdateVideoSourceRestrictions(&reason_resource);
+  processing_in_progress_ = false;
 }
 
-ResourceListenerResponse ResourceAdaptationProcessor::OnResourceOveruse(
+void ResourceAdaptationProcessor::OnResourceOveruse(
     const Resource& reason_resource) {
+  RTC_DCHECK(!processing_in_progress_);
+  processing_in_progress_ = true;
   VideoStreamInputState input_state = input_state_provider_->InputState();
   if (!input_state.has_input()) {
-    return ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
+    processing_in_progress_ = false;
+    return;
   }
   if (effective_degradation_preference_ == DegradationPreference::DISABLED ||
       !HasSufficientInputForAdaptation(input_state)) {
-    return ResourceListenerResponse::kNothing;
+    processing_in_progress_ = false;
+    return;
   }
   // Update video input states and encoder settings for accurate adaptation.
   stream_adapter_->SetInput(input_state);
@@ -176,18 +192,27 @@ ResourceListenerResponse ResourceAdaptationProcessor::OnResourceOveruse(
   Adaptation adaptation = stream_adapter_->GetAdaptationDown();
   if (adaptation.min_pixel_limit_reached())
     encoder_stats_observer_->OnMinPixelLimitReached();
-  if (adaptation.status() != Adaptation::Status::kValid)
-    return ResourceListenerResponse::kNothing;
+  if (adaptation.status() != Adaptation::Status::kValid) {
+    processing_in_progress_ = false;
+    return;
+  }
   // Apply adaptation.
-  ResourceListenerResponse response =
-      stream_adapter_->ApplyAdaptation(adaptation);
+  VideoSourceRestrictions restrictions_before =
+      stream_adapter_->source_restrictions();
+  VideoSourceRestrictions restrictions_after =
+      stream_adapter_->PeekNextRestrictions(adaptation);
+  stream_adapter_->ApplyAdaptation(adaptation);
   for (Resource* resource : resources_) {
     resource->ClearUsageState();
+  }
+  for (Resource* resource : resources_) {
+    resource->DidApplyAdaptation(input_state, restrictions_before,
+                                 restrictions_after, &reason_resource);
   }
   // Update VideoSourceRestrictions based on adaptation. This also informs the
   // |adaptation_listener_|.
   MaybeUpdateVideoSourceRestrictions(&reason_resource);
-  return response;
+  processing_in_progress_ = false;
 }
 
 void ResourceAdaptationProcessor::TriggerAdaptationDueToFrameDroppedDueToSize(

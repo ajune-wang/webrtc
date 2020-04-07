@@ -126,11 +126,6 @@ class VideoStreamEncoderResourceManager
   AdaptationObserverInterface::AdaptReason GetReasonFromResource(
       const Resource& resource) const;
 
-  // Performs the adaptation by getting the next target, applying it and
-  // informing listeners of the new VideoSourceRestriction and adapt counters.
-  void OnResourceUnderuse(const Resource& reason_resource);
-  ResourceListenerResponse OnResourceOveruse(const Resource& reason_resource);
-
   CpuOveruseOptions GetCpuOveruseOptions() const;
   int LastInputFrameSizeOrDefault() const;
   VideoStreamEncoderObserver::AdaptationSteps GetActiveCounts(

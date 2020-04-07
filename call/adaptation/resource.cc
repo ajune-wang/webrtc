@@ -17,7 +17,7 @@ namespace webrtc {
 
 ResourceListener::~ResourceListener() {}
 
-Resource::Resource() : usage_state_(ResourceUsageState::kStable) {}
+Resource::Resource() : usage_state_(absl::nullopt) {}
 
 Resource::~Resource() {
   RTC_DCHECK(listeners_.empty());
@@ -37,8 +37,12 @@ void Resource::UnregisterListener(ResourceListener* listener) {
     listeners_.erase(it);
 }
 
-ResourceUsageState Resource::usage_state() const {
+absl::optional<ResourceUsageState> Resource::usage_state() const {
   return usage_state_;
+}
+
+void Resource::ClearUsageState() {
+  usage_state_ = absl::nullopt;
 }
 
 bool Resource::IsAdaptationUpAllowed(

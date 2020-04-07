@@ -8,7 +8,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '8fa10fd947ffa63cc023d8ebfd87a2f62e246f70',
+  'chromium_revision': '4f1e8b64a72b9c42c3a5e36bf325bf6dafaad803',
 }
 
 deps = {
@@ -26,13 +26,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@4c49375683002b25d0ca27a3702fedd8072f4870',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@f0f6a9116aaedd226e2554d93537fb8ac0e528c2',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@2c0dfdc8015fe7aab6402d02ebf81c673e144d91',
+    'https://chromium.googlesource.com/chromium/src/testing@e91edb35806290ffd9d2b6bc9c6231ae037ae0b7',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@73c2e0dbc0055ceb20c965834d864bf8af113fc1',
+    'https://chromium.googlesource.com/chromium/src/third_party@d585076784a1d020b17eca3d840c49a25451f83e',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -145,7 +145,7 @@ deps = {
   'src/third_party/freetype/src':
     'https://chromium.googlesource.com/chromium/src/third_party/freetype2.git@7a019a63ed9753772e758beec3cad7c0b74ee2aa',
   'src/third_party/harfbuzz-ng/src':
-    'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@014e038b2c2fd55e0bffbe5c5adc893c07df187a',
+    'https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git@0d5695983e8bf3184ecd4cb92f737b9dfe5d6d25',
   # WebRTC-only dependency (not present in Chromium).
   'src/third_party/gtest-parallel':
     'https://chromium.googlesource.com/external/github.com/google/gtest-parallel@df0b4e476f98516cea7d593e5dbb0fca44f6ee7f',
@@ -259,7 +259,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     'https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@4daf2d97bdf94a39d9f7beaeb35886f1696f1cd8',
+    'https://chromium.googlesource.com/chromium/src/tools@79b77d707c1eabdd973069a824094e1ec08b72ff',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@cc958279ffd6853e0a1b227a7e957ca334fe56af',
 

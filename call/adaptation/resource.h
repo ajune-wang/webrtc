@@ -25,10 +25,7 @@ class Resource;
 enum class ResourceUsageState {
   // Action is needed to minimze the load on this resource.
   kOveruse,
-  // No action needed for this resource, increasing the load on this resource
-  // is not allowed.
-  kStable,
-  // Increasing the load on this resource is allowed.
+  // Increasing the load on this resource is desired, if possible.
   kUnderuse,
 };
 
@@ -69,22 +66,18 @@ class ResourceListener {
       const Resource& resource) = 0;
 };
 
-// A Resource is something which can be measured as "overused", "stable" or
-// "underused". When the resource usage changes, listeners of the resource are
-// informed.
-//
-// Implementations of this interface are responsible for performing resource
-// usage measurements and invoking OnResourceUsageStateMeasured().
 class Resource {
  public:
-  // By default, usage_state() is kStable until a measurement is made.
+  // By default, usage_state() is null until a measurement is made.
   Resource();
   virtual ~Resource();
 
   void RegisterListener(ResourceListener* listener);
   void UnregisterListener(ResourceListener* listener);
 
-  ResourceUsageState usage_state() const;
+  absl::optional<ResourceUsageState> usage_state() const;
+  void ClearUsageState();
+
   virtual bool IsAdaptationUpAllowed(
       const VideoStreamInputState& input_state,
       const VideoSourceRestrictions& restrictions_before,
@@ -101,7 +94,7 @@ class Resource {
       ResourceUsageState usage_state);
 
  private:
-  ResourceUsageState usage_state_;
+  absl::optional<ResourceUsageState> usage_state_;
   std::vector<ResourceListener*> listeners_;
 };
 

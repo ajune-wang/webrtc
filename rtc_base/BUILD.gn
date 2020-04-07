@@ -59,6 +59,7 @@ rtc_library("rtc_base_approved") {
     "system:rtc_export",
     "system:unused",
     "third_party/base64",
+    "//third_party/abseil-cpp/absl/strings:str_format",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
   public_deps = []  # no-presubmit-check TODO(webrtc:8603)
@@ -774,6 +775,7 @@ rtc_library("rtc_base") {
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp/absl/strings:str_format",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
   public_deps = [ ":rtc_base_approved" ]  # no-presubmit-check TODO(webrtc:8603)
@@ -819,12 +821,12 @@ rtc_library("rtc_base") {
     "net_helpers.cc",
     "net_helpers.h",
     "network.cc",
-    "network_route.cc",
     "network.h",
     "network_constants.cc",
     "network_constants.h",
     "network_monitor.cc",
     "network_monitor.h",
+    "network_route.cc",
     "network_route.h",
     "null_socket_server.cc",
     "null_socket_server.h",
@@ -1307,8 +1309,8 @@ if (rtc_include_tests) {
       "memory_usage_unittest.cc",
       "message_digest_unittest.cc",
       "nat_unittest.cc",
-      "network_unittest.cc",
       "network_route_unittest.cc",
+      "network_unittest.cc",
       "proxy_unittest.cc",
       "rolling_accumulator_unittest.cc",
       "rtc_certificate_generator_unittest.cc",

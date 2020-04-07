@@ -22,6 +22,30 @@
       "revId": "5ac0eb508deed631b6d5c925af8fbd1af6e13f9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7b0316_faea84b3",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-04-07T21:36:36Z",
+      "side": 0,
+      "message": "I think we shouldn\u0027t. As I see it should be executed the same amount of times. We stop it in the same time as before and starts even faster after call setup.",
+      "parentUuid": "a1cc4294_10def90c",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 409,
+        "endChar": 21
+      },
+      "revId": "5ac0eb508deed631b6d5c925af8fbd1af6e13f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

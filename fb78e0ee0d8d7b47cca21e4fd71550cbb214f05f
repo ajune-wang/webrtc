@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae6d1af2_c9bbf17a",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-04-07T21:36:36Z",
+      "side": 1,
+      "message": "I migrated stats_poller on executor_ instead of using manually scheduled task on the task queue. Also start_time was made local variable instead of class field.",
+      "parentUuid": "48d4d425_84966a9d",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 319,
+        "endChar": 31
+      },
+      "revId": "fb78e0ee0d8d7b47cca21e4fd71550cbb214f05f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a838cad_0600df42",
         "filename": "test/pc/e2e/test_activities_executor.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "61ab5a1a_8c6b531a",
+        "filename": "test/pc/e2e/test_activities_executor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-04-07T21:36:36Z",
+      "side": 1,
+      "message": "I want to keep to to show that this class is desired for test-only use and won\u0027t be considered for production code.",
+      "parentUuid": "4a838cad_0600df42",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "fb78e0ee0d8d7b47cca21e4fd71550cbb214f05f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b39fd5c_02ac48f2",
         "filename": "test/pc/e2e/test_activities_executor.h",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "fb78e0ee0d8d7b47cca21e4fd71550cbb214f05f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa9fd0fe_1b19d320",
+        "filename": "test/pc/e2e/test_activities_executor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-04-07T21:36:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b39fd5c_02ac48f2",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "fb78e0ee0d8d7b47cca21e4fd71550cbb214f05f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

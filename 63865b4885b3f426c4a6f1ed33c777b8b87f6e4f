@@ -22,6 +22,30 @@
       "revId": "63865b4885b3f426c4a6f1ed33c777b8b87f6e4f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87e8c4a4_e65ae382",
+        "filename": "sdk/android/src/jni/video_encoder_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-04-07T10:37:11Z",
+      "side": 1,
+      "message": "Added it to native_api/codecs.",
+      "parentUuid": "196ea88a_a0f57252",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 35
+      },
+      "revId": "63865b4885b3f426c4a6f1ed33c777b8b87f6e4f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

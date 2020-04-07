@@ -49,8 +49,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   void ResetVideoSourceRestrictions() override;
 
   // ResourceListener implementation.
-  ResourceListenerResponse OnResourceUsageStateMeasured(
-      const Resource& resource) override;
+  void OnResourceUsageStateMeasured(const Resource& resource) override;
 
   // Hack-tastic!
   void TriggerAdaptationDueToFrameDroppedDueToSize(
@@ -63,7 +62,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // Performs the adaptation by getting the next target, applying it and
   // informing listeners of the new VideoSourceRestriction and adapt counters.
   void OnResourceUnderuse(const Resource& reason_resource);
-  ResourceListenerResponse OnResourceOveruse(const Resource& reason_resource);
+  void OnResourceOveruse(const Resource& reason_resource);
 
   void MaybeUpdateEffectiveDegradationPreference();
   void MaybeUpdateVideoSourceRestrictions(const Resource* reason);
@@ -80,6 +79,8 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // Responsible for generating and applying possible adaptations.
   const std::unique_ptr<VideoStreamAdapter> stream_adapter_;
   VideoSourceRestrictions last_reported_source_restrictions_;
+  // Prevents recursion.
+  bool processing_in_progress_;
 };
 
 }  // namespace webrtc

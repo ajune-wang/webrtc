@@ -18,14 +18,24 @@
 
 namespace webrtc {
 
+namespace {
+bool SpatialAndTemporalIndexValid(size_t spatial_index, size_t temporal_index) {
+  return (spatial_index < kMaxSpatialLayers) &&
+         (temporal_index < kMaxTemporalStreams);
+}
+}  // namespace
+
 VideoBitrateAllocation::VideoBitrateAllocation()
     : sum_(0), is_bw_limited_(false) {}
 
 bool VideoBitrateAllocation::SetBitrate(size_t spatial_index,
                                         size_t temporal_index,
                                         uint32_t bitrate_bps) {
-  RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
-  RTC_CHECK_LT(temporal_index, kMaxTemporalStreams);
+  RTC_DCHECK_LT(spatial_index, kMaxSpatialLayers);
+  RTC_DCHECK_LT(temporal_index, kMaxTemporalStreams);
+  if (!SpatialAndTemporalIndexValid(spatial_index, temporal_index)) {
+    return false;
+  }
   int64_t new_bitrate_sum_bps = sum_;
   absl::optional<uint32_t>& layer_bitrate =
       bitrates_[spatial_index][temporal_index];
@@ -44,22 +54,25 @@ bool VideoBitrateAllocation::SetBitrate(size_t spatial_index,
 
 bool VideoBitrateAllocation::HasBitrate(size_t spatial_index,
                                         size_t temporal_index) const {
-  RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
-  RTC_CHECK_LT(temporal_index, kMaxTemporalStreams);
-  return bitrates_[spatial_index][temporal_index].has_value();
+  RTC_DCHECK_LT(spatial_index, kMaxSpatialLayers);
+  RTC_DCHECK_LT(temporal_index, kMaxTemporalStreams);
+  return SpatialAndTemporalIndexValid(spatial_index, temporal_index) &&
+         bitrates_[spatial_index][temporal_index].has_value();
 }
 
 uint32_t VideoBitrateAllocation::GetBitrate(size_t spatial_index,
                                             size_t temporal_index) const {
-  RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
-  RTC_CHECK_LT(temporal_index, kMaxTemporalStreams);
-  return bitrates_[spatial_index][temporal_index].value_or(0);
+  // WebRTC packet parsers allow up to 8 temporal layers. A packet should not
+  // cause this code to crash.
+  return SpatialAndTemporalIndexValid(spatial_index, temporal_index)
+             ? bitrates_[spatial_index][temporal_index].value_or(0)
+             : 0;
 }
 
 // Whether the specific spatial layers has the bitrate set in any of its
 // temporal layers.
 bool VideoBitrateAllocation::IsSpatialLayerUsed(size_t spatial_index) const {
-  RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
+  RTC_DCHECK_LT(spatial_index, kMaxSpatialLayers);
   for (size_t i = 0; i < kMaxTemporalStreams; ++i) {
     if (bitrates_[spatial_index][i].has_value())
       return true;
@@ -70,15 +83,18 @@ bool VideoBitrateAllocation::IsSpatialLayerUsed(size_t spatial_index) const {
 // Get the sum of all the temporal layer for a specific spatial layer.
 uint32_t VideoBitrateAllocation::GetSpatialLayerSum(
     size_t spatial_index) const {
-  RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
+  RTC_DCHECK_LT(spatial_index, kMaxSpatialLayers);
   return GetTemporalLayerSum(spatial_index, kMaxTemporalStreams - 1);
 }
 
 uint32_t VideoBitrateAllocation::GetTemporalLayerSum(
     size_t spatial_index,
     size_t temporal_index) const {
-  RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
-  RTC_CHECK_LT(temporal_index, kMaxTemporalStreams);
+  RTC_DCHECK_LT(spatial_index, kMaxSpatialLayers);
+  RTC_DCHECK_LT(temporal_index, kMaxTemporalStreams);
+  if (!SpatialAndTemporalIndexValid(spatial_index, temporal_index)) {
+    return 0;
+  }
   uint32_t sum = 0;
   for (size_t i = 0; i <= temporal_index; ++i) {
     sum += bitrates_[spatial_index][i].value_or(0);
@@ -88,7 +104,7 @@ uint32_t VideoBitrateAllocation::GetTemporalLayerSum(
 
 std::vector<uint32_t> VideoBitrateAllocation::GetTemporalLayerAllocation(
     size_t spatial_index) const {
-  RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
+  RTC_DCHECK_LT(spatial_index, kMaxSpatialLayers);
   std::vector<uint32_t> temporal_rates;
 
   // Find the highest temporal layer with a defined bitrate in order to

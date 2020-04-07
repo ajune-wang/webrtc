@@ -38,4 +38,11 @@ std::unique_ptr<VideoEncoderFactory> JavaToNativeVideoEncoderFactory(
       jni, JavaParamRef<jobject>(encoder_factory));
 }
 
+std::vector<VideoEncoder::ResolutionBitrateLimits>
+JavaToNativeResolutionBitrateLimits(JNIEnv* jni,
+                                    const jobjectArray j_bitrate_limits_array) {
+  return jni::JavaToNativeResolutionBitrateLimits(
+      jni, JavaParamRef<jobjectArray>(j_bitrate_limits_array));
+}
+
 }  // namespace webrtc

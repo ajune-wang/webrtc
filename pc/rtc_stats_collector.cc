@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/str_format.h"
 #include "api/candidate.h"
 #include "api/media_stream_interface.h"
 #include "api/peer_connection_interface.h"
@@ -1753,9 +1754,8 @@ void RTCStatsCollector::ProduceTransportStats_n(
         transport_stats->remote_certificate_id = remote_certificate_id;
       // Crypto information
       if (channel_stats.ssl_version_bytes) {
-        char bytes[5];
-        snprintf(bytes, sizeof(bytes), "%04X", channel_stats.ssl_version_bytes);
-        transport_stats->tls_version = bytes;
+        transport_stats->tls_version =
+            absl::StrFormat("%04x", channel_stats.ssl_version_bytes);
       }
       if (channel_stats.ssl_cipher_suite != rtc::TLS_NULL_WITH_NULL_NULL &&
           rtc::SSLStreamAdapter::SslCipherSuiteToName(

@@ -11,7 +11,7 @@
 #include "media/engine/webrtc_voice_engine.h"
 
 #include <algorithm>
-#include <cstdio>
+#include <cstdarg>
 #include <functional>
 #include <string>
 #include <utility>
@@ -19,6 +19,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "absl/strings/str_format.h"
 #include "api/audio_codecs/audio_codec_pair_id.h"
 #include "api/call/audio_sink.h"
 #include "media/base/audio_source.h"
@@ -1934,14 +1935,19 @@ bool WebRtcVoiceMediaChannel::SetLocalSource(uint32_t ssrc,
 
 bool WebRtcVoiceMediaChannel::SetOutputVolume(uint32_t ssrc, double volume) {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
+  RTC_LOG(LS_INFO) << absl::StrFormat("WRVMC::%s({ssrc=%u}, {volume=%.2f})",
+                                      __func__, ssrc, volume);
   const auto it = recv_streams_.find(ssrc);
   if (it == recv_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "SetOutputVolume: no recv stream " << ssrc;
+    RTC_LOG(LS_WARNING) << absl::StrFormat(
+        "WRVMC::%s => (WARNING: no receive stream for SSRC %u)", __func__,
+        ssrc);
     return false;
   }
   it->second->SetOutputVolume(volume);
-  RTC_LOG(LS_INFO) << "SetOutputVolume() to " << volume
-                   << " for recv stream with ssrc " << ssrc;
+  RTC_LOG(LS_INFO) << absl::StrFormat(
+      "WRVMC::%s => (stream with SSRC %u now uses volume %.2f)", __func__, ssrc,
+      volume);
   return true;
 }
 

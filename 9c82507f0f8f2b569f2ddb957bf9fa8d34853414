@@ -34,6 +34,24 @@
       "revId": "9c82507f0f8f2b569f2ddb957bf9fa8d34853414",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d6fc747_907bb9c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-07T12:49:12Z",
+      "side": 1,
+      "message": "We don\u0027t have such a utility that I know of. Abseil does (absl::StrFormat; https://abseil.io/docs/cpp/guides/format), but I would be very surprised if binary size considerations didn\u0027t stop us from using it, just like with absl::StrCat.\n\n... Well, color me surprised. It appears that StrFormat is much cheaper per call site than StrCat (though still not as cheap as sprintf): https://godbolt.org/z/wB3HrS\n\nCould you try to rewrite your log statements like this, and see what the binary size cost is?\n\n  RTC_LOG(LS_INFO) \u003c\u003c absl::StrFormat(\"We have %d bananas\", num_bananas);",
+      "parentUuid": "8ec0c508_ce7668b4",
+      "revId": "9c82507f0f8f2b569f2ddb957bf9fa8d34853414",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

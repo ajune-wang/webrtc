@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1cc4294_10def90c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-07T14:52:04Z",
+      "side": 0,
+      "message": "Do you think we might end up polling less stats than before?",
+      "range": {
+        "startLine": 402,
+        "startChar": 0,
+        "endLine": 409,
+        "endChar": 21
+      },
+      "revId": "5ac0eb508deed631b6d5c925af8fbd1af6e13f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b124af2_2e5edfae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-07T07:37:41Z",
+      "side": 1,
+      "message": "Can you elaborate on this choice? I\u0027m seeing two downsides to this:\n\n  * You have to mess with C-style vararg functions, which is easy to get wrong and hurts binary size.\n\n  * The line numbers in the logs will point to the subroutine, not its callers.",
+      "revId": "9c82507f0f8f2b569f2ddb957bf9fa8d34853414",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -36,7 +36,7 @@ constexpr int kMaxNumCachedBlockyFrames = 100;
 // TODO(ilnik): Add H264/HEVC thresholds.
 }  // namespace
 
-VideoQualityObserver::VideoQualityObserver(VideoContentType content_type)
+VideoQualityObserver::VideoQualityObserver()
     : last_frame_rendered_ms_(-1),
       num_frames_rendered_(0),
       first_frame_rendered_ms_(-1),
@@ -49,11 +49,9 @@ VideoQualityObserver::VideoQualityObserver(VideoContentType content_type)
       current_resolution_(Resolution::Low),
       num_resolution_downgrades_(0),
       time_in_blocky_video_ms_(0),
-      // TODO(webrtc:11489): content_type_ variable isn't necessary.
-      content_type_(content_type),
       is_paused_(false) {}
 
-void VideoQualityObserver::UpdateHistograms() {
+void VideoQualityObserver::UpdateHistograms(bool screenshare) {
   // TODO(webrtc:11489): Called on the decoder thread - which _might_ be
   // the same as the construction thread.
 
@@ -70,9 +68,8 @@ void VideoQualityObserver::UpdateHistograms() {
                                    last_unfreeze_time_ms_);
   }
 
-  std::string uma_prefix = videocontenttypehelpers::IsScreenshare(content_type_)
-                               ? "WebRTC.Video.Screenshare"
-                               : "WebRTC.Video";
+  std::string uma_prefix =
+      screenshare ? "WebRTC.Video.Screenshare" : "WebRTC.Video";
 
   auto mean_time_between_freezes =
       smooth_playback_durations_.Avg(kMinRequiredSamples);
@@ -135,7 +132,9 @@ void VideoQualityObserver::UpdateHistograms() {
   RTC_LOG(LS_INFO) << log_stream.str();
 }
 
-void VideoQualityObserver::OnRenderedFrame(const VideoFrame& frame,
+void VideoQualityObserver::OnRenderedFrame(int64_t timestamp,
+                                           int width,
+                                           int height,
                                            int64_t now_ms) {
   RTC_DCHECK_LE(last_frame_rendered_ms_, now_ms);
   RTC_DCHECK_LE(last_unfreeze_time_ms_, now_ms);
@@ -144,7 +143,7 @@ void VideoQualityObserver::OnRenderedFrame(const VideoFrame& frame,
     first_frame_rendered_ms_ = last_unfreeze_time_ms_ = now_ms;
   }
 
-  auto blocky_frame_it = blocky_frames_.find(frame.timestamp());
+  auto blocky_frame_it = blocky_frames_.find(timestamp);
 
   if (num_frames_rendered_ > 0) {
     // Process inter-frame delay.
@@ -202,7 +201,7 @@ void VideoQualityObserver::OnRenderedFrame(const VideoFrame& frame,
     }
   }
 
-  int64_t pixels = frame.width() * frame.height();
+  int64_t pixels = width * height;
   if (pixels >= kPixelsInHighResolution) {
     current_resolution_ = Resolution::High;
   } else if (pixels >= kPixelsInMediumResolution) {
@@ -226,7 +225,7 @@ void VideoQualityObserver::OnRenderedFrame(const VideoFrame& frame,
   ++num_frames_rendered_;
 }
 
-void VideoQualityObserver::OnDecodedFrame(const VideoFrame& frame,
+void VideoQualityObserver::OnDecodedFrame(int64_t timestamp,
                                           absl::optional<uint8_t> qp,
                                           VideoCodecType codec) {
   if (qp) {
@@ -243,7 +242,7 @@ void VideoQualityObserver::OnDecodedFrame(const VideoFrame& frame,
         qp_blocky_threshold = absl::nullopt;
     }
 
-    RTC_DCHECK(blocky_frames_.find(frame.timestamp()) == blocky_frames_.end());
+    RTC_DCHECK(blocky_frames_.find(timestamp) == blocky_frames_.end());
 
     if (qp_blocky_threshold && *qp > *qp_blocky_threshold) {
       // Cache blocky frame. Its duration will be calculated in render callback.
@@ -254,7 +253,7 @@ void VideoQualityObserver::OnDecodedFrame(const VideoFrame& frame,
             std::next(blocky_frames_.begin(), kMaxNumCachedBlockyFrames / 2));
       }
 
-      blocky_frames_.insert(frame.timestamp());
+      blocky_frames_.insert(timestamp);
     }
   }
 }

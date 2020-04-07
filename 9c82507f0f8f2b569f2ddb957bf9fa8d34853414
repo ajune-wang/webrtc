@@ -16,6 +16,24 @@
       "revId": "9c82507f0f8f2b569f2ddb957bf9fa8d34853414",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ec0c508_ce7668b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-04-07T09:51:22Z",
+      "side": 1,
+      "message": "I get your point Karl. I simply like the style where you can read the comment clearly at the entry point, like so:\n\nLogRtcMessage(rtc::LS_INFO, \"%s({ssrc\u003d%u}, {volume\u003d%.2f})\", __func__, ssrc, volume);\n\nInstead of several lines containing \"\u003c\u003c\" operators. Are you OK with something else. Basically I was looking for something like base::StringPrint in Chrome but I could not find it in WebRTC.\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:base/strings/stringprintf.h;l\u003d6?q\u003dstringp\u0026sq\u003d\u0026ss\u003dchromium\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F \n\nCan you help me achieve what you propose and still keep the style I prefer?",
+      "parentUuid": "6b124af2_2e5edfae",
+      "revId": "9c82507f0f8f2b569f2ddb957bf9fa8d34853414",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

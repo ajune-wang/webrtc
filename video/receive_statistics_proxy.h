@@ -56,14 +56,20 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
 
   VideoReceiveStream::Stats GetStats() const;
 
-  void OnDecodedFrame(const VideoFrame& frame,
+  void OnDecodedFrame(int width,
+                      int height,
+                      int64_t timestamp,
                       absl::optional<uint8_t> qp,
                       int32_t decode_time_ms,
                       VideoContentType content_type);
   void OnSyncOffsetUpdated(int64_t video_playout_ntp_ms,
                            int64_t sync_offset_ms,
                            double estimated_freq_khz);
-  void OnRenderedFrame(const VideoFrame& frame);
+  void OnRenderedFrame(int width,
+                       int height,
+                       int64_t timestamp,
+                       int64_t render_time_ms,
+                       int64_t ntp_time_ms);
   void OnIncomingPayloadType(int payload_type);
   void OnDecoderImplementationName(const char* implementation_name);
 
@@ -132,7 +138,7 @@ class ReceiveStatisticsProxy : public VCMReceiveStatisticsCallback,
     rtc::HistogramPercentileCounter interframe_delay_percentiles;
   };
 
-  void QualitySample() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  void QualitySample(int64_t now_ms) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
   // Removes info about old frames and then updates the framerate.
   void UpdateFramerate(int64_t now_ms) const

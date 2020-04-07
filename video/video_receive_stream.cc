@@ -541,7 +541,9 @@ void VideoReceiveStream::OnFrame(const VideoFrame& video_frame) {
   config_.renderer->OnFrame(video_frame);
 
   // TODO(webrtc:11489): OnRenderFrame grabs a lock too.
-  stats_proxy_.OnRenderedFrame(video_frame);
+  stats_proxy_.OnRenderedFrame(
+      video_frame.width(), video_frame.height(), video_frame.timestamp(),
+      video_frame.render_time_ms(), video_frame.ntp_time_ms());
 }
 
 void VideoReceiveStream::SetFrameDecryptor(

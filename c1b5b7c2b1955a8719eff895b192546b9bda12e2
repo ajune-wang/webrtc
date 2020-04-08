@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "472ec0b9_d84eec76",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-08T08:28:37Z",
+      "side": 1,
+      "message": "For symmetry, apply the cast here too, since it\u0027s probably only a technicality that makes the compiler not complain here too? And now that you use this long expression twice, turn it into a local constexpr variable?",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "c1b5b7c2b1955a8719eff895b192546b9bda12e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "445e11f4_6b18d852",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-08T08:28:37Z",
+      "side": 1,
+      "message": "Same. And two more cases below.",
+      "revId": "c1b5b7c2b1955a8719eff895b192546b9bda12e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

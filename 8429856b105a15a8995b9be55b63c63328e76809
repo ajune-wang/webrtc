@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96dd3d15_cfc232f1",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-08T13:28:47Z",
+      "side": 1,
+      "message": "Not ready for review - this CL needs to be updated to be testable. And in either in this CL or a follow-up CL, we need to inform the QualityScaler of \"should_increase_frequency_\" through a callback. Depending on a boolean return value will not work when the processor executes on a separate task.",
+      "revId": "8429856b105a15a8995b9be55b63c63328e76809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

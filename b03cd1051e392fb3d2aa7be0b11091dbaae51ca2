@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6cac6945_757ce1d5",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-04-08T13:14:47Z",
+      "side": 1,
+      "message": "It does not have to match the drop in the AIMD rate controller. The intention is that, if the initial bitrate is too high and the initial probe results correctly tell us to reduce the send rate, then we should reduce the send rate slightly below the throughput estimate to let the network queues drain. I\u0027m open to suggestions about naming, comment and/or value.",
+      "parentUuid": "2859f934_bc4c025c",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2716cfae_8dcea3b0",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "231d31cf_e7151b3c",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-04-08T13:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2716cfae_8dcea3b0",
+      "range": {
+        "startLine": 518,
+        "startChar": 15,
+        "endLine": 518,
+        "endChar": 77
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0a168892_c8983030",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-04-08T13:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4c6a0c7_5033a44b",
+      "range": {
+        "startLine": 519,
+        "startChar": 31,
+        "endLine": 519,
+        "endChar": 64
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1472e8ce_0fd92f8a",
         "filename": "modules/congestion_controller/goog_cc/probe_bitrate_estimator.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65a98ce6_014a0442",
+        "filename": "modules/congestion_controller/goog_cc/probe_bitrate_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-04-08T13:14:47Z",
+      "side": 1,
+      "message": "The other log messages in this file are at LS_INFO level, presumably to avoid spamming the log with things that are expected to happen occasionally. In this case, the clusters_ variable only seem to hold the clusters for 1 second so I\u0027d expect to hit this if the RTT is more than 1 second. For consistency I suggest leaving as LS_INFO.",
+      "parentUuid": "1472e8ce_0fd92f8a",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

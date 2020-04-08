@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5dc7403_df03fb3b",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-08T12:56:54Z",
+      "side": 1,
+      "message": "Self-review: Add resource_adaptation_processor_unittest.cc coverage.",
+      "revId": "67fe5cbd1c6c5ec547d602136ecd79ad2f9cf0b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "735763ed_4a19faff",
+        "filename": "call/adaptation/resource_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-08T12:56:54Z",
+      "side": 1,
+      "message": "Self-review: Add resource_unittest.cc coverage.",
+      "revId": "67fe5cbd1c6c5ec547d602136ecd79ad2f9cf0b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

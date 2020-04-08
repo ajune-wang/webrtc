@@ -16,6 +16,24 @@
       "revId": "8429856b105a15a8995b9be55b63c63328e76809",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df7a5fb7_68427b92",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-08T13:35:05Z",
+      "side": 1,
+      "message": "When testing this, remember that the actual behavior is totally different from from what variable names and method descriptions suggest. See https://webrtc.googlesource.com/src.git/+/c70b1028d47c1aee4892545190cd66e97d09cd55/call/adaptation/resource.h#33.",
+      "parentUuid": "96dd3d15_cfc232f1",
+      "revId": "8429856b105a15a8995b9be55b63c63328e76809",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

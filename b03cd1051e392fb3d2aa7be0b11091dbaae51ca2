@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0f522928_77406840",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-04-08T15:20:30Z",
+      "side": 1,
+      "message": "That seems reasonable, then I suggest making it more clearly probe related in naming and comments, I misunderstood it as a general parameter that is used for this and other things. Consider if it should be a field trial parameter as well.",
+      "parentUuid": "6cac6945_757ce1d5",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2716cfae_8dcea3b0",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -187,6 +211,30 @@
       "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a37a59d2_9436aba8",
+        "filename": "modules/congestion_controller/goog_cc/probe_bitrate_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-04-08T15:20:30Z",
+      "side": 1,
+      "message": "Ok that makes sense. Maybe we can add a comment on the fact that this is expected to happen since probes are only held for a second or so? that would probably be helpful for someone investigating such a log entry.",
+      "parentUuid": "65a98ce6_014a0442",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2859f934_bc4c025c",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-04-08T09:52:34Z",
+      "side": 1,
+      "message": "If it should match the bwe drop, I think we should use the actual value.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2716cfae_8dcea3b0",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-04-08T09:52:34Z",
+      "side": 1,
+      "message": "Can we skip this check and use max instead?\n\n[keeping previous code as is]\n\nif(limit_probes_lower_than_throughput_estimate_ \u0026\u0026 probe_bitrate \u0026\u0026 acknowledged_bitrate) {\n     DataRate limit \u003d std::min(delay_based_bwe_-\u003elast_estimate(),\n                               *acknowledged_bitrate * kDefaultBackOffFactor)\n      probe_bitrate \u003d std::max(*probe_bitrate, limit);\n}",
+      "range": {
+        "startLine": 518,
+        "startChar": 15,
+        "endLine": 518,
+        "endChar": 77
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4c6a0c7_5033a44b",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-04-08T09:52:34Z",
+      "side": 1,
+      "message": "When is this expected to be lower than the acknowledged rate? Maybe add a comment?",
+      "range": {
+        "startLine": 519,
+        "startChar": 31,
+        "endLine": 519,
+        "endChar": 64
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1472e8ce_0fd92f8a",
+        "filename": "modules/congestion_controller/goog_cc/probe_bitrate_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-04-08T09:52:34Z",
+      "side": 1,
+      "message": "LS_WARNING? this shouldn\u0027t normally happen, right?",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

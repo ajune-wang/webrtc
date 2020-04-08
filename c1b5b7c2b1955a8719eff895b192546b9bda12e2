@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92d610ff_c30f6751",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 11294
+      },
+      "writtenOn": "2020-04-08T16:52:17Z",
+      "side": 1,
+      "message": "\u003e For symmetry, apply the cast here too, since it\u0027s probably only a technicality that makes the compiler not complain here too? \n\nIt is not a technicality, there is no conversion to double taking place in line 78. The conversion to double in line 77 happens due to comparison with result, which has type double.\n\nAlso casting std::numeric_limits\u003cint64_t\u003e::max() (value is 9223372036854775807) to double and returning it will break the code. To explain this, refer the warning statement from clang 10.0.0 that is triggered in line 81 without an explicit cast :\n\nwarning: implicit conversion from \u0027long long\u0027 to \u0027double\u0027 changes value from 9223372036854775807 to 9223372036854775808 [-Wimplicit-int-float-conversion]\n\nCasting std::numeric_limits\u003cint64_t\u003e::max() (9223372036854775807) to double (will change the value to 9223372036854775808.0) and returning that as a int64_t will end up in a negative value being returned.\n\n\u003e And now that you use this long expression twice, turn it into a local constexpr variable?\n\nI think I would rather not have the code changed more at this point. This should only be considered a temporary change until bug #10893 is fixed, which will mean a portion of the code will be replaced by rtc::saturated_cast.",
+      "parentUuid": "472ec0b9_d84eec76",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "c1b5b7c2b1955a8719eff895b192546b9bda12e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "445e11f4_6b18d852",
         "filename": "system_wrappers/include/ntp_time.h",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "c1b5b7c2b1955a8719eff895b192546b9bda12e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca53edda_2d984192",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 11294
+      },
+      "writtenOn": "2020-04-08T16:52:17Z",
+      "side": 1,
+      "message": "Please refer to my comment above.",
+      "parentUuid": "445e11f4_6b18d852",
+      "revId": "c1b5b7c2b1955a8719eff895b192546b9bda12e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

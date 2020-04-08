@@ -235,7 +235,7 @@ VideoStreamEncoderResourceManager::VideoStreamEncoderResourceManager(
       prevent_increase_resolution_due_to_bitrate_resource_(this),
       prevent_adapt_up_in_balanced_resource_(this),
       encode_usage_resource_(std::move(overuse_detector)),
-      quality_scaler_resource_(),
+      quality_scaler_resource_(adaptation_processor),
       input_state_provider_(input_state_provider),
       adaptation_processor_(adaptation_processor),
       encoder_stats_observer_(encoder_stats_observer),

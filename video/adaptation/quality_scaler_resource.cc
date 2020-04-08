@@ -12,9 +12,15 @@
 
 #include <utility>
 
+#include "call/adaptation/resource_adaptation_processor.h"
+
 namespace webrtc {
 
-QualityScalerResource::QualityScalerResource() : quality_scaler_(nullptr) {}
+QualityScalerResource::QualityScalerResource(
+    ResourceAdaptationProcessor* adaptation_processor)
+    : adaptation_processor_(adaptation_processor),
+      quality_scaler_(nullptr),
+      should_increase_frequency_(false) {}
 
 bool QualityScalerResource::is_started() const {
   return quality_scaler_.get();
@@ -69,8 +75,37 @@ void QualityScalerResource::AdaptUp(AdaptReason reason) {
 
 bool QualityScalerResource::AdaptDown(AdaptReason reason) {
   RTC_DCHECK_EQ(reason, AdaptReason::kQuality);
-  return OnResourceUsageStateMeasured(ResourceUsageState::kOveruse) !=
-         ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
+  should_increase_frequency_ = false;
+  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+  // |should_increase_frequency_| may be set by DidApplyAdaptation(), triggered
+  // by the ResourceAdaptationProcessor in response to by
+  // OnResourceUsageStateMeasured().
+  // TODO(hbos): In order to support asynchronicity (separating adaptation
+  // processing from the encoder queue to support multi-stream), tell the
+  // QualityScaler to increase frequency with a callback instead!
+  printf("===> AdaptDown actually returns: %s\n", !should_increase_frequency_ ? "true" : "false");
+  return !should_increase_frequency_;
+}
+
+void QualityScalerResource::DidApplyAdaptation(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource* reason_resource) {
+  if (adaptation_processor_->effective_degradation_preference() ==
+          DegradationPreference::BALANCED &&
+      DidDecreaseFrameRate(restrictions_before, restrictions_after)) {
+    absl::optional<int> min_diff = BalancedDegradationSettings().MinFpsDiff(
+        input_state.frame_size_pixels().value());
+    if (min_diff && input_state.frames_per_second().value() > 0) {
+      int fps_diff = input_state.frames_per_second().value() -
+                     restrictions_after.max_frame_rate().value();
+      if (fps_diff < min_diff.value()) {
+        should_increase_frequency_ = true;
+        printf("===> AdaptDown would have returned: %s\n", !should_increase_frequency_ ? "true" : "false");
+      }
+    }
+  }
 }
 
 }  // namespace webrtc

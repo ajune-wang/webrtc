@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b177830_5e92ef51",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-04-08T10:03:22Z",
+      "side": 1,
+      "message": "I think just \u003d 0 will be more readable.",
+      "range": {
+        "startLine": 348,
+        "startChar": 57,
+        "endLine": 348,
+        "endChar": 60
+      },
+      "revId": "59bd44d8c36f15a18ad17abafe178a0dd92bc23b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7bf2dd55_d421aa51",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-04-08T15:22:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73f61e63_86f2554c",
+      "revId": "4ebdda459e8be786f7e17db97739f8cabec5bfa9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0823cbbc_071c77f3",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2020-04-08T13:45:56Z",
       "side": 1,
       "message": "DCHECK that the return value is not negative (error) and not more than 511 (truncation)?",
+      "revId": "4ebdda459e8be786f7e17db97739f8cabec5bfa9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66fab84b_5746c0c3",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-04-08T15:22:42Z",
+      "side": 1,
+      "message": "Changed. New version checks size using DCHECK and also truncates in release.",
+      "parentUuid": "0823cbbc_071c77f3",
       "revId": "4ebdda459e8be786f7e17db97739f8cabec5bfa9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

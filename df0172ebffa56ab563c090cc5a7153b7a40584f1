@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f0873cf_528daa84",
+        "filename": "call/adaptation/video_source_restrictions.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-08T10:03:02Z",
+      "side": 1,
+      "message": "Self-review: Add video_source_restrictions_unittest.cc to cover this.",
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e64374b_0fd61f5b",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-08T10:03:02Z",
+      "side": 1,
+      "message": "I wonder if this \"is kQuality or is kCpu\" special logic is going to bite us later when we have new input signals...",
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1a2d3fa_a340ffad",
+        "filename": "video/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-08T10:03:02Z",
+      "side": 1,
+      "message": "Self-review: Move all \"preventive resources\" to separate files. They can be tested separately, and in the future if they need to handle thread-jumping (encoder queue vs processor queue) it\u0027s good if this logic is separated from the rest of the code.",
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

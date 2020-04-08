@@ -66,7 +66,14 @@ absl::optional<DataRate> ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
 
   EraseOldClusters(packet_feedback.receive_time);
 
-  AggregatedCluster* cluster = &clusters_[cluster_id];
+  auto cluster_it = clusters_.find(cluster_id);
+  if (cluster_it == clusters_.end()) {
+    RTC_LOG(LS_INFO) << "Unrecognized probe cluster id"
+                        " [cluster id: "
+                     << cluster_id << "]. Possibly too old?";
+    return absl::nullopt;
+  }
+  AggregatedCluster* cluster = &cluster_it->second;
 
   if (packet_feedback.sent_packet.send_time < cluster->first_send) {
     cluster->first_send = packet_feedback.sent_packet.send_time;
@@ -179,7 +186,7 @@ absl::optional<DataRate> ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
         std::make_unique<RtcEventProbeResultSuccess>(cluster_id, res.bps()));
   }
   estimated_data_rate_ = res;
-  return *estimated_data_rate_;
+  return estimated_data_rate_;
 }
 
 absl::optional<DataRate>

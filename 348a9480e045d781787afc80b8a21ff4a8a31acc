@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bd58f36_7431d6e8",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-09T08:44:47Z",
+      "side": 1,
+      "message": "Less Than, not Less Than Equals?",
+      "revId": "348a9480e045d781787afc80b8a21ff4a8a31acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43cb562b_0cf43850",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-09T08:44:47Z",
+      "side": 1,
+      "message": "Do we want to RTC_DCHECK(!spatial_layers.empty()) ?",
+      "revId": "348a9480e045d781787afc80b8a21ff4a8a31acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ea9814b_d1906e94",
+        "filename": "modules/video_coding/codecs/vp9/svc_config_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-09T08:44:47Z",
+      "side": 1,
+      "message": "Not sure if this is a question for now or a question for the future, but there will be an SVC API at some point. I could use it to try to turn off all layers.\n\nWould this: be handled at a separate layer, turning SVC off entirely and we never have an SvcConfig in the first place, or would we need to be able to return spatial_layers with size() \u003d\u003d 0?",
+      "revId": "348a9480e045d781787afc80b8a21ff4a8a31acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03e093b4_8190f8f5",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-09T08:44:47Z",
+      "side": 1,
+      "message": "Is it possible to SDP-munge such that we end up here with a config that results in 0 spatial layers, or is this guarded against elsewhere?",
+      "revId": "348a9480e045d781787afc80b8a21ff4a8a31acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

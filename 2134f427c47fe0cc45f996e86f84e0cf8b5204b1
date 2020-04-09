@@ -16,6 +16,75 @@
       "revId": "2134f427c47fe0cc45f996e86f84e0cf8b5204b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b0fa68e_04fec445",
+        "filename": "call/adaptation/video_stream_input_state_provider.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-09T11:03:57Z",
+      "side": 1,
+      "message": "Why is this not const?",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "2134f427c47fe0cc45f996e86f84e0cf8b5204b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c7b6ac1_e0127d17",
+        "filename": "call/adaptation/video_stream_input_state_provider.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-09T11:03:57Z",
+      "side": 1,
+      "message": "Should there be annotations added for what crit_ is guarding?",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 37
+      },
+      "revId": "2134f427c47fe0cc45f996e86f84e0cf8b5204b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20477bf5_7eea739f",
+        "filename": "video/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-09T11:03:57Z",
+      "side": 1,
+      "message": "execute",
+      "range": {
+        "startLine": 110,
+        "startChar": 44,
+        "endLine": 110,
+        "endChar": 45
+      },
+      "revId": "2134f427c47fe0cc45f996e86f84e0cf8b5204b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

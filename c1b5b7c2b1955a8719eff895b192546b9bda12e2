@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "d28f92f4_9f3e0f62",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-09T10:54:59Z",
+      "side": 1,
+      "message": "Oh, sorry. I misread the code---you\u0027re right.",
+      "parentUuid": "92d610ff_c30f6751",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "c1b5b7c2b1955a8719eff895b192546b9bda12e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "445e11f4_6b18d852",
         "filename": "system_wrappers/include/ntp_time.h",
         "patchSetId": 2
@@ -78,6 +102,24 @@
       "side": 1,
       "message": "Please refer to my comment above.",
       "parentUuid": "445e11f4_6b18d852",
+      "revId": "c1b5b7c2b1955a8719eff895b192546b9bda12e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91a127db_c1701bfc",
+        "filename": "system_wrappers/include/ntp_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-09T10:54:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ca53edda_2d984192",
       "revId": "c1b5b7c2b1955a8719eff895b192546b9bda12e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

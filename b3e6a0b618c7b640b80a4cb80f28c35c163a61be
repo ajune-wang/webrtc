@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf94eca8_c34e07f7",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-10T19:38:54Z",
+      "side": 1,
+      "message": "kwiberg@: I have added this but in theory we should not have it because the SequenceChecker is affected by RTC_DCHECK_IS_ON while this attribute might be used elsewhere if we have another empty class.\n\nShould we also have an RTC_NO_UNIQUE_ADDRESS_WHEN_DCHECK_IS_OFF?",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

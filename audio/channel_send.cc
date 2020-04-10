@@ -388,9 +388,11 @@ int32_t ChannelSend::SendData(AudioFrameType frameType,
   if (frame_transformer_delegate_) {
     // Asynchronously transform the payload before sending it. After the payload
     // is transformed, the delegate will call SendRtpAudio to send it.
+    RTC_LOG(LS_ERROR) << "FIPPO1 " << rtp_timestamp << " start " << _rtpRtcpModule->StartTimestamp();
     frame_transformer_delegate_->Transform(
-        frameType, payloadType, rtp_timestamp, payloadData, payloadSize,
-        absolute_capture_timestamp_ms, _rtpRtcpModule->SSRC());
+        frameType, payloadType,
+        rtp_timestamp + _rtpRtcpModule->StartTimestamp(),
+        payloadData, payloadSize, absolute_capture_timestamp_ms, _rtpRtcpModule->SSRC());
     return 0;
   }
   return SendRtpAudio(frameType, payloadType, rtp_timestamp, payload,
@@ -465,6 +467,7 @@ int32_t ChannelSend::SendRtpAudio(AudioFrameType frameType,
   // knowledge of the offset to a single place.
 
   // This call will trigger Transport::SendPacket() from the RTP/RTCP module.
+  RTC_LOG(LS_ERROR) << "FIPPO2 " << rtp_timestamp << " start " << _rtpRtcpModule->StartTimestamp();
   if (!rtp_sender_audio_->SendAudio(
           frameType, payloadType,
           rtp_timestamp + _rtpRtcpModule->StartTimestamp(), payload.data(),

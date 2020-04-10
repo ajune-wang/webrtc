@@ -159,6 +159,7 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
                                const uint8_t* payload_data,
                                size_t payload_size,
                                int64_t absolute_capture_timestamp_ms) {
+  RTC_LOG(LS_ERROR) << "FIPPO3 " << rtp_timestamp;
 #if RTC_TRACE_EVENTS_ENABLED
   TRACE_EVENT_ASYNC_STEP1("webrtc", "Audio", rtp_timestamp, "Send", "type",
                           FrameTypeToString(frame_type));
@@ -264,7 +265,9 @@ bool RTPSenderAudio::SendAudio(AudioFrameType frame_type,
   std::unique_ptr<RtpPacketToSend> packet = rtp_sender_->AllocatePacket();
   packet->SetMarker(MarkerBit(frame_type, payload_type));
   packet->SetPayloadType(payload_type);
+  RTC_LOG(LS_ERROR) << "FIPPO4 " << rtp_timestamp;
   packet->SetTimestamp(rtp_timestamp);
+  RTC_LOG(LS_ERROR) << "FIPPO5 " << rtp_timestamp;
   packet->set_capture_time_ms(clock_->TimeInMilliseconds());
   // Update audio level extension, if included.
   packet->SetExtension<AudioLevel>(

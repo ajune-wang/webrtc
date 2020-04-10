@@ -21,6 +21,7 @@
 #include "rtc_base/experiments/quality_scaling_experiment.h"
 #include "rtc_base/numerics/moving_average.h"
 #include "rtc_base/synchronization/sequence_checker.h"
+#include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/repeating_task.h"
 
@@ -87,7 +88,7 @@ class QualityScaler {
 
   RepeatingTaskHandle check_qp_task_ RTC_GUARDED_BY(&task_checker_);
   AdaptationObserverInterface* const observer_ RTC_GUARDED_BY(&task_checker_);
-  SequenceChecker task_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker task_checker_;
 
   VideoEncoder::QpThresholds thresholds_ RTC_GUARDED_BY(&task_checker_);
   const int64_t sampling_period_ms_;

@@ -449,6 +449,7 @@ rtc_source_set("rtc_operations_chain") {
     ":refcount",
     "../api:scoped_refptr",
     "synchronization:sequence_checker",
+    "system:no_unique_address",
   ]
 }
 
@@ -545,6 +546,7 @@ rtc_library("weak_ptr") {
     ":refcount",
     "../api:scoped_refptr",
     "synchronization:sequence_checker",
+    "system:no_unique_address",
   ]
 }
 

@@ -287,6 +287,7 @@ rtc_library("rtp_rtcp") {
     "../../rtc_base:rtc_numerics",
     "../../rtc_base:safe_minmax",
     "../../rtc_base/synchronization:sequence_checker",
+    "../../rtc_base/system:no_unique_address",
     "../../rtc_base/task_utils:to_queued_task",
     "../../rtc_base/time:timestamp_extrapolator",
     "../../system_wrappers",

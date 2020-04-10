@@ -31,8 +31,8 @@ rtc_library("resource_adaptation") {
     "../../api/video_codecs:video_codecs_api",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/algorithm:container",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -50,7 +50,7 @@ if (rtc_include_tests) {
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../test:test_support",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 

@@ -95,8 +95,8 @@ rtc_library("audio") {
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
     "utility:audio_frame_operations",
-    "//third_party/abseil-cpp/absl/memory",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 if (rtc_include_tests) {

@@ -52,7 +52,7 @@ rtc_library("api") {
     "../../rtc_base/system:arch",
     "../../rtc_base/system:rtc_export",
     "agc:gain_control_interface",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -187,7 +187,7 @@ rtc_library("audio_processing") {
     "transient:transient_suppressor_api",
     "transient:transient_suppressor_creator",
     "vad",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 
   deps += [
@@ -222,7 +222,7 @@ rtc_source_set("rms_level") {
   deps = [
     "../../api:array_view",
     "../../rtc_base:checks",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -234,7 +234,7 @@ rtc_library("audio_processing_statistics") {
   ]
   deps = [
     "../../rtc_base/system:rtc_export",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -401,7 +401,7 @@ if (rtc_include_tests) {
       "utility:pffft_wrapper_unittest",
       "vad:vad_unittests",
       "//testing/gtest",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
 
     defines = []
@@ -502,7 +502,7 @@ if (rtc_include_tests) {
       "../../rtc_base:rtc_base_approved",
       "../../rtc_base:safe_minmax",
       "agc:gain_map",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 
@@ -550,8 +550,8 @@ if (rtc_include_tests) {
         "//testing/gtest",
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/flags:parse",
-        "//third_party/abseil-cpp/absl/strings",
-        "//third_party/abseil-cpp/absl/types:optional",
+        "//third_party/abseil-cpp:absl",
+        "//third_party/abseil-cpp:absl",
       ]
     }  # audioproc_f_impl
   }
@@ -587,7 +587,7 @@ if (rtc_include_tests) {
       "../../test:test_support",
       "../audio_coding:neteq_input_audio_tools",
       "//testing/gtest",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 

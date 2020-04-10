@@ -22,7 +22,7 @@ rtc_library("repeating_task") {
     "../../api/units:time_delta",
     "../../api/units:timestamp",
     "../synchronization:sequence_checker",
-    "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -51,7 +51,7 @@ if (rtc_include_tests) {
       ":to_queued_task",
       "../../api/task_queue",
       "../../test:test_support",
-      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 }

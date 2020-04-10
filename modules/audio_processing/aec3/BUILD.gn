@@ -150,7 +150,7 @@ rtc_library("aec3") {
     "../../../system_wrappers:metrics",
     "../utility:cascaded_biquad_filter",
     "../utility:ooura_fft",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -187,7 +187,7 @@ if (rtc_include_tests) {
       "../../../test:field_trial",
       "../../../test:test_support",
       "../utility:cascaded_biquad_filter",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
 
     defines = []

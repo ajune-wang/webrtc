@@ -37,8 +37,8 @@ rtc_library("bbr_controller") {
     "../../../rtc_base:rtc_base_approved",
     "../../../rtc_base/experiments:field_trial_parser",
     "../../../system_wrappers:field_trial",
-    "//third_party/abseil-cpp/absl/base:core_headers",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -56,7 +56,7 @@ rtc_library("bandwidth_sampler") {
     "../../../api/units:timestamp",
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -87,7 +87,7 @@ rtc_library("loss_rate_filter") {
     "loss_rate_filter.cc",
     "loss_rate_filter.h",
   ]
-  deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  deps = [ "//third_party/abseil-cpp:absl" ]
 }
 rtc_library("rtt_stats") {
   visibility = [ ":*" ]

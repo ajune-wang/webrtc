@@ -121,11 +121,11 @@ rtc_library("video") {
     "../system_wrappers",
     "../system_wrappers:field_trial",
     "../system_wrappers:metrics",
-    "//third_party/abseil-cpp/absl/algorithm:container",
-    "//third_party/abseil-cpp/absl/base:core_headers",
-    "//third_party/abseil-cpp/absl/memory",
-    "//third_party/abseil-cpp/absl/strings",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 
   if (!build_with_mozilla) {
@@ -152,7 +152,7 @@ rtc_library("video_stream_decoder_impl") {
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
     "../system_wrappers",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -235,9 +235,9 @@ rtc_library("video_stream_encoder_impl") {
     "../system_wrappers",
     "../system_wrappers:field_trial",
     "adaptation:video_adaptation",
-    "//third_party/abseil-cpp/absl/algorithm:container",
-    "//third_party/abseil-cpp/absl/base:core_headers",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -317,7 +317,7 @@ if (rtc_include_tests) {
       "../test:test_support_test_artifacts",
       "../test:video_test_common",
       "../test:video_test_support",
-      "//third_party/abseil-cpp/absl/algorithm:container",
+      "//third_party/abseil-cpp:absl",
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
     ]
@@ -439,7 +439,7 @@ if (rtc_include_tests) {
       "../test:test_support",
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 
@@ -620,9 +620,9 @@ if (rtc_include_tests) {
       "../test/time_controller",
       "adaptation:video_adaptation",
       "//testing/gtest",
-      "//third_party/abseil-cpp/absl/algorithm:container",
-      "//third_party/abseil-cpp/absl/memory",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
+      "//third_party/abseil-cpp:absl",
+      "//third_party/abseil-cpp:absl",
     ]
     if (!build_with_mozilla) {
       deps += [ "../media:rtc_media_base" ]

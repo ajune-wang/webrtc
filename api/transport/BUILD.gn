@@ -16,7 +16,7 @@ rtc_library("bitrate_settings") {
   ]
   deps = [
     "../../rtc_base/system:rtc_export",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -41,8 +41,8 @@ rtc_library("network_control") {
     "../units:data_size",
     "../units:time_delta",
     "../units:timestamp",
-    "//third_party/abseil-cpp/absl/base:core_headers",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -51,7 +51,7 @@ rtc_source_set("webrtc_key_value_config") {
   sources = [ "webrtc_key_value_config.h" ]
   deps = [
     "../../rtc_base/system:rtc_export",
-    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -64,7 +64,7 @@ rtc_library("field_trial_based_config") {
   deps = [
     ":webrtc_key_value_config",
     "../../system_wrappers:field_trial",
-    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -82,7 +82,7 @@ rtc_source_set("datagram_transport_interface") {
     "../../rtc_base:rtc_base_approved",
     "../units:data_rate",
     "../units:timestamp",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 

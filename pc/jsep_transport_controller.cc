@@ -59,9 +59,9 @@ webrtc::RTCError VerifyCandidate(const cricket::Candidate& cand) {
     }
   }
 
-  // Disallow ICE-TCP with a private IP address.
+  // Disallow ICE-TCP with a private IP address except port 443.
   if (cand.protocol() == cricket::TCP_PROTOCOL_NAME &&
-      cand.address().IsPrivateIP()) {
+      cand.address().IsPrivateIP() && port != 443) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
                             "candidate is TCP and has a private IP address");
   }

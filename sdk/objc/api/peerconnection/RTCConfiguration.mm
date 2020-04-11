@@ -105,8 +105,6 @@
     _iceConnectionReceivingTimeout = config.ice_connection_receiving_timeout;
     _iceBackupCandidatePairPingInterval =
         config.ice_backup_candidate_pair_ping_interval;
-    _useMediaTransport = config.use_media_transport;
-    _useMediaTransportForDataChannels = config.use_media_transport_for_data_channels;
     _keyType = RTCEncryptionKeyTypeECDSA;
     _iceCandidatePoolSize = config.ice_candidate_pool_size;
     _shouldPruneTurnPorts = config.prune_turn_ports;
@@ -207,8 +205,6 @@
       _iceConnectionReceivingTimeout;
   nativeConfig->ice_backup_candidate_pair_ping_interval =
       _iceBackupCandidatePairPingInterval;
-  nativeConfig->use_media_transport = _useMediaTransport;
-  nativeConfig->use_media_transport_for_data_channels = _useMediaTransportForDataChannels;
   rtc::KeyType keyType =
       [[self class] nativeEncryptionKeyTypeForKeyType:_keyType];
   if (_certificate != nullptr) {

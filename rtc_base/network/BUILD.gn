@@ -15,6 +15,6 @@ rtc_library("sent_packet") {
   ]
   deps = [
     "../system:rtc_export",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }

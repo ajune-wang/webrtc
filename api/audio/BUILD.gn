@@ -61,7 +61,7 @@ rtc_library("aec3_config_json") {
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:rtc_json",
     "../../rtc_base/system:rtc_export",
-    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 

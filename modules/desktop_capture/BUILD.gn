@@ -480,8 +480,8 @@ rtc_library("desktop_capture_generic") {
     "../../system_wrappers",
     "../../system_wrappers:cpu_features_api",
     "../../system_wrappers:metrics",
-    "//third_party/abseil-cpp/absl/memory",
-    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 
   if (rtc_use_x11_extensions) {

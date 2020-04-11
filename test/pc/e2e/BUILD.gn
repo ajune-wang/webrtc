@@ -83,7 +83,7 @@ rtc_library("default_encoded_image_data_injector") {
     "../../../api/video:encoded_image",
     "../../../rtc_base:checks",
     "../../../rtc_base:criticalsection",
-    "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -100,7 +100,7 @@ rtc_library("single_process_encoded_image_data_injector") {
     "../../../api/video:encoded_image",
     "../../../rtc_base:checks",
     "../../../rtc_base:criticalsection",
-    "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -147,7 +147,7 @@ rtc_library("quality_analyzing_video_decoder") {
     "../../../modules/video_coding:video_codec_interface",
     "../../../rtc_base:criticalsection",
     "../../../rtc_base:logging",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -195,7 +195,7 @@ if (rtc_include_tests) {
       "../../../api/video_codecs:video_codecs_api",
       "../../../test:video_test_common",
       "../../../test:video_test_support",
-      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 
@@ -226,7 +226,7 @@ if (rtc_include_tests) {
       "../../../api:scoped_refptr",
       "../../../modules/audio_processing:api",
       "../../../pc:peerconnection_wrapper",
-      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 
@@ -254,7 +254,7 @@ if (rtc_include_tests) {
       "../../../modules/audio_processing/aec_dump",
       "../../../p2p:rtc_p2p",
       "../../../rtc_base:rtc_task_queue",
-      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 
@@ -321,8 +321,8 @@ if (rtc_include_tests) {
       "../../../rtc_base:task_queue_for_test",
       "../../../rtc_base/task_utils:repeating_task",
       "../../../system_wrappers",
-      "//third_party/abseil-cpp/absl/memory",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 
@@ -614,8 +614,7 @@ rtc_library("sdp_changer") {
     "../../../pc:peerconnection",
     "../../../pc:rtc_pc_base",
     "../../../rtc_base:stringutils",
-    "//third_party/abseil-cpp/absl/memory",
-    "//third_party/abseil-cpp/absl/strings:strings",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }

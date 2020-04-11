@@ -196,7 +196,7 @@ webrtc_fuzzer_test("rtp_packet_fuzzer") {
   sources = [ "rtp_packet_fuzzer.cc" ]
   deps = [
     "../../modules/rtp_rtcp:rtp_rtcp_format",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
   seed_corpus = "corpora/rtp-corpus"
 }
@@ -240,7 +240,7 @@ rtc_library("audio_decoder_fuzzer") {
     "../../modules/rtp_rtcp:rtp_rtcp_format",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -438,7 +438,7 @@ rtc_library("audio_processing_fuzzer_helper") {
     "../../modules/audio_processing:api",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -459,7 +459,7 @@ webrtc_fuzzer_test("audio_processing_fuzzer") {
     "../../rtc_base:rtc_task_queue",
     "../../rtc_base:safe_minmax",
     "../../system_wrappers:field_trial",
-    "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp:absl",
   ]
   seed_corpus = "corpora/audio_processing-corpus"
 }

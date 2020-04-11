@@ -666,8 +666,8 @@ if (is_linux || is_win) {
       "../test:field_trial",
       "../test:platform_video_capturer",
       "../test:rtp_test_utils",
-      "//third_party/abseil-cpp/absl/memory",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
+      "//third_party/abseil-cpp:absl",
     ]
     if (is_win) {
       sources += [
@@ -810,7 +810,7 @@ if (is_win || is_android) {
       "../rtc_base",
       "../test:platform_video_capturer",
       "../test:video_test_common",
-      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp:absl",
     ]
     if (is_android) {
       deps += [

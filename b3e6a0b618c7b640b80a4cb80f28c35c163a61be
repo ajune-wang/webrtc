@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "e5b86d16_bc7ce0a0",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-11T15:08:12Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 16,
+        "startChar": 49,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86737cc6_a29ab860",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-11T15:08:12Z",
+      "side": 1,
+      "message": "Add \"It allows empty types to actually occupy zero bytes as class members, instead of occupying at least one byte just so that they get their own address. There is almost never any reason not to use it on class members that could possibly be empty.\" So that people will know why they should use it...",
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf94eca8_c34e07f7",
         "filename": "rtc_base/system/no_unique_address.h",
         "patchSetId": 4
@@ -13,6 +53,30 @@
       "writtenOn": "2020-04-10T19:38:54Z",
       "side": 1,
       "message": "kwiberg@: I have added this but in theory we should not have it because the SequenceChecker is affected by RTC_DCHECK_IS_ON while this attribute might be used elsewhere if we have another empty class.\n\nShould we also have an RTC_NO_UNIQUE_ADDRESS_WHEN_DCHECK_IS_OFF?",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a14a1160_6d8bd869",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-11T15:08:12Z",
+      "side": 1,
+      "message": "Why should RTC_NO_UNIQUE_ADDRESS care about DCHECKs are on? It should be safe for the checker to not have a unique address whether or not DCHECKs are on.",
+      "parentUuid": "cf94eca8_c34e07f7",
       "range": {
         "startLine": 23,
         "startChar": 53,

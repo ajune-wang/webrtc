@@ -613,14 +613,6 @@ class RTC_EXPORT PeerConnectionInterface : public rtc::RefCountInterface {
     // correctly. This flag will be deprecated soon. Do not rely on it.
     bool active_reset_srtp_params = false;
 
-    // DEPRECATED.  Do not use.  This option is ignored by peer connection.
-    // TODO(webrtc:9719):  Delete this option.
-    bool use_media_transport = false;
-
-    // DEPRECATED.  Do not use.  This option is ignored by peer connection.
-    // TODO(webrtc:9719):  Delete this option.
-    bool use_media_transport_for_data_channels = false;
-
     // If MediaTransportFactory is provided in PeerConnectionFactory, this flag
     // informs PeerConnection that it should use the DatagramTransportInterface
     // for packets instead DTLS. It's invalid to set it to |true| if the

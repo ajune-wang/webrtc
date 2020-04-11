@@ -896,8 +896,6 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     SdpSemantics sdp_semantics;
     absl::optional<rtc::AdapterType> network_preference;
     bool active_reset_srtp_params;
-    bool use_media_transport;
-    bool use_media_transport_for_data_channels;
     absl::optional<bool> use_datagram_transport;
     absl::optional<bool> use_datagram_transport_for_data_channels;
     absl::optional<bool> use_datagram_transport_for_data_channels_receive_only;
@@ -961,9 +959,6 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          sdp_semantics == o.sdp_semantics &&
          network_preference == o.network_preference &&
          active_reset_srtp_params == o.active_reset_srtp_params &&
-         use_media_transport == o.use_media_transport &&
-         use_media_transport_for_data_channels ==
-             o.use_media_transport_for_data_channels &&
          use_datagram_transport == o.use_datagram_transport &&
          use_datagram_transport_for_data_channels ==
              o.use_datagram_transport_for_data_channels &&

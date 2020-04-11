@@ -152,6 +152,30 @@
       "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac39dbdd_c2469953",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-11T18:26:37Z",
+      "side": 1,
+      "message": "Hmm, ok this attribute is not supported by clang-cl:\n\n  In file included from ../../api/rtc_event_log/rtc_event_log_factory.cc:19:\n  ../..\\logging/rtc_event_log/rtc_event_log_impl.h(82,3): error: unknown attribute \n  \u0027no_unique_address\u0027 ignored [-Werror,-Wunknown-attributes]\n    RTC_NO_UNIQUE_ADDRESS SequenceChecker logging_state_checker_;\n    ^\n  ../..\\rtc_base/system/no_unique_address.h(27,5): note: expanded from macro \n  \u0027RTC_NO_UNIQUE_ADDRESS\u0027\n    [[no_unique_address]]  // NOLINT(whitespace/braces)\n\nThis is easy to workaround, the thing that needs more investigation is the binary size on arm64, which moves in the wrong direction.",
+      "parentUuid": "6710c1e7_e1868eff",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -176,6 +176,30 @@
       "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ec6797_409f0055",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-11T22:24:54Z",
+      "side": 1,
+      "message": "The binary size change is very intriguing. Patch set #4 and #5 should have had the same numbers since !RTC_DCHECK_IS_ON is true for the builds that we use to measure binary size, but instead we see a decrease in #4 and an increase in #5.",
+      "parentUuid": "ac39dbdd_c2469953",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

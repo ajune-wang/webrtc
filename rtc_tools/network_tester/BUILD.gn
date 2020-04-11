@@ -49,6 +49,7 @@ if (rtc_enable_protobuf) {
       "../../rtc_base:rtc_base_approved",
       "../../rtc_base:rtc_task_queue",
       "../../rtc_base/synchronization:sequence_checker",
+      "../../rtc_base/system:no_unique_address",
       "../../rtc_base/third_party/sigslot",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
@@ -138,11 +139,11 @@ if (is_android) {
       "androidapp/res/mipmap-xhdpi/ic_launcher.png",
       "androidapp/res/mipmap-xxhdpi/ic_launcher.png",
       "androidapp/res/mipmap-xxxhdpi/ic_launcher.png",
+      "androidapp/res/values-v17/styles.xml",
+      "androidapp/res/values-w820dp/dimens.xml",
       "androidapp/res/values/colors.xml",
       "androidapp/res/values/dimens.xml",
       "androidapp/res/values/strings.xml",
-      "androidapp/res/values-v17/styles.xml",
-      "androidapp/res/values-w820dp/dimens.xml",
     ]
 
     # Needed for Bazel converter.

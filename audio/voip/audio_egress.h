@@ -22,6 +22,7 @@
 #include "modules/rtp_rtcp/include/report_block_data.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/source/rtp_sender_audio.h"
+#include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/thread_checker.h"
 #include "rtc_base/time_utils.h"
@@ -97,7 +98,7 @@ class AudioEgress : public AudioSender, public AudioPacketizationCallback {
 
  private:
   // Ensure that single worker thread access.
-  SequenceChecker worker_thread_checker_;
+  RTC_NO_UNIQUE_ADDRESS SequenceChecker worker_thread_checker_;
 
   // Current encoder format selected by caller.
   absl::optional<SdpAudioFormat> encoder_format_

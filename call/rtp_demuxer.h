@@ -133,13 +133,9 @@ class RtpDemuxer {
   // The Observer will be notified when an attribute (e.g., RSID, MID, etc.) is
   // bound to an SSRC.
   void RegisterSsrcBindingObserver(SsrcBindingObserver* observer);
-  // Deprecated: Use the above method.
-  void RegisterRsidResolutionObserver(SsrcBindingObserver* observer);
 
   // Undo a previous RegisterSsrcBindingObserver().
   void DeregisterSsrcBindingObserver(const SsrcBindingObserver* observer);
-  // Deprecated: Use the above method.
-  void DeregisterRsidResolutionObserver(const SsrcBindingObserver* observer);
 
   // Configure whether to look at the MID header extension when demuxing
   // incoming RTP packets. By default this is enabled.

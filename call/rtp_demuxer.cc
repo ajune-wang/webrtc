@@ -312,9 +312,6 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMidRsid(
   }
   return nullptr;
 }
-void RtpDemuxer::RegisterRsidResolutionObserver(SsrcBindingObserver* observer) {
-  RegisterSsrcBindingObserver(observer);
-}
 
 RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByRsid(const std::string& rsid,
                                                       uint32_t ssrc) {
@@ -330,10 +327,6 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByRsid(const std::string& rsid,
     return sink;
   }
   return nullptr;
-}
-void RtpDemuxer::DeregisterRsidResolutionObserver(
-    const SsrcBindingObserver* observer) {
-  DeregisterSsrcBindingObserver(observer);
 }
 
 RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByPayloadType(

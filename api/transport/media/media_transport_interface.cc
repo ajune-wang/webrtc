@@ -98,10 +98,6 @@ void MediaTransportInterface::AddRttObserver(
 void MediaTransportInterface::RemoveRttObserver(
     MediaTransportRttObserver* observer) {}
 
-size_t MediaTransportInterface::GetAudioPacketOverhead() const {
-  return 0;
-}
-
 void MediaTransportInterface::SetAllocatedBitrateLimits(
     const MediaTransportAllocatedBitrateLimits& limits) {}
 

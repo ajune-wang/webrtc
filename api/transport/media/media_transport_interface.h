@@ -228,13 +228,6 @@ class MediaTransportInterface : public DataChannelTransportInterface {
   // observers.
   virtual absl::optional<TargetTransferRate> GetLatestTargetTransferRate();
 
-  // Gets the audio packet overhead in bytes. Returned overhead does not include
-  // transport overhead (ipv4/6, turn channeldata, tcp/udp, etc.).
-  // If the transport is capable of fusing packets together, this overhead
-  // might not be a very accurate number.
-  // TODO(nisse): Deprecated.
-  virtual size_t GetAudioPacketOverhead() const;
-
   // Corresponding observers for audio and video overhead. Before destruction,
   // the observers must be unregistered by setting nullptr.
 

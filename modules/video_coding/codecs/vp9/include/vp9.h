@@ -27,9 +27,6 @@ std::vector<SdpVideoFormat> SupportedVP9Codecs();
 
 class VP9Encoder : public VideoEncoder {
  public:
-  // Deprecated. Returns default implementation using VP9 Profile 0.
-  // TODO(emircan): Remove once this is no longer used.
-  static std::unique_ptr<VP9Encoder> Create();
   // Parses VP9 Profile from |codec| and returns the appropriate implementation.
   static std::unique_ptr<VP9Encoder> Create(const cricket::VideoCodec& codec);
 

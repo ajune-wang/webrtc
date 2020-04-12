@@ -45,15 +45,6 @@ std::vector<SdpVideoFormat> SupportedVP9Codecs() {
 #endif
 }
 
-std::unique_ptr<VP9Encoder> VP9Encoder::Create() {
-#ifdef RTC_ENABLE_VP9
-  return std::make_unique<VP9EncoderImpl>(cricket::VideoCodec());
-#else
-  RTC_NOTREACHED();
-  return nullptr;
-#endif
-}
-
 std::unique_ptr<VP9Encoder> VP9Encoder::Create(
     const cricket::VideoCodec& codec) {
 #ifdef RTC_ENABLE_VP9

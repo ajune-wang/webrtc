@@ -200,6 +200,30 @@
       "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a5334f_78ae10af",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-12T11:11:33Z",
+      "side": 1,
+      "message": "\u003e The binary size change is very intriguing. Patch set #4 and #5 should have had the same numbers since !RTC_DCHECK_IS_ON is true for the builds that we use to measure binary size, but instead we see a decrease in #4 and an increase in #5.\n\nHere is what bloaty has to say about the difference:\n\n$ bloaty no_unique_address_no_dcheck.so -- base_no_dcheck.so \n\n    FILE SIZE        VM SIZE    \n --------------  -------------- \n  +0.0%     +84  +0.0%     +84    .text\n  +0.0%     +80  +0.0%     +80    .eh_frame\n  +0.0%     +24  +0.0%     +24    .eh_frame_hdr\n  -5.3%     -44  -5.3%     -44    [LOAD #1 [RX]]\n  +0.0%    +144  +0.0%    +144    TOTAL\n\nHmm, yes the trybot difference is weird, but it looks like the optimization doesn\u0027t happen on arm64, can this be caused by side effect changes to padding?",
+      "parentUuid": "e7ec6797_409f0055",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

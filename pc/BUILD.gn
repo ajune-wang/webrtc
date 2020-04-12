@@ -267,6 +267,7 @@ rtc_library("peerconnection") {
     "../rtc_base:weak_ptr",
     "../rtc_base/experiments:field_trial_parser",
     "../rtc_base/system:file_wrapper",
+    "../rtc_base/system:no_unique_address",
     "../rtc_base/system:rtc_export",
     "../rtc_base/third_party/base64",
     "../rtc_base/third_party/sigslot",

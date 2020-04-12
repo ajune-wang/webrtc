@@ -224,6 +224,30 @@
       "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ce2cbb_ae6cf49b",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-12T13:16:46Z",
+      "side": 1,
+      "message": "What does Bloaty have to say about the previous version, the one that showed a size decrease?\n\nWhy do you say that \"the optimization doesn\u0027t happen on arm64\"? Have you measured the size of structs where you can predict the effects? I\u0027m thinking e.g.\n\n  struct Empty {};\n  struct Foo { char a; RTC_NO_UNIQUE_ADDRESS Empty b; };\n\nand checking whether sizeof(Foo) is 1 or 2.",
+      "parentUuid": "54a5334f_78ae10af",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

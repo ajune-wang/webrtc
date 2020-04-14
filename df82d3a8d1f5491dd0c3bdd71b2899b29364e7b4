@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "961d5b59_d6591a5a",
+        "filename": "video/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-14T08:59:02Z",
+      "side": 1,
+      "message": "That\u0027s done this way because of an automatic animation detection. If video is screenshared, we want to decrease resolution proactively, before we detect any issues. But reducing resolution in \u0027maintain-resolution\u0027 is prohibited. Thus the feature is piggybacked on \u0027balanced\u0027.",
+      "range": {
+        "startLine": 150,
+        "startChar": 17,
+        "endLine": 152,
+        "endChar": 61
+      },
+      "revId": "df82d3a8d1f5491dd0c3bdd71b2899b29364e7b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

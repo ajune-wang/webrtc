@@ -246,11 +246,6 @@ std::unique_ptr<OpenSSLIdentity> OpenSSLIdentity::CreateForTest(
   return CreateInternal(params);
 }
 
-OpenSSLIdentity* OpenSSLIdentity::GenerateForTest(
-    const SSLIdentityParams& params) {
-  return CreateInternal(params).release();
-}
-
 std::unique_ptr<SSLIdentity> OpenSSLIdentity::CreateFromPEMStrings(
     const std::string& private_key,
     const std::string& certificate) {
@@ -270,11 +265,6 @@ std::unique_ptr<SSLIdentity> OpenSSLIdentity::CreateFromPEMStrings(
 
   return absl::WrapUnique(
       new OpenSSLIdentity(std::move(key_pair), std::move(cert)));
-}
-
-SSLIdentity* OpenSSLIdentity::FromPEMStrings(const std::string& private_key,
-                                             const std::string& certificate) {
-  return CreateFromPEMStrings(private_key, certificate).release();
 }
 
 std::unique_ptr<SSLIdentity> OpenSSLIdentity::CreateFromPEMChainStrings(
@@ -319,22 +309,12 @@ std::unique_ptr<SSLIdentity> OpenSSLIdentity::CreateFromPEMChainStrings(
       std::move(key_pair), std::make_unique<SSLCertChain>(std::move(certs))));
 }
 
-SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
-    const std::string& private_key,
-    const std::string& certificate_chain) {
-  return CreateFromPEMChainStrings(private_key, certificate_chain).release();
-}
-
 const OpenSSLCertificate& OpenSSLIdentity::certificate() const {
   return *static_cast<const OpenSSLCertificate*>(&cert_chain_->Get(0));
 }
 
 const SSLCertChain& OpenSSLIdentity::cert_chain() const {
   return *cert_chain_.get();
-}
-
-OpenSSLIdentity* OpenSSLIdentity::GetReference() const {
-  return static_cast<OpenSSLIdentity*>(CloneInternal().release());
 }
 
 std::unique_ptr<SSLIdentity> OpenSSLIdentity::CloneInternal() const {

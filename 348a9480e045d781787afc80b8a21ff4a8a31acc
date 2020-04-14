@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bdbfe249_b3fde9c1",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-14T08:29:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bd58f36_7431d6e8",
+      "revId": "348a9480e045d781787afc80b8a21ff4a8a31acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43cb562b_0cf43850",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 2
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "4baa2919_2a3d5b29",
+        "filename": "modules/video_coding/codecs/vp9/svc_config_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-14T08:29:19Z",
+      "side": 1,
+      "message": "It shouldn\u0027t get to this layer then.",
+      "parentUuid": "2ea9814b_d1906e94",
+      "revId": "348a9480e045d781787afc80b8a21ff4a8a31acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03e093b4_8190f8f5",
         "filename": "modules/video_coding/video_codec_initializer.cc",
         "patchSetId": 2
@@ -67,6 +103,24 @@
       "revId": "348a9480e045d781787afc80b8a21ff4a8a31acc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04614c21_bfab41cf",
+        "filename": "modules/video_coding/video_codec_initializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-14T08:29:19Z",
+      "side": 1,
+      "message": "No, currently it\u0027s impossible. That would mean there\u0027re 0 ssrcs in SDP. This code won\u0027t be executed then.",
+      "parentUuid": "03e093b4_8190f8f5",
+      "revId": "348a9480e045d781787afc80b8a21ff4a8a31acc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

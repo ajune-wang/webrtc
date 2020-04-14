@@ -8,7 +8,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '304e175c8a3b4a82cf243d609c071d7984a20306',
+  'chromium_revision': 'd6e67fe0da3d0b989cbe1de9554b314e53b37185',
 }
 
 deps = {
@@ -26,13 +26,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@c4f3189d5d01c62404477dc00ba81aa3076050fb',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@927133c03c2a6974e3c059a030b6ecfc50dba746',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@cf5f6a9c6ec2d32e6e80b447f780942d1cb8e60f',
+    'https://chromium.googlesource.com/chromium/src/testing@ab4f5551cda16a66208a72e72924b2cc4f994ad6',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@4ba8cc0592ba97527e3e0f049ab44268c0bb8086',
+    'https://chromium.googlesource.com/chromium/src/third_party@5283db066d3cf0f63ce5ca88855907f8dc14d72f',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -160,7 +160,7 @@ deps = {
       'dep_type': 'cipd',
   },
   'src/third_party/googletest/src':
-    'https://chromium.googlesource.com/external/github.com/google/googletest.git@10b1902d893ea8cc43c69541d70868f91af3646b',
+    'https://chromium.googlesource.com/external/github.com/google/googletest.git@e3f0319d89f4cbf32993de595d984183b1a9fc57',
   'src/third_party/icu': {
     'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@13cfcd5874f6c39c34ec57fa5295e7910ae90b8d',
   },

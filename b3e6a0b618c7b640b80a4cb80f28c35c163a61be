@@ -248,6 +248,30 @@
       "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6deaf58_d7e1a3d6",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-14T13:11:25Z",
+      "side": 1,
+      "message": "Hmm, looks like I have messed up things a bit:\n\n    FILE SIZE        VM SIZE    \n --------------  -------------- \n  +0.0%     +80  +0.0%     +80    .eh_frame\n  +7.7%     +60  +7.7%     +60    [LOAD #1 [RX]]\n  +0.0%     +28  +0.0%     +28    .text\n  +0.0%     +24  +0.0%     +24    .eh_frame_hdr\n  -0.0%     -32  -0.0%     -32    .rodata\n  +0.0%    +160  +0.0%    +160    TOTAL\n\nDo you want me to dig deeper of should we just move on? The experiment you suggested confirms that the optimization works:\n\n$ ./out/Debug/no_unique_test \n1\n\nBut this is on Linux x64 not on Android arm64 (even if I think it works indeed, I was just trying to say that maybe we are saving one byte but the end result seems worse than expected because of padding?).",
+      "parentUuid": "40ce2cbb_ae6cf49b",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "88692a3d_6d44e396",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-14T10:54:37Z",
+      "side": 1,
+      "message": "I agree, this should be made generic. I think it\u0027s like that because of the legacy. First we have CPU adaptation, and the logic was simple: if we adapted down, we can always adapt up.\nThen quality scaler came into existence. There, we can adapt up if quality is good enough and we have enough bandwidth available. And here a weird proxy is used: instead of bwe we take current encoder target bitrate.",
+      "parentUuid": "0e64374b_0fd61f5b",
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1a2d3fa_a340ffad",
         "filename": "video/adaptation/resource_adaptation_processor.h",
         "patchSetId": 8

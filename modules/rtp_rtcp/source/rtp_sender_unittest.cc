@@ -46,8 +46,7 @@ namespace {
 enum : int {  // The first valid value is 1.
   kAbsoluteSendTimeExtensionId = 1,
   kAudioLevelExtensionId,
-  kGenericDescriptorId00,
-  kGenericDescriptorId01,
+  kGenericDescriptorId,
   kMidExtensionId,
   kRepairedRidExtensionId,
   kRidExtensionId,
@@ -102,9 +101,7 @@ class LoopbackTransportTest : public webrtc::Transport {
         kVideoTimingExtensionId);
     receivers_extensions_.Register<RtpMid>(kMidExtensionId);
     receivers_extensions_.Register<RtpGenericFrameDescriptorExtension00>(
-        kGenericDescriptorId00);
-    receivers_extensions_.Register<RtpGenericFrameDescriptorExtension01>(
-        kGenericDescriptorId01);
+        kGenericDescriptorId);
     receivers_extensions_.Register<RtpStreamId>(kRidExtensionId);
     receivers_extensions_.Register<RepairedRtpStreamId>(
         kRepairedRidExtensionId);

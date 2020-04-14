@@ -383,7 +383,6 @@ void RTPSenderVideo::AddRtpHeaderExtensions(
       RtpGenericFrameDescriptor generic_descriptor;
       generic_descriptor.SetFirstPacketInSubFrame(first_packet);
       generic_descriptor.SetLastPacketInSubFrame(last_packet);
-      generic_descriptor.SetDiscardable(video_header.generic->discardable);
 
       if (first_packet) {
         generic_descriptor.SetFrameId(

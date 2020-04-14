@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54121e0d_61f9c1c1",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-04-14T14:20:10Z",
+      "side": 0,
+      "message": "I think the error is here. For 2 TLs, we already use the short pattern. I.e., this block should remain, and the block below should be removed.",
+      "range": {
+        "startLine": 126,
+        "startChar": 11,
+        "endLine": 134,
+        "endChar": 73
+      },
+      "revId": "dce61741f6b4a9f13e97620aabe4a9826b982718",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "191021fe_7f11d5a8",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-04-14T14:20:10Z",
+      "side": 0,
+      "message": "Keep this, for same reason as above.",
+      "range": {
+        "startLine": 681,
+        "startChar": 15,
+        "endLine": 681,
+        "endChar": 39
+      },
+      "revId": "dce61741f6b4a9f13e97620aabe4a9826b982718",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

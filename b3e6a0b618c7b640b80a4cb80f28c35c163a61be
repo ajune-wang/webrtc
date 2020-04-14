@@ -320,6 +320,30 @@
       "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6acef037_6d9ac730",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-14T14:35:01Z",
+      "side": 1,
+      "message": "As always the compiler explorer investigation is great. :) \n\nOk, so I got somehow pulled into this red herring about checking binary size. I have tried again locally.\n\nmaster:\n6983736 Apr 14 16:17 out/AndroidArm64/libjingle_peerconnection_so.so\n\nbranch rebased on master:\n6983960 Apr 14 16:18 out/AndroidArm64/libjingle_peerconnection_so.so\n\nSo there are 224 bytes more (mostly coming from more .text, looks like this also affects unwind tables).\n\n$ bloaty arm64_branch.so -- arm64_master.so\n    FILE SIZE        VM SIZE    \n --------------  -------------- \n  +0.0%    +100  +0.0%    +100    .text\n  +0.0%     +80  +0.0%     +80    .eh_frame\n  +0.0%     +24  +0.0%     +24    .eh_frame_hdr\n  +3.2%     +20  +3.2%     +20    [LOAD #1 [RX]]\n  +0.0%    +224  +0.0%    +224    TOTAL\n\nHere is the arm version:\n\nmaster:\n4330648 Apr 14 16:22 out/AndroidArm64/libjingle_peerconnection_so.so\n\nbranch rebased on master:\n4330632 Apr 14 16:23 out/AndroidArm64/libjingle_peerconnection_so.so\n\nIn this case we get 16 bytes back.\n\n$ bloaty arm_branch.so -- arm_master.so\n    FILE SIZE        VM SIZE    \n --------------  -------------- \n  +1.9%      +8  +1.9%      +8    [LOAD #1 [RX]]\n  -0.0%      -8  -0.0%      -8    .ARM.exidx\n  -0.0%     -16  -0.0%     -16    .text\n  -0.0%     -16  -0.0%     -16    TOTAL",
+      "parentUuid": "d96f48a8_b1f84dcb",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -54,6 +54,29 @@
     },
     {
       "key": {
+        "uuid": "67f91413_b1e47572",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-14T11:51:45Z",
+      "side": 1,
+      "message": "optional: Can use std::all_of()\n\n  if (!absl::c_all_of(resources_, [input_state, restriction_before, resrictions_after, reason_resource](ReasonAndResource r) {\n    return rr.resource-\u003eIsAdaptationUpAllowed(input_state, restriction_before, \u0026reason_resource);\n  }) retrun;",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 3
+      },
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1a2d3fa_a340ffad",
         "filename": "video/adaptation/resource_adaptation_processor.h",
         "patchSetId": 8

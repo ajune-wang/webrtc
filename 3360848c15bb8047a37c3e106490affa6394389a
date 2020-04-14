@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ca3e26a_79bcb71b",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-04-14T09:41:15Z",
+      "side": 1,
+      "message": "From the ongoing bug discussion, it seems we might want to say \"\u0026\u0026 port \u003c 1024\", either instead or in addition.",
+      "revId": "3360848c15bb8047a37c3e106490affa6394389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

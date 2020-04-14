@@ -116,6 +116,8 @@ class RTC_EXPORT SSLIdentity {
                                              const KeyParams& key_param);
   static std::unique_ptr<SSLIdentity> Create(const std::string& common_name,
                                              KeyType key_type);
+
+  // Allows fine-grained control over expiration time.
   static std::unique_ptr<SSLIdentity> CreateForTest(
       const SSLIdentityParams& params);
 
@@ -126,22 +128,6 @@ class RTC_EXPORT SSLIdentity {
 
   // Construct an identity from a private key and a certificate chain.
   static std::unique_ptr<SSLIdentity> CreateFromPEMChainStrings(
-      const std::string& private_key,
-      const std::string& certificate_chain);
-
-  // Generates an identity with the specified validity period.
-  // TODO(torbjorng): Now that Generate() accepts relevant params, make tests
-  // use that instead of this function.
-  RTC_DEPRECATED static SSLIdentity* GenerateForTest(
-      const SSLIdentityParams& params);
-
-  // Construct an identity from a private key and a certificate.
-  RTC_DEPRECATED static SSLIdentity* FromPEMStrings(
-      const std::string& private_key,
-      const std::string& certificate);
-
-  // Construct an identity from a private key and a certificate chain.
-  RTC_DEPRECATED static SSLIdentity* FromPEMChainStrings(
       const std::string& private_key,
       const std::string& certificate_chain);
 

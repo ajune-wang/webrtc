@@ -272,6 +272,30 @@
       "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4f3d29a_ad714c28",
+        "filename": "rtc_base/system/no_unique_address.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-14T13:50:56Z",
+      "side": 1,
+      "message": "Unless you have instances of the struct present in the binary (for constant initialization), adding RTC_NO_UNIQUE_ADDRESS on a struct member isn\u0027t expected to affect the binary size in any particular direction. It *is* expected to possibly reduce the amount of padding in the struct (since the 1-byte padding of that member is no longer mandated), but how this affects code size or CPU usage is not obvious. All other things being equal one might expect that removing padding would on the net be a good thing (otherwise we would be randomly inserting padding to improve our code), but there\u0027s no guarantee that this will be the case every time.",
+      "parentUuid": "f6deaf58_d7e1a3d6",
+      "range": {
+        "startLine": 23,
+        "startChar": 53,
+        "endLine": 23,
+        "endChar": 70
+      },
+      "revId": "b3e6a0b618c7b640b80a4cb80f28c35c163a61be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

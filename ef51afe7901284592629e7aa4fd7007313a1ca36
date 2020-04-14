@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b18dcc01_c3b0a3d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-14T08:55:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb6af611_4c4b5a20",
+      "revId": "ef51afe7901284592629e7aa4fd7007313a1ca36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b06edf4_968f069c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "ef51afe7901284592629e7aa4fd7007313a1ca36",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6785a69_a6fd48a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-14T08:55:44Z",
+      "side": 1,
+      "message": "Yes, let me reuse the bug to remove TODOs (webrtc:10198).",
+      "parentUuid": "9b06edf4_968f069c",
+      "revId": "ef51afe7901284592629e7aa4fd7007313a1ca36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

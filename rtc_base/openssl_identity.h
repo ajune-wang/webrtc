@@ -72,15 +72,6 @@ class OpenSSLIdentity final : public SSLIdentity {
   static std::unique_ptr<SSLIdentity> CreateFromPEMChainStrings(
       const std::string& private_key,
       const std::string& certificate_chain);
-  // Deprecated versions
-  static OpenSSLIdentity* GenerateWithExpiration(const std::string& common_name,
-                                                 const KeyParams& key_params,
-                                                 time_t certificate_lifetime);
-  static OpenSSLIdentity* GenerateForTest(const SSLIdentityParams& params);
-  static SSLIdentity* FromPEMStrings(const std::string& private_key,
-                                     const std::string& certificate);
-  static SSLIdentity* FromPEMChainStrings(const std::string& private_key,
-                                          const std::string& certificate_chain);
   ~OpenSSLIdentity() override;
 
   const OpenSSLCertificate& certificate() const override;

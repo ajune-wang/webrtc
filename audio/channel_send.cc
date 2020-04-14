@@ -389,11 +389,13 @@ int32_t ChannelSend::SendData(AudioFrameType frameType,
     // Asynchronously transform the payload before sending it. After the payload
     // is transformed, the delegate will call SendRtpAudio to send it.
     frame_transformer_delegate_->Transform(
-        frameType, payloadType, rtp_timestamp, payloadData, payloadSize,
-        absolute_capture_timestamp_ms, _rtpRtcpModule->SSRC());
+        frameType, payloadType,
+        rtp_timestamp + _rtpRtcpModule->StartTimestamp(), payloadData,
+        payloadSize, absolute_capture_timestamp_ms, _rtpRtcpModule->SSRC());
     return 0;
   }
-  return SendRtpAudio(frameType, payloadType, rtp_timestamp, payload,
+  return SendRtpAudio(frameType, payloadType,
+                      rtp_timestamp + _rtpRtcpModule->StartTimestamp(), payload,
                       absolute_capture_timestamp_ms);
 }
 
@@ -449,12 +451,14 @@ int32_t ChannelSend::SendRtpAudio(AudioFrameType frameType,
 
   // Push data from ACM to RTP/RTCP-module to deliver audio frame for
   // packetization.
-  if (!_rtpRtcpModule->OnSendingRtpFrame(rtp_timestamp,
-                                         // Leaving the time when this frame was
-                                         // received from the capture device as
-                                         // undefined for voice for now.
-                                         -1, payloadType,
-                                         /*force_sender_report=*/false)) {
+  if (!_rtpRtcpModule->OnSendingRtpFrame(
+          // Subtract the start timestamp again to retain old behaviour.
+          rtp_timestamp - _rtpRtcpModule->StartTimestamp(),
+          // Leaving the time when this frame was
+          // received from the capture device as
+          // undefined for voice for now.
+          -1, payloadType,
+          /*force_sender_report=*/false)) {
     return -1;
   }
 
@@ -465,10 +469,9 @@ int32_t ChannelSend::SendRtpAudio(AudioFrameType frameType,
   // knowledge of the offset to a single place.
 
   // This call will trigger Transport::SendPacket() from the RTP/RTCP module.
-  if (!rtp_sender_audio_->SendAudio(
-          frameType, payloadType,
-          rtp_timestamp + _rtpRtcpModule->StartTimestamp(), payload.data(),
-          payload.size(), absolute_capture_timestamp_ms)) {
+  if (!rtp_sender_audio_->SendAudio(frameType, payloadType, rtp_timestamp,
+                                    payload.data(), payload.size(),
+                                    absolute_capture_timestamp_ms)) {
     RTC_DLOG(LS_ERROR)
         << "ChannelSend::SendData() failed to send data to RTP/RTCP module";
     return -1;

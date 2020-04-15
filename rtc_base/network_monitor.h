@@ -78,8 +78,7 @@ class NetworkMonitorInterface {
 };
 
 class NetworkMonitorBase : public NetworkMonitorInterface,
-                           public MessageHandler,
-                           public sigslot::has_slots<> {
+                           public MessageHandler {
  public:
   NetworkMonitorBase();
   ~NetworkMonitorBase() override;

@@ -825,8 +825,6 @@ void BasicNetworkManager::StartNetworkMonitor() {
     if (!network_monitor_) {
       return;
     }
-    network_monitor_->SignalNetworksChanged.connect(
-        this, &BasicNetworkManager::OnNetworksChanged);
   }
   network_monitor_->Start();
 }

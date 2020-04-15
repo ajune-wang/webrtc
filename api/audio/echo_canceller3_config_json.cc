@@ -14,10 +14,10 @@
 #include <string>
 #include <vector>
 
+#include "absl/strings/str_format.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/json.h"
-#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 namespace {
@@ -392,291 +392,205 @@ EchoCanceller3Config Aec3ConfigFromJsonString(absl::string_view json_string) {
 }
 
 std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
-  rtc::StringBuilder ost;
-  ost << "{";
-  ost << "\"aec3\": {";
-  ost << "\"buffering\": {";
-  ost << "\"excess_render_detection_interval_blocks\": "
-      << config.buffering.excess_render_detection_interval_blocks << ",";
-  ost << "\"max_allowed_excess_render_blocks\": "
-      << config.buffering.max_allowed_excess_render_blocks;
-  ost << "},";
-
-  ost << "\"delay\": {";
-  ost << "\"default_delay\": " << config.delay.default_delay << ",";
-  ost << "\"down_sampling_factor\": " << config.delay.down_sampling_factor
-      << ",";
-  ost << "\"num_filters\": " << config.delay.num_filters << ",";
-  ost << "\"delay_headroom_samples\": " << config.delay.delay_headroom_samples
-      << ",";
-  ost << "\"hysteresis_limit_blocks\": " << config.delay.hysteresis_limit_blocks
-      << ",";
-  ost << "\"fixed_capture_delay_samples\": "
-      << config.delay.fixed_capture_delay_samples << ",";
-  ost << "\"delay_estimate_smoothing\": "
-      << config.delay.delay_estimate_smoothing << ",";
-  ost << "\"delay_candidate_detection_threshold\": "
-      << config.delay.delay_candidate_detection_threshold << ",";
-
-  ost << "\"delay_selection_thresholds\": {";
-  ost << "\"initial\": " << config.delay.delay_selection_thresholds.initial
-      << ",";
-  ost << "\"converged\": " << config.delay.delay_selection_thresholds.converged;
-  ost << "},";
-
-  ost << "\"use_external_delay_estimator\": "
-      << (config.delay.use_external_delay_estimator ? "true" : "false") << ",";
-  ost << "\"log_warning_on_delay_changes\": "
-      << (config.delay.log_warning_on_delay_changes ? "true" : "false") << ",";
-
-  ost << "\"render_alignment_mixing\": {";
-  ost << "\"downmix\": "
-      << (config.delay.render_alignment_mixing.downmix ? "true" : "false")
-      << ",";
-  ost << "\"adaptive_selection\": "
-      << (config.delay.render_alignment_mixing.adaptive_selection ? "true"
-                                                                  : "false")
-      << ",";
-  ost << "\"activity_power_threshold\": "
-      << config.delay.render_alignment_mixing.activity_power_threshold << ",";
-  ost << "\"prefer_first_two_channels\": "
-      << (config.delay.render_alignment_mixing.prefer_first_two_channels
-              ? "true"
-              : "false");
-  ost << "},";
-
-  ost << "\"capture_alignment_mixing\": {";
-  ost << "\"downmix\": "
-      << (config.delay.capture_alignment_mixing.downmix ? "true" : "false")
-      << ",";
-  ost << "\"adaptive_selection\": "
-      << (config.delay.capture_alignment_mixing.adaptive_selection ? "true"
-                                                                   : "false")
-      << ",";
-  ost << "\"activity_power_threshold\": "
-      << config.delay.capture_alignment_mixing.activity_power_threshold << ",";
-  ost << "\"prefer_first_two_channels\": "
-      << (config.delay.capture_alignment_mixing.prefer_first_two_channels
-              ? "true"
-              : "false");
-  ost << "}";
-  ost << "},";
-
-  ost << "\"filter\": {";
-
-  ost << "\"refined\": [";
-  ost << config.filter.refined.length_blocks << ",";
-  ost << config.filter.refined.leakage_converged << ",";
-  ost << config.filter.refined.leakage_diverged << ",";
-  ost << config.filter.refined.error_floor << ",";
-  ost << config.filter.refined.error_ceil << ",";
-  ost << config.filter.refined.noise_gate;
-  ost << "],";
-
-  ost << "\"coarse\": [";
-  ost << config.filter.coarse.length_blocks << ",";
-  ost << config.filter.coarse.rate << ",";
-  ost << config.filter.coarse.noise_gate;
-  ost << "],";
-
-  ost << "\"refined_initial\": [";
-  ost << config.filter.refined_initial.length_blocks << ",";
-  ost << config.filter.refined_initial.leakage_converged << ",";
-  ost << config.filter.refined_initial.leakage_diverged << ",";
-  ost << config.filter.refined_initial.error_floor << ",";
-  ost << config.filter.refined_initial.error_ceil << ",";
-  ost << config.filter.refined_initial.noise_gate;
-  ost << "],";
-
-  ost << "\"coarse_initial\": [";
-  ost << config.filter.coarse_initial.length_blocks << ",";
-  ost << config.filter.coarse_initial.rate << ",";
-  ost << config.filter.coarse_initial.noise_gate;
-  ost << "],";
-
-  ost << "\"config_change_duration_blocks\": "
-      << config.filter.config_change_duration_blocks << ",";
-  ost << "\"initial_state_seconds\": " << config.filter.initial_state_seconds
-      << ",";
-  ost << "\"conservative_initial_phase\": "
-      << (config.filter.conservative_initial_phase ? "true" : "false") << ",";
-  ost << "\"enable_coarse_filter_output_usage\": "
-      << (config.filter.enable_coarse_filter_output_usage ? "true" : "false")
-      << ",";
-  ost << "\"use_linear_filter\": "
-      << (config.filter.use_linear_filter ? "true" : "false") << ",";
-  ost << "\"export_linear_aec_output\": "
-      << (config.filter.export_linear_aec_output ? "true" : "false");
-
-  ost << "},";
-
-  ost << "\"erle\": {";
-  ost << "\"min\": " << config.erle.min << ",";
-  ost << "\"max_l\": " << config.erle.max_l << ",";
-  ost << "\"max_h\": " << config.erle.max_h << ",";
-  ost << "\"onset_detection\": "
-      << (config.erle.onset_detection ? "true" : "false") << ",";
-  ost << "\"num_sections\": " << config.erle.num_sections << ",";
-  ost << "\"clamp_quality_estimate_to_zero\": "
-      << (config.erle.clamp_quality_estimate_to_zero ? "true" : "false") << ",";
-  ost << "\"clamp_quality_estimate_to_one\": "
-      << (config.erle.clamp_quality_estimate_to_one ? "true" : "false");
-  ost << "},";
-
-  ost << "\"ep_strength\": {";
-  ost << "\"default_gain\": " << config.ep_strength.default_gain << ",";
-  ost << "\"default_len\": " << config.ep_strength.default_len << ",";
-  ost << "\"echo_can_saturate\": "
-      << (config.ep_strength.echo_can_saturate ? "true" : "false") << ",";
-  ost << "\"bounded_erl\": "
-      << (config.ep_strength.bounded_erl ? "true" : "false");
-
-  ost << "},";
-
-  ost << "\"echo_audibility\": {";
-  ost << "\"low_render_limit\": " << config.echo_audibility.low_render_limit
-      << ",";
-  ost << "\"normal_render_limit\": "
-      << config.echo_audibility.normal_render_limit << ",";
-  ost << "\"floor_power\": " << config.echo_audibility.floor_power << ",";
-  ost << "\"audibility_threshold_lf\": "
-      << config.echo_audibility.audibility_threshold_lf << ",";
-  ost << "\"audibility_threshold_mf\": "
-      << config.echo_audibility.audibility_threshold_mf << ",";
-  ost << "\"audibility_threshold_hf\": "
-      << config.echo_audibility.audibility_threshold_hf << ",";
-  ost << "\"use_stationarity_properties\": "
-      << (config.echo_audibility.use_stationarity_properties ? "true" : "false")
-      << ",";
-  ost << "\"use_stationarity_properties_at_init\": "
-      << (config.echo_audibility.use_stationarity_properties_at_init ? "true"
-                                                                     : "false");
-  ost << "},";
-
-  ost << "\"render_levels\": {";
-  ost << "\"active_render_limit\": " << config.render_levels.active_render_limit
-      << ",";
-  ost << "\"poor_excitation_render_limit\": "
-      << config.render_levels.poor_excitation_render_limit << ",";
-  ost << "\"poor_excitation_render_limit_ds8\": "
-      << config.render_levels.poor_excitation_render_limit_ds8 << ",";
-  ost << "\"render_power_gain_db\": "
-      << config.render_levels.render_power_gain_db;
-  ost << "},";
-
-  ost << "\"echo_removal_control\": {";
-  ost << "\"has_clock_drift\": "
-      << (config.echo_removal_control.has_clock_drift ? "true" : "false")
-      << ",";
-  ost << "\"linear_and_stable_echo_path\": "
-      << (config.echo_removal_control.linear_and_stable_echo_path ? "true"
-                                                                  : "false");
-
-  ost << "},";
-
-  ost << "\"echo_model\": {";
-  ost << "\"noise_floor_hold\": " << config.echo_model.noise_floor_hold << ",";
-  ost << "\"min_noise_floor_power\": "
-      << config.echo_model.min_noise_floor_power << ",";
-  ost << "\"stationary_gate_slope\": "
-      << config.echo_model.stationary_gate_slope << ",";
-  ost << "\"noise_gate_power\": " << config.echo_model.noise_gate_power << ",";
-  ost << "\"noise_gate_slope\": " << config.echo_model.noise_gate_slope << ",";
-  ost << "\"render_pre_window_size\": "
-      << config.echo_model.render_pre_window_size << ",";
-  ost << "\"render_post_window_size\": "
-      << config.echo_model.render_post_window_size;
-  ost << "},";
-
-  ost << "\"comfort_noise\": {";
-  ost << "\"noise_floor_dbfs\": " << config.comfort_noise.noise_floor_dbfs;
-  ost << "},";
-
-  ost << "\"suppressor\": {";
-  ost << "\"nearend_average_blocks\": "
-      << config.suppressor.nearend_average_blocks << ",";
-  ost << "\"normal_tuning\": {";
-  ost << "\"mask_lf\": [";
-  ost << config.suppressor.normal_tuning.mask_lf.enr_transparent << ",";
-  ost << config.suppressor.normal_tuning.mask_lf.enr_suppress << ",";
-  ost << config.suppressor.normal_tuning.mask_lf.emr_transparent;
-  ost << "],";
-  ost << "\"mask_hf\": [";
-  ost << config.suppressor.normal_tuning.mask_hf.enr_transparent << ",";
-  ost << config.suppressor.normal_tuning.mask_hf.enr_suppress << ",";
-  ost << config.suppressor.normal_tuning.mask_hf.emr_transparent;
-  ost << "],";
-  ost << "\"max_inc_factor\": "
-      << config.suppressor.normal_tuning.max_inc_factor << ",";
-  ost << "\"max_dec_factor_lf\": "
-      << config.suppressor.normal_tuning.max_dec_factor_lf;
-  ost << "},";
-  ost << "\"nearend_tuning\": {";
-  ost << "\"mask_lf\": [";
-  ost << config.suppressor.nearend_tuning.mask_lf.enr_transparent << ",";
-  ost << config.suppressor.nearend_tuning.mask_lf.enr_suppress << ",";
-  ost << config.suppressor.nearend_tuning.mask_lf.emr_transparent;
-  ost << "],";
-  ost << "\"mask_hf\": [";
-  ost << config.suppressor.nearend_tuning.mask_hf.enr_transparent << ",";
-  ost << config.suppressor.nearend_tuning.mask_hf.enr_suppress << ",";
-  ost << config.suppressor.nearend_tuning.mask_hf.emr_transparent;
-  ost << "],";
-  ost << "\"max_inc_factor\": "
-      << config.suppressor.nearend_tuning.max_inc_factor << ",";
-  ost << "\"max_dec_factor_lf\": "
-      << config.suppressor.nearend_tuning.max_dec_factor_lf;
-  ost << "},";
-  ost << "\"dominant_nearend_detection\": {";
-  ost << "\"enr_threshold\": "
-      << config.suppressor.dominant_nearend_detection.enr_threshold << ",";
-  ost << "\"enr_exit_threshold\": "
-      << config.suppressor.dominant_nearend_detection.enr_exit_threshold << ",";
-  ost << "\"snr_threshold\": "
-      << config.suppressor.dominant_nearend_detection.snr_threshold << ",";
-  ost << "\"hold_duration\": "
-      << config.suppressor.dominant_nearend_detection.hold_duration << ",";
-  ost << "\"trigger_threshold\": "
-      << config.suppressor.dominant_nearend_detection.trigger_threshold << ",";
-  ost << "\"use_during_initial_phase\": "
-      << config.suppressor.dominant_nearend_detection.use_during_initial_phase;
-  ost << "},";
-  ost << "\"subband_nearend_detection\": {";
-  ost << "\"nearend_average_blocks\": "
-      << config.suppressor.subband_nearend_detection.nearend_average_blocks
-      << ",";
-  ost << "\"subband1\": [";
-  ost << config.suppressor.subband_nearend_detection.subband1.low << ",";
-  ost << config.suppressor.subband_nearend_detection.subband1.high;
-  ost << "],";
-  ost << "\"subband2\": [";
-  ost << config.suppressor.subband_nearend_detection.subband2.low << ",";
-  ost << config.suppressor.subband_nearend_detection.subband2.high;
-  ost << "],";
-  ost << "\"nearend_threshold\": "
-      << config.suppressor.subband_nearend_detection.nearend_threshold << ",";
-  ost << "\"snr_threshold\": "
-      << config.suppressor.subband_nearend_detection.snr_threshold;
-  ost << "},";
-  ost << "\"use_subband_nearend_detection\": "
-      << config.suppressor.use_subband_nearend_detection << ",";
-  ost << "\"high_bands_suppression\": {";
-  ost << "\"enr_threshold\": "
-      << config.suppressor.high_bands_suppression.enr_threshold << ",";
-  ost << "\"max_gain_during_echo\": "
-      << config.suppressor.high_bands_suppression.max_gain_during_echo << ",";
-  ost << "\"anti_howling_activation_threshold\": "
-      << config.suppressor.high_bands_suppression
-             .anti_howling_activation_threshold
-      << ",";
-  ost << "\"anti_howling_gain\": "
-      << config.suppressor.high_bands_suppression.anti_howling_gain;
-  ost << "},";
-  ost << "\"floor_first_increase\": " << config.suppressor.floor_first_increase;
-  ost << "}";
-  ost << "}";
-  ost << "}";
-
-  return ost.Release();
+  auto fmt_bool = [](bool x) { return x ? "true" : "false"; };
+  return absl::StrFormat(
+      R"("aec3": {"buffering":)"
+      R"({"excess_render_detection_interval_blocks": %zu,)"
+      R"("max_allowed_excess_render_blocks": %zu},)"
+      R"("delay": {"default_delay": %zu,)"
+      R"("down_sampling_factor": %zu,)"
+      R"("num_filters": %zu,)"
+      R"("delay_headroom_samples": %zu,)"
+      R"("hysteresis_limit_blocks": %zu,)"
+      R"("fixed_capture_delay_samples": %zu,)"
+      R"("delay_estimate_smoothing": %f,)"
+      R"("delay_candidate_detection_threshold": %f,)"
+      R"("delay_selection_thresholds": {"initial": %d,)"
+      R"("converged": %d},)"
+      R"("use_external_delay_estimator": %s,)"
+      R"("log_warning_on_delay_changes": %s,)"
+      R"("render_alignment_mixing": {"downmix": %s,)"
+      R"("adaptive_selection": %s,)"
+      R"("activity_power_threshold": %f,)"
+      R"("prefer_first_two_channels": %s},)"
+      R"("capture_alignment_mixing": {"downmix": %s,)"
+      R"("adaptive_selection": %s,)"
+      R"("activity_power_threshold": %f,)"
+      R"("prefer_first_two_channels": %s}},)"
+      R"("filter": {refined": [%zu,%f,%f,%f,%f,%f],)"
+      R"("coarse": [%zu,%f,%f],)"
+      R"("refined_initial": [%zu,%f,%f,%f,%f,%f],)"
+      R"("coarse_initial": [%zu,%f,%f],)"
+      R"("config_change_duration_blocks": %zu,)"
+      R"("initial_state_seconds": %f,)"
+      R"("conservative_initial_phase": %s,)"
+      R"("enable_coarse_filter_output_usage": %s,)"
+      R"("use_linear_filter": %s,)"
+      R"("export_linear_aec_output": %s,)"
+      R"("erle": {"min": %f,)"
+      R"("max_l": %f,)"
+      R"("max_h": %f,)"
+      R"("onset_detection": %s,)"
+      R"("num_sections": %zu,)"
+      R"("clamp_quality_estimate_to_zero": %s,)"
+      R"("clamp_quality_estimate_to_one": %s},)"
+      R"("ep_strength": {"default_gain": %f,)"
+      R"("default_len": %f,)"
+      R"("echo_can_saturate": %s,)"
+      R"("bounded_erl": %s},)"
+      R"("echo_audibility": {"low_render_limit": %f,)"
+      R"("normal_render_limit": %f,)"
+      R"("floor_power": %f,)"
+      R"("audibility_threshold_lf": %f,)"
+      R"("audibility_threshold_mf": %f,)"
+      R"("audibility_threshold_hf": %f,)"
+      R"("use_stationarity_properties": %s,)"
+      R"("use_stationarity_properties_at_init": %s},)"
+      R"("render_levels": {"active_render_limit": %f,)"
+      R"("poor_excitation_render_limit": %f,)"
+      R"("poor_excitation_render_limit_ds8": %f,)"
+      R"("render_power_gain_db": %f},)"
+      R"("echo_removal_control": {"has_clock_drift": %s,)"
+      R"("linear_and_stable_echo_path": %s},)"
+      R"("echo_model": {"noise_floor_hold": %zu,)"
+      R"("min_noise_floor_power": %f,)"
+      R"("stationary_gate_slope": %f,)"
+      R"("noise_gate_power": %f,)"
+      R"("noise_gate_slope": %f,)"
+      R"("render_pre_window_size": %zu,)"
+      R"("render_post_window_size": %zu},)"
+      R"("comfort_noise": {"noise_floor_dbfs": %f},)"
+      R"("suppressor": {"nearend_average_blocks": %zu,)"
+      R"("normal_tuning": {"mask_lf": [%f,%f,%f],)"
+      R"("mask_hf": [%f,%f,%f],)"
+      R"("max_inc_factor": %f,)"
+      R"("max_dec_factor_lf": %f},)"
+      R"("nearend_tuning": {"mask_lf": [%f,%f,%f],)"
+      R"("mask_hf": [%f,%f,%f],)"
+      R"("max_inc_factor": %f,)"
+      R"("max_dec_factor_lf": %f},)"
+      R"("dominant_nearend_detection": {"enr_threshold": %f,)"
+      R"("enr_exit_threshold": %f,)"
+      R"("snr_threshold": %f,)"
+      R"("hold_duration": %d,)"
+      R"("trigger_threshold": %d,)"
+      R"("use_during_initial_phase": %d},)"
+      R"("subband_nearend_detection": {"nearend_average_blocks": %zu,)"
+      R"("subband1": [%zu,%zu],)"
+      R"("subband2": [%zu,%zu],)"
+      R"("nearend_threshold": %f,)"
+      R"("snr_threshold": %f},)"
+      R"("use_subband_nearend_detection": %d,)"
+      R"("high_bands_suppression": {"enr_threshold": %f,)"
+      R"("max_gain_during_echo": %f,)"
+      R"("anti_howling_activation_threshold": %f,)"
+      R"("anti_howling_gain": %f},)"
+      R"("floor_first_increase": %f}}})",
+      config.buffering.excess_render_detection_interval_blocks,
+      config.buffering.max_allowed_excess_render_blocks,
+      config.delay.default_delay, config.delay.down_sampling_factor,
+      config.delay.num_filters, config.delay.delay_headroom_samples,
+      config.delay.hysteresis_limit_blocks,
+      config.delay.fixed_capture_delay_samples,
+      config.delay.delay_estimate_smoothing,
+      config.delay.delay_candidate_detection_threshold,
+      config.delay.delay_selection_thresholds.initial,
+      config.delay.delay_selection_thresholds.converged,
+      fmt_bool(config.delay.use_external_delay_estimator),
+      fmt_bool(config.delay.log_warning_on_delay_changes),
+      fmt_bool(config.delay.render_alignment_mixing.downmix),
+      fmt_bool(config.delay.render_alignment_mixing.adaptive_selection),
+      config.delay.render_alignment_mixing.activity_power_threshold,
+      fmt_bool(config.delay.render_alignment_mixing.prefer_first_two_channels),
+      fmt_bool(config.delay.capture_alignment_mixing.downmix),
+      fmt_bool(config.delay.capture_alignment_mixing.adaptive_selection),
+      config.delay.capture_alignment_mixing.activity_power_threshold,
+      fmt_bool(config.delay.capture_alignment_mixing.prefer_first_two_channels),
+      config.filter.refined.length_blocks,
+      config.filter.refined.leakage_converged,
+      config.filter.refined.leakage_diverged, config.filter.refined.error_floor,
+      config.filter.refined.error_ceil, config.filter.refined.noise_gate,
+      config.filter.coarse.length_blocks, config.filter.coarse.rate,
+      config.filter.coarse.noise_gate,
+      config.filter.refined_initial.length_blocks,
+      config.filter.refined_initial.leakage_converged,
+      config.filter.refined_initial.leakage_diverged,
+      config.filter.refined_initial.error_floor,
+      config.filter.refined_initial.error_ceil,
+      config.filter.refined_initial.noise_gate,
+      config.filter.coarse_initial.length_blocks,
+      config.filter.coarse_initial.rate,
+      config.filter.coarse_initial.noise_gate,
+      config.filter.config_change_duration_blocks,
+      config.filter.initial_state_seconds,
+      fmt_bool(config.filter.conservative_initial_phase),
+      fmt_bool(config.filter.enable_coarse_filter_output_usage),
+      fmt_bool(config.filter.use_linear_filter),
+      fmt_bool(config.filter.export_linear_aec_output), config.erle.min,
+      config.erle.max_l, config.erle.max_h,
+      fmt_bool(config.erle.onset_detection), config.erle.num_sections,
+      fmt_bool(config.erle.clamp_quality_estimate_to_zero),
+      fmt_bool(config.erle.clamp_quality_estimate_to_one),
+      config.ep_strength.default_gain, config.ep_strength.default_len,
+      fmt_bool(config.ep_strength.echo_can_saturate),
+      fmt_bool(config.ep_strength.bounded_erl),
+      config.echo_audibility.low_render_limit,
+      config.echo_audibility.normal_render_limit,
+      config.echo_audibility.floor_power,
+      config.echo_audibility.audibility_threshold_lf,
+      config.echo_audibility.audibility_threshold_mf,
+      config.echo_audibility.audibility_threshold_hf,
+      fmt_bool(config.echo_audibility.use_stationarity_properties),
+      fmt_bool(config.echo_audibility.use_stationarity_properties_at_init),
+      config.render_levels.active_render_limit,
+      config.render_levels.poor_excitation_render_limit,
+      config.render_levels.poor_excitation_render_limit_ds8,
+      config.render_levels.render_power_gain_db,
+      fmt_bool(config.echo_removal_control.has_clock_drift),
+      fmt_bool(config.echo_removal_control.linear_and_stable_echo_path),
+      config.echo_model.noise_floor_hold,
+      config.echo_model.min_noise_floor_power,
+      config.echo_model.stationary_gate_slope,
+      config.echo_model.noise_gate_power, config.echo_model.noise_gate_slope,
+      config.echo_model.render_pre_window_size,
+      config.echo_model.render_post_window_size,
+      config.comfort_noise.noise_floor_dbfs,
+      config.suppressor.nearend_average_blocks,
+      config.suppressor.normal_tuning.mask_lf.enr_transparent,
+      config.suppressor.normal_tuning.mask_lf.enr_suppress,
+      config.suppressor.normal_tuning.mask_lf.emr_transparent,
+      config.suppressor.normal_tuning.mask_hf.enr_transparent,
+      config.suppressor.normal_tuning.mask_hf.enr_suppress,
+      config.suppressor.normal_tuning.mask_hf.emr_transparent,
+      config.suppressor.normal_tuning.max_inc_factor,
+      config.suppressor.normal_tuning.max_dec_factor_lf,
+      config.suppressor.nearend_tuning.mask_lf.enr_transparent,
+      config.suppressor.nearend_tuning.mask_lf.enr_suppress,
+      config.suppressor.nearend_tuning.mask_lf.emr_transparent,
+      config.suppressor.nearend_tuning.mask_hf.enr_transparent,
+      config.suppressor.nearend_tuning.mask_hf.enr_suppress,
+      config.suppressor.nearend_tuning.mask_hf.emr_transparent,
+      config.suppressor.nearend_tuning.max_inc_factor,
+      config.suppressor.nearend_tuning.max_dec_factor_lf,
+      config.suppressor.dominant_nearend_detection.enr_threshold,
+      config.suppressor.dominant_nearend_detection.enr_exit_threshold,
+      config.suppressor.dominant_nearend_detection.snr_threshold,
+      config.suppressor.dominant_nearend_detection.hold_duration,
+      config.suppressor.dominant_nearend_detection.trigger_threshold,
+      config.suppressor.dominant_nearend_detection.use_during_initial_phase,
+      config.suppressor.subband_nearend_detection.nearend_average_blocks,
+      config.suppressor.subband_nearend_detection.subband1.low,
+      config.suppressor.subband_nearend_detection.subband1.high,
+      config.suppressor.subband_nearend_detection.subband2.low,
+      config.suppressor.subband_nearend_detection.subband2.high,
+      config.suppressor.subband_nearend_detection.nearend_threshold,
+      config.suppressor.subband_nearend_detection.snr_threshold,
+      config.suppressor.use_subband_nearend_detection,
+      config.suppressor.high_bands_suppression.enr_threshold,
+      config.suppressor.high_bands_suppression.max_gain_during_echo,
+      config.suppressor.high_bands_suppression
+          .anti_howling_activation_threshold,
+      config.suppressor.high_bands_suppression.anti_howling_gain,
+      config.suppressor.floor_first_increase);
 }
 }  // namespace webrtc

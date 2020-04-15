@@ -10,9 +10,9 @@
 
 #include "api/candidate.h"
 
+#include "absl/strings/str_format.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/ip_address.h"
-#include "rtc_base/strings/string_builder.h"
 
 namespace cricket {
 
@@ -72,15 +72,12 @@ bool Candidate::MatchesForRemoval(const Candidate& c) const {
 }
 
 std::string Candidate::ToStringInternal(bool sensitive) const {
-  rtc::StringBuilder ost;
-  std::string address =
-      sensitive ? address_.ToSensitiveString() : address_.ToString();
-  ost << "Cand[" << transport_name_ << ":" << foundation_ << ":" << component_
-      << ":" << protocol_ << ":" << priority_ << ":" << address << ":" << type_
-      << ":" << related_address_.ToString() << ":" << username_ << ":"
-      << password_ << ":" << network_id_ << ":" << network_cost_ << ":"
-      << generation_ << "]";
-  return ost.Release();
+  return absl::StrFormat(
+      "Cand[%s:%s:%d:%s:%u:%s:%s:%s:%s:%s:%u:%u:%u]", transport_name_,
+      foundation_, component_, protocol_, priority_,
+      (sensitive ? address_.ToSensitiveString() : address_.ToString()), type_,
+      related_address_.ToString(), username_, password_, network_id_,
+      network_cost_, generation_);
 }
 
 uint32_t Candidate::GetPriority(uint32_t type_preference,

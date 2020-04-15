@@ -187,6 +187,7 @@ rtc_library("audio_processing") {
     "transient:transient_suppressor_api",
     "transient:transient_suppressor_creator",
     "vad",
+    "//third_party/abseil-cpp/absl/strings:str_format",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 

@@ -78,15 +78,29 @@ NetworkRouteChange CreateRouteChange(Timestamp at_time,
   route_change.constraints.starting_rate = start_rate;
   return route_change;
 }
+
+// Run scenario and get send bandwidth. If zero, run for an additional 500ms and
+// check again, up to four retries. This way we can filter out instances of send
+// bandwidth being set to 0 due encoder pause caused to overfilled pacer queue.
+DataRate RunAndGetSendBandwidth(Scenario* s,
+                                CallClient* client,
+                                TimeDelta duration) {
+  constexpr int kMaxRetries = 4;
+  constexpr TimeDelta kRetryDuration = TimeDelta::Millis(500);
+  for (int i = 0; i < kMaxRetries; ++i) {
+    s->RunFor(duration);
+    DataRate send_bandwidth = client->send_bandwidth();
+    if (!send_bandwidth.IsZero()) {
+      return send_bandwidth;
+    }
+    duration = kRetryDuration;
+  }
+  return DataRate::Zero();
+}
+
 }  // namespace
 
-class BbrNetworkControllerTest : public ::testing::Test {
- protected:
-  BbrNetworkControllerTest() {}
-  ~BbrNetworkControllerTest() override {}
-};
-
-TEST_F(BbrNetworkControllerTest, SendsConfigurationOnFirstProcess) {
+TEST(BbrNetworkControllerTest, SendsConfigurationOnFirstProcess) {
   std::unique_ptr<NetworkControllerInterface> controller_;
   controller_.reset(new bbr::BbrNetworkController(InitialConfig()));
 
@@ -98,7 +112,7 @@ TEST_F(BbrNetworkControllerTest, SendsConfigurationOnFirstProcess) {
   EXPECT_THAT(*update.congestion_window, Property(&DataSize::IsFinite, true));
 }
 
-TEST_F(BbrNetworkControllerTest, SendsConfigurationOnNetworkRouteChanged) {
+TEST(BbrNetworkControllerTest, SendsConfigurationOnNetworkRouteChanged) {
   std::unique_ptr<NetworkControllerInterface> controller_;
   controller_.reset(new bbr::BbrNetworkController(InitialConfig()));
 
@@ -119,7 +133,7 @@ TEST_F(BbrNetworkControllerTest, SendsConfigurationOnNetworkRouteChanged) {
 
 // Bandwidth estimation is updated when feedbacks are received.
 // Feedbacks which show an increasing delay cause the estimation to be reduced.
-TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
+TEST(BbrNetworkControllerTest, UpdatesTargetSendRate) {
   BbrNetworkControllerFactory factory;
   Scenario s("bbr_unit/updates_rate", false);
   CallClientConfig config;
@@ -141,16 +155,16 @@ TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
                                {ret_net->node()}, kOverhead);
   s.CreateVideoStream(routes->forward(), VideoStreamConfig());
 
-  s.RunFor(TimeDelta::Seconds(25));
-  EXPECT_NEAR(client->send_bandwidth().kbps(), 450, 100);
+  EXPECT_NEAR(RunAndGetSendBandwidth(&s, client, TimeDelta::Seconds(25)).kbps(),
+              450, 100);
 
   send_net->UpdateConfig([](NetworkSimulationConfig* c) {
     c->bandwidth = DataRate::KilobitsPerSec(800);
     c->delay = TimeDelta::Millis(100);
   });
 
-  s.RunFor(TimeDelta::Seconds(20));
-  EXPECT_NEAR(client->send_bandwidth().kbps(), 750, 150);
+  EXPECT_NEAR(RunAndGetSendBandwidth(&s, client, TimeDelta::Seconds(20)).kbps(),
+              750, 150);
 
   send_net->UpdateConfig([](NetworkSimulationConfig* c) {
     c->bandwidth = DataRate::KilobitsPerSec(200);
@@ -159,8 +173,8 @@ TEST_F(BbrNetworkControllerTest, UpdatesTargetSendRate) {
   ret_net->UpdateConfig(
       [](NetworkSimulationConfig* c) { c->delay = TimeDelta::Millis(200); });
 
-  s.RunFor(TimeDelta::Seconds(35));
-  EXPECT_NEAR(client->send_bandwidth().kbps(), 170, 50);
+  EXPECT_NEAR(RunAndGetSendBandwidth(&s, client, TimeDelta::Seconds(35)).kbps(),
+              170, 50);
 }
 
 }  // namespace test

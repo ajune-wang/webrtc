@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c9b7d6b_ab2e9417",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-15T09:58:43Z",
+      "side": 1,
+      "message": "As far as i see, this is used to check that OnResourceOveruse and OnResourceUnderuse are called sequentially. This is really only possible if it\u0027s called from some critical section or in a single task queue. \n\nI think it should be replaced by the lock or SequenceChecker",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 30
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e680739_b7c75262",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-15T09:58:43Z",
+      "side": 1,
+      "message": "Forgot to delete debug output.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 8
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b259b55_72c9dd3d",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-15T09:58:43Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 14
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a8fd420_8891af15",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-15T09:58:43Z",
+      "side": 1,
+      "message": "pls fix",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 203,
+        "endChar": 41
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

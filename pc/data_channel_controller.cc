@@ -315,10 +315,7 @@ DataChannelController::InternalCreateDataChannel(
   } else {
     RTC_DCHECK(DataChannel::IsSctpLike(data_channel_type_));
     sctp_data_channels_.push_back(channel);
-    channel->SignalClosed.connect(pc_,
-                                  &PeerConnection::OnSctpDataChannelClosed);
   }
-  SignalDataChannelCreated_(channel.get());
   return channel;
 }
 

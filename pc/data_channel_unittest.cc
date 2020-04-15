@@ -133,32 +133,6 @@ TEST_F(SctpDataChannelTest, ConnectedAfterTransportBecomesAvailable) {
   EXPECT_TRUE(provider_->IsConnected(webrtc_data_channel_.get()));
 }
 
-// Tests the state of the data channel.
-TEST_F(SctpDataChannelTest, StateTransition) {
-  StateSignalsListener state_signals_listener;
-  webrtc_data_channel_->SignalOpened.connect(
-      &state_signals_listener, &StateSignalsListener::OnSignalOpened);
-  webrtc_data_channel_->SignalClosed.connect(
-      &state_signals_listener, &StateSignalsListener::OnSignalClosed);
-  EXPECT_EQ(webrtc::DataChannelInterface::kConnecting,
-            webrtc_data_channel_->state());
-  EXPECT_EQ(state_signals_listener.opened_count(), 0);
-  EXPECT_EQ(state_signals_listener.closed_count(), 0);
-  SetChannelReady();
-
-  EXPECT_EQ(webrtc::DataChannelInterface::kOpen, webrtc_data_channel_->state());
-  EXPECT_EQ(state_signals_listener.opened_count(), 1);
-  EXPECT_EQ(state_signals_listener.closed_count(), 0);
-  webrtc_data_channel_->Close();
-  EXPECT_EQ(webrtc::DataChannelInterface::kClosed,
-            webrtc_data_channel_->state());
-  EXPECT_TRUE(webrtc_data_channel_->error().ok());
-  EXPECT_EQ(state_signals_listener.opened_count(), 1);
-  EXPECT_EQ(state_signals_listener.closed_count(), 1);
-  // Verifies that it's disconnected from the transport.
-  EXPECT_FALSE(provider_->IsConnected(webrtc_data_channel_.get()));
-}
-
 // Tests that DataChannel::buffered_amount() is correct after the channel is
 // blocked.
 TEST_F(SctpDataChannelTest, BufferedAmountWhenBlocked) {

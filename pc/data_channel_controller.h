@@ -118,10 +118,6 @@ class DataChannelController : public DataChannelProviderInterface,
     return &sctp_data_channels_;
   }
 
-  sigslot::signal1<DataChannel*>& SignalDataChannelCreated() {
-    RTC_DCHECK_RUN_ON(signaling_thread());
-    return SignalDataChannelCreated_;
-  }
   // Called when the transport for the data channels is closed or destroyed.
   void OnTransportChannelClosed();
 
@@ -198,9 +194,6 @@ class DataChannelController : public DataChannelProviderInterface,
   sigslot::signal1<int> SignalDataChannelTransportChannelClosing_s
       RTC_GUARDED_BY(signaling_thread());
   sigslot::signal1<int> SignalDataChannelTransportChannelClosed_s
-      RTC_GUARDED_BY(signaling_thread());
-
-  sigslot::signal1<DataChannel*> SignalDataChannelCreated_
       RTC_GUARDED_BY(signaling_thread());
 
   // Used to invoke data channel transport signals on the signaling thread.

@@ -270,10 +270,6 @@ class PeerConnection : public PeerConnectionInternal,
     return transceivers_;
   }
 
-  sigslot::signal1<DataChannel*>& SignalDataChannelCreated() override {
-    return data_channel_controller_.SignalDataChannelCreated();
-  }
-
   cricket::RtpDataChannel* rtp_data_channel() const override {
     return data_channel_controller_.rtp_data_channel();
   }

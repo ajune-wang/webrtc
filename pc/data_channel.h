@@ -213,13 +213,6 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
     return data_channel_type_;
   }
 
-  // Emitted when state transitions to kOpen.
-  sigslot::signal1<DataChannel*> SignalOpened;
-  // Emitted when state transitions to kClosed.
-  // In the case of SCTP channels, this signal can be used to tell when the
-  // channel's sid is free.
-  sigslot::signal1<DataChannel*> SignalClosed;
-
   // Reset the allocator for internal ID values for testing, so that
   // the internal IDs generated are predictable. Test only.
   static void ResetInternalIdAllocatorForTesting(int new_value);

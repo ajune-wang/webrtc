@@ -966,8 +966,6 @@ RTCStatsCollector::RTCStatsCollector(PeerConnectionInternal* pc,
   RTC_DCHECK(worker_thread_);
   RTC_DCHECK(network_thread_);
   RTC_DCHECK_GE(cache_lifetime_us_, 0);
-  pc_->SignalDataChannelCreated().connect(
-      this, &RTCStatsCollector::OnDataChannelCreated);
 }
 
 RTCStatsCollector::~RTCStatsCollector() {
@@ -1923,8 +1921,6 @@ std::set<std::string> RTCStatsCollector::PrepareTransportNames_s() const {
 }
 
 void RTCStatsCollector::OnDataChannelCreated(DataChannel* channel) {
-  channel->SignalOpened.connect(this, &RTCStatsCollector::OnDataChannelOpened);
-  channel->SignalClosed.connect(this, &RTCStatsCollector::OnDataChannelClosed);
 }
 
 void RTCStatsCollector::OnDataChannelOpened(DataChannel* channel) {

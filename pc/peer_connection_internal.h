@@ -41,8 +41,6 @@ class PeerConnectionInternal : public PeerConnectionInterface {
       rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>>
   GetTransceiversInternal() const = 0;
 
-  virtual sigslot::signal1<DataChannel*>& SignalDataChannelCreated() = 0;
-
   // Only valid when using deprecated RTP data channels.
   virtual cricket::RtpDataChannel* rtp_data_channel() const = 0;
 

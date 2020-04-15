@@ -10,13 +10,13 @@
 
 #include "modules/audio_processing/gain_controller2.h"
 
+#include "absl/strings/str_format.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/include/audio_frame_view.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 
@@ -92,7 +92,6 @@ bool GainController2::Validate(
 
 std::string GainController2::ToString(
     const AudioProcessing::Config::GainController2& config) {
-  rtc::StringBuilder ss;
   std::string adaptive_digital_level_estimator;
   using LevelEstimatorType =
       AudioProcessing::Config::GainController2::LevelEstimator;
@@ -104,20 +103,22 @@ std::string GainController2::ToString(
       adaptive_digital_level_estimator = "peak";
       break;
   }
-  // clang-format off
-  // clang formatting doesn't respect custom nested style.
-  ss << "{"
-        "enabled: " << (config.enabled ? "true" : "false") << ", "
-        "fixed_digital: {gain_db: " << config.fixed_digital.gain_db << "}, "
+  return absl::StrFormat(
+      // clang-format off
+      "{"
+        "enabled: %s, "
+        "fixed_digital: {gain_db: %f}, "
         "adaptive_digital: {"
-          "enabled: "
-            << (config.adaptive_digital.enabled ? "true" : "false") << ", "
-          "level_estimator: " << adaptive_digital_level_estimator << ", "
-          "extra_saturation_margin_db:"
-            << config.adaptive_digital.extra_saturation_margin_db << "}"
-          "}";
-  // clang-format on
-  return ss.Release();
+          "enabled: %s, "
+          "level_estimator: %s, "
+          "extra_saturation_margin_db: %f"
+        "}"
+      "}",
+      // clang-format on
+      (config.enabled ? "true" : "false"), config.fixed_digital.gain_db,
+      (config.adaptive_digital.enabled ? "true" : "false"),
+      adaptive_digital_level_estimator,
+      config.adaptive_digital.extra_saturation_margin_db);
 }
 
 }  // namespace webrtc

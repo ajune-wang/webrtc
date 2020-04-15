@@ -61,6 +61,7 @@ rtc_library("call_interfaces") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../rtc_base/network:sent_packet",
+    "//third_party/abseil-cpp/absl/strings:str_format",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

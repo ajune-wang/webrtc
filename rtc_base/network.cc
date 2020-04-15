@@ -26,6 +26,7 @@
 
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
+#include "absl/strings/str_format.h"
 #include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -170,9 +171,7 @@ const int kPublicPort = 53;  // DNS port.
 std::string MakeNetworkKey(const std::string& name,
                            const IPAddress& prefix,
                            int prefix_length) {
-  rtc::StringBuilder ost;
-  ost << name << "%" << prefix.ToString() << "/" << prefix_length;
-  return ost.Release();
+  return absl::StrFormat("%s%%%s/%d", name, prefix.ToString(), prefix_length);
 }
 // Test if the network name matches the type<number> pattern, e.g. eth0. The
 // matching is case-sensitive.

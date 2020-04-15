@@ -10,8 +10,8 @@
 
 #include "api/transport/media/media_transport_config.h"
 
+#include "absl/strings/str_format.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 
@@ -21,9 +21,8 @@ MediaTransportConfig::MediaTransportConfig(size_t rtp_max_packet_size)
 }
 
 std::string MediaTransportConfig::DebugString() const {
-  rtc::StringBuilder result;
-  result << "{rtp_max_packet_size: " << rtp_max_packet_size.value_or(0) << "}";
-  return result.Release();
+  return absl::StrFormat("{rtp_max_packet_size: %u}",
+                         rtp_max_packet_size.value_or(0));
 }
 
 }  // namespace webrtc

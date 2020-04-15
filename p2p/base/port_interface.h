@@ -92,17 +92,6 @@ class PortInterface {
                      const rtc::PacketOptions& options,
                      bool payload) = 0;
 
-  // Indicates that we received a successful STUN binding request from an
-  // address that doesn't correspond to any current connection.  To turn this
-  // into a real connection, call CreateConnection.
-  sigslot::signal6<PortInterface*,
-                   const rtc::SocketAddress&,
-                   ProtocolType,
-                   IceMessage*,
-                   const std::string&,
-                   bool>
-      SignalUnknownAddress;
-
   // Sends a response message (normal or error) to the given request.  One of
   // these methods should be called as a response to SignalUnknownAddress.
   virtual void SendBindingErrorResponse(StunMessage* request,

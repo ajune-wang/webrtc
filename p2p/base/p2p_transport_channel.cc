@@ -874,8 +874,6 @@ void P2PTransportChannel::OnPortReady(PortAllocatorSession* session,
   port->SetIceRole(ice_role_);
   port->SetIceTiebreaker(tiebreaker_);
   ports_.push_back(port);
-  port->SignalUnknownAddress.connect(this,
-                                     &P2PTransportChannel::OnUnknownAddress);
   port->SignalDestroyed.connect(this, &P2PTransportChannel::OnPortDestroyed);
 
   port->SignalRoleConflict.connect(this, &P2PTransportChannel::OnRoleConflict);

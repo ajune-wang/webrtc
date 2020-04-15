@@ -323,8 +323,6 @@ class TurnPortTest : public ::testing::Test,
     turn_port_->SignalPortError.connect(this, &TurnPortTest::OnTurnPortError);
     turn_port_->SignalCandidateError.connect(this,
                                              &TurnPortTest::OnCandidateError);
-    turn_port_->SignalUnknownAddress.connect(
-        this, &TurnPortTest::OnTurnUnknownAddress);
     turn_port_->SignalCreatePermissionResult.connect(
         this, &TurnPortTest::OnTurnCreatePermissionResult);
     turn_port_->SignalTurnRefreshResult.connect(

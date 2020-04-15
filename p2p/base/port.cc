@@ -382,10 +382,6 @@ void Port::OnReadPacket(const char* data,
     RTC_LOG(LS_INFO) << "Received " << StunMethodToString(msg->type())
                      << " id=" << rtc::hex_encode(msg->transaction_id())
                      << " from unknown address " << addr.ToSensitiveString();
-    // We need to signal an unknown address before we handle any role conflict
-    // below. Otherwise there would be no candidate pair and TURN entry created
-    // to send the error response in case of a role conflict.
-    SignalUnknownAddress(this, addr, proto, msg.get(), remote_username, false);
     // Check for role conflicts.
     if (!MaybeIceRoleConflict(addr, msg.get(), remote_username)) {
       RTC_LOG(LS_INFO) << "Received conflicting role from the peer.";

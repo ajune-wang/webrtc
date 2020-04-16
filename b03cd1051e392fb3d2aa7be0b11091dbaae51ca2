@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9a43a01f_a1a675db",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-04-16T10:54:01Z",
+      "side": 1,
+      "message": "Done\n\nI will not have time to do experimentation with different values (and the effect of fine tuning this is likely to be small given that low probe results are fairly uncommon) so I prefer to keep things simple and not add it as a field trial parameter.",
+      "parentUuid": "0f522928_77406840",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 0
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2716cfae_8dcea3b0",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 1
@@ -235,6 +259,30 @@
       "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5973f42f_c543f5c5",
+        "filename": "modules/congestion_controller/goog_cc/probe_bitrate_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-04-16T10:54:01Z",
+      "side": 1,
+      "message": "Reverted this change. It turns out that while the code in some cases can reinsert previously removed clusters, it is also used to insert normal clusters.",
+      "parentUuid": "a37a59d2_9436aba8",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 19
+      },
+      "revId": "b03cd1051e392fb3d2aa7be0b11091dbaae51ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

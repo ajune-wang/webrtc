@@ -1983,6 +1983,56 @@ TEST_P(PacingControllerTest, NextSendTimeAccountsForPadding) {
   EXPECT_EQ(pacer_->NextSendTime() - clock_.CurrentTime(), kPacketPacingTime);
 }
 
+TEST_P(PacingControllerTest, PaddingTargetAccountsForPaddingRate) {
+  if (PeriodicProcess()) {
+    // This test applies only when NOT using interval budget.
+    return;
+  }
+
+  // Re-init pacer with an explicitly set padding target of 10ms;
+  const TimeDelta kPaddingTarget = TimeDelta::Millis(10);
+  class FieldTrialConfig : public WebRtcKeyValueConfig {
+   public:
+    std::string Lookup(absl::string_view key) const override {
+      if (key == "WebRTC-Pacer-DynamicPaddingTarget") {
+        return "timedelta:10ms";
+      }
+      return "";
+    }
+  } field_trials;
+  pacer_ = std::make_unique<PacingController>(
+      &clock_, &callback_, nullptr, &field_trials,
+      PacingController::ProcessMode::kDynamic);
+  Init();
+
+  const uint32_t kSsrc = 12345;
+  const DataRate kPacingDataRate = DataRate::KilobitsPerSec(125);
+  const DataSize kPacketSize = DataSize::Bytes(130);
+
+  uint32_t sequnce_number = 1;
+
+  // Start with pacing and padding rate equal.
+  pacer_->SetPacingRates(kPacingDataRate, kPacingDataRate);
+
+  // Send a single packet.
+  SendAndExpectPacket(RtpPacketMediaType::kVideo, kSsrc, sequnce_number++,
+                      clock_.TimeInMilliseconds(), kPacketSize.bytes());
+  AdvanceTimeAndProcess();
+  ::testing::Mock::VerifyAndClearExpectations(&callback_);
+
+  size_t expected_padding_target_bytes =
+      (kPaddingTarget * kPacingDataRate).bytes();
+  EXPECT_CALL(callback_, SendPadding(expected_padding_target_bytes))
+      .WillOnce(Return(expected_padding_target_bytes));
+  AdvanceTimeAndProcess();
+
+  // Half the padding rate - expect half the padding target.
+  pacer_->SetPacingRates(kPacingDataRate, kPacingDataRate / 2);
+  EXPECT_CALL(callback_, SendPadding(expected_padding_target_bytes / 2))
+      .WillOnce(Return(expected_padding_target_bytes / 2));
+  AdvanceTimeAndProcess();
+}
+
 INSTANTIATE_TEST_SUITE_P(
     WithAndWithoutIntervalBudget,
     PacingControllerTest,

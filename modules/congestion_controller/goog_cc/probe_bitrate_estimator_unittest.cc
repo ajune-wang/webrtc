@@ -45,6 +45,7 @@ class TestProbeBitrateEstimator : public ::testing::Test {
     feedback.receive_time = kReferenceTime + TimeDelta::Millis(arrival_time_ms);
     measured_data_rate_ =
         probe_bitrate_estimator_.HandleProbeAndEstimateBitrate(feedback);
+    RTC_DCHECK(measured_data_rate_.has_value());
   }
 
  protected:

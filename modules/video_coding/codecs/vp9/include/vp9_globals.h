@@ -46,14 +46,14 @@ struct GofInfoVP9 {
       case kTemporalStructureMode1:
         num_frames_in_gof = 1;
         temporal_idx[0] = 0;
-        temporal_up_switch[0] = false;
+        temporal_up_switch[0] = true;
         num_ref_pics[0] = 1;
         pid_diff[0][0] = 1;
         break;
       case kTemporalStructureMode2:
         num_frames_in_gof = 2;
         temporal_idx[0] = 0;
-        temporal_up_switch[0] = false;
+        temporal_up_switch[0] = true;
         num_ref_pics[0] = 1;
         pid_diff[0][0] = 2;
 
@@ -65,7 +65,7 @@ struct GofInfoVP9 {
       case kTemporalStructureMode3:
         num_frames_in_gof = 4;
         temporal_idx[0] = 0;
-        temporal_up_switch[0] = false;
+        temporal_up_switch[0] = true;
         num_ref_pics[0] = 1;
         pid_diff[0][0] = 4;
 
@@ -87,7 +87,7 @@ struct GofInfoVP9 {
       case kTemporalStructureMode4:
         num_frames_in_gof = 8;
         temporal_idx[0] = 0;
-        temporal_up_switch[0] = false;
+        temporal_up_switch[0] = true;
         num_ref_pics[0] = 1;
         pid_diff[0][0] = 4;
 

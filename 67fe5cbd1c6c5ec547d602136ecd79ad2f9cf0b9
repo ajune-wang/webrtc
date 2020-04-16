@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "640bcf91_dfe21d38",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-16T09:20:44Z",
+      "side": 1,
+      "message": "Why do we do clearing? Why not let the resources themselves determine that when they next measure?",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 32
+      },
+      "revId": "67fe5cbd1c6c5ec547d602136ecd79ad2f9cf0b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "735763ed_4a19faff",
         "filename": "call/adaptation/resource_unittest.cc",
         "patchSetId": 4

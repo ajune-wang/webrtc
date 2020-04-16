@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "c997eab7_06a0afbf",
+        "filename": "call/adaptation/resource.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-16T09:31:18Z",
+      "side": 1,
+      "message": "I find this naming unclear. Perhaps rename to \"OnAdaptationApplied\" or \"AdaptationApplied\".",
+      "range": {
+        "startLine": 56,
+        "startChar": 15,
+        "endLine": 56,
+        "endChar": 32
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb366b68_7102b9d1",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-16T09:31:18Z",
+      "side": 1,
+      "message": "Combine the above loop?",
+      "range": {
+        "startLine": 210,
+        "startChar": 1,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2c9b7d6b_ab2e9417",
         "filename": "call/adaptation/resource_adaptation_processor.h",
         "patchSetId": 6

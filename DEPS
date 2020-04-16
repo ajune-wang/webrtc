@@ -261,7 +261,7 @@ deps = {
   'src/tools':
     'https://chromium.googlesource.com/chromium/src/tools@3f15275073fc339e14f39df61fbace5bad82e93d',
   'src/tools/swarming_client':
-    'https://chromium.googlesource.com/infra/luci/client-py.git@160b445a44e0daacf6f3f8570ca2707ec451f374',
+    'https://chromium.googlesource.com/infra/luci/client-py.git@99e00d65632b001d200d8a416cd9c048456bb8d5',
 
   'src/third_party/accessibility_test_framework': {
       'packages': [

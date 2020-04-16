@@ -12,6 +12,7 @@
 #define RTC_BASE_VIRTUAL_SOCKET_SERVER_H_
 
 #include <deque>
+#include <list>
 #include <map>
 #include <vector>
 

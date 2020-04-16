@@ -97,8 +97,8 @@
 #define RTC_BASE_THIRD_PARTY_SIGSLOT_SIGSLOT_H_
 
 #include <cstring>
-#include <list>
 #include <set>
+#include <vector>
 
 // On our copy of sigslot.h, we set single threading as default.
 #define SIGSLOT_DEFAULT_MT_POLICY single_threaded
@@ -340,7 +340,7 @@ class _opaque_connection {
 template <class mt_policy>
 class _signal_base : public _signal_base_interface, public mt_policy {
  protected:
-  typedef std::list<_opaque_connection> connections_list;
+  typedef std::vector<_opaque_connection> connections_list;
 
   _signal_base()
       : _signal_base_interface(&_signal_base::do_slot_disconnect,
@@ -372,11 +372,11 @@ class _signal_base : public _signal_base_interface, public mt_policy {
   void disconnect_all() {
     lock_block<mt_policy> lock(this);
 
-    while (!m_connected_slots.empty()) {
-      has_slots_interface* pdest = m_connected_slots.front().getdest();
-      m_connected_slots.pop_front();
+    for (_opaque_connection c : m_connected_slots) {
+      has_slots_interface* pdest = c.getdest();
       pdest->signal_disconnect(static_cast<_signal_base_interface*>(this));
     }
+    m_connected_slots.clear();
     // If disconnect_all is called while the signal is firing, advance the
     // current slot iterator to the end to avoid an invalidated iterator from
     // being dereferenced.

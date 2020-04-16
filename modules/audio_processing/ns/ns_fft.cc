@@ -10,7 +10,7 @@
 
 #include "modules/audio_processing/ns/ns_fft.h"
 
-#include "common_audio/third_party/fft4g/fft4g.h"
+#include "common_audio/third_party/ooura/frame_size_256/fft4g.h"
 
 namespace webrtc {
 

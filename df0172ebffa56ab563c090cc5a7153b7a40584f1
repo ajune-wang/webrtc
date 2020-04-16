@@ -54,6 +54,29 @@
     },
     {
       "key": {
+        "uuid": "dc79395c_ba83b586",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-16T08:05:19Z",
+      "side": 1,
+      "message": "This line is repeated in all of the classes here. Is this something that could be removed somehow? Perhaps reason_resource should be a reference instead?",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 16
+      },
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67f91413_b1e47572",
         "filename": "video/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 8

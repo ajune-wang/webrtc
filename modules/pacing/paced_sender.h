@@ -16,6 +16,7 @@
 
 #include <atomic>
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -169,6 +170,8 @@ class PacedSender : public Module,
   rtc::CriticalSection critsect_;
   const PacingController::ProcessMode process_mode_;
   PacingController pacing_controller_ RTC_GUARDED_BY(critsect_);
+  std::vector<std::pair<std::unique_ptr<RtpPacketToSend>, PacedPacketInfo>>*
+      pending_output_ RTC_GUARDED_BY(critsect_);
 
   Clock* const clock_;
   PacketRouter* const packet_router_;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55db1c8a_f870508c",
+        "filename": "rtc_base/experiments/rate_control_settings.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-04-16T15:09:49Z",
+      "side": 1,
+      "message": "These are already false by default, feel free remove.",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 34
+      },
+      "revId": "a791e09aaae889dc946b645e3dca0889a012e1b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

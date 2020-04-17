@@ -22,6 +22,30 @@
       "revId": "df82d3a8d1f5491dd0c3bdd71b2899b29364e7b4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01a69cab_cc051208",
+        "filename": "video/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-17T07:49:27Z",
+      "side": 1,
+      "message": "OK, that makes sense. So is automatic animation detection causing the content type not to be VideoEncoderConfig::ContentType::kScreen but to be kRealtimeVideo instead? If so I could do a little renaming and remove this TODO and keeping this behavior. Or if that\u0027s not it, how does animation detection affect the effective degradation preference?",
+      "parentUuid": "961d5b59_d6591a5a",
+      "range": {
+        "startLine": 150,
+        "startChar": 17,
+        "endLine": 152,
+        "endChar": 61
+      },
+      "revId": "df82d3a8d1f5491dd0c3bdd71b2899b29364e7b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

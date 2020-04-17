@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "039221d4_ec14a1e8",
+        "filename": "call/adaptation/video_stream_input_state.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-17T08:17:48Z",
+      "side": 1,
+      "message": "I prefer nullopt if we don\u0027t have a value, as to not hide the fact that it can be missing and so that if something assumes we have a value when we don\u0027t we DCHECK-crash on value(). If the caller wants to treat no value as 0, the caller can easily do .value_or(0) themselves. This return signature has a crash-by-default mindset and allows the caller to check has_value() without adding more methods to expose the optionality of this field.\n\nYou\u0027re right that if .value_or(0) is returned the reader will not be seeded doubt in their mind about what if it is nullopt, but it would not have solved the optionality problem by any means, it would have just hidden it, which I argue is more error-prone than verifying before using.",
+      "parentUuid": "1a5323de_79316436",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 14
+      },
+      "revId": "2134f427c47fe0cc45f996e86f84e0cf8b5204b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40e592e6_be32ad29",
         "filename": "call/adaptation/video_stream_input_state_provider.h",
         "patchSetId": 6

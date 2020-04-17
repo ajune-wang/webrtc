@@ -34,6 +34,24 @@
       "revId": "72640c184ccf927638e1025aacd16b8fc5804606",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b85e896c_f93d220b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-04-17T11:11:55Z",
+      "side": 1,
+      "message": "According to the comment in pc/session_description.h, this logic is \"leave the extensions alone if you haven\u0027t been told explicitly that the list is supposed to be empty\" - this only makes sense if *params has been filled in with some default value before calling RtpParametersFromMediaDescription, which I can\u0027t tell from a quick inspection.\n\nI think it requires some analysis to sort this out, but because of that, I\u0027d leave that TODO in place.",
+      "parentUuid": "f7bd103c_8883b7f1",
+      "revId": "72640c184ccf927638e1025aacd16b8fc5804606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

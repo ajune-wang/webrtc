@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "895313c3_427ec6b5",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-04-17T10:45:23Z",
+      "side": 1,
+      "message": "I think the TODO was about removing rtp_header_extensions_set() altogether. Can we conclude that we still need it?",
+      "revId": "72640c184ccf927638e1025aacd16b8fc5804606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

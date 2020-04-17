@@ -16,6 +16,24 @@
       "revId": "8ec11b831293aae7cc449e0ac63ca66876517da2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e725bc75_f7ca5770",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-17T11:01:58Z",
+      "side": 0,
+      "message": "Yes, I have a CL in flight. They should be updated before EOD.",
+      "parentUuid": "46d1f296_95d1bb4a",
+      "revId": "8ec11b831293aae7cc449e0ac63ca66876517da2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

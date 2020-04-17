@@ -16,6 +16,24 @@
       "revId": "72640c184ccf927638e1025aacd16b8fc5804606",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7bd103c_8883b7f1",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-17T11:01:58Z",
+      "side": 1,
+      "message": "Hmm, I don\u0027t know. I tried to be conservative because of that.\n\nIs there a way to check if I can remove that as well (I am not an expert of this code).",
+      "parentUuid": "895313c3_427ec6b5",
+      "revId": "72640c184ccf927638e1025aacd16b8fc5804606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -73,8 +73,8 @@ void EncodeUsageResource::AdaptUp(VideoAdaptationReason reason) {
 
 bool EncodeUsageResource::AdaptDown(VideoAdaptationReason reason) {
   RTC_DCHECK_EQ(reason, VideoAdaptationReason::kCpu);
-  return OnResourceUsageStateMeasured(ResourceUsageState::kOveruse) !=
-         ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
+  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+  return true;
 }
 
 int EncodeUsageResource::TargetFrameRateAsInt() {

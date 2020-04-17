@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "98171f74_7307f2b7",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-17T11:50:12Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "88692a3d_6d44e396",
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc79395c_ba83b586",
         "filename": "video/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 8
@@ -77,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "55bca492_04dc6ea1",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-17T11:50:12Z",
+      "side": 1,
+      "message": "You made me realize this code is never used with a null resource, so I made it const\u0026 instead :)",
+      "parentUuid": "dc79395c_ba83b586",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 16
+      },
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67f91413_b1e47572",
         "filename": "video/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 8
@@ -88,6 +130,30 @@
       "writtenOn": "2020-04-14T11:51:45Z",
       "side": 1,
       "message": "optional: Can use std::all_of()\n\n  if (!absl::c_all_of(resources_, [input_state, restriction_before, resrictions_after, reason_resource](ReasonAndResource r) {\n    return rr.resource-\u003eIsAdaptationUpAllowed(input_state, restriction_before, \u0026reason_resource);\n  }) retrun;",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 530,
+        "endChar": 3
+      },
+      "revId": "df0172ebffa56ab563c090cc5a7153b7a40584f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3dcdc8a_54b98f49",
+        "filename": "video/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-17T11:50:12Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "67f91413_b1e47572",
       "range": {
         "startLine": 519,
         "startChar": 0,

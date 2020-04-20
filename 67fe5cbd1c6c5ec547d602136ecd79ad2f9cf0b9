@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "3869f43d_e6d0a1c2",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-20T09:02:15Z",
+      "side": 1,
+      "message": "Hmm I think in the end, something like this should be resource-specific.\n\nFor now I\u0027m trying to reconcile how the model describes itself and how the current version of the processor operates.\n\nToday, adaptation logic due to resources is only triggered based on OnResourceUsageMeasured(). If we don\u0027t get another usage measurement, we\u0027re not going to re-run the adaptation logic.\n\nThis is probably a bug: Maybe we\u0027re not adapting due to kAwaitingPreviousAdaptation, or maybe we\u0027re not adapting due to kLimitReached but then another stream is added that we might be able to adapt. But with the current implementation, there is no way to re-run the adaptation logic without waiting for another resource usage measurement.\n\nUntil we resolve this for real (like re-run resource usage measurements at certain intervals or in response to callbacks like \"new fps observed\" or \"new stream added\"), I would rather clear the usage states too often than too seldom, to reflect the fact that we are currently depending on new measurements and don\u0027t really care what the usage states are in-between measurements.\n\n---\n\nTo make this clear, I update the CL to unconditionally clear all resources usage states at the beginning of the method and added a TODO describing the problem.",
+      "parentUuid": "640bcf91_dfe21d38",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 32
+      },
+      "revId": "67fe5cbd1c6c5ec547d602136ecd79ad2f9cf0b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "735763ed_4a19faff",
         "filename": "call/adaptation/resource_unittest.cc",
         "patchSetId": 4

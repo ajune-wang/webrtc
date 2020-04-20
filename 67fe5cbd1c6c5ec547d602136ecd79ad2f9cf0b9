@@ -114,6 +114,30 @@
     },
     {
       "key": {
+        "uuid": "d0323a3f_765e013d",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-20T10:18:32Z",
+      "side": 1,
+      "message": "As covered here or discussed offline, this would only become a problem if we either introduce PostTasks such that measurements can happen separately from reacting to them, or if multiple listeners are used. To unblock this CL, I made a resource only able to have a single resource. We need to address this in a follow-up, but for now we avoid the problems.",
+      "parentUuid": "bbd89bd5_cb44ce5e",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 32
+      },
+      "revId": "67fe5cbd1c6c5ec547d602136ecd79ad2f9cf0b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "735763ed_4a19faff",
         "filename": "call/adaptation/resource_unittest.cc",
         "patchSetId": 4

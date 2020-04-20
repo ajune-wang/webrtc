@@ -106,13 +106,10 @@ void ResourceAdaptationProcessor::MaybeUpdateVideoSourceRestrictions(
 ResourceListenerResponse
 ResourceAdaptationProcessor::OnResourceUsageStateMeasured(
     const Resource& resource) {
-  switch (resource.usage_state()) {
+  RTC_DCHECK(resource.usage_state().has_value());
+  switch (resource.usage_state().value()) {
     case ResourceUsageState::kOveruse:
       return OnResourceOveruse(resource);
-    case ResourceUsageState::kStable:
-      // TODO(https://crbug.com/webrtc/11172): Delete kStable in favor of null.
-      RTC_NOTREACHED();
-      return ResourceListenerResponse::kNothing;
     case ResourceUsageState::kUnderuse:
       OnResourceUnderuse(resource);
       return ResourceListenerResponse::kNothing;
@@ -156,6 +153,9 @@ void ResourceAdaptationProcessor::OnResourceUnderuse(
   }
   // Apply adaptation.
   stream_adapter_->ApplyAdaptation(adaptation);
+  for (Resource* resource : resources_) {
+    resource->ClearUsageState();
+  }
   // Update VideoSourceRestrictions based on adaptation. This also informs the
   // |adaptation_listeners_|.
   MaybeUpdateVideoSourceRestrictions(&reason_resource);
@@ -182,6 +182,9 @@ ResourceListenerResponse ResourceAdaptationProcessor::OnResourceOveruse(
   // Apply adaptation.
   ResourceListenerResponse response =
       stream_adapter_->ApplyAdaptation(adaptation);
+  for (Resource* resource : resources_) {
+    resource->ClearUsageState();
+  }
   // Update VideoSourceRestrictions based on adaptation. This also informs the
   // |adaptation_listeners_|.
   MaybeUpdateVideoSourceRestrictions(&reason_resource);

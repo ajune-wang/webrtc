@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "00261579_dd4186df",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-20T09:03:46Z",
+      "side": 1,
+      "message": "Resolving this for realsies might require another small design doc",
+      "parentUuid": "3869f43d_e6d0a1c2",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 32
+      },
+      "revId": "67fe5cbd1c6c5ec547d602136ecd79ad2f9cf0b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "735763ed_4a19faff",
         "filename": "call/adaptation/resource_unittest.cc",
         "patchSetId": 4

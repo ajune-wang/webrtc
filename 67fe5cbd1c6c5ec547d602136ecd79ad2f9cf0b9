@@ -90,6 +90,30 @@
     },
     {
       "key": {
+        "uuid": "bbd89bd5_cb44ce5e",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-20T09:26:35Z",
+      "side": 1,
+      "message": "I think this is still problematic, especially because we support multiple listeners. Order matters here - if this listener gets called first then it will clear the value before the other listeners have a chance to read it. \n\nThere could also be threading concerns soon - a resource has just measured an overuse value, but we tell them to clear it just after they have queued a measurement update. We will can overwrite the value before the others use it.\n\nResource 1 queue: Measure ---------    Clear\nResource 2 queue: ------  Measure      Clear\nListener queue:   ------- OnMeasure(1) -- OnMeasure(2)\n\nIn this case the measurement made in Resource 2 was cleared from OnMeasure for Resource 1. \n\nThe queuing issue is long term, but I think this current solution of clearing can only work if we can remove multiple listeners. Can we do that for now? \n\nIf we can\u0027t remove multiple list, perhaps the clearing can happen in the Resource by default, after it has signaled to all listeners in the protected OnResourceUsageMeasured.",
+      "parentUuid": "00261579_dd4186df",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 32
+      },
+      "revId": "67fe5cbd1c6c5ec547d602136ecd79ad2f9cf0b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "735763ed_4a19faff",
         "filename": "call/adaptation/resource_unittest.cc",
         "patchSetId": 4

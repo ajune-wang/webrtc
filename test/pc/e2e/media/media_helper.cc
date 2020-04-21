@@ -65,6 +65,7 @@ MediaHelper::MaybeAddVideo(TestPeer* peer) {
         video_config, peer->ReleaseVideoGenerator(i),
         video_quality_analyzer_injection_helper_->CreateFramePreprocessor(
             video_config, writer));
+
     rtc::scoped_refptr<TestVideoCapturerVideoTrackSource> source =
         new rtc::RefCountedObject<TestVideoCapturerVideoTrackSource>(
             std::move(capturer),

@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <memory>
 
+#include "api/test/create_frame_generator.h"
 #include "api/test/create_network_emulation_manager.h"
 #include "api/test/create_peerconnection_quality_test_fixture.h"
 #include "api/test/network_emulation_manager.h"
@@ -149,7 +150,9 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
         VideoConfig video(640, 360, 30);
         video.stream_label = "alice-video";
         video.sync_group = "alice-media";
-        alice->AddVideoConfig(std::move(video));
+        auto frame_generator = test::CreateSquareFrameGenerator(
+            video.width, video.height, absl::nullopt, absl::nullopt);
+        alice->AddVideoConfig(std::move(video), std::move(frame_generator));
 
         AudioConfig audio;
         audio.stream_label = "alice-audio";
@@ -164,15 +167,27 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
         VideoConfig video(640, 360, 30);
         video.stream_label = "bob-video";
         video.temporal_layers_count = 2;
-        bob->AddVideoConfig(std::move(video));
+        auto frame_generator = test::CreateSquareFrameGenerator(
+            video.width, video.height, absl::nullopt, absl::nullopt);
+        bob->AddVideoConfig(std::move(video), std::move(frame_generator));
 
         VideoConfig screenshare(640, 360, 30);
         screenshare.stream_label = "bob-screenshare";
-        screenshare.screen_share_config =
-            ScreenShareConfig(TimeDelta::Seconds(2));
-        screenshare.screen_share_config->scrolling_params = ScrollingParams(
-            TimeDelta::Millis(1800), kDefaultSlidesWidth, kDefaultSlidesHeight);
-        bob->AddVideoConfig(screenshare);
+        std::vector<std::string> slides = {
+            test::ResourcePath("web_screenshot_1850_1110", "yuv"),
+            test::ResourcePath("presentation_1850_1110", "yuv"),
+            test::ResourcePath("photo_1850_1110", "yuv"),
+            test::ResourcePath("difficult_photo_1850_1110", "yuv")};
+        TimeDelta slide_change_interval = TimeDelta::Seconds(2);
+        TimeDelta scrolling_duration = TimeDelta::Millis(1800);
+        TimeDelta pause_duration = slide_change_interval - scrolling_duration;
+        auto screen_share_frame_generator =
+            test::CreateScrollingInputFromYuvFilesFrameGenerator(
+                Clock::GetRealTimeClock(), slides, kDefaultSlidesWidth,
+                kDefaultSlidesHeight, screenshare.width, screenshare.height,
+                scrolling_duration.ms(), pause_duration.ms());
+        bob->AddVideoConfig(std::move(screenshare),
+                            std::move(screen_share_frame_generator));
 
         AudioConfig audio;
         audio.stream_label = "bob-audio";
@@ -228,7 +243,9 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Simulcast) {
         VideoConfig simulcast(1280, 720, 30);
         simulcast.stream_label = "alice-simulcast";
         simulcast.simulcast_config = VideoSimulcastConfig(3, 0);
-        alice->AddVideoConfig(std::move(simulcast));
+        auto frame_generator = test::CreateSquareFrameGenerator(
+            simulcast.width, simulcast.height, absl::nullopt, absl::nullopt);
+        alice->AddVideoConfig(std::move(simulcast), std::move(frame_generator));
 
         AudioConfig audio;
         audio.stream_label = "alice-audio";
@@ -240,7 +257,9 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Simulcast) {
       [](PeerConfigurer* bob) {
         VideoConfig video(640, 360, 30);
         video.stream_label = "bob-video";
-        bob->AddVideoConfig(std::move(video));
+        auto frame_generator = test::CreateSquareFrameGenerator(
+            video.width, video.height, absl::nullopt, absl::nullopt);
+        bob->AddVideoConfig(std::move(video), std::move(frame_generator));
 
         AudioConfig audio;
         audio.stream_label = "bob-audio";
@@ -268,7 +287,9 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Svc) {
         // Because we have network with packets loss we can analyze only the
         // highest spatial layer in SVC mode.
         simulcast.simulcast_config = VideoSimulcastConfig(3, 2);
-        alice->AddVideoConfig(std::move(simulcast));
+        auto frame_generator = test::CreateSquareFrameGenerator(
+            simulcast.width, simulcast.height, absl::nullopt, absl::nullopt);
+        alice->AddVideoConfig(std::move(simulcast), std::move(frame_generator));
 
         AudioConfig audio;
         audio.stream_label = "alice-audio";
@@ -280,7 +301,9 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Svc) {
       [](PeerConfigurer* bob) {
         VideoConfig video(640, 360, 30);
         video.stream_label = "bob-video";
-        bob->AddVideoConfig(std::move(video));
+        auto frame_generator = test::CreateSquareFrameGenerator(
+            video.width, video.height, absl::nullopt, absl::nullopt);
+        bob->AddVideoConfig(std::move(video), std::move(frame_generator));
 
         AudioConfig audio;
         audio.stream_label = "bob-audio";
@@ -313,7 +336,9 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_HighBitrate) {
         video.stream_label = "alice-video";
         video.min_encode_bitrate_bps = 500'000;
         video.max_encode_bitrate_bps = 3'000'000;
-        alice->AddVideoConfig(std::move(video));
+        auto frame_generator = test::CreateSquareFrameGenerator(
+            video.width, video.height, absl::nullopt, absl::nullopt);
+        alice->AddVideoConfig(std::move(video), std::move(frame_generator));
 
         AudioConfig audio;
         audio.stream_label = "alice-audio";
@@ -332,7 +357,9 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_HighBitrate) {
         video.stream_label = "bob-video";
         video.min_encode_bitrate_bps = 500'000;
         video.max_encode_bitrate_bps = 3'000'000;
-        bob->AddVideoConfig(std::move(video));
+        auto frame_generator = test::CreateSquareFrameGenerator(
+            video.width, video.height, absl::nullopt, absl::nullopt);
+        bob->AddVideoConfig(std::move(video), std::move(frame_generator));
 
         AudioConfig audio;
         audio.stream_label = "bob-audio";

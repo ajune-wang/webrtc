@@ -130,6 +130,8 @@ class AudioProcessingImpl : public AudioProcessing {
   void MutateConfig(rtc::FunctionView<void(AudioProcessing::Config*)> mutator);
   AudioProcessing::Config GetConfig() const override;
 
+  void SetCreateOptionalSubmodulesForTesting(bool create_submodules);
+
  protected:
   // Overridden in a mock.
   virtual int InitializeLocked()
@@ -418,6 +420,7 @@ class AudioProcessingImpl : public AudioProcessing {
       const float* keyboard_data = nullptr;
     } keyboard_info;
     int cached_stream_analog_level_ = 0;
+    bool create_optional_submodules = true;
   } capture_ RTC_GUARDED_BY(crit_capture_);
 
   struct ApmCaptureNonLockedState {

@@ -199,6 +199,8 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   // If we have successfully decoded any frame.
   bool frame_decoded_ = false;
 
+  int n_frames_ = 0;
+
   int64_t last_keyframe_request_ms_ = 0;
   int64_t last_complete_frame_time_ms_ = 0;
 

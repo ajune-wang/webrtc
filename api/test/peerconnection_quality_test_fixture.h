@@ -428,12 +428,11 @@ class PeerConnectionE2EQualityTestFixture {
   virtual void AddQualityMetricsReporter(
       std::unique_ptr<QualityMetricsReporter> quality_metrics_reporter) = 0;
 
-  // Add a new peer to the call and return an object through which caller
-  // can configure peer's behavior.
-  // |network_thread| will be used as network thread for peer's peer connection
-  // |network_manager| will be used to provide network interfaces for peer's
-  // peer connection.
-  // |configurer| function will be used to configure peer in the call.
+  // Add a new peer to the call and return an object through
+  // which caller can configure peer's behavior. |network_thread| will be used
+  // as network thread for peer's peer connection |network_manager| will be used
+  // to provide network interfaces for peer's peer connection. |configurer|
+  // function will be used to configure peer in the call.
   virtual void AddPeer(rtc::Thread* network_thread,
                        rtc::NetworkManager* network_manager,
                        rtc::FunctionView<void(PeerConfigurer*)> configurer) = 0;

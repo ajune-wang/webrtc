@@ -359,6 +359,7 @@ if (rtc_include_tests) {
 
     sources = [ "pc_full_stack_tests.cc" ]
     deps = [
+      "../api:create_frame_generator",
       "../api:create_network_emulation_manager",
       "../api:create_peerconnection_quality_test_fixture",
       "../api:network_emulation_manager_api",

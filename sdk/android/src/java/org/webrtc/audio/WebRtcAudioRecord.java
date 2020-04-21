@@ -87,6 +87,7 @@ class WebRtcAudioRecord {
 
   private @Nullable AudioRecord audioRecord;
   private @Nullable AudioRecordThread audioThread;
+  private @Nullable AudioDeviceInfo preferredDevice;
 
   private @Nullable ScheduledExecutorService executor;
   private @Nullable ScheduledFuture<String> future;
@@ -329,6 +330,14 @@ class WebRtcAudioRecord {
     return framesPerBuffer;
   }
 
+  @TargetApi(Build.VERSION_CODES.M)
+  public void setPreferredDevice(@Nullable AudioDeviceInfo preferredDevice) {
+    this.preferredDevice = preferredDevice;
+    if (audioRecord != null) {
+      audioRecord.setPreferredDevice(preferredDevice);
+    }
+  }
+
   @CalledByNative
   private boolean startRecording() {
     Logging.d(TAG, "startRecording");
@@ -391,6 +400,7 @@ class WebRtcAudioRecord {
                             .setChannelMask(channelConfig)
                             .build())
         .setBufferSizeInBytes(bufferSizeInBytes)
+        .setPreferredDevice(preferredDevice)
         .build();
   }
 

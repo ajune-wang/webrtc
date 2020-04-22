@@ -422,6 +422,7 @@ if (rtc_include_tests) {
       ":default_video_quality_analyzer",
       ":network_quality_metrics_reporter",
       "../../../api:callfactory_api",
+      "../../../api:create_frame_generator",
       "../../../api:create_network_emulation_manager",
       "../../../api:create_peerconnection_quality_test_fixture",
       "../../../api:libjingle_peerconnection_api",

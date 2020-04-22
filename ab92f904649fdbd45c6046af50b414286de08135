@@ -235,6 +235,30 @@
       "revId": "ab92f904649fdbd45c6046af50b414286de08135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bddb471e_d0e77e4f",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-04-22T17:20:16Z",
+      "side": 1,
+      "message": "It is not clear to me how those APIs are related to the question from Sami. Can you elaborate? We do not want to make this class more complex than needed since it should basically just do on thing: record audio.",
+      "parentUuid": "4d2273a0_026c4c04",
+      "range": {
+        "startLine": 341,
+        "startChar": 18,
+        "endLine": 341,
+        "endChar": 36
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

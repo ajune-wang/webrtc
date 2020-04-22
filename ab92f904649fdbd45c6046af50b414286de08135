@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1b1999d_f768b44f",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 11509
+      },
+      "writtenOn": "2020-04-22T16:23:00Z",
+      "side": 1,
+      "message": "Done. I\u0027d just written it this way because of the other functions in the file, but I can see there\u0027s some javadoc at the top.",
+      "parentUuid": "aa435e54_1952b17e",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 57
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8c3e1f1_8254323b",
         "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ab92f904649fdbd45c6046af50b414286de08135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2ad69e1_92374a77",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 11509
+      },
+      "writtenOn": "2020-04-22T16:23:00Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "f8c3e1f1_8254323b",
+      "range": {
+        "startLine": 337,
+        "startChar": 3,
+        "endLine": 337,
+        "endChar": 12
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +159,54 @@
         "startChar": 18,
         "endLine": 341,
         "endChar": 36
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ccd07ac_3aa56ab1",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 11509
+      },
+      "writtenOn": "2020-04-22T16:23:00Z",
+      "side": 1,
+      "message": "Yes. It\u0027s OK to call this while recording. The routed device can change during an AudioRecord if you add or remove a device, and apps can also call this API to change it if a user switches preferred microphone mid-call.\n\nCan we keep this as a separate function in light of that?",
+      "parentUuid": "a0752c91_f36c117b",
+      "range": {
+        "startLine": 341,
+        "startChar": 18,
+        "endLine": 341,
+        "endChar": 36
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b5e96e8_a2d322b0",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 11509
+      },
+      "writtenOn": "2020-04-22T16:23:00Z",
+      "side": 1,
+      "message": "Leaving this open until the comment about constructor vs. setter is resolved.",
+      "parentUuid": "3064fa9c_4b37e0de",
+      "range": {
+        "startLine": 341,
+        "startChar": 53,
+        "endLine": 341,
+        "endChar": 54
       },
       "revId": "ab92f904649fdbd45c6046af50b414286de08135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

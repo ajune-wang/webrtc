@@ -21,6 +21,7 @@ import android.media.MediaRecorder.AudioSource;
 import android.os.Build;
 import android.os.Process;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import java.lang.System;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -87,6 +88,7 @@ class WebRtcAudioRecord {
 
   private @Nullable AudioRecord audioRecord;
   private @Nullable AudioRecordThread audioThread;
+  private @Nullable AudioDeviceInfo preferredDevice;
 
   private @Nullable ScheduledExecutorService executor;
   private @Nullable ScheduledFuture<String> future;
@@ -329,6 +331,20 @@ class WebRtcAudioRecord {
     return framesPerBuffer;
   }
 
+  /**
+   * Prefer a specific {@link AudioDeviceInfo} device for recording.
+   * This is done with no guarantee that this microphone will be used. Typically this should only be
+   * called if a client shows some kind of UI for switching between multiple physical microphones.
+   * Otherwise the framework will automatically pick the best match for audioSource and audioFormat.
+   */
+  @RequiresApi(Build.VERSION_CODES.M)
+  public void setPreferredDevice(@Nullable AudioDeviceInfo preferredDevice) {
+    this.preferredDevice = preferredDevice;
+    if (audioRecord != null) {
+      audioRecord.setPreferredDevice(preferredDevice);
+    }
+  }
+
   @CalledByNative
   private boolean startRecording() {
     Logging.d(TAG, "startRecording");
@@ -391,6 +407,7 @@ class WebRtcAudioRecord {
                             .setChannelMask(channelConfig)
                             .build())
         .setBufferSizeInBytes(bufferSizeInBytes)
+        .setPreferredDevice(preferredDevice)
         .build();
   }
 

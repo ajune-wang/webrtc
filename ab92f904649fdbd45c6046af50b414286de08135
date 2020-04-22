@@ -259,6 +259,30 @@
       "revId": "ab92f904649fdbd45c6046af50b414286de08135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edcc801d_00cd0a25",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 11509
+      },
+      "writtenOn": "2020-04-22T17:32:11Z",
+      "side": 1,
+      "message": "No suggestion to use these APIs. To answer the question: yes, it\u0027s totally okay to call this while recording. This is just some background information on what happens if a caller does that (and why they might want to).\n\nIf there are other reasons you\u0027d like not to add any extra methods like this, and only allow setting the preferred device once in the constructor, I can do that. What do you think?",
+      "parentUuid": "bddb471e_d0e77e4f",
+      "range": {
+        "startLine": 341,
+        "startChar": 18,
+        "endLine": 341,
+        "endChar": 36
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -211,6 +211,30 @@
       "revId": "ab92f904649fdbd45c6046af50b414286de08135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d2273a0_026c4c04",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 11509
+      },
+      "writtenOn": "2020-04-22T16:49:46Z",
+      "side": 1,
+      "message": "These are the docs on the callbacks for such changes FYI:\n\n* https://developer.android.com/reference/android/media/AudioRouting.OnRoutingChangedListener\n* https://developer.android.com/reference/android/media/AudioRouting\n\nThis is introduced in API 24 (Nougat).\n\nIf you confirm you strongly prefer to not let clients do this, I can move it. Let me know.",
+      "parentUuid": "9ccd07ac_3aa56ab1",
+      "range": {
+        "startLine": 341,
+        "startChar": 18,
+        "endLine": 341,
+        "endChar": 36
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

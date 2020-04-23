@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d0b7de25_f71fe89e",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-23T14:20:59Z",
+      "side": 1,
+      "message": "No, it is not an API symbol (not RTC_OBJC_EXPORTed).",
+      "parentUuid": "a12d5d46_c894abf6",
+      "revId": "e6640faf6b788740a50243c1b1f1d44e1ab123dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95aeb520_00cb52c7",
         "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.h",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "b61de0ef_85a9f89d",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-23T14:20:59Z",
+      "side": 1,
+      "message": "In theory no, since they are not RTC_OBJC_EXPORTed.",
+      "parentUuid": "95aeb520_00cb52c7",
+      "revId": "e6640faf6b788740a50243c1b1f1d44e1ab123dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "92734676_eb2b1467",
         "filename": "sdk/objc/base/RTCMacros.h",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2020-04-23T13:42:31Z",
       "side": 1,
       "message": "Your macros don\u0027t work. See https://godbolt.org/z/PoD9Ye",
+      "revId": "e6640faf6b788740a50243c1b1f1d44e1ab123dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7e29f64_390c072a",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-23T14:20:59Z",
+      "side": 1,
+      "message": "Ops!\n\nThanks, fixing in the next patch set.",
+      "parentUuid": "92734676_eb2b1467",
       "revId": "e6640faf6b788740a50243c1b1f1d44e1ab123dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

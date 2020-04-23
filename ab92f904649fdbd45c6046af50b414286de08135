@@ -379,6 +379,30 @@
       "revId": "ab92f904649fdbd45c6046af50b414286de08135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e38d616f_bf948a02",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-04-23T15:00:01Z",
+      "side": 1,
+      "message": "I still think it would be good to at least add a log if this fails.",
+      "parentUuid": "e662cdbe_94710c4b",
+      "range": {
+        "startLine": 341,
+        "startChar": 53,
+        "endLine": 341,
+        "endChar": 54
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

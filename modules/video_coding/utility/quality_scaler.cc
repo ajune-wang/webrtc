@@ -19,6 +19,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/exp_filter.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 
 // TODO(kthelgason): Some versions of Android have issues with log2.
 // See https://code.google.com/p/android/issues/detail?id=212634 for details
@@ -69,15 +70,139 @@ class QualityScaler::QpSmoother {
   rtc::ExpFilter smoother_;
 };
 
-QualityScaler::QualityScaler(AdaptationObserverInterface* observer,
+class QualityScaler::CheckQpTask {
+ public:
+  struct Result {
+    bool observed_enough_frames = false;
+    bool adapt_called = false;
+    bool adapt_failed = false;
+  };
+
+  CheckQpTask(QualityScaler* quality_scaler, Result previous_task_result)
+      : quality_scaler_(quality_scaler),
+        state_(State::kNotStarted),
+        weak_ptr_factory_(this) {}
+
+  void StartDelayedTask() {
+    RTC_DCHECK_EQ(state_, State::kNotStarted);
+    state_ = State::kCheckingQp;
+    TaskQueueBase::Current()->PostDelayedTask(
+        ToQueuedTask([this_weak_ptr = weak_ptr_factory_.GetWeakPtr(), this] {
+          if (!this_weak_ptr) {
+            // The task has been cancelled through destruction.
+            return;
+          }
+          RTC_DCHECK_EQ(state_, State::kCheckingQp);
+          QualityScaler::CheckQpResult check_qp_result =
+              quality_scaler_->CheckQp();
+          switch (check_qp_result) {
+            case QualityScaler::CheckQpResult::kInsufficientSamples: {
+              result_.observed_enough_frames = false;
+              DoCompleteTask();
+              return;
+            }
+            case QualityScaler::CheckQpResult::kGoodQp: {
+              result_.observed_enough_frames = true;
+              DoCompleteTask();
+              return;
+            }
+            case QualityScaler::CheckQpResult::kHighQp: {
+              result_.observed_enough_frames = true;
+              result_.adapt_called = true;
+              state_ = State::kAwaitingQpUsageHandled;
+              rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback =
+                  new QualityScalerQpUsageHandlerCallback(
+                      weak_ptr_factory_.GetWeakPtr());
+              quality_scaler_->ReportQpHigh(callback);
+              return;
+            }
+            case QualityScaler::CheckQpResult::kLowQp: {
+              result_.observed_enough_frames = true;
+              result_.adapt_called = true;
+              state_ = State::kAwaitingQpUsageHandled;
+              rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback =
+                  new QualityScalerQpUsageHandlerCallback(
+                      weak_ptr_factory_.GetWeakPtr());
+              quality_scaler_->ReportQpLow(callback);
+              return;
+            }
+          }
+        }),
+        GetCheckingQpDelayMs());
+  }
+
+  void OnQpUsageHandled(bool adapt_succeeded) {
+    RTC_DCHECK_EQ(state_, State::kAwaitingQpUsageHandled);
+    if (adapt_succeeded)
+      quality_scaler_->ClearSamples();
+    result_.adapt_failed = !adapt_succeeded;
+    DoCompleteTask();
+  }
+
+  bool HasCompletedTask() const { return state_ == State::kCompleted; }
+
+  Result result() const {
+    RTC_DCHECK(HasCompletedTask());
+    return result_;
+  }
+
+ private:
+  enum class State {
+    kNotStarted,
+    kCheckingQp,
+    kAwaitingQpUsageHandled,
+    kCompleted,
+  };
+
+  int64_t GetCheckingQpDelayMs() const {
+    RTC_DCHECK_RUN_ON(&quality_scaler_->task_checker_);
+    if (quality_scaler_->fast_rampup_) {
+      return quality_scaler_->sampling_period_ms_;
+    }
+    if (quality_scaler_->experiment_enabled_ &&
+        !previous_task_result_.observed_enough_frames) {
+      // Use half the interval while waiting for enough frames.
+      return quality_scaler_->sampling_period_ms_ / 2;
+    }
+    if (previous_task_result_.adapt_failed) {
+      // Check shortly again.
+      return quality_scaler_->sampling_period_ms_ / 8;
+    }
+    if (quality_scaler_->scale_factor_ && !previous_task_result_.adapt_called) {
+      // Last CheckQp did not call AdaptDown/Up, possibly reduce interval.
+      return quality_scaler_->sampling_period_ms_ *
+             quality_scaler_->scale_factor_.value();
+    }
+    return quality_scaler_->sampling_period_ms_ *
+           quality_scaler_->initial_scale_factor_;
+  }
+
+  void DoCompleteTask() {
+    RTC_DCHECK(state_ == State::kCheckingQp ||
+               state_ == State::kAwaitingQpUsageHandled);
+    state_ = State::kCompleted;
+    // Starting the next task deletes the pending task (this). Do not touch
+    // |this| after this line.
+    quality_scaler_->StartNextCheckQpTask();
+  }
+
+  QualityScaler* const quality_scaler_;
+  State state_;
+  const Result previous_task_result_;
+  Result result_;
+
+  rtc::WeakPtrFactory<CheckQpTask> weak_ptr_factory_;
+};
+
+QualityScaler::QualityScaler(QualityScalerQpUsageHandlerInterface* handler,
                              VideoEncoder::QpThresholds thresholds)
-    : QualityScaler(observer, thresholds, kMeasureMs) {}
+    : QualityScaler(handler, thresholds, kMeasureMs) {}
 
 // Protected ctor, should not be called directly.
-QualityScaler::QualityScaler(AdaptationObserverInterface* observer,
+QualityScaler::QualityScaler(QualityScalerQpUsageHandlerInterface* handler,
                              VideoEncoder::QpThresholds thresholds,
                              int64_t sampling_period_ms)
-    : observer_(observer),
+    : handler_(handler),
       thresholds_(thresholds),
       sampling_period_ms_(sampling_period_ms),
       fast_rampup_(true),
@@ -86,7 +211,6 @@ QualityScaler::QualityScaler(AdaptationObserverInterface* observer,
       framedrop_percent_media_opt_(5 * 30),
       framedrop_percent_all_(5 * 30),
       experiment_enabled_(QualityScalingExperiment::Enabled()),
-      observed_enough_frames_(false),
       min_frames_needed_(
           QualityScalerSettings::ParseFromFieldTrials().MinFrames().value_or(
               kMinFramesNeededToScale)),
@@ -95,48 +219,33 @@ QualityScaler::QualityScaler(AdaptationObserverInterface* observer,
                                 .value_or(kSamplePeriodScaleFactor)),
       scale_factor_(
           QualityScalerSettings::ParseFromFieldTrials().ScaleFactor()),
-      adapt_called_(false),
-      adapt_failed_(false) {
+      weak_ptr_factory_(this) {
   RTC_DCHECK_RUN_ON(&task_checker_);
   if (experiment_enabled_) {
     config_ = QualityScalingExperiment::GetConfig();
     qp_smoother_high_.reset(new QpSmoother(config_.alpha_high));
     qp_smoother_low_.reset(new QpSmoother(config_.alpha_low));
   }
-  RTC_DCHECK(observer_ != nullptr);
-  check_qp_task_ = RepeatingTaskHandle::DelayedStart(
-      TaskQueueBase::Current(), TimeDelta::Millis(GetSamplingPeriodMs()),
-      [this]() {
-        CheckQp();
-        return TimeDelta::Millis(GetSamplingPeriodMs());
-      });
+  RTC_DCHECK(handler_ != nullptr);
+  StartNextCheckQpTask();
   RTC_LOG(LS_INFO) << "QP thresholds: low: " << thresholds_.low
                    << ", high: " << thresholds_.high;
 }
 
 QualityScaler::~QualityScaler() {
   RTC_DCHECK_RUN_ON(&task_checker_);
-  check_qp_task_.Stop();
 }
 
-int64_t QualityScaler::GetSamplingPeriodMs() const {
+void QualityScaler::StartNextCheckQpTask() {
   RTC_DCHECK_RUN_ON(&task_checker_);
-  if (fast_rampup_) {
-    return sampling_period_ms_;
+  RTC_DCHECK(!pending_qp_task_ || pending_qp_task_->HasCompletedTask())
+      << "A previous CheckQpTask has not completed yet!";
+  CheckQpTask::Result previous_task_result;
+  if (pending_qp_task_) {
+    previous_task_result = pending_qp_task_->result();
   }
-  if (experiment_enabled_ && !observed_enough_frames_) {
-    // Use half the interval while waiting for enough frames.
-    return sampling_period_ms_ / 2;
-  }
-  if (adapt_failed_) {
-    // Check shortly again.
-    return sampling_period_ms_ / 8;
-  }
-  if (scale_factor_ && !adapt_called_) {
-    // Last CheckQp did not call AdaptDown/Up, possibly reduce interval.
-    return sampling_period_ms_ * scale_factor_.value();
-  }
-  return sampling_period_ms_ * initial_scale_factor_;
+  pending_qp_task_ = std::make_unique<CheckQpTask>(this, previous_task_result);
+  pending_qp_task_->StartDelayedTask();
 }
 
 void QualityScaler::SetQpThresholds(VideoEncoder::QpThresholds thresholds) {
@@ -181,12 +290,10 @@ bool QualityScaler::QpFastFilterLow() const {
   return (avg_qp_high) ? (avg_qp_high.value() <= thresholds_.low) : false;
 }
 
-void QualityScaler::CheckQp() {
+QualityScaler::CheckQpResult QualityScaler::CheckQp() {
   RTC_DCHECK_RUN_ON(&task_checker_);
   // Should be set through InitEncode -> Should be set by now.
   RTC_DCHECK_GE(thresholds_.low, 0);
-  adapt_failed_ = false;
-  adapt_called_ = false;
 
   // If we have not observed at least this many frames we can't make a good
   // scaling decision.
@@ -194,10 +301,8 @@ void QualityScaler::CheckQp() {
                             ? framedrop_percent_all_.Size()
                             : framedrop_percent_media_opt_.Size();
   if (frames < min_frames_needed_) {
-    observed_enough_frames_ = false;
-    return;
+    return CheckQpResult::kInsufficientSamples;
   }
-  observed_enough_frames_ = true;
 
   // Check if we should scale down due to high frame drop.
   const absl::optional<int> drop_rate =
@@ -206,8 +311,7 @@ void QualityScaler::CheckQp() {
           : framedrop_percent_media_opt_.GetAverageRoundedDown();
   if (drop_rate && *drop_rate >= kFramedropPercentThreshold) {
     RTC_LOG(LS_INFO) << "Reporting high QP, framedrop percent " << *drop_rate;
-    ReportQpHigh();
-    return;
+    return CheckQpResult::kHighQp;
   }
 
   // Check if we should scale up or down based on QP.
@@ -221,38 +325,32 @@ void QualityScaler::CheckQp() {
     RTC_LOG(LS_INFO) << "Checking average QP " << *avg_qp_high << " ("
                      << *avg_qp_low << ").";
     if (*avg_qp_high > thresholds_.high) {
-      ReportQpHigh();
-      return;
+      return CheckQpResult::kHighQp;
     }
     if (*avg_qp_low <= thresholds_.low) {
       // QP has been low. We want to try a higher resolution.
-      ReportQpLow();
-      return;
+      return CheckQpResult::kLowQp;
     }
   }
+  return CheckQpResult::kGoodQp;
 }
 
-void QualityScaler::ReportQpLow() {
+void QualityScaler::ReportQpLow(
+    rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) {
   RTC_DCHECK_RUN_ON(&task_checker_);
-  ClearSamples();
-  observer_->AdaptUp(VideoAdaptationReason::kQuality);
-  adapt_called_ = true;
+  handler_->OnReportQpUsageLow(callback);
 }
 
-void QualityScaler::ReportQpHigh() {
+void QualityScaler::ReportQpHigh(
+    rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) {
   RTC_DCHECK_RUN_ON(&task_checker_);
 
-  if (observer_->AdaptDown(VideoAdaptationReason::kQuality)) {
-    ClearSamples();
-  } else {
-    adapt_failed_ = true;
-  }
+  handler_->OnReportQpUsageHigh(callback);
 
   // If we've scaled down, wait longer before scaling up again.
   if (fast_rampup_) {
     fast_rampup_ = false;
   }
-  adapt_called_ = true;
 }
 
 void QualityScaler::ClearSamples() {
@@ -265,4 +363,29 @@ void QualityScaler::ClearSamples() {
   if (qp_smoother_low_)
     qp_smoother_low_->Reset();
 }
+
+QualityScalerQpUsageHandlerCallback::QualityScalerQpUsageHandlerCallback(
+    rtc::WeakPtr<QualityScaler::CheckQpTask> check_qp_task)
+    : rtc::RefCountedObject<rtc::RefCountInterface>(),
+      check_qp_task_(std::move(check_qp_task)),
+      was_handled_(false) {}
+
+QualityScalerQpUsageHandlerCallback::~QualityScalerQpUsageHandlerCallback() {
+  RTC_DCHECK(was_handled_);
+}
+
+void QualityScalerQpUsageHandlerCallback::OnQpUsageHandled(
+    bool adapt_succeeded) {
+  RTC_DCHECK(!was_handled_);
+  was_handled_ = true;
+  if (!check_qp_task_) {
+    // The task has been cancelled through destruction; the result of the
+    // operation is ignored.
+    return;
+  }
+  check_qp_task_->OnQpUsageHandled(adapt_succeeded);
+}
+
+QualityScalerQpUsageHandlerInterface::~QualityScalerQpUsageHandlerInterface() {}
+
 }  // namespace webrtc

@@ -28,7 +28,7 @@
 @implementation RTCIceServerTest
 
 - (void)testOneURLServer {
-  RTCIceServer *server = [[RTCIceServer alloc] initWithURLStrings:@[
+  RTC_OBJC_TYPE(RTCIceServer) *server = [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithURLStrings:@[
       @"stun:stun1.example.net" ]];
 
   webrtc::PeerConnectionInterface::IceServer iceStruct = server.nativeServer;
@@ -39,7 +39,7 @@
 }
 
 - (void)testTwoURLServer {
-  RTCIceServer *server = [[RTCIceServer alloc] initWithURLStrings:@[
+  RTC_OBJC_TYPE(RTCIceServer) *server = [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithURLStrings:@[
       @"turn1:turn1.example.net", @"turn2:turn2.example.net" ]];
 
   webrtc::PeerConnectionInterface::IceServer iceStruct = server.nativeServer;
@@ -51,7 +51,7 @@
 }
 
 - (void)testPasswordCredential {
-  RTCIceServer *server = [[RTCIceServer alloc]
+  RTC_OBJC_TYPE(RTCIceServer) *server = [[RTC_OBJC_TYPE(RTCIceServer) alloc]
       initWithURLStrings:@[ @"turn1:turn1.example.net" ]
                 username:@"username"
               credential:@"credential"];
@@ -63,7 +63,7 @@
 }
 
 - (void)testHostname {
-  RTCIceServer *server = [[RTCIceServer alloc] initWithURLStrings:@[ @"turn1:turn1.example.net" ]
+  RTC_OBJC_TYPE(RTCIceServer) *server = [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithURLStrings:@[ @"turn1:turn1.example.net" ]
                                                          username:@"username"
                                                        credential:@"credential"
                                                     tlsCertPolicy:RTCTlsCertPolicySecure
@@ -77,7 +77,7 @@
 }
 
 - (void)testTlsAlpnProtocols {
-  RTCIceServer *server = [[RTCIceServer alloc] initWithURLStrings:@[ @"turn1:turn1.example.net" ]
+  RTC_OBJC_TYPE(RTCIceServer) *server = [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithURLStrings:@[ @"turn1:turn1.example.net" ]
                                                          username:@"username"
                                                        credential:@"credential"
                                                     tlsCertPolicy:RTCTlsCertPolicySecure
@@ -93,7 +93,7 @@
 }
 
 - (void)testTlsEllipticCurves {
-  RTCIceServer *server = [[RTCIceServer alloc] initWithURLStrings:@[ @"turn1:turn1.example.net" ]
+  RTC_OBJC_TYPE(RTCIceServer) *server = [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithURLStrings:@[ @"turn1:turn1.example.net" ]
                                                          username:@"username"
                                                        credential:@"credential"
                                                     tlsCertPolicy:RTCTlsCertPolicySecure
@@ -121,8 +121,8 @@
   nativeServer.tls_elliptic_curves.push_back("curve1");
   nativeServer.tls_elliptic_curves.push_back("curve2");
 
-  RTCIceServer *iceServer =
-      [[RTCIceServer alloc] initWithNativeServer:nativeServer];
+  RTC_OBJC_TYPE(RTCIceServer) *iceServer =
+      [[RTC_OBJC_TYPE(RTCIceServer) alloc] initWithNativeServer:nativeServer];
   EXPECT_EQ(1u, iceServer.urlStrings.count);
   EXPECT_EQ("stun:stun.example.net",
       [NSString stdStringForString:iceServer.urlStrings.firstObject]);

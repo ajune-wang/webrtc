@@ -15,11 +15,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RTCPeerConnectionFactory ()
+@interface RTC_OBJC_TYPE(RTCPeerConnectionFactory) ()
 
 /**
  * PeerConnectionFactoryInterface created and held by this
- * RTCPeerConnectionFactory object. This is needed to pass to the underlying
+ * RTC_OBJC_TYPE(RTCPeerConnectionFactory) object. This is needed to pass to the underlying
  * C++ APIs.
  */
 @property(nonatomic, readonly)

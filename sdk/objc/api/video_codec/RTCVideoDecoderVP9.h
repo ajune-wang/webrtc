@@ -14,12 +14,12 @@
 #import "RTCVideoDecoder.h"
 
 RTC_OBJC_EXPORT
-@interface RTCVideoDecoderVP9 : NSObject
+@interface RTC_OBJC_TYPE(RTCVideoDecoderVP9) : NSObject
 
-/* This returns a VP9 decoder that can be returned from a RTCVideoDecoderFactory injected into
- * RTCPeerConnectionFactory. Even though it implements the RTCVideoDecoder protocol, it can not be
- * used independently from the RTCPeerConnectionFactory.
+/* This returns a VP9 decoder that can be returned from a RTC_OBJC_TYPE(RTCVideoDecoderFactory) injected into
+ * RTC_OBJC_TYPE(RTCPeerConnectionFactory). Even though it implements the RTC_OBJC_TYPE(RTCVideoDecoder) protocol, it can not be
+ * used independently from the RTC_OBJC_TYPE(RTCPeerConnectionFactory).
  */
-+ (id<RTCVideoDecoder>)vp9Decoder;
++ (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp9Decoder;
 
 @end

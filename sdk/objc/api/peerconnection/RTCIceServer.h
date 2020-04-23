@@ -20,19 +20,19 @@ typedef NS_ENUM(NSUInteger, RTCTlsCertPolicy) {
 NS_ASSUME_NONNULL_BEGIN
 
 RTC_OBJC_EXPORT
-@interface RTCIceServer : NSObject
+@interface RTC_OBJC_TYPE(RTCIceServer) : NSObject
 
 /** URI(s) for this server represented as NSStrings. */
 @property(nonatomic, readonly) NSArray<NSString *> *urlStrings;
 
-/** Username to use if this RTCIceServer object is a TURN server. */
+/** Username to use if this RTC_OBJC_TYPE(RTCIceServer) object is a TURN server. */
 @property(nonatomic, readonly, nullable) NSString *username;
 
-/** Credential to use if this RTCIceServer object is a TURN server. */
+/** Credential to use if this RTC_OBJC_TYPE(RTCIceServer) object is a TURN server. */
 @property(nonatomic, readonly, nullable) NSString *credential;
 
 /**
- * TLS certificate policy to use if this RTCIceServer object is a TURN server.
+ * TLS certificate policy to use if this RTC_OBJC_TYPE(RTCIceServer) object is a TURN server.
  */
 @property(nonatomic, readonly) RTCTlsCertPolicy tlsCertPolicy;
 
@@ -58,7 +58,7 @@ RTC_OBJC_EXPORT
 - (instancetype)initWithURLStrings:(NSArray<NSString *> *)urlStrings;
 
 /**
- * Initialize an RTCIceServer with its associated URLs, optional username,
+ * Initialize an RTC_OBJC_TYPE(RTCIceServer) with its associated URLs, optional username,
  * optional credential, and credentialType.
  */
 - (instancetype)initWithURLStrings:(NSArray<NSString *> *)urlStrings
@@ -66,7 +66,7 @@ RTC_OBJC_EXPORT
                         credential:(nullable NSString *)credential;
 
 /**
- * Initialize an RTCIceServer with its associated URLs, optional username,
+ * Initialize an RTC_OBJC_TYPE(RTCIceServer) with its associated URLs, optional username,
  * optional credential, and TLS cert policy.
  */
 - (instancetype)initWithURLStrings:(NSArray<NSString *> *)urlStrings
@@ -75,7 +75,7 @@ RTC_OBJC_EXPORT
                      tlsCertPolicy:(RTCTlsCertPolicy)tlsCertPolicy;
 
 /**
- * Initialize an RTCIceServer with its associated URLs, optional username,
+ * Initialize an RTC_OBJC_TYPE(RTCIceServer) with its associated URLs, optional username,
  * optional credential, TLS cert policy and hostname.
  */
 - (instancetype)initWithURLStrings:(NSArray<NSString *> *)urlStrings
@@ -85,7 +85,7 @@ RTC_OBJC_EXPORT
                           hostname:(nullable NSString *)hostname;
 
 /**
- * Initialize an RTCIceServer with its associated URLs, optional username,
+ * Initialize an RTC_OBJC_TYPE(RTCIceServer) with its associated URLs, optional username,
  * optional credential, TLS cert policy, hostname and ALPN protocols.
  */
 - (instancetype)initWithURLStrings:(NSArray<NSString *> *)urlStrings
@@ -96,7 +96,7 @@ RTC_OBJC_EXPORT
                   tlsAlpnProtocols:(NSArray<NSString *> *)tlsAlpnProtocols;
 
 /**
- * Initialize an RTCIceServer with its associated URLs, optional username,
+ * Initialize an RTC_OBJC_TYPE(RTCIceServer) with its associated URLs, optional username,
  * optional credential, TLS cert policy, hostname, ALPN protocols and
  * elliptic curves.
  */

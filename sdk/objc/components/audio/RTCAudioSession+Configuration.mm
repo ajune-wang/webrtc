@@ -13,9 +13,9 @@
 
 #import "base/RTCLogging.h"
 
-@implementation RTCAudioSession (Configuration)
+@implementation RTC_OBJC_TYPE(RTCAudioSession) (Configuration)
 
-- (BOOL)setConfiguration:(RTCAudioSessionConfiguration *)configuration
+- (BOOL)setConfiguration:(RTC_OBJC_TYPE(RTCAudioSessionConfiguration) *)configuration
                    error:(NSError **)outError {
   return [self setConfiguration:configuration
                          active:NO
@@ -23,7 +23,7 @@
                           error:outError];
 }
 
-- (BOOL)setConfiguration:(RTCAudioSessionConfiguration *)configuration
+- (BOOL)setConfiguration:(RTC_OBJC_TYPE(RTCAudioSessionConfiguration) *)configuration
                   active:(BOOL)active
                    error:(NSError **)outError {
   return [self setConfiguration:configuration
@@ -34,7 +34,7 @@
 
 #pragma mark - Private
 
-- (BOOL)setConfiguration:(RTCAudioSessionConfiguration *)configuration
+- (BOOL)setConfiguration:(RTC_OBJC_TYPE(RTCAudioSessionConfiguration) *)configuration
                   active:(BOOL)active
          shouldSetActive:(BOOL)shouldSetActive
                    error:(NSError **)outError {

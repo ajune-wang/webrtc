@@ -37,7 +37,7 @@ struct RTCFrameDecodeParams {
   int64_t timestamp;
 };
 
-@interface RTCVideoDecoderH264 ()
+@interface RTC_OBJC_TYPE(RTCVideoDecoderH264) ()
 - (void)setError:(OSStatus)error;
 @end
 
@@ -53,15 +53,15 @@ void decompressionOutputCallback(void *decoderRef,
   std::unique_ptr<RTCFrameDecodeParams> decodeParams(
       reinterpret_cast<RTCFrameDecodeParams *>(params));
   if (status != noErr) {
-    RTCVideoDecoderH264 *decoder = (__bridge RTCVideoDecoderH264 *)decoderRef;
+    RTC_OBJC_TYPE(RTCVideoDecoderH264) *decoder = (__bridge RTC_OBJC_TYPE(RTCVideoDecoderH264) *)decoderRef;
     [decoder setError:status];
     RTC_LOG(LS_ERROR) << "Failed to decode frame. Status: " << status;
     return;
   }
   // TODO(tkchin): Handle CVO properly.
-  RTCCVPixelBuffer *frameBuffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:imageBuffer];
-  RTCVideoFrame *decodedFrame =
-      [[RTCVideoFrame alloc] initWithBuffer:frameBuffer
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *frameBuffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:imageBuffer];
+  RTC_OBJC_TYPE(RTCVideoFrame) *decodedFrame =
+      [[RTC_OBJC_TYPE(RTCVideoFrame) alloc] initWithBuffer:frameBuffer
                                    rotation:RTCVideoRotation_0
                                 timeStampNs:CMTimeGetSeconds(timestamp) * rtc::kNumNanosecsPerSec];
   decodedFrame.timeStamp = decodeParams->timestamp;
@@ -69,7 +69,7 @@ void decompressionOutputCallback(void *decoderRef,
 }
 
 // Decoder.
-@implementation RTCVideoDecoderH264 {
+@implementation RTC_OBJC_TYPE(RTCVideoDecoderH264) {
   CMVideoFormatDescriptionRef _videoFormat;
   CMMemoryPoolRef _memoryPool;
   VTDecompressionSessionRef _decompressionSession;
@@ -96,9 +96,9 @@ void decompressionOutputCallback(void *decoderRef,
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-- (NSInteger)decode:(RTCEncodedImage *)inputImage
+- (NSInteger)decode:(RTC_OBJC_TYPE(RTCEncodedImage) *)inputImage
         missingFrames:(BOOL)missingFrames
-    codecSpecificInfo:(nullable id<RTCCodecSpecificInfo>)info
+    codecSpecificInfo:(nullable id<RTC_OBJC_TYPE(RTCCodecSpecificInfo)>)info
          renderTimeMs:(int64_t)renderTimeMs {
   RTC_DCHECK(inputImage.buffer);
 

@@ -17,11 +17,11 @@
 
 namespace webrtc {
 
-ObjCVideoRenderer::ObjCVideoRenderer(id<RTCVideoRenderer> renderer)
+ObjCVideoRenderer::ObjCVideoRenderer(id<RTC_OBJC_TYPE(RTCVideoRenderer)> renderer)
     : renderer_(renderer), size_(CGSizeZero) {}
 
 void ObjCVideoRenderer::OnFrame(const VideoFrame& nativeVideoFrame) {
-  RTCVideoFrame* videoFrame = ToObjCVideoFrame(nativeVideoFrame);
+  RTC_OBJC_TYPE(RTCVideoFrame)* videoFrame = ToObjCVideoFrame(nativeVideoFrame);
 
   CGSize current_size = (videoFrame.rotation % 180 == 0) ?
       CGSizeMake(videoFrame.width, videoFrame.height) :

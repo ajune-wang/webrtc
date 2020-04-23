@@ -14,7 +14,7 @@
 #import "RTCCryptoOptions.h"
 #import "RTCMacros.h"
 
-@class RTCIceServer;
+@class RTC_OBJC_TYPE(RTCIceServer);
 
 /**
  * Represents the ice transport policy. This exposes the same states in C++,
@@ -61,7 +61,7 @@ typedef NS_ENUM(NSInteger, RTCEncryptionKeyType) {
   RTCEncryptionKeyTypeECDSA,
 };
 
-/** Represents the chosen SDP semantics for the RTCPeerConnection. */
+/** Represents the chosen SDP semantics for the RTC_OBJC_TYPE(RTCPeerConnection). */
 typedef NS_ENUM(NSInteger, RTCSdpSemantics) {
   RTCSdpSemanticsPlanB,
   RTCSdpSemanticsUnifiedPlan,
@@ -70,18 +70,18 @@ typedef NS_ENUM(NSInteger, RTCSdpSemantics) {
 NS_ASSUME_NONNULL_BEGIN
 
 RTC_OBJC_EXPORT
-@interface RTCConfiguration : NSObject
+@interface RTC_OBJC_TYPE(RTCConfiguration) : NSObject
 
 /** If true, allows DSCP codes to be set on outgoing packets, configured using
- *  networkPriority field of RTCRtpEncodingParameters. Defaults to false.
+ *  networkPriority field of RTC_OBJC_TYPE(RTCRtpEncodingParameters). Defaults to false.
  */
 @property(nonatomic, assign) BOOL enableDscp;
 
 /** An array of Ice Servers available to be used by ICE. */
-@property(nonatomic, copy) NSArray<RTCIceServer *> *iceServers;
+@property(nonatomic, copy) NSArray<RTC_OBJC_TYPE(RTCIceServer) *> *iceServers;
 
-/** An RTCCertificate for 're' use. */
-@property(nonatomic, nullable) RTCCertificate *certificate;
+/** An RTC_OBJC_TYPE(RTCCertificate) for 're' use. */
+@property(nonatomic, nullable) RTC_OBJC_TYPE(RTCCertificate) *certificate;
 
 /** Which candidates the ICE agent is allowed to use. The W3C calls it
  * |iceTransportPolicy|, while in C++ it is called |type|. */
@@ -163,18 +163,18 @@ RTC_OBJC_EXPORT
 
 /** Configure the SDP semantics used by this PeerConnection. Note that the
  *  WebRTC 1.0 specification requires UnifiedPlan semantics. The
- *  RTCRtpTransceiver API is only available with UnifiedPlan semantics.
+ *  RTC_OBJC_TYPE(RTCRtpTransceiver) API is only available with UnifiedPlan semantics.
  *
- *  PlanB will cause RTCPeerConnection to create offers and answers with at
+ *  PlanB will cause RTC_OBJC_TYPE(RTCPeerConnection) to create offers and answers with at
  *  most one audio and one video m= section with multiple RTCRtpSenders and
  *  RTCRtpReceivers specified as multiple a=ssrc lines within the section. This
- *  will also cause RTCPeerConnection to ignore all but the first m= section of
+ *  will also cause RTC_OBJC_TYPE(RTCPeerConnection) to ignore all but the first m= section of
  *  the same media type.
  *
- *  UnifiedPlan will cause RTCPeerConnection to create offers and answers with
- *  multiple m= sections where each m= section maps to one RTCRtpSender and one
- *  RTCRtpReceiver (an RTCRtpTransceiver), either both audio or both video. This
- *  will also cause RTCPeerConnection to ignore all but the first a=ssrc lines
+ *  UnifiedPlan will cause RTC_OBJC_TYPE(RTCPeerConnection) to create offers and answers with
+ *  multiple m= sections where each m= section maps to one RTC_OBJC_TYPE(RTCRtpSender) and one
+ *  RTC_OBJC_TYPE(RTCRtpReceiver) (an RTC_OBJC_TYPE(RTCRtpTransceiver)), either both audio or both video. This
+ *  will also cause RTC_OBJC_TYPE(RTCPeerConnection) to ignore all but the first a=ssrc lines
  *  that form a Plan B stream.
  *
  *  For users who wish to send multiple audio/video streams and need to stay
@@ -214,7 +214,7 @@ RTC_OBJC_EXPORT
  * frame encryption for native WebRTC. Setting this will overwrite any
  * options set through the PeerConnectionFactory (which is deprecated).
  */
-@property(nonatomic, nullable) RTCCryptoOptions *cryptoOptions;
+@property(nonatomic, nullable) RTC_OBJC_TYPE(RTCCryptoOptions) *cryptoOptions;
 
 /**
  * Time interval between audio RTCP reports.

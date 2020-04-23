@@ -12,7 +12,7 @@
 
 #include "modules/include/module_common_types.h"
 
-@implementation RTCRtpFragmentationHeader (Private)
+@implementation RTC_OBJC_TYPE(RTCRtpFragmentationHeader) (Private)
 
 - (instancetype)initWithNativeFragmentationHeader:
         (const webrtc::RTPFragmentationHeader *)fragmentationHeader {

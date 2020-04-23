@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /* Interfaces for converting to/from internal C++ formats. */
-@interface RTCRtpFragmentationHeader (Private)
+@interface RTC_OBJC_TYPE(RTCRtpFragmentationHeader) (Private)
 
 - (instancetype)initWithNativeFragmentationHeader:
         (const webrtc::RTPFragmentationHeader *__nullable)fragmentationHeader;

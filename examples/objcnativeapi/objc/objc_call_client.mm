@@ -64,7 +64,7 @@ ObjCCallClient::ObjCCallClient()
   CreatePeerConnectionFactory();
 }
 
-void ObjCCallClient::Call(RTCVideoCapturer* capturer, id<RTCVideoRenderer> remote_renderer) {
+void ObjCCallClient::Call(RTC_OBJC_TYPE(RTCVideoCapturer)* capturer, id<RTC_OBJC_TYPE(RTCVideoRenderer)> remote_renderer) {
   RTC_DCHECK_RUN_ON(&thread_checker_);
 
   rtc::CritScope lock(&pc_mutex_);
@@ -123,9 +123,9 @@ void ObjCCallClient::CreatePeerConnectionFactory() {
   media_deps.audio_encoder_factory = webrtc::CreateBuiltinAudioEncoderFactory();
   media_deps.audio_decoder_factory = webrtc::CreateBuiltinAudioDecoderFactory();
   media_deps.video_encoder_factory =
-      webrtc::ObjCToNativeVideoEncoderFactory([[RTCDefaultVideoEncoderFactory alloc] init]);
+      webrtc::ObjCToNativeVideoEncoderFactory([[RTC_OBJC_TYPE(RTCDefaultVideoEncoderFactory) alloc] init]);
   media_deps.video_decoder_factory =
-      webrtc::ObjCToNativeVideoDecoderFactory([[RTCDefaultVideoDecoderFactory alloc] init]);
+      webrtc::ObjCToNativeVideoDecoderFactory([[RTC_OBJC_TYPE(RTCDefaultVideoDecoderFactory) alloc] init]);
   media_deps.audio_processing = webrtc::AudioProcessingBuilder().Create();
   dependencies.media_engine = cricket::CreateMediaEngine(std::move(media_deps));
   RTC_LOG(LS_INFO) << "Media engine created: " << dependencies.media_engine.get();

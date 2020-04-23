@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RTCPeerConnectionFactoryOptions ()
+@interface RTC_OBJC_TYPE(RTCPeerConnectionFactoryOptions) ()
 
 /** Returns the equivalent native PeerConnectionFactoryInterface::Options
  * structure. */

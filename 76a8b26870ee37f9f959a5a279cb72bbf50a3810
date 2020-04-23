@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1de7dc4f_f763c327",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-23T06:00:54Z",
+      "side": 1,
+      "message": "This approach will only allow testing with either all optional submodules on, or all off. It would be nice to be able to test all different combinations, at least as crash tests.",
+      "range": {
+        "startLine": 699,
+        "startChar": 2,
+        "endLine": 699,
+        "endChar": 37
+      },
+      "revId": "76a8b26870ee37f9f959a5a279cb72bbf50a3810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55fae82a_ef1fae9e",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1652,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-23T06:00:54Z",
+      "side": 1,
+      "message": "I\u0027m not superhappy with this code since it kind of explicitly overrides the code to create the TransientSuppressor. On top of that, we already have a similar functionality controlled via a build-flag inside the CreateTransientSuppressor method. That distributed behavior feels risky, a bit confusing and makes the code hard to read. Also, I don\u0027t really see it scaling nicely to more submodules.\n\nHmm, the reason that we need to use this construct is kind of due to the fact that the CreateTransientSuppressor is inside a Creator-file that is only dedicated to TransientSuppression.\n\nI have a feeling that this would scale better, be more easier to overview and be less intrusive in the normal code, if we could bundle all CreateYYY methods into one single Creator-file. \n\nWhat about an approach where we have a struct with overrides such as\n\n// Only for tests purposes\nstruct CreationOverrides {\n bool transient_suppression_override \u003d false;\n bool agc2_override \u003d false;\n} creation_overrides;\n\n\nThat struct is then passed to all CreatorMetods in the Creator-file\ne.g., \nCreateTransientSuppressor(creation_overrides);\n\n\nI think that would have the benefits of:\n-Less overhead in the code.\n-Putting all the production of null-pointers in one single place.\n-Scale well to any combinations of null-pointers for submodules.\n-Be slightly more explicit.\n\nWDYT?",
+      "range": {
+        "startLine": 1650,
+        "startChar": 6,
+        "endLine": 1652,
+        "endChar": 55
+      },
+      "revId": "76a8b26870ee37f9f959a5a279cb72bbf50a3810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d842b46d_633649b1",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-23T06:00:54Z",
+      "side": 1,
+      "message": "Since this is only for testing, I think it should be made private, and the tests added as friends. That would feel more safe.",
+      "range": {
+        "startLine": 133,
+        "startChar": 2,
+        "endLine": 133,
+        "endChar": 69
+      },
+      "revId": "76a8b26870ee37f9f959a5a279cb72bbf50a3810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

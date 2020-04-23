@@ -21,6 +21,7 @@ import android.media.MediaRecorder.AudioSource;
 import android.os.Build;
 import android.os.Process;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import java.lang.System;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -87,6 +88,7 @@ class WebRtcAudioRecord {
 
   private @Nullable AudioRecord audioRecord;
   private @Nullable AudioRecordThread audioThread;
+  private @Nullable AudioDeviceInfo preferredDevice;
 
   private @Nullable ScheduledExecutorService executor;
   private @Nullable ScheduledFuture<String> future;
@@ -329,6 +331,21 @@ class WebRtcAudioRecord {
     return framesPerBuffer;
   }
 
+  /**
+   * Prefer a specific {@link AudioDeviceInfo} device for recording.
+   * Typically this should only be used if a client gives an explicit option for choosing a physical
+   * device to record from. Otherwise the best-matching device for other parameters will be used.
+   * Calling after {@link startRecording()} may cause a temporary interruption if the audio routing
+   * is changed.
+   */
+  @RequiresApi(Build.VERSION_CODES.M)
+  public void setPreferredDevice(@Nullable AudioDeviceInfo preferredDevice) {
+    this.preferredDevice = preferredDevice;
+    if (audioRecord != null) {
+      audioRecord.setPreferredDevice(preferredDevice);
+    }
+  }
+
   @CalledByNative
   private boolean startRecording() {
     Logging.d(TAG, "startRecording");
@@ -391,6 +408,7 @@ class WebRtcAudioRecord {
                             .setChannelMask(channelConfig)
                             .build())
         .setBufferSizeInBytes(bufferSizeInBytes)
+        .setPreferredDevice(preferredDevice)
         .build();
   }
 

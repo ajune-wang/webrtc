@@ -54,15 +54,15 @@ class AudioIngress : public AudioMixer::Source {
   void StopPlay();
 
   // Query the state of the AudioIngress.
-  bool Playing() const;
+  bool IsPlaying() const;
 
   // Set the decoder formats and payload type for AcmReceiver where the
   // key type (int) of the map is the payload type of SdpAudioFormat.
   void SetReceiveCodecs(const std::map<int, SdpAudioFormat>& codecs);
 
   // APIs to handle received RTP/RTCP packets from caller.
-  void ReceivedRTPPacket(const uint8_t* data, size_t length);
-  void ReceivedRTCPPacket(const uint8_t* data, size_t length);
+  void ReceivedRTPPacket(rtc::ArrayView<const uint8_t> rtp);
+  void ReceivedRTCPPacket(rtc::ArrayView<const uint8_t> rtcp);
 
   // Retrieve highest speech output level in last 100 ms.  Note that
   // this isn't RMS but absolute raw audio level on int16_t sample unit.

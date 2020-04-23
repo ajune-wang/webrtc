@@ -196,7 +196,7 @@
   // TODO(tkchin): Figure out why DTLS-SRTP constraint causes thread assertion
   // crash in Debug.
   caller.defaultPeerConnectionConstraints =
-      [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil
+      [[RTC_OBJC_TYPE(RTCMediaConstraints) alloc] initWithMandatoryConstraints:nil
                                             optionalConstraints:nil];
   weakCaller = caller;
 
@@ -214,7 +214,7 @@
   // TODO(tkchin): Figure out why DTLS-SRTP constraint causes thread assertion
   // crash in Debug.
   answerer.defaultPeerConnectionConstraints =
-      [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil
+      [[RTC_OBJC_TYPE(RTCMediaConstraints) alloc] initWithMandatoryConstraints:nil
                                             optionalConstraints:nil];
   weakAnswerer = answerer;
 
@@ -248,7 +248,7 @@
                          connectedHandler:^{}
                    localVideoTrackHandler:^{ [localVideoTrackExpectation fulfill]; }];
   caller.defaultPeerConnectionConstraints =
-      [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil
+      [[RTC_OBJC_TYPE(RTCMediaConstraints) alloc] initWithMandatoryConstraints:nil
                                           optionalConstraints:nil];
 
   // Kick off connection.

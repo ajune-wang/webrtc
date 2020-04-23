@@ -17,17 +17,17 @@
 #include "api/video/video_frame.h"
 #include "api/video/video_sink_interface.h"
 
-@protocol RTCVideoRenderer;
+@protocol RTC_OBJC_TYPE(RTCVideoRenderer);
 
 namespace webrtc {
 
 class ObjCVideoRenderer : public rtc::VideoSinkInterface<VideoFrame> {
  public:
-  ObjCVideoRenderer(id<RTCVideoRenderer> renderer);
+  ObjCVideoRenderer(id<RTC_OBJC_TYPE(RTCVideoRenderer)> renderer);
   void OnFrame(const VideoFrame& nativeVideoFrame) override;
 
  private:
-  id<RTCVideoRenderer> renderer_;
+  id<RTC_OBJC_TYPE(RTCVideoRenderer)> renderer_;
   CGSize size_;
 };
 

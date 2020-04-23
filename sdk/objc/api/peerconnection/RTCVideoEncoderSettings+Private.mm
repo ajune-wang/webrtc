@@ -12,7 +12,7 @@
 
 #import "helpers/NSString+StdString.h"
 
-@implementation RTCVideoEncoderSettings (Private)
+@implementation RTC_OBJC_TYPE(RTCVideoEncoderSettings) (Private)
 
 - (instancetype)initWithNativeVideoCodec:(const webrtc::VideoCodec *)videoCodec {
   if (self = [super init]) {

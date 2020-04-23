@@ -67,7 +67,7 @@ static NSInteger kARDTURNClientErrorBadResponse = -1;
       NSMutableArray *turnServers = [NSMutableArray array];
       [turnResponseDict[@"iceServers"] enumerateObjectsUsingBlock:
                          ^(NSDictionary *obj, NSUInteger idx, BOOL *stop){
-          [turnServers addObject:[RTCIceServer serverFromJSONDictionary:obj]];
+          [turnServers addObject:[RTC_OBJC_TYPE(RTCIceServer) serverFromJSONDictionary:obj]];
         }];
       if (!turnServers) {
         NSError *responseError =

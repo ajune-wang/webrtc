@@ -14,5 +14,5 @@
 - (void)didCaptureSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 @end
 
-@interface ARDExternalSampleCapturer : RTCVideoCapturer <ARDExternalSampleDelegate>
+@interface ARDExternalSampleCapturer : RTC_OBJC_TYPE(RTCVideoCapturer) <ARDExternalSampleDelegate>
 @end

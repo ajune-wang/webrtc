@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class RTCIceServer;
+@class RTC_OBJC_TYPE(RTCIceServer);
 
 @protocol ARDTURNClient <NSObject>
 

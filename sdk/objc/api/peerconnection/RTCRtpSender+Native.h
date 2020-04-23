@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * This class extension exposes methods that work directly with injectable C++ components.
  */
-@interface RTCRtpSender ()
+@interface RTC_OBJC_TYPE(RTCRtpSender) ()
 
 /** Sets a defined frame encryptor that will encrypt the entire frame
  * before it is sent across the network. This will encrypt the entire frame

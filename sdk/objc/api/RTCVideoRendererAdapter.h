@@ -13,9 +13,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- * Creates a rtc::VideoSinkInterface surface for an RTCVideoRenderer. The
+ * Creates a rtc::VideoSinkInterface surface for an RTC_OBJC_TYPE(RTCVideoRenderer). The
  * rtc::VideoSinkInterface is used by WebRTC rendering code - this
- * adapter adapts calls made to that interface to the RTCVideoRenderer supplied
+ * adapter adapts calls made to that interface to the RTC_OBJC_TYPE(RTCVideoRenderer) supplied
  * during construction.
  */
 @interface RTCVideoRendererAdapter : NSObject

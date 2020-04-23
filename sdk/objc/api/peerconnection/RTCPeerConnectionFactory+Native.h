@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * This class extension exposes methods that work directly with injectable C++ components.
  */
-@interface RTCPeerConnectionFactory ()
+@interface RTC_OBJC_TYPE(RTCPeerConnectionFactory) ()
 
 - (instancetype)initNative NS_DESIGNATED_INITIALIZER;
 
@@ -84,19 +84,19 @@ NS_ASSUME_NONNULL_BEGIN
                 mediaTransportFactory:
                     (std::unique_ptr<webrtc::MediaTransportFactory>)mediaTransportFactory;
 
-- (instancetype)initWithEncoderFactory:(nullable id<RTCVideoEncoderFactory>)encoderFactory
-                        decoderFactory:(nullable id<RTCVideoDecoderFactory>)decoderFactory
+- (instancetype)initWithEncoderFactory:(nullable id<RTC_OBJC_TYPE(RTCVideoEncoderFactory)>)encoderFactory
+                        decoderFactory:(nullable id<RTC_OBJC_TYPE(RTCVideoDecoderFactory)>)decoderFactory
                  mediaTransportFactory:
                      (std::unique_ptr<webrtc::MediaTransportFactory>)mediaTransportFactory;
 
-/** Initialize an RTCPeerConnection with a configuration, constraints, and
+/** Initialize an RTC_OBJC_TYPE(RTCPeerConnection) with a configuration, constraints, and
  *  dependencies.
  */
-- (RTCPeerConnection *)
-    peerConnectionWithDependencies:(RTCConfiguration *)configuration
-                       constraints:(RTCMediaConstraints *)constraints
+- (RTC_OBJC_TYPE(RTCPeerConnection) *)
+    peerConnectionWithDependencies:(RTC_OBJC_TYPE(RTCConfiguration) *)configuration
+                       constraints:(RTC_OBJC_TYPE(RTCMediaConstraints) *)constraints
                       dependencies:(std::unique_ptr<webrtc::PeerConnectionDependencies>)dependencies
-                          delegate:(nullable id<RTCPeerConnectionDelegate>)delegate;
+                          delegate:(nullable id<RTC_OBJC_TYPE(RTCPeerConnectionDelegate)>)delegate;
 
 @end
 

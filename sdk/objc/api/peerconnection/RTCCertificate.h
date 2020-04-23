@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 RTC_OBJC_EXPORT
-@interface RTCCertificate : NSObject <NSCopying>
+@interface RTC_OBJC_TYPE(RTCCertificate) : NSObject <NSCopying>
 
 /** Private key in PEM. */
 @property(nonatomic, readonly, copy) NSString *private_key;
@@ -24,7 +24,7 @@ RTC_OBJC_EXPORT
 @property(nonatomic, readonly, copy) NSString *certificate;
 
 /**
- * Initialize an RTCCertificate with PEM strings for private_key and certificate.
+ * Initialize an RTC_OBJC_TYPE(RTCCertificate) with PEM strings for private_key and certificate.
  */
 - (instancetype)initWithPrivateKey:(NSString *)private_key
                        certificate:(NSString *)certificate NS_DESIGNATED_INITIALIZER;
@@ -37,7 +37,7 @@ RTC_OBJC_EXPORT
  *  provided.
  *  - name: "ECDSA" or "RSASSA-PKCS1-v1_5"
  */
-+ (nullable RTCCertificate *)generateCertificateWithParams:(NSDictionary *)params;
++ (nullable RTC_OBJC_TYPE(RTCCertificate) *)generateCertificateWithParams:(NSDictionary *)params;
 
 @end
 

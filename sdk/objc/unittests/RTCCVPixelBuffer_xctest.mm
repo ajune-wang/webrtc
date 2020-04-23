@@ -31,7 +31,7 @@
   CVPixelBufferRef pixelBufferRef = NULL;
   CVPixelBufferCreate(
       NULL, 720, 1280, kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, NULL, &pixelBufferRef);
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef];
 
   XCTAssertFalse([buffer requiresCropping]);
 
@@ -42,7 +42,7 @@
   CVPixelBufferRef pixelBufferRef = NULL;
   CVPixelBufferCreate(
       NULL, 720, 1280, kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, NULL, &pixelBufferRef);
-  RTCCVPixelBuffer *croppedBuffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *croppedBuffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef
                                                                      adaptedWidth:720
                                                                     adaptedHeight:1280
                                                                         cropWidth:360
@@ -60,7 +60,7 @@
   CVPixelBufferCreate(
       NULL, 720, 1280, kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, NULL, &pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef];
   XCTAssertFalse([buffer requiresScalingToWidth:720 height:1280]);
 
   CVBufferRelease(pixelBufferRef);
@@ -71,7 +71,7 @@
   CVPixelBufferCreate(
       NULL, 720, 1280, kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, NULL, &pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef];
   XCTAssertTrue([buffer requiresScalingToWidth:360 height:640]);
 
   CVBufferRelease(pixelBufferRef);
@@ -82,7 +82,7 @@
   CVPixelBufferCreate(
       NULL, 720, 1280, kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, NULL, &pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef
                                                               adaptedWidth:720
                                                              adaptedHeight:1280
                                                                  cropWidth:360
@@ -99,7 +99,7 @@
   CVPixelBufferCreate(
       NULL, 720, 1280, kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, NULL, &pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef];
   XCTAssertEqual([buffer bufferSizeForCroppingAndScalingToWidth:360 height:640], 576000);
 
   CVBufferRelease(pixelBufferRef);
@@ -109,7 +109,7 @@
   CVPixelBufferRef pixelBufferRef = NULL;
   CVPixelBufferCreate(NULL, 720, 1280, kCVPixelFormatType_32BGRA, NULL, &pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef];
   XCTAssertEqual([buffer bufferSizeForCroppingAndScalingToWidth:360 height:640], 0);
 
   CVBufferRelease(pixelBufferRef);
@@ -198,7 +198,7 @@
   rtc::scoped_refptr<webrtc::I420Buffer> i420Buffer = CreateI420Gradient(720, 1280);
   CopyI420BufferToCVPixelBuffer(i420Buffer, pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef];
   XCTAssertEqual(buffer.width, 720);
   XCTAssertEqual(buffer.height, 1280);
 
@@ -218,14 +218,14 @@
 
   [buffer cropAndScaleTo:outputPixelBufferRef withTempBuffer:frameScaleBuffer.data()];
 
-  RTCCVPixelBuffer *scaledBuffer =
-      [[RTCCVPixelBuffer alloc] initWithPixelBuffer:outputPixelBufferRef];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *scaledBuffer =
+      [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:outputPixelBufferRef];
   XCTAssertEqual(scaledBuffer.width, outputSize.width);
   XCTAssertEqual(scaledBuffer.height, outputSize.height);
 
   if (outputSize.width > 0 && outputSize.height > 0) {
-    RTCI420Buffer *originalBufferI420 = [buffer toI420];
-    RTCI420Buffer *scaledBufferI420 = [scaledBuffer toI420];
+    RTC_OBJC_TYPE(RTCI420Buffer) *originalBufferI420 = [buffer toI420];
+    RTC_OBJC_TYPE(RTCI420Buffer) *scaledBufferI420 = [scaledBuffer toI420];
     double psnr =
         I420PSNR(*[originalBufferI420 nativeI420Buffer], *[scaledBufferI420 nativeI420Buffer]);
     XCTAssertEqual(psnr, webrtc::kPerfectPSNR);
@@ -244,8 +244,8 @@
 
   DrawGradientInRGBPixelBuffer(pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer =
-      [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer =
+      [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef
                                        adaptedWidth:CVPixelBufferGetWidth(pixelBufferRef)
                                       adaptedHeight:CVPixelBufferGetHeight(pixelBufferRef)
                                           cropWidth:CVPixelBufferGetWidth(pixelBufferRef) - cropX
@@ -260,13 +260,13 @@
   CVPixelBufferCreate(NULL, 360, 640, pixelFormat, NULL, &outputPixelBufferRef);
   [buffer cropAndScaleTo:outputPixelBufferRef withTempBuffer:NULL];
 
-  RTCCVPixelBuffer *scaledBuffer =
-      [[RTCCVPixelBuffer alloc] initWithPixelBuffer:outputPixelBufferRef];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *scaledBuffer =
+      [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:outputPixelBufferRef];
   XCTAssertEqual(scaledBuffer.width, 360);
   XCTAssertEqual(scaledBuffer.height, 640);
 
-  RTCI420Buffer *originalBufferI420 = [buffer toI420];
-  RTCI420Buffer *scaledBufferI420 = [scaledBuffer toI420];
+  RTC_OBJC_TYPE(RTCI420Buffer) *originalBufferI420 = [buffer toI420];
+  RTC_OBJC_TYPE(RTCI420Buffer) *scaledBufferI420 = [scaledBuffer toI420];
   double psnr =
       I420PSNR(*[originalBufferI420 nativeI420Buffer], *[scaledBufferI420 nativeI420Buffer]);
   XCTAssertEqual(psnr, webrtc::kPerfectPSNR);
@@ -282,8 +282,8 @@
 
   CopyI420BufferToCVPixelBuffer(i420Buffer, pixelBufferRef);
 
-  RTCCVPixelBuffer *buffer = [[RTCCVPixelBuffer alloc] initWithPixelBuffer:pixelBufferRef];
-  RTCI420Buffer *fromCVPixelBuffer = [buffer toI420];
+  RTC_OBJC_TYPE(RTCCVPixelBuffer) *buffer = [[RTC_OBJC_TYPE(RTCCVPixelBuffer) alloc] initWithPixelBuffer:pixelBufferRef];
+  RTC_OBJC_TYPE(RTCI420Buffer) *fromCVPixelBuffer = [buffer toI420];
 
   double psnr = I420PSNR(*i420Buffer, *[fromCVPixelBuffer nativeI420Buffer]);
   double target = webrtc::kPerfectPSNR;

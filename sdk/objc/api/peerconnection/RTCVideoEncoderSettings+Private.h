@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /* Interfaces for converting to/from internal C++ formats. */
-@interface RTCVideoEncoderSettings (Private)
+@interface RTC_OBJC_TYPE(RTCVideoEncoderSettings) (Private)
 
 - (instancetype)initWithNativeVideoCodec:(const webrtc::VideoCodec *__nullable)videoCodec;
 - (webrtc::VideoCodec)nativeVideoCodec;

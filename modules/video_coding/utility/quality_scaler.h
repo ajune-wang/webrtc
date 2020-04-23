@@ -17,15 +17,21 @@
 #include <memory>
 
 #include "absl/types/optional.h"
+#include "api/scoped_refptr.h"
 #include "api/video/video_adaptation_reason.h"
 #include "api/video_codecs/video_encoder.h"
 #include "rtc_base/experiments/quality_scaling_experiment.h"
 #include "rtc_base/numerics/moving_average.h"
+#include "rtc_base/ref_count.h"
+#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/task_utils/repeating_task.h"
+#include "rtc_base/weak_ptr.h"
 
 namespace webrtc {
+
+class QualityScalerQpUsageHandlerCallback;
+class QualityScalerQpUsageHandlerInterface;
 
 // An interface for signaling requests to limit or increase the resolution or
 // framerate of the captured video stream.
@@ -48,14 +54,15 @@ class AdaptationObserverInterface {
 };
 
 // QualityScaler runs asynchronously and monitors QP values of encoded frames.
-// It holds a reference to an AdaptationObserverInterface implementation to
-// signal an intent to scale up or down.
+// It holds a reference to a QualityScalerQpUsageHandlerInterface implementation
+// to signal an overuse or underuse of QP (which indicate a desire to scale the
+// video stream up or down).
 class QualityScaler {
  public:
-  // Construct a QualityScaler with given |thresholds| and |observer|.
+  // Construct a QualityScaler with given |thresholds| and |handler|.
   // This starts the quality scaler periodically checking what the average QP
   // has been recently.
-  QualityScaler(AdaptationObserverInterface* observer,
+  QualityScaler(QualityScalerQpUsageHandlerInterface* handler,
                 VideoEncoder::QpThresholds thresholds);
   virtual ~QualityScaler();
   // Should be called each time a frame is dropped at encoding.
@@ -69,21 +76,35 @@ class QualityScaler {
 
   // The following members declared protected for testing purposes.
  protected:
-  QualityScaler(AdaptationObserverInterface* observer,
+  QualityScaler(QualityScalerQpUsageHandlerInterface* handler,
                 VideoEncoder::QpThresholds thresholds,
                 int64_t sampling_period_ms);
 
  private:
   class QpSmoother;
+  class CheckQpTask;
+  friend class QualityScalerQpUsageHandlerCallback;
 
-  void CheckQp();
+  enum class CheckQpResult {
+    kInsufficientSamples,
+    kGoodQp,
+    kHighQp,
+    kLowQp,
+  };
+
+  void StartNextCheckQpTask();
+
+  CheckQpResult CheckQp();
   void ClearSamples();
-  void ReportQpLow();
-  void ReportQpHigh();
+  void ReportQpLow(
+      rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback);
+  void ReportQpHigh(
+      rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback);
   int64_t GetSamplingPeriodMs() const;
 
-  RepeatingTaskHandle check_qp_task_ RTC_GUARDED_BY(&task_checker_);
-  AdaptationObserverInterface* const observer_ RTC_GUARDED_BY(&task_checker_);
+  std::unique_ptr<CheckQpTask> pending_qp_task_ RTC_GUARDED_BY(&task_checker_);
+  QualityScalerQpUsageHandlerInterface* const handler_
+      RTC_GUARDED_BY(&task_checker_);
   SequenceChecker task_checker_;
 
   VideoEncoder::QpThresholds thresholds_ RTC_GUARDED_BY(&task_checker_);
@@ -106,7 +127,36 @@ class QualityScaler {
   const absl::optional<double> scale_factor_;
   bool adapt_called_ RTC_GUARDED_BY(&task_checker_);
   bool adapt_failed_ RTC_GUARDED_BY(&task_checker_);
+
+  rtc::WeakPtrFactory<QualityScaler> weak_ptr_factory_
+      RTC_GUARDED_BY(&task_checker_);
 };
+
+class QualityScalerQpUsageHandlerCallback
+    : public rtc::RefCountedObject<rtc::RefCountInterface> {
+ public:
+  QualityScalerQpUsageHandlerCallback(
+      rtc::WeakPtr<QualityScaler::CheckQpTask> check_qp_task);
+  ~QualityScalerQpUsageHandlerCallback();
+
+  void OnQpUsageHandled();
+
+ private:
+  rtc::WeakPtr<QualityScaler::CheckQpTask> const check_qp_task_;
+  bool was_handled_;
+};
+
+class QualityScalerQpUsageHandlerInterface {
+ public:
+  virtual ~QualityScalerQpUsageHandlerInterface();
+
+  /* STAHP IT BOOL */
+  virtual bool OnReportQpUsageHigh(
+      rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) = 0;
+  virtual void OnReportQpUsageLow(
+      rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) = 0;
+};
+
 }  // namespace webrtc
 
 #endif  // MODULES_VIDEO_CODING_UTILITY_QUALITY_SCALER_H_

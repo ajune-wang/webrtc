@@ -62,15 +62,18 @@ void QualityScalerResource::OnFrameDropped(
   }
 }
 
-void QualityScalerResource::AdaptUp(VideoAdaptationReason reason) {
-  RTC_DCHECK_EQ(reason, VideoAdaptationReason::kQuality);
-  OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+bool QualityScalerResource::OnReportQpUsageHigh(
+    rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) {
+  bool ret = OnResourceUsageStateMeasured(ResourceUsageState::kOveruse) !=
+             ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
+  callback->OnQpUsageHandled();
+  return ret;
 }
 
-bool QualityScalerResource::AdaptDown(VideoAdaptationReason reason) {
-  RTC_DCHECK_EQ(reason, VideoAdaptationReason::kQuality);
-  return OnResourceUsageStateMeasured(ResourceUsageState::kOveruse) !=
-         ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
+void QualityScalerResource::OnReportQpUsageLow(
+    rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) {
+  OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+  callback->OnQpUsageHandled();
 }
 
 }  // namespace webrtc

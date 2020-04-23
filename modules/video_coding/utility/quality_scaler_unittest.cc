@@ -29,18 +29,26 @@ static const int kMinFramesNeededToScale = 60;  // From quality_scaler.cc.
 static const size_t kDefaultTimeoutMs = 150;
 }  // namespace
 
-class MockAdaptationObserver : public AdaptationObserverInterface {
+class MockAdaptationObserver : public QualityScalerQpUsageHandlerInterface {
  public:
   virtual ~MockAdaptationObserver() {}
 
-  void AdaptUp(VideoAdaptationReason r) override {
-    adapt_up_events_++;
-    event.Set();
-  }
-  bool AdaptDown(VideoAdaptationReason r) override {
+  // QualityScalerQpUsageHandlerInterface implementation.
+  bool OnReportQpUsageHigh(
+      rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback)
+      override {
     adapt_down_events_++;
     event.Set();
+    callback->OnQpUsageHandled();
     return true;
+  }
+
+  void OnReportQpUsageLow(
+      rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback)
+      override {
+    adapt_up_events_++;
+    event.Set();
+    callback->OnQpUsageHandled();
   }
 
   rtc::Event event;
@@ -51,9 +59,9 @@ class MockAdaptationObserver : public AdaptationObserverInterface {
 // Pass a lower sampling period to speed up the tests.
 class QualityScalerUnderTest : public QualityScaler {
  public:
-  explicit QualityScalerUnderTest(AdaptationObserverInterface* observer,
+  explicit QualityScalerUnderTest(QualityScalerQpUsageHandlerInterface* handler,
                                   VideoEncoder::QpThresholds thresholds)
-      : QualityScaler(observer, thresholds, 5) {}
+      : QualityScaler(handler, thresholds, 5) {}
 };
 
 class QualityScalerTest : public ::testing::Test,

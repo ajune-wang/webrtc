@@ -87,6 +87,7 @@ class WebRtcAudioRecord {
 
   private @Nullable AudioRecord audioRecord;
   private @Nullable AudioRecordThread audioThread;
+  private @Nullable AudioDeviceInfo preferredDevice;
 
   private @Nullable ScheduledExecutorService executor;
   private @Nullable ScheduledFuture<String> future;
@@ -296,6 +297,9 @@ class WebRtcAudioRecord {
         // Throws IllegalArgumentException.
         audioRecord = createAudioRecordOnMOrHigher(
             audioSource, sampleRate, channelConfig, audioFormat, bufferSizeInBytes);
+        if (preferredDevice != null) {
+          setPreferredDevice(preferredDevice);
+        }
       } else {
         // Use the old AudioRecord constructor for API levels below 23.
         // Throws UnsupportedOperationException.
@@ -327,6 +331,24 @@ class WebRtcAudioRecord {
           TAG, "Potential microphone conflict. Active sessions: " + numActiveRecordingSessions);
     }
     return framesPerBuffer;
+  }
+
+  /**
+   * Prefer a specific {@link AudioDeviceInfo} device for recording. Typically this should only be
+   * used if a client gives an explicit option for choosing a physical device to record from.
+   * Otherwise the best-matching device for other parameters will be used. Calling after recording
+   * is started may cause a temporary interruption if the audio routing changes.
+   */
+  @TargetApi(Build.VERSION_CODES.M)
+  public void setPreferredDevice(@Nullable AudioDeviceInfo preferredDevice) {
+    Logging.d(
+        TAG, "setPreferredDevice " + (preferredDevice != null ? preferredDevice.getId() : null));
+    this.preferredDevice = preferredDevice;
+    if (audioRecord != null) {
+      if (!audioRecord.setPreferredDevice(preferredDevice)) {
+        Logging.e(TAG, "setPreferredDevice failed");
+      }
+    }
   }
 
   @CalledByNative

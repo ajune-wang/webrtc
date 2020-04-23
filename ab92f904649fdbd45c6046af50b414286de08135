@@ -283,6 +283,30 @@
       "revId": "ab92f904649fdbd45c6046af50b414286de08135",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede500af_981dbd41",
+        "filename": "sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 11509
+      },
+      "writtenOn": "2020-04-23T13:01:28Z",
+      "side": 1,
+      "message": "Thanks for the comments. Spoke offline- the plan now is to document very clearly what happens if this is called after startRecording(). See latest patchst.",
+      "parentUuid": "edcc801d_00cd0a25",
+      "range": {
+        "startLine": 341,
+        "startChar": 18,
+        "endLine": 341,
+        "endChar": 36
+      },
+      "revId": "ab92f904649fdbd45c6046af50b414286de08135",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -51,6 +51,75 @@
       "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3134c86_dd70b982",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-24T13:33:31Z",
+      "side": 1,
+      "message": "Instead of the comment, can\u0027t you do \n  return DoCompleteTask();",
+      "range": {
+        "startLine": 111,
+        "startChar": 14,
+        "endLine": 111,
+        "endChar": 56
+      },
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df8599f5_63f3906d",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-24T13:33:31Z",
+      "side": 1,
+      "message": "Can this be done without the friend classes? Perhaps using an interface instead?",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 51
+      },
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee3f96f7_4f596018",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-24T13:33:31Z",
+      "side": 1,
+      "message": "Is there some way we can detect that things are hanging?",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

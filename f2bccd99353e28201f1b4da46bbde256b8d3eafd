@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "40db2a10_17025320",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-04-24T07:27:12Z",
+      "side": 1,
+      "message": "If this is the one that\u0027s intended for use maybe name this just RTC_SYMBOL_CONCAT or something and the other one RTC_SYMBOL_CONCAT_HELPER.",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "f2bccd99353e28201f1b4da46bbde256b8d3eafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "42cc06ae_d34ef7a7",
         "filename": "sdk/objc/base/RTCMacros.h",
         "patchSetId": 3
@@ -18,6 +41,29 @@
         "startChar": 0,
         "endLine": 29,
         "endChar": 28
+      },
+      "revId": "f2bccd99353e28201f1b4da46bbde256b8d3eafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5300e752_d911509d",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-04-24T07:27:12Z",
+      "side": 1,
+      "message": "would it be possible to add RTC_OBJC_TYPE to RTC_OBJC_EXPORT? Then we don\u0027t have to wrap everything with a new macro.",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 23
       },
       "revId": "f2bccd99353e28201f1b4da46bbde256b8d3eafd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

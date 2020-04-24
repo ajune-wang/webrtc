@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d9af878_f71f0475",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-24T11:09:14Z",
+      "side": 1,
+      "message": "Prior to this CL this was called \"adapt_called\"",
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34a779cf_ecf27b8a",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-24T11:09:14Z",
+      "side": 1,
+      "message": "Prior to this CL this was called \"adapt_failed\"",
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -17,13 +17,14 @@
 #include "absl/types/optional.h"
 #include "api/task_queue/task_queue_base.h"
 #include "api/video/video_stream_encoder_observer.h"
-#include "modules/video_coding/utility/quality_scaler.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/numerics/exp_filter.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
+
+#include "api/video/video_adaptation_reason.h"  // no?
 
 namespace webrtc {
 
@@ -47,6 +48,18 @@ struct CpuOveruseOptions {
   int filter_time_ms;  // Time constant for averaging
 };
 
+// TODO(asdasds): Foo bar!
+class OveruseFrameDetectorObserverInterface {
+ public:
+  // Called to signal that we can handle larger or more frequent frames.
+  virtual void AdaptUp() = 0;
+  // Called to signal that the source should reduce the resolution or framerate.
+  virtual void AdaptDown() = 0;
+
+ protected:
+  virtual ~OveruseFrameDetectorObserverInterface() {}
+};
+
 // Use to detect system overuse based on the send-side processing time of
 // incoming frames. All methods must be called on a single task queue but it can
 // be created and destroyed on an arbitrary thread.
@@ -58,9 +71,10 @@ class OveruseFrameDetector {
   virtual ~OveruseFrameDetector();
 
   // Start to periodically check for overuse.
-  void StartCheckForOveruse(TaskQueueBase* task_queue_base,
-                            const CpuOveruseOptions& options,
-                            AdaptationObserverInterface* overuse_observer);
+  void StartCheckForOveruse(
+      TaskQueueBase* task_queue_base,
+      const CpuOveruseOptions& options,
+      OveruseFrameDetectorObserverInterface* overuse_observer);
 
   // StopCheckForOveruse must be called before destruction if
   // StartCheckForOveruse has been called.
@@ -105,7 +119,7 @@ class OveruseFrameDetector {
 
  protected:
   // Protected for test purposes.
-  void CheckForOveruse(AdaptationObserverInterface* overuse_observer);
+  void CheckForOveruse(OveruseFrameDetectorObserverInterface* overuse_observer);
   void SetOptions(const CpuOveruseOptions& options);
 
   CpuOveruseOptions options_;

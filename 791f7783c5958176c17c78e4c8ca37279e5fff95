@@ -33,6 +33,24 @@
       "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ca117f3_ce37c339",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-24T11:10:09Z",
+      "side": 1,
+      "message": "clear_qp_samples \u003d !adapt_failed",
+      "parentUuid": "34a779cf_ecf27b8a",
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

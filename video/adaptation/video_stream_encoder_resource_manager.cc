@@ -28,6 +28,7 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -139,7 +140,9 @@ class VideoStreamEncoderResourceManager::InitialFrameDropper {
 
 VideoStreamEncoderResourceManager::PreventAdaptUpDueToActiveCounts::
     PreventAdaptUpDueToActiveCounts(VideoStreamEncoderResourceManager* manager)
-    : manager_(manager) {}
+    : manager_(manager),
+      ignore_quality_counts_(!webrtc::field_trial::IsDisabled(
+          kQualityScalerResourcePreventAdaptation)) {}
 
 bool VideoStreamEncoderResourceManager::PreventAdaptUpDueToActiveCounts::
     IsAdaptationUpAllowed(const VideoStreamInputState& input_state,
@@ -148,6 +151,13 @@ bool VideoStreamEncoderResourceManager::PreventAdaptUpDueToActiveCounts::
                           const Resource& reason_resource) const {
   VideoAdaptationReason reason =
       manager_->GetReasonFromResource(reason_resource);
+
+  if (ignore_quality_counts_ && reason == VideoAdaptationReason::kQuality) {
+    // Remove me!
+    RTC_LOG(INFO) << "Skipping the check for quality counts.";
+    return false;
+  }
+
   // We can't adapt up if we're already at the highest setting.
   // Note that this only includes counts relevant to the current degradation
   // preference. e.g. we previously adapted resolution, now prefer adpating fps,

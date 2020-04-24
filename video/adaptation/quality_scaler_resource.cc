@@ -12,9 +12,16 @@
 
 #include <utility>
 
+#include "call/adaptation/resource_adaptation_processor.h"
+
 namespace webrtc {
 
-QualityScalerResource::QualityScalerResource() : quality_scaler_(nullptr) {}
+QualityScalerResource::QualityScalerResource(
+    ResourceAdaptationProcessor* adaptation_processor)
+    : adaptation_processor_(adaptation_processor),
+      quality_scaler_(nullptr),
+      qp_usage_report_in_progress_(false),
+      qp_usage_callback_should_clear_qp_samples_(true) {}
 
 bool QualityScalerResource::is_started() const {
   return quality_scaler_.get();
@@ -64,16 +71,48 @@ void QualityScalerResource::OnFrameDropped(
 
 void QualityScalerResource::OnReportQpUsageHigh(
     rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) {
-  bool clear_qp_samples =
-      OnResourceUsageStateMeasured(ResourceUsageState::kOveruse) !=
-      ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
-  callback->OnQpUsageHandled(clear_qp_samples);
+  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+  callback->OnQpUsageHandled(true);
 }
 
 void QualityScalerResource::OnReportQpUsageLow(
     rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) {
+  RTC_DCHECK(!qp_usage_report_in_progress_);
+  qp_usage_report_in_progress_ = true;
+  qp_usage_callback_should_clear_qp_samples_ = true;
+  // If this triggers adaptation, OnAdaptationApplied() is called, which may
+  // modify |qp_usage_callback_should_clear_qp_samples_|.
   OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
-  callback->OnQpUsageHandled(true);
+  callback->OnQpUsageHandled(qp_usage_callback_should_clear_qp_samples_);
+  qp_usage_report_in_progress_ = false;
+}
+
+void QualityScalerResource::OnAdaptationApplied(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource& reason_resource) {
+  // We only care about adaptations caused by the QualityScaler.
+  if (!qp_usage_report_in_progress_)
+    return;
+  // TODO(hbos): Could we get rid of some of this complexity if the
+  // QualityScaler simply implemented clearing QP samples at
+  // OnAdaptationApplied(), regardless if it was the QualityScaler or a
+  // different resource that had triggered the adaptation? It doesn't seem like
+  // the act of clearing QP necessarily needs to be tied to a CheckQp() event.
+  if (adaptation_processor_->effective_degradation_preference() ==
+          DegradationPreference::BALANCED &&
+      DidDecreaseFrameRate(restrictions_before, restrictions_after)) {
+    absl::optional<int> min_diff = BalancedDegradationSettings().MinFpsDiff(
+        input_state.frame_size_pixels().value());
+    if (min_diff && input_state.frames_per_second().value() > 0) {
+      int fps_diff = input_state.frames_per_second().value() -
+                     restrictions_after.max_frame_rate().value();
+      if (fps_diff < min_diff.value()) {
+        qp_usage_callback_should_clear_qp_samples_ = false;
+      }
+    }
+  }
 }
 
 }  // namespace webrtc

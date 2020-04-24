@@ -12,11 +12,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/** Default RTCVideoViewShading that will be used in RTCNSGLVideoView and
- *  RTCEAGLVideoView if no external shader is specified. This shader will render
+/** Default RTC_OBJC_TYPE(RTCVideoViewShading) that will be used in RTC_OBJC_TYPE(RTCNSGLVideoView)
+ * and RTC_OBJC_TYPE(RTCEAGLVideoView) if no external shader is specified. This shader will render
  *  the video in a rectangle without any color or geometric transformations.
  */
-@interface RTCDefaultShader : NSObject<RTCVideoViewShading>
+@interface RTCDefaultShader : NSObject <RTC_OBJC_TYPE (RTCVideoViewShading)>
 
 @end
 

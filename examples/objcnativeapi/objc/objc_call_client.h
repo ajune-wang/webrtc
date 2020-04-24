@@ -19,8 +19,9 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/thread_checker.h"
 
-@class RTCVideoCapturer;
-@protocol RTCVideoRenderer;
+@class RTC_OBJC_TYPE(RTCVideoCapturer);
+@protocol RTC_OBJC_TYPE
+(RTCVideoRenderer);
 
 namespace webrtc_examples {
 
@@ -28,7 +29,8 @@ class ObjCCallClient {
  public:
   ObjCCallClient();
 
-  void Call(RTCVideoCapturer* capturer, id<RTCVideoRenderer> remote_renderer);
+  void Call(RTC_OBJC_TYPE(RTCVideoCapturer) * capturer,
+            id<RTC_OBJC_TYPE(RTCVideoRenderer)> remote_renderer);
   void Hangup();
 
  private:

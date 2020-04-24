@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55c51017_b21670b1",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-24T12:14:05Z",
+      "side": 1,
+      "message": "I don\u0027t think this should only belong to the capture state. Longer-term, there could potentially be render-side submodules that this could apply to.\n\nTo me, this seem more similar to the config_ member.",
+      "range": {
+        "startLine": 431,
+        "startChar": 4,
+        "endLine": 431,
+        "endChar": 63
+      },
+      "revId": "cbf09ee7b812eac5db43fd49b31dd701f068a32b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500a3843_a3f92405",
+        "filename": "modules/audio_processing/optionally_built_submodule_creation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-24T12:14:05Z",
+      "side": 1,
+      "message": "I\u0027m not fully clear on what I think would be best but what about naming these\noptionally_build_submodule_creators?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 71
+      },
+      "revId": "cbf09ee7b812eac5db43fd49b31dd701f068a32b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94713145_043304e1",
+        "filename": "modules/audio_processing/optionally_built_submodule_creation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-24T12:14:05Z",
+      "side": 1,
+      "message": "Maybe extend the comment to describe the functionality further?",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 60
+      },
+      "revId": "cbf09ee7b812eac5db43fd49b31dd701f068a32b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

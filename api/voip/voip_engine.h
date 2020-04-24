@@ -1,12 +1,12 @@
-//
-//  Copyright (c) 2020 The WebRTC project authors. All Rights Reserved.
-//
-//  Use of this source code is governed by a BSD-style license
-//  that can be found in the LICENSE file in the root of the source
-//  tree. An additional intellectual property rights grant can be found
-//  in the file PATENTS.  All contributing project authors may
-//  be found in the AUTHORS file in the root of the source tree.
-//
+/*
+ *  Copyright (c) 2020 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
 
 #ifndef API_VOIP_VOIP_ENGINE_H_
 #define API_VOIP_VOIP_ENGINE_H_
@@ -33,27 +33,30 @@ class VoipNetwork;
 //   auto voip_codec = voip_engine->Codec();
 //   auto voip_network = voip_engine->Network();
 //
-//   VoipChannel::Config config = { &app_transport_, 0xdeadc0de };
-//   int channel = voip_base.CreateChannel(config);
+//   absl::optional<ChannelId> channel =
+//       voip_base.CreateChannel(&app_transport_, 0xdeadc0de);
+//   if (!channel) return;
+//
+//   ChannelId channel_id = channel.value();
 //
 //   // After SDP offer/answer, payload type and codec usage have been
 //   // decided through negotiation.
-//   voip_codec.SetSendCodec(channel, ...);
-//   voip_codec.SetReceiveCodecs(channel, ...);
+//   voip_codec.SetSendCodec(channel_id, ...);
+//   voip_codec.SetReceiveCodecs(channel_id, ...);
 //
 //   // Start Send/Playout on voip channel.
-//   voip_base.StartSend(channel);
-//   voip_base.StartPlayout(channel);
+//   voip_base.StartSend(channel_id);
+//   voip_base.StartPlayout(channel_id);
 //
 //   // Inject received rtp/rtcp thru voip network interface.
-//   voip_network.ReceivedRTPPacket(channel, rtp_data, rtp_size);
-//   voip_network.ReceivedRTCPPacket(channel, rtcp_data, rtcp_size);
+//   voip_network.ReceivedRTPPacket(channel_id, ...);
+//   voip_network.ReceivedRTCPPacket(channel_id, ...);
 //
 //   // Stop and release voip channel.
-//   voip_base.StopSend(channel);
-//   voip_base.StopPlayout(channel);
+//   voip_base.StopSend(channel_id);
+//   voip_base.StopPlayout(channel_id);
 //
-//   voip_base.ReleaseChannel(channel);
+//   voip_base.ReleaseChannel(channel_id);
 //
 class VoipEngine {
  public:

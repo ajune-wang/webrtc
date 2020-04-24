@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4afcd4cb_f6504544",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-24T14:06:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40db2a10_17025320",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "f2bccd99353e28201f1b4da46bbde256b8d3eafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42cc06ae_d34ef7a7",
         "filename": "sdk/objc/base/RTCMacros.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "27f29d05_c2e92fa6",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-24T14:06:33Z",
+      "side": 1,
+      "message": "Yes, agree with that. \n\nI am leaning towards not giving the option to define the macro from the command line but that is easy to add if someone needs it.",
+      "parentUuid": "42cc06ae_d34ef7a7",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "f2bccd99353e28201f1b4da46bbde256b8d3eafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5300e752_d911509d",
         "filename": "sdk/objc/base/RTCMacros.h",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "f2bccd99353e28201f1b4da46bbde256b8d3eafd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71fd8e4_3012928c",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-24T14:06:33Z",
+      "side": 1,
+      "message": "Unfortunately no because we also need to use RTC_OBJC_TYPE when we refer to an exported symbol (basically also when we use it inside the library).",
+      "parentUuid": "5300e752_d911509d",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "f2bccd99353e28201f1b4da46bbde256b8d3eafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

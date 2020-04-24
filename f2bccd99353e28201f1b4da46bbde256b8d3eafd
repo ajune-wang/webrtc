@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42cc06ae_d34ef7a7",
+        "filename": "sdk/objc/base/RTCMacros.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2020-04-24T03:51:36Z",
+      "side": 1,
+      "message": "Came to ask about this (I see you had a comment on an earlier patchset). I don\u0027t think it\u0027s worth *forcing* downstream projects to edit the file, for many projects it probably is OK to just use compiler flags or forced includes in the build system.\n\n(Assuming we make it work internally, I don\u0027t super care either way)",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "f2bccd99353e28201f1b4da46bbde256b8d3eafd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

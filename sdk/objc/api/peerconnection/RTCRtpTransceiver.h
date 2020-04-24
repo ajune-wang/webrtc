@@ -25,46 +25,47 @@ typedef NS_ENUM(NSInteger, RTCRtpTransceiverDirection) {
   RTCRtpTransceiverDirectionStopped
 };
 
-/** Structure for initializing an RTCRtpTransceiver in a call to
- *  RTCPeerConnection.addTransceiver.
+/** Structure for initializing an RTC_OBJC_TYPE(RTCRtpTransceiver) in a call to
+ *  RTC_OBJC_TYPE(RTCPeerConnection).addTransceiver.
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiverinit
  */
 RTC_OBJC_EXPORT
-@interface RTCRtpTransceiverInit : NSObject
+@interface RTC_OBJC_TYPE (RTCRtpTransceiverInit) : NSObject
 
-/** Direction of the RTCRtpTransceiver. See RTCRtpTransceiver.direction. */
+/** Direction of the RTC_OBJC_TYPE(RTCRtpTransceiver). See RTC_OBJC_TYPE(RTCRtpTransceiver).direction. */
 @property(nonatomic) RTCRtpTransceiverDirection direction;
 
-/** The added RTCRtpTransceiver will be added to these streams. */
+/** The added RTC_OBJC_TYPE(RTCRtpTransceiver) will be added to these streams. */
 @property(nonatomic) NSArray<NSString *> *streamIds;
 
 /** TODO(bugs.webrtc.org/7600): Not implemented. */
-@property(nonatomic) NSArray<RTCRtpEncodingParameters *> *sendEncodings;
+@property(nonatomic) NSArray<RTC_OBJC_TYPE(RTCRtpEncodingParameters) *> *sendEncodings;
 
 @end
 
-@class RTCRtpTransceiver;
+@class RTC_OBJC_TYPE(RTCRtpTransceiver);
 
-/** The RTCRtpTransceiver maps to the RTCRtpTransceiver defined by the WebRTC
- *  specification. A transceiver represents a combination of an RTCRtpSender
- *  and an RTCRtpReceiver that share a common mid. As defined in JSEP, an
- *  RTCRtpTransceiver is said to be associated with a media description if its
+/** The RTC_OBJC_TYPE(RTCRtpTransceiver) maps to the RTC_OBJC_TYPE(RTCRtpTransceiver) defined by the
+ * WebRTC specification. A transceiver represents a combination of an RTC_OBJC_TYPE(RTCRtpSender)
+ *  and an RTC_OBJC_TYPE(RTCRtpReceiver) that share a common mid. As defined in JSEP, an
+ *  RTC_OBJC_TYPE(RTCRtpTransceiver) is said to be associated with a media description if its
  *  mid property is non-nil; otherwise, it is said to be disassociated.
  *  JSEP: https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-24
  *
  *  Note that RTCRtpTransceivers are only supported when using
- *  RTCPeerConnection with Unified Plan SDP.
+ *  RTC_OBJC_TYPE(RTCPeerConnection) with Unified Plan SDP.
  *
- *  WebRTC specification for RTCRtpTransceiver, the JavaScript analog:
+ *  WebRTC specification for RTC_OBJC_TYPE(RTCRtpTransceiver), the JavaScript analog:
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver
  */
 RTC_OBJC_EXPORT
-@protocol RTCRtpTransceiver <NSObject>
+@protocol RTC_OBJC_TYPE
+(RTCRtpTransceiver)<NSObject>
 
-/** Media type of the transceiver. The sender and receiver will also have this
- *  type.
- */
-@property(nonatomic, readonly) RTCRtpMediaType mediaType;
+    /** Media type of the transceiver. The sender and receiver will also have this
+     *  type.
+     */
+    @property(nonatomic, readonly) RTCRtpMediaType mediaType;
 
 /** The mid attribute is the mid negotiated and present in the local and
  *  remote descriptions. Before negotiation is complete, the mid value may be
@@ -73,24 +74,24 @@ RTC_OBJC_EXPORT
  */
 @property(nonatomic, readonly) NSString *mid;
 
-/** The sender attribute exposes the RTCRtpSender corresponding to the RTP
+/** The sender attribute exposes the RTC_OBJC_TYPE(RTCRtpSender) corresponding to the RTP
  *  media that may be sent with the transceiver's mid. The sender is always
  *  present, regardless of the direction of media.
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-sender
  */
-@property(nonatomic, readonly) RTCRtpSender *sender;
+@property(nonatomic, readonly) RTC_OBJC_TYPE(RTCRtpSender) * sender;
 
-/** The receiver attribute exposes the RTCRtpReceiver corresponding to the RTP
+/** The receiver attribute exposes the RTC_OBJC_TYPE(RTCRtpReceiver) corresponding to the RTP
  *  media that may be received with the transceiver's mid. The receiver is
  *  always present, regardless of the direction of media.
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-receiver
  */
-@property(nonatomic, readonly) RTCRtpReceiver *receiver;
+@property(nonatomic, readonly) RTC_OBJC_TYPE(RTCRtpReceiver) * receiver;
 
 /** The isStopped attribute indicates that the sender of this transceiver will
  *  no longer send, and that the receiver will no longer receive. It is true if
  *  either stop has been called or if setting the local or remote description
- *  has caused the RTCRtpTransceiver to be stopped.
+ *  has caused the RTC_OBJC_TYPE(RTCRtpTransceiver) to be stopped.
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-stopped
  */
 @property(nonatomic, readonly) BOOL isStopped;
@@ -112,7 +113,7 @@ RTC_OBJC_EXPORT
  */
 - (BOOL)currentDirection:(RTCRtpTransceiverDirection *)currentDirectionOut;
 
-/** The stop method irreversibly stops the RTCRtpTransceiver. The sender of
+/** The stop method irreversibly stops the RTC_OBJC_TYPE(RTCRtpTransceiver). The sender of
  *  this transceiver will no longer send, the receiver will no longer receive.
  *  https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-stop
  */
@@ -121,7 +122,7 @@ RTC_OBJC_EXPORT
 @end
 
 RTC_OBJC_EXPORT
-@interface RTCRtpTransceiver : NSObject <RTCRtpTransceiver>
+@interface RTC_OBJC_TYPE (RTCRtpTransceiver) : NSObject <RTC_OBJC_TYPE(RTCRtpTransceiver)>
 
 - (instancetype)init NS_UNAVAILABLE;
 

@@ -34,10 +34,8 @@ namespace webrtc {
 // encoded payload will be packetized by the RTP stack, resulting in ready to
 // send RTP packet to remote endpoint.
 //
-// This class enforces single worker thread access by caller via SequenceChecker
-// in debug mode as expected thread usage pattern. In order to minimize the hold
-// on audio input thread from OS, TaskQueue is employed to encode and send RTP
-// asynchrounously.
+// In order to minimize the retention time on audio input thread, TaskQueue is
+// used to encoder and send RTP asynchrounously.
 //
 // Note that this class is originally based on ChannelSend in
 // audio/channel_send.cc with non-audio related logic trimmed as aimed for
@@ -96,12 +94,10 @@ class AudioEgress : public AudioSender, public AudioPacketizationCallback {
                    size_t payload_size) override;
 
  private:
-  // Ensure that single worker thread access.
-  SequenceChecker worker_thread_checker_;
+  rtc::CriticalSection lock_;
 
   // Current encoder format selected by caller.
-  absl::optional<SdpAudioFormat> encoder_format_
-      RTC_GUARDED_BY(worker_thread_checker_);
+  absl::optional<SdpAudioFormat> encoder_format_ RTC_GUARDED_BY(lock_);
 
   // Synchronization is handled internally by RtpRtcp.
   RtpRtcp* const rtp_rtcp_;

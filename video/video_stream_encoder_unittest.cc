@@ -49,7 +49,6 @@
 
 namespace webrtc {
 
-using ScaleReason = VideoAdaptationReason;
 using ::testing::_;
 using ::testing::AllOf;
 using ::testing::Field;
@@ -168,15 +167,10 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
                              VideoAdaptationReason::kCpu);
   }
 
+  // Triggers resource usage measurements
   void PostTaskAndWait(bool down, VideoAdaptationReason reason) {
-    PostTaskAndWait(down, reason, /*expected_results=*/true);
-  }
-
-  void PostTaskAndWait(bool down,
-                       VideoAdaptationReason reason,
-                       bool expected_results) {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event, reason, down, expected_results] {
+    encoder_queue()->PostTask([this, &event, reason, down] {
       ResourceUsageState usage_state =
           down ? ResourceUsageState::kOveruse : ResourceUsageState::kUnderuse;
 
@@ -193,17 +187,6 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
       }
 
       resource->set_usage_state(usage_state);
-      if (!expected_results) {
-        ASSERT_EQ(VideoAdaptationReason::kQuality, reason)
-            << "We can only assert adaptation result for quality resources";
-        EXPECT_EQ(
-            ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency,
-            resource->last_response());
-      } else {
-        EXPECT_EQ(ResourceListenerResponse::kNothing,
-                  resource->last_response());
-      }
-
       event.Set();
     });
     ASSERT_TRUE(event.Wait(5000));
@@ -217,25 +200,35 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
     ASSERT_TRUE(event.Wait(5000));
   }
 
+  // Triggers resource usage measurements on the fake CPU resource.
   void TriggerCpuOveruse() {
     PostTaskAndWait(/*down=*/true, VideoAdaptationReason::kCpu);
   }
-
   void TriggerCpuNormalUsage() {
     PostTaskAndWait(/*down=*/false, VideoAdaptationReason::kCpu);
   }
 
+  // Triggers resource usage measurements on the fake quality resource.
   void TriggerQualityLow() {
     PostTaskAndWait(/*down=*/true, VideoAdaptationReason::kQuality);
   }
-
-  void TriggerQualityLowExpectFalse() {
-    PostTaskAndWait(/*down=*/true, VideoAdaptationReason::kQuality,
-                    /*expected_results=*/false);
-  }
-
   void TriggerQualityHigh() {
     PostTaskAndWait(/*down=*/false, VideoAdaptationReason::kQuality);
+  }
+
+  // Fakes high QP resource usage measurements on the real
+  // QualityScalerResource. Returns whether or not QP samples would have been
+  // cleared if this had been a real signal from the QualityScaler.
+  bool TriggerQualityScalerHighQpAndReturnIfQpSamplesShouldBeCleared() {
+    bool clear_qp_result = false;
+    rtc::Event event;
+    encoder_queue()->PostTask([this, &event, &clear_qp_result] {
+      clear_qp_result =
+          quality_scaler_resource_for_testing()->TriggerQpUsageHighForTesting();
+      event.Set();
+    });
+    EXPECT_TRUE(event.Wait(5000));
+    return clear_qp_result;
   }
 
   CpuOveruseDetectorProxy* overuse_detector_proxy_;
@@ -3062,8 +3055,11 @@ TEST_F(BalancedDegradationTest, AdaptDownReturnsFalseIfFpsDiffLtThreshold) {
   VerifyFpsMaxResolutionMax(source_.sink_wants());
 
   // Trigger adapt down, expect scaled down framerate (640x360@24fps).
-  // Fps diff (input-requested:0) < threshold, expect AdaptDown to return false.
-  video_stream_encoder_->TriggerQualityLowExpectFalse();
+  // Fps diff (input-requested:0) < threshold, expect adapting down not to clear
+  // QP samples.
+  EXPECT_FALSE(
+      video_stream_encoder_
+          ->TriggerQualityScalerHighQpAndReturnIfQpSamplesShouldBeCleared());
   VerifyFpsEqResolutionMax(source_.sink_wants(), 24);
 
   video_stream_encoder_->Stop();
@@ -3085,8 +3081,11 @@ TEST_F(BalancedDegradationTest, AdaptDownReturnsTrueIfFpsDiffGeThreshold) {
   VerifyFpsMaxResolutionMax(source_.sink_wants());
 
   // Trigger adapt down, expect scaled down framerate (640x360@24fps).
-  // Fps diff (input-requested:1) == threshold, expect AdaptDown to return true.
-  video_stream_encoder_->TriggerQualityLow();
+  // Fps diff (input-requested:1) == threshold, expect adapting down to clear QP
+  // samples.
+  EXPECT_TRUE(
+      video_stream_encoder_
+          ->TriggerQualityScalerHighQpAndReturnIfQpSamplesShouldBeCleared());
   VerifyFpsEqResolutionMax(source_.sink_wants(), 24);
 
   video_stream_encoder_->Stop();

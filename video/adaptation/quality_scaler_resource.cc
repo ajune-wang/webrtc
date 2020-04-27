@@ -12,9 +12,16 @@
 
 #include <utility>
 
+#include "call/adaptation/resource_adaptation_processor.h"
+
 namespace webrtc {
 
-QualityScalerResource::QualityScalerResource() : quality_scaler_(nullptr) {}
+QualityScalerResource::QualityScalerResource(
+    ResourceAdaptationProcessor* adaptation_processor)
+    : adaptation_processor_(adaptation_processor),
+      quality_scaler_(nullptr),
+      qp_usage_report_in_progress_(false),
+      qp_usage_callback_should_clear_qp_samples_(false) {}
 
 bool QualityScalerResource::is_started() const {
   return quality_scaler_.get();
@@ -64,16 +71,73 @@ void QualityScalerResource::OnFrameDropped(
 
 void QualityScalerResource::OnReportQpUsageHigh(
     rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) {
-  bool clear_qp_samples =
-      OnResourceUsageStateMeasured(ResourceUsageState::kOveruse) !=
-      ResourceListenerResponse::kQualityScalerShouldIncreaseFrequency;
-  callback->OnQpUsageHandled(clear_qp_samples);
+  OnReportQpUsageHighImpl();
+  callback->OnQpUsageHandled(qp_usage_callback_should_clear_qp_samples_);
+}
+
+bool QualityScalerResource::TriggerQpUsageHighForTesting() {
+  OnReportQpUsageHighImpl();
+  return qp_usage_callback_should_clear_qp_samples_;
 }
 
 void QualityScalerResource::OnReportQpUsageLow(
     rtc::scoped_refptr<QualityScalerQpUsageHandlerCallback> callback) {
   OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
   callback->OnQpUsageHandled(true);
+}
+
+void QualityScalerResource::OnReportQpUsageHighImpl() {
+  RTC_DCHECK(!qp_usage_report_in_progress_);
+  qp_usage_report_in_progress_ = true;
+  // We only want to clear QP samples if an adaptation happened in response to
+  // this QP usage. Until we know that one happened (OnAdaptationApplied() is
+  // called), we default to false.
+  qp_usage_callback_should_clear_qp_samples_ = false;
+  // If this triggers adaptation, OnAdaptationApplied() is called, which may
+  // modify |qp_usage_callback_should_clear_qp_samples_|.
+  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+  qp_usage_report_in_progress_ = false;
+}
+
+void QualityScalerResource::OnAdaptationApplied(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource& reason_resource) {
+  // When it comes to feedback to the QualityScaler, we only care about
+  // adaptations caused by the QualityScaler.
+  if (!qp_usage_report_in_progress_)
+    return;
+  // An adaptation happened in response to low QP usage. Default to clearing QP
+  // samples.
+  qp_usage_callback_should_clear_qp_samples_ = true;
+  // Under the following cirumstances, if the frame rate before and after
+  // adaptation did not differ that much, don't clear the QP samples and instead
+  // check for QP again in a short amount of time. This is meant to make
+  // QualityScaler quicker at adapting the stream in "balanced" by sometimes
+  // rapidly adapting twice.
+  // TODO(hbos): Can this be simplified by getting rid of special casing logic?
+  // For example, we could decide whether or not to clear QP samples based on
+  // how big the adaptation step was alone (regardless of degradation preference
+  // or what resource triggered the adaptattion) and the QualityScaler could
+  // check for QP when it had enough QP samples rather than at a variable
+  // interval whose delay is calculated based on events such as these. Now there
+  // is much dependency on a specific OnReportQpUsageLow() event and "balanced",
+  // but adaptations happening might not align in a timely manner with the
+  // QualityScaler's CheckQpTask.
+  if (adaptation_processor_->effective_degradation_preference() ==
+          DegradationPreference::BALANCED &&
+      DidDecreaseFrameRate(restrictions_before, restrictions_after)) {
+    absl::optional<int> min_diff = BalancedDegradationSettings().MinFpsDiff(
+        input_state.frame_size_pixels().value());
+    if (min_diff && input_state.frames_per_second().value() > 0) {
+      int fps_diff = input_state.frames_per_second().value() -
+                     restrictions_after.max_frame_rate().value();
+      if (fps_diff < min_diff.value()) {
+        qp_usage_callback_should_clear_qp_samples_ = false;
+      }
+    }
+  }
 }
 
 }  // namespace webrtc

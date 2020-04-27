@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "378336f1_e208dd48",
+        "filename": "api/voip/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "Can we force callers to inject this instead? You already have a method for it.",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f966f8e4_1d0a3091",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "Consider replacing `channel_id` with `*channel`---it would make your example simpler because you wouldn\u0027t have to introduce an extra local variable.",
+      "range": {
+        "startLine": 44,
+        "startChar": 29,
+        "endLine": 44,
+        "endChar": 39
+      },
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dae7ba2f_f69f6b06",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "through the",
+      "range": {
+        "startLine": 51,
+        "startChar": 33,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c69b3a24_5c0d12fa",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "Can this be something more structured than a string? I\u0027m thinking something like\n\n  struct LogLevelOptions {\n    optional\u003cLoggingSeverity\u003e severity;\n    optional\u003cbool\u003e log_timestamps;\n    optional\u003cbool\u003e log_threads;\n    optional\u003cbool\u003e debug;\n  };\n  static void SetLogLevel(LogLevelOptions log_level);",
+      "range": {
+        "startLine": 32,
+        "startChar": 26,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e196de_446c0ad9",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "Can this be required too? Otherwise everyone has to pay for the size of the default.",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d9f2257_9f9d0bc1",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "peah@ is right this moment changing the default audio processing to be null. Ask him about how to phrase the docs for this.",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd67fdb7_ef3c1da2",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "and",
+      "range": {
+        "startLine": 49,
+        "startChar": 26,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac93967d_17ee7c82",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "Since this method effectively consumes *this, consider changing it to\n\n  std::unique_ptr\u003cVoipEngine\u003e Create() \u0026\u0026;\n\nThat way, this will still work\n\n  auto voip_engine \u003d\n      webrtc::VoipEngineBuilder()\n          .SetAudioEncoderFactory(CreateBuiltinAudioEncoderFactory())\n          .SetAudioDecoderFactory(CreateBuiltinAudioDecoderFactory())\n          .Create();\n\nas will this\n\n  auto builder \u003d webrtc::VoipEngineBuilder();\n  builder.SetAudioEncoderFactory(CreateBuiltinAudioEncoderFactory());\n  builder.SetAudioDecoderFactory(CreateBuiltinAudioDecoderFactory());\n  auto voip_engine \u003d std::move(builder).Create();\n\nbut it will be much more obvious to callers that the builder is consumed and can\u0027t be used again.",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a8a0421_89c05048",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-27T03:42:14Z",
+      "side": 1,
+      "message": "As an alternative to making a builder, strongly consider just having a create function that takes a struct with arguments:\n\n  struct VoipEngineArgs {\n    LogLevelOptions log_level;\n    std::unique_ptr\u003cTaskQueueFactory\u003e task_queue_factory;\n    std::unique_ptr\u003cAudioProcessing\u003e audio_processing;\n    rtc::scoped_refptr\u003cAudioDeviceModule\u003e audio_device;\n    rtc::scoped_refptr\u003cAudioEncoderFactory\u003e encoder_factory;\n    rtc::scoped_refptr\u003cAudioDecoderFactory\u003e decoder_factory;\n  };\n  std::unique_ptr\u003cVoipEngine\u003e CreateVoipEngine(VoipEngineArgs args);\n\nC++20 designated initializers will make this very convenient to call, but even without C++20, I would argue that it\u0027s superior to a builder because there\u0027s no possibility of there being hidden logic in it.",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e107782_e24edb2f",
+        "filename": "call/adaptation/video_source_restrictions.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-27T08:26:56Z",
+      "side": 1,
+      "message": "self-review: unit test this",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 61
+      },
+      "revId": "de88ba52ea3dbdc5f8fa0251d740df862d4beba8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d55347d_a76dbeec",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-27T08:26:56Z",
+      "side": 1,
+      "message": "self-review: Avoid sharing the field trial",
+      "range": {
+        "startLine": 144,
+        "startChar": 30,
+        "endLine": 145,
+        "endChar": 48
+      },
+      "revId": "de88ba52ea3dbdc5f8fa0251d740df862d4beba8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -46,6 +46,30 @@
       "revId": "2806c47df094446d185e5d19b97456f05385809f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f79cd3a_4b6027e5",
+        "filename": "video/receive_statistics_proxy2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-27T08:49:41Z",
+      "side": 1,
+      "message": "Agreed that we might want to replace them all together so I am ok to proceed with \"internal\".",
+      "parentUuid": "bad9254a_601bd1e1",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "2806c47df094446d185e5d19b97456f05385809f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

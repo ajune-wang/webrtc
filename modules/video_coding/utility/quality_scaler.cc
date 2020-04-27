@@ -181,6 +181,27 @@ bool QualityScaler::QpFastFilterLow() const {
   return (avg_qp_high) ? (avg_qp_high.value() <= thresholds_.low) : false;
 }
 
+QualityScaler::QpFastFilterResult QualityScaler::QpFastFilter() const {
+  RTC_DCHECK_RUN_ON(&task_checker_);
+  if (!observed_enough_frames_) {
+    return QpFastFilterResult::kNotEnoughData;
+  }
+  absl::optional<int> avg_qp_high = qp_smoother_high_
+                                        ? qp_smoother_high_->GetAvg()
+                                        : average_qp_.GetAverageRoundedDown();
+
+  if (!avg_qp_high) {
+    return QpFastFilterResult::kNotEnoughData;
+  }
+  if (avg_qp_high.value() > thresholds_.high) {
+    return QpFastFilterResult::kHigh;
+  }
+  if (avg_qp_high.value() <= thresholds_.low) {
+    return QpFastFilterResult::kLow;
+  }
+  return QpFastFilterResult::kMiddle;
+}
+
 void QualityScaler::CheckQp() {
   RTC_DCHECK_RUN_ON(&task_checker_);
   // Should be set through InitEncode -> Should be set by now.
@@ -265,4 +286,5 @@ void QualityScaler::ClearSamples() {
   if (qp_smoother_low_)
     qp_smoother_low_->Reset();
 }
+
 }  // namespace webrtc

@@ -13,14 +13,21 @@
 #include <utility>
 
 #include "call/adaptation/resource_adaptation_processor.h"
+#include "rtc_base/logging.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
+
+const char kQualityScalerResourcePreventAdaptation[] =
+    "WebRTC-QpScalerPreventAdaptUp";
 
 QualityScalerResource::QualityScalerResource(
     ResourceAdaptationProcessor* adaptation_processor)
     : adaptation_processor_(adaptation_processor),
       quality_scaler_(nullptr),
-      should_increase_frequency_(false) {}
+      should_increase_frequency_(false),
+      is_prevent_adapt_up_enabled_(!webrtc::field_trial::IsDisabled(
+          kQualityScalerResourcePreventAdaptation)) {}
 
 bool QualityScalerResource::is_started() const {
   return quality_scaler_.get();
@@ -93,6 +100,17 @@ void QualityScalerResource::OnAdaptationApplied(
     const VideoSourceRestrictions& restrictions_before,
     const VideoSourceRestrictions& restrictions_after,
     const Resource& reason_resource) {
+  if (this == &reason_resource) {
+    if (restrictions_after < restrictions_before) {
+      // AdaptDown
+      ++adaptations_;
+    } else {
+      // AdaptUp
+      --adaptations_;
+      RTC_DCHECK_GE(adaptations_, 0);
+    }
+  }
+
   if (adaptation_processor_->effective_degradation_preference() ==
           DegradationPreference::BALANCED &&
       DidDecreaseFrameRate(restrictions_before, restrictions_after)) {
@@ -107,6 +125,33 @@ void QualityScalerResource::OnAdaptationApplied(
                !should_increase_frequency_ ? "true" : "false");
       }
     }
+  }
+}
+
+bool QualityScalerResource::IsAdaptationUpAllowed(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource& reason_resource) const {
+  if (!is_prevent_adapt_up_enabled_ || !quality_scaler_) {
+    return true;
+  }
+  bool adaptation_allowed = CheckQpOkForAdaptation();
+  RTC_DCHECK(!(this == &reason_resource && !adaptation_allowed))
+      << "We are rejecting our own scale up!";
+  return adaptation_allowed;
+}
+
+bool QualityScalerResource::CheckQpOkForAdaptation() const {
+  QualityScaler::QpFastFilterResult ff_result = quality_scaler_->QpFastFilter();
+  switch (ff_result) {
+    case QualityScaler::QpFastFilterResult::kLow:
+      return true;
+    case QualityScaler::QpFastFilterResult::kHigh:
+      return false;
+    case QualityScaler::QpFastFilterResult::kNotEnoughData:
+    case QualityScaler::QpFastFilterResult::kMiddle:
+      return adaptations_ == 0;
   }
 }
 

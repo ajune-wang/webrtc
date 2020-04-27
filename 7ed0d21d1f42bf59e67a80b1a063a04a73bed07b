@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cd16e49_0373752f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-27T16:36:13Z",
+      "side": 1,
+      "message": "Self-review: This was renamed OnAdaptationApplied(), update commit message",
+      "revId": "7ed0d21d1f42bf59e67a80b1a063a04a73bed07b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

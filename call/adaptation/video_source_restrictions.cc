@@ -65,6 +65,27 @@ void VideoSourceRestrictions::set_max_frame_rate(
   max_frame_rate_ = std::move(max_frame_rate);
 }
 
+bool VideoSourceRestrictions::operator<(
+    const VideoSourceRestrictions& other) const {
+  constexpr int max_resolution = std::numeric_limits<int>::max();
+  bool resolution_lt = max_pixels_per_frame_.value_or(max_resolution) <
+                       other.max_pixels_per_frame_.value_or(max_resolution);
+  constexpr double max_fps = std::numeric_limits<double>::max();
+  bool fps_lt = max_frame_rate_.value_or(max_fps) <
+                other.max_frame_rate_.value_or(max_fps);
+
+  // pixels < other.pixels && fps > other.fps (or reverse) is impossible.
+  RTC_DCHECK((resolution_lt && fps_lt) ||
+             (resolution_lt && max_frame_rate_ == other.max_frame_rate_) ||
+             (max_pixels_per_frame_ == other.max_pixels_per_frame_ && fps_lt) ||
+             (max_pixels_per_frame_ == other.max_pixels_per_frame_ &&
+              max_frame_rate_ == other.max_frame_rate_))
+      << "Invalid comparison of VideoSourceRestriction. Comparison must be "
+         "less on both sides or equal.";
+
+  return resolution_lt || fps_lt;
+}
+
 bool DidIncreaseResolution(VideoSourceRestrictions restrictions_before,
                            VideoSourceRestrictions restrictions_after) {
   if (!restrictions_before.max_pixels_per_frame().has_value()) {

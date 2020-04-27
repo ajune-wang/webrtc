@@ -66,6 +66,8 @@ class QualityScaler {
 
   void SetQpThresholds(VideoEncoder::QpThresholds thresholds);
   bool QpFastFilterLow() const;
+  enum class QpFastFilterResult { kLow, kMiddle, kHigh, kNotEnoughData };
+  QpFastFilterResult QpFastFilter() const;
 
   // The following members declared protected for testing purposes.
  protected:

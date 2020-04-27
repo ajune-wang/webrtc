@@ -183,6 +183,7 @@ class VideoStreamEncoderResourceManager
 
    private:
     VideoStreamEncoderResourceManager* manager_;
+    const bool ignore_quality_counts_;
   } prevent_adapt_up_due_to_active_counts_;
 
   // Does not trigger adaptations, only prevents adapting up resolution.

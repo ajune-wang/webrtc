@@ -57,6 +57,8 @@ class VideoSourceRestrictions {
       absl::optional<size_t> target_pixels_per_frame);
   void set_max_frame_rate(absl::optional<double> max_frame_rate);
 
+  bool operator<(const VideoSourceRestrictions& other) const;
+
  private:
   // These map to rtc::VideoSinkWants's |max_pixel_count| and
   // |target_pixel_count|.

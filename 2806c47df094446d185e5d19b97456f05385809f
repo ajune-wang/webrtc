@@ -22,6 +22,30 @@
       "revId": "2806c47df094446d185e5d19b97456f05385809f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bad9254a_601bd1e1",
+        "filename": "video/receive_statistics_proxy2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-04-27T08:47:43Z",
+      "side": 1,
+      "message": "For this, I decided to follow the convention that VideoReceiveStream already uses and is used by the Call family of classes (see e.g. call.cc).",
+      "parentUuid": "8e61b3ca_2fbd641d",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "2806c47df094446d185e5d19b97456f05385809f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

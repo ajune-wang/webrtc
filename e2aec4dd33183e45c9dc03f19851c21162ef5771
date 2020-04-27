@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "90698adf_e66b0fba",
+        "filename": "call/adaptation/resource.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-27T16:32:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c997eab7_06a0afbf",
+      "range": {
+        "startLine": 56,
+        "startChar": 15,
+        "endLine": 56,
+        "endChar": 32
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb366b68_7102b9d1",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "59525648_7edb7c27",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-27T16:32:28Z",
+      "side": 1,
+      "message": "N/A - after rebasing, ClearUsageState() and OnAdaptationApplied() now happen in separate places.\n\nWe might want to make \"when to clear usage state\" Resource-specific, but leaving that for a separate CL if we decide to do that.",
+      "parentUuid": "cb366b68_7102b9d1",
+      "range": {
+        "startLine": 210,
+        "startChar": 1,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c9b7d6b_ab2e9417",
         "filename": "call/adaptation/resource_adaptation_processor.h",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1fc9c85_70e2a249",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-27T16:32:28Z",
+      "side": 1,
+      "message": "This class is single-threaded. The issue is not concurrency but recursion.\n\nFor example, if a resource implementing Resource::DidApplyAdaptation() would perform Resource::OnResourceUsageStateMeasured() then we could recursively end up in the adaptation logic before the previous adaptation logic had completed.\n\nExample, imagine that a resource were to check for resource usage inside of DidApplyAdaptation:\n\nResource::OnResourceUsageStateMeasured() -\u003e\nResourceAdaptationProcessor::OnResourceOveruse() -\u003e\nResource::DidApplyAdaptation() -\u003e\nResource::OnResourceUsageStateMeasured() -\u003e\nResourceAdaptationProcessor::OnResourceOveruse() // boom\n\nThere are different ways around this, including posting tasks for callbacks, but for now I want to keep it simple and just DCHECK. There aren\u0027t any resources today that would trigger recursion, but we\u0027ll add more resources in the future.",
+      "parentUuid": "2c9b7d6b_ab2e9417",
+      "range": {
+        "startLine": 96,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 30
+      },
+      "revId": "e2aec4dd33183e45c9dc03f19851c21162ef5771",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

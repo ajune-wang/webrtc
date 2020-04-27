@@ -77,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "7181f8c8_bb9119b7",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-27T15:43:32Z",
+      "side": 1,
+      "message": "That is valid C++ syntax, but DoCompleteTask() is a void function and I haven\u0027t seen any code return the result of a void function before.",
+      "parentUuid": "d3134c86_dd70b982",
+      "range": {
+        "startLine": 111,
+        "startChar": 14,
+        "endLine": 111,
+        "endChar": 56
+      },
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df8599f5_63f3906d",
         "filename": "modules/video_coding/utility/quality_scaler.h",
         "patchSetId": 8
@@ -100,6 +124,30 @@
     },
     {
       "key": {
+        "uuid": "9cdfd75b_36925306",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-27T15:43:32Z",
+      "side": 1,
+      "message": "Yes! Done.",
+      "parentUuid": "df8599f5_63f3906d",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 51
+      },
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee3f96f7_4f596018",
         "filename": "modules/video_coding/utility/quality_scaler.h",
         "patchSetId": 8
@@ -120,6 +168,30 @@
       "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e43d220_5e78bd78",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-27T15:43:32Z",
+      "side": 1,
+      "message": "Not without introducing arbitrary delays AFAIK. However we do DHECK that the callback has been resolved when it is destroyed, so it would be hard to forget to call the callback without crashing: something would have to keep the handler alive.",
+      "parentUuid": "ee3f96f7_4f596018",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 21
+      },
+      "revId": "791f7783c5958176c17c78e4c8ca37279e5fff95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

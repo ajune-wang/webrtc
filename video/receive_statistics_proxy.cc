@@ -112,7 +112,6 @@ ReceiveStatisticsProxy::ReceiveStatisticsProxy(
           new VideoQualityObserver(VideoContentType::UNSPECIFIED)),
       interframe_delay_max_moving_(kMovingMaxWindowMs),
       freq_offset_counter_(clock, nullptr, kFreqOffsetProcessIntervalMs),
-      avg_rtt_ms_(0),
       last_content_type_(VideoContentType::UNSPECIFIED),
       last_codec_type_(kVideoCodecVP8),
       num_delayed_frames_rendered_(0),
@@ -683,7 +682,8 @@ void ReceiveStatisticsProxy::OnFrameBufferTimingsUpdated(
   current_delay_counter_.Add(current_delay_ms);
   // Network delay (rtt/2) + target_delay_ms (jitter delay + decode time +
   // render delay).
-  delay_counter_.Add(target_delay_ms + avg_rtt_ms_ / 2);
+  // BUG?: Taking network delay into account, is missing.
+  delay_counter_.Add(target_delay_ms);
 }
 
 void ReceiveStatisticsProxy::OnUniqueFramesCounted(int num_unique_frames) {
@@ -902,12 +902,6 @@ void ReceiveStatisticsProxy::OnStreamInactive() {
   // Don't report inter-frame delay if stream was paused.
   last_decoded_frame_time_ms_.reset();
   video_quality_observer_->OnStreamInactive();
-}
-
-void ReceiveStatisticsProxy::OnRttUpdate(int64_t avg_rtt_ms,
-                                         int64_t max_rtt_ms) {
-  rtc::CritScope lock(&crit_);
-  avg_rtt_ms_ = avg_rtt_ms;
 }
 
 void ReceiveStatisticsProxy::DecoderThreadStarting() {

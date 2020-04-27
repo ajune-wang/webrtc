@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e61b3ca_2fbd641d",
+        "filename": "video/receive_statistics_proxy2.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-27T08:44:56Z",
+      "side": 1,
+      "message": "I think we might want to use something more specific.\n\nIn WebRTC we definitely open the namespace \"internal\" but that is considered as something we should fix.\n\nI propose \"webrtc_internal\" but +kwiberg@ for a second opinion.\n\nI am always worried about unprefixed namespaces that might match top level namespaces. \"intenral\" should never be a top level but you never know. :)",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 18
+      },
+      "revId": "2806c47df094446d185e5d19b97456f05385809f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

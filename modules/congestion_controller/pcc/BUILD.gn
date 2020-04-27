@@ -37,7 +37,7 @@ rtc_library("pcc_controller") {
     "../../../api/units:timestamp",
     "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -94,7 +94,7 @@ rtc_library("bitrate_controller") {
     "../../../api/transport:network_control",
     "../../../api/units:data_rate",
     "../../../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 

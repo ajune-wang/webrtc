@@ -25,8 +25,8 @@ rtc_library("audio_encoder_L16") {
     "../../../rtc_base:rtc_base_approved",
     "../../../rtc_base:safe_minmax",
     "../../../rtc_base/system:rtc_export",
-    "//third_party/abseil-cpp/absl/strings",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -42,7 +42,7 @@ rtc_library("audio_decoder_L16") {
     "../../../modules/audio_coding:pcm16b",
     "../../../rtc_base:rtc_base_approved",
     "../../../rtc_base/system:rtc_export",
-    "//third_party/abseil-cpp/absl/strings",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }

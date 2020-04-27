@@ -19,6 +19,6 @@ rtc_source_set("voip_api") {
   deps = [
     "..:array_view",
     "../audio_codecs:audio_codecs_api",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }

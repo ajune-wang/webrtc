@@ -53,7 +53,7 @@ if (rtc_include_tests) {
       "../scenario",
       "../time_controller",
       "//third_party/abseil-cpp/absl/flags:flag",
-      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 }

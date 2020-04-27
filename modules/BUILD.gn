@@ -33,7 +33,7 @@ rtc_source_set("module_api_public") {
   sources = [ "include/module_common_types_public.h" ]
   deps = [
     "..:webrtc_common",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 

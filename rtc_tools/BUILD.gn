@@ -60,8 +60,8 @@ rtc_library("video_file_reader") {
     "../api/video:video_rtp_headers",
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/strings",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -77,8 +77,8 @@ rtc_library("video_file_writer") {
     "../api/video:video_frame_i420",
     "../api/video:video_rtp_headers",
     "../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/strings",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -107,7 +107,7 @@ rtc_library("video_quality_analysis") {
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../test:perf_test",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
     "//third_party/libyuv",
   ]
 }
@@ -126,7 +126,7 @@ rtc_executable("frame_analyzer") {
     "../test:perf_test",
     "//third_party/abseil-cpp/absl/flags:flag",
     "//third_party/abseil-cpp/absl/flags:parse",
-    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -187,7 +187,7 @@ if (!is_component_build) {
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
       "//third_party/abseil-cpp/absl/flags:usage",
-      "//third_party/abseil-cpp/absl/strings",
+      "//third_party/abseil-cpp:absl",
     ]
     if (build_with_chromium) {
       # When building from Chromium, WebRTC's metrics and field trial
@@ -360,8 +360,8 @@ if (!build_with_chromium) {
         "../rtc_base:rtc_base_approved",
         "../rtc_base:rtc_numerics",
         "../rtc_base:stringutils",
-        "//third_party/abseil-cpp/absl/algorithm:container",
-        "//third_party/abseil-cpp/absl/strings",
+        "//third_party/abseil-cpp:absl",
+        "//third_party/abseil-cpp:absl",
       ]
     }
   }
@@ -394,11 +394,11 @@ if (rtc_include_tests) {
       "../rtc_base/system:file_wrapper",
       "../test:video_test_common",
       "../test:video_test_support",
-      "//third_party/abseil-cpp/absl/debugging:failure_signal_handler",
-      "//third_party/abseil-cpp/absl/debugging:symbolize",
+      "//third_party/abseil-cpp:absl",
+      "//third_party/abseil-cpp:absl",
       "//third_party/abseil-cpp/absl/flags:flag",
       "//third_party/abseil-cpp/absl/flags:parse",
-      "//third_party/abseil-cpp/absl/strings",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 
@@ -427,12 +427,12 @@ if (rtc_include_tests) {
         "../test:field_trial",
         "../test:fileutils",
         "../test:test_support",
-        "//third_party/abseil-cpp/absl/algorithm:container",
+        "//third_party/abseil-cpp:absl",
         "//third_party/abseil-cpp/absl/flags:config",
         "//third_party/abseil-cpp/absl/flags:flag",
         "//third_party/abseil-cpp/absl/flags:parse",
         "//third_party/abseil-cpp/absl/flags:usage",
-        "//third_party/abseil-cpp/absl/strings",
+        "//third_party/abseil-cpp:absl",
       ]
     }
   }

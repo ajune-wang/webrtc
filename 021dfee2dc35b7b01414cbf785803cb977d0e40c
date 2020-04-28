@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34578b32_b0d0c8ca",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-28T08:19:59Z",
+      "side": 1,
+      "message": "CheckQpTask and CheckQpTaskHandlerCallback are both forward-declared and defined in the .cc file. But I can\u0027t move all of CheckQpTaskHandlerCallback above CheckQpTask because its implementation depends on the CheckQpTask as well.\n\nI can either fully declare both of them first and then add definitions out-of-line just like a normal .h/.cc split but in the .cc (but the style in this file seems to be to in-line define inner classes in the .cc) or I can do what I did and define everything inline but with an exception for ConstructCallback() which is defined out-of-line after the CheckQpHandlerCallback definition.\n\nAny preference?",
+      "parentUuid": "1e1bc196_0ce5b891",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 22
+      },
+      "revId": "021dfee2dc35b7b01414cbf785803cb977d0e40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02ba0117_99d32f9c",
         "filename": "modules/video_coding/utility/quality_scaler.cc",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2020-04-28T07:35:47Z",
       "side": 1,
       "message": "previous_task_result is unset, should have some default value.",
+      "range": {
+        "startLine": 296,
+        "startChar": 2,
+        "endLine": 296,
+        "endChar": 43
+      },
+      "revId": "021dfee2dc35b7b01414cbf785803cb977d0e40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcb56476_2ac0afb1",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-28T08:19:59Z",
+      "side": 1,
+      "message": "The default constructor uses the default initialization listed in the struct definition (observed_enough_frames \u003d false, qp_usage_reported \u003d false, clear_qp_samples \u003d false).\n\nDo you prefer I set these explicitly here?",
+      "parentUuid": "02ba0117_99d32f9c",
       "range": {
         "startLine": 296,
         "startChar": 2,

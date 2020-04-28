@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3a60d073_c7506192",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-28T08:30:06Z",
+      "side": 1,
+      "message": "Keep the single out of line declaration.",
+      "parentUuid": "34578b32_b0d0c8ca",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 22
+      },
+      "revId": "021dfee2dc35b7b01414cbf785803cb977d0e40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02ba0117_99d32f9c",
         "filename": "modules/video_coding/utility/quality_scaler.cc",
         "patchSetId": 9
@@ -93,6 +117,30 @@
       "revId": "021dfee2dc35b7b01414cbf785803cb977d0e40c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eda1c0f_58c9f5b2",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-28T08:30:06Z",
+      "side": 1,
+      "message": "I was confused and thought this was an enum, not a class. This is fine, ignore me.",
+      "parentUuid": "fcb56476_2ac0afb1",
+      "range": {
+        "startLine": 296,
+        "startChar": 2,
+        "endLine": 296,
+        "endChar": 43
+      },
+      "revId": "021dfee2dc35b7b01414cbf785803cb977d0e40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

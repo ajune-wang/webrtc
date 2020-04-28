@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e24cef0a_374e6305",
+        "filename": "api/voip/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "378336f1_e208dd48",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f966f8e4_1d0a3091",
         "filename": "api/voip/voip_engine.h",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be4ce267_26404f61",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "I initially had *channel but wasn\u0027t sure if that would lead api user to keeping optional\u003cChannelId\u003e throughout their codes.  I will change it to simplify the comment. Thanks.",
+      "parentUuid": "f966f8e4_1d0a3091",
+      "range": {
+        "startLine": 44,
+        "startChar": 29,
+        "endLine": 44,
+        "endChar": 39
+      },
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "63fa6f73_20c69f82",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dae7ba2f_f69f6b06",
+      "range": {
+        "startLine": 51,
+        "startChar": 33,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c69b3a24_5c0d12fa",
         "filename": "api/voip/voip_engine_builder.h",
         "patchSetId": 4
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "2a1bb0ef_d6c28939",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "That\u0027s good idea.  However, I realized logging.h should be accessible to caller directly? If not, we would need to introduce logging severity in VoipEngine again.  Let me remove the logging interface for now.",
+      "parentUuid": "c69b3a24_5c0d12fa",
+      "range": {
+        "startLine": 32,
+        "startChar": 26,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38e196de_446c0ad9",
         "filename": "api/voip/voip_engine_builder.h",
         "patchSetId": 4
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "6bbc3fa6_0004f0be",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "That\u0027s a good idea. Thanks.",
+      "parentUuid": "38e196de_446c0ad9",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d9f2257_9f9d0bc1",
         "filename": "api/voip/voip_engine_builder.h",
         "patchSetId": 4
@@ -119,6 +227,24 @@
       "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb4588b5_61d130bf",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "Thanks, now I see that AudioProcessing became an optional for AudioTransportImpl today. Please check the new patch set.",
+      "parentUuid": "9d9f2257_9f9d0bc1",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "e0ca5bc1_5624b915",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd67fdb7_ef3c1da2",
+      "range": {
+        "startLine": 49,
+        "startChar": 26,
+        "endLine": 49,
+        "endChar": 35
+      },
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac93967d_17ee7c82",
         "filename": "api/voip/voip_engine_builder.h",
         "patchSetId": 4
@@ -162,6 +312,24 @@
     },
     {
       "key": {
+        "uuid": "d58d3ceb_0f737afe",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "Thanks. will change so.",
+      "parentUuid": "ac93967d_17ee7c82",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a8a0421_89c05048",
         "filename": "api/voip/voip_engine_builder.h",
         "patchSetId": 4
@@ -176,6 +344,24 @@
       "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63f0c233_012a0824",
+        "filename": "api/voip/voip_engine_builder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-28T03:45:34Z",
+      "side": 1,
+      "message": "Agreed. it is much cleaner and easier. Please check the change in the new patchset. Thanks for the suggestion.",
+      "parentUuid": "3a8a0421_89c05048",
+      "revId": "e4a46e9deb4fa19ec554d8138c206ded21c5543c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

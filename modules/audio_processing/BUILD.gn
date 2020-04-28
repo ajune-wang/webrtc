@@ -122,14 +122,6 @@ rtc_library("audio_processing") {
     "common.h",
     "echo_control_mobile_impl.cc",
     "echo_control_mobile_impl.h",
-    "echo_detector/circular_buffer.cc",
-    "echo_detector/circular_buffer.h",
-    "echo_detector/mean_variance_estimator.cc",
-    "echo_detector/mean_variance_estimator.h",
-    "echo_detector/moving_max.cc",
-    "echo_detector/moving_max.h",
-    "echo_detector/normalized_covariance_estimator.cc",
-    "echo_detector/normalized_covariance_estimator.h",
     "gain_control_impl.cc",
     "gain_control_impl.h",
     "gain_controller2.cc",
@@ -139,8 +131,6 @@ rtc_library("audio_processing") {
     "level_estimator.cc",
     "level_estimator.h",
     "render_queue_item_verifier.h",
-    "residual_echo_detector.cc",
-    "residual_echo_detector.h",
     "typing_detection.cc",
     "typing_detection.h",
   ]
@@ -157,6 +147,7 @@ rtc_library("audio_processing") {
     ":config",
     ":high_pass_filter",
     ":optionally_built_submodule_creators",
+    ":residual_echo_detector",
     ":rms_level",
     ":voice_detection",
     "../../api:array_view",
@@ -198,6 +189,38 @@ rtc_library("audio_processing") {
     "../../common_audio:fir_filter_factory",
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
+  ]
+}
+
+rtc_library("residual_echo_detector") {
+  visibility = [
+    ":audio_processing",
+    "../../api/audio:residual_echo_detector",
+    ":audio_processing_unittests",
+  ]
+  configs += [ ":apm_debug_dump" ]
+  sources = [
+    "echo_detector/circular_buffer.cc",
+    "echo_detector/circular_buffer.h",
+    "echo_detector/mean_variance_estimator.cc",
+    "echo_detector/mean_variance_estimator.h",
+    "echo_detector/moving_max.cc",
+    "echo_detector/moving_max.h",
+    "echo_detector/normalized_covariance_estimator.cc",
+    "echo_detector/normalized_covariance_estimator.h",
+    "residual_echo_detector.cc",
+    "residual_echo_detector.h",
+  ]
+  deps = [
+    ":api",
+    ":apm_logging",
+    ":audio_buffer",
+    "../../api:array_view",
+    "../../rtc_base:atomicops",
+    "../../rtc_base:checks",
+    "../../rtc_base:logging",
+    "../../system_wrappers:metrics",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
 
@@ -433,10 +456,12 @@ if (rtc_include_tests) {
         ":audioproc_test_utils",
         ":audioproc_unittest_proto",
         ":optionally_built_submodule_creators",
+        ":residual_echo_detector",
         ":rms_level",
         ":runtime_settings_protobuf_utils",
         "../../api/audio:audio_frame_api",
         "../../api/audio:echo_control",
+        "../../api/audio:residual_echo_detector",
         "../../rtc_base:rtc_base_tests_utils",
         "../../rtc_base:rtc_task_queue",
         "aec_dump",

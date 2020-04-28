@@ -29,6 +29,7 @@
 
 namespace webrtc {
 class TurnCustomizer;
+class IceGathererInterface;
 }  // namespace webrtc
 
 namespace cricket {
@@ -407,6 +408,18 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
       const std::string& ice_ufrag,
       const std::string& ice_pwd);
 
+  // Unlike a PortAllocatorSession, an IceGatherer is independent of the
+  // PortAllocator that created it and can live on after the PortAllocator
+  // is destroyed.  It can also be shared, which is useful for ICE forking.
+  // The name is only used for debugging.  The config is based on the
+  // existing PortAllocator config.
+  virtual rtc::scoped_refptr<webrtc::IceGathererInterface> CreateIceGatherer(
+      const std::string& name) {
+    // This default means the PortAllocator does not support creating
+    // IceGatherers.
+    return nullptr;
+  }
+
   // Get an available pooled session and set the transport information on it.
   //
   // Caller takes ownership of the returned session.
@@ -666,5 +679,19 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
 };
 
 }  // namespace cricket
+
+namespace webrtc {
+
+// An IceGatherer is basically a shareable PortAllocatorSession.
+// This is useful for doing ICE forking, where the local ports are shared
+// between many IceTransports. As long as the IceGatherer is not destroyed, the
+// PortAllocatorSession is valid.
+class IceGathererInterface : public rtc::RefCountInterface {
+ public:
+  virtual cricket::PortAllocatorSession* port_allocator_session() = 0;
+  virtual ~IceGathererInterface() = default;
+};
+
+}  // namespace webrtc
 
 #endif  // P2P_BASE_PORT_ALLOCATOR_H_

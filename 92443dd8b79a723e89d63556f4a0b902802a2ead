@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b7f5065_71469506",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:22:04Z",
+      "side": 1,
+      "message": "Consider `auto\u0026`, to tell readers that this is a reference.",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 9
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0ff91a7_a903f378",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:22:04Z",
+      "side": 1,
+      "message": "Can we RTC_CHECK these things instead? Errors here are bugs in the caller; there\u0027s no way a correctly made call can fail.",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ef0cdf4_75fff04e",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:22:04Z",
+      "side": 1,
+      "message": "audio_processing \u003d AudioProcessingBuilder().Create();\n\n?",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "584d7a6f_37caf7ef",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:22:04Z",
+      "side": 1,
+      "message": "audio_device \u003d std::move(*config.audio_device);\n\n?",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa4358b6_32b1d10c",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:22:04Z",
+      "side": 1,
+      "message": "std::move these as well? It\u0027s more efficient to move because then we don\u0027t have to update reference counters (atomic instructions), and there\u0027s no reason to leave these in the config struct.",
+      "range": {
+        "startLine": 56,
+        "startChar": 52,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40901309_94f702a8",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:22:04Z",
+      "side": 1,
+      "message": "What could go wrong here? (Trying to figure out if there should really be an error return value, or if errors are simply bugs and best handled with e.g. CHECK.)",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8c31b9b_bc0193e1",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:22:04Z",
+      "side": 1,
+      "message": "This seems a bit complicated, and forces all callers to pay for the binary size of the default. peah@, what\u0027s your take? Do we need to support both null audio processing and default audio processing in case the user doesn\u0027t provide one, or would it be better to just have the former?",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c2ccf5_79ab8ff1",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:22:04Z",
+      "side": 1,
+      "message": "Can the \"not set\" case be indicated by nullptr instead, so that we can skip the absl::optional wrapper?",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

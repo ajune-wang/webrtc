@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e1bc196_0ce5b891",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-28T07:35:47Z",
+      "side": 1,
+      "message": "This should be implemented inline",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 22
+      },
+      "revId": "021dfee2dc35b7b01414cbf785803cb977d0e40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02ba0117_99d32f9c",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-28T07:35:47Z",
+      "side": 1,
+      "message": "previous_task_result is unset, should have some default value.",
+      "range": {
+        "startLine": 296,
+        "startChar": 2,
+        "endLine": 296,
+        "endChar": 43
+      },
+      "revId": "021dfee2dc35b7b01414cbf785803cb977d0e40c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

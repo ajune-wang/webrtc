@@ -204,6 +204,30 @@
       "revId": "7ed0d21d1f42bf59e67a80b1a063a04a73bed07b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdea17b2_b48d0eaa",
+        "filename": "call/adaptation/video_source_restrictions.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-04-28T11:02:34Z",
+      "side": 1,
+      "message": "Ship it!",
+      "parentUuid": "a9a39ae7_401e1908",
+      "range": {
+        "startLine": 85,
+        "startChar": 11,
+        "endLine": 85,
+        "endChar": 15
+      },
+      "revId": "7ed0d21d1f42bf59e67a80b1a063a04a73bed07b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

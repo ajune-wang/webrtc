@@ -135,13 +135,13 @@ void AudioIngress::SetReceiveCodecs(
   acm_receiver_.SetCodecs(codecs);
 }
 
-void AudioIngress::ReceivedRTPPacket(const uint8_t* data, size_t length) {
-  if (!Playing()) {
+void AudioIngress::ReceivedRTPPacket(rtc::ArrayView<const uint8_t> rtp) {
+  if (!IsPlaying()) {
     return;
   }
 
   RtpPacketReceived rtp_packet;
-  rtp_packet.Parse(data, length);
+  rtp_packet.Parse(rtp.data(), rtp.size());
 
   // Set payload type's sampling rate before we feed it into ReceiveStatistics.
   {
@@ -185,9 +185,9 @@ void AudioIngress::ReceivedRTPPacket(const uint8_t* data, size_t length) {
   }
 }
 
-void AudioIngress::ReceivedRTCPPacket(const uint8_t* data, size_t length) {
+void AudioIngress::ReceivedRTCPPacket(rtc::ArrayView<const uint8_t> rtcp) {
   // Deliver RTCP packet to RTP/RTCP module for parsing
-  rtp_rtcp_->IncomingRtcpPacket(data, length);
+  rtp_rtcp_->IncomingRtcpPacket(rtcp.data(), rtcp.size());
 
   int64_t rtt = GetRoundTripTime();
   if (rtt == -1) {
@@ -238,7 +238,7 @@ int AudioIngress::GetSpeechOutputLevelFullRange() const {
   return output_audio_level_.LevelFullRange();
 }
 
-bool AudioIngress::Playing() const {
+bool AudioIngress::IsPlaying() const {
   return playing_;
 }
 

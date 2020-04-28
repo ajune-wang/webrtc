@@ -76,6 +76,8 @@ class AudioIngressTest : public ::testing::Test {
     rtp_rtcp_->SetSendingStatus(false);
     ingress_->StopPlay();
     egress_->StopSend();
+    egress_.reset();
+    ingress_.reset();
   }
 
   std::unique_ptr<AudioFrame> GetAudioFrame(int order) {
@@ -91,25 +93,24 @@ class AudioIngressTest : public ::testing::Test {
   SimulatedClock fake_clock_;
   SineWaveGenerator wave_generator_;
   NiceMock<MockTransport> transport_;
-  std::unique_ptr<AudioIngress> ingress_;
-  rtc::scoped_refptr<AudioDecoderFactory> decoder_factory_;
-  // Members used to drive the input to ingress.
-  std::unique_ptr<AudioEgress> egress_;
-  std::unique_ptr<TaskQueueFactory> task_queue_factory_;
-  std::shared_ptr<RtpRtcp> rtp_rtcp_;
+  std::unique_ptr<RtpRtcp> rtp_rtcp_;
   rtc::scoped_refptr<AudioEncoderFactory> encoder_factory_;
+  rtc::scoped_refptr<AudioDecoderFactory> decoder_factory_;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory_;
+  std::unique_ptr<AudioIngress> ingress_;
+  std::unique_ptr<AudioEgress> egress_;
 };
 
 TEST_F(AudioIngressTest, PlayingAfterStartAndStop) {
-  EXPECT_EQ(ingress_->Playing(), true);
+  EXPECT_EQ(ingress_->IsPlaying(), true);
   ingress_->StopPlay();
-  EXPECT_EQ(ingress_->Playing(), false);
+  EXPECT_EQ(ingress_->IsPlaying(), false);
 }
 
 TEST_F(AudioIngressTest, GetAudioFrameAfterRtpReceived) {
   rtc::Event event;
   auto handle_rtp = [&](const uint8_t* packet, size_t length, Unused) {
-    ingress_->ReceivedRTPPacket(packet, length);
+    ingress_->ReceivedRTPPacket(rtc::ArrayView<const uint8_t>(packet, length));
     event.Set();
     return true;
   };
@@ -137,7 +138,7 @@ TEST_F(AudioIngressTest, GetSpeechOutputLevelFullRange) {
   int rtp_count = 0;
   rtc::Event event;
   auto handle_rtp = [&](const uint8_t* packet, size_t length, Unused) {
-    ingress_->ReceivedRTPPacket(packet, length);
+    ingress_->ReceivedRTPPacket(rtc::ArrayView<const uint8_t>(packet, length));
     if (++rtp_count == kNumRtp) {
       event.Set();
     }
@@ -162,7 +163,7 @@ TEST_F(AudioIngressTest, GetSpeechOutputLevelFullRange) {
 TEST_F(AudioIngressTest, PreferredSampleRate) {
   rtc::Event event;
   auto handle_rtp = [&](const uint8_t* packet, size_t length, Unused) {
-    ingress_->ReceivedRTPPacket(packet, length);
+    ingress_->ReceivedRTPPacket(rtc::ArrayView<const uint8_t>(packet, length));
     event.Set();
     return true;
   };

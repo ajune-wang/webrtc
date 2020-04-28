@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "16bdece7_d0a7399f",
+        "filename": "api/voip/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-04-28T12:36:13Z",
+      "side": 1,
+      "message": "For things inside WebRTC we use relative labels here (for things outside we use absolute ones).\n\nIs there a reason to switch to absolute ones here as well?",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b7f5065_71469506",
         "filename": "api/voip/voip_engine.h",
         "patchSetId": 6

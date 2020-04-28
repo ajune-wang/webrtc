@@ -20,6 +20,7 @@
 #include <queue>
 
 #include "absl/flags/flag.h"
+#include "api/audio/residual_echo_detector.h"
 #include "common_audio/include/audio_util.h"
 #include "common_audio/resampler/include/push_resampler.h"
 #include "common_audio/resampler/push_sinc_resampler.h"
@@ -2593,7 +2594,9 @@ TEST(ApmConfiguration, EchoControlInjection) {
 std::unique_ptr<AudioProcessing> CreateApm(bool mobile_aec) {
   Config old_config;
   std::unique_ptr<AudioProcessing> apm(
-      AudioProcessingBuilderForTesting().Create(old_config));
+      AudioProcessingBuilderForTesting()
+          .SetEchoDetector(CreateResidualEchoDetector())
+          .Create(old_config));
   if (!apm) {
     return apm;
   }

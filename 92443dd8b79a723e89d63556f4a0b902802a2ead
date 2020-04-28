@@ -133,6 +133,24 @@
     },
     {
       "key": {
+        "uuid": "a70f5dd3_53a6e8a4",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:51:38Z",
+      "side": 1,
+      "message": "I had a chat with peah@, and we agreed that not having a default implementation would be best. So the caller can either provide an implementation, or nullptr (meaning no audio processing).\n\npeah@ also points out that this should be scoped_refptr, not unique_ptr.",
+      "parentUuid": "d8c31b9b_bc0193e1",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32c2ccf5_79ab8ff1",
         "filename": "api/voip/voip_engine_factory.h",
         "patchSetId": 6
@@ -144,6 +162,24 @@
       "writtenOn": "2020-04-28T11:22:04Z",
       "side": 1,
       "message": "Can the \"not set\" case be indicated by nullptr instead, so that we can skip the absl::optional wrapper?",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74ddbd58_5b75919e",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-28T11:51:38Z",
+      "side": 1,
+      "message": "Actually, it would make sense to remove the default implementation here too. That would bring us to zero default implementations, which is nice and symmetrical. It\u0027s also the general direction the whole WebRTC is glacially heading towards, so it feels like a smart move when establishing a new API.",
+      "parentUuid": "32c2ccf5_79ab8ff1",
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

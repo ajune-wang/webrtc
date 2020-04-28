@@ -39,6 +39,30 @@
       "revId": "7ed0d21d1f42bf59e67a80b1a063a04a73bed07b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "849fe356_1afdd974",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-28T08:59:38Z",
+      "side": 1,
+      "message": "I think this is analogous to rtc::CriticalSection except that crit sec obtains a mutex for thread-locking whereas this is not concerned with synchronization, only preventing recursion, and is fine with a normal boolean.\n\nPerhaps one should add rtc::NonRecursiveSection that locks a boolean?\nOr an rtc::ScopedCleanup() that takes a lambda that gets executed when rtc::ScopedClanup goes out of scope?\n\nOr maybe it\u0027s too much of a weird case. Not sure, kwiberg@ what do you think?",
+      "parentUuid": "9237e8c0_e97baa71",
+      "range": {
+        "startLine": 177,
+        "startChar": 2,
+        "endLine": 177,
+        "endChar": 34
+      },
+      "revId": "7ed0d21d1f42bf59e67a80b1a063a04a73bed07b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

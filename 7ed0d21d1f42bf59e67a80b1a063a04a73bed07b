@@ -16,6 +16,29 @@
       "revId": "7ed0d21d1f42bf59e67a80b1a063a04a73bed07b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9237e8c0_e97baa71",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-28T08:37:09Z",
+      "side": 1,
+      "message": "A cleanup struct or utility would be better here than having to remember to return false on each return. I don\u0027t know whats available in the rtc_base or abseil.",
+      "range": {
+        "startLine": 177,
+        "startChar": 2,
+        "endLine": 177,
+        "endChar": 34
+      },
+      "revId": "7ed0d21d1f42bf59e67a80b1a063a04a73bed07b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

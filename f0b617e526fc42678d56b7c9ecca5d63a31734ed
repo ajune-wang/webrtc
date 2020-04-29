@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a66dcaaa_01877216",
+        "filename": "call/adaptation/video_source_restrictions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-29T11:37:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cc8962f_526f2cff",
+      "revId": "f0b617e526fc42678d56b7c9ecca5d63a31734ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c931a1d_4c6a4cf6",
         "filename": "call/adaptation/video_source_restrictions.cc",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2020-04-27T14:05:52Z",
       "side": 1,
       "message": "It feels wrong to have comparison operator DCHECK-crash instead of returning false.\n\nI think operator\u003c() is the wrong place to put the DCHECK since this is a generic \"are these restrictions less than those restrictions?\" operator but the DCHECK assumes that 1) the restrictions being compared represents before and after adaptation, and 2) that adapting down necessarily means one or both went down but we can\u0027t go down in one and up in another.\n\nWe already have DidIncreaseResolution() and DidDecreaseFrameRate() below. Would it make sense to instead add DidDecreaseResolution() and DidIncreaseFrameRate()? You could then have...\n\nbool DidRestrictionsIncrease(VideoSourceRestrictions before,\n                             VideoSourceRestrictions after) {\n  bool increase_res \u003d DidIncreaseResolution(before, after);\n  bool increase_fps \u003d DidIncreaseFrameRate(before, after);\n  bool same_res \u003d before.max_pixels_per_frame() \u003d\u003d after.max_pixels_per_frame();\n  bool same_fps \u003d before.max_frame_rate() \u003d\u003d after.max_frame_rate();\n  if (increase_res \u0026\u0026 increase_fps)\n    return true;\n  return (increase_res \u0026\u0026 same_fps) || (increase_fps \u0026\u0026 same_res);\n}\n\nAnd similarly DidRestrictionsDecrease().\n\nIf would be possible for neither \"increase\" or \"decrease\" be true (if they are equal or if one property goes up but the other goes down) but at adaptation we could DCHECK that one of them is necessarily true.",
+      "revId": "f0b617e526fc42678d56b7c9ecca5d63a31734ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7622025_7a52f4a0",
+        "filename": "call/adaptation/video_source_restrictions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-29T11:37:55Z",
+      "side": 1,
+      "message": "Makes sense to change it in this way. Will fix.",
+      "parentUuid": "2c931a1d_4c6a4cf6",
       "revId": "f0b617e526fc42678d56b7c9ecca5d63a31734ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d6862260_7605416a",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-29T11:37:55Z",
+      "side": 1,
+      "message": "This has been replaced with using the new CheckQp method instead.",
+      "parentUuid": "9631081e_7c2a901d",
+      "revId": "f0b617e526fc42678d56b7c9ecca5d63a31734ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bd4efaf_690b57ab",
         "filename": "modules/video_coding/utility/quality_scaler.cc",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "f0b617e526fc42678d56b7c9ecca5d63a31734ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be7a4dea_e038031f",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-29T11:37:55Z",
+      "side": 1,
+      "message": "Fixed by using CheckQP()",
+      "parentUuid": "3bd4efaf_690b57ab",
+      "revId": "f0b617e526fc42678d56b7c9ecca5d63a31734ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,24 @@
       "revId": "f0b617e526fc42678d56b7c9ecca5d63a31734ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1bc0eb6_1cfa9937",
+        "filename": "video/adaptation/quality_scaler_resource.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-29T11:37:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a0318ff_ffadbf72",
+      "revId": "f0b617e526fc42678d56b7c9ecca5d63a31734ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3dbcfad3_c90a3952",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T17:36:04Z",
+      "side": 1,
+      "message": "It would be nice if you didn\u0027t re-use channel IDs, because if the user erroneously continues to use an old ID, the resulting bug will be harder to diagnose if DCHECKs or similar in the implementation can\u0027t catch this.\n\nThis may mean that you need to replace vectors in the implementation with maps, but I suspect it\u0027s worth it.",
+      "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "899e14ba_11a54daa",
         "filename": "api/voip/voip_engine.h",
         "patchSetId": 7

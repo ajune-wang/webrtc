@@ -22,6 +22,30 @@
       "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f580f44_a9219179",
+        "filename": "modules/video_coding/codecs/av1/frame_dependencies_controller_single_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-04-29T13:49:19Z",
+      "side": 1,
+      "message": "I do not know yet where the FrameDependenciesController would live. Somewhere stable.\nIf Encoder is recrecated, same instance of the controller can be passed to the new one.\nWhen a switch between VP8 and AV1 happens, controller would need an external signal it should produce a key frame (and probably to turn off the spatial layers).\nYes, frame_id suppose to go all the way to the dependency descriptor in the rtp packet.\n\nIt seems to me my approach matches main point of yours:\nFrameDependenciesController is there both to control the Encoder and generate correct\ndependencies for the dependency descriptor:\nIt does generate GenerateFrameInfo which tells Encoder how to encode a frame,\nCurrently it is up to encoder to copy that generic frame info into class that will be propagated to the rtp level (ironically that struct is called CodecSpecificiInfo).\nThere is also mechanic of OnEncoderDone to adjust dependencies after frame is encoded but before it is send to the rtp layer (with idea to use frame_id as an identifier).\n\nframe_id is generated in advance, which would allow to have more stable frame diffs (at a minor cost of more gaps)\n\nCan you please dobule check how this new interface is used in the Av1Encoder?\n(does it look dumb enough?)\n\nWhat doesn\u0027t match your description is that in my proposal the controller doesn\u0027t need to pass-through and thus be aware of the VideoFrame or EncodedFrame classes.\nOr do you suggest to change (introduce new) VideoEncoder interface to pass less information there? and do all the VideoFrame -\u003e EncodedFrame metadata copy in the Controller class.",
+      "parentUuid": "c6969951_ca379c86",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 36
+      },
+      "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

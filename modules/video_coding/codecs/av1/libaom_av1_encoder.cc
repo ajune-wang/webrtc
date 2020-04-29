@@ -12,6 +12,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <algorithm>
 #include <memory>
 #include <vector>
 
@@ -22,6 +23,7 @@
 #include "api/video/video_frame.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
+#include "modules/video_coding/codecs/av1/frame_dependencies_controller.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/checks.h"
@@ -47,7 +49,7 @@ constexpr float kMinimumFrameRate = 1.0;
 
 class LibaomAv1Encoder final : public VideoEncoder {
  public:
-  LibaomAv1Encoder();
+  explicit LibaomAv1Encoder(FrameDependenciesController* controller);
   ~LibaomAv1Encoder();
 
   int InitEncode(const VideoCodec* codec_settings,
@@ -66,12 +68,14 @@ class LibaomAv1Encoder final : public VideoEncoder {
   EncoderInfo GetEncoderInfo() const override;
 
  private:
+  FrameDependenciesController* const controller_;
   bool inited_;
   bool keyframe_required_;
   VideoCodec encoder_settings_;
   aom_image_t* frame_for_encode_;
   aom_codec_ctx_t ctx_;
   aom_codec_enc_cfg_t cfg_;
+  aom_svc_params_t svc_params_;
   EncodedImageCallback* encoded_image_callback_;
 };
 
@@ -100,8 +104,9 @@ int32_t VerifyCodecSettings(const VideoCodec& codec_settings) {
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-LibaomAv1Encoder::LibaomAv1Encoder()
-    : inited_(false),
+LibaomAv1Encoder::LibaomAv1Encoder(FrameDependenciesController* controller)
+    : controller_(nullptr),
+      inited_(false),
       keyframe_required_(true),
       frame_for_encode_(nullptr),
       encoded_image_callback_(nullptr) {}
@@ -205,6 +210,32 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
+  if (controller_ != nullptr) {
+    int max_temporal_id = 0;
+    int max_spatial_id = 0;
+    FrameDependencyStructure structure = controller_->Structure();
+    for (const auto& a_template : structure.templates) {
+      max_temporal_id = std::max(max_temporal_id, a_template.temporal_id);
+      max_spatial_id = std::max(max_spatial_id, a_template.spatial_id);
+    }
+
+    memset(&svc_params_, 0, sizeof(svc_params_));
+    svc_params_.number_spatial_layers = max_spatial_id + 1;
+    svc_params_.number_temporal_layers = max_temporal_id + 1;
+    // Assume framerate doubles per temporal layer;
+    for (int tid = 0; tid <= max_temporal_id; ++tid) {
+      svc_params_.framerate_factor[tid] = 1 << (max_temporal_id - tid);
+    }
+    // TODO(danilchap): extract spatial scale factor from structure.resolutions
+    // Until then assume resolution doubles per spatial layer;
+    for (int sid = 0; sid <= max_spatial_id; ++sid) {
+      svc_params_.scaling_factor_num[sid] = 1;
+      svc_params_.scaling_factor_den[sid] = 1 << (max_spatial_id - sid);
+    }
+
+    aom_codec_control(&ctx_, AV1E_SET_SVC_PARAMS, &svc_params_);
+  }
+
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
@@ -239,6 +270,18 @@ int32_t LibaomAv1Encoder::Encode(
       frame_types != nullptr &&
       absl::c_linear_search(*frame_types, VideoFrameType::kVideoFrameKey);
 
+  std::vector<GenericFrameInfo> frame_config;
+  if (controller_) {
+    // TODO(danilchap): Check if number of spatial/temporal layers changed
+    // in the controller_->Structure() and reset svc_params_ if it does.
+    frame_config = controller_->NextFrameConfig(frame.timestamp());
+  } else {
+    frame_config.resize(1);
+    if (!keyframe_required_) {
+      frame_config[0].frame_diffs = {1};
+    }
+  }
+
   // Convert input frame to I420, if needed.
   VideoFrame prepped_input_frame = frame;
   if (prepped_input_frame.video_frame_buffer()->type() !=
@@ -263,75 +306,112 @@ int32_t LibaomAv1Encoder::Encode(
 
   const uint32_t duration =
       kRtpTicksPerSecond / static_cast<float>(encoder_settings_.maxFramerate);
-  aom_enc_frame_flags_t flags = (keyframe_required_) ? AOM_EFLAG_FORCE_KF : 0;
 
-  // Encode a frame.
-  aom_codec_err_t ret = aom_codec_encode(&ctx_, frame_for_encode_,
-                                         frame.timestamp(), duration, flags);
-  if (ret != AOM_CODEC_OK) {
-    RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encode returned " << ret
-                        << " on aom_codec_encode.";
-    return WEBRTC_VIDEO_CODEC_ERROR;
-  }
-
-  // Get encoded image data.
-  EncodedImage encoded_image;
-  encoded_image._completeFrame = true;
-  aom_codec_iter_t iter = nullptr;
-  int data_pkt_count = 0;
-  while (const aom_codec_cx_pkt_t* pkt = aom_codec_get_cx_data(&ctx_, &iter)) {
-    if (pkt->kind == AOM_CODEC_CX_FRAME_PKT && pkt->data.frame.sz > 0) {
-      if (data_pkt_count > 0) {
-        RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encoder returned more than "
-                               "one data packet for an input video frame.";
-        Release();
-      }
-      // TODO(bugs.webrtc.org/11174): Remove this hack when
-      // webrtc_pc_e2e::SingleProcessEncodedImageDataInjector not used or fixed
-      // not to assume that encoded image transfered as is.
-      const uint8_t* data = static_cast<const uint8_t*>(pkt->data.frame.buf);
-      size_t size = pkt->data.frame.sz;
-      if (size > 2 && data[0] == 0b0'0010'010 && data[1] == 0) {
-        // Typically frame starts with a Temporal Delimter OBU of size 0 that is
-        // not need by any component in webrtc and discarded during rtp
-        // packetization. Before discarded it confuses test framework that
-        // assumes received encoded frame is exactly same as sent frame.
-        data += 2;
-        size -= 2;
-      }
-      encoded_image.SetEncodedData(EncodedImageBuffer::Create(data, size));
-
-      bool is_key_frame = ((pkt->data.frame.flags & AOM_EFLAG_FORCE_KF) != 0);
-      encoded_image._frameType = is_key_frame
-                                     ? VideoFrameType::kVideoFrameKey
-                                     : VideoFrameType::kVideoFrameDelta;
-      encoded_image.SetTimestamp(frame.timestamp());
-      encoded_image.capture_time_ms_ = frame.render_time_ms();
-      encoded_image.rotation_ = frame.rotation();
-      encoded_image.content_type_ = VideoContentType::UNSPECIFIED;
-      // If encoded image width/height info are added to aom_codec_cx_pkt_t,
-      // use those values in lieu of the values in frame.
-      encoded_image._encodedHeight = frame.height();
-      encoded_image._encodedWidth = frame.width();
-      encoded_image.timing_.flags = VideoSendTiming::kInvalid;
-      int qp = -1;
-      ret = aom_codec_control(&ctx_, AOME_GET_LAST_QUANTIZER, &qp);
-      if (ret != AOM_CODEC_OK) {
-        RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encode returned " << ret
-                            << " on control AOME_GET_LAST_QUANTIZER.";
-        return WEBRTC_VIDEO_CODEC_ERROR;
-      }
-      encoded_image.qp_ = qp;
-      encoded_image.SetColorSpace(frame.color_space());
-      ++data_pkt_count;
+  for (GenericFrameInfo& layer : frame_config) {
+    aom_enc_frame_flags_t flags = 0;
+    // TODO(danilchap): When there is a structure where frame without
+    // dependencies is not a key frame, change check below to be more accurate.
+    if (layer.frame_diffs.empty()) {
+      flags |= AOM_EFLAG_FORCE_KF;
     }
-  }
 
-  // Deliver encoded image data.
-  if (encoded_image.size() > 0) {
-    CodecSpecificInfo codec_specific_info;
-    encoded_image_callback_->OnEncodedImage(encoded_image, &codec_specific_info,
-                                            nullptr);
+    if (controller_ != nullptr) {
+      aom_svc_layer_id_t layer_id;
+      memset(&layer_id, 0, sizeof(layer_id));
+      layer_id.temporal_layer_id = layer.temporal_id;
+      layer_id.spatial_layer_id = layer.spatial_id;
+      aom_codec_control(&ctx_, AV1E_SET_SVC_LAYER_ID, &layer_id);
+
+      aom_svc_ref_frame_config_t ref_frame_config;
+      memset(&ref_frame_config, 0, sizeof(ref_frame_config));
+      for (const CodecBufferUsage& buffer : layer.encoder_buffers) {
+        (void)buffer.id;
+        // TODO(danilchap): Convert buffer {.id, .referenced, .updated }
+        // into ref_frame_config {.refresh, .ref_idx} and flags
+      }
+      aom_codec_control(&ctx_, AV1E_SET_SVC_REF_FRAME_CONFIG,
+                        &ref_frame_config);
+    }
+
+    // Encode a frame.
+    aom_codec_err_t ret = aom_codec_encode(&ctx_, frame_for_encode_,
+                                           frame.timestamp(), duration, flags);
+    if (ret != AOM_CODEC_OK) {
+      RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encode returned " << ret
+                          << " on aom_codec_encode.";
+      return WEBRTC_VIDEO_CODEC_ERROR;
+    }
+
+    // Get encoded image data.
+    EncodedImage encoded_image;
+    encoded_image._completeFrame = true;
+    aom_codec_iter_t iter = nullptr;
+    int data_pkt_count = 0;
+    while (const aom_codec_cx_pkt_t* pkt =
+               aom_codec_get_cx_data(&ctx_, &iter)) {
+      if (pkt->kind == AOM_CODEC_CX_FRAME_PKT && pkt->data.frame.sz > 0) {
+        if (data_pkt_count > 0) {
+          RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encoder returned more than "
+                                 "one data packet for an input video frame.";
+          Release();
+        }
+        // TODO(bugs.webrtc.org/11174): Remove this hack when
+        // webrtc_pc_e2e::SingleProcessEncodedImageDataInjector not used or
+        // fixed not to assume that encoded image transfered as is.
+        const uint8_t* data = static_cast<const uint8_t*>(pkt->data.frame.buf);
+        size_t size = pkt->data.frame.sz;
+        if (size > 2 && data[0] == 0b0'0010'010 && data[1] == 0) {
+          // Typically frame starts with a Temporal Delimter OBU of size 0 that
+          // is not need by any component in webrtc and discarded during rtp
+          // packetization. Before discarded it confuses test framework that
+          // assumes received encoded frame is exactly same as sent frame.
+          data += 2;
+          size -= 2;
+        }
+        encoded_image.SetEncodedData(EncodedImageBuffer::Create(data, size));
+
+        bool is_key_frame = ((pkt->data.frame.flags & AOM_EFLAG_FORCE_KF) != 0);
+        encoded_image._frameType = is_key_frame
+                                       ? VideoFrameType::kVideoFrameKey
+                                       : VideoFrameType::kVideoFrameDelta;
+        encoded_image.SetTimestamp(frame.timestamp());
+        encoded_image.capture_time_ms_ = frame.render_time_ms();
+        encoded_image.rotation_ = frame.rotation();
+        encoded_image.content_type_ = VideoContentType::UNSPECIFIED;
+        // If encoded image width/height info are added to aom_codec_cx_pkt_t,
+        // use those values in lieu of the values in frame.
+        encoded_image._encodedHeight = frame.height();
+        encoded_image._encodedWidth = frame.width();
+        encoded_image.timing_.flags = VideoSendTiming::kInvalid;
+        int qp = -1;
+        ret = aom_codec_control(&ctx_, AOME_GET_LAST_QUANTIZER, &qp);
+        if (ret != AOM_CODEC_OK) {
+          RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encode returned " << ret
+                              << " on control AOME_GET_LAST_QUANTIZER.";
+          return WEBRTC_VIDEO_CODEC_ERROR;
+        }
+        encoded_image.qp_ = qp;
+        encoded_image.SetColorSpace(frame.color_space());
+        if (controller_) {
+          controller_->OnEncodeDone(frame.timestamp(), is_key_frame, &layer);
+        }
+        ++data_pkt_count;
+      }
+    }
+
+    // Deliver encoded image data.
+    if (encoded_image.size() > 0) {
+      CodecSpecificInfo codec_specific_info;
+      codec_specific_info.codecType = kVideoCodecAV1;
+      if (controller_) {
+        if (encoded_image._frameType == VideoFrameType::kVideoFrameKey) {
+          codec_specific_info.template_structure = controller_->Structure();
+        }
+        codec_specific_info.generic_frame_info = layer;
+      }
+      encoded_image_callback_->OnEncodedImage(encoded_image,
+                                              &codec_specific_info, nullptr);
+    }
   }
 
   return WEBRTC_VIDEO_CODEC_OK;
@@ -388,8 +468,9 @@ VideoEncoder::EncoderInfo LibaomAv1Encoder::GetEncoderInfo() const {
 
 const bool kIsLibaomAv1EncoderSupported = true;
 
-std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder() {
-  return std::make_unique<LibaomAv1Encoder>();
+std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder(
+    FrameDependenciesController* controller) {
+  return std::make_unique<LibaomAv1Encoder>(controller);
 }
 
 }  // namespace webrtc

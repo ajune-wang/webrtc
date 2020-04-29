@@ -9,6 +9,20 @@
 import("//third_party/libaom/options.gni")
 import("../../../../webrtc.gni")
 
+rtc_library("frame_dependencies_controller") {
+  sources = [
+    "frame_dependencies_controller.h",
+    "frame_dependencies_controller_single_stream.cc",
+    "frame_dependencies_controller_single_stream.h",
+  ]
+  deps = [
+    "../../../../api/transport/rtp:dependency_descriptor",
+    "../../../../common_video/generic_frame_descriptor",
+    "../../../../rtc_base:checks",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 rtc_library("libaom_av1_decoder") {
   visibility = [ "*" ]
   poisonous = [ "software_video_codecs" ]
@@ -41,6 +55,7 @@ rtc_library("libaom_av1_encoder") {
   poisonous = [ "software_video_codecs" ]
   public = [ "libaom_av1_encoder.h" ]
   deps = [
+    ":frame_dependencies_controller",
     "../../../../api/video_codecs:video_codecs_api",
     "//third_party/abseil-cpp/absl/base:core_headers",
   ]

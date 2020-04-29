@@ -59,7 +59,7 @@ std::unique_ptr<VideoEncoder> InternalEncoderFactory::CreateVideoEncoder(
     return H264Encoder::Create(cricket::VideoCodec(format));
   if (kIsLibaomAv1EncoderSupported &&
       absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName))
-    return CreateLibaomAv1Encoder();
+    return CreateLibaomAv1Encoder(nullptr);
   RTC_LOG(LS_ERROR) << "Trying to created encoder of unsupported format "
                     << format.name;
   return nullptr;

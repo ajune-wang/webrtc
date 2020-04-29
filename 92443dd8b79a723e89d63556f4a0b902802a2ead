@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "93de45f8_24d256e7",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I\u0027m a bit skeptic about this enum since this is used elsewhere in the code by again casting the ChannelId parameters to ints for direct indexing in vectors.\n\nWhat is the reason that a plain int cannot be used here?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b7f5065_71469506",
         "filename": "api/voip/voip_engine.h",
         "patchSetId": 6
@@ -96,6 +119,98 @@
     },
     {
       "key": {
+        "uuid": "64e7aad4_1addaebd",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Nit:\nTo me, it is not fully clear what this comment section is. I guess that it is a description of how to use the interface? \nIn that case, I think it would be good to have a more extensive description. At least to me this is in its current form of quite a limited value.",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0da495b8_a01b15da",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Please remove this empty line comment, and replace it with a fully empty line instead.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 2
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e36918c7_8fe0b053",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I\u0027m kind of missing a comment describing the class/interface. I guess that the above comment could count as that, but in that case I would like to have a section in that that describes the class/interface in more detail, e.g., it\u0027s purpose, etc. \n\n(this is kind of intermixed with my comment above so both should probably be addressed at the same time).",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 18
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a1c7f4a_69c65a59",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Nit: since this is singularis I guess it should be\ncreates/releases/starts/stops",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 30
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0ff91a7_a903f378",
         "filename": "api/voip/voip_engine_factory.cc",
         "patchSetId": 6
@@ -131,6 +246,75 @@
     },
     {
       "key": {
+        "uuid": "cba9a82b_8565f200",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "To simplify debugging for the user, I\u0027d suggest making two if-statements here, one for checking the encoder_factory and one for checking the decoder factory, and use different log messages for each of them",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9dac0a0_13aaf3a9",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "The AudioProcessing is an interface, so I\u0027d rather have this comment refer to an implementation of it.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11676746_e36daba2",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "\"Using default AudioProcessing.\" -\u003e Using default created Audio Processing Module.\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 23,
+        "endLine": 37,
+        "endChar": 53
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7ef0cdf4_75fff04e",
         "filename": "api/voip/voip_engine_factory.cc",
         "patchSetId": 6
@@ -163,6 +347,52 @@
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9bd1c5ec_160d179f",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "set custom\n-\u003e\nprovided a custom",
+      "range": {
+        "startLine": 41,
+        "startChar": 20,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1775cc52_b9dfb319",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "What about\n\nUsing custom audio device\n-\u003e\nUsing custom audio device module",
+      "range": {
+        "startLine": 44,
+        "startChar": 23,
+        "endLine": 44,
+        "endChar": 48
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -248,6 +478,29 @@
     },
     {
       "key": {
+        "uuid": "5f92dc52_6c6df517",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I don\u0027t know the full details here but I\u0027ve been told that it is faster to do an std::move of the scoped_refptr-s",
+      "range": {
+        "startLine": 57,
+        "startChar": 22,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40901309_94f702a8",
         "filename": "api/voip/voip_engine_factory.cc",
         "patchSetId": 6
@@ -298,6 +551,167 @@
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f29195c9_5675d26d",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I\u0027d suggest having something else here, since voip core does not really tell that much (it does not even match a variable name, and if used as a concept, the capitalization of the acronym is not correct).\nMy suggestions would instead be:\nVoIP core\nVoipCore\nvoip_core (least preferred).",
+      "range": {
+        "startLine": 58,
+        "startChar": 48,
+        "endLine": 58,
+        "endChar": 57
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aab8a568_ae985b11",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Please add a comment describing the purpose of the struct.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5061f5c3_057aff88",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "This comment is not clear to me.\nIs this a mandatory component that mush be set?\nWhat is the caller in this case? Is it the code that assigns this variable?\n\nPlease have another look at this comment to see if it can be made more clear.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1bf586_b0433865",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 52
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cfeb60d_b3ee1480",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 36,
+        "startChar": 1,
+        "endLine": 37,
+        "endChar": 48
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "925617f0_2466eb80",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "The usage described here is fairly complex. In particularly so combined with the fact that WebRTC now can be build without APM (in which case the default created APM would actually be null).\n\nWould it be an option instead to avoid the automatically created APM and instead enforce injection? As I see it:\n-that would make the audio_processing behave in the same way as the other members in the config (e.g., be mandatory built).\n-since this is a new API, we here have the ability to choose what we want and what is easiest to use.",
+      "range": {
+        "startLine": 41,
+        "startChar": 31,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09068180_205c2925",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "This comment is not fully clear to me. I guess one source of the confusion is that there is no comment describing the struct and its purpose.\n\nI guess that it is the CreateVoipEngine that would create this by default.",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -372,6 +786,29 @@
     },
     {
       "key": {
+        "uuid": "c5357891_5b3e086b",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Even though this may work, this is not how the AudioProcessing pointer is designed to be used within WebRTC. This should be a scoped_refptr. (e.g., see https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/create_peerconnection_factory.cc;drc\u003d317a1f09ed232bc16e67f6588ecf1b5deabbf928;l\u003d39?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F)",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 32
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32c2ccf5_79ab8ff1",
         "filename": "api/voip/voip_engine_factory.h",
         "patchSetId": 6
@@ -422,6 +859,972 @@
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a338460_2880e0f9",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I\u0027d suggest using \naudio_device_module \ninstead as a variable name\n\nI don\u0027t really know this sufficently to properly tell, but audio device does to me have a different meaning. Furhermore, since the variable name serves as documenting the code as well, I think it is more clear/less ambiguous to add the suffix \"_module\" to the variable name",
+      "range": {
+        "startLine": 46,
+        "startChar": 56,
+        "endLine": 46,
+        "endChar": 68
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e5fc39_099a1a81",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Same comment as for the above, would it make sense to not default create this, but instead enforce injection?",
+      "range": {
+        "startLine": 45,
+        "startChar": 1,
+        "endLine": 46,
+        "endChar": 69
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75b93399_8a09455c",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Since this is the factory API, please add a comment describing the create method.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 70
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "658ffb95_ebf8b8ae",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Can this be made const-ref ( const VoipEngineConfig\u0026 config) ?",
+      "range": {
+        "startLine": 49,
+        "startChar": 45,
+        "endLine": 49,
+        "endChar": 68
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a3be50f_d5e95aac",
+        "filename": "api/voip/voip_network.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "In the implementation of these in voip_core, they fail silently if the channel_id does not map to a channel. If this is expected, please add that to the method description here.",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24cbbe9a_a8d6517e",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "To improve readability, I would suggest not using auto here. It is non-trivial what the return types are, and using auto the reader needs to lookup the declarations of GetRealTimeCeock and Create to see what the type of these are.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 61
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc1cba05_f25d651f",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I think using an std::move here is faster.",
+      "range": {
+        "startLine": 64,
+        "startChar": 30,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e16a99fb_70188367",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "In addition to the comment above, the explicit calling of the reset()s is not needed. Please omit these and instead let the automatic destruction of the member variables handle that.",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 18
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "887ff848_c14b73d1",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Hmm, I think this is prone to failure.\n\nSince on line 55 rtp_config.clock is passed into the constructor as a pointer to receive_statistics, \nand receive_statistics is then on line 64 moved to ingress\n\nit is from what I can see critical that ingress is destroyed after rtp_rtcp.\n\nTo make things even more complicated, egress_ receives a pointer to rtp_rtcp_ which means that egress_ needs to as well be destroyed before rtp_rtcp_. \n\n\nThis is easily solved by changing the order of destruction but it is always a bit scary to have such a requirement in the long run (since it is very easy to regress and omit the required order.\n\nMy suggestion would instead be to let AudioChannel own the receive_statistics, and instead of moving the unique_ptr for the receive_statistics to AudioIngress pass a pointer to AudioIngress.\n\nWith that construct, it will be more explicit and clear how the ownership of receive_statistics is and the required order of destruction will be more explicit.",
+      "range": {
+        "startLine": 84,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 20
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6482a1_ed913d5f",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Nit: It would be nice to put both of these into one if-statement and rely on the short-circuit feature of \u0026\u0026 to ensure that SetSendingStatus is not called if Sending() is true.\n\nSame comments for the nested if-statements below.",
+      "range": {
+        "startLine": 93,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 32
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1207047_726d8546",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Comment should end with a period",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 33
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb6a4cb9_742ff20e",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I may be missing something, but the format seems to be unused. Is that intentional?\n\nIf it is, and the format is only used for reporting to the outside, I would suggest adding a private SetEncoderFormat method that only does the setting of the encoder format. That would then very much localize the use of the lock and minimize the amount of code close to the lock..",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac600435_2fce9e55",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I think it is better to put this into the class declaration since that will allow inlining, this is a getter and since the code is so short.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 25
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b22372a_5932bc51",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "to me this comment is not clear. What is meant by retention time (I have not heard the term before)?\nIs this about reducing thread contention, or is it about reducing waiting time?",
+      "range": {
+        "startLine": 37,
+        "startChar": 24,
+        "endLine": 37,
+        "endChar": 42
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec62dc59_a5f8dc34",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "encoder-\u003eencode\n?",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3050c0c9_7a1713d5",
+        "filename": "audio/voip/audio_ingress.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Please add a ending period to the comment.",
+      "range": {
+        "startLine": 189,
+        "startChar": 1,
+        "endLine": 189,
+        "endChar": 55
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ebdfea5_b9a057b0",
+        "filename": "audio/voip/audio_ingress.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "It kind of depends on how often they are used, but methods that are as short as this I tend to put in the class declaration since that will allow inlining.\n\nThere are more examples of this in the code.",
+      "range": {
+        "startLine": 241,
+        "startChar": 1,
+        "endLine": 243,
+        "endChar": 1
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "060dc2cb_02ea4e7e",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Please use other, more descriptive names for the parameters rtp and rtcp. The current naming, they hint that they actually correspond to RTP and RTCP which is incorrect.",
+      "range": {
+        "startLine": 64,
+        "startChar": 55,
+        "endLine": 65,
+        "endChar": 62
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e113f2a7_058b36b5",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "In general I think it is good to add a brief comment to each test, describing what aspects the test tests.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 46
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f90a3c6_83bc305d",
+        "filename": "audio/voip/test/audio_channel_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Comment should start with capital letter and end with a period.",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 113,
+        "endChar": 51
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "868b283a_08e7a578",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "As commented elsewhere, please add a comment on what the test tests.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9e043bc_5594f80e",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "End comment with period.",
+      "range": {
+        "startLine": 56,
+        "startChar": 48,
+        "endLine": 56,
+        "endChar": 55
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a08babb_da65414a",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "End comment with period.",
+      "range": {
+        "startLine": 73,
+        "startChar": 1,
+        "endLine": 73,
+        "endChar": 60
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b06be3fa_78f663bc",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Since macros are error-prone and makes debugging more tricky, would it be possible to use a constant instead of \nAUDIO_DEVICE_ID\n?\n\nAlternatively, it that is not possible, I would prefer to have this #if-def clause define two alternative method implementations that each call their own\naudio_device_-\u003eSetRecordingDevice(AUDIO_DEVICE_ID)",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 0
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "310ab086_dbdaadc3",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Please move to declaration to allow them to be inlined.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 1
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81e7466e_b0cab845",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I would prefer this to be done immediately in the if-statement, and that all subsequent calls to the audio processing object are instead made on audio_processing_. I think it is easier to follow what happens then.",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 52
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb59fcc_8c0fab81",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Why does not the method return false for these errors? If that is by design, please describe that in comments.",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 119,
+        "endChar": 0
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fcb0b0e_fec69072",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "The extra added scope here does not shorten the scope of the lock (since it only is followed by the return statement.\nPlease instead remove the extra scope as it is not needed, and makes the code slightly harder to read due to the extra indentation",
+      "range": {
+        "startLine": 139,
+        "startChar": 2,
+        "endLine": 139,
+        "endChar": 3
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b4ad99_2f0d4c29",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "As commented elsewhere, I don\u0027t think this cast is not at all that nice. It works, but I think that the readability suffers compared to if a plain int is used instead.\n\nSince such a central aspect of the implementation is that the ChannelId is used to index the channels_ vector, I think that it would be better use an int instead of the the ChannelId type.",
+      "range": {
+        "startLine": 146,
+        "startChar": 6,
+        "endLine": 146,
+        "endChar": 45
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3901b598_b17cf7f0",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "This error, and it\u0027s return also becomes a bit strange, since it is not obvious from the type why a ChannelID can be out of range.",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 171,
+        "endChar": 5
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddf3863_f7b5c14d",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Hmm. Does this really work? Since the design is that channels_ can contain null elements (right?), I think that this can, and likely will, crash due to null pointer access.",
+      "range": {
+        "startLine": 201,
+        "startChar": 5,
+        "endLine": 201,
+        "endChar": 38
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "929502e6_1c57fbac",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "To me, it feels a bit scary that the calls silently have no effect if channel is not mapped. \n\nWould it make sense to report to the caller that this is the case? Or is it by design that they have no effect in this case?",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 1
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e99b0171_9a4a9418",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Please document the class with a comment describing its purpose, and use.\n\nhttps://google.github.io/styleguide/cppguide.html#Class_Comments",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02dea40b_e61f289e",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Please add a comment on the purpose of the method.\n\nIn particular, the return value should be documented.",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 11
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "195c6a4c_2314b41d",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "I know what is meant by the comment, but it is formally not correct since these are not the interfaces, but rather the implementation of the interfaces.\n\nPlease change the comment accordingly, and end the comment with a peripod.",
+      "range": {
+        "startLine": 50,
+        "startChar": 1,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd895d4f_944d543d",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "As above.",
+      "range": {
+        "startLine": 55,
+        "startChar": 1,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10025596_4887056a",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "As above.",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb887349_bf3710f1",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "As above.",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 25
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2419cd0e_6fe4e279",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "In line with the styleguide on comments\n(https://google.github.io/styleguide/cppguide.html#Function_Comments)\n(-Omitting the obvious parts, such that \"Internal method\". \n-Changing the comment to \"open with descriptive verbs in the indicative mood\" rather than the imperative mood.)\n\nI would propose \n\"Internal method to fetch scoped pointer of AudioChannel using channel id.\"\n-\u003e\nRetrieves a scoped pointer of AudioChannel.\n\n(Or even fully omitting the comment since it is kind of close to a pure getter)",
+      "range": {
+        "startLine": 80,
+        "startChar": 5,
+        "endLine": 80,
+        "endChar": 13
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d78d599d_675032bd",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Same comment as above, but please make the comment more descriptive as well, since this does not really tell that much.\n\nAlso the name of the method does seem to not fully match the comment.",
+      "range": {
+        "startLine": 83,
+        "startChar": 1,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad1c0773_20f595bc",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "To me, this is kind of a hack, that makes the code harder to read and also makes this seem risky. In practice, it is no risky since the enum ChannelId actually is an int.\n\nIs there a strong reason for not using an int instead of using the ChannelId enum? What extra does the use of this enum add?",
+      "range": {
+        "startLine": 101,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 30
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963778f5_33a3d287",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-04-29T14:01:46Z",
+      "side": 1,
+      "message": "Reading the code, I don\u0027t fully understand the purpose of the idle_id_ queue.\n\nIs the reason of this to keep track of what elements there are in channels_ that have been removed, so that new elements can be inserted into that?\n\nIf that is the case, an alternative implementation could be to instead of pulling items from the idle_id_ queue, just scan the channels_ vector to find null items?\nI don\u0027t know how often CreateChannel is called but if it is not called very often, and channels_ is not very large, then that approach may be preferred since it simplifies the logic in the .cc file a fair amount.",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 109,
+        "endChar": 55
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

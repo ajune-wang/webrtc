@@ -28,6 +28,7 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -148,6 +149,22 @@ bool VideoStreamEncoderResourceManager::PreventAdaptUpDueToActiveCounts::
                           const Resource& reason_resource) const {
   VideoAdaptationReason reason =
       manager_->GetReasonFromResource(reason_resource);
+
+  RTC_DCHECK_GE(
+      FilterVideoAdaptationCountersByDegradationPreference(
+          manager_->active_counts_[VideoAdaptationReason::kCpu] +
+              manager_->active_counts_[VideoAdaptationReason::kQuality],
+          manager_->effective_degradation_preference_)
+          .Total(),
+      0)
+      << "We couldn't adapt up anyways!";
+
+  if (reason == VideoAdaptationReason::kQuality &&
+      manager_->quality_scaler_resource_
+          .is_prevent_adaptation_allowed_enabled()) {
+    return true;
+  }
+
   // We can't adapt up if we're already at the highest setting.
   // Note that this only includes counts relevant to the current degradation
   // preference. e.g. we previously adapted resolution, now prefer adpating fps,

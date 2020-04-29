@@ -46,6 +46,122 @@
       "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc10be7e_e1caeb57",
+        "filename": "modules/video_coding/codecs/av1/frame_dependencies_controller_single_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-04-29T15:14:33Z",
+      "side": 1,
+      "message": "\u003e I do not know yet where the FrameDependenciesController would live. Somewhere stable.\n\u003e If Encoder is recrecated, same instance of the controller can be passed to the new one.\n\u003e When a switch between VP8 and AV1 happens, controller would need an external signal it should produce a key frame (and probably to turn off the spatial layers).\n\nOne difference is that the MegaSuperEncoderClass would allocate encoders, so it would be aware of encoder resets. But I think the idea of using a FrameDependenciesController is a very significant step in the right direction, so lets start with that.\n\n\u003e Yes, frame_id suppose to go all the way to the dependency descriptor in the rtp packet.\n\nSomething we have to think about is the conflict between this class and RtpPayloadParams, where frame ids are currently assigned.\n\n\u003e It seems to me my approach matches main point of yours:\n\u003e FrameDependenciesController is there both to control the Encoder and generate correct\n\u003e dependencies for the dependency descriptor:\n\nYes, I think it matches the main idea.\n\n\u003e It does generate GenerateFrameInfo which tells Encoder how to encode a frame,\n\u003e Currently it is up to encoder to copy that generic frame info into class that will be propagated to the rtp level (ironically that struct is called CodecSpecificiInfo).\n\u003e There is also mechanic of OnEncoderDone to adjust dependencies after frame is encoded but before it is send to the rtp layer (with idea to use frame_id as an identifier).\n\u003e \n\u003e frame_id is generated in advance, which would allow to have more stable frame diffs (at a minor cost of more gaps)\n\u003e \n\u003e Can you please dobule check how this new interface is used in the Av1Encoder?\n\u003e (does it look dumb enough?)\n\nWill do.\n\n\u003e What doesn\u0027t match your description is that in my proposal the controller doesn\u0027t need to pass-through and thus be aware of the VideoFrame or EncodedFrame classes.\n\nWith this proposal we have to pass high level information (things the encoder doesn\u0027t care about) through the encoder. My idea was to avoid that (by combining the encoded frame with the high level information after encoding is done).\n\n\u003e Or do you suggest to change (introduce new) VideoEncoder interface to pass less information there? and do all the VideoFrame -\u003e EncodedFrame metadata copy in the Controller class.\n\nYes.",
+      "parentUuid": "3f580f44_a9219179",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 36
+      },
+      "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "182e0bd9_5074dc8d",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-04-29T15:14:33Z",
+      "side": 1,
+      "message": "nit: Instead of having the wrapper call NextFrameConfig you could just pass the next frame config with the encode call. That is easy to change afterwards though, so not important right now.",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 49
+      },
+      "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a4793b0_826523c0",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-04-29T15:14:33Z",
+      "side": 1,
+      "message": "We should not make encoder wrappers depend on RTP specific structs. Also don\u0027t like that we use FrameDependencyStructure for purposes it was not intended for (and it\u0027s not a good fit).",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 28
+      },
+      "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9890639e_f1b6f5fa",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-04-29T15:14:33Z",
+      "side": 1,
+      "message": "nit: Maybe remove |svc_params_| and simply use a local:\n  aom_svc_params_t svc_params \u003d {0};",
+      "range": {
+        "startLine": 222,
+        "startChar": 4,
+        "endLine": 222,
+        "endChar": 49
+      },
+      "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddff3103_7a6c9df2",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-04-29T15:14:33Z",
+      "side": 1,
+      "message": "I get that passing GenericFrameInfo through the encoder is kind of what we have to do initially since that is what the API looks like, but we should not set frame_diffs since we don\u0027t know what they will be (what if we use multiple encoders?). We should output CodecBufferUsage information and then calculate the frame_id and frame_diffs from that later on (we already do this with the LibvpxVp8Encoder).",
+      "range": {
+        "startLine": 281,
+        "startChar": 6,
+        "endLine": 281,
+        "endChar": 40
+      },
+      "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

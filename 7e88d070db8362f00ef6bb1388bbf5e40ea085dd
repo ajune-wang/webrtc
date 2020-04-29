@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "899e14ba_11a54daa",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T09:12:57Z",
+      "side": 1,
+      "message": "Set all the fields? All but the APM are mandatory now, and almost all callers will want to set that one too.",
+      "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "400e0fcd_2b1a57f2",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T09:12:57Z",
+      "side": 1,
+      "message": "Consider\n\n  return nullptr;\n\nIMO it makes the code simpler because of fewer mutations, but feel free to disagree.",
+      "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb1f61cc_ace143a7",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T09:12:57Z",
+      "side": 1,
+      "message": "Document that this can fail and why, and that it returns null in that case.",
+      "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

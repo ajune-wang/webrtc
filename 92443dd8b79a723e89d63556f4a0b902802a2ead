@@ -283,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "115ebd42_e5e8b51e",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T09:12:57Z",
+      "side": 1,
+      "message": "OK, that initializing the audio device could fail feels legitimate. Thanks.",
+      "parentUuid": "3f901b21_1fe17071",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8c31b9b_bc0193e1",
         "filename": "api/voip/voip_engine_factory.h",
         "patchSetId": 6
@@ -330,6 +348,24 @@
       "side": 1,
       "message": "Thanks, that sounds good. btw does caller have access to default audio processing and audio device implementation or are we planning to add them to api directory soon?",
       "parentUuid": "a70f5dd3_53a6e8a4",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "355322c3_4a9d40a4",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T09:12:57Z",
+      "side": 1,
+      "message": "They should be available: https://webrtc.googlesource.com/src/+/master/native-api.md",
+      "parentUuid": "7e1c89d5_4091a748",
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

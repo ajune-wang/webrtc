@@ -48,6 +48,7 @@ if (rtc_include_tests) {
 
     sources = [
       "resource_unittest.cc",
+      "video_source_restrictions_unittest.cc",
       "video_stream_adapter_unittest.cc",
     ]
     deps = [

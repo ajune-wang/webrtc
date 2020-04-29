@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6969951_ca379c86",
+        "filename": "modules/video_coding/codecs/av1/frame_dependencies_controller_single_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-04-29T12:46:26Z",
+      "side": 1,
+      "message": "Where is the FrameDependenciesController intended to live? What happens when we recreate an encoder? Or when we switch from AV1 to VP8 to AV1 again? Is this frame number intended to map directly to the final |frame_id| sent on the wire?\n\nLong time ago we generated the picture IDs in the encoder wrappers, but that caused bugs when encoders were recreated/switched.\n\nGenericFrameInfo was intended to be passed to the RTP part of the code so that the DD could be populated. The idea was that there was suppose to be some class that was aware of what the full stream structure looked like (like the FrameDependenciesController), and that also controlled the encoder(s). This class would then generate the GenericFrameInfos, use the encoder to encode a frame, and then send {GenericFrameInfo, EncodedFrame} tuples on their way to be packetized/sent. We didn\u0027t have time to implement all of this, so most of the GenericFrameInfo is now populated in some encoder wrappers. The exception was the frame_id, for which we added the encoder_buffers so that the frame_id could be calculated at a later point in the RtpPayloadParams (so that above mentioned bugs could be avoided).\n\nThis was never the abstraction I wanted (I wanted dumb wrappers where a list of desired frames were described, like which buffers each frame could reference/update, which resolution they should have, and which SL/TL they belonged to.)\n\nIn short I would like to have an API looking something like this:\n\nclass MegaSuperEncoderClass {\n  ...\n}\n\nstruct EncodeFrameSpec {\n  Resolution res;\n  vector\u003cCodecBufferUsage\u003e buffers;\n  int sl;\n  int tl;\n}\n\nthen we would call something like VideoEncoder::Encode(input_frame, vector\u003cEncodeFrameSpec\u003e). The encoder would then output something like:\n\nstruct EncodeResult {\n  uint8_t* data;\n  EncodeFrameSpec spec;\n}\n\nFinally the MegaSuperEncoderClass would match the EncodeResult with its matching GenericFrameInfo, calculate remaining stuff (since the encoder can decide to not reference a frame even if we allowed it to), and then send that on its way.\n\nMy suggestion would be something like this:\nStart by implementing a private Encode function in the AV1 encoder wrapper similar to the one described above. Whenever the current Encode function is called, we generate all EncodeFrameSpecs internally and then call the private EncodeFunction. That would be a first step towards having a common FrameDependencyController.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 36
+      },
+      "revId": "11505f474d9cdb1bc53389ab94ed463a01500c14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

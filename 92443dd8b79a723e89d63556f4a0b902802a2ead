@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cbe4592d_d4d631ed",
+        "filename": "api/voip/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "ok thanks, I didn\u0027t know about the convention. Let me switch it back as you suggested.",
+      "parentUuid": "16bdece7_d0a7399f",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b7f5065_71469506",
         "filename": "api/voip/voip_engine.h",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "36cbb96a_f52920ec",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "Good pointer. thanks.",
+      "parentUuid": "9b7f5065_71469506",
+      "range": {
+        "startLine": 32,
+        "startChar": 5,
+        "endLine": 32,
+        "endChar": 9
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0ff91a7_a903f378",
         "filename": "api/voip/voip_engine_factory.cc",
         "patchSetId": 6
@@ -62,6 +110,24 @@
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1e10639_638faf56",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "I see what you mean. Thanks.",
+      "parentUuid": "b0ff91a7_a903f378",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "bf1dd767_597c7bb8",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "Removed as we depend on caller on this now.",
+      "parentUuid": "7ef0cdf4_75fff04e",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "584d7a6f_37caf7ef",
         "filename": "api/voip/voip_engine_factory.cc",
         "patchSetId": 6
@@ -96,6 +180,24 @@
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ad5a51c_b4849ce1",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "Thanks for pointing it out. I missed move constructor definitions.  I just thought swap was what\u0027s available in its place.",
+      "parentUuid": "584d7a6f_37caf7ef",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "6842d25e_2f31f054",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "Agreed.  As I replied above, I will change them to std::move.",
+      "parentUuid": "fa4358b6_32b1d10c",
+      "range": {
+        "startLine": 56,
+        "startChar": 52,
+        "endLine": 57,
+        "endChar": 69
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40901309_94f702a8",
         "filename": "api/voip/voip_engine_factory.cc",
         "patchSetId": 6
@@ -136,6 +262,24 @@
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f901b21_1fe17071",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "This means initialization on audio device failed which would be this will result in no audio in put and output. I would consider it as a fatal error that renders further processing useless. Please let me know your thought.",
+      "parentUuid": "40901309_94f702a8",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +318,24 @@
     },
     {
       "key": {
+        "uuid": "7e1c89d5_4091a748",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "Thanks, that sounds good. btw does caller have access to default audio processing and audio device implementation or are we planning to add them to api directory soon?",
+      "parentUuid": "a70f5dd3_53a6e8a4",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32c2ccf5_79ab8ff1",
         "filename": "api/voip/voip_engine_factory.h",
         "patchSetId": 6
@@ -206,6 +368,24 @@
       "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce4d2365_a78381da",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-29T00:47:37Z",
+      "side": 1,
+      "message": "Will do, thanks.",
+      "parentUuid": "74ddbd58_5b75919e",
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

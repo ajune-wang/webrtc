@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aefe0346_5e30ab07",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-29T15:17:32Z",
+      "side": 1,
+      "message": "nit: Move enum class to the top of the class, line below public:",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8318f70b_136c933a",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-29T15:17:32Z",
+      "side": 1,
+      "message": "nit: What\u0027s \"ff\"? Should this be \"qp_result\"?",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a80d257_b17e36ef",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-29T15:17:32Z",
+      "side": 1,
+      "message": "nit: \"LowQP\"",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4537b4cc_fd8fbd17",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-29T15:17:32Z",
+      "side": 1,
+      "message": "Can we add a quality_scaler_resource_unittest.cc that exercises whether or not to adapt?\nIt might require some additional code to fake the QP result (like introduce a QualityScalerInterface to be able to fake it or have a virtual QualityScalerResource::CheckQp() that a QualityScalerResourceForTest overrides) but I think it\u0027s worth it.",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4a255c_82db0fa0",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-29T15:17:32Z",
+      "side": 1,
+      "message": "This is a \u003e\u003d check, not a \u003e check, so it\u0027s impossible to this this DCHECK unless active_counts_ is negative.\n\nIn any case if this is changed to \u003e 0, is this supposed to be a LOG or a DCHECK? I would expect us to be able to hit this when Total() is 1.\n\nAssuming Total() is 0 though, would it be an error or would it be the counters not making sense anymore?",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fec8a46_ec13f028",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-04-29T15:17:32Z",
+      "side": 1,
+      "message": "Nice! This ensures we can land this independently of EncodeUsageResource::IsAdaptationUpAllowed()?",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -13,17 +13,28 @@
 #include <utility>
 
 #include "call/adaptation/resource_adaptation_processor.h"
+#include "rtc_base/logging.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
+
+const char kQualityScalerResourcePreventAdaptation[] =
+    "WebRTC-QpScalerPreventAdaptUp";
 
 QualityScalerResource::QualityScalerResource(
     ResourceAdaptationProcessor* adaptation_processor)
     : adaptation_processor_(adaptation_processor),
       quality_scaler_(nullptr),
-      pending_qp_usage_callback_(nullptr) {}
+      pending_qp_usage_callback_(nullptr),
+      is_prevent_adapt_up_enabled_(!webrtc::field_trial::IsDisabled(
+          kQualityScalerResourcePreventAdaptation)) {}
 
 bool QualityScalerResource::is_started() const {
   return quality_scaler_.get();
+}
+
+bool QualityScalerResource::is_prevent_adaptation_allowed_enabled() const {
+  return is_prevent_adapt_up_enabled_;
 }
 
 void QualityScalerResource::StartCheckForOveruse(
@@ -99,6 +110,7 @@ void QualityScalerResource::OnAdaptationApplied(
   // We only clear QP samples on adaptations triggered by the QualityScaler.
   if (!pending_qp_usage_callback_)
     return;
+  RTC_DCHECK_EQ(this, &reason_resource);
   bool clear_qp_samples = true;
   // If we're in "balanced" and the frame rate before and after adaptation did
   // not differ that much, don't clear the QP samples and instead check for QP
@@ -126,6 +138,42 @@ void QualityScalerResource::OnAdaptationApplied(
   }
   pending_qp_usage_callback_->OnQpUsageHandled(clear_qp_samples);
   pending_qp_usage_callback_ = nullptr;
+  // Count the number of restrictions.
+  if (restrictions_after < restrictions_before) {
+    // AdaptDown
+    ++adaptations_;
+  } else {
+    // AdaptUp
+    --adaptations_;
+    RTC_DCHECK_GE(adaptations_, 0);
+  }
+}
+
+bool QualityScalerResource::IsAdaptationUpAllowed(
+    const VideoStreamInputState& input_state,
+    const VideoSourceRestrictions& restrictions_before,
+    const VideoSourceRestrictions& restrictions_after,
+    const Resource& reason_resource) const {
+  if (!is_prevent_adapt_up_enabled_ || !quality_scaler_) {
+    return true;
+  }
+  QualityScaler::CheckQpResult ff_result = quality_scaler_->CheckQp();
+  switch (ff_result) {
+    case QualityScaler::CheckQpResult::kLowQp:
+      RTC_LOG(INFO) << "AdaptationPrevented - HighQP";
+      return true;
+    case QualityScaler::CheckQpResult::kHighQp:
+      RTC_LOG(INFO) << "AdaptationPrevented - HighQP";
+      return false;
+    case QualityScaler::CheckQpResult::kInsufficientSamples:
+    case QualityScaler::CheckQpResult::kNormalQp:
+      // If we are requesting this adaptation then only allow it if we have
+      // adapted before.
+      // TODO(https://crbug.com/webrtc/11537) This should be replaced with some
+      // prediction.
+      return (&reason_resource == this && adaptations_ > 0) ||
+             &reason_resource != this;
+  }
 }
 
 }  // namespace webrtc

@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9555ea3f_d075ba3c",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T17:29:12Z",
+      "side": 1,
+      "message": "IIRC I recommended this. The point of it is that ChannelId is a type that doesn\u0027t convert to or from regular integers (without an explicit cast), so it\u0027s much harder to accidentally do something stupid with it. And the implementation can still cast it to/from an integer when it needs to.",
+      "parentUuid": "93de45f8_24d256e7",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b7f5065_71469506",
         "filename": "api/voip/voip_engine.h",
         "patchSetId": 6
@@ -954,6 +978,30 @@
     },
     {
       "key": {
+        "uuid": "d8570bf1_dd6c192e",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T17:29:12Z",
+      "side": 1,
+      "message": "No, because there\u0027s at least one unique_ptr in there. And for symmetry (and performance, although that\u0027s not important here) we\u0027d like to consume (move from) the scoped_refptrs as well.",
+      "parentUuid": "658ffb95_ebf8b8ae",
+      "range": {
+        "startLine": 49,
+        "startChar": 45,
+        "endLine": 49,
+        "endChar": 68
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a3be50f_d5e95aac",
         "filename": "api/voip/voip_network.h",
         "patchSetId": 6
@@ -965,6 +1013,30 @@
       "writtenOn": "2020-04-29T14:01:46Z",
       "side": 1,
       "message": "In the implementation of these in voip_core, they fail silently if the channel_id does not map to a channel. If this is expected, please add that to the method description here.",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72eebcee_ef979233",
+        "filename": "api/voip/voip_network.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-04-29T17:29:12Z",
+      "side": 1,
+      "message": "If possible, fix this by something like DCHECK. Unless there\u0027s a legitimate reason why a previously good ChannelId may no longer map to an open channel?",
+      "parentUuid": "7a3be50f_d5e95aac",
       "range": {
         "startLine": 26,
         "startChar": 1,

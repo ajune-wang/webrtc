@@ -15,10 +15,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 RTC_OBJC_EXPORT
-@interface RTCMetricsSampleInfo : NSObject
+@interface RTC_OBJC_TYPE (RTCMetricsSampleInfo) : NSObject
 
 /**
- * Example of RTCMetricsSampleInfo:
+ * Example of RTC_OBJC_TYPE(RTCMetricsSampleInfo):
  * name: "WebRTC.Video.InputFramesPerSecond"
  * min: 1
  * max: 100

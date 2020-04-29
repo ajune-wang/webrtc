@@ -14,13 +14,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RTCDtmfSender : NSObject <RTCDtmfSender>
+@interface RTC_OBJC_TYPE (RTCDtmfSender) : NSObject <RTC_OBJC_TYPE(RTCDtmfSender)>
 
 @property(nonatomic, readonly) rtc::scoped_refptr<webrtc::DtmfSenderInterface> nativeDtmfSender;
 
 - (instancetype)init NS_UNAVAILABLE;
 
-/** Initialize an RTCDtmfSender with a native DtmfSenderInterface. */
+/** Initialize an RTC_OBJC_TYPE(RTCDtmfSender) with a native DtmfSenderInterface. */
 - (instancetype)initWithNativeDtmfSender:
         (rtc::scoped_refptr<webrtc::DtmfSenderInterface>)nativeDtmfSender NS_DESIGNATED_INITIALIZER;
 

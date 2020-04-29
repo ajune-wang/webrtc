@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef82f5bf_8faca3f8",
+        "filename": "sdk/android/native_api/jni/scoped_java_ref.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-04-29T11:43:56Z",
+      "side": 1,
+      "message": "Should we just allow JavaRef\u003cT\u003e\u0026 maybe? Since we are already okay with calling AttachCurrentThread in the nullptr case, doesn\u0027t seem that much of a stretch to also do it here?",
+      "range": {
+        "startLine": 189,
+        "startChar": 23,
+        "endLine": 189,
+        "endChar": 41
+      },
+      "revId": "1bbaa2eec774594b9757effddafd3b30bfbbd2be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

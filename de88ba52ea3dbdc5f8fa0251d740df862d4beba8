@@ -69,6 +69,30 @@
       "revId": "de88ba52ea3dbdc5f8fa0251d740df862d4beba8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28a6d0bc_d3dbaa76",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-29T10:03:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d55347d_a76dbeec",
+      "range": {
+        "startLine": 144,
+        "startChar": 30,
+        "endLine": 145,
+        "endChar": 48
+      },
+      "revId": "de88ba52ea3dbdc5f8fa0251d740df862d4beba8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

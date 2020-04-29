@@ -12,14 +12,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class RTCAudioSessionConfiguration;
+@class RTC_OBJC_TYPE(RTCAudioSessionConfiguration);
 
-@interface RTCAudioSession ()
+@interface RTC_OBJC_TYPE (RTCAudioSession)
+()
 
-/** Number of times setActive:YES has succeeded without a balanced call to
- *  setActive:NO.
- */
-@property(nonatomic, readonly) int activationCount;
+    /** Number of times setActive:YES has succeeded without a balanced call to
+     *  setActive:NO.
+     */
+    @property(nonatomic, readonly) int activationCount;
 
 /** The number of times |beginWebRTCSession| was called without a balanced call
  *  to |endWebRTCSession|.
@@ -40,16 +41,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  the list. This delegate will be notified before other delegates of
  *  audio events.
  */
-- (void)pushDelegate:(id<RTCAudioSessionDelegate>)delegate;
+- (void)pushDelegate:(id<RTC_OBJC_TYPE(RTCAudioSessionDelegate)>)delegate;
 
-/** Signals RTCAudioSession that a WebRTC session is about to begin and
+/** Signals RTC_OBJC_TYPE(RTCAudioSession) that a WebRTC session is about to begin and
  *  audio configuration is needed. Will configure the audio session for WebRTC
  *  if not already configured and if configuration is not delayed.
  *  Successful calls must be balanced by a call to endWebRTCSession.
  */
 - (BOOL)beginWebRTCSession:(NSError **)outError;
 
-/** Signals RTCAudioSession that a WebRTC session is about to end and audio
+/** Signals RTC_OBJC_TYPE(RTCAudioSession) that a WebRTC session is about to end and audio
  *  unconfiguration is needed. Will unconfigure the audio session for WebRTC
  *  if this is the last unmatched call and if configuration is not delayed.
  */

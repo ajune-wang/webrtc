@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 RTC_OBJC_EXPORT
-@interface RTCIceCandidate : NSObject
+@interface RTC_OBJC_TYPE (RTCIceCandidate) : NSObject
 
 /**
  * If present, the identifier of the "media stream identification" for the media
@@ -38,7 +38,7 @@ RTC_OBJC_EXPORT
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
- * Initialize an RTCIceCandidate from SDP.
+ * Initialize an RTC_OBJC_TYPE(RTCIceCandidate) from SDP.
  */
 - (instancetype)initWithSdp:(NSString *)sdp
               sdpMLineIndex:(int)sdpMLineIndex

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afa9fd18_5c69e8fc",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-04-30T08:59:25Z",
+      "side": 1,
+      "message": "Personally I think \u0027Wait\u0027 or \u0027Block\u0027 instead of \u0027Run\u0027 better describes what this function tries to do.\n\n(It will work incorrectly in some corner cases thought, but I do not think we need to worry about those cases until we hit them)\n\nWaitPostedTasks() might more accurately describe what this function does.",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 10
+      },
+      "revId": "70fa71291b616ab07b2cf0e90be20c27656d3ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8ebc417_9866a878",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-04-30T08:59:25Z",
+      "side": 1,
+      "message": "\"already posted tasks\"\nmight more accuratly describe what the function does.",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "70fa71291b616ab07b2cf0e90be20c27656d3ce7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

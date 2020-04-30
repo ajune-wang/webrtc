@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da2e58d0_0c392971",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-30T08:03:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aefe0346_5e30ab07",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8318f70b_136c933a",
         "filename": "video/adaptation/quality_scaler_resource.cc",
         "patchSetId": 10
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9c702bf8_e8844877",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-30T08:03:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8318f70b_136c933a",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a80d257_b17e36ef",
         "filename": "video/adaptation/quality_scaler_resource.cc",
         "patchSetId": 10
@@ -50,6 +86,24 @@
       "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44286d76_b942bd67",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-30T08:03:53Z",
+      "side": 1,
+      "message": "Debugging lines, will remove.",
+      "parentUuid": "0a80d257_b17e36ef",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -98,6 +152,24 @@
       "writtenOn": "2020-04-29T15:17:32Z",
       "side": 1,
       "message": "Nice! This ensures we can land this independently of EncodeUsageResource::IsAdaptationUpAllowed()?",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a615607_87debf15",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-30T08:03:53Z",
+      "side": 1,
+      "message": "Yes, and I can do similar for EncoderUsageResource. This class won\u0027t be needed if under trial.",
+      "parentUuid": "2fec8a46_ec13f028",
       "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

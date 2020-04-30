@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "eb0ddbd2_6632236c",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-30T05:29:19Z",
+      "side": 1,
+      "message": "Agreed. In hindsight, it does seem complicated matter in every way.  I changed the container to unordered_map which only carries active audio channel objects now.",
+      "parentUuid": "3dbcfad3_c90a3952",
+      "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "899e14ba_11a54daa",
         "filename": "api/voip/voip_engine.h",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efabac8f_f904340a",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-30T05:29:19Z",
+      "side": 1,
+      "message": "Thanks, I missed it.",
+      "parentUuid": "899e14ba_11a54daa",
+      "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a19f311_4337e6d3",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-30T05:29:19Z",
+      "side": 1,
+      "message": "I agree. Thanks.",
+      "parentUuid": "400e0fcd_2b1a57f2",
+      "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb1f61cc_ace143a7",
         "filename": "api/voip/voip_engine_factory.h",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "658adc70_04178210",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-04-30T05:29:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb1f61cc_ace143a7",
+      "revId": "7e88d070db8362f00ef6bb1388bbf5e40ea085dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

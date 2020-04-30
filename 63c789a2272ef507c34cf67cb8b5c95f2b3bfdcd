@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "44256e62_e9926676",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-30T08:07:24Z",
+      "side": 1,
+      "message": "Yes, good call - this should be tested.",
+      "parentUuid": "4537b4cc_fd8fbd17",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d4a255c_82db0fa0",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 10
@@ -138,6 +156,24 @@
       "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "375826a7_60822d3f",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-04-30T08:07:24Z",
+      "side": 1,
+      "message": "This DCHECK is not needed, these can\u0027t be called without counts (today at least). I will remove.",
+      "parentUuid": "1d4a255c_82db0fa0",
+      "revId": "63c789a2272ef507c34cf67cb8b5c95f2b3bfdcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -37,6 +37,12 @@ class QualityScalerQpUsageHandlerInterface;
 // video stream down or up).
 class QualityScaler {
  public:
+  enum class CheckQpResult {
+    kInsufficientSamples,
+    kNormalQp,
+    kHighQp,
+    kLowQp,
+  };
   // Construct a QualityScaler with given |thresholds| and |handler|.
   // This starts the quality scaler periodically checking what the average QP
   // has been recently.
@@ -52,6 +58,8 @@ class QualityScaler {
   void SetQpThresholds(VideoEncoder::QpThresholds thresholds);
   bool QpFastFilterLow() const;
 
+  CheckQpResult CheckQp() const;
+
   // The following members declared protected for testing purposes.
  protected:
   QualityScaler(QualityScalerQpUsageHandlerInterface* handler,
@@ -63,20 +71,12 @@ class QualityScaler {
   class CheckQpTask;
   class CheckQpTaskHandlerCallback;
 
-  enum class CheckQpResult {
-    kInsufficientSamples,
-    kNormalQp,
-    kHighQp,
-    kLowQp,
-  };
-
   // Starts checking for QP in a delayed task. When the resulting CheckQpTask
   // completes, it will invoke this method again, ensuring that we always
   // periodically check for QP. See CheckQpTask for more details. We never run
   // more than one CheckQpTask at a time.
   void StartNextCheckQpTask();
 
-  CheckQpResult CheckQp() const;
   void ClearSamples();
 
   std::unique_ptr<CheckQpTask> pending_qp_task_ RTC_GUARDED_BY(&task_checker_);

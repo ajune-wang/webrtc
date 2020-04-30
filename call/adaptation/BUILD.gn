@@ -37,8 +37,7 @@ rtc_library("resource_adaptation") {
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base/experiments:balanced_degradation_settings",
-    "//third_party/abseil-cpp/absl/algorithm:container",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -63,7 +62,7 @@ if (rtc_include_tests) {
       "../../test:field_trial",
       "../../test:rtc_expect_death",
       "../../test:test_support",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 

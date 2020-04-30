@@ -49,10 +49,10 @@ rtc_library("video_codecs_api") {
     "../video:video_codec_constants",
     "../video:video_frame",
     "../video:video_rtp_headers",
-    "//third_party/abseil-cpp/absl/algorithm:container",
-    "//third_party/abseil-cpp/absl/container:inlined_vector",
-    "//third_party/abseil-cpp/absl/strings",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -100,7 +100,7 @@ rtc_library("builtin_video_encoder_factory") {
     "../../media:rtc_media_base",
     "../../rtc_base:checks",
     "../../rtc_base/system:rtc_export",
-    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -148,8 +148,8 @@ rtc_library("rtc_software_fallback_wrappers") {
     "../video:video_bitrate_allocation",
     "../video:video_frame",
     "../video:video_rtp_headers",
-    "//third_party/abseil-cpp/absl/base:core_headers",
-    "//third_party/abseil-cpp/absl/strings",
-    "//third_party/abseil-cpp/absl/types:optional",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }

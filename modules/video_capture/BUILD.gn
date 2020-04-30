@@ -38,7 +38,7 @@ rtc_library("video_capture_module") {
     "../../rtc_base:stringutils",
     "../../rtc_base/synchronization:rw_lock_wrapper",
     "../../system_wrappers",
-    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp:absl",
     "//third_party/libyuv",
   ]
 }
@@ -135,7 +135,7 @@ if (!build_with_chromium) {
         "../../test:video_test_common",
         "../utility",
         "//testing/gtest",
-        "//third_party/abseil-cpp/absl/memory",
+        "//third_party/abseil-cpp:absl",
       ]
       deps += [ "../../test:test_main" ]
     }

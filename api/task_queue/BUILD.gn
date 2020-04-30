@@ -21,9 +21,9 @@ rtc_library("task_queue") {
     "../../rtc_base:checks",
     "../../rtc_base:macromagic",
     "../../rtc_base/system:rtc_export",
-    "//third_party/abseil-cpp/absl/base:config",
-    "//third_party/abseil-cpp/absl/base:core_headers",
-    "//third_party/abseil-cpp/absl/strings",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/abseil-cpp:absl",
   ]
 }
 
@@ -51,8 +51,8 @@ rtc_library("task_queue_test") {
     deps = [
       "../../../webrtc_overrides:webrtc_component",
       "../../test:test_support",
-      "//third_party/abseil-cpp/absl/memory",
-      "//third_party/abseil-cpp/absl/strings",
+      "//third_party/abseil-cpp:absl",
+      "//third_party/abseil-cpp:absl",
     ]
   } else {
     deps = [
@@ -62,8 +62,8 @@ rtc_library("task_queue_test") {
       "../../rtc_base:timeutils",
       "../../rtc_base/task_utils:to_queued_task",
       "../../test:test_support",
-      "//third_party/abseil-cpp/absl/memory",
-      "//third_party/abseil-cpp/absl/strings",
+      "//third_party/abseil-cpp:absl",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 }

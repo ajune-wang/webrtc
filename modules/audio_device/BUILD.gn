@@ -144,7 +144,7 @@ rtc_source_set("audio_device_module_from_input_and_output") {
       "../../api/task_queue",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
   }
 }
@@ -385,7 +385,7 @@ if (rtc_include_tests) {
       "../../test:fileutils",
       "../../test:test_support",
       "../utility",
-      "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp:absl",
     ]
     if (is_linux || is_mac || is_win) {
       sources += [ "audio_device_unittest.cc" ]

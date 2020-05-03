@@ -91,6 +91,8 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
     return media_transport_factory_.get();
   }
 
+  const WebRtcKeyValueConfig& trials() const { return *trials_.get(); }
+
  protected:
   // This structure allows simple management of all new dependencies being added
   // to the PeerConnectionFactory.

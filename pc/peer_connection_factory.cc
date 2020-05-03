@@ -22,7 +22,6 @@
 #include "api/peer_connection_factory_proxy.h"
 #include "api/peer_connection_proxy.h"
 #include "api/rtc_event_log/rtc_event_log.h"
-#include "api/transport/field_trial_based_config.h"
 #include "api/transport/media/media_transport_interface.h"
 #include "api/turn_customizer.h"
 #include "api/units/data_rate.h"
@@ -84,8 +83,8 @@ PeerConnectionFactory::PeerConnectionFactory(
           std::move(dependencies.network_controller_factory)),
       media_transport_factory_(std::move(dependencies.media_transport_factory)),
       neteq_factory_(std::move(dependencies.neteq_factory)),
-      trials_(dependencies.trials ? std::move(dependencies.trials)
-                                  : std::make_unique<FieldTrialBasedConfig>()) {
+      trials_(std::move(dependencies.trials)) {
+  RTC_DCHECK(trials_);
   if (!network_thread_) {
     owned_network_thread_ = rtc::Thread::CreateWithSocketServer();
     owned_network_thread_->SetName("pc_network_thread", nullptr);

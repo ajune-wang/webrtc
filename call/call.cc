@@ -209,6 +209,8 @@ class Call final : public webrtc::Call,
 
   Stats GetStats() const override;
 
+  const WebRtcKeyValueConfig& Trials() const override;
+
   // Implements PacketReceiver.
   DeliveryStatus DeliverPacket(MediaType media_type,
                                rtc::CopyOnWriteBuffer packet,
@@ -987,6 +989,10 @@ Call::Stats Call::GetStats() const {
   }
 
   return stats;
+}
+
+const WebRtcKeyValueConfig& Call::Trials() const {
+  return *config_.trials;
 }
 
 void Call::SignalChannelNetworkState(MediaType media, NetworkState state) {

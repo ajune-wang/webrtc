@@ -14,12 +14,13 @@
 #include <list>
 #include <memory>
 
-#include "modules/include/module.h"
 #include "modules/include/module_common_types.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/critical_section.h"
-#include "rtc_base/thread_checker.h"
+#include "rtc_base/synchronization/sequence_checker.h"
+#include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -27,12 +28,12 @@ namespace webrtc {
 // CallStats keeps track of statistics for a call.
 // TODO(webrtc:11489): Make call_stats_ not depend on ProcessThread and
 // make callbacks on the worker thread (TQ).
-class CallStats : public Module, public RtcpRttStats {
+class CallStats : public RtcpRttStats {
  public:
   // Time interval for updating the observers.
   static constexpr int64_t kUpdateIntervalMs = 1000;
 
-  CallStats(Clock* clock, ProcessThread* process_thread);
+  CallStats(Clock* clock, TaskQueueBase* task_queue);
   ~CallStats() override;
 
   // Registers/deregisters a new observer to receive statistics updates.
@@ -63,14 +64,9 @@ class CallStats : public Module, public RtcpRttStats {
   // RtcpRttStats implementation.
   void OnRttUpdate(int64_t rtt) override;
 
-  // Implements Module, to use the process thread.
-  int64_t TimeUntilNextProcess() override;
-  void Process() override;
+  void RunTimer();
 
-  // TODO(tommi): Use this to know when we're attached to the process thread?
-  // Alternatively, inject that pointer via the ctor since the call_stats
-  // test code, isn't using a processthread atm.
-  void ProcessThreadAttached(ProcessThread* process_thread) override;
+  void UpdateAndReport();
 
   // This method must only be called when the process thread is not
   // running, and from the construction thread.
@@ -79,9 +75,9 @@ class CallStats : public Module, public RtcpRttStats {
   Clock* const clock_;
 
   // The last time 'Process' resulted in statistic update.
-  int64_t last_process_time_ RTC_GUARDED_BY(process_thread_checker_);
+  int64_t last_process_time_ RTC_GUARDED_BY(construction_thread_checker_);
   // The last RTT in the statistics update (zero if there is no valid estimate).
-  int64_t max_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
+  int64_t max_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
 
   // Accessed from random threads (seemingly). Consider atomic.
   // |avg_rtt_ms_| is allowed to be read on the process thread without a lock.
@@ -96,12 +92,12 @@ class CallStats : public Module, public RtcpRttStats {
   // on the ProcessThread when running. When the Process Thread is not running,
   // (and only then) they can be used in UpdateHistograms(), usually called from
   // the dtor.
-  int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
-  int64_t num_avg_rtt_ RTC_GUARDED_BY(process_thread_checker_);
-  int64_t time_of_first_rtt_ms_ RTC_GUARDED_BY(process_thread_checker_);
+  int64_t sum_avg_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
+  int64_t num_avg_rtt_ RTC_GUARDED_BY(construction_thread_checker_);
+  int64_t time_of_first_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
 
   // All Rtt reports within valid time interval, oldest first.
-  std::list<RttTime> reports_ RTC_GUARDED_BY(process_thread_checker_);
+  std::list<RttTime> reports_ RTC_GUARDED_BY(construction_thread_checker_);
 
   // Observers getting stats reports.
   // When attached to ProcessThread, this is read-only. In order to allow
@@ -110,10 +106,13 @@ class CallStats : public Module, public RtcpRttStats {
   // for the observers_ list, which makes the most common case lock free.
   std::list<CallStatsObserver*> observers_;
 
-  rtc::ThreadChecker construction_thread_checker_;
-  rtc::ThreadChecker process_thread_checker_;
-  ProcessThread* const process_thread_;
-  bool process_thread_running_ RTC_GUARDED_BY(construction_thread_checker_);
+  SequenceChecker construction_thread_checker_;
+  SequenceChecker process_thread_checker_;
+  TaskQueueBase* const task_queue_;
+
+  // Used to signal destruction to potentially pending tasks.
+  PendingTaskSafetyFlag::Pointer task_safety_flag_{
+      PendingTaskSafetyFlag::Create()};
 
   RTC_DISALLOW_COPY_AND_ASSIGN(CallStats);
 };

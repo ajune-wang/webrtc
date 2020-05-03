@@ -61,36 +61,9 @@ int64_t GetNewAvgRttMs(const std::list<CallStats::RttTime>& reports,
   return prev_avg_rtt * (1.0f - kWeightFactor) + cur_rtt_ms * kWeightFactor;
 }
 
-// This class is used to de-register a Module from a ProcessThread to satisfy
-// threading requirements of the Module (CallStats).
-// The guarantee offered by TemporaryDeregistration is that while its in scope,
-// no calls to |TimeUntilNextProcess| or |Process()| will occur and therefore
-// synchronization with those methods, is not necessary.
-class TemporaryDeregistration {
- public:
-  TemporaryDeregistration(Module* module,
-                          ProcessThread* process_thread,
-                          bool thread_running)
-      : module_(module),
-        process_thread_(process_thread),
-        deregistered_(thread_running) {
-    if (thread_running)
-      process_thread_->DeRegisterModule(module_);
-  }
-  ~TemporaryDeregistration() {
-    if (deregistered_)
-      process_thread_->RegisterModule(module_, RTC_FROM_HERE);
-  }
-
- private:
-  Module* const module_;
-  ProcessThread* const process_thread_;
-  const bool deregistered_;
-};
-
 }  // namespace
 
-CallStats::CallStats(Clock* clock, ProcessThread* process_thread)
+CallStats::CallStats(Clock* clock, TaskQueueBase* task_queue)
     : clock_(clock),
       last_process_time_(clock_->TimeInMilliseconds()),
       max_rtt_ms_(-1),
@@ -98,27 +71,38 @@ CallStats::CallStats(Clock* clock, ProcessThread* process_thread)
       sum_avg_rtt_ms_(0),
       num_avg_rtt_(0),
       time_of_first_rtt_ms_(-1),
-      process_thread_(process_thread),
-      process_thread_running_(false) {
-  RTC_DCHECK(process_thread_);
+      task_queue_(task_queue) {
+  RTC_DCHECK(task_queue_);
   process_thread_checker_.Detach();
+  task_queue_->PostDelayedTask(
+      ToQueuedTask(task_safety_flag_, [this]() { RunTimer(); }),
+      kUpdateIntervalMs);
 }
 
 CallStats::~CallStats() {
   RTC_DCHECK_RUN_ON(&construction_thread_checker_);
-  RTC_DCHECK(!process_thread_running_);
   RTC_DCHECK(observers_.empty());
+
+  task_safety_flag_->SetNotAlive();
 
   UpdateHistograms();
 }
 
-int64_t CallStats::TimeUntilNextProcess() {
-  RTC_DCHECK_RUN_ON(&process_thread_checker_);
-  return last_process_time_ + kUpdateIntervalMs - clock_->TimeInMilliseconds();
+void CallStats::RunTimer() {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+
+  UpdateAndReport();
+
+  uint32_t interval =
+      last_process_time_ + kUpdateIntervalMs - clock_->TimeInMilliseconds();
+
+  task_queue_->PostDelayedTask(
+      ToQueuedTask(task_safety_flag_, [this]() { RunTimer(); }), interval);
 }
 
-void CallStats::Process() {
-  RTC_DCHECK_RUN_ON(&process_thread_checker_);
+void CallStats::UpdateAndReport() {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+
   int64_t now = clock_->TimeInMilliseconds();
   last_process_time_ = now;
 
@@ -144,31 +128,14 @@ void CallStats::Process() {
   }
 }
 
-void CallStats::ProcessThreadAttached(ProcessThread* process_thread) {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
-  RTC_DCHECK(!process_thread || process_thread_ == process_thread);
-  process_thread_running_ = process_thread != nullptr;
-
-  // Whether we just got attached or detached, we clear the
-  // |process_thread_checker_| so that it can be used to protect variables
-  // in either the process thread when it starts again, or UpdateHistograms()
-  // (mutually exclusive).
-  process_thread_checker_.Detach();
-}
-
 void CallStats::RegisterStatsObserver(CallStatsObserver* observer) {
   RTC_DCHECK_RUN_ON(&construction_thread_checker_);
-  TemporaryDeregistration deregister(this, process_thread_,
-                                     process_thread_running_);
-
   if (!absl::c_linear_search(observers_, observer))
     observers_.push_back(observer);
 }
 
 void CallStats::DeregisterStatsObserver(CallStatsObserver* observer) {
   RTC_DCHECK_RUN_ON(&construction_thread_checker_);
-  TemporaryDeregistration deregister(this, process_thread_,
-                                     process_thread_running_);
   observers_.remove(observer);
 }
 
@@ -186,42 +153,27 @@ void CallStats::OnRttUpdate(int64_t rtt) {
   RTC_DCHECK_RUN_ON(&process_thread_checker_);
 
   int64_t now_ms = clock_->TimeInMilliseconds();
-  reports_.push_back(RttTime(rtt, now_ms));
-  if (time_of_first_rtt_ms_ == -1)
-    time_of_first_rtt_ms_ = now_ms;
-
-  // Make sure Process() will be called and deliver the updates asynchronously.
-  last_process_time_ -= kUpdateIntervalMs;
-  process_thread_->WakeUp(this);
+  task_queue_->PostTask(ToQueuedTask(task_safety_flag_, [this, rtt, now_ms]() {
+    RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+    reports_.push_back(RttTime(rtt, now_ms));
+    if (time_of_first_rtt_ms_ == -1)
+      time_of_first_rtt_ms_ = now_ms;
+    UpdateAndReport();
+  }));
 }
 
 void CallStats::UpdateHistograms() {
   RTC_DCHECK_RUN_ON(&construction_thread_checker_);
-  RTC_DCHECK(!process_thread_running_);
 
-  // The extra scope is because we have two 'dcheck run on' thread checkers.
-  // This is a special case since it's safe to access variables on the current
-  // thread that normally are only touched on the process thread.
-  // Since we're not attached to the process thread and/or the process thread
-  // isn't running, it's OK to touch these variables here.
-  {
-    // This method is called on the ctor thread (usually from the dtor, unless
-    // a test calls it). It's a requirement that the function be called when
-    // the process thread is not running (a condition that's met at destruction
-    // time), and thanks to that, we don't need a lock to synchronize against
-    // it.
-    RTC_DCHECK_RUN_ON(&process_thread_checker_);
+  if (time_of_first_rtt_ms_ == -1 || num_avg_rtt_ < 1)
+    return;
 
-    if (time_of_first_rtt_ms_ == -1 || num_avg_rtt_ < 1)
-      return;
-
-    int64_t elapsed_sec =
-        (clock_->TimeInMilliseconds() - time_of_first_rtt_ms_) / 1000;
-    if (elapsed_sec >= metrics::kMinRunTimeInSeconds) {
-      int64_t avg_rtt_ms = (sum_avg_rtt_ms_ + num_avg_rtt_ / 2) / num_avg_rtt_;
-      RTC_HISTOGRAM_COUNTS_10000(
-          "WebRTC.Video.AverageRoundTripTimeInMilliseconds", avg_rtt_ms);
-    }
+  int64_t elapsed_sec =
+      (clock_->TimeInMilliseconds() - time_of_first_rtt_ms_) / 1000;
+  if (elapsed_sec >= metrics::kMinRunTimeInSeconds) {
+    int64_t avg_rtt_ms = (sum_avg_rtt_ms_ + num_avg_rtt_ / 2) / num_avg_rtt_;
+    RTC_HISTOGRAM_COUNTS_10000(
+        "WebRTC.Video.AverageRoundTripTimeInMilliseconds", avg_rtt_ms);
   }
 }
 

@@ -58,7 +58,6 @@
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
-#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 using cricket::ContentInfo;
@@ -1039,9 +1038,9 @@ PeerConnection::PeerConnection(PeerConnectionFactory* factory,
       event_log_ptr_(event_log_.get()),
       operations_chain_(rtc::OperationsChain::Create()),
       datagram_transport_config_(
-          field_trial::FindFullName(kDatagramTransportFieldTrial)),
+          call->Trials().Lookup(kDatagramTransportFieldTrial)),
       datagram_transport_data_channel_config_(
-          field_trial::FindFullName(kDatagramTransportDataChannelFieldTrial)),
+          call->Trials().Lookup(kDatagramTransportDataChannelFieldTrial)),
       rtcp_cname_(GenerateRtcpCname()),
       local_streams_(StreamCollection::Create()),
       remote_streams_(StreamCollection::Create()),
@@ -4360,7 +4359,7 @@ bool PeerConnection::StartRtcEventLog(std::unique_ptr<RtcEventLogOutput> output,
 bool PeerConnection::StartRtcEventLog(
     std::unique_ptr<RtcEventLogOutput> output) {
   int64_t output_period_ms = webrtc::RtcEventLog::kImmediateOutput;
-  if (field_trial::IsEnabled("WebRTC-RtcEventLogNewFormat")) {
+  if (IsFieldTrialEnabled("WebRTC-RtcEventLogNewFormat")) {
     output_period_ms = 5000;
   }
   return StartRtcEventLog(std::move(output), output_period_ms);
@@ -5821,9 +5820,7 @@ PeerConnection::InitializePortAllocator_n(
   // by experiment.
   if (configuration.disable_ipv6) {
     port_allocator_flags &= ~(cricket::PORTALLOCATOR_ENABLE_IPV6);
-  } else if (absl::StartsWith(
-                 webrtc::field_trial::FindFullName("WebRTC-IPv6Default"),
-                 "Disabled")) {
+  } else if (IsFieldTrialDisabled("WebRTC-IPv6Default")) {
     port_allocator_flags &= ~(cricket::PORTALLOCATOR_ENABLE_IPV6);
   }
 
@@ -7644,6 +7641,14 @@ RTCError PeerConnection::Rollback(SdpType sdp_type) {
     }
   }
   return RTCError::OK();
+}
+
+bool PeerConnection::IsFieldTrialEnabled(absl::string_view name) const {
+  return absl::StartsWith(call_ptr_->Trials().Lookup(name), "Enabled");
+}
+
+bool PeerConnection::IsFieldTrialDisabled(absl::string_view name) const {
+  return absl::StartsWith(call_ptr_->Trials().Lookup(name), "Disabled");
 }
 
 }  // namespace webrtc

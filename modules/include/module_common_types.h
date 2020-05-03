@@ -52,6 +52,7 @@ class RTC_EXPORT RTPFragmentationHeader {
 // Interface used by the CallStats class to distribute call statistics.
 // Callbacks will be triggered as soon as the class has been registered to a
 // CallStats object using RegisterStatsObserver.
+// TODO(tommi): Should this be in the same header as CallStats?
 class CallStatsObserver {
  public:
   virtual void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) = 0;

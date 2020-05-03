@@ -128,7 +128,7 @@ RtpSenderObservers CreateObservers(CallStats* call_stats,
                                    SendStatisticsProxy* stats_proxy,
                                    SendDelayStats* send_delay_stats) {
   RtpSenderObservers observers;
-  observers.rtcp_rtt_stats = call_stats;
+  observers.rtcp_rtt_stats = call_stats->AsRtcpRttStats();
   observers.intra_frame_callback = encoder_feedback;
   observers.rtcp_loss_notification_observer = encoder_feedback;
   observers.rtcp_stats = stats_proxy;

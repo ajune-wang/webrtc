@@ -472,7 +472,6 @@ Call::Call(Clock* clock,
 
   module_process_thread_->RegisterModule(
       receive_side_cc_.GetRemoteBitrateEstimator(true), RTC_FROM_HERE);
-  module_process_thread_->RegisterModule(call_stats_.get(), RTC_FROM_HERE);
   module_process_thread_->RegisterModule(&receive_side_cc_, RTC_FROM_HERE);
 }
 
@@ -489,7 +488,6 @@ Call::~Call() {
   module_process_thread_->DeRegisterModule(
       receive_side_cc_.GetRemoteBitrateEstimator(true));
   module_process_thread_->DeRegisterModule(&receive_side_cc_);
-  module_process_thread_->DeRegisterModule(call_stats_.get());
   call_stats_->DeregisterStatsObserver(&receive_side_cc_);
 
   absl::optional<Timestamp> first_sent_packet_ms =
@@ -625,11 +623,11 @@ webrtc::AudioSendStream* Call::CreateAudioSendStream(
     }
   }
 
-  AudioSendStream* send_stream =
-      new AudioSendStream(clock_, config, config_.audio_state,
-                          task_queue_factory_, module_process_thread_.get(),
-                          transport_send_ptr_, bitrate_allocator_.get(),
-                          event_log_, call_stats_.get(), suspended_rtp_state);
+  AudioSendStream* send_stream = new AudioSendStream(
+      clock_, config, config_.audio_state, task_queue_factory_,
+      module_process_thread_.get(), transport_send_ptr_,
+      bitrate_allocator_.get(), event_log_, call_stats_->AsRtcpRttStats(),
+      suspended_rtp_state);
   {
     WriteLockScoped write_lock(*send_crit_);
     RTC_DCHECK(audio_send_ssrcs_.find(config.rtp.ssrc) ==
@@ -918,7 +916,7 @@ FlexfecReceiveStream* Call::CreateFlexfecReceiveStream(
     // this locked scope.
     receive_stream = new FlexfecReceiveStreamImpl(
         clock_, &video_receiver_controller_, config, recovered_packet_receiver,
-        call_stats_.get(), module_process_thread_.get());
+        call_stats_->AsRtcpRttStats(), module_process_thread_.get());
 
     RTC_DCHECK(receive_rtp_config_.find(config.remote_ssrc) ==
                receive_rtp_config_.end());

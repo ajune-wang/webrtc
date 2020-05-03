@@ -14,9 +14,8 @@
 
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/utility/include/process_thread.h"
-#include "rtc_base/event.h"
-#include "rtc_base/location.h"
 #include "rtc_base/task_utils/to_queued_task.h"
+#include "rtc_base/thread.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -38,45 +37,94 @@ class MockStatsObserver : public CallStatsObserver {
 class CallStatsTest : public ::testing::Test {
  public:
   CallStatsTest() {
-    process_thread_->RegisterModule(&call_stats_, RTC_FROM_HERE);
+    worker_thread_.WrapCurrent();
     process_thread_->Start();
   }
+
   ~CallStatsTest() override {
     process_thread_->Stop();
-    process_thread_->DeRegisterModule(&call_stats_);
+    worker_thread_.UnwrapCurrent();
   }
 
   // Queues an rtt update call on the process thread.
   void AsyncSimulateRttUpdate(int64_t rtt) {
-    RtcpRttStats* rtcp_rtt_stats = &call_stats_;
+    RtcpRttStats* rtcp_rtt_stats = call_stats_.AsRtcpRttStats();
     process_thread_->PostTask(ToQueuedTask(
         [rtcp_rtt_stats, rtt] { rtcp_rtt_stats->OnRttUpdate(rtt); }));
   }
 
  protected:
+  class FakeSocketServer : public rtc::SocketServer {
+   public:
+    FakeSocketServer() = default;
+    ~FakeSocketServer() = default;
+
+    bool Wait(int cms, bool process_io) override {
+      if (fail_next_wait_) {
+        fail_next_wait_ = false;
+        return false;
+      }
+      return true;
+    }
+
+    void WakeUp() override {}
+
+    rtc::Socket* CreateSocket(int family, int type) override { return nullptr; }
+    rtc::AsyncSocket* CreateAsyncSocket(int family, int type) override {
+      return nullptr;
+    }
+
+    void FailNextWait() { fail_next_wait_ = true; }
+
+   private:
+    bool fail_next_wait_ = false;
+  };
+
+  class WorkerThread : public rtc::Thread {
+   public:
+    explicit WorkerThread(rtc::SocketServer* ss)
+        : rtc::Thread(ss), tq_setter_(this) {}
+
+   private:
+    CurrentTaskQueueSetter tq_setter_;
+  };
+
+  void FlushWorker() {
+    worker_thread_.PostTask(
+        ToQueuedTask([this]() { socket_server_.FailNextWait(); }));
+    worker_thread_.ProcessMessages(1000);
+  }
+
+  void QuitLoop() { socket_server_.FailNextWait(); }
+
+  void RunLoop() { worker_thread_.ProcessMessages(WorkerThread::kForever); }
+
+  FakeSocketServer socket_server_;
+  WorkerThread worker_thread_{&socket_server_};
   std::unique_ptr<ProcessThread> process_thread_{
       ProcessThread::Create("CallStats")};
+  // Note: Since rtc::Thread doesn't support injecting a Clock, we're going
+  // to be using a mix of the fake clock (used by CallStats) as well as the
+  // system clock (used by rtc::Thread). This isn't ideal and will result in
+  // the tests taking longer to execute in some cases than they need to.
   SimulatedClock fake_clock_{12345};
-  CallStats call_stats_{&fake_clock_, process_thread_.get()};
+  CallStats call_stats_{&fake_clock_, &worker_thread_};
 };
 
 TEST_F(CallStatsTest, AddAndTriggerCallback) {
-  rtc::Event event;
-
   static constexpr const int64_t kRtt = 25;
 
   MockStatsObserver stats_observer;
   EXPECT_CALL(stats_observer, OnRttUpdate(kRtt, kRtt))
       .Times(1)
-      .WillOnce(InvokeWithoutArgs([&event] { event.Set(); }));
+      .WillOnce(InvokeWithoutArgs([this] { QuitLoop(); }));
 
-  RtcpRttStats* rtcp_rtt_stats = &call_stats_;
+  RtcpRttStats* rtcp_rtt_stats = call_stats_.AsRtcpRttStats();
   call_stats_.RegisterStatsObserver(&stats_observer);
   EXPECT_EQ(-1, rtcp_rtt_stats->LastProcessedRtt());
 
   AsyncSimulateRttUpdate(kRtt);
-
-  EXPECT_TRUE(event.Wait(1000));
+  RunLoop();
 
   EXPECT_EQ(kRtt, rtcp_rtt_stats->LastProcessedRtt());
 
@@ -84,12 +132,8 @@ TEST_F(CallStatsTest, AddAndTriggerCallback) {
 }
 
 TEST_F(CallStatsTest, ProcessTime) {
-  rtc::Event event;
-
   static constexpr const int64_t kRtt = 100;
   static constexpr const int64_t kRtt2 = 80;
-
-  RtcpRttStats* rtcp_rtt_stats = &call_stats_;
 
   MockStatsObserver stats_observer;
 
@@ -99,8 +143,8 @@ TEST_F(CallStatsTest, ProcessTime) {
         // Advance clock and verify we get an update.
         fake_clock_.AdvanceTimeMilliseconds(CallStats::kUpdateIntervalMs);
       }))
-      .WillRepeatedly(InvokeWithoutArgs([this, rtcp_rtt_stats] {
-        rtcp_rtt_stats->OnRttUpdate(kRtt2);
+      .WillRepeatedly(InvokeWithoutArgs([this] {
+        AsyncSimulateRttUpdate(kRtt2);
         // Advance clock just too little to get an update.
         fake_clock_.AdvanceTimeMilliseconds(CallStats::kUpdateIntervalMs - 1);
       }));
@@ -110,12 +154,12 @@ TEST_F(CallStatsTest, ProcessTime) {
   static constexpr const int64_t kLastAvg = 94;
   EXPECT_CALL(stats_observer, OnRttUpdate(kLastAvg, kRtt2))
       .Times(1)
-      .WillOnce(InvokeWithoutArgs([&event] { event.Set(); }));
+      .WillOnce(InvokeWithoutArgs([this] { QuitLoop(); }));
 
   call_stats_.RegisterStatsObserver(&stats_observer);
 
   AsyncSimulateRttUpdate(kRtt);
-  EXPECT_TRUE(event.Wait(1000));
+  RunLoop();
 
   call_stats_.DeregisterStatsObserver(&stats_observer);
 }
@@ -134,19 +178,15 @@ TEST_F(CallStatsTest, MultipleObservers) {
   static constexpr const int64_t kRtt = 100;
 
   // Verify both observers are updated.
-  rtc::Event ev1;
-  rtc::Event ev2;
   EXPECT_CALL(stats_observer_1, OnRttUpdate(kRtt, kRtt))
       .Times(AnyNumber())
-      .WillOnce(InvokeWithoutArgs([&ev1] { ev1.Set(); }))
       .WillRepeatedly(Return());
   EXPECT_CALL(stats_observer_2, OnRttUpdate(kRtt, kRtt))
       .Times(AnyNumber())
-      .WillOnce(InvokeWithoutArgs([&ev2] { ev2.Set(); }))
+      .WillOnce(InvokeWithoutArgs([this] { QuitLoop(); }))
       .WillRepeatedly(Return());
   AsyncSimulateRttUpdate(kRtt);
-  ASSERT_TRUE(ev1.Wait(100));
-  ASSERT_TRUE(ev2.Wait(100));
+  RunLoop();
 
   // Deregister the second observer and verify update is only sent to the first
   // observer.
@@ -154,11 +194,11 @@ TEST_F(CallStatsTest, MultipleObservers) {
 
   EXPECT_CALL(stats_observer_1, OnRttUpdate(kRtt, kRtt))
       .Times(AnyNumber())
-      .WillOnce(InvokeWithoutArgs([&ev1] { ev1.Set(); }))
+      .WillOnce(InvokeWithoutArgs([this] { QuitLoop(); }))
       .WillRepeatedly(Return());
   EXPECT_CALL(stats_observer_2, OnRttUpdate(kRtt, kRtt)).Times(0);
   AsyncSimulateRttUpdate(kRtt);
-  ASSERT_TRUE(ev1.Wait(100));
+  RunLoop();
 
   // Deregister the first observer.
   call_stats_.DeregisterStatsObserver(&stats_observer_1);
@@ -168,28 +208,20 @@ TEST_F(CallStatsTest, MultipleObservers) {
   EXPECT_CALL(stats_observer_2, OnRttUpdate(kRtt, kRtt)).Times(0);
   AsyncSimulateRttUpdate(kRtt);
 
-  // Force a call to Process().
-  process_thread_->WakeUp(&call_stats_);
-
   // Flush the queue on the process thread to make sure we return after
   // Process() has been called.
-  rtc::Event event;
-  process_thread_->PostTask(ToQueuedTask([&event] { event.Set(); }));
-  event.Wait(rtc::Event::kForever);
+  FlushWorker();
 }
 
 // Verify increasing and decreasing rtt triggers callbacks with correct values.
 TEST_F(CallStatsTest, ChangeRtt) {
-  // TODO(tommi): This test assumes things about how old reports are removed
+  // NOTE: This test assumes things about how old reports are removed
   // inside of call_stats.cc. The threshold ms value is 1500ms, but it's not
   // clear here that how the clock is advanced, affects that algorithm and
   // subsequently the average reported rtt.
 
   MockStatsObserver stats_observer;
   call_stats_.RegisterStatsObserver(&stats_observer);
-  RtcpRttStats* rtcp_rtt_stats = &call_stats_;
-
-  rtc::Event event;
 
   static constexpr const int64_t kFirstRtt = 100;
   static constexpr const int64_t kLowRtt = kFirstRtt - 20;
@@ -197,23 +229,23 @@ TEST_F(CallStatsTest, ChangeRtt) {
 
   EXPECT_CALL(stats_observer, OnRttUpdate(kFirstRtt, kFirstRtt))
       .Times(1)
-      .WillOnce(InvokeWithoutArgs([&rtcp_rtt_stats, this] {
+      .WillOnce(InvokeWithoutArgs([this] {
         fake_clock_.AdvanceTimeMilliseconds(1000);
-        rtcp_rtt_stats->OnRttUpdate(kHighRtt);  // Reported at T1 (1000ms).
+        AsyncSimulateRttUpdate(kHighRtt);  // Reported at T1 (1000ms).
       }));
 
-  // TODO(tommi): This relies on the internal algorithms of call_stats.cc.
+  // NOTE: This relies on the internal algorithms of call_stats.cc.
   // There's a weight factor there (0.3), that weighs the previous average to
   // the new one by 70%, so the number 103 in this case is arrived at like so:
   // (100) / 1 * 0.7 + (100+120)/2 * 0.3 = 103
   static constexpr const int64_t kAvgRtt1 = 103;
   EXPECT_CALL(stats_observer, OnRttUpdate(kAvgRtt1, kHighRtt))
       .Times(1)
-      .WillOnce(InvokeWithoutArgs([&rtcp_rtt_stats, this] {
+      .WillOnce(InvokeWithoutArgs([this] {
         // This interacts with an internal implementation detail in call_stats
         // that decays the oldest rtt value. See more below.
         fake_clock_.AdvanceTimeMilliseconds(1000);
-        rtcp_rtt_stats->OnRttUpdate(kLowRtt);  // Reported at T2 (2000ms).
+        AsyncSimulateRttUpdate(kLowRtt);  // Reported at T2 (2000ms).
       }));
 
   // Increase time enough for a new update, but not too much to make the
@@ -236,20 +268,19 @@ TEST_F(CallStatsTest, ChangeRtt) {
   static constexpr const int64_t kAvgRtt3 = 95;
   EXPECT_CALL(stats_observer, OnRttUpdate(kAvgRtt3, kLowRtt))
       .Times(1)
-      .WillOnce(InvokeWithoutArgs([&event] { event.Set(); }));
+      .WillOnce(InvokeWithoutArgs([this] { QuitLoop(); }));
 
   // Trigger the first rtt value and set off the chain of callbacks.
   AsyncSimulateRttUpdate(kFirstRtt);  // Reported at T0 (0ms).
-  EXPECT_TRUE(event.Wait(1000));
+  RunLoop();
 
   call_stats_.DeregisterStatsObserver(&stats_observer);
 }
 
 TEST_F(CallStatsTest, LastProcessedRtt) {
-  rtc::Event event;
   MockStatsObserver stats_observer;
   call_stats_.RegisterStatsObserver(&stats_observer);
-  RtcpRttStats* rtcp_rtt_stats = &call_stats_;
+  RtcpRttStats* rtcp_rtt_stats = call_stats_.AsRtcpRttStats();
 
   static constexpr const int64_t kRttLow = 10;
   static constexpr const int64_t kRttHigh = 30;
@@ -260,34 +291,36 @@ TEST_F(CallStatsTest, LastProcessedRtt) {
 
   EXPECT_CALL(stats_observer, OnRttUpdate(kRttLow, kRttLow))
       .Times(1)
-      .WillOnce(InvokeWithoutArgs([rtcp_rtt_stats] {
+      .WillOnce(InvokeWithoutArgs([rtcp_rtt_stats, this] {
         EXPECT_EQ(kRttLow, rtcp_rtt_stats->LastProcessedRtt());
         // Don't advance the clock to make sure that low and high rtt values
         // are associated with the same time stamp.
-        rtcp_rtt_stats->OnRttUpdate(kRttHigh);
+        AsyncSimulateRttUpdate(kRttHigh);
       }));
 
   EXPECT_CALL(stats_observer, OnRttUpdate(kAvgRtt1, kRttHigh))
-      .Times(1)
+      .Times(AnyNumber())
       .WillOnce(InvokeWithoutArgs([rtcp_rtt_stats, this] {
         EXPECT_EQ(kAvgRtt1, rtcp_rtt_stats->LastProcessedRtt());
         fake_clock_.AdvanceTimeMilliseconds(CallStats::kUpdateIntervalMs);
-        rtcp_rtt_stats->OnRttUpdate(kRttLow);
-        rtcp_rtt_stats->OnRttUpdate(kRttHigh);
-      }));
+        AsyncSimulateRttUpdate(kRttLow);
+        AsyncSimulateRttUpdate(kRttHigh);
+      }))
+      .WillRepeatedly(Return());
 
   EXPECT_CALL(stats_observer, OnRttUpdate(kAvgRtt2, kRttHigh))
-      .Times(1)
-      .WillOnce(InvokeWithoutArgs([rtcp_rtt_stats, &event] {
+      .Times(AnyNumber())
+      .WillOnce(InvokeWithoutArgs([rtcp_rtt_stats, this] {
         EXPECT_EQ(kAvgRtt2, rtcp_rtt_stats->LastProcessedRtt());
-        event.Set();
-      }));
+        QuitLoop();
+      }))
+      .WillRepeatedly(Return());
 
   // Set a first values and verify that LastProcessedRtt initially returns the
   // average rtt.
   fake_clock_.AdvanceTimeMilliseconds(CallStats::kUpdateIntervalMs);
   AsyncSimulateRttUpdate(kRttLow);
-  EXPECT_TRUE(event.Wait(1000));
+  RunLoop();
   EXPECT_EQ(kAvgRtt2, rtcp_rtt_stats->LastProcessedRtt());
 
   call_stats_.DeregisterStatsObserver(&stats_observer);
@@ -295,24 +328,22 @@ TEST_F(CallStatsTest, LastProcessedRtt) {
 
 TEST_F(CallStatsTest, ProducesHistogramMetrics) {
   metrics::Reset();
-  rtc::Event event;
   static constexpr const int64_t kRtt = 123;
   MockStatsObserver stats_observer;
   call_stats_.RegisterStatsObserver(&stats_observer);
   EXPECT_CALL(stats_observer, OnRttUpdate(kRtt, kRtt))
       .Times(AnyNumber())
-      .WillRepeatedly(InvokeWithoutArgs([&event] { event.Set(); }));
+      .WillRepeatedly(InvokeWithoutArgs([this] { QuitLoop(); }));
 
   AsyncSimulateRttUpdate(kRtt);
-  EXPECT_TRUE(event.Wait(1000));
+  RunLoop();
   fake_clock_.AdvanceTimeMilliseconds(metrics::kMinRunTimeInSeconds *
                                       CallStats::kUpdateIntervalMs);
   AsyncSimulateRttUpdate(kRtt);
-  EXPECT_TRUE(event.Wait(1000));
+  RunLoop();
 
   call_stats_.DeregisterStatsObserver(&stats_observer);
 
-  process_thread_->Stop();
   call_stats_.UpdateHistogramsForTest();
 
   EXPECT_METRIC_EQ(1, metrics::NumSamples(

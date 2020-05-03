@@ -205,7 +205,7 @@ VideoReceiveStream2::VideoReceiveStream2(
       video_receiver_(clock_, timing_.get()),
       rtp_video_stream_receiver_(clock_,
                                  &transport_adapter_,
-                                 call_stats,
+                                 call_stats->AsRtcpRttStats(),
                                  packet_router,
                                  &config_,
                                  rtp_receive_statistics_.get(),

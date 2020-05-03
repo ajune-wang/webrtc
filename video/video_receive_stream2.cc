@@ -48,7 +48,7 @@
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
-#include "video/call_stats.h"
+#include "video/call_stats2.h"
 #include "video/frame_dumping_decoder.h"
 #include "video/receive_statistics_proxy.h"
 
@@ -205,7 +205,7 @@ VideoReceiveStream2::VideoReceiveStream2(
       video_receiver_(clock_, timing_.get()),
       rtp_video_stream_receiver_(clock_,
                                  &transport_adapter_,
-                                 call_stats,
+                                 call_stats->AsRtcpRttStats(),
                                  packet_router,
                                  &config_,
                                  rtp_receive_statistics_.get(),

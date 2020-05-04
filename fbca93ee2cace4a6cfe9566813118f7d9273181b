@@ -22,6 +22,30 @@
       "revId": "fbca93ee2cace4a6cfe9566813118f7d9273181b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d74ed99_b8c5c579",
+        "filename": "rtc_base/task_utils/to_queued_task.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-04T13:14:25Z",
+      "side": 1,
+      "message": "OK to do that in a followup CL? (since the pointer type is in a different file and it would be good to make that change broadly, which means a few more files)",
+      "parentUuid": "d01e3e7d_a806fb0c",
+      "range": {
+        "startLine": 42,
+        "startChar": 29,
+        "endLine": 42,
+        "endChar": 59
+      },
+      "revId": "fbca93ee2cace4a6cfe9566813118f7d9273181b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

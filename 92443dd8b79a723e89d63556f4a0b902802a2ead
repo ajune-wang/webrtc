@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "b57e2989_75fc9163",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Ah, good point. That makes sense.\n\nI think it becomes a bit confusing internally when used directly for indexing the vectors, but I see from the other comments that that is changed. Now.",
+      "parentUuid": "beb8d35c_256e1a49",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b7f5065_71469506",
         "filename": "api/voip/voip_engine.h",
         "patchSetId": 6
@@ -1613,6 +1637,30 @@
       "side": 1,
       "message": "I will enhance the comment by including silent failure but don\u0027t think we need DCHECK as it\u0027s possible that application may (IMHO commonly) use separate threads to inject network packets (network thread) and release ChannelId (UI/worker thread).",
       "parentUuid": "72eebcee_ef979233",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "92443dd8b79a723e89d63556f4a0b902802a2ead",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ee40527_9f2ecfdb",
+        "filename": "api/voip/voip_network.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Ah, I see.\nIs there any situation where the caller would benefit from knowing that the ChannelId no longer maps to an open channel?\n(what I\u0027m slightly concerned of here is the risk of ending up in a situation where there the caller believes that the channel is open, but it isn\u0027t, and there is no code for flagging that that is the case)",
+      "parentUuid": "d1b1767d_1cba7cf8",
       "range": {
         "startLine": 26,
         "startChar": 1,

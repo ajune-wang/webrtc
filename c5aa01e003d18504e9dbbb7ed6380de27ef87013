@@ -1,0 +1,579 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ccaf8c8_88b08de4",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Nit: This comment is a bit unclear and it may be good to look if it can be changed. I guess what you mean is that the the channel is no longer used, or is closed? ,",
+      "range": {
+        "startLine": 54,
+        "startChar": 5,
+        "endLine": 54,
+        "endChar": 55
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43947420_d72558be",
+        "filename": "api/voip/voip_engine.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 73,
+        "startChar": 34,
+        "endLine": 73,
+        "endChar": 35
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e208555_dd4b88d2",
+        "filename": "api/voip/voip_engine_factory.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Nit: Maybe change\nApplication requested to skip audio processing.\n-\u003e\nNo audio processing functionality provided.\n\nSince \n-the application did not really skip audio processing but rather refrained from providing any audio processing, i.e., there is no audio processing at hand that can be skipped.\n-the \"Application\" is maybe a bit too specific.",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9218c3d6_adfba36b",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "One of the parameters is listed as optional, so the parameters are kind of not required. Maybe just skip the \"required\" word?",
+      "range": {
+        "startLine": 26,
+        "startChar": 45,
+        "endLine": 26,
+        "endChar": 53
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c3cd0c_14d399be",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "I think it would be good to mention more about what these do. They are above referred to as \"parameters\" but beyond that it is not at all clear from the comments as to what purpose they serve.\n\nFor instance, the comment of the audio_processing parameter is quite misleading. This parameter actually provides an AudioProcessing object that in turn provides the audio processing functionalities. \nI.e., it is not used to skip the processing but rather used to provide the processing.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2651f0f8_aa4bb10d",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Please begin the comment by describing what the method does.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 14
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2d562df_7d009169",
+        "filename": "api/voip/voip_engine_factory.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "As a user, I\u0027m not really sure what to make of this comment. How can I, as a user, handle those errors? If you mention the above, I think it is also good to instruct the user how to handle/detect the errors.",
+      "range": {
+        "startLine": 50,
+        "startChar": 38,
+        "endLine": 53,
+        "endChar": 78
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b005c21_71357ba3",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "single\n-\u003e\na single",
+      "range": {
+        "startLine": 30,
+        "startChar": 27,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97335e13_b11520b4",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "I would suggest making this inline as well, similar to the GetEncoderFormat.\n\nReasons are\n-The methods are very short and can be inlined\n-encoder_format_ is only used by these two methods.\n-the lock is only affecting those two methods and it is good to have them in the same file.\n\nNot: Ideally, I would have preferred creating a separate internal class for this, along.\n\nclass EncoderFormatReporter {\n public:\n  void SetEncoderFormat(const SdpAudioFormat\u0026 encoder_format) {\n     rtc::CritScope lock(\u0026lock_);\n     encoder_format_ \u003d encoder_format;\n  }\n  SdpAudioFormat SetEncoderFormat() {\n    rtc::CritScope lock(\u0026lock_);\n    return encoder_format_;\n  }\n\n private:\n  rtc::CriticalSection lock_;\n  SdpAudioFormat\u0026 encoder_format_ RTC_GUARDED_BY(lock_);\n};\n\nand use that inside AudioEgress. That would fully separate the lock from the rest of the code and only allow it to touch the variable it protects.\n\nDon\u0027t feel that you have to implement that though, but generally I think it is good to as much as possible localize the lock usage.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 1
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c86d1999_76569435",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Please change the comment to describe why this is done, instead of what is done. In its current form, the code is quite clear on what it does (it is a standard max) but it is less obvious why it does it.\n\nMaybe something along\n\"To ensure that audio quality is not lost, return the maximum of playout and receive sample rates.\"\n?",
+      "range": {
+        "startLine": 102,
+        "startChar": 7,
+        "endLine": 102,
+        "endChar": 68
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8306b07_82d83455",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "return -\u003e returning",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 13
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b6b46cb_61895984",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Maybe also comment on why it is correct to\nA:\nchoose a Preferred rate of 48 kHz if\nlast packet rate is: 0 Hz\nlast output rate is 48 kHz\n\nB:\nchoose a Preferred rate of any rate (e.g, 42 Hz)\nlast packet rate is not provided\nlast output rate is 48 kHz\n\n\nThe above seems counter intuitive. (I kind of see that it should be correct, but I causal readers of the code may be confused by this)",
+      "range": {
+        "startLine": 103,
+        "startChar": 14,
+        "endLine": 103,
+        "endChar": 71
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd25b85d_90ccee83",
+        "filename": "audio/voip/audio_ingress.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Indicate -\u003e Indicates",
+      "range": {
+        "startLine": 109,
+        "startChar": 5,
+        "endLine": 109,
+        "endChar": 13
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1347c8a_9b06f037",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Ah, now I see the background to the comment in the .h file.\n\nIs there someway that the warnings can be changed to reflect that this might be ok?\n\nE.g., as in\n\nRTC_LOG(LS_WARNING) \u003c\u003c \"Failed to register audio callback.\";\n-\u003e\nRTC_LOG(LS_WARNING) \u003c\u003c \"Audio callback could not be registered.\";",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 10
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8e1faf1_3fdf116b",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Is this warning correct? It seems that what is failing is setting up stereo, and not mono.",
+      "range": {
+        "startLine": 100,
+        "startChar": 42,
+        "endLine": 100,
+        "endChar": 53
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae77d22_8abfa410",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Hmm, I would instead suggest creating the next channel ID by just incrementing  the ID and using an if-statement to avoid a wraparound.\n\nThat would:\n-Avoid the user to need to set a kMaxChannelId.\n-Avoid a division (caused by the % operator).\n-Be more explicit in the wraparound.\n\nAlso, would it make sense to warn if the ID is reused? Or is this expected never to happen?",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 62
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ef5e8f9_cf4bf8da",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Before this was logged as an LS_ERROR. If this is still considered an error, maybe it would make sense to keep logging it as such?",
+      "range": {
+        "startLine": 167,
+        "startChar": 1,
+        "endLine": 169,
+        "endChar": 3
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeece47c_416c9afa",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "I\u0027d suggest not using autos here, but rather spell out the type. That will make the code easier to use.",
+      "range": {
+        "startLine": 185,
+        "startChar": 6,
+        "endLine": 185,
+        "endChar": 10
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "062dc874_f8f19e8d",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "This is doing run-time vector re-allocation in a loop.\n\nI would suggest either to\n1)  Put std::vector\u003cAudioSender*\u003e audio_senders on the VoipCore state as a member of VoipCore and utilize it\u0027s already allocated data each time this method is called.\n\n2) Allocate the correct size immediately for the vector (i.e., std::vector\u003cAudioSender*\u003e audio_senders(channels_.size());\n\nOf the above, I\u0027d personally prefer 1).",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 59
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4846d22b_98a03e5d",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Nit: These could be simplified as one single if-statement",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 55
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cef1b1e7_c69d99e0",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "I think this comment is still a bit unclear. It is very vague about what counts as a failure, and to me the comments about whether the failure can be ignored, whether ignorable failures sometimes are not reported as failures by the Method. \n\nWhat I as a user would like to know is\n-When does it fail?\n-What should I do about it?",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 43
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15a06d42_110ca5e3",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Since this is not used in the header file, please move it to the .cc file (in the anonymous section).\n\nAlso, please extend the comment on why one would like to increase it and what the consequence is for setting it too low?\n\n(if there are no consequences for setting it too high, my suggestion is to set it to the maximum allowed int value, since then there would be no option to have to increase it).",
+      "range": {
+        "startLine": 96,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ccf909d_584840cd",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "The style guide states that function comments should be written as \"These comments should open with descriptive verbs in the indicative mood (\"Opens the file\") rather than verbs in the imperative (\"Open the file\").\"\nhttps://google.github.io/styleguide/cppguide.html#Comment_Style\n\n\nPlease write the function comments along that.",
+      "range": {
+        "startLine": 100,
+        "startChar": 5,
+        "endLine": 100,
+        "endChar": 10
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d10d8f7_c5e24096",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "As above",
+      "range": {
+        "startLine": 104,
+        "startChar": 5,
+        "endLine": 104,
+        "endChar": 11
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d44a55e1_a4ce390a",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-04T11:58:32Z",
+      "side": 1,
+      "message": "Is really the order of all of these strictly needed to ensure proper destruction? I.e., is it not feasible for any of these to be done in another order?\n\nReason I\u0027m asking is that these are quite many, and it is good only to strictly enforce the order only for where it is strictly needed. If this is too general, that will have consequences for upcoming code changes in that they may have to add extra complexity just to maintain this particular order.",
+      "range": {
+        "startLine": 110,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 54
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

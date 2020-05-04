@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e961d20e_28764ea5",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-05-04T10:58:08Z",
+      "side": 1,
+      "message": "nit: Maybe leave comments as they were.",
+      "range": {
+        "startLine": 325,
+        "startChar": 18,
+        "endLine": 325,
+        "endChar": 31
+      },
+      "revId": "a434099982cf60890a5195e13140e95c7389e4f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

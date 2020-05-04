@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f624e4c8_d1ead9f0",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-05-04T16:09:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8b97fc4_de432100",
+      "range": {
+        "startLine": 479,
+        "startChar": 20,
+        "endLine": 479,
+        "endChar": 22
+      },
+      "revId": "a626bfc587d4da826f60eefb4ab796bc56d4084c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a929c6c_3a7e7d11",
         "filename": "api/test/create_peerconnection_quality_test_frame_generator.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "a626bfc587d4da826f60eefb4ab796bc56d4084c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31465f8b_464e9e54",
+        "filename": "api/test/create_peerconnection_quality_test_frame_generator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-05-04T16:09:10Z",
+      "side": 1,
+      "message": "Unless we also move CreateScreenShareFrameGenerator to the peer_configurer it can\u0027t be done, since they will be dependent on each other. From another hand - I\u0027m planning to remove ScreenShareConfig from VideoConfig (after migration is done) and, after this function won\u0027t be used by ValidateParams anymore, I\u0027ll remove it from public interface.",
+      "parentUuid": "6a929c6c_3a7e7d11",
+      "range": {
+        "startLine": 24,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "a626bfc587d4da826f60eefb4ab796bc56d4084c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

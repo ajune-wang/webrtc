@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d01e3e7d_a806fb0c",
+        "filename": "rtc_base/task_utils/to_queued_task.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-04T12:22:22Z",
+      "side": 1,
+      "message": "I would recommend spelling this `rtc::scoped_refptr\u003cPendingTaskSafetyFlag\u003e` instead. I don\u0027t see any advantages with the Pointer alias, and it obscures the fact that this is a reference counting smart pointer.\n\n(More cases below.)",
+      "range": {
+        "startLine": 42,
+        "startChar": 29,
+        "endLine": 42,
+        "endChar": 59
+      },
+      "revId": "fbca93ee2cace4a6cfe9566813118f7d9273181b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

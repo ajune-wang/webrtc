@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df5bf788_06a5296d",
+        "filename": "test/run_loop.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-04T14:48:55Z",
+      "side": 1,
+      "message": "I suggest we loop in nisse@ since I remember some work related to avoid thread wrapping was under way (see e.g. https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9714).",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "3add179f797cb17fc6027ad387d8d91b2d1ffd0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

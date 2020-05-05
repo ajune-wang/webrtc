@@ -1550,6 +1550,9 @@ bool WebRtcVideoChannel::GetStats(VideoMediaInfo* info) {
     for (size_t i = 0; i < info->senders.size(); ++i) {
       info->senders[i].rtt_ms = stats.rtt_ms;
     }
+    for (size_t i = 0; i < info->aggregated_senders.size(); ++i) {
+      info->aggregated_senders[i].rtt_ms = stats.rtt_ms;
+    }
   }
 
   if (log_stats)

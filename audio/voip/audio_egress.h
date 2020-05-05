@@ -34,10 +34,9 @@ namespace webrtc {
 // encoded payload will be packetized by the RTP stack, resulting in ready to
 // send RTP packet to remote endpoint.
 //
-// This class enforces single worker thread access by caller via SequenceChecker
-// in debug mode as expected thread usage pattern. In order to minimize the hold
-// on audio input thread from OS, TaskQueue is employed to encode and send RTP
-// asynchrounously.
+// TaskQueue is used to encode and send RTP asynchrounously as some OS platform
+// uses the same thread for both audio input and output sample deliveries which
+// can affect audio quality.
 //
 // Note that this class is originally based on ChannelSend in
 // audio/channel_send.cc with non-audio related logic trimmed as aimed for
@@ -70,9 +69,13 @@ class AudioEgress : public AudioSender, public AudioPacketizationCallback {
   // Enable or disable Mute state.
   void SetMute(bool mute);
 
-  // Retrieve current encoder format info. This returns encoder format set
-  // by SetEncoder() and if encoder is not set, this will return nullopt.
-  absl::optional<SdpAudioFormat> GetEncoderFormat() const;
+  // Retrieve the sampling rate used by encoder. If caller didn't set encoder,
+  // this is initialized to 0.
+  int GetSamplingRate() { return sampling_rate_; }
+
+  // Retrieve the number of channels used by encoder. If caller didn't set
+  // encoder, this is initialized as 0.
+  size_t GetNumChannels() { return num_channels_; }
 
   // Register the payload type and sample rate for DTMF (RFC 4733) payload.
   void RegisterTelephoneEventType(int rtp_payload_type, int sample_rate_hz);
@@ -96,12 +99,11 @@ class AudioEgress : public AudioSender, public AudioPacketizationCallback {
                    size_t payload_size) override;
 
  private:
-  // Ensure that single worker thread access.
-  SequenceChecker worker_thread_checker_;
+  // Sampling rate used by encoder selected by caller.
+  std::atomic<int> sampling_rate_;
 
-  // Current encoder format selected by caller.
-  absl::optional<SdpAudioFormat> encoder_format_
-      RTC_GUARDED_BY(worker_thread_checker_);
+  // Number of channels used by encoder selected by caller.
+  std::atomic<size_t> num_channels_;
 
   // Synchronization is handled internally by RtpRtcp.
   RtpRtcp* const rtp_rtcp_;

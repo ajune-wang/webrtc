@@ -20,7 +20,9 @@ namespace webrtc {
 AudioEgress::AudioEgress(RtpRtcp* rtp_rtcp,
                          Clock* clock,
                          TaskQueueFactory* task_queue_factory)
-    : rtp_rtcp_(rtp_rtcp),
+    : sampling_rate_(0),
+      num_channels_(0),
+      rtp_rtcp_(rtp_rtcp),
       rtp_sender_audio_(clock, rtp_rtcp_->RtpSender()),
       audio_coding_(AudioCodingModule::Create(AudioCodingModule::Config())),
       encoder_queue_(task_queue_factory->CreateTaskQueue(
@@ -34,18 +36,17 @@ AudioEgress::~AudioEgress() {
 }
 
 bool AudioEgress::IsSending() const {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   return rtp_rtcp_->SendingMedia();
 }
 
 void AudioEgress::SetEncoder(int payload_type,
                              const SdpAudioFormat& encoder_format,
                              std::unique_ptr<AudioEncoder> encoder) {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   RTC_DCHECK_GE(payload_type, 0);
   RTC_DCHECK_LE(payload_type, 127);
 
-  encoder_format_ = encoder_format;
+  sampling_rate_ = encoder_format.clockrate_hz;
+  num_channels_ = encoder_format.num_channels;
 
   // The RTP/RTCP module needs to know the RTP timestamp rate (i.e. clockrate)
   // as well as some other things, so we collect this info and send it along.
@@ -58,20 +59,11 @@ void AudioEgress::SetEncoder(int payload_type,
   audio_coding_->SetEncoder(std::move(encoder));
 }
 
-absl::optional<SdpAudioFormat> AudioEgress::GetEncoderFormat() const {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-  return encoder_format_;
-}
-
 void AudioEgress::StartSend() {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-
   rtp_rtcp_->SetSendingMediaStatus(true);
 }
 
 void AudioEgress::StopSend() {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-
   rtp_rtcp_->SetSendingMediaStatus(false);
 }
 
@@ -144,7 +136,6 @@ int32_t AudioEgress::SendData(AudioFrameType frame_type,
 
 void AudioEgress::RegisterTelephoneEventType(int rtp_payload_type,
                                              int sample_rate_hz) {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   RTC_DCHECK_GE(rtp_payload_type, 0);
   RTC_DCHECK_LE(rtp_payload_type, 127);
 
@@ -154,7 +145,6 @@ void AudioEgress::RegisterTelephoneEventType(int rtp_payload_type,
 }
 
 bool AudioEgress::SendTelephoneEvent(int dtmf_event, int duration_ms) {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   RTC_DCHECK_GE(dtmf_event, 0);
   RTC_DCHECK_LE(dtmf_event, 255);
   RTC_DCHECK_GE(duration_ms, 0);
@@ -175,8 +165,6 @@ bool AudioEgress::SendTelephoneEvent(int dtmf_event, int duration_ms) {
 }
 
 void AudioEgress::SetMute(bool mute) {
-  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-
   encoder_queue_.PostTask([this, mute] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     encoder_context_.mute_ = mute;

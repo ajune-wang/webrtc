@@ -76,6 +76,7 @@ class AudioEgressTest : public ::testing::Test {
 
   // Make sure we have shut down rtp stack and reset egress for each test.
   void TearDown() override {
+    egress_->StopSend();
     rtp_rtcp_->SetSendingStatus(false);
     egress_.reset();
   }
@@ -99,10 +100,10 @@ class AudioEgressTest : public ::testing::Test {
   SimulatedClock fake_clock_;
   NiceMock<MockTransport> transport_;
   SineWaveGenerator wave_generator_;
-  std::unique_ptr<AudioEgress> egress_;
-  std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   std::unique_ptr<RtpRtcp> rtp_rtcp_;
+  std::unique_ptr<TaskQueueFactory> task_queue_factory_;
   rtc::scoped_refptr<AudioEncoderFactory> encoder_factory_;
+  std::unique_ptr<AudioEgress> egress_;
 };
 
 TEST_F(AudioEgressTest, SendingStatusAfterStartAndStop) {
@@ -220,10 +221,8 @@ TEST_F(AudioEgressTest, SkipAudioEncodingAfterStopSend) {
 }
 
 TEST_F(AudioEgressTest, ChangeEncoderFromPcmuToOpus) {
-  absl::optional<SdpAudioFormat> pcmu = egress_->GetEncoderFormat();
-  EXPECT_TRUE(pcmu);
-  EXPECT_EQ(pcmu->clockrate_hz, kPcmuFormat.clockrate_hz);
-  EXPECT_EQ(pcmu->num_channels, kPcmuFormat.num_channels);
+  EXPECT_EQ(egress_->GetSamplingRate(), kPcmuFormat.clockrate_hz);
+  EXPECT_EQ(egress_->GetNumChannels(), kPcmuFormat.num_channels);
 
   constexpr int kOpusPayload = 120;
   const SdpAudioFormat kOpusFormat = {"opus", 48000, 2};
@@ -232,10 +231,8 @@ TEST_F(AudioEgressTest, ChangeEncoderFromPcmuToOpus) {
                       encoder_factory_->MakeAudioEncoder(
                           kOpusPayload, kOpusFormat, absl::nullopt));
 
-  absl::optional<SdpAudioFormat> opus = egress_->GetEncoderFormat();
-  EXPECT_TRUE(opus);
-  EXPECT_EQ(opus->clockrate_hz, kOpusFormat.clockrate_hz);
-  EXPECT_EQ(opus->num_channels, kOpusFormat.num_channels);
+  EXPECT_EQ(egress_->GetSamplingRate(), kOpusFormat.clockrate_hz);
+  EXPECT_EQ(egress_->GetNumChannels(), kOpusFormat.num_channels);
 }
 
 TEST_F(AudioEgressTest, SendDTMF) {

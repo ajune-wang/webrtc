@@ -19,7 +19,8 @@ namespace webrtc {
 ResourceAdaptationProcessor::ResourceAdaptationProcessor(
     VideoStreamInputStateProvider* input_state_provider,
     VideoStreamEncoderObserver* encoder_stats_observer)
-    : input_state_provider_(input_state_provider),
+    : resource_adaptation_queue_(nullptr),
+      input_state_provider_(input_state_provider),
       encoder_stats_observer_(encoder_stats_observer),
       resources_(),
       degradation_preference_(DegradationPreference::DISABLED),
@@ -30,6 +31,13 @@ ResourceAdaptationProcessor::ResourceAdaptationProcessor(
       processing_in_progress_(false) {}
 
 ResourceAdaptationProcessor::~ResourceAdaptationProcessor() {}
+
+void ResourceAdaptationProcessor::Initialize(
+    rtc::TaskQueue* resource_adaptation_queue) {
+  RTC_DCHECK(!resource_adaptation_queue_);
+  RTC_DCHECK(resource_adaptation_queue);
+  resource_adaptation_queue_ = resource_adaptation_queue;
+}
 
 DegradationPreference ResourceAdaptationProcessor::degradation_preference()
     const {
@@ -106,6 +114,7 @@ void ResourceAdaptationProcessor::MaybeUpdateVideoSourceRestrictions(
 
 void ResourceAdaptationProcessor::OnResourceUsageStateMeasured(
     const Resource& resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(resource.usage_state().has_value());
   switch (resource.usage_state().value()) {
     case ResourceUsageState::kOveruse:
@@ -127,6 +136,7 @@ bool ResourceAdaptationProcessor::HasSufficientInputForAdaptation(
 
 void ResourceAdaptationProcessor::OnResourceUnderuse(
     const Resource& reason_resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(!processing_in_progress_);
   processing_in_progress_ = true;
   // Clear all usage states. In order to re-run adaptation logic, resources need
@@ -179,6 +189,7 @@ void ResourceAdaptationProcessor::OnResourceUnderuse(
 
 void ResourceAdaptationProcessor::OnResourceOveruse(
     const Resource& reason_resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(!processing_in_progress_);
   processing_in_progress_ = true;
   // Clear all usage states. In order to re-run adaptation logic, resources need
@@ -226,20 +237,23 @@ void ResourceAdaptationProcessor::OnResourceOveruse(
 
 void ResourceAdaptationProcessor::TriggerAdaptationDueToFrameDroppedDueToSize(
     const Resource& reason_resource) {
-  VideoAdaptationCounters counters_before =
-      stream_adapter_->adaptation_counters();
-  OnResourceOveruse(reason_resource);
-  if (degradation_preference_ == DegradationPreference::BALANCED &&
-      stream_adapter_->adaptation_counters().fps_adaptations >
-          counters_before.fps_adaptations) {
-    // Oops, we adapted frame rate. Adapt again, maybe it will adapt resolution!
-    // Though this is not guaranteed...
+  resource_adaptation_queue_->PostTask([this, &reason_resource] {
+    RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+    VideoAdaptationCounters counters_before =
+        stream_adapter_->adaptation_counters();
     OnResourceOveruse(reason_resource);
-  }
-  if (stream_adapter_->adaptation_counters().resolution_adaptations >
-      counters_before.resolution_adaptations) {
-    encoder_stats_observer_->OnInitialQualityResolutionAdaptDown();
-  }
+    if (degradation_preference_ == DegradationPreference::BALANCED &&
+        stream_adapter_->adaptation_counters().fps_adaptations >
+            counters_before.fps_adaptations) {
+      // Oops, we adapted frame rate. Adapt again, maybe it will adapt
+      // resolution! Though this is not guaranteed...
+      OnResourceOveruse(reason_resource);
+    }
+    if (stream_adapter_->adaptation_counters().resolution_adaptations >
+        counters_before.resolution_adaptations) {
+      encoder_stats_observer_->OnInitialQualityResolutionAdaptDown();
+    }
+  });
 }
 
 }  // namespace webrtc

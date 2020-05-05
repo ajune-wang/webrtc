@@ -106,6 +106,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // Used for testing. For example the |ScalingObserverInterface| methods must
   // be called on |encoder_queue_|.
   rtc::TaskQueue* encoder_queue() { return &encoder_queue_; }
+  rtc::TaskQueue* resource_adaptation_queue() {
+    return &resource_adaptation_queue_;
+  }
 
   void OnVideoSourceRestrictionsUpdated(
       VideoSourceRestrictions restrictions,
@@ -426,6 +429,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // All public methods are proxied to |encoder_queue_|. It must must be
   // destroyed first to make sure no tasks are run that use other members.
   rtc::TaskQueue encoder_queue_;
+
+  // Foo bar.
+  rtc::TaskQueue resource_adaptation_queue_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(VideoStreamEncoder);
 };

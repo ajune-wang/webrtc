@@ -24,6 +24,7 @@
 #include "call/adaptation/video_stream_adapter.h"
 #include "call/adaptation/video_stream_input_state.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 
@@ -34,6 +35,8 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
       VideoStreamInputStateProvider* input_state_provider,
       VideoStreamEncoderObserver* encoder_stats_observer);
   ~ResourceAdaptationProcessor() override;
+
+  void Initialize(rtc::TaskQueue* resource_adaptation_queue) override;
 
   // ResourceAdaptationProcessorInterface implementation.
   DegradationPreference degradation_preference() const override;
@@ -77,6 +80,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // |last_reported_source_restrictions_|, inform the listeners.
   void MaybeUpdateVideoSourceRestrictions(const Resource* reason);
 
+  rtc::TaskQueue* resource_adaptation_queue_;
   // Input and output.
   VideoStreamInputStateProvider* const input_state_provider_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;

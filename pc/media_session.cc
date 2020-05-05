@@ -694,16 +694,6 @@ static bool CreateMediaContentOffer(
 }
 
 template <class C>
-static bool ReferencedCodecsMatch(const std::vector<C>& codecs1,
-                                  const int codec1_id,
-                                  const std::vector<C>& codecs2,
-                                  const int codec2_id) {
-  const C* codec1 = FindCodecById(codecs1, codec1_id);
-  const C* codec2 = FindCodecById(codecs2, codec2_id);
-  return codec1 != nullptr && codec2 != nullptr && codec1->Matches(*codec2);
-}
-
-template <class C>
 static void NegotiatePacketization(const C& local_codec,
                                    const C& remote_codec,
                                    C* negotiated_codec) {}
@@ -788,8 +778,8 @@ static bool FindMatchingCodec(const std::vector<C>& codecs1,
           RTC_LOG(LS_WARNING) << "RTX missing associated payload type.";
           continue;
         }
-        if (!ReferencedCodecsMatch(codecs1, apt_value_1, codecs2,
-                                   apt_value_2)) {
+        // RTX codecs are unique if they point to different PTs.
+        if (apt_value_1 != apt_value_2) {
           continue;
         }
       }

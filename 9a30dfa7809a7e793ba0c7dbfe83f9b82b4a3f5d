@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a44c7c3_b4a33459",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-05T06:06:53Z",
+      "side": 1,
+      "message": "These two should be made const.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 70
+      },
+      "revId": "9a30dfa7809a7e793ba0c7dbfe83f9b82b4a3f5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4dca94b_fad477da",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-05T06:06:53Z",
+      "side": 1,
+      "message": "Please make this const.\n\nAlso, let\u0027s keep it like this but returning 0 signalling a non-set value is error-prone when zero is actually a valid value. I agree that it is a very unlikely rate to happen, but 0 Hz is fully ok for an audio signal.\n\nSince this returns an int, I\u0027d rather instead having prefferred using a -1 to signal that the value is not specified (others would claim that too is error-prone and prefer an optional instead).",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 50
+      },
+      "revId": "9a30dfa7809a7e793ba0c7dbfe83f9b82b4a3f5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "341890a5_a5616222",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-05T06:06:53Z",
+      "side": 1,
+      "message": "Please make this const.\n\nAlso, as above, let\u0027s keep it like this but returning 0 signalling a non-set value is quite error-prone when zero is actually a valid value for the number of channels.\n\nSince this is a size_t, returning -1 is not an option so the only the alternative instead would be to return an optional of size_t.",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 51
+      },
+      "revId": "9a30dfa7809a7e793ba0c7dbfe83f9b82b4a3f5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

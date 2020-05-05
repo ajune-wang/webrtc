@@ -449,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "46522340_446d5262",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-05T13:26:13Z",
+      "side": 1,
+      "message": "I would strongly discourage the use of atomics in a situation like this; they are too hard to reason about. Atomics should be wrapped inside safe abstractions, and the implementation of such an abstraction needs extensive documentation on exactly how the abstraction\u0027s contract is upheld. https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/ref_counter.h is a good example of what I\u0027m talking about.\n\nPrefer to use mutexes unless there\u0027s a very good reason, such as benchmarks that prove that an implementation with atomics performs better (and we need the performance).",
+      "parentUuid": "7235dc78_4f30b0a5",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 1
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c86d1999_76569435",
         "filename": "audio/voip/audio_ingress.h",
         "patchSetId": 9

@@ -13,6 +13,7 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -85,21 +86,25 @@ void ResourceAdaptationProcessor::MaybeUpdateEffectiveDegradationPreference() {
 
 void ResourceAdaptationProcessor::ResetVideoSourceRestrictions() {
   stream_adapter_->ClearRestrictions();
+  resource_adaptations_.clear();
   MaybeUpdateVideoSourceRestrictions(nullptr);
 }
 
 void ResourceAdaptationProcessor::MaybeUpdateVideoSourceRestrictions(
     const Resource* reason) {
-  VideoSourceRestrictions new_soure_restrictions =
+  VideoSourceRestrictions new_source_restrictions =
       FilterRestrictionsByDegradationPreference(
           stream_adapter_->source_restrictions(),
           effective_degradation_preference_);
-  if (last_reported_source_restrictions_ != new_soure_restrictions) {
-    last_reported_source_restrictions_ = std::move(new_soure_restrictions);
+  if (last_reported_source_restrictions_ != new_source_restrictions) {
+    last_reported_source_restrictions_ = std::move(new_source_restrictions);
     for (auto* adaptation_listener : adaptation_listeners_) {
       adaptation_listener->OnVideoSourceRestrictionsUpdated(
           last_reported_source_restrictions_,
           stream_adapter_->adaptation_counters(), reason);
+    }
+    if (reason) {
+      UpdateResourceDegradationCounts(reason);
     }
   }
 }
@@ -139,6 +144,11 @@ void ResourceAdaptationProcessor::OnResourceUnderuse(
   VideoStreamInputState input_state = input_state_provider_->InputState();
   if (effective_degradation_preference_ == DegradationPreference::DISABLED ||
       !HasSufficientInputForAdaptation(input_state)) {
+    processing_in_progress_ = false;
+    return;
+  }
+  if (!IsResourceAllowedToAdaptUp(&reason_resource)) {
+    RTC_LOG(INFO) << "Not allowed due to resource cap";
     processing_in_progress_ = false;
     return;
   }
@@ -202,8 +212,9 @@ void ResourceAdaptationProcessor::OnResourceOveruse(
   stream_adapter_->SetInput(input_state);
   // How can this stream be adapted up?
   Adaptation adaptation = stream_adapter_->GetAdaptationDown();
-  if (adaptation.min_pixel_limit_reached())
+  if (adaptation.min_pixel_limit_reached()) {
     encoder_stats_observer_->OnMinPixelLimitReached();
+  }
   if (adaptation.status() != Adaptation::Status::kValid) {
     processing_in_progress_ = false;
     return;
@@ -240,6 +251,32 @@ void ResourceAdaptationProcessor::TriggerAdaptationDueToFrameDroppedDueToSize(
       counters_before.resolution_adaptations) {
     encoder_stats_observer_->OnInitialQualityResolutionAdaptDown();
   }
+}
+
+void ResourceAdaptationProcessor::UpdateResourceDegradationCounts(
+    const Resource* resource) {
+  RTC_DCHECK(resource);
+  int delta = stream_adapter_->adaptation_counters().Total();
+  for (const auto& adaptations : resource_adaptations_) {
+    delta += adaptations.second;
+  }
+
+  // Default value is 0, so inserts the value if missing.
+  resource_adaptations_[resource] += delta;
+  RTC_DCHECK_GE(resource_adaptations_[resource], 0);
+}
+
+bool ResourceAdaptationProcessor::IsResourceAllowedToAdaptUp(
+    const Resource* resource) const {
+  RTC_DCHECK(resource);
+  const auto& adaptations = resource_adaptations_.find(resource);
+  if (adaptations == resource_adaptations_.end()) {
+    RTC_LOG(INFO) << "Counts not found " << resource->name();
+  } else {
+    RTC_LOG(INFO) << "Counts were " << adaptations->second << " for "
+                  << resource->name();
+  }
+  return adaptations != resource_adaptations_.end() && adaptations->second > 0;
 }
 
 }  // namespace webrtc

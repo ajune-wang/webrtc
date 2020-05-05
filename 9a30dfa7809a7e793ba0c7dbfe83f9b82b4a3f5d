@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0619e998_bf5fa36f",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-05-05T18:05:03Z",
+      "side": 1,
+      "message": "As Karl suggested, I will revert back to previous code and inlined as you suggested. Thanks.",
+      "parentUuid": "4a44c7c3_b4a33459",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 70
+      },
+      "revId": "9a30dfa7809a7e793ba0c7dbfe83f9b82b4a3f5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4dca94b_fad477da",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "caf2ae5e_d7e4736b",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-05-05T18:05:03Z",
+      "side": 1,
+      "message": "Thanks.  Same as previous comment.",
+      "parentUuid": "e4dca94b_fad477da",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 50
+      },
+      "revId": "9a30dfa7809a7e793ba0c7dbfe83f9b82b4a3f5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "341890a5_a5616222",
         "filename": "audio/voip/audio_egress.h",
         "patchSetId": 10
@@ -68,6 +116,30 @@
       "revId": "9a30dfa7809a7e793ba0c7dbfe83f9b82b4a3f5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e7dc7c1_871f1e48",
+        "filename": "audio/voip/audio_egress.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-05-05T18:05:03Z",
+      "side": 1,
+      "message": "Thanks.  Same as previous comment.",
+      "parentUuid": "341890a5_a5616222",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 51
+      },
+      "revId": "9a30dfa7809a7e793ba0c7dbfe83f9b82b4a3f5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

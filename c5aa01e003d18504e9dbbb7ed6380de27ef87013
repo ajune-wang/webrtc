@@ -473,6 +473,30 @@
     },
     {
       "key": {
+        "uuid": "2ea9706a_8719ab67",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-05-05T18:05:03Z",
+      "side": 1,
+      "message": "Ok, I will revert to use mutex instead for now. Thanks for pointing it out.",
+      "parentUuid": "46522340_446d5262",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 1
+      },
+      "revId": "c5aa01e003d18504e9dbbb7ed6380de27ef87013",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c86d1999_76569435",
         "filename": "audio/voip/audio_ingress.h",
         "patchSetId": 9

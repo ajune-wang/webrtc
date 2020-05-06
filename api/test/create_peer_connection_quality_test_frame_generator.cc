@@ -92,7 +92,8 @@ std::unique_ptr<test::FrameGeneratorInterface> CreateScreenShareFrameGenerator(
         screen_share_config.slide_change_interval.seconds() * video_config.fps);
   }
 
-  // |pause_duration| is nonnegative. It is validated in ValidateParams(...).
+  // |pause_duration| is nonnegative. It is validated in
+  // ValidateScreenShareConfig(...).
   TimeDelta pause_duration = screen_share_config.slide_change_interval -
                              screen_share_config.scrolling_params->duration;
   return test::CreateScrollingInputFromYuvFilesFrameGenerator(

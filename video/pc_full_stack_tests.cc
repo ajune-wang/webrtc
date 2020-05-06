@@ -1119,10 +1119,12 @@ TEST(PCFullStackTest, ScreenshareSlidesVP8_2TL_NoConferenceMode) {
                             BuiltInNetworkBehaviorConfig()),
       [](PeerConfigurer* alice) {
         VideoConfig video(1850, 1110, 5);
-        video.screen_share_config = ScreenShareConfig(TimeDelta::Seconds(10));
         video.stream_label = "alice-video";
+        video.use_text_content_hint = true;
+        ScreenShareConfig screen_share_config =
+            ScreenShareConfig(TimeDelta::Seconds(10));
         auto frame_generator =
-            CreateScreenShareFrameGenerator(video, *video.screen_share_config);
+            CreateScreenShareFrameGenerator(video, screen_share_config);
         alice->AddVideoConfig(std::move(video), std::move(frame_generator));
       },
       [](PeerConfigurer* bob) {});
@@ -1142,10 +1144,12 @@ TEST(PCFullStackTest, ScreenshareSlidesVP8_2TL) {
                             BuiltInNetworkBehaviorConfig()),
       [](PeerConfigurer* alice) {
         VideoConfig video(1850, 1110, 5);
-        video.screen_share_config = ScreenShareConfig(TimeDelta::Seconds(10));
         video.stream_label = "alice-video";
+        video.use_text_content_hint = true;
+        ScreenShareConfig screen_share_config =
+            ScreenShareConfig(TimeDelta::Seconds(10));
         auto frame_generator =
-            CreateScreenShareFrameGenerator(video, *video.screen_share_config);
+            CreateScreenShareFrameGenerator(video, screen_share_config);
         alice->AddVideoConfig(std::move(video), std::move(frame_generator));
       },
       [](PeerConfigurer* bob) {});
@@ -1168,12 +1172,14 @@ TEST(PCFullStackTest, ScreenshareSlidesVP8_2TL_Simulcast_NoConferenceMode) {
                             BuiltInNetworkBehaviorConfig()),
       [](PeerConfigurer* alice) {
         VideoConfig video(1850, 1110, 30);
-        video.screen_share_config = ScreenShareConfig(TimeDelta::Seconds(10));
         video.simulcast_config = VideoSimulcastConfig(2, 1);
         video.temporal_layers_count = 2;
         video.stream_label = "alice-video";
+        video.use_text_content_hint = true;
+        ScreenShareConfig screen_share_config =
+            ScreenShareConfig(TimeDelta::Seconds(10));
         auto frame_generator =
-            CreateScreenShareFrameGenerator(video, *video.screen_share_config);
+            CreateScreenShareFrameGenerator(video, screen_share_config);
         alice->AddVideoConfig(std::move(video), std::move(frame_generator));
       },
       [](PeerConfigurer* bob) {});
@@ -1193,12 +1199,14 @@ TEST(PCFullStackTest, ScreenshareSlidesVP8_2TL_Simulcast) {
                             BuiltInNetworkBehaviorConfig()),
       [](PeerConfigurer* alice) {
         VideoConfig video(1850, 1110, 30);
-        video.screen_share_config = ScreenShareConfig(TimeDelta::Seconds(10));
         video.simulcast_config = VideoSimulcastConfig(2, 1);
         video.temporal_layers_count = 2;
         video.stream_label = "alice-video";
+        video.use_text_content_hint = true;
+        ScreenShareConfig screen_share_config =
+            ScreenShareConfig(TimeDelta::Seconds(10));
         auto frame_generator =
-            CreateScreenShareFrameGenerator(video, *video.screen_share_config);
+            CreateScreenShareFrameGenerator(video, screen_share_config);
         alice->AddVideoConfig(std::move(video), std::move(frame_generator));
       },
       [](PeerConfigurer* bob) {});
@@ -1435,10 +1443,12 @@ TEST(PCFullStackTest, ScreenshareSlidesVP9_3SL_High_Fps) {
       [](PeerConfigurer* alice) {
         VideoConfig video(1850, 1110, 30);
         video.stream_label = "alice-video";
-        video.screen_share_config = ScreenShareConfig(TimeDelta::Seconds(10));
         video.simulcast_config = VideoSimulcastConfig(3, 2);
+        video.use_text_content_hint = true;
+        ScreenShareConfig screen_share_config =
+            ScreenShareConfig(TimeDelta::Seconds(10));
         auto frame_generator =
-            CreateScreenShareFrameGenerator(video, *video.screen_share_config);
+            CreateScreenShareFrameGenerator(video, screen_share_config);
         alice->AddVideoConfig(std::move(video), std::move(frame_generator));
       },
       [](PeerConfigurer* bob) {});

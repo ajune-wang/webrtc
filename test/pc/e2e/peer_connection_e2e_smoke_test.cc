@@ -171,12 +171,12 @@ TEST_F(PeerConnectionE2EQualityTestSmokeTest, MAYBE_Smoke) {
 
         VideoConfig screenshare(640, 360, 30);
         screenshare.stream_label = "bob-screenshare";
-        screenshare.screen_share_config =
+        ScreenShareConfig screen_share_config =
             ScreenShareConfig(TimeDelta::Seconds(2));
-        screenshare.screen_share_config->scrolling_params = ScrollingParams(
+        screen_share_config.scrolling_params = ScrollingParams(
             TimeDelta::Millis(1800), kDefaultSlidesWidth, kDefaultSlidesHeight);
-        auto screen_share_frame_generator = CreateScreenShareFrameGenerator(
-            screenshare, *screenshare.screen_share_config);
+        auto screen_share_frame_generator =
+            CreateScreenShareFrameGenerator(screenshare, screen_share_config);
         bob->AddVideoConfig(std::move(screenshare),
                             std::move(screen_share_frame_generator));
 

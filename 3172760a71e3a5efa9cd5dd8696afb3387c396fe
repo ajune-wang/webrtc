@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9479890e_0071e0ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-06T11:17:04Z",
+      "side": 1,
+      "message": "This means that by default, no measurement would not prevent adapting up. But once we have seen overuse, we would prevent adapting up until we have gotten a green light, so to speak.\n\nWhat do you think?",
+      "parentUuid": "19cb582a_e3bd0d37",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0164c93e_f492ee3d",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 3

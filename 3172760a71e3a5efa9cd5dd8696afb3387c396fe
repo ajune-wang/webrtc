@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3e3ffc81_6642cf3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-06T11:38:50Z",
+      "side": 1,
+      "message": "We can\u0027t do that so easily though, because we may have overused twice at two different adaptations, and then later underused.\n\nIf we adapt down to VGA then QVGA, but then we underuse at QVGA, IsCurrentlyOverusing is false, even though adapting up to HD would probably cause an overuse.",
+      "parentUuid": "9479890e_0071e0ae",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0164c93e_f492ee3d",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 3
@@ -48,6 +66,24 @@
       "writtenOn": "2020-05-06T11:13:57Z",
       "side": 1,
       "message": "I\u0027m worried we have a dependency on past events here, like the totals always have to add up... but what if a resource is deleted? Would we be forced to adapt up that many times? I don\u0027t think that makes sense.\n\nI also wonder what happens if we have multiple streams. Maybe the more relevant question is whether or not a resource was kOveruse and whether or not it has been kUnderuse again, not how many times adaptations happened.",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3739e0_3b77e69e",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-06T11:38:50Z",
+      "side": 1,
+      "message": "Resources can\u0027t be deleted from this class, no RemoveResource method. If one is added that case would require handling.\n\nKnowing if it was kUnderuse before and now kOveruse doesn\u0027t work in general because if you adapt twice and then up once, what would the value be? We are still Overusing at the start settings (say HD), so the boolean should be false, but how do we know that based on that bool?",
+      "parentUuid": "0164c93e_f492ee3d",
       "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5672b72_8153f499",
+        "filename": "api/test/create_peer_connection_quality_test_frame_generator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-06T18:37:25Z",
+      "side": 1,
+      "message": "Can this comment be replaced with\n\n  RTC_DCHECK(pause_duration \u003e\u003d TimeDelta::Zero());\n\n?",
+      "revId": "f95eccc74b782958eddeae005be9739b448cd37f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e482cff1_4b3eebc5",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-06T18:37:25Z",
+      "side": 1,
+      "message": "I\u0027m having trouble with the grammar here. Does the following convey the meaning you intend?\n\n  If set, determines whether VideoTrackInterface::ContentHint::kText is set for the current video track.",
+      "revId": "f95eccc74b782958eddeae005be9739b448cd37f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de874235_27e47ba7",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-06T18:37:25Z",
+      "side": 1,
+      "message": "What does it mean to \"use\" a field here? Should all current users of `screen_share_config` start using `use_text_content_hint` instead?",
+      "revId": "f95eccc74b782958eddeae005be9739b448cd37f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

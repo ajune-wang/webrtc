@@ -9,6 +9,43 @@
 import("//third_party/libaom/options.gni")
 import("../../../../webrtc.gni")
 
+rtc_library("encoder_manager") {
+  sources = [
+    "encoder_manager.cc",
+    "encoder_manager.h",
+  ]
+  deps = [
+    ":libaom_av1_encoder",
+    "../..:video_codec_interface",
+    "../../../../api:scoped_refptr",
+    "../../../../api/video:encoded_image",
+    "../../../../api/video:video_frame",
+    "../../../../api/video:video_frame_i420",
+    "../../../../common_video",
+    "../../../../rtc_base:checks",
+    "../../../../rtc_base:logging",
+    "//third_party/abseil-cpp/absl/algorithm:container",
+  ]
+}
+
+rtc_library("frame_dependencies_controller") {
+  sources = [
+    #TODO(danilchap): Keep interface and it's implementations in separate libraries.
+    "frame_dependencies_controller.h",
+    "frame_dependencies_controller_full_svc.cc",
+    "frame_dependencies_controller_full_svc.h",
+    "frame_dependencies_controller_single_stream.cc",
+    "frame_dependencies_controller_single_stream.h",
+    "video_encoder_light.h",
+  ]
+  deps = [
+    "../../../../api/transport/rtp:dependency_descriptor",
+    "../../../../common_video/generic_frame_descriptor",
+    "../../../../rtc_base:checks",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 rtc_library("libaom_av1_decoder") {
   visibility = [ "*" ]
   poisonous = [ "software_video_codecs" ]
@@ -41,6 +78,7 @@ rtc_library("libaom_av1_encoder") {
   poisonous = [ "software_video_codecs" ]
   public = [ "libaom_av1_encoder.h" ]
   deps = [
+    ":frame_dependencies_controller",
     "../../../../api/video_codecs:video_codecs_api",
     "//third_party/abseil-cpp/absl/base:core_headers",
   ]
@@ -68,8 +106,12 @@ rtc_library("video_coding_codecs_av1_tests") {
   testonly = true
 
   if (enable_libaom) {
-    sources = [ "libaom_av1_encoder_unittest.cc" ]
+    sources = [
+      "libaom_av1_encoder_unittest.cc",
+      "libaom_av1_unittest.cc",
+    ]
     deps = [
+      ":encoder_manager",
       ":libaom_av1_encoder",
       "../..:video_codec_interface",
       "../../../../api/video_codecs:video_codecs_api",

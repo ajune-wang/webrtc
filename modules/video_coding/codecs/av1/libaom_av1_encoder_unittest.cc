@@ -21,12 +21,12 @@ namespace webrtc {
 namespace {
 
 TEST(LibaomAv1EncoderTest, CanCreate) {
-  std::unique_ptr<VideoEncoder> encoder = CreateLibaomAv1Encoder();
+  std::unique_ptr<VideoEncoder> encoder = CreateLibaomAv1Encoder(nullptr);
   EXPECT_TRUE(encoder);
 }
 
 TEST(LibaomAv1EncoderTest, InitAndRelease) {
-  std::unique_ptr<VideoEncoder> encoder = CreateLibaomAv1Encoder();
+  std::unique_ptr<VideoEncoder> encoder = CreateLibaomAv1Encoder(nullptr);
   ASSERT_TRUE(encoder);
   VideoCodec codec_settings;
   codec_settings.width = 1280;

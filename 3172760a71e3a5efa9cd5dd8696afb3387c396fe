@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19cb582a_e3bd0d37",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-06T11:13:57Z",
+      "side": 1,
+      "message": "If QP rejects adapting up until it sees a good QP value though, it doesn\u0027t matter how many times the fast CPU says underuse, because QP is not good yet.\n\nWhether or not QP is good seems like the relevant piece of information for decision making here. Not how many times something has gone up or down.\n\nIf we want to solve this generically, and not have to analyze QP values or [insert resource-specific type of measurement here], this might be expressed as \"if a resource has reported kOveruse, reject all adaptations until that same resource has reported kUnderuse or until that resource has been removed\".\n\nPerhaps the most generic way of solving this that doesn\u0027t require each child of Resource to implement the same logic is to add a \"bool Resource::IsCurrentlyOverusing()\" on the base class that sets a bool to true on kOveruse and flips it back to false on kUnderuse. This could happen inside the protected method \"void Resource::OnResourceUsageStateMeasured\".",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0164c93e_f492ee3d",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-06T11:13:57Z",
+      "side": 1,
+      "message": "I\u0027m worried we have a dependency on past events here, like the totals always have to add up... but what if a resource is deleted? Would we be forced to adapt up that many times? I don\u0027t think that makes sense.\n\nI also wonder what happens if we have multiple streams. Maybe the more relevant question is whether or not a resource was kOveruse and whether or not it has been kUnderuse again, not how many times adaptations happened.",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f233abd_7aead7f6",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-06T11:13:57Z",
+      "side": 1,
+      "message": "nit: \"adaptations\" could refer to something other than counters (e.g. Adaptation). How about adaptation_counts_by_resource_?",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

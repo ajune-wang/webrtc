@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f21b63b1_9cf435d0",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-05-06T14:07:35Z",
+      "side": 0,
+      "message": "Probably BUILD.gn target also have to be updated to remove unused deps.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 73
+      },
+      "revId": "5ed65b2e98fcb60c72e9f338fdbd98d90732e84c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

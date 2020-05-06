@@ -22,6 +22,30 @@
       "revId": "5ed65b2e98fcb60c72e9f338fdbd98d90732e84c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02552a8_299aaaf3",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-05-06T14:11:16Z",
+      "side": 0,
+      "message": "It is now used by the test/pc/e2e/peer_configurer.h file",
+      "parentUuid": "f21b63b1_9cf435d0",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 73
+      },
+      "revId": "5ed65b2e98fcb60c72e9f338fdbd98d90732e84c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

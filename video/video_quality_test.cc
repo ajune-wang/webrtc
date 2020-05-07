@@ -35,6 +35,7 @@
 #include "media/engine/encoder_simulcast_proxy.h"
 #include "media/engine/fake_video_codec_factory.h"
 #include "media/engine/internal_encoder_factory.h"
+#include "media/engine/taskqueue_serialized_decoder_wrapper_factory.h"
 #include "media/engine/webrtc_video_engine.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
@@ -403,7 +404,10 @@ VideoQualityTest::VideoQualityTest(
   if (injection_components_->video_decoder_factory != nullptr) {
     decoder_factory_ = std::move(injection_components_->video_decoder_factory);
   } else {
-    decoder_factory_ = std::make_unique<InternalDecoderFactory>();
+    decoder_factory_ =
+        std::make_unique<TaskQueueSerializedDecoderWrapperFactory>(
+            task_queue_factory_.get(),
+            std::make_unique<InternalDecoderFactory>());
   }
   if (injection_components_->video_encoder_factory != nullptr) {
     encoder_factory_ = std::move(injection_components_->video_encoder_factory);

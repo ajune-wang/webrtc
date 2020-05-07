@@ -251,6 +251,7 @@ rtc_library("rtc_internal_video_codecs") {
     "../rtc_base:checks",
     "../rtc_base:deprecation",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:rtc_task_queue",
     "../rtc_base/system:rtc_export",
     "../test:fake_video_codecs",
     "//third_party/abseil-cpp/absl/strings",
@@ -264,6 +265,8 @@ rtc_library("rtc_internal_video_codecs") {
     "engine/internal_encoder_factory.h",
     "engine/multiplex_codec_factory.cc",
     "engine/multiplex_codec_factory.h",
+    "engine/taskqueue_serialized_decoder_wrapper_factory.cc",
+    "engine/taskqueue_serialized_decoder_wrapper_factory.h",
 
     # TODO(bugs.webrtc.org/7925): stop exporting this header once downstream
     # targets depend on :rtc_encoder_simulcast_proxy directly.

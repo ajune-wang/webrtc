@@ -70,6 +70,30 @@
       "revId": "93e4ea27296facf4a08fc88b2b8958886e6d79bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb6ac01d_eb63d1ec",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-07T15:41:19Z",
+      "side": 1,
+      "message": "one more thing, with spatial layering single Encode function would emit multiple EncodedImages.",
+      "parentUuid": "46266eee_e8492054",
+      "range": {
+        "startLine": 104,
+        "startChar": 30,
+        "endLine": 104,
+        "endChar": 43
+      },
+      "revId": "93e4ea27296facf4a08fc88b2b8958886e6d79bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ab77d8b_51633235",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-07T12:08:05Z",
+      "side": 1,
+      "message": "WDYT about having a TestAv1Encoder with an \"std::optional\u003cEncodedImage\u003e Encode\" function, meaning it will return the encoded frame directly. Then you don\u0027t have to have a \"Decode(int frame_id, ...)\" to keep track of which frames we tried to decode/were successfully decoded.",
+      "range": {
+        "startLine": 104,
+        "startChar": 30,
+        "endLine": 104,
+        "endChar": 43
+      },
+      "revId": "93e4ea27296facf4a08fc88b2b8958886e6d79bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

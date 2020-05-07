@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "25843b00_d244a6a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-07T09:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e3ffc81_6642cf3a",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0164c93e_f492ee3d",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 3
@@ -90,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "64869531_5852c556",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-07T09:45:29Z",
+      "side": 1,
+      "message": "Filed https://crbug.com/webrtc/11553 which tracks the improvements and changes to this.",
+      "parentUuid": "5b3739e0_3b77e69e",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f233abd_7aead7f6",
         "filename": "call/adaptation/resource_adaptation_processor.h",
         "patchSetId": 3
@@ -104,6 +140,24 @@
       "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f024a2d_744f39c2",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-07T09:45:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f233abd_7aead7f6",
+      "revId": "3172760a71e3a5efa9cd5dd8696afb3387c396fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

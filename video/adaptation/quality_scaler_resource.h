@@ -19,6 +19,7 @@
 #include "call/adaptation/resource.h"
 #include "call/adaptation/resource_adaptation_processor_interface.h"
 #include "modules/video_coding/utility/quality_scaler.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 
@@ -32,6 +33,9 @@ class QualityScalerResource : public Resource,
  public:
   explicit QualityScalerResource(
       ResourceAdaptationProcessorInterface* adaptation_processor);
+
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
 
   bool is_started() const;
 
@@ -61,6 +65,8 @@ class QualityScalerResource : public Resource,
                            const Resource& reason_resource) override;
 
  private:
+  rtc::TaskQueue* encoder_queue_;
+  rtc::TaskQueue* resource_adaptation_queue_;
   ResourceAdaptationProcessorInterface* const adaptation_processor_;
   std::unique_ptr<QualityScaler> quality_scaler_;
   rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface>

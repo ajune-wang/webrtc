@@ -271,14 +271,20 @@ VideoStreamEncoder::VideoStreamEncoder(
                                     /*source=*/nullptr),
       encoder_queue_(task_queue_factory->CreateTaskQueue(
           "EncoderQueue",
+          TaskQueueFactory::Priority::NORMAL)),
+      resource_adaptation_queue_(task_queue_factory->CreateTaskQueue(
+          "ResourceAdaptationQueue",
           TaskQueueFactory::Priority::NORMAL)) {
   RTC_DCHECK(encoder_stats_observer);
   RTC_DCHECK_GE(number_of_cores, 1);
 
+  resource_adaptation_processor_->Initialize(&resource_adaptation_queue_);
   resource_adaptation_processor_->AddAdaptationListener(
       &stream_resource_manager_);
   resource_adaptation_processor_->AddAdaptationListener(this);
 
+  stream_resource_manager_.Initialize(&encoder_queue_,
+                                      &resource_adaptation_queue_);
   // Add the stream resource manager's resources to the processor.
   for (Resource* resource : stream_resource_manager_.MappedResources())
     resource_adaptation_processor_->AddResource(resource);
@@ -1679,9 +1685,11 @@ void VideoStreamEncoder::OnVideoSourceRestrictionsUpdated(
     VideoSourceRestrictions restrictions,
     const VideoAdaptationCounters& adaptation_counters,
     const Resource* reason) {
-  RTC_DCHECK_RUN_ON(&encoder_queue_);
-  video_source_sink_controller_.SetRestrictions(std::move(restrictions));
-  video_source_sink_controller_.PushSourceSinkSettings();
+  encoder_queue_.PostTask([this, restrictions] {
+    RTC_DCHECK_RUN_ON(&encoder_queue_);
+    video_source_sink_controller_.SetRestrictions(std::move(restrictions));
+    video_source_sink_controller_.PushSourceSinkSettings();
+  });
 }
 
 void VideoStreamEncoder::RunPostEncode(const EncodedImage& encoded_image,

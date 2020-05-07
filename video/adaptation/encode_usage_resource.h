@@ -17,6 +17,7 @@
 #include "absl/types/optional.h"
 #include "api/video/video_adaptation_reason.h"
 #include "call/adaptation/resource.h"
+#include "rtc_base/task_queue.h"
 #include "video/adaptation/overuse_frame_detector.h"
 
 namespace webrtc {
@@ -31,6 +32,8 @@ class EncodeUsageResource : public Resource,
  public:
   explicit EncodeUsageResource(
       std::unique_ptr<OveruseFrameDetector> overuse_detector);
+
+  void Initialize(rtc::TaskQueue* resource_adaptation_queue);
 
   bool is_started() const { return is_started_; }
 
@@ -54,6 +57,7 @@ class EncodeUsageResource : public Resource,
  private:
   int TargetFrameRateAsInt();
 
+  rtc::TaskQueue* resource_adaptation_queue_;
   const std::unique_ptr<OveruseFrameDetector> overuse_detector_;
   bool is_started_;
   absl::optional<double> target_frame_rate_;

@@ -164,14 +164,13 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
       peer_configurations_[0]->ReleaseParams();
   std::unique_ptr<InjectableComponents> alice_components =
       peer_configurations_[0]->ReleaseComponents();
-  std::vector<std::unique_ptr<test::FrameGeneratorInterface>>
-      alice_video_generators =
-          peer_configurations_[0]->ReleaseVideoGenerators();
+  std::vector<PeerConnectionE2EQualityTestFixture::VideoSource>
+      alice_video_sources = peer_configurations_[0]->ReleaseVideoSources();
   std::unique_ptr<Params> bob_params = peer_configurations_[1]->ReleaseParams();
   std::unique_ptr<InjectableComponents> bob_components =
       peer_configurations_[1]->ReleaseComponents();
-  std::vector<std::unique_ptr<test::FrameGeneratorInterface>>
-      bob_video_generators = peer_configurations_[1]->ReleaseVideoGenerators();
+  std::vector<PeerConnectionE2EQualityTestFixture::VideoSource>
+      bob_video_sources = peer_configurations_[1]->ReleaseVideoSources();
   peer_configurations_.clear();
 
   for (size_t i = 0; i < bob_params->video_configs.size(); ++i) {
@@ -215,7 +214,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
 
   alice_ = TestPeerFactory::CreateTestPeer(
       std::move(alice_components), std::move(alice_params),
-      std::move(alice_video_generators),
+      std::move(alice_video_sources),
       std::make_unique<FixturePeerConnectionObserver>(
           [this, bob_video_configs](
               rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {
@@ -227,7 +226,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
       run_params.echo_emulation_config, task_queue_.get());
   bob_ = TestPeerFactory::CreateTestPeer(
       std::move(bob_components), std::move(bob_params),
-      std::move(bob_video_generators),
+      std::move(bob_video_sources),
       std::make_unique<FixturePeerConnectionObserver>(
           [this, alice_video_configs](
               rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {

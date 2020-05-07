@@ -11,6 +11,7 @@
 #ifndef CALL_ADAPTATION_RESOURCE_ADAPTATION_PROCESSOR_H_
 #define CALL_ADAPTATION_RESOURCE_ADAPTATION_PROCESSOR_H_
 
+#include <map>
 #include <memory>
 #include <vector>
 
@@ -76,12 +77,15 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // If the filtered source restrictions are different than
   // |last_reported_source_restrictions_|, inform the listeners.
   void MaybeUpdateVideoSourceRestrictions(const Resource* reason);
+  void UpdateResourceDegradationCounts(const Resource* resource);
+  bool IsResourceAllowedToAdaptUp(const Resource* resource) const;
 
   // Input and output.
   VideoStreamInputStateProvider* const input_state_provider_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;
   std::vector<ResourceAdaptationProcessorListener*> adaptation_listeners_;
   std::vector<Resource*> resources_;
+  std::map<const Resource*, int> adaptations_counts_by_resource_;
   // Adaptation strategy settings.
   DegradationPreference degradation_preference_;
   DegradationPreference effective_degradation_preference_;

@@ -94,6 +94,30 @@
       "revId": "93e4ea27296facf4a08fc88b2b8958886e6d79bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b58ede83_d68621b5",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-07T15:52:35Z",
+      "side": 1,
+      "message": "\u003e I tried create TestAv1Encoder that returns std::optional\u003cEncodedImage\u003e\n\u003e but didn\u0027t found how it can help.\n\nThe idea was to make the tests more straightforward by avoiding callbacks.\n\n\u003e One problem is that EncodeImage is not enough: for svc testing I\u0027ll need 2nd parameter of the callback too (see SvcEncoderCallback in https://webrtc-review.googlesource.com/c/src/+/174560/1/modules/video_coding/codecs/av1/libaom_av1_unittest.cc )\n\nRight, yes, you would have to return a list of tuples of {EncodedImage, GenericFrameInfo}.\n\n\u003e 2nd problem is technical: converting const EncodedImage\u0026 reference from a callback into a return parameter is non-trivial. (asuming single thread makes it much easier, but still need to somehow to pass it from callback obejct into main function. Which would involve at least one copy) That complexity doesn\u0027t seems worth it.\n\nThe payload buffer is refcounted (https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/codecs/av1/libaom_av1_encoder.cc;l\u003d302;drc\u003da4c442574864d3f1d6d73c24a9fa31bf2640d550?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F), so copying an EncodedImage is (relatively) cheap, or are you talking about some other complexity?",
+      "parentUuid": "46266eee_e8492054",
+      "range": {
+        "startLine": 104,
+        "startChar": 30,
+        "endLine": 104,
+        "endChar": 43
+      },
+      "revId": "93e4ea27296facf4a08fc88b2b8958886e6d79bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

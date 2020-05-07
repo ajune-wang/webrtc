@@ -35,6 +35,7 @@
 #include "rtc_base/experiments/quality_rampup_experiment.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_queue.h"
 #include "system_wrappers/include/clock.h"
 #include "video/adaptation/encode_usage_resource.h"
 #include "video/adaptation/overuse_frame_detector.h"
@@ -67,6 +68,9 @@ class VideoStreamEncoderResourceManager
       bool experiment_cpu_load_estimator,
       std::unique_ptr<OveruseFrameDetector> overuse_detector);
   ~VideoStreamEncoderResourceManager() override;
+
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
 
   void SetDegradationPreferences(
       DegradationPreference degradation_preference,
@@ -233,6 +237,8 @@ class VideoStreamEncoderResourceManager
   EncodeUsageResource encode_usage_resource_;
   QualityScalerResource quality_scaler_resource_;
 
+  rtc::TaskQueue* encoder_queue_;
+  rtc::TaskQueue* resource_adaptation_queue_;
   VideoStreamInputStateProvider* const input_state_provider_;
   ResourceAdaptationProcessorInterface* const adaptation_processor_;
   VideoStreamEncoderObserver* const encoder_stats_observer_;

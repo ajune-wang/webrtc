@@ -24,6 +24,7 @@
 #include "call/adaptation/video_stream_adapter.h"
 #include "call/adaptation/video_stream_input_state.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 
@@ -34,6 +35,8 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
       VideoStreamInputStateProvider* input_state_provider,
       VideoStreamEncoderObserver* encoder_stats_observer);
   ~ResourceAdaptationProcessor() override;
+
+  void Initialize(rtc::TaskQueue* resource_adaptation_queue) override;
 
   // ResourceAdaptationProcessorInterface implementation.
   DegradationPreference degradation_preference() const override;
@@ -77,18 +80,26 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // |last_reported_source_restrictions_|, inform the listeners.
   void MaybeUpdateVideoSourceRestrictions(const Resource* reason);
 
+  rtc::TaskQueue* resource_adaptation_queue_;
   // Input and output.
-  VideoStreamInputStateProvider* const input_state_provider_;
-  VideoStreamEncoderObserver* const encoder_stats_observer_;
-  std::vector<ResourceAdaptationProcessorListener*> adaptation_listeners_;
-  std::vector<Resource*> resources_;
+  VideoStreamInputStateProvider* const input_state_provider_
+      RTC_GUARDED_BY(resource_adaptation_queue_);
+  VideoStreamEncoderObserver* const encoder_stats_observer_
+      RTC_GUARDED_BY(resource_adaptation_queue_);
+  std::vector<ResourceAdaptationProcessorListener*> adaptation_listeners_
+      RTC_GUARDED_BY(resource_adaptation_queue_);
+  std::vector<Resource*> resources_ RTC_GUARDED_BY(resource_adaptation_queue_);
   // Adaptation strategy settings.
-  DegradationPreference degradation_preference_;
-  DegradationPreference effective_degradation_preference_;
-  bool is_screenshare_;
+  DegradationPreference degradation_preference_
+      RTC_GUARDED_BY(resource_adaptation_queue_);
+  DegradationPreference effective_degradation_preference_
+      RTC_GUARDED_BY(resource_adaptation_queue_);
+  bool is_screenshare_ RTC_GUARDED_BY(resource_adaptation_queue_);
   // Responsible for generating and applying possible adaptations.
-  const std::unique_ptr<VideoStreamAdapter> stream_adapter_;
-  VideoSourceRestrictions last_reported_source_restrictions_;
+  const std::unique_ptr<VideoStreamAdapter> stream_adapter_
+      RTC_GUARDED_BY(resource_adaptation_queue_);
+  VideoSourceRestrictions last_reported_source_restrictions_
+      RTC_GUARDED_BY(resource_adaptation_queue_);
   // Prevents recursion.
   //
   // This is used to prevent triggering resource adaptation in the process of
@@ -100,7 +111,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // Resource::OnAdaptationApplied() ->
   // Resource::OnResourceUsageStateMeasured() ->
   // ResourceAdaptationProcessor::OnResourceOveruse() // Boom, not allowed.
-  bool processing_in_progress_;
+  bool processing_in_progress_ RTC_GUARDED_BY(resource_adaptation_queue_);
 };
 
 }  // namespace webrtc

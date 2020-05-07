@@ -18,6 +18,7 @@
 #include "call/adaptation/encoder_settings.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/video_source_restrictions.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 
@@ -43,6 +44,7 @@ class ResourceAdaptationProcessorInterface {
  public:
   virtual ~ResourceAdaptationProcessorInterface();
 
+  virtual void Initialize(rtc::TaskQueue* resource_adaptation_queue) = 0;
   virtual DegradationPreference degradation_preference() const = 0;
   // Reinterprets "balanced + screenshare" as "maintain-resolution".
   // TODO(hbos): Don't do this. This is not what "balanced" means. If the

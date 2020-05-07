@@ -250,6 +250,8 @@ VideoStreamEncoderResourceManager::VideoStreamEncoderResourceManager(
       prevent_adapt_up_in_balanced_resource_(this),
       encode_usage_resource_(std::move(overuse_detector)),
       quality_scaler_resource_(adaptation_processor),
+      encoder_queue_(nullptr),
+      resource_adaptation_queue_(nullptr),
       input_state_provider_(input_state_provider),
       adaptation_processor_(adaptation_processor),
       encoder_stats_observer_(encoder_stats_observer),
@@ -280,6 +282,20 @@ VideoStreamEncoderResourceManager::VideoStreamEncoderResourceManager(
 
 VideoStreamEncoderResourceManager::~VideoStreamEncoderResourceManager() {
   RTC_DCHECK(!encode_usage_resource_.is_started());
+}
+
+void VideoStreamEncoderResourceManager::Initialize(
+    rtc::TaskQueue* encoder_queue,
+    rtc::TaskQueue* resource_adaptation_queue) {
+  RTC_DCHECK(!encoder_queue_);
+  RTC_DCHECK(encoder_queue);
+  RTC_DCHECK(!resource_adaptation_queue_);
+  RTC_DCHECK(resource_adaptation_queue);
+  encoder_queue_ = encoder_queue;
+  resource_adaptation_queue_ = resource_adaptation_queue;
+  encode_usage_resource_.Initialize(resource_adaptation_queue_);
+  quality_scaler_resource_.Initialize(encoder_queue_,
+                                      resource_adaptation_queue_);
 }
 
 void VideoStreamEncoderResourceManager::SetDegradationPreferences(
@@ -359,8 +375,10 @@ void VideoStreamEncoderResourceManager::SetEncoderRates(
 }
 
 void VideoStreamEncoderResourceManager::OnFrameDroppedDueToSize() {
-  adaptation_processor_->TriggerAdaptationDueToFrameDroppedDueToSize(
-      quality_scaler_resource_);
+  resource_adaptation_queue_->PostTask([this] {
+    adaptation_processor_->TriggerAdaptationDueToFrameDroppedDueToSize(
+        quality_scaler_resource_);
+  });
   initial_frame_dropper_->OnFrameDroppedDueToSize();
 }
 
@@ -493,31 +511,34 @@ void VideoStreamEncoderResourceManager::OnVideoSourceRestrictionsUpdated(
     VideoSourceRestrictions restrictions,
     const VideoAdaptationCounters& adaptation_counters,
     const Resource* reason) {
-  video_source_restrictions_ = restrictions;
-  VideoAdaptationCounters previous_adaptation_counters =
-      active_counts_[VideoAdaptationReason::kQuality] +
-      active_counts_[VideoAdaptationReason::kCpu];
-  int adaptation_counters_total_abs_diff = std::abs(
-      adaptation_counters.Total() - previous_adaptation_counters.Total());
-  if (reason) {
-    // A resource signal triggered this adaptation. The adaptation counters have
-    // to be updated every time the adaptation counter is incremented or
-    // decremented due to a resource.
-    RTC_DCHECK_EQ(adaptation_counters_total_abs_diff, 1);
-    VideoAdaptationReason reason_type = GetReasonFromResource(*reason);
-    UpdateAdaptationStats(adaptation_counters, reason_type);
-  } else if (adaptation_counters.Total() == 0) {
-    // Adaptation was manually reset - clear the per-reason counters too.
-    ResetActiveCounts();
-    encoder_stats_observer_->ClearAdaptationStats();
-  } else {
-    // If a reason did not increase or decrease the Total() by 1 and the
-    // restrictions were not just reset, the adaptation counters MUST not have
-    // been modified and there is nothing to do stats-wise.
-    RTC_DCHECK_EQ(adaptation_counters_total_abs_diff, 0);
-  }
-  RTC_LOG(LS_INFO) << ActiveCountsToString();
-  MaybeUpdateTargetFrameRate();
+  encoder_queue_->PostTask([this, restrictions, adaptation_counters, reason] {
+    RTC_DCHECK_RUN_ON(encoder_queue_);
+    video_source_restrictions_ = restrictions;
+    VideoAdaptationCounters previous_adaptation_counters =
+        active_counts_[VideoAdaptationReason::kQuality] +
+        active_counts_[VideoAdaptationReason::kCpu];
+    int adaptation_counters_total_abs_diff = std::abs(
+        adaptation_counters.Total() - previous_adaptation_counters.Total());
+    if (reason) {
+      // A resource signal triggered this adaptation. The adaptation counters
+      // have to be updated every time the adaptation counter is incremented or
+      // decremented due to a resource.
+      RTC_DCHECK_EQ(adaptation_counters_total_abs_diff, 1);
+      VideoAdaptationReason reason_type = GetReasonFromResource(*reason);
+      UpdateAdaptationStats(adaptation_counters, reason_type);
+    } else if (adaptation_counters.Total() == 0) {
+      // Adaptation was manually reset - clear the per-reason counters too.
+      ResetActiveCounts();
+      encoder_stats_observer_->ClearAdaptationStats();
+    } else {
+      // If a reason did not increase or decrease the Total() by 1 and the
+      // restrictions were not just reset, the adaptation counters MUST not have
+      // been modified and there is nothing to do stats-wise.
+      RTC_DCHECK_EQ(adaptation_counters_total_abs_diff, 0);
+    }
+    RTC_LOG(LS_INFO) << ActiveCountsToString();
+    MaybeUpdateTargetFrameRate();
+  });
 }
 
 void VideoStreamEncoderResourceManager::MaybeUpdateTargetFrameRate() {
@@ -661,7 +682,10 @@ void VideoStreamEncoderResourceManager::MaybePerformQualityRampupExperiment() {
   if (try_quality_rampup && qp_counts.resolution_adaptations > 0 &&
       cpu_counts.Total() == 0) {
     RTC_LOG(LS_INFO) << "Reset quality limitations.";
-    adaptation_processor_->ResetVideoSourceRestrictions();
+    resource_adaptation_queue_->PostTask([this] {
+      RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+      adaptation_processor_->ResetVideoSourceRestrictions();
+    });
     quality_rampup_done_ = true;
   }
 }

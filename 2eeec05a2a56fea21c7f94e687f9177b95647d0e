@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e368069_7fbbd10e",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-07T09:50:36Z",
+      "side": 1,
+      "message": "Can you add a comment for these methods, just quick explanation when a resource is allowed to adapt up and possibly add a reference to the issue you filed if this may change in the future",
+      "revId": "2eeec05a2a56fea21c7f94e687f9177b95647d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "408a648f_c7bc8dfa",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-05-08T15:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a39a4f62_1063eef5",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "9ce677a22a8e5a82016b033b309c3b854e524c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "348ec0a5_8184ed90",
         "filename": "test/pc/e2e/peer_configurer.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "9ce677a22a8e5a82016b033b309c3b854e524c42",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47d92262_0aea4001",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-05-08T15:34:25Z",
+      "side": 1,
+      "message": "I\u0027m not sure, that I want to limit peer\u0027s count to 6 or force user to specify names for all participants, that are higher than 6th. It will be complicated to understand behavior, I think. So I think it\u0027s better to keep it.",
+      "parentUuid": "348ec0a5_8184ed90",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 9
+      },
+      "revId": "9ce677a22a8e5a82016b033b309c3b854e524c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

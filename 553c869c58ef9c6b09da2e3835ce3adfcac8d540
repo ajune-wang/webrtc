@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b87058ee_e0fccaeb",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-08T12:22:13Z",
+      "side": 0,
+      "message": "Drive by comment, is this still relevant?",
+      "range": {
+        "startLine": 593,
+        "startChar": 2,
+        "endLine": 594,
+        "endChar": 12
+      },
+      "revId": "553c869c58ef9c6b09da2e3835ce3adfcac8d540",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

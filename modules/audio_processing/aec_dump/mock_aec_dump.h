@@ -13,7 +13,7 @@
 
 #include <memory>
 
-#include "modules/audio_processing/include/aec_dump.h"
+#include "modules/audio_processing/aec_dump/aec_dump.h"
 #include "test/gmock.h"
 
 namespace webrtc {

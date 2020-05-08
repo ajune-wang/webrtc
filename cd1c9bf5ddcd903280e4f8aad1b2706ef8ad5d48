@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a22587e9_117bf424",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-08T19:21:51Z",
+      "side": 1,
+      "message": "CLs that do one thing are preferred, but this CL is small and simple enough that it\u0027s not much of a problem.",
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1efee3d7_342e4cc6",
+        "filename": "rtc_base/task_utils/pending_task_safety_flag.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-08T19:21:51Z",
+      "side": 1,
+      "message": "You should make classes non-copyable by deleting the copy constructor, not the move constructor. And delete the copy assignment operator too.\n\n\"a copyable class should explicitly declare the copy operations, a move-only class should explicitly declare the move operations, and a non-copyable/movable class should explicitly delete the copy operations\"\n\n\"Note that if you explicitly declare or delete either the constructor or assignment operation for copy, the other copy operation is not obvious and must be declared or deleted.\"\n\n--- https://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types",
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ac9c8a6_d2be2f10",
+        "filename": "rtc_base/task_utils/pending_task_safety_flag.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-08T19:21:51Z",
+      "side": 1,
+      "message": "pelling error",
+      "range": {
+        "startLine": 76,
+        "startChar": 19,
+        "endLine": 76,
+        "endChar": 27
+      },
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48b5f84c_514397a9",
+        "filename": "rtc_base/task_utils/to_queued_task.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-08T19:21:51Z",
+      "side": 1,
+      "message": "The style guide still prohibits mutable reference arguments. However, flag() is a const method, so you could use a const reference instead.",
+      "range": {
+        "startLine": 92,
+        "startChar": 57,
+        "endLine": 92,
+        "endChar": 58
+      },
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

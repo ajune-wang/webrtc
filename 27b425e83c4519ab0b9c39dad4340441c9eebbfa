@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "084350bf_40b83cdd",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-08T10:55:19Z",
+      "side": 1,
+      "message": "Right, with most code moved to helper functions, agree there is no need to label each of the 3 sections explicetely ( go/unit-test-practices#structure )\nBesides... I named 1st one incorrectly. it should be \u0027Arrange\u0027.",
+      "parentUuid": "9576fd88_80822386",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 13
+      },
+      "revId": "27b425e83c4519ab0b9c39dad4340441c9eebbfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f35a221c_74cb2596",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "27b425e83c4519ab0b9c39dad4340441c9eebbfa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a32e5aaa_e7b7136f",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-08T10:55:19Z",
+      "side": 1,
+      "message": "Done\n(I might need to readd this function in next change, but let discuss it there. May there is a neater solution)",
+      "parentUuid": "f35a221c_74cb2596",
+      "range": {
+        "startLine": 191,
+        "startChar": 14,
+        "endLine": 191,
+        "endChar": 28
+      },
+      "revId": "27b425e83c4519ab0b9c39dad4340441c9eebbfa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

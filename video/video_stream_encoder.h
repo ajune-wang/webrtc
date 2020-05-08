@@ -106,6 +106,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // Used for testing. For example the |ScalingObserverInterface| methods must
   // be called on |encoder_queue_|.
   rtc::TaskQueue* encoder_queue() { return &encoder_queue_; }
+  rtc::TaskQueue* resource_adaptation_queue() {
+    return &resource_adaptation_queue_;
+  }
 
   void OnVideoSourceRestrictionsUpdated(
       VideoSourceRestrictions restrictions,
@@ -400,32 +403,33 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   bool encoder_switch_requested_ RTC_GUARDED_BY(&encoder_queue_);
 
   // Provies video stream input states: current resolution and frame rate.
-  VideoStreamInputStateProvider input_state_provider_
-      RTC_GUARDED_BY(&encoder_queue_);
+  // This class is thread-safe.
+  VideoStreamInputStateProvider input_state_provider_;
   // Responsible for adapting input resolution or frame rate to ensure resources
   // (e.g. CPU or bandwidth) are not overused.
   std::unique_ptr<ResourceAdaptationProcessorInterface>
-      resource_adaptation_processor_ RTC_GUARDED_BY(&encoder_queue_);
+      resource_adaptation_processor_
+          RTC_GUARDED_BY(&resource_adaptation_queue_);
   // Handles input, output and stats reporting related to VideoStreamEncoder
   // specific resources, such as "encode usage percent" measurements and "QP
   // scaling". Also involved with various mitigations such as inital frame
   // dropping.
-  VideoStreamEncoderResourceManager stream_resource_manager_
-      RTC_GUARDED_BY(&encoder_queue_);
+  // The manager primarily operates on the |encoder_queue_|, but its resources
+  // list is accessible from any thread (this is used by the
+  // |resource_adaptation_processor_| on the |resource_adaptation_queue_|).
+  VideoStreamEncoderResourceManager stream_resource_manager_;
   // Carries out the VideoSourceRestrictions provided by the
   // ResourceAdaptationProcessor, i.e. reconfigures the source of video frames
   // to provide us with different resolution or frame rate.
-  //
-  // Used on the |encoder_queue_| with a few exceptions:
-  // - VideoStreamEncoder::SetSource() invokes SetSource().
-  // - VideoStreamEncoder::SetSink() invokes SetRotationApplied() and
-  //   PushSourceSinkSettings().
-  // - VideoStreamEncoder::Stop() invokes SetSource().
+  // This class is thread-safe.
   VideoSourceSinkController video_source_sink_controller_;
 
   // All public methods are proxied to |encoder_queue_|. It must must be
   // destroyed first to make sure no tasks are run that use other members.
   rtc::TaskQueue encoder_queue_;
+
+  // Foo bar.
+  rtc::TaskQueue resource_adaptation_queue_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(VideoStreamEncoder);
 };

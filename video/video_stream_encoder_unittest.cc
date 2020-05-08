@@ -190,45 +190,71 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
   // This is used as a synchronisation mechanism, to make sure that the
   // encoder queue is not blocked before we start sending it frames.
   void WaitUntilTaskQueueIsIdle() {
-    rtc::Event event;
-    encoder_queue()->PostTask([&event] { event.Set(); });
-    ASSERT_TRUE(event.Wait(5000));
+    rtc::Event encoder_queue_event;
+    encoder_queue()->PostTask(
+        [&encoder_queue_event] { encoder_queue_event.Set(); });
+    ASSERT_TRUE(encoder_queue_event.Wait(5000));
+    rtc::Event resource_adaptation_queue_event;
+    resource_adaptation_queue()->PostTask([&resource_adaptation_queue_event] {
+      resource_adaptation_queue_event.Set();
+    });
+    ASSERT_TRUE(resource_adaptation_queue_event.Wait(5000));
   }
 
   // Triggers resource usage measurements on the fake CPU resource.
   void TriggerCpuOveruse() {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event] {
+    resource_adaptation_queue()->PostTask([this, &event] {
       fake_cpu_resource_->set_usage_state(ResourceUsageState::kOveruse);
       event.Set();
     });
     ASSERT_TRUE(event.Wait(5000));
+    // Need to wait for encoder queue to apply possible restrictions.
+    // TODO(hbos): Make the waiting more determined (more explicit and less
+    // catch-all).
+    WaitUntilTaskQueueIsIdle();
   }
   void TriggerCpuUnderuse() {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event] {
+    resource_adaptation_queue()->PostTask([this, &event] {
       fake_cpu_resource_->set_usage_state(ResourceUsageState::kUnderuse);
       event.Set();
     });
     ASSERT_TRUE(event.Wait(5000));
+    // Need to wait for encoder queue to apply possible restrictions.
+    // TODO(hbos): Make the waiting more determined (more explicit and less
+    // catch-all).
+    WaitUntilTaskQueueIsIdle();
   }
 
   // Triggers resource usage measurements on the fake quality resource.
   void TriggerQualityLow() {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event] {
+    resource_adaptation_queue()->PostTask([this, &event] {
       fake_quality_resource_->set_usage_state(ResourceUsageState::kOveruse);
       event.Set();
     });
     ASSERT_TRUE(event.Wait(5000));
+    // Need to wait for encoder queue to apply possible restrictions.
+    // TODO(hbos): Make the waiting more determined (more explicit and less
+    // catch-all).
+    WaitUntilTaskQueueIsIdle();
+    // Hack!
+    WaitUntilTaskQueueIsIdle();
   }
   void TriggerQualityHigh() {
     rtc::Event event;
-    encoder_queue()->PostTask([this, &event] {
+    resource_adaptation_queue()->PostTask([this, &event] {
       fake_quality_resource_->set_usage_state(ResourceUsageState::kUnderuse);
       event.Set();
     });
     ASSERT_TRUE(event.Wait(5000));
+    // Need to wait for encoder queue to apply possible restrictions.
+    // TODO(hbos): Make the waiting more determined (more explicit and less
+    // catch-all).
+    WaitUntilTaskQueueIsIdle();
+    // Hack!
+    WaitUntilTaskQueueIsIdle();
   }
 
   // Fakes high QP resource usage measurements on the real
@@ -243,6 +269,9 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
       event.Set();
     });
     EXPECT_TRUE(event.Wait(5000));
+    // Hack!
+    WaitUntilTaskQueueIsIdle();
+    WaitUntilTaskQueueIsIdle();
     EXPECT_TRUE(callback->clear_qp_samples_result().has_value());
     return callback->clear_qp_samples_result().value();
   }
@@ -486,7 +515,9 @@ class VideoStreamEncoderTest : public ::testing::Test {
     video_stream_encoder_.reset(new VideoStreamEncoderUnderTest(
         stats_proxy_.get(), video_send_config_.encoder_settings,
         task_queue_factory_.get()));
+    video_stream_encoder_->WaitUntilTaskQueueIsIdle();
     video_stream_encoder_->SetSink(&sink_, false /* rotation_applied */);
+    video_stream_encoder_->WaitUntilTaskQueueIsIdle();
     video_stream_encoder_->SetSource(
         &video_source_, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
     video_stream_encoder_->SetStartBitrate(kTargetBitrateBps);
@@ -1723,6 +1754,8 @@ TEST_F(VideoStreamEncoderTest, SwitchSourceDeregisterEncoderAsSink) {
   test::FrameForwarder new_video_source;
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   EXPECT_FALSE(video_source_.has_sinks());
   EXPECT_TRUE(new_video_source.has_sinks());
 
@@ -1780,6 +1813,8 @@ TEST_F(VideoStreamEncoderTest, TestCpuDowngrades_BalancedMode) {
       DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
   video_stream_encoder_->SetSource(&video_source_,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   VerifyNoLimitation(video_source_.sink_wants());
   EXPECT_FALSE(stats_proxy_->GetStats().cpu_limited_resolution);
   EXPECT_FALSE(stats_proxy_->GetStats().cpu_limited_framerate);
@@ -1894,6 +1929,8 @@ TEST_F(VideoStreamEncoderTest, SinkWantsStoredByDegradationPreference) {
   test::FrameForwarder new_video_source;
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Allow adaptation to take place.
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   // Give the encoder queue time to process the change in degradation preference
   // by waiting for an encoded frame.
   new_video_source.IncomingCapturedFrame(
@@ -1925,6 +1962,8 @@ TEST_F(VideoStreamEncoderTest, SinkWantsStoredByDegradationPreference) {
   // Turn off degradation completely.
   video_stream_encoder_->SetSource(&new_video_source,
                                    webrtc::DegradationPreference::DISABLED);
+  // Allow adaptation to take place.
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   // Give the encoder queue time to process the change in degradation preference
   // by waiting for an encoded frame.
   new_video_source.IncomingCapturedFrame(
@@ -1945,6 +1984,8 @@ TEST_F(VideoStreamEncoderTest, SinkWantsStoredByDegradationPreference) {
   // Calling SetSource with resolution scaling enabled apply the old SinkWants.
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Allow adaptation to take place.
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   // Give the encoder queue time to process the change in degradation preference
   // by waiting for an encoded frame.
   new_video_source.IncomingCapturedFrame(
@@ -1959,6 +2000,8 @@ TEST_F(VideoStreamEncoderTest, SinkWantsStoredByDegradationPreference) {
   // Calling SetSource with framerate scaling enabled apply the old SinkWants.
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Allow adaptation to take place.
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   // Give the encoder queue time to process the change in degradation preference
   // by waiting for an encoded frame.
   new_video_source.IncomingCapturedFrame(
@@ -2073,7 +2116,8 @@ TEST_F(VideoStreamEncoderTest, SwitchingSourceKeepsCpuAdaptation) {
   test::FrameForwarder new_video_source;
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
-
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   new_video_source.IncomingCapturedFrame(CreateFrame(3, kWidth, kHeight));
   WaitForEncodedFrame(3);
   stats = stats_proxy_->GetStats();
@@ -2084,6 +2128,8 @@ TEST_F(VideoStreamEncoderTest, SwitchingSourceKeepsCpuAdaptation) {
   // Set adaptation disabled.
   video_stream_encoder_->SetSource(&new_video_source,
                                    webrtc::DegradationPreference::DISABLED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   new_video_source.IncomingCapturedFrame(CreateFrame(4, kWidth, kHeight));
   WaitForEncodedFrame(4);
@@ -2095,6 +2141,8 @@ TEST_F(VideoStreamEncoderTest, SwitchingSourceKeepsCpuAdaptation) {
   // Set adaptation back to enabled.
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   new_video_source.IncomingCapturedFrame(CreateFrame(5, kWidth, kHeight));
   WaitForEncodedFrame(5);
@@ -2135,6 +2183,8 @@ TEST_F(VideoStreamEncoderTest, SwitchingSourceKeepsQualityAdaptation) {
   test::FrameForwarder new_video_source;
   video_stream_encoder_->SetSource(&new_video_source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   new_video_source.IncomingCapturedFrame(CreateFrame(2, kWidth, kHeight));
   WaitForEncodedFrame(2);
@@ -2155,6 +2205,8 @@ TEST_F(VideoStreamEncoderTest, SwitchingSourceKeepsQualityAdaptation) {
   // Set new source with adaptation still enabled.
   video_stream_encoder_->SetSource(&new_video_source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   new_video_source.IncomingCapturedFrame(CreateFrame(4, kWidth, kHeight));
   WaitForEncodedFrame(4);
@@ -2166,6 +2218,8 @@ TEST_F(VideoStreamEncoderTest, SwitchingSourceKeepsQualityAdaptation) {
   // Disable resolution scaling.
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   new_video_source.IncomingCapturedFrame(CreateFrame(5, kWidth, kHeight));
   WaitForEncodedFrame(5);
@@ -2251,6 +2305,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   source.IncomingCapturedFrame(CreateFrame(sequence, kWidth, kHeight));
   WaitForEncodedFrame(sequence++);
   VideoSendStream::Stats stats = stats_proxy_->GetStats();
@@ -2269,6 +2325,8 @@ TEST_F(VideoStreamEncoderTest,
   // from BALANCED.
   video_stream_encoder_->SetSource(
       &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   source.IncomingCapturedFrame(CreateFrame(sequence, kWidth, kHeight));
   WaitForEncodedFrame(sequence++);
   stats = stats_proxy_->GetStats();
@@ -2293,6 +2351,8 @@ TEST_F(VideoStreamEncoderTest,
   // Back to BALANCED, should clear the restrictions again.
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   source.IncomingCapturedFrame(CreateFrame(sequence, kWidth, kHeight));
   WaitForEncodedFrame(sequence++);
   stats = stats_proxy_->GetStats();
@@ -2334,6 +2394,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder new_video_source;
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   new_video_source.IncomingCapturedFrame(
       CreateFrame(sequence, kWidth, kHeight));
@@ -2346,6 +2408,8 @@ TEST_F(VideoStreamEncoderTest,
   // Set cpu adaptation by frame dropping.
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   new_video_source.IncomingCapturedFrame(
       CreateFrame(sequence, kWidth, kHeight));
   WaitForEncodedFrame(sequence++);
@@ -2376,6 +2440,8 @@ TEST_F(VideoStreamEncoderTest,
   // Disable CPU adaptation.
   video_stream_encoder_->SetSource(&new_video_source,
                                    webrtc::DegradationPreference::DISABLED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   new_video_source.IncomingCapturedFrame(
       CreateFrame(sequence, kWidth, kHeight));
   WaitForEncodedFrame(sequence++);
@@ -2398,6 +2464,8 @@ TEST_F(VideoStreamEncoderTest,
   // Switch back the source with resolution adaptation enabled.
   video_stream_encoder_->SetSource(
       &video_source_, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   video_source_.IncomingCapturedFrame(CreateFrame(sequence, kWidth, kHeight));
   WaitForEncodedFrame(sequence++);
   stats = stats_proxy_->GetStats();
@@ -2417,6 +2485,8 @@ TEST_F(VideoStreamEncoderTest,
   // Back to the source with adaptation off, set it back to maintain-resolution.
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   new_video_source.IncomingCapturedFrame(
       CreateFrame(sequence, kWidth, kHeight));
   WaitForEncodedFrame(sequence++);
@@ -2469,6 +2539,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder new_video_source;
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   // Trigger scale down.
   video_stream_encoder_->TriggerQualityLow();
@@ -2504,6 +2576,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(
       &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   source.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   WaitForEncodedFrame(1);
@@ -2539,6 +2613,8 @@ TEST_F(VideoStreamEncoderTest, SkipsSameOrLargerAdaptDownRequest_BalancedMode) {
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   source.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   sink_.WaitForEncodedFrame(1);
   VerifyFpsMaxResolutionMax(source.sink_wants());
@@ -2582,6 +2658,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(
       &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   source.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   WaitForEncodedFrame(kWidth, kHeight);
@@ -2611,6 +2689,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(
       &source, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   source.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   WaitForEncodedFrame(kWidth, kHeight);
@@ -2639,6 +2719,8 @@ TEST_F(VideoStreamEncoderTest, NoChangeForInitialNormalUsage_BalancedMode) {
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   source.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   sink_.WaitForEncodedFrame(kWidth, kHeight);
@@ -2669,6 +2751,8 @@ TEST_F(VideoStreamEncoderTest, NoChangeForInitialNormalUsage_DisabledMode) {
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::DISABLED);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   source.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   sink_.WaitForEncodedFrame(kWidth, kHeight);
@@ -2701,6 +2785,8 @@ TEST_F(VideoStreamEncoderTest,
   source.set_adaptation_enabled(true);
   video_stream_encoder_->SetSource(
       &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   source.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   WaitForEncodedFrame(1);
@@ -2755,6 +2841,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder new_video_source;
   video_stream_encoder_->SetSource(
       &new_video_source, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   // Give the encoder queue time to process the change in degradation preference
   // by waiting for an encoded frame.
   new_video_source.IncomingCapturedFrame(CreateFrame(3, kWidth, kHeight));
@@ -3649,6 +3737,8 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
   // Insert a single frame, triggering initial configuration.
   source.IncomingCapturedFrame(CreateFrame(1, kFrameWidth, kFrameHeight));
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   EXPECT_EQ(
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
@@ -3664,6 +3754,8 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   // Detector should be updated with fps limit from codec config.
   EXPECT_EQ(
@@ -3676,6 +3768,8 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuOveruse();
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   int adapted_framerate =
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate();
   EXPECT_LT(adapted_framerate, kFramerate);
@@ -3686,6 +3780,8 @@ TEST_F(VideoStreamEncoderTest, OveruseDetectorUpdatedOnReconfigureAndAdaption) {
   stats.input_frame_rate = adapted_framerate / 2;
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuUnderuse();
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   EXPECT_EQ(
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
@@ -3720,6 +3816,8 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   EXPECT_EQ(
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
@@ -3730,6 +3828,8 @@ TEST_F(VideoStreamEncoderTest,
   stats.input_frame_rate = kLowFramerate;
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuOveruse();
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   int adapted_framerate =
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate();
@@ -3743,6 +3843,8 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   EXPECT_EQ(
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
@@ -3753,6 +3855,8 @@ TEST_F(VideoStreamEncoderTest,
   stats.input_frame_rate = adapted_framerate;
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuUnderuse();
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   EXPECT_EQ(
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
@@ -3786,6 +3890,8 @@ TEST_F(VideoStreamEncoderTest,
   video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                           kMaxPayloadLength);
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   EXPECT_EQ(
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
@@ -3797,6 +3903,8 @@ TEST_F(VideoStreamEncoderTest,
   stats_proxy_->SetMockStats(stats);
   video_stream_encoder_->TriggerCpuOveruse();
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   int adapted_framerate =
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate();
   EXPECT_LT(adapted_framerate, kFramerate);
@@ -3805,6 +3913,8 @@ TEST_F(VideoStreamEncoderTest,
   // framerate should be changed to codec defined limit.
   video_stream_encoder_->SetSource(
       &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  // Hack!!
   video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   EXPECT_EQ(
       video_stream_encoder_->overuse_detector_proxy_->GetLastTargetFramerate(),
@@ -3882,6 +3992,8 @@ TEST_F(VideoStreamEncoderTest,
   // Set degradation preference.
   video_stream_encoder_->SetSource(
       &video_source_, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   video_source_.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   // Frame should not be dropped, even if it's too large.
@@ -3909,6 +4021,8 @@ TEST_F(VideoStreamEncoderTest, InitialFrameDropOffWhenEncoderDisabledScaling) {
   // Force quality scaler reconfiguration by resetting the source.
   video_stream_encoder_->SetSource(&video_source_,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   video_source_.IncomingCapturedFrame(CreateFrame(1, kWidth, kHeight));
   // Frame should not be dropped, even if it's too large.
@@ -3974,6 +4088,8 @@ TEST_F(VideoStreamEncoderTest, RampsUpInQualityWhenBwIsHigh) {
   source.set_adaptation_enabled(true);
   video_stream_encoder_->SetSource(&source,
                                    DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
 
   // Start at low bitrate.
   const int kLowBitrateBps = 200000;
@@ -4010,6 +4126,8 @@ TEST_F(VideoStreamEncoderTest, RampsUpInQualityWhenBwIsHigh) {
   timestamp_ms += kFrameIntervalMs;
   source.IncomingCapturedFrame(CreateFrame(timestamp_ms, kWidth, kHeight));
   WaitForEncodedFrame(timestamp_ms);
+  // Allow adaptation to take place.
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   VerifyFpsMaxResolutionMax(source.sink_wants());
 
   // Frame should not be adapted.
@@ -4034,6 +4152,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(
       &source, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   VerifyNoLimitation(source.sink_wants());
   EXPECT_FALSE(stats_proxy_->GetStats().cpu_limited_resolution);
 
@@ -4062,6 +4182,8 @@ TEST_F(VideoStreamEncoderTest,
   test::FrameForwarder source;
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   VerifyNoLimitation(source.sink_wants());
   EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_resolution);
   EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_framerate);
@@ -4147,6 +4269,8 @@ TEST_F(VideoStreamEncoderTest,
       DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
   video_stream_encoder_->SetSource(
       &video_source_, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   video_source_.set_adaptation_enabled(true);
 
   int64_t timestamp_ms = fake_clock_.TimeNanos() / rtc::kNumNanosecsPerMillisec;
@@ -4251,6 +4375,8 @@ TEST_F(VideoStreamEncoderTest, DoesntAdaptDownPastMinFramerate) {
       DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
   video_stream_encoder_->SetSource(
       &video_source_, webrtc::DegradationPreference::MAINTAIN_RESOLUTION);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   video_source_.set_adaptation_enabled(true);
 
   int64_t timestamp_ms = fake_clock_.TimeNanos() / rtc::kNumNanosecsPerMillisec;
@@ -4296,6 +4422,8 @@ TEST_F(VideoStreamEncoderTest,
   source.set_adaptation_enabled(true);
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   timestamp_ms += kFrameIntervalMs;
   source.IncomingCapturedFrame(CreateFrame(timestamp_ms, kWidth, kHeight));
   WaitForEncodedFrame(kWidth, kHeight);
@@ -4479,6 +4607,8 @@ TEST_F(VideoStreamEncoderTest, AdaptWithTwoReasonsAndDifferentOrder_Framerate) {
   source.set_adaptation_enabled(true);
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   timestamp_ms += kFrameIntervalMs;
   source.IncomingCapturedFrame(CreateFrame(timestamp_ms, kWidth, kHeight));
   WaitForEncodedFrame(kWidth, kHeight);
@@ -4595,6 +4725,8 @@ TEST_F(VideoStreamEncoderTest,
   source.set_adaptation_enabled(true);
   video_stream_encoder_->SetSource(&source,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   timestamp_ms += kFrameIntervalMs;
   source.IncomingCapturedFrame(CreateFrame(timestamp_ms, kWidth, kHeight));
   WaitForEncodedFrame(kWidth, kHeight);
@@ -4910,6 +5042,8 @@ TEST_F(VideoStreamEncoderTest, DropsFramesWhenEncoderOvershoots) {
       DataRate::BitsPerSec(kTargetBitrateBps),
       DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
 
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   // Target framerate should be still be near the expected target, despite
   // the frame drops.
   EXPECT_NEAR(fake_encoder_.GetLastFramerate(), kFps, 1);
@@ -4944,6 +5078,8 @@ TEST_F(VideoStreamEncoderTest, ConfiguresCorrectFrameRate) {
     timestamp_ms += 1000 / kActualInputFps;
   }
 
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   EXPECT_NEAR(kActualInputFps, fake_encoder_.GetLastFramerate(), 1);
 
   video_stream_encoder_->Stop();
@@ -5306,6 +5442,8 @@ TEST_F(VideoStreamEncoderTest, EncoderRatesPropagatedOnReconfigure) {
     video_source_.IncomingCapturedFrame(CreateFrame(timestamp_ms, nullptr));
     WaitForEncodedFrame(timestamp_ms);
   }
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   EXPECT_EQ(static_cast<int>(fake_encoder_.GetLastFramerate()),
             kDefaultFramerate);
   // Capture larger frame to trigger a reconfigure.
@@ -5655,6 +5793,8 @@ TEST_F(VideoStreamEncoderTest, AutomaticAnimationDetection) {
       DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
   video_stream_encoder_->SetSource(&video_source_,
                                    webrtc::DegradationPreference::BALANCED);
+  // Hack!!
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
   VerifyNoLimitation(video_source_.sink_wants());
 
   VideoFrame frame = CreateFrame(1, kWidth, kHeight);

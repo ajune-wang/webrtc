@@ -16,6 +16,12 @@
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
+namespace {
+
+// List of default names of generic participants according to
+// https://en.wikipedia.org/wiki/Alice_and_Bob
+const std::string kDefaultNames[] = {"alice", "bob",  "charlie",
+                                     "david", "erin", "frank"};
 
 using AudioConfig = PeerConnectionE2EQualityTestFixture::AudioConfig;
 using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
@@ -24,16 +30,32 @@ using VideoGeneratorType =
     PeerConnectionE2EQualityTestFixture::VideoGeneratorType;
 using VideoCodecConfig = PeerConnectionE2EQualityTestFixture::VideoCodecConfig;
 
+}  // namespace
+
 void SetDefaultValuesForMissingParams(
     RunParams* run_params,
     std::vector<std::unique_ptr<PeerConfigurerImpl>>* peers) {
   int video_counter = 0;
   int audio_counter = 0;
+  size_t name_counter = 0;
   std::set<std::string> video_labels;
   std::set<std::string> audio_labels;
+  std::set<std::string> names;
   for (size_t i = 0; i < peers->size(); ++i) {
     auto* peer = peers->at(i).get();
     auto* p = peer->params();
+    if (!p->name) {
+      std::string name;
+      do {
+        if (name_counter < arraysize(kDefaultNames)) {
+          name = kDefaultNames[name_counter];
+        } else {
+          name = "_auto_peer_name_" + std::to_string(name_counter);
+        }
+        ++name_counter;
+      } while (!names.insert(name).second);
+      p->name = name;
+    }
     for (VideoConfig& video_config : p->video_configs) {
       if (!video_config.stream_label) {
         std::string label;

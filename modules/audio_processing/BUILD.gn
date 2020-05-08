@@ -50,6 +50,7 @@ rtc_library("api") {
     "../../rtc_base:macromagic",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base/system:arch",
+    "../../rtc_base/system:file_wrapper",
     "../../rtc_base/system:rtc_export",
     "agc:gain_control_interface",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -134,8 +135,6 @@ rtc_library("audio_processing") {
     "gain_control_impl.h",
     "gain_controller2.cc",
     "gain_controller2.h",
-    "include/aec_dump.cc",
-    "include/aec_dump.h",
     "level_estimator.cc",
     "level_estimator.h",
     "render_queue_item_verifier.h",
@@ -178,6 +177,8 @@ rtc_library("audio_processing") {
     "../../system_wrappers:field_trial",
     "../../system_wrappers:metrics",
     "aec3",
+    "aec_dump:aec_dump",
+    "aec_dump:aec_dump_interface",
     "aecm:aecm_core",
     "agc",
     "agc:gain_control_interface",
@@ -198,6 +199,12 @@ rtc_library("audio_processing") {
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
   ]
+
+  if (rtc_enable_protobuf) {
+    deps += [ "aec_dump:aec_dump_impl" ]
+  } else {
+    deps += [ "aec_dump:null_aec_dump_factory" ]
+  }
 }
 
 rtc_library("voice_detection") {
@@ -288,6 +295,7 @@ if (rtc_include_tests) {
       ":audio_processing",
       ":audio_processing_statistics",
       "../../test:test_support",
+      "aec_dump:aec_dump_interface",
     ]
   }
 

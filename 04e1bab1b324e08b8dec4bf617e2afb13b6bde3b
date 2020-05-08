@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "656f9b41_c3033cd6",
+        "filename": "test/direct_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-05-08T07:45:38Z",
+      "side": 0,
+      "message": "Locking here is not needed, and doing so caused a lock order inversion issue in tests.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "04e1bab1b324e08b8dec4bf617e2afb13b6bde3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

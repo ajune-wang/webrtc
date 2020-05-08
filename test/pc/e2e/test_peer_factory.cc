@@ -272,8 +272,7 @@ absl::optional<RemotePeerAudioConfig> RemotePeerAudioConfig::Create(
 std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
     std::unique_ptr<InjectableComponents> components,
     std::unique_ptr<Params> params,
-    std::vector<std::unique_ptr<test::FrameGeneratorInterface>>
-        video_generators,
+    std::vector<PeerConnectionE2EQualityTestFixture::VideoSource> video_sources,
     std::unique_ptr<MockPeerConnectionObserver> observer,
     VideoQualityAnalyzerInjectionHelper* video_analyzer_helper,
     rtc::Thread* signaling_thread,
@@ -283,7 +282,7 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
     rtc::TaskQueue* task_queue) {
   RTC_DCHECK(components);
   RTC_DCHECK(params);
-  RTC_DCHECK_EQ(params->video_configs.size(), video_generators.size());
+  RTC_DCHECK_EQ(params->video_configs.size(), video_sources.size());
   SetMandatoryEntities(components.get());
   params->rtc_configuration.sdp_semantics = SdpSemantics::kUnifiedPlan;
 
@@ -323,7 +322,7 @@ std::unique_ptr<TestPeer> TestPeerFactory::CreateTestPeer(
 
   return absl::WrapUnique(new TestPeer(
       peer_connection_factory, peer_connection, std::move(observer),
-      std::move(params), std::move(video_generators), audio_processing));
+      std::move(params), std::move(video_sources), audio_processing));
 }
 
 }  // namespace webrtc_pc_e2e

@@ -224,10 +224,12 @@ if (rtc_include_tests) {
     deps = [
       ":peer_connection_quality_test_params",
       "../../../api:frame_generator_api",
+      "../../../api:peer_connection_quality_test_fixture_api",
       "../../../api:scoped_refptr",
       "../../../modules/audio_processing:api",
       "../../../pc:peerconnection_wrapper",
       "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp/absl/types:variant",
     ]
   }
 
@@ -278,6 +280,7 @@ if (rtc_include_tests) {
       "../../../api:peer_connection_quality_test_fixture_api",
       "../../../api/video:video_frame",
       "../../../pc:peerconnection",
+      "//third_party/abseil-cpp/absl/types:variant",
     ]
   }
 

@@ -117,7 +117,7 @@ class PeerConfigurerImpl final
 
   PeerConfigurer* AddVideoConfig(
       PeerConnectionE2EQualityTestFixture::VideoConfig config) override {
-    video_generators_.push_back(
+    video_sources_.push_back(
         CreateSquareFrameGenerator(config, /*type=*/absl::nullopt));
     params_->video_configs.push_back(std::move(config));
     return this;
@@ -126,7 +126,15 @@ class PeerConfigurerImpl final
       PeerConnectionE2EQualityTestFixture::VideoConfig config,
       std::unique_ptr<test::FrameGeneratorInterface> generator) override {
     params_->video_configs.push_back(std::move(config));
-    video_generators_.push_back(std::move(generator));
+    video_sources_.push_back(std::move(generator));
+    return this;
+  }
+  PeerConfigurer* AddVideoConfig(
+      PeerConnectionE2EQualityTestFixture::VideoConfig config,
+      PeerConnectionE2EQualityTestFixture::CapturingDeviceIndex index)
+      override {
+    params_->video_configs.push_back(std::move(config));
+    video_sources_.push_back(index);
     return this;
   }
   PeerConfigurer* SetAudioConfig(
@@ -167,9 +175,9 @@ class PeerConfigurerImpl final
 
   InjectableComponents* components() { return components_.get(); }
   Params* params() { return params_.get(); }
-  std::vector<std::unique_ptr<test::FrameGeneratorInterface>>*
-  video_generators() {
-    return &video_generators_;
+  std::vector<PeerConnectionE2EQualityTestFixture::VideoSource>*
+  video_sources() {
+    return &video_sources_;
   }
 
   // Returns InjectableComponents and transfer ownership to the caller.
@@ -188,19 +196,19 @@ class PeerConfigurerImpl final
     params_ = nullptr;
     return params;
   }
-  // Returns frame generators and transfer ownership to the caller.
-  // Can be called once.
-  std::vector<std::unique_ptr<test::FrameGeneratorInterface>>
-  ReleaseVideoGenerators() {
-    auto video_generators = std::move(video_generators_);
-    video_generators_.clear();
-    return video_generators;
+  // Returns video sources and transfer frame generators ownership to the
+  // caller. Can be called once.
+  std::vector<PeerConnectionE2EQualityTestFixture::VideoSource>
+  ReleaseVideoSources() {
+    auto video_sources = std::move(video_sources_);
+    video_sources_.clear();
+    return video_sources;
   }
 
  private:
   std::unique_ptr<InjectableComponents> components_;
   std::unique_ptr<Params> params_;
-  std::vector<std::unique_ptr<test::FrameGeneratorInterface>> video_generators_;
+  std::vector<PeerConnectionE2EQualityTestFixture::VideoSource> video_sources_;
 };
 
 // Set missing params to default values if it is required:

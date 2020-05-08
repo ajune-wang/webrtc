@@ -32,9 +32,11 @@
 #include "call/adaptation/resource_adaptation_processor_interface.h"
 #include "call/adaptation/video_stream_adapter.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/experiments/quality_rampup_experiment.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_queue.h"
 #include "system_wrappers/include/clock.h"
 #include "video/adaptation/encode_usage_resource.h"
 #include "video/adaptation/overuse_frame_detector.h"
@@ -60,6 +62,8 @@ class VideoStreamEncoderResourceManager
     : public ResourceAdaptationProcessorListener {
  public:
   VideoStreamEncoderResourceManager(
+      rtc::TaskQueue* encoder_queue,
+      rtc::TaskQueue* resource_adaptation_queue,
       VideoStreamInputStateProvider* input_state_provider,
       ResourceAdaptationProcessorInterface* adaptation_processor,
       VideoStreamEncoderObserver* encoder_stats_observer,
@@ -68,9 +72,8 @@ class VideoStreamEncoderResourceManager
       std::unique_ptr<OveruseFrameDetector> overuse_detector);
   ~VideoStreamEncoderResourceManager() override;
 
-  void SetDegradationPreferences(
-      DegradationPreference degradation_preference,
-      DegradationPreference effective_degradation_preference);
+  void SetDegradationPreferences(DegradationPreference degradation_preference);
+  DegradationPreference degradation_preference() const;
 
   // Starts the encode usage resource. The quality scaler resource is
   // automatically started on being configured.
@@ -233,24 +236,33 @@ class VideoStreamEncoderResourceManager
   EncodeUsageResource encode_usage_resource_;
   QualityScalerResource quality_scaler_resource_;
 
-  VideoStreamInputStateProvider* const input_state_provider_;
-  ResourceAdaptationProcessorInterface* const adaptation_processor_;
-  VideoStreamEncoderObserver* const encoder_stats_observer_;
+  rtc::TaskQueue* encoder_queue_;
+  rtc::TaskQueue* resource_adaptation_queue_;
+  VideoStreamInputStateProvider* const input_state_provider_
+      RTC_GUARDED_BY(encoder_queue_);
+  ResourceAdaptationProcessorInterface* const adaptation_processor_
+      RTC_GUARDED_BY(resource_adaptation_queue_);
+  VideoStreamEncoderObserver* const encoder_stats_observer_
+      RTC_GUARDED_BY(encoder_queue_);
 
-  DegradationPreference degradation_preference_;
-  DegradationPreference effective_degradation_preference_;
-  VideoSourceRestrictions video_source_restrictions_;
+  DegradationPreference degradation_preference_ RTC_GUARDED_BY(encoder_queue_);
+  VideoSourceRestrictions video_source_restrictions_
+      RTC_GUARDED_BY(encoder_queue_);
 
   const BalancedDegradationSettings balanced_settings_;
-  Clock* clock_;
+  Clock* clock_ RTC_GUARDED_BY(encoder_queue_);
   const bool experiment_cpu_load_estimator_;
   const std::unique_ptr<InitialFrameDropper> initial_frame_dropper_;
   const bool quality_scaling_experiment_enabled_;
-  absl::optional<uint32_t> encoder_target_bitrate_bps_;
-  absl::optional<VideoEncoder::RateControlParameters> encoder_rates_;
-  bool quality_rampup_done_;
-  QualityRampupExperiment quality_rampup_experiment_;
-  absl::optional<EncoderSettings> encoder_settings_;
+  absl::optional<uint32_t> encoder_target_bitrate_bps_
+      RTC_GUARDED_BY(encoder_queue_);
+  absl::optional<VideoEncoder::RateControlParameters> encoder_rates_
+      RTC_GUARDED_BY(encoder_queue_);
+  bool quality_rampup_done_ RTC_GUARDED_BY(encoder_queue_);
+  QualityRampupExperiment quality_rampup_experiment_
+      RTC_GUARDED_BY(encoder_queue_);
+  absl::optional<EncoderSettings> encoder_settings_
+      RTC_GUARDED_BY(encoder_queue_);
 
   // Ties a resource to a reason for statistical reporting. This AdaptReason is
   // also used by this module to make decisions about how to adapt up/down.
@@ -262,7 +274,8 @@ class VideoStreamEncoderResourceManager
     Resource* const resource;
     const VideoAdaptationReason reason;
   };
-  std::vector<ResourceAndReason> resources_;
+  rtc::CriticalSection resource_lock_;
+  std::vector<ResourceAndReason> resources_ RTC_GUARDED_BY(&resource_lock_);
   // One AdaptationCounter for each reason, tracking the number of times we have
   // adapted for each reason. The sum of active_counts_ MUST always equal the
   // total adaptation provided by the VideoSourceRestrictions.
@@ -271,7 +284,7 @@ class VideoStreamEncoderResourceManager
   // or framerate is currently restricted, and if so, why, on a per degradation
   // preference basis.
   std::unordered_map<VideoAdaptationReason, VideoAdaptationCounters>
-      active_counts_;
+      active_counts_ RTC_GUARDED_BY(encoder_queue_);
 };
 
 }  // namespace webrtc

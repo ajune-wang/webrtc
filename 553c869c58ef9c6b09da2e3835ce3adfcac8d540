@@ -22,6 +22,30 @@
       "revId": "553c869c58ef9c6b09da2e3835ce3adfcac8d540",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82704240_d95a5cda",
+        "filename": "video/receive_statistics_proxy2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-08T12:24:18Z",
+      "side": 0,
+      "message": "Yes but it\u0027s going to be removed in subsequent CLs",
+      "parentUuid": "b87058ee_e0fccaeb",
+      "range": {
+        "startLine": 593,
+        "startChar": 2,
+        "endLine": 594,
+        "endChar": 12
+      },
+      "revId": "553c869c58ef9c6b09da2e3835ce3adfcac8d540",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

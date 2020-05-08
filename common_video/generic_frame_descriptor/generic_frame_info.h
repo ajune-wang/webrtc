@@ -41,6 +41,10 @@ struct GenericFrameInfo : public FrameDependencyTemplate {
   ~GenericFrameInfo();
 
   int64_t frame_id = 0;
+  // Indicates if frame is a key frame. When `is_keyframe` is true,
+  // `CodecBufferUsage::referenced` in the `encoder_buffers` must be ignored and
+  // treated as false, and `frame_diffs` must be ignored and treated as empty.
+  bool is_keyframe = false;
   absl::InlinedVector<CodecBufferUsage, kMaxEncoderBuffers> encoder_buffers;
 };
 

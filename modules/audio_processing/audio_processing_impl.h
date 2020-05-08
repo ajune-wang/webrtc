@@ -17,6 +17,7 @@
 
 #include "api/function_view.h"
 #include "modules/audio_processing/aec3/echo_canceller3.h"
+#include "modules/audio_processing/aec_dump/aec_dump.h"
 #include "modules/audio_processing/agc/agc_manager_direct.h"
 #include "modules/audio_processing/agc/gain_control.h"
 #include "modules/audio_processing/audio_buffer.h"
@@ -24,7 +25,6 @@
 #include "modules/audio_processing/gain_control_impl.h"
 #include "modules/audio_processing/gain_controller2.h"
 #include "modules/audio_processing/high_pass_filter.h"
-#include "modules/audio_processing/include/aec_dump.h"
 #include "modules/audio_processing/include/audio_frame_proxies.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
@@ -70,6 +70,16 @@ class AudioProcessingImpl : public AudioProcessing {
   int Initialize(const ProcessingConfig& processing_config) override;
   void ApplyConfig(const AudioProcessing::Config& config) override;
   void SetExtraOptions(const webrtc::Config& config) override;
+  bool CreateAndAttachAecDump(webrtc::FileWrapper file,
+                              int64_t max_log_size_bytes,
+                              rtc::TaskQueue* worker_queue) override;
+  bool CreateAndAttachAecDump(std::string file_name,
+                              int64_t max_log_size_bytes,
+                              rtc::TaskQueue* worker_queue) override;
+  bool CreateAndAttachAecDump(FILE* handle,
+                              int64_t max_log_size_bytes,
+                              rtc::TaskQueue* worker_queue) override;
+  // TODO(webrtc:5298) Deprecated variant.
   void AttachAecDump(std::unique_ptr<AecDump> aec_dump) override;
   void DetachAecDump() override;
   void SetRuntimeSetting(RuntimeSetting setting) override;

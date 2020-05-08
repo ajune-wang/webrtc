@@ -17,6 +17,7 @@
 #include "call/adaptation/test/fake_resource.h"
 #include "call/adaptation/video_source_restrictions.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/event.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -72,12 +73,17 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
         other_resource_("OtherFakeResource"),
         processor_(&input_state_provider_,
                    /*encoder_stats_observer=*/&frame_rate_provider_) {
+    processor_.InitializeOnResourceAdaptationQueue();
     processor_.AddAdaptationListener(&processor_listener_);
     processor_.AddResource(&resource_);
     processor_.AddResource(&other_resource_);
   }
+
   ~ResourceAdaptationProcessorTest() override {
     processor_.StopResourceAdaptation();
+    processor_.RemoveResource(&resource_);
+    processor_.RemoveResource(&other_resource_);
+    processor_.RemoveAdaptationListener(&processor_listener_);
   }
 
   void SetInputStates(bool has_input, int fps, int frame_size) {

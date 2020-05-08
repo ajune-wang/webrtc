@@ -25,6 +25,7 @@
 #include "call/adaptation/video_stream_adapter.h"
 #include "call/adaptation/video_stream_input_state.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 
 namespace webrtc {
 
@@ -36,6 +37,8 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
       VideoStreamEncoderObserver* encoder_stats_observer);
   ~ResourceAdaptationProcessor() override;
 
+  void InitializeOnResourceAdaptationQueue() override;
+
   // ResourceAdaptationProcessorInterface implementation.
   DegradationPreference degradation_preference() const override;
   DegradationPreference effective_degradation_preference() const override;
@@ -44,7 +47,10 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   void StopResourceAdaptation() override;
   void AddAdaptationListener(
       ResourceAdaptationProcessorListener* adaptation_listener) override;
+  void RemoveAdaptationListener(
+      ResourceAdaptationProcessorListener* adaptation_listener) override;
   void AddResource(Resource* resource) override;
+  void RemoveResource(Resource* resource) override;
 
   void SetDegradationPreference(
       DegradationPreference degradation_preference) override;
@@ -89,19 +95,29 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // restrictions rather than just the counters.
   bool IsResourceAllowedToAdaptUp(const Resource* resource) const;
 
+  webrtc::SequenceChecker sequence_checker_;
+  bool is_started_ RTC_GUARDED_BY(sequence_checker_);
   // Input and output.
-  VideoStreamInputStateProvider* const input_state_provider_;
-  VideoStreamEncoderObserver* const encoder_stats_observer_;
-  std::vector<ResourceAdaptationProcessorListener*> adaptation_listeners_;
-  std::vector<Resource*> resources_;
-  std::map<const Resource*, int> adaptations_counts_by_resource_;
+  VideoStreamInputStateProvider* const input_state_provider_
+      RTC_GUARDED_BY(sequence_checker_);
+  VideoStreamEncoderObserver* const encoder_stats_observer_
+      RTC_GUARDED_BY(sequence_checker_);
+  std::vector<ResourceAdaptationProcessorListener*> adaptation_listeners_
+      RTC_GUARDED_BY(sequence_checker_);
+  std::vector<Resource*> resources_ RTC_GUARDED_BY(sequence_checker_);
+  std::map<const Resource*, int> adaptations_counts_by_resource_
+      RTC_GUARDED_BY(sequence_checker_);
   // Adaptation strategy settings.
-  DegradationPreference degradation_preference_;
-  DegradationPreference effective_degradation_preference_;
-  bool is_screenshare_;
+  DegradationPreference degradation_preference_
+      RTC_GUARDED_BY(sequence_checker_);
+  DegradationPreference effective_degradation_preference_
+      RTC_GUARDED_BY(sequence_checker_);
+  bool is_screenshare_ RTC_GUARDED_BY(sequence_checker_);
   // Responsible for generating and applying possible adaptations.
-  const std::unique_ptr<VideoStreamAdapter> stream_adapter_;
-  VideoSourceRestrictions last_reported_source_restrictions_;
+  const std::unique_ptr<VideoStreamAdapter> stream_adapter_
+      RTC_GUARDED_BY(sequence_checker_);
+  VideoSourceRestrictions last_reported_source_restrictions_
+      RTC_GUARDED_BY(sequence_checker_);
   // Prevents recursion.
   //
   // This is used to prevent triggering resource adaptation in the process of
@@ -113,7 +129,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // Resource::OnAdaptationApplied() ->
   // Resource::OnResourceUsageStateMeasured() ->
   // ResourceAdaptationProcessor::OnResourceOveruse() // Boom, not allowed.
-  bool processing_in_progress_;
+  bool processing_in_progress_ RTC_GUARDED_BY(sequence_checker_);
 };
 
 }  // namespace webrtc

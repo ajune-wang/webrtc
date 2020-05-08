@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a39a4f62_1063eef5",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-08T14:48:26Z",
+      "side": 1,
+      "message": "const char* is better",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "9ce677a22a8e5a82016b033b309c3b854e524c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "348ec0a5_8184ed90",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-08T14:48:26Z",
+      "side": 1,
+      "message": "What about limiting this to the default ones and error in case some peers cannot have a real name?\n\nI think that is a good default, and with that you can use absl::string_view for name and make a copy only when you assign it p-\u003ename.",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 9
+      },
+      "revId": "9ce677a22a8e5a82016b033b309c3b854e524c42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

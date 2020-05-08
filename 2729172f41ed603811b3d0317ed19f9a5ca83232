@@ -22,6 +22,30 @@
       "revId": "2729172f41ed603811b3d0317ed19f9a5ca83232",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "460129ca_05e15dfe",
+        "filename": "modules/rtp_rtcp/mocks/mock_rtp_rtcp.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-08T13:12:30Z",
+      "side": 1,
+      "message": "nope, not intentional.\ngit cl format put it and presubmit check insist to follow that.\n(and it did it for all function where first parameter is a pointer...)\n\nThough I also disagree with git cl format here, I think it is better to just follow what it insists on.",
+      "parentUuid": "76a6b20b_f363b98d",
+      "range": {
+        "startLine": 93,
+        "startChar": 23,
+        "endLine": 93,
+        "endChar": 24
+      },
+      "revId": "2729172f41ed603811b3d0317ed19f9a5ca83232",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

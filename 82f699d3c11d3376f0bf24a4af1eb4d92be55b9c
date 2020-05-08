@@ -22,6 +22,30 @@
       "revId": "82f699d3c11d3376f0bf24a4af1eb4d92be55b9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0d75df9_522d6e4e",
+        "filename": "modules/audio_processing/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-08T13:42:54Z",
+      "side": 1,
+      "message": "Yes, it writes protobuf recordings to a file.",
+      "parentUuid": "88e1cf62_becd9a04",
+      "range": {
+        "startLine": 203,
+        "startChar": 6,
+        "endLine": 203,
+        "endChar": 25
+      },
+      "revId": "82f699d3c11d3376f0bf24a4af1eb4d92be55b9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

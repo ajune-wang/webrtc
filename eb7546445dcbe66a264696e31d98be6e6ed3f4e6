@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d2690b6_cbbf2ded",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-05-08T08:56:51Z",
+      "side": 1,
+      "message": "Why we need this declaration in API. Should it be inside PeerConfigurerImpl?",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "eb7546445dcbe66a264696e31d98be6e6ed3f4e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

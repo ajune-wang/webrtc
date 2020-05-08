@@ -14,7 +14,7 @@
 #include <memory>
 #include <string>
 
-#include "modules/audio_processing/include/aec_dump.h"
+#include "modules/audio_processing/aec_dump/aec_dump.h"
 #include "rtc_base/system/file_wrapper.h"
 #include "rtc_base/system/rtc_export.h"
 

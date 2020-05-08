@@ -50,6 +50,7 @@ rtc_library("api") {
     "../../rtc_base:macromagic",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base/system:arch",
+    "../../rtc_base/system:file_wrapper",
     "../../rtc_base/system:rtc_export",
     "agc:gain_control_interface",
     "//third_party/abseil-cpp/absl/types:optional",
@@ -199,6 +200,12 @@ rtc_library("audio_processing") {
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
   ]
+
+  if (rtc_enable_protobuf) {
+    deps += [ "aec_dump:aec_dump_impl" ]
+  } else {
+    deps += [ "aec_dump:null_aec_dump_factory" ]
+  }
 }
 
 rtc_library("voice_detection") {

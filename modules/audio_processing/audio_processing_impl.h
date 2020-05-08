@@ -70,6 +70,16 @@ class AudioProcessingImpl : public AudioProcessing {
   int Initialize(const ProcessingConfig& processing_config) override;
   void ApplyConfig(const AudioProcessing::Config& config) override;
   void SetExtraOptions(const webrtc::Config& config) override;
+  bool CreateAndAttachAecDump(webrtc::FileWrapper file,
+                              int64_t max_log_size_bytes,
+                              rtc::TaskQueue* worker_queue) override;
+  bool CreateAndAttachAecDump(std::string file_name,
+                              int64_t max_log_size_bytes,
+                              rtc::TaskQueue* worker_queue) override;
+  bool CreateAndAttachAecDump(FILE* handle,
+                              int64_t max_log_size_bytes,
+                              rtc::TaskQueue* worker_queue) override;
+  // TODO(webrtc:5298) Deprecated variant.
   void AttachAecDump(std::unique_ptr<AecDump> aec_dump) override;
   void DetachAecDump() override;
   void AttachPlayoutAudioGenerator(

@@ -128,7 +128,18 @@ class MockAudioProcessing : public ::testing::NiceMock<AudioProcessing> {
   MOCK_CONST_METHOD0(delay_offset_ms, int());
   MOCK_METHOD1(set_stream_analog_level, void(int));
   MOCK_CONST_METHOD0(recommended_stream_analog_level, int());
-
+  MOCK_METHOD3(CreateAndAttachAecDump,
+               bool(webrtc::FileWrapper file,
+                    int64_t max_log_size_bytes,
+                    rtc::TaskQueue* worker_queue));
+  MOCK_METHOD3(CreateAndAttachAecDump,
+               bool(std::string file_name,
+                    int64_t max_log_size_bytes,
+                    rtc::TaskQueue* worker_queue));
+  MOCK_METHOD3(CreateAndAttachAecDump,
+               bool(FILE* handle,
+                    int64_t max_log_size_bytes,
+                    rtc::TaskQueue* worker_queue));
   virtual void AttachAecDump(std::unique_ptr<AecDump> aec_dump) {}
   MOCK_METHOD0(DetachAecDump, void());
 

@@ -12,10 +12,17 @@
 
 #include <set>
 
+#include "rtc_base/arraysize.h"
 #include "test/testsupport/file_utils.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
+namespace {
+
+// List of default names of generic participants according to
+// https://en.wikipedia.org/wiki/Alice_and_Bob
+const char* kDefaultNames[] = {"alice", "bob",  "charlie",
+                               "david", "erin", "frank"};
 
 using AudioConfig = PeerConnectionE2EQualityTestFixture::AudioConfig;
 using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
@@ -24,21 +31,38 @@ using VideoGeneratorType =
     PeerConnectionE2EQualityTestFixture::VideoGeneratorType;
 using VideoCodecConfig = PeerConnectionE2EQualityTestFixture::VideoCodecConfig;
 
+}  // namespace
+
 void SetDefaultValuesForMissingParams(
     RunParams* run_params,
     std::vector<std::unique_ptr<PeerConfigurerImpl>>* peers) {
-  int video_counter = 0;
-  int audio_counter = 0;
+  size_t name_counter = 0;
   std::set<std::string> video_labels;
   std::set<std::string> audio_labels;
+  std::set<std::string> names;
   for (size_t i = 0; i < peers->size(); ++i) {
+    int video_counter = 0;
+    int audio_counter = 0;
     auto* peer = peers->at(i).get();
     auto* p = peer->params();
+    if (!p->name) {
+      std::string name;
+      do {
+        if (name_counter < arraysize(kDefaultNames)) {
+          name = kDefaultNames[name_counter];
+        } else {
+          name = "peer_" + std::to_string(name_counter);
+        }
+        ++name_counter;
+      } while (!names.insert(name).second);
+      p->name = name;
+    }
     for (VideoConfig& video_config : p->video_configs) {
       if (!video_config.stream_label) {
         std::string label;
         do {
-          label = "_auto_video_stream_label_" + std::to_string(video_counter);
+          label = *p->name + "_auto_video_stream_label_" +
+                  std::to_string(video_counter);
           ++video_counter;
         } while (!video_labels.insert(label).second);
         video_config.stream_label = label;
@@ -48,7 +72,8 @@ void SetDefaultValuesForMissingParams(
       if (!p->audio_config->stream_label) {
         std::string label;
         do {
-          label = "_auto_audio_stream_label_" + std::to_string(audio_counter);
+          label = *p->name + "_auto_audio_stream_label_" +
+                  std::to_string(audio_counter);
           ++audio_counter;
         } while (!audio_labels.insert(label).second);
         p->audio_config->stream_label = label;
@@ -67,6 +92,7 @@ void ValidateParams(
     const std::vector<std::unique_ptr<PeerConfigurerImpl>>& peers) {
   RTC_CHECK_GT(run_params.video_encoder_bitrate_multiplier, 0.0);
 
+  std::set<std::string> peer_names;
   std::set<std::string> video_labels;
   std::set<std::string> audio_labels;
   int media_streams_count = 0;
@@ -74,6 +100,13 @@ void ValidateParams(
   bool has_simulcast = false;
   for (size_t i = 0; i < peers.size(); ++i) {
     Params* p = peers[i]->params();
+
+    {
+      RTC_CHECK(p->name);
+      bool inserted = peer_names.insert(p->name.value()).second;
+      RTC_CHECK(inserted) << "Duplicate name=" << p->name.value();
+    }
+
     if (p->audio_config) {
       media_streams_count++;
     }

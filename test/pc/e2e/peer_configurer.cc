@@ -66,12 +66,12 @@ void ValidateParams(
     const RunParams& run_params,
     const std::vector<std::unique_ptr<PeerConfigurerImpl>>& peers) {
   RTC_CHECK_GT(run_params.video_encoder_bitrate_multiplier, 0.0);
+  RTC_CHECK_GE(run_params.video_codecs.size(), 1);
 
   std::set<std::string> video_labels;
   std::set<std::string> audio_labels;
   int media_streams_count = 0;
 
-  bool has_simulcast = false;
   for (size_t i = 0; i < peers.size(); ++i) {
     Params* p = peers[i]->params();
     if (p->audio_config) {
@@ -88,11 +88,23 @@ void ValidateParams(
                           << video_config.stream_label.value();
 
       if (video_config.simulcast_config) {
-        has_simulcast = true;
+        RTC_CHECK_EQ(run_params.video_codecs.size(), 1)
+            << "Only 1 video codec is supported when simulcast is enabled in "
+            << "at least 1 video config";
         RTC_CHECK(!video_config.max_encode_bitrate_bps)
             << "Setting max encode bitrate is not implemented for simulcast.";
         RTC_CHECK(!video_config.min_encode_bitrate_bps)
             << "Setting min encode bitrate is not implemented for simulcast.";
+        if (run_params.video_codecs[0].name == cricket::kVp8CodecName) {
+          if (!video_config.simulcast_config->encoding_params.empty()) {
+            RTC_CHECK_EQ(
+                static_cast<size_t>(
+                    video_config.simulcast_config->simulcast_streams_count),
+                video_config.simulcast_config->encoding_params.size())
+                << "|encoding_params| have to be specified for each simulcast "
+                << "stream in |simulcast_config|.";
+          }
+        }
       }
     }
     if (p->audio_config) {
@@ -112,11 +124,6 @@ void ValidateParams(
             << " doesn't exist";
       }
     }
-  }
-  if (has_simulcast) {
-    RTC_CHECK_EQ(run_params.video_codecs.size(), 1)
-        << "Only 1 video codec is supported when simulcast is enabled in at "
-        << "least 1 video config";
   }
 
   RTC_CHECK_GT(media_streams_count, 0) << "No media in the call.";

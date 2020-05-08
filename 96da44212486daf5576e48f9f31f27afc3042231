@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea1daffb_00f5d483",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-08T14:51:24Z",
+      "side": 1,
+      "message": "Would it be possible to make this return the produced packets instead, removing the callback structure? That would make things a lot clearer IMO:",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 40
+      },
+      "revId": "96da44212486daf5576e48f9f31f27afc3042231",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f26c6bec_e9a61fa0",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-08T14:51:24Z",
+      "side": 1,
+      "message": "output.swap(pending_output_) is cheap enough to avoid the pointer mess.",
+      "range": {
+        "startLine": 177,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 30
+      },
+      "revId": "96da44212486daf5576e48f9f31f27afc3042231",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be3ff65a_b32c755f",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-08T14:51:24Z",
+      "side": 1,
+      "message": "Store the vector directly instead if we want to maintain the callback based approach.",
+      "range": {
+        "startLine": 173,
+        "startChar": 75,
+        "endLine": 173,
+        "endChar": 76
+      },
+      "revId": "96da44212486daf5576e48f9f31f27afc3042231",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

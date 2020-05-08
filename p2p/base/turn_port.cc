@@ -883,6 +883,12 @@ void TurnPort::OnAllocateError(int error_code, const std::string& reason) {
   // port initialization. This way it will not be blocking other port
   // creation.
   thread()->Post(RTC_FROM_HERE, this, MSG_ALLOCATE_ERROR);
+  // Do not signal candidate errors for private IPs as a counter measure
+  // to port scanning.
+  if (server_address_.proto == PROTO_TCP &&
+      server_address_.address.IsPrivateIP()) {
+    return;
+  }
   SignalCandidateError(
       this,
       IceCandidateErrorEvent(GetLocalAddress().HostAsSensitiveURIString(),

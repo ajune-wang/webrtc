@@ -29,11 +29,21 @@ void SetDefaultValuesForMissingParams(
     std::vector<std::unique_ptr<PeerConfigurerImpl>>* peers) {
   int video_counter = 0;
   int audio_counter = 0;
+  int name_counter = 0;
   std::set<std::string> video_labels;
   std::set<std::string> audio_labels;
+  std::set<std::string> names;
   for (size_t i = 0; i < peers->size(); ++i) {
     auto* peer = peers->at(i).get();
     auto* p = peer->params();
+    if (!p->name) {
+      std::string name;
+      do {
+        name = "_auto_peer_name_" + std::to_string(name_counter);
+        ++name_counter;
+      } while (!names.insert(name).second);
+      p->name = name;
+    }
     for (VideoConfig& video_config : p->video_configs) {
       if (!video_config.stream_label) {
         std::string label;

@@ -253,6 +253,10 @@ class PeerConnectionE2EQualityTestFixture {
    public:
     virtual ~PeerConfigurer() = default;
 
+    // Sets peer name that will be used to report metrics related to this peer.
+    // If not set, some default name will be assigned.
+    virtual PeerConfigurer* SetName(absl::string_view name) = 0;
+
     // The parameters of the following 9 methods will be passed to the
     // PeerConnectionFactoryInterface implementation that will be created for
     // this peer.

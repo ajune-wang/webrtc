@@ -19,7 +19,9 @@ namespace webrtc {
 ResourceAdaptationProcessor::ResourceAdaptationProcessor(
     VideoStreamInputStateProvider* input_state_provider,
     VideoStreamEncoderObserver* encoder_stats_observer)
-    : input_state_provider_(input_state_provider),
+    : resource_adaptation_queue_(nullptr),
+      is_started_(false),
+      input_state_provider_(input_state_provider),
       encoder_stats_observer_(encoder_stats_observer),
       resources_(),
       degradation_preference_(DegradationPreference::DISABLED),
@@ -29,51 +31,75 @@ ResourceAdaptationProcessor::ResourceAdaptationProcessor(
       last_reported_source_restrictions_(),
       processing_in_progress_(false) {}
 
-ResourceAdaptationProcessor::~ResourceAdaptationProcessor() = default;
+ResourceAdaptationProcessor::~ResourceAdaptationProcessor() {
+  // RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+}
+
+void ResourceAdaptationProcessor::Initialize(
+    rtc::TaskQueue* resource_adaptation_queue) {
+  RTC_DCHECK(!resource_adaptation_queue_);
+  RTC_DCHECK(resource_adaptation_queue);
+  resource_adaptation_queue_ = resource_adaptation_queue;
+}
 
 DegradationPreference ResourceAdaptationProcessor::degradation_preference()
     const {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   return degradation_preference_;
 }
 
 DegradationPreference
 ResourceAdaptationProcessor::effective_degradation_preference() const {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   return effective_degradation_preference_;
 }
 
 void ResourceAdaptationProcessor::StartResourceAdaptation() {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+  if (is_started_)
+    return;
   for (auto* resource : resources_) {
     resource->SetResourceListener(this);
   }
+  is_started_ = true;
 }
 
 void ResourceAdaptationProcessor::StopResourceAdaptation() {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+  if (!is_started_)
+    return;
   for (auto* resource : resources_) {
     resource->SetResourceListener(nullptr);
   }
+  is_started_ = false;
 }
 
 void ResourceAdaptationProcessor::AddAdaptationListener(
     ResourceAdaptationProcessorListener* adaptation_listener) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   adaptation_listeners_.push_back(adaptation_listener);
 }
 
 void ResourceAdaptationProcessor::AddResource(Resource* resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   resources_.push_back(resource);
 }
 
 void ResourceAdaptationProcessor::SetDegradationPreference(
     DegradationPreference degradation_preference) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   degradation_preference_ = degradation_preference;
   MaybeUpdateEffectiveDegradationPreference();
 }
 
 void ResourceAdaptationProcessor::SetIsScreenshare(bool is_screenshare) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   is_screenshare_ = is_screenshare;
   MaybeUpdateEffectiveDegradationPreference();
 }
 
 void ResourceAdaptationProcessor::MaybeUpdateEffectiveDegradationPreference() {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   effective_degradation_preference_ =
       (is_screenshare_ &&
        degradation_preference_ == DegradationPreference::BALANCED)
@@ -84,6 +110,7 @@ void ResourceAdaptationProcessor::MaybeUpdateEffectiveDegradationPreference() {
 }
 
 void ResourceAdaptationProcessor::ResetVideoSourceRestrictions() {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   stream_adapter_->ClearRestrictions();
   adaptations_counts_by_resource_.clear();
   MaybeUpdateVideoSourceRestrictions(nullptr);
@@ -91,6 +118,7 @@ void ResourceAdaptationProcessor::ResetVideoSourceRestrictions() {
 
 void ResourceAdaptationProcessor::MaybeUpdateVideoSourceRestrictions(
     const Resource* reason) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   VideoSourceRestrictions new_source_restrictions =
       FilterRestrictionsByDegradationPreference(
           stream_adapter_->source_restrictions(),
@@ -110,6 +138,7 @@ void ResourceAdaptationProcessor::MaybeUpdateVideoSourceRestrictions(
 
 void ResourceAdaptationProcessor::OnResourceUsageStateMeasured(
     const Resource& resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(resource.usage_state().has_value());
   switch (resource.usage_state().value()) {
     case ResourceUsageState::kOveruse:
@@ -123,6 +152,7 @@ void ResourceAdaptationProcessor::OnResourceUsageStateMeasured(
 
 bool ResourceAdaptationProcessor::HasSufficientInputForAdaptation(
     const VideoStreamInputState& input_state) const {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   return input_state.HasInputFrameSizeAndFramesPerSecond() &&
          (effective_degradation_preference_ !=
               DegradationPreference::MAINTAIN_RESOLUTION ||
@@ -131,6 +161,7 @@ bool ResourceAdaptationProcessor::HasSufficientInputForAdaptation(
 
 void ResourceAdaptationProcessor::OnResourceUnderuse(
     const Resource& reason_resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(!processing_in_progress_);
   processing_in_progress_ = true;
   // Clear all usage states. In order to re-run adaptation logic, resources need
@@ -187,6 +218,7 @@ void ResourceAdaptationProcessor::OnResourceUnderuse(
 
 void ResourceAdaptationProcessor::OnResourceOveruse(
     const Resource& reason_resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(!processing_in_progress_);
   processing_in_progress_ = true;
   // Clear all usage states. In order to re-run adaptation logic, resources need
@@ -235,14 +267,15 @@ void ResourceAdaptationProcessor::OnResourceOveruse(
 
 void ResourceAdaptationProcessor::TriggerAdaptationDueToFrameDroppedDueToSize(
     const Resource& reason_resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   VideoAdaptationCounters counters_before =
       stream_adapter_->adaptation_counters();
   OnResourceOveruse(reason_resource);
   if (degradation_preference_ == DegradationPreference::BALANCED &&
       stream_adapter_->adaptation_counters().fps_adaptations >
           counters_before.fps_adaptations) {
-    // Oops, we adapted frame rate. Adapt again, maybe it will adapt resolution!
-    // Though this is not guaranteed...
+    // Oops, we adapted frame rate. Adapt again, maybe it will adapt
+    // resolution! Though this is not guaranteed...
     OnResourceOveruse(reason_resource);
   }
   if (stream_adapter_->adaptation_counters().resolution_adaptations >
@@ -253,6 +286,7 @@ void ResourceAdaptationProcessor::TriggerAdaptationDueToFrameDroppedDueToSize(
 
 void ResourceAdaptationProcessor::UpdateResourceDegradationCounts(
     const Resource* resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(resource);
   int delta = stream_adapter_->adaptation_counters().Total();
   for (const auto& adaptations : adaptations_counts_by_resource_) {
@@ -266,6 +300,7 @@ void ResourceAdaptationProcessor::UpdateResourceDegradationCounts(
 
 bool ResourceAdaptationProcessor::IsResourceAllowedToAdaptUp(
     const Resource* resource) const {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(resource);
   const auto& adaptations = adaptations_counts_by_resource_.find(resource);
   return adaptations != adaptations_counts_by_resource_.end() &&

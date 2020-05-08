@@ -19,7 +19,10 @@ ResourceListener::~ResourceListener() {}
 
 Resource::Resource() : usage_state_(absl::nullopt), listener_(nullptr) {}
 
-Resource::~Resource() {}
+Resource::~Resource() {
+  RTC_DCHECK(!listener_)
+      << "There is a listener depending on a Resource being destroyed.";
+}
 
 void Resource::SetResourceListener(ResourceListener* listener) {
   // If you want to change listener you need to unregister the old listener by

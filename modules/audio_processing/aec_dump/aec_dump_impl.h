@@ -15,9 +15,9 @@
 #include <string>
 #include <vector>
 
+#include "modules/audio_processing/aec_dump/aec_dump.h"
 #include "modules/audio_processing/aec_dump/capture_stream_info.h"
 #include "modules/audio_processing/aec_dump/write_to_file_task.h"
-#include "modules/audio_processing/include/aec_dump.h"
 #include "rtc_base/ignore_wundef.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/system/file_wrapper.h"

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_processing/include/aec_dump.h"
+#include "modules/audio_processing/aec_dump/aec_dump.h"
 
 namespace webrtc {
 InternalAPMConfig::InternalAPMConfig() = default;

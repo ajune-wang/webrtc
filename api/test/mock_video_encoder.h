@@ -21,11 +21,14 @@ namespace webrtc {
 class MockEncodedImageCallback : public EncodedImageCallback {
  public:
   MockEncodedImageCallback();
-  ~MockEncodedImageCallback();
-  MOCK_METHOD3(OnEncodedImage,
-               Result(const EncodedImage& encodedImage,
-                      const CodecSpecificInfo* codecSpecificInfo,
-                      const RTPFragmentationHeader* fragmentation));
+  ~MockEncodedImageCallback() override;
+  MOCK_METHOD(Result,
+              OnEncodedImage,
+              (const EncodedImage& encodedImage,
+               const CodecSpecificInfo* codecSpecificInfo,
+               const RTPFragmentationHeader* fragmentation),
+              (override));
+  MOCK_METHOD(void, OnDroppedFrame, (DropReason reason), (override));
 };
 
 class MockVideoEncoder : public VideoEncoder {

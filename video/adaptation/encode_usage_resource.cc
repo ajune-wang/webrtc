@@ -20,10 +20,18 @@ namespace webrtc {
 
 EncodeUsageResource::EncodeUsageResource(
     std::unique_ptr<OveruseFrameDetector> overuse_detector)
-    : overuse_detector_(std::move(overuse_detector)),
+    : resource_adaptation_queue_(nullptr),
+      overuse_detector_(std::move(overuse_detector)),
       is_started_(false),
       target_frame_rate_(absl::nullopt) {
   RTC_DCHECK(overuse_detector_);
+}
+
+void EncodeUsageResource::Initialize(
+    rtc::TaskQueue* resource_adaptation_queue) {
+  RTC_DCHECK(!resource_adaptation_queue_);
+  RTC_DCHECK(resource_adaptation_queue);
+  resource_adaptation_queue_ = resource_adaptation_queue;
 }
 
 void EncodeUsageResource::StartCheckForOveruse(CpuOveruseOptions options) {
@@ -67,11 +75,17 @@ void EncodeUsageResource::OnEncodeCompleted(
 }
 
 void EncodeUsageResource::AdaptUp() {
-  OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+  resource_adaptation_queue_->PostTask([this] {
+    RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+    OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+  });
 }
 
 void EncodeUsageResource::AdaptDown() {
-  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+  resource_adaptation_queue_->PostTask([this] {
+    RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+    OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+  });
 }
 
 int EncodeUsageResource::TargetFrameRateAsInt() {

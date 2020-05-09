@@ -22,6 +22,7 @@ rtc_library("video_adaptation") {
 
   deps = [
     "../../api:rtp_parameters",
+    "../../api:scoped_refptr",
     "../../api/task_queue:task_queue",
     "../../api/video:video_adaptation",
     "../../api/video:video_frame",
@@ -35,7 +36,9 @@ rtc_library("video_adaptation") {
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base:rtc_event",
     "../../rtc_base:rtc_numerics",
+    "../../rtc_base:rtc_task_queue",
     "../../rtc_base:timeutils",
+    "../../rtc_base:weak_ptr",
     "../../rtc_base/experiments:balanced_degradation_settings",
     "../../rtc_base/experiments:field_trial_parser",
     "../../rtc_base/experiments:quality_rampup_experiment",
@@ -61,6 +64,7 @@ if (rtc_include_tests) {
     ]
     deps = [
       ":video_adaptation",
+      "../../api:scoped_refptr",
       "../../api/video:encoded_image",
       "../../api/video:video_adaptation",
       "../../api/video:video_frame_i420",

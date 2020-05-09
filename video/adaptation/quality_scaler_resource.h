@@ -19,6 +19,8 @@
 #include "call/adaptation/resource.h"
 #include "call/adaptation/resource_adaptation_processor_interface.h"
 #include "modules/video_coding/utility/quality_scaler.h"
+#include "rtc_base/ref_counted_object.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 
@@ -27,11 +29,15 @@ namespace webrtc {
 // indirectly by usage in the ResourceAdaptationProcessor (which is only tested
 // because of its usage in VideoStreamEncoder); all tests are currently in
 // video_stream_encoder_unittest.cc.
-class QualityScalerResource : public Resource,
+class QualityScalerResource : public rtc::RefCountedObject<Resource>,
                               public QualityScalerQpUsageHandlerInterface {
  public:
   explicit QualityScalerResource(
       ResourceAdaptationProcessorInterface* adaptation_processor);
+  ~QualityScalerResource() override;
+
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
 
   bool is_started() const;
 
@@ -55,12 +61,15 @@ class QualityScalerResource : public Resource,
   std::string name() const override { return "QualityScalerResource"; }
 
   // Resource implementation.
-  void OnAdaptationApplied(const VideoStreamInputState& input_state,
-                           const VideoSourceRestrictions& restrictions_before,
-                           const VideoSourceRestrictions& restrictions_after,
-                           const Resource& reason_resource) override;
+  void OnAdaptationApplied(
+      const VideoStreamInputState& input_state,
+      const VideoSourceRestrictions& restrictions_before,
+      const VideoSourceRestrictions& restrictions_after,
+      rtc::scoped_refptr<Resource> reason_resource) override;
 
  private:
+  rtc::TaskQueue* encoder_queue_;
+  rtc::TaskQueue* resource_adaptation_queue_;
   ResourceAdaptationProcessorInterface* const adaptation_processor_;
   std::unique_ptr<QualityScaler> quality_scaler_;
   rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface>

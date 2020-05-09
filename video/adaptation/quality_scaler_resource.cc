@@ -16,11 +16,32 @@
 
 namespace webrtc {
 
-QualityScalerResource::QualityScalerResource(
-    ResourceAdaptationProcessorInterface* adaptation_processor)
-    : adaptation_processor_(adaptation_processor),
+QualityScalerResource::QualityScalerResource()
+    : rtc::RefCountedObject<Resource>(),
+      encoder_queue_(nullptr),
+      resource_adaptation_queue_(nullptr),
+      adaptation_processor_(nullptr),
       quality_scaler_(nullptr),
       pending_qp_usage_callback_(nullptr) {}
+
+QualityScalerResource::~QualityScalerResource() {}
+
+void QualityScalerResource::Initialize(
+    rtc::TaskQueue* encoder_queue,
+    rtc::TaskQueue* resource_adaptation_queue) {
+  RTC_DCHECK(!encoder_queue_);
+  RTC_DCHECK(encoder_queue);
+  RTC_DCHECK(!resource_adaptation_queue_);
+  RTC_DCHECK(resource_adaptation_queue);
+  encoder_queue_ = encoder_queue;
+  resource_adaptation_queue_ = resource_adaptation_queue;
+}
+
+void QualityScalerResource::SetAdaptationProcessor(
+    ResourceAdaptationProcessorInterface* adaptation_processor) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+  adaptation_processor_ = adaptation_processor;
+}
 
 bool QualityScalerResource::is_started() const {
   return quality_scaler_.get();
@@ -70,32 +91,50 @@ void QualityScalerResource::OnFrameDropped(
 
 void QualityScalerResource::OnReportQpUsageHigh(
     rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface> callback) {
-  RTC_DCHECK(!pending_qp_usage_callback_);
-  pending_qp_usage_callback_ = std::move(callback);
-  // If this triggers adaptation, OnAdaptationApplied() is called by the
-  // processor where we determine if QP should be cleared and we invoke and null
-  // the |pending_qp_usage_callback_|.
-  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
-  // If |pending_qp_usage_callback_| has not been nulled yet then we did not
-  // just trigger an adaptation and should not clear the QP samples.
-  if (pending_qp_usage_callback_) {
-    pending_qp_usage_callback_->OnQpUsageHandled(false);
-    pending_qp_usage_callback_ = nullptr;
-  }
+  resource_adaptation_queue_->PostTask(
+      [this, this_ref = rtc::scoped_refptr<QualityScalerResource>(this),
+       callback] {
+        RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+        RTC_DCHECK(!pending_qp_usage_callback_);
+        pending_qp_usage_callback_ = std::move(callback);
+        // If this triggers adaptation, OnAdaptationApplied() is called by the
+        // processor where we determine if QP should be cleared and we invoke
+        // and null the |pending_qp_usage_callback_|.
+        OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+        // If |pending_qp_usage_callback_| has not been nulled yet then we did
+        // not just trigger an adaptation and should not clear the QP samples.
+        if (pending_qp_usage_callback_) {
+          encoder_queue_->PostTask(
+              [this, this_ref, callback = pending_qp_usage_callback_] {
+                RTC_DCHECK_RUN_ON(encoder_queue_);
+                callback->OnQpUsageHandled(false);
+              });
+          pending_qp_usage_callback_ = nullptr;
+        }
+      });
 }
 
 void QualityScalerResource::OnReportQpUsageLow(
     rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface> callback) {
-  RTC_DCHECK(!pending_qp_usage_callback_);
-  OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
-  callback->OnQpUsageHandled(true);
+  resource_adaptation_queue_->PostTask(
+      [this, this_ref = rtc::scoped_refptr<QualityScalerResource>(this),
+       callback] {
+        RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+        RTC_DCHECK(!pending_qp_usage_callback_);
+        OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+        encoder_queue_->PostTask([this, this_ref, callback] {
+          RTC_DCHECK_RUN_ON(encoder_queue_);
+          callback->OnQpUsageHandled(true);
+        });
+      });
 }
 
 void QualityScalerResource::OnAdaptationApplied(
     const VideoStreamInputState& input_state,
     const VideoSourceRestrictions& restrictions_before,
     const VideoSourceRestrictions& restrictions_after,
-    const Resource& reason_resource) {
+    rtc::scoped_refptr<Resource> reason_resource) {
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   // We only clear QP samples on adaptations triggered by the QualityScaler.
   if (!pending_qp_usage_callback_)
     return;
@@ -111,7 +150,8 @@ void QualityScalerResource::OnAdaptationApplied(
   // interval whose delay is calculated based on events such as these. Now there
   // is much dependency on a specific OnReportQpUsageHigh() event and "balanced"
   // but adaptations happening might not align with QualityScaler's CheckQpTask.
-  if (adaptation_processor_->effective_degradation_preference() ==
+  if (adaptation_processor_ &&
+      adaptation_processor_->effective_degradation_preference() ==
           DegradationPreference::BALANCED &&
       DidDecreaseFrameRate(restrictions_before, restrictions_after)) {
     absl::optional<int> min_diff = BalancedDegradationSettings().MinFpsDiff(
@@ -124,7 +164,11 @@ void QualityScalerResource::OnAdaptationApplied(
       }
     }
   }
-  pending_qp_usage_callback_->OnQpUsageHandled(clear_qp_samples);
+  encoder_queue_->PostTask(
+      [this, callback = pending_qp_usage_callback_, clear_qp_samples] {
+        RTC_DCHECK_RUN_ON(encoder_queue_);
+        callback->OnQpUsageHandled(clear_qp_samples);
+      });
   pending_qp_usage_callback_ = nullptr;
 }
 

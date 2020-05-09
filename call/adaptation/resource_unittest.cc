@@ -21,7 +21,9 @@ using ::testing::StrictMock;
 
 class MockResourceListener : public ResourceListener {
  public:
-  MOCK_METHOD(void, OnResourceUsageStateMeasured, (const Resource& resource));
+  MOCK_METHOD(void,
+              OnResourceUsageStateMeasured,
+              (rtc::scoped_refptr<Resource> resource));
 };
 
 TEST(ResourceTest, RegisteringListenerReceivesCallbacks) {
@@ -30,8 +32,8 @@ TEST(ResourceTest, RegisteringListenerReceivesCallbacks) {
   fake_resource.SetResourceListener(&resource_listener);
   EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_))
       .Times(1)
-      .WillOnce([](const Resource& resource) {
-        EXPECT_EQ(ResourceUsageState::kOveruse, resource.usage_state());
+      .WillOnce([](rtc::scoped_refptr<Resource> resource) {
+        EXPECT_EQ(ResourceUsageState::kOveruse, resource->usage_state());
       });
   fake_resource.set_usage_state(ResourceUsageState::kOveruse);
   fake_resource.SetResourceListener(nullptr);

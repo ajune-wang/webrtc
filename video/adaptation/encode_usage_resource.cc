@@ -22,6 +22,7 @@ EncodeUsageResource::EncodeUsageResource(
     std::unique_ptr<OveruseFrameDetector> overuse_detector)
     : rtc::RefCountedObject<Resource>(),
       encoder_queue_(nullptr),
+      resource_adaptation_queue_(nullptr),
       overuse_detector_(std::move(overuse_detector)),
       is_started_(false),
       target_frame_rate_(absl::nullopt) {
@@ -32,10 +33,15 @@ EncodeUsageResource::~EncodeUsageResource() {
   RTC_DCHECK(!is_started_);
 }
 
-void EncodeUsageResource::Initialize(rtc::TaskQueue* encoder_queue) {
+void EncodeUsageResource::Initialize(
+    rtc::TaskQueue* encoder_queue,
+    rtc::TaskQueue* resource_adaptation_queue) {
   RTC_DCHECK(!encoder_queue_);
   RTC_DCHECK(encoder_queue);
+  RTC_DCHECK(!resource_adaptation_queue_);
+  RTC_DCHECK(resource_adaptation_queue);
   encoder_queue_ = encoder_queue;
+  resource_adaptation_queue_ = resource_adaptation_queue;
 }
 
 bool EncodeUsageResource::is_started() const {
@@ -90,16 +96,20 @@ void EncodeUsageResource::OnEncodeCompleted(
 
 void EncodeUsageResource::AdaptUp() {
   RTC_DCHECK_RUN_ON(encoder_queue_);
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // PostTask the resource usage measurements.
-  OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+  resource_adaptation_queue_->PostTask(
+      [this, this_ref = rtc::scoped_refptr<EncodeUsageResource>(this)] {
+        RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+        OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+      });
 }
 
 void EncodeUsageResource::AdaptDown() {
   RTC_DCHECK_RUN_ON(encoder_queue_);
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // PostTask the resource usage measurements.
-  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+  resource_adaptation_queue_->PostTask(
+      [this, this_ref = rtc::scoped_refptr<EncodeUsageResource>(this)] {
+        RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+        OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+      });
 }
 
 int EncodeUsageResource::TargetFrameRateAsInt() {

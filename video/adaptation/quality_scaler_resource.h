@@ -35,9 +35,8 @@ class QualityScalerResource : public rtc::RefCountedObject<Resource>,
   QualityScalerResource();
   ~QualityScalerResource() override;
 
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // pass it in here.
-  void Initialize(rtc::TaskQueue* encoder_queue);
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
   void SetAdaptationProcessor(
       ResourceAdaptationProcessorInterface* adaptation_processor);
 
@@ -71,13 +70,13 @@ class QualityScalerResource : public rtc::RefCountedObject<Resource>,
 
  private:
   rtc::TaskQueue* encoder_queue_;
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // guard the processor by it instead.
+  rtc::TaskQueue* resource_adaptation_queue_;
   ResourceAdaptationProcessorInterface* adaptation_processor_
-      RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(resource_adaptation_queue_);
   std::unique_ptr<QualityScaler> quality_scaler_ RTC_GUARDED_BY(encoder_queue_);
+  // Need lock?
   rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface>
-      pending_qp_usage_callback_ RTC_GUARDED_BY(encoder_queue_);
+      pending_qp_usage_callback_;
 };
 
 }  // namespace webrtc

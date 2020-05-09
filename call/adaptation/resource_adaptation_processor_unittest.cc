@@ -18,6 +18,7 @@
 #include "call/adaptation/test/fake_resource.h"
 #include "call/adaptation/video_source_restrictions.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/event.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -78,6 +79,7 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
     processor_.AddResource(resource_);
     processor_.AddResource(other_resource_);
   }
+
   ~ResourceAdaptationProcessorTest() override {
     processor_.StopResourceAdaptation();
     processor_.RemoveResource(resource_);

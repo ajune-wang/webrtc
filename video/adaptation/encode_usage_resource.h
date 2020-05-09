@@ -17,23 +17,24 @@
 #include "absl/types/optional.h"
 #include "api/video/video_adaptation_reason.h"
 #include "call/adaptation/resource.h"
+#include "rtc_base/task_queue.h"
+#include "rtc_base/weak_ptr.h"
 #include "video/adaptation/overuse_frame_detector.h"
 
 namespace webrtc {
 
 // Handles interaction with the OveruseDetector.
-// TODO(hbos): Add unittests specific to this class, it is currently only tested
-// indirectly by usage in the ResourceAdaptationProcessor (which is only tested
-// because of its usage in VideoStreamEncoder); all tests are currently in
-// video_stream_encoder_unittest.cc.
-class EncodeUsageResource : public Resource,
+class EncodeUsageResource : public rtc::RefCountedObject<Resource>,
                             public OveruseFrameDetectorObserverInterface {
  public:
   explicit EncodeUsageResource(
       std::unique_ptr<OveruseFrameDetector> overuse_detector);
+  ~EncodeUsageResource() override;
 
-  bool is_started() const { return is_started_; }
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
 
+  bool is_started() const;
   void StartCheckForOveruse(CpuOveruseOptions options);
   void StopCheckForOveruse();
 
@@ -54,9 +55,12 @@ class EncodeUsageResource : public Resource,
  private:
   int TargetFrameRateAsInt();
 
-  const std::unique_ptr<OveruseFrameDetector> overuse_detector_;
-  bool is_started_;
-  absl::optional<double> target_frame_rate_;
+  rtc::TaskQueue* encoder_queue_;
+  rtc::TaskQueue* resource_adaptation_queue_;
+  const std::unique_ptr<OveruseFrameDetector> overuse_detector_
+      RTC_GUARDED_BY(encoder_queue_);
+  bool is_started_ RTC_GUARDED_BY(encoder_queue_);
+  absl::optional<double> target_frame_rate_ RTC_GUARDED_BY(encoder_queue_);
 };
 
 }  // namespace webrtc

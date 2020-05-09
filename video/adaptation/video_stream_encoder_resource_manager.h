@@ -33,6 +33,7 @@
 #include "call/adaptation/resource_adaptation_processor_interface.h"
 #include "call/adaptation/video_stream_adapter.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/experiments/quality_rampup_experiment.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "rtc_base/strings/string_builder.h"
@@ -69,9 +70,8 @@ class VideoStreamEncoderResourceManager
       std::unique_ptr<OveruseFrameDetector> overuse_detector);
   ~VideoStreamEncoderResourceManager() override;
 
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // pass it in here.
-  void Initialize(rtc::TaskQueue* encoder_queue);
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
   void SetAdaptationProcessor(
       ResourceAdaptationProcessorInterface* adaptation_processor);
 
@@ -248,12 +248,11 @@ class VideoStreamEncoderResourceManager
   const rtc::scoped_refptr<QualityScalerResource> quality_scaler_resource_;
 
   rtc::TaskQueue* encoder_queue_;
+  rtc::TaskQueue* resource_adaptation_queue_;
   VideoStreamInputStateProvider* const input_state_provider_
       RTC_GUARDED_BY(encoder_queue_);
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // guard the processor by it instead.
   ResourceAdaptationProcessorInterface* adaptation_processor_
-      RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(resource_adaptation_queue_);
   VideoStreamEncoderObserver* const encoder_stats_observer_
       RTC_GUARDED_BY(encoder_queue_);
 

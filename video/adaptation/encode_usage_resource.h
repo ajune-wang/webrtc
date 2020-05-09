@@ -35,9 +35,8 @@ class EncodeUsageResource : public rtc::RefCountedObject<Resource>,
       std::unique_ptr<OveruseFrameDetector> overuse_detector);
   ~EncodeUsageResource() override;
 
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // pass it in here.
-  void Initialize(rtc::TaskQueue* encoder_queue);
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
 
   bool is_started() const;
 
@@ -62,6 +61,7 @@ class EncodeUsageResource : public rtc::RefCountedObject<Resource>,
   int TargetFrameRateAsInt();
 
   rtc::TaskQueue* encoder_queue_;
+  rtc::TaskQueue* resource_adaptation_queue_;
   const std::unique_ptr<OveruseFrameDetector> overuse_detector_
       RTC_GUARDED_BY(encoder_queue_);
   bool is_started_ RTC_GUARDED_BY(encoder_queue_);

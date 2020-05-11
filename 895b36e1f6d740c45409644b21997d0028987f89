@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2c9646e3_237a6ce5",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-11T13:51:58Z",
+      "side": 1,
+      "message": "Done. I added a comment to the class describing what the processor is used for, including the threading assumptions.",
+      "parentUuid": "52f39a1c_2406724b",
+      "revId": "895b36e1f6d740c45409644b21997d0028987f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "174f8c88_bde11cce",
         "filename": "call/adaptation/resource_adaptation_processor.h",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2020-05-11T11:03:00Z",
       "side": 1,
       "message": "nit: name is very similar to processing_in_progress_.\n\nMaybe is_resource_adaptation_enabled_? Or add here a comment, what state does it track.",
+      "range": {
+        "startLine": 101,
+        "startChar": 7,
+        "endLine": 101,
+        "endChar": 18
+      },
+      "revId": "895b36e1f6d740c45409644b21997d0028987f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9679a1f_dde2b766",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-11T13:51:58Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "174f8c88_bde11cce",
       "range": {
         "startLine": 101,
         "startChar": 7,
@@ -101,6 +143,30 @@
       "side": 1,
       "message": "Ok, then it makes sense to keep it this way. But lets add a TODO or Bug to clean up these 😎",
       "parentUuid": "66e85379_76eb0db8",
+      "range": {
+        "startLine": 313,
+        "startChar": 40,
+        "endLine": 313,
+        "endChar": 65
+      },
+      "revId": "895b36e1f6d740c45409644b21997d0028987f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04cf6813_9fca0adc",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-11T13:51:58Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5f0059e6_194dfa25",
       "range": {
         "startLine": 313,
         "startChar": 40,

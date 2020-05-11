@@ -1215,6 +1215,32 @@ ParsedRtcEventLog::ParseStatus ParsedRtcEventLog::ParseStream(
   StoreFirstAndLastTimestamp(generic_packets_received_);
   StoreFirstAndLastTimestamp(generic_acks_received_);
 
+  // TODO(terelius): This should be cleaned up. We could also handle
+  // a "missing" end event, by inserting the the last previous regular
+  // event rather than the next start event.
+  auto start_iter = start_log_events().begin();
+  auto end_iter = stop_log_events().begin();
+  while (start_iter != start_log_events().end()) {
+    int64_t start = start_iter->log_time_us();
+    ++start_iter;
+    absl::optional<int64_t> next_start;
+    if (start_iter != start_log_events().end())
+      next_start.emplace(start_iter->log_time_us());
+    if (end_iter != stop_log_events().end() &&
+        end_iter->log_time_us() <=
+            next_start.value_or(std::numeric_limits<int64_t>::max())) {
+      int64_t end = end_iter->log_time_us();
+      RTC_PARSE_CHECK_OR_RETURN_LE(start, end);
+      log_segments_.push_back(std::make_pair(start, end));
+      ++end_iter;
+    } else {
+      // We're missing an end event. Assume that it occurred just before the
+      // next start.
+      log_segments_.push_back(
+          std::make_pair(start, next_start.value_or(last_timestamp())));
+    }
+  }
+
   return status;
 }
 

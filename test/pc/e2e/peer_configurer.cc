@@ -12,10 +12,13 @@
 
 #include <set>
 
+#include "absl/strings/string_view.h"
+#include "rtc_base/arraysize.h"
 #include "test/testsupport/file_utils.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
+namespace {
 
 using AudioConfig = PeerConnectionE2EQualityTestFixture::AudioConfig;
 using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
@@ -24,35 +27,79 @@ using VideoGeneratorType =
     PeerConnectionE2EQualityTestFixture::VideoGeneratorType;
 using VideoCodecConfig = PeerConnectionE2EQualityTestFixture::VideoCodecConfig;
 
+class DefaultNamesProvider {
+ public:
+  DefaultNamesProvider(absl::string_view prefix) : prefix_(prefix) {}
+  virtual ~DefaultNamesProvider() = default;
+
+  void MaybeSetName(absl::optional<std::string>* name) {
+    if (name->has_value()) {
+      known_names_.insert(name->value());
+    } else {
+      *name = GenerateName();
+    }
+  }
+
+ protected:
+  virtual std::string GenerateNameInternal() {
+    return prefix_ + std::to_string(counter_++);
+  }
+
+  int counter_ = 0;
+
+ private:
+  std::string GenerateName() {
+    std::string name;
+    do {
+      name = GenerateNameInternal();
+    } while (!known_names_.insert(name).second);
+    return name;
+  }
+
+  const std::string prefix_;
+  std::set<std::string> known_names_;
+};
+
+class DefaultPeerNamesProvider : public DefaultNamesProvider {
+ public:
+  DefaultPeerNamesProvider(absl::string_view prefix)
+      : DefaultNamesProvider(prefix) {}
+
+ protected:
+  virtual std::string GenerateNameInternal() {
+    if (static_cast<size_t>(counter_) < arraysize(kDefaultNames)) {
+      return std::string(kDefaultNames[counter_++]);
+    }
+    return DefaultNamesProvider::GenerateNameInternal();
+  }
+
+ private:
+  // List of default names of generic participants according to
+  // https://en.wikipedia.org/wiki/Alice_and_Bob
+  static constexpr absl::string_view kDefaultNames[] = {
+      "alice", "bob", "charlie", "david", "erin", "frank"};
+};
+constexpr absl::string_view DefaultPeerNamesProvider::kDefaultNames[];
+
+}  // namespace
+
 void SetDefaultValuesForMissingParams(
     RunParams* run_params,
     std::vector<std::unique_ptr<PeerConfigurerImpl>>* peers) {
-  int video_counter = 0;
-  int audio_counter = 0;
-  std::set<std::string> video_labels;
-  std::set<std::string> audio_labels;
+  DefaultPeerNamesProvider peer_names_provider("peer_");
   for (size_t i = 0; i < peers->size(); ++i) {
     auto* peer = peers->at(i).get();
     auto* p = peer->params();
+    peer_names_provider.MaybeSetName(&p->name);
+    DefaultNamesProvider video_stream_names_provider(
+        *p->name + "_auto_video_stream_label_");
     for (VideoConfig& video_config : p->video_configs) {
-      if (!video_config.stream_label) {
-        std::string label;
-        do {
-          label = "_auto_video_stream_label_" + std::to_string(video_counter);
-          ++video_counter;
-        } while (!video_labels.insert(label).second);
-        video_config.stream_label = label;
-      }
+      video_stream_names_provider.MaybeSetName(&video_config.stream_label);
     }
     if (p->audio_config) {
-      if (!p->audio_config->stream_label) {
-        std::string label;
-        do {
-          label = "_auto_audio_stream_label_" + std::to_string(audio_counter);
-          ++audio_counter;
-        } while (!audio_labels.insert(label).second);
-        p->audio_config->stream_label = label;
-      }
+      DefaultNamesProvider audio_stream_names_provider(
+          *p->name + "_auto_audio_stream_label_");
+      audio_stream_names_provider.MaybeSetName(&p->audio_config->stream_label);
     }
   }
 
@@ -67,6 +114,7 @@ void ValidateParams(
     const std::vector<std::unique_ptr<PeerConfigurerImpl>>& peers) {
   RTC_CHECK_GT(run_params.video_encoder_bitrate_multiplier, 0.0);
 
+  std::set<std::string> peer_names;
   std::set<std::string> video_labels;
   std::set<std::string> audio_labels;
   int media_streams_count = 0;
@@ -74,6 +122,13 @@ void ValidateParams(
   bool has_simulcast = false;
   for (size_t i = 0; i < peers.size(); ++i) {
     Params* p = peers[i]->params();
+
+    {
+      RTC_CHECK(p->name);
+      bool inserted = peer_names.insert(p->name.value()).second;
+      RTC_CHECK(inserted) << "Duplicate name=" << p->name.value();
+    }
+
     if (p->audio_config) {
       media_streams_count++;
     }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "31ce0a57_95068317",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-05-11T09:34:48Z",
+      "side": 1,
+      "message": "|encoding_params| are optional, so this number is a primary source.",
+      "parentUuid": "7298d553_ed5e6a5e",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 32
+      },
+      "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "680b7fc2_647b5d06",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c6a8f17b_eb68170e",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-05-11T09:34:48Z",
+      "side": 1,
+      "message": "For now |encoding_params| params are optional and in tests only |simulcast_streams_count| is used, because there are no extra encoding params to overwrite. I want to keep it like this for now. If we will understand, that we always want to set |encoding_params|, then I\u0027ll eliminate |simulcast_streams_count|.",
+      "parentUuid": "680b7fc2_647b5d06",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 11
+      },
+      "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7513f7f6_8a954fb2",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea6e7601_71c8cf81",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-05-11T09:34:48Z",
+      "side": 1,
+      "message": "There is a validation check that if |encoding_params| are specified, then its size is equal to |simulcast_streams_count|, so here is it safe.",
+      "parentUuid": "7513f7f6_8a954fb2",
+      "range": {
+        "startLine": 424,
+        "startChar": 10,
+        "endLine": 426,
+        "endChar": 11
+      },
+      "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

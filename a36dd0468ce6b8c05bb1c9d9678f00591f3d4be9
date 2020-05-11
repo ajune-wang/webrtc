@@ -49,6 +49,52 @@
     },
     {
       "key": {
+        "uuid": "07b8fd3c_a958e7bf",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-11T18:40:45Z",
+      "side": 1,
+      "message": "Combine these to a single `if`?",
+      "range": {
+        "startLine": 98,
+        "startChar": 11,
+        "endLine": 99,
+        "endChar": 72
+      },
+      "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1ce8222_92204850",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-11T18:40:45Z",
+      "side": 1,
+      "message": "RTC_[D]CHECK_op can compare two integers of any type. You don\u0027t have to convert manually.",
+      "range": {
+        "startLine": 101,
+        "startChar": 16,
+        "endLine": 101,
+        "endChar": 35
+      },
+      "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "680b7fc2_647b5d06",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1

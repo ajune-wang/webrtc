@@ -46,6 +46,30 @@
       "revId": "895b36e1f6d740c45409644b21997d0028987f89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f0059e6_194dfa25",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-11T09:34:22Z",
+      "side": 1,
+      "message": "Ok, then it makes sense to keep it this way. But lets add a TODO or Bug to clean up these 😎",
+      "parentUuid": "66e85379_76eb0db8",
+      "range": {
+        "startLine": 313,
+        "startChar": 40,
+        "endLine": 313,
+        "endChar": 65
+      },
+      "revId": "895b36e1f6d740c45409644b21997d0028987f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

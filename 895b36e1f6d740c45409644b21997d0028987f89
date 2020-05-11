@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d9aa81d_be224355",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-11T09:12:51Z",
+      "side": 1,
+      "message": "If we are delegating to the ResourceAdaptationProcessorInterface why not do that here as well? In fact, why not remove the inheritance altogether and just make this class delegate when needed?",
+      "range": {
+        "startLine": 313,
+        "startChar": 40,
+        "endLine": 313,
+        "endChar": 65
+      },
+      "revId": "895b36e1f6d740c45409644b21997d0028987f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

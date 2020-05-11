@@ -33,6 +33,7 @@
 #include "call/adaptation/resource_adaptation_processor_interface.h"
 #include "call/adaptation/video_stream_adapter.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/experiments/quality_rampup_experiment.h"
 #include "rtc_base/experiments/quality_scaler_settings.h"
 #include "rtc_base/strings/string_builder.h"
@@ -69,9 +70,8 @@ class VideoStreamEncoderResourceManager
       std::unique_ptr<OveruseFrameDetector> overuse_detector);
   ~VideoStreamEncoderResourceManager() override;
 
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // pass it in here.
-  void Initialize(rtc::TaskQueue* encoder_queue);
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
   void SetAdaptationProcessor(
       ResourceAdaptationProcessorInterface* adaptation_processor);
 
@@ -180,6 +180,8 @@ class VideoStreamEncoderResourceManager
         VideoStreamEncoderResourceManager* manager);
     ~PreventAdaptUpDueToActiveCounts() override = default;
 
+    void Initialize(rtc::TaskQueue* encoder_queue,
+                    rtc::TaskQueue* resource_adaptation_queue);
     void SetAdaptationProcessor(
         ResourceAdaptationProcessorInterface* adaptation_processor);
 
@@ -197,7 +199,10 @@ class VideoStreamEncoderResourceManager
     // The |manager_| must be alive as long as this resource is added to the
     // ResourceAdaptationProcessor, i.e. when IsAdaptationUpAllowed() is called.
     VideoStreamEncoderResourceManager* const manager_;
-    ResourceAdaptationProcessorInterface* adaptation_processor_;
+    rtc::TaskQueue* encoder_queue_;
+    rtc::TaskQueue* resource_adaptation_queue_;
+    ResourceAdaptationProcessorInterface* adaptation_processor_
+        RTC_GUARDED_BY(resource_adaptation_queue_);
   };
 
   // Does not trigger adaptations, only prevents adapting up resolution.
@@ -208,6 +213,8 @@ class VideoStreamEncoderResourceManager
         VideoStreamEncoderResourceManager* manager);
     ~PreventIncreaseResolutionDueToBitrateResource() override = default;
 
+    void Initialize(rtc::TaskQueue* encoder_queue,
+                    rtc::TaskQueue* resource_adaptation_queue);
     void OnEncoderSettingsUpdated(
         absl::optional<EncoderSettings> encoder_settings);
     void OnEncoderTargetBitrateUpdated(
@@ -227,8 +234,12 @@ class VideoStreamEncoderResourceManager
     // The |manager_| must be alive as long as this resource is added to the
     // ResourceAdaptationProcessor, i.e. when IsAdaptationUpAllowed() is called.
     VideoStreamEncoderResourceManager* const manager_;
-    absl::optional<EncoderSettings> encoder_settings_;
-    absl::optional<uint32_t> encoder_target_bitrate_bps_;
+    rtc::TaskQueue* encoder_queue_;
+    rtc::TaskQueue* resource_adaptation_queue_;
+    absl::optional<EncoderSettings> encoder_settings_
+        RTC_GUARDED_BY(resource_adaptation_queue_);
+    absl::optional<uint32_t> encoder_target_bitrate_bps_
+        RTC_GUARDED_BY(resource_adaptation_queue_);
   };
 
   // Does not trigger adaptations, only prevents adapting up in BALANCED.
@@ -239,6 +250,8 @@ class VideoStreamEncoderResourceManager
         VideoStreamEncoderResourceManager* manager);
     ~PreventAdaptUpInBalancedResource() override = default;
 
+    void Initialize(rtc::TaskQueue* encoder_queue,
+                    rtc::TaskQueue* resource_adaptation_queue);
     void SetAdaptationProcessor(
         ResourceAdaptationProcessorInterface* adaptation_processor);
     void OnEncoderTargetBitrateUpdated(
@@ -258,8 +271,12 @@ class VideoStreamEncoderResourceManager
     // The |manager_| must be alive as long as this resource is added to the
     // ResourceAdaptationProcessor, i.e. when IsAdaptationUpAllowed() is called.
     VideoStreamEncoderResourceManager* const manager_;
-    ResourceAdaptationProcessorInterface* adaptation_processor_;
-    absl::optional<uint32_t> encoder_target_bitrate_bps_;
+    rtc::TaskQueue* encoder_queue_;
+    rtc::TaskQueue* resource_adaptation_queue_;
+    ResourceAdaptationProcessorInterface* adaptation_processor_
+        RTC_GUARDED_BY(resource_adaptation_queue_);
+    absl::optional<uint32_t> encoder_target_bitrate_bps_
+        RTC_GUARDED_BY(resource_adaptation_queue_);
   };
 
   const rtc::scoped_refptr<PreventAdaptUpDueToActiveCounts>
@@ -272,14 +289,13 @@ class VideoStreamEncoderResourceManager
   const rtc::scoped_refptr<QualityScalerResource> quality_scaler_resource_;
 
   rtc::TaskQueue* encoder_queue_;
+  rtc::TaskQueue* resource_adaptation_queue_;
   VideoStreamInputStateProvider* const input_state_provider_
       RTC_GUARDED_BY(encoder_queue_);
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // guard the processor by it instead.
   ResourceAdaptationProcessorInterface* adaptation_processor_
-      RTC_GUARDED_BY(encoder_queue_);
-  VideoStreamEncoderObserver* const encoder_stats_observer_
-      RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(resource_adaptation_queue_);
+  // Thread-safe.
+  VideoStreamEncoderObserver* const encoder_stats_observer_;
 
   DegradationPreference degradation_preference_ RTC_GUARDED_BY(encoder_queue_);
   VideoSourceRestrictions video_source_restrictions_
@@ -295,7 +311,8 @@ class VideoStreamEncoderResourceManager
       RTC_GUARDED_BY(encoder_queue_);
   absl::optional<VideoEncoder::RateControlParameters> encoder_rates_
       RTC_GUARDED_BY(encoder_queue_);
-  bool quality_rampup_done_ RTC_GUARDED_BY(encoder_queue_);
+  rtc::CriticalSection quality_rampup_done_lock_;
+  bool quality_rampup_done_ RTC_GUARDED_BY(quality_rampup_done_lock_);
   QualityRampupExperiment quality_rampup_experiment_
       RTC_GUARDED_BY(encoder_queue_);
   absl::optional<EncoderSettings> encoder_settings_
@@ -322,7 +339,7 @@ class VideoStreamEncoderResourceManager
   // thread-safe anyway, and active counts are used by
   // PreventAdaptUpDueToActiveCounts to make decisions.
   std::unordered_map<VideoAdaptationReason, VideoAdaptationCounters>
-      active_counts_ RTC_GUARDED_BY(encoder_queue_);
+      active_counts_ RTC_GUARDED_BY(resource_adaptation_queue_);
 };
 
 }  // namespace webrtc

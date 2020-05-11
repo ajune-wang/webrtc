@@ -19,6 +19,7 @@ namespace webrtc {
 QualityScalerResource::QualityScalerResource()
     : rtc::RefCountedObject<Resource>(),
       encoder_queue_(nullptr),
+      resource_adaptation_queue_(nullptr),
       adaptation_processor_(nullptr),
       quality_scaler_(nullptr),
       num_handled_callbacks_(0),
@@ -31,15 +32,20 @@ QualityScalerResource::~QualityScalerResource() {
   RTC_DCHECK(pending_callbacks_.empty());
 }
 
-void QualityScalerResource::Initialize(rtc::TaskQueue* encoder_queue) {
+void QualityScalerResource::Initialize(
+    rtc::TaskQueue* encoder_queue,
+    rtc::TaskQueue* resource_adaptation_queue) {
   RTC_DCHECK(!encoder_queue_);
   RTC_DCHECK(encoder_queue);
+  RTC_DCHECK(!resource_adaptation_queue_);
+  RTC_DCHECK(resource_adaptation_queue);
   encoder_queue_ = encoder_queue;
+  resource_adaptation_queue_ = resource_adaptation_queue;
 }
 
 void QualityScalerResource::SetAdaptationProcessor(
     ResourceAdaptationProcessorInterface* adaptation_processor) {
-  RTC_DCHECK_RUN_ON(encoder_queue_);
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   adaptation_processor_ = adaptation_processor;
 }
 
@@ -103,27 +109,33 @@ void QualityScalerResource::OnReportQpUsageHigh(
     rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface> callback) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
   size_t callback_id = QueuePendingCallback(callback);
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // PostTask the resource usage measurements.
-  RTC_DCHECK(!processing_in_progress_);
-  processing_in_progress_ = true;
-  clear_qp_samples_ = false;
-  // If this OnResourceUsageStateMeasured() triggers an adaptation,
-  // OnAdaptationApplied() will occur between this line and the next. This
-  // allows modifying |clear_qp_samples_| based on the adaptation.
-  OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
-  HandlePendingCallback(callback_id, clear_qp_samples_);
-  processing_in_progress_ = false;
+  resource_adaptation_queue_->PostTask(
+      [this, this_ref = rtc::scoped_refptr<QualityScalerResource>(this),
+       callback_id] {
+        RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+        RTC_DCHECK(!processing_in_progress_);
+        processing_in_progress_ = true;
+        clear_qp_samples_ = false;
+        // If this OnResourceUsageStateMeasured() triggers an adaptation,
+        // OnAdaptationApplied() will occur between this line and the next. This
+        // allows modifying |clear_qp_samples_| based on the adaptation.
+        OnResourceUsageStateMeasured(ResourceUsageState::kOveruse);
+        HandlePendingCallback(callback_id, clear_qp_samples_);
+        processing_in_progress_ = false;
+      });
 }
 
 void QualityScalerResource::OnReportQpUsageLow(
     rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface> callback) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
   size_t callback_id = QueuePendingCallback(callback);
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // PostTask the resource usage measurements.
-  OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
-  HandlePendingCallback(callback_id, true);
+  resource_adaptation_queue_->PostTask(
+      [this, this_ref = rtc::scoped_refptr<QualityScalerResource>(this),
+       callback_id] {
+        RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+        OnResourceUsageStateMeasured(ResourceUsageState::kUnderuse);
+        HandlePendingCallback(callback_id, true);
+      });
 }
 
 void QualityScalerResource::OnAdaptationApplied(
@@ -131,7 +143,7 @@ void QualityScalerResource::OnAdaptationApplied(
     const VideoSourceRestrictions& restrictions_before,
     const VideoSourceRestrictions& restrictions_after,
     rtc::scoped_refptr<Resource> reason_resource) {
-  RTC_DCHECK_RUN_ON(encoder_queue_);
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   // We only clear QP samples on adaptations triggered by the QualityScaler.
   if (!processing_in_progress_)
     return;
@@ -173,20 +185,22 @@ size_t QualityScalerResource::QueuePendingCallback(
 
 void QualityScalerResource::HandlePendingCallback(size_t callback_id,
                                                   bool clear_qp_samples) {
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // this method would be invoked on the adaptation queue and a PostTask would
-  // be used to resolve the callback.
-  RTC_DCHECK_RUN_ON(encoder_queue_);
-  if (num_handled_callbacks_ >= callback_id) {
-    // The callback with this ID has already been handled.
-    // This happens if AbortPendingCallbacks() is called while the task is
-    // in flight.
-    return;
-  }
-  RTC_DCHECK(!pending_callbacks_.empty());
-  pending_callbacks_.front()->OnQpUsageHandled(clear_qp_samples);
-  ++num_handled_callbacks_;
-  pending_callbacks_.pop();
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+  encoder_queue_->PostTask(
+      [this, this_ref = rtc::scoped_refptr<QualityScalerResource>(this),
+       callback_id, clear_qp_samples] {
+        RTC_DCHECK_RUN_ON(encoder_queue_);
+        if (num_handled_callbacks_ >= callback_id) {
+          // The callback with this ID has already been handled.
+          // This happens if AbortPendingCallbacks() is called while the task is
+          // in flight.
+          return;
+        }
+        RTC_DCHECK(!pending_callbacks_.empty());
+        pending_callbacks_.front()->OnQpUsageHandled(clear_qp_samples);
+        ++num_handled_callbacks_;
+        pending_callbacks_.pop();
+      });
 }
 
 void QualityScalerResource::AbortPendingCallbacks() {

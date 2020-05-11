@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7298d553_ed5e6a5e",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-05-11T06:33:10Z",
+      "side": 1,
+      "message": "I believe this could be removed now, or in a followup:\nA) For simulcast, this should just be encoding_params.size();\nB) For SVC, there should (maybe not implemented yet) be information within the RtpEncodingParameters, how many spatial layers are used for that encoding.",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 32
+      },
+      "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "680b7fc2_647b5d06",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-05-11T06:33:10Z",
+      "side": 1,
+      "message": "I don\u0027t really know all the assumptions of this code, but another alternative could be to just copy the video_config.simulcast_config-\u003eencoding_params vector into the transceiver_params.send_encodings vector, and then overwrite the rid field for each copied encoding. That might make it easier to get rid of the simulcast_streams_count field?",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 11
+      },
+      "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7513f7f6_8a954fb2",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-05-11T06:33:10Z",
+      "side": 1,
+      "message": "(If keeping the current structure, and not changing based on the previous comment.)\n\nReplace with:\nconst size_t num_encodings \u003d video_config.simulcast_config-\u003eencoding_params.size();\nif (i \u003c num_encodings) {\n...\n}\nThis should avoid a crash when simulcast_streams_count \u003e num_encodings.",
+      "range": {
+        "startLine": 424,
+        "startChar": 10,
+        "endLine": 426,
+        "endChar": 11
+      },
+      "revId": "a36dd0468ce6b8c05bb1c9d9678f00591f3d4be9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

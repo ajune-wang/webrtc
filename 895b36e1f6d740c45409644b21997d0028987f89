@@ -22,6 +22,30 @@
       "revId": "895b36e1f6d740c45409644b21997d0028987f89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66e85379_76eb0db8",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-11T09:30:44Z",
+      "side": 1,
+      "message": "The usage of the effective degradation preference by the Resources\u0027 CanApplyAdaptation() can safely delegate and use the ResourceAdaptationProcessor::effective_degradation_preference() directly because this the adaptation logic will run on the same task queue as the Processor.\n\nHowever there is still this ugly usage of degradation preference by the Manager for use in ConfigureQualityScaler() which is old \"runs on the encoder queue\" logic. Thus I wanted a copy of the degradation preference in the Manager so that ConfigureQualityScaler() does not have to block on the adaptation queue to find out whether or not \"IsResolutionScalingEnabled\".\n\nI would be happy to add a TODO for this, perhaps the quality scaler should listen to the Processor which would tell it whether or not \"IsResolutionScalingEnabled\" or perhaps reading the degradation preference should be thread-safe. But as-is, the Manager having a copy of the degradation preference is an existing problem, which this CL reduced slightly by getting rid of effective_degradation_preference_.\n\nIs there something with regards to this that you want me to address in this CL?",
+      "parentUuid": "1d9aa81d_be224355",
+      "range": {
+        "startLine": 313,
+        "startChar": 40,
+        "endLine": 313,
+        "endChar": 65
+      },
+      "revId": "895b36e1f6d740c45409644b21997d0028987f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

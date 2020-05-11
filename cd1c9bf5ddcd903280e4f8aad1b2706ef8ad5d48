@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6d599183_71056a79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-11T10:16:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a22587e9_117bf424",
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1efee3d7_342e4cc6",
         "filename": "rtc_base/task_utils/pending_task_safety_flag.h",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2020-05-08T19:21:51Z",
       "side": 1,
       "message": "You should make classes non-copyable by deleting the copy constructor, not the move constructor. And delete the copy assignment operator too.\n\n\"a copyable class should explicitly declare the copy operations, a move-only class should explicitly declare the move operations, and a non-copyable/movable class should explicitly delete the copy operations\"\n\n\"Note that if you explicitly declare or delete either the constructor or assignment operation for copy, the other copy operation is not obvious and must be declared or deleted.\"\n\n--- https://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types",
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21709b9e_2faddc06",
+        "filename": "rtc_base/task_utils/pending_task_safety_flag.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-11T10:16:42Z",
+      "side": 1,
+      "message": "I didn\u0027t mean to include this here actually, but perhaps I should. I\u0027ll remove this for now though.",
+      "parentUuid": "1efee3d7_342e4cc6",
       "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "54dba9c9_e92b01e7",
+        "filename": "rtc_base/task_utils/pending_task_safety_flag.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-11T10:16:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ac9c8a6_d2be2f10",
+      "range": {
+        "startLine": 76,
+        "startChar": 19,
+        "endLine": 76,
+        "endChar": 27
+      },
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48b5f84c_514397a9",
         "filename": "rtc_base/task_utils/to_queued_task.h",
         "patchSetId": 3
@@ -70,6 +130,30 @@
       "writtenOn": "2020-05-08T19:21:51Z",
       "side": 1,
       "message": "The style guide still prohibits mutable reference arguments. However, flag() is a const method, so you could use a const reference instead.",
+      "range": {
+        "startLine": 92,
+        "startChar": 57,
+        "endLine": 92,
+        "endChar": 58
+      },
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8602cafd_83c85bc9",
+        "filename": "rtc_base/task_utils/to_queued_task.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-11T10:16:42Z",
+      "side": 1,
+      "message": "Hmm... I tried const Foo\u0026, but that causes a clash with ToQueuedTask(Closure\u0026\u0026, Cleanup\u0026\u0026), i.e. the compiler always tries to match call sites with that. Any hints?\nAlternatively, I could switch to using a pointer here.",
+      "parentUuid": "48b5f84c_514397a9",
       "range": {
         "startLine": 92,
         "startChar": 57,

@@ -12,6 +12,7 @@
 #define VIDEO_ADAPTATION_QUALITY_SCALER_RESOURCE_H_
 
 #include <memory>
+#include <queue>
 #include <string>
 
 #include "api/video/video_adaptation_reason.h"
@@ -19,25 +20,21 @@
 #include "call/adaptation/resource.h"
 #include "call/adaptation/resource_adaptation_processor_interface.h"
 #include "modules/video_coding/utility/quality_scaler.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/task_queue.h"
 
 namespace webrtc {
 
 // Handles interaction with the QualityScaler.
-// TODO(hbos): Add unittests specific to this class, it is currently only tested
-// indirectly by usage in the ResourceAdaptationProcessor (which is only tested
-// because of its usage in VideoStreamEncoder); all tests are currently in
-// video_stream_encoder_unittest.cc.
 class QualityScalerResource : public rtc::RefCountedObject<Resource>,
                               public QualityScalerQpUsageHandlerInterface {
  public:
   QualityScalerResource();
   ~QualityScalerResource() override;
 
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // pass it in here.
-  void Initialize(rtc::TaskQueue* encoder_queue);
+  void Initialize(rtc::TaskQueue* encoder_queue,
+                  rtc::TaskQueue* resource_adaptation_queue);
   void SetAdaptationProcessor(
       ResourceAdaptationProcessorInterface* adaptation_processor);
 
@@ -70,14 +67,27 @@ class QualityScalerResource : public rtc::RefCountedObject<Resource>,
       rtc::scoped_refptr<Resource> reason_resource) override;
 
  private:
+  size_t QueuePendingCallback(
+      rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface>
+          callback);
+  void HandlePendingCallback(size_t callback_id, bool clear_qp_samples);
+  void AbortPendingCallbacks();
+
   rtc::TaskQueue* encoder_queue_;
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // guard the processor by it instead.
+  rtc::TaskQueue* resource_adaptation_queue_;
   ResourceAdaptationProcessorInterface* adaptation_processor_
-      RTC_GUARDED_BY(encoder_queue_);
+      RTC_GUARDED_BY(resource_adaptation_queue_);
   std::unique_ptr<QualityScaler> quality_scaler_ RTC_GUARDED_BY(encoder_queue_);
-  rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface>
-      pending_qp_usage_callback_ RTC_GUARDED_BY(encoder_queue_);
+  // Every OnReportQpUsageHigh/Low() operation has a callback that MUST be
+  // invoked on the |encoder_queue_|. Because usage measurements are reported on
+  // the |encoder_queue_| but handled by the processor on the the
+  // |resource_adaptation_queue_|, handling a measurement entails a task queue
+  // "ping" round-trip. Multiple callbacks in-flight is thus possible.
+  size_t num_handled_callbacks_ RTC_GUARDED_BY(encoder_queue_);
+  std::queue<rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface>>
+      pending_callbacks_ RTC_GUARDED_BY(encoder_queue_);
+  bool processing_in_progress_ RTC_GUARDED_BY(resource_adaptation_queue_);
+  bool clear_qp_samples_ RTC_GUARDED_BY(resource_adaptation_queue_);
 };
 
 }  // namespace webrtc

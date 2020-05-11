@@ -256,6 +256,19 @@ rtc_library("audio_device_impl") {
         ]
       }
     }
+
+    if (is_linux) {
+      sources += [
+        # PULSE specific files.
+        "linux/audio_device_pulse_linux.cc",
+        "linux/audio_device_pulse_linux.h",
+        "linux/audio_mixer_manager_pulse_linux.cc",
+        "linux/audio_mixer_manager_pulse_linux.h",
+        "linux/pulseaudiosymboltable_linux.cc",
+        "linux/pulseaudiosymboltable_linux.h",
+      ]
+    }
+
     if (rtc_use_dummy_audio_file_devices) {
       defines += [ "WEBRTC_DUMMY_FILE_DEVICES" ]
     } else {
@@ -279,14 +292,6 @@ rtc_library("audio_device_impl") {
         if (rtc_include_pulse_audio) {
           defines += [ "WEBRTC_ENABLE_LINUX_PULSE" ]
         }
-        sources += [
-          "linux/audio_device_pulse_linux.cc",
-          "linux/audio_device_pulse_linux.h",
-          "linux/audio_mixer_manager_pulse_linux.cc",
-          "linux/audio_mixer_manager_pulse_linux.h",
-          "linux/pulseaudiosymboltable_linux.cc",
-          "linux/pulseaudiosymboltable_linux.h",
-        ]
       }
       if (is_mac) {
         sources += [

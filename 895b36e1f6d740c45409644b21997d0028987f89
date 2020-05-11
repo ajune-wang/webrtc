@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "52f39a1c_2406724b",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-05-11T11:03:00Z",
+      "side": 1,
+      "message": "nit: add comment, that it may be created on X queue but used on Y queue.\nOr at least what it may be used on different queue that the one it\u0027s created at.",
+      "revId": "895b36e1f6d740c45409644b21997d0028987f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "174f8c88_bde11cce",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-05-11T11:03:00Z",
+      "side": 1,
+      "message": "nit: name is very similar to processing_in_progress_.\n\nMaybe is_resource_adaptation_enabled_? Or add here a comment, what state does it track.",
+      "range": {
+        "startLine": 101,
+        "startChar": 7,
+        "endLine": 101,
+        "endChar": 18
+      },
+      "revId": "895b36e1f6d740c45409644b21997d0028987f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d9aa81d_be224355",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 4

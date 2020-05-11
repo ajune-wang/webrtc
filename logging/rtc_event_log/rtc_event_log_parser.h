@@ -597,6 +597,11 @@ class ParsedRtcEventLog {
   int64_t first_timestamp() const { return first_timestamp_; }
   int64_t last_timestamp() const { return last_timestamp_; }
 
+  // Stores the start and end timestamp for each log segments.
+  const std::vector<std::pair<int64_t, int64_t>> log_segments() const {
+    return log_segments_;
+  }
+
   std::vector<LoggedPacketInfo> GetPacketInfos(PacketDirection direction) const;
   std::vector<LoggedPacketInfo> GetIncomingPacketInfos() const {
     return GetPacketInfos(kIncomingPacket);
@@ -849,6 +854,8 @@ class ParsedRtcEventLog {
 
   int64_t first_timestamp_;
   int64_t last_timestamp_;
+
+  std::vector<std::pair<int64_t, int64_t>> log_segments_;
 
   // The extension maps are mutable to allow us to insert the default
   // configuration when parsing an RTP header for an unconfigured stream.

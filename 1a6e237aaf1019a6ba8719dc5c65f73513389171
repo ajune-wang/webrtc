@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edd63502_b6bc91bf",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 44
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T16:52:29Z",
+      "side": 1,
+      "message": "This could be replaced by something like \"callback-\u003eevent()-\u003eWait()\"",
+      "revId": "1a6e237aaf1019a6ba8719dc5c65f73513389171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

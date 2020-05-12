@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd4efb91_d4f823d1",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-12T20:34:14Z",
+      "side": 1,
+      "message": "IMO, aliases like this are seldom useful enough to pay for the added cognitive overhead they cause. Largely this is because CapturingDeviceIndex is the same type as int, so the compiler will happily accept either type.\n\nIf you want a type that stores an integer but doesn\u0027t implicitly convert to/from integers, doesn\u0027t support arithmetic, etc., you can do an enum class with an explicitly specified type and an empty list of constants:\n\n  enum class CapturingDeviceIndex : int {};\n\nThis can be converted to/from int with static_cast.\n\nIf you don\u0027t care that the compiler treats CapturingDeviceIndex and int as synonyms for the same type, I would recommend that you just skip the alias and use `int` directly.",
+      "revId": "9859d0bd4cb2d556e53dd521e31c9f31d8c308f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

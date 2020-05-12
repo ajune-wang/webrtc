@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "76beaff8_ee151bf2",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 42
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T16:18:18Z",
+      "side": 1,
+      "message": "Agree, maybe we can clean it up in a follow-up.\n\nFor now it adds assurance, but at the cost of causing a massive line diff in resource_adaptation_processor_unittest.cc and resource_unittest.cc.\n\nI\u0027m also fine with reverting this, but I would like this CL to be unblocked.",
+      "parentUuid": "615c18ef_6d8b5437",
+      "range": {
+        "startLine": 51,
+        "startChar": 18,
+        "endLine": 51,
+        "endChar": 48
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a20503bb_22287770",
         "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
         "patchSetId": 42
@@ -45,6 +69,30 @@
       "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b348dc17_c6312fbb",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 42
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T16:18:18Z",
+      "side": 1,
+      "message": "Done - updated to TaskQueueForTest with SendTask() in ResourceAdaptationProcessorTest* and ResourceTest*.",
+      "parentUuid": "a20503bb_22287770",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "41abc47b_7fa08d98",
+        "filename": "video/adaptation/encode_usage_resource.h",
+        "patchSetId": 42
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T16:18:18Z",
+      "side": 1,
+      "message": "IT\u0027S MAGIC! O_O\nYes it actually works, just as if it was a variable, compile error is then:\n\nerror: reading variable \u0027overuse_detector_\u0027 requires holding mutex \u0027resource_adaptation_queue()\u0027 [-Werror,-Wthread-safety-analysis]",
+      "parentUuid": "2c52a552_d3cc8a6b",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 34
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d33c891_fb22443d",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 42
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7e9c3dbd_baa535e8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 42
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T16:18:18Z",
+      "side": 1,
+      "message": "Yes and no :)\n\nThe QualityScaler could turn on or off in response to this PostTask slightly before or after the ResourceAdaptationProcessor is aware of the new degradation preference, but in practise I don\u0027t think it matters because if the QualityScalerResource would trigger overuse/underuse then that would be handled in a post task to the adaptation queue and by the time that executes it would already have processed the task that updated the degradation preference.\n\nBut in any case, with resources running in the background we inherently don\u0027t know the exact timing of resource usage signals. As long as the Processor does something sensible based on the signals it gets - even if it gets those signals with a slight delay caused by task posting - we should be good.\n\nI don\u0027t think we need to ensure which of the tasks gets executed first so I don\u0027t think this code needs to be made serialized. Happy to avoid blocking or nested posting when possible.",
+      "parentUuid": "7d33c891_fb22443d",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 383,
+        "endChar": 58
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d98e82e6_a284618f",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 42
@@ -105,6 +201,30 @@
       "writtenOn": "2020-05-12T15:45:44Z",
       "side": 1,
       "message": "Unsure if we have the APIs for this, but maybe could return a future or similar structure so the caller can handle the waiting. Not a big deal if not.",
+      "range": {
+        "startLine": 2039,
+        "startChar": 0,
+        "endLine": 2039,
+        "endChar": 56
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1a2a24a_b68d5be8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 42
+      },
+      "lineNbr": 2039,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T16:18:18Z",
+      "side": 1,
+      "message": "Similar to a JavaScript promise? I think that would make these tests prettier, but I don\u0027t think there exists anything for this at the moment. Something to consider in the future perhaps.",
+      "parentUuid": "d98e82e6_a284618f",
       "range": {
         "startLine": 2039,
         "startChar": 0,

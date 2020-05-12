@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ed6f3c8_a122cb8c",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T09:30:10Z",
+      "side": 1,
+      "message": "Self-review: Is this needed?",
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4537ccb6_b80b7074",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 2256,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T09:30:10Z",
+      "side": 1,
+      "message": "Self-review: Fix all the \"BEFORE LANDING\" TODOs.",
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

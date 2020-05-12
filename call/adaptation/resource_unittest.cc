@@ -10,8 +10,14 @@
 
 #include "call/adaptation/resource.h"
 
+#include <memory>
+
 #include "api/scoped_refptr.h"
+#include "api/task_queue/default_task_queue_factory.h"
+#include "api/task_queue/task_queue_factory.h"
 #include "call/adaptation/test/fake_resource.h"
+#include "rtc_base/event.h"
+#include "rtc_base/task_queue.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -27,28 +33,55 @@ class MockResourceListener : public ResourceListener {
               (rtc::scoped_refptr<Resource> resource));
 };
 
-TEST(ResourceTest, RegisteringListenerReceivesCallbacks) {
-  StrictMock<MockResourceListener> resource_listener;
-  rtc::scoped_refptr<FakeResource> fake_resource(
-      new FakeResource("FakeResource"));
-  fake_resource->SetResourceListener(&resource_listener);
-  EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_))
-      .Times(1)
-      .WillOnce([](rtc::scoped_refptr<Resource> resource) {
-        EXPECT_EQ(ResourceUsageState::kOveruse, resource->usage_state());
-      });
-  fake_resource->set_usage_state(ResourceUsageState::kOveruse);
-  fake_resource->SetResourceListener(nullptr);
+class ResourceTest : public ::testing::Test {
+ public:
+  ResourceTest()
+      : task_queue_factory_(CreateDefaultTaskQueueFactory()),
+        resource_adaptation_queue_(task_queue_factory_->CreateTaskQueue(
+            "ResourceAdaptationQueue",
+            TaskQueueFactory::Priority::NORMAL)),
+        encoder_queue_(task_queue_factory_->CreateTaskQueue(
+            "EncoderQueue",
+            TaskQueueFactory::Priority::NORMAL)),
+        fake_resource_(new FakeResource("FakeResource")) {
+    fake_resource_->Initialize(&encoder_queue_, &resource_adaptation_queue_);
+  }
+
+ protected:
+  const std::unique_ptr<TaskQueueFactory> task_queue_factory_;
+  rtc::TaskQueue resource_adaptation_queue_;
+  rtc::TaskQueue encoder_queue_;
+  rtc::scoped_refptr<FakeResource> fake_resource_;
+};
+
+TEST_F(ResourceTest, RegisteringListenerReceivesCallbacks) {
+  rtc::Event event;
+  resource_adaptation_queue_.PostTask([this, &event] {
+    StrictMock<MockResourceListener> resource_listener;
+    fake_resource_->SetResourceListener(&resource_listener);
+    EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_))
+        .Times(1)
+        .WillOnce([](rtc::scoped_refptr<Resource> resource) {
+          EXPECT_EQ(ResourceUsageState::kOveruse, resource->usage_state());
+        });
+    fake_resource_->set_usage_state(ResourceUsageState::kOveruse);
+    fake_resource_->SetResourceListener(nullptr);
+    event.Set();
+  });
+  event.Wait(rtc::Event::kForever);
 }
 
-TEST(ResourceTest, UnregisteringListenerStopsCallbacks) {
-  StrictMock<MockResourceListener> resource_listener;
-  rtc::scoped_refptr<FakeResource> fake_resource(
-      new FakeResource("FakeResource"));
-  fake_resource->SetResourceListener(&resource_listener);
-  fake_resource->SetResourceListener(nullptr);
-  EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_)).Times(0);
-  fake_resource->set_usage_state(ResourceUsageState::kOveruse);
+TEST_F(ResourceTest, UnregisteringListenerStopsCallbacks) {
+  rtc::Event event;
+  resource_adaptation_queue_.PostTask([this, &event] {
+    StrictMock<MockResourceListener> resource_listener;
+    fake_resource_->SetResourceListener(&resource_listener);
+    fake_resource_->SetResourceListener(nullptr);
+    EXPECT_CALL(resource_listener, OnResourceUsageStateMeasured(_)).Times(0);
+    fake_resource_->set_usage_state(ResourceUsageState::kOveruse);
+    event.Set();
+  });
+  event.Wait(rtc::Event::kForever);
 }
 
 }  // namespace webrtc

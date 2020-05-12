@@ -56,6 +56,7 @@
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 // This file contains tests for RTP Media API-related behavior of
 // |webrtc::PeerConnection|, see https://w3c.github.io/webrtc-pc/#rtp-media-api.
@@ -129,6 +130,7 @@ class PeerConnectionRtpBaseTest : public ::testing::Test {
   }
 
  protected:
+  test::RunLoop loop_;
   const SdpSemantics sdp_semantics_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
 

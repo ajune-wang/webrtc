@@ -611,6 +611,8 @@ class AutoThread : public Thread {
   ~AutoThread() override;
 
  private:
+  CurrentTaskQueueSetter tq_setter_;
+
   RTC_DISALLOW_COPY_AND_ASSIGN(AutoThread);
 };
 
@@ -625,6 +627,7 @@ class AutoSocketServerThread : public Thread {
   ~AutoSocketServerThread() override;
 
  private:
+  CurrentTaskQueueSetter tq_setter_;
   rtc::Thread* old_thread_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AutoSocketServerThread);

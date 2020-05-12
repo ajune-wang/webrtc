@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "29beaad4_859ececb",
+        "filename": "video/adaptation/encode_usage_resource.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T15:01:41Z",
+      "side": 1,
+      "message": "The task has a dependency on this object so the task needs to keep a reference to the object, not just a raw pointer. This is true because we are not blocking until the task has executed, so this method must make no assumption about what happens in-between posting the task and the task executing. As far as we know, there could be no other references to the object by the time the task gets executed. So |this_ref| is needed. It would be needed even if we moved the post-tasking to Resource.\n\nHowever I agree that it looks weird to pass in both |this| and |this_ref| if |this_ref| is not used outside of the capture list. I updated the code only to pass |this_ref| and I added a comment why we pass in a ref rather than a raw ptr.",
+      "parentUuid": "e33db02b_94c2b65a",
+      "range": {
+        "startLine": 96,
+        "startChar": 13,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "063ef71b_b3077374",
         "filename": "video/adaptation/quality_scaler_resource.cc",
         "patchSetId": 39
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c77d751e_cb2e830f",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T15:01:41Z",
+      "side": 1,
+      "message": "Done. Inferring if this was the resource that triggered the adaptation using (reason_resource \u003d\u003d this) instead of |processing_in_progress_|.",
+      "parentUuid": "063ef71b_b3077374",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 31
+      },
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74bd5408_c63d38c1",
         "filename": "video/adaptation/quality_scaler_resource.h",
         "patchSetId": 39
@@ -59,6 +107,24 @@
       "writtenOn": "2020-05-12T12:03:47Z",
       "side": 1,
       "message": "nit: Could you please group all the members by the queue they are used at?",
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b412c2f_cb98b322",
+        "filename": "video/adaptation/quality_scaler_resource.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T15:01:41Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "74bd5408_c63d38c1",
       "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -112,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "341d9c52_c4b7dcec",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T15:01:41Z",
+      "side": 1,
+      "message": "Actually, a beautiful thing about lambdas is that it makes the access scope the same as if it was a private method! :)\n\nI updated all of these to use |this_ref| only, and removed |this|.",
+      "parentUuid": "8f7dd1d9_43caf2f3",
+      "range": {
+        "startLine": 309,
+        "startChar": 7,
+        "endLine": 309,
+        "endChar": 15
+      },
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "272534a3_4418fb38",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 39
@@ -144,6 +234,24 @@
       "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cfe95e2_938eb4d3",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T15:01:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3871255_522e5582",
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -194,6 +302,30 @@
     },
     {
       "key": {
+        "uuid": "97efa7c2_d9cda8ef",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T15:01:41Z",
+      "side": 1,
+      "message": "The encoder queue is a VideoStreamEncoder concept, and we may have Resources in the future that are not tied to any encoder. However, this code is repeated all over the place.\n\nI moved this to the base class for now. If encoder_queue is N/A to a future Resource I guess we can either leave it as nullptr or we can revisit this decision then.\n\nHowever, because now each Resource depends on queues, I had to add task queues to tests that were previously single-threaded: ResourceAdaptationProcessorTest.* and ResourceTest.* need the queues for initialization and need to PostTask to run the tests on the adaptation queue to ensure we don\u0027t fail an RTC_DCHECK_RUN_ON.\n\nLet me know if you think it\u0027s worth it.",
+      "parentUuid": "84b3df44_1b726a31",
+      "range": {
+        "startLine": 186,
+        "startChar": 9,
+        "endLine": 186,
+        "endChar": 19
+      },
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d98eddd_77d27548",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
         "patchSetId": 39
@@ -214,6 +346,30 @@
       "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b80078c_d46e7b11",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T15:01:41Z",
+      "side": 1,
+      "message": "It works! :o You can do RTC_GUARDED_BY(encoder_queue()) with a protected method accessor.",
+      "parentUuid": "3d98eddd_77d27548",
+      "range": {
+        "startLine": 208,
+        "startChar": 23,
+        "endLine": 208,
+        "endChar": 49
+      },
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +405,24 @@
       "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d98fab8d_7b0075d6",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T15:01:41Z",
+      "side": 1,
+      "message": "In a previous iteration of this CL, adaptation had not happened until a PostTask. Now that adaptation is synchronously applied on the adaptation queue, there\u0027s no need to do a PostTask with assumptions.",
+      "parentUuid": "10793fd6_faa95768",
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

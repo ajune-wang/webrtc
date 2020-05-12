@@ -228,4 +228,39 @@ TEST(RepeatingTaskTest, Example) {
   // task queue destruction and running the desctructor closure.
 }
 
+TEST(RepeatingTimestamp, Basic) {
+  using webrtc_repeating_task_impl::RepeatingTimestamp;
+  using webrtc_repeating_task_impl::TimestampNow;
+
+  Timestamp clock = Timestamp::Millis(1000);
+
+  // RepeatingTimestamp rts(TimeDelta::Millis(100), &TimestampNow);
+  const TimeDelta kInterval = TimeDelta::Millis(100);
+  RepeatingTimestamp rts(kInterval, [&clock]() { return clock; });
+  EXPECT_FALSE(rts.is_running());
+
+  // First call. Interval should be exact.
+  EXPECT_EQ(kInterval, rts.NextRun());
+  EXPECT_TRUE(rts.is_running());
+
+  // Second call, arrives too late, but not a lot.
+  clock += kInterval + TimeDelta::Millis(50);
+  auto timer = rts.NextRun();
+  EXPECT_EQ(TimeDelta::Millis(50), timer);
+
+  // Third call, exactly on time.
+  clock += timer;
+  timer = rts.NextRun();
+  EXPECT_EQ(kInterval, timer);
+
+  // Fourth call, way too late, should not get a negative timer.
+  clock += kInterval * 5 + TimeDelta::Millis(10);
+  timer = rts.NextRun();
+  EXPECT_EQ(TimeDelta::Millis(90), timer);
+
+  // Stop the timer.
+  rts.Stop();
+  EXPECT_FALSE(rts.is_running());
+}
+
 }  // namespace webrtc

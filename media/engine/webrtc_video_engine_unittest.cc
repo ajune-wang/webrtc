@@ -63,6 +63,7 @@
 #include "test/frame_forwarder.h"
 #include "test/gmock.h"
 #include "test/rtp_header_parser.h"
+#include "test/run_loop.h"
 
 using ::testing::_;
 using ::testing::Contains;
@@ -279,7 +280,9 @@ class WebRtcVideoEngineTest : public ::testing::Test {
 
   void ExpectRtpCapabilitySupport(const char* uri, bool supported) const;
 
-  // Has to be the first one, so it is initialized before the call or there is a
+  webrtc::test::RunLoop loop_;
+
+  // Has to be before call_, so it is initialized before the call or there is a
   // race condition in the clock access.
   rtc::ScopedFakeClock fake_clock_;
   std::unique_ptr<webrtc::test::ScopedFieldTrials> override_field_trials_;

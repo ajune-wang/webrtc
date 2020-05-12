@@ -25,6 +25,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
+#include "test/run_loop.h"
 
 // This file contains tests that ensure the PeerConnection's implementation of
 // CreateOffer/CreateAnswer/SetLocalDescription/SetRemoteDescription conform
@@ -99,6 +100,7 @@ class PeerConnectionJsepTest : public ::testing::Test {
                                                    std::move(observer));
   }
 
+  test::RunLoop loop_;
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   rtc::AutoSocketServerThread main_;
 };

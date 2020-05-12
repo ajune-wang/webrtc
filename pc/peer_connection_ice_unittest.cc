@@ -35,6 +35,7 @@
 #include "rtc_base/virtual_socket_server.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
+#include "test/run_loop.h"
 
 namespace webrtc {
 
@@ -1344,6 +1345,7 @@ class PeerConnectionIceConfigTest : public ::testing::Test {
     pc_ = std::move(pc);
   }
 
+  test::RunLoop loop_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_ = nullptr;
   rtc::scoped_refptr<PeerConnectionInterface> pc_ = nullptr;
   cricket::FakePortAllocator* port_allocator_ = nullptr;

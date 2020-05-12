@@ -69,6 +69,7 @@
 #include "system_wrappers/include/metrics.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
+#include "test/run_loop.h"
 
 namespace webrtc {
 namespace {
@@ -1260,6 +1261,9 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
       turn_servers_.clear();
       turn_customizers_.clear();
     });
+
+    // Workaround for cleaning up pending objects/tasks left by tests.
+    loop_.Flush();
   }
 
   bool SignalingStateStable() {
@@ -1736,6 +1740,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   }
 
  protected:
+  webrtc::test::RunLoop loop_;
   SdpSemantics sdp_semantics_;
 
  private:
@@ -1786,8 +1791,8 @@ class FakeClockForTest : public rtc::ScopedFakeClock {
 
 // Ensure FakeClockForTest is constructed first (see class for rationale).
 class PeerConnectionIntegrationTestWithFakeClock
-    : public FakeClockForTest,
-      public PeerConnectionIntegrationTest {};
+    : public PeerConnectionIntegrationTest,
+      public FakeClockForTest {};
 
 class PeerConnectionIntegrationTestPlanB
     : public PeerConnectionIntegrationBaseTest {
@@ -4896,8 +4901,8 @@ class PeerConnectionIntegrationIceStatesTest
 
 // Ensure FakeClockForTest is constructed first (see class for rationale).
 class PeerConnectionIntegrationIceStatesTestWithFakeClock
-    : public FakeClockForTest,
-      public PeerConnectionIntegrationIceStatesTest {};
+    : public PeerConnectionIntegrationIceStatesTest,
+      public FakeClockForTest {};
 
 // Tests that the PeerConnection goes through all the ICE gathering/connection
 // states over the duration of the call. This includes Disconnected and Failed

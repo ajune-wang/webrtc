@@ -44,6 +44,7 @@
 #include "rtc_base/third_party/base64/base64.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 using cricket::ConnectionInfo;
 using cricket::SsrcReceiverInfo;
@@ -733,6 +734,8 @@ class StatsCollectorTest : public ::testing::Test {
     EXPECT_EQ(rtc::SrtpCryptoSuiteToName(rtc::SRTP_AES128_CM_SHA1_80),
               srtp_crypto_suite);
   }
+
+  test::RunLoop loop_;
 };
 
 static rtc::scoped_refptr<MockRtpSenderInternal> CreateMockSender(

@@ -88,6 +88,7 @@
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 #include "test/testsupport/file_utils.h"
 
 #ifdef WEBRTC_ANDROID
@@ -1248,6 +1249,8 @@ class PeerConnectionInterfaceBaseTest : public ::testing::Test {
       return kSdpStringWithStream1And2UnifiedPlan;
     }
   }
+
+  test::RunLoop loop_;
 
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   rtc::AutoSocketServerThread main_;
@@ -3934,6 +3937,7 @@ class PeerConnectionMediaConfigTest : public ::testing::Test {
     return pc->GetConfiguration().media_config;
   }
 
+  test::RunLoop loop_;
   rtc::scoped_refptr<PeerConnectionFactoryForTest> pcf_;
   MockPeerConnectionObserver observer_;
 };

@@ -591,6 +591,7 @@ if (rtc_include_tests) {
       "../test:fake_video_codecs",
       "../test:field_trial",
       "../test:rtp_test_utils",
+      "../test:test_common",
       "../test:test_main",
       "../test:test_support",
       "../test:video_test_common",

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0bc26ce_22e2e35f",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-12T22:15:10Z",
+      "side": 1,
+      "message": "I see, so your plan was to use \"OPERATION_ERROR_WITH_DATA\" for anything that should turn into an RTCError in Chrome? That\u0027s a more chrome-centric approach than I had in mind. My philosophy was \"let\u0027s define error types that will be most meaningful for native applications, while still being able to convert them into what Chrome needs.\" So according to my philosophy I\u0027d probably use \"NETWORK_ERROR\" with an SCTP cause code if relevant, letting chrome convert that into \"sctp-error\".\n\nHaving a one-to-one mapping between the native errors and the chrome errors is the alternative approach, which we\u0027ve used in plenty of other places. So if you\u0027d prefer to do that I understand. But I think it\u0027s odd that we have RTCErrorType which uses one philosophy and RTCErrorDetailType which uses a different philosophy. So I\u0027d recommend settling on one or the other approach.",
+      "revId": "dde5a12200aaeb38b3a75068add4b5e79631ed10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7348a385_0c8b19c4",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-12T22:15:10Z",
+      "side": 1,
+      "message": "Currently, this only happens when the PeerConnection is closed, causing the data channel to be closed abruptly, or when there is a DTLS error. For lack of a better category, I\u0027d say the former should be \"data-channel-failure,\" and the latter should be \"dtls-failure,\" except that we\u0027re missing the alert value. Until we actually have the alert value/SCTP cause code, is it a good idea to use these error details?",
+      "revId": "dde5a12200aaeb38b3a75068add4b5e79631ed10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

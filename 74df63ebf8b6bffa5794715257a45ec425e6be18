@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "272534a3_4418fb38",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-12T10:24:04Z",
+      "side": 1,
+      "message": "Can this be replaced by an atomic boolean?",
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ed6f3c8_a122cb8c",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 39

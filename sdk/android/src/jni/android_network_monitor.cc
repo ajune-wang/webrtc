@@ -85,9 +85,21 @@ static rtc::AdapterType AdapterTypeFromNetworkType(NetworkType network_type) {
     case NETWORK_WIFI:
       return rtc::ADAPTER_TYPE_WIFI;
     case NETWORK_5G:
+      if (surface_cellular_types_) {
+        return rtc::ADAPTER_TYPE_CELLULAR_5G;
+      }
     case NETWORK_4G:
+      if (surface_cellular_types_) {
+        return rtc::ADAPTER_TYPE_CELLULAR_4G;
+      }
     case NETWORK_3G:
+      if (surface_cellular_types_) {
+        return rtc::ADAPTER_TYPE_CELLULAR_3G;
+      }
     case NETWORK_2G:
+      if (surface_cellular_types_) {
+        return rtc::ADAPTER_TYPE_CELLULAR_2G;
+      }
     case NETWORK_UNKNOWN_CELLULAR:
       return rtc::ADAPTER_TYPE_CELLULAR;
     case NETWORK_VPN:
@@ -196,6 +208,8 @@ void AndroidNetworkMonitor::Start() {
     return;
   }
   started_ = true;
+  surface_cellular_types_ =
+      webrtc::field_trial::IsEnabled("WebRTC-SurfaceCellularTypes");
   find_network_handle_without_ipv6_temporary_part_ =
       webrtc::field_trial::IsEnabled(
           "WebRTC-FindNetworkHandleWithoutIpv6TemporaryPart");

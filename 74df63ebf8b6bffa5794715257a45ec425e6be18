@@ -88,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "8f7dd1d9_43caf2f3",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-05-12T14:15:04Z",
+      "side": 1,
+      "message": "probably, because private methods are called.",
+      "parentUuid": "f7ed5946_2b4dbb1a",
+      "range": {
+        "startLine": 309,
+        "startChar": 7,
+        "endLine": 309,
+        "endChar": 15
+      },
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "272534a3_4418fb38",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 39

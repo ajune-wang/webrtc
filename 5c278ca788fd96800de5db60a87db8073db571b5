@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20b8b981_0928e688",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 1219,
+        "startChar": 41,
+        "endLine": 1219,
+        "endChar": 44
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f85e2a6c_d12edb82",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "I suggest we change name to stop_iter because end_ and .end() make it tricky to read.",
+      "range": {
+        "startLine": 1222,
+        "startChar": 7,
+        "endLine": 1222,
+        "endChar": 15
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7706f3f0_01f19c10",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "Can we move this one before the data member (instead of the getter)?",
+      "range": {
+        "startLine": 600,
+        "startChar": 2,
+        "endLine": 600,
+        "endChar": 62
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d4998d2_6e9d1bde",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "Is this needed? If we return a copy we might want to let the client modify it (or do we want to return a const ref?).",
+      "range": {
+        "startLine": 601,
+        "startChar": 2,
+        "endLine": 601,
+        "endChar": 7
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e562d4cd_ba98bc67",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "#include \u003ccstdio\u003e",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1eb3afd4_97fd4037",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "std::fprintf?",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 9
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "267fe888_6fc4151a",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c52ad966_43c1c3d5",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "I was expecting \"back()\" here, but it looks like this is the end time of the first segment. Maybe we should rename the variable? (not mandatory, I think it makes it more readable but it might be ok as is).",
+      "range": {
+        "startLine": 127,
+        "startChar": 56,
+        "endLine": 127,
+        "endChar": 61
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a665933b_7b7564f7",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 193,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 9
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d7e593_a43856a6",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-12T13:45:05Z",
+      "side": 1,
+      "message": "#include \u003cstdio.h\u003e",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

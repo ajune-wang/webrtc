@@ -40,6 +40,7 @@
 #include "pc/test/fake_video_track_source.h"
 #include "rtc_base/socket_address.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 #ifdef WEBRTC_ANDROID
 #include "pc/test/android_test_initializer.h"
@@ -159,6 +160,7 @@ class PeerConnectionFactoryTest : public ::testing::Test {
     EXPECT_GT(codec.clock_rate, 0);
   }
 
+  webrtc::test::RunLoop loop_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> factory_;
   NullPeerConnectionObserver observer_;
   std::unique_ptr<cricket::FakePortAllocator> port_allocator_;

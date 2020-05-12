@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "59e3840b_97994b99",
+        "filename": "api/audio/residual_echo_detector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-05-12T08:53:28Z",
+      "side": 1,
+      "message": "Good question. I viewed EchoDetector as the generic interface, and the ResidualEchoDetector as the implementation, and using this build target and creator adds a dependency on that particular implementation.\n\nOn the other hand, the current naming of the two classes does not fit with this. Any echo detector in this slot will be used to detect _residual_ echoes, and maybe \"EnergyBasedEchoDetector\" would have been a clearer name for the implemnetation.\n\nWith that in mind, I\u0027ve changed this all to just EchoDetector, just as you suggest. Thanks!",
+      "parentUuid": "603c1229_905158c5",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 62
+      },
+      "revId": "2df8597fa26e667b791f6feeda6ee3c7d949a8a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38e74d57_3ec6973c",
         "filename": "api/audio/residual_echo_detector.h",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2020-05-12T07:11:55Z",
       "side": 1,
       "message": "I think it would be good to name this file something different that reflects that it is a creator, and not the actual detector.\n\nWhat about \necho_detector_creator.h \nor\necho_detector_factory.h \n?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "2df8597fa26e667b791f6feeda6ee3c7d949a8a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb284b84_360de461",
+        "filename": "api/audio/residual_echo_detector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-05-12T08:53:28Z",
+      "side": 1,
+      "message": "Done. Went with _creator.",
+      "parentUuid": "38e74d57_3ec6973c",
       "range": {
         "startLine": 1,
         "startChar": 0,

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "615c18ef_6d8b5437",
+        "filename": "call/adaptation/resource.h",
+        "patchSetId": 42
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-12T15:45:44Z",
+      "side": 1,
+      "message": "I don\u0027t love having the encoder_queue detail here but it probably makes sense with the current design.",
+      "range": {
+        "startLine": 51,
+        "startChar": 18,
+        "endLine": 51,
+        "endChar": 48
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a20503bb_22287770",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 42
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-12T15:45:44Z",
+      "side": 1,
+      "message": "Why not use TaskQueueForTest and avoid all the event.Waits? third_party/webrtc/rtc_base/task_queue_for_test.h",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d33c891_fb22443d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 42
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-12T15:45:44Z",
+      "side": 1,
+      "message": "Is there a race here? Should they be called in sequence instead of parallel?",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 383,
+        "endChar": 58
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d98e82e6_a284618f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 42
+      },
+      "lineNbr": 2039,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-12T15:45:44Z",
+      "side": 1,
+      "message": "Unsure if we have the APIs for this, but maybe could return a future or similar structure so the caller can handle the waiting. Not a big deal if not.",
+      "range": {
+        "startLine": 2039,
+        "startChar": 0,
+        "endLine": 2039,
+        "endChar": 56
+      },
+      "revId": "4ec4230251dfd3aa9beafba19b6360eed1d637c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

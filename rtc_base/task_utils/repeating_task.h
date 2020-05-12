@@ -27,6 +27,62 @@ namespace webrtc {
 class RepeatingTaskHandle;
 
 namespace webrtc_repeating_task_impl {
+
+Timestamp TimestampNow();
+
+class RepeatingTimestamp {
+ public:
+  RepeatingTimestamp(TimeDelta interval,
+                     std::function<Timestamp(void)> now = &TimestampNow)
+      : last_post_time_(Timestamp::PlusInfinity()),
+        interval_(interval),
+        now_(now) {}
+
+  bool is_running() const {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
+    return !last_post_time_.IsPlusInfinity();
+  }
+
+  // Returns a time delta value to use with PostDelayedTask() to queue the
+  // next repeating task. This should be called _after_ running the repating
+  // task itself on the task queue.
+  TimeDelta NextRun() {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
+    const Timestamp now = now_();
+    if (!is_running()) {
+      last_post_time_ = now;
+      return interval_;
+    }
+
+    // Assume we're not being called too early.
+    RTC_DCHECK_LE(last_post_time_ + interval_, now);
+
+    TimeDelta delta = interval_;
+    // Loop in case the work item overlapped a timer period (in which time
+    // we will skip a turn).
+    do {
+      last_post_time_ += interval_;
+      RTC_DCHECK_LE(last_post_time_, now);
+      const TimeDelta overhead = now - last_post_time_;
+      delta = interval_ - overhead;
+    } while (delta.us() < 0);
+    RTC_DCHECK_LE(delta, interval_);
+
+    return delta;
+  }
+
+  void Stop() {
+    RTC_DCHECK_RUN_ON(&sequence_checker_);
+    last_post_time_ = Timestamp::PlusInfinity();
+  }
+
+ private:
+  Timestamp last_post_time_;
+  const TimeDelta interval_;
+  const std::function<Timestamp(void)> now_;
+  SequenceChecker sequence_checker_;
+};
+
 class RepeatingTaskBase : public QueuedTask {
  public:
   RepeatingTaskBase(TaskQueueBase* task_queue, TimeDelta first_delay);

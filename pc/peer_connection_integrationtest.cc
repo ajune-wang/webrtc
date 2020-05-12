@@ -69,6 +69,7 @@
 #include "system_wrappers/include/metrics.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
+#include "test/run_loop.h"
 
 namespace webrtc {
 namespace {
@@ -1736,6 +1737,7 @@ class PeerConnectionIntegrationBaseTest : public ::testing::Test {
   }
 
  protected:
+  webrtc::test::RunLoop loop_;
   SdpSemantics sdp_semantics_;
 
  private:

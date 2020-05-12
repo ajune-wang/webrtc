@@ -3127,5 +3127,9 @@ specific_include_rules = {
     "+media/engine",
     "+modules/audio_device",
     "+modules/audio_processing",
+  ],
+  "main\.cpp": [
+    "+common_audio/vad/include",
+    "+common_audio",
   ]
 }

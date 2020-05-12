@@ -44,6 +44,7 @@
 #include "rtc_base/string_encode.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 #ifdef WEBRTC_ANDROID
 #include "pc/test/android_test_initializer.h"
@@ -2106,6 +2107,7 @@ class WebRtcSdpTest : public ::testing::Test {
   }
 
  protected:
+  webrtc::test::RunLoop loop_;
   SessionDescription desc_;
   AudioContentDescription* audio_desc_;
   VideoContentDescription* video_desc_;

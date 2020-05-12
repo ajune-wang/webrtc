@@ -28,6 +28,7 @@
 #include "rtc_base/gunit.h"
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
+#include "test/run_loop.h"
 
 using ::testing::Contains;
 using ::testing::Each;
@@ -193,6 +194,7 @@ class PeerConnectionSimulcastTests : public ::testing::Test {
   }
 
  private:
+  test::RunLoop loop_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
 };
 

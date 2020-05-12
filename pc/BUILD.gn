@@ -601,6 +601,7 @@ if (rtc_include_tests) {
       "../test:field_trial",
       "../test:fileutils",
       "../test:rtp_test_utils",
+      "../test:test_common",
       "./scenario_tests:pc_scenario_tests",
       "//third_party/abseil-cpp/absl/algorithm:container",
       "//third_party/abseil-cpp/absl/memory",

@@ -56,6 +56,7 @@
 #include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 // This file contains tests for RTP Media API-related behavior of
 // |webrtc::PeerConnection|, see https://w3c.github.io/webrtc-pc/#rtp-media-api.
@@ -105,6 +106,15 @@ class PeerConnectionRtpBaseTest : public ::testing::Test {
     webrtc::metrics::Reset();
   }
 
+  ~PeerConnectionRtpBaseTest() {
+    // Workaround for cleanup of some tests such as
+    // UnsignaledSsrcCreatesReceiverStreams whereby there will be objects
+    // held alive by pending messages and check the current thread in their
+    // dtor, which needs to be the RunLoop (rtc::Thread internally clears the
+    // current thread pointer before deleting pending unprocessed tasks).
+    loop_.Flush();
+  }
+
   std::unique_ptr<PeerConnectionWrapper> CreatePeerConnection() {
     return CreatePeerConnection(RTCConfiguration());
   }
@@ -129,6 +139,7 @@ class PeerConnectionRtpBaseTest : public ::testing::Test {
   }
 
  protected:
+  test::RunLoop loop_;
   const SdpSemantics sdp_semantics_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
 

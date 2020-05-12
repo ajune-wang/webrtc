@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "603c1229_905158c5",
+        "filename": "api/audio/residual_echo_detector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-12T07:11:55Z",
+      "side": 1,
+      "message": "There is an ambiguity between the EchoDetector interface and the ResidualEchoDetector name.\n\nWould it work/make sense naming this method\nCreateEchoDetector() \ninstead?",
+      "range": {
+        "startLine": 22,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 62
+      },
+      "revId": "2df8597fa26e667b791f6feeda6ee3c7d949a8a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38e74d57_3ec6973c",
+        "filename": "api/audio/residual_echo_detector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-12T07:11:55Z",
+      "side": 1,
+      "message": "I think it would be good to name this file something different that reflects that it is a creator, and not the actual detector.\n\nWhat about \necho_detector_creator.h \nor\necho_detector_factory.h \n?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "2df8597fa26e667b791f6feeda6ee3c7d949a8a8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

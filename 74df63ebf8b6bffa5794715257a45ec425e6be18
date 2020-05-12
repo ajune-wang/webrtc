@@ -65,6 +65,29 @@
     },
     {
       "key": {
+        "uuid": "f7ed5946_2b4dbb1a",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-12T13:16:24Z",
+      "side": 1,
+      "message": "For all of these above, why is this and this_ref needed? Why not just this_ref?",
+      "range": {
+        "startLine": 309,
+        "startChar": 7,
+        "endLine": 309,
+        "endChar": 15
+      },
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "272534a3_4418fb38",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 39
@@ -111,6 +134,30 @@
       "writtenOn": "2020-05-12T12:03:47Z",
       "side": 1,
       "message": "Move it to |Resource| class altogether.",
+      "range": {
+        "startLine": 186,
+        "startChar": 9,
+        "endLine": 186,
+        "endChar": 19
+      },
+      "revId": "74df63ebf8b6bffa5794715257a45ec425e6be18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84b3df44_1b726a31",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-05-12T13:16:24Z",
+      "side": 1,
+      "message": "I agree with Ilya, trying to move this to the base class could make things a little more straightforward. However the encoder_queue in not so important in the base class, I understand that can be tricky.",
+      "parentUuid": "f4a969b6_87e3caba",
       "range": {
         "startLine": 186,
         "startChar": 9,

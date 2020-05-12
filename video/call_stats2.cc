@@ -66,7 +66,7 @@ int64_t GetNewAvgRttMs(const std::list<CallStats::RttTime>& reports,
 
 CallStats::CallStats(Clock* clock, TaskQueueBase* task_queue)
     : clock_(clock),
-      last_process_time_(clock_->TimeInMilliseconds()),
+      last_process_time_(clock_->CurrentTime()),
       max_rtt_ms_(-1),
       avg_rtt_ms_(-1),
       sum_avg_rtt_ms_(0),
@@ -77,7 +77,7 @@ CallStats::CallStats(Clock* clock, TaskQueueBase* task_queue)
   process_thread_checker_.Detach();
   task_queue_->PostDelayedTask(
       ToQueuedTask(task_safety_flag_, [this]() { RunTimer(); }),
-      kUpdateIntervalMs);
+      kUpdateInterval.ms());
 }
 
 CallStats::~CallStats() {
@@ -94,23 +94,23 @@ void CallStats::RunTimer() {
 
   UpdateAndReport();
 
-  uint32_t interval =
-      last_process_time_ + kUpdateIntervalMs - clock_->TimeInMilliseconds();
-
+  TimeDelta interval =
+      last_process_time_ + kUpdateInterval - clock_->CurrentTime();
+  RTC_DCHECK_GE(interval.us(), 0);
+  RTC_DCHECK_LE(interval, kUpdateInterval);
   task_queue_->PostDelayedTask(
-      ToQueuedTask(task_safety_flag_, [this]() { RunTimer(); }), interval);
+      ToQueuedTask(task_safety_flag_, [this]() { RunTimer(); }), interval.ms());
 }
 
 void CallStats::UpdateAndReport() {
   RTC_DCHECK_RUN_ON(&construction_thread_checker_);
 
-  int64_t now = clock_->TimeInMilliseconds();
-  last_process_time_ = now;
+  last_process_time_ = clock_->CurrentTime();
 
   // |avg_rtt_ms_| is allowed to be read on the construction thread since that's
   // the only thread that modifies the value.
   int64_t avg_rtt_ms = avg_rtt_ms_;
-  RemoveOldReports(now, &reports_);
+  RemoveOldReports(last_process_time_.ms(), &reports_);
   max_rtt_ms_ = GetMaxRttMs(reports_);
   avg_rtt_ms = GetNewAvgRttMs(reports_, avg_rtt_ms);
   {

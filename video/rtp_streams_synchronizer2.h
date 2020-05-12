@@ -13,6 +13,7 @@
 
 #include <memory>
 
+#include "api/units/timestamp.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/pending_task_safety_flag.h"
@@ -45,7 +46,7 @@ class RtpStreamsSynchronizer {
                                double* estimated_freq_khz) const;
 
  private:
-  void QueueTimer();
+  void RunTimer();
   void UpdateDelay();
 
   TaskQueueBase* const task_queue_;
@@ -65,7 +66,7 @@ class RtpStreamsSynchronizer {
       RTC_GUARDED_BY(main_checker_);
   StreamSynchronization::Measurements video_measurement_
       RTC_GUARDED_BY(main_checker_);
-  int64_t last_sync_time_ RTC_GUARDED_BY(&main_checker_);
+  Timestamp last_sync_time_ RTC_GUARDED_BY(&main_checker_);
   int64_t last_stats_log_ms_ RTC_GUARDED_BY(&main_checker_);
   bool timer_running_ RTC_GUARDED_BY(main_checker_) = false;
 

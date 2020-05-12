@@ -23,7 +23,7 @@ namespace internal {
 namespace {
 // Time interval for logging stats.
 constexpr int64_t kStatsLogIntervalMs = 10000;
-constexpr uint32_t kSyncIntervalMs = 1000;
+constexpr TimeDelta kSyncInterval = TimeDelta::Millis(1000);
 
 bool UpdateMeasurements(StreamSynchronization::Measurements* stream,
                         const Syncable::Info& info) {
@@ -34,13 +34,18 @@ bool UpdateMeasurements(StreamSynchronization::Measurements* stream,
       info.capture_time_ntp_secs, info.capture_time_ntp_frac,
       info.capture_time_source_clock, &new_rtcp_sr);
 }
+
+Timestamp TimestampNow() {
+  return Timestamp::Micros(rtc::TimeMicros());
+}
+
 }  // namespace
 
 RtpStreamsSynchronizer::RtpStreamsSynchronizer(TaskQueueBase* main_queue,
                                                Syncable* syncable_video)
     : task_queue_(main_queue),
       syncable_video_(syncable_video),
-      last_sync_time_(rtc::TimeNanos()),
+      last_sync_time_(TimestampNow()),
       last_stats_log_ms_(rtc::TimeMillis()) {
   RTC_DCHECK(syncable_video);
 }
@@ -64,47 +69,52 @@ void RtpStreamsSynchronizer::ConfigureSync(Syncable* syncable_audio) {
 
   sync_.reset(
       new StreamSynchronization(syncable_video_->id(), syncable_audio_->id()));
-  QueueTimer();
-}
 
-void RtpStreamsSynchronizer::QueueTimer() {
-  RTC_DCHECK_RUN_ON(&main_checker_);
   if (timer_running_)
     return;
 
   timer_running_ = true;
-  uint32_t delay = kSyncIntervalMs - (rtc::TimeNanos() - last_sync_time_) /
-                                         rtc::kNumNanosecsPerMillisec;
-  if (delay > kSyncIntervalMs) {
-    // TODO(tommi): |linux_chromium_tsan_rel_ng| bot has shown a failure when
-    // running WebRtcBrowserTest.CallAndModifyStream, indicating that the
-    // underlying clock is not reliable. Possibly there's a fake clock being
-    // used as the tests are flaky. Look into and fix.
-    RTC_LOG(LS_ERROR) << "Unexpected timer value: " << delay;
-    delay = kSyncIntervalMs;
-  }
+  last_sync_time_ = TimestampNow();
+  task_queue_->PostDelayedTask(
+      ToQueuedTask(task_safety_flag_, [this]() { RunTimer(); }),
+      kSyncInterval.ms());
+}
 
-  RTC_DCHECK_LE(delay, kSyncIntervalMs);
-  task_queue_->PostDelayedTask(ToQueuedTask([this, safety = task_safety_flag_] {
-                                 if (!safety->alive())
-                                   return;
-                                 RTC_DCHECK_RUN_ON(&main_checker_);
-                                 timer_running_ = false;
-                                 UpdateDelay();
-                               }),
-                               delay);
+void RtpStreamsSynchronizer::RunTimer() {
+  RTC_DCHECK_RUN_ON(&main_checker_);
+  RTC_DCHECK(!timer_running_);
+
+  UpdateDelay();
+
+  const Timestamp now = TimestampNow();
+  TimeDelta interval = kSyncInterval;
+  // Loop in case the work item overlapped a timer period (in which time
+  // we will skip a turn).
+  do {
+    last_sync_time_ += kSyncInterval;
+    RTC_DCHECK_LE(last_sync_time_, now);
+    const TimeDelta overhead = last_sync_time_ - now;
+    interval = kSyncInterval - overhead;
+  } while (interval.us() < 0);
+  RTC_DCHECK_LE(interval, kSyncInterval);
+
+  timer_running_ = true;
+  task_queue_->PostDelayedTask(ToQueuedTask(task_safety_flag_,
+                                            [this] {
+                                              RTC_DCHECK_RUN_ON(&main_checker_);
+                                              timer_running_ = false;
+                                              RunTimer();
+                                            }),
+                               interval.ms());
 }
 
 void RtpStreamsSynchronizer::UpdateDelay() {
   RTC_DCHECK_RUN_ON(&main_checker_);
-  last_sync_time_ = rtc::TimeNanos();
 
   if (!syncable_audio_)
     return;
 
   RTC_DCHECK(sync_.get());
-
-  QueueTimer();
 
   bool log_stats = false;
   const int64_t now_ms = rtc::TimeMillis();

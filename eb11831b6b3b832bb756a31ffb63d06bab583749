@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ede91fe4_e8665bbf",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-13T07:42:45Z",
+      "side": 1,
+      "message": "I\u0027m not quite happy with the moniker \"use cellular costs\", since it kind of implies that the other version is to disregard the difference between cellular and others, but I\u0027m fine with this being in a comment - saying \"if true, use different cellular cost per type of cellular network\".\n\nOr you could go all out and use the long name use_differentiated_cellular_costs :-)",
+      "revId": "eb11831b6b3b832bb756a31ffb63d06bab583749",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

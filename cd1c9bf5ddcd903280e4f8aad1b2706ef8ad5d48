@@ -163,6 +163,30 @@
       "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa7f81f_96e743db",
+        "filename": "rtc_base/task_utils/to_queued_task.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-13T08:37:07Z",
+      "side": 1,
+      "message": "I suspect the only real way to fix it with the current overload set is to add an enable_if to `ToQueuedTask(Closure\u0026\u0026, Cleanup\u0026\u0026)` that e.g. requires its Closure argument to not be ScopedTaskSafety. Something like\n\n  template \u003ctypename Closure, typename Cleanup,\n            typename std::enable_if\u003c\n                !std::is_same\u003cstd::remove_cv\u003cstd::remove_reference\u003cClosure\u003e::type\u003e::type,\n                              ScopedTaskSafety\u003e\u003e::type* \u003d nullptr\u003e\n  std::unique_ptr\u003cQueuedTask\u003e ToQueuedTask(Closure\u0026\u0026 closure, Cleanup\u0026\u0026 cleanup) {\n\nThere\u0027s also the option of giving the two functions different names...",
+      "parentUuid": "8602cafd_83c85bc9",
+      "range": {
+        "startLine": 92,
+        "startChar": 57,
+        "endLine": 92,
+        "endChar": 58
+      },
+      "revId": "cd1c9bf5ddcd903280e4f8aad1b2706ef8ad5d48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c61b1df4_235c360c",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-13T07:27:02Z",
+      "side": 1,
+      "message": "Yes, you\u0027ll note that one of the error states in native has the comment that this will be turned into one of two different DOM errors at the Blink layer; this isn\u0027t done right, because the Blink layer doesn\u0027t have the information about which of the two error cases apply easily available. That soured me on the \"let\u0027s make a slightly different set of errors at the native layer\" approach.\n\nThe Blink-layer approach settled on a two-level error structure (my impolite description of why is that the DOM folks reneged on a promise to make the set of error names easily expandable); I\u0027d like to mirror that as closely as possible.\n\nI\u0027d like to converge the RTCErrorType and the DOM errors, but given that I don\u0027t control the code that interprets the errors, I\u0027m somewhat afraid to change them.",
+      "parentUuid": "b0bc26ce_22e2e35f",
+      "revId": "dde5a12200aaeb38b3a75068add4b5e79631ed10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7348a385_0c8b19c4",
         "filename": "pc/data_channel.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-05-12T22:15:10Z",
       "side": 1,
       "message": "Currently, this only happens when the PeerConnection is closed, causing the data channel to be closed abruptly, or when there is a DTLS error. For lack of a better category, I\u0027d say the former should be \"data-channel-failure,\" and the latter should be \"dtls-failure,\" except that we\u0027re missing the alert value. Until we actually have the alert value/SCTP cause code, is it a good idea to use these error details?",
+      "revId": "dde5a12200aaeb38b3a75068add4b5e79631ed10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5b3ed0d_0bd5d8e6",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-13T07:27:02Z",
+      "side": 1,
+      "message": "It\u0027s spec conformance. The spec says that the error should be \"sctp-failure\", so SCTP failure is what I\u0027ve coded. The alternative is to rewrite the spec to say something different.\n\nhttps://w3c.github.io/webrtc-pc/#announcing-a-data-channel-as-closed\n\nsctp-failure says that an SCTP cause code should be present. I\u0027ll check if there is one\ndefined for this case; based on https://www.iana.org/assignments/sctp-parameters/sctp-parameters.xhtml#sctp-parameters-24, I think the value should be 12.\n\nBut https://tools.ietf.org/html/rfc4460#section-2.21 and https://tools.ietf.org/html/rfc2960#section-10.2 describes the COMMUNICATION_LOST notification, which is more appropriate for this situation, but doesn\u0027t carry an error code.\n\nLeaving the SCTP code blank seems like a reasonable position too.\n\nI think there should be a DTLS error fired on the SCTP transport, but that part is not what\u0027s being touched in this CL.",
+      "parentUuid": "7348a385_0c8b19c4",
       "revId": "dde5a12200aaeb38b3a75068add4b5e79631ed10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

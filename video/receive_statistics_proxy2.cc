@@ -780,6 +780,7 @@ void ReceiveStatisticsProxy::RtcpPacketTypesCounterUpdated(
     // case the packet_counter update won't be recorded.
     worker_thread_->PostTask(
         ToQueuedTask(task_safety_, [ssrc, packet_counter, this]() {
+          RTC_DCHECK(worker_thread_->IsCurrent());
           RtcpPacketTypesCounterUpdated(ssrc, packet_counter);
         }));
     return;

@@ -16,6 +16,24 @@
       "revId": "9859d0bd4cb2d556e53dd521e31c9f31d8c308f8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "789f16df_b3190004",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-05-13T08:29:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd4efb91_d4f823d1",
+      "revId": "9859d0bd4cb2d556e53dd521e31c9f31d8c308f8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

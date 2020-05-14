@@ -46,6 +46,30 @@
       "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "124a32d0_9082d8cf",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-14T13:39:17Z",
+      "side": 1,
+      "message": "I\u0027ve found it\u0027s quite common in webrtc that class implementation details sloppily call out to public methods. Yes, if the private impl olds a lock and calls out to such a public method, you get compiler errors.\nDoes it hurt?",
+      "parentUuid": "6d132ddd_0b5f29a9",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

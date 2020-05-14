@@ -94,6 +94,30 @@
       "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d10dd1d_da646445",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-14T14:06:08Z",
+      "side": 1,
+      "message": "On the contrary, we *want* a compile error if someone calls this method with critical_section_ held. I was just wondering if you had verified that this did indeed happen.",
+      "parentUuid": "124a32d0_9082d8cf",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

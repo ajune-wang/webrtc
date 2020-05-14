@@ -37,6 +37,7 @@
 #include "test/gtest.h"
 #include "test/mock_audio_decoder_factory.h"
 #include "test/mock_audio_encoder_factory.h"
+#include "test/run_loop.h"
 
 using ::testing::_;
 using ::testing::ContainerEq;
@@ -3507,6 +3508,7 @@ TEST_P(WebRtcVoiceEngineTestFake, GetSourcesWithNonExistingSsrc) {
 
 // Tests that the library initializes and shuts down properly.
 TEST(WebRtcVoiceEngineTest, StartupShutdown) {
+  webrtc::test::RunLoop loop;
   for (bool use_null_apm : {false, true}) {
     // If the VoiceEngine wants to gather available codecs early, that's fine
     // but we never want it to create a decoder at this stage.
@@ -3537,6 +3539,7 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
 
 // Tests that reference counting on the external ADM is correct.
 TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
+  webrtc::test::RunLoop loop;
   for (bool use_null_apm : {false, true}) {
     std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
         webrtc::CreateDefaultTaskQueueFactory();
@@ -3571,6 +3574,7 @@ TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
 
 // Verify the payload id of common audio codecs, including CN, ISAC, and G722.
 TEST(WebRtcVoiceEngineTest, HasCorrectPayloadTypeMapping) {
+  webrtc::test::RunLoop loop;
   for (bool use_null_apm : {false, true}) {
     std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
         webrtc::CreateDefaultTaskQueueFactory();
@@ -3624,6 +3628,7 @@ TEST(WebRtcVoiceEngineTest, HasCorrectPayloadTypeMapping) {
 
 // Tests that VoE supports at least 32 channels
 TEST(WebRtcVoiceEngineTest, Has32Channels) {
+  webrtc::test::RunLoop loop;
   for (bool use_null_apm : {false, true}) {
     std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
         webrtc::CreateDefaultTaskQueueFactory();
@@ -3665,6 +3670,7 @@ TEST(WebRtcVoiceEngineTest, Has32Channels) {
 
 // Test that we set our preferred codecs properly.
 TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
+  webrtc::test::RunLoop loop;
   for (bool use_null_apm : {false, true}) {
     std::unique_ptr<webrtc::TaskQueueFactory> task_queue_factory =
         webrtc::CreateDefaultTaskQueueFactory();
@@ -3700,6 +3706,7 @@ TEST(WebRtcVoiceEngineTest, SetRecvCodecs) {
 }
 
 TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
+  webrtc::test::RunLoop loop;
   for (bool use_null_apm : {false, true}) {
     std::vector<webrtc::AudioCodecSpec> specs;
     webrtc::AudioCodecSpec spec1{{"codec1", 48000, 2, {{"param1", "value1"}}},

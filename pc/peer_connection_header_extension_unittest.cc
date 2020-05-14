@@ -20,6 +20,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gmock.h"
+#include "test/run_loop.h"
 
 namespace webrtc {
 
@@ -71,6 +72,8 @@ class PeerConnectionHeaderExtensionTest
     return std::make_unique<PeerConnectionWrapper>(pc_factory, pc,
                                                    std::move(observer));
   }
+
+  test::RunLoop loop_;
 };
 
 TEST_P(PeerConnectionHeaderExtensionTest, TransceiverOffersHeaderExtensions) {

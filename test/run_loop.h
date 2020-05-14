@@ -13,6 +13,12 @@
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 
+#if defined(__native_client__)
+#include "rtc_base/null_socket_server.h"
+#else
+#include "rtc_base/physical_socket_server.h"
+#endif
+
 namespace webrtc {
 namespace test {
 
@@ -44,7 +50,13 @@ class RunLoop {
   }
 
  private:
-  class FakeSocketServer : public rtc::SocketServer {
+#if defined(__native_client__)
+  typedef rtc::NullSocketServer ParentSocketServer;
+#else
+  typedef rtc::PhysicalSocketServer ParentSocketServer;
+#endif
+
+  class FakeSocketServer : public ParentSocketServer {
    public:
     FakeSocketServer();
     ~FakeSocketServer();
@@ -54,9 +66,6 @@ class RunLoop {
    private:
     bool Wait(int cms, bool process_io) override;
     void WakeUp() override;
-
-    rtc::Socket* CreateSocket(int family, int type) override;
-    rtc::AsyncSocket* CreateAsyncSocket(int family, int type) override;
 
    private:
     bool fail_next_wait_ = false;

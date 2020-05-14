@@ -1046,7 +1046,8 @@ MessageHandler* Thread::GetPostTaskMessageHandler() {
 }
 
 AutoThread::AutoThread()
-    : Thread(SocketServer::CreateDefault(), /*do_init=*/false) {
+    : Thread(SocketServer::CreateDefault(), /*do_init=*/false),
+      tq_setter_(this) {
   if (!ThreadManager::Instance()->CurrentThread()) {
     // DoInit registers with ThreadManager. Do that only if we intend to
     // be rtc::Thread::Current(), otherwise ProcessAllMessageQueuesInternal will
@@ -1065,7 +1066,7 @@ AutoThread::~AutoThread() {
 }
 
 AutoSocketServerThread::AutoSocketServerThread(SocketServer* ss)
-    : Thread(ss, /*do_init=*/false) {
+    : Thread(ss, /*do_init=*/false), tq_setter_(this) {
   DoInit();
   old_thread_ = ThreadManager::Instance()->CurrentThread();
   // Temporarily set the current thread to nullptr so that we can keep checks

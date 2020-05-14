@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5e52d77b_541e6cc6",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-14T00:08:30Z",
+      "side": 1,
+      "message": "\u003e this isn\u0027t done right, because the Blink layer doesn\u0027t have the information about which of the two error cases apply easily available.\n\nI assume you\u0027re referring to INVALID_PARAMETER? I think there was enough context at the time of me authoring the code, but I see now that there are some cases where it may need to map to a TypeError or OperationError even for the same method being called...\n\nHow about just adding a new field in RTCError for the DOMException? Maybe it\u0027s a little redundant but then we\u0027d keep the best of both worlds.",
+      "parentUuid": "c61b1df4_235c360c",
+      "revId": "dde5a12200aaeb38b3a75068add4b5e79631ed10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7348a385_0c8b19c4",
         "filename": "pc/data_channel.cc",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "It\u0027s spec conformance. The spec says that the error should be \"sctp-failure\", so SCTP failure is what I\u0027ve coded. The alternative is to rewrite the spec to say something different.\n\nhttps://w3c.github.io/webrtc-pc/#announcing-a-data-channel-as-closed\n\nsctp-failure says that an SCTP cause code should be present. I\u0027ll check if there is one\ndefined for this case; based on https://www.iana.org/assignments/sctp-parameters/sctp-parameters.xhtml#sctp-parameters-24, I think the value should be 12.\n\nBut https://tools.ietf.org/html/rfc4460#section-2.21 and https://tools.ietf.org/html/rfc2960#section-10.2 describes the COMMUNICATION_LOST notification, which is more appropriate for this situation, but doesn\u0027t carry an error code.\n\nLeaving the SCTP code blank seems like a reasonable position too.\n\nI think there should be a DTLS error fired on the SCTP transport, but that part is not what\u0027s being touched in this CL.",
       "parentUuid": "7348a385_0c8b19c4",
+      "revId": "dde5a12200aaeb38b3a75068add4b5e79631ed10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9004ab27_938726c0",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-14T00:08:30Z",
+      "side": 1,
+      "message": "\u003e It\u0027s spec conformance. The spec says that the error should be \"sctp-failure\", so SCTP failure is what I\u0027ve coded. \n\nIt may be up to interpretation, but my interpretation is that the error should be \"sctp-failure\" if the *SCTP transport* is closed with an error, but in this case it\u0027s the DTLS transport closed with an error, or the SCTP transport closed abruptly but without an error. In the latter case the spec just says \"Set the [[ReadyState]] slot of each of connection\u0027s RTCDataChannels to \u0027closed\u0027\" and says nothing about an error event. So I think one could reasonably make an argument for having no error event on the data channel unless there is actually an SCTP protocol level error.\n\nHowever, given that it\u0027s a gray area, I\u0027d be fine with \"sctp-failure\" with no cause code or a cause code of 12.",
+      "parentUuid": "e5b3ed0d_0bd5d8e6",
       "revId": "dde5a12200aaeb38b3a75068add4b5e79631ed10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

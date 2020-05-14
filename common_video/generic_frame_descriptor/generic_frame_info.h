@@ -12,6 +12,7 @@
 #define COMMON_VIDEO_GENERIC_FRAME_DESCRIPTOR_GENERIC_FRAME_INFO_H_
 
 #include <initializer_list>
+#include <vector>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/strings/string_view.h"
@@ -41,6 +42,11 @@ struct GenericFrameInfo : public FrameDependencyTemplate {
   ~GenericFrameInfo();
 
   int64_t frame_id = 0;
+  // Set of chains frame is part of.
+  std::vector<bool> chains;
+  // Set of active decodes. active_decode_targets.size() must be equal
+  // to num_decode_targets of related FrameDependencyStructure.
+  std::vector<bool> active_decode_targets;
   absl::InlinedVector<CodecBufferUsage, kMaxEncoderBuffers> encoder_buffers;
 };
 
@@ -55,6 +61,7 @@ class GenericFrameInfo::Builder {
   Builder& Dtis(absl::string_view indication_symbols);
   Builder& Fdiffs(std::initializer_list<int> frame_diffs);
   Builder& ChainDiffs(std::initializer_list<int> chain_diffs);
+  Builder& Chains(std::initializer_list<int> chain_indexes);
 
  private:
   GenericFrameInfo info_;

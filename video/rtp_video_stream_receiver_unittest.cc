@@ -955,8 +955,8 @@ class RtpVideoStreamReceiverDependencyDescriptorTest
     FrameDependencyStructure stream_structure;
     stream_structure.num_decode_targets = 1;
     stream_structure.templates = {
-        GenericFrameInfo::Builder().Dtis("S").Build(),
-        GenericFrameInfo::Builder().Dtis("S").Fdiffs({1}).Build(),
+        FrameDependencyTemplateBuilder().Dtis("S").Build(),
+        FrameDependencyTemplateBuilder().Dtis("S").Fdiffs({1}).Build(),
     };
     return stream_structure;
   }

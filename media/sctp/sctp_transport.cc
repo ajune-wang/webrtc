@@ -432,6 +432,7 @@ SctpTransport::SctpTransport(rtc::Thread* network_thread,
 }
 
 SctpTransport::~SctpTransport() {
+  RTC_DCHECK_RUN_ON(network_thread_);
   // Close abruptly; no reset procedure.
   CloseSctpSocket();
   // It's not strictly necessary to reset these fields to nullptr,

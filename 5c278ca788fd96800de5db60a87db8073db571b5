@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "6196b4fe_4e27ca9e",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-14T08:52:06Z",
+      "side": 1,
+      "message": "Yes, this makes sense.",
+      "parentUuid": "40409aa4_0e917be8",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 9
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "267fe888_6fc4151a",
         "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
         "patchSetId": 4

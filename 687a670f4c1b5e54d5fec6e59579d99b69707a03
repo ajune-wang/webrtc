@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "298cba25_5b57ba42",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-14T08:52:06Z",
+      "side": 1,
+      "message": "Should we change this to `segment_end_us` as well?",
+      "range": {
+        "startLine": 855,
+        "startChar": 12,
+        "endLine": 855,
+        "endChar": 23
+      },
+      "revId": "687a670f4c1b5e54d5fec6e59579d99b69707a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aed9d10a_81f6dd2d",
+        "filename": "rtc_tools/rtc_event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1589,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-14T08:52:06Z",
+      "side": 1,
+      "message": "Also this one.",
+      "range": {
+        "startLine": 1589,
+        "startChar": 12,
+        "endLine": 1589,
+        "endChar": 23
+      },
+      "revId": "687a670f4c1b5e54d5fec6e59579d99b69707a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d132ddd_0b5f29a9",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-14T13:31:33Z",
+      "side": 1,
+      "message": "From the docs, it looks moderately useful, and it seems useful as documentation for humans. Markus, did you verify that it catches violations?",
+      "parentUuid": "6a6e5152_874666b8",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a6e5152_874666b8",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-14T13:20:58Z",
+      "side": 1,
+      "message": "Not sure if annotation with RTC_LOCKS_EXCLUDED is useful. I haven\u0027t seen it elsewhere in the code base, and grepping for it I only see it in two places. Should we adopt it?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

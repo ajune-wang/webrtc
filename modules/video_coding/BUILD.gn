@@ -37,6 +37,8 @@ rtc_library("encoded_frame") {
 
 rtc_library("frame_dependencies_calculator") {
   sources = [
+    "chain_diff_calculator.cc",
+    "chain_diff_calculator.h",
     "frame_dependencies_calculator.cc",
     "frame_dependencies_calculator.h",
   ]

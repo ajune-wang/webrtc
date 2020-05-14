@@ -76,4 +76,19 @@ GenericFrameInfo::Builder& GenericFrameInfo::Builder::Fdiffs(
   return *this;
 }
 
+GenericFrameInfo::Builder& GenericFrameInfo::Builder::Chains(
+    std::initializer_list<int> chain_indexes) {
+  info_.chains.resize(info_.chain_diffs.size(), false);
+  for (int i : chain_indexes) {
+    RTC_CHECK_LE(i, info_.chains.size());
+    info_.chains[i] = true;
+  }
+  return *this;
+}
+
+GenericFrameInfo::Builder& GenericFrameInfo::Builder::Cdiffs(
+    std::initializer_list<int> chain_diffs) {
+  info_.chain_diffs.assign(chain_diffs.begin(), chain_diffs.end());
+  return *this;
+}
 }  // namespace webrtc

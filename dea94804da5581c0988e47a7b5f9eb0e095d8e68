@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "03a196df_4bdd2919",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-14T11:27:34Z",
+      "side": 1,
+      "message": "Added a comment that hopefully explains it.",
+      "parentUuid": "a020b155_bbf83886",
+      "range": {
+        "startLine": 303,
+        "startChar": 4,
+        "endLine": 306,
+        "endChar": 5
+      },
+      "revId": "dea94804da5581c0988e47a7b5f9eb0e095d8e68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fe1ce5c_76102cb1",
         "filename": "rtc_base/thread.h",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "dea94804da5581c0988e47a7b5f9eb0e095d8e68",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b44be3e6_b0524a78",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-14T11:27:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fe1ce5c_76102cb1",
+      "range": {
+        "startLine": 557,
+        "startChar": 44,
+        "endLine": 557,
+        "endChar": 47
+      },
+      "revId": "dea94804da5581c0988e47a7b5f9eb0e095d8e68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

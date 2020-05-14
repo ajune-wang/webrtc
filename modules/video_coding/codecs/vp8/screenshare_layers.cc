@@ -429,7 +429,7 @@ FrameDependencyStructure ScreenshareLayers::GetTemplateStructure(
   FrameDependencyStructure template_structure;
   template_structure.num_decode_targets = num_layers;
 
-  using Builder = GenericFrameInfo::Builder;
+  using Builder = FrameDependencyTemplateBuilder;
   switch (num_layers) {
     case 1: {
       template_structure.templates = {

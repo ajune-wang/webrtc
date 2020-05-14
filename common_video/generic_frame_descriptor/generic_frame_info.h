@@ -12,6 +12,7 @@
 #define COMMON_VIDEO_GENERIC_FRAME_DESCRIPTOR_GENERIC_FRAME_INFO_H_
 
 #include <initializer_list>
+#include <utility>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/strings/string_view.h"
@@ -30,7 +31,9 @@ struct CodecBufferUsage {
   bool updated = false;
 };
 
-struct GenericFrameInfo : public FrameDependencyTemplate {
+enum class ChainRelation { kNone, kStarts, kContinues };
+
+struct GenericFrameInfo {
   static absl::InlinedVector<DecodeTargetIndication, 10> DecodeTargetInfo(
       absl::string_view indication_symbols);
 
@@ -40,7 +43,13 @@ struct GenericFrameInfo : public FrameDependencyTemplate {
   GenericFrameInfo(const GenericFrameInfo&);
   ~GenericFrameInfo();
 
+  bool is_keyframe = false;
   int64_t frame_id = 0;
+  int spatial_id = 0;
+  int temporal_id = 0;
+  uint32_t active_decode_target_bitmask = 0xffffffff;
+  absl::InlinedVector<DecodeTargetIndication, 10> decode_target_indications;
+  absl::InlinedVector<ChainRelation, 4> chains;
   absl::InlinedVector<CodecBufferUsage, kMaxEncoderBuffers> encoder_buffers;
 };
 
@@ -53,11 +62,43 @@ class GenericFrameInfo::Builder {
   Builder& T(int temporal_id);
   Builder& S(int spatial_id);
   Builder& Dtis(absl::string_view indication_symbols);
-  Builder& Fdiffs(std::initializer_list<int> frame_diffs);
-  Builder& ChainDiffs(std::initializer_list<int> chain_diffs);
 
  private:
   GenericFrameInfo info_;
+};
+
+class FrameDependencyTemplateBuilder {
+ public:
+  FrameDependencyTemplateBuilder() = default;
+
+  FrameDependencyTemplate Build() && { return std::move(template_); }
+  FrameDependencyTemplate Build() const& { return template_; }
+  FrameDependencyTemplateBuilder& T(int temporal_id) {
+    template_.temporal_id = temporal_id;
+    return *this;
+  }
+  FrameDependencyTemplateBuilder& S(int spatial_id) {
+    template_.spatial_id = spatial_id;
+    return *this;
+  }
+  FrameDependencyTemplateBuilder& Dtis(absl::string_view indication_symbols) {
+    template_.decode_target_indications =
+        GenericFrameInfo::DecodeTargetInfo(indication_symbols);
+    return *this;
+  }
+  FrameDependencyTemplateBuilder& Fdiffs(
+      std::initializer_list<int> frame_diffs) {
+    template_.frame_diffs.assign(frame_diffs.begin(), frame_diffs.end());
+    return *this;
+  }
+  FrameDependencyTemplateBuilder& ChainDiffs(
+      std::initializer_list<int> chain_diffs) {
+    template_.chain_diffs.assign(chain_diffs.begin(), chain_diffs.end());
+    return *this;
+  }
+
+ private:
+  FrameDependencyTemplate template_;
 };
 
 }  // namespace webrtc

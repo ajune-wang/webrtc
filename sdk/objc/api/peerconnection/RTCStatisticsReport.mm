@@ -151,9 +151,10 @@ NSObject *ValueFromStatsMember(const RTCStatsMemberInterface *member) {
 
 @end
 
-@implementation RTC_OBJC_TYPE (RTCStatisticsReport) (Private)
+@implementation RTC_OBJC_TYPE (RTCStatisticsReport)
+(Private)
 
-- (instancetype)initWithReport : (const webrtc::RTCStatsReport &)report {
+    - (instancetype)initWithReport : (const webrtc::RTCStatsReport &)report {
   if (self = [super init]) {
     _timestamp_us = report.timestamp_us();
 

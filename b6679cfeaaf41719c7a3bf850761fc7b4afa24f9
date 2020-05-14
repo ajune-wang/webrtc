@@ -70,6 +70,30 @@
       "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3987b0b_c1dcdbd7",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-14T13:59:47Z",
+      "side": 1,
+      "message": "\u003e Does it hurt?\n\nI don\u0027t think it hurts, but it\u0027s nice with consistency. Do we want to start using it and strive to use it everywhere?",
+      "parentUuid": "124a32d0_9082d8cf",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

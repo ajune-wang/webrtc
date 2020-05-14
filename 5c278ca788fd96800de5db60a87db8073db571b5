@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f82d6bb_31cf38f3",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20b8b981_0928e688",
+      "range": {
+        "startLine": 1219,
+        "startChar": 41,
+        "endLine": 1219,
+        "endChar": 44
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f85e2a6c_d12edb82",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c25f5e33_cc0798ed",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1222,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f85e2a6c_d12edb82",
+      "range": {
+        "startLine": 1222,
+        "startChar": 7,
+        "endLine": 1222,
+        "endChar": 15
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a95a89ba_3571e3f5",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7706f3f0_01f19c10",
+      "range": {
+        "startLine": 600,
+        "startChar": 2,
+        "endLine": 600,
+        "endChar": 62
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d4998d2_6e9d1bde",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2537f323_8dbba4af",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Thanks! Yes, I intended to return a const ref.",
+      "parentUuid": "7d4998d2_6e9d1bde",
+      "range": {
+        "startLine": 601,
+        "startChar": 2,
+        "endLine": 601,
+        "endChar": 7
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e562d4cd_ba98bc67",
         "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
         "patchSetId": 4
@@ -105,6 +201,30 @@
       "writtenOn": "2020-05-12T13:45:05Z",
       "side": 1,
       "message": "#include \u003ccstdio\u003e",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36643260_3a67f5a8",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Added #include \u003cstdio.h\u003e. See below.",
+      "parentUuid": "e562d4cd_ba98bc67",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "40409aa4_0e917be8",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Afaik, the style guide suggests has no recommendation except \"be consistent\". A quick git grep finds 163 instances of #include \u003cstdio.h\u003e, but only 29 of #include \u003ccstdio\u003e so unless we\u0027re working to change this elsewhere too I\u0027d like to stay with the C version.",
+      "parentUuid": "1eb3afd4_97fd4037",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 9
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "267fe888_6fc4151a",
         "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
         "patchSetId": 4
@@ -160,6 +304,30 @@
       "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2baabf29_d2588650",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "267fe888_6fc4151a",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 9
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "57b46ccf_9fe520a9",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Yes, this is end of first segment. Renamed to segment_end_us.",
+      "parentUuid": "c52ad966_43c1c3d5",
+      "range": {
+        "startLine": 127,
+        "startChar": 56,
+        "endLine": 127,
+        "endChar": 61
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a665933b_7b7564f7",
         "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
         "patchSetId": 4
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "c3e8859e_2413f0f2",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a665933b_7b7564f7",
+      "range": {
+        "startLine": 193,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 9
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3d7e593_a43856a6",
         "filename": "rtc_tools/rtc_event_log_visualizer/alerts.h",
         "patchSetId": 4
@@ -229,6 +445,30 @@
       "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba39264d_7aa8b820",
+        "filename": "rtc_tools/rtc_event_log_visualizer/alerts.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-14T08:43:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3d7e593_a43856a6",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "5c278ca788fd96800de5db60a87db8073db571b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

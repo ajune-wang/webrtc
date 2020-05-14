@@ -100,6 +100,35 @@ namespace {
 
 class TestMainImpl : public TestMain {
  public:
+  // In order to set up a fresh rtc::Thread state for each test and avoid
+  // accidentally carrying over pending tasks that might be sent from one test
+  // and executed while another test is running, we inject a TestListener
+  // that sets up a new rtc::Thread instance for the main thread, per test.
+  class TestListener : public ::testing::EmptyTestEventListener {
+   public:
+    TestListener() = default;
+
+   private:
+    void OnTestStart(const ::testing::TestInfo& test_info) override {
+      // Ensure that main thread gets wrapped as an rtc::Thread.
+      // TODO(bugs.webrt.org/9714): It might be better to avoid wrapping the
+      // main thread, or leave it to individual tests that need it. But as long
+      // as we have automatic thread wrapping, we need this to avoid that some
+      // other random thread (which one depending on which tests are run) gets
+      // automatically wrapped.
+      thread_ = rtc::Thread::CreateWithSocketServer();
+      thread_->WrapCurrent();
+      RTC_DCHECK_EQ(rtc::Thread::Current(), thread_.get());
+    }
+
+    void OnTestEnd(const ::testing::TestInfo& test_info) override {
+      thread_->UnwrapCurrent();
+      thread_.reset();
+    }
+
+    std::unique_ptr<rtc::Thread> thread_;
+  };
+
   int Init(int* argc, char* argv[]) override {
     ::testing::InitGoogleMock(argc, argv);
     absl::ParseCommandLine(*argc, argv);
@@ -134,14 +163,7 @@ class TestMainImpl : public TestMain {
     rtc::InitializeSSL();
     rtc::SSLStreamAdapter::EnableTimeCallbackForTesting();
 
-    // Ensure that main thread gets wrapped as an rtc::Thread.
-    // TODO(bugs.webrt.org/9714): It might be better to avoid wrapping the main
-    // thread, or leave it to individual tests that need it. But as long as we
-    // have automatic thread wrapping, we need this to avoid that some other
-    // random thread (which one depending on which tests are run) gets
-    // automatically wrapped.
-    rtc::ThreadManager::Instance()->WrapCurrentThread();
-    RTC_CHECK(rtc::Thread::Current());
+    ::testing::UnitTest::GetInstance()->listeners().Append(new TestListener());
 
     return 0;
   }

@@ -76,4 +76,10 @@ GenericFrameInfo::Builder& GenericFrameInfo::Builder::Fdiffs(
   return *this;
 }
 
+GenericFrameInfo::Builder& GenericFrameInfo::Builder::ChainDiffs(
+    std::initializer_list<int> chain_diffs) {
+  info_.chain_diffs.assign(chain_diffs.begin(), chain_diffs.end());
+  return *this;
+}
+
 }  // namespace webrtc

@@ -22,6 +22,30 @@
       "revId": "6b53d6a29b719982525e8826d50bf23507af8d8e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "400219b7_5a6ce8df",
+        "filename": "common_video/generic_frame_descriptor/generic_frame_info.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-14T14:36:05Z",
+      "side": 1,
+      "message": "appending chain_diffs doesn\u0027t really make sense, since for chain_diffs size and order matter.\nso adjusting Fdiffs function instead. (since function name doesn\u0027t mention \u0027append\u0027, I guess \u0027set\u0027 semantic is less surprising. In practice it is always set from empty array.)",
+      "parentUuid": "4beeaeb1_40600e0d",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "6b53d6a29b719982525e8826d50bf23507af8d8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

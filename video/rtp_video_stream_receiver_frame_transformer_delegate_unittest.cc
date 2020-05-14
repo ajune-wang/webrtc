@@ -20,7 +20,6 @@
 #include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/event.h"
-#include "rtc_base/task_utils/to_queued_task.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 #include "test/mock_frame_transformer.h"

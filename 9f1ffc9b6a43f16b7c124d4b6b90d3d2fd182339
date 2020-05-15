@@ -22,6 +22,30 @@
       "revId": "9f1ffc9b6a43f16b7c124d4b6b90d3d2fd182339",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2358a2d6_cfee19ce",
+        "filename": "call/test/mock_rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-15T13:28:13Z",
+      "side": 1,
+      "message": "no.\nthere is a comma inside. that confuses macro parsing. parenthesis helps macro understand that comma is part of the parameter value, not parameter separator.\n\notherwise macro parser (that doesn\u0027t know much of c++) would see something like\nstd::map\u003cuint32_t,\nRtpState\u003e,\nconst std::map\u003cuint32_t,\nRtpPayloadState\u003e\u0026,\nconst RtpConfig\u0026,\n...",
+      "parentUuid": "1a53524f_6606e5c6",
+      "range": {
+        "startLine": 37,
+        "startChar": 44,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "9f1ffc9b6a43f16b7c124d4b6b90d3d2fd182339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

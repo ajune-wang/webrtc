@@ -22,6 +22,30 @@
       "revId": "68da49d665fe7406b3e5f303153bc1ebf803c1f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b641513_fd3c5f17",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-15T08:09:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "076d0a9e_74b9326c",
+      "range": {
+        "startLine": 131,
+        "startChar": 13,
+        "endLine": 131,
+        "endChar": 21
+      },
+      "revId": "68da49d665fe7406b3e5f303153bc1ebf803c1f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

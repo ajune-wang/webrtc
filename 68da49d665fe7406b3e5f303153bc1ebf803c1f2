@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "076d0a9e_74b9326c",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-05-15T08:02:09Z",
+      "side": 1,
+      "message": "set to nullptr?\n\"Using reset() can cause subtle bugs with orphaned custom deleters and should be extremely rare.\"",
+      "range": {
+        "startLine": 131,
+        "startChar": 13,
+        "endLine": 131,
+        "endChar": 21
+      },
+      "revId": "68da49d665fe7406b3e5f303153bc1ebf803c1f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

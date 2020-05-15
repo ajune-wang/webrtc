@@ -48,6 +48,21 @@ constexpr int kLagInFrames = 0;  // No look ahead.
 constexpr int kRtpTicksPerSecond = 90000;
 constexpr float kMinimumFrameRate = 1.0;
 
+// Only positive speeds, range for real-time coding currently is: 6 - 8.
+// Lower means slower/better quality, higher means fastest/lower quality.
+int GetCpuSpeed(int width, int height) {
+#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || defined(ANDROID)
+  return 8;
+#else
+  // For smaller resolutions, use lower speed setting (get some coding gain at
+  // the cost of increased encoding complexity).
+  if (width * height <= 352 * 288)
+    return 6;
+  else
+    return 7;
+#endif
+}
+
 class LibaomAv1Encoder final : public VideoEncoder {
  public:
   explicit LibaomAv1Encoder(
@@ -73,6 +88,7 @@ class LibaomAv1Encoder final : public VideoEncoder {
   const std::unique_ptr<ScalableVideoController> svc_controller_;
   bool inited_;
   bool keyframe_required_;
+  int cpu_speed_;
   VideoCodec encoder_settings_;
   aom_image_t* frame_for_encode_;
   aom_codec_ctx_t ctx_;
@@ -110,6 +126,7 @@ LibaomAv1Encoder::LibaomAv1Encoder(
     : svc_controller_(std::move(svc_controller)),
       inited_(false),
       keyframe_required_(true),
+      cpu_speed_(kDefaultEncSpeed),
       frame_for_encode_(nullptr),
       encoded_image_callback_(nullptr) {
   RTC_DCHECK(svc_controller_);
@@ -170,6 +187,8 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   cfg_.g_pass = AOM_RC_ONE_PASS;        // One-pass rate control
   cfg_.g_lag_in_frames = kLagInFrames;  // No look ahead when lag equals 0.
 
+  cpu_speed_ = GetCpuSpeed(cfg_.g_w, cfg_.g_h);
+
   // Creating a wrapper to the image - setting image data to nullptr. Actual
   // pointer will be set in encode. Setting align to 1, as it is meaningless
   // (actual memory is not allocated).
@@ -189,7 +208,7 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   inited_ = true;
 
   // Set control parameters
-  ret = aom_codec_control(&ctx_, AOME_SET_CPUUSED, kDefaultEncSpeed);
+  ret = aom_codec_control(&ctx_, AOME_SET_CPUUSED, cpu_speed_);
   if (ret != AOM_CODEC_OK) {
     RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::EncodeInit returned " << ret
                         << " on control AV1E_SET_CPUUSED.";

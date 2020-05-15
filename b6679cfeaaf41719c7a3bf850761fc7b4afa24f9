@@ -118,6 +118,30 @@
       "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e04cebe_a52a90a1",
+        "filename": "media/base/video_adapter.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-15T09:59:57Z",
+      "side": 1,
+      "message": "Yes,adding\n  rtc::VideoSinkWants sw;\n  OnSinkWants(sw);\nto the beginning of KeepFrame (the method is RTC_EXCLUSIVE_LOCKS_REQUIRED) gives:\n\n../../media/base/video_adapter.cc:149:3: error: cannot call function \u0027OnSinkWants\u0027 while mutex \u0027critical_section_\u0027 is held [-Werror,-Wthread-safety-analysis]\n  OnSinkWants(sw);\n\nIn the AdaptFrameResolution implementation (the method is RTC_LOCKS_EXCLUDED one), adding a OnSinkWants call after the critsect has been taken yields the same error.\n\n../../media/base/video_adapter.cc:195:3: error: cannot call function \u0027OnSinkWants\u0027 while mutex \u0027critical_section_\u0027 is held [-Werror,-Wthread-safety-analysis]\n  OnSinkWants(sw);\n\nYes I do think it should be recommended where it makes sense, and I have used it in other merged CLs, for example https://webrtc-review.googlesource.com/c/src/+/175101.",
+      "parentUuid": "0d10dd1d_da646445",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "b6679cfeaaf41719c7a3bf850761fc7b4afa24f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

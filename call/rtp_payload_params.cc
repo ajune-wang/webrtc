@@ -261,6 +261,7 @@ RtpPayloadParams::GenericDescriptorFromFrameInfo(
   generic.frame_id = frame_id;
   generic.dependencies = dependencies_calculator_.FromBuffersUsage(
       frame_type, frame_id, frame_info.encoder_buffers);
+  generic.chain_diffs = chains_calculator_.From(frame_id, frame_info.chains);
   generic.spatial_index = frame_info.spatial_id;
   generic.temporal_index = frame_info.temporal_id;
   generic.decode_target_indications = frame_info.decode_target_indications;
@@ -273,6 +274,9 @@ void RtpPayloadParams::SetGeneric(const CodecSpecificInfo* codec_specific_info,
                                   RTPVideoHeader* rtp_video_header) {
   if (codec_specific_info && codec_specific_info->generic_frame_info &&
       !codec_specific_info->generic_frame_info->encoder_buffers.empty()) {
+    if (is_keyframe) {
+      chains_calculator_.Reset(codec_specific_info->generic_frame_info->chains);
+    }
     rtp_video_header->generic =
         GenericDescriptorFromFrameInfo(*codec_specific_info->generic_frame_info,
                                        frame_id, rtp_video_header->frame_type);

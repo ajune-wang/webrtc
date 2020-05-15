@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a53524f_6606e5c6",
+        "filename": "call/test/mock_rtp_transport_controller_send.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-15T13:06:56Z",
+      "side": 1,
+      "message": "Is this parenthesis redundant?",
+      "range": {
+        "startLine": 37,
+        "startChar": 44,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "9f1ffc9b6a43f16b7c124d4b6b90d3d2fd182339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

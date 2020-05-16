@@ -522,11 +522,23 @@ void VideoReceiveStream2::SetDepacketizerToDecoderFrameTransformer(
 void VideoReceiveStream2::SendNack(
     const std::vector<uint16_t>& sequence_numbers,
     bool buffering_allowed) {
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  // TODO(tommi): This is called from RtpVideoStreamReceiver
+  // (rtp_video_stream_receiver_ is ultimately responsible)
+  // It used to be called on either the worker thread or process, but is now
+  // called consistently from the worker thread.
+  // Update the below code to take this into account.
   RTC_DCHECK(buffering_allowed);
   rtp_video_stream_receiver_.RequestPacketRetransmit(sequence_numbers);
 }
 
 void VideoReceiveStream2::RequestKeyFrame(int64_t timestamp_ms) {
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  // TODO(tommi): This is called from RtpVideoStreamReceiver
+  // (rtp_video_stream_receiver_ is ultimately responsible)
+  // It used to be called on either the worker thread or process, but is now
+  // called consistently from the worker thread.
+  // Update the below code to take this into account.
   rtp_video_stream_receiver_.RequestKeyFrame();
   last_keyframe_request_ms_ = timestamp_ms;
 }

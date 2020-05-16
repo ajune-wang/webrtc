@@ -158,18 +158,22 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
   void GenerateKeyFrame() override;
 
  private:
-  int64_t GetWaitMs() const;
+  int64_t GetWaitMs() const RTC_RUN_ON(decode_queue_);
   void StartNextDecode() RTC_RUN_ON(decode_queue_);
   void HandleEncodedFrame(std::unique_ptr<video_coding::EncodedFrame> frame)
       RTC_RUN_ON(decode_queue_);
-  void HandleFrameBufferTimeout() RTC_RUN_ON(decode_queue_);
+  void HandleFrameBufferTimeout(int64_t now_ms, int64_t wait_ms)
+      RTC_RUN_ON(worker_sequence_checker_);
   void UpdatePlayoutDelays() const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(playout_delay_lock_);
-  void RequestKeyFrame(int64_t timestamp_ms) RTC_RUN_ON(decode_queue_);
-  void HandleKeyFrameGeneration(bool received_frame_is_keyframe, int64_t now_ms)
-      RTC_RUN_ON(decode_queue_);
+  void RequestKeyFrame(int64_t timestamp_ms)
+      RTC_RUN_ON(worker_sequence_checker_);
+  void HandleKeyFrameGeneration(bool received_frame_is_keyframe,
+                                int64_t now_ms,
+                                bool always_request_key_frame)
+      RTC_RUN_ON(worker_sequence_checker_);
   bool IsReceivingKeyFrame(int64_t timestamp_ms) const
-      RTC_RUN_ON(decode_queue_);
+      RTC_RUN_ON(worker_sequence_checker_);
 
   void UpdateHistograms();
 
@@ -216,7 +220,7 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
 
   // Whenever we are in an undecodable state (stream has just started or due to
   // a decoding error) we require a keyframe to restart the stream.
-  bool keyframe_required_ = true;
+  bool keyframe_required_ RTC_GUARDED_BY(decode_queue_) = true;
 
   // If we have successfully decoded any frame.
   bool frame_decoded_ = false;
@@ -249,7 +253,8 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
   std::function<void(const RecordableEncodedFrame&)>
       encoded_frame_buffer_function_ RTC_GUARDED_BY(decode_queue_);
   // Set to true while we're requesting keyframes but not yet received one.
-  bool keyframe_generation_requested_ RTC_GUARDED_BY(decode_queue_) = false;
+  bool keyframe_generation_requested_ RTC_GUARDED_BY(worker_sequence_checker_) =
+      false;
 
   // Defined last so they are destroyed before all other members.
   rtc::TaskQueue decode_queue_;

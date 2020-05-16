@@ -18,6 +18,8 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/task_queue.h"
+#include "rtc_base/thread.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
@@ -104,15 +106,25 @@ NackModule::NackModule(Clock* clock,
   RTC_DCHECK(clock_);
   RTC_DCHECK(nack_sender_);
   RTC_DCHECK(keyframe_request_sender_);
+  process_thread_checker_.Detach();
+
+  if (!TaskQueueBase::Current()) {
+    const auto* thread = rtc::Thread::Current();
+    if (!thread) {
+      RTC_CHECK(false) << "Neither tq nor thread";
+    }
+  }
 }
 
 int NackModule::OnReceivedPacket(uint16_t seq_num, bool is_keyframe) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   return OnReceivedPacket(seq_num, is_keyframe, false);
 }
 
 int NackModule::OnReceivedPacket(uint16_t seq_num,
                                  bool is_keyframe,
                                  bool is_recovered) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtc::CritScope lock(&crit_);
   // TODO(philipel): When the packet includes information whether it is
   //                 retransmitted or not, use that value instead. For
@@ -182,6 +194,7 @@ int NackModule::OnReceivedPacket(uint16_t seq_num,
 }
 
 void NackModule::ClearUpTo(uint16_t seq_num) {
+  // TODO(tommi): See RtpVideoStreamReceiver::FrameContinuous.
   rtc::CritScope lock(&crit_);
   nack_list_.erase(nack_list_.begin(), nack_list_.lower_bound(seq_num));
   keyframe_list_.erase(keyframe_list_.begin(),
@@ -191,23 +204,20 @@ void NackModule::ClearUpTo(uint16_t seq_num) {
 }
 
 void NackModule::UpdateRtt(int64_t rtt_ms) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtc::CritScope lock(&crit_);
   rtt_ms_ = rtt_ms;
 }
 
-void NackModule::Clear() {
-  rtc::CritScope lock(&crit_);
-  nack_list_.clear();
-  keyframe_list_.clear();
-  recovered_list_.clear();
-}
-
 int64_t NackModule::TimeUntilNextProcess() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   return std::max<int64_t>(next_process_time_ms_ - clock_->TimeInMilliseconds(),
                            0);
 }
 
 void NackModule::Process() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
+
   if (nack_sender_) {
     std::vector<uint16_t> nack_batch;
     {
@@ -237,6 +247,7 @@ void NackModule::Process() {
 }
 
 bool NackModule::RemovePacketsUntilKeyFrame() {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   while (!keyframe_list_.empty()) {
     auto it = nack_list_.lower_bound(*keyframe_list_.begin());
 
@@ -256,6 +267,7 @@ bool NackModule::RemovePacketsUntilKeyFrame() {
 
 void NackModule::AddPacketsToNack(uint16_t seq_num_start,
                                   uint16_t seq_num_end) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   // Remove old packets.
   auto it = nack_list_.lower_bound(seq_num_end - kMaxPacketAge);
   nack_list_.erase(nack_list_.begin(), it);
@@ -290,6 +302,8 @@ void NackModule::AddPacketsToNack(uint16_t seq_num_start,
 }
 
 std::vector<uint16_t> NackModule::GetNackBatch(NackFilterOptions options) {
+  // TODO(tommi): Currently called from the ProcessThread as well as the worker
+  // thread. Should only be worker.
   bool consider_seq_num = options != kTimeOnly;
   bool consider_timestamp = options != kSeqNumOnly;
   Timestamp now = clock_->CurrentTime();
@@ -335,12 +349,14 @@ std::vector<uint16_t> NackModule::GetNackBatch(NackFilterOptions options) {
 }
 
 void NackModule::UpdateReorderingStatistics(uint16_t seq_num) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   RTC_DCHECK(AheadOf(newest_seq_num_, seq_num));
   uint16_t diff = ReverseDiff(newest_seq_num_, seq_num);
   reordering_histogram_.Add(diff);
 }
 
 int NackModule::WaitNumberOfPackets(float probability) const {
+  // Called on worker_task_checker_;
   if (reordering_histogram_.NumValues() == 0)
     return 0;
   return reordering_histogram_.InverseCdf(probability);

@@ -18,32 +18,29 @@
 #include <vector>
 
 #include "api/units/time_delta.h"
-#include "modules/include/module.h"
 #include "modules/include/module_common_types.h"
 #include "modules/video_coding/histogram.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/numerics/sequence_number_util.h"
+#include "rtc_base/synchronization/sequence_checker.h"
+#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
-class NackModule : public Module {
+class NackModule {
  public:
   NackModule(Clock* clock,
              NackSender* nack_sender,
              KeyFrameRequestSender* keyframe_request_sender);
+  ~NackModule();
 
   int OnReceivedPacket(uint16_t seq_num, bool is_keyframe);
   int OnReceivedPacket(uint16_t seq_num, bool is_keyframe, bool is_recovered);
 
   void ClearUpTo(uint16_t seq_num);
   void UpdateRtt(int64_t rtt_ms);
-  void Clear();
-
-  // Module implementation
-  int64_t TimeUntilNextProcess() override;
-  void Process() override;
 
  private:
   // Which fields to consider when deciding which packet to nack in
@@ -94,7 +91,12 @@ class NackModule : public Module {
   // Returns how many packets we have to wait in order to receive the packet
   // with probability |probabilty| or higher.
   int WaitNumberOfPackets(float probability) const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(worker_task_checker_);
+
+  SequenceChecker worker_task_checker_;
+
+  // Used to regularly call SendNack if needed.
+  RepeatingTaskHandle repeating_task_ RTC_GUARDED_BY(worker_task_checker_);
 
   rtc::CriticalSection crit_;
   Clock* const clock_;
@@ -110,13 +112,11 @@ class NackModule : public Module {
       RTC_GUARDED_BY(crit_);
   std::set<uint16_t, DescendingSeqNumComp<uint16_t>> recovered_list_
       RTC_GUARDED_BY(crit_);
-  video_coding::Histogram reordering_histogram_ RTC_GUARDED_BY(crit_);
-  bool initialized_ RTC_GUARDED_BY(crit_);
+  video_coding::Histogram reordering_histogram_
+      RTC_GUARDED_BY(worker_task_checker_);
+  bool initialized_ RTC_GUARDED_BY(worker_task_checker_);
   int64_t rtt_ms_ RTC_GUARDED_BY(crit_);
   uint16_t newest_seq_num_ RTC_GUARDED_BY(crit_);
-
-  // Only touched on the process thread.
-  int64_t next_process_time_ms_;
 
   // Adds a delay before send nack on packet received.
   const int64_t send_nack_delay_ms_;

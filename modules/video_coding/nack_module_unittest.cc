@@ -18,6 +18,7 @@
 #include "system_wrappers/include/clock.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
+#include "test/run_loop.h"
 
 namespace webrtc {
 class TestNackModule : public ::testing::TestWithParam<bool>,
@@ -42,7 +43,13 @@ class TestNackModule : public ::testing::TestWithParam<bool>,
 
   void RequestKeyFrame() override { ++keyframes_requested_; }
 
+  void Flush() {
+    // nack_module_.Process();
+    loop_.Flush();
+  }
+
   static constexpr int64_t kDefaultRttMs = 20;
+  test::RunLoop loop_;
   std::unique_ptr<SimulatedClock> clock_;
   test::ScopedFieldTrials field_trial_;
   NackModule nack_module_;
@@ -89,7 +96,7 @@ TEST_P(TestNackModule, WrappingSeqNumClearToKeyframe) {
 
   sent_nacks_.clear();
   clock_->AdvanceTimeMilliseconds(100);
-  nack_module_.Process();
+  Flush();
   EXPECT_EQ(999u, sent_nacks_.size());
   EXPECT_EQ(0xffff, sent_nacks_[0]);
   EXPECT_EQ(0, sent_nacks_[1]);
@@ -109,7 +116,7 @@ TEST_P(TestNackModule, WrappingSeqNumClearToKeyframe) {
 
   sent_nacks_.clear();
   clock_->AdvanceTimeMilliseconds(100);
-  nack_module_.Process();
+  Flush();
   EXPECT_EQ(999u, sent_nacks_.size());
   for (int seq_num = 3; seq_num < 501; ++seq_num)
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 3]);
@@ -121,39 +128,12 @@ TEST_P(TestNackModule, WrappingSeqNumClearToKeyframe) {
   nack_module_.OnReceivedPacket(1007, false, false);
   sent_nacks_.clear();
   clock_->AdvanceTimeMilliseconds(100);
-  nack_module_.Process();
+  Flush();
   EXPECT_EQ(503u, sent_nacks_.size());
   for (int seq_num = 502; seq_num < 1001; ++seq_num)
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 502]);
   EXPECT_EQ(1005, sent_nacks_[501]);
   EXPECT_EQ(1006, sent_nacks_[502]);
-}
-
-TEST_P(TestNackModule, DontBurstOnTimeSkip) {
-  nack_module_.Process();
-  clock_->AdvanceTimeMilliseconds(20);
-  EXPECT_EQ(0, nack_module_.TimeUntilNextProcess());
-  nack_module_.Process();
-
-  clock_->AdvanceTimeMilliseconds(100);
-  EXPECT_EQ(0, nack_module_.TimeUntilNextProcess());
-  nack_module_.Process();
-  EXPECT_EQ(20, nack_module_.TimeUntilNextProcess());
-
-  clock_->AdvanceTimeMilliseconds(19);
-  EXPECT_EQ(1, nack_module_.TimeUntilNextProcess());
-  clock_->AdvanceTimeMilliseconds(2);
-  nack_module_.Process();
-  EXPECT_EQ(19, nack_module_.TimeUntilNextProcess());
-
-  clock_->AdvanceTimeMilliseconds(19);
-  EXPECT_EQ(0, nack_module_.TimeUntilNextProcess());
-  nack_module_.Process();
-
-  clock_->AdvanceTimeMilliseconds(21);
-  EXPECT_EQ(0, nack_module_.TimeUntilNextProcess());
-  nack_module_.Process();
-  EXPECT_EQ(19, nack_module_.TimeUntilNextProcess());
 }
 
 TEST_P(TestNackModule, ResendNack) {
@@ -167,16 +147,16 @@ TEST_P(TestNackModule, ResendNack) {
     // Retry has to wait at least 5ms by default.
     nack_module_.UpdateRtt(1);
     clock_->AdvanceTimeMilliseconds(4);
-    nack_module_.Process();  // Too early.
+    Flush();  // Too early.
     EXPECT_EQ(expected_nacks_sent, sent_nacks_.size());
 
     clock_->AdvanceTimeMilliseconds(1);
-    nack_module_.Process();  // Now allowed.
+    Flush();  // Now allowed.
     EXPECT_EQ(++expected_nacks_sent, sent_nacks_.size());
   } else {
     nack_module_.UpdateRtt(1);
     clock_->AdvanceTimeMilliseconds(1);
-    nack_module_.Process();  // Fast retransmit allowed.
+    Flush();  // Fast retransmit allowed.
     EXPECT_EQ(++expected_nacks_sent, sent_nacks_.size());
   }
 
@@ -193,19 +173,19 @@ TEST_P(TestNackModule, ResendNack) {
 
     // Move to one millisecond before next allowed NACK.
     clock_->AdvanceTimeMilliseconds(expected_backoff_delay.ms() - 1);
-    nack_module_.Process();
+    Flush();
     EXPECT_EQ(expected_nacks_sent, sent_nacks_.size());
 
     // Move to one millisecond after next allowed NACK.
     // After rather than on to avoid rounding errors.
     clock_->AdvanceTimeMilliseconds(2);
-    nack_module_.Process();  // Now allowed.
+    Flush();  // Now allowed.
     EXPECT_EQ(++expected_nacks_sent, sent_nacks_.size());
   }
 
   // Giving up after 10 tries.
   clock_->AdvanceTimeMilliseconds(3000);
-  nack_module_.Process();
+  Flush();
   EXPECT_EQ(expected_nacks_sent, sent_nacks_.size());
 }
 
@@ -220,12 +200,12 @@ TEST_P(TestNackModule, ResendPacketMaxRetries) {
     // Exponential backoff, so that we don't reject NACK because of time.
     clock_->AdvanceTimeMilliseconds(backoff_factor * kDefaultRttMs);
     backoff_factor *= 2;
-    nack_module_.Process();
+    Flush();
     EXPECT_EQ(retries + 1, sent_nacks_.size());
   }
 
   clock_->AdvanceTimeMilliseconds(backoff_factor * kDefaultRttMs);
-  nack_module_.Process();
+  Flush();
   EXPECT_EQ(10u, sent_nacks_.size());
 }
 
@@ -264,7 +244,7 @@ TEST_P(TestNackModule, ClearUpTo) {
   sent_nacks_.clear();
   clock_->AdvanceTimeMilliseconds(100);
   nack_module_.ClearUpTo(50);
-  nack_module_.Process();
+  Flush();
   EXPECT_EQ(50u, sent_nacks_.size());
   EXPECT_EQ(50, sent_nacks_[0]);
 }
@@ -277,7 +257,7 @@ TEST_P(TestNackModule, ClearUpToWrap) {
   sent_nacks_.clear();
   clock_->AdvanceTimeMilliseconds(100);
   nack_module_.ClearUpTo(0);
-  nack_module_.Process();
+  Flush();
   EXPECT_EQ(15u, sent_nacks_.size());
   EXPECT_EQ(0, sent_nacks_[0]);
 }
@@ -291,9 +271,9 @@ TEST_P(TestNackModule, PacketNackCount) {
   nack_module_.UpdateRtt(100);
   EXPECT_EQ(0, nack_module_.OnReceivedPacket(5, false, false));
   clock_->AdvanceTimeMilliseconds(100);
-  nack_module_.Process();
+  Flush();
   clock_->AdvanceTimeMilliseconds(125);
-  nack_module_.Process();
+  Flush();
   EXPECT_EQ(3, nack_module_.OnReceivedPacket(3, false, false));
   EXPECT_EQ(3, nack_module_.OnReceivedPacket(4, false, false));
   EXPECT_EQ(0, nack_module_.OnReceivedPacket(4, false, false));

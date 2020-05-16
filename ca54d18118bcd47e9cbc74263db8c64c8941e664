@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "76849cc9_9fd49305",
+        "filename": "rtc_base/platform_thread_types.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6196
+      },
+      "writtenOn": "2020-05-16T20:57:11Z",
+      "side": 1,
+      "message": "The equivalent code in Chromium base can be found here:\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:base/threading/platform_thread_win.cc;l\u003d244?q\u003dplatform_thread_win.cc\u0026ss\u003dchromium\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "parentUuid": "3060eb7e_67ac0380",
+      "revId": "ca54d18118bcd47e9cbc74263db8c64c8941e664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e0a9c13_fa4f6161",
         "filename": "rtc_base/platform_thread_types.cc",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "ca54d18118bcd47e9cbc74263db8c64c8941e664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "914e761d_425acab8",
+        "filename": "rtc_base/platform_thread_types.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6196
+      },
+      "writtenOn": "2020-05-16T20:57:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e0a9c13_fa4f6161",
+      "range": {
+        "startLine": 73,
+        "startChar": 27,
+        "endLine": 73,
+        "endChar": 54
+      },
+      "revId": "ca54d18118bcd47e9cbc74263db8c64c8941e664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "cf68565a_6d91d6d8",
+        "filename": "rtc_base/platform_thread_types.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6196
+      },
+      "writtenOn": "2020-05-16T20:57:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6daa68dc_ddf7f7e9",
+      "range": {
+        "startLine": 75,
+        "startChar": 10,
+        "endLine": 75,
+        "endChar": 30
+      },
+      "revId": "ca54d18118bcd47e9cbc74263db8c64c8941e664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "016c98e4_369cf52b",
         "filename": "rtc_base/platform_thread_types.cc",
         "patchSetId": 4
@@ -85,6 +151,30 @@
       "revId": "ca54d18118bcd47e9cbc74263db8c64c8941e664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc3e80c_ec17519d",
+        "filename": "rtc_base/platform_thread_types.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6196
+      },
+      "writtenOn": "2020-05-16T20:57:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "016c98e4_369cf52b",
+      "range": {
+        "startLine": 79,
+        "startChar": 56,
+        "endLine": 79,
+        "endChar": 57
+      },
+      "revId": "ca54d18118bcd47e9cbc74263db8c64c8941e664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

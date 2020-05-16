@@ -441,7 +441,6 @@ bool Thread::Peek(Message* pmsg, int cmsWait) {
 bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
   // Return and clear peek if present
   // Always return the peek if it exists so there is Peek/Get symmetry
-
   if (fPeekKeep_) {
     *pmsg = msgPeek_;
     fPeekKeep_ = false;
@@ -462,6 +461,7 @@ bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
       // All queue operations need to be locked, but nothing else in this loop
       // (specifically handling disposed message) can happen inside the crit.
       // Otherwise, disposed MessageHandlers will cause deadlocks.
+      bool popped_message = false;
       {
         CritScope cs(&crit_);
         // On the first pass, check for delayed messages that have been
@@ -482,6 +482,7 @@ bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
         if (messages_.empty()) {
           break;
         } else {
+          popped_message = true;
           *pmsg = messages_.front();
           messages_.pop_front();
         }
@@ -494,7 +495,9 @@ bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
         *pmsg = Message();
         continue;
       }
-      return true;
+
+      if (popped_message)
+        return true;
     }
 
     if (IsQuitting())

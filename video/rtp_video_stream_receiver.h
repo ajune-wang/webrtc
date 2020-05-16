@@ -241,6 +241,7 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
     void SendBufferedRtcpFeedback();
 
    private:
+    SequenceChecker worker_task_checker_;
     KeyFrameRequestSender* const key_frame_request_sender_;
     NackSender* const nack_sender_;
     LossNotificationSender* const loss_notification_sender_;

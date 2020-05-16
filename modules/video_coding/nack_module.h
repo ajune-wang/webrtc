@@ -23,6 +23,7 @@
 #include "modules/video_coding/histogram.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/numerics/sequence_number_util.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
 
@@ -96,6 +97,9 @@ class NackModule : public Module {
   int WaitNumberOfPackets(float probability) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
+  SequenceChecker process_thread_checker_;
+  SequenceChecker worker_task_checker_;
+
   rtc::CriticalSection crit_;
   Clock* const clock_;
   NackSender* const nack_sender_;
@@ -116,7 +120,7 @@ class NackModule : public Module {
   uint16_t newest_seq_num_ RTC_GUARDED_BY(crit_);
 
   // Only touched on the process thread.
-  int64_t next_process_time_ms_;
+  int64_t next_process_time_ms_ RTC_GUARDED_BY(process_thread_checker_);
 
   // Adds a delay before send nack on packet received.
   const int64_t send_nack_delay_ms_;

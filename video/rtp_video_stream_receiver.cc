@@ -121,6 +121,7 @@ RtpVideoStreamReceiver::RtcpFeedbackBuffer::RtcpFeedbackBuffer(
 }
 
 void RtpVideoStreamReceiver::RtcpFeedbackBuffer::RequestKeyFrame() {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtc::CritScope lock(&cs_);
   request_key_frame_ = true;
 }
@@ -128,6 +129,11 @@ void RtpVideoStreamReceiver::RtcpFeedbackBuffer::RequestKeyFrame() {
 void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendNack(
     const std::vector<uint16_t>& sequence_numbers,
     bool buffering_allowed) {
+  // TODO(tommi): This is called from the NackModule on two separate threads.
+  // 1. From the worker - which is ideal.
+  // 2. From the process thread due to a timer.
+  // When we get rid of the process thread, we probably don't need locking
+  // here.  Also consider the downstream code.
   RTC_DCHECK(!sequence_numbers.empty());
   rtc::CritScope lock(&cs_);
   nack_sequence_numbers_.insert(nack_sequence_numbers_.end(),
@@ -155,6 +161,9 @@ void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendLossNotification(
 }
 
 void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendBufferedRtcpFeedback() {
+  // TODO(tommi): This is currently called from two threads, worker and
+  // process thread via the nack module. See SendNack for more.
+
   bool request_key_frame = false;
   std::vector<uint16_t> nack_sequence_numbers;
   absl::optional<LossNotificationState> lntf_state;
@@ -924,6 +933,7 @@ void RtpVideoStreamReceiver::SetDepacketizerToDecoderFrameTransformer(
 }
 
 void RtpVideoStreamReceiver::UpdateRtt(int64_t max_rtt_ms) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (nack_module_)
     nack_module_->UpdateRtt(max_rtt_ms);
 }
@@ -964,6 +974,7 @@ void RtpVideoStreamReceiver::ManageFrame(
 }
 
 void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (packet.payload_size() == 0) {
     // Padding or keep-alive packet.
     // TODO(nisse): Could drop empty packets earlier, but need to figure out how
@@ -1013,6 +1024,7 @@ void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
 // RtpFrameReferenceFinder will need to know about padding to
 // correctly calculate frame references.
 void RtpVideoStreamReceiver::NotifyReceiverOfEmptyPacket(uint16_t seq_num) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   {
     rtc::CritScope lock(&reference_finder_lock_);
     reference_finder_->PaddingReceived(seq_num);

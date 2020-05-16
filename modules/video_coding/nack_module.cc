@@ -104,15 +104,18 @@ NackModule::NackModule(Clock* clock,
   RTC_DCHECK(clock_);
   RTC_DCHECK(nack_sender_);
   RTC_DCHECK(keyframe_request_sender_);
+  process_thread_checker_.Detach();
 }
 
 int NackModule::OnReceivedPacket(uint16_t seq_num, bool is_keyframe) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   return OnReceivedPacket(seq_num, is_keyframe, false);
 }
 
 int NackModule::OnReceivedPacket(uint16_t seq_num,
                                  bool is_keyframe,
                                  bool is_recovered) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtc::CritScope lock(&crit_);
   // TODO(philipel): When the packet includes information whether it is
   //                 retransmitted or not, use that value instead. For
@@ -191,6 +194,7 @@ void NackModule::ClearUpTo(uint16_t seq_num) {
 }
 
 void NackModule::UpdateRtt(int64_t rtt_ms) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtc::CritScope lock(&crit_);
   rtt_ms_ = rtt_ms;
 }
@@ -203,11 +207,14 @@ void NackModule::Clear() {
 }
 
 int64_t NackModule::TimeUntilNextProcess() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   return std::max<int64_t>(next_process_time_ms_ - clock_->TimeInMilliseconds(),
                            0);
 }
 
 void NackModule::Process() {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
+
   if (nack_sender_) {
     std::vector<uint16_t> nack_batch;
     {
@@ -237,6 +244,7 @@ void NackModule::Process() {
 }
 
 bool NackModule::RemovePacketsUntilKeyFrame() {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   while (!keyframe_list_.empty()) {
     auto it = nack_list_.lower_bound(*keyframe_list_.begin());
 
@@ -256,6 +264,7 @@ bool NackModule::RemovePacketsUntilKeyFrame() {
 
 void NackModule::AddPacketsToNack(uint16_t seq_num_start,
                                   uint16_t seq_num_end) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   // Remove old packets.
   auto it = nack_list_.lower_bound(seq_num_end - kMaxPacketAge);
   nack_list_.erase(nack_list_.begin(), it);

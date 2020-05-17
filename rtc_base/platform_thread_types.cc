@@ -65,7 +65,7 @@ void SetCurrentThreadName(const char* name) {
   // The SetThreadDescription API works even if no debugger is attached.
   // The names set with this API also show up in ETW traces. Very handy.
   static auto set_thread_description_func =
-      reinterpret_cast<decltype(&::SetThreadDescription)>(::GetProcAddress(
+      reinterpret_cast<decltype(&SetThreadDescription)>(::GetProcAddress(
           ::GetModuleHandleA("Kernel32.dll"), "SetThreadDescription"));
   if (set_thread_description_func) {
     // Convert from ASCII to UTF-16.

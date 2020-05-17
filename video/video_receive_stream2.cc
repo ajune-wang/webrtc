@@ -522,11 +522,15 @@ void VideoReceiveStream2::SetDepacketizerToDecoderFrameTransformer(
 void VideoReceiveStream2::SendNack(
     const std::vector<uint16_t>& sequence_numbers,
     bool buffering_allowed) {
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   RTC_DCHECK(buffering_allowed);
   rtp_video_stream_receiver_.RequestPacketRetransmit(sequence_numbers);
 }
 
 void VideoReceiveStream2::RequestKeyFrame(int64_t timestamp_ms) {
+  // Running on worker_sequence_checker_.
+  // Called from RtpVideoStreamReceiver (rtp_video_stream_receiver_ is
+  // ultimately responsible).
   rtp_video_stream_receiver_.RequestKeyFrame();
   last_keyframe_request_ms_ = timestamp_ms;
 }
@@ -615,6 +619,7 @@ int64_t VideoReceiveStream2::GetWaitMs() const {
 }
 
 void VideoReceiveStream2::StartNextDecode() {
+  // Running on the decode thread.
   TRACE_EVENT0("webrtc", "VideoReceiveStream2::StartNextDecode");
   frame_buffer_->NextFrame(
       GetWaitMs(), keyframe_required_, &decode_queue_,
@@ -629,7 +634,12 @@ void VideoReceiveStream2::StartNextDecode() {
           if (frame) {
             HandleEncodedFrame(std::move(frame));
           } else {
-            HandleFrameBufferTimeout();
+            int64_t now_ms = clock_->TimeInMilliseconds();
+            worker_thread_->PostTask(ToQueuedTask(
+                task_safety_, [this, now_ms, wait_ms = GetWaitMs()]() {
+                  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+                  HandleFrameBufferTimeout(now_ms, wait_ms);
+                }));
           }
           StartNextDecode();
         });
@@ -649,8 +659,9 @@ void VideoReceiveStream2::HandleEncodedFrame(
     }
   }
   stats_proxy_.OnPreDecode(frame->CodecSpecific()->codecType, qp);
-  HandleKeyFrameGeneration(frame->FrameType() == VideoFrameType::kVideoFrameKey,
-                           now_ms);
+
+  bool force_request_key_frame = false;
+
   int decode_result = video_receiver_.Decode(frame.get());
   if (decode_result == WEBRTC_VIDEO_CODEC_OK ||
       decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME) {
@@ -659,14 +670,25 @@ void VideoReceiveStream2::HandleEncodedFrame(
     rtp_video_stream_receiver_.FrameDecoded(frame->id.picture_id);
 
     if (decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME)
-      RequestKeyFrame(now_ms);
+      force_request_key_frame = true;
   } else if (!frame_decoded_ || !keyframe_required_ ||
              (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_ < now_ms)) {
     keyframe_required_ = true;
     // TODO(philipel): Remove this keyframe request when downstream project
     //                 has been fixed.
-    RequestKeyFrame(now_ms);
+    force_request_key_frame = true;
   }
+
+  bool received_frame_is_keyframe =
+      frame->FrameType() == VideoFrameType::kVideoFrameKey;
+
+  worker_thread_->PostTask(ToQueuedTask(
+      task_safety_,
+      [this, now_ms, received_frame_is_keyframe, force_request_key_frame]() {
+        RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+        HandleKeyFrameGeneration(received_frame_is_keyframe, now_ms,
+                                 force_request_key_frame);
+      }));
 
   if (encoded_frame_buffer_function_) {
     frame->Retain();
@@ -676,48 +698,55 @@ void VideoReceiveStream2::HandleEncodedFrame(
 
 void VideoReceiveStream2::HandleKeyFrameGeneration(
     bool received_frame_is_keyframe,
-    int64_t now_ms) {
+    int64_t now_ms,
+    bool always_request_key_frame) {
+  // Running on worker_sequence_checker_.
+
+  bool request_key_frame = always_request_key_frame;
+
   // Repeat sending keyframe requests if we've requested a keyframe.
-  if (!keyframe_generation_requested_) {
-    return;
-  }
-  if (received_frame_is_keyframe) {
-    keyframe_generation_requested_ = false;
-  } else if (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_ <= now_ms) {
-    if (!IsReceivingKeyFrame(now_ms)) {
-      RequestKeyFrame(now_ms);
+  if (keyframe_generation_requested_) {
+    if (received_frame_is_keyframe) {
+      keyframe_generation_requested_ = false;
+    } else if (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_ <=
+               now_ms) {
+      if (!IsReceivingKeyFrame(now_ms)) {
+        request_key_frame = true;
+      }
+    } else {
+      // It hasn't been long enough since the last keyframe request, do nothing.
     }
-  } else {
-    // It hasn't been long enough since the last keyframe request, do nothing.
+  }
+
+  if (request_key_frame) {
+    RequestKeyFrame(now_ms);
   }
 }
 
-void VideoReceiveStream2::HandleFrameBufferTimeout() {
-  // Running on |decode_queue_|.
-  int64_t now_ms = clock_->TimeInMilliseconds();
+void VideoReceiveStream2::HandleFrameBufferTimeout(int64_t now_ms,
+                                                   int64_t wait_ms) {
+  // Running on |worker_sequence_checker_|.
   absl::optional<int64_t> last_packet_ms =
       rtp_video_stream_receiver_.LastReceivedPacketMs();
 
   // To avoid spamming keyframe requests for a stream that is not active we
   // check if we have received a packet within the last 5 seconds.
-  bool stream_is_active = last_packet_ms && now_ms - *last_packet_ms < 5000;
-  if (!stream_is_active) {
-    worker_thread_->PostTask(ToQueuedTask(task_safety_, [this]() {
-      RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
-      stats_proxy_.OnStreamInactive();
-    }));
-  }
+  const bool stream_is_active =
+      last_packet_ms && now_ms - *last_packet_ms < 5000;
+  if (!stream_is_active)
+    stats_proxy_.OnStreamInactive();
 
   if (stream_is_active && !IsReceivingKeyFrame(now_ms) &&
       (!config_.crypto_options.sframe.require_frame_encryption ||
        rtp_video_stream_receiver_.IsDecryptable())) {
-    RTC_LOG(LS_WARNING) << "No decodable frame in " << GetWaitMs()
+    RTC_LOG(LS_WARNING) << "No decodable frame in " << wait_ms
                         << " ms, requesting keyframe.";
     RequestKeyFrame(now_ms);
   }
 }
 
 bool VideoReceiveStream2::IsReceivingKeyFrame(int64_t timestamp_ms) const {
+  // Running on worker_sequence_checker_.
   absl::optional<int64_t> last_keyframe_packet_ms =
       rtp_video_stream_receiver_.LastReceivedKeyframePacketMs();
 
@@ -753,35 +782,35 @@ VideoReceiveStream2::SetAndGetRecordingState(RecordingState state,
   RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
   rtc::Event event;
   RecordingState old_state;
-  decode_queue_.PostTask([this, &event, &old_state, generate_key_frame,
-                          state = std::move(state)] {
-    RTC_DCHECK_RUN_ON(&decode_queue_);
-    // Save old state.
-    old_state.callback = std::move(encoded_frame_buffer_function_);
-    old_state.keyframe_needed = keyframe_generation_requested_;
-    old_state.last_keyframe_request_ms = last_keyframe_request_ms_;
 
-    // Set new state.
-    encoded_frame_buffer_function_ = std::move(state.callback);
-    if (generate_key_frame) {
-      RequestKeyFrame(clock_->TimeInMilliseconds());
-      keyframe_generation_requested_ = true;
-    } else {
-      keyframe_generation_requested_ = state.keyframe_needed;
-      last_keyframe_request_ms_ = state.last_keyframe_request_ms.value_or(0);
-    }
-    event.Set();
-  });
+  // Save old state, set the new state.
+  old_state.keyframe_needed = keyframe_generation_requested_;
+  old_state.last_keyframe_request_ms = last_keyframe_request_ms_;
+
+  decode_queue_.PostTask(
+      [this, &event, &old_state, callback = std::move(state.callback)] {
+        RTC_DCHECK_RUN_ON(&decode_queue_);
+        old_state.callback = std::move(encoded_frame_buffer_function_);
+        encoded_frame_buffer_function_ = std::move(callback);
+        event.Set();
+      });
+
+  if (generate_key_frame) {
+    RequestKeyFrame(clock_->TimeInMilliseconds());
+    keyframe_generation_requested_ = true;
+  } else {
+    keyframe_generation_requested_ = state.keyframe_needed;
+    last_keyframe_request_ms_ = state.last_keyframe_request_ms.value_or(0);
+  }
+
   event.Wait(rtc::Event::kForever);
   return old_state;
 }
 
 void VideoReceiveStream2::GenerateKeyFrame() {
-  decode_queue_.PostTask([this]() {
-    RTC_DCHECK_RUN_ON(&decode_queue_);
-    RequestKeyFrame(clock_->TimeInMilliseconds());
-    keyframe_generation_requested_ = true;
-  });
+  RTC_DCHECK_RUN_ON(&worker_sequence_checker_);
+  RequestKeyFrame(clock_->TimeInMilliseconds());
+  keyframe_generation_requested_ = true;
 }
 
 }  // namespace internal

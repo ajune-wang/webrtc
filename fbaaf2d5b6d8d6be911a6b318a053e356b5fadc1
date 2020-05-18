@@ -140,6 +140,30 @@
       "revId": "fbaaf2d5b6d8d6be911a6b318a053e356b5fadc1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a513355d_4130e977",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-18T22:31:20Z",
+      "side": 1,
+      "message": "Less state, smaller scope - easier to follow code.\nso yes, I also prefer this variable removed.",
+      "parentUuid": "0569d179_d6918edb",
+      "range": {
+        "startLine": 211,
+        "startChar": 51,
+        "endLine": 211,
+        "endChar": 61
+      },
+      "revId": "fbaaf2d5b6d8d6be911a6b318a053e356b5fadc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

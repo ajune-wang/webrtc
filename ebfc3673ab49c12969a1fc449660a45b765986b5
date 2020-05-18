@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7fc49dc_c0987537",
+        "filename": "rtc_base/task_utils/repeating_task.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-18T11:33:09Z",
+      "side": 1,
+      "message": "If we fall back to Clock::GetRealtimeClock() we don\u0027t need this.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 1
+      },
+      "revId": "ebfc3673ab49c12969a1fc449660a45b765986b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd432c0a_9ba9d17b",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-18T11:33:09Z",
+      "side": 1,
+      "message": "Can we fall back to Clock::GetRealTimeClock()? That way we don\u0027t need to special case things.",
+      "range": {
+        "startLine": 58,
+        "startChar": 51,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "ebfc3673ab49c12969a1fc449660a45b765986b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "952829df_cdb66eea",
+        "filename": "rtc_base/task_utils/repeating_task_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-18T11:33:09Z",
+      "side": 1,
+      "message": "If you use SimulatedTimeController to create a simulated task queue, you can avoid a bunch of the boiler plate (and avoid the clock injection if you want to)",
+      "range": {
+        "startLine": 253,
+        "startChar": 1,
+        "endLine": 253,
+        "endChar": 37
+      },
+      "revId": "ebfc3673ab49c12969a1fc449660a45b765986b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

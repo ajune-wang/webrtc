@@ -16,6 +16,7 @@
 #define WEBRTC_USE_EPOLL 1
 #endif
 
+#include <array>
 #include <memory>
 #include <set>
 #include <vector>
@@ -24,6 +25,7 @@
 #include "rtc_base/net_helpers.h"
 #include "rtc_base/socket_server.h"
 #include "rtc_base/system/rtc_export.h"
+#include "rtc_base/thread_checker.h"
 
 #if defined(WEBRTC_POSIX)
 typedef int SOCKET;
@@ -80,6 +82,9 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   void Update(Dispatcher* dispatcher);
 
  private:
+  // The number of events to process with one call to "epoll_wait".
+  static constexpr size_t kNumEpollEvents = 128;
+
   typedef std::set<Dispatcher*> DispatcherSet;
 
   void AddRemovePendingDispatchers();
@@ -94,8 +99,9 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   bool WaitEpoll(int cms);
   bool WaitPoll(int cms, Dispatcher* dispatcher);
 
+  std::array<struct epoll_event, kNumEpollEvents> epoll_events_
+      RTC_GUARDED_BY(wait_thread_checker_);
   const int epoll_fd_ = INVALID_SOCKET;
-  std::vector<struct epoll_event> epoll_events_;
 #endif  // WEBRTC_USE_EPOLL
   DispatcherSet dispatchers_;
   DispatcherSet pending_add_dispatchers_;
@@ -107,6 +113,7 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   const WSAEVENT socket_ev_;
 #endif
   bool fWait_;
+  rtc::ThreadChecker wait_thread_checker_;
 };
 
 class PhysicalSocket : public AsyncSocket, public sigslot::has_slots<> {

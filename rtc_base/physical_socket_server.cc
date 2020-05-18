@@ -1180,6 +1180,7 @@ void PhysicalSocketServer::AddRemovePendingDispatchers() {
 #if defined(WEBRTC_POSIX)
 
 bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
+  RTC_DCHECK_RUN_ON(&wait_thread_checker_);
 #if defined(WEBRTC_USE_EPOLL)
   // We don't keep a dedicated "epoll" descriptor containing only the non-IO
   // (i.e. signaling) dispatcher, so "poll" will be used instead of the default
@@ -1365,12 +1366,6 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
 
 #if defined(WEBRTC_USE_EPOLL)
 
-// Initial number of events to process with one call to "epoll_wait".
-static const size_t kInitialEpollEvents = 128;
-
-// Maximum number of events to process with one call to "epoll_wait".
-static const size_t kMaxEpollEvents = 8192;
-
 void PhysicalSocketServer::AddEpoll(Dispatcher* pdispatcher) {
   RTC_DCHECK(epoll_fd_ != INVALID_SOCKET);
   int fd = pdispatcher->GetDescriptor();
@@ -1437,20 +1432,14 @@ bool PhysicalSocketServer::WaitEpoll(int cmsWait) {
     tvStop = TimeAfter(cmsWait);
   }
 
-  if (epoll_events_.empty()) {
-    // The initial space to receive events is created only if epoll is used.
-    epoll_events_.resize(kInitialEpollEvents);
-  }
-
   fWait_ = true;
-
   while (fWait_) {
     // Wait then call handlers as appropriate
     // < 0 means error
     // 0 means timeout
     // > 0 means count of descriptors ready
-    int n = epoll_wait(epoll_fd_, &epoll_events_[0],
-                       static_cast<int>(epoll_events_.size()),
+    RTC_DCHECK_RUN_ON(&wait_thread_checker_);
+    int n = epoll_wait(epoll_fd_, &epoll_events_[0], epoll_events_.size(),
                        static_cast<int>(tvWait));
     if (n < 0) {
       if (errno != EINTR) {
@@ -1481,13 +1470,6 @@ bool PhysicalSocketServer::WaitEpoll(int cmsWait) {
 
         ProcessEvents(pdispatcher, readable, writable, check_error);
       }
-    }
-
-    if (static_cast<size_t>(n) == epoll_events_.size() &&
-        epoll_events_.size() < kMaxEpollEvents) {
-      // We used the complete space to receive events, increase size for future
-      // iterations.
-      epoll_events_.resize(std::max(epoll_events_.size() * 2, kMaxEpollEvents));
     }
 
     if (cmsWait != kForever) {
@@ -1575,6 +1557,7 @@ bool PhysicalSocketServer::WaitPoll(int cmsWait, Dispatcher* dispatcher) {
 
 #if defined(WEBRTC_WIN)
 bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
+  RTC_DCHECK_RUN_ON(&wait_thread_checker_);
   int64_t cmsTotal = cmsWait;
   int64_t cmsElapsed = 0;
   int64_t msStart = Time();

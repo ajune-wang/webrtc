@@ -45,6 +45,30 @@
       "revId": "d233996edcd39472cd86d964dff321fa4a82dfd8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17dc967a_c2f6ccf9",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1443,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-18T12:03:57Z",
+      "side": 1,
+      "message": "I looked into who calls Wait, and seeing that it can be called from Thread::Send, it\u0027s clear that this would increase stacks by 2KB which is unnecessary. See the update for a std::array member solution instead.\n\n\u003e What are the consequences...\nFrom epoll_wait manpage:\n       \"If  more than maxevents file descriptors are ready when epoll_wait() is called, then successive epoll_wait() calls will round robin through the set of ready file descriptors.  This behavior helps avoid starvation scenar‐\n       ios, where a process fails to notice that additional file descriptors are ready because it focuses on a set of file descriptors that are already known to be ready.\"",
+      "parentUuid": "38b7b29e_97cc42d4",
+      "range": {
+        "startLine": 1443,
+        "startChar": 0,
+        "endLine": 1443,
+        "endChar": 47
+      },
+      "revId": "d233996edcd39472cd86d964dff321fa4a82dfd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

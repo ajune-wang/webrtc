@@ -46,6 +46,30 @@
       "revId": "35714474108a2e38b464757327bcd3c79985c5de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8547f33_4b63c55a",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-18T15:15:59Z",
+      "side": 1,
+      "message": "Looks like it\u0027s called from the public Wait method, part of the SocketServer class. Main use seems to be from Thread::Run via Thread::ProcessMessages (a public method!), but other callers could be a problem. When you tried adding a thread checker (or it seems it should be SequenceChecker now), did you call Detach() from the constructor?\n\nDocumenting usage for now is good enough for me.",
+      "parentUuid": "51fb1252_b6640a66",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "35714474108a2e38b464757327bcd3c79985c5de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

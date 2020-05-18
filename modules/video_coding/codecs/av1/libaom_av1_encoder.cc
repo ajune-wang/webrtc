@@ -12,6 +12,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <algorithm>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -25,6 +26,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/codecs/av1/scalable_video_controller.h"
 #include "modules/video_coding/codecs/av1/scalable_video_controller_no_layering.h"
+#include "modules/video_coding/codecs/av1/video_encoder_light.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
 #include "rtc_base/checks.h"
@@ -48,7 +50,26 @@ constexpr int kLagInFrames = 0;  // No look ahead.
 constexpr int kRtpTicksPerSecond = 90000;
 constexpr float kMinimumFrameRate = 1.0;
 
-class LibaomAv1Encoder final : public VideoEncoder {
+// Name of the AV1 buffer slots.
+// Use UPPER_CASE style for this enum to match how slots are names in spec and
+// in the aom implmentation.
+enum : int {
+  LAST_FRAME = 0,
+  LAST2_FRAME = 1,
+  LAST3_FRAME = 2,
+  GOLDEN_FRAME = 3,
+};
+constexpr aom_enc_frame_flags_t kNoRefFlagName[] = {
+    AOM_EFLAG_NO_REF_LAST,
+    AOM_EFLAG_NO_REF_LAST2,
+    AOM_EFLAG_NO_REF_LAST3,
+    AOM_EFLAG_NO_REF_GF,
+};
+constexpr aom_enc_frame_flags_t kNoReferences =
+    AOM_EFLAG_NO_REF_LAST | AOM_EFLAG_NO_REF_LAST2 | AOM_EFLAG_NO_REF_LAST3 |
+    AOM_EFLAG_NO_REF_GF;
+
+class LibaomAv1Encoder final : public VideoEncoder, public VideoEncoderLight {
  public:
   explicit LibaomAv1Encoder(
       std::unique_ptr<ScalableVideoController> svc_controller);
@@ -69,9 +90,17 @@ class LibaomAv1Encoder final : public VideoEncoder {
 
   EncoderInfo GetEncoderInfo() const override;
 
+  // Light? interface.
+  void Reset() override { keyframe_required_ = true; }
+  void Configure(ScalableVideoController::StreamLayersConfig config) override;
+  bool Encode(const VideoFrame& frame,
+              std::vector<ScalableVideoController::LayerFrameConfig> metadata,
+              std::function<void(EncodedFrameLight)> on_encoded) override;
+
  private:
   const std::unique_ptr<ScalableVideoController> svc_controller_;
   bool inited_;
+  bool svc_enabled_ = false;
   bool keyframe_required_;
   VideoCodec encoder_settings_;
   aom_image_t* frame_for_encode_;
@@ -112,7 +141,7 @@ LibaomAv1Encoder::LibaomAv1Encoder(
       keyframe_required_(true),
       frame_for_encode_(nullptr),
       encoded_image_callback_(nullptr) {
-  RTC_DCHECK(svc_controller_);
+  //  RTC_DCHECK(svc_controller_);
 }
 
 LibaomAv1Encoder::~LibaomAv1Encoder() {
@@ -214,10 +243,7 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
 
-  ScalableVideoController::StreamLayersConfig svc_config =
-      svc_controller_->StreamConfig();
-  // TODO(danilchap): Configure SVC.
-  (void)svc_config;
+  Configure(svc_controller_->StreamConfig());
 
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -239,6 +265,163 @@ int32_t LibaomAv1Encoder::Release() {
     }
     inited_ = false;
   }
+  return WEBRTC_VIDEO_CODEC_OK;
+}
+
+void LibaomAv1Encoder::Configure(
+    ScalableVideoController::StreamLayersConfig svc_config) {
+  svc_enabled_ =
+      svc_config.num_spatial_layers > 1 || svc_config.num_temporal_layers > 1;
+  aom_svc_params_t svc_params = {};
+  svc_params.number_spatial_layers = svc_config.num_spatial_layers;
+  svc_params.number_temporal_layers = svc_config.num_temporal_layers;
+  // Assume framerate doubles per temporal layer;
+  for (int tid = 0; tid < svc_config.num_temporal_layers; ++tid) {
+    svc_params.framerate_factor[tid] =
+        1 << (svc_config.num_temporal_layers - 1 - tid);
+  }
+  // TODO(danilchap): Add support for 1.5 factor for resolution scaling.
+  for (int sid = 0; sid < svc_config.num_spatial_layers; ++sid) {
+    svc_params.scaling_factor_num[sid] = 1;
+    svc_params.scaling_factor_den[sid] =
+        1 << (svc_config.num_spatial_layers - 1 - sid);
+  }
+  aom_codec_control(&ctx_, AV1E_SET_SVC_PARAMS, &svc_params);
+}
+
+bool LibaomAv1Encoder::Encode(
+    const VideoFrame& frame,
+    std::vector<ScalableVideoController::LayerFrameConfig> frame_configs,
+    std::function<void(EncodedFrameLight encoded_frame)> on_encoded) {
+  if (!inited_) {
+    return false;
+  }
+
+  // Convert input frame to I420, if needed.
+  VideoFrame prepped_input_frame = frame;
+  if (prepped_input_frame.video_frame_buffer()->type() !=
+      VideoFrameBuffer::Type::kI420) {
+    rtc::scoped_refptr<I420BufferInterface> converted_buffer(
+        prepped_input_frame.video_frame_buffer()->ToI420());
+    prepped_input_frame = VideoFrame(converted_buffer, frame.timestamp(),
+                                     frame.render_time_ms(), frame.rotation());
+  }
+
+  // Set frame_for_encode_ data pointers and strides.
+  auto i420_buffer = prepped_input_frame.video_frame_buffer()->GetI420();
+  frame_for_encode_->planes[AOM_PLANE_Y] =
+      const_cast<unsigned char*>(i420_buffer->DataY());
+  frame_for_encode_->planes[AOM_PLANE_U] =
+      const_cast<unsigned char*>(i420_buffer->DataU());
+  frame_for_encode_->planes[AOM_PLANE_V] =
+      const_cast<unsigned char*>(i420_buffer->DataV());
+  frame_for_encode_->stride[AOM_PLANE_Y] = i420_buffer->StrideY();
+  frame_for_encode_->stride[AOM_PLANE_U] = i420_buffer->StrideU();
+  frame_for_encode_->stride[AOM_PLANE_V] = i420_buffer->StrideV();
+
+  const uint32_t duration =
+      kRtpTicksPerSecond / static_cast<float>(encoder_settings_.maxFramerate);
+
+  for (const ScalableVideoController::LayerFrameConfig& layer : frame_configs) {
+    aom_enc_frame_flags_t flags = 0;
+    if (layer.is_keyframe) {
+      flags |= AOM_EFLAG_FORCE_KF;
+    }
+
+    if (svc_enabled_) {
+      aom_svc_layer_id_t layer_id = {};
+      layer_id.temporal_layer_id = layer.temporal_id;
+      layer_id.spatial_layer_id = layer.spatial_id;
+      aom_codec_control(&ctx_, AV1E_SET_SVC_LAYER_ID, &layer_id);
+
+      aom_svc_ref_frame_config_t ref_frame_config = {};
+      flags = kNoReferences;
+      for (size_t i = 0; i < ABSL_ARRAYSIZE(ref_frame_config.ref_idx); ++i) {
+        ref_frame_config.ref_idx[i] = i;
+      }
+      for (size_t slot_name = 0; slot_name < layer.buffers.size();
+           ++slot_name) {
+        const CodecBufferUsage& buffer = layer.buffers[slot_name];
+        if (buffer.id < 0 || buffer.id >= int{ABSL_ARRAYSIZE(kNoRefFlagName)}) {
+          RTC_LOG(LS_ERROR) << "Invalid slot index " << buffer.id
+                            << " for buffer " << slot_name;
+        }
+        ref_frame_config.ref_idx[slot_name] = buffer.id;
+        if (buffer.referenced) {
+          flags &= ~kNoRefFlagName[slot_name];
+        }
+        if (buffer.updated) {
+          ref_frame_config.refresh[buffer.id] = 1;
+        }
+      }
+      aom_codec_control(&ctx_, AV1E_SET_SVC_REF_FRAME_CONFIG,
+                        &ref_frame_config);
+    }
+
+    EncodedFrameLight encoded_image;
+    encoded_image.config = layer;
+
+    // Encode a frame.
+    aom_codec_err_t ret = aom_codec_encode(&ctx_, frame_for_encode_,
+                                           frame.timestamp(), duration, flags);
+    if (ret != AOM_CODEC_OK) {
+      RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encode returned " << ret
+                          << " on aom_codec_encode.";
+      encoded_image.bitstream = nullptr;
+      on_encoded(encoded_image);
+      return WEBRTC_VIDEO_CODEC_ERROR;
+    }
+
+    aom_codec_iter_t iter = nullptr;
+    bool encoded = false;
+    while (const aom_codec_cx_pkt_t* pkt =
+               aom_codec_get_cx_data(&ctx_, &iter)) {
+      if (pkt->kind == AOM_CODEC_CX_FRAME_PKT && pkt->data.frame.sz > 0) {
+        if (encoded) {
+          RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encoder returned more than "
+                                 "one data packet for an input video frame.";
+          Release();
+        }
+        // TODO(bugs.webrtc.org/11174): Remove this hack when
+        // webrtc_pc_e2e::SingleProcessEncodedImageDataInjector not used or
+        // fixed not to assume that encoded image transfered as is.
+        const uint8_t* data = static_cast<const uint8_t*>(pkt->data.frame.buf);
+        size_t size = pkt->data.frame.sz;
+        if (size > 2 && data[0] == 0b0'0010'010 && data[1] == 0) {
+          // Typically frame starts with a Temporal Delimter OBU of size 0 that
+          // is not need by any component in webrtc and discarded during rtp
+          // packetization. Before discarded it confuses test framework that
+          // assumes received encoded frame is exactly same as sent frame.
+          data += 2;
+          size -= 2;
+        }
+        encoded_image.bitstream = EncodedImageBuffer::Create(data, size);
+        encoded_image.config.is_keyframe =
+            (pkt->data.frame.flags & AOM_EFLAG_FORCE_KF) != 0;
+        if (encoded_image.config.is_keyframe) {
+          for (CodecBufferUsage& buffer : encoded_image.config.buffers) {
+            buffer.referenced = false;
+          }
+        }
+        ret = aom_codec_control(&ctx_, AOME_GET_LAST_QUANTIZER,
+                                &encoded_image.qp);
+        if (ret != AOM_CODEC_OK) {
+          RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encode returned " << ret
+                              << " on control AOME_GET_LAST_QUANTIZER.";
+          return false;
+        }
+        on_encoded(encoded_image);
+        encoded = true;
+      }
+    }
+    if (!encoded) {
+      // Notify frame was dropped.
+      encoded_image.bitstream = nullptr;
+      on_encoded(encoded_image);
+      return WEBRTC_VIDEO_CODEC_ERROR;
+    }
+  }
+
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
@@ -286,14 +469,46 @@ int32_t LibaomAv1Encoder::Encode(
   const uint32_t duration =
       kRtpTicksPerSecond / static_cast<float>(encoder_settings_.maxFramerate);
 
-  // TODO(danilchap): Remove this checks when layering is implemented.
-  RTC_DCHECK_EQ(layer_frames.size(), 1);
   for (ScalableVideoController::LayerFrameConfig& layer_frame : layer_frames) {
     aom_enc_frame_flags_t flags =
         layer_frame.is_keyframe ? AOM_EFLAG_FORCE_KF : 0;
 
-    // TODO(danilchap): configure buffers and layers based on
-    // `layer_frame.buffers` when layering is enabled.
+    if (svc_enabled_) {
+      aom_svc_layer_id_t layer_id = {};
+      layer_id.temporal_layer_id = layer_frame.temporal_id;
+      layer_id.spatial_layer_id = layer_frame.spatial_id;
+      aom_codec_control(&ctx_, AV1E_SET_SVC_LAYER_ID, &layer_id);
+
+      aom_svc_ref_frame_config_t ref_frame_config;
+      memset(&ref_frame_config, 0, sizeof(ref_frame_config));
+
+      static constexpr int kPreferedBufferNames[] = {
+          0,  // LAST_FRAME
+          3,  // GOLDEN_FRAME
+          1,  // LAST2_FRAME
+      };
+
+      flags = kNoReferences;
+      RTC_CHECK_LE(layer_frame.buffers.size(),
+                   ABSL_ARRAYSIZE(kPreferedBufferNames));
+      for (size_t i = 0; i < layer_frame.buffers.size(); ++i) {
+        const CodecBufferUsage& buffer = layer_frame.buffers[i];
+        if (buffer.id < 0 || buffer.id >= 8) {
+          RTC_LOG(LS_ERROR)
+              << "Invalid buffer index " << buffer.id << " for AV1 encoder.";
+        }
+        int slot_name = kPreferedBufferNames[i];
+        if (buffer.referenced) {
+          flags &= ~kNoRefFlagName[slot_name];
+          ref_frame_config.ref_idx[slot_name] = buffer.id;
+        }
+        if (buffer.updated) {
+          ref_frame_config.refresh[buffer.id] = 1;
+        }
+      }
+      aom_codec_control(&ctx_, AV1E_SET_SVC_REF_FRAME_CONFIG,
+                        &ref_frame_config);
+    }
 
     // Encode a frame.
     aom_codec_err_t ret = aom_codec_encode(&ctx_, frame_for_encode_,
@@ -428,6 +643,10 @@ VideoEncoder::EncoderInfo LibaomAv1Encoder::GetEncoderInfo() const {
 }  // namespace
 
 const bool kIsLibaomAv1EncoderSupported = true;
+
+std::unique_ptr<VideoEncoderLight> CreateLibaomAv1EncoderLight() {
+  return std::make_unique<LibaomAv1Encoder>(nullptr);
+}
 
 std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder() {
   return std::make_unique<LibaomAv1Encoder>(

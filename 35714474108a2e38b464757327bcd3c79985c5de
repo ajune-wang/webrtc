@@ -70,6 +70,30 @@
       "revId": "35714474108a2e38b464757327bcd3c79985c5de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d5e0cea_13eda7f1",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-18T19:43:20Z",
+      "side": 1,
+      "message": "Yes, used Detach() eventually.\nUnfortunately, it seems that SocketServers can outsurvive threads and be attached to new threads, as they\u0027re used in nat_unittest.cc. Actually there aren\u0027t any guarantees that the same SocketServer isn\u0027t ending up getting used by several threads concurrently, although I really don\u0027t see the use of that (it should really be enforced somehow IMHO and would be caught by TSAN). I think the best at this point is to just document that it\u0027s accessed in isolation.",
+      "parentUuid": "f8547f33_4b63c55a",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "35714474108a2e38b464757327bcd3c79985c5de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c7175b0_b32ea67a",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-05-18T11:33:03Z",
+      "side": 1,
+      "message": "The first thing that happens in this call (AecDumpBasedSimulator::Process() [1] and WavBasedSimulator::Process() [2]) is that APM is created inside AudioProcessingSimulator::CreateAudioProcessor(). This creation only appears to require `settings_` and `ap_builder`.\n\nWhat do you think about making a separate step for this? Either in a AudioProcessingSimulator constructor (that specifically takes a builder and not an APM pointer), or even before creating the simulator, in AudioprocFloatImpl? (i.e. have AudioprocFloatImpl call a function CreateDefaultAudioProcessing(ap_builder, settings)).\n\nThis would decouple all creation stuff from the simulator itself, allowing it to only operate on a webrtc::AudioProcessing instance. The code from thereon will be cleaner - no ap_builder, no \"two variables but only one may be non-null, except sometimes\" situation.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/audio_processing/test/aec_dump_based_simulator.cc;l\u003d208?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n[2] https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/audio_processing/test/wav_based_simulator.cc;l\u003d91?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "range": {
+        "startLine": 689,
+        "startChar": 2,
+        "endLine": 689,
+        "endChar": 23
+      },
+      "revId": "8f29f3d3ae12993bc696735fcd96a12049548b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd2f52e3_c0ace825",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-05-18T11:33:03Z",
+      "side": 1,
+      "message": "Why not have two separate versions?\n\nIt seems confusing to have two parameters of which one must be nullptr, when we could instead have two separate functions.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 74
+      },
+      "revId": "8f29f3d3ae12993bc696735fcd96a12049548b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

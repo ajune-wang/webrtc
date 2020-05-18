@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b28b13a5_5a30e8e0",
+        "filename": "modules/audio_processing/test/wav_based_simulator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-18T13:29:29Z",
+      "side": 0,
+      "message": "I moved this since this part is more related to setup than to anything that has with the apm processing to do.",
+      "range": {
+        "startLine": 92,
+        "startChar": 1,
+        "endLine": 97,
+        "endChar": 3
+      },
+      "revId": "222598d1bfaf806579bd61dd99dedac17ba13f99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

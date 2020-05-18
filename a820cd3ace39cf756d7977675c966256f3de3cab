@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2544cde4_eb6d9411",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-18T10:29:22Z",
+      "side": 1,
+      "message": "comments suppose to explain code. I doubt code comment is a right tool to describe a problem or start a discussion.\n\nhttps://google.github.io/styleguide/cppguide.html#TODO_Comments\n\"Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect.\"",
+      "range": {
+        "startLine": 106,
+        "startChar": 22,
+        "endLine": 106,
+        "endChar": 36
+      },
+      "revId": "a820cd3ace39cf756d7977675c966256f3de3cab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

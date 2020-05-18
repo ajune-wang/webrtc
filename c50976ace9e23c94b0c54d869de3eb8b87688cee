@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21d84f82_38805cfe",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-18T16:36:34Z",
+      "side": 0,
+      "message": "Can you replace both with \"android_manifest\"?\n\nI suspect that not doing that might result in issues on some builds (I can explain tomorrow).",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 29
+      },
+      "revId": "c50976ace9e23c94b0c54d869de3eb8b87688cee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

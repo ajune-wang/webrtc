@@ -22,6 +22,30 @@
       "revId": "f777c0178ff62b98be4399596937aeeef1fe01c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cf14b40_4f6d7d1c",
+        "filename": "modules/rtp_rtcp/source/rtp_dependency_descriptor_writer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-18T10:52:58Z",
+      "side": 1,
+      "message": "Done.\n\nTrying to write 0 or more than 64 bits triggers undefined behaviour, but without ubsan generated code is doing the right thing.\n\nAdded tests that crash with ubsan without this check (and without this change)",
+      "parentUuid": "6bcb3c8a_0f8dbbf3",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 33
+      },
+      "revId": "f777c0178ff62b98be4399596937aeeef1fe01c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

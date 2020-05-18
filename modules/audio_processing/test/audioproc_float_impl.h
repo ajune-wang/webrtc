@@ -24,6 +24,17 @@ namespace test {
 // via the |argv| argument. Pass |processed_capture_samples| to write in it the
 // samples processed on the capture side; if |processed_capture_samples| is not
 // passed, the output file can optionally be specified via the |argv| argument.
+// The audio_processing object i
+int AudioprocFloatImpl(rtc::scoped_refptr<AudioProcessing> audio_processing,
+                       int argc,
+                       char* argv[]);
+
+// This function implements the audio processing simulation utility. Pass
+// |input_aecdump| to provide the content of an AEC dump file as a string; if
+// |input_aecdump| is not passed, a WAV or AEC input dump file must be specified
+// via the |argv| argument. Pass |processed_capture_samples| to write in it the
+// samples processed on the capture side; if |processed_capture_samples| is not
+// passed, the output file can optionally be specified via the |argv| argument.
 int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
                        int argc,
                        char* argv[],

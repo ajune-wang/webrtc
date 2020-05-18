@@ -739,6 +739,10 @@ void RtcEventLogSession::ReadAndVerifyLog() {
   EXPECT_EQ(first_timestamp_ms_, parsed_log.first_timestamp() / 1000);
   EXPECT_EQ(last_timestamp_ms_, parsed_log.last_timestamp() / 1000);
 
+  ASSERT_EQ(parsed_log.log_segments().size(), 1u);
+  EXPECT_EQ(parsed_log.log_segments()[0].start_time_us(), start_time_us_);
+  EXPECT_EQ(parsed_log.log_segments()[0].stop_time_us(), stop_time_us_);
+
   // Clean up temporary file - can be pretty slow.
   remove(temp_filename_.c_str());
 }

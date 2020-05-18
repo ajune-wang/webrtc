@@ -16,6 +16,7 @@
 #define WEBRTC_USE_EPOLL 1
 #endif
 
+#include <array>
 #include <memory>
 #include <set>
 #include <vector>
@@ -80,6 +81,9 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   void Update(Dispatcher* dispatcher);
 
  private:
+  // The number of events to process with one call to "epoll_wait".
+  static constexpr size_t kNumEpollEvents = 128;
+
   typedef std::set<Dispatcher*> DispatcherSet;
 
   void AddRemovePendingDispatchers();
@@ -94,8 +98,8 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   bool WaitEpoll(int cms);
   bool WaitPoll(int cms, Dispatcher* dispatcher);
 
+  std::array<struct epoll_event, kNumEpollEvents> epoll_events_;
   const int epoll_fd_ = INVALID_SOCKET;
-  std::vector<struct epoll_event> epoll_events_;
 #endif  // WEBRTC_USE_EPOLL
   DispatcherSet dispatchers_;
   DispatcherSet pending_add_dispatchers_;

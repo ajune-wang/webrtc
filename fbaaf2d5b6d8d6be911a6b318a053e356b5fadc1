@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "524a065f_ca4ade7e",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-18T08:33:37Z",
+      "side": 1,
+      "message": "WEBRTC_ANDROID",
+      "range": {
+        "startLine": 54,
+        "startChar": 70,
+        "endLine": 54,
+        "endChar": 77
+      },
+      "revId": "fbaaf2d5b6d8d6be911a6b318a053e356b5fadc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be5b78ee_ae375780",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-18T08:33:37Z",
+      "side": 1,
+      "message": "Can you add some reason why speed is chosen this way?\n(it is still look better than choose speed 7 without giving any reason)",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 28
+      },
+      "revId": "fbaaf2d5b6d8d6be911a6b318a053e356b5fadc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e186aa7_bffed021",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-18T08:33:37Z",
+      "side": 1,
+      "message": "does cpu_speed variable need to be a member variable, can it be local one instead?\n\nint cpu_speed \u003d GetCpuSpeed(cfs_.g_w, cfg_.g_h);\nret \u003d aom_codec_control(\u0026ctx_, AOME_SET_CPUUSED, cpu_speed);\n\nOr can it be removed completely:\nret \u003d aom_codec_control(\u0026ctx_, AOME_SET_CPUUSED, GetCpuSpeed(cfs_.g_w, cfg_.g_h));\n\n(If it does need to be member variable, please add comment why)",
+      "range": {
+        "startLine": 211,
+        "startChar": 51,
+        "endLine": 211,
+        "endChar": 61
+      },
+      "revId": "fbaaf2d5b6d8d6be911a6b318a053e356b5fadc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

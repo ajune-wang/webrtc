@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43392b0d_6ba1ffbd",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-18T12:58:14Z",
+      "side": 1,
+      "message": "To improve clarity on how various threads access members, we need some annotation or comment on this one (the same problem as with the old std:vector). Is WaitEpoll called with the lock held? If so, a RTC_GUARDED_BY with that lock is right. If not, at least document use, or consider adding a ThreadChecker.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "35714474108a2e38b464757327bcd3c79985c5de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

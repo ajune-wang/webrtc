@@ -766,6 +766,7 @@ rtc_library("rtc_base") {
     "../api:function_view",
     "../api:scoped_refptr",
     "../api/task_queue",
+    "../rtc_base/synchronization:sequence_checker",
     "../system_wrappers:field_trial",
     "network:sent_packet",
     "system:file_wrapper",

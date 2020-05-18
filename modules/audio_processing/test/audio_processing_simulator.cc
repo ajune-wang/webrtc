@@ -113,15 +113,25 @@ SimulationSettings::~SimulationSettings() = default;
 
 AudioProcessingSimulator::AudioProcessingSimulator(
     const SimulationSettings& settings,
+    rtc::scoped_refptr<AudioProcessing> audio_processing,
     std::unique_ptr<AudioProcessingBuilder> ap_builder)
     : settings_(settings),
-      ap_builder_(ap_builder ? std::move(ap_builder)
-                             : std::make_unique<AudioProcessingBuilder>()),
+      ap_(std::move(audio_processing)),
+      ap_builder_(std::move(ap_builder)),
       analog_mic_level_(settings.initial_mic_level),
       fake_recording_device_(
           settings.initial_mic_level,
           settings_.simulate_mic_gain ? *settings.simulated_mic_kind : 0),
       worker_queue_("file_writer_task_queue") {
+  RTC_CHECK(!(audio_processing && ap_builder))
+      << "The AudioProcessing and the AudioProcessingBuilder cannot both be "
+         "specified at the same time.";
+  if (!audio_processing && !ap_builder) {
+    // If neither an audio processing object, nor an audio processing builder
+    // object are provided, create a default builder object.
+    ap_builder_ = std::make_unique<AudioProcessingBuilder>();
+  }
+
   RTC_CHECK(!settings_.dump_internal_data || WEBRTC_APM_DEBUG_DUMP == 1);
   ApmDataDumper::SetActivated(settings_.dump_internal_data);
   if (settings_.dump_internal_data_output_dir.has_value()) {
@@ -376,7 +386,6 @@ void AudioProcessingSimulator::DestroyAudioProcessor() {
 }
 
 void AudioProcessingSimulator::CreateAudioProcessor() {
-  Config config;
   AudioProcessing::Config apm_config;
   std::unique_ptr<EchoControlFactory> echo_control_factory;
   if (settings_.use_ts) {
@@ -422,25 +431,31 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
       !!settings_.linear_aec_output_filename;
 
   if (use_aec) {
-    EchoCanceller3Config cfg;
-    if (settings_.aec_settings_filename) {
-      if (settings_.use_verbose_logging) {
-        std::cout << "Reading AEC Parameters from JSON input." << std::endl;
+    if (ap_builder_) {
+      EchoCanceller3Config cfg;
+      if (settings_.aec_settings_filename) {
+        if (settings_.use_verbose_logging) {
+          std::cout << "Reading AEC Parameters from JSON input." << std::endl;
+        }
+        cfg = ReadAec3ConfigFromJsonFile(*settings_.aec_settings_filename);
       }
-      cfg = ReadAec3ConfigFromJsonFile(*settings_.aec_settings_filename);
-    }
 
-    if (settings_.linear_aec_output_filename) {
-      cfg.filter.export_linear_aec_output = true;
-    }
-
-    echo_control_factory.reset(new EchoCanceller3Factory(cfg));
-
-    if (settings_.print_aec_parameter_values) {
-      if (!settings_.use_quiet_output) {
-        std::cout << "AEC settings:" << std::endl;
+      if (settings_.linear_aec_output_filename) {
+        cfg.filter.export_linear_aec_output = true;
       }
-      std::cout << Aec3ConfigToJsonString(cfg) << std::endl;
+
+      echo_control_factory.reset(new EchoCanceller3Factory(cfg));
+
+      if (settings_.print_aec_parameter_values) {
+        if (!settings_.use_quiet_output) {
+          std::cout << "AEC settings:" << std::endl;
+        }
+        std::cout << Aec3ConfigToJsonString(cfg) << std::endl;
+      }
+    } else {
+      RTC_CHECK(ap_);
+      RTC_CHECK(!settings_.aec_settings_filename);
+      RTC_CHECK(!settings_.print_aec_parameter_values);
     }
   }
 
@@ -512,13 +527,16 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
         *settings_.ns_analysis_on_linear_aec_output;
   }
 
-  RTC_CHECK(ap_builder_);
-  if (echo_control_factory) {
-    ap_builder_->SetEchoControlFactory(std::move(echo_control_factory));
-  }
-  ap_.reset((*ap_builder_).Create(config));
+  if (!ap_) {
+    RTC_CHECK(ap_builder_);
+    if (echo_control_factory) {
+      ap_builder_->SetEchoControlFactory(std::move(echo_control_factory));
+    }
+    Config config;
+    ap_ = ap_builder_->Create(config);
 
-  RTC_CHECK(ap_);
+    RTC_CHECK(ap_);
+  }
 
   ap_->ApplyConfig(apm_config);
 

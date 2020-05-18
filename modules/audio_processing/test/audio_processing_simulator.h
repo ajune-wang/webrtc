@@ -150,8 +150,8 @@ struct SimulationSettings {
 // Provides common functionality for performing audioprocessing simulations.
 class AudioProcessingSimulator {
  public:
-
   AudioProcessingSimulator(const SimulationSettings& settings,
+                           rtc::scoped_refptr<AudioProcessing> audio_processing,
                            std::unique_ptr<AudioProcessingBuilder> ap_builder);
   virtual ~AudioProcessingSimulator();
 
@@ -186,7 +186,7 @@ class AudioProcessingSimulator {
                                   int reverse_output_num_channels);
 
   const SimulationSettings settings_;
-  std::unique_ptr<AudioProcessing> ap_;
+  rtc::scoped_refptr<AudioProcessing> ap_;
   std::unique_ptr<AudioProcessingBuilder> ap_builder_;
 
   std::unique_ptr<ChannelBuffer<float>> in_buf_;

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e295dcc6_361a0ce5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-18T09:32:13Z",
+      "side": 1,
+      "message": "I think \"heap allocation\" is more accurate than \"dynamic handling\", here and below.",
+      "range": {
+        "startLine": 7,
+        "startChar": 22,
+        "endLine": 7,
+        "endChar": 58
+      },
+      "revId": "d233996edcd39472cd86d964dff321fa4a82dfd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b7b29e_97cc42d4",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1443,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-18T09:32:13Z",
+      "side": 1,
+      "message": "It seems a struct epoll_event is 16 bytes, so this is 2 KB of storage on the stack. Is that reasonable? We sometimes run in environments with fairly small stack.\n\nWhat are the consequences if the epoll_wait call fills all of then, additional events stay queued in the kernel until the next call? Or is there a risk that events are lost?",
+      "range": {
+        "startLine": 1443,
+        "startChar": 0,
+        "endLine": 1443,
+        "endChar": 47
+      },
+      "revId": "d233996edcd39472cd86d964dff321fa4a82dfd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "35714474108a2e38b464757327bcd3c79985c5de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51fb1252_b6640a66",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-18T14:05:40Z",
+      "side": 1,
+      "message": "WaitEpoll is not holding any locks when calling epoll_wait, indicating that it\u0027s the same context calling into it given the age of the code. However, failures appeared when adding a thread checker. Unfortunately it seems we just have to document it\u0027s supposedly used in isolation, or do you (@deadbeef, @nisse) have some other recommendation?",
+      "parentUuid": "43392b0d_6ba1ffbd",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "35714474108a2e38b464757327bcd3c79985c5de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

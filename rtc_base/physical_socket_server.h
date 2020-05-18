@@ -95,7 +95,6 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   bool WaitPoll(int cms, Dispatcher* dispatcher);
 
   const int epoll_fd_ = INVALID_SOCKET;
-  std::vector<struct epoll_event> epoll_events_;
 #endif  // WEBRTC_USE_EPOLL
   DispatcherSet dispatchers_;
   DispatcherSet pending_add_dispatchers_;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca6003a0_624f162d",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-18T13:25:01Z",
+      "side": 1,
+      "message": "offtopic: I guess this can (and better) be moved outside the lock in some later CL.",
+      "range": {
+        "startLine": 738,
+        "startChar": 22,
+        "endLine": 738,
+        "endChar": 62
+      },
+      "revId": "15de471a710f9ac3bdfaf71801ba01cd19576191",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

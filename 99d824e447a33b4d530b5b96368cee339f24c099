@@ -22,6 +22,30 @@
       "revId": "99d824e447a33b4d530b5b96368cee339f24c099",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed603935_d9a37d92",
+        "filename": "api/test/audioproc_float.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-19T09:39:15Z",
+      "side": 1,
+      "message": "Ah, sorry.\nI did not copy it right away, but rather failed to properly update the comment in the new patchset (where the builder is no longer part of this call.\n\nI\u0027ve corrected the issue.\nPTAL",
+      "parentUuid": "1bc1ae6a_9602ee04",
+      "range": {
+        "startLine": 33,
+        "startChar": 60,
+        "endLine": 36,
+        "endChar": 12
+      },
+      "revId": "99d824e447a33b4d530b5b96368cee339f24c099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

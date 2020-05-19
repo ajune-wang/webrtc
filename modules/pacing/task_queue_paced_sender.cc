@@ -35,7 +35,22 @@ TaskQueuePacedSender::TaskQueuePacedSender(
     RtcEventLog* event_log,
     const WebRtcKeyValueConfig* field_trials,
     TaskQueueFactory* task_queue_factory)
+    : TaskQueuePacedSender(clock,
+                           packet_router,
+                           event_log,
+                           field_trials,
+                           task_queue_factory,
+                           PacingController::kMinSleepTime) {}
+
+TaskQueuePacedSender::TaskQueuePacedSender(
+    Clock* clock,
+    PacketRouter* packet_router,
+    RtcEventLog* event_log,
+    const WebRtcKeyValueConfig* field_trials,
+    TaskQueueFactory* task_queue_factory,
+    TimeDelta coalescing_window)
     : clock_(clock),
+      coalescing_window_(coalescing_window),
       packet_router_(packet_router),
       pacing_controller_(clock,
                          static_cast<PacingController::PacketSender*>(this),
@@ -200,8 +215,10 @@ void TaskQueuePacedSender::MaybeProcessPackets(
     next_process_time = pacing_controller_.NextSendTime();
   }
 
-  next_process_time =
-      std::max(now + PacingController::kMinSleepTime, next_process_time);
+  const TimeDelta coalescing_window = pacing_controller_.IsProbing()
+                                          ? PacingController::kMinSleepTime
+                                          : coalescing_window_;
+  next_process_time = std::max(now + coalescing_window, next_process_time);
 
   TimeDelta sleep_time = next_process_time - now;
   if (next_process_time_.IsMinusInfinity() ||

@@ -1002,7 +1002,7 @@ if (is_android) {
       }
 
       no_build_hooks = true
-    }
+     }
   }
 
   template("rtc_android_apk") {

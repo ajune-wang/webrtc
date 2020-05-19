@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bc1ae6a_9602ee04",
+        "filename": "api/test/audioproc_float.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-19T09:08:35Z",
+      "side": 1,
+      "message": "It looks like you copied this text without modifying it.",
+      "range": {
+        "startLine": 33,
+        "startChar": 60,
+        "endLine": 36,
+        "endChar": 12
+      },
+      "revId": "99d824e447a33b4d530b5b96368cee339f24c099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

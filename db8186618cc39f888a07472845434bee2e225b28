@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a178cb8_497c1d31",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-19T02:10:58Z",
+      "side": 1,
+      "message": "I don\u0027t understand how this will work at all... Since epoll_wait needs at least some space for events won\u0027t it just return EINVAL?",
+      "revId": "db8186618cc39f888a07472845434bee2e225b28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

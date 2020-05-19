@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cec2eb0c_d84a2691",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-19T11:25:18Z",
+      "side": 1,
+      "message": "Can you add a todo \u0026 follow-up CL to remove the old ctor once the code is in use? Confusing with several ctors.\nAlternatively the same with a single ctor with a new default argument.",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "396b632974a21e04379d6631ec04451b2be1c73b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c85c020_46f08d42",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-19T11:25:18Z",
+      "side": 1,
+      "message": "Document the semantics of this parameter?",
+      "range": {
+        "startLine": 55,
+        "startChar": 23,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "396b632974a21e04379d6631ec04451b2be1c73b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c60d88ea_d3181f0c",
+        "filename": "modules/pacing/task_queue_paced_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-19T11:25:18Z",
+      "side": 1,
+      "message": "Having the harness create the pacer and suebsequently re-creating seems a little inelegant :) Maybe remove the harness altogether? It seems to serve no purpose and removing would make the tests easier to read.",
+      "revId": "396b632974a21e04379d6631ec04451b2be1c73b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

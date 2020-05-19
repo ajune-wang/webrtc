@@ -42,11 +42,18 @@ class TaskQueuePacedSender : public RtpPacketPacer,
                              public RtpPacketSender,
                              private PacingController::PacketSender {
  public:
-  TaskQueuePacedSender(Clock* clock,
-                       PacketRouter* packet_router,
-                       RtcEventLog* event_log,
-                       const WebRtcKeyValueConfig* field_trials,
-                       TaskQueueFactory* task_queue_factory);
+  // The |coalescing_window| parameter sets a lower bound on time to sleep if
+  // there is currently a pacer queue and packets can't immediately be
+  // processed. Increasing this reduces thread wakeups at the expense of higher
+  // latency.
+  // TODO(bugs.webrtc.org/10809): Remove default value for coalescing_window.
+  TaskQueuePacedSender(
+      Clock* clock,
+      PacketRouter* packet_router,
+      RtcEventLog* event_log,
+      const WebRtcKeyValueConfig* field_trials,
+      TaskQueueFactory* task_queue_factory,
+      TimeDelta coalescing_window = PacingController::kMinSleepTime);
 
   ~TaskQueuePacedSender() override;
 
@@ -131,6 +138,7 @@ class TaskQueuePacedSender : public RtpPacketPacer,
   Stats GetStats() const;
 
   Clock* const clock_;
+  const TimeDelta coalescing_window_;
   PacketRouter* const packet_router_ RTC_GUARDED_BY(task_queue_);
   PacingController pacing_controller_ RTC_GUARDED_BY(task_queue_);
 

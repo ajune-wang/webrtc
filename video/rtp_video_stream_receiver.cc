@@ -105,6 +105,18 @@ std::unique_ptr<RtpRtcp> CreateRtpRtcpModule(
   return rtp_rtcp;
 }
 
+std::unique_ptr<NackModule> MaybeConstructNackModule(
+    const VideoReceiveStream::Config& config,
+    Clock* clock,
+    NackSender* nack_sender,
+    KeyFrameRequestSender* keyframe_request_sender) {
+  if (config.rtp.nack.rtp_history_ms == 0)
+    return nullptr;
+
+  return std::make_unique<NackModule>(clock, nack_sender,
+                                      keyframe_request_sender);
+}
+
 static const int kPacketLogIntervalMs = 10000;
 
 RtpVideoStreamReceiver::RtcpFeedbackBuffer::RtcpFeedbackBuffer(
@@ -121,15 +133,20 @@ RtpVideoStreamReceiver::RtcpFeedbackBuffer::RtcpFeedbackBuffer(
 }
 
 void RtpVideoStreamReceiver::RtcpFeedbackBuffer::RequestKeyFrame() {
-  rtc::CritScope lock(&cs_);
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   request_key_frame_ = true;
 }
 
 void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendNack(
     const std::vector<uint16_t>& sequence_numbers,
     bool buffering_allowed) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
+  // TODO(tommi): This is called from the NackModule on two separate threads.
+  // 1. From the worker - which is ideal.
+  // 2. From the process thread due to a timer.
+  // When we get rid of the process thread, we probably don't need locking
+  // here.  Also consider the downstream code.
   RTC_DCHECK(!sequence_numbers.empty());
-  rtc::CritScope lock(&cs_);
   nack_sequence_numbers_.insert(nack_sequence_numbers_.end(),
                                 sequence_numbers.cbegin(),
                                 sequence_numbers.cend());
@@ -145,8 +162,8 @@ void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendLossNotification(
     uint16_t last_received_seq_num,
     bool decodability_flag,
     bool buffering_allowed) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   RTC_DCHECK(buffering_allowed);
-  rtc::CritScope lock(&cs_);
   RTC_DCHECK(!lntf_state_)
       << "SendLossNotification() called twice in a row with no call to "
          "SendBufferedRtcpFeedback() in between.";
@@ -155,16 +172,15 @@ void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendLossNotification(
 }
 
 void RtpVideoStreamReceiver::RtcpFeedbackBuffer::SendBufferedRtcpFeedback() {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
+
   bool request_key_frame = false;
   std::vector<uint16_t> nack_sequence_numbers;
   absl::optional<LossNotificationState> lntf_state;
 
-  {
-    rtc::CritScope lock(&cs_);
-    std::swap(request_key_frame, request_key_frame_);
-    std::swap(nack_sequence_numbers, nack_sequence_numbers_);
-    std::swap(lntf_state, lntf_state_);
-  }
+  std::swap(request_key_frame, request_key_frame_);
+  std::swap(nack_sequence_numbers, nack_sequence_numbers_);
+  std::swap(lntf_state, lntf_state_);
 
   if (lntf_state) {
     // If either a NACK or a key frame request is sent, we should buffer
@@ -257,6 +273,10 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
       // TODO(bugs.webrtc.org/10336): Let |rtcp_feedback_buffer_| communicate
       // directly with |rtp_rtcp_|.
       rtcp_feedback_buffer_(this, nack_sender, this),
+      nack_module_(MaybeConstructNackModule(config_,
+                                            clock_,
+                                            &rtcp_feedback_buffer_,
+                                            &rtcp_feedback_buffer_)),
       packet_buffer_(clock_, kPacketBufferStartSize, PacketBufferMaxSize()),
       has_received_frame_(false),
       frames_decryptable_(false),
@@ -304,12 +324,6 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
                                                      &rtcp_feedback_buffer_);
   }
 
-  if (config_.rtp.nack.rtp_history_ms != 0) {
-    nack_module_ = std::make_unique<NackModule>(clock_, &rtcp_feedback_buffer_,
-                                                &rtcp_feedback_buffer_);
-    process_thread_->RegisterModule(nack_module_.get(), RTC_FROM_HERE);
-  }
-
   reference_finder_ =
       std::make_unique<video_coding::RtpFrameReferenceFinder>(this);
 
@@ -334,10 +348,6 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
 RtpVideoStreamReceiver::~RtpVideoStreamReceiver() {
   RTC_DCHECK(secondary_sinks_.empty());
 
-  if (nack_module_) {
-    process_thread_->DeRegisterModule(nack_module_.get());
-  }
-
   process_thread_->DeRegisterModule(rtp_rtcp_.get());
 
   if (packet_router_)
@@ -351,6 +361,7 @@ void RtpVideoStreamReceiver::AddReceiveCodec(
     const VideoCodec& video_codec,
     const std::map<std::string, std::string>& codec_params,
     bool raw_payload) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   payload_type_map_.emplace(
       video_codec.plType,
       raw_payload ? std::make_unique<VideoRtpDepacketizerRaw>()
@@ -359,20 +370,19 @@ void RtpVideoStreamReceiver::AddReceiveCodec(
 }
 
 absl::optional<Syncable::Info> RtpVideoStreamReceiver::GetSyncInfo() const {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   Syncable::Info info;
   if (rtp_rtcp_->RemoteNTP(&info.capture_time_ntp_secs,
                            &info.capture_time_ntp_frac, nullptr, nullptr,
                            &info.capture_time_source_clock) != 0) {
     return absl::nullopt;
   }
-  {
-    rtc::CritScope lock(&sync_info_lock_);
-    if (!last_received_rtp_timestamp_ || !last_received_rtp_system_time_ms_) {
-      return absl::nullopt;
-    }
-    info.latest_received_capture_timestamp = *last_received_rtp_timestamp_;
-    info.latest_receive_time_ms = *last_received_rtp_system_time_ms_;
+
+  if (!last_received_rtp_timestamp_ || !last_received_rtp_system_time_ms_) {
+    return absl::nullopt;
   }
+  info.latest_received_capture_timestamp = *last_received_rtp_timestamp_;
+  info.latest_receive_time_ms = *last_received_rtp_system_time_ms_;
 
   // Leaves info.current_delay_ms uninitialized.
   return info;
@@ -658,11 +668,10 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
   if (!packet.recovered()) {
     // TODO(nisse): Exclude out-of-order packets?
     int64_t now_ms = clock_->TimeInMilliseconds();
-    {
-      rtc::CritScope cs(&sync_info_lock_);
-      last_received_rtp_timestamp_ = packet.Timestamp();
-      last_received_rtp_system_time_ms_ = now_ms;
-    }
+
+    last_received_rtp_timestamp_ = packet.Timestamp();
+    last_received_rtp_system_time_ms_ = now_ms;
+
     // Periodically log the RTP header of incoming packets.
     if (now_ms - last_packet_log_ms_ > kPacketLogIntervalMs) {
       rtc::StringBuilder ss;
@@ -699,6 +708,7 @@ void RtpVideoStreamReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
 }
 
 void RtpVideoStreamReceiver::RequestKeyFrame() {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   // TODO(bugs.webrtc.org/10336): Allow the sender to ignore key frame requests
   // issued by anything other than the LossNotificationController if it (the
   // sender) is relying on LNTF alone.
@@ -729,15 +739,18 @@ bool RtpVideoStreamReceiver::IsRetransmissionsEnabled() const {
 
 void RtpVideoStreamReceiver::RequestPacketRetransmit(
     const std::vector<uint16_t>& sequence_numbers) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtp_rtcp_->SendNack(sequence_numbers);
 }
 
 bool RtpVideoStreamReceiver::IsDecryptable() const {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   return frames_decryptable_.load();
 }
 
 void RtpVideoStreamReceiver::OnInsertedPacket(
     video_coding::PacketBuffer::InsertResult result) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   video_coding::PacketBuffer::Packet* first_packet = nullptr;
   int max_nack_count;
   int64_t min_recv_time;
@@ -808,7 +821,7 @@ void RtpVideoStreamReceiver::OnInsertedPacket(
 
 void RtpVideoStreamReceiver::OnAssembledFrame(
     std::unique_ptr<video_coding::RtpFrameObject> frame) {
-  RTC_DCHECK_RUN_ON(&network_tc_);
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   RTC_DCHECK(frame);
 
   const absl::optional<RTPVideoHeader::GenericDescriptorInfo>& descriptor =
@@ -836,7 +849,6 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
     has_received_frame_ = true;
   }
 
-  rtc::CritScope lock(&reference_finder_lock_);
   // Reset |reference_finder_| if |frame| is new and the codec have changed.
   if (current_codec_) {
     bool frame_is_newer =
@@ -848,6 +860,7 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
         // to overlap with old picture ids. To ensure that doesn't happen we
         // start from the |last_completed_picture_id_| and add an offset in case
         // of reordering.
+        rtc::CritScope lock(&reference_finder_lock_);
         reference_finder_ =
             std::make_unique<video_coding::RtpFrameReferenceFinder>(
                 this, last_completed_picture_id_ +
@@ -872,19 +885,19 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
   } else if (frame_transformer_delegate_) {
     frame_transformer_delegate_->TransformFrame(std::move(frame));
   } else {
+    rtc::CritScope lock(&reference_finder_lock_);
     reference_finder_->ManageFrame(std::move(frame));
   }
 }
 
 void RtpVideoStreamReceiver::OnCompleteFrame(
     std::unique_ptr<video_coding::EncodedFrame> frame) {
-  {
-    rtc::CritScope lock(&last_seq_num_cs_);
-    video_coding::RtpFrameObject* rtp_frame =
-        static_cast<video_coding::RtpFrameObject*>(frame.get());
-    last_seq_num_for_pic_id_[rtp_frame->id.picture_id] =
-        rtp_frame->last_seq_num();
-  }
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
+  video_coding::RtpFrameObject* rtp_frame =
+      static_cast<video_coding::RtpFrameObject*>(frame.get());
+  last_seq_num_for_pic_id_[rtp_frame->id.picture_id] =
+      rtp_frame->last_seq_num();
+
   last_completed_picture_id_ =
       std::max(last_completed_picture_id_, frame->id.picture_id);
   complete_frame_callback_->OnCompleteFrame(std::move(frame));
@@ -898,6 +911,8 @@ void RtpVideoStreamReceiver::OnDecryptedFrame(
 
 void RtpVideoStreamReceiver::OnDecryptionStatusChange(
     FrameDecryptorInterface::Status status) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
+  // Called from BufferedFrameDecryptor::DecryptFrame.
   frames_decryptable_.store(
       (status == FrameDecryptorInterface::Status::kOk) ||
       (status == FrameDecryptorInterface::Status::kRecoverable));
@@ -905,7 +920,7 @@ void RtpVideoStreamReceiver::OnDecryptionStatusChange(
 
 void RtpVideoStreamReceiver::SetFrameDecryptor(
     rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor) {
-  RTC_DCHECK_RUN_ON(&network_tc_);
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (buffered_frame_decryptor_ == nullptr) {
     buffered_frame_decryptor_ =
         std::make_unique<BufferedFrameDecryptor>(this, this);
@@ -915,7 +930,7 @@ void RtpVideoStreamReceiver::SetFrameDecryptor(
 
 void RtpVideoStreamReceiver::SetDepacketizerToDecoderFrameTransformer(
     rtc::scoped_refptr<FrameTransformerInterface> frame_transformer) {
-  RTC_DCHECK_RUN_ON(&network_tc_);
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   frame_transformer_delegate_ =
       new rtc::RefCountedObject<RtpVideoStreamReceiverFrameTransformerDelegate>(
           this, std::move(frame_transformer), rtc::Thread::Current(),
@@ -924,6 +939,7 @@ void RtpVideoStreamReceiver::SetDepacketizerToDecoderFrameTransformer(
 }
 
 void RtpVideoStreamReceiver::UpdateRtt(int64_t max_rtt_ms) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (nack_module_)
     nack_module_->UpdateRtt(max_rtt_ms);
 }
@@ -964,6 +980,7 @@ void RtpVideoStreamReceiver::ManageFrame(
 }
 
 void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (packet.payload_size() == 0) {
     // Padding or keep-alive packet.
     // TODO(nisse): Could drop empty packets earlier, but need to figure out how
@@ -1013,6 +1030,7 @@ void RtpVideoStreamReceiver::ParseAndHandleEncapsulatingHeader(
 // RtpFrameReferenceFinder will need to know about padding to
 // correctly calculate frame references.
 void RtpVideoStreamReceiver::NotifyReceiverOfEmptyPacket(uint16_t seq_num) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   {
     rtc::CritScope lock(&reference_finder_lock_);
     reference_finder_->PaddingReceived(seq_num);
@@ -1073,31 +1091,29 @@ bool RtpVideoStreamReceiver::DeliverRtcp(const uint8_t* rtcp_packet,
 }
 
 void RtpVideoStreamReceiver::FrameContinuous(int64_t picture_id) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   if (!nack_module_)
     return;
 
   int seq_num = -1;
-  {
-    rtc::CritScope lock(&last_seq_num_cs_);
-    auto seq_num_it = last_seq_num_for_pic_id_.find(picture_id);
-    if (seq_num_it != last_seq_num_for_pic_id_.end())
-      seq_num = seq_num_it->second;
-  }
+  auto seq_num_it = last_seq_num_for_pic_id_.find(picture_id);
+  if (seq_num_it != last_seq_num_for_pic_id_.end())
+    seq_num = seq_num_it->second;
   if (seq_num != -1)
     nack_module_->ClearUpTo(seq_num);
 }
 
 void RtpVideoStreamReceiver::FrameDecoded(int64_t picture_id) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
+  // Running on the decoder thread.
   int seq_num = -1;
-  {
-    rtc::CritScope lock(&last_seq_num_cs_);
-    auto seq_num_it = last_seq_num_for_pic_id_.find(picture_id);
-    if (seq_num_it != last_seq_num_for_pic_id_.end()) {
-      seq_num = seq_num_it->second;
-      last_seq_num_for_pic_id_.erase(last_seq_num_for_pic_id_.begin(),
-                                     ++seq_num_it);
-    }
+  auto seq_num_it = last_seq_num_for_pic_id_.find(picture_id);
+  if (seq_num_it != last_seq_num_for_pic_id_.end()) {
+    seq_num = seq_num_it->second;
+    last_seq_num_for_pic_id_.erase(last_seq_num_for_pic_id_.begin(),
+                                   ++seq_num_it);
   }
+
   if (seq_num != -1) {
     packet_buffer_.ClearTo(seq_num);
     rtc::CritScope lock(&reference_finder_lock_);
@@ -1106,6 +1122,7 @@ void RtpVideoStreamReceiver::FrameDecoded(int64_t picture_id) {
 }
 
 void RtpVideoStreamReceiver::SignalNetworkState(NetworkState state) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtp_rtcp_->SetRTCPStatus(state == kNetworkUp ? config_.rtp.rtcp_mode
                                                : RtcpMode::kOff);
 }
@@ -1148,6 +1165,8 @@ void RtpVideoStreamReceiver::UpdateHistograms() {
 }
 
 void RtpVideoStreamReceiver::InsertSpsPpsIntoTracker(uint8_t payload_type) {
+  RTC_DCHECK_RUN_ON(&worker_task_checker_);
+
   auto codec_params_it = pt_codec_params_.find(payload_type);
   if (codec_params_it == pt_codec_params_.end())
     return;

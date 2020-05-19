@@ -16,6 +16,47 @@
       "revId": "db8186618cc39f888a07472845434bee2e225b28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cdca52c_3b85f721",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-19T07:09:24Z",
+      "side": 1,
+      "message": "If I understand it correctly, epoll_events_.size() will always be the constant kNumEpollEvents \u003d 128",
+      "parentUuid": "8a178cb8_497c1d31",
+      "revId": "db8186618cc39f888a07472845434bee2e225b28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f9fdb0_d204cb3e",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-19T07:09:24Z",
+      "side": 1,
+      "message": "Can this be written as epoll_events_.data() instead?",
+      "range": {
+        "startLine": 1440,
+        "startChar": 34,
+        "endLine": 1440,
+        "endChar": 51
+      },
+      "revId": "db8186618cc39f888a07472845434bee2e225b28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

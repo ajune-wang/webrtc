@@ -91,9 +91,9 @@ class FrameObjectFake : public video_coding::EncodedFrame {
 
 }  // namespace
 
-class VideoReceiveStreamTest : public ::testing::Test {
+class DISABLED_VideoReceiveStreamTest : public ::testing::Test {
  public:
-  VideoReceiveStreamTest()
+  DISABLED_VideoReceiveStreamTest()
       : process_thread_(ProcessThread::Create("TestThread")),
         task_queue_factory_(CreateDefaultTaskQueueFactory()),
         config_(&mock_transport_),
@@ -147,7 +147,7 @@ class VideoReceiveStreamTest : public ::testing::Test {
   VCMTiming* timing_;
 };
 
-TEST_F(VideoReceiveStreamTest, CreateFrameFromH264FmtpSpropAndIdr) {
+TEST_F(DISABLED_VideoReceiveStreamTest, CreateFrameFromH264FmtpSpropAndIdr) {
   constexpr uint8_t idr_nalu[] = {0x05, 0xFF, 0xFF, 0xFF};
   RtpPacketToSend rtppacket(nullptr);
   uint8_t* payload = rtppacket.AllocatePayload(sizeof(idr_nalu));
@@ -175,7 +175,7 @@ TEST_F(VideoReceiveStreamTest, CreateFrameFromH264FmtpSpropAndIdr) {
   init_decode_event_.Wait(kDefaultTimeOutMs);
 }
 
-TEST_F(VideoReceiveStreamTest, PlayoutDelay) {
+TEST_F(DISABLED_VideoReceiveStreamTest, PlayoutDelay) {
   const PlayoutDelay kPlayoutDelayMs = {123, 321};
   std::unique_ptr<FrameObjectFake> test_frame(new FrameObjectFake());
   test_frame->id.picture_id = 0;
@@ -204,7 +204,7 @@ TEST_F(VideoReceiveStreamTest, PlayoutDelay) {
   EXPECT_EQ(123, timing_->min_playout_delay());
 }
 
-TEST_F(VideoReceiveStreamTest, PlayoutDelayPreservesDefaultMaxValue) {
+TEST_F(DISABLED_VideoReceiveStreamTest, PlayoutDelayPreservesDefaultMaxValue) {
   const int default_max_playout_latency = timing_->max_playout_delay();
   const PlayoutDelay kPlayoutDelayMs = {123, -1};
 
@@ -220,7 +220,7 @@ TEST_F(VideoReceiveStreamTest, PlayoutDelayPreservesDefaultMaxValue) {
   EXPECT_EQ(default_max_playout_latency, timing_->max_playout_delay());
 }
 
-TEST_F(VideoReceiveStreamTest, PlayoutDelayPreservesDefaultMinValue) {
+TEST_F(DISABLED_VideoReceiveStreamTest, PlayoutDelayPreservesDefaultMinValue) {
   const int default_min_playout_latency = timing_->min_playout_delay();
   const PlayoutDelay kPlayoutDelayMs = {-1, 321};
 
@@ -236,9 +236,9 @@ TEST_F(VideoReceiveStreamTest, PlayoutDelayPreservesDefaultMinValue) {
   EXPECT_EQ(default_min_playout_latency, timing_->min_playout_delay());
 }
 
-class VideoReceiveStreamTestWithFakeDecoder : public ::testing::Test {
+class DISABLED_VideoReceiveStreamTestWithFakeDecoder : public ::testing::Test {
  public:
-  VideoReceiveStreamTestWithFakeDecoder()
+  DISABLED_VideoReceiveStreamTestWithFakeDecoder()
       : fake_decoder_factory_(
             []() { return std::make_unique<test::FakeDecoder>(); }),
         process_thread_(ProcessThread::Create("TestThread")),
@@ -285,7 +285,7 @@ class VideoReceiveStreamTestWithFakeDecoder : public ::testing::Test {
   VCMTiming* timing_;
 };
 
-TEST_F(VideoReceiveStreamTestWithFakeDecoder, PassesNtpTime) {
+TEST_F(DISABLED_VideoReceiveStreamTestWithFakeDecoder, PassesNtpTime) {
   const int64_t kNtpTimestamp = 12345;
   auto test_frame = std::make_unique<FrameObjectFake>();
   test_frame->SetPayloadType(99);
@@ -298,7 +298,7 @@ TEST_F(VideoReceiveStreamTestWithFakeDecoder, PassesNtpTime) {
   EXPECT_EQ(kNtpTimestamp, fake_renderer_.ntp_time_ms());
 }
 
-TEST_F(VideoReceiveStreamTestWithFakeDecoder, PassesRotation) {
+TEST_F(DISABLED_VideoReceiveStreamTestWithFakeDecoder, PassesRotation) {
   const webrtc::VideoRotation kRotation = webrtc::kVideoRotation_180;
   auto test_frame = std::make_unique<FrameObjectFake>();
   test_frame->SetPayloadType(99);
@@ -312,7 +312,7 @@ TEST_F(VideoReceiveStreamTestWithFakeDecoder, PassesRotation) {
   EXPECT_EQ(kRotation, fake_renderer_.rotation());
 }
 
-TEST_F(VideoReceiveStreamTestWithFakeDecoder, PassesPacketInfos) {
+TEST_F(DISABLED_VideoReceiveStreamTestWithFakeDecoder, PassesPacketInfos) {
   auto test_frame = std::make_unique<FrameObjectFake>();
   test_frame->SetPayloadType(99);
   test_frame->id.picture_id = 0;
@@ -326,7 +326,8 @@ TEST_F(VideoReceiveStreamTestWithFakeDecoder, PassesPacketInfos) {
   EXPECT_THAT(fake_renderer_.packet_infos(), ElementsAreArray(packet_infos));
 }
 
-TEST_F(VideoReceiveStreamTestWithFakeDecoder, RenderedFrameUpdatesGetSources) {
+TEST_F(DISABLED_VideoReceiveStreamTestWithFakeDecoder,
+       RenderedFrameUpdatesGetSources) {
   constexpr uint32_t kSsrc = 1111;
   constexpr uint32_t kCsrc = 9001;
   constexpr uint32_t kRtpTimestamp = 12345;
@@ -413,7 +414,7 @@ std::unique_ptr<FrameObjectFake> MakeFrame(VideoFrameType frame_type,
   return frame;
 }
 
-TEST_F(VideoReceiveStreamTestWithFakeDecoder,
+TEST_F(DISABLED_VideoReceiveStreamTestWithFakeDecoder,
        PassesFrameWhenEncodedFramesCallbackSet) {
   testing::MockFunction<void(const RecordableEncodedFrame&)> callback;
   video_receive_stream_->Start();
@@ -428,7 +429,7 @@ TEST_F(VideoReceiveStreamTestWithFakeDecoder,
   video_receive_stream_->Stop();
 }
 
-TEST_F(VideoReceiveStreamTestWithFakeDecoder,
+TEST_F(DISABLED_VideoReceiveStreamTestWithFakeDecoder,
        MovesEncodedFrameDispatchStateWhenReCreating) {
   testing::MockFunction<void(const RecordableEncodedFrame&)> callback;
   video_receive_stream_->Start();
@@ -444,7 +445,8 @@ TEST_F(VideoReceiveStreamTestWithFakeDecoder,
   video_receive_stream_->Stop();
 }
 
-class VideoReceiveStreamTestWithSimulatedClock : public ::testing::Test {
+class DISABLED_VideoReceiveStreamTestWithSimulatedClock
+    : public ::testing::Test {
  public:
   class FakeDecoder2 : public test::FakeDecoder {
    public:
@@ -480,7 +482,7 @@ class VideoReceiveStreamTestWithSimulatedClock : public ::testing::Test {
     return config;
   }
 
-  VideoReceiveStreamTestWithSimulatedClock()
+  DISABLED_VideoReceiveStreamTestWithSimulatedClock()
       : time_controller_(Timestamp::Millis(4711)),
         fake_decoder_factory_([this] {
           return std::make_unique<FakeDecoder2>([this] { OnFrameDecoded(); });
@@ -527,7 +529,7 @@ class VideoReceiveStreamTestWithSimulatedClock : public ::testing::Test {
   std::unique_ptr<rtc::Event> event_;
 };
 
-TEST_F(VideoReceiveStreamTestWithSimulatedClock,
+TEST_F(DISABLED_VideoReceiveStreamTestWithSimulatedClock,
        RequestsKeyFramesUntilKeyFrameReceived) {
   auto tick = TimeDelta::Millis(
       internal::VideoReceiveStream::kMaxWaitForKeyFrameMs / 2);

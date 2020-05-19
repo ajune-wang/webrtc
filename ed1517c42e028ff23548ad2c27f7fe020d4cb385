@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69ba43d9_03110b60",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-19T14:16:46Z",
+      "side": 1,
+      "message": "coalesce is a tricky word, not super common and hard to spell(increasing the risk for typos in the source), is there a potential alternative terminology that we could use instead?",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "ed1517c42e028ff23548ad2c27f7fe020d4cb385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9449e65c_fa26e589",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-19T14:16:46Z",
+      "side": 1,
+      "message": "Why can\u0027t we send them earlier instead? Then we\u0027d reduce the thread wakeups at the expense of only increased burstiness, right?",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "ed1517c42e028ff23548ad2c27f7fe020d4cb385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

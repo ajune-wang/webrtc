@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed8de5c5_17651d6e",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-19T16:08:02Z",
+      "side": 1,
+      "message": "We should mention that we use PSNR to try to detect broken frames.",
+      "range": {
+        "startLine": 214,
+        "startChar": 2,
+        "endLine": 214,
+        "endChar": 74
+      },
+      "revId": "54ff15af28d87b8a8ac08450f3b7498a7930d960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acd93f98_09c7efe9",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-19T16:08:02Z",
+      "side": 1,
+      "message": "Have we verified that 30 is a good threshold? I think it\u0027s easier if we encode at a (very) high bitrate so that the difference between a broken frame and a regular frame become as large as possible.\n\nAlso, it might be good if we could add an option to dump the decoded video to a file so that it can be manually verified.",
+      "range": {
+        "startLine": 216,
+        "startChar": 38,
+        "endLine": 216,
+        "endChar": 40
+      },
+      "revId": "54ff15af28d87b8a8ac08450f3b7498a7930d960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

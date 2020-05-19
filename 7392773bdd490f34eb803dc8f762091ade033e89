@@ -22,6 +22,30 @@
       "revId": "7392773bdd490f34eb803dc8f762091ade033e89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df991da1_1b39c7d2",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-19T12:50:02Z",
+      "side": 1,
+      "message": "I consider that\u0027s the work of the ChainDiffCalculator tests.\nRtpPayloadParams just need to ensure chain_diffs are calculated. Actual values don\u0027t matter for this class/introduced code.\n(probably condition can be even weaker: Not(IsEmpty()))",
+      "parentUuid": "281b8b4d_9722e711",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 58
+      },
+      "revId": "7392773bdd490f34eb803dc8f762091ade033e89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

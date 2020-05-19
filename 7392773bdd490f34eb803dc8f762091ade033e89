@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "281b8b4d_9722e711",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-19T12:37:34Z",
+      "side": 1,
+      "message": "Would it be useful to also check the contents?",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 58
+      },
+      "revId": "7392773bdd490f34eb803dc8f762091ade033e89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

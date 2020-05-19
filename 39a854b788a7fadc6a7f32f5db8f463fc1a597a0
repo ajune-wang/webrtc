@@ -22,6 +22,30 @@
       "revId": "39a854b788a7fadc6a7f32f5db8f463fc1a597a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a6be6f1_95910e4f",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-19T12:25:22Z",
+      "side": 1,
+      "message": "std::vector\u003cbool\u003e is a different type from std::vector\u003cT\u003e,\neven if T \u003d enum SmallEnum : bool { kIn \u003d true, kOut \u003d false }\nhttps://en.cppreference.com/w/cpp/container/vector_bool\n\nI tried few options with enum idea, didn\u0027t found one that would look neat to me.\nRenamed member `chains` instead. do you find it make it clearer?",
+      "parentUuid": "1561a89e_93029974",
+      "range": {
+        "startLine": 391,
+        "startChar": 43,
+        "endLine": 391,
+        "endChar": 47
+      },
+      "revId": "39a854b788a7fadc6a7f32f5db8f463fc1a597a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "base/logging.h"
 #include "absl/strings/match.h"
 #include "modules/pacing/bitrate_prober.h"
 #include "modules/pacing/interval_budget.h"
@@ -672,6 +673,11 @@ void PacingController::OnPacketSent(RtpPacketMediaType packet_type,
     // Update media bytes sent.
     UpdateBudgetWithSentData(packet_size);
   }
+
+  if(packet_type == RtpPacketMediaType::kVideo) {
+    LOG(ERROR) << __func__ << " " << ToString(packet_size);
+  }
+
   last_send_time_ = send_time;
   last_process_time_ = send_time;
 }

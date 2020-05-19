@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "948ba8a7_e3132f7c",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-19T15:19:18Z",
+      "side": 1,
+      "message": "nit: Add /* hold_back_window\u003d */",
+      "range": {
+        "startLine": 101,
+        "startChar": 41,
+        "endLine": 101,
+        "endChar": 43
+      },
+      "revId": "ed1517c42e028ff23548ad2c27f7fe020d4cb385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69ba43d9_03110b60",
         "filename": "modules/pacing/task_queue_paced_sender.h",
         "patchSetId": 2
@@ -37,6 +60,30 @@
       "side": 1,
       "message": "I used it because of the similarities to interrupt coalescing, which I\u0027ve dealt with in the past and is a somewhat well known area in CS.\nDo you have suggest for a better wording? Hold-back window?",
       "parentUuid": "69ba43d9_03110b60",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "ed1517c42e028ff23548ad2c27f7fe020d4cb385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c053a101_70611aef",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-05-19T15:19:18Z",
+      "side": 1,
+      "message": "hold-back window is much better IMO",
+      "parentUuid": "f3c3d083_c4e3cbcb",
       "range": {
         "startLine": 45,
         "startChar": 10,

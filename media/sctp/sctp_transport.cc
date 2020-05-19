@@ -197,15 +197,181 @@ sctp_sendv_spa CreateSctpSendParams(const cricket::SendDataParams& params) {
 
 namespace cricket {
 
-// Handles global init/deinit, and mapping from usrsctp callbacks to
-// SctpTransport calls.
-class SctpTransport::UsrSctpWrapper {
+typedef int (*SctpConnOutput)(void* addr,
+                              void* buffer,
+                              size_t length,
+                              uint8_t tos,
+                              uint8_t set_df);
+
+class InitialiezedUsrSctp final {
  public:
-  static void InitializeUsrSctp() {
+  InitialiezedUsrSctp(SctpConnOutput conn_output) {
     RTC_LOG(LS_INFO) << __FUNCTION__;
+
+    usrsctp_thread_ = rtc::Thread::Create();
+    usrsctp_thread_->SetName("usrsctp thread", usrsctp_thread_.get());
+    usrsctp_thread_->Start();
+    usrsctp_thread_->Invoke<void>(RTC_FROM_HERE,
+                                  [&]() { Initialize(conn_output); });
+
+    StartTimer();
+  }
+
+  ~InitialiezedUsrSctp() {
+    RTC_LOG(LS_INFO) << __FUNCTION__;
+    usrsctp_thread_->Invoke<void>(RTC_FROM_HERE, [&]() { Deinitialize(); });
+    usrsctp_thread_->Stop();
+    usrsctp_thread_.reset();
+    RTC_LOG(LS_ERROR) << "Failed to shutdown usrsctp.";
+  }
+
+  int GetLAddrs(struct socket* so, sctp_assoc_t id, struct sockaddr** raddrs) {
+    return usrsctp_thread_->Invoke<int>(
+        RTC_FROM_HERE, [&]() { return usrsctp_getladdrs(so, id, raddrs); });
+  }
+
+  void FreeLAddrs(struct sockaddr* addrs) {
+    usrsctp_thread_->Invoke<void>(RTC_FROM_HERE,
+                                  [&]() { usrsctp_freeladdrs(addrs); });
+  }
+
+  ssize_t SendV(struct socket* so,
+                const void* data,
+                size_t len,
+                struct sockaddr* to,
+                int addrcnt,
+                void* info,
+                socklen_t infolen,
+                unsigned int infotype,
+                int flags,
+                int* error_number) {
+    return usrsctp_thread_->Invoke<ssize_t>(RTC_FROM_HERE, [&]() {
+      auto ret = usrsctp_sendv(so, data, len, to, addrcnt, info, infolen,
+                               infotype, flags);
+      if (error_number != nullptr) {
+        *error_number = errno;
+      }
+      return ret;
+    });
+  }
+
+  int Bind(struct socket* so,
+           struct sockaddr* name,
+           int namelen,
+           int* error_number) {
+    return usrsctp_thread_->Invoke<ssize_t>(RTC_FROM_HERE, [&]() {
+      auto ret = usrsctp_bind(so, name, namelen);
+      if (error_number != nullptr) {
+        *error_number = errno;
+      }
+      return ret;
+    });
+  }
+
+  int Connect(struct socket* so,
+              struct sockaddr* name,
+              int namelen,
+              int* error_number) {
+    return usrsctp_thread_->Invoke<ssize_t>(RTC_FROM_HERE, [&]() {
+      auto ret = usrsctp_connect(so, name, namelen);
+      if (error_number != nullptr) {
+        *error_number = errno;
+      }
+      return ret;
+    });
+  }
+
+  int SetSockOpts(struct socket* so,
+                  int level,
+                  int option_name,
+                  const void* option_value,
+                  socklen_t option_len) {
+    return usrsctp_thread_->Invoke<int>(RTC_FROM_HERE, [&]() {
+      return usrsctp_setsockopt(so, level, option_name, option_value,
+                                option_len);
+    });
+  }
+
+  struct socket* Socket(int domain,
+                        int type,
+                        int protocol,
+                        int (*receive_cb)(struct socket* sock,
+                                          union sctp_sockstore addr,
+                                          void* data,
+                                          size_t datalen,
+                                          struct sctp_rcvinfo,
+                                          int flags,
+                                          void* ulp_info),
+                        int (*send_cb)(struct socket* sock, uint32_t sb_free),
+                        uint32_t sb_threshold,
+                        void* ulp_info,
+                        int* error_number) {
+    return usrsctp_thread_->Invoke<struct socket*>(RTC_FROM_HERE, [&]() {
+      auto ret = usrsctp_socket(domain, type, protocol, receive_cb, send_cb,
+                                sb_threshold, ulp_info);
+      if (error_number != nullptr) {
+        *error_number = errno;
+      }
+      return ret;
+    });
+  }
+
+  uint32_t GetSctpSendspace() {
+    return usrsctp_thread_->Invoke<uint32_t>(
+        RTC_FROM_HERE, [&]() { return usrsctp_sysctl_get_sctp_sendspace(); });
+  }
+
+  void RegisterAddress(void* addr) {
+    return usrsctp_thread_->Invoke<void>(
+        RTC_FROM_HERE, [&]() { usrsctp_register_address(addr); });
+  }
+
+  void DeRegisterAddress(void* addr) {
+    return usrsctp_thread_->Invoke<void>(
+        RTC_FROM_HERE, [&]() { usrsctp_deregister_address(addr); });
+  }
+
+  void ConnInput(void* addr,
+                 const void* buffer,
+                 size_t length,
+                 uint8_t ecn_bits) {
+    return usrsctp_thread_->Invoke<void>(RTC_FROM_HERE, [&]() {
+      usrsctp_conninput(addr, buffer, length, ecn_bits);
+    });
+  }
+
+  void Close(struct socket* so) {
+    return usrsctp_thread_->Invoke<void>(RTC_FROM_HERE,
+                                         [&]() { usrsctp_close(so); });
+  }
+
+  int SetNonBlocking(struct socket* so, int onoff) {
+    return usrsctp_thread_->Invoke<int>(
+        RTC_FROM_HERE, [&]() { return usrsctp_set_non_blocking(so, onoff); });
+  }
+
+ private:
+  void Deinitialize() {
+    RTC_DCHECK_RUN_ON(usrsctp_thread_.get());
+
+    // usrsctp_finish() may fail if it's called too soon after the transports
+    // are
+    // closed. Wait and try again until it succeeds for up to 3 seconds.
+    for (size_t i = 0; i < 300; ++i) {
+      if (usrsctp_finish() == 0) {
+        return;
+      }
+
+      rtc::Thread::SleepMs(10);
+    }
+  }
+
+  void Initialize(SctpConnOutput conn_output) {
+    RTC_DCHECK_RUN_ON(usrsctp_thread_.get());
+
     // First argument is udp_encapsulation_port, which is not releveant for our
     // AF_CONN use of sctp.
-    usrsctp_init(0, &UsrSctpWrapper::OnSctpOutboundPacket, &DebugSctpPrintf);
+    usrsctp_init_nothreads(0, conn_output, &DebugSctpPrintf);
 
     // To turn on/off detailed SCTP debugging. You will also need to have the
     // SCTP_DEBUG cpp defines flag, which can be turned on in media/BUILD.gn.
@@ -244,19 +410,37 @@ class SctpTransport::UsrSctpWrapper {
     usrsctp_sysctl_set_sctp_nr_outgoing_streams_default(kMaxSctpStreams);
   }
 
+  void StartTimer() {
+    usrsctp_thread_->PostDelayedTask(
+        RTC_FROM_HERE, [&]() { AdvanceTimers(); }, 10);
+  }
+
+  void AdvanceTimers() {
+    RTC_DCHECK_RUN_ON(usrsctp_thread_.get());
+    usrsctp_handle_timers(10);
+    StartTimer();
+  }
+
+  std::unique_ptr<rtc::Thread> usrsctp_thread_;
+};
+
+ABSL_CONST_INIT InitialiezedUsrSctp* usrsctp_ = nullptr;
+
+// Handles global init/deinit, and mapping from usrsctp callbacks to
+// SctpTransport calls.
+class SctpTransport::UsrSctpWrapper {
+ public:
+  static void InitializeUsrSctp() {
+    RTC_LOG(LS_INFO) << __FUNCTION__;
+    RTC_DCHECK(usrsctp_ == nullptr);
+    usrsctp_ = new InitialiezedUsrSctp(&UsrSctpWrapper::OnSctpOutboundPacket);
+  }
+
   static void UninitializeUsrSctp() {
     RTC_LOG(LS_INFO) << __FUNCTION__;
-    // usrsctp_finish() may fail if it's called too soon after the transports
-    // are
-    // closed. Wait and try again until it succeeds for up to 3 seconds.
-    for (size_t i = 0; i < 300; ++i) {
-      if (usrsctp_finish() == 0) {
-        return;
-      }
-
-      rtc::Thread::SleepMs(10);
-    }
-    RTC_LOG(LS_ERROR) << "Failed to shutdown usrsctp.";
+    RTC_DCHECK(usrsctp_ != nullptr);
+    delete usrsctp_;
+    usrsctp_ = nullptr;
   }
 
   static void IncrementUsrSctpUsageCount() {
@@ -273,6 +457,95 @@ class SctpTransport::UsrSctpWrapper {
     if (!g_usrsctp_usage_count) {
       UninitializeUsrSctp();
     }
+  }
+
+  static int GetLAddrs(struct socket* so,
+                       sctp_assoc_t id,
+                       struct sockaddr** raddrs) {
+    return usrsctp_->GetLAddrs(so, id, raddrs);
+  }
+
+  static void FreeLAddrs(struct sockaddr* addrs) {
+    usrsctp_->FreeLAddrs(addrs);
+  }
+
+  static ssize_t SendV(struct socket* so,
+                       const void* data,
+                       size_t len,
+                       struct sockaddr* to,
+                       int addrcnt,
+                       void* info,
+                       socklen_t infolen,
+                       unsigned int infotype,
+                       int flags,
+                       int* error_number) {
+    return usrsctp_->SendV(so, data, len, to, addrcnt, info, infolen, infotype,
+                           flags, error_number);
+  }
+
+  static int Bind(struct socket* so,
+                  struct sockaddr* name,
+                  int namelen,
+                  int* error_number) {
+    return usrsctp_->Bind(so, name, namelen, error_number);
+  }
+
+  static int Connect(struct socket* so,
+                     struct sockaddr* name,
+                     int namelen,
+                     int* error_number) {
+    return usrsctp_->Connect(so, name, namelen, error_number);
+  }
+
+  static int SetSockOpts(struct socket* so,
+                         int level,
+                         int option_name,
+                         const void* option_value,
+                         socklen_t option_len) {
+    return usrsctp_->SetSockOpts(so, level, option_name, option_value,
+                                 option_len);
+  }
+
+  static struct socket* Socket(int domain,
+                               int type,
+                               int protocol,
+                               int (*receive_cb)(struct socket* sock,
+                                                 union sctp_sockstore addr,
+                                                 void* data,
+                                                 size_t datalen,
+                                                 struct sctp_rcvinfo,
+                                                 int flags,
+                                                 void* ulp_info),
+                               int (*send_cb)(struct socket* sock,
+                                              uint32_t sb_free),
+                               uint32_t sb_threshold,
+                               void* ulp_info,
+                               int* error_number) {
+    return usrsctp_->Socket(domain, type, protocol, receive_cb, send_cb,
+                            sb_threshold, ulp_info, error_number);
+  }
+
+  static uint32_t GetSctpSendspace() { return usrsctp_->GetSctpSendspace(); }
+
+  static void RegisterAddress(void* addr) {
+    return usrsctp_->RegisterAddress(addr);
+  }
+
+  static void DeRegisterAddress(void* addr) {
+    return usrsctp_->DeRegisterAddress(addr);
+  }
+
+  static void ConnInput(void* addr,
+                        const void* buffer,
+                        size_t length,
+                        uint8_t ecn_bits) {
+    return usrsctp_->ConnInput(addr, buffer, length, ecn_bits);
+  }
+
+  static void Close(struct socket* so) { return usrsctp_->Close(so); }
+
+  static int SetNonBlocking(struct socket* so, int onoff) {
+    return usrsctp_->SetNonBlocking(so, onoff);
   }
 
   // This is the callback usrsctp uses when there's data to send on the network
@@ -387,7 +660,7 @@ class SctpTransport::UsrSctpWrapper {
 
   static SctpTransport* GetTransportFromSocket(struct socket* sock) {
     struct sockaddr* addrs = nullptr;
-    int naddrs = usrsctp_getladdrs(sock, 0, &addrs);
+    int naddrs = UsrSctpWrapper::GetLAddrs(sock, 0, &addrs);
     if (naddrs <= 0 || addrs[0].sa_family != AF_CONN) {
       return nullptr;
     }
@@ -400,7 +673,7 @@ class SctpTransport::UsrSctpWrapper {
         reinterpret_cast<struct sockaddr_conn*>(&addrs[0]);
     SctpTransport* transport =
         reinterpret_cast<SctpTransport*>(sconn->sconn_addr);
-    usrsctp_freeladdrs(addrs);
+    UsrSctpWrapper::FreeLAddrs(addrs);
 
     return transport;
   }
@@ -416,7 +689,9 @@ class SctpTransport::UsrSctpWrapper {
           << sock;
       return 0;
     }
-    transport->OnSendThresholdCallback();
+    transport->invoker_.AsyncInvoke<void>(
+        RTC_FROM_HERE, transport->network_thread_,
+        rtc::Bind(&SctpTransport::OnSendThresholdCallback, transport));
     return 0;
   }
 };
@@ -633,11 +908,13 @@ SendDataResult SctpTransport::SendMessageInternal(OutgoingMessage* message) {
   // Note: this send call is not atomic because the EOR bit is set. This means
   // that usrsctp can partially accept this message and it is our duty to buffer
   // the rest.
-  ssize_t send_res = usrsctp_sendv(
-      sock_, message->data(), message->size(), NULL, 0, &spa,
-      rtc::checked_cast<socklen_t>(sizeof(spa)), SCTP_SENDV_SPA, 0);
+  int error_number = 0;
+  ssize_t send_res =
+      UsrSctpWrapper::SendV(sock_, message->data(), message->size(), NULL, 0,
+                            &spa, rtc::checked_cast<socklen_t>(sizeof(spa)),
+                            SCTP_SENDV_SPA, 0, &error_number);
   if (send_res < 0) {
-    if (errno == SCTP_EWOULDBLOCK) {
+    if (error_number == SCTP_EWOULDBLOCK) {
       ready_to_send_data_ = false;
       RTC_LOG(LS_INFO) << debug_name_
                        << "->SendMessageInternal(...): EWOULDBLOCK returned";
@@ -706,8 +983,8 @@ bool SctpTransport::Connect() {
 
   // Note: conversion from int to uint16_t happens on assignment.
   sockaddr_conn local_sconn = GetSctpSockAddr(local_port_);
-  if (usrsctp_bind(sock_, reinterpret_cast<sockaddr*>(&local_sconn),
-                   sizeof(local_sconn)) < 0) {
+  if (UsrSctpWrapper::Bind(sock_, reinterpret_cast<sockaddr*>(&local_sconn),
+                           sizeof(local_sconn), nullptr) < 0) {
     RTC_LOG_ERRNO(LS_ERROR)
         << debug_name_ << "->Connect(): " << ("Failed usrsctp_bind");
     CloseSctpSocket();
@@ -716,13 +993,16 @@ bool SctpTransport::Connect() {
 
   // Note: conversion from int to uint16_t happens on assignment.
   sockaddr_conn remote_sconn = GetSctpSockAddr(remote_port_);
-  int connect_result = usrsctp_connect(
-      sock_, reinterpret_cast<sockaddr*>(&remote_sconn), sizeof(remote_sconn));
-  if (connect_result < 0 && errno != SCTP_EINPROGRESS) {
+  int error_number = 0;
+  int connect_result =
+      UsrSctpWrapper::Connect(sock_, reinterpret_cast<sockaddr*>(&remote_sconn),
+                              sizeof(remote_sconn), &error_number);
+  if (connect_result < 0 && error_number != SCTP_EINPROGRESS) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->Connect(): "
-                               "Failed usrsctp_connect. got errno="
-                            << errno << ", but wanted " << SCTP_EINPROGRESS;
+                               "Failed usrsctp_connect. connect_result = "
+                            << connect_result << " got errno=" << error_number
+                            << ", but wanted " << SCTP_EINPROGRESS;
     CloseSctpSocket();
     return false;
   }
@@ -734,8 +1014,8 @@ bool SctpTransport::Connect() {
   // The MTU value provided specifies the space available for chunks in the
   // packet, so we subtract the SCTP header size.
   params.spp_pathmtu = kSctpMtu - sizeof(struct sctp_common_header);
-  if (usrsctp_setsockopt(sock_, IPPROTO_SCTP, SCTP_PEER_ADDR_PARAMS, &params,
-                         sizeof(params))) {
+  if (UsrSctpWrapper::SetSockOpts(sock_, IPPROTO_SCTP, SCTP_PEER_ADDR_PARAMS,
+                                  &params, sizeof(params))) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->Connect(): "
                                "Failed to set SCTP_PEER_ADDR_PARAMS.";
@@ -760,11 +1040,11 @@ bool SctpTransport::OpenSctpSocket() {
   // If kSctpSendBufferSize isn't reflective of reality, we log an error, but we
   // still have to do something reasonable here.  Look up what the buffer's real
   // size is and set our threshold to something reasonable.
-  static const int kSendThreshold = usrsctp_sysctl_get_sctp_sendspace() / 2;
+  static const int kSendThreshold = UsrSctpWrapper::GetSctpSendspace() / 2;
 
-  sock_ = usrsctp_socket(
+  sock_ = UsrSctpWrapper::Socket(
       AF_CONN, SOCK_STREAM, IPPROTO_SCTP, &UsrSctpWrapper::OnSctpInboundPacket,
-      &UsrSctpWrapper::SendThresholdCallback, kSendThreshold, this);
+      &UsrSctpWrapper::SendThresholdCallback, kSendThreshold, this, nullptr);
   if (!sock_) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->OpenSctpSocket(): "
@@ -774,14 +1054,14 @@ bool SctpTransport::OpenSctpSocket() {
   }
 
   if (!ConfigureSctpSocket()) {
-    usrsctp_close(sock_);
+    UsrSctpWrapper::Close(sock_);
     sock_ = nullptr;
     UsrSctpWrapper::DecrementUsrSctpUsageCount();
     return false;
   }
   // Register this class as an address for usrsctp. This is used by SCTP to
   // direct the packets received (by the created socket) to this class.
-  usrsctp_register_address(this);
+  UsrSctpWrapper::RegisterAddress(this);
   return true;
 }
 
@@ -790,7 +1070,7 @@ bool SctpTransport::ConfigureSctpSocket() {
   RTC_DCHECK(sock_);
   // Make the socket non-blocking. Connect, close, shutdown etc will not block
   // the thread waiting for the socket operation to complete.
-  if (usrsctp_set_non_blocking(sock_, 1) < 0) {
+  if (UsrSctpWrapper::SetNonBlocking(sock_, 1) < 0) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->ConfigureSctpSocket(): "
                                "Failed to set SCTP to non blocking.";
@@ -803,8 +1083,8 @@ bool SctpTransport::ConfigureSctpSocket() {
   linger linger_opt;
   linger_opt.l_onoff = 1;
   linger_opt.l_linger = 0;
-  if (usrsctp_setsockopt(sock_, SOL_SOCKET, SO_LINGER, &linger_opt,
-                         sizeof(linger_opt))) {
+  if (UsrSctpWrapper::SetSockOpts(sock_, SOL_SOCKET, SO_LINGER, &linger_opt,
+                                  sizeof(linger_opt))) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->ConfigureSctpSocket(): "
                                "Failed to set SO_LINGER.";
@@ -815,8 +1095,8 @@ bool SctpTransport::ConfigureSctpSocket() {
   struct sctp_assoc_value stream_rst;
   stream_rst.assoc_id = SCTP_ALL_ASSOC;
   stream_rst.assoc_value = 1;
-  if (usrsctp_setsockopt(sock_, IPPROTO_SCTP, SCTP_ENABLE_STREAM_RESET,
-                         &stream_rst, sizeof(stream_rst))) {
+  if (UsrSctpWrapper::SetSockOpts(sock_, IPPROTO_SCTP, SCTP_ENABLE_STREAM_RESET,
+                                  &stream_rst, sizeof(stream_rst))) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->ConfigureSctpSocket(): "
                                "Failed to set SCTP_ENABLE_STREAM_RESET.";
@@ -825,8 +1105,8 @@ bool SctpTransport::ConfigureSctpSocket() {
 
   // Nagle.
   uint32_t nodelay = 1;
-  if (usrsctp_setsockopt(sock_, IPPROTO_SCTP, SCTP_NODELAY, &nodelay,
-                         sizeof(nodelay))) {
+  if (UsrSctpWrapper::SetSockOpts(sock_, IPPROTO_SCTP, SCTP_NODELAY, &nodelay,
+                                  sizeof(nodelay))) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->ConfigureSctpSocket(): "
                                "Failed to set SCTP_NODELAY.";
@@ -835,8 +1115,8 @@ bool SctpTransport::ConfigureSctpSocket() {
 
   // Explicit EOR.
   uint32_t eor = 1;
-  if (usrsctp_setsockopt(sock_, IPPROTO_SCTP, SCTP_EXPLICIT_EOR, &eor,
-                         sizeof(eor))) {
+  if (UsrSctpWrapper::SetSockOpts(sock_, IPPROTO_SCTP, SCTP_EXPLICIT_EOR, &eor,
+                                  sizeof(eor))) {
     RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                             << "->ConfigureSctpSocket(): "
                                "Failed to set SCTP_EXPLICIT_EOR.";
@@ -852,8 +1132,8 @@ bool SctpTransport::ConfigureSctpSocket() {
   event.se_on = 1;
   for (size_t i = 0; i < arraysize(event_types); i++) {
     event.se_type = event_types[i];
-    if (usrsctp_setsockopt(sock_, IPPROTO_SCTP, SCTP_EVENT, &event,
-                           sizeof(event)) < 0) {
+    if (UsrSctpWrapper::SetSockOpts(sock_, IPPROTO_SCTP, SCTP_EVENT, &event,
+                                    sizeof(event)) < 0) {
       RTC_LOG_ERRNO(LS_ERROR) << debug_name_
                               << "->ConfigureSctpSocket(): "
                                  "Failed to set SCTP_EVENT type: "
@@ -870,9 +1150,9 @@ void SctpTransport::CloseSctpSocket() {
     // We assume that SO_LINGER option is set to close the association when
     // close is called. This means that any pending packets in usrsctp will be
     // discarded instead of being sent.
-    usrsctp_close(sock_);
+    UsrSctpWrapper::Close(sock_);
     sock_ = nullptr;
-    usrsctp_deregister_address(this);
+    UsrSctpWrapper::DeRegisterAddress(this);
     UsrSctpWrapper::DecrementUsrSctpUsageCount();
     ready_to_send_data_ = false;
   }
@@ -914,9 +1194,14 @@ bool SctpTransport::SendQueuedStreamResets() {
     resetp->srs_stream_list[result_idx++] = stream.first;
   }
 
-  int ret =
-      usrsctp_setsockopt(sock_, IPPROTO_SCTP, SCTP_RESET_STREAMS, resetp,
-                         rtc::checked_cast<socklen_t>(reset_stream_buf.size()));
+  if (!sock_) {
+    RTC_LOG(LS_WARNING) << "->SendQueuedStreamResets(): socket is not opened";
+    return false;
+  }
+
+  int ret = UsrSctpWrapper::SetSockOpts(
+      sock_, IPPROTO_SCTP, SCTP_RESET_STREAMS, resetp,
+      rtc::checked_cast<socklen_t>(reset_stream_buf.size()));
   if (ret < 0) {
     // Note that usrsctp only lets us have one reset in progress at a time
     // (even though multiple streams can be reset at once). If this happens,
@@ -1003,7 +1288,7 @@ void SctpTransport::OnPacketRead(rtc::PacketTransportInternal* transport,
     // will be will be given to the global OnSctpInboundData, and then,
     // marshalled by the AsyncInvoker.
     VerboseLogPacket(data, len, SCTP_DUMP_INBOUND);
-    usrsctp_conninput(this, data, len, 0);
+    UsrSctpWrapper::ConnInput(this, data, len, 0);
   } else {
     // TODO(ldixon): Consider caching the packet for very slightly better
     // reliability.

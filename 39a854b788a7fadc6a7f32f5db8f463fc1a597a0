@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1561a89e_93029974",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-19T12:05:33Z",
+      "side": 1,
+      "message": "nit: Maybe a bit late, but do you think it would make sense to have a kInChain and kNotInChain enum to signal what this vector of booleans mean? Or maybe we can just define it in the test so that it becomes more clear? Again, just a nit.",
+      "range": {
+        "startLine": 391,
+        "startChar": 43,
+        "endLine": 391,
+        "endChar": 47
+      },
+      "revId": "39a854b788a7fadc6a7f32f5db8f463fc1a597a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1002,7 +1002,8 @@ if (is_android) {
       }
 
       no_build_hooks = true
-    }
+      not_needed(invoker, ["android_manifest"])
+     }
   }
 
   template("rtc_android_apk") {

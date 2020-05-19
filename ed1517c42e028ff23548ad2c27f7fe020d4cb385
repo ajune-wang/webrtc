@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f3c3d083_c4e3cbcb",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-05-19T14:33:21Z",
+      "side": 1,
+      "message": "I used it because of the similarities to interrupt coalescing, which I\u0027ve dealt with in the past and is a somewhat well known area in CS.\nDo you have suggest for a better wording? Hold-back window?",
+      "parentUuid": "69ba43d9_03110b60",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "ed1517c42e028ff23548ad2c27f7fe020d4cb385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9449e65c_fa26e589",
         "filename": "modules/pacing/task_queue_paced_sender.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ed1517c42e028ff23548ad2c27f7fe020d4cb385",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "314495b4_b21dc7c8",
+        "filename": "modules/pacing/task_queue_paced_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-05-19T14:33:21Z",
+      "side": 1,
+      "message": "It depends on the context. If we have a single encoder sending complete batches of packets then yes - we could wake early instead (barring some refactoring in PacingController).\nThis parameter is mostly for the situation where you have multiple streams with packets arriving asynchronously one at a time - and where the buffer level is normally low. Then we can\u0027t reasonably wake up before the packets arrive.\n\nFor the former case, I intend to make improvements in the future - but it\u0027s a bigger issue.",
+      "parentUuid": "9449e65c_fa26e589",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "ed1517c42e028ff23548ad2c27f7fe020d4cb385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

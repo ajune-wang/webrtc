@@ -19,6 +19,7 @@
 #include "api/test/frame_generator_interface.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
+#include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "modules/video_coding/codecs/av1/libaom_av1_decoder.h"
 #include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
 #include "modules/video_coding/include/video_codec_interface.h"
@@ -29,10 +30,13 @@
 namespace webrtc {
 namespace {
 
-using ::testing::ElementsAreArray;
+using ::testing::ContainerEq;
+using ::testing::Each;
+using ::testing::Ge;
 using ::testing::IsEmpty;
 using ::testing::Not;
 using ::testing::NotNull;
+using ::testing::SizeIs;
 
 // Use small resolution for this test to make it faster.
 constexpr int kWidth = 320;
@@ -65,13 +69,15 @@ class TestAv1Encoder {
   TestAv1Encoder(const TestAv1Encoder&) = delete;
   TestAv1Encoder& operator=(const TestAv1Encoder&) = delete;
 
-  void EncodeAndAppend(const VideoFrame& frame, std::vector<Encoded>* encoded) {
-    callback_.SetEncodeStorage(encoded);
+  std::vector<Encoded> Encode(const VideoFrame& frame) {
+    std::vector<Encoded> encoded;
+    callback_.SetEncodeStorage(&encoded);
     std::vector<VideoFrameType> frame_types = {
         VideoFrameType::kVideoFrameDelta};
     EXPECT_EQ(encoder_->Encode(frame, &frame_types), WEBRTC_VIDEO_CODEC_OK);
     // Prefer to crash checking nullptr rather than writing to random memory.
     callback_.SetEncodeStorage(nullptr);
+    return encoded;
   }
 
  private:
@@ -114,9 +120,12 @@ class TestAv1Decoder {
   TestAv1Decoder(const TestAv1Decoder&) = delete;
   TestAv1Decoder& operator=(const TestAv1Decoder&) = delete;
 
-  void Decode(int64_t frame_id, const EncodedImage& image) {
+  void Decode(int64_t frame_id,
+              const VideoFrame& reference_image,
+              const EncodedImage& image) {
     ASSERT_THAT(decoder_, NotNull());
     requested_ids_.push_back(frame_id);
+    callback_.SetReferenceImage(reference_image);
     int32_t error = decoder_->Decode(image, /*missing_frames=*/false,
                                      /*render_time_ms=*/image.capture_time_ms_);
     if (error != WEBRTC_VIDEO_CODEC_OK) {
@@ -131,7 +140,7 @@ class TestAv1Decoder {
     return requested_ids_;
   }
   const std::vector<int64_t>& decoded_frame_ids() const { return decoded_ids_; }
-  size_t num_output_frames() const { return callback_.num_called(); }
+  rtc::ArrayView<const double> psnr() const { return callback_.psnr(); }
 
  private:
   // Decoder callback that only counts how many times it was called.
@@ -140,20 +149,24 @@ class TestAv1Decoder {
   // expected number of calls until after calls are done.
   class DecoderCallback : public DecodedImageCallback {
    public:
-    size_t num_called() const { return num_called_; }
+    rtc::ArrayView<const double> psnr() const { return psnr_; }
+    void SetReferenceImage(const VideoFrame& image) {
+      reference_image_ = &image;
+    }
 
    private:
-    int32_t Decoded(VideoFrame& /*decoded_image*/) override {
-      ++num_called_;
+    int32_t Decoded(VideoFrame& decoded_image) override {
+      psnr_.push_back(I420PSNR(reference_image_, &decoded_image));
       return 0;
     }
-    void Decoded(VideoFrame& /*decoded_image*/,
+    void Decoded(VideoFrame& decoded_image,
                  absl::optional<int32_t> /*decode_time_ms*/,
                  absl::optional<uint8_t> /*qp*/) override {
-      ++num_called_;
+      Decoded(decoded_image);
     }
 
-    int num_called_ = 0;
+    const VideoFrame* reference_image_ = nullptr;
+    std::vector<double> psnr_;
   };
 
   std::vector<int64_t> requested_ids_;
@@ -162,44 +175,45 @@ class TestAv1Decoder {
   std::unique_ptr<VideoDecoder> decoder_;
 };
 
-std::vector<VideoFrame> GenerateFrames(size_t num_frames) {
-  std::vector<VideoFrame> frames;
-  frames.reserve(num_frames);
-
-  auto input_frame_generator = test::CreateSquareFrameGenerator(
-      kWidth, kHeight, test::FrameGeneratorInterface::OutputType::kI420,
-      absl::nullopt);
-  uint32_t timestamp = 1000;
-  for (size_t i = 0; i < num_frames; ++i) {
-    frames.push_back(
-        VideoFrame::Builder()
-            .set_video_frame_buffer(input_frame_generator->NextFrame().buffer)
-            .set_timestamp_rtp(timestamp += kRtpTicksPerSecond / kFramerate)
-            .build());
+class VideoFrameGenerator {
+ public:
+  VideoFrame Next() {
+    return VideoFrame::Builder()
+        .set_video_frame_buffer(frame_buffer_generator_->NextFrame().buffer)
+        .set_timestamp_rtp(timestamp_ += kRtpTicksPerSecond / kFramerate)
+        .build();
   }
-  return frames;
-}
+
+ private:
+  uint32_t timestamp_ = 1000;
+  std::unique_ptr<test::FrameGeneratorInterface> frame_buffer_generator_ =
+      test::CreateSquareFrameGenerator(
+          kWidth,
+          kHeight,
+          test::FrameGeneratorInterface::OutputType::kI420,
+          absl::nullopt);
+};
 
 TEST(LibaomAv1Test, EncodeDecode) {
   TestAv1Decoder decoder;
   TestAv1Encoder encoder;
+  VideoFrameGenerator generator;
 
-  std::vector<TestAv1Encoder::Encoded> encoded_frames;
-  for (const VideoFrame& frame : GenerateFrames(/*num_frames=*/4)) {
-    encoder.EncodeAndAppend(frame, &encoded_frames);
-  }
-  for (size_t frame_idx = 0; frame_idx < encoded_frames.size(); ++frame_idx) {
-    decoder.Decode(static_cast<int64_t>(frame_idx),
-                   encoded_frames[frame_idx].encoded_image);
+  for (int64_t frame_id = 0; frame_id < 4; ++frame_id) {
+    VideoFrame input_frame = generator.Next();
+    auto encoded_frames = encoder.Encode(input_frame);
+    // Without scalability expect one input frame emits one output frame.
+    ASSERT_THAT(encoded_frames, SizeIs(1));
+    decoder.Decode(frame_id, input_frame, encoded_frames.front().encoded_image);
   }
 
-  // Check encoder produced some frames for decoder to decode.
-  ASSERT_THAT(encoded_frames, Not(IsEmpty()));
+  EXPECT_THAT(decoder.decoded_frame_ids(), Not(IsEmpty()));
   // Check decoder found all of them valid.
   EXPECT_THAT(decoder.decoded_frame_ids(),
-              ElementsAreArray(decoder.requested_frame_ids()));
-  // Check each of them produced an output frame.
-  EXPECT_EQ(decoder.num_output_frames(), decoder.decoded_frame_ids().size());
+              ContainerEq(decoder.requested_frame_ids()));
+  // Check each of them produced an output frame with not too bad quality.
+  EXPECT_THAT(decoder.psnr(), SizeIs(decoder.decoded_frame_ids().size()));
+  EXPECT_THAT(decoder.psnr(), Each(Ge(30)));
 }
 
 }  // namespace

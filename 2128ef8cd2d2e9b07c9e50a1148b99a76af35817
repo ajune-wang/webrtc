@@ -22,6 +22,30 @@
       "revId": "2128ef8cd2d2e9b07c9e50a1148b99a76af35817",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c1f375c_1d605ada",
+        "filename": "api/test/audioproc_float.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-05-19T10:53:50Z",
+      "side": 1,
+      "message": "You are right, that is not that clear. I changed it to instead refer to the AudioProcessingBuilder.",
+      "parentUuid": "0a322bb6_b292edc3",
+      "range": {
+        "startLine": 28,
+        "startChar": 44,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "2128ef8cd2d2e9b07c9e50a1148b99a76af35817",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04799910_7cdcb4c5",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-20T22:08:23Z",
+      "side": 1,
+      "message": "Could mention that this is the default interval in usrsctp.",
+      "revId": "3a82f020217ee78a4c60f27f4a7fe50eea35ba30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb1a7ff6_5fede1ff",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-20T22:08:23Z",
+      "side": 1,
+      "message": "Any particular reason this is 12?",
+      "revId": "3a82f020217ee78a4c60f27f4a7fe50eea35ba30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8538c6b0_b8e09fb0",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-20T22:08:23Z",
+      "side": 1,
+      "message": "How is this possible if we\u0027re single threaded? What could happen during the sleep that would resolve the situation?",
+      "revId": "3a82f020217ee78a4c60f27f4a7fe50eea35ba30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe1e2f6_e7c0b919",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-20T22:08:23Z",
+      "side": 1,
+      "message": "Is there any reason for this and InitialiezedUsrSctp to be two separate classes?",
+      "revId": "3a82f020217ee78a4c60f27f4a7fe50eea35ba30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

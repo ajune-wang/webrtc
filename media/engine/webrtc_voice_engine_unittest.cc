@@ -2046,6 +2046,9 @@ class WebRtcVoiceEngineWithSendSideBweTest : public WebRtcVoiceEngineTestFake {
       : WebRtcVoiceEngineTestFake("WebRTC-Audio-SendSideBwe/Enabled/") {}
 };
 
+GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(
+    WebRtcVoiceEngineWithSendSideBweTest);
+
 TEST_P(WebRtcVoiceEngineWithSendSideBweTest,
        SupportsTransportSequenceNumberHeaderExtension) {
   const std::vector<webrtc::RtpExtension> header_extensions =

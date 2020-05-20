@@ -164,6 +164,30 @@
       "revId": "fbaaf2d5b6d8d6be911a6b318a053e356b5fadc1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bdc4c2d_93acedcf",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2020-05-20T17:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a513355d_4130e977",
+      "range": {
+        "startLine": 211,
+        "startChar": 51,
+        "endLine": 211,
+        "endChar": 61
+      },
+      "revId": "fbaaf2d5b6d8d6be911a6b318a053e356b5fadc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

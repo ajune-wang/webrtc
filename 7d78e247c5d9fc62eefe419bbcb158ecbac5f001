@@ -22,6 +22,30 @@
       "revId": "7d78e247c5d9fc62eefe419bbcb158ecbac5f001",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58ebd702_adafc5de",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2050,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-05-20T10:57:41Z",
+      "side": 1,
+      "message": "Good question.\n\nThere is only one test derived from this class, WebRtcVoiceEngineWithSendSideBweTest.SupportsTransportSequenceNumberHeaderExtension, and it does not use any test parameter.\n\nHowever, WebRtcVoiceEngineWithSendSideBweTest inherits from WebRtcVoiceEngineTestFake, which _is_ parameterized (inherits from ::testing::TestWithParam\u003cbool\u003e).\n\nI wonder if this subclass should be covered by the instantiation of the superclass, on line 818:\n\nINSTANTIATE_TEST_SUITE_P(TestBothWithAndWithoutNullApm,\n                         WebRtcVoiceEngineTestFake,\n                         ::testing::Values(false, true));\n\nIt is probably for the best if the instantiation does not trigger on the subclass.\nIn that case, I would suggest instantiating it with a single (unused) argument, something like this:\n\nINSTANTIATE_TEST_SUITE_P(UnusedParameter,\n                         WebRtcVoiceEngineWithSendSideBweTest,\n                         ::testing::Values(true));\n\nWould you like me to do this, or will you do it in this CL?",
+      "parentUuid": "53a0b5f8_bce22430",
+      "range": {
+        "startLine": 2049,
+        "startChar": 0,
+        "endLine": 2050,
+        "endChar": 42
+      },
+      "revId": "7d78e247c5d9fc62eefe419bbcb158ecbac5f001",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

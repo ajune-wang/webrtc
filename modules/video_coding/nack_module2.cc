@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/nack_module.h"
+#include "modules/video_coding/nack_module2.h"
 
 #include <algorithm>
 #include <limits>
@@ -43,27 +43,27 @@ int64_t GetSendNackDelay() {
 }
 }  // namespace
 
-constexpr TimeDelta NackModule::kUpdateInterval;
+constexpr TimeDelta NackModule2::kUpdateInterval;
 
-NackModule::NackInfo::NackInfo()
+NackModule2::NackInfo::NackInfo()
     : seq_num(0), send_at_seq_num(0), sent_at_time(-1), retries(0) {}
 
-NackModule::NackInfo::NackInfo(uint16_t seq_num,
-                               uint16_t send_at_seq_num,
-                               int64_t created_at_time)
+NackModule2::NackInfo::NackInfo(uint16_t seq_num,
+                                uint16_t send_at_seq_num,
+                                int64_t created_at_time)
     : seq_num(seq_num),
       send_at_seq_num(send_at_seq_num),
       created_at_time(created_at_time),
       sent_at_time(-1),
       retries(0) {}
 
-NackModule::BackoffSettings::BackoffSettings(TimeDelta min_retry,
-                                             TimeDelta max_rtt,
-                                             double base)
+NackModule2::BackoffSettings::BackoffSettings(TimeDelta min_retry,
+                                              TimeDelta max_rtt,
+                                              double base)
     : min_retry_interval(min_retry), max_rtt(max_rtt), base(base) {}
 
-absl::optional<NackModule::BackoffSettings>
-NackModule::BackoffSettings::ParseFromFieldTrials() {
+absl::optional<NackModule2::BackoffSettings>
+NackModule2::BackoffSettings::ParseFromFieldTrials() {
   // Matches magic number in RTPSender::OnReceivedNack().
   const TimeDelta kDefaultMinRetryInterval = TimeDelta::Millis(5);
   // Upper bound on link-delay considered for exponential backoff.
@@ -82,16 +82,16 @@ NackModule::BackoffSettings::ParseFromFieldTrials() {
                   field_trial::FindFullName("WebRTC-ExponentialNackBackoff"));
 
   if (enabled) {
-    return NackModule::BackoffSettings(min_retry.Get(), max_rtt.Get(),
-                                       base.Get());
+    return NackModule2::BackoffSettings(min_retry.Get(), max_rtt.Get(),
+                                        base.Get());
   }
   return absl::nullopt;
 }
 
-NackModule::NackModule(Clock* clock,
-                       NackSender* nack_sender,
-                       KeyFrameRequestSender* keyframe_request_sender,
-                       TimeDelta update_interval /*= kUpdateInterval*/)
+NackModule2::NackModule2(Clock* clock,
+                         NackSender* nack_sender,
+                         KeyFrameRequestSender* keyframe_request_sender,
+                         TimeDelta update_interval /*= kUpdateInterval*/)
     : worker_thread_(TaskQueueBase::Current()),
       update_interval_(update_interval),
       clock_(clock),
@@ -126,19 +126,19 @@ NackModule::NackModule(Clock* clock,
       clock_);
 }
 
-NackModule::~NackModule() {
+NackModule2::~NackModule2() {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   repeating_task_.Stop();
 }
 
-int NackModule::OnReceivedPacket(uint16_t seq_num, bool is_keyframe) {
+int NackModule2::OnReceivedPacket(uint16_t seq_num, bool is_keyframe) {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   return OnReceivedPacket(seq_num, is_keyframe, false);
 }
 
-int NackModule::OnReceivedPacket(uint16_t seq_num,
-                                 bool is_keyframe,
-                                 bool is_recovered) {
+int NackModule2::OnReceivedPacket(uint16_t seq_num,
+                                  bool is_keyframe,
+                                  bool is_recovered) {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   // TODO(philipel): When the packet includes information whether it is
   //                 retransmitted or not, use that value instead. For
@@ -207,8 +207,8 @@ int NackModule::OnReceivedPacket(uint16_t seq_num,
   return 0;
 }
 
-void NackModule::ClearUpTo(uint16_t seq_num) {
-  // Called via RtpVideoStreamReceiver::FrameContinuous on the network thread.
+void NackModule2::ClearUpTo(uint16_t seq_num) {
+  // Called via RtpVideoStreamReceiver2::FrameContinuous on the network thread.
   worker_thread_->PostTask(ToQueuedTask(task_safety_, [seq_num, this]() {
     RTC_DCHECK_RUN_ON(&worker_task_checker_);
     nack_list_.erase(nack_list_.begin(), nack_list_.lower_bound(seq_num));
@@ -219,12 +219,12 @@ void NackModule::ClearUpTo(uint16_t seq_num) {
   }));
 }
 
-void NackModule::UpdateRtt(int64_t rtt_ms) {
+void NackModule2::UpdateRtt(int64_t rtt_ms) {
   RTC_DCHECK_RUN_ON(&worker_task_checker_);
   rtt_ms_ = rtt_ms;
 }
 
-bool NackModule::RemovePacketsUntilKeyFrame() {
+bool NackModule2::RemovePacketsUntilKeyFrame() {
   // Called on worker_task_checker_.
   while (!keyframe_list_.empty()) {
     auto it = nack_list_.lower_bound(*keyframe_list_.begin());
@@ -243,8 +243,8 @@ bool NackModule::RemovePacketsUntilKeyFrame() {
   return false;
 }
 
-void NackModule::AddPacketsToNack(uint16_t seq_num_start,
-                                  uint16_t seq_num_end) {
+void NackModule2::AddPacketsToNack(uint16_t seq_num_start,
+                                   uint16_t seq_num_end) {
   // Called on worker_task_checker_.
   // Remove old packets.
   auto it = nack_list_.lower_bound(seq_num_end - kMaxPacketAge);
@@ -279,7 +279,7 @@ void NackModule::AddPacketsToNack(uint16_t seq_num_start,
   }
 }
 
-std::vector<uint16_t> NackModule::GetNackBatch(NackFilterOptions options) {
+std::vector<uint16_t> NackModule2::GetNackBatch(NackFilterOptions options) {
   // Called on worker_task_checker_.
 
   bool consider_seq_num = options != kTimeOnly;
@@ -326,14 +326,14 @@ std::vector<uint16_t> NackModule::GetNackBatch(NackFilterOptions options) {
   return nack_batch;
 }
 
-void NackModule::UpdateReorderingStatistics(uint16_t seq_num) {
+void NackModule2::UpdateReorderingStatistics(uint16_t seq_num) {
   // Running on worker_task_checker_.
   RTC_DCHECK(AheadOf(newest_seq_num_, seq_num));
   uint16_t diff = ReverseDiff(newest_seq_num_, seq_num);
   reordering_histogram_.Add(diff);
 }
 
-int NackModule::WaitNumberOfPackets(float probability) const {
+int NackModule2::WaitNumberOfPackets(float probability) const {
   // Called on worker_task_checker_;
   if (reordering_histogram_.NumValues() == 0)
     return 0;

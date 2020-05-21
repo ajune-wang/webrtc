@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_NACK_MODULE_H_
-#define MODULES_VIDEO_CODING_NACK_MODULE_H_
+#ifndef MODULES_VIDEO_CODING_NACK_MODULE2_H_
+#define MODULES_VIDEO_CODING_NACK_MODULE2_H_
 
 #include <stdint.h>
 
@@ -30,18 +30,18 @@
 
 namespace webrtc {
 
-class NackModule {
+class NackModule2 final {
  public:
   static constexpr int kUpdateFrequencyPerSecond = 50;
   static constexpr int kProcessIntervalMs = 1000 / kUpdateFrequencyPerSecond;
   static constexpr TimeDelta kUpdateInterval =
       TimeDelta::Millis(kProcessIntervalMs);
 
-  NackModule(Clock* clock,
-             NackSender* nack_sender,
-             KeyFrameRequestSender* keyframe_request_sender,
-             TimeDelta update_interval = kUpdateInterval);
-  ~NackModule();
+  NackModule2(Clock* clock,
+              NackSender* nack_sender,
+              KeyFrameRequestSender* keyframe_request_sender,
+              TimeDelta update_interval = kUpdateInterval);
+  ~NackModule2();
 
   int OnReceivedPacket(uint16_t seq_num, bool is_keyframe);
   int OnReceivedPacket(uint16_t seq_num, bool is_keyframe, bool is_recovered);
@@ -138,4 +138,4 @@ class NackModule {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_NACK_MODULE_H_
+#endif  // MODULES_VIDEO_CODING_NACK_MODULE2_H_

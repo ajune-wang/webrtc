@@ -17,7 +17,7 @@
 #include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
-#include "video/rtp_video_stream_receiver.h"
+#include "video/rtp_video_stream_receiver2.h"
 
 namespace webrtc {
 
@@ -69,7 +69,7 @@ class TransformableVideoReceiverFrame
 
 RtpVideoStreamReceiverFrameTransformerDelegate::
     RtpVideoStreamReceiverFrameTransformerDelegate(
-        RtpVideoStreamReceiver* receiver,
+        RtpVideoFrameReceiver* receiver,
         rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
         rtc::Thread* network_thread,
         uint32_t ssrc)
@@ -116,6 +116,10 @@ void RtpVideoStreamReceiverFrameTransformerDelegate::ManageFrame(
     return;
   auto transformed_frame = absl::WrapUnique(
       static_cast<TransformableVideoReceiverFrame*>(frame.release()));
+  // TODO(tommi): Factor out into an interface, common between
+  // RtpVideoStreamReceiver and RtpVideoStreamReceiver2.
+  // Alternatively copy this impleentation into the deprecated
+  // RtpVideoStreamReceiver file.
   receiver_->ManageFrame(std::move(*transformed_frame).ExtractFrame());
 }
 

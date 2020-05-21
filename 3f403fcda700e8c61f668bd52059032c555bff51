@@ -70,6 +70,30 @@
       "revId": "3f403fcda700e8c61f668bd52059032c555bff51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03b25aa7_b45a5963",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2020-05-21T20:33:56Z",
+      "side": 1,
+      "message": "Yes you\u0027re right. you do need to set AOM_EFLAG_FORCE_KF to force key frame.",
+      "parentUuid": "b0ef2426_cd6a8a55",
+      "range": {
+        "startLine": 273,
+        "startChar": 41,
+        "endLine": 273,
+        "endChar": 55
+      },
+      "revId": "3f403fcda700e8c61f668bd52059032c555bff51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

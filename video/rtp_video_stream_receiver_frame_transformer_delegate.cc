@@ -17,7 +17,7 @@
 #include "modules/rtp_rtcp/source/rtp_descriptor_authentication.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
-#include "video/rtp_video_stream_receiver.h"
+#include "video/rtp_video_stream_receiver2.h"
 
 namespace webrtc {
 
@@ -69,7 +69,7 @@ class TransformableVideoReceiverFrame
 
 RtpVideoStreamReceiverFrameTransformerDelegate::
     RtpVideoStreamReceiverFrameTransformerDelegate(
-        RtpVideoStreamReceiver* receiver,
+        RtpVideoFrameReceiver* receiver,
         rtc::scoped_refptr<FrameTransformerInterface> frame_transformer,
         rtc::Thread* network_thread,
         uint32_t ssrc)

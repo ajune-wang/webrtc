@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3197f1f4_a331a691",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-25T19:02:47Z",
+      "side": 1,
+      "message": "Why {} initialization? IIUC https://abseil.io/tips/88 suggests to use LogSegment().",
+      "range": {
+        "startLine": 1238,
+        "startChar": 23,
+        "endLine": 1238,
+        "endChar": 42
+      },
+      "revId": "0769bb42388de18ebecb767ab3075095895aeb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1509fb49_0640d634",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-25T19:02:47Z",
+      "side": 1,
+      "message": "Should we DCHECK that we are not returning the default initialized first log segment or that is a supported behaviour?",
+      "range": {
+        "startLine": 617,
+        "startChar": 55,
+        "endLine": 617,
+        "endChar": 73
+      },
+      "revId": "0769bb42388de18ebecb767ab3075095895aeb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

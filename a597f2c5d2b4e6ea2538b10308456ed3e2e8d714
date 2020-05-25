@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53b87178_f522e708",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-25T08:20:54Z",
+      "side": 1,
+      "message": "Nit: Please remove this tab.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 1
+      },
+      "revId": "a597f2c5d2b4e6ea2538b10308456ed3e2e8d714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cbfedce_136c96ce",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-25T08:20:54Z",
+      "side": 1,
+      "message": "We don\u0027t have some of these (for example \"gn\", see https://ci.chromium.org/p/webrtc/builders/ci/Linux64%20Release/25031).\n\nIIUC these should match the steps in the recipe, is that correct?\n\nIn that case we need to remove some of these and change them with WebRTC equivalents (gn -\u003e generate_build_files).",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 13
+      },
+      "revId": "a597f2c5d2b4e6ea2538b10308456ed3e2e8d714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

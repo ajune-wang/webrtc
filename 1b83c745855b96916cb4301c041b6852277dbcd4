@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f3a4226_50fbf20c",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1197,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-25T07:01:58Z",
+      "side": 1,
+      "message": "The words \"in other words\" had me looking for some previous words, but seem to be pointing only at code. Delete?",
+      "revId": "1b83c745855b96916cb4301c041b6852277dbcd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8313412e_8dc06eb6",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5673,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-25T07:01:58Z",
+      "side": 1,
+      "message": "can you use hostname.test instead?\nIt seems that RFC 2606 recommends against using real hostnames in tests, and hostname.com is actually a DNS hosting provider. (Repeat for other tests)",
+      "revId": "1b83c745855b96916cb4301c041b6852277dbcd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

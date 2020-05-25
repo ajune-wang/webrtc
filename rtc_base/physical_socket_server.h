@@ -23,6 +23,7 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/net_helpers.h"
 #include "rtc_base/socket_server.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -83,7 +84,7 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
  private:
   typedef std::set<Dispatcher*> DispatcherSet;
 
-  void AddRemovePendingDispatchers() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  void AddRemovePendingDispatchers() RTC_RUN_ON(sequence_checker_);
 
 #if defined(WEBRTC_POSIX)
   bool WaitSelect(int cms, bool process_io);
@@ -98,16 +99,16 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   const int epoll_fd_ = INVALID_SOCKET;
   std::vector<struct epoll_event> epoll_events_;
 #endif  // WEBRTC_USE_EPOLL
-  DispatcherSet dispatchers_ RTC_GUARDED_BY(crit_);
+  webrtc::SequenceChecker sequence_checker_;
+  CriticalSection crit_;
+  DispatcherSet dispatchers_ RTC_GUARDED_BY(sequence_checker_);
   DispatcherSet pending_add_dispatchers_ RTC_GUARDED_BY(crit_);
   DispatcherSet pending_remove_dispatchers_ RTC_GUARDED_BY(crit_);
-  bool processing_dispatchers_ RTC_GUARDED_BY(crit_) = false;
   Signaler* signal_wakeup_;  // Assigned in constructor only
-  CriticalSection crit_;
 #if defined(WEBRTC_WIN)
   const WSAEVENT socket_ev_;
 #endif
-  bool fWait_;
+  bool fWait_ RTC_GUARDED_BY(sequence_checker_);
 };
 
 class PhysicalSocket : public AsyncSocket, public sigslot::has_slots<> {

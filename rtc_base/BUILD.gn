@@ -768,6 +768,7 @@ rtc_library("rtc_base") {
     "../api/task_queue",
     "../system_wrappers:field_trial",
     "network:sent_packet",
+    "synchronization:sequence_checker",
     "system:file_wrapper",
     "system:inline",
     "system:rtc_export",

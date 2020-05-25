@@ -9,6 +9,9 @@
  */
 #include "rtc_base/physical_socket_server.h"
 
+#include "rtc_base/critical_section.h"
+#include "rtc_base/synchronization/sequence_checker.h"
+
 #if defined(_MSC_VER) && _MSC_VER < 1300
 #pragma warning(disable : 4786)
 #endif
@@ -638,6 +641,9 @@ bool SocketDispatcher::Initialize() {
   ::setsockopt(s_, SOL_SOCKET, SO_NOSIGPIPE, &value, sizeof(value));
 #endif
   ss_->Add(this);
+#if defined(WEBRTC_USE_EPOLL)
+  added_ = true;
+#endif
   return true;
 }
 
@@ -861,7 +867,9 @@ void SocketDispatcher::FinishBatchedEventUpdates() {
 void SocketDispatcher::MaybeUpdateDispatcher(uint8_t old_events) {
   if (GetEpollEvents(enabled_events()) != GetEpollEvents(old_events) &&
       saved_enabled_events_ == -1) {
-    ss_->Update(this);
+    if (added_) {
+      ss_->Update(this);
+    }
   }
 }
 
@@ -900,6 +908,7 @@ int SocketDispatcher::Close() {
   if (saved_enabled_events_ != -1) {
     saved_enabled_events_ = 0;
   }
+  added_ = false;
 #endif
   ss_->Remove(this);
   return PhysicalSocket::Close();
@@ -1061,7 +1070,8 @@ PhysicalSocketServer::~PhysicalSocketServer() {
     close(epoll_fd_);
   }
 #endif
-  RTC_DCHECK(dispatchers_.empty());
+  RTC_DCHECK(pending_add_dispatchers_.empty());
+  RTC_DCHECK(dispatchers_ == pending_remove_dispatchers_);
 }
 
 void PhysicalSocketServer::WakeUp() {
@@ -1099,16 +1109,11 @@ AsyncSocket* PhysicalSocketServer::WrapSocket(SOCKET s) {
 }
 
 void PhysicalSocketServer::Add(Dispatcher* pdispatcher) {
-  CritScope cs(&crit_);
-  if (processing_dispatchers_) {
-    // A dispatcher is being added while a "Wait" call is processing the
-    // list of socket events.
-    // Defer adding to "dispatchers_" set until processing is done to avoid
-    // invalidating the iterator in "Wait".
+  {
+    CritScope cs(&crit_);
+    // Defer adding to the `dispatchers_` until needed by the wait loop.
     pending_remove_dispatchers_.erase(pdispatcher);
     pending_add_dispatchers_.insert(pdispatcher);
-  } else {
-    dispatchers_.insert(pdispatcher);
   }
 #if defined(WEBRTC_USE_EPOLL)
   if (epoll_fd_ != INVALID_SOCKET) {
@@ -1118,26 +1123,12 @@ void PhysicalSocketServer::Add(Dispatcher* pdispatcher) {
 }
 
 void PhysicalSocketServer::Remove(Dispatcher* pdispatcher) {
-  CritScope cs(&crit_);
-  if (processing_dispatchers_) {
-    // A dispatcher is being removed while a "Wait" call is processing the
-    // list of socket events.
-    // Defer removal from "dispatchers_" set until processing is done to avoid
-    // invalidating the iterator in "Wait".
-    if (!pending_add_dispatchers_.erase(pdispatcher) &&
-        dispatchers_.find(pdispatcher) == dispatchers_.end()) {
-      RTC_LOG(LS_WARNING) << "PhysicalSocketServer asked to remove a unknown "
-                             "dispatcher, potentially from a duplicate call to "
-                             "Add.";
-      return;
+  {
+    CritScope cs(&crit_);
+    // Defer removal from the `dispatchers_` until accessed by the wait loop.
+    if (!pending_add_dispatchers_.erase(pdispatcher)) {
+      pending_remove_dispatchers_.insert(pdispatcher);
     }
-
-    pending_remove_dispatchers_.insert(pdispatcher);
-  } else if (!dispatchers_.erase(pdispatcher)) {
-    RTC_LOG(LS_WARNING)
-        << "PhysicalSocketServer asked to remove a unknown "
-           "dispatcher, potentially from a duplicate call to Add.";
-    return;
   }
 #if defined(WEBRTC_USE_EPOLL)
   if (epoll_fd_ != INVALID_SOCKET) {
@@ -1146,14 +1137,9 @@ void PhysicalSocketServer::Remove(Dispatcher* pdispatcher) {
 #endif  // WEBRTC_USE_EPOLL
 }
 
-void PhysicalSocketServer::Update(Dispatcher* pdispatcher) {
+void PhysicalSocketServer::Update(SocketDispatcher* pdispatcher) {
 #if defined(WEBRTC_USE_EPOLL)
   if (epoll_fd_ == INVALID_SOCKET) {
-    return;
-  }
-
-  CritScope cs(&crit_);
-  if (dispatchers_.find(pdispatcher) == dispatchers_.end()) {
     return;
   }
 
@@ -1162,6 +1148,7 @@ void PhysicalSocketServer::Update(Dispatcher* pdispatcher) {
 }
 
 void PhysicalSocketServer::AddRemovePendingDispatchers() {
+  rtc::CritScope lock(&crit_);
   if (!pending_add_dispatchers_.empty()) {
     for (Dispatcher* pdispatcher : pending_add_dispatchers_) {
       dispatchers_.insert(pdispatcher);
@@ -1180,6 +1167,8 @@ void PhysicalSocketServer::AddRemovePendingDispatchers() {
 #if defined(WEBRTC_POSIX)
 
 bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
+  sequence_checker_.Detach();
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
 #if defined(WEBRTC_USE_EPOLL)
   // We don't keep a dedicated "epoll" descriptor containing only the non-IO
   // (i.e. signaling) dispatcher, so "poll" will be used instead of the default
@@ -1277,28 +1266,24 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
 
   while (fWait_) {
     int fdmax = -1;
-    {
-      CritScope cr(&crit_);
-      // TODO(jbauch): Support re-entrant waiting.
-      RTC_DCHECK(!processing_dispatchers_);
-      for (Dispatcher* pdispatcher : dispatchers_) {
-        // Query dispatchers for read and write wait state
-        RTC_DCHECK(pdispatcher);
-        if (!process_io && (pdispatcher != signal_wakeup_))
-          continue;
-        int fd = pdispatcher->GetDescriptor();
-        // "select"ing a file descriptor that is equal to or larger than
-        // FD_SETSIZE will result in undefined behavior.
-        RTC_DCHECK_LT(fd, FD_SETSIZE);
-        if (fd > fdmax)
-          fdmax = fd;
+    AddRemovePendingDispatchers();
+    for (Dispatcher* pdispatcher : dispatchers_) {
+      // Query dispatchers for read and write wait state
+      RTC_DCHECK(pdispatcher);
+      if (!process_io && (pdispatcher != signal_wakeup_))
+        continue;
+      int fd = pdispatcher->GetDescriptor();
+      // "select"ing a file descriptor that is equal to or larger than
+      // FD_SETSIZE will result in undefined behavior.
+      RTC_DCHECK_LT(fd, FD_SETSIZE);
+      if (fd > fdmax)
+        fdmax = fd;
 
-        uint32_t ff = pdispatcher->GetRequestedEvents();
-        if (ff & (DE_READ | DE_ACCEPT))
-          FD_SET(fd, &fdsRead);
-        if (ff & (DE_WRITE | DE_CONNECT))
-          FD_SET(fd, &fdsWrite);
-      }
+      uint32_t ff = pdispatcher->GetRequestedEvents();
+      if (ff & (DE_READ | DE_ACCEPT))
+        FD_SET(fd, &fdsRead);
+      if (ff & (DE_WRITE | DE_CONNECT))
+        FD_SET(fd, &fdsWrite);
     }
 
     // Wait then call handlers as appropriate
@@ -1321,9 +1306,7 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
       // If timeout, return success
       return true;
     } else {
-      // We have signaled descriptors
-      CritScope cr(&crit_);
-      processing_dispatchers_ = true;
+      AddRemovePendingDispatchers();
       for (Dispatcher* pdispatcher : dispatchers_) {
         int fd = pdispatcher->GetDescriptor();
 
@@ -1340,11 +1323,6 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
         // The error code can be signaled through reads or writes.
         ProcessEvents(pdispatcher, readable, writable, readable || writable);
       }
-
-      processing_dispatchers_ = false;
-      // Process deferred dispatchers that have been added/removed while the
-      // events were handled above.
-      AddRemovePendingDispatchers();
     }
 
     // Recalc the time remaining to wait. Doing it here means it doesn't get
@@ -1466,7 +1444,7 @@ bool PhysicalSocketServer::WaitEpoll(int cmsWait) {
       return true;
     } else {
       // We have signaled descriptors
-      CritScope cr(&crit_);
+      AddRemovePendingDispatchers();
       for (int i = 0; i < n; ++i) {
         const epoll_event& event = epoll_events_[i];
         Dispatcher* pdispatcher = static_cast<Dispatcher*>(event.data.ptr);
@@ -1575,6 +1553,8 @@ bool PhysicalSocketServer::WaitPoll(int cmsWait, Dispatcher* dispatcher) {
 
 #if defined(WEBRTC_WIN)
 bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
+  sequence_checker_.Detach();
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
   int64_t cmsTotal = cmsWait;
   int64_t cmsElapsed = 0;
   int64_t msStart = Time();
@@ -1586,37 +1566,24 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
 
     events.push_back(socket_ev_);
 
-    {
-      CritScope cr(&crit_);
-      // TODO(jbauch): Support re-entrant waiting.
-      RTC_DCHECK(!processing_dispatchers_);
-
-      // Calling "CheckSignalClose" might remove a closed dispatcher from the
-      // set. This must be deferred to prevent invalidating the iterator.
-      processing_dispatchers_ = true;
-      for (Dispatcher* disp : dispatchers_) {
-        if (!process_io && (disp != signal_wakeup_))
-          continue;
-        SOCKET s = disp->GetSocket();
-        if (disp->CheckSignalClose()) {
-          // We just signalled close, don't poll this socket
-        } else if (s != INVALID_SOCKET) {
-          WSAEventSelect(s, events[0],
-                         FlagsToEvents(disp->GetRequestedEvents()));
-        } else {
-          events.push_back(disp->GetWSAEvent());
-          event_owners.push_back(disp);
-        }
+    AddRemovePendingDispatchers();
+    // Calling "CheckSignalClose" might remove a closed dispatcher from the
+    // set. This must be deferred to prevent invalidating the iterator.
+    for (Dispatcher* disp : dispatchers_) {
+      if (!process_io && (disp != signal_wakeup_))
+        continue;
+      SOCKET s = disp->GetSocket();
+      if (disp->CheckSignalClose()) {
+        // We just signalled close, don't poll this socket
+      } else if (s != INVALID_SOCKET) {
+        WSAEventSelect(s, events[0], FlagsToEvents(disp->GetRequestedEvents()));
+      } else {
+        events.push_back(disp->GetWSAEvent());
+        event_owners.push_back(disp);
       }
-
-      processing_dispatchers_ = false;
-      // Process deferred dispatchers that have been added/removed while the
-      // events were handled above.
-      AddRemovePendingDispatchers();
     }
 
     // Which is shorter, the delay wait or the asked wait?
-
     int64_t cmsNext;
     if (cmsWait == kForever) {
       cmsNext = cmsWait;
@@ -1639,8 +1606,7 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
       // Timeout?
       return true;
     } else {
-      // Figure out which one it is and call it
-      CritScope cr(&crit_);
+      AddRemovePendingDispatchers();
       int index = dw - WSA_WAIT_EVENT_0;
       if (index > 0) {
         --index;  // The first event is the socket event
@@ -1651,7 +1617,6 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
           disp->OnEvent(0, 0);
         }
       } else if (process_io) {
-        processing_dispatchers_ = true;
         for (Dispatcher* disp : dispatchers_) {
           SOCKET s = disp->GetSocket();
           if (s == INVALID_SOCKET)
@@ -1718,11 +1683,6 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
             }
           }
         }
-
-        processing_dispatchers_ = false;
-        // Process deferred dispatchers that have been added/removed while the
-        // events were handled above.
-        AddRemovePendingDispatchers();
       }
 
       // Reset the network event until new activity occurs

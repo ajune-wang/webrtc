@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "81432c62_10704795",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 12079
+      },
+      "writtenOn": "2020-05-26T00:53:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53b87178_f522e708",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 1
+      },
+      "revId": "a597f2c5d2b4e6ea2538b10308456ed3e2e8d714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cbfedce_136c96ce",
         "filename": "config.star",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-05-25T08:20:54Z",
       "side": 1,
       "message": "We don\u0027t have some of these (for example \"gn\", see https://ci.chromium.org/p/webrtc/builders/ci/Linux64%20Release/25031).\n\nIIUC these should match the steps in the recipe, is that correct?\n\nIn that case we need to remove some of these and change them with WebRTC equivalents (gn -\u003e generate_build_files).",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 13
+      },
+      "revId": "a597f2c5d2b4e6ea2538b10308456ed3e2e8d714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65aa721c_734b5989",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 12079
+      },
+      "writtenOn": "2020-05-26T00:53:28Z",
+      "side": 1,
+      "message": "For now, I\u0027d prefer to keep these as is. This list matches the list currently in Gatekeeper, and for the first pass I\u0027d like for the two to match exactly, so I can ensure that LUCI-Notify is working the same way as Gatekeeper.\n\nOnce this is confirmed and we\u0027ve switched over, absolutely we should update the steps to make more sense for your recipes. I\u0027ve added a TODO noting this.",
+      "parentUuid": "7cbfedce_136c96ce",
       "range": {
         "startLine": 213,
         "startChar": 0,

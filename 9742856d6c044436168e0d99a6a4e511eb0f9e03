@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "915ca14f_f24b7410",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-26T16:10:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "947d8e4f_827bcd85",
+      "revId": "9742856d6c044436168e0d99a6a4e511eb0f9e03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e442d5c_0efa0338",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "9742856d6c044436168e0d99a6a4e511eb0f9e03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f25e62a9_d2e7e98e",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-26T16:10:14Z",
+      "side": 1,
+      "message": "By the client code not calling into Wait concurrently. Danil has change https://webrtc-review.googlesource.com/c/src/+/176080 incoming which resets the sequence checker on every call to Wait. So it\u0027s pointless to annotate it. I\u0027ll update the comment a bit.",
+      "parentUuid": "3e442d5c_0efa0338",
+      "revId": "9742856d6c044436168e0d99a6a4e511eb0f9e03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "9742856d6c044436168e0d99a6a4e511eb0f9e03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a37e4ffb_56a23937",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-26T16:10:14Z",
+      "side": 1,
+      "message": "Yeah this was to continue pointing out this is a C struct. OK, Done.",
+      "parentUuid": "efbd0426_3792b3c8",
+      "range": {
+        "startLine": 105,
+        "startChar": 13,
+        "endLine": 105,
+        "endChar": 19
+      },
+      "revId": "9742856d6c044436168e0d99a6a4e511eb0f9e03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

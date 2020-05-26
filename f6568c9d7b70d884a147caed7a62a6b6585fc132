@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1cbae00_1c3a6d4a",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-26T17:42:39Z",
+      "side": 1,
+      "message": "I\u0027m shocked that git cl format would allow this formatting ...",
+      "revId": "f6568c9d7b70d884a147caed7a62a6b6585fc132",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

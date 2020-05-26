@@ -93,6 +93,30 @@
       "revId": "0769bb42388de18ebecb767ab3075095895aeb53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05fc153a_aa571cc8",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-26T15:17:41Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "d9c530bb_13803243",
+      "range": {
+        "startLine": 617,
+        "startChar": 55,
+        "endLine": 617,
+        "endChar": 73
+      },
+      "revId": "0769bb42388de18ebecb767ab3075095895aeb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

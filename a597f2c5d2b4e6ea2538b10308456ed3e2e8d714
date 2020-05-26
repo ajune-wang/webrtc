@@ -93,6 +93,30 @@
       "revId": "a597f2c5d2b4e6ea2538b10308456ed3e2e8d714",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "282ceb24_4bff88a8",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-26T06:51:57Z",
+      "side": 1,
+      "message": "Ok, seems good to me.",
+      "parentUuid": "65aa721c_734b5989",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 13
+      },
+      "revId": "a597f2c5d2b4e6ea2538b10308456ed3e2e8d714",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

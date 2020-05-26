@@ -16,6 +16,24 @@
       "revId": "77381c3dea920c33e6e77f075ad339c5e376bcc2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99ced2d7_b2c0ada9",
+        "filename": "rtc_base/signal_thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-26T16:24:59Z",
+      "side": 1,
+      "message": "Done. I was thinking that since we\u0027re deprecating and also being non-consistent that I would skip it, but I\u0027ll fix the other attributes too.",
+      "parentUuid": "3b179938_89f069d5",
+      "revId": "77381c3dea920c33e6e77f075ad339c5e376bcc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

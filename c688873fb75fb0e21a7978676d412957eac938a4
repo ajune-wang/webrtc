@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e230d6c4_84377c99",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 4850,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-05-26T16:24:59Z",
+      "side": 1,
+      "message": "Incorporated advise from danilchap: a) ::testing::Invoke is not needed - can pass lambda directly. b) that ON_CALL might make sense near the mock construction (and then there is no point to wrap the mock into unique_ptr",
+      "range": {
+        "startLine": 4848,
+        "startChar": 2,
+        "endLine": 4850,
+        "endChar": 5
+      },
+      "revId": "c688873fb75fb0e21a7978676d412957eac938a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

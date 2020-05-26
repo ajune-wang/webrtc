@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "431c6379_5ff146dd",
+        "filename": "modules/video_coding/nack_module2.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-26T10:34:21Z",
+      "side": 1,
+      "message": "nit: Remove kUpdateFrequencyPerSecond and kProcessIntervalMs and just use a TimeDelta::Millis(20);",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "c77384d39b7ad98a27f30df270189b9d3b7be706",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9d903fa_18ba07e0",
+        "filename": "modules/video_coding/nack_module2.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-26T10:34:21Z",
+      "side": 1,
+      "message": "Just curious, I know it\u0027s named |worker_thread_| in other classes, but why not |worker_tq_| or |worker_queue_| or something like that?",
+      "range": {
+        "startLine": 106,
+        "startChar": 23,
+        "endLine": 106,
+        "endChar": 37
+      },
+      "revId": "c77384d39b7ad98a27f30df270189b9d3b7be706",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

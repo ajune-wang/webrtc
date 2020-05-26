@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cade1da_d7ae3a94",
+        "filename": "video/video_receive_stream2.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-26T10:34:21Z",
+      "side": 0,
+      "message": "Intentional?",
+      "range": {
+        "startLine": 52,
+        "startChar": 40,
+        "endLine": 52,
+        "endChar": 41
+      },
+      "revId": "25c77c1aea82347a613840144d3e8ac9be1e855f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

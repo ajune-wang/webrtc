@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "21d30c0d_62ee7a9a",
+        "filename": "modules/video_coding/nack_module2.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-26T18:01:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "431c6379_5ff146dd",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "c77384d39b7ad98a27f30df270189b9d3b7be706",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9d903fa_18ba07e0",
         "filename": "modules/video_coding/nack_module2.h",
         "patchSetId": 43
@@ -36,6 +60,30 @@
       "writtenOn": "2020-05-26T10:34:21Z",
       "side": 1,
       "message": "Just curious, I know it\u0027s named |worker_thread_| in other classes, but why not |worker_tq_| or |worker_queue_| or something like that?",
+      "range": {
+        "startLine": 106,
+        "startChar": 23,
+        "endLine": 106,
+        "endChar": 37
+      },
+      "revId": "c77384d39b7ad98a27f30df270189b9d3b7be706",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1552fa7_3a04cb61",
+        "filename": "modules/video_coding/nack_module2.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-26T18:01:00Z",
+      "side": 1,
+      "message": "At the moment I think it\u0027s useful just to keep the classes in sync that use it. The underlying implementation is also rtc::Thread, which still is different from other TaskQueue implementations (specifically those that TaskQueueFactory hands out).\n\nAt some point in the hopefully not so distant future, we\u0027ll do:\n\n- Merge Signaling and Worker threads. We can do this once neither thread blocks. At the moment the signaling thread mostly blocks while waiting for the worker thread, which will get cancelled out when they merge.\n\n- Once merged, make sure all the code executing on the thread, is compatible with the TQ interface.\n\n- Change the PeerConnection interface to allow injecting a TaskQueueBase* instead of Thread.\n\nOnce that\u0027s done, the surrogate application can be in control of the thread pool and allocation and per-PeerConnection thread count allocation goes to 0 (although it might still be a good idea to have a dedicated TQ per instance).",
+      "parentUuid": "f9d903fa_18ba07e0",
       "range": {
         "startLine": 106,
         "startChar": 23,

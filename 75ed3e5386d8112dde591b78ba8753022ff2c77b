@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fd39c1ff_323294de",
+        "filename": "modules/video_coding/nack_module2.h",
+        "patchSetId": 45
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-26T18:01:00Z",
+      "side": 1,
+      "message": "Added this comment:\n\n// TODO(bugs.webrtc.org/11594): This class no longer implements the Module\n// interface and therefore \"NackModule\" may not be a descriptive name anymore.\n// Consider renaming to e.g. NackTracker or NackRequester.",
+      "parentUuid": "48eb3682_6d4425dc",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "75ed3e5386d8112dde591b78ba8753022ff2c77b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4016c67_b5ef6521",
         "filename": "modules/video_coding/nack_module2_unittest.cc",
         "patchSetId": 45
@@ -36,6 +60,30 @@
       "writtenOn": "2020-05-26T10:34:21Z",
       "side": 1,
       "message": "Maybe use the GlobalSimulatedTimeController instead? Then the tests will be guaranteed to be deterministic.",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "75ed3e5386d8112dde591b78ba8753022ff2c77b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "247dc3f6_839ccb02",
+        "filename": "modules/video_coding/nack_module2_unittest.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-26T18:01:00Z",
+      "side": 1,
+      "message": "OK to keep them as is for now? They should be deterministic due to injecting the clock into the repeating task, but yes it\u0027s not ideal.\n\nAdded the following comment:\n// TODO(bugs.webrtc.org/11594): Use the use the GlobalSimulatedTimeController\n// instead of RunLoop. At the moment we mix use of the Clock and the underlying\n// implementation of RunLoop, which is realtime.",
+      "parentUuid": "e4016c67_b5ef6521",
       "range": {
         "startLine": 21,
         "startChar": 10,

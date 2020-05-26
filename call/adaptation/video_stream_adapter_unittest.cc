@@ -686,7 +686,7 @@ TEST(VideoStreamAdapterTest, PeekNextRestrictions) {
   {
     Adaptation adaptation = adapter.GetAdaptationUp();
     EXPECT_EQ(Adaptation::Status::kLimitReached, adaptation.status());
-    EXPECT_EQ(adapter.PeekNextRestrictions(adaptation),
+    EXPECT_EQ(adapter.PeekNextRestrictions(adaptation).restrictions,
               adapter.source_restrictions());
   }
   // When we adapt down.
@@ -694,7 +694,7 @@ TEST(VideoStreamAdapterTest, PeekNextRestrictions) {
     Adaptation adaptation = adapter.GetAdaptationDown();
     EXPECT_EQ(Adaptation::Status::kValid, adaptation.status());
     VideoSourceRestrictions next_restrictions =
-        adapter.PeekNextRestrictions(adaptation);
+        adapter.PeekNextRestrictions(adaptation).restrictions;
     fake_stream.ApplyAdaptation(adaptation);
     EXPECT_EQ(next_restrictions, adapter.source_restrictions());
   }
@@ -703,7 +703,7 @@ TEST(VideoStreamAdapterTest, PeekNextRestrictions) {
     Adaptation adaptation = adapter.GetAdaptationUp();
     EXPECT_EQ(Adaptation::Status::kValid, adaptation.status());
     VideoSourceRestrictions next_restrictions =
-        adapter.PeekNextRestrictions(adaptation);
+        adapter.PeekNextRestrictions(adaptation).restrictions;
     fake_stream.ApplyAdaptation(adaptation);
     EXPECT_EQ(next_restrictions, adapter.source_restrictions());
   }

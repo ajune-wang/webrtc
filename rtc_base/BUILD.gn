@@ -167,6 +167,11 @@ rtc_source_set("refcount") {
   deps = [ ":macromagic" ]
 }
 
+config("rtc_unnative_mutex_on_mac") {
+  # See notes in the 'Performance' unit test for the effects of this flag.
+  defines = [ "RTC_USE_UNNATIVE_MUTEX_ON_MAC" ]
+}
+
 rtc_library("criticalsection") {
   sources = [
     "critical_section.cc",
@@ -178,8 +183,21 @@ rtc_library("criticalsection") {
     ":macromagic",
     ":platform_thread_types",
     "system:rtc_export",
-    "system:unused",
   ]
+  if (is_win) {
+    sources += [ "critical_section_win.h" ]
+  } else if (is_mac) {  # && rtc_use_unnative_mutex_on_mac) {
+    sources += [
+      "critical_section_mac_unnative.cc",
+      "critical_section_mac_unnative.h",
+    ]
+    public_config += [ ":rtc_unnative_mutex_on_mac" ]
+  } else if (is_posix) {
+    sources += [
+      "critical_section_posix.cc",
+      "critical_section_posix.h",
+    ]
+  }
 }
 
 rtc_library("platform_thread") {

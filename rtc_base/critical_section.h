@@ -18,27 +18,13 @@
 #include "rtc_base/thread_annotations.h"
 
 #if defined(WEBRTC_WIN)
-// clang-format off
-// clang formating would change include order.
-
-// Include winsock2.h before including <windows.h> to maintain consistency with
-// win32.h. To include win32.h directly, it must be broken out into its own
-// build target.
-#include <winsock2.h>
-#include <windows.h>
-#include <sal.h>  // must come after windows headers.
-// clang-format on
-#endif  // defined(WEBRTC_WIN)
-
-#if defined(WEBRTC_POSIX)
-#include <pthread.h>
-#endif
-
-// See notes in the 'Performance' unit test for the effects of this flag.
-#define RTC_USE_NATIVE_MUTEX_ON_MAC 1
-
-#if defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
-#include <dispatch/dispatch.h>
+#include "rtc_base/critical_section_win.h"
+#elif defined(WEBRTC_MAC) && defined(RTC_USE_UNNATIVE_MUTEX_ON_MAC)
+#include "rtc_base/critical_section_mac_unnative.h"
+#elif defined(WEBRTC_POSIX)
+#include "rtc_base/critical_section_posix.h"
+#else
+#error Unsupported platform.
 #endif
 
 namespace rtc {
@@ -48,40 +34,36 @@ namespace rtc {
 // everywhere. CriticalSection is reentrant lock.
 class RTC_LOCKABLE RTC_EXPORT CriticalSection {
  public:
-  CriticalSection();
-  ~CriticalSection();
+  CriticalSection() { RTC_DCHECK(InitCheck()); }
+  CriticalSection(const CriticalSection&) = delete;
+  CriticalSection& operator=(const CriticalSection&) = delete;
+  ~CriticalSection() = default;
 
-  void Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION();
-  bool TryEnter() const RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true);
-  void Leave() const RTC_UNLOCK_FUNCTION();
+  void Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
+    impl_.Enter();
+    RTC_DCHECK(CheckEnter());
+  }
+  bool TryEnter() const RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
+    if (impl_.TryEnter()) {
+      RTC_DCHECK(CheckEnter());
+      return true;
+    }
+    return false;
+  }
+  void Leave() const RTC_UNLOCK_FUNCTION() {
+    RTC_DCHECK(CheckLeave());
+    return impl_.Leave();
+  }
 
  private:
-  // Use only for RTC_DCHECKing.
-  bool CurrentThreadIsOwner() const;
+  // Only used by RTC_DCHECKs.
+  bool InitCheck();
+  bool CheckEnter() const;
+  bool CheckLeave() const;
 
-#if defined(WEBRTC_WIN)
-  mutable CRITICAL_SECTION crit_;
-#elif defined(WEBRTC_POSIX)
-#if defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
-  // Number of times the lock has been locked + number of threads waiting.
-  // TODO(tommi): We could use this number and subtract the recursion count
-  // to find places where we have multiple threads contending on the same lock.
-  mutable volatile int lock_queue_;
-  // |recursion_| represents the recursion count + 1 for the thread that owns
-  // the lock. Only modified by the thread that owns the lock.
-  mutable int recursion_;
-  // Used to signal a single waiting thread when the lock becomes available.
-  mutable dispatch_semaphore_t semaphore_;
-  // The thread that currently holds the lock. Required to handle recursion.
-  mutable PlatformThreadRef owning_thread_;
-#else
-  mutable pthread_mutex_t mutex_;
-#endif
+  mutable webrtc::webrtc_critical_section_internal::CriticalSectionImpl impl_;
   mutable PlatformThreadRef thread_;  // Only used by RTC_DCHECKs.
   mutable int recursion_count_;       // Only used by RTC_DCHECKs.
-#else  // !defined(WEBRTC_WIN) && !defined(WEBRTC_POSIX)
-#error Unsupported platform.
-#endif
 };
 
 // CritScope, for serializing execution through a scope.

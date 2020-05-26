@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8cfe6f6_de9b0481",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-26T18:04:15Z",
+      "side": 1,
+      "message": "Add comment that explains why this is done?",
+      "revId": "6154832d970564247d3906f36cc29a4f2f317a94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749cd901_d15f586a",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1545,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-26T18:04:15Z",
+      "side": 1,
+      "message": "Add comment that explains why this is done?",
+      "revId": "6154832d970564247d3906f36cc29a4f2f317a94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

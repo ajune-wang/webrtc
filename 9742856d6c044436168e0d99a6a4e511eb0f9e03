@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "3e442d5c_0efa0338",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-26T15:50:22Z",
+      "side": 1,
+      "message": "So how *is* it protected against concurrent accesses?",
+      "revId": "9742856d6c044436168e0d99a6a4e511eb0f9e03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efbd0426_3792b3c8",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 10

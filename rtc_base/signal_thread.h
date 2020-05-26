@@ -146,6 +146,7 @@ class SignalThread : public sigslot::has_slots<>, protected MessageHandler {
   CriticalSection cs_;
   State state_;
   int refcount_;
+  bool destroy_called_ = false;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(SignalThread);
 };

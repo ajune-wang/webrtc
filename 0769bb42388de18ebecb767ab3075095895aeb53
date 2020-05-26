@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9cae333a_9c728d8a",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-26T15:08:40Z",
+      "side": 1,
+      "message": "Yeah, I forgot to fix that before uploading. Thanks",
+      "parentUuid": "3197f1f4_a331a691",
+      "range": {
+        "startLine": 1238,
+        "startChar": 23,
+        "endLine": 1238,
+        "endChar": 42
+      },
+      "revId": "0769bb42388de18ebecb767ab3075095895aeb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1509fb49_0640d634",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "0769bb42388de18ebecb767ab3075095895aeb53",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c530bb_13803243",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-26T15:08:40Z",
+      "side": 1,
+      "message": "That would happen if the user hasn\u0027t parsed any log. Since we use the function to filter out only the events in the first segment, saying that the log covers everything from 0 to infinity is equivalent to processing all events in the log. This seems like a reasonable fallback to me.",
+      "parentUuid": "1509fb49_0640d634",
+      "range": {
+        "startLine": 617,
+        "startChar": 55,
+        "endLine": 617,
+        "endChar": 73
+      },
+      "revId": "0769bb42388de18ebecb767ab3075095895aeb53",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

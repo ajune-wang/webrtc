@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "52cff704_e1189e00",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-26T21:01:32Z",
+      "side": 1,
+      "message": "What happens if ProcessEvents leads to a dispatcher further on in the list being destroyed; won\u0027t that result in a crash here (both with old and new code)? Are we just lucky to not run into this?",
+      "revId": "6154832d970564247d3906f36cc29a4f2f317a94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "749cd901_d15f586a",
         "filename": "rtc_base/physical_socket_server.cc",
         "patchSetId": 9

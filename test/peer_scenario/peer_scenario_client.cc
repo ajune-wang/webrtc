@@ -287,14 +287,18 @@ void PeerScenarioClient::AddVideoReceiveSink(
 }
 
 void PeerScenarioClient::CreateAndSetSdp(
+    std::function<void(SessionDescriptionInterface*)> modify_offer,
     std::function<void(std::string)> offer_handler) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   peer_connection_->CreateOffer(
       SdpCreateObserver([=](SessionDescriptionInterface* offer) {
         RTC_DCHECK_RUN_ON(signaling_thread_);
-        std::string sdp_offer;
         offer->ToString(&sdp_offer);
-        RTC_LOG(LS_INFO) << sdp_offer;
+        if (modify_offer) {
+          modify_offer(offer);
+        }
+        std::string sdp_offer;
+        RTC_CHECK(offer->ToString(&sdp_offer));
         peer_connection_->SetLocalDescription(
             SdpSetObserver(
                 [sdp_offer, offer_handler]() { offer_handler(sdp_offer); }),

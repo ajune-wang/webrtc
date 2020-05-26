@@ -60,12 +60,7 @@ void StartSdpNegotiation(
     TrafficRoute* ret_route,
     std::function<void(SessionDescriptionInterface*)> modify_offer,
     std::function<void(const SessionDescriptionInterface&)> exchange_finished) {
-  caller->CreateAndSetSdp([=](std::string sdp_offer) {
-    if (modify_offer) {
-      auto offer = CreateSessionDescription(SdpType::kOffer, sdp_offer);
-      modify_offer(offer.get());
-      RTC_CHECK(offer->ToString(&sdp_offer));
-    }
+  caller->CreateAndSetSdp(modify_offer, [=](std::string sdp_offer) {
     send_route->NetworkDelayedAction(kSdpPacketSize, [=] {
       callee->SetSdpOfferAndGetAnswer(sdp_offer, [=](std::string answer) {
         ret_route->NetworkDelayedAction(kSdpPacketSize, [=] {

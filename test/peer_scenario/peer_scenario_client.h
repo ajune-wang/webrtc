@@ -138,7 +138,9 @@ class PeerScenarioClient {
 
   // Note that there's no provision for munging SDP as that is deprecated
   // behavior.
-  void CreateAndSetSdp(std::function<void(std::string)> offer_handler);
+  void CreateAndSetSdp(
+      std::function<void(SessionDescriptionInterface*)> modify_offer,
+      std::function<void(std::string)> offer_handler);
   void SetSdpOfferAndGetAnswer(std::string remote_offer,
                                std::function<void(std::string)> answer_handler);
   void SetSdpAnswer(

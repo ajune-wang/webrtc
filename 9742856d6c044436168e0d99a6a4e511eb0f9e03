@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "947d8e4f_827bcd85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-26T15:48:47Z",
+      "side": 1,
+      "message": "Can you explain why this change is a good idea? You only explain why it\u0027s not a bad idea---but what makes this change worth doing?",
+      "revId": "9742856d6c044436168e0d99a6a4e511eb0f9e03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efbd0426_3792b3c8",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-26T15:48:47Z",
+      "side": 1,
+      "message": "Remove. It\u0027s needed in C, but not in C++.",
+      "range": {
+        "startLine": 105,
+        "startChar": 13,
+        "endLine": 105,
+        "endChar": 19
+      },
+      "revId": "9742856d6c044436168e0d99a6a4e511eb0f9e03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b179938_89f069d5",
+        "filename": "rtc_base/signal_thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-26T16:10:17Z",
+      "side": 1,
+      "message": "nit: should (could?) we use RTC_GUARDED_BY here to make it clear that the variable is protected by |cs_|?",
+      "revId": "77381c3dea920c33e6e77f075ad339c5e376bcc2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

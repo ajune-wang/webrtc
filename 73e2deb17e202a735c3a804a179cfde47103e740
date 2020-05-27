@@ -16,6 +16,24 @@
       "revId": "73e2deb17e202a735c3a804a179cfde47103e740",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b54690_0c833d1c",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-27T10:29:35Z",
+      "side": 1,
+      "message": "hm, I guess yes: it seems a better fit.",
+      "parentUuid": "8c0aede0_3045b59c",
+      "revId": "73e2deb17e202a735c3a804a179cfde47103e740",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

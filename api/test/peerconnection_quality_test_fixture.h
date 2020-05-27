@@ -448,6 +448,12 @@ class PeerConnectionE2EQualityTestFixture {
   virtual void AddPeer(rtc::Thread* network_thread,
                        rtc::NetworkManager* network_manager,
                        rtc::FunctionView<void(PeerConfigurer*)> configurer) = 0;
+  // Runs media quality test, which includes setting up the call with configured
+  // participants, running it according to provided |run_params| and terminating
+  // it properly at the end. During test call duration media quality metrics
+  // are gathered, which then are reported to stdout and if configured to the
+  // json/protobuf output file through WebRTC perf test results reporting
+  // system.
   virtual void Run(RunParams run_params) = 0;
 
   // Returns real test duration - the time of test execution measured during

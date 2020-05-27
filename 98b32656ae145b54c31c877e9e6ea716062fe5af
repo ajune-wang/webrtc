@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97751022_786ed458",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5548,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-27T06:53:46Z",
+      "side": 1,
+      "message": "nit: loosing -\u003e loosen",
+      "revId": "98b32656ae145b54c31c877e9e6ea716062fe5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf40079_4e347ae5",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5569,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-27T06:53:46Z",
+      "side": 1,
+      "message": "nit: Pause candidates so -\u003e Pause candidate gathering so that",
+      "revId": "98b32656ae145b54c31c877e9e6ea716062fe5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84046ca5_0180de2b",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5576,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-27T06:53:46Z",
+      "side": 1,
+      "message": "nit: On caller/callee -\u003e On the caller/callee",
+      "revId": "98b32656ae145b54c31c877e9e6ea716062fe5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86e163a1_18b90338",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5600,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-27T06:53:46Z",
+      "side": 1,
+      "message": "nit: loosing -\u003e loosen",
+      "revId": "98b32656ae145b54c31c877e9e6ea716062fe5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7ee6d42_5b3436d0",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5603,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-27T06:53:46Z",
+      "side": 1,
+      "message": "Nit: Delete \"and\". Comment should be after the SIMULATED_WAIT.",
+      "revId": "98b32656ae145b54c31c877e9e6ea716062fe5af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

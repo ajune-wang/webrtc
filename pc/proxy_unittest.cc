@@ -46,7 +46,7 @@ class Fake : public FakeInterface {
     return new rtc::RefCountedObject<Fake>();
   }
   // Used to verify destructor is called on the correct thread.
-  MOCK_METHOD(void, Destroy, ());
+  MOCK_METHOD(void, Destroy, (), (override));
 
   MOCK_METHOD(void, VoidMethod0, (), (override));
   MOCK_METHOD(std::string, Method0, (), (override));

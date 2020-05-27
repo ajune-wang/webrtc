@@ -40,7 +40,8 @@ class MockAudioDecoderFactory : public AudioDecoderFactory {
               MakeAudioDecoderMock,
               (const SdpAudioFormat& format,
                absl::optional<AudioCodecPairId> codec_pair_id,
-               std::unique_ptr<AudioDecoder>*));
+               std::unique_ptr<AudioDecoder>*),
+              (override));
 
   // Creates a MockAudioDecoderFactory with no formats and that may not be
   // invoked to create a codec - useful for initializing a voice engine, for

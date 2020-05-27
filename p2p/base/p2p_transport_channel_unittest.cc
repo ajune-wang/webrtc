@@ -184,7 +184,7 @@ class MockIceControllerFactory : public cricket::IceControllerFactoryInterface {
     return std::make_unique<cricket::BasicIceController>(args);
   }
 
-  MOCK_METHOD(void, RecordIceControllerCreated, ());
+  MOCK_METHOD(void, RecordIceControllerCreated, (), (override));
 };
 
 }  // namespace

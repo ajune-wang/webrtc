@@ -53,7 +53,7 @@ class MockAudioDecoder final : public AudioDecoder {
         num_channels_(num_channels),
         fec_enabled_(false) {}
   ~MockAudioDecoder() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
 
   MOCK_METHOD(void, Reset, (), (override));
 

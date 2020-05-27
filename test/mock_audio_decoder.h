@@ -20,7 +20,7 @@ class MockAudioDecoder : public AudioDecoder {
  public:
   MockAudioDecoder();
   ~MockAudioDecoder();
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
   MOCK_METHOD(int,
               DecodeInternal,
               (const uint8_t*, size_t, int, int16_t*, SpeechType*),

@@ -18,18 +18,14 @@ namespace webrtc {
 
 class MockDecodedImageCallback : public DecodedImageCallback {
  public:
-  MOCK_METHOD(int32_t,
+  MOCK_METHOD((int32_t, Decoded, (VideoFrame & decoded_image), (override));
+              MOCK_METHOD(int32_t),
               Decoded,
-              (VideoFrame & decoded_image),  // NOLINT
-              (override));
-  MOCK_METHOD(int32_t,
-              Decoded,
-              (VideoFrame & decoded_image,  // NOLINT
-               int64_t decode_time_ms),
+              (VideoFrame & decoded_image, int64_t decode_time_ms),
               (override));
   MOCK_METHOD(void,
               Decoded,
-              (VideoFrame & decoded_image,  // NOLINT
+              (VideoFrame & decoded_image,
                absl::optional<int32_t> decode_time_ms,
                absl::optional<uint8_t> qp),
               (override));

@@ -97,19 +97,22 @@ class MockKeyFrameRequestSender : public KeyFrameRequestSender {
 class MockOnCompleteFrameCallback
     : public video_coding::OnCompleteFrameCallback {
  public:
-  MOCK_METHOD(void, DoOnCompleteFrame, (video_coding::EncodedFrame*), ());
+  MOCK_METHOD(void,
+              DoOnCompleteFrame,
+              (video_coding::EncodedFrame*),
+              (override));
   MOCK_METHOD(void,
               DoOnCompleteFrameFailNullptr,
               (video_coding::EncodedFrame*),
-              ());
+              (override));
   MOCK_METHOD(void,
               DoOnCompleteFrameFailLength,
               (video_coding::EncodedFrame*),
-              ());
+              (override));
   MOCK_METHOD(void,
               DoOnCompleteFrameFailBitstream,
               (video_coding::EncodedFrame*),
-              ());
+              (override));
   void OnCompleteFrame(
       std::unique_ptr<video_coding::EncodedFrame> frame) override {
     if (!frame) {

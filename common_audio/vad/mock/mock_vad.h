@@ -19,7 +19,7 @@ namespace webrtc {
 class MockVad : public Vad {
  public:
   ~MockVad() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
 
   MOCK_METHOD(enum Activity,
               VoiceActivity,

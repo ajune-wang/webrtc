@@ -66,7 +66,7 @@ class StubVideoDecoder : public VideoDecoder {
               (const EncodedImage& input_image,
                bool missing_frames,
                int64_t render_time_ms),
-              ());
+              (override));
 
   int32_t Release() override { return 0; }
 

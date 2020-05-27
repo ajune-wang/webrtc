@@ -32,7 +32,7 @@ class MockAudioSendStream : public AudioSendStream {
   void SendAudioData(std::unique_ptr<webrtc::AudioFrame> audio_frame) override {
     SendAudioDataForMock(audio_frame.get());
   }
-  MOCK_METHOD(void, SendAudioDataForMock, (webrtc::AudioFrame*));
+  MOCK_METHOD(void, SendAudioDataForMock, (webrtc::AudioFrame*), (override));
   MOCK_METHOD(
       bool,
       SendTelephoneEvent,

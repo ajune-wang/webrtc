@@ -19,7 +19,7 @@ namespace webrtc {
 class MockAudioNetworkAdaptor : public AudioNetworkAdaptor {
  public:
   ~MockAudioNetworkAdaptor() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
 
   MOCK_METHOD(void, SetUplinkBandwidth, (int uplink_bandwidth_bps), (override));
 

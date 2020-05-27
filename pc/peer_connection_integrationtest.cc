@@ -1216,7 +1216,7 @@ class MockIceTransportFactory : public IceTransportFactory {
     return new rtc::RefCountedObject<MockIceTransport>(transport_name,
                                                        component);
   }
-  MOCK_METHOD(void, RecordIceTransportCreated, ());
+  MOCK_METHOD(void, RecordIceTransportCreated, (), (override));
 };
 
 // Tests two PeerConnections connecting to each other end-to-end, using a

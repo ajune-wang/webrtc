@@ -19,7 +19,7 @@ namespace webrtc {
 class MockController : public Controller {
  public:
   ~MockController() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
   MOCK_METHOD(void,
               UpdateNetworkMetrics,
               (const NetworkMetrics& network_metrics),

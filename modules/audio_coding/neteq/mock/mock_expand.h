@@ -31,7 +31,7 @@ class MockExpand : public Expand {
                fs,
                num_channels) {}
   ~MockExpand() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
   MOCK_METHOD(void, Reset, (), (override));
   MOCK_METHOD(int, Process, (AudioMultiVector * output), (override));
   MOCK_METHOD(void, SetParametersForNormalAfterExpand, (), (override));

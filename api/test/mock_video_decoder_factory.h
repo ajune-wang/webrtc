@@ -32,7 +32,7 @@ class MockVideoDecoderFactory : public webrtc::VideoDecoderFactory {
               CreateVideoDecoder,
               (const webrtc::SdpVideoFormat&),
               (override));
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
 };
 }  // namespace webrtc
 

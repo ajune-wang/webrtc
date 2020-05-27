@@ -20,7 +20,7 @@ class MockDtmfBuffer : public DtmfBuffer {
  public:
   MockDtmfBuffer(int fs) : DtmfBuffer(fs) {}
   ~MockDtmfBuffer() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
   MOCK_METHOD(void, Flush, (), (override));
   MOCK_METHOD(int, InsertEvent, (const DtmfEvent& event), (override));
   MOCK_METHOD(bool,

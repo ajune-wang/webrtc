@@ -21,7 +21,7 @@ class MockPacketBuffer : public PacketBuffer {
   MockPacketBuffer(size_t max_number_of_packets, const TickTimer* tick_timer)
       : PacketBuffer(max_number_of_packets, tick_timer) {}
   ~MockPacketBuffer() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
   MOCK_METHOD(void, Flush, (), (override));
   MOCK_METHOD(bool, Empty, (), (const, override));
   MOCK_METHOD(int,

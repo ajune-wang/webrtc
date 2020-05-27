@@ -20,7 +20,7 @@ class MockNetEqController : public NetEqController {
  public:
   MockNetEqController() = default;
   ~MockNetEqController() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
   MOCK_METHOD(void, Reset, (), (override));
   MOCK_METHOD(void, SoftReset, (), (override));
   MOCK_METHOD(NetEq::Operation,

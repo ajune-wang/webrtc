@@ -19,7 +19,7 @@ namespace webrtc {
 class MockDebugDumpWriter : public DebugDumpWriter {
  public:
   ~MockDebugDumpWriter() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
 
   MOCK_METHOD(void,
               DumpEncoderRuntimeConfig,

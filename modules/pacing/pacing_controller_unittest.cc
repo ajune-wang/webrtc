@@ -96,8 +96,9 @@ class MockPacingControllerCallback : public PacingController::PacketSender {
                uint16_t sequence_number,
                int64_t capture_timestamp,
                bool retransmission,
-               bool padding));
-  MOCK_METHOD(size_t, SendPadding, (size_t target_size));
+               bool padding),
+              (override));
+  MOCK_METHOD(size_t, SendPadding, (size_t target_size), (override));
 };
 
 // Mock callback implementing the raw api.

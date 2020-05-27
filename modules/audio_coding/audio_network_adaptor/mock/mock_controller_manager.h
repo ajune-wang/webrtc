@@ -21,7 +21,7 @@ namespace webrtc {
 class MockControllerManager : public ControllerManager {
  public:
   ~MockControllerManager() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
   MOCK_METHOD(std::vector<Controller*>,
               GetSortedControllers,
               (const Controller::NetworkMetrics& metrics),

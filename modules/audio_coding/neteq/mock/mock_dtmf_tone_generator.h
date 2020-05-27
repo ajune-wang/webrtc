@@ -19,7 +19,7 @@ namespace webrtc {
 class MockDtmfToneGenerator : public DtmfToneGenerator {
  public:
   ~MockDtmfToneGenerator() override { Die(); }
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
   MOCK_METHOD(int, Init, (int fs, int event, int attenuation), (override));
   MOCK_METHOD(void, Reset, (), (override));
   MOCK_METHOD(int,

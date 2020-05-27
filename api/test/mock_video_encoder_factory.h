@@ -37,7 +37,7 @@ class MockVideoEncoderFactory : public webrtc::VideoEncoderFactory {
               (const SdpVideoFormat&),
               (override));
 
-  MOCK_METHOD(void, Die, ());
+  MOCK_METHOD(void, Die, (), (override));
 };
 
 }  // namespace webrtc

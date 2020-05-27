@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52936be9_0728b47e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-27T18:15:23Z",
+      "side": 1,
+      "message": "Nit: Using {} for the if body might improve readability (we do it at line 1245 as well).",
+      "range": {
+        "startLine": 1239,
+        "startChar": 2,
+        "endLine": 1241,
+        "endChar": 31
+      },
+      "revId": "410fa947fc96e7ab12b5f92e5b757acdcd8bed62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

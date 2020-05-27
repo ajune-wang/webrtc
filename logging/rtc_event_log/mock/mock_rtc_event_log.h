@@ -27,14 +27,17 @@ class MockRtcEventLog : public RtcEventLog {
                             int64_t output_period_ms) {
     return StartLoggingProxy(output.get(), output_period_ms);
   }
-  MOCK_METHOD2(StartLoggingProxy, bool(RtcEventLogOutput*, int64_t));
+  MOCK_METHOD(bool,
+              StartLoggingProxy,
+              (RtcEventLogOutput*, int64_t),
+              (override));
 
-  MOCK_METHOD0(StopLogging, void());
+  MOCK_METHOD(void, StopLogging, (), (override));
 
   virtual void Log(std::unique_ptr<RtcEvent> event) {
     return LogProxy(event.get());
   }
-  MOCK_METHOD1(LogProxy, void(RtcEvent*));
+  MOCK_METHOD(void, LogProxy, (RtcEvent*), (override));
 };
 
 }  // namespace webrtc

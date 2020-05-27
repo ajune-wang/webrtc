@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c0aede0_3045b59c",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-27T09:05:50Z",
+      "side": 1,
+      "message": "Should you be using an rtc::RaceChecker instead?",
+      "revId": "73e2deb17e202a735c3a804a179cfde47103e740",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

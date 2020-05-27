@@ -22,6 +22,7 @@
 #include "modules/video_coding/codecs/av1/libaom_av1_decoder.h"
 #include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
 #include "modules/video_coding/codecs/av1/scalable_video_controller.h"
+#include "modules/video_coding/codecs/av1/scalable_video_controller_l1t2.h"
 #include "modules/video_coding/codecs/av1/scalable_video_controller_no_layering.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
@@ -271,6 +272,8 @@ INSTANTIATE_TEST_SUITE_P(
     Svc,
     LibaomAv1SvcTest,
     Values(SvcTestParam{std::make_unique<ScalableVideoControllerNoLayering>,
+                        /*num_frames_to_generate=*/4},
+           SvcTestParam{std::make_unique<ScalableVideoControllerL1T2>,
                         /*num_frames_to_generate=*/4}));
 
 }  // namespace

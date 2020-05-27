@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "209b1119_52b79cdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "returns",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c65c12f3_ed1f32cc",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "Should this iterate all resources and do OnResourceLimitationChanged()? See other comments",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79686280_7387b16f",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "When removing a resource, having adapting up happen automatically until this condition is no longer met seems like something we should be able to do in a future CL :)",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d5ecd8c_9294bd70",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "nit: |reason_resource|",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2009255b_7e9218ba",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "nit:\n// If there are other most limited resources, they also have to signal kUnderuse\n// before the adaptation is applied.",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "373f8a6b_39c4cea0",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "Optional name suggestion:\nfor (const auto\u0026 resource_and_adaptation_limit : adaptation_limits_by_resources_)",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85d4d70e_02dc1f8f",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "The variable names are a bit confusing in this method. Can we change usages of \"restrictions\" to say \"adaptation_limits\" or \"counters\" etc?\n\nnit: Avoid a copy here with \"const VideoAdaptationCounters\u0026\"",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4265f6d1_98938ee6",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "This comment needs to be updated (it\u0027s not purely for statistics anymore). Do add a comment either here or at FindMostLimitedResource() briefly outlining the new approach and explaining what a most limited resource is/what it\u0027s used for",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4376319f_679cc0b7",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "nit: |other_resource_|, |resource_|",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad6b9340_7343b6b5",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "Because we are always looking at the \"unfiltered\" adaptation counters from the VideoStreamAdapter and comparing their Total()s I wonder what would happen if you become super-limited while in \"maintain-framerate\" and then switch to \"maintain-resolution\". The filtered restrictions would be unlimited since all previous adaptations were in res and we haven\u0027t started adapting fps yet. So it would look like we are unlimited but we would still have most limited resources, and their Total() would be however much we had previously adapted the now-ignored resolution.\n\nExample:\n- \"maintain-framerate\" and CPU adapts down 3 times. CPU\u003d(fps: 0, res: 3).\n- \"maintain-resolution\", looks unlimited, but we still have the unfiltered (fps: 0, res: 3).\n- (Adapting up would cause kLimitReached because we have no fps to adapt up)\n- QP adapts down once, QP\u003d(fps: 1, res: 3). CPU is still (fps: 0, res: 3).\n- QP adapts up... OK that should still work it is the most limited :)\n\nAnyway I think it would work, but it makes me think maybe we should have a test that tries to get it in a weird state. Does a similar test exist already?\n\nWorst case one of the resources have to signal kUnderuse and then we\u0027re probably good again, so I doubt we have to worry about it, but good to give it a think to make sure we can\u0027t get stuck somewhere.",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa31302e_7aa963d9",
+        "filename": "call/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "Let\u0027s add an EXPECT for the peeked counters as well while we\u0027re at it",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fae8a91_9f58a7bc",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "Can we remove this? OnResourceLimitationChanged() provides all the necessary information, and because the counters now reflect how limited each resource is, it\u0027s no longer relevant whether or not restrictions were applied, it only matters if a limitation changed. If all most limited limitations have changed we will apply the restrictions as a side-effect, but that is not what the stats are measuring - and this old code path does not seem to provide any value anymore I don\u0027t think.\n\nIn fact, by only informing the encoder_stats_observer_ of the new counters when an adaptation is applied (encoder_stats_observer_-\u003eOnAdaptationChanged in UpdateAdaptationStats) we have a bug in the case where we have multiple most limited resources and one of them becomes not the most limited resource. This should be reflected in the stats, but currently this is delayed until a restriction is applied.",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23b71c67_800e7544",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "Here\u0027s another special case: If restrictions are reset we catch it here and clear the stats.\n\nHowever, if ResourceAdaptationProcessor::ResetVideoSourceRestrictions() performed OnResourceLimitationChanged() then all the counters would have naturally been reset without special logic.",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7020846f_0881ec7a",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "If we rename encoder_stats_observer_\u0027s OnAdaptationChanged() to OnResourceLimitationChanged() then we could simply invoke it here and get rid of UpdateAdaptationStats().",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9a27872_8629cdbc",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "Per my other comments, I suspect this can be SendStatisticsProxy::OnResourceLimitationChanged().\n\nHowever the proxy does one thing that is not derived from the most limited counters, and that is counting the number of times an adaptation has happened.\n\nCan we keep OnAdaptationChanged() for ++stats_.number_of_[foo]_changes; but update |adaptations_| inside of OnResourceLimitationChanged()?",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "015bead6_ce4d5f7d",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T08:30:15Z",
+      "side": 1,
+      "message": "Is adaptation_limitations_ a better name for adaptations_ now?",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

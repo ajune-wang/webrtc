@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b22f65ad_57ef91db",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-27T10:43:34Z",
+      "side": 1,
+      "message": "rewrote the comment (and added similar comments for the neighbour two functions)",
+      "parentUuid": "f6c6e18d_0dc21487",
+      "range": {
+        "startLine": 87,
+        "startChar": 5,
+        "endLine": 87,
+        "endChar": 58
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21e635e2_12402e9d",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "547d6d47_1147cded",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-27T10:43:34Z",
+      "side": 1,
+      "message": "Temporal layer is related to SVC.\nSVC stands for \"Scalable Video Coding\" That includes temporal scalability/layering [according to wikipedia].\n(also, I name this function to mirror av1 parameter name AV1E_SET_SVC_LAYER_ID)\n\n(renamed InitScalability above to follow the same pattern)",
+      "parentUuid": "21e635e2_12402e9d",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 20
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1872ec6d_f753d409",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-27T10:43:34Z",
+      "side": 1,
+      "message": "ditto, named after AV1E_SET_SVC_REF_FRAME_CONFIG\n\n(side open thought. does ltr counts as svc? there are no layers to drop, but there are frames that can be dropped. ltr would require custom AV1E_SET_SVC_REF_FRAME_CONFIG, but there can be single operating_point_idc\u003d0, i.e. no obu_extension_header)",
+      "parentUuid": "950522fb_88fcc88a",
+      "range": {
+        "startLine": 90,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 27
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d01324bd_a6fa1f29",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bab4587c_94514e5c",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-27T10:43:34Z",
+      "side": 1,
+      "message": "I\u0027ve added link to the section of av1 spec that mentions syntax elements for last and golden frame ids.\nAnd looking at table for RefFrame[ 0 ] in section 6.10.24.\nI guess golden frame constant can\u0027t be 1...",
+      "parentUuid": "d01324bd_a6fa1f29",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 61
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

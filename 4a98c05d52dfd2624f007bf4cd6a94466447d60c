@@ -211,6 +211,30 @@
       "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66dd4a5b_de2f75c8",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-05-27T23:32:18Z",
+      "side": 1,
+      "message": "I looked at the latest AV1 spec (https://aomediacodec.github.io/av1-spec/av1-spec.pdf) and I believe what Danil wrote is correct. More specifically to your question, while I\u0027m not steeped in the lore of reference frame naming from VP8 days, it\u0027s my understanding that the names LAST and GOLDEN come from a time when there were only three available reference frame buffers (if memory serves, ALT was the third). That naming convention appears to have percolated to VP9 and (somewhat surprisingly) to AV1. If there is some value to maintaining those names beyond, I am not aware of what the value might be.",
+      "parentUuid": "bab4587c_94514e5c",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 61
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

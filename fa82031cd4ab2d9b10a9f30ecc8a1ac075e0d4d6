@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "866bd0a9_f4b87103",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-05-27T23:32:18Z",
+      "side": 1,
+      "message": "Does SetSvcParams need to be called when svc_config.num_spatial_layers \u003d\u003d 1 \u0026\u0026 svc_config.num_temporal_layers \u003d\u003d 1?",
+      "revId": "fa82031cd4ab2d9b10a9f30ecc8a1ac075e0d4d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6c5111a_58962475",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-05-27T23:32:18Z",
+      "side": 1,
+      "message": "Consider adding a check to make sure that the values of svc_config.num_spatial_layers and svc_config.num_temporal_layers are not nonsense.",
+      "revId": "fa82031cd4ab2d9b10a9f30ecc8a1ac075e0d4d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f196835c_8b158790",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 6680
+      },
+      "writtenOn": "2020-05-27T23:32:18Z",
+      "side": 1,
+      "message": "I think this may be Section 7.8 in the latest version of the spec. In any case, consider simply writing \"Note last_frame_idx and golden_frame_idx from the av1 spec...\"",
+      "range": {
+        "startLine": 298,
+        "startChar": 46,
+        "endLine": 298,
+        "endChar": 65
+      },
+      "revId": "fa82031cd4ab2d9b10a9f30ecc8a1ac075e0d4d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

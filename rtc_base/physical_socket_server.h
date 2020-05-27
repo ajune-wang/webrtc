@@ -23,7 +23,9 @@
 
 #include "rtc_base/critical_section.h"
 #include "rtc_base/net_helpers.h"
+#include "rtc_base/race_checker.h"
 #include "rtc_base/socket_server.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -87,35 +89,37 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
 
   typedef std::set<Dispatcher*> DispatcherSet;
 
-  void AddRemovePendingDispatchers() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  void UpdateToPendingDispatchers() RTC_RUN_ON(sequence_checker_);
 
 #if defined(WEBRTC_POSIX)
-  bool WaitSelect(int cms, bool process_io);
+  bool WaitSelect(int cms, bool process_io) RTC_RUN_ON(sequence_checker_);
 #endif  // WEBRTC_POSIX
 #if defined(WEBRTC_USE_EPOLL)
   void AddEpoll(Dispatcher* dispatcher);
   void RemoveEpoll(Dispatcher* dispatcher);
   void UpdateEpoll(Dispatcher* dispatcher);
-  bool WaitEpoll(int cms);
-  bool WaitPoll(int cms, Dispatcher* dispatcher);
+  bool WaitEpoll(int cms) RTC_RUN_ON(sequence_checker_);
+  bool WaitPoll(int cms, Dispatcher* dispatcher) RTC_RUN_ON(sequence_checker_);
 
-  // This array is accessed in isolation by a thread calling into Wait().
-  // It's useless to use a SequenceChecker to guard it because a socket
-  // server can outlive the thread it's bound to, forcing the Wait call
-  // to have to reset the sequence checker on Wait calls.
-  std::array<epoll_event, kNumEpollEvents> epoll_events_;
+  std::array<epoll_event, kNumEpollEvents> epoll_events_
+      RTC_GUARDED_BY(sequence_checker_);
   const int epoll_fd_ = INVALID_SOCKET;
 #endif  // WEBRTC_USE_EPOLL
-  DispatcherSet dispatchers_ RTC_GUARDED_BY(crit_);
-  DispatcherSet pending_add_dispatchers_ RTC_GUARDED_BY(crit_);
-  DispatcherSet pending_remove_dispatchers_ RTC_GUARDED_BY(crit_);
-  bool processing_dispatchers_ RTC_GUARDED_BY(crit_) = false;
-  Signaler* signal_wakeup_;  // Assigned in constructor only
+  // Caller must synchronize calls to Wait, but it can be called from different
+  // thread/sequences. In particular rtc::Thread, the main user of the
+  // SocketServer, calls Wait both on the main thread (in Get) and on
+  // any thread (in Send).
+  RaceChecker sequence_checker_;
   CriticalSection crit_;
+  DispatcherSet dispatchers_ RTC_GUARDED_BY(sequence_checker_);
+  DispatcherSet pending_dispatchers_ RTC_GUARDED_BY(crit_);
+  // true when dispatchers_ != pending_dispatchers_
+  bool dispatchers_changed_ RTC_GUARDED_BY(crit_) = false;
+  Signaler* signal_wakeup_;  // Assigned in constructor only
 #if defined(WEBRTC_WIN)
   const WSAEVENT socket_ev_;
 #endif
-  bool fWait_;
+  bool fWait_ RTC_GUARDED_BY(sequence_checker_);
 };
 
 class PhysicalSocket : public AsyncSocket, public sigslot::has_slots<> {

@@ -93,6 +93,30 @@
       "revId": "75ed3e5386d8112dde591b78ba8753022ff2c77b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31b5ab71_cd8658ac",
+        "filename": "modules/video_coding/nack_module2_unittest.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-27T10:16:45Z",
+      "side": 1,
+      "message": "It\u0027s OK to keep it for now, but I would suggest that you at least try to use it.\n\nNot sure how familiar you are with it, but in my experience it is easier to integrate than expected. Use it to get the clock, all threads, and all task queues that you need to inject, then all you have to do is to call AdvanceTime and everything will be simulated for you, no need for nack_module_.Process() or WaitForSendNack().",
+      "parentUuid": "247dc3f6_839ccb02",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "75ed3e5386d8112dde591b78ba8753022ff2c77b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

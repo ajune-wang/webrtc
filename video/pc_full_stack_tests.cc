@@ -30,6 +30,7 @@
 #include "test/testsupport/file_utils.h"
 
 namespace webrtc {
+namespace {
 
 using PeerConfigurer =
     webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::PeerConfigurer;
@@ -44,8 +45,6 @@ using VideoSimulcastConfig =
     webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoSimulcastConfig;
 using VideoCodecConfig =
     webrtc_pc_e2e::PeerConnectionE2EQualityTestFixture::VideoCodecConfig;
-
-namespace {
 
 constexpr int kTestDurationSec = 45;
 constexpr char kVp8TrustedRateControllerFieldTrial[] =
@@ -104,26 +103,6 @@ std::string ClipNameToClipPath(const char* clip_name) {
   return test::ResourcePath(clip_name, "yuv");
 }
 
-}  // namespace
-
-class PCGenericDescriptorTest : public ::testing::TestWithParam<std::string> {
- public:
-  PCGenericDescriptorTest()
-      : field_trial_(AppendFieldTrials(GetParam())),
-        generic_descriptor_enabled_(
-            field_trial::IsEnabled("WebRTC-GenericDescriptor")) {}
-
-  std::string GetTestName(std::string base) {
-    if (generic_descriptor_enabled_)
-      base += "_generic_descriptor";
-    return base;
-  }
-
- private:
-  test::ScopedFieldTrials field_trial_;
-  bool generic_descriptor_enabled_;
-};
-
 #if defined(RTC_ENABLE_VP9)
 TEST(PCFullStackTest, ForemanCifWithoutPacketLossVp9) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
@@ -149,7 +128,11 @@ TEST(PCFullStackTest, ForemanCifWithoutPacketLossVp9) {
   fixture->Run(std::move(run_params));
 }
 
-TEST_P(PCGenericDescriptorTest, ForemanCifPlr5Vp9) {
+std::string GetTestName(std::string base) {
+  return base + "_generic_descriptor";
+}
+
+TEST(PCGenericDescriptorTest, ForemanCifPlr5Vp9) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   BuiltInNetworkBehaviorConfig config;
@@ -263,7 +246,7 @@ TEST(PCFullStackTest, ParisQcifWithoutPacketLoss) {
   fixture->Run(std::move(run_params));
 }
 
-TEST_P(PCGenericDescriptorTest, ForemanCifWithoutPacketLoss) {
+TEST(PCGenericDescriptorTest, ForemanCifWithoutPacketLoss) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   auto fixture = CreateTestFixture(
@@ -285,7 +268,7 @@ TEST_P(PCGenericDescriptorTest, ForemanCifWithoutPacketLoss) {
   fixture->Run(std::move(run_params));
 }
 
-TEST_P(PCGenericDescriptorTest, ForemanCif30kbpsWithoutPacketLoss) {
+TEST(PCGenericDescriptorTest, ForemanCif30kbpsWithoutPacketLoss) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   BuiltInNetworkBehaviorConfig config;
@@ -314,8 +297,8 @@ TEST_P(PCGenericDescriptorTest, ForemanCif30kbpsWithoutPacketLoss) {
 }
 
 // TODO(webrtc:9722): Remove when experiment is cleaned up.
-TEST_P(PCGenericDescriptorTest,
-       ForemanCif30kbpsWithoutPacketLossTrustedRateControl) {
+TEST(PCGenericDescriptorTest,
+     ForemanCif30kbpsWithoutPacketLossTrustedRateControl) {
   test::ScopedFieldTrials override_field_trials(
       AppendFieldTrials(kVp8TrustedRateControllerFieldTrial));
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
@@ -478,7 +461,7 @@ TEST(PCFullStackTest, ForemanCifMediaCapacitySmallLossAndQueue) {
   fixture->Run(std::move(run_params));
 }
 
-TEST_P(PCGenericDescriptorTest, ForemanCifPlr5) {
+TEST(PCGenericDescriptorTest, ForemanCifPlr5) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   BuiltInNetworkBehaviorConfig config;
@@ -502,7 +485,7 @@ TEST_P(PCGenericDescriptorTest, ForemanCifPlr5) {
   fixture->Run(std::move(run_params));
 }
 
-TEST_P(PCGenericDescriptorTest, ForemanCifPlr5Ulpfec) {
+TEST(PCGenericDescriptorTest, ForemanCifPlr5Ulpfec) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   BuiltInNetworkBehaviorConfig config;
@@ -651,7 +634,7 @@ TEST(PCFullStackTest, ForemanCif30kbpsWithoutPacketlossH264) {
   fixture->Run(std::move(run_params));
 }
 
-TEST_P(PCGenericDescriptorTest, ForemanCifPlr5H264) {
+TEST(PCGenericDescriptorTest, ForemanCifPlr5H264) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   BuiltInNetworkBehaviorConfig config;
@@ -828,7 +811,7 @@ TEST(PCFullStackTest, ForemanCif500kbps100ms) {
   fixture->Run(std::move(run_params));
 }
 
-TEST_P(PCGenericDescriptorTest, ForemanCif500kbps100msLimitedQueue) {
+TEST(PCGenericDescriptorTest, ForemanCif500kbps100msLimitedQueue) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   BuiltInNetworkBehaviorConfig config;
@@ -956,7 +939,7 @@ TEST(PCFullStackTest, ConferenceMotionHd1TLModerateLimitsWhitelistVp8) {
 
 /*
 // TODO(bugs.webrtc.org/10639) requires simulcast/SVC support in PC framework
-TEST_P(PCGenericDescriptorTest, ConferenceMotionHd2TLModerateLimits) {
+TEST(PCGenericDescriptorTest, ConferenceMotionHd2TLModerateLimits) {
   auto fixture = CreateVideoQualityTestFixture();
   ParamsWithLogging conf_motion_hd;
   conf_motion_hd.call.send_side_bwe = true;
@@ -1295,7 +1278,7 @@ TEST(PCFullStackTest, ScreenshareSlidesVP8_2TL_Scroll) {
 }
 
 // TODO(bugs.webrtc.org/10639) requires simulcast/SVC support in PC framework
-TEST_P(PCGenericDescriptorTest, ScreenshareSlidesVP8_2TL_LossyNet) {
+TEST(PCGenericDescriptorTest, ScreenshareSlidesVP8_2TL_LossyNet) {
   auto fixture = CreateVideoQualityTestFixture();
   ParamsWithLogging screenshare;
   screenshare.call.send_side_bwe = true;
@@ -1813,12 +1796,6 @@ TEST(PCFullStackTest, MAYBE_LargeRoomVP8_50thumb) {
 }
 */
 
-INSTANTIATE_TEST_SUITE_P(
-    PCFullStackTest,
-    PCGenericDescriptorTest,
-    ::testing::Values("WebRTC-GenericDescriptor/Disabled/",
-                      "WebRTC-GenericDescriptor/Enabled/"));
-
 class PCDualStreamsTest : public ::testing::TestWithParam<int> {};
 
 /*
@@ -1929,4 +1906,5 @@ INSTANTIATE_TEST_SUITE_P(PCFullStackTest,
                          PCDualStreamsTest,
                          ::testing::Values(0, 1));
 
+}  // namespace
 }  // namespace webrtc

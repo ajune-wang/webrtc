@@ -167,6 +167,7 @@ EmulatedNetworkNode* Scenario::CreateSimulationNode(
     std::function<void(NetworkSimulationConfig*)> config_modifier) {
   NetworkSimulationConfig config;
   config_modifier(&config);
+  RTC_CHECK(1==0);
   return CreateSimulationNode(config);
 }
 

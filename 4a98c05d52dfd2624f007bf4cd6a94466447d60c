@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "f1ffdfa1_142893a4",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-27T11:54:14Z",
+      "side": 1,
+      "message": "Oh... wow... this whole time I knew SVC was Scalable Video Coding, but I always thought it meant doing prediction between different resolution frames.",
+      "parentUuid": "547d6d47_1147cded",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 20
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "950522fb_88fcc88a",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 4

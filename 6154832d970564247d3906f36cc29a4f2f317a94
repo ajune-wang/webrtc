@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "c9546b1f_11e89f05",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-27T15:52:01Z",
+      "side": 1,
+      "message": "but... if old code deletes the dispatcher in a callback to the event, it won\u0027t be blocked by the crit_.\nI guess it is just \u0027luck\u0027 it doesn\u0027t happen.",
+      "parentUuid": "092dda39_a7a7b21d",
+      "revId": "6154832d970564247d3906f36cc29a4f2f317a94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "749cd901_d15f586a",
         "filename": "rtc_base/physical_socket_server.cc",
         "patchSetId": 9

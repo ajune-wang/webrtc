@@ -22,6 +22,30 @@
       "revId": "410fa947fc96e7ab12b5f92e5b757acdcd8bed62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f845c6ae_f44521fc",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-05-27T18:28:11Z",
+      "side": 1,
+      "message": "Done. Good point.",
+      "parentUuid": "52936be9_0728b47e",
+      "range": {
+        "startLine": 1239,
+        "startChar": 2,
+        "endLine": 1241,
+        "endChar": 31
+      },
+      "revId": "410fa947fc96e7ab12b5f92e5b757acdcd8bed62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

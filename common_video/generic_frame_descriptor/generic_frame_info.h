@@ -41,6 +41,9 @@ struct GenericFrameInfo : public FrameDependencyTemplate {
   GenericFrameInfo(const GenericFrameInfo&);
   ~GenericFrameInfo();
 
+  // Set of active decodes. active_decode_targets.size() must be equal
+  // to num_decode_targets of related FrameDependencyStructure.
+  std::vector<bool> active_decode_targets;
   absl::InlinedVector<CodecBufferUsage, kMaxEncoderBuffers> encoder_buffers;
   std::vector<bool> part_of_chain;
 };

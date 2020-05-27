@@ -22,11 +22,11 @@ class MockDesktopCapturerCallback : public DesktopCapturer::Callback {
   MockDesktopCapturerCallback();
   ~MockDesktopCapturerCallback() override;
 
-  MOCK_METHOD2(OnCaptureResultPtr,
-               void(DesktopCapturer::Result result,
-                    std::unique_ptr<DesktopFrame>* frame));
-  void OnCaptureResult(DesktopCapturer::Result result,
-                       std::unique_ptr<DesktopFrame> frame) final;
+  MOCK_METHOD(void,
+              OnCaptureResult,
+              (DesktopCapturer::Result result,
+               std::unique_ptr<DesktopFrame> frame),
+              (override));
 
  private:
   RTC_DISALLOW_COPY_AND_ASSIGN(MockDesktopCapturerCallback);

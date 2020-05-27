@@ -14,10 +14,4 @@ namespace webrtc {
 MockDesktopCapturerCallback::MockDesktopCapturerCallback() = default;
 MockDesktopCapturerCallback::~MockDesktopCapturerCallback() = default;
 
-void MockDesktopCapturerCallback::OnCaptureResult(
-    DesktopCapturer::Result result,
-    std::unique_ptr<DesktopFrame> frame) {
-  OnCaptureResultPtr(result, &frame);
-}
-
 }  // namespace webrtc

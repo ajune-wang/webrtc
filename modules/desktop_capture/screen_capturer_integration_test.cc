@@ -42,11 +42,6 @@ namespace webrtc {
 
 namespace {
 
-ACTION_P2(SaveCaptureResult, result, dest) {
-  *result = arg0;
-  *dest = std::move(*arg1);
-}
-
 // Returns true if color in |rect| of |frame| is |color|.
 bool ArePixelsColoredBy(const DesktopFrame& frame,
                         DesktopRect rect,
@@ -267,8 +262,12 @@ class ScreenCapturerIntegrationTest : public ::testing::Test {
     for (int i = 0; i < 10; i++) {
       std::unique_ptr<DesktopFrame> frame;
       DesktopCapturer::Result result;
-      EXPECT_CALL(callback_, OnCaptureResultPtr(_, _))
-          .WillOnce(SaveCaptureResult(&result, &frame));
+      EXPECT_CALL(callback_, OnCaptureResult)
+          .WillOnce(
+              [&](DesktopCapturer::Result r, std::unique_ptr<DesktopFrame> f) {
+                result = r;
+                frame = std::move(f);
+              });
       capturer->CaptureFrame();
       ::testing::Mock::VerifyAndClearExpectations(&callback_);
       if (result == DesktopCapturer::Result::SUCCESS) {

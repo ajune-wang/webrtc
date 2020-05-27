@@ -117,19 +117,19 @@ void ExecuteDifferWrapperCase(BlackWhiteDesktopFramePainter* frame_painter,
                               const T<DesktopRect, Rect...>& updated_region,
                               bool check_result,
                               bool exactly_match) {
-  EXPECT_CALL(*callback, OnCaptureResultPtr(DesktopCapturer::Result::SUCCESS,
-                                            ::testing::_))
+  EXPECT_CALL(*callback,
+              OnCaptureResult(DesktopCapturer::Result::SUCCESS, ::testing::_))
       .Times(1)
       .WillOnce(
           ::testing::Invoke([&updated_region, check_result, exactly_match](
                                 DesktopCapturer::Result result,
-                                std::unique_ptr<DesktopFrame>* frame) {
+                                std::unique_ptr<DesktopFrame> frame) {
             ASSERT_EQ(result, DesktopCapturer::Result::SUCCESS);
             if (check_result) {
               if (exactly_match) {
-                AssertUpdatedRegionIs(**frame, updated_region);
+                AssertUpdatedRegionIs(*frame, updated_region);
               } else {
-                AssertUpdatedRegionCovers(**frame, updated_region);
+                AssertUpdatedRegionCovers(*frame, updated_region);
               }
             }
           }));
@@ -144,8 +144,8 @@ void ExecuteDifferWrapperCase(BlackWhiteDesktopFramePainter* frame_painter,
 // DesktopFrame into black.
 void ExecuteCapturer(DesktopCapturerDifferWrapper* capturer,
                      MockDesktopCapturerCallback* callback) {
-  EXPECT_CALL(*callback, OnCaptureResultPtr(DesktopCapturer::Result::SUCCESS,
-                                            ::testing::_))
+  EXPECT_CALL(*callback,
+              OnCaptureResult(DesktopCapturer::Result::SUCCESS, ::testing::_))
       .Times(1);
   capturer->CaptureFrame();
 }
@@ -169,14 +169,13 @@ void ExecuteDifferWrapperTest(bool with_hints,
 
   capturer.Start(&callback);
 
-  EXPECT_CALL(callback, OnCaptureResultPtr(DesktopCapturer::Result::SUCCESS,
-                                           ::testing::_))
+  EXPECT_CALL(callback,
+              OnCaptureResult(DesktopCapturer::Result::SUCCESS, ::testing::_))
       .Times(1)
       .WillOnce(::testing::Invoke([](DesktopCapturer::Result result,
-                                     std::unique_ptr<DesktopFrame>* frame) {
+                                     std::unique_ptr<DesktopFrame> frame) {
         ASSERT_EQ(result, DesktopCapturer::Result::SUCCESS);
-        AssertUpdatedRegionIs(**frame,
-                              {DesktopRect::MakeSize((*frame)->size())});
+        AssertUpdatedRegionIs(*frame, {DesktopRect::MakeSize(frame->size())});
       }));
   capturer.CaptureFrame();
 

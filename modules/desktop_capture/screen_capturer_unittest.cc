@@ -24,11 +24,12 @@
 #include "modules/desktop_capture/win/screen_capturer_win_directx.h"
 #endif  // defined(WEBRTC_WIN)
 
-using ::testing::_;
-
 const int kTestSharedMemoryId = 123;
 
 namespace webrtc {
+
+using ::testing::_;
+using ::testing::WithArgs;
 
 class ScreenCapturerTest : public ::testing::Test {
  public:
@@ -95,10 +96,6 @@ class FakeSharedMemoryFactory : public SharedMemoryFactory {
   RTC_DISALLOW_COPY_AND_ASSIGN(FakeSharedMemoryFactory);
 };
 
-ACTION_P(SaveUniquePtrArg, dest) {
-  *dest = std::move(*arg1);
-}
-
 TEST_F(ScreenCapturerTest, GetScreenListAndSelectScreen) {
   webrtc::DesktopCapturer::SourceList screens;
   EXPECT_TRUE(capturer_->GetSourceList(&screens));
@@ -125,9 +122,9 @@ TEST_F(ScreenCapturerTest, MAYBE_StartCapturer) {
 TEST_F(ScreenCapturerTest, MAYBE_Capture) {
   // Assume that Start() treats the screen as invalid initially.
   std::unique_ptr<DesktopFrame> frame;
-  EXPECT_CALL(callback_,
-              OnCaptureResultPtr(DesktopCapturer::Result::SUCCESS, _))
-      .WillOnce(SaveUniquePtrArg(&frame));
+  EXPECT_CALL(callback_, OnCaptureResult(DesktopCapturer::Result::SUCCESS, _))
+      .WillOnce(WithArgs<1>(
+          [&](std::unique_ptr<DesktopFrame> f) { frame = std::move(f); }));
 
   capturer_->Start(&callback_);
   capturer_->CaptureFrame();

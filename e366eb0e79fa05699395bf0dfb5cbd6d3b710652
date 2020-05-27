@@ -22,6 +22,30 @@
       "revId": "e366eb0e79fa05699395bf0dfb5cbd6d3b710652",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d7db6dc_841ec491",
+        "filename": "modules/audio_device/android/audio_track_jni.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-05-27T09:59:47Z",
+      "side": 1,
+      "message": "I wanted to ensure that we don\u0027t divide by 0 below, but maybe it\u0027s better to use a DCHECK instead.",
+      "parentUuid": "b0c1382b_a3640df7",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "e366eb0e79fa05699395bf0dfb5cbd6d3b710652",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

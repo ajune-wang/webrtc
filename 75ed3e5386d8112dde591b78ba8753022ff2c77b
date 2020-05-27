@@ -117,6 +117,30 @@
       "revId": "75ed3e5386d8112dde591b78ba8753022ff2c77b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73fd5023_62f428d8",
+        "filename": "modules/video_coding/nack_module2_unittest.cc",
+        "patchSetId": 45
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-27T10:56:10Z",
+      "side": 1,
+      "message": "I\u0027m not that familiar with it but I\u0027ve taken a look and e.g. added support for Clock to repeating_task for that reason. It\u0027s on my todo list to update other tests as well but for this CL, I figured that it\u0027d be OK with this approach to start with.",
+      "parentUuid": "31b5ab71_cd8658ac",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 25
+      },
+      "revId": "75ed3e5386d8112dde591b78ba8753022ff2c77b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

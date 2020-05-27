@@ -387,14 +387,9 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByPayloadType(
     auto it = range.first;
     const auto end = range.second;
     if (std::next(it) == end) {
-      RtpPacketSinkInterface* sink = it->second;
-      bool notify = AddSsrcSinkBinding(ssrc, sink);
-      if (notify) {
-        for (auto* observer : ssrc_binding_observers_) {
-          observer->OnSsrcBoundToPayloadType(payload_type, ssrc);
-        }
-      }
-      return sink;
+      // Do not add ssrc binding since it may produce a conflict
+      // with explicit bindings that may be added later.
+      return it->second;
     }
   }
   return nullptr;

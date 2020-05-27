@@ -717,3 +717,11 @@ group("poison_rtc_json") {
 
 group("poison_software_video_codecs") {
 }
+
+executable("foo") {
+  sources = [ "foo.cc" ]
+  deps = [
+    "//third_party/abseil-cpp/absl/debugging:failure_signal_handler",
+    "//third_party/abseil-cpp/absl/debugging:symbolize",
+  ]
+}

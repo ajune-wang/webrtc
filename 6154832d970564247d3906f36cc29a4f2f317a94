@@ -50,6 +50,29 @@
       "revId": "6154832d970564247d3906f36cc29a4f2f317a94",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d7aa918_bca57f96",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-05-27T07:25:46Z",
+      "side": 1,
+      "message": "Make this too GUARDED_BY? (Markus is changing it to a std::array in a different cl, and said that checking it requires a Detach in the top-level Wait, which it seems you\u0027re adding).",
+      "range": {
+        "startLine": 100,
+        "startChar": 1,
+        "endLine": 100,
+        "endChar": 48
+      },
+      "revId": "6154832d970564247d3906f36cc29a4f2f317a94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6c6e18d_0dc21487",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-27T09:49:00Z",
+      "side": 1,
+      "message": "// Configures the encoder so the next frame is encoded on the desired layer.",
+      "range": {
+        "startLine": 87,
+        "startChar": 5,
+        "endLine": 87,
+        "endChar": 58
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21e635e2_12402e9d",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-27T09:49:00Z",
+      "side": 1,
+      "message": "Temporal layer is unrelated to SVC, and spatial layers are not necessarily SVC, maybe just call it SetFrameEncodingLayer or something like that?",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 20
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "950522fb_88fcc88a",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-27T09:49:00Z",
+      "side": 1,
+      "message": "Same here, SetRefFrameconfig or something similar.",
+      "range": {
+        "startLine": 90,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 27
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d01324bd_a6fa1f29",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-05-27T09:49:00Z",
+      "side": 1,
+      "message": "Michael, do you know if this has any significance or is it just more naming weirdness?",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 61
+      },
+      "revId": "4a98c05d52dfd2624f007bf4cd6a94466447d60c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

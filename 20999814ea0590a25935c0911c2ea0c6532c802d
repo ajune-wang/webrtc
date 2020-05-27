@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e897fde_9d9dfc85",
+        "filename": "test/peer_scenario/peer_scenario_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-05-27T09:12:55Z",
+      "side": 1,
+      "message": "If |modify_offer| is added then the statement \"there\u0027s no provision for munging SDP\" is no longer true.\nWith or without the ability to munge SDP, this behavior is forbidden and discouraged, but also widely adopted.\n\nWe should test what we ship, but we should avoid adding more munging whenever possible.",
+      "revId": "20999814ea0590a25935c0911c2ea0c6532c802d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

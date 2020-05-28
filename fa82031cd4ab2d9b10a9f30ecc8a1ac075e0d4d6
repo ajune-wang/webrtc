@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7facdf15_2b076d2b",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-28T06:48:24Z",
+      "side": 1,
+      "message": "may be to turn off scalability.\nChanged to avoid that call for now. (until we try to change number of layers without recreating the encoder. may be never.)",
+      "parentUuid": "866bd0a9_f4b87103",
+      "revId": "fa82031cd4ab2d9b10a9f30ecc8a1ac075e0d4d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6c5111a_58962475",
         "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "fa82031cd4ab2d9b10a9f30ecc8a1ac075e0d4d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7818edcd_4b03983a",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-28T06:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6c5111a_58962475",
+      "revId": "fa82031cd4ab2d9b10a9f30ecc8a1ac075e0d4d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "fa82031cd4ab2d9b10a9f30ecc8a1ac075e0d4d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb36173_dc2b0f02",
+        "filename": "modules/video_coding/codecs/av1/libaom_av1_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-28T06:48:24Z",
+      "side": 1,
+      "message": "7.8 and 6.8.2 and also 5.9.2 where these 2 fields are mentioned directly in the bitstream.\nSo following your advice and removing section",
+      "parentUuid": "f196835c_8b158790",
+      "range": {
+        "startLine": 298,
+        "startChar": 46,
+        "endLine": 298,
+        "endChar": 65
+      },
+      "revId": "fa82031cd4ab2d9b10a9f30ecc8a1ac075e0d4d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -104,7 +104,9 @@ bool RtpDemuxer::AddSink(const RtpDemuxerCriteria& criteria,
   }
 
   for (uint32_t ssrc : criteria.ssrcs) {
-    sink_by_ssrc_.emplace(ssrc, sink);
+    bool added = AddSsrcSinkBinding(
+        ssrc, {.sink = sink, .origin = SsrcBinding::Origin::Explicit});
+    RTC_DCHECK(added) << "Sink must be added";
   }
 
   for (uint8_t payload_type : criteria.payload_types) {
@@ -126,8 +128,8 @@ bool RtpDemuxer::CriteriaWouldConflict(
       // If the MID is in the known_mids_ set, then there is already a sink
       // added for this MID directly, or there is a sink already added with a
       // MID, RSID pair for our MID and some RSID.
-      // Adding this criteria would cause one of these rules to be shadowed, so
-      // reject this new criteria.
+      // Adding this criteria would cause one of these rules to be shadowed,
+      // so reject this new criteria.
       if (known_mids_.find(criteria.mid) != known_mids_.end()) {
         RTC_LOG(LS_INFO) << criteria.ToString()
                          << " would conflict with known mid";
@@ -160,10 +162,16 @@ bool RtpDemuxer::CriteriaWouldConflict(
   for (uint32_t ssrc : criteria.ssrcs) {
     const auto sink_by_ssrc = sink_by_ssrc_.find(ssrc);
     if (sink_by_ssrc != sink_by_ssrc_.end()) {
-      RTC_LOG(LS_INFO) << criteria.ToString()
-                       << " would conflict with existing sink = "
-                       << sink_by_ssrc->second << " binding by SSRC=" << ssrc;
-      return true;
+      if (sink_by_ssrc->second.origin == SsrcBinding::Origin::Explicit) {
+        RTC_LOG(LS_INFO) << criteria.ToString()
+                         << " would conflict with existing "
+                         << sink_by_ssrc->second.ToString()
+                         << " binding by SSRC=" << ssrc;
+        return true;
+      }
+      RTC_LOG(LS_INFO) << "An existing implicit binding "
+                       << sink_by_ssrc->second.ToString() << " by SSRC=" << ssrc
+                       << " would be overwritten";
     }
   }
 
@@ -201,11 +209,17 @@ void RtpDemuxer::AddSink(const std::string& rsid,
 
 bool RtpDemuxer::RemoveSink(const RtpPacketSinkInterface* sink) {
   RTC_DCHECK(sink);
-  size_t num_removed = RemoveFromMapByValue(&sink_by_mid_, sink) +
-                       RemoveFromMapByValue(&sink_by_ssrc_, sink) +
-                       RemoveFromMultimapByValue(&sinks_by_pt_, sink) +
-                       RemoveFromMapByValue(&sink_by_mid_and_rsid_, sink) +
-                       RemoveFromMapByValue(&sink_by_rsid_, sink);
+  size_t num_removed =
+      RemoveFromMapIf(&sink_by_mid_,
+                      [sink](auto item) { return item.second == sink; }) +
+      RemoveFromMapIf(&sink_by_ssrc_,
+                      [sink](auto item) { return item.second.sink == sink; }) +
+      RemoveFromMapIf(&sinks_by_pt_,
+                      [sink](auto item) { return item.second == sink; }) +
+      RemoveFromMapIf(&sink_by_mid_and_rsid_,
+                      [sink](auto item) { return item.second == sink; }) +
+      RemoveFromMapIf(&sink_by_rsid_,
+                      [sink](auto item) { return item.second == sink; });
   RefreshKnownMids();
   bool removed = num_removed > 0;
   if (removed) {
@@ -244,17 +258,17 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
     return nullptr;
   }
 
-  // Cache information we learn about SSRCs and IDs. We need to do this even if
-  // there isn't a rule/sink yet because we might add an MID/RSID rule after
-  // learning an MID/RSID<->SSRC association.
+  // Cache information we learn about SSRCs and IDs. We need to do this even
+  // if there isn't a rule/sink yet because we might add an MID/RSID rule
+  // after learning an MID/RSID<->SSRC association.
 
   std::string* mid = nullptr;
   if (has_mid) {
     mid_by_ssrc_[ssrc] = packet_mid;
     mid = &packet_mid;
   } else {
-    // If the packet does not include a MID header extension, check if there is
-    // a latched MID for the SSRC.
+    // If the packet does not include a MID header extension, check if there
+    // is a latched MID for the SSRC.
     const auto it = mid_by_ssrc_.find(ssrc);
     if (it != mid_by_ssrc_.end()) {
       mid = &it->second;
@@ -275,10 +289,11 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
   }
 
   // If MID and/or RSID is specified, prioritize that for demuxing the packet.
-  // The motivation behind the BUNDLE algorithm is that we trust these are used
-  // deliberately by senders and are more likely to be correct than SSRC/payload
-  // type which are included with every packet.
-  // TODO(steveanton): According to the BUNDLE spec, new SSRC mappings are only
+  // The motivation behind the BUNDLE algorithm is that we trust these are
+  // used deliberately by senders and are more likely to be correct than
+  // SSRC/payload type which are included with every packet.
+  // TODO(steveanton): According to the BUNDLE spec, new SSRC mappings are
+  // only
   //                   accepted if the packet's extended sequence number is
   //                   greater than that of the last SSRC mapping update.
   //                   https://tools.ietf.org/html/rfc7941#section-4.2.6
@@ -297,9 +312,9 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
       }
     }
 
-    // At this point, there is at least one sink added for this MID and an RSID
-    // but either the packet does not have an RSID or it is for a different
-    // RSID. This falls outside the BUNDLE spec so drop the packet.
+    // At this point, there is at least one sink added for this MID and an
+    // RSID but either the packet does not have an RSID or it is for a
+    // different RSID. This falls outside the BUNDLE spec so drop the packet.
     return nullptr;
   }
 
@@ -315,10 +330,11 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSink(
   // between streams.
   const auto ssrc_sink_it = sink_by_ssrc_.find(ssrc);
   if (ssrc_sink_it != sink_by_ssrc_.end()) {
-    return ssrc_sink_it->second;
+    return ssrc_sink_it->second.sink;
   }
 
-  // Legacy senders will only signal payload type, support that as last resort.
+  // Legacy senders will only signal payload type, support that as last
+  // resort.
   return ResolveSinkByPayloadType(packet.PayloadType(), ssrc);
 }
 
@@ -327,7 +343,8 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMid(const std::string& mid,
   const auto it = sink_by_mid_.find(mid);
   if (it != sink_by_mid_.end()) {
     RtpPacketSinkInterface* sink = it->second;
-    bool notify = AddSsrcSinkBinding(ssrc, sink);
+    bool notify = AddSsrcSinkBinding(
+        ssrc, {.sink = sink, .origin = SsrcBinding::Origin::Implicit});
     if (notify) {
       for (auto* observer : ssrc_binding_observers_) {
         observer->OnSsrcBoundToMid(mid, ssrc);
@@ -345,7 +362,8 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByMidRsid(
   const auto it = sink_by_mid_and_rsid_.find(std::make_pair(mid, rsid));
   if (it != sink_by_mid_and_rsid_.end()) {
     RtpPacketSinkInterface* sink = it->second;
-    bool notify = AddSsrcSinkBinding(ssrc, sink);
+    bool notify = AddSsrcSinkBinding(
+        ssrc, {.sink = sink, .origin = SsrcBinding::Origin::Implicit});
     if (notify) {
       for (auto* observer : ssrc_binding_observers_) {
         observer->OnSsrcBoundToMidRsid(mid, rsid, ssrc);
@@ -364,7 +382,8 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByRsid(const std::string& rsid,
   const auto it = sink_by_rsid_.find(rsid);
   if (it != sink_by_rsid_.end()) {
     RtpPacketSinkInterface* sink = it->second;
-    bool notify = AddSsrcSinkBinding(ssrc, sink);
+    bool notify = AddSsrcSinkBinding(
+        ssrc, {.sink = sink, .origin = SsrcBinding::Origin::Implicit});
     if (notify) {
       for (auto* observer : ssrc_binding_observers_) {
         observer->OnSsrcBoundToRsid(rsid, ssrc);
@@ -388,7 +407,8 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByPayloadType(
     const auto end = range.second;
     if (std::next(it) == end) {
       RtpPacketSinkInterface* sink = it->second;
-      bool notify = AddSsrcSinkBinding(ssrc, sink);
+      bool notify = AddSsrcSinkBinding(
+          ssrc, {.sink = sink, .origin = SsrcBinding::Origin::Implicit});
       if (notify) {
         for (auto* observer : ssrc_binding_observers_) {
           observer->OnSsrcBoundToPayloadType(payload_type, ssrc);
@@ -400,27 +420,28 @@ RtpPacketSinkInterface* RtpDemuxer::ResolveSinkByPayloadType(
   return nullptr;
 }
 
-bool RtpDemuxer::AddSsrcSinkBinding(uint32_t ssrc,
-                                    RtpPacketSinkInterface* sink) {
-  if (sink_by_ssrc_.size() >= kMaxSsrcBindings) {
-    RTC_LOG(LS_WARNING) << "New SSRC=" << ssrc
-                        << " sink binding ignored; limit of" << kMaxSsrcBindings
-                        << " bindings has been reached.";
+bool RtpDemuxer::AddSsrcSinkBinding(uint32_t ssrc, SsrcBinding binding) {
+  if (binding.origin == SsrcBinding::Origin::Implicit &&
+      sink_by_ssrc_.size() >= kMaxSsrcBindings) {
+    RTC_LOG(LS_WARNING) << "New SSRC=" << ssrc << " implicit sink binding "
+                        << binding.ToString() << " is ignored; limit of"
+                        << kMaxSsrcBindings << " bindings has been reached.";
     return false;
   }
 
-  auto result = sink_by_ssrc_.emplace(ssrc, sink);
+  auto result = sink_by_ssrc_.emplace(ssrc, binding);
   auto it = result.first;
   bool inserted = result.second;
   if (inserted) {
-    RTC_LOG(LS_INFO) << "Added sink = " << sink
+    RTC_LOG(LS_INFO) << "Added " << binding.ToString()
                      << " binding with SSRC=" << ssrc;
     return true;
   }
-  if (it->second != sink) {
-    RTC_LOG(LS_INFO) << "Updated sink = " << sink
-                     << " binding with SSRC=" << ssrc;
-    it->second = sink;
+  if (it->second != binding) {
+    RTC_LOG(LS_INFO) << "Replaced binding from " << it->second.ToString()
+                     << " to " << binding.ToString() << " with SSRC=" << ssrc;
+    sink_by_ssrc_.erase(it);
+    sink_by_ssrc_.emplace(ssrc, binding);
     return true;
   }
   return false;
@@ -440,6 +461,14 @@ void RtpDemuxer::DeregisterSsrcBindingObserver(
                       ssrc_binding_observers_.end(), observer);
   RTC_DCHECK(it != ssrc_binding_observers_.end());
   ssrc_binding_observers_.erase(it);
+}
+
+std::string RtpDemuxer::SsrcBinding::ToString() const {
+  rtc::StringBuilder sb;
+  sb << "{sink: " << rtc::ToString(static_cast<const void*>(sink))
+     << ", origin: " << (origin == Origin::Implicit ? "implicit" : "explicit")
+     << "}";
+  return sb.Release();
 }
 
 }  // namespace webrtc

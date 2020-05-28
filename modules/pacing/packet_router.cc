@@ -24,6 +24,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
+#include "rtc_base/trace_event.h"
 
 namespace webrtc {
 namespace {
@@ -136,6 +137,9 @@ void PacketRouter::RemoveReceiveRtpModule(
 
 void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
                               const PacedPacketInfo& cluster_info) {
+  TRACE_EVENT1(TRACE_DISABLED_BY_DEFAULT("webrtc"), "PacketRouter::SendPacket",
+               "rtp_timestamp", packet->Timestamp());
+
   rtc::CritScope cs(&modules_crit_);
   // With the new pacer code path, transport sequence numbers are only set here,
   // on the pacer thread. Therefore we don't need atomics/synchronization.

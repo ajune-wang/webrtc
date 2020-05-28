@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7a7be8d_7f96e115",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-28T11:27:52Z",
+      "side": 1,
+      "message": "Maybe better to be explicit:\n\n  if (data_ !\u003d nullptr) {",
+      "range": {
+        "startLine": 373,
+        "startChar": 8,
+        "endLine": 373,
+        "endChar": 19
+      },
+      "revId": "61eb2a4c304f6e8d30c322b850d0fd9959ed8100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -58,8 +58,11 @@ void RtcpDemuxer::AddBroadcastSink(RtcpPacketSinkInterface* sink) {
 
 void RtcpDemuxer::RemoveSink(const RtcpPacketSinkInterface* sink) {
   RTC_DCHECK(sink);
-  size_t removal_count = RemoveFromMultimapByValue(&ssrc_sinks_, sink) +
-                         RemoveFromMultimapByValue(&rsid_sinks_, sink);
+  size_t removal_count =
+      RemoveFromMapIf(&ssrc_sinks_,
+                      [sink](auto& item) { return item.second == sink; }) +
+      RemoveFromMapIf(&rsid_sinks_,
+                      [sink](auto& item) { return item.second == sink; });
   RTC_DCHECK_GT(removal_count, 0);
 }
 

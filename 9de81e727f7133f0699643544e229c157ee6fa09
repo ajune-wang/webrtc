@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1f60483b_d655eb08",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-05-28T12:29:28Z",
+      "side": 1,
+      "message": "I don\u0027t have these macros fresh in memory, would it be an issue if there is not matching TRACE_EVENT0 for a packet?\nIf it is, you might want to add a trace in PacketRouter::GeneratePadding(), as those aren\u0027t enqueued in the same manner.",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 141,
+        "endChar": 53
+      },
+      "revId": "9de81e727f7133f0699643544e229c157ee6fa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdccb014_4c4def57",
         "filename": "modules/pacing/task_queue_paced_sender.cc",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2020-05-28T11:58:08Z",
       "side": 1,
       "message": "I\u0027m not entirely happy with the extra for loop that\u0027s run even if the trace is not active.\n\nAn alternative would be to extend WebRTC\u0027s trace features to support the following pattern:\n\nbool tracing_enabled;\nTRACE_EVENT_CATEGORY_GROUP_ENABLED(TRACE_DISABLED_BY_DEFAULT(\"webrtc\"),\n                                    \u0026tracing_enabled);\nif (tracing_enabled) {\n\n}",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "9de81e727f7133f0699643544e229c157ee6fa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e64e32c_5c435dd4",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-05-28T12:29:28Z",
+      "side": 1,
+      "message": "Ack. I see what you mean but I think the penalty is low anyway as there are (usually) few packets in this call.\nOtherwise an alternative could be to move the start trace to rtp_sender_video and rtp_sender_audio?",
+      "parentUuid": "cdccb014_4c4def57",
       "range": {
         "startLine": 127,
         "startChar": 0,

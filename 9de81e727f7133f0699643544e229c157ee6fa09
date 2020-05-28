@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdccb014_4c4def57",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-05-28T11:58:08Z",
+      "side": 1,
+      "message": "I\u0027m not entirely happy with the extra for loop that\u0027s run even if the trace is not active.\n\nAn alternative would be to extend WebRTC\u0027s trace features to support the following pattern:\n\nbool tracing_enabled;\nTRACE_EVENT_CATEGORY_GROUP_ENABLED(TRACE_DISABLED_BY_DEFAULT(\"webrtc\"),\n                                    \u0026tracing_enabled);\nif (tracing_enabled) {\n\n}",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "9de81e727f7133f0699643544e229c157ee6fa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "40335a22_5b17938a",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-05-28T12:45:10Z",
+      "side": 1,
+      "message": "The way I\u0027ve made it now, the ENQUEUE and SEND events are independent. So it requires a post processing step to determine the latencies.\n\nIt\u0027s possible to use\nTRACE_EVENT_ASYNC_BEGIN0 and TRACE_EVENT_ASYNC_END0\nin which case the trace events are coupled. From what I read in the comment you will loose the thread visibility in that case:\n// An ASYNC trace typically occur on a single thread (if not,\n// they will only be drawn on the thread defined in the ASYNC_BEGIN event)\n\nIt probably makes sense to add a trace in PacketRouter::GeneratePadding() as well. I\u0027ll add the sequence number as well as an identifier.",
+      "parentUuid": "1f60483b_d655eb08",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 141,
+        "endChar": 53
+      },
+      "revId": "9de81e727f7133f0699643544e229c157ee6fa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdccb014_4c4def57",
         "filename": "modules/pacing/task_queue_paced_sender.cc",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "9de81e727f7133f0699643544e229c157ee6fa09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "827a31d6_ec595e2e",
+        "filename": "modules/pacing/task_queue_paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-05-28T12:45:10Z",
+      "side": 1,
+      "message": "okay, I keep it as is then.",
+      "parentUuid": "1e64e32c_5c435dd4",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 0
+      },
+      "revId": "9de81e727f7133f0699643544e229c157ee6fa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

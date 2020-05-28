@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e868c3df_70696d46",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5340
+      },
+      "writtenOn": "2020-05-28T14:32:07Z",
+      "side": 1,
+      "message": "If you do decide to use async events, please use the NESTABLE_ASYNC version 😊\n\nAsync events are drawn on separate tracks in the trace viewer, close to the relevant threads. You could also emit both thread-scoped events and async events (duplicating #events) if you\u0027d like.",
+      "parentUuid": "40335a22_5b17938a",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 141,
+        "endChar": 53
+      },
+      "revId": "9de81e727f7133f0699643544e229c157ee6fa09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdccb014_4c4def57",
         "filename": "modules/pacing/task_queue_paced_sender.cc",
         "patchSetId": 1

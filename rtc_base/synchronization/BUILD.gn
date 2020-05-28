@@ -12,6 +12,20 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
+rtc_library("mutex") {
+  sources = [
+    "mutex.cc",
+    "mutex.h",
+  ]
+  deps = [
+    "..:atomicops",
+    "..:checks",
+    "..:macromagic",
+    "..:platform_thread_types",
+    "../system:unused",
+  ]
+}
+
 rtc_library("rw_lock_wrapper") {
   public = [ "rw_lock_wrapper.h" ]
   sources = [ "rw_lock_wrapper.cc" ]
@@ -60,9 +74,17 @@ rtc_library("yield_policy") {
 if (rtc_include_tests) {
   rtc_library("synchronization_unittests") {
     testonly = true
-    sources = [ "yield_policy_unittest.cc" ]
+    sources = [
+      "mutex_unittest.cc",
+      "yield_policy_unittest.cc",
+    ]
     deps = [
+      ":mutex",
       ":yield_policy",
+      "..:atomicops",
+      "..:checks",
+      "..:macromagic",
+      "..:rtc_base",
       "..:rtc_event",
       "../../test:test_support",
     ]

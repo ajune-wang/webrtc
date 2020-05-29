@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "72c5d4a8_500940c0",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "I\u0027ve changed error message to better explain what went wrong, but I don\u0027t mind removing it. I preferred error message over comment because error message could immediately explain what went wrong when it happen.",
+      "parentUuid": "35bdfa03_06a7c4a5",
+      "range": {
+        "startLine": 109,
+        "startChar": 25,
+        "endLine": 109,
+        "endChar": 57
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "632c190e_e567ca5c",
         "filename": "call/rtp_demuxer.cc",
         "patchSetId": 17
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "b45942d2_88914c93",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abf14a6a_598ca03b",
+      "range": {
+        "startLine": 206,
+        "startChar": 9,
+        "endLine": 206,
+        "endChar": 19
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbf567c9_0d1a8704",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "This peace of code seems a bit complicated for me. But I understand your worries. So I\u0027ve updated current implementation with to accept set of updated payload types, so it would only touch bindings with modified payload type bindings.",
+      "parentUuid": "632c190e_e567ca5c",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 206,
+        "endChar": 48
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdf3ec06_68a77c54",
         "filename": "call/rtp_demuxer.cc",
         "patchSetId": 17
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c41c0831_316f3ce7",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdf3ec06_68a77c54",
+      "range": {
+        "startLine": 210,
+        "startChar": 6,
+        "endLine": 211,
+        "endChar": 55
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "458876b3_0470338e",
         "filename": "call/rtp_demuxer.cc",
         "patchSetId": 17
@@ -105,6 +201,30 @@
       "writtenOn": "2020-05-29T14:02:53Z",
       "side": 1,
       "message": "why remove and reinsert?, what was wrong with\nit-\u003esecond \u003d binding;",
+      "range": {
+        "startLine": 472,
+        "startChar": 4,
+        "endLine": 473,
+        "endChar": 41
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c65f21bb_01f656ee",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "I\u0027ve declared fields of `SsrcBinding` as `const` to emphasize that bindings is only modifiable as a whole object. `const` field caused copy-assignment operator deleted and hence `t-\u003esecond \u003d binding;` does not compile.",
+      "parentUuid": "458876b3_0470338e",
       "range": {
         "startLine": 472,
         "startChar": 4,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "4c3928fd_a254e81d",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "567dc729_d693ecef",
+      "range": {
+        "startLine": 516,
+        "startChar": 0,
+        "endLine": 517,
+        "endChar": 23
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "941d2aed_50d0b232",
         "filename": "call/rtp_demuxer.h",
         "patchSetId": 17
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9722b602_2671b2a0",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "941d2aed_50d0b232",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 24
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "299c292f_b01d6ef5",
         "filename": "call/rtp_demuxer.h",
         "patchSetId": 17
@@ -174,6 +342,30 @@
       "writtenOn": "2020-05-29T14:02:53Z",
       "side": 1,
       "message": "prefer declare binary operators as free functions:\nfriend bool operator\u003d\u003d(const SsrcBinding\u0026 lhs, const SsrcBinding\u0026 rhs) {\n  return lhs.sink \u003d\u003d rhs.sink \u0026\u0026 lhs.origin \u003d\u003d rhs.origin;\n}",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 47
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e96c7211_10c1945d",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "299c292f_b01d6ef5",
       "range": {
         "startLine": 168,
         "startChar": 4,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "2bb18eef_0e9e445c",
+        "filename": "call/rtp_demuxer_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aba0c578_ade9c862",
+      "range": {
+        "startLine": 425,
+        "startChar": 21,
+        "endLine": 425,
+        "endChar": 45
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e766942_f35ce71c",
         "filename": "call/rtp_demuxer_unittest.cc",
         "patchSetId": 17
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "d38fbc5d_94a83667",
+        "filename": "call/rtp_demuxer_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5e766942_f35ce71c",
+      "range": {
+        "startLine": 463,
+        "startChar": 2,
+        "endLine": 463,
+        "endChar": 13
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8601bc6a_46791e40",
         "filename": "call/rtp_rtcp_demuxer_helper.h",
         "patchSetId": 17
@@ -243,6 +483,30 @@
       "writtenOn": "2020-05-29T14:02:53Z",
       "side": 1,
       "message": "may be do not shorten the type name: Predicate\nto make it searchable by people less familiar with template meta-programming.\n(variable probably ok to keep short since function body is relatively short)\n\nhttps://google.github.io/styleguide/cppguide.html#General_Naming_Rules",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "808e0d38_abdfa2fb",
+        "filename": "call/rtp_rtcp_demuxer_helper.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T16:31:40Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "8601bc6a_46791e40",
       "range": {
         "startLine": 34,
         "startChar": 33,

@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "222b5271_26e1ca4f",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-29T14:50:03Z",
+      "side": 1,
+      "message": "This one can also be implemented with absl::Mutex, with something like\n\n  ABSL_CONST_INIT absl::Mutex global_mutex(absl::kConstInit);",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dfc58d8c_0d5a78c3",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 9
@@ -47,6 +64,23 @@
       "writtenOn": "2020-05-29T14:38:45Z",
       "side": 1,
       "message": "here too",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a74ae894_62c957fe",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-29T14:50:03Z",
+      "side": 1,
+      "message": "1. Why are these methods not inline?\n\n2. Can you merge MutexLock and GlobalMutexLock into one class? With everything being inlined and the lifetime of the object being local to a stack frame, a few conditionals in the implementation to support the two different mutex pointer types should cause no overhead.",
       "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

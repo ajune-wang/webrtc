@@ -40,7 +40,6 @@ EncodedImage SingleProcessEncodedImageDataInjector::InjectData(
   RTC_CHECK(source.size() >= kUsedBufferSize);
 
   ExtractionInfo info;
-  info.length = source.size();
   info.discard = discard;
   size_t insertion_pos = source.size() - kUsedBufferSize;
   memcpy(info.origin_data, &source.data()[insertion_pos], kUsedBufferSize);
@@ -67,17 +66,27 @@ EncodedImageExtractionResult SingleProcessEncodedImageDataInjector::ExtractData(
   // Both |source| and |out| image will share the same buffer for payload or
   // out will have a copy for it, so we can operate on the |out| buffer only.
   uint8_t* buffer = out.data();
-  size_t size = out.size();
 
-  // |pos| is pointing to end of current encoded image.
-  size_t pos = size - 1;
+  size_t size = out.size();
+  size_t prev_frames_size = 0;
   absl::optional<uint16_t> id = absl::nullopt;
   bool discard = true;
   std::vector<ExtractionInfo> extraction_infos;
-  // Go through whole buffer and find all related extraction infos in
-  // order from 1st encoded image to the last.
-  while (true) {
-    size_t insertion_pos = pos - kUsedBufferSize + 1;
+
+  std::vector<size_t> frame_sizes;
+  size_t max_spatial_index = out.SpatialIndex().value_or(0);
+  for (size_t i = 0; i <= max_spatial_index; i++) {
+    auto frame_size = source.SpatialLayerFrameSize(i);
+    if (!frame_size)
+      continue;
+    frame_sizes.push_back(*frame_size);
+  }
+  if (frame_sizes.empty()) {
+    frame_sizes.push_back(size);
+  }
+
+  for (size_t frame_size : frame_sizes) {
+    size_t insertion_pos = prev_frames_size + frame_size - kUsedBufferSize;
     // Extract frame id from first 2 bytes starting from insertion pos.
     uint16_t next_id = buffer[insertion_pos] + (buffer[insertion_pos + 1] << 8);
     // Extract frame sub id from second 3 byte starting from insertion pos.
@@ -99,17 +108,14 @@ EncodedImageExtractionResult SingleProcessEncodedImageDataInjector::ExtractData(
       info = info_it->second;
       ext_vector_it->second.infos.erase(info_it);
     }
-    extraction_infos.push_back(info);
     // We need to discard encoded image only if all concatenated encoded images
     // have to be discarded.
     discard = discard && info.discard;
-    if (pos < info.length) {
-      break;
-    }
-    pos -= info.length;
+
+    extraction_infos.push_back(info);
+    prev_frames_size += frame_size;
   }
   RTC_CHECK(id);
-  std::reverse(extraction_infos.begin(), extraction_infos.end());
   if (discard) {
     out.set_size(0);
     return EncodedImageExtractionResult{*id, out, true};
@@ -117,23 +123,26 @@ EncodedImageExtractionResult SingleProcessEncodedImageDataInjector::ExtractData(
 
   // Make a pass from begin to end to restore origin payload and erase discarded
   // encoded images.
-  pos = 0;
+  size_t pos = 0;
   auto extraction_infos_it = extraction_infos.begin();
+  auto frame_size_it = frame_sizes.begin();
   while (pos < size) {
     RTC_DCHECK(extraction_infos_it != extraction_infos.end());
+    RTC_DCHECK(frame_size_it != frame_sizes.end());
     const ExtractionInfo& info = *extraction_infos_it;
+    const size_t frame_size = *frame_size_it;
     if (info.discard) {
       // If this encoded image is marked to be discarded - erase it's payload
       // from the buffer.
-      memmove(&buffer[pos], &buffer[pos + info.length],
-              size - pos - info.length);
-      size -= info.length;
+      memmove(&buffer[pos], &buffer[pos + frame_size], size - pos - frame_size);
+      size -= frame_size;
     } else {
-      memcpy(&buffer[pos + info.length - kUsedBufferSize], info.origin_data,
+      memcpy(&buffer[pos + frame_size - kUsedBufferSize], info.origin_data,
              kUsedBufferSize);
-      pos += info.length;
+      pos += frame_size;
     }
     ++extraction_infos_it;
+    ++frame_size_it;
   }
   out.set_size(pos);
 

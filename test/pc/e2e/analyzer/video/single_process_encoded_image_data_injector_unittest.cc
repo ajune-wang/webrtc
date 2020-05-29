@@ -140,6 +140,10 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractFromConcatenated) {
   concatenated_buffer.AppendData(intermediate3.data(), intermediate3.size());
   EncodedImage concatenated(concatenated_buffer.data(), concatenated_length,
                             concatenated_length);
+  concatenated.SetSpatialIndex(2);
+  concatenated.SetSpatialLayerFrameSize(0, intermediate1.size());
+  concatenated.SetSpatialLayerFrameSize(1, intermediate2.size());
+  concatenated.SetSpatialLayerFrameSize(2, intermediate3.size());
 
   // Extract frame id from concatenated image
   EncodedImageExtractionResult out = injector.ExtractData(concatenated, 2);
@@ -184,6 +188,10 @@ TEST(SingleProcessEncodedImageDataInjector,
   concatenated_buffer.AppendData(intermediate3.data(), intermediate3.size());
   EncodedImage concatenated(concatenated_buffer.data(), concatenated_length,
                             concatenated_length);
+  concatenated.SetSpatialIndex(2);
+  concatenated.SetSpatialLayerFrameSize(0, intermediate1.size());
+  concatenated.SetSpatialLayerFrameSize(1, intermediate2.size());
+  concatenated.SetSpatialLayerFrameSize(2, intermediate3.size());
 
   // Extract frame id from concatenated image
   EncodedImageExtractionResult out = injector.ExtractData(concatenated, 2);

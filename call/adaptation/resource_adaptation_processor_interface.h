@@ -36,6 +36,13 @@ class ResourceAdaptationProcessorListener {
       VideoSourceRestrictions restrictions,
       const VideoAdaptationCounters& adaptation_counters,
       rtc::scoped_refptr<Resource> reason) = 0;
+
+  // The limitations on a resource were changed. This does not mean the current
+  // video restrictions have changed.
+  virtual void OnResourceLimitationChanged(
+      rtc::scoped_refptr<Resource> resource,
+      const VideoSourceRestrictions& restrictions,
+      const VideoAdaptationCounters& adaptation_counters) {}
 };
 
 // The Resource Adaptation Processor is responsible for reacting to resource

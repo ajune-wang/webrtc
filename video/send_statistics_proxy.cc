@@ -1113,18 +1113,29 @@ void SendStatisticsProxy::OnAdaptationChanged(
     const VideoAdaptationCounters& quality_counters) {
   rtc::CritScope lock(&crit_);
 
+  bool adapt_up =
+      cpu_counters.Total() + quality_counters.Total() <
+      adaptations_.cpu_counts().Total() + adaptations_.quality_counts().Total();
+  bool was_equally_limited =
+      adaptations_.cpu_counts() == adaptations_.quality_counts();
+  bool both_reasons_adapted_up = adapt_up && was_equally_limited;
+
   MaskedAdaptationCounts receiver = adaptations_.MaskedQualityCounts();
   adaptations_.set_cpu_counts(cpu_counters);
   adaptations_.set_quality_counts(quality_counters);
   switch (reason) {
     case VideoAdaptationReason::kCpu:
       ++stats_.number_of_cpu_adapt_changes;
+      if (both_reasons_adapted_up)
+        ++stats_.number_of_quality_adapt_changes;
       break;
     case VideoAdaptationReason::kQuality:
       TryUpdateInitialQualityResolutionAdaptUp(
           receiver.resolution_adaptations,
           adaptations_.MaskedQualityCounts().resolution_adaptations);
       ++stats_.number_of_quality_adapt_changes;
+      if (both_reasons_adapted_up)
+        ++stats_.number_of_cpu_adapt_changes;
       break;
   }
   UpdateAdaptationStats();
@@ -1459,6 +1470,16 @@ void SendStatisticsProxy::Adaptations::set_quality_counts(
     const VideoAdaptationCounters& quality_counts) {
   quality_counts_ = quality_counts;
 }
+
+VideoAdaptationCounters SendStatisticsProxy::Adaptations::cpu_counts() const {
+  return cpu_counts_;
+}
+
+VideoAdaptationCounters SendStatisticsProxy::Adaptations::quality_counts()
+    const {
+  return quality_counts_;
+}
+
 void SendStatisticsProxy::Adaptations::UpdateMaskingSettings(
     VideoStreamEncoderObserver::AdaptationSettings cpu_settings,
     VideoStreamEncoderObserver::AdaptationSettings quality_settings) {

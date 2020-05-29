@@ -240,6 +240,9 @@ class SendStatisticsProxy : public VideoStreamEncoderObserver,
     void set_cpu_counts(const VideoAdaptationCounters& cpu_counts);
     void set_quality_counts(const VideoAdaptationCounters& quality_counts);
 
+    VideoAdaptationCounters cpu_counts() const;
+    VideoAdaptationCounters quality_counts() const;
+
     void UpdateMaskingSettings(AdaptationSettings cpu_settings,
                                AdaptationSettings quality_settings);
 

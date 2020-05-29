@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a20e017a_2f00517f",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-29T22:22:11Z",
+      "side": 1,
+      "message": "nit: May be cleaner to check `sctp` at the call site.",
+      "revId": "c8d3990ec88f609a5a519468dc09cbc45b373788",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

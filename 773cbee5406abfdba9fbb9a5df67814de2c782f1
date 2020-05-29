@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "699bdd19_58fa24b1",
+        "filename": "call/rtcp_demuxer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T10:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f86390d4_5fb73bf0",
+      "range": {
+        "startLine": 63,
+        "startChar": 29,
+        "endLine": 63,
+        "endChar": 33
+      },
+      "revId": "773cbee5406abfdba9fbb9a5df67814de2c782f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d6f63c5_adef001a",
         "filename": "call/rtp_demuxer.cc",
         "patchSetId": 14
@@ -36,6 +60,24 @@
       "writtenOn": "2020-05-29T10:23:13Z",
       "side": 1,
       "message": "can you add thread annotations for sink_by_ssrc_ to see on what thread/task queue it is referenced and to protect against regressions?",
+      "revId": "773cbee5406abfdba9fbb9a5df67814de2c782f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc76857a_d38c1182",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T10:55:26Z",
+      "side": 1,
+      "message": "If I understood you correctly you want `RTC_DCHECK_RUN_ON`? As far as I understand from comment to a class it isn\u0027t thread aware by design: https://webrtc.googlesource.com/src/+/refs/heads/master/call/rtp_demuxer.h#53. The new method is private method which is invoked from a `AddSink` method, which already modifies `sink_by_ssrc_` map, so there should no regression due threading issues. But I might get you wrong and ready to introduce additional changes after clarification :)",
+      "parentUuid": "3d6f63c5_adef001a",
       "revId": "773cbee5406abfdba9fbb9a5df67814de2c782f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -56,6 +98,24 @@
       "revId": "773cbee5406abfdba9fbb9a5df67814de2c782f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f72240e8_b5057d87",
+        "filename": "call/rtp_demuxer.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-05-29T10:55:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da3798e8_fb660a8d",
+      "revId": "773cbee5406abfdba9fbb9a5df67814de2c782f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

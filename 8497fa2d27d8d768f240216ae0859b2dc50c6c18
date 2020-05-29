@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3eb0eccb_2115e567",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-29T12:57:26Z",
+      "side": 1,
+      "message": "I think we need webrtc_impl on Mutex and MutexImpl.\n\nUntil C++ modules will be in use widely, headers leakage is a problem and webrtc::Mutex will be usable even if RTC_EXPORT is not there (RTC_EXPORT only guards in case webrtc is a shared library). This is why I am advocating for webrtc::webrtc_internal or ::webrtc::webrtc_impl, so we can explicitly signal users that this is not an API type, even if somehow they can access it.",
+      "parentUuid": "faf4423e_696fa2e2",
+      "range": {
+        "startLine": 32,
+        "startChar": 10,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "8497fa2d27d8d768f240216ae0859b2dc50c6c18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d51b34c5_8b4bbf37",
         "filename": "rtc_base/synchronization/mutex_benchmark.cc",
         "patchSetId": 4

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e66386f_50e6a86e",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-29T12:12:29Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 56
+      },
+      "revId": "9fa9b090e7f4a0719cd6615318013f24f21ba423",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c98f0fc0_9096138e",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-29T12:12:29Z",
+      "side": 1,
+      "message": "This is probably not needed on this target, I am not sure but let\u0027s try to remove.",
+      "range": {
+        "startLine": 419,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 24
+      },
+      "revId": "9fa9b090e7f4a0719cd6615318013f24f21ba423",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

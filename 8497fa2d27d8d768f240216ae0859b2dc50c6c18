@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5016890f_0f9e284a",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-29T12:12:29Z",
+      "side": 1,
+      "message": "Should Mutex itself also be considered internal to WebRTC or do we expect clients to use it?",
+      "range": {
+        "startLine": 32,
+        "startChar": 10,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "8497fa2d27d8d768f240216ae0859b2dc50c6c18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d51b34c5_8b4bbf37",
+        "filename": "rtc_base/synchronization/mutex_benchmark.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-29T12:12:29Z",
+      "side": 1,
+      "message": "So when there are 2 threads it is actually worse but when threads go up (more contention) things improve a lot. Do I read it correctly?",
+      "range": {
+        "startLine": 104,
+        "startChar": 34,
+        "endLine": 104,
+        "endChar": 57
+      },
+      "revId": "8497fa2d27d8d768f240216ae0859b2dc50c6c18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

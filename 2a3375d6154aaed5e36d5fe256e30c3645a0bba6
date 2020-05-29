@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "468af631_ce98f118",
+        "filename": "modules/video_coding/packet_buffer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-29T13:33:19Z",
+      "side": 1,
+      "message": "unless \"mu_\" is an established tradition, this should be lock_ or mutex_",
+      "revId": "2a3375d6154aaed5e36d5fe256e30c3645a0bba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d600ac7b_9fea2b51",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-29T13:33:19Z",
+      "side": 1,
+      "message": "\"provides concurrent access protection\" is a bit unclear. How about something like \"guarantees exclusive access\"?",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "2a3375d6154aaed5e36d5fe256e30c3645a0bba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b3f2d87_8dbf6e44",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-29T13:33:19Z",
+      "side": 1,
+      "message": "mu -\u003e mutex",
+      "revId": "2a3375d6154aaed5e36d5fe256e30c3645a0bba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41e6049f_6813160e",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-29T13:33:19Z",
+      "side": 1,
+      "message": "mutex_",
+      "revId": "2a3375d6154aaed5e36d5fe256e30c3645a0bba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab031772_d08f6268",
+        "filename": "rtc_base/synchronization/mutex_std.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-05-29T13:33:19Z",
+      "side": 1,
+      "message": "do we want to add this dependency? If it is not agreed upon right now, I\u0027d rather skip adding it even if it\u0027s just for testing.",
+      "revId": "2a3375d6154aaed5e36d5fe256e30c3645a0bba6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

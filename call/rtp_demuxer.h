@@ -149,8 +149,33 @@ class RtpDemuxer {
   void set_use_mid(bool use_mid) { use_mid_ = use_mid; }
 
  private:
-  // Returns true if adding a sink with the given criteria would cause conflicts
-  // with the existing criteria and should be rejected.
+  struct SsrcBinding {
+    enum class Origin {
+      // SSRC binding resolved from existing binding by mid
+      ResolvedByMid,
+      // SSRC binding resolved from existing binding by rsid
+      ResolvedByRsid,
+      // SSRC binding resolved from existing binding by mid+rsid
+      ResolvedByMidRsid,
+      // SSRC binding resolved from existing binding by payload type
+      ResolvedByPayloadType,
+      // SSRC binding explicitly signaled
+      Signaled,
+    };
+    RtpPacketSinkInterface* const sink;
+    Origin const origin;
+
+    bool operator==(const SsrcBinding& other) {
+      return sink == other.sink && origin == other.origin;
+    }
+
+    bool operator!=(const SsrcBinding& other) { return !(*this == other); }
+
+    std::string ToString() const;
+  };
+
+  // Returns true if adding a sink with the given criteria would cause
+  // conflicts with the existing criteria and should be rejected.
   bool CriteriaWouldConflict(const RtpDemuxerCriteria& criteria) const;
 
   // Runs the demux algorithm on the given packet and returns the sink that
@@ -174,6 +199,10 @@ class RtpDemuxer {
   // sink_by_mid_and_rsid_ maps.
   void RefreshKnownMids();
 
+  // Check ssrc_by_sink_ map for the presence of ambiguous bindings
+  // introduced by resolution by payload type, when sinks_by_pt_ modified
+  void RemoveAmbiguousSsrcBindingsResolvedByPayloadType();
+
   // Map each sink by its component attributes to facilitate quick lookups.
   // Payload Type mapping is a multimap because if two sinks register for the
   // same payload type, both AddSinks succeed but we must know not to demux on
@@ -182,7 +211,7 @@ class RtpDemuxer {
   // SSRC mapping which receives all MID, payload type, or RSID to SSRC bindings
   // discovered when demuxing packets).
   std::map<std::string, RtpPacketSinkInterface*> sink_by_mid_;
-  std::map<uint32_t, RtpPacketSinkInterface*> sink_by_ssrc_;
+  std::map<uint32_t, SsrcBinding> sink_by_ssrc_;
   std::multimap<uint8_t, RtpPacketSinkInterface*> sinks_by_pt_;
   std::map<std::pair<std::string, std::string>, RtpPacketSinkInterface*>
       sink_by_mid_and_rsid_;
@@ -203,7 +232,7 @@ class RtpDemuxer {
   // Adds a binding from the SSRC to the given sink. Returns true if there was
   // not already a sink bound to the SSRC or if the sink replaced a different
   // sink. Returns false if the binding was unchanged.
-  bool AddSsrcSinkBinding(uint32_t ssrc, RtpPacketSinkInterface* sink);
+  bool AddSsrcSinkBinding(uint32_t ssrc, SsrcBinding binding);
 
   // Observers which will be notified when an RSID association to an SSRC is
   // resolved by this object.

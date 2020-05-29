@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5fe03e4_006e1a20",
+        "filename": "media/sctp/sctp_transport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-05-29T22:19:13Z",
+      "side": 1,
+      "message": "This is failing in the tests with \"Failed to send a stream reset for 1 streams : [0x00000016] Invalid argument\". I assume because the association isn\u0027t established yet.\n\nI wonder if this would be fixed by adding \"SendQueuedStreamResets()\" to \"case SCTP_COMM_UP\"",
+      "revId": "d7f5ef432a7bd3f170fcf43223b98545f284342b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

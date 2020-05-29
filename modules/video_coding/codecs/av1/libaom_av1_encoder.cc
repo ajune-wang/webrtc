@@ -310,6 +310,59 @@ void LibaomAv1Encoder::SetSvcLayerId(
 
 void LibaomAv1Encoder::SetSvcRefFrameConfig(
     const ScalableVideoController::LayerFrameConfig& layer_frame) {
+  static constexpr int LAST_FRAME = 0;
+  static constexpr int GOLDEN_FRAME = 3;
+  static constexpr int kFalse = 0;
+  static constexpr int kTrue = 1;
+
+  aom_svc_ref_frame_config_t ref_frame_config = {};
+  switch (layer_frame.id) {
+    case 0:
+      RTC_DCHECK(layer_frame.is_keyframe);
+      RTC_DCHECK_EQ(layer_frame.spatial_id, 0);
+      ref_frame_config.ref_idx[LAST_FRAME] = 0;
+      ref_frame_config.reference[LAST_FRAME] = kFalse;
+      ref_frame_config.refresh[0] = kTrue;
+      break;
+    case 1:
+      // First frame S1.
+      RTC_DCHECK_EQ(layer_frame.spatial_id, 1);
+      ref_frame_config.ref_idx[LAST_FRAME] = 0;
+      ref_frame_config.reference[LAST_FRAME] = kTrue;
+      ref_frame_config.refresh[0] = kFalse;
+      ref_frame_config.ref_idx[GOLDEN_FRAME] = 1;
+      ref_frame_config.reference[GOLDEN_FRAME] = kFalse;
+      ref_frame_config.refresh[1] = kTrue;
+      break;
+    case 2:
+      // Delta frame S0
+      RTC_DCHECK_EQ(layer_frame.spatial_id, 0);
+      ref_frame_config.ref_idx[LAST_FRAME] = 0;
+      ref_frame_config.reference[LAST_FRAME] = kTrue;
+      ref_frame_config.refresh[0] = kTrue;
+      break;
+    case 3:
+      // Delta frame S1, case0 (failure)
+      RTC_DCHECK_EQ(layer_frame.spatial_id, 1);
+      ref_frame_config.ref_idx[LAST_FRAME] = 1;
+      ref_frame_config.reference[LAST_FRAME] = kTrue;
+      ref_frame_config.refresh[1] = kTrue;
+      break;
+    case 4:
+      // Delta frame S1, case 1 (success)
+      RTC_DCHECK_EQ(layer_frame.spatial_id, 1);
+      ref_frame_config.ref_idx[GOLDEN_FRAME] = 1;
+      ref_frame_config.reference[GOLDEN_FRAME] = kTrue;
+      ref_frame_config.refresh[1] = kTrue;
+      break;
+    default:
+      RTC_NOTREACHED();
+      break;
+  }
+  auto ret = aom_codec_control(&ctx_, AV1E_SET_SVC_REF_FRAME_CONFIG,
+                               &ref_frame_config);
+  RTC_CHECK_EQ(ret, AOM_CODEC_OK);
+#if 0
   // Buffer name to use for each layer_frame.buffers position. In particular
   // when there are 2 buffers are referenced, prefer name them last and golden,
   // because av1 bitstream format has dedicated fields for these two names.
@@ -341,6 +394,7 @@ void LibaomAv1Encoder::SetSvcRefFrameConfig(
     RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::Encode returned " << ret
                         << " on control AV1_SET_SVC_REF_FRAME_CONFIG.";
   }
+#endif
 }
 
 int32_t LibaomAv1Encoder::RegisterEncodeCompleteCallback(

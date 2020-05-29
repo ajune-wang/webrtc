@@ -87,6 +87,7 @@ if (rtc_include_tests) {
     if (enable_libaom) {
       sources = [
         "libaom_av1_encoder_unittest.cc",
+        "libaom_av1_ksvc_unittest.cc",
         "libaom_av1_unittest.cc",
       ]
       deps = [

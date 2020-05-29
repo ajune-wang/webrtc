@@ -128,18 +128,10 @@ class VideoStreamEncoderResourceManager
       VideoSourceRestrictions restrictions,
       const VideoAdaptationCounters& adaptation_counters,
       rtc::scoped_refptr<Resource> reason) override;
-
-  // For reasons of adaptation and statistics, we not only count the total
-  // number of adaptations, but we also count the number of adaptations per
-  // reason.
-  // This method takes the new total number of adaptations and allocates that to
-  // the "active" count - number of adaptations for the current reason.
-  // The "other" count is the number of adaptations for the other reason.
-  // This must be called for each adaptation step made.
-  static void OnAdaptationCountChanged(
-      const VideoAdaptationCounters& adaptation_count,
-      VideoAdaptationCounters* active_count,
-      VideoAdaptationCounters* other_active);
+  void OnResourceLimitationChanged(
+      rtc::scoped_refptr<Resource> resource,
+      const VideoSourceRestrictions& restrictions,
+      const VideoAdaptationCounters& adaptation_counters) override;
 
  private:
   class InitialFrameDropper;
@@ -174,36 +166,6 @@ class VideoStreamEncoderResourceManager
 
   // TODO(hbos): Consider moving all of the manager's resources into separate
   // files for testability.
-
-  // Does not trigger adaptations, only prevents adapting up based on
-  // |active_counts_|.
-  class PreventAdaptUpDueToActiveCounts final
-      : public rtc::RefCountedObject<Resource> {
-   public:
-    explicit PreventAdaptUpDueToActiveCounts(
-        VideoStreamEncoderResourceManager* manager);
-    ~PreventAdaptUpDueToActiveCounts() override = default;
-
-    void SetAdaptationProcessor(
-        ResourceAdaptationProcessorInterface* adaptation_processor);
-
-    // Resource overrides.
-    std::string name() const override {
-      return "PreventAdaptUpDueToActiveCounts";
-    }
-    bool IsAdaptationUpAllowed(
-        const VideoStreamInputState& input_state,
-        const VideoSourceRestrictions& restrictions_before,
-        const VideoSourceRestrictions& restrictions_after,
-        rtc::scoped_refptr<Resource> reason_resource) const override;
-
-   private:
-    // The |manager_| must be alive as long as this resource is added to the
-    // ResourceAdaptationProcessor, i.e. when IsAdaptationUpAllowed() is called.
-    VideoStreamEncoderResourceManager* const manager_;
-    ResourceAdaptationProcessorInterface* adaptation_processor_
-        RTC_GUARDED_BY(resource_adaptation_queue());
-  };
 
   // Does not trigger adaptations, only prevents adapting up resolution.
   class PreventIncreaseResolutionDueToBitrateResource final
@@ -271,8 +233,6 @@ class VideoStreamEncoderResourceManager
         RTC_GUARDED_BY(resource_adaptation_queue());
   };
 
-  const rtc::scoped_refptr<PreventAdaptUpDueToActiveCounts>
-      prevent_adapt_up_due_to_active_counts_;
   const rtc::scoped_refptr<PreventIncreaseResolutionDueToBitrateResource>
       prevent_increase_resolution_due_to_bitrate_resource_;
   const rtc::scoped_refptr<PreventAdaptUpInBalancedResource>

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6aecb778_33d4f0f6",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T17:08:33Z",
+      "side": 1,
+      "message": "actually... is it correct?\nyou know that ssrc is mapped becaues there is/was one payload_type for it.\nand you know that one of the new payload types should makes some sink ambiguous.\nbut how ssrc \u003d sink_by_ssrc.first is related to payload_type?",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 20
+      },
+      "revId": "1eb2c438d2a941565f11c0616bb3842d0ad568b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

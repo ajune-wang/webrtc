@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c8820ece_129f3335",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T17:05:40Z",
+      "side": 1,
+      "message": "thank you, new message helps. (I also agree that error message usually better than a comment).",
+      "parentUuid": "72c5d4a8_500940c0",
+      "range": {
+        "startLine": 109,
+        "startChar": 25,
+        "endLine": 109,
+        "endChar": 57
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "632c190e_e567ca5c",
         "filename": "call/rtp_demuxer.cc",
         "patchSetId": 17
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "f806294d_62a6ca56",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T17:05:40Z",
+      "side": 1,
+      "message": "looks better!\nI do not see reason to optimise this further now\n(until there will be evidence this cause performance problems)",
+      "parentUuid": "dbf567c9_0d1a8704",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 206,
+        "endChar": 48
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdf3ec06_68a77c54",
         "filename": "call/rtp_demuxer.cc",
         "patchSetId": 17
@@ -225,6 +273,30 @@
       "side": 1,
       "message": "I\u0027ve declared fields of `SsrcBinding` as `const` to emphasize that bindings is only modifiable as a whole object. `const` field caused copy-assignment operator deleted and hence `t-\u003esecond \u003d binding;` does not compile.",
       "parentUuid": "458876b3_0470338e",
+      "range": {
+        "startLine": 472,
+        "startChar": 4,
+        "endLine": 473,
+        "endChar": 41
+      },
+      "revId": "207df2caa9f1d08d5dd6152f5fb800a296ef4f8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def3d9d1_5f132ad6",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T17:05:40Z",
+      "side": 1,
+      "message": "marking all member const doesn\u0027t make object modifiable as a whole, it makes class unmodifable at all.\n\nhttps://abseil.io/tips/177 mentions this pattern in \"The Unusual Case: immutable types\"\nand recommends to \"Avoid const and reference data members when building value types\"\n\nIn this case I think it is better to remove const in favor of making code here faster (changing element is a cheap constant operation, where removing from map, then reinserting it involves two map lookups and might involve allocation)\n\nspecially since this type is very private to RtpDemuxer.",
+      "parentUuid": "c65f21bb_01f656ee",
       "range": {
         "startLine": 472,
         "startChar": 4,

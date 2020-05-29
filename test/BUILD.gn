@@ -11,6 +11,7 @@ import("../webrtc.gni")
 if (is_android) {
   import("//build/config/android/rules.gni")
 }
+import("//third_party/google_benchmark/buildconfig.gni")
 
 group("test") {
   testonly = true
@@ -412,6 +413,14 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/debugging:failure_signal_handler",
       "//third_party/abseil-cpp/absl/debugging:symbolize",
     ]
+  }
+
+  rtc_library("benchmark_main") {
+    visibility = [ "*" ]
+    testonly = true
+    sources = [ "benchmark_main.cc" ]
+
+    deps = [ "//third_party/google_benchmark" ]
   }
 
   rtc_library("test_support_test_artifacts") {

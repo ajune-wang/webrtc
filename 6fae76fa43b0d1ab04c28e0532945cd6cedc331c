@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7092132f_c1e91997",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "look like bad copy-paste code.\nto avoid that may be move this constant next to where it is used:\n#else\n  const struct timespec ts_null \u003d {0};\n  nanosleep(\u0026ts_null, nullptr);\n#endif",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 57
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76ef88a3_f8b974c6",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "afaik annotations goes to the tail of the declaration:\nbool TryLock() const RTC_WARN_UNUSED_RESULT RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {\n\nhttps://chromium.googlesource.com/external/webrtc/+/master/rtc_base/system/unused.h#16",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65e1dabe_ff78f553",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "are there plans for this class too? (seems this one is same as GlobalLock.)\n\nif there is plan to replace this one with absl::Mutex too, then make it compatible:\nremove default constructor and instead add\nconstexpr explict GlobalMutex(absl::ConstInitType /*unused*/)\n\nthen it would be possible to write\n#if defined(WEBRTC_ABSL_MUTEX)\nusing GlobalMutex \u003d absl::Mutex;\n#else\nclass RTC_LOCKABLE GlobalMutex {\n....\n};\n#endif",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a856cf0d_ea081fab",
+        "filename": "rtc_base/synchronization/mutex_abseil.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "may be hide inside extra namespace webrtc_mutex_internal {\nto stress that this class should only be used by webrtc::Mutex.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 0
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98d03924_42fb13b5",
+        "filename": "rtc_base/synchronization/mutex_abseil.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "annotations are not needed for the Impl classes since they shouldn\u0027t be used directly.\n(nothing should be RTC_GUARDED_BY(MutexImpl)",
+      "range": {
+        "startLine": 21,
+        "startChar": 14,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86461578_e13f0820",
+        "filename": "rtc_base/synchronization/mutex_critical_section.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "interesting!\nI was considering suggesting to protect it with build flag:\nBUILD.gn {\n ...\n if (is_win) {\n   sources +\u003d [ \"mutex_critical_section.h\" ]\n } \n}\n\n\nbut protecting with #if defined seems more reliable, has better chance to match guard in the mutex.h",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 23
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5da8f228_8f91dc8d",
+        "filename": "rtc_base/synchronization/mutex_pthread.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "guard the file with #if defined(WEBRTC_POSIX)\nor avoid adding it to sources in the build file.\n\nbuild system like to verify header files even when they are not included into any .cc file.\nthis file would obviously won\u0027t compile on windows.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90765be3_f46968e1",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "put into the unnamed namespace\n\nhttps://abseil.io/tips/119#summary\n\n\"Declare namespace aliases and using-declarations inside the innermost namespace, whether named or anonymous.\"",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 20
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0676d98e_83fe9383",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "constexpr",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6739fc0_9b4baebd",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "it seems it is not too hard to use std::atomic here\nSee http://bugs.webrtc.org/9305",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 29
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c397f694_065f7800",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "why this class? may be use Mutex directly.",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 29
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e2ce807_5488a73e",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "this Runner looks unrelated to the verifying Mutex (even if it uses one)",
+      "range": {
+        "startLine": 165,
+        "startChar": 6,
+        "endLine": 165,
+        "endChar": 20
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5af2b5ce_f16ff28c",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "this set of tests look unrelated to the Mutex",
+      "range": {
+        "startLine": 219,
+        "startChar": 5,
+        "endLine": 219,
+        "endChar": 18
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e8fc445_ff16dc05",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "this probably too strong assumption.\ncheck just below (can be constructed with ABSL_CONST_INIT is the proper test):\n\nabsl::Mutex(absl::kConstInit) is allowed as global static even though it has non-trivial destructor.",
+      "range": {
+        "startLine": 291,
+        "startChar": 2,
+        "endLine": 291,
+        "endChar": 72
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48ae019e_fdb1c867",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:50:15Z",
+      "side": 1,
+      "message": "this looks like the only tests about the mutex.... may be put it first, before less important GlobalMutexTest.",
+      "range": {
+        "startLine": 309,
+        "startChar": 0,
+        "endLine": 309,
+        "endChar": 24
+      },
+      "revId": "6fae76fa43b0d1ab04c28e0532945cd6cedc331c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

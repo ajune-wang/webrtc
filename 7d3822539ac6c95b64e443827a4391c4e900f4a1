@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d672da5c_d0ca837c",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-05-29T14:52:35Z",
+      "side": 1,
+      "message": "Yes please---final all the classes!",
+      "parentUuid": "db2463b4_9d9edf9b",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efbbd10b_63257f2f",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 9

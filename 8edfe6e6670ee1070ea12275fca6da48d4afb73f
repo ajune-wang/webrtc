@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cadff1c8_43b952c6",
+        "filename": "call/rtp_rtcp_demuxer_helper.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-05-29T14:02:53Z",
+      "side": 0,
+      "message": "since most of the time removal is done by value rather than by custom predicator,\nmay be keep this helper too:\ntemplate \u003ctypename Map, typename Value\u003e\nsize_t RemoveFromMapByValue(Map* map, const Value\u0026 value) {\n  return RemoveFromMapIf(map, [\u0026](const auto\u0026 kv) { return kv.second \u003d\u003d value; });\n}",
+      "range": {
+        "startLine": 48,
+        "startChar": 7,
+        "endLine": 48,
+        "endChar": 27
+      },
+      "revId": "8edfe6e6670ee1070ea12275fca6da48d4afb73f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

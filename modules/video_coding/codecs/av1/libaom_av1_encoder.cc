@@ -186,7 +186,7 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   cfg_.rc_min_quantizer = kQpMin;
   cfg_.rc_max_quantizer = kQpMax;
   cfg_.g_usage = kUsageProfile;
-
+  cfg_.g_error_resilient = 1;
   // Low-latency settings.
   cfg_.rc_end_usage = AOM_CBR;          // Constant Bit Rate (CBR) mode
   cfg_.g_pass = AOM_RC_ONE_PASS;        // One-pass rate control
@@ -228,6 +228,12 @@ int LibaomAv1Encoder::InitEncode(const VideoCodec* codec_settings,
   if (ret != AOM_CODEC_OK) {
     RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::EncodeInit returned " << ret
                         << " on control AV1E_SET_DELTAQ_MODE.";
+    return WEBRTC_VIDEO_CODEC_ERROR;
+  }
+  ret = aom_codec_control(&ctx_, AV1E_SET_ENABLE_ORDER_HINT, 0);
+  if (ret != AOM_CODEC_OK) {
+    RTC_LOG(LS_WARNING) << "LibaomAv1Encoder::EncodeInit returned " << ret
+                        << " on control AV1E_SET_ENABLE_ORDER_HINT.";
     return WEBRTC_VIDEO_CODEC_ERROR;
   }
   ret = aom_codec_control(&ctx_, AV1E_SET_AQ_MODE, 3);

@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "9921f56c_a704a8e6",
+        "filename": "modules/video_coding/deprecated/nack_module.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-30T15:33:12Z",
+      "side": 1,
+      "message": "`using` works, I have changed to that.",
+      "parentUuid": "3bf05a9c_0227ea65",
+      "revId": "c98a66368a06817ae58b8ba704fb2fbb45372f51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae5c069d_69396b32",
         "filename": "video/rtp_video_stream_receiver.h",
         "patchSetId": 4
@@ -80,6 +98,24 @@
       "revId": "c98a66368a06817ae58b8ba704fb2fbb45372f51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9967409_c300b093",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-05-30T15:33:12Z",
+      "side": 1,
+      "message": "Not officially (it is the \"Wait until downstream code gets fixed\" on https://webrtc-review.googlesource.com/c/src/+/175901/5#message-fd5779ff567e8d63e29cbeaa48fb3f7baab4b4fa).\n\nLet\u0027s talk about this at Monday\u0027s meeting.",
+      "parentUuid": "ae5c069d_69396b32",
+      "revId": "c98a66368a06817ae58b8ba704fb2fbb45372f51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

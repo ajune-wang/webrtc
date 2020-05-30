@@ -16,6 +16,24 @@
       "revId": "d7f5ef432a7bd3f170fcf43223b98545f284342b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aea3bf5_7e025503",
+        "filename": "media/sctp/sctp_transport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-05-30T07:21:09Z",
+      "side": 1,
+      "message": "Yes, that\u0027s the error. And it\u0027s happening post-association.\nI was trying to figure out what usrsctp call send() causes to be called ahead of send() (since it works when you send data ahead of the reset, see test above), but I couldn\u0027t find any.",
+      "parentUuid": "b5fe03e4_006e1a20",
+      "revId": "d7f5ef432a7bd3f170fcf43223b98545f284342b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

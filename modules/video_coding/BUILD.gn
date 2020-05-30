@@ -71,8 +71,6 @@ rtc_library("nack_module") {
   sources = [
     "histogram.cc",
     "histogram.h",
-    "nack_module.cc",
-    "nack_module.h",
     "nack_module2.cc",
     "nack_module2.h",
   ]
@@ -923,6 +921,7 @@ if (rtc_include_tests) {
       ":webrtc_vp8_temporal_layers",
       ":webrtc_vp9",
       ":webrtc_vp9_helpers",
+      "deprecated:nack_module",
       "..:module_api",
       "..:module_fec_api",
       "../../api:array_view",

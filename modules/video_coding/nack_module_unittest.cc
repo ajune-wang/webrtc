@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/video_coding/nack_module.h"
+#include "modules/video_coding/deprecated/nack_module.h"
 
 #include <algorithm>
 #include <cstdint>

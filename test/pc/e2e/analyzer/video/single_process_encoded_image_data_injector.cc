@@ -40,7 +40,6 @@ EncodedImage SingleProcessEncodedImageDataInjector::InjectData(
   RTC_CHECK(source.size() >= kUsedBufferSize);
 
   ExtractionInfo info;
-  info.length = source.size();
   info.discard = discard;
   size_t insertion_pos = source.size() - kUsedBufferSize;
   memcpy(info.origin_data, &source.data()[insertion_pos], kUsedBufferSize);
@@ -69,15 +68,31 @@ EncodedImageExtractionResult SingleProcessEncodedImageDataInjector::ExtractData(
   uint8_t* buffer = out.data();
   size_t size = out.size();
 
-  // |pos| is pointing to end of current encoded image.
-  size_t pos = size - 1;
+  bool has_spatial_layers = false;
+  std::vector<size_t> frame_sizes;
+  size_t max_spatial_index = out.SpatialIndex().value_or(0);
+  for (size_t i = 0; i <= max_spatial_index; i++) {
+    auto frame_size = source.SpatialLayerFrameSize(i);
+    has_spatial_layers = has_spatial_layers || frame_size.has_value();
+    frame_sizes.push_back(frame_size.value_or(0));
+  }
+  if (!has_spatial_layers) {
+    // If all SpatialLayerFrameSize are 0 it means that EncodedImage is a single
+    // image. We can process this case the same way as if EncodedImage had one
+    // non-zero spatial layer.
+    frame_sizes[0] = size;
+  }
+
+  size_t prev_frames_size = 0;
   absl::optional<uint16_t> id = absl::nullopt;
   bool discard = true;
-  std::vector<ExtractionInfo> extraction_infos;
-  // Go through whole buffer and find all related extraction infos in
-  // order from 1st encoded image to the last.
-  while (true) {
-    size_t insertion_pos = pos - kUsedBufferSize + 1;
+  std::vector<absl::optional<ExtractionInfo>> extraction_infos;
+  for (size_t frame_size : frame_sizes) {
+    if (frame_size == 0) {
+      extraction_infos.push_back(absl::nullopt);
+      continue;
+    }
+    size_t insertion_pos = prev_frames_size + frame_size - kUsedBufferSize;
     // Extract frame id from first 2 bytes starting from insertion pos.
     uint16_t next_id = buffer[insertion_pos] + (buffer[insertion_pos + 1] << 8);
     // Extract frame sub id from second 3 byte starting from insertion pos.
@@ -99,41 +114,36 @@ EncodedImageExtractionResult SingleProcessEncodedImageDataInjector::ExtractData(
       info = info_it->second;
       ext_vector_it->second.infos.erase(info_it);
     }
-    extraction_infos.push_back(info);
     // We need to discard encoded image only if all concatenated encoded images
     // have to be discarded.
     discard = discard && info.discard;
-    if (pos < info.length) {
-      break;
-    }
-    pos -= info.length;
+
+    extraction_infos.push_back(info);
+    prev_frames_size += frame_size;
   }
   RTC_CHECK(id);
-  std::reverse(extraction_infos.begin(), extraction_infos.end());
-  if (discard) {
-    out.set_size(0);
-    return EncodedImageExtractionResult{*id, out, true};
-  }
 
   // Make a pass from begin to end to restore origin payload and erase discarded
   // encoded images.
-  pos = 0;
-  auto extraction_infos_it = extraction_infos.begin();
-  while (pos < size) {
-    RTC_DCHECK(extraction_infos_it != extraction_infos.end());
-    const ExtractionInfo& info = *extraction_infos_it;
+  size_t pos = 0;
+  for (size_t sl_index = 0; sl_index <= max_spatial_index; sl_index++) {
+    if (frame_sizes[sl_index] == 0) {
+      continue;
+    }
+    RTC_CHECK(pos < size);
+    const size_t frame_size = frame_sizes[sl_index];
+    const ExtractionInfo& info = extraction_infos[sl_index].value();
     if (info.discard) {
       // If this encoded image is marked to be discarded - erase it's payload
       // from the buffer.
-      memmove(&buffer[pos], &buffer[pos + info.length],
-              size - pos - info.length);
-      size -= info.length;
+      memmove(&buffer[pos], &buffer[pos + frame_size], size - pos - frame_size);
+      out.SetSpatialLayerFrameSize(sl_index, 0);
+      size -= frame_size;
     } else {
-      memcpy(&buffer[pos + info.length - kUsedBufferSize], info.origin_data,
+      memcpy(&buffer[pos + frame_size - kUsedBufferSize], info.origin_data,
              kUsedBufferSize);
-      pos += info.length;
+      pos += frame_size;
     }
-    ++extraction_infos_it;
   }
   out.set_size(pos);
 

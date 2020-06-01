@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9917efaf_b1150ee7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-01T08:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "209b1119_52b79cdb",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c65c12f3_ed1f32cc",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 2
@@ -70,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "dacf8945_c1f8ce77",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-01T08:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d5ecd8c_9294bd70",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2009255b_7e9218ba",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 2
@@ -84,6 +120,24 @@
       "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae64809b_63e3c7dc",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-01T08:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2009255b_7e9218ba",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +209,24 @@
     },
     {
       "key": {
+        "uuid": "4d2aee17_727fb705",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-01T08:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4376319f_679cc0b7",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad6b9340_7343b6b5",
         "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
         "patchSetId": 2
@@ -206,6 +278,24 @@
     },
     {
       "key": {
+        "uuid": "f7e165eb_f982ed1b",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-01T08:03:19Z",
+      "side": 1,
+      "message": "I will see if I can make the encoder stats observer a listener, makes a lot of sense to me. Removes another dependency from this class if that is the case.",
+      "parentUuid": "1fae8a91_9f58a7bc",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23b71c67_800e7544",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 2
@@ -217,6 +307,24 @@
       "writtenOn": "2020-05-27T08:30:15Z",
       "side": 1,
       "message": "Here\u0027s another special case: If restrictions are reset we catch it here and clear the stats.\n\nHowever, if ResourceAdaptationProcessor::ResetVideoSourceRestrictions() performed OnResourceLimitationChanged() then all the counters would have naturally been reset without special logic.",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56f0de54_b64689f3",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-01T08:03:19Z",
+      "side": 1,
+      "message": "I will see if there is something more explicit that can be done for the reset case as well. I think part of the problem here is that we can end up here when we switch degredataion preference but will have to double check that.",
+      "parentUuid": "23b71c67_800e7544",
       "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -237,6 +345,24 @@
       "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fa2f044_1f9c25f5",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-01T08:03:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7020846f_0881ec7a",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

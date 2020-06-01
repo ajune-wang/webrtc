@@ -416,6 +416,55 @@ TEST_F(RtpDemuxerTest, OnRtpPacketCalledOnCorrectSinkByPayloadType) {
   EXPECT_TRUE(demuxer_.OnRtpPacket(*packet));
 }
 
+TEST_F(RtpDemuxerTest,
+       RemoveExistingSsrcByPayloadTypeBindingWhenItBecomeAmbiguous) {
+  constexpr uint32_t ssrc = 10;
+  constexpr uint8_t payload_type = 30;
+
+  MockRtpPacketSink sink1;
+  RtpDemuxerCriteria payload_type_only_criteria1;
+  payload_type_only_criteria1.payload_types = {payload_type};
+  EXPECT_TRUE(AddSink(payload_type_only_criteria1, &sink1));
+
+  auto packet = CreatePacketWithSsrc(ssrc);
+  packet->SetPayloadType(payload_type);
+  EXPECT_CALL(sink1, OnRtpPacket(SamePacketAs(*packet))).Times(1);
+  EXPECT_TRUE(demuxer_.OnRtpPacket(*packet));
+
+  MockRtpPacketSink sink2;
+  RtpDemuxerCriteria payload_type_only_criteria2;
+  payload_type_only_criteria2.payload_types = {payload_type};
+  EXPECT_TRUE(AddSink(payload_type_only_criteria2, &sink2));
+  EXPECT_CALL(sink1, OnRtpPacket(SamePacketAs(*packet))).Times(0);
+  EXPECT_CALL(sink2, OnRtpPacket(SamePacketAs(*packet))).Times(0);
+  EXPECT_FALSE(demuxer_.OnRtpPacket(*packet));
+}
+
+TEST_F(RtpDemuxerTest,
+       CanOverrideSinkWhenSsrcBindingResolvedByPayloadTypeExists) {
+  constexpr uint32_t ssrc = 10;
+  constexpr uint8_t payload_type = 30;
+
+  MockRtpPacketSink sink1;
+  RtpDemuxerCriteria payload_type_only_criteria;
+  payload_type_only_criteria.payload_types = {payload_type};
+  EXPECT_TRUE(AddSink(payload_type_only_criteria, &sink1));
+
+  auto packet = CreatePacketWithSsrc(ssrc);
+  packet->SetPayloadType(payload_type);
+  EXPECT_CALL(sink1, OnRtpPacket(SamePacketAs(*packet))).Times(1);
+  EXPECT_TRUE(demuxer_.OnRtpPacket(*packet));
+
+  MockRtpPacketSink sink2;
+  RtpDemuxerCriteria ssrc_only_criteria;
+  ssrc_only_criteria.ssrcs = {ssrc};
+  EXPECT_TRUE(AddSink(ssrc_only_criteria, &sink2));
+
+  EXPECT_CALL(sink1, OnRtpPacket(SamePacketAs(*packet))).Times(0);
+  EXPECT_CALL(sink2, OnRtpPacket(SamePacketAs(*packet))).Times(1);
+  EXPECT_TRUE(demuxer_.OnRtpPacket(*packet));
+}
+
 TEST_F(RtpDemuxerTest, PacketsDeliveredInRightOrder) {
   constexpr uint32_t ssrc = 101;
   MockRtpPacketSink sink;

@@ -30,12 +30,12 @@ bool MultimapAssociationExists(const Container& multimap,
                      [val](Reference elem) { return elem.second == val; });
 }
 
-template <typename Container, typename Value>
-size_t RemoveFromMultimapByValue(Container* multimap, const Value& value) {
+template <typename Map, typename Predicate>
+size_t RemoveFromMapIf(Map* map, Predicate predicate) {
   size_t count = 0;
-  for (auto it = multimap->begin(); it != multimap->end();) {
-    if (it->second == value) {
-      it = multimap->erase(it);
+  for (auto it = map->begin(); it != map->end();) {
+    if (predicate(*it)) {
+      it = map->erase(it);
       ++count;
     } else {
       ++it;
@@ -45,17 +45,9 @@ size_t RemoveFromMultimapByValue(Container* multimap, const Value& value) {
 }
 
 template <typename Map, typename Value>
-size_t RemoveFromMapByValue(Map* map, const Value& value) {
-  size_t count = 0;
-  for (auto it = map->begin(); it != map->end();) {
-    if (it->second == value) {
-      it = map->erase(it);
-      ++count;
-    } else {
-      ++it;
-    }
-  }
-  return count;
+size_t RemoveFromMapByValue(Map* map, Value value) {
+  return RemoveFromMapIf(map,
+                         [&](const auto& kv) { return kv.second == value; });
 }
 
 template <typename Container, typename Key>

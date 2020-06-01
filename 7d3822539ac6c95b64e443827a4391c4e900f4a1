@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "452dcaba_a595e160",
+        "filename": "DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-01T08:52:41Z",
+      "side": 1,
+      "message": "If you update this to 5bfaa53575c1a0948cbbc2332bcb3619df6584a9, you should be able to land even before the roll gets fixed.",
+      "range": {
+        "startLine": 150,
+        "startChar": 87,
+        "endLine": 150,
+        "endChar": 127
+      },
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db2463b4_9d9edf9b",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 9

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52db1892_3f264e88",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-01T13:26:54Z",
+      "side": 0,
+      "message": "Let\u0027s keep it. If we need to discard everything it will be much faster then moving memory around just for nothing",
+      "range": {
+        "startLine": 113,
+        "startChar": 2,
+        "endLine": 116,
+        "endChar": 3
+      },
+      "revId": "9ca7365a8c98312f49034a1920666695787a2899",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

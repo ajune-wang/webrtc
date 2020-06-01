@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f1b809f_0bc12e6d",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-01T13:26:54Z",
+      "side": 1,
+      "message": "IIRC style guide is ++frame_index",
+      "range": {
+        "startLine": 125,
+        "startChar": 7,
+        "endLine": 125,
+        "endChar": 20
+      },
+      "revId": "87264e041fdc9f87433a7347037fd1956ea0ac0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f11be225_ce742e63",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-01T13:26:54Z",
+      "side": 1,
+      "message": "If we keep if (discard) { ... }, then here frame_sl_index always will be not empty. But still please comment why.",
+      "range": {
+        "startLine": 134,
+        "startChar": 11,
+        "endLine": 134,
+        "endChar": 33
+      },
+      "revId": "87264e041fdc9f87433a7347037fd1956ea0ac0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

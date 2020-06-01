@@ -46,6 +46,30 @@
       "revId": "1eb2c438d2a941565f11c0616bb3842d0ad568b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3932affc_73e56342",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-01T14:24:58Z",
+      "side": 1,
+      "message": "scenario I was thinking about:\npt 90 -\u003e sink1\npt 91 -\u003e sink2\narrived packet with pt 90 and ssrc 1234. created a mapping pt90 -\u003e ssrc 1234\n// a new mapping added:\npt 91 -\u003e sink3\n\nnow code starts iterating and finds entry\nsink_by_ssrc.second.ssrc \u003d\u003d 1234 \u0026 sink_by_ssrc.second.origin \u003d\u003d ResolvedByType\nthen code iterate through updated_payload_types and finds sinks_by_pt_.count(91) \u003e 1\nCode makes conclusion that mapping for ssrc 1234 should be deleted now (even though that particular mapping is still unambiguous)\n\n\nTechnically it shouldn\u0027t be an issue to delete such mapping: next packet with p90 and ssrc 1234 would just recreate it. But then it is possible to make this code simpler (and faster):\n\nbool new_ambigious_payload_types \u003d false;\nfor (int payload_type : updated_payload_types) {\n  if (sinks_by_pt_.count(payload_type) \u003d\u003d 2) {\n    new_ambigious_payload_types \u003d true;\n    break;\n  } \n}\n\nif (new_ambigious_payload_types) {\n  RemoveFromMapIf(sink_by_ssrc_, [\u0026](const auto\u0026 sink_by_ssrc) {\n    return sink_by_ssrc.second.origin \u003d\u003d SsrcBinding::Origin::kResolvedByPayloadType; });\n}",
+      "parentUuid": "1201f8c5_0b5cff3e",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 20
+      },
+      "revId": "1eb2c438d2a941565f11c0616bb3842d0ad568b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

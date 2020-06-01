@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "55a0df00_b87d864d",
+        "filename": "DEPS",
+        "patchSetId": 9
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-01T13:18:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "452dcaba_a595e160",
+      "range": {
+        "startLine": 150,
+        "startChar": 87,
+        "endLine": 150,
+        "endChar": 127
+      },
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db2463b4_9d9edf9b",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 9
@@ -60,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "7b605295_4978ac75",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-01T13:18:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d672da5c_d0ca837c",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efbbd10b_63257f2f",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 9
@@ -74,6 +116,24 @@
       "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7968d029_4e19dab8",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-01T13:18:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efbbd10b_63257f2f",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "fdf7e102_4eb113c4",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-01T13:18:19Z",
+      "side": 1,
+      "message": "Yeah I\u0027ve done it now.",
+      "parentUuid": "222b5271_26e1ca4f",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfc58d8c_0d5a78c3",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 9
@@ -111,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "94e20728_6d6bf225",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-01T13:18:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfc58d8c_0d5a78c3",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a74ae894_62c957fe",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 9
@@ -125,6 +221,24 @@
       "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0365f3b1_e5ddea88",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-01T13:18:19Z",
+      "side": 1,
+      "message": "1. Because performance does not seem to be a concern for the uses of this class. https://cs.chromium.org/search/?q\u003dGlobalLockScope\u0026type\u003dcs\n2. Doing that adds a dependency on the optimizer doing a good job. It seems to me that doing it with separate classes is safer by not adding that dependency, also considering the very few users of GlobalMutex. But you\u0027re welcome to try it after this CL.",
+      "parentUuid": "a74ae894_62c957fe",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

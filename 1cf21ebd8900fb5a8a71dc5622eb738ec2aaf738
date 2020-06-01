@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49176a8d_049e6cb3",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-01T12:44:33Z",
+      "side": 1,
+      "message": "This should be a vector. You just |.push_back(i)| here and get exactly the same behavior.",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 78,
+        "endChar": 45
+      },
+      "revId": "1cf21ebd8900fb5a8a71dc5622eb738ec2aaf738",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "543273c1_1d2a6696",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-01T12:44:33Z",
+      "side": 1,
+      "message": "When you change frames_sl_index to be a vector, this is not needed. frame_sl_index will always have enough values, because it will be extended at the same time as frame_sizes, which size is used for the loop boundary.",
+      "range": {
+        "startLine": 135,
+        "startChar": 10,
+        "endLine": 135,
+        "endChar": 67
+      },
+      "revId": "1cf21ebd8900fb5a8a71dc5622eb738ec2aaf738",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

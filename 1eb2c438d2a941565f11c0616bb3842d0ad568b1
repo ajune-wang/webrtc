@@ -70,6 +70,30 @@
       "revId": "1eb2c438d2a941565f11c0616bb3842d0ad568b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6acfdac1_23bcb050",
+        "filename": "call/rtp_demuxer.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-06-01T16:09:21Z",
+      "side": 1,
+      "message": "Thank you very much, that\u0027s a very nice catch. I actually did not want to remove binding, if it is not became ambiguous due to change, because I think it might break the following requirement from spec:\n```\n   Note that when using the payload type to associate RTP streams with\n   \"m\u003d\" sections an RTP stream, identified by its SSRC, will be mapped\n   to an \"m\u003d\" section when the first packet of that RTP stream is\n   received, and the mapping will not be changed even if the payload\n   type used by that RTP stream changes.  In other words, the SSRC\n   cannot \"move\" to a different \"m\u003d\" section simply by changing the\n   payload type.\n```\n\nI\u0027ve added unit test with the scenario you\u0027ve described and fixed implementation such that it now passes test.\nIt might look like a performance regression, since previous change set. But as far as I understand `AddSink` and hence `RemoveAmbiguousSsrcBindingsResolvedByPayloadType` only called when something is changed due signaling, which is relatively rare compared to receive packets rate.\n\nThank you very much Danil!",
+      "parentUuid": "3932affc_73e56342",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 20
+      },
+      "revId": "1eb2c438d2a941565f11c0616bb3842d0ad568b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

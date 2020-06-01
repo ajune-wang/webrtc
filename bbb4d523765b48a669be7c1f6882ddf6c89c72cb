@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fb07736_49a70dc0",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-01T13:26:12Z",
+      "side": 1,
+      "message": "In previous messages we have quotation marks around the resource\u0027s \"name\".\nI don\u0027t have a strong preference if we should or shouldn\u0027t have them, but let\u0027s be consistent.",
+      "revId": "bbb4d523765b48a669be7c1f6882ddf6c89c72cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8600648_7b010550",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-01T13:26:12Z",
+      "side": 1,
+      "message": "If \"const std::map\u003cconst Resource*, VideoAdaptationCounters\u003e\u0026 resource_limited_to\" was the argument of OnResourceLimitationChanged(), couldn\u0027t that be transformed into active_counts_ by looking at resources\u0027 reason and the result be passed over to the encoder_stats_observer_?\n\nI think active_counts_ doesn\u0027t need to be a member of this class. It could be calculated on the fly.\n\nIf this doesn\u0027t work or if it\u0027s not worth fixing let me know and I\u0027ll approve the CL.",
+      "revId": "bbb4d523765b48a669be7c1f6882ddf6c89c72cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

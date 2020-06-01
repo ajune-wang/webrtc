@@ -128,18 +128,10 @@ class VideoStreamEncoderResourceManager
       VideoSourceRestrictions restrictions,
       const VideoAdaptationCounters& adaptation_counters,
       rtc::scoped_refptr<Resource> reason) override;
-
-  // For reasons of adaptation and statistics, we not only count the total
-  // number of adaptations, but we also count the number of adaptations per
-  // reason.
-  // This method takes the new total number of adaptations and allocates that to
-  // the "active" count - number of adaptations for the current reason.
-  // The "other" count is the number of adaptations for the other reason.
-  // This must be called for each adaptation step made.
-  static void OnAdaptationCountChanged(
-      const VideoAdaptationCounters& adaptation_count,
-      VideoAdaptationCounters* active_count,
-      VideoAdaptationCounters* other_active);
+  void OnResourceLimitationChanged(
+      rtc::scoped_refptr<Resource> resource,
+      const std::map<const rtc::scoped_refptr<Resource>,
+                     VideoAdaptationCounters>& resource_limitations) override;
 
  private:
   class InitialFrameDropper;
@@ -158,8 +150,6 @@ class VideoStreamEncoderResourceManager
   void UpdateQualityScalerSettings(
       absl::optional<VideoEncoder::QpThresholds> qp_thresholds);
 
-  void UpdateAdaptationStats(const VideoAdaptationCounters& total_counts,
-                             VideoAdaptationReason reason);
   void UpdateStatsAdaptationSettings() const;
 
   // Checks to see if we should execute the quality rampup experiment. The
@@ -174,36 +164,6 @@ class VideoStreamEncoderResourceManager
 
   // TODO(hbos): Consider moving all of the manager's resources into separate
   // files for testability.
-
-  // Does not trigger adaptations, only prevents adapting up based on
-  // |active_counts_|.
-  class PreventAdaptUpDueToActiveCounts final
-      : public rtc::RefCountedObject<Resource> {
-   public:
-    explicit PreventAdaptUpDueToActiveCounts(
-        VideoStreamEncoderResourceManager* manager);
-    ~PreventAdaptUpDueToActiveCounts() override = default;
-
-    void SetAdaptationProcessor(
-        ResourceAdaptationProcessorInterface* adaptation_processor);
-
-    // Resource overrides.
-    std::string name() const override {
-      return "PreventAdaptUpDueToActiveCounts";
-    }
-    bool IsAdaptationUpAllowed(
-        const VideoStreamInputState& input_state,
-        const VideoSourceRestrictions& restrictions_before,
-        const VideoSourceRestrictions& restrictions_after,
-        rtc::scoped_refptr<Resource> reason_resource) const override;
-
-   private:
-    // The |manager_| must be alive as long as this resource is added to the
-    // ResourceAdaptationProcessor, i.e. when IsAdaptationUpAllowed() is called.
-    VideoStreamEncoderResourceManager* const manager_;
-    ResourceAdaptationProcessorInterface* adaptation_processor_
-        RTC_GUARDED_BY(resource_adaptation_queue());
-  };
 
   // Does not trigger adaptations, only prevents adapting up resolution.
   class PreventIncreaseResolutionDueToBitrateResource final
@@ -271,8 +231,6 @@ class VideoStreamEncoderResourceManager
         RTC_GUARDED_BY(resource_adaptation_queue());
   };
 
-  const rtc::scoped_refptr<PreventAdaptUpDueToActiveCounts>
-      prevent_adapt_up_due_to_active_counts_;
   const rtc::scoped_refptr<PreventIncreaseResolutionDueToBitrateResource>
       prevent_increase_resolution_due_to_bitrate_resource_;
   const rtc::scoped_refptr<PreventAdaptUpInBalancedResource>
@@ -326,10 +284,8 @@ class VideoStreamEncoderResourceManager
   // One AdaptationCounter for each reason, tracking the number of times we have
   // adapted for each reason. The sum of active_counts_ MUST always equal the
   // total adaptation provided by the VideoSourceRestrictions.
-  // TODO(https://crbug.com/webrtc/11542): When we have an adaptation queue,
-  // guard the activec counts by it instead. The |encoder_stats_observer_| is
-  // thread-safe anyway, and active counts are used by
-  // PreventAdaptUpDueToActiveCounts to make decisions.
+  // TODO(bugs.webrtc.org/11553) Remove active counts by computing them on the
+  // fly. This require changes to MaybePerformQualityRampupExperiment.
   std::unordered_map<VideoAdaptationReason, VideoAdaptationCounters>
       active_counts_ RTC_GUARDED_BY(resource_adaptation_queue_);
 };

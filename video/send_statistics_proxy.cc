@@ -1459,6 +1459,16 @@ void SendStatisticsProxy::Adaptations::set_quality_counts(
     const VideoAdaptationCounters& quality_counts) {
   quality_counts_ = quality_counts;
 }
+
+VideoAdaptationCounters SendStatisticsProxy::Adaptations::cpu_counts() const {
+  return cpu_counts_;
+}
+
+VideoAdaptationCounters SendStatisticsProxy::Adaptations::quality_counts()
+    const {
+  return quality_counts_;
+}
+
 void SendStatisticsProxy::Adaptations::UpdateMaskingSettings(
     VideoStreamEncoderObserver::AdaptationSettings cpu_settings,
     VideoStreamEncoderObserver::AdaptationSettings quality_settings) {

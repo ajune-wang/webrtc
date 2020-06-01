@@ -339,6 +339,40 @@ TEST_F(ResourceAdaptationProcessorTest,
       RTC_FROM_HERE);
 }
 
+TEST_F(ResourceAdaptationProcessorTest, OnlyMostLimitedResourceMayAdaptUp) {
+  resource_adaptation_queue_.SendTask(
+      [this] {
+        processor_->SetDegradationPreference(
+            DegradationPreference::MAINTAIN_FRAMERATE);
+        processor_->StartResourceAdaptation();
+        SetInputStates(true, kDefaultFrameRate, kDefaultFrameSize);
+        resource_->set_usage_state(ResourceUsageState::kOveruse);
+        EXPECT_EQ(1, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+        other_resource_->set_usage_state(ResourceUsageState::kOveruse);
+        EXPECT_EQ(2, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+
+        // |other_resource_| is most limited, resource_ can't adapt up.
+        resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(2, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+        other_resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(1, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+
+        // resource_ and other_resource_ are now most limited, so both must
+        // signal underuse to adapt up.
+        other_resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(1, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+        resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(0, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+      },
+      RTC_FROM_HERE);
+}
+
 TEST_F(ResourceAdaptationProcessorTest,
        MultipleResourcesCanTriggerMultipleAdaptations) {
   resource_adaptation_queue_.SendTask(
@@ -357,20 +391,47 @@ TEST_F(ResourceAdaptationProcessorTest,
         EXPECT_EQ(3, processor_listener_.adaptation_counters().Total());
         RestrictSource(processor_listener_.restrictions());
 
+        // resource_ is not most limited so can't adapt from underuse.
         resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(3, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+        other_resource_->set_usage_state(ResourceUsageState::kUnderuse);
         EXPECT_EQ(2, processor_listener_.adaptation_counters().Total());
         RestrictSource(processor_listener_.restrictions());
-        // Does not trigger adaptation since resource has no adaptations left.
+        // resource_ is still not most limited so can't adapt from underuse.
         resource_->set_usage_state(ResourceUsageState::kUnderuse);
         EXPECT_EQ(2, processor_listener_.adaptation_counters().Total());
         RestrictSource(processor_listener_.restrictions());
 
+        // However it will be after overuse
+        resource_->set_usage_state(ResourceUsageState::kOveruse);
+        EXPECT_EQ(3, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+
+        // Now other_resource_ can't adapt up as it is not most restricted.
         other_resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(3, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+
+        // resource_ is limited at 3 adaptations and other_resource_ 2.
+        // With the most limited resource signalling underuse in the following
+        // order we get back to unrestricted video.
+        resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(2, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+        // Both resource_ and other_resource_ are most limited.
+        other_resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(2, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+        resource_->set_usage_state(ResourceUsageState::kUnderuse);
+        EXPECT_EQ(1, processor_listener_.adaptation_counters().Total());
+        RestrictSource(processor_listener_.restrictions());
+        // Again both are most limited.
+        resource_->set_usage_state(ResourceUsageState::kUnderuse);
         EXPECT_EQ(1, processor_listener_.adaptation_counters().Total());
         RestrictSource(processor_listener_.restrictions());
         other_resource_->set_usage_state(ResourceUsageState::kUnderuse);
         EXPECT_EQ(0, processor_listener_.adaptation_counters().Total());
-        RestrictSource(processor_listener_.restrictions());
       },
       RTC_FROM_HERE);
 }

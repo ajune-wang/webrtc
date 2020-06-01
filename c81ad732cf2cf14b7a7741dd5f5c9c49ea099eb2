@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bed6a85e_3a653980",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l1t2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-06-01T13:10:41Z",
+      "side": 1,
+      "message": "I think in that case you would use a strictly monotonic id, and then save a map from id --\u003e LayerFrameConfig for a few recent calls to NextFrameConfig.",
+      "parentUuid": "edabd9fb_96d3f57b",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 3
+      },
+      "revId": "c81ad732cf2cf14b7a7741dd5f5c9c49ea099eb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f90763f4_4b2c0869",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l1t2.cc",
         "patchSetId": 10

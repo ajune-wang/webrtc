@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "edabd9fb_96d3f57b",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l1t2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-01T13:02:03Z",
+      "side": 1,
+      "message": "Done.\n(for this structure it will do. For a more complicated structure I\u0027m not too sure how to better handle unask keyframe, specially if OnEncodeDone may happen asynchronously.)",
+      "parentUuid": "cfd6104f_345838e3",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 3
+      },
+      "revId": "c81ad732cf2cf14b7a7741dd5f5c9c49ea099eb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f90763f4_4b2c0869",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l1t2.cc",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "c81ad732cf2cf14b7a7741dd5f5c9c49ea099eb2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477b4de4_19792414",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l1t2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-01T13:02:03Z",
+      "side": 1,
+      "message": "yep, this is wrong, check on line95 adjusted to make it more correct.",
+      "parentUuid": "f90763f4_4b2c0869",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 58
+      },
+      "revId": "c81ad732cf2cf14b7a7741dd5f5c9c49ea099eb2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

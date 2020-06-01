@@ -157,10 +157,32 @@ class VideoStreamEncoderResourceManager
   // case the bandwidth estimate is high enough.
   // TODO(https://crbug.com/webrtc/11222) Move experiment details into an inner
   // class.
-  void MaybePerformQualityRampupExperiment();
+  class QualityRampUpExperimentHelper {
+   public:
+    QualityRampUpExperimentHelper(VideoStreamEncoderResourceManager* manager,
+                                  Clock* clock);
+    ~QualityRampUpExperimentHelper() = default;
 
-  void ResetActiveCounts();
-  std::string ActiveCountsToString() const;
+    void cpu_adapted(bool cpu_adapted);
+    void qp_resolution_adaptations(int qp_adaptations);
+
+    void SetMaxBitrate(int input_size, uint32_t max_bitrate);
+
+    void PerformQualityRampupExperiment();
+
+   private:
+    // Used on both the encoder queue and resource adaptation queue.
+    VideoStreamEncoderResourceManager* const manager_;
+    Clock* clock_;
+    std::atomic<bool> quality_rampup_done_;
+    QualityRampupExperiment quality_rampup_experiment_;
+    bool cpu_adapted_;
+    int qp_resolution_adaptations_;
+  };
+
+  static std::string ActiveCountsToString(
+      const std::map<VideoAdaptationReason, VideoAdaptationCounters>&
+          active_counts);
 
   // TODO(hbos): Consider moving all of the manager's resources into separate
   // files for testability.
@@ -261,9 +283,7 @@ class VideoStreamEncoderResourceManager
       RTC_GUARDED_BY(encoder_queue_);
   absl::optional<VideoEncoder::RateControlParameters> encoder_rates_
       RTC_GUARDED_BY(encoder_queue_);
-  // Used on both the encoder queue and resource adaptation queue.
-  std::atomic<bool> quality_rampup_done_;
-  QualityRampupExperiment quality_rampup_experiment_
+  QualityRampUpExperimentHelper quality_rampup_experiment_
       RTC_GUARDED_BY(encoder_queue_);
   absl::optional<EncoderSettings> encoder_settings_
       RTC_GUARDED_BY(encoder_queue_);
@@ -281,13 +301,6 @@ class VideoStreamEncoderResourceManager
   };
   rtc::CriticalSection resource_lock_;
   std::vector<ResourceAndReason> resources_ RTC_GUARDED_BY(&resource_lock_);
-  // One AdaptationCounter for each reason, tracking the number of times we have
-  // adapted for each reason. The sum of active_counts_ MUST always equal the
-  // total adaptation provided by the VideoSourceRestrictions.
-  // TODO(bugs.webrtc.org/11553) Remove active counts by computing them on the
-  // fly. This require changes to MaybePerformQualityRampupExperiment.
-  std::unordered_map<VideoAdaptationReason, VideoAdaptationCounters>
-      active_counts_ RTC_GUARDED_BY(resource_adaptation_queue_);
 };
 
 }  // namespace webrtc

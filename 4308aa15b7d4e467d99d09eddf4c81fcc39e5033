@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed7d3d4b_70e228cd",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-01T12:05:22Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment, that it will contain non-empty value for each layer with size \u003e 0 and empty value for each size \u003d\u003d 0.",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 89,
+        "endChar": 63
+      },
+      "revId": "4308aa15b7d4e467d99d09eddf4c81fcc39e5033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e9ad4c_60ee1f14",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-01T12:05:22Z",
+      "side": 1,
+      "message": "Should we do \nout.SetSpatialLayerFrameSize(sl_index, 0);\nhere?",
+      "range": {
+        "startLine": 131,
+        "startChar": 6,
+        "endLine": 131,
+        "endChar": 14
+      },
+      "revId": "4308aa15b7d4e467d99d09eddf4c81fcc39e5033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b49c794_c9e6c801",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-01T12:05:22Z",
+      "side": 1,
+      "message": "Comment why we can get value safely.",
+      "range": {
+        "startLine": 135,
+        "startChar": 33,
+        "endLine": 135,
+        "endChar": 49
+      },
+      "revId": "4308aa15b7d4e467d99d09eddf4c81fcc39e5033",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

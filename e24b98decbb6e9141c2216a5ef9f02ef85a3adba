@@ -296,6 +296,24 @@
     },
     {
       "key": {
+        "uuid": "9a1a5547_ed029268",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-01T09:00:58Z",
+      "side": 1,
+      "message": "The issue that prevents this from working is the mapping to the resource type. The stats observer does not have any sense of what resources exist. A workaround could be made, by passing a pointer to the QualityScalerResource, but that seems risky considering resource removal will happen at some point soon so that pointer would have to be properly invalidated.",
+      "parentUuid": "f7e165eb_f982ed1b",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23b71c67_800e7544",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 2

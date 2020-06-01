@@ -131,7 +131,6 @@ LibaomAv1Encoder::LibaomAv1Encoder(
     std::unique_ptr<ScalableVideoController> svc_controller)
     : svc_controller_(std::move(svc_controller)),
       inited_(false),
-      svc_enabled_(false),
       frame_for_encode_(nullptr),
       encoded_image_callback_(nullptr) {
   RTC_DCHECK(svc_controller_);

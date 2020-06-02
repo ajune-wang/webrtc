@@ -94,6 +94,30 @@
       "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc641663_6e01fcaf",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-02T07:55:00Z",
+      "side": 1,
+      "message": "Yes, unless we have a cleaner way to do it that is still in line with the style guide\n\nMore info here:\n\nhttps://chromium-cpp.appspot.com/#:~:text\u003dC%2B%2B11%20Banned%20Library%20Features\u0026text\u003dKeep%20using%20the%20base%2F%20classes.\u0026text\u003dRandom%20number%20generation%20algorithms%20and%20utilities.\u0026text\u003dBanned%20by%20the%20Google%20Style%20Guide%20due%20to%20concerns%20that,more%20template%2Dheavy%20interface%20style.\u0026text\u003dOverlaps%20with%20many%20regular%20expression%20libraries%20in%20Chromium.",
+      "parentUuid": "436f6ecf_434850ab",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

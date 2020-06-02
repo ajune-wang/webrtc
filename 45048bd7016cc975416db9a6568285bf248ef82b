@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "fef65e3e_35c1adc5",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-02T16:00:05Z",
+      "side": 1,
+      "message": "When there\u0027s a compile error on just one of the platforms, it\u0027s always windows\n\nerror C2338: The C++ Standard forbids containers of const elements because allocator\u003cconst T\u003e is ill-formed",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11b76eae_0a4d650a",
         "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
         "patchSetId": 7

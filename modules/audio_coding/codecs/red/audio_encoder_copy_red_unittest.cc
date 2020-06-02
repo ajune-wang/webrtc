@@ -187,7 +187,7 @@ TEST_F(AudioEncoderCopyRedTest, CheckPayloadSizes) {
     ASSERT_EQ(2u, encoded_info_.redundant.size());
     EXPECT_EQ(i, encoded_info_.redundant[0].encoded_bytes);
     EXPECT_EQ(i - 1, encoded_info_.redundant[1].encoded_bytes);
-    EXPECT_EQ(i + i - 1, encoded_info_.encoded_bytes);
+    EXPECT_EQ(5 + i + i - 1, encoded_info_.encoded_bytes);
   }
 }
 

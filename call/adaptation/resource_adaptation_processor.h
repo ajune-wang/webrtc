@@ -28,6 +28,7 @@
 #include "call/adaptation/video_stream_input_state.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
 #include "rtc_base/synchronization/sequence_checker.h"
+#include "video/adaptation/video_stream_encoder_resource.h"
 
 namespace webrtc {
 
@@ -69,6 +70,10 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
       ResourceAdaptationProcessorListener* adaptation_listener) override;
   void AddResource(rtc::scoped_refptr<Resource> resource) override;
   void RemoveResource(rtc::scoped_refptr<Resource> resource) override;
+
+  // Asdasda
+  void AddVideoStreamEncoderResource(rtc::scoped_refptr<VideoStreamEncoderResource> video_stream_encoder_resource);
+  void RemoveVideoStreamEncoderResource(rtc::scoped_refptr<VideoStreamEncoderResource> video_stream_encoder_resource);
 
   void SetDegradationPreference(
       DegradationPreference degradation_preference) override;
@@ -143,6 +148,8 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
       RTC_GUARDED_BY(sequence_checker_);
   std::vector<rtc::scoped_refptr<Resource>> resources_
       RTC_GUARDED_BY(sequence_checker_);
+  std::vector<rtc::scoped_refptr<VideoStreamEncoderResource>>
+  video_stream_encoder_resources_ RTC_GUARDED_BY(sequence_checker_);
   // Purely used for statistics, does not ensure mapped resources stay alive.
   std::map<const Resource*, int> adaptations_counts_by_resource_
       RTC_GUARDED_BY(sequence_checker_);

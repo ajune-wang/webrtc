@@ -117,9 +117,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   // Used for injected test resources.
   // TODO(eshr): Move all adaptation tests out of VideoStreamEncoder tests.
-  void InjectAdaptationResource(rtc::scoped_refptr<Resource> resource,
-                                VideoAdaptationReason reason)
-      RTC_RUN_ON(&encoder_queue_);
+  void InjectVideoStreamEncoderResourceForAdaptation(
+      rtc::scoped_refptr<VideoStreamEncoderResource> resource,
+      VideoAdaptationReason reason) RTC_RUN_ON(&encoder_queue_);
 
   rtc::scoped_refptr<QualityScalerResource>
   quality_scaler_resource_for_testing();

@@ -432,7 +432,7 @@ void VideoStreamEncoderResourceManager::StopManagedResources() {
 }
 
 void VideoStreamEncoderResourceManager::MapResourceToReason(
-    rtc::scoped_refptr<Resource> resource,
+    rtc::scoped_refptr<VideoStreamEncoderResource> resource,
     VideoAdaptationReason reason) {
   rtc::CritScope crit(&resource_lock_);
   RTC_DCHECK(resource);
@@ -444,10 +444,10 @@ void VideoStreamEncoderResourceManager::MapResourceToReason(
   resources_.emplace_back(resource, reason);
 }
 
-std::vector<rtc::scoped_refptr<Resource>>
+std::vector<rtc::scoped_refptr<VideoStreamEncoderResource>>
 VideoStreamEncoderResourceManager::MappedResources() const {
   rtc::CritScope crit(&resource_lock_);
-  std::vector<rtc::scoped_refptr<Resource>> resources;
+  std::vector<rtc::scoped_refptr<VideoStreamEncoderResource>> resources;
   for (auto const& resource_and_reason : resources_) {
     resources.push_back(resource_and_reason.resource);
   }

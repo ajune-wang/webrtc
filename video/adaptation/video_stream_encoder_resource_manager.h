@@ -114,9 +114,11 @@ class VideoStreamEncoderResourceManager
   // - Legacy getStats() purposes.
   // - Preventing adapting up in some circumstances (which may be questionable).
   // TODO(hbos): Can we get rid of this?
-  void MapResourceToReason(rtc::scoped_refptr<Resource> resource,
-                           VideoAdaptationReason reason);
-  std::vector<rtc::scoped_refptr<Resource>> MappedResources() const;
+  void MapResourceToReason(
+      rtc::scoped_refptr<VideoStreamEncoderResource> resource,
+      VideoAdaptationReason reason);
+  std::vector<rtc::scoped_refptr<VideoStreamEncoderResource>> MappedResources()
+      const;
   rtc::scoped_refptr<QualityScalerResource>
   quality_scaler_resource_for_testing();
   // If true, the VideoStreamEncoder should eexecute its logic to maybe drop
@@ -305,12 +307,12 @@ class VideoStreamEncoderResourceManager
   // Ties a resource to a reason for statistical reporting. This AdaptReason is
   // also used by this module to make decisions about how to adapt up/down.
   struct ResourceAndReason {
-    ResourceAndReason(rtc::scoped_refptr<Resource> resource,
+    ResourceAndReason(rtc::scoped_refptr<VideoStreamEncoderResource> resource,
                       VideoAdaptationReason reason)
         : resource(resource), reason(reason) {}
     virtual ~ResourceAndReason() = default;
 
-    const rtc::scoped_refptr<Resource> resource;
+    const rtc::scoped_refptr<VideoStreamEncoderResource> resource;
     const VideoAdaptationReason reason;
   };
   rtc::CriticalSection resource_lock_;

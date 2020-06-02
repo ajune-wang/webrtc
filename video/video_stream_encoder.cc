@@ -289,8 +289,9 @@ VideoStreamEncoder::VideoStreamEncoder(
         &stream_resource_manager_);
     resource_adaptation_processor_->AddAdaptationListener(this);
     // Add the stream resource manager's resources to the processor.
-    for (Resource* resource : stream_resource_manager_.MappedResources())
-      resource_adaptation_processor_->AddResource(resource);
+    for (auto& resource : stream_resource_manager_.MappedResources()) {
+      static_cast<ResourceAdaptationProcessor*>(resource_adaptation_processor_.get())->AddVideoStreamEncoderResource(resource);
+    }
     initialize_processor_event.Set();
   });
   initialize_processor_event.Wait(rtc::Event::kForever);
@@ -312,8 +313,9 @@ void VideoStreamEncoder::Stop() {
     RTC_DCHECK_RUN_ON(&resource_adaptation_queue_);
     if (resource_adaptation_processor_) {
       resource_adaptation_processor_->StopResourceAdaptation();
-      for (Resource* resource : stream_resource_manager_.MappedResources()) {
-        resource_adaptation_processor_->RemoveResource(resource);
+      for (auto& resource : stream_resource_manager_.MappedResources()) {
+        static_cast<ResourceAdaptationProcessor*>(resource_adaptation_processor_.get())->RemoveVideoStreamEncoderResource(
+            resource);
       }
       resource_adaptation_processor_->RemoveAdaptationListener(this);
       resource_adaptation_processor_->RemoveAdaptationListener(
@@ -1967,8 +1969,8 @@ void VideoStreamEncoder::CheckForAnimatedContent(
     video_source_sink_controller_.PushSourceSinkSettings();
   }
 }
-void VideoStreamEncoder::InjectAdaptationResource(
-    rtc::scoped_refptr<Resource> resource,
+void VideoStreamEncoder::InjectVideoStreamEncoderResourceForAdaptation(
+    rtc::scoped_refptr<VideoStreamEncoderResource> resource,
     VideoAdaptationReason reason) {
   rtc::Event map_resource_event;
   encoder_queue_.PostTask([this, resource, reason, &map_resource_event] {
@@ -1985,7 +1987,7 @@ void VideoStreamEncoder::InjectAdaptationResource(
       // this task had a chance to execute. No action needed.
       return;
     }
-    resource_adaptation_processor_->AddResource(resource);
+    static_cast<ResourceAdaptationProcessor*>(resource_adaptation_processor_.get())->AddVideoStreamEncoderResource(resource);
   });
 }
 

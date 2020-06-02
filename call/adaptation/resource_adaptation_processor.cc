@@ -136,6 +136,24 @@ void ResourceAdaptationProcessor::RemoveResource(
   resources_.erase(it);
 }
 
+void ResourceAdaptationProcessor::AddVideoStreamEncoderResource(
+    rtc::scoped_refptr<VideoStreamEncoderResource> video_stream_encoder_resource) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  AddResource(video_stream_encoder_resource);
+  video_stream_encoder_resources_.push_back(video_stream_encoder_resource);
+}
+
+void ResourceAdaptationProcessor::RemoveVideoStreamEncoderResource(
+    rtc::scoped_refptr<VideoStreamEncoderResource> video_stream_encoder_resource) {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  RemoveResource(video_stream_encoder_resource);
+  auto it = std::find(video_stream_encoder_resources_.begin(),
+                      video_stream_encoder_resources_.end(),
+                      video_stream_encoder_resource);
+  RTC_DCHECK(it != video_stream_encoder_resources_.end());
+  video_stream_encoder_resources_.erase(it);
+}
+
 void ResourceAdaptationProcessor::SetDegradationPreference(
     DegradationPreference degradation_preference) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
@@ -284,7 +302,7 @@ ResourceAdaptationProcessor::OnResourceUnderuse(
       stream_adapter_->source_restrictions();
   VideoSourceRestrictions restrictions_after =
       stream_adapter_->PeekNextRestrictions(adaptation);
-  for (const auto& resource : resources_) {
+  for (const auto& resource : video_stream_encoder_resources_) {
     if (!resource->IsAdaptationUpAllowed(input_state, restrictions_before,
                                          restrictions_after, reason_resource)) {
       processing_in_progress_ = false;
@@ -297,7 +315,7 @@ ResourceAdaptationProcessor::OnResourceUnderuse(
   }
   // Apply adaptation.
   stream_adapter_->ApplyAdaptation(adaptation);
-  for (const auto& resource : resources_) {
+  for (const auto& resource : video_stream_encoder_resources_) {
     resource->OnAdaptationApplied(input_state, restrictions_before,
                                   restrictions_after, reason_resource);
   }
@@ -359,7 +377,7 @@ ResourceAdaptationProcessor::OnResourceOveruse(
   VideoSourceRestrictions restrictions_after =
       stream_adapter_->PeekNextRestrictions(adaptation);
   stream_adapter_->ApplyAdaptation(adaptation);
-  for (const auto& resource : resources_) {
+  for (const auto& resource : video_stream_encoder_resources_) {
     resource->OnAdaptationApplied(input_state, restrictions_before,
                                   restrictions_after, reason_resource);
   }

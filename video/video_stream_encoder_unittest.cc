@@ -322,9 +322,10 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
         resource_adaptation_queue()->Get());
     fake_quality_resource_->RegisterAdaptationTaskQueue(
         resource_adaptation_queue()->Get());
-    InjectAdaptationResource(fake_quality_resource_,
-                             VideoAdaptationReason::kQuality);
-    InjectAdaptationResource(fake_cpu_resource_, VideoAdaptationReason::kCpu);
+    InjectVideoStreamEncoderResourceForAdaptation(
+        fake_quality_resource_, VideoAdaptationReason::kQuality);
+    InjectVideoStreamEncoderResourceForAdaptation(
+        fake_cpu_resource_, VideoAdaptationReason::kCpu);
   }
 
   void SetSourceAndWaitForRestrictionsUpdated(

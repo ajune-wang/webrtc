@@ -84,8 +84,8 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
     resource_adaptation_queue_.PostTask([this, &event] {
       processor_->InitializeOnResourceAdaptationQueue();
       processor_->AddAdaptationListener(&processor_listener_);
-      processor_->AddResource(resource_);
-      processor_->AddResource(other_resource_);
+      processor_->AddVideoStreamEncoderResource(resource_);
+      processor_->AddVideoStreamEncoderResource(other_resource_);
       event.Set();
     });
     event.Wait(rtc::Event::kForever);
@@ -94,8 +94,8 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
     rtc::Event event;
     resource_adaptation_queue_.PostTask([this, &event] {
       processor_->StopResourceAdaptation();
-      processor_->RemoveResource(resource_);
-      processor_->RemoveResource(other_resource_);
+      processor_->RemoveVideoStreamEncoderResource(resource_);
+      processor_->RemoveVideoStreamEncoderResource(other_resource_);
       processor_->RemoveAdaptationListener(&processor_listener_);
       processor_.reset();
       event.Set();

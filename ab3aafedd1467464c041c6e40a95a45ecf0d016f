@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ccd6297e_d8ab1481",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l2t1.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T10:31:15Z",
+      "side": 1,
+      "message": "I\u0027m unsure, KF on upper spatial layer for full svc and ksvc is surprising.\nRemoved [for now] to keep code simpler (together with similar check in l2t1_key, and also \"added\" recovery for config.id \u003d 0 in S2T1 structure)",
+      "parentUuid": "d2094ab4_09aa8363",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 5
+      },
+      "revId": "ab3aafedd1467464c041c6e40a95a45ecf0d016f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24e21eb4_115987ca",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l2t1_key.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ab3aafedd1467464c041c6e40a95a45ecf0d016f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45573522_0ed99723",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l2t1_key.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T10:31:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24e21eb4_115987ca",
+      "range": {
+        "startLine": 29,
+        "startChar": 32,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "ab3aafedd1467464c041c6e40a95a45ecf0d016f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

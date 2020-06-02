@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9ceb9aa_dac6b687",
+        "filename": "call/adaptation/resource_adaptation_processor_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-02T09:30:26Z",
+      "side": 1,
+      "message": "Now, that you have AdaptationListeners and ProcessorListeners, it has became confusing.\n\nI suggest a new name here.\n\nSourceRestrictionsListener. Or RestrictionsFeedbackListener.\nOr do you have any other ideas?",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "2edfd936c2f1b516b98aac398c196cdd49578ddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

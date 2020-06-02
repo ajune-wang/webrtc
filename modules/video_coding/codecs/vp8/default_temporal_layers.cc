@@ -559,7 +559,8 @@ void DefaultTemporalLayers::OnEncodeDone(size_t stream_index,
     }
 
     if (references || updates)
-      generic_frame_info.encoder_buffers.emplace_back(i, references, updates);
+      generic_frame_info.encoder_buffers.push_back(
+          {.id = i, .referenced = references, .updated = updates});
   }
 
   // The templates are always present on keyframes, and then refered to by

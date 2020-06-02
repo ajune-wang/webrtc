@@ -22,6 +22,30 @@
       "revId": "2edfd936c2f1b516b98aac398c196cdd49578ddd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f9cc5d8_efb401ec",
+        "filename": "call/adaptation/resource_adaptation_processor_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-02T09:37:27Z",
+      "side": 1,
+      "message": "How about VideoSourceRestrictionsListener?",
+      "parentUuid": "c9ceb9aa_dac6b687",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "2edfd936c2f1b516b98aac398c196cdd49578ddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

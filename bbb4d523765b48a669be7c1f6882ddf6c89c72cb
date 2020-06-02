@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8f20c61c_f986002c",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fb07736_49a70dc0",
+      "revId": "bbb4d523765b48a669be7c1f6882ddf6c89c72cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8600648_7b010550",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "bbb4d523765b48a669be7c1f6882ddf6c89c72cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b374e6ac_352aa752",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "I am calculating the active_counts_ on the fly now.",
+      "parentUuid": "b8600648_7b010550",
+      "revId": "bbb4d523765b48a669be7c1f6882ddf6c89c72cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

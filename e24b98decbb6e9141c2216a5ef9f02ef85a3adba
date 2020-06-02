@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2e409b29_3a144298",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "This is handled when the restrictions are removed, but I can move that into a new callback. What do you think?",
+      "parentUuid": "c65c12f3_ed1f32cc",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "79686280_7387b16f",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 2
@@ -158,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "f752c02b_b5b315a4",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "373f8a6b_39c4cea0",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85d4d70e_02dc1f8f",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 2
@@ -175,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "7f37e47a_4966d9fe",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85d4d70e_02dc1f8f",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4265f6d1_98938ee6",
         "filename": "call/adaptation/resource_adaptation_processor.h",
         "patchSetId": 2
@@ -189,6 +243,24 @@
       "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653fc7f1_3e89e910",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4265f6d1_98938ee6",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -244,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "bcab2c63_a674f094",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "This can\u0027t happen but will add a test :)",
+      "parentUuid": "ad6b9340_7343b6b5",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa31302e_7aa963d9",
         "filename": "call/adaptation/video_stream_adapter_unittest.cc",
         "patchSetId": 2
@@ -258,6 +348,24 @@
       "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36fba1fe_63375664",
+        "filename": "call/adaptation/video_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa31302e_7aa963d9",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -314,6 +422,24 @@
     },
     {
       "key": {
+        "uuid": "248430b6_2456bb8c",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a1a5547_ed029268",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23b71c67_800e7544",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 2
@@ -343,6 +469,24 @@
       "side": 1,
       "message": "I will see if there is something more explicit that can be done for the reset case as well. I think part of the problem here is that we can end up here when we switch degredataion preference but will have to double check that.",
       "parentUuid": "23b71c67_800e7544",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e087750_712a2511",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "It is handled when the empty restrictions get set as a side effect. I can move that to somewhere more explicit. What do you think?",
+      "parentUuid": "56f0de54_b64689f3",
       "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -401,6 +545,24 @@
     },
     {
       "key": {
+        "uuid": "16fbd80b_3daacdbc",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1110,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "I have updated this now!",
+      "parentUuid": "a9a27872_8629cdbc",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "015bead6_ce4d5f7d",
         "filename": "video/send_statistics_proxy.cc",
         "patchSetId": 2
@@ -415,6 +577,24 @@
       "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87fe34d0_4c488506",
+        "filename": "video/send_statistics_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-02T15:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "015bead6_ce4d5f7d",
+      "revId": "e24b98decbb6e9141c2216a5ef9f02ef85a3adba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

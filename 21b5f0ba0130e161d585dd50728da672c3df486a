@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "baab31eb_2d2da11e",
+        "filename": "DEPS",
+        "patchSetId": 15
+      },
+      "lineNbr": 3156,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-02T16:00:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc07767e_d68059d8",
+      "range": {
+        "startLine": 3156,
+        "startChar": 1,
+        "endLine": 3156,
+        "endChar": 28
+      },
+      "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "915f47b6_5bf0e6b7",
         "filename": "rtc_base/synchronization/mutex.cc",
         "patchSetId": 15
@@ -88,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "11e4b258_58ae268e",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-02T16:00:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f548e641_838c43da",
+      "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ea0c7e3_1e6f82a8",
         "filename": "rtc_base/synchronization/mutex_unittest.cc",
         "patchSetId": 15
@@ -108,6 +150,30 @@
       "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e77bb2cc_dac9d66d",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-02T16:00:15Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "1ea0c7e3_1e6f82a8",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c6114bf_0e0016cb",
+        "filename": "modules/audio_processing/aec3/aec3_fft.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-02T12:35:58Z",
+      "side": 1,
+      "message": "Maybe we can add this utility function to system_wrappers/include/cpu_features_wrapper.h? (to avoid duplication).",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 1
+      },
+      "revId": "b7f389f2e1b78174c2f2708126766b6994cc9ece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

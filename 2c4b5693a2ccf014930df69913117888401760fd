@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f65754b_7273fec6",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T13:56:05Z",
+      "side": 1,
+      "message": "Should you put in an RTC_DCHECK(secondary_info_.encoded_bytes \u003c 1\u003c\u003c10), to document that we\u0027re putting a byte count into a 10-bit field?",
+      "revId": "2c4b5693a2ccf014930df69913117888401760fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

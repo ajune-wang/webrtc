@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "40803d6d_0b561349",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T13:56:05Z",
+      "side": 1,
+      "message": "Ah. The info record gets updated by encoding the buffer...... sigh.",
+      "parentUuid": "865a2478_89d47bb6",
+      "revId": "df20ac7bb5d3d22b3867a404927a2bd7d11fa4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5dd4cd89_51764c1c",
         "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
         "patchSetId": 4

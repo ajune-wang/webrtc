@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2094ab4_09aa8363",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l2t1.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-06-02T10:18:49Z",
+      "side": 1,
+      "message": "I\u0027m comparing this to ScalabilityStructureS2T1, and I don\u0027t think we need to prohibit this.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 5
+      },
+      "revId": "ab3aafedd1467464c041c6e40a95a45ecf0d016f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24e21eb4_115987ca",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l2t1_key.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-06-02T10:18:49Z",
+      "side": 1,
+      "message": "Key and Delta, S1",
+      "range": {
+        "startLine": 29,
+        "startChar": 32,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "ab3aafedd1467464c041c6e40a95a45ecf0d016f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -17,12 +17,14 @@
 #include "absl/types/optional.h"
 #include "api/test/create_frame_generator.h"
 #include "api/test/frame_generator_interface.h"
+#include "api/test/mock_video_decoder.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/codecs/av1/libaom_av1_decoder.h"
 #include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
 #include "modules/video_coding/codecs/av1/scalability_structure_l1t2.h"
 #include "modules/video_coding/codecs/av1/scalable_video_controller.h"
+#include "modules/video_coding/codecs/av1/scalable_video_controller_l2t2.h"
 #include "modules/video_coding/codecs/av1/scalable_video_controller_no_layering.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_error_codes.h"
@@ -32,18 +34,20 @@
 namespace webrtc {
 namespace {
 
+using ::testing::_;
 using ::testing::ContainerEq;
 using ::testing::Each;
 using ::testing::ElementsAreArray;
 using ::testing::Ge;
 using ::testing::IsEmpty;
+using ::testing::NiceMock;
 using ::testing::Not;
 using ::testing::NotNull;
 using ::testing::SizeIs;
 using ::testing::Truly;
 using ::testing::Values;
 
-// Use small resolution for this test to make it faster.
+// Use small resolution to make tests faster.
 constexpr int kWidth = 320;
 constexpr int kHeight = 180;
 constexpr int kFramerate = 30;
@@ -276,7 +280,9 @@ INSTANTIATE_TEST_SUITE_P(
     Values(SvcTestParam{std::make_unique<ScalableVideoControllerNoLayering>,
                         /*num_frames_to_generate=*/4},
            SvcTestParam{std::make_unique<ScalabilityStructureL1T2>,
-                        /*num_frames_to_generate=*/4}));
+                        /*num_frames_to_generate=*/4},
+           SvcTestParam{std::make_unique<ScalableVideoControllerL2T2>,
+                        /*num_frames_to_generate=*/3}));
 
 }  // namespace
 }  // namespace webrtc

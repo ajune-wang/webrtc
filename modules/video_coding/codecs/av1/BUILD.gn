@@ -9,6 +9,29 @@
 import("//third_party/libaom/options.gni")
 import("../../../../webrtc.gni")
 
+rtc_library("encoder_manager") {
+  sources = [
+    "encoder_manager.cc",
+    "encoder_manager.h",
+  ]
+  deps = [
+    ":libaom_av1_encoder",
+    ":scalable_video_controller",
+    "../..:video_codec_interface",
+    "../../../../api:scoped_refptr",
+    "../../../../api/transport/rtp:dependency_descriptor",
+    "../../../../api/video:encoded_image",
+    "../../../../api/video:video_frame",
+    "../../../../api/video:video_frame_i420",
+    "../../../../api/video_codecs:video_codecs_api",
+    "../../../../common_video",
+    "../../../../common_video/generic_frame_descriptor",
+    "../../../../rtc_base:checks",
+    "../../../../rtc_base:logging",
+    "//third_party/abseil-cpp/absl/algorithm:container",
+  ]
+}
+
 rtc_library("libaom_av1_decoder") {
   visibility = [ "*" ]
   poisonous = [ "software_video_codecs" ]
@@ -55,6 +78,8 @@ rtc_source_set("scalability_structures") {
   sources = [
     "scalability_structure_l1t2.cc",
     "scalability_structure_l1t2.h",
+    "scalable_video_controller_l2t2.cc",
+    "scalable_video_controller_l2t2.h",
   ]
   deps = [
     ":scalable_video_controller",
@@ -63,6 +88,7 @@ rtc_source_set("scalability_structures") {
     "../../../../rtc_base:checks",
     "../../../../rtc_base:logging",
     "//third_party/abseil-cpp/absl/base:core_headers",
+    "//third_party/abseil-cpp/absl/container:inlined_vector",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
@@ -70,7 +96,10 @@ rtc_source_set("scalability_structures") {
 rtc_library("libaom_av1_encoder") {
   visibility = [ "*" ]
   poisonous = [ "software_video_codecs" ]
-  public = [ "libaom_av1_encoder.h" ]
+  public = [
+    "libaom_av1_encoder.h",
+    "video_encoder_light.h",
+  ]
   deps = [
     ":scalable_video_controller",
     "../../../../api/video_codecs:video_codecs_api",
@@ -107,6 +136,7 @@ if (rtc_include_tests) {
         "libaom_av1_unittest.cc",
       ]
       deps = [
+        ":encoder_manager",
         ":libaom_av1_decoder",
         ":libaom_av1_encoder",
         ":scalability_structures",
@@ -114,6 +144,7 @@ if (rtc_include_tests) {
         "../..:video_codec_interface",
         "../../../../api:create_frame_generator",
         "../../../../api:frame_generator_api",
+        "../../../../api:mock_video_decoder",
         "../../../../api:mock_video_encoder",
         "../../../../api/video:video_frame_i420",
         "../../../../api/video_codecs:video_codecs_api",

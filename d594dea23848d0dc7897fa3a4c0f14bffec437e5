@@ -16,6 +16,23 @@
       "revId": "d594dea23848d0dc7897fa3a4c0f14bffec437e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dddc6c9c_94a93dcb",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1711,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-06-02T13:23:52Z",
+      "side": 1,
+      "message": "why is send_codec_spec-\u003eformat.num_channels 1 when using opus?",
+      "revId": "d594dea23848d0dc7897fa3a4c0f14bffec437e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee0290c5_d9162cff",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T13:13:01Z",
+      "side": 1,
+      "message": "encoded-\u003eSetSize(5), and move inside seondary_info if statement below.",
+      "revId": "df20ac7bb5d3d22b3867a404927a2bd7d11fa4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ee76cf_3e8ae600",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T13:13:01Z",
+      "side": 1,
+      "message": "Move this first. It makes no sense to put secondary into encoded and then clear it.",
+      "revId": "df20ac7bb5d3d22b3867a404927a2bd7d11fa4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dd4cd89_51764c1c",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T13:13:01Z",
+      "side": 1,
+      "message": "One if block!",
+      "revId": "df20ac7bb5d3d22b3867a404927a2bd7d11fa4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec845eb2_aea559b8",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T13:13:01Z",
+      "side": 1,
+      "message": "It\u0027s guaranteed to be \u003e 0 here, since you\u0027re checking for the \u003d\u003d 0 case earlier, and it\u0027s a size_t (unsigned). So you can just drop this if.",
+      "revId": "df20ac7bb5d3d22b3867a404927a2bd7d11fa4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

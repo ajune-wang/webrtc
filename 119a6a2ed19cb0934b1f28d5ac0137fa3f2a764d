@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0d107b2_81ae9d28",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-06-02T07:09:16Z",
+      "side": 1,
+      "message": "We have more or less convoluted ways to yield in other places, with methods such as usleep(0), ::Sleep(0), sched_yield, nanosleep(...). If std::this_thread::yield() is the right way to do it, it would be nice to use it everewhere. (In a different cl, that is).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

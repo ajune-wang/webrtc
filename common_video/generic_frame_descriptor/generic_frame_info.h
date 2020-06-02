@@ -23,9 +23,6 @@ namespace webrtc {
 
 // Describes how a certain encoder buffer was used when encoding a frame.
 struct CodecBufferUsage {
-  constexpr CodecBufferUsage(int id, bool referenced, bool updated)
-      : id(id), referenced(referenced), updated(updated) {}
-
   int id = 0;
   bool referenced = false;
   bool updated = false;

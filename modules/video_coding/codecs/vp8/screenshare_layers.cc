@@ -321,8 +321,8 @@ void ScreenshareLayers::OnEncodeDone(size_t stream_index,
     vp8_info.layerSync = false;
     generic_frame_info.decode_target_indications =
         GenericFrameInfo::DecodeTargetInfo("S");
-    generic_frame_info.encoder_buffers.emplace_back(
-        0, /*referenced=*/!is_keyframe, /*updated=*/true);
+    generic_frame_info.encoder_buffers = {
+        {.id = 0, .referenced = !is_keyframe, .updated = true}};
   } else {
     int64_t unwrapped_timestamp = time_wrap_handler_.Unwrap(rtp_timestamp);
     if (dependency_info) {
@@ -377,7 +377,8 @@ void ScreenshareLayers::OnEncodeDone(size_t stream_index,
       }
 
       if (references || updates)
-        generic_frame_info.encoder_buffers.emplace_back(i, references, updates);
+        generic_frame_info.encoder_buffers.push_back(
+            {.id = i, .referenced = references, .updated = updates});
     }
   }
 

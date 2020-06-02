@@ -26,13 +26,13 @@ constexpr VideoFrameType kVideoFrameKey = VideoFrameType::kVideoFrameKey;
 constexpr VideoFrameType kVideoFrameDelta = VideoFrameType::kVideoFrameDelta;
 
 constexpr CodecBufferUsage ReferenceAndUpdate(int id) {
-  return CodecBufferUsage(id, /*referenced=*/true, /*updated=*/true);
+  return {.id = id, .referenced = true, .updated = true};
 }
 constexpr CodecBufferUsage Reference(int id) {
-  return CodecBufferUsage(id, /*referenced=*/true, /*updated=*/false);
+  return {.id = id, .referenced = true, .updated = false};
 }
 constexpr CodecBufferUsage Update(int id) {
-  return CodecBufferUsage(id, /*referenced=*/false, /*updated=*/true);
+  return {.id = id, .referenced = false, .updated = true};
 }
 
 TEST(FrameDependenciesCalculatorTest, SingleLayer) {

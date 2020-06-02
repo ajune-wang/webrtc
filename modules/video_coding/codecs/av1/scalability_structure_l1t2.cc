@@ -61,28 +61,28 @@ ScalabilityStructureL1T2::NextFrameConfig(bool restart) {
   if (restart) {
     next_pattern_ = kKeyFrame;
   }
-  std::vector<LayerFrameConfig> result(1);
+  std::vector<LayerFrameConfig> result;
 
   switch (next_pattern_) {
     case kKeyFrame:
-      result[0].id = 0;
-      result[0].temporal_id = 0;
-      result[0].is_keyframe = true;
-      result[0].buffers = {{/*id=*/0, /*references=*/false, /*updates=*/true}};
+      result = {{.id = 0,
+                 .is_keyframe = true,
+                 .temporal_id = 0,
+                 .buffers = {{.id = 0, .referenced = false, .updated = true}}}};
       next_pattern_ = kDeltaFrameT1;
       break;
     case kDeltaFrameT1:
-      result[0].id = 1;
-      result[0].temporal_id = 1;
-      result[0].is_keyframe = false;
-      result[0].buffers = {{/*id=*/0, /*references=*/true, /*updates=*/false}};
+      result = {{.id = 1,
+                 .is_keyframe = false,
+                 .temporal_id = 1,
+                 .buffers = {{.id = 0, .referenced = true, .updated = false}}}};
       next_pattern_ = kDeltaFrameT0;
       break;
     case kDeltaFrameT0:
-      result[0].id = 2;
-      result[0].temporal_id = 0;
-      result[0].is_keyframe = false;
-      result[0].buffers = {{/*id=*/0, /*references=*/true, /*updates=*/true}};
+      result = {{.id = 2,
+                 .is_keyframe = false,
+                 .temporal_id = 0,
+                 .buffers = {{.id = 0, .referenced = true, .updated = true}}}};
       next_pattern_ = kDeltaFrameT1;
       break;
   }

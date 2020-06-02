@@ -26,6 +26,7 @@
 #include "modules/rtp_rtcp/source/rtp_sequence_number_map.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/rate_statistics.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
@@ -49,7 +50,7 @@ class RtpSenderEgress {
 
   RtpSenderEgress(const RtpRtcp::Configuration& config,
                   RtpPacketHistory* packet_history);
-  ~RtpSenderEgress() = default;
+  ~RtpSenderEgress();
 
   void SendPacket(RtpPacketToSend* packet, const PacedPacketInfo& pacing_info)
       RTC_LOCKS_EXCLUDED(lock_);
@@ -102,6 +103,9 @@ class RtpSenderEgress {
                            const PacedPacketInfo& pacing_info);
   void UpdateRtpStats(const RtpPacketToSend& packet)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
+
+  // Represents the thread on which the instance is created and destructed.
+  SequenceChecker main_checker_;
 
   const uint32_t ssrc_;
   const absl::optional<uint32_t> rtx_ssrc_;

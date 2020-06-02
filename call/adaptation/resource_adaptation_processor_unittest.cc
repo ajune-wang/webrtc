@@ -77,15 +77,16 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
         processor_(std::make_unique<ResourceAdaptationProcessor>(
             &input_state_provider_,
             /*encoder_stats_observer=*/&frame_rate_provider_)) {
-    resource_->RegisterAdaptationTaskQueue(resource_adaptation_queue_.Get());
-    other_resource_->RegisterAdaptationTaskQueue(
-        resource_adaptation_queue_.Get());
     rtc::Event event;
     resource_adaptation_queue_.PostTask([this, &event] {
       processor_->InitializeOnResourceAdaptationQueue();
-      processor_->AddAdaptationListener(&processor_listener_);
+      processor_->AddProcessorListener(&processor_listener_);
       processor_->AddResource(resource_);
+      processor_->AddAdaptationConstraint(resource_);
+      processor_->AddAdaptationListener(resource_);
       processor_->AddResource(other_resource_);
+      processor_->AddAdaptationConstraint(other_resource_);
+      processor_->AddAdaptationListener(other_resource_);
       event.Set();
     });
     event.Wait(rtc::Event::kForever);
@@ -95,8 +96,12 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
     resource_adaptation_queue_.PostTask([this, &event] {
       processor_->StopResourceAdaptation();
       processor_->RemoveResource(resource_);
+      processor_->RemoveAdaptationConstraint(resource_);
+      processor_->RemoveAdaptationListener(resource_);
       processor_->RemoveResource(other_resource_);
-      processor_->RemoveAdaptationListener(&processor_listener_);
+      processor_->RemoveAdaptationConstraint(other_resource_);
+      processor_->RemoveAdaptationListener(other_resource_);
+      processor_->RemoveProcessorListener(&processor_listener_);
       processor_.reset();
       event.Set();
     });

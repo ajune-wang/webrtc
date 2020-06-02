@@ -318,23 +318,23 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
                            task_queue_factory),
         fake_cpu_resource_(FakeResource::Create("FakeResource[CPU]")),
         fake_quality_resource_(FakeResource::Create("FakeResource[QP]")) {
-    fake_cpu_resource_->RegisterAdaptationTaskQueue(
-        resource_adaptation_queue()->Get());
-    fake_quality_resource_->RegisterAdaptationTaskQueue(
-        resource_adaptation_queue()->Get());
     InjectAdaptationResource(fake_quality_resource_,
                              VideoAdaptationReason::kQuality);
+    InjectAdaptationConstraint(fake_quality_resource_);
+    InjectAdaptationListener(fake_quality_resource_);
     InjectAdaptationResource(fake_cpu_resource_, VideoAdaptationReason::kCpu);
+    InjectAdaptationConstraint(fake_cpu_resource_);
+    InjectAdaptationListener(fake_cpu_resource_);
   }
 
   void SetSourceAndWaitForRestrictionsUpdated(
       rtc::VideoSourceInterface<VideoFrame>* source,
       const DegradationPreference& degradation_preference) {
     VideoSourceRestrictionsUpdatedListener listener;
-    AddAdaptationListenerForTesting(&listener);
+    AddProcessorListenerForTesting(&listener);
     SetSource(source, degradation_preference);
     listener.restrictions_updated_event()->Wait(5000);
-    RemoveAdaptationListenerForTesting(&listener);
+    RemoveProcessorListenerForTesting(&listener);
   }
 
   void SetSourceAndWaitForFramerateUpdated(

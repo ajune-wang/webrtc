@@ -17,14 +17,20 @@
 #include "absl/types/optional.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/task_queue_base.h"
+#include "call/adaptation/adaptation_constraint.h"
+#include "call/adaptation/adaptation_listener.h"
 #include "call/adaptation/resource.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/synchronization/sequence_checker.h"
 
 namespace webrtc {
 
+// TODO(hbos): BEFORE LANDING - split into different fakes!
+
 // Fake resource used for testing.
-class FakeResource : public Resource {
+class FakeResource : public Resource,
+                     public AdaptationConstraint,
+                     public AdaptationListener {
  public:
   static rtc::scoped_refptr<FakeResource> Create(std::string name);
 
@@ -36,18 +42,19 @@ class FakeResource : public Resource {
   size_t num_adaptations_applied() const;
 
   // Resource implementation.
-  void RegisterAdaptationTaskQueue(
-      TaskQueueBase* resource_adaptation_queue) override;
-  void UnregisterAdaptationTaskQueue() override;
-  void SetResourceListener(ResourceListener* listener) override;
   std::string Name() const override;
+  void SetResourceListener(ResourceListener* listener) override;
   absl::optional<ResourceUsageState> UsageState() const override;
   void ClearUsageState() override;
+
+  // AdaptationConstraint implementation.
   bool IsAdaptationUpAllowed(
       const VideoStreamInputState& input_state,
       const VideoSourceRestrictions& restrictions_before,
       const VideoSourceRestrictions& restrictions_after,
       rtc::scoped_refptr<Resource> reason_resource) const override;
+
+  // AdaptationListener implementation.
   void OnAdaptationApplied(
       const VideoStreamInputState& input_state,
       const VideoSourceRestrictions& restrictions_before,
@@ -57,12 +64,10 @@ class FakeResource : public Resource {
  private:
   rtc::CriticalSection lock_;
   const std::string name_;
-  TaskQueueBase* resource_adaptation_queue_;
+  ResourceListener* listener_ RTC_GUARDED_BY(lock_);
+  absl::optional<ResourceUsageState> usage_state_ RTC_GUARDED_BY(lock_);
   bool is_adaptation_up_allowed_ RTC_GUARDED_BY(lock_);
   size_t num_adaptations_applied_ RTC_GUARDED_BY(lock_);
-  absl::optional<ResourceUsageState> usage_state_
-      RTC_GUARDED_BY(resource_adaptation_queue_);
-  ResourceListener* listener_ RTC_GUARDED_BY(resource_adaptation_queue_);
 };
 
 }  // namespace webrtc

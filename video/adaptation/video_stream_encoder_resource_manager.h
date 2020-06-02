@@ -117,6 +117,8 @@ class VideoStreamEncoderResourceManager
   void MapResourceToReason(rtc::scoped_refptr<Resource> resource,
                            VideoAdaptationReason reason);
   std::vector<rtc::scoped_refptr<Resource>> MappedResources() const;
+  std::vector<AdaptationConstraint*> AdaptationConstraints() const;
+  std::vector<AdaptationListener*> AdaptationListeners() const;
   rtc::scoped_refptr<QualityScalerResource>
   quality_scaler_resource_for_testing();
   // If true, the VideoStreamEncoder should eexecute its logic to maybe drop

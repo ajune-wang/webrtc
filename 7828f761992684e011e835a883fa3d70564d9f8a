@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ad95899_fa7f6efa",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T10:30:07Z",
+      "side": 1,
+      "message": "Why not just encoded-\u003eSetSize(encoded.size + 5)? The bytes will be uninitialized either way.",
+      "revId": "7828f761992684e011e835a883fa3d70564d9f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "521556f6_3a9dee39",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T10:30:07Z",
+      "side": 1,
+      "message": "I\u0027m reading this as \"data goes into buffer as header, primary, redundancy data\".\nThe example in RFC 2198 section 7 claims that the order is header, redundancy data, primary data.\nThe RFC isn\u0027t exactly super obvious about it....",
+      "revId": "7828f761992684e011e835a883fa3d70564d9f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd534fa7_5497b531",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T10:30:07Z",
+      "side": 1,
+      "message": "The use of array pointer arithmetic hurts my eyes. Can we do encoded-\u003edata()[primary_offset + secondary_info_.encoded:bytes]? I think of that as slightly less painful, in the absence of proper slice operations.",
+      "revId": "7828f761992684e011e835a883fa3d70564d9f8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

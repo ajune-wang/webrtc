@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecc90374_f39291b0",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T12:12:39Z",
+      "side": 1,
+      "message": "This is the same condition as the preceding if, so we should fold it in. Leaving encoded-\u003edata()[4] uninitialized is a Bad Idea anyway.",
+      "revId": "9d0dd6ab482b96b0c7a968260e62a50948717b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2333c665_ec4bc4fc",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T12:12:39Z",
+      "side": 1,
+      "message": "comment about pointer arithmetic being painful still stands.",
+      "revId": "9d0dd6ab482b96b0c7a968260e62a50948717b42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

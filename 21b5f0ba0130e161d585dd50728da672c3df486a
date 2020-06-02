@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "a15e71d6_c4703be9",
+        "filename": "DEPS",
+        "patchSetId": 15
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T14:44:58Z",
+      "side": 1,
+      "message": "is \"\u0027url\u0027:\" needed here?",
+      "range": {
+        "startLine": 150,
+        "startChar": 4,
+        "endLine": 150,
+        "endChar": 11
+      },
+      "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc07767e_d68059d8",
+        "filename": "DEPS",
+        "patchSetId": 15
+      },
+      "lineNbr": 3156,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T14:44:58Z",
+      "side": 1,
+      "message": "please insert after \"base/config.h\" to keep alphabetical sorting.",
+      "range": {
+        "startLine": 3156,
+        "startChar": 1,
+        "endLine": 3156,
+        "endChar": 28
+      },
+      "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "915f47b6_5bf0e6b7",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T14:44:58Z",
+      "side": 1,
+      "message": "prefer other order of parameters - keep more constant parameter last:\n...EQ(old, 1)",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f548e641_838c43da",
         "filename": "rtc_base/synchronization/mutex.h",
         "patchSetId": 15
@@ -13,6 +82,29 @@
       "writtenOn": "2020-06-02T12:23:59Z",
       "side": 1,
       "message": "Document that 0 means unlocked and 1 means locked?",
+      "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ea0c7e3_1e6f82a8",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T14:44:58Z",
+      "side": 1,
+      "message": "unused",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 14
+      },
       "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

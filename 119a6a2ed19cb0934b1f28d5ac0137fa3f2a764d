@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "4e17b3ab_b824b41c",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-02T12:14:42Z",
+      "side": 1,
+      "message": "Sure, refactored this. But using the default memory order.",
+      "parentUuid": "a546b4ec_e3966e9f",
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0d107b2_81ae9d28",
         "filename": "rtc_base/synchronization/mutex.cc",
         "patchSetId": 13
@@ -223,6 +241,24 @@
       "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "772341e9_7f1e9eca",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-02T12:14:42Z",
+      "side": 1,
+      "message": "-\u003e exchange.",
+      "parentUuid": "147a77b2_9611da72",
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

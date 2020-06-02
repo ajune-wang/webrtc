@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f548e641_838c43da",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-02T12:23:59Z",
+      "side": 1,
+      "message": "Document that 0 means unlocked and 1 means locked?",
+      "revId": "21b5f0ba0130e161d585dd50728da672c3df486a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

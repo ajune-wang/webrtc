@@ -31,6 +31,7 @@
 #include "logging/rtc_event_log/events/rtc_event_audio_send_stream_config.h"
 #include "logging/rtc_event_log/rtc_stream_config.h"
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
+#include "modules/audio_coding/codecs/red/audio_encoder_copy_red.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/checks.h"
@@ -340,6 +341,14 @@ void AudioSendStream::ConfigureStream(
 
   if (!ReconfigureSendCodec(new_config)) {
     RTC_LOG(LS_ERROR) << "Failed to set up send codec state.";
+  }
+
+  // Wrap the encoder in a RED if enabled.
+  if (spec.red_payload_type) {
+    AudioEncoderCopyRed::Config red_config;
+    red_config.payload_type = *spec.red_payload_type;
+    red_config.speech_encoder = std::move(encoder);
+    encoder = std::make_unique<AudioEncoderCopyRed>(std::move(red_config));
   }
 
   // Set currently known overhead (used in ANA, opus only).

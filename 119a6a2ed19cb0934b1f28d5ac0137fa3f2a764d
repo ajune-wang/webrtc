@@ -22,6 +22,30 @@
       "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1801767_009d4159",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-02T07:18:41Z",
+      "side": 1,
+      "message": "Yep, I thought it was nice that there is a standard way to do it. I found it in the Abseil test for TryLock.",
+      "parentUuid": "b0d107b2_81ae9d28",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

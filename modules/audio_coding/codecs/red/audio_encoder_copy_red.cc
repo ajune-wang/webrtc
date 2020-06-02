@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "rtc_base/byte_order.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {
@@ -59,11 +60,43 @@ AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
     rtc::Buffer* encoded) {
+  // Allocate room for RFC 2198 header if there is redundant data.
+  // Otherwise this will send the primary payload type without
+  // wrapping in RED.
+  rtc::Buffer header(secondary_info_.encoded_bytes > 0 ? 5 : 0);
+  encoded->AppendData(header);
+
   const size_t primary_offset = encoded->size();
+  size_t secondary_offset = 0;
+
+  if (secondary_info_.encoded_bytes > 0) {
+    encoded->AppendData(secondary_encoded_);
+    secondary_offset = secondary_info_.encoded_bytes;
+  }
   EncodedInfo info = speech_encoder_->Encode(rtp_timestamp, audio, encoded);
 
+  if (info.encoded_bytes == 0) {
+    encoded->Clear();
+    return info;
+  }
+
+  // Actually construct the RFC 2198 header.
+  if (secondary_info_.encoded_bytes > 0) {
+    const uint32_t timestamp_delta =
+        info.encoded_timestamp > secondary_info_.encoded_timestamp
+            ? info.encoded_timestamp - secondary_info_.encoded_timestamp
+            : secondary_info_.encoded_timestamp - info.encoded_timestamp;
+
+    encoded->data()[0] = secondary_info_.payload_type | 0x80;
+    rtc::SetBE16(static_cast<uint8_t*>(encoded->data()) + 1,
+                 (timestamp_delta << 2) | (secondary_info_.encoded_bytes >> 8));
+    encoded->data()[3] = secondary_info_.encoded_bytes & 0xff;
+    encoded->data()[4] = info.payload_type;
+  }
+
   RTC_CHECK(info.redundant.empty()) << "Cannot use nested redundant encoders.";
-  RTC_DCHECK_EQ(encoded->size() - primary_offset, info.encoded_bytes);
+  RTC_DCHECK_EQ(encoded->size() - primary_offset - secondary_offset,
+                info.encoded_bytes);
 
   if (info.encoded_bytes > 0) {
     // |info| will be implicitly cast to an EncodedInfoLeaf struct, effectively
@@ -72,19 +105,22 @@ AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
     info.redundant.push_back(info);
     RTC_DCHECK_EQ(info.redundant.size(), 1);
     if (secondary_info_.encoded_bytes > 0) {
-      encoded->AppendData(secondary_encoded_);
       info.redundant.push_back(secondary_info_);
       RTC_DCHECK_EQ(info.redundant.size(), 2);
     }
     // Save primary to secondary.
-    secondary_encoded_.SetData(encoded->data() + primary_offset,
-                               info.encoded_bytes);
+    secondary_encoded_.SetData(
+        &encoded->data()[primary_offset + secondary_info_.encoded_bytes],
+        info.encoded_bytes);
     secondary_info_ = info;
     RTC_DCHECK_EQ(info.speech, info.redundant[0].speech);
   }
+
   // Update main EncodedInfo.
-  info.payload_type = red_payload_type_;
-  info.encoded_bytes = 0;
+  if (header.size() > 0) {
+    info.payload_type = red_payload_type_;
+  }
+  info.encoded_bytes = primary_offset;
   for (std::vector<EncodedInfoLeaf>::const_iterator it = info.redundant.begin();
        it != info.redundant.end(); ++it) {
     info.encoded_bytes += it->encoded_bytes;

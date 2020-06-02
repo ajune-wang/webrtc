@@ -933,6 +933,14 @@ void Thread::Send(const Location& posted_from,
 
 void Thread::InvokeInternal(const Location& posted_from,
                             rtc::FunctionView<void()> functor) {
+  if (IsCurrent()) {
+    TRACE_EVENT2("webrtc", "Thread::Invoke-Direct", "src_file",
+                 posted_from.file_name(), "src_func",
+                 posted_from.function_name());
+    functor();
+    return;
+  }
+
   TRACE_EVENT2("webrtc", "Thread::Invoke", "src_file", posted_from.file_name(),
                "src_func", posted_from.function_name());
 

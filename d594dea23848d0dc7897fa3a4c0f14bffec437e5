@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23fcb91e_25d129ac",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-06-02T11:09:34Z",
+      "side": 1,
+      "message": "Should this ensure opus is negotiated? Also: this should have a a\u003dfmtp:... 111/111 line which is my interpretation for \"send opus with one packet redundancy\". Probably in a future CL that adds two packets redundancy.",
+      "revId": "d594dea23848d0dc7897fa3a4c0f14bffec437e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

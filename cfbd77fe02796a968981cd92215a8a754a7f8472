@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc0a7b9c_c752a21b",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-06-02T10:27:14Z",
+      "side": 1,
+      "message": "future improvement. The current encoder is pretty bare-bones.",
+      "revId": "cfbd77fe02796a968981cd92215a8a754a7f8472",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb393fe0_d87ed210",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-06-02T10:27:14Z",
+      "side": 1,
+      "message": "this is left over from a version that sent the RED payload type unconditionally. The current version tries not to wrap in RED if there is no redundant packet. Which seems smart but might be too smart.",
+      "revId": "cfbd77fe02796a968981cd92215a8a754a7f8472",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

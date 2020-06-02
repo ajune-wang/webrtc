@@ -454,6 +454,22 @@ VideoStreamEncoderResourceManager::MappedResources() const {
   return resources;
 }
 
+std::vector<AdaptationConstraint*>
+VideoStreamEncoderResourceManager::AdaptationConstraints() const {
+  return {prevent_adapt_up_due_to_active_counts_,
+          prevent_increase_resolution_due_to_bitrate_resource_,
+          prevent_adapt_up_in_balanced_resource_, encode_usage_resource_,
+          quality_scaler_resource_};
+}
+
+std::vector<AdaptationListener*>
+VideoStreamEncoderResourceManager::AdaptationListeners() const {
+  return {prevent_adapt_up_due_to_active_counts_,
+          prevent_increase_resolution_due_to_bitrate_resource_,
+          prevent_adapt_up_in_balanced_resource_, encode_usage_resource_,
+          quality_scaler_resource_};
+}
+
 rtc::scoped_refptr<QualityScalerResource>
 VideoStreamEncoderResourceManager::quality_scaler_resource_for_testing() {
   rtc::CritScope crit(&resource_lock_);

@@ -235,10 +235,9 @@ void ResourceAdaptationProcessor::MaybeUpdateVideoSourceRestrictions(
 }
 
 void ResourceAdaptationProcessor::OnResourceUsageStateMeasured(
-    rtc::scoped_refptr<Resource> resource) {
+    rtc::scoped_refptr<Resource> resource,
+    ResourceUsageState usage_state) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  RTC_DCHECK(resource->UsageState().has_value());
-  ResourceUsageState usage_state = resource->UsageState().value();
   MitigationResultAndLogMessage result_and_message;
   switch (usage_state) {
     case ResourceUsageState::kOveruse:
@@ -282,13 +281,6 @@ ResourceAdaptationProcessor::OnResourceUnderuse(
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!processing_in_progress_);
   processing_in_progress_ = true;
-  // Clear all usage states. In order to re-run adaptation logic, resources need
-  // to provide new resource usage measurements.
-  // TODO(hbos): Support not unconditionally clearing usage states by having the
-  // ResourceAdaptationProcessor check in on its resources at certain intervals.
-  for (const auto& resource : resources_) {
-    resource->ClearUsageState();
-  }
   if (effective_degradation_preference_ == DegradationPreference::DISABLED) {
     processing_in_progress_ = false;
     return MitigationResultAndLogMessage(
@@ -361,13 +353,6 @@ ResourceAdaptationProcessor::OnResourceOveruse(
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   RTC_DCHECK(!processing_in_progress_);
   processing_in_progress_ = true;
-  // Clear all usage states. In order to re-run adaptation logic, resources need
-  // to provide new resource usage measurements.
-  // TODO(hbos): Support not unconditionally clearing usage states by having the
-  // ResourceAdaptationProcessor check in on its resources at certain intervals.
-  for (const auto& resource : resources_) {
-    resource->ClearUsageState();
-  }
   if (effective_degradation_preference_ == DegradationPreference::DISABLED) {
     processing_in_progress_ = false;
     return MitigationResultAndLogMessage(

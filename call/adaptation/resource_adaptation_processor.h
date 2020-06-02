@@ -86,8 +86,8 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
 
   // ResourceListener implementation.
   // Triggers OnResourceUnderuse() or OnResourceOveruse().
-  void OnResourceUsageStateMeasured(
-      rtc::scoped_refptr<Resource> resource) override;
+  void OnResourceUsageStateMeasured(rtc::scoped_refptr<Resource> resource,
+                                    ResourceUsageState usage_state) override;
 
   // May trigger 1-2 adaptations. It is meant to reduce resolution but this is
   // not guaranteed. It may adapt frame rate, which does not address the issue.

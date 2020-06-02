@@ -394,33 +394,6 @@ TEST_F(ResourceAdaptationProcessorTest, AdaptingTriggersOnAdaptationApplied) {
       RTC_FROM_HERE);
 }
 
-TEST_F(ResourceAdaptationProcessorTest, AdaptingClearsResourceUsageState) {
-  resource_adaptation_queue_.SendTask(
-      [this] {
-        processor_->SetDegradationPreference(
-            DegradationPreference::MAINTAIN_FRAMERATE);
-        processor_->StartResourceAdaptation();
-        SetInputStates(true, kDefaultFrameRate, kDefaultFrameSize);
-        resource_->SetUsageState(ResourceUsageState::kOveruse);
-        EXPECT_EQ(1u, restrictions_listener_.restrictions_updated_count());
-        EXPECT_FALSE(resource_->UsageState().has_value());
-      },
-      RTC_FROM_HERE);
-}
-
-TEST_F(ResourceAdaptationProcessorTest,
-       FailingAdaptingAlsoClearsResourceUsageState) {
-  resource_adaptation_queue_.SendTask(
-      [this] {
-        processor_->SetDegradationPreference(DegradationPreference::DISABLED);
-        processor_->StartResourceAdaptation();
-        resource_->SetUsageState(ResourceUsageState::kOveruse);
-        EXPECT_EQ(0u, restrictions_listener_.restrictions_updated_count());
-        EXPECT_FALSE(resource_->UsageState().has_value());
-      },
-      RTC_FROM_HERE);
-}
-
 TEST_F(ResourceAdaptationProcessorTest,
        AdaptsDownWhenOtherResourceIsAlwaysUnderused) {
   resource_adaptation_queue_.SendTask(

@@ -70,6 +70,30 @@
       "revId": "2edfd936c2f1b516b98aac398c196cdd49578ddd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1089ed4f_d6725325",
+        "filename": "call/adaptation/resource_adaptation_processor_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-02T11:03:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec1b74d1_212b37e0",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "2edfd936c2f1b516b98aac398c196cdd49578ddd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

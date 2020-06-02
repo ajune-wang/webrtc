@@ -16,6 +16,8 @@
 #include "api/scoped_refptr.h"
 #include "api/video/video_adaptation_counters.h"
 #include "api/video/video_frame.h"
+#include "call/adaptation/adaptation_constraint.h"
+#include "call/adaptation/adaptation_listener.h"
 #include "call/adaptation/encoder_settings.h"
 #include "call/adaptation/resource.h"
 #include "call/adaptation/video_source_restrictions.h"
@@ -63,12 +65,20 @@ class ResourceAdaptationProcessorInterface {
   // over time.
   virtual void StartResourceAdaptation() = 0;
   virtual void StopResourceAdaptation() = 0;
-  virtual void AddAdaptationListener(
-      ResourceAdaptationProcessorListener* adaptation_listener) = 0;
-  virtual void RemoveAdaptationListener(
-      ResourceAdaptationProcessorListener* adaptation_listener) = 0;
+  virtual void AddProcessorListener(
+      ResourceAdaptationProcessorListener* processor_listener) = 0;
+  virtual void RemoveProcessorListener(
+      ResourceAdaptationProcessorListener* processor_listener) = 0;
   virtual void AddResource(rtc::scoped_refptr<Resource> resource) = 0;
   virtual void RemoveResource(rtc::scoped_refptr<Resource> resource) = 0;
+  virtual void AddAdaptationConstraint(
+      AdaptationConstraint* adaptation_constraint) = 0;
+  virtual void RemoveAdaptationConstraint(
+      AdaptationConstraint* adaptation_constraint) = 0;
+  virtual void AddAdaptationListener(
+      AdaptationListener* adaptation_listener) = 0;
+  virtual void RemoveAdaptationListener(
+      AdaptationListener* adaptation_listener) = 0;
 
   virtual void SetDegradationPreference(
       DegradationPreference degradation_preference) = 0;

@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a39f10f9_859d5c87",
+        "filename": "rtc_base/synchronization/DEPS",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T10:52:31Z",
+      "side": 1,
+      "message": "probably better to allow globaly\n(i.e. in /DEPS add \"+absl/base/const_init.h\" to the abseil whitelist)\n\nsince any code that would like to use GlobalMutex would need to include the same header",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "2ed30b299601faccdc7cf96e99bfaade168d53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97508d21_aa0151d4",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T10:52:31Z",
+      "side": 1,
+      "message": "success is bool, right?\nthen RTC_DCHECK(success)",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "2ed30b299601faccdc7cf96e99bfaade168d53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e124081_73c74a9a",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T10:52:31Z",
+      "side": 1,
+      "message": "This half of comment is obsolete",
+      "range": {
+        "startLine": 34,
+        "startChar": 29,
+        "endLine": 36,
+        "endChar": 19
+      },
+      "revId": "2ed30b299601faccdc7cf96e99bfaade168d53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1299e1b_9234ba68",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T10:52:31Z",
+      "side": 1,
+      "message": "TODO is resolved",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "2ed30b299601faccdc7cf96e99bfaade168d53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c97ff1e_c143816c",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T10:52:31Z",
+      "side": 1,
+      "message": "does it work on all platforms? If yes - good!\n(I remember there was an issue with some windows compilers to disallow creating std::atomic\u003cint\u003e in constexpr expression)",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 32
+      },
+      "revId": "2ed30b299601faccdc7cf96e99bfaade168d53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5def9e4a_6b31a771",
+        "filename": "rtc_base/synchronization/yield.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T10:52:31Z",
+      "side": 1,
+      "message": "this macro was local to critical_section.h\nit is probably not even defined here (and thus might not compile).\n\nmay be just remove this condition. (or explain what it has to do with the yield)",
+      "range": {
+        "startLine": 13,
+        "startChar": 28,
+        "endLine": 13,
+        "endChar": 55
+      },
+      "revId": "2ed30b299601faccdc7cf96e99bfaade168d53eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

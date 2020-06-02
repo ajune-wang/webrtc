@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "aa2a7641_b8769528",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-02T10:46:15Z",
+      "side": 1,
+      "message": "Suggest you write this as\n\nif (secondary_info.encoded_bytes \u003e 0) {\n encoded-\u003eSetSize(5)\n write secondary info\n write header\n}\n\nwrite primary data\n\nMuch easier to see what\u0027s going on.",
+      "revId": "cfbd77fe02796a968981cd92215a8a754a7f8472",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc0a7b9c_c752a21b",
         "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
         "patchSetId": 2

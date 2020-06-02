@@ -242,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "ce18b977_78414a5f",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-02T10:45:49Z",
+      "side": 1,
+      "message": "\u003e 1. Because performance does not seem to be a concern for the uses of this class. https://cs.chromium.org/search/?q\u003dGlobalLockScope\u0026type\u003dcs\n\nBecause the methods are so simple, I was thinking that inlining would make the code easier to read, in addition to making them faster and smaller. In other words, since inlining seemed to me to be a natural fit, I was wondering why you chose to not inline. But as you say, this class is not widely used, so if you feel that not inlining is the right choice, I won\u0027t object.\n\n\u003e 2. Doing that adds a dependency on the optimizer doing a good job. It seems to me that doing it with separate classes is safer by not adding that dependency, also considering the very few users of GlobalMutex. But you\u0027re welcome to try it after this CL.\n\nFair enough.",
+      "parentUuid": "0365f3b1_e5ddea88",
+      "revId": "7d3822539ac6c95b64e443827a4391c4e900f4a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b9776ff_0a075abd",
         "filename": "rtc_base/synchronization/mutex_abseil.h",
         "patchSetId": 9

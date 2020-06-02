@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "a546b4ec_e3966e9f",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-02T10:45:49Z",
+      "side": 1,
+      "message": "Can this be just `.exchange`? With std::memory_order_acquire?",
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0d107b2_81ae9d28",
         "filename": "rtc_base/synchronization/mutex.cc",
         "patchSetId": 13
@@ -189,6 +206,23 @@
       "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "147a77b2_9611da72",
+        "filename": "rtc_base/synchronization/mutex.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-02T10:45:49Z",
+      "side": 1,
+      "message": "`.exchange`? With std::memory_order_release?\n\n(In fact, unless RTC_DCHECK_IS_ON, you can do `.store` instead of `.exchange`, if you want.)",
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

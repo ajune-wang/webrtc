@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce020a47_e9b18f74",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-02T15:58:25Z",
+      "side": 1,
+      "message": "For completeness:\n\n  for (auto restrictions_listener : restrictions_listeners_) {\n    restrictions_listener-\u003eOnResourceLimitationChanged(\n        reason_resource, adaptation_limits_by_resources_);\n  }\n\nWe could use nullptr as a magical value for \"no reason\" (i.e. reset)",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11b76eae_0a4d650a",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-02T15:58:25Z",
+      "side": 1,
+      "message": "nit: |variables_|",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "257a2902_c23f1588",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-02T15:58:25Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a28570b_04260350",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-02T15:58:25Z",
+      "side": 1,
+      "message": "If you call OnResourceLimitationChanged() on resetting (my other comment), can you get rid of this? A null resource_reason could trigger ClearAdaptationStats() if this is necessary. If it\u0027s ha hassle or doesn\u0027t work feel free to ignore this comment, active counts is going away anyway 🎉",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

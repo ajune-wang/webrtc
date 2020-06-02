@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "865a2478_89d47bb6",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-02T13:47:39Z",
+      "side": 1,
+      "message": "The logic is more convoluted than you think!\n\nOne has to put the secondary payload into the buffer first (after the header), then the encoder appends the primary payload. But if the primary is empty (I *think* the encoder gets called with 10ms frames but only returns a packet once it has 20ms) one can\u0027t send the secondary payload so I bail out early and return an empty packet.",
+      "parentUuid": "e1ee76cf_3e8ae600",
+      "revId": "df20ac7bb5d3d22b3867a404927a2bd7d11fa4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5dd4cd89_51764c1c",
         "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
         "patchSetId": 4

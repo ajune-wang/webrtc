@@ -22,6 +22,30 @@
       "revId": "b7f389f2e1b78174c2f2708126766b6994cc9ece",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e06052e6_17eecdce",
+        "filename": "modules/audio_processing/aec3/aec3_fft.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-02T12:52:39Z",
+      "side": 1,
+      "message": "That would make sense. But it becomes slightly messy since the wrapper seems to be included by C-code, which in turn makes it tricky to return a bool.\n\nI\u0027d prefer to wait with this until the wrapper can be in in full C++ code, since otherwise we\u0027d need to have to convert from a bool to an int.",
+      "parentUuid": "1c6114bf_0e0016cb",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 1
+      },
+      "revId": "b7f389f2e1b78174c2f2708126766b6994cc9ece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

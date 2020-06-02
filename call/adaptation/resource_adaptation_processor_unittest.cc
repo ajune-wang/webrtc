@@ -20,7 +20,9 @@
 #include "call/adaptation/test/fake_resource.h"
 #include "call/adaptation/video_source_restrictions.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
+#include "rtc_base/gunit.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "test/gtest.h"
 
@@ -30,6 +32,7 @@ namespace {
 
 const int kDefaultFrameRate = 30;
 const int kDefaultFrameSize = 1280 * 720;
+const int kDefaultTimeoutMs = 5000;
 
 class VideoSourceRestrictionsListenerForTesting
     : public VideoSourceRestrictionsListener {
@@ -42,19 +45,28 @@ class VideoSourceRestrictionsListenerForTesting
   ~VideoSourceRestrictionsListenerForTesting() override {}
 
   size_t restrictions_updated_count() const {
+    rtc::CritScope crit(&lock_);
     return restrictions_updated_count_;
   }
-  const VideoSourceRestrictions& restrictions() const { return restrictions_; }
-  const VideoAdaptationCounters& adaptation_counters() const {
+  VideoSourceRestrictions restrictions() const {
+    rtc::CritScope crit(&lock_);
+    return restrictions_;
+  }
+  VideoAdaptationCounters adaptation_counters() const {
+    rtc::CritScope crit(&lock_);
     return adaptation_counters_;
   }
-  rtc::scoped_refptr<Resource> reason() const { return reason_; }
+  rtc::scoped_refptr<Resource> reason() const {
+    rtc::CritScope crit(&lock_);
+    return reason_;
+  }
 
   // VideoSourceRestrictionsListener implementation.
   void OnVideoSourceRestrictionsUpdated(
       VideoSourceRestrictions restrictions,
       const VideoAdaptationCounters& adaptation_counters,
       rtc::scoped_refptr<Resource> reason) override {
+    rtc::CritScope crit(&lock_);
     ++restrictions_updated_count_;
     restrictions_ = restrictions;
     adaptation_counters_ = adaptation_counters;
@@ -62,10 +74,11 @@ class VideoSourceRestrictionsListenerForTesting
   }
 
  private:
-  size_t restrictions_updated_count_;
-  VideoSourceRestrictions restrictions_;
-  VideoAdaptationCounters adaptation_counters_;
-  rtc::scoped_refptr<Resource> reason_;
+  rtc::CriticalSection lock_;
+  size_t restrictions_updated_count_ RTC_GUARDED_BY(lock_);
+  VideoSourceRestrictions restrictions_ RTC_GUARDED_BY(lock_);
+  VideoAdaptationCounters adaptation_counters_ RTC_GUARDED_BY(lock_);
+  rtc::scoped_refptr<Resource> reason_ RTC_GUARDED_BY(lock_);
 };
 
 class ResourceAdaptationProcessorTest : public ::testing::Test {
@@ -83,7 +96,7 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
             /*encoder_stats_observer=*/&frame_rate_provider_)) {
     rtc::Event event;
     resource_adaptation_queue_.PostTask([this, &event] {
-      processor_->InitializeOnResourceAdaptationQueue();
+      processor_->SetResourceAdaptationQueue(resource_adaptation_queue_.Get());
       processor_->AddRestrictionsListener(&restrictions_listener_);
       processor_->AddResource(resource_);
       processor_->AddResource(other_resource_);
@@ -394,33 +407,6 @@ TEST_F(ResourceAdaptationProcessorTest, AdaptingTriggersOnAdaptationApplied) {
       RTC_FROM_HERE);
 }
 
-TEST_F(ResourceAdaptationProcessorTest, AdaptingClearsResourceUsageState) {
-  resource_adaptation_queue_.SendTask(
-      [this] {
-        processor_->SetDegradationPreference(
-            DegradationPreference::MAINTAIN_FRAMERATE);
-        processor_->StartResourceAdaptation();
-        SetInputStates(true, kDefaultFrameRate, kDefaultFrameSize);
-        resource_->SetUsageState(ResourceUsageState::kOveruse);
-        EXPECT_EQ(1u, restrictions_listener_.restrictions_updated_count());
-        EXPECT_FALSE(resource_->UsageState().has_value());
-      },
-      RTC_FROM_HERE);
-}
-
-TEST_F(ResourceAdaptationProcessorTest,
-       FailingAdaptingAlsoClearsResourceUsageState) {
-  resource_adaptation_queue_.SendTask(
-      [this] {
-        processor_->SetDegradationPreference(DegradationPreference::DISABLED);
-        processor_->StartResourceAdaptation();
-        resource_->SetUsageState(ResourceUsageState::kOveruse);
-        EXPECT_EQ(0u, restrictions_listener_.restrictions_updated_count());
-        EXPECT_FALSE(resource_->UsageState().has_value());
-      },
-      RTC_FROM_HERE);
-}
-
 TEST_F(ResourceAdaptationProcessorTest,
        AdaptsDownWhenOtherResourceIsAlwaysUnderused) {
   resource_adaptation_queue_.SendTask(
@@ -445,6 +431,21 @@ TEST_F(ResourceAdaptationProcessorTest,
         RestrictSource(restrictions_listener_.restrictions());
       },
       RTC_FROM_HERE);
+}
+
+TEST_F(ResourceAdaptationProcessorTest,
+       TriggerOveruseNotOnAdaptationTaskQueue) {
+  resource_adaptation_queue_.SendTask(
+      [this] {
+        processor_->SetDegradationPreference(
+            DegradationPreference::MAINTAIN_FRAMERATE);
+        processor_->StartResourceAdaptation();
+        SetInputStates(true, kDefaultFrameRate, kDefaultFrameSize);
+      },
+      RTC_FROM_HERE);
+  resource_->SetUsageState(ResourceUsageState::kOveruse);
+  EXPECT_EQ_WAIT(1u, restrictions_listener_.restrictions_updated_count(),
+                 kDefaultTimeoutMs);
 }
 
 }  // namespace webrtc

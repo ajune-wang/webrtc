@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8c12fc07_866fe9af",
+        "filename": "rtc_base/synchronization/BUILD.gn",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T08:19:15Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 21
+      },
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0d107b2_81ae9d28",
         "filename": "rtc_base/synchronization/mutex.cc",
         "patchSetId": 13
@@ -118,6 +141,98 @@
       "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa3fc1d_82a51508",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T08:19:15Z",
+      "side": 1,
+      "message": "wdyt about removing this right away?\nmass-replacement then would look like\n\"rtc::CriticalSection \u003cidentifier\u003e;\" -\u003e \"mutable Mutex \u003cidentifier\u003e\"",
+      "range": {
+        "startLine": 38,
+        "startChar": 31,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "686d6a20_1c719ca9",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T08:19:15Z",
+      "side": 1,
+      "message": "this macro is discouraged in new code in favor of explicitly deleteing copy constructor and assingment operator in the public section.\nhttps://google.github.io/styleguide/cppguide.html#Copyable_Movable_Types",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 30
+      },
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc707e03_fe151b2e",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T08:19:15Z",
+      "side": 1,
+      "message": "do not use underscore for test names\n\nhttps://github.com/doo/googletest/blob/master/wiki/FAQ.wiki#Why_should_not_test_case_names_and_test_names_contain_underscore",
+      "range": {
+        "startLine": 154,
+        "startChar": 38,
+        "endLine": 154,
+        "endChar": 39
+      },
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4df7e2b_1f25ecbe",
+        "filename": "rtc_base/synchronization/mutex_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-02T08:19:15Z",
+      "side": 1,
+      "message": "can be GlobalMutexTest (since it is testing GlobalMutex)\navoid need to duplicate name of class under test in the test name.",
+      "range": {
+        "startLine": 181,
+        "startChar": 5,
+        "endLine": 181,
+        "endChar": 14
+      },
+      "revId": "119a6a2ed19cb0934b1f28d5ac0137fa3f2a764d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

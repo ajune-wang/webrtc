@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10798829_14b74f15",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-03T07:08:49Z",
+      "side": 1,
+      "message": "nit: Create() is a common name for something that always creates - how about CreateIfEnabled(), CreateIfExperimentEnabled() or MaybeCreate()? And move it to the top (creation methods are usually put at the top). Also optionally consider making the actual constructor private if the static creation method is the only intended way to create this thing",
+      "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46bee54e_16008dcd",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-03T07:08:49Z",
+      "side": 1,
+      "message": "nit about the comment:\n\nQualityRampUpExperimentHelper is entirely on the encoder queue, and the listener is also only used on the encoder queue. This class, including the use of its listeners, is entirely single-threaded. So I would argue that the fact that the listener happens to post to the adaptation queue is an \"implementation detail\" that does not need to be documented here.\n\nAs-is-written, I interpreted this sentence as |experiment_listener_| being used on multiple task queues but that is not the case.\n\nI suggest removing the comment since if the class is entirely single threaded then it is up to the users/listeners to bother with thread details, otherwise consider rephrasing the comment.",
+      "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06d48287_2e1dfe17",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-03T07:08:49Z",
+      "side": 1,
+      "message": "nit: {}",
+      "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

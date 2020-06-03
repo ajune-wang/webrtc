@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ed4e490a_c7e318bc",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce020a47_e9b18f74",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fef65e3e_35c1adc5",
         "filename": "call/adaptation/resource_adaptation_processor.h",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6d6de75c_b68f6ffd",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fef65e3e_35c1adc5",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11b76eae_0a4d650a",
         "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
         "patchSetId": 7
@@ -50,6 +86,24 @@
       "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a47db8bc_d8c91e13",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11b76eae_0a4d650a",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -84,6 +138,42 @@
       "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00ad4e8f_22a52239",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T07:51:34Z",
+      "side": 1,
+      "message": "This line is still needed. If the degredation preference gets changed but the change doesn\u0027t trigger a reset, we end up with the wrong stats. Leaving in.",
+      "parentUuid": "7a28570b_04260350",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80cb2dcb_ef4e1600",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T07:51:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a28570b_04260350",
+      "revId": "45048bd7016cc975416db9a6568285bf248ef82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59c17392_e58319cf",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-06-03T16:04:34Z",
+      "side": 1,
+      "message": "nit: target #",
+      "range": {
+        "startLine": 268,
+        "startChar": 31,
+        "endLine": 268,
+        "endChar": 38
+      },
+      "revId": "153c42b86783a948557b6c5b997a3b7ed1d19685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36dfff82_0ceb9dd8",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-06-03T16:04:34Z",
+      "side": 1,
+      "message": "nit: depend on frame",
+      "range": {
+        "startLine": 269,
+        "startChar": 21,
+        "endLine": 269,
+        "endChar": 39
+      },
+      "revId": "153c42b86783a948557b6c5b997a3b7ed1d19685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

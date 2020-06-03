@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a1a3dcf_d39d8404",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-03T11:38:44Z",
+      "side": 0,
+      "message": "Was this intentional? I don\u0027t think we usually put the tests in anonymous namespaces, I don\u0027t think we want to allow two tests with identical names.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "0d1b28cf09de80c52e9241188dc390d7643a1d6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "54cb9445_7131819f",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-03T07:14:04Z",
+      "side": 1,
+      "message": "One more thing, also optional to address, but if SetMaxBitrate() stored max_bitrate as an absl::optional\u003cuint32_t\u003e then you could get rid of the dependency on encoder_settings here, whose only usage is getting ahold of the max bitrate, which the helper should already know about per SetMaxBitrate().",
+      "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "10798829_14b74f15",
         "filename": "video/adaptation/quality_rampup_experiment_helper.h",
         "patchSetId": 3

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "287af376_7e0bc7f2",
+        "filename": "api/test/video_quality_analyzer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-03T06:45:59Z",
+      "side": 1,
+      "message": "A very reasonable choice of type.",
+      "revId": "2fba071162ca829afa38ed503558b4a64e77ee9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

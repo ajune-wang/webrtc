@@ -22,6 +22,30 @@
       "revId": "0d1b28cf09de80c52e9241188dc390d7643a1d6e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0302fa4_cf3193c2",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-03T12:12:57Z",
+      "side": 0,
+      "message": "yes, it is intentional. I normally do put tests in anonymous namespace.\nThere is a recommendation to do it that way:\ngo/c-readability-advice#anonymous-namespaces-in-tests\n\nit is not that important for tests themself, but helps for helper classes and functions.\nor when helpers added inbetween tests (like here).\n\nnot having anonymous namespace doesn\u0027t protect having tests with identical names.\nafaik gtest itself can detect same names and does it regardless what namespace tests are in.\n\nIn this file I\u0027ve expanding anonymous namespace to avoid putting GetTestName() into webrtc namespace.\n\nwith GetTestName() removed, I do not need this change, so removing it as offtopic.",
+      "parentUuid": "9a1a3dcf_d39d8404",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "0d1b28cf09de80c52e9241188dc390d7643a1d6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

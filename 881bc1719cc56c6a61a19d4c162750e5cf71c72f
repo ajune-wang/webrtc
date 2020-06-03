@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b081c024_533efc94",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-03T12:12:57Z",
+      "side": 1,
+      "message": "Done.\n\nI would like to avoid changing name in the analyzers (in this CL).\n\nbut yes, this can be inlined instead.",
+      "parentUuid": "434a365c_e48029f5",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 23
+      },
+      "revId": "881bc1719cc56c6a61a19d4c162750e5cf71c72f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06b2b839_7cafe853",
         "filename": "video/pc_full_stack_tests.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "881bc1719cc56c6a61a19d4c162750e5cf71c72f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "249c9f87_1f4d49af",
+        "filename": "video/pc_full_stack_tests.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-03T12:12:57Z",
+      "side": 1,
+      "message": "Done. inlined.",
+      "parentUuid": "06b2b839_7cafe853",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 23
+      },
+      "revId": "881bc1719cc56c6a61a19d4c162750e5cf71c72f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

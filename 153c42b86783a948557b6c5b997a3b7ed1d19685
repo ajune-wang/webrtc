@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "861361ab_abc621f7",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-03T16:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59c17392_e58319cf",
+      "range": {
+        "startLine": 268,
+        "startChar": 31,
+        "endLine": 268,
+        "endChar": 38
+      },
+      "revId": "153c42b86783a948557b6c5b997a3b7ed1d19685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36dfff82_0ceb9dd8",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-06-03T16:04:34Z",
       "side": 1,
       "message": "nit: depend on frame",
+      "range": {
+        "startLine": 269,
+        "startChar": 21,
+        "endLine": 269,
+        "endChar": 39
+      },
+      "revId": "153c42b86783a948557b6c5b997a3b7ed1d19685",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f31b28f_58aa82b0",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-03T16:14:16Z",
+      "side": 1,
+      "message": "why? (early) frame is \u0027third person singular\u0027, so verbs should have \u0027s\u0027:\nframe dependS ... switch frame doeSn\u0027t depend\n\n(but yep, shouldn\u0027t use \u0027a\u0027. it should be \u0027the\u0027 instead)",
+      "parentUuid": "36dfff82_0ceb9dd8",
       "range": {
         "startLine": 269,
         "startChar": 21,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de0edaa1_2c66b511",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-03T06:51:37Z",
+      "side": 1,
+      "message": "Should this be _MSC_VER?",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

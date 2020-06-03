@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6da24353_c80409a8",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-03T15:56:49Z",
+      "side": 1,
+      "message": "That is already checked via combination of tests:\nTemplatesAreSortedByLayerId verifies that all templates have spatial_id\u003e\u003d0 and temporal_id\u003e\u003d0\n(first one is (0,0), after that they can grow or go back to 0, not less).\n\nThereIsAPerfectTemplateForEachFrame verfies there is a template for each frame, in particular there is a template with matching spatial/temporal id.\n\nstill can add an extra tests. These tests are fast anyway.\nspecially since `ThereIsAPerfectTemplateForEachFrame` is questionable test: structure still can be valid with this test failing, so in the future some structures might prefer not to run it.",
+      "parentUuid": "d33ebfba_d2cae7b7",
+      "range": {
+        "startLine": 167,
+        "startChar": 33,
+        "endLine": 167,
+        "endChar": 63
+      },
+      "revId": "8b8895bf8616f2cd6352062de2dca3483716cffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e783c27_3d2aca65",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9ec0c887_22bcf670",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-03T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e783c27_3d2aca65",
+      "range": {
+        "startLine": 196,
+        "startChar": 6,
+        "endLine": 196,
+        "endChar": 48
+      },
+      "revId": "8b8895bf8616f2cd6352062de2dca3483716cffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07abc513_da8a8f84",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "8b8895bf8616f2cd6352062de2dca3483716cffc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0a20c3_a682b7ab",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-03T15:56:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07abc513_da8a8f84",
+      "range": {
+        "startLine": 250,
+        "startChar": 27,
+        "endLine": 250,
+        "endChar": 37
+      },
+      "revId": "8b8895bf8616f2cd6352062de2dca3483716cffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

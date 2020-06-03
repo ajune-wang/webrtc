@@ -17,29 +17,50 @@
 
 #include "common_audio/resampler/sinc_resampler.h"
 
+#include <immintrin.h>
+#include "system_wrappers/include/cpu_features_wrapper.h"  // kSSE2, WebRtc_G...
+
 namespace webrtc {
 
 float SincResampler::Convolve_SSE(const float* input_ptr,
                                   const float* k1,
                                   const float* k2,
                                   double kernel_interpolation_factor) {
+  static int use_avx2 = WebRtc_GetCPUInfo(kAVX2);
+
   __m128 m_input;
   __m128 m_sums1 = _mm_setzero_ps();
   __m128 m_sums2 = _mm_setzero_ps();
 
   // Based on |input_ptr| alignment, we need to use loadu or load.  Unrolling
   // these loops hurt performance in local testing.
-  if (reinterpret_cast<uintptr_t>(input_ptr) & 0x0F) {
-    for (size_t i = 0; i < kKernelSize; i += 4) {
-      m_input = _mm_loadu_ps(input_ptr + i);
-      m_sums1 = _mm_add_ps(m_sums1, _mm_mul_ps(m_input, _mm_load_ps(k1 + i)));
-      m_sums2 = _mm_add_ps(m_sums2, _mm_mul_ps(m_input, _mm_load_ps(k2 + i)));
+  if (use_avx2 > 0) {
+    if (reinterpret_cast<uintptr_t>(input_ptr) & 0x0F) {
+      for (size_t i = 0; i < kKernelSize; i += 4) {
+        m_input = _mm_loadu_ps(input_ptr + i);
+        m_sums1 = _mm_fmadd_ps(m_input, _mm_load_ps(k1 + i), m_sums1);
+        m_sums2 = _mm_fmadd_ps(m_input, _mm_load_ps(k2 + i), m_sums2);
+      }
+    } else {
+      for (size_t i = 0; i < kKernelSize; i += 4) {
+        m_input = _mm_load_ps(input_ptr + i);
+        m_sums1 = _mm_fmadd_ps(m_input, _mm_load_ps(k1 + i), m_sums1);
+        m_sums2 = _mm_fmadd_ps(m_input, _mm_load_ps(k2 + i), m_sums2);
+      }
     }
   } else {
-    for (size_t i = 0; i < kKernelSize; i += 4) {
-      m_input = _mm_load_ps(input_ptr + i);
-      m_sums1 = _mm_add_ps(m_sums1, _mm_mul_ps(m_input, _mm_load_ps(k1 + i)));
-      m_sums2 = _mm_add_ps(m_sums2, _mm_mul_ps(m_input, _mm_load_ps(k2 + i)));
+    if (reinterpret_cast<uintptr_t>(input_ptr) & 0x0F) {
+      for (size_t i = 0; i < kKernelSize; i += 4) {
+        m_input = _mm_loadu_ps(input_ptr + i);
+        m_sums1 = _mm_add_ps(m_sums1, _mm_mul_ps(m_input, _mm_load_ps(k1 + i)));
+        m_sums2 = _mm_add_ps(m_sums2, _mm_mul_ps(m_input, _mm_load_ps(k2 + i)));
+      }
+    } else {
+      for (size_t i = 0; i < kKernelSize; i += 4) {
+        m_input = _mm_load_ps(input_ptr + i);
+        m_sums1 = _mm_add_ps(m_sums1, _mm_mul_ps(m_input, _mm_load_ps(k1 + i)));
+        m_sums2 = _mm_add_ps(m_sums2, _mm_mul_ps(m_input, _mm_load_ps(k2 + i)));
+      }
     }
   }
 

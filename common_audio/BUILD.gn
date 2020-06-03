@@ -251,6 +251,10 @@ if (current_cpu == "x86" || current_cpu == "x64") {
 
     if (is_posix || is_fuchsia) {
       cflags = [ "-msse2" ]
+      cflags += [
+        "-mavx2",
+        "-mfma",
+      ]
     }
 
     deps = [

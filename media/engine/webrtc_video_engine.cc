@@ -1587,6 +1587,8 @@ void WebRtcVideoChannel::FillSenderStats(VideoMediaInfo* video_media_info,
            send_streams_.begin();
        it != send_streams_.end(); ++it) {
     auto infos = it->second->GetPerLayerVideoSenderInfos(log_stats);
+    if (infos.empty())
+      continue;
     video_media_info->aggregated_senders.push_back(
         it->second->GetAggregatedVideoSenderInfo(infos));
     for (auto&& info : infos) {

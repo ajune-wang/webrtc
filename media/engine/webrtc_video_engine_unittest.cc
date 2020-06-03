@@ -5599,6 +5599,25 @@ TEST_F(WebRtcVideoChannelTest, GetPerLayerStatsReportForSubStreams) {
   EXPECT_EQ(sender.rid, absl::nullopt);
 }
 
+TEST_F(WebRtcVideoChannelTest, MediaSubstreamMissingProducesEmpyStats) {
+  FakeVideoSendStream* stream = AddSendStream();
+
+  const uint32_t kRtxSsrc = 123u;
+  const uint32_t kMissingMediaSsrc = 124u;
+
+  // Set up a scenarios where we have at least one substream (kRtx) but not
+  // associated kMedia stream.
+  auto stats = GetInitialisedStats();
+  auto& substream = stats.substreams[kRtxSsrc];
+  substream.type = webrtc::VideoSendStream::StreamStats::StreamType::kRtx;
+  substream.referenced_media_ssrc = kMissingMediaSsrc;
+  stream->SetStats(stats);
+
+  cricket::VideoMediaInfo video_media_info;
+  ASSERT_TRUE(channel_->GetStats(&video_media_info));
+  EXPECT_TRUE(video_media_info.senders.empty());
+}
+
 TEST_F(WebRtcVideoChannelTest, GetStatsReportsUpperResolution) {
   FakeVideoSendStream* stream = AddSendStream();
   webrtc::VideoSendStream::Stats stats;

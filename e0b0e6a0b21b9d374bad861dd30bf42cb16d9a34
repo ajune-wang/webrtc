@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e4dd2798_cb8d2383",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T09:20:56Z",
+      "side": 1,
+      "message": "I can move everything as parameters then, very nice.",
+      "parentUuid": "54cb9445_7131819f",
+      "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10798829_14b74f15",
         "filename": "video/adaptation/quality_rampup_experiment_helper.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5d3f762_bea9f4d0",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T09:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10798829_14b74f15",
+      "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ad287eb3_d3d7c6ae",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T09:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46bee54e_16008dcd",
+      "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06d48287_2e1dfe17",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ef55324_3622d880",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-03T09:20:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06d48287_2e1dfe17",
+      "revId": "e0b0e6a0b21b9d374bad861dd30bf42cb16d9a34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

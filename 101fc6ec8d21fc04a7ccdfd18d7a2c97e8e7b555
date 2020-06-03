@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d602bd51_d80e1711",
+        "filename": "common_audio/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-03T07:02:20Z",
+      "side": 1,
+      "message": "A new dependency is needed on this target:\n\n\"../system_wrappers:cpu_features_api\"\n\nBecause of system_wrappers/include/cpu_features_wrapper.h.\n\n(See the red bots below).",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 8
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de0edaa1_2c66b511",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 1

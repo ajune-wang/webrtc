@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ddc237f_7f3ef431",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-04T13:35:44Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to match what the CL is doing.\n\nThe CL is adding a requirement that an \"owned\" window must not have the same class as its owner.  Why is that required?\n\nCan you give a specific example of when the existing check does not have the desired effect?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b19a9a9_7af7f7a7",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-04T13:35:44Z",
+      "side": 1,
+      "message": "Where does this limit come from?\n\nDon\u0027t we already have other code that captures the window class name?",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db938fb8_7c0feb65",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-04T13:35:44Z",
+      "side": 1,
+      "message": "nit: As per style-guide, this should be initialized before use.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "621a2900_7cfc77f3",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-04T13:35:44Z",
+      "side": 1,
+      "message": "Why return L\"\" rather than just passing std::max(0, class_name_length) to std::wstring, below?\nOr at least returning std::wstring() explicitly, rather than having one implicitly created from a literal.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2dcebe9_dec355f9",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-04T13:35:44Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you mean by this.  They have different class names because they are different types of window, surely?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7cc63df_2b10ce48",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-04T13:35:44Z",
+      "side": 1,
+      "message": "What is a \"visual effect window\"?  You mean the window used to contain the drop-shadow, in this case..?",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac882c18_eb4eb44a",
+        "filename": "modules/desktop_capture/win/selected_window_context.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-04T13:35:44Z",
+      "side": 1,
+      "message": "nit: Not clear from this name what is being checked - looks like you\u0027re just checking that it matches what is stored?",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 23
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

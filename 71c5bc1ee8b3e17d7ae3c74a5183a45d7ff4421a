@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9b98e093_b9ee9e5a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-04T20:30:54Z",
+      "side": 1,
+      "message": "Already implemented check for ownership relationship between windows is based on assumption that they should share process id and thread. It doesn\u0027t work in 100 percent of cases and could be a cause for security issue.\n\nExample: You can open two presentations in MS PowerPoint, start sharing window with first presentation and put second presentation window on top. You will get window with second presentation which is not intended to be shared in captured stream. The issue could be reproduced not only with MS PowerPoint.\n\nThe fix is an attempt to mitigate this issue and based on another assumption which is also not always valid as nothing preventing us to have context window with the same class name as window we\u0027re sharing. In worst case scenario this fix will remove from sharing stream such context window.",
+      "parentUuid": "5ddc237f_7f3ef431",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b19a9a9_7af7f7a7",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37952f0c_047867ad",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-04T20:30:54Z",
+      "side": 1,
+      "message": "Limit comes from WNDCLASS struct: you can\u0027t register a class with lpszClassName bigger than 256 symbols.  \nOther places limit the size of buffer based on length of string result will be compared with.",
+      "parentUuid": "7b19a9a9_7af7f7a7",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f70f6dd8_00f28651",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-04T20:30:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db938fb8_7c0feb65",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "621a2900_7cfc77f3",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "25a6a6a7_dada88e8",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-04T20:30:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "621a2900_7cfc77f3",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 15
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2dcebe9_dec355f9",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2020-06-04T13:35:44Z",
       "side": 1,
       "message": "I\u0027m not sure what you mean by this.  They have different class names because they are different types of window, surely?",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ceb1e0_bcf33bad",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-04T20:30:54Z",
+      "side": 1,
+      "message": "This is an assumption like having the same process and thread but less harmful.\nIf we want to be 100% sure - let\u0027s keep GetAncestor check only and get some false negative results.\nProvided more details in comment for CL.",
+      "parentUuid": "e2dcebe9_dec355f9",
       "range": {
         "startLine": 76,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "7101c995_79dea7f3",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-04T20:30:54Z",
+      "side": 1,
+      "message": "Correct, but i would expect that MSO_BORDEREFFECT_WINDOW_CLASS is not the only class name which could be there, that\u0027s why it is generalized in comment to \"visual effect window\".",
+      "parentUuid": "a7cc63df_2b10ce48",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac882c18_eb4eb44a",
         "filename": "modules/desktop_capture/win/selected_window_context.h",
         "patchSetId": 2
@@ -151,6 +295,30 @@
       "writtenOn": "2020-06-04T13:35:44Z",
       "side": 1,
       "message": "nit: Not clear from this name what is being checked - looks like you\u0027re just checking that it matches what is stored?",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 23
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3eb7fb7_ef29a6fa",
+        "filename": "modules/desktop_capture/win/selected_window_context.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-04T20:30:54Z",
+      "side": 1,
+      "message": "It\u0027s not just checking if class names match, some class names should be ignored.\nCan you suggest a good name for it?",
+      "parentUuid": "ac882c18_eb4eb44a",
       "range": {
         "startLine": 36,
         "startChar": 7,

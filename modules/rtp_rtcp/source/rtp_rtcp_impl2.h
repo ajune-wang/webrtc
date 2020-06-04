@@ -58,15 +58,6 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   static std::unique_ptr<ModuleRtpRtcpImpl2> Create(
       const Configuration& configuration);
 
-  // TODO(tommi): Make implementation private?
-
-  // Returns the number of milliseconds until the module want a worker thread to
-  // call Process.
-  int64_t TimeUntilNextProcess() override;
-
-  // Process any pending tasks such as timeouts.
-  void Process() override;
-
   // Receiver part.
 
   // Called when we receive an RTCP packet.
@@ -329,6 +320,13 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   int64_t rtt_ms() const;
 
   bool TimeToSendFullNackList(int64_t now) const;
+
+  // Returns the number of milliseconds until the module want a worker thread to
+  // call Process.
+  int64_t TimeUntilNextProcess() override;
+
+  // Process any pending tasks such as timeouts.
+  void Process() override;
 
   SequenceChecker construction_thread_checker_;
   SequenceChecker process_thread_checker_;

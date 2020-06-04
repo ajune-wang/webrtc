@@ -33,8 +33,12 @@ class SelectedWindowContext {
   WindowCaptureHelperWin* window_capture_helper() const;
 
  private:
+  bool CheckWindowClass(HWND hwnd) const;
+
+ private:
   const HWND selected_window_;
   const DesktopRect selected_window_rect_;
+  const std::wstring selected_window_class_name_;
   WindowCaptureHelperWin* const window_capture_helper_;
   DWORD selected_window_thread_id_;
   DWORD selected_window_process_id_;

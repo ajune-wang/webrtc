@@ -12,12 +12,22 @@
 
 namespace webrtc {
 
+namespace {
+std::wstring GetWindowClassName(HWND window) {
+  constexpr size_t kClassLength = 256;
+  WCHAR class_name[kClassLength] = L"";
+  const int class_name_length = GetClassNameW(window, class_name, kClassLength);
+  return std::wstring(class_name, std::max(0, class_name_length));
+}
+}  // namespace
+
 SelectedWindowContext::SelectedWindowContext(
     HWND selected_window,
     DesktopRect selected_window_rect,
     WindowCaptureHelperWin* window_capture_helper)
     : selected_window_(selected_window),
       selected_window_rect_(selected_window_rect),
+      selected_window_class_name_(GetWindowClassName(selected_window)),
       window_capture_helper_(window_capture_helper) {
   selected_window_thread_id_ =
       GetWindowThreadProcessId(selected_window, &selected_window_process_id_);
@@ -41,7 +51,8 @@ bool SelectedWindowContext::IsWindowOwnedBySelectedWindow(HWND hwnd) const {
       GetWindowThreadProcessId(hwnd, &enumerated_window_process_id);
   return enumerated_window_thread_id != 0 &&
          enumerated_window_process_id == selected_window_process_id_ &&
-         enumerated_window_thread_id == selected_window_thread_id_;
+         enumerated_window_thread_id == selected_window_thread_id_ &&
+         CheckWindowClass(hwnd);
 }
 
 bool SelectedWindowContext::IsWindowOverlappingSelectedWindow(HWND hwnd) const {
@@ -55,6 +66,22 @@ HWND SelectedWindowContext::selected_window() const {
 
 WindowCaptureHelperWin* SelectedWindowContext::window_capture_helper() const {
   return window_capture_helper_;
+}
+
+bool SelectedWindowContext::CheckWindowClass(HWND hwnd) const {
+  std::wstring class_name = GetWindowClassName(hwnd);
+
+  // Pop-up, context menus, tooltips windows are supposed to have
+  // different class names to reflect parent - child relationship.
+  if (class_name == selected_window_class_name_)
+    return false;
+
+  // Visual effect windows should be skipped to avoid having black
+  // borders in the center of sharing window.
+  if (class_name == L"MSO_BORDEREFFECT_WINDOW_CLASS")
+    return false;
+
+  return true;
 }
 
 }  // namespace webrtc

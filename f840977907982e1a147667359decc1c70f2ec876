@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a921f34_460fbe7f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2599,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-04T07:13:41Z",
+      "side": 1,
+      "message": "Done.\n\nWhether a DCHECK or a CHECK, it\u0027s something that must not happen. People seem to have different opinions about when to DCHECK and when to CHECK. But in any case, considering this was hit in production, I think having a CHECK here makes sense. The original stack trace had me confused for a minute, which wouldn\u0027t have been the case with a CHECK.",
+      "parentUuid": "e2c257b4_ae1c79b2",
+      "range": {
+        "startLine": 2599,
+        "startChar": 2,
+        "endLine": 2599,
+        "endChar": 29
+      },
+      "revId": "f840977907982e1a147667359decc1c70f2ec876",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "444ac0ce_7c0cd76e",
         "filename": "media/engine/webrtc_video_engine_unittest.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "f840977907982e1a147667359decc1c70f2ec876",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb66d16b_2b2da39f",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5608,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-04T07:13:41Z",
+      "side": 1,
+      "message": "Done (updated comment)",
+      "parentUuid": "444ac0ce_7c0cd76e",
+      "range": {
+        "startLine": 5608,
+        "startChar": 72,
+        "endLine": 5608,
+        "endChar": 75
+      },
+      "revId": "f840977907982e1a147667359decc1c70f2ec876",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

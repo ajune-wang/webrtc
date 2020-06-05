@@ -92,6 +92,29 @@ TEST(RenderDelayBuffer, AlignFromDelay) {
   }
 }
 
+TEST(RenderDelayBuffer, HasReceivedBufferDelay) {
+  EchoCanceller3Config config;
+  config.delay.use_external_delay_estimator = true;
+  std::unique_ptr<RenderDelayBuffer> delay_buffer(
+      RenderDelayBuffer::Create(config, 16000, 1));
+
+  EXPECT_FALSE(delay_buffer->HasReceivedBufferDelay());
+  delay_buffer->SetAudioBufferDelay(100);
+  EXPECT_TRUE(delay_buffer->HasReceivedBufferDelay());
+}
+
+TEST(RenderDelayBuffer, AlignFromExternalDelay) {
+  EchoCanceller3Config config;
+  config.delay.use_external_delay_estimator = true;
+  std::unique_ptr<RenderDelayBuffer> delay_buffer(
+      RenderDelayBuffer::Create(config, 16000, 1));
+
+  for (int delay_ms : {-150, 100, 1000}) {
+    delay_buffer->SetAudioBufferDelay(delay_ms);
+    delay_buffer->AlignFromExternalDelay();
+  }
+}
+
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 
 // Verifies the check for feasible delay.

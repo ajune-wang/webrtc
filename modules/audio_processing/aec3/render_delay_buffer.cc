@@ -371,7 +371,10 @@ void RenderDelayBufferImpl::AlignFromExternalDelay() {
   if (external_audio_buffer_delay_) {
     int64_t delay = render_call_counter_ - capture_call_counter_ +
                     *external_audio_buffer_delay_;
-    ApplyTotalDelay(delay);
+    // Limit the delay to the allowed range.
+    int clipped_delay =
+        std::min(MaxDelay(), static_cast<size_t>(std::max<int64_t>(delay, 0)));
+    ApplyTotalDelay(clipped_delay);
   }
 }
 

@@ -105,6 +105,13 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
     transport_.SimulateNetworkDelay(kOneWayNetworkDelayMs, clock);
   }
 
+  // Call to run timers that should execute on the ProcessThread.
+  void RunProcess() {
+    // This is cheating. The test really should have a process thread here
+    // to run correctly.
+    static_cast<Module*>(impl_.get())->Process();
+  }
+
   const bool is_sender_;
   RtcpPacketTypeCounter packets_sent_;
   RtcpPacketTypeCounter packets_received_;
@@ -306,7 +313,7 @@ TEST_F(RtpRtcpImpl2Test, Rtt) {
   // Verify RTT from rtt_stats config.
   EXPECT_EQ(0, sender_.rtt_stats_.LastProcessedRtt());
   EXPECT_EQ(0, sender_.impl_->rtt_ms());
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_NEAR(2 * kOneWayNetworkDelayMs, sender_.rtt_stats_.LastProcessedRtt(),
               1);
   EXPECT_NEAR(2 * kOneWayNetworkDelayMs, sender_.impl_->rtt_ms(), 1);
@@ -333,7 +340,7 @@ TEST_F(RtpRtcpImpl2Test, RttForReceiverOnly) {
   // Verify RTT.
   EXPECT_EQ(0, receiver_.rtt_stats_.LastProcessedRtt());
   EXPECT_EQ(0, receiver_.impl_->rtt_ms());
-  receiver_.impl_->Process();
+  receiver_.RunProcess();
   EXPECT_NEAR(2 * kOneWayNetworkDelayMs,
               receiver_.rtt_stats_.LastProcessedRtt(), 1);
   EXPECT_NEAR(2 * kOneWayNetworkDelayMs, receiver_.impl_->rtt_ms(), 1);
@@ -344,15 +351,15 @@ TEST_F(RtpRtcpImpl2Test, NoSrBeforeMedia) {
   sender_.transport_.SimulateNetworkDelay(0, &clock_);
   receiver_.transport_.SimulateNetworkDelay(0, &clock_);
 
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_EQ(-1, sender_.RtcpSent().first_packet_time_ms);
 
   // Verify no SR is sent before media has been sent, RR should still be sent
   // from the receiving module though.
   clock_.AdvanceTimeMilliseconds(2000);
   int64_t current_time = clock_.TimeInMilliseconds();
-  sender_.impl_->Process();
-  receiver_.impl_->Process();
+  sender_.RunProcess();
+  receiver_.RunProcess();
   EXPECT_EQ(-1, sender_.RtcpSent().first_packet_time_ms);
   EXPECT_EQ(receiver_.RtcpSent().first_packet_time_ms, current_time);
 
@@ -532,19 +539,19 @@ TEST_F(RtpRtcpImpl2Test, ConfigurableRtcpReportInterval) {
   SendFrame(&sender_, sender_video_.get(), kBaseLayerTid);
 
   // Initial state
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_EQ(sender_.RtcpSent().first_packet_time_ms, -1);
   EXPECT_EQ(0u, sender_.transport_.NumRtcpSent());
 
   // Move ahead to the last ms before a rtcp is expected, no action.
   clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2 - 1);
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_EQ(sender_.RtcpSent().first_packet_time_ms, -1);
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 0u);
 
   // Move ahead to the first rtcp. Send RTCP.
   clock_.AdvanceTimeMilliseconds(1);
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_GT(sender_.RtcpSent().first_packet_time_ms, -1);
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 1u);
 
@@ -552,21 +559,21 @@ TEST_F(RtpRtcpImpl2Test, ConfigurableRtcpReportInterval) {
 
   // Move ahead to the last possible second before second rtcp is expected.
   clock_.AdvanceTimeMilliseconds(kVideoReportInterval * 1 / 2 - 1);
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 1u);
 
   // Move ahead into the range of second rtcp, the second rtcp may be sent.
   clock_.AdvanceTimeMilliseconds(1);
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_GE(sender_.transport_.NumRtcpSent(), 1u);
 
   clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2);
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_GE(sender_.transport_.NumRtcpSent(), 1u);
 
   // Move out the range of second rtcp, the second rtcp must have been sent.
   clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2);
-  sender_.impl_->Process();
+  sender_.RunProcess();
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 2u);
 }
 

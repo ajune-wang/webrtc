@@ -63,6 +63,7 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
       rtt_stats_(configuration.rtt_stats),
       rtt_ms_(0) {
   process_thread_checker_.Detach();
+  pacer_thread_checker_.Detach();
   if (!configuration.receiver_only) {
     rtp_sender_ = std::make_unique<RtpSenderContext>(configuration);
     // Make sure rtcp sender use same timestamp offset as rtp sender.
@@ -242,11 +243,13 @@ int32_t ModuleRtpRtcpImpl2::DeRegisterSendPayload(const int8_t payload_type) {
 }
 
 uint32_t ModuleRtpRtcpImpl2::StartTimestamp() const {
+  // Called on ChannelSend::encoder_queue_ ("AudioEncoder").
   return rtp_sender_->packet_generator.TimestampOffset();
 }
 
 // Configure start timestamp, default is a random number.
 void ModuleRtpRtcpImpl2::SetStartTimestamp(const uint32_t timestamp) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtcp_sender_.SetTimestampOffset(timestamp);
   rtp_sender_->packet_generator.SetTimestampOffset(timestamp);
   rtp_sender_->packet_sender.SetTimestampOffset(timestamp);
@@ -262,6 +265,7 @@ void ModuleRtpRtcpImpl2::SetSequenceNumber(const uint16_t seq_num) {
 }
 
 void ModuleRtpRtcpImpl2::SetRtpState(const RtpState& rtp_state) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtp_sender_->packet_generator.SetRtpState(rtp_state);
   rtp_sender_->packet_sender.SetMediaHasBeenSent(rtp_state.media_has_been_sent);
   rtcp_sender_.SetTimestampOffset(rtp_state.start_timestamp);
@@ -272,6 +276,7 @@ void ModuleRtpRtcpImpl2::SetRtxState(const RtpState& rtp_state) {
 }
 
 RtpState ModuleRtpRtcpImpl2::GetRtpState() const {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   RtpState state = rtp_sender_->packet_generator.GetRtpState();
   state.media_has_been_sent = rtp_sender_->packet_sender.MediaHasBeenSent();
   return state;
@@ -303,6 +308,9 @@ void ModuleRtpRtcpImpl2::SetCsrcs(const std::vector<uint32_t>& csrcs) {
 // TODO(pbos): Handle media and RTX streams separately (separate RTCP
 // feedbacks).
 RTCPSender::FeedbackState ModuleRtpRtcpImpl2::GetFeedbackState() {
+  // Called by potentially multiple threads. "Send*" methods and
+  // on the ProcessThread.
+
   RTCPSender::FeedbackState state;
   // This is called also when receiver_only is true. Hence below
   // checks that rtp_sender_ exists.
@@ -365,6 +373,7 @@ bool ModuleRtpRtcpImpl2::IsAudioConfigured() const {
 }
 
 void ModuleRtpRtcpImpl2::SetAsPartOfAllocation(bool part_of_allocation) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   RTC_CHECK(rtp_sender_);
   rtp_sender_->packet_sender.ForceIncludeSendPacketsInAllocation(
       part_of_allocation);
@@ -387,6 +396,7 @@ bool ModuleRtpRtcpImpl2::OnSendingRtpFrame(uint32_t timestamp,
 
 bool ModuleRtpRtcpImpl2::TrySendPacket(RtpPacketToSend* packet,
                                        const PacedPacketInfo& pacing_info) {
+  RTC_DCHECK_RUN_ON(&pacer_thread_checker_);
   RTC_DCHECK(rtp_sender_);
   // TODO(sprang): Consider if we can remove this check.
   if (!rtp_sender_->packet_generator.SendingMedia()) {
@@ -414,6 +424,7 @@ bool ModuleRtpRtcpImpl2::SupportsRtxPayloadPadding() const {
 
 std::vector<std::unique_ptr<RtpPacketToSend>>
 ModuleRtpRtcpImpl2::GeneratePadding(size_t target_size_bytes) {
+  // Called from the pacer - either from the pacer ProcessThread or TQ?
   RTC_DCHECK(rtp_sender_);
   return rtp_sender_->packet_generator.GeneratePadding(
       target_size_bytes, rtp_sender_->packet_sender.MediaHasBeenSent());
@@ -422,6 +433,7 @@ ModuleRtpRtcpImpl2::GeneratePadding(size_t target_size_bytes) {
 std::vector<RtpSequenceNumberMap::Info>
 ModuleRtpRtcpImpl2::GetSentRtpPacketInfos(
     rtc::ArrayView<const uint16_t> sequence_numbers) const {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   RTC_DCHECK(rtp_sender_);
   return rtp_sender_->packet_sender.GetSentRtpPacketInfos(sequence_numbers);
 }
@@ -543,6 +555,7 @@ bool ModuleRtpRtcpImpl2::RtcpXrRrtrStatus() const {
 // TODO(asapersson): Replace this method with the one below.
 int32_t ModuleRtpRtcpImpl2::DataCountersRTP(size_t* bytes_sent,
                                             uint32_t* packets_sent) const {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   StreamDataCounters rtp_stats;
   StreamDataCounters rtx_stats;
   rtp_sender_->packet_sender.GetDataCounters(&rtp_stats, &rtx_stats);
@@ -567,6 +580,7 @@ int32_t ModuleRtpRtcpImpl2::DataCountersRTP(size_t* bytes_sent,
 void ModuleRtpRtcpImpl2::GetSendStreamDataCounters(
     StreamDataCounters* rtp_counters,
     StreamDataCounters* rtx_counters) const {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtp_sender_->packet_sender.GetDataCounters(rtp_counters, rtx_counters);
 }
 
@@ -584,19 +598,24 @@ std::vector<ReportBlockData> ModuleRtpRtcpImpl2::GetLatestReportBlockData()
 // (REMB) Receiver Estimated Max Bitrate.
 void ModuleRtpRtcpImpl2::SetRemb(int64_t bitrate_bps,
                                  std::vector<uint32_t> ssrcs) {
+  // Called (at least) on the module process thread.
   rtcp_sender_.SetRemb(bitrate_bps, std::move(ssrcs));
 }
 
 void ModuleRtpRtcpImpl2::UnsetRemb() {
+  // Currently called (initially) on "rtp_send_controller" task queue from
+  // VideoSendStream::VideoSendStream, but that might change.
   rtcp_sender_.UnsetRemb();
 }
 
 void ModuleRtpRtcpImpl2::SetExtmapAllowMixed(bool extmap_allow_mixed) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtp_sender_->packet_generator.SetExtmapAllowMixed(extmap_allow_mixed);
 }
 
 void ModuleRtpRtcpImpl2::RegisterRtpHeaderExtension(absl::string_view uri,
                                                     int id) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   bool registered =
       rtp_sender_->packet_generator.RegisterRtpHeaderExtension(uri, id);
   RTC_CHECK(registered);
@@ -604,10 +623,12 @@ void ModuleRtpRtcpImpl2::RegisterRtpHeaderExtension(absl::string_view uri,
 
 int32_t ModuleRtpRtcpImpl2::DeregisterSendRtpHeaderExtension(
     const RTPExtensionType type) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   return rtp_sender_->packet_generator.DeregisterRtpHeaderExtension(type);
 }
 void ModuleRtpRtcpImpl2::DeregisterSendRtpHeaderExtension(
     absl::string_view uri) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtp_sender_->packet_generator.DeregisterRtpHeaderExtension(uri);
 }
 
@@ -685,6 +706,7 @@ bool ModuleRtpRtcpImpl2::TimeToSendFullNackList(int64_t now) const {
 // Store the sent packets, needed to answer to Negative acknowledgment requests.
 void ModuleRtpRtcpImpl2::SetStorePacketsStatus(const bool enable,
                                                const uint16_t number_to_store) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtp_sender_->packet_history.SetStorePacketsStatus(
       enable ? RtpPacketHistory::StorageMode::kStoreAndCull
              : RtpPacketHistory::StorageMode::kDisabled,
@@ -692,6 +714,7 @@ void ModuleRtpRtcpImpl2::SetStorePacketsStatus(const bool enable,
 }
 
 bool ModuleRtpRtcpImpl2::StorePackets() const {
+  // Called from OnReceivedNack.
   return rtp_sender_->packet_history.GetStorageMode() !=
          RtpPacketHistory::StorageMode::kDisabled;
 }
@@ -705,6 +728,7 @@ int32_t ModuleRtpRtcpImpl2::SendLossNotification(uint16_t last_decoded_seq_num,
                                                  uint16_t last_received_seq_num,
                                                  bool decodability_flag,
                                                  bool buffering_allowed) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   return rtcp_sender_.SendLossNotification(
       GetFeedbackState(), last_decoded_seq_num, last_received_seq_num,
       decodability_flag, buffering_allowed);
@@ -721,6 +745,7 @@ void ModuleRtpRtcpImpl2::BitrateSent(uint32_t* total_rate,
                                      uint32_t* video_rate,
                                      uint32_t* fec_rate,
                                      uint32_t* nack_rate) const {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   RtpSendRates send_rates = rtp_sender_->packet_sender.GetSendRates();
   *total_rate = send_rates.Sum().bps<uint32_t>();
   if (video_rate)
@@ -731,6 +756,7 @@ void ModuleRtpRtcpImpl2::BitrateSent(uint32_t* total_rate,
 }
 
 RtpSendRates ModuleRtpRtcpImpl2::GetSendRates() const {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   return rtp_sender_->packet_sender.GetSendRates();
 }
 
@@ -793,6 +819,7 @@ bool ModuleRtpRtcpImpl2::LastReceivedNTP(
 }
 
 void ModuleRtpRtcpImpl2::set_rtt_ms(int64_t rtt_ms) {
+  RTC_DCHECK_RUN_ON(&process_thread_checker_);
   {
     rtc::CritScope cs(&critical_section_rtt_);
     rtt_ms_ = rtt_ms;
@@ -809,26 +836,18 @@ int64_t ModuleRtpRtcpImpl2::rtt_ms() const {
 
 void ModuleRtpRtcpImpl2::SetVideoBitrateAllocation(
     const VideoBitrateAllocation& bitrate) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   rtcp_sender_.SetVideoBitrateAllocation(bitrate);
 }
 
 RTPSender* ModuleRtpRtcpImpl2::RtpSender() {
+  // Called from multiple threads apparently.
   return rtp_sender_ ? &rtp_sender_->packet_generator : nullptr;
 }
 
 const RTPSender* ModuleRtpRtcpImpl2::RtpSender() const {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   return rtp_sender_ ? &rtp_sender_->packet_generator : nullptr;
-}
-
-DataRate ModuleRtpRtcpImpl2::SendRate() const {
-  RTC_DCHECK(rtp_sender_);
-  return rtp_sender_->packet_sender.GetSendRates().Sum();
-}
-
-DataRate ModuleRtpRtcpImpl2::NackOverheadRate() const {
-  RTC_DCHECK(rtp_sender_);
-  return rtp_sender_->packet_sender
-      .GetSendRates()[RtpPacketMediaType::kRetransmission];
 }
 
 }  // namespace webrtc

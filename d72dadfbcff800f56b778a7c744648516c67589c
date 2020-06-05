@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f435f01c_d83bb7da",
+        "filename": "modules/audio_processing/aec3/render_delay_buffer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-06-05T16:19:55Z",
+      "side": 1,
+      "message": "Without the changes to render_delay_buffer.cc in this CL, this test case triggers a DCHECK in block_buffer.h.\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/audio_processing/aec3/block_buffer.h;l\u003d43;drc\u003d7dc15fb114a4483abae541847b9abc311cbe8eda?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "range": {
+        "startLine": 112,
+        "startChar": 34,
+        "endLine": 112,
+        "endChar": 38
+      },
+      "revId": "d72dadfbcff800f56b778a7c744648516c67589c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

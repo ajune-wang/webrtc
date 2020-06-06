@@ -39,6 +39,20 @@ class RtpRtcp : public Module, public RtpRtcpInterface {
       RTPExtensionType type,
       uint8_t id) = 0;
 
+  // (APP) Sets application specific data.
+  // Returns -1 on failure else 0.
+  RTC_DEPRECATED virtual int32_t SetRTCPApplicationSpecificData(
+      uint8_t sub_type,
+      uint32_t name,
+      const uint8_t* data,
+      uint16_t length) = 0;
+
+  // Returns statistics of the amount of data sent.
+  // Returns -1 on failure else 0.
+  RTC_DEPRECATED virtual int32_t DataCountersRTP(
+      size_t* bytes_sent,
+      uint32_t* packets_sent) const = 0;
+
   // Requests new key frame.
   // using PLI, https://tools.ietf.org/html/rfc4585#section-6.3.1.1
   void SendPictureLossIndication() { SendRTCP(kRtcpPli); }

@@ -144,10 +144,6 @@ class MockRtpRtcpInterface : public RtpRtcpInterface {
               (const, override));
   MOCK_METHOD(int64_t, ExpectedRetransmissionTimeMs, (), (const, override));
   MOCK_METHOD(int32_t, SendRTCP, (RTCPPacketType packet_type), (override));
-  MOCK_METHOD(int32_t,
-              DataCountersRTP,
-              (size_t * bytes_sent, uint32_t* packets_sent),
-              (const, override));
   MOCK_METHOD(void,
               GetSendStreamDataCounters,
               (StreamDataCounters*, StreamDataCounters*),
@@ -160,11 +156,6 @@ class MockRtpRtcpInterface : public RtpRtcpInterface {
               GetLatestReportBlockData,
               (),
               (const, override));
-  MOCK_METHOD(
-      int32_t,
-      SetRTCPApplicationSpecificData,
-      (uint8_t sub_type, uint32_t name, const uint8_t* data, uint16_t length),
-      (override));
   MOCK_METHOD(void, SetRtcpXrRrtrStatus, (bool enable), (override));
   MOCK_METHOD(bool, RtcpXrRrtrStatus, (), (const, override));
   MOCK_METHOD(void,

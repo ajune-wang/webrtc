@@ -359,11 +359,6 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   // Returns -1 on failure else 0.
   virtual int32_t SendRTCP(RTCPPacketType rtcp_packet_type) = 0;
 
-  // Returns statistics of the amount of data sent.
-  // Returns -1 on failure else 0.
-  virtual int32_t DataCountersRTP(size_t* bytes_sent,
-                                  uint32_t* packets_sent) const = 0;
-
   // Returns send statistics for the RTP and RTX stream.
   virtual void GetSendStreamDataCounters(
       StreamDataCounters* rtp_counters,
@@ -381,12 +376,6 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   // that pair.
   virtual std::vector<ReportBlockData> GetLatestReportBlockData() const = 0;
 
-  // (APP) Sets application specific data.
-  // Returns -1 on failure else 0.
-  virtual int32_t SetRTCPApplicationSpecificData(uint8_t sub_type,
-                                                 uint32_t name,
-                                                 const uint8_t* data,
-                                                 uint16_t length) = 0;
   // (XR) Sets Receiver Reference Time Report (RTTR) status.
   virtual void SetRtcpXrRrtrStatus(bool enable) = 0;
 

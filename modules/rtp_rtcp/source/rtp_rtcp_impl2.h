@@ -58,15 +58,6 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   static std::unique_ptr<ModuleRtpRtcpImpl2> Create(
       const Configuration& configuration);
 
-  // TODO(tommi): Make implementation private?
-
-  // Returns the number of milliseconds until the module want a worker thread to
-  // call Process.
-  int64_t TimeUntilNextProcess() override;
-
-  // Process any pending tasks such as timeouts.
-  void Process() override;
-
   // Receiver part.
 
   // Called when we receive an RTCP packet.
@@ -286,28 +277,6 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   RTPSender* RtpSender() override;
   const RTPSender* RtpSender() const override;
 
- protected:
-  bool UpdateRTCPReceiveInformationTimers();
-
-  RTPSender* rtp_sender() {
-    return rtp_sender_ ? &rtp_sender_->packet_generator : nullptr;
-  }
-  const RTPSender* rtp_sender() const {
-    return rtp_sender_ ? &rtp_sender_->packet_generator : nullptr;
-  }
-
-  RTCPSender* rtcp_sender() { return &rtcp_sender_; }
-  const RTCPSender* rtcp_sender() const { return &rtcp_sender_; }
-
-  RTCPReceiver* rtcp_receiver() { return &rtcp_receiver_; }
-  const RTCPReceiver* rtcp_receiver() const { return &rtcp_receiver_; }
-
-  Clock* clock() const { return clock_; }
-
-  // TODO(sprang): Remove when usage is gone.
-  DataRate SendRate() const;
-  DataRate NackOverheadRate() const;
-
  private:
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, Rtt);
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImpl2Test, RttForReceiverOnly);
@@ -330,8 +299,16 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   bool TimeToSendFullNackList(int64_t now) const;
 
+  // Returns the number of milliseconds until the module want a worker thread to
+  // call Process.
+  int64_t TimeUntilNextProcess() override;
+
+  // Process any pending tasks such as timeouts.
+  void Process() override;
+
   SequenceChecker construction_thread_checker_;
   SequenceChecker process_thread_checker_;
+  SequenceChecker pacer_thread_checker_;
 
   std::unique_ptr<RtpSenderContext> rtp_sender_;
 

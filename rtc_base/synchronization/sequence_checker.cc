@@ -13,6 +13,8 @@
 #include <dispatch/dispatch.h>
 #endif
 
+#include "rtc_base/strings/string_builder.h"
+
 namespace webrtc {
 namespace {
 // On Mac, returns the label of the current dispatch queue; elsewhere, return
@@ -25,6 +27,12 @@ const void* GetSystemQueueRef() {
 #endif
 }
 }  // namespace
+
+#if RTC_DCHECK_IS_ON
+std::string ExpectationToString(const webrtc::SequenceChecker* checker) {
+  return "Expects: " + checker->Describe();
+}
+#endif
 
 SequenceCheckerImpl::SequenceCheckerImpl()
     : attached_(true),
@@ -60,6 +68,29 @@ void SequenceCheckerImpl::Detach() {
   attached_ = false;
   // We don't need to touch the other members here, they will be
   // reset on the next call to IsCurrent().
+}
+
+std::string SequenceCheckerImpl::Describe() const {
+  const TaskQueueBase* const current_queue = TaskQueueBase::Current();
+  const rtc::PlatformThreadRef current_thread = rtc::CurrentThreadRef();
+  const void* const current_system_queue = GetSystemQueueRef();
+  rtc::CritScope scoped_lock(&lock_);
+  if (!attached_)
+    return "Checker currently not attached.";
+
+  rtc::StringBuilder sb;
+  sb.AppendFormat(
+      "System queue: %p%s, TaskQueue: %p%s, Thread: %p%s\n",
+      valid_system_queue_,
+      valid_system_queue_ == current_system_queue ? "" : " (not current)",
+      valid_queue_, valid_queue_ == current_queue ? "" : " (not current)",
+      // On some systems the type is not a pointer (e.g. unsigned long). Cast it
+      // to const void*, for consistent printing of the value.
+      reinterpret_cast<const void*>(valid_thread_),
+      rtc::IsThreadRefEqual(valid_thread_, current_thread) ? ""
+                                                           : " (not current)");
+
+  return sb.Release();
 }
 
 }  // namespace webrtc

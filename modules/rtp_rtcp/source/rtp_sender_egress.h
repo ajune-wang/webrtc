@@ -29,6 +29,7 @@
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
+namespace internal {
 
 class RtpSenderEgress {
  public:
@@ -144,6 +145,7 @@ class RtpSenderEgress {
       RTC_GUARDED_BY(lock_);
 };
 
+}  // namespace internal
 }  // namespace webrtc
 
 #endif  // MODULES_RTP_RTCP_SOURCE_RTP_SENDER_EGRESS_H_

@@ -317,10 +317,10 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
     // Storage of packets, for retransmissions and padding, if applicable.
     RtpPacketHistory packet_history;
     // Handles final time timestamping/stats/etc and handover to Transport.
-    RtpSenderEgress packet_sender;
+    internal::RtpSenderEgress packet_sender;
     // If no paced sender configured, this class will be used to pass packets
     // from |packet_generator_| to |packet_sender_|.
-    RtpSenderEgress::NonPacedPacketSender non_paced_sender;
+    internal::RtpSenderEgress::NonPacedPacketSender non_paced_sender;
     // Handles creation of RTP packets to be sent.
     RTPSender packet_generator;
   };

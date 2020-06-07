@@ -21,6 +21,7 @@
 #include "rtc_base/logging.h"
 
 namespace webrtc {
+namespace internal {
 namespace {
 constexpr uint32_t kTimestampTicksPerMs = 90;
 constexpr int kSendSideDelayWindowMs = 1000;
@@ -462,4 +463,5 @@ void RtpSenderEgress::UpdateRtpStats(const RtpPacketToSend& packet) {
   }
 }
 
+}  // namespace internal
 }  // namespace webrtc

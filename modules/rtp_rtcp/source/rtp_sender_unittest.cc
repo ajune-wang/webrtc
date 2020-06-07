@@ -221,8 +221,8 @@ struct RtpSenderContext {
             &packet_history_,
             config.paced_sender ? config.paced_sender : &non_paced_sender_) {}
   RtpPacketHistory packet_history_;
-  RtpSenderEgress packet_sender_;
-  RtpSenderEgress::NonPacedPacketSender non_paced_sender_;
+  internal::RtpSenderEgress packet_sender_;
+  internal::RtpSenderEgress::NonPacedPacketSender non_paced_sender_;
   RTPSender packet_generator_;
 };
 
@@ -277,7 +277,7 @@ class RtpSenderTest : public ::testing::TestWithParam<TestConfig> {
     return &rtp_sender_context_->packet_generator_;
   }
 
-  RtpSenderEgress* rtp_egress() {
+  internal::RtpSenderEgress* rtp_egress() {
     RTC_DCHECK(rtp_sender_context_);
     return &rtp_sender_context_->packet_sender_;
   }

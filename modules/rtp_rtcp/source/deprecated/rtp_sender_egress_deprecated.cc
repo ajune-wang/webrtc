@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/rtp_rtcp/source/rtp_sender_egress.h"
+#include "modules/rtp_rtcp/source/deprecated/rtp_sender_egress_deprecated.h"
 
 #include <limits>
 #include <memory>
@@ -21,7 +21,6 @@
 #include "rtc_base/logging.h"
 
 namespace webrtc {
-namespace internal {
 namespace {
 constexpr uint32_t kTimestampTicksPerMs = 90;
 constexpr int kSendSideDelayWindowMs = 1000;
@@ -85,9 +84,7 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
       rtp_sequence_number_map_(need_rtp_packet_infos_
                                    ? std::make_unique<RtpSequenceNumberMap>(
                                          kRtpSequenceNumberMapMaxEntries)
-                                   : nullptr) {
-  RTC_DCHECK(TaskQueueBase::Current());
-}
+                                   : nullptr) {}
 
 void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
                                  const PacedPacketInfo& pacing_info) {
@@ -465,5 +462,4 @@ void RtpSenderEgress::UpdateRtpStats(const RtpPacketToSend& packet) {
   }
 }
 
-}  // namespace internal
 }  // namespace webrtc

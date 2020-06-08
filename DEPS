@@ -8,7 +8,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5177dd5686a668e2fae046ad27cd588093928654',
+  'chromium_revision': 'bb1cd875893ac1f96eb491c7f5e9d6e84934179b',
 }
 
 deps = {
@@ -26,13 +26,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@6d0f4efc06b1f4295445733aa7d4382d4dfdb046',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@d118925ec6a8280f7c293ee78e04e21bc6d6ec58',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@a67f60963b86e077de685e64d70af66e4a0ca90d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@b81d3c846f1c31de354a2c78863013fa0506b9f5',
+    'https://chromium.googlesource.com/chromium/src/third_party@6cc6ace8c3a682e7dd9ad61e72ea05c9ca1afdd8',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -256,7 +256,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@d018c278d3f002bd550e3a007ee9636df9a74675',
+    'https://chromium.googlesource.com/chromium/src/tools@e8e0f5f01e90215da52b46792db81de60eb39fe6',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 

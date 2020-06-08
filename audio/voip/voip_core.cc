@@ -17,6 +17,7 @@
 #include "api/audio_codecs/audio_format.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/synchronization/mutex.h"
 
 namespace webrtc {
 
@@ -134,7 +135,7 @@ absl::optional<ChannelId> VoipCore::CreateChannel(
           process_thread_.get(), audio_mixer_.get(), decoder_factory_);
 
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&lock_);
 
     channel = static_cast<ChannelId>(next_channel_id_);
     channels_[*channel] = audio_channel;
@@ -154,7 +155,7 @@ void VoipCore::ReleaseChannel(ChannelId channel) {
   // Destroy channel outside of the lock.
   rtc::scoped_refptr<AudioChannel> audio_channel;
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&lock_);
 
     auto iter = channels_.find(channel);
     if (iter != channels_.end()) {
@@ -170,7 +171,7 @@ void VoipCore::ReleaseChannel(ChannelId channel) {
 rtc::scoped_refptr<AudioChannel> VoipCore::GetChannel(ChannelId channel) {
   rtc::scoped_refptr<AudioChannel> audio_channel;
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&lock_);
     auto iter = channels_.find(channel);
     if (iter != channels_.end()) {
       audio_channel = iter->second;
@@ -191,7 +192,7 @@ bool VoipCore::UpdateAudioTransportWithSenders() {
   int max_sampling_rate = 8000;
   size_t max_num_channels = 1;
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&lock_);
     // Reserve to prevent run time vector re-allocation.
     audio_senders.reserve(channels_.size());
     for (auto kv : channels_) {
@@ -290,7 +291,7 @@ bool VoipCore::StopPlayout(ChannelId channel) {
 
   bool stop_device = true;
   {
-    rtc::CritScope lock(&lock_);
+    MutexLock lock(&lock_);
     for (auto kv : channels_) {
       rtc::scoped_refptr<AudioChannel>& channel = kv.second;
       if (channel->IsPlaying()) {

@@ -11,6 +11,7 @@
 #include "audio/channel_send_frame_transformer_delegate.h"
 
 #include <utility>
+#include "rtc_base/synchronization/mutex.h"
 
 namespace webrtc {
 namespace {
@@ -77,7 +78,7 @@ void ChannelSendFrameTransformerDelegate::Reset() {
   frame_transformer_->UnregisterTransformedFrameCallback();
   frame_transformer_ = nullptr;
 
-  rtc::CritScope lock(&send_lock_);
+  MutexLock lock(&send_lock_);
   send_frame_callback_ = SendFrameCallback();
 }
 
@@ -97,7 +98,7 @@ void ChannelSendFrameTransformerDelegate::Transform(
 
 void ChannelSendFrameTransformerDelegate::OnTransformedFrame(
     std::unique_ptr<TransformableFrameInterface> frame) {
-  rtc::CritScope lock(&send_lock_);
+  MutexLock lock(&send_lock_);
   if (!send_frame_callback_)
     return;
   rtc::scoped_refptr<ChannelSendFrameTransformerDelegate> delegate = this;
@@ -109,7 +110,7 @@ void ChannelSendFrameTransformerDelegate::OnTransformedFrame(
 
 void ChannelSendFrameTransformerDelegate::SendFrame(
     std::unique_ptr<TransformableFrameInterface> frame) const {
-  rtc::CritScope lock(&send_lock_);
+  MutexLock lock(&send_lock_);
   RTC_DCHECK_RUN_ON(encoder_queue_);
   if (!send_frame_callback_)
     return;

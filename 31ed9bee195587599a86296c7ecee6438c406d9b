@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7f21647f_9904e60a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-08T10:48:35Z",
+      "side": 1,
+      "message": "I was thinking of pretty much that (but with the order corrected as discussed elsewhere)---ideally on two lines with neat columns:\n\n  # Expected: TaskQueue: 0x101804370, System queue: 0x7fff69541330, Thread: 0x10053cdc0\n  # Actual:   TaskQueue: 0x101804470, System queue: 0x7fff69541330, Thread: 0x10053cdc0\n\nHowever, the code knows which of the three was supposed to match but didn\u0027t, so it could be\n\n  # Expected: TaskQueue: 0x101804370, System queue: 0x7fff69541330, Thread: 0x10053cdc0\n  # Actual:   TaskQueue: 0x101804470, System queue: 0x7fff69541330, Thread: 0x10053cdc0\n  # TaskQueue doesn\u0027t match\n\nThe advantage of this compared to what you originally suggested being that it\u0027s possible to find if the same addresses occur elsewhere in the log, e.g. thread addresses in a stack trace.\n\nI don\u0027t mean to make a huge issue of this, though. Feel free to go with your original version if that still makes more sense to you.",
+      "parentUuid": "a36aeaf4_6700cb42",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "833d6eeb_3b198680",
         "filename": "rtc_base/synchronization/sequence_checker.cc",
         "patchSetId": 4
@@ -195,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "4eef3843_eda3807d",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-08T10:48:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "11c7706a_4bcb136a",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "132796da_554179be",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 4
@@ -224,6 +260,24 @@
       "side": 1,
       "message": "(x)-\u003eRunOnExpectationToString() means that all \u0027x\u0027 need to implement that method. That\u0027s rtc::Thread, TaskQueueBase and SequenceChecker. That in turn means circular dependencies. Although in a macro, we can get away with it.\nHowever, for an interface like TaskQueueBase, I\u0027m hesitant to add a utility method like that to the interface - at least right now.\nBut basically, that\u0027s why this is currently implemented as a separate function with overloads and perhaps an overloaded method in the future can do some magic with types other than SequenceChecker.",
       "parentUuid": "132796da_554179be",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d23c568e_36109c33",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-08T10:48:35Z",
+      "side": 1,
+      "message": "Hmm, OK. Though I think it makes sense that everyone who implements IsCurrent could also be required to implement a method that describes why it isn\u0027t current. But I agree it may be inconvenient to require that immediately.\n\nI think the \"dead code\" comment still stands, though; I don\u0027t think you need to bother with separate cases depending on whether DCHECKs are on.",
+      "parentUuid": "3acaab39_b7b5f5db",
       "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

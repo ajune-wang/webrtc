@@ -23,6 +23,7 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "test/gtest.h"
 
@@ -45,19 +46,19 @@ class VideoSourceRestrictionsListenerForTesting
   ~VideoSourceRestrictionsListenerForTesting() override {}
 
   size_t restrictions_updated_count() const {
-    rtc::CritScope crit(&lock_);
+    MutexLock lock(&lock_);
     return restrictions_updated_count_;
   }
   VideoSourceRestrictions restrictions() const {
-    rtc::CritScope crit(&lock_);
+    MutexLock lock(&lock_);
     return restrictions_;
   }
   VideoAdaptationCounters adaptation_counters() const {
-    rtc::CritScope crit(&lock_);
+    MutexLock lock(&lock_);
     return adaptation_counters_;
   }
   rtc::scoped_refptr<Resource> reason() const {
-    rtc::CritScope crit(&lock_);
+    MutexLock lock(&lock_);
     return reason_;
   }
 
@@ -66,7 +67,7 @@ class VideoSourceRestrictionsListenerForTesting
       VideoSourceRestrictions restrictions,
       const VideoAdaptationCounters& adaptation_counters,
       rtc::scoped_refptr<Resource> reason) override {
-    rtc::CritScope crit(&lock_);
+    MutexLock lock(&lock_);
     ++restrictions_updated_count_;
     restrictions_ = restrictions;
     adaptation_counters_ = adaptation_counters;
@@ -74,7 +75,7 @@ class VideoSourceRestrictionsListenerForTesting
   }
 
  private:
-  rtc::CriticalSection lock_;
+  mutable Mutex lock_;
   size_t restrictions_updated_count_ RTC_GUARDED_BY(lock_);
   VideoSourceRestrictions restrictions_ RTC_GUARDED_BY(lock_);
   VideoAdaptationCounters adaptation_counters_ RTC_GUARDED_BY(lock_);

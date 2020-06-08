@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a36aeaf4_6700cb42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-08T07:58:39Z",
+      "side": 1,
+      "message": "Do you mind writing out what the suggestion would look like?\nE.g. do you mean:\n\nSystem queue: 0x7fff69541330 (current: 0x7fff69541330), TaskQueue: 0x101804370 (current: 0x100804370), Thread: 0x10053cdc0 (current: 0x10053cdc0)\n\nTo me it doesn\u0027t seem to be as clear which criteria is met and which is not.",
+      "parentUuid": "0c784c2b_856f0333",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "833d6eeb_3b198680",
         "filename": "rtc_base/synchronization/sequence_checker.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a58f1a6_78db4b58",
+        "filename": "rtc_base/synchronization/sequence_checker.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-08T07:58:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "833d6eeb_3b198680",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "ecc6d718_11aaa750",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-08T07:58:39Z",
+      "side": 1,
+      "message": "I was just thinking about the enable_if. I\u0027ll give it a try.",
+      "parentUuid": "42da65b7_1f8c52c5",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7c8e777_dc64ef79",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 4
@@ -123,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "11c7706a_4bcb136a",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-08T07:58:39Z",
+      "side": 1,
+      "message": "ah, yes, sorry. I was just thinking about \"(unknown thread checker type)\" vs \"\".",
+      "parentUuid": "3cd347b4_1ccaec53",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "132796da_554179be",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 4
@@ -134,6 +206,24 @@
       "writtenOn": "2020-06-08T07:11:04Z",
       "side": 1,
       "message": "This looks slightly messy and repetitive. Can we just have\n\n  #define RTC_DCHECK_RUN_ON(x)                                              \\\n    webrtc::webrtc_seq_check_impl::SequenceCheckerScope seq_check_scope(x); \\\n    RTC_DCHECK((x)-\u003eIsCurrent()) \u003c\u003c (x)-\u003eRunOnExpectationToString()\n\nThe points being that (1) all RUN_ON arguments can be required to have a RunOnExpectationToString() method, and (2) that call is dead code unless RTC_DCHECK_RUN_ON, so we won\u0027t have to pay for it.",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3acaab39_b7b5f5db",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-08T07:58:39Z",
+      "side": 1,
+      "message": "(x)-\u003eRunOnExpectationToString() means that all \u0027x\u0027 need to implement that method. That\u0027s rtc::Thread, TaskQueueBase and SequenceChecker. That in turn means circular dependencies. Although in a macro, we can get away with it.\nHowever, for an interface like TaskQueueBase, I\u0027m hesitant to add a utility method like that to the interface - at least right now.\nBut basically, that\u0027s why this is currently implemented as a separate function with overloads and perhaps an overloaded method in the future can do some magic with types other than SequenceChecker.",
+      "parentUuid": "132796da_554179be",
       "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

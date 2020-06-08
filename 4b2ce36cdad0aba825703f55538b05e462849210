@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "699705fb_bdd4d93f",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-06-08T17:18:15Z",
+      "side": 1,
+      "message": "I suggest you call this header_length_bytes.",
+      "range": {
+        "startLine": 66,
+        "startChar": 15,
+        "endLine": 66,
+        "endChar": 29
+      },
+      "revId": "4b2ce36cdad0aba825703f55538b05e462849210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8a6f5bf_f50d778a",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-06-08T17:18:15Z",
+      "side": 1,
+      "message": "... and this one secondary_length_bytes.",
+      "range": {
+        "startLine": 67,
+        "startChar": 9,
+        "endLine": 67,
+        "endChar": 25
+      },
+      "revId": "4b2ce36cdad0aba825703f55538b05e462849210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49f9f75d_ee04e65a",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-06-08T17:18:15Z",
+      "side": 1,
+      "message": "This equation seems odd to me. The RFC specifies that \"The use of an unsigned offset implies that redundant data must be sent after the primary data, and is hence a time to be subtracted from the current timestamp to determine the timestamp of the data for which this block is the redundancy.\" So I think the difference should always be calculated as info.encoded_timestamp - secondary_info_.encoded_timestamp.\n\nAlso, a typical case where a unit test helps avoid uncertainty.",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 73
+      },
+      "revId": "4b2ce36cdad0aba825703f55538b05e462849210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20633b5f_167604e3",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-06-08T17:18:15Z",
+      "side": 1,
+      "message": "Is this correct?",
+      "range": {
+        "startLine": 120,
+        "startChar": 23,
+        "endLine": 120,
+        "endChar": 38
+      },
+      "revId": "4b2ce36cdad0aba825703f55538b05e462849210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

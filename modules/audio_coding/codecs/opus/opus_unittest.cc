@@ -949,4 +949,20 @@ TEST_P(OpusTest, OpusDecodeRepacketized) {
   EXPECT_EQ(0, WebRtcOpus_DecoderFree(opus_decoder_));
 }
 
+TEST(OpusVadTest, SingleFrame) {
+  const uint8_t celt[] = {0x80};
+  EXPECT_FALSE(WebRtcOpus_PacketHasVad(NULL, 0));
+  EXPECT_TRUE(WebRtcOpus_PacketHasVad(celt, 1));
+
+  uint8_t silk20msMonoVad[] = {0x78, 0x80};
+  EXPECT_TRUE(WebRtcOpus_PacketHasVad(silk20msMonoVad, 2));
+
+  uint8_t silk20msMonoSilence[] = {0x78, 0x00};
+  EXPECT_FALSE(WebRtcOpus_PacketHasVad(silk20msMonoSilence, 2));
+
+  // 20ms stereo, VAD bit set on the side channel.
+  uint8_t silk20msStereoVadSideChannel[] = {0x78 | 0x04, 0x20};
+  EXPECT_TRUE(WebRtcOpus_PacketHasVad(silk20msStereoVadSideChannel, 2));
+}
+
 }  // namespace webrtc

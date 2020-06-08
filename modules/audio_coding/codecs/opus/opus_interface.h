@@ -510,6 +510,20 @@ int WebRtcOpus_FecDurationEst(const uint8_t* payload,
 int WebRtcOpus_PacketHasFec(const uint8_t* payload,
                             size_t payload_length_bytes);
 
+/****************************************************************************
+ * WebRtcOpus_PacketHasVad(...)
+ *
+ * This function detects if an opus packet has the VAD flag set on any frame.
+ * Input:
+ *        - payload              : Encoded data pointer
+ *        - payload_length_bytes : Bytes of encoded data
+ *
+ * Return value                  : 0 - the packet does NOT contain VAD.
+ *                                 1 - the packet contains VAD.
+ */
+int WebRtcOpus_PacketHasVad(const uint8_t* payload,
+                            size_t payload_length_bytes);
+
 #ifdef __cplusplus
 }  // extern "C"
 #endif

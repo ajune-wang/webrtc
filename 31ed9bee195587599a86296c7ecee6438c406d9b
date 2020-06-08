@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33b2f897_67c18e93",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-08T06:42:02Z",
+      "side": 1,
+      "message": "Perhaps we should pick a better name for ToString() as it\u0027s pretty generic. Not sure what though... ExpectationToString()? Diagnostics()?",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2b13ade_74b4b8bb",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-08T06:42:02Z",
+      "side": 1,
+      "message": "hmm.. this might not be necessary anymore",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7c8e777_dc64ef79",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-08T06:42:02Z",
+      "side": 1,
+      "message": "might as well return std::string()",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

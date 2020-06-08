@@ -681,14 +681,19 @@ int WebRtcOpus_FecDurationEst(const uint8_t* payload,
 // This method is based on Definition of the Opus Audio Codec
 // (https://tools.ietf.org/html/rfc6716). Basically, this method is based on
 // parsing the LP layer of an Opus packet, particularly the LBRR flag.
-int WebRtcOpus_PacketHasFec(const uint8_t* payload,
-                            size_t payload_length_bytes) {
+void WebRtcOpus_PacketDecodeFlags(const uint8_t* payload,
+                                  size_t payload_length_bytes,
+                                  bool& has_fec,
+                                  bool& has_vad) {
+  has_fec = false;
+  has_vad = false;
+
   if (payload == NULL || payload_length_bytes == 0)
-    return 0;
+    return;
 
   // In CELT_ONLY mode, packets should not have FEC.
   if (payload[0] & 0x80)
-    return 0;
+    return;
 
   // Max number of frames in an Opus packet is 48.
   opus_int16 frame_sizes[48];
@@ -698,11 +703,11 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
   // since we can only decode the FEC from the first one.
   if (opus_packet_parse(payload, static_cast<opus_int32>(payload_length_bytes),
                         NULL, frame_data, frame_sizes, NULL) < 0) {
-    return 0;
+    return;
   }
 
   if (frame_sizes[0] <= 1) {
-    return 0;
+    return;
   }
 
   // For computing the payload length in ms, the sample rate is not important
@@ -725,7 +730,7 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
       silk_frames = 3;
       break;
     default:
-      return 0;  // It is actually even an invalid packet.
+      return;  // It is actually even an invalid packet.
   }
 
   const int channels = opus_packet_get_nb_channels(payload);
@@ -739,12 +744,23 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
   // the first symbols decoded by the range coder and because they are coded
   // as binary values with uniform probability, they can be extracted directly
   // from the most significant bits of the first byte of compressed data.
-  for (int n = 0; n < channels; n++) {
-    // The LBRR bit for channel 1 is on the (|silk_frames| + 1)-th bit, and
-    // that of channel 2 is on the |(|silk_frames| + 1) * 2 + 1|-th bit.
-    if (frame_data[0][0] & (0x80 >> ((n + 1) * (silk_frames + 1) - 1)))
-      return 1;
+  // See https://tools.ietf.org/html/rfc6716#section-4.2.2.
+  unsigned char mask = 0x80;
+  for (int channel = 0; channel < channels; channel++) {
+    for (int frame = 0; frame < silk_frames; frame++) {
+      has_vad |= frame_data[0][0] & mask;
+      mask >>= 1;
+    }
+    has_fec |= frame_data[0][0] & mask;
+    mask >>= 1;
   }
+}
 
-  return 0;
+int WebRtcOpus_PacketHasFec(const uint8_t* payload,
+                            size_t payload_length_bytes) {
+  bool has_fec;
+  bool has_vad;
+
+  WebRtcOpus_PacketDecodeFlags(payload, payload_length_bytes, has_fec, has_vad);
+  return has_fec;
 }

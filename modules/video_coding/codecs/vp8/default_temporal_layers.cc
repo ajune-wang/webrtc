@@ -44,6 +44,10 @@ constexpr BufferFlags kReference = BufferFlags::kReference;
 constexpr BufferFlags kUpdate = BufferFlags::kUpdate;
 constexpr BufferFlags kReferenceAndUpdate = BufferFlags::kReferenceAndUpdate;
 constexpr FreezeEntropy kFreezeEntropy = FreezeEntropy::kFreezeEntropy;
+constexpr auto kNotPresent = DecodeTargetIndication::kNotPresent;
+constexpr auto kDiscardable = DecodeTargetIndication::kDiscardable;
+constexpr auto kSwitch = DecodeTargetIndication::kSwitch;
+constexpr auto kRequired = DecodeTargetIndication::kRequired;
 
 static constexpr uint8_t kUninitializedPatternIndex =
     std::numeric_limits<uint8_t>::max();
@@ -608,58 +612,81 @@ FrameDependencyStructure DefaultTemporalLayers::GetTemplateStructure(
   FrameDependencyStructure template_structure;
   template_structure.num_decode_targets = num_layers;
 
-  using Builder = GenericFrameInfo::Builder;
   switch (num_layers) {
     case 1: {
-      template_structure.templates = {
-          Builder().T(0).Dtis("S").Build(),
-          Builder().T(0).Dtis("S").Fdiffs({1}).Build(),
-      };
+      static constexpr DecodeTargetIndication kS[1] = {kSwitch};
+      template_structure.templates.resize(2);
+      template_structure.templates[0].T(0).Dtis(kS);
+      template_structure.templates[1].T(0).Dtis(kS).FrameDiffs({1});
       return template_structure;
     }
     case 2: {
-      template_structure.templates = {
-          Builder().T(0).Dtis("SS").Build(),
-          Builder().T(0).Dtis("SS").Fdiffs({2}).Build(),
-          Builder().T(0).Dtis("SR").Fdiffs({2}).Build(),
-          Builder().T(1).Dtis("-S").Fdiffs({1}).Build(),
-          Builder().T(1).Dtis("-D").Fdiffs({1, 2}).Build(),
-      };
+      static constexpr DecodeTargetIndication kSS[2] = {kSwitch, kSwitch};
+      static constexpr DecodeTargetIndication kSR[2] = {kSwitch, kRequired};
+      static constexpr DecodeTargetIndication kNS[2] = {kNotPresent, kSwitch};
+      static constexpr DecodeTargetIndication kND[2] = {kNotPresent,
+                                                        kDiscardable};
+      template_structure.templates.resize(5);
+      template_structure.templates[0].T(0).Dtis(kSS);
+      template_structure.templates[1].T(0).Dtis(kSS).FrameDiffs({2});
+      template_structure.templates[2].T(0).Dtis(kSR).FrameDiffs({2});
+      template_structure.templates[3].T(1).Dtis(kNS).FrameDiffs({1});
+      template_structure.templates[4].T(1).Dtis(kND).FrameDiffs({2, 1});
       return template_structure;
     }
     case 3: {
+      static constexpr DecodeTargetIndication kSSS[3] = {kSwitch, kSwitch,
+                                                         kSwitch};
+      static constexpr DecodeTargetIndication kSRR[3] = {kSwitch, kRequired,
+                                                         kRequired};
+      static constexpr DecodeTargetIndication kNSS[3] = {kNotPresent, kSwitch,
+                                                         kSwitch};
+      static constexpr DecodeTargetIndication kNDS[3] = {kNotPresent,
+                                                         kDiscardable, kSwitch};
+      static constexpr DecodeTargetIndication kNDR[3] = {
+          kNotPresent, kDiscardable, kRequired};
+      static constexpr DecodeTargetIndication kNNS[3] = {kNotPresent,
+                                                         kNotPresent, kSwitch};
+      static constexpr DecodeTargetIndication kNND[3] = {
+          kNotPresent, kNotPresent, kDiscardable};
+
       if (field_trial::IsEnabled("WebRTC-UseShortVP8TL3Pattern")) {
-        template_structure.templates = {
-            Builder().T(0).Dtis("SSS").Build(),
-            Builder().T(0).Dtis("SSS").Fdiffs({4}).Build(),
-            Builder().T(1).Dtis("-DR").Fdiffs({2}).Build(),
-            Builder().T(2).Dtis("--S").Fdiffs({1}).Build(),
-            Builder().T(2).Dtis("--D").Fdiffs({1, 2}).Build(),
-        };
+        template_structure.templates.resize(5);
+        template_structure.templates[0].T(0).Dtis(kSSS);
+        template_structure.templates[1].T(0).Dtis(kSSS).FrameDiffs({4});
+        template_structure.templates[2].T(1).Dtis(kNDR).FrameDiffs({2});
+        template_structure.templates[3].T(2).Dtis(kNNS).FrameDiffs({1});
+        template_structure.templates[4].T(2).Dtis(kNND).FrameDiffs({2, 1});
       } else {
-        template_structure.templates = {
-            Builder().T(0).Dtis("SSS").Build(),
-            Builder().T(0).Dtis("SSS").Fdiffs({4}).Build(),
-            Builder().T(0).Dtis("SRR").Fdiffs({4}).Build(),
-            Builder().T(1).Dtis("-SS").Fdiffs({2}).Build(),
-            Builder().T(1).Dtis("-DS").Fdiffs({2, 4}).Build(),
-            Builder().T(2).Dtis("--D").Fdiffs({1}).Build(),
-            Builder().T(2).Dtis("--D").Fdiffs({1, 3}).Build(),
-        };
+        template_structure.templates.resize(7);
+        template_structure.templates[0].T(0).Dtis(kSSS);
+        template_structure.templates[1].T(0).Dtis(kSSS).FrameDiffs({4});
+        template_structure.templates[2].T(0).Dtis(kSRR).FrameDiffs({4});
+        template_structure.templates[3].T(1).Dtis(kNSS).FrameDiffs({2});
+        template_structure.templates[4].T(1).Dtis(kNDS).FrameDiffs({4, 2});
+        template_structure.templates[5].T(2).Dtis(kNND).FrameDiffs({1});
+        template_structure.templates[6].T(2).Dtis(kNND).FrameDiffs({3, 1});
       }
       return template_structure;
     }
     case 4: {
-      template_structure.templates = {
-          Builder().T(0).Dtis("SSSS").Build(),
-          Builder().T(0).Dtis("SSSS").Fdiffs({8}).Build(),
-          Builder().T(1).Dtis("-SRR").Fdiffs({4}).Build(),
-          Builder().T(1).Dtis("-SRR").Fdiffs({4, 8}).Build(),
-          Builder().T(2).Dtis("--SR").Fdiffs({2}).Build(),
-          Builder().T(2).Dtis("--SR").Fdiffs({2, 4}).Build(),
-          Builder().T(3).Dtis("---D").Fdiffs({1}).Build(),
-          Builder().T(3).Dtis("---D").Fdiffs({1, 3}).Build(),
-      };
+      static constexpr DecodeTargetIndication kSSSS[4] = {kSwitch, kSwitch,
+                                                          kSwitch, kSwitch};
+      static constexpr DecodeTargetIndication kNSRR[4] = {kNotPresent, kSwitch,
+                                                          kRequired, kRequired};
+      static constexpr DecodeTargetIndication kNNSR[4] = {
+          kNotPresent, kNotPresent, kSwitch, kRequired};
+      static constexpr DecodeTargetIndication kNNND[4] = {
+          kNotPresent, kNotPresent, kNotPresent, kDiscardable};
+      template_structure.templates.resize(8);
+      template_structure.templates[0].T(0).Dtis(kSSSS);
+      template_structure.templates[1].T(0).Dtis(kSSSS).FrameDiffs({8});
+      template_structure.templates[2].T(1).Dtis(kNSRR).FrameDiffs({4});
+      template_structure.templates[3].T(1).Dtis(kNSRR).FrameDiffs({4, 8});
+      template_structure.templates[4].T(2).Dtis(kNNSR).FrameDiffs({2});
+      template_structure.templates[5].T(2).Dtis(kNNSR).FrameDiffs({2, 4});
+      template_structure.templates[6].T(3).Dtis(kNNND).FrameDiffs({1});
+      template_structure.templates[7].T(3).Dtis(kNNND).FrameDiffs({1, 3});
       return template_structure;
     }
     default:

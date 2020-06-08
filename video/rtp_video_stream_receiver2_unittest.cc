@@ -49,7 +49,8 @@ namespace webrtc {
 
 namespace {
 
-const uint8_t kH264StartCode[] = {0x00, 0x00, 0x00, 0x01};
+constexpr uint8_t kH264StartCode[] = {0x00, 0x00, 0x00, 0x01};
+constexpr DecodeTargetIndication kS[1] = {DecodeTargetIndication::kSwitch};
 
 std::vector<uint64_t> GetAbsoluteCaptureTimestamps(
     const video_coding::EncodedFrame* frame) {
@@ -970,8 +971,8 @@ class RtpVideoStreamReceiver2DependencyDescriptorTest
     FrameDependencyStructure stream_structure;
     stream_structure.num_decode_targets = 1;
     stream_structure.templates = {
-        GenericFrameInfo::Builder().Dtis("S").Build(),
-        GenericFrameInfo::Builder().Dtis("S").Fdiffs({1}).Build(),
+        FrameDependencyTemplate().Dtis(kS),
+        FrameDependencyTemplate().Dtis(kS).FrameDiffs({1}),
     };
     return stream_structure;
   }

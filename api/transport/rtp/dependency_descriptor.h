@@ -13,11 +13,13 @@
 
 #include <stdint.h>
 
+#include <initializer_list>
 #include <memory>
 #include <vector>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 
 namespace webrtc {
 // Structures to build and parse dependency descriptor as described in
@@ -52,6 +54,14 @@ enum class DecodeTargetIndication {
 };
 
 struct FrameDependencyTemplate {
+  // Setters are named briefly to chain them when building the struct.
+  FrameDependencyTemplate& S(int spatial_id);
+  FrameDependencyTemplate& T(int temporal_id);
+  FrameDependencyTemplate& Dtis(
+      rtc::ArrayView<const DecodeTargetIndication> dtis);
+  FrameDependencyTemplate& FrameDiffs(std::initializer_list<int> frame_diffs);
+  FrameDependencyTemplate& ChainDiffs(std::initializer_list<int> chain_diffs);
+
   friend bool operator==(const FrameDependencyTemplate& lhs,
                          const FrameDependencyTemplate& rhs) {
     return lhs.spatial_id == rhs.spatial_id &&
@@ -98,6 +108,31 @@ struct DependencyDescriptor {
   absl::optional<uint32_t> active_decode_targets_bitmask;
   std::unique_ptr<FrameDependencyStructure> attached_structure;
 };
+
+// Below are implementation details.
+inline FrameDependencyTemplate& FrameDependencyTemplate::S(int spatial_id) {
+  this->spatial_id = spatial_id;
+  return *this;
+}
+inline FrameDependencyTemplate& FrameDependencyTemplate::T(int temporal_id) {
+  this->temporal_id = temporal_id;
+  return *this;
+}
+inline FrameDependencyTemplate& FrameDependencyTemplate::Dtis(
+    rtc::ArrayView<const DecodeTargetIndication> dtis) {
+  this->decode_target_indications.assign(dtis.begin(), dtis.end());
+  return *this;
+}
+inline FrameDependencyTemplate& FrameDependencyTemplate::FrameDiffs(
+    std::initializer_list<int> frame_diffs) {
+  this->frame_diffs.assign(frame_diffs.begin(), frame_diffs.end());
+  return *this;
+}
+inline FrameDependencyTemplate& FrameDependencyTemplate::ChainDiffs(
+    std::initializer_list<int> chain_diffs) {
+  this->chain_diffs.assign(chain_diffs.begin(), chain_diffs.end());
+  return *this;
+}
 
 }  // namespace webrtc
 

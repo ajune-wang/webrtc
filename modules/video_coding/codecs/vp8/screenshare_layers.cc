@@ -36,6 +36,8 @@ constexpr int kMinTimeBetweenSyncs = kOneSecond90Khz * 2;
 constexpr int kMaxTimeBetweenSyncs = kOneSecond90Khz * 4;
 constexpr int kQpDeltaThresholdForSync = 8;
 constexpr int kMinBitrateKbpsForQpBoost = 500;
+constexpr auto kNotPresent = DecodeTargetIndication::kNotPresent;
+constexpr auto kSwitch = DecodeTargetIndication::kSwitch;
 }  // namespace
 
 const double ScreenshareLayers::kMaxTL0FpsReduction = 2.5;
@@ -429,21 +431,21 @@ FrameDependencyStructure ScreenshareLayers::GetTemplateStructure(
   FrameDependencyStructure template_structure;
   template_structure.num_decode_targets = num_layers;
 
-  using Builder = GenericFrameInfo::Builder;
   switch (num_layers) {
     case 1: {
-      template_structure.templates = {
-          Builder().T(0).Dtis("S").Build(),
-          Builder().T(0).Dtis("S").Fdiffs({1}).Build(),
-      };
+      constexpr DecodeTargetIndication kS[1] = {kSwitch};
+      template_structure.templates.resize(2);
+      template_structure.templates[0].T(0).Dtis(kS);
+      template_structure.templates[1].T(0).Dtis(kS).FrameDiffs({1});
       return template_structure;
     }
     case 2: {
-      template_structure.templates = {
-          Builder().T(0).Dtis("SS").Build(),
-          Builder().T(0).Dtis("SS").Fdiffs({1}).Build(),
-          Builder().T(1).Dtis("-S").Fdiffs({1}).Build(),
-      };
+      constexpr DecodeTargetIndication kSS[2] = {kSwitch};
+      constexpr DecodeTargetIndication kNS[2] = {kNotPresent, kSwitch};
+      template_structure.templates.resize(3);
+      template_structure.templates[0].T(0).Dtis(kSS);
+      template_structure.templates[1].T(0).Dtis(kSS).FrameDiffs({1});
+      template_structure.templates[2].T(1).Dtis(kNS).FrameDiffs({1});
       return template_structure;
     }
     default:

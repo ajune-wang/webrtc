@@ -26,13 +26,23 @@ constexpr auto kSwitch = DecodeTargetIndication::kSwitch;
 constexpr auto kRequired = DecodeTargetIndication::kRequired;
 
 // decode targets: S0T0, S0T1, S1T0, S1T1
-constexpr DecodeTargetIndication kDtis[6][4] = {
-    {kSwitch, kSwitch, kSwitch, kSwitch},                   // kKey, S0
-    {kNotPresent, kNotPresent, kSwitch, kSwitch},           // kKey, S1
-    {kNotPresent, kDiscardable, kNotPresent, kRequired},    // kDeltaT1, S0
-    {kNotPresent, kNotPresent, kNotPresent, kDiscardable},  // kDeltaT1, S1
-    {kSwitch, kSwitch, kRequired, kRequired},               // kDeltaT0, S0
-    {kNotPresent, kNotPresent, kSwitch, kSwitch},           // kDeltaT0, S1
+constexpr std::array<DecodeTargetIndication, 4> kSSSS = {kSwitch, kSwitch,
+                                                         kSwitch, kSwitch};
+constexpr std::array<DecodeTargetIndication, 4> kNNSS = {
+    kNotPresent, kNotPresent, kSwitch, kSwitch};
+constexpr std::array<DecodeTargetIndication, 4> kNDNR = {
+    kNotPresent, kDiscardable, kNotPresent, kRequired};
+constexpr std::array<DecodeTargetIndication, 4> kNNND = {
+    kNotPresent, kNotPresent, kNotPresent, kDiscardable};
+constexpr std::array<DecodeTargetIndication, 4> kSSRR = {kSwitch, kSwitch,
+                                                         kRequired, kRequired};
+constexpr std::array<DecodeTargetIndication, 4> kDtis[6] = {
+    kSSSS,  // kKey, S0
+    kNNSS,  // kKey, S1
+    kNDNR,  // kDeltaT1, S0
+    kNNND,  // kDeltaT1, S1
+    kSSRR,  // kDeltaT0, S0
+    kNNSS,  // kDeltaT0, S1
 };
 
 }  // namespace
@@ -48,31 +58,18 @@ ScalabilityStructureL2T2::StreamConfig() const {
 }
 
 FrameDependencyStructure ScalabilityStructureL2T2::DependencyStructure() const {
-  using Builder = GenericFrameInfo::Builder;
   FrameDependencyStructure structure;
   structure.num_decode_targets = 4;
   structure.num_chains = 2;
   structure.decode_target_protected_by_chain = {0, 0, 1, 1};
-  structure.templates = {
-      Builder().S(0).T(0).Dtis("SSSS").ChainDiffs({0, 0}).Build(),
-      Builder().S(0).T(0).Dtis("SSRR").Fdiffs({4}).ChainDiffs({4, 3}).Build(),
-      Builder().S(0).T(1).Dtis("-D-R").Fdiffs({2}).ChainDiffs({2, 1}).Build(),
-      Builder().S(1).T(0).Dtis("--SS").Fdiffs({1}).ChainDiffs({1, 1}).Build(),
-      Builder()
-          .S(1)
-          .T(0)
-          .Dtis("--SS")
-          .Fdiffs({4, 1})
-          .ChainDiffs({1, 1})
-          .Build(),
-      Builder()
-          .S(1)
-          .T(1)
-          .Dtis("---D")
-          .Fdiffs({2, 1})
-          .ChainDiffs({3, 2})
-          .Build(),
-  };
+  structure.templates.resize(6);
+  auto& templates = structure.templates;
+  templates[0].S(0).T(0).Dtis(kSSSS).ChainDiffs({0, 0});
+  templates[1].S(0).T(0).Dtis(kSSRR).ChainDiffs({4, 3}).FrameDiffs({4});
+  templates[2].S(0).T(1).Dtis(kNDNR).ChainDiffs({2, 1}).FrameDiffs({2});
+  templates[3].S(1).T(0).Dtis(kNNSS).ChainDiffs({1, 1}).FrameDiffs({1});
+  templates[4].S(1).T(0).Dtis(kNNSS).ChainDiffs({1, 1}).FrameDiffs({4, 1});
+  templates[5].S(1).T(1).Dtis(kNNND).ChainDiffs({3, 2}).FrameDiffs({2, 1});
   return structure;
 }
 

@@ -24,10 +24,12 @@ constexpr auto kNotPresent = DecodeTargetIndication::kNotPresent;
 constexpr auto kDiscardable = DecodeTargetIndication::kDiscardable;
 constexpr auto kSwitch = DecodeTargetIndication::kSwitch;
 
-constexpr DecodeTargetIndication kDtis[3][2] = {
-    {kSwitch, kSwitch},           // KeyFrame
-    {kNotPresent, kDiscardable},  // DeltaFrame T1
-    {kSwitch, kSwitch},           // DeltaFrame T0
+constexpr std::array<DecodeTargetIndication, 2> kSS = {kSwitch, kSwitch};
+constexpr std::array<DecodeTargetIndication, 2> kND = {kNotPresent,
+                                                       kDiscardable};
+constexpr std::array<DecodeTargetIndication, 2> kDtis[2] = {
+    kSS,  // T0
+    kND,  // T1
 };
 
 }  // namespace
@@ -43,16 +45,14 @@ ScalabilityStructureL1T2::StreamConfig() const {
 }
 
 FrameDependencyStructure ScalabilityStructureL1T2::DependencyStructure() const {
-  using Builder = GenericFrameInfo::Builder;
   FrameDependencyStructure structure;
   structure.num_decode_targets = 2;
   structure.num_chains = 1;
   structure.decode_target_protected_by_chain = {0, 0};
-  structure.templates = {
-      Builder().T(0).Dtis("SS").ChainDiffs({0}).Build(),
-      Builder().T(0).Dtis("SS").ChainDiffs({2}).Fdiffs({2}).Build(),
-      Builder().T(1).Dtis("-D").ChainDiffs({1}).Fdiffs({1}).Build(),
-  };
+  structure.templates.resize(3);
+  structure.templates[0].T(0).Dtis(kSS).ChainDiffs({0});
+  structure.templates[1].T(0).Dtis(kSS).ChainDiffs({2}).FrameDiffs({2});
+  structure.templates[2].T(1).Dtis(kND).ChainDiffs({1}).FrameDiffs({1});
   return structure;
 }
 
@@ -65,21 +65,18 @@ ScalabilityStructureL1T2::NextFrameConfig(bool restart) {
 
   switch (next_pattern_) {
     case kKeyFrame:
-      result[0].id = 0;
       result[0].temporal_id = 0;
       result[0].is_keyframe = true;
       result[0].buffers = {{/*id=*/0, /*references=*/false, /*updates=*/true}};
       next_pattern_ = kDeltaFrameT1;
       break;
     case kDeltaFrameT1:
-      result[0].id = 1;
       result[0].temporal_id = 1;
       result[0].is_keyframe = false;
       result[0].buffers = {{/*id=*/0, /*references=*/true, /*updates=*/false}};
       next_pattern_ = kDeltaFrameT0;
       break;
     case kDeltaFrameT0:
-      result[0].id = 2;
       result[0].temporal_id = 0;
       result[0].is_keyframe = false;
       result[0].buffers = {{/*id=*/0, /*references=*/true, /*updates=*/true}};
@@ -99,15 +96,17 @@ absl::optional<GenericFrameInfo> ScalabilityStructureL1T2::OnEncodeDone(
   }
 
   absl::optional<GenericFrameInfo> frame_info;
-  if (config.id < 0 || config.id >= int{ABSL_ARRAYSIZE(kDtis)}) {
-    RTC_LOG(LS_ERROR) << "Unexpected config id " << config.id;
+  if (config.temporal_id < 0 ||
+      config.temporal_id >= int{ABSL_ARRAYSIZE(kDtis)}) {
+    RTC_LOG(LS_ERROR) << "Unexpected temporal id " << config.temporal_id;
     return frame_info;
   }
   frame_info.emplace();
   frame_info->temporal_id = config.temporal_id;
   frame_info->encoder_buffers = std::move(config.buffers);
-  frame_info->decode_target_indications.assign(std::begin(kDtis[config.id]),
-                                               std::end(kDtis[config.id]));
+  frame_info->decode_target_indications.assign(
+      std::begin(kDtis[config.temporal_id]),
+      std::end(kDtis[config.temporal_id]));
   frame_info->part_of_chain = {config.temporal_id == 0};
   return frame_info;
 }

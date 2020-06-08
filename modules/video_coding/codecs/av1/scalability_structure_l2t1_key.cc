@@ -23,10 +23,13 @@ namespace {
 constexpr auto kNotPresent = DecodeTargetIndication::kNotPresent;
 constexpr auto kSwitch = DecodeTargetIndication::kSwitch;
 
-constexpr DecodeTargetIndication kDtis[3][2] = {
-    {kSwitch, kSwitch},      // Key, S0
-    {kSwitch, kNotPresent},  // Delta, S0
-    {kNotPresent, kSwitch},  // Key and Delta, S1
+constexpr std::array<DecodeTargetIndication, 2> kSS = {kSwitch, kSwitch};
+constexpr std::array<DecodeTargetIndication, 2> kSN = {kSwitch, kNotPresent};
+constexpr std::array<DecodeTargetIndication, 2> kNS = {kNotPresent, kSwitch};
+constexpr std::array<DecodeTargetIndication, 2> kDtis[3] = {
+    kSS,  // Key, S0
+    kSN,  // Delta, S0
+    kNS,  // Key and Delta, S1
 };
 
 }  // namespace
@@ -43,17 +46,15 @@ ScalabilityStructureL2T1Key::StreamConfig() const {
 
 FrameDependencyStructure ScalabilityStructureL2T1Key::DependencyStructure()
     const {
-  using Builder = GenericFrameInfo::Builder;
   FrameDependencyStructure structure;
   structure.num_decode_targets = 2;
   structure.num_chains = 2;
   structure.decode_target_protected_by_chain = {0, 1};
-  structure.templates = {
-      Builder().S(0).Dtis("S-").Fdiffs({2}).ChainDiffs({2, 1}).Build(),
-      Builder().S(0).Dtis("SS").ChainDiffs({0, 0}).Build(),
-      Builder().S(1).Dtis("-S").Fdiffs({2}).ChainDiffs({1, 2}).Build(),
-      Builder().S(1).Dtis("-S").Fdiffs({1}).ChainDiffs({1, 1}).Build(),
-  };
+  structure.templates.resize(4);
+  structure.templates[0].S(0).Dtis(kSN).ChainDiffs({2, 1}).FrameDiffs({2});
+  structure.templates[1].S(0).Dtis(kSS).ChainDiffs({0, 0});
+  structure.templates[2].S(1).Dtis(kNS).ChainDiffs({1, 2}).FrameDiffs({2});
+  structure.templates[3].S(1).Dtis(kNS).ChainDiffs({1, 1}).FrameDiffs({1});
   return structure;
 }
 

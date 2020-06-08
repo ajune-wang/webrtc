@@ -40,6 +40,7 @@ enum PreservedErrno {
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/string_utils.h"
+#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
 #include "rtc_base/trace_event.h"
@@ -84,7 +85,7 @@ class SctpTransportMap {
 
   // Assigns a new unused ID to the following transport.
   uintptr_t Register(cricket::SctpTransport* transport) {
-    rtc::CritScope cs(&lock_);
+    webrtc::MutexLock lock(&lock_);
     // usrsctp_connect fails with a value of 0...
     if (next_id_ == 0) {
       ++next_id_;
@@ -103,12 +104,12 @@ class SctpTransportMap {
 
   // Returns true if found.
   bool Deregister(uintptr_t id) {
-    rtc::CritScope cs(&lock_);
+    webrtc::MutexLock lock(&lock_);
     return map_.erase(id) > 0;
   }
 
   cricket::SctpTransport* Retrieve(uintptr_t id) const {
-    rtc::CritScope cs(&lock_);
+    webrtc::MutexLock lock(&lock_);
     auto it = map_.find(id);
     if (it == map_.end()) {
       return nullptr;
@@ -117,7 +118,7 @@ class SctpTransportMap {
   }
 
  private:
-  rtc::CriticalSection lock_;
+  mutable webrtc::Mutex lock_;
 
   uintptr_t next_id_ RTC_GUARDED_BY(lock_) = 0;
   std::unordered_map<uintptr_t, cricket::SctpTransport*> map_

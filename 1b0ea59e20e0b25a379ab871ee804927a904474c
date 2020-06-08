@@ -46,6 +46,30 @@
       "revId": "1b0ea59e20e0b25a379ab871ee804927a904474c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "210251db_bfd3a39f",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-08T10:01:45Z",
+      "side": 1,
+      "message": "That sections talks about the Silk subframes and the VAD flags for those Silk subframes. All of those flags are all stored in the first byte of the Silk payload. On top of that you might have sereral frames in the Opus payload.\n\nAs an example, you can have a 120 ms Opus payload that is composed of 2 Silk payloads. Each Silk payload would corresponds to a 60 ms Silk frame. Internally, those 60 ms Silk frames are composed of 3 Silk subframes each one of 20 ms. That first byte of each Silk frame would have 3 bits that tells you the VAD flag of each of those subframes. So, for that example you will have 2 frames in that Opus payload, opus_packet_parse will return a number 2 and frames[0] would point out to the first Silk frame (composed of 3 Silk subframes), frames[1] would point out to the second Silk frame (composed of 3 Silk subframes). I hope this example clarifies a bit all this confusion about the number of Opus frames and number of Silk subframes.",
+      "parentUuid": "5af534eb_72dcb1b7",
+      "range": {
+        "startLine": 751,
+        "startChar": 27,
+        "endLine": 751,
+        "endChar": 31
+      },
+      "revId": "1b0ea59e20e0b25a379ab871ee804927a904474c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

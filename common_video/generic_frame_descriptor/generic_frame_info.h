@@ -54,8 +54,6 @@ class GenericFrameInfo::Builder {
   Builder& T(int temporal_id);
   Builder& S(int spatial_id);
   Builder& Dtis(absl::string_view indication_symbols);
-  Builder& Fdiffs(std::initializer_list<int> frame_diffs);
-  Builder& ChainDiffs(std::initializer_list<int> chain_diffs);
 
  private:
   GenericFrameInfo info_;

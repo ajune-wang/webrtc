@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96562d2e_c9104a81",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-08T08:51:21Z",
+      "side": 1,
+      "message": "If the opus payload has more than one frame you are just using getting the information about the first frame. \n\nI would leave the WebRtcOpus_PacketHasFec method as it was and I would create a new one for extracting the VAD flags. \n\nIn my opinion, the opus_packet_parse is sufficiently cheap and we can afford calling it twice.",
+      "range": {
+        "startLine": 751,
+        "startChar": 27,
+        "endLine": 751,
+        "endChar": 31
+      },
+      "revId": "1b0ea59e20e0b25a379ab871ee804927a904474c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

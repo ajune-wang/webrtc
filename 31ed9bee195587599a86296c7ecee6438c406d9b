@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "0c784c2b_856f0333",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-08T07:11:04Z",
+      "side": 1,
+      "message": "Instead of printing/not printing \"(not current)\", could you simply print the current and expected values for these three? That provides more information and might even be easier to read.",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "833d6eeb_3b198680",
+        "filename": "rtc_base/synchronization/sequence_checker.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-08T07:11:04Z",
+      "side": 1,
+      "message": "Print task queue before system queue, to match the order they\u0027re checked in IsCurrent()?",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33b2f897_67c18e93",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 4
@@ -36,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "42da65b7_1f8c52c5",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-08T07:11:04Z",
+      "side": 1,
+      "message": "I\u0027m guessing it is, but I may well be wrong. Try compiling without it? Or are you talking about this whole function, not just the enable_if?",
+      "parentUuid": "d2b13ade_74b4b8bb",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7c8e777_dc64ef79",
         "filename": "rtc_base/synchronization/sequence_checker.h",
         "patchSetId": 4
@@ -47,6 +99,41 @@
       "writtenOn": "2020-06-08T06:42:02Z",
       "side": 1,
       "message": "might as well return std::string()",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cd347b4_1ccaec53",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-08T07:11:04Z",
+      "side": 1,
+      "message": "The return type is std::string, so the compiler will do an implicit const char* -\u003e std::string conversion for you.",
+      "parentUuid": "d7c8e777_dc64ef79",
+      "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "132796da_554179be",
+        "filename": "rtc_base/synchronization/sequence_checker.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-08T07:11:04Z",
+      "side": 1,
+      "message": "This looks slightly messy and repetitive. Can we just have\n\n  #define RTC_DCHECK_RUN_ON(x)                                              \\\n    webrtc::webrtc_seq_check_impl::SequenceCheckerScope seq_check_scope(x); \\\n    RTC_DCHECK((x)-\u003eIsCurrent()) \u003c\u003c (x)-\u003eRunOnExpectationToString()\n\nThe points being that (1) all RUN_ON arguments can be required to have a RunOnExpectationToString() method, and (2) that call is dead code unless RTC_DCHECK_RUN_ON, so we won\u0027t have to pay for it.",
       "revId": "31ed9bee195587599a86296c7ecee6438c406d9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

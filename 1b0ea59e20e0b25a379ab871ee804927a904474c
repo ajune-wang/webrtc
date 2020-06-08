@@ -22,6 +22,30 @@
       "revId": "1b0ea59e20e0b25a379ab871ee804927a904474c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5af534eb_72dcb1b7",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-08T08:57:13Z",
+      "side": 1,
+      "message": "that is what I thought too for a while but then i looked at the examples in\nhttps://tools.ietf.org/html/rfc6716#section-4.2.2\nwhich have multiple frames but still have the flags on the first byte of the first frame (which for variable length coding may not be immediately after the TOC byte which is why it still makes sense to use opus_packet_parse)",
+      "parentUuid": "96562d2e_c9104a81",
+      "range": {
+        "startLine": 751,
+        "startChar": 27,
+        "endLine": 751,
+        "endChar": 31
+      },
+      "revId": "1b0ea59e20e0b25a379ab871ee804927a904474c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

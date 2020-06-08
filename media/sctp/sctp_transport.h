@@ -99,6 +99,9 @@ class SctpTransport : public SctpTransportInternal,
   // TODO(deadbeef): Remove this or at least make it return a const pointer.
   rtc::Thread* network_thread() const { return network_thread_; }
 
+  // Hides usrsctp interactions from this header file.
+  class UsrSctpWrapper;
+
  private:
   // A message to be sent by the sctp library. This class is used to track the
   // progress of writing a single message to the sctp library in the presence of
@@ -262,8 +265,7 @@ class SctpTransport : public SctpTransportInternal,
 
   // A static human-readable name for debugging messages.
   const char* debug_name_ = "SctpTransport";
-  // Hides usrsctp interactions from this header file.
-  class UsrSctpWrapper;
+
   // Number of channels negotiated. Not set before negotiation completes.
   absl::optional<int> max_outbound_streams_;
   absl::optional<int> max_inbound_streams_;

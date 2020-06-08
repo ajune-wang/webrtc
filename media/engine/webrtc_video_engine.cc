@@ -2964,7 +2964,7 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::OnFrame(
     const webrtc::VideoFrame& frame) {
-  rtc::CritScope crit(&sink_lock_);
+  webrtc::MutexLock lock(&sink_lock_);
 
   int64_t time_now_ms = rtc::TimeMillis();
   if (first_frame_timestamp_ < 0)
@@ -3009,7 +3009,7 @@ int WebRtcVideoChannel::WebRtcVideoReceiveStream::GetBaseMinimumPlayoutDelayMs()
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetSink(
     rtc::VideoSinkInterface<webrtc::VideoFrame>* sink) {
-  rtc::CritScope crit(&sink_lock_);
+  webrtc::MutexLock lock(&sink_lock_);
   sink_ = sink;
 }
 
@@ -3049,7 +3049,7 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   info.frame_height = stats.height;
 
   {
-    rtc::CritScope frame_cs(&sink_lock_);
+    webrtc::MutexLock frame_cs(&sink_lock_);
     info.capture_start_ntp_time_ms = estimated_remote_start_ntp_time_ms_;
   }
 

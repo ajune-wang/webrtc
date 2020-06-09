@@ -268,11 +268,12 @@ class VideoStreamEncoderResourceManager
         : resource(resource), reason(reason) {}
     virtual ~ResourceAndReason() = default;
 
-    const rtc::scoped_refptr<Resource> resource;
-    const VideoAdaptationReason reason;
+    rtc::scoped_refptr<Resource> resource;
+    VideoAdaptationReason reason;
   };
   rtc::CriticalSection resource_lock_;
   std::vector<ResourceAndReason> resources_ RTC_GUARDED_BY(&resource_lock_);
+  void RemoveResource(const rtc::scoped_refptr<Resource>& resource);
 };
 
 }  // namespace webrtc

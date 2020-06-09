@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "af08b0a7_823fcc6c",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-09T12:11:20Z",
+      "side": 1,
+      "message": "and then when setting info.speech in the encoder we check if the result is unset and then set it to true anyway (which would give the same result as the current !dtx logic)? Mostly a question where we accept that we\u0027re not correct.",
+      "parentUuid": "8ddbca82_e83a0c34",
+      "range": {
+        "startLine": 766,
+        "startChar": 11,
+        "endLine": 766,
+        "endChar": 13
+      },
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52e5384b_0d9d430b",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
         "patchSetId": 1
@@ -83,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "112ee3a7_65ab8650",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-09T12:11:20Z",
+      "side": 1,
+      "message": "Changed in ...HasFec for consistency.",
+      "parentUuid": "0c56f182_33f6c355",
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b15d7a6_d14b763d",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
         "patchSetId": 1
@@ -94,6 +136,30 @@
       "writtenOn": "2020-06-09T08:32:47Z",
       "side": 1,
       "message": "nit: \n  unsigned char silk_toc \u003d frame_data[frame][0];\n  if (silk_toc \u003e\u003e 8 - silk_frames) {\n    return 1;\n  }\n  if (( channels \u003d\u003d 2) \u0026\u0026 (silk_toc \u003c\u003c silk_frames + 1) \u003e\u003e 8 - silk_frames){\n    return 1;\n  }",
+      "range": {
+        "startLine": 792,
+        "startChar": 1,
+        "endLine": 801,
+        "endChar": 5
+      },
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8de8ad54_26da5584",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-09T12:11:20Z",
+      "side": 1,
+      "message": "That is easier to understand. Should I \"unroll\" the FEC loop too?",
+      "parentUuid": "8b15d7a6_d14b763d",
       "range": {
         "startLine": 792,
         "startChar": 1,

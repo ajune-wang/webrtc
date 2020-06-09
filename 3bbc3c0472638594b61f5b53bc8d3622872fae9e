@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "b9172e60_7b2a5bf0",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T08:32:47Z",
+      "side": 1,
+      "message": "Isn\u0027t it more like WebRtcOpus_GetPacketVad? All the packets that contains Silk will have the VAD flags and we are returning an aggregation of those flags.",
+      "range": {
+        "startLine": 759,
+        "startChar": 4,
+        "endLine": 759,
+        "endChar": 27
+      },
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ddbca82_e83a0c34",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T08:32:47Z",
+      "side": 1,
+      "message": "That is not necessarily true. What about changing the signature of the function so we return an absl::optional\u003cint\u003e and return absl::nullopt; in here?",
+      "range": {
+        "startLine": 766,
+        "startChar": 11,
+        "endLine": 766,
+        "endChar": 13
+      },
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52e5384b_0d9d430b",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
         "patchSetId": 1
@@ -13,6 +59,47 @@
       "writtenOn": "2020-06-08T20:53:37Z",
       "side": 1,
       "message": "the FEC version has \u003c\u003d 1 but that seemed not necessary. Arguably only an issue with extremly condensed test data",
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c56f182_33f6c355",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T08:32:47Z",
+      "side": 1,
+      "message": "it sounds fine.",
+      "parentUuid": "52e5384b_0d9d430b",
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b15d7a6_d14b763d",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T08:32:47Z",
+      "side": 1,
+      "message": "nit: \n  unsigned char silk_toc \u003d frame_data[frame][0];\n  if (silk_toc \u003e\u003e 8 - silk_frames) {\n    return 1;\n  }\n  if (( channels \u003d\u003d 2) \u0026\u0026 (silk_toc \u003c\u003c silk_frames + 1) \u003e\u003e 8 - silk_frames){\n    return 1;\n  }",
+      "range": {
+        "startLine": 792,
+        "startChar": 1,
+        "endLine": 801,
+        "endChar": 5
+      },
       "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

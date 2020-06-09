@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "444879ce_b5b9ed6c",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-09T15:38:06Z",
+      "side": 1,
+      "message": "Yes, I\u0027ve though about it before and it would be better. However, \"event_log_visualizer \u003cfilename\u003e | python\" is already being used by several teams and I don\u0027t want to make any breaking changes in this CL.",
+      "parentUuid": "17d8d70c_66e2b26f",
+      "range": {
+        "startLine": 97,
+        "startChar": 11,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7a745ec_fef003b1",
         "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-06-09T11:31:21Z",
       "side": 1,
       "message": "Maybe having a StringBuilder python_code;\npython_code \u003c\u003c \"color_count \u003d \" \u003c\u003c series_list_.size() \u003c\u003c \"\\n\"\n            \u003c\u003c \"hls_colors \u003d [(i*1.0/color_count, 0.25+i*0.5/color_count, 0.8) for i in range(color_count)]\\n\"\n            \u003c\u003c \"colors \u003d [colorsys.hls_to_rgb(*hls) for hls in hls_colors]\\n\"\n\netc will be more readable?",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c7f1502_8cb2a850",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-09T15:38:06Z",
+      "side": 1,
+      "message": "I agree that a string builder would be more readable, in your example. However,\nI think for example\n\nprintf(\"plt.plot(x%zu, y%zu, color\u003dcolors[%zu])\\n\", i, i, i);\n\nis more readable than\n\nbuilder \u003c\u003c \"plt.plot(x\" \u003c\u003c i \u003c\u003c \",y\" \u003c\u003c i \u003c\u003c \",color\u003dcolors[\" \u003c\u003c i \u003c\u003c \"])\\n\";\n\nSince we might want to move to a separate python script in the future, I\u0027d prefer to spend too much time altering the existing code generator.",
+      "parentUuid": "a7a745ec_fef003b1",
       "range": {
         "startLine": 101,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4c0dfb4b_3c074caa",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-09T15:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7be25c24_923e7f55",
+      "range": {
+        "startLine": 105,
+        "startChar": 30,
+        "endLine": 105,
+        "endChar": 34
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdfa02cc_0621be9e",
         "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90e30f34_4f570bf0",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-09T15:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdfa02cc_0621be9e",
+      "range": {
+        "startLine": 191,
+        "startChar": 30,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9e29bf5b_b6566d7b",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_protobuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-09T15:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc23d437_dd1d8629",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce939143_375db35f",
         "filename": "rtc_tools/rtc_event_log_visualizer/plot_python.h",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a712cf62_01058c60",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_python.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-09T15:38:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce939143_375db35f",
+      "range": {
+        "startLine": 26,
+        "startChar": 26,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

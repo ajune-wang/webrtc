@@ -271,5 +271,9 @@ TEST_P(TaskQueueTest, PostTwoWithSharedUnprotectedState) {
   EXPECT_TRUE(done.Wait(1000));
 }
 
+// TaskQueueTest is suit of tests that any implementation of the TaskQueueBase.
+// Tests are instansiated in the test binary next to the implmentation(s).
+GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(TaskQueueTest)
+
 }  // namespace
 }  // namespace webrtc

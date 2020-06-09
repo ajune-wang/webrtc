@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ee99c27_f5fc5e98",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T20:39:07Z",
+      "side": 1,
+      "message": "I am not a fun of putting a DCHECK there. It would be nice if the consumer of this function does not need to know under which circumstances Opus would contain Vad information. \n\nWhat about changing the signature of the function to something that specifically tells whether the Vad was available? Maybe using a name similar to your previous pathset: \nint WebRtcOpus_PacketHasVad(const uint8_t* payload, size_t payload_length_bytes, int32_t* vad)\n\nand retuns 0 when the Vad was not available and when it returns 1 we can read the vad flag from the output parameter?",
+      "range": {
+        "startLine": 764,
+        "startChar": 1,
+        "endLine": 766,
+        "endChar": 63
+      },
+      "revId": "80bd0f687333fda9aeddb2fdaa8ed0d48f2cf473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a080e0_91f64d47",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T20:39:07Z",
+      "side": 1,
+      "message": "As I wrote a comment in the opus_interface.cc, I am leaning towards using your original name WebRtcOpus_PacketHasVad as I think that it is important to flag to the user of this function that they are modes where the VAD flags are are not available (Celt mode).",
+      "range": {
+        "startLine": 525,
+        "startChar": 4,
+        "endLine": 525,
+        "endChar": 27
+      },
+      "revId": "80bd0f687333fda9aeddb2fdaa8ed0d48f2cf473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

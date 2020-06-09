@@ -19,6 +19,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "rtc_base/critical_section.h"
+#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_checker.h"
 
 @class RTC_OBJC_TYPE(RTCVideoCapturer);
@@ -73,7 +74,7 @@ class ObjCCallClient {
   rtc::scoped_refptr<webrtc::VideoTrackSourceInterface> video_source_
       RTC_GUARDED_BY(thread_checker_);
 
-  rtc::CriticalSection pc_mutex_;
+  mutable webrtc::Mutex pc_mutex_;
   rtc::scoped_refptr<webrtc::PeerConnectionInterface> pc_ RTC_GUARDED_BY(pc_mutex_);
 };
 

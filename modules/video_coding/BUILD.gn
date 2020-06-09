@@ -849,7 +849,23 @@ if (rtc_include_tests) {
       "../rtp_rtcp:rtp_rtcp_format",
       "//third_party/libyuv",
     ]
+
     absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+
+    if (enable_libaom && !is_ios) {
+      deps += [
+        "//api/transport/rtp:dependency_descriptor",
+        "//common_video/generic_frame_descriptor:generic_frame_descriptor",
+        "//modules/video_coding/codecs/av1:libaom_av1_encoder",
+        "//modules/video_coding/codecs/av1:scalability_structures",
+        "//modules/video_coding/codecs/av1:scalable_video_controller",
+      ]
+
+      absl_deps += [
+        "//third_party/abseil-cpp/absl/base:core_headers",
+        "//third_party/abseil-cpp/absl/strings:strings",
+      ]
+    }
 
     data = video_coding_modules_tests_resources
 

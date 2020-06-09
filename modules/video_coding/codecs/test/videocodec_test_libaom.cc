@@ -11,6 +11,7 @@
 #include <memory>
 #include <vector>
 
+#include "absl/strings/match.h"
 #include "api/test/create_videocodec_test_fixture.h"
 #include "api/test/video/function_video_encoder_factory.h"
 #include "api/video_codecs/sdp_video_format.h"
@@ -18,12 +19,65 @@
 #include "media/engine/internal_decoder_factory.h"
 #include "media/engine/internal_encoder_factory.h"
 #include "media/engine/simulcast_encoder_adapter.h"
+#include "modules/video_coding/codecs/av1/libaom_av1_encoder.h"
+#include "modules/video_coding/codecs/av1/scalability_structure_l3t3.h"
+#include "modules/video_coding/codecs/av1/scalable_video_controller.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
 
 namespace webrtc {
 namespace test {
 namespace {
+
+class RTC_EXPORT LibaomSvcEncoderFactory : public VideoEncoderFactory {
+ public:
+  LibaomSvcEncoderFactory(
+      std::unique_ptr<ScalableVideoController> svc_controller)
+      : svc_controller_(std::move(svc_controller)) {}
+
+  static std::vector<SdpVideoFormat> SupportedFormats();
+  std::vector<SdpVideoFormat> GetSupportedFormats() const override;
+
+  CodecInfo QueryVideoEncoder(const SdpVideoFormat& format) const override;
+
+  std::unique_ptr<VideoEncoder> CreateVideoEncoder(
+      const SdpVideoFormat& format) override;
+
+ private:
+  std::unique_ptr<ScalableVideoController> svc_controller_;
+};
+
+std::vector<SdpVideoFormat> LibaomSvcEncoderFactory::SupportedFormats() {
+  std::vector<SdpVideoFormat> supported_codecs;
+  if (kIsLibaomAv1EncoderSupported)
+    supported_codecs.push_back(SdpVideoFormat(cricket::kAv1CodecName));
+  return supported_codecs;
+}
+
+std::vector<SdpVideoFormat> LibaomSvcEncoderFactory::GetSupportedFormats()
+    const {
+  return SupportedFormats();
+}
+
+VideoEncoderFactory::CodecInfo LibaomSvcEncoderFactory::QueryVideoEncoder(
+    const SdpVideoFormat& format) const {
+  CodecInfo info;
+  info.is_hardware_accelerated = false;
+  info.has_internal_source = false;
+  return info;
+}
+
+std::unique_ptr<VideoEncoder> LibaomSvcEncoderFactory::CreateVideoEncoder(
+    const SdpVideoFormat& format) {
+  if (kIsLibaomAv1EncoderSupported &&
+      absl::EqualsIgnoreCase(format.name, cricket::kAv1CodecName))
+    return CreateLibaomAv1Encoder(std::move(svc_controller_));
+  RTC_LOG(LS_ERROR) << "Trying to created encoder of unsupported format "
+                    << format.name;
+  return nullptr;
+}
+
 // Test clips settings.
 constexpr int kCifWidth = 352;
 constexpr int kCifHeight = 288;
@@ -80,6 +134,32 @@ TEST(VideoCodecTestLibaom, HdAV1) {
                           kHdWidth, kHdHeight);
   config.num_frames = kNumFramesLong;
   auto fixture = CreateVideoCodecTestFixture(config);
+
+  std::vector<RateProfile> rate_profiles = {{1000, 50, 0}};
+
+  std::vector<RateControlThresholds> rc_thresholds = {
+      {13, 3, 0, 1, 0.3, 0.1, 0, 1}};
+
+  std::vector<QualityThresholds> quality_thresholds = {{36, 32, 0.93, 0.87}};
+
+  fixture->RunTest(rate_profiles, &rc_thresholds, &quality_thresholds, nullptr);
+}
+
+TEST(VideoCodecTestLibaom, HdSvc3SL3TL) {
+  std::unique_ptr<ScalableVideoController> svc_controller =
+      std::make_unique<ScalabilityStructureL3T3>();
+  std::unique_ptr<VideoEncoderFactory> encoder_factory =
+      std::make_unique<LibaomSvcEncoderFactory>(std::move(svc_controller));
+  std::unique_ptr<VideoDecoderFactory> decoder_factory =
+      std::make_unique<InternalDecoderFactory>();
+
+  auto config = CreateConfig("ConferenceMotion_1280_720_50");
+  config.SetCodecSettings(cricket::kAv1CodecName, 1, 3, 3, false, true, true,
+                          kHdWidth, kHdHeight);
+
+  config.num_frames = kNumFramesLong;
+  auto fixture = CreateVideoCodecTestFixture(config, std::move(decoder_factory),
+                                             std::move(encoder_factory));
 
   std::vector<RateProfile> rate_profiles = {{1000, 50, 0}};
 

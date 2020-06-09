@@ -177,8 +177,9 @@ void VideoCodecTestFixtureImpl::Config::SetCodecSettings(
   // Simulcast is only available with VP8.
   RTC_CHECK(num_simulcast_streams < 2 || codec_type == kVideoCodecVP8);
 
-  // Spatial scalability is only available with VP9.
-  RTC_CHECK(num_spatial_layers < 2 || codec_type == kVideoCodecVP9);
+  // Spatial scalability is only available with VP9 or AV1.
+  RTC_CHECK(num_spatial_layers < 2 || codec_type == kVideoCodecVP9 ||
+            codec_type == kVideoCodecAV1);
 
   // Some base code requires numberOfSimulcastStreams to be set to zero
   // when simulcast is not used.

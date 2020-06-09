@@ -22,6 +22,30 @@
       "revId": "2881b64621d08fd7270836d689d016e16fb191ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0425b53a_d3e78cd0",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-09T12:44:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64992959_996e5b60",
+      "range": {
+        "startLine": 275,
+        "startChar": 19,
+        "endLine": 275,
+        "endChar": 20
+      },
+      "revId": "2881b64621d08fd7270836d689d016e16fb191ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

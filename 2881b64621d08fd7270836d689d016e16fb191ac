@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64992959_996e5b60",
+        "filename": "api/task_queue/task_queue_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-09T12:03:35Z",
+      "side": 1,
+      "message": "t",
+      "range": {
+        "startLine": 275,
+        "startChar": 19,
+        "endLine": 275,
+        "endChar": 20
+      },
+      "revId": "2881b64621d08fd7270836d689d016e16fb191ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

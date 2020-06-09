@@ -949,4 +949,31 @@ TEST_P(OpusTest, OpusDecodeRepacketized) {
   EXPECT_EQ(0, WebRtcOpus_DecoderFree(opus_decoder_));
 }
 
+#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+TEST(OpusVadTest, CeltDeathTest) {
+  const uint8_t celt[] = {0x80};
+  EXPECT_DEATH(WebRtcOpus_GetPacketVad(celt, 1), "");
+}
+#endif
+
+TEST(OpusVadTest, Mono20msVadSet) {
+  uint8_t silk20msMonoVad[] = {0x78, 0x80};
+  EXPECT_TRUE(WebRtcOpus_GetPacketVad(silk20msMonoVad, 2));
+}
+
+TEST(OpusVadTest, Mono20MsVadUnset) {
+  uint8_t silk20msMonoSilence[] = {0x78, 0x00};
+  EXPECT_FALSE(WebRtcOpus_GetPacketVad(silk20msMonoSilence, 2));
+}
+
+TEST(OpusVadTest, Stereo20MsVadOnSideChannel) {
+  uint8_t silk20msStereoVadSideChannel[] = {0x78 | 0x04, 0x20};
+  EXPECT_TRUE(WebRtcOpus_GetPacketVad(silk20msStereoVadSideChannel, 2));
+}
+
+TEST(OpusVadTest, TwoOpusMonoFramesVadOnSecond) {
+  uint8_t twoMonoFrames[] = {0x78 | 0x1, 0x00, 0x80};
+  EXPECT_TRUE(WebRtcOpus_GetPacketVad(twoMonoFrames, 3));
+}
+
 }  // namespace webrtc

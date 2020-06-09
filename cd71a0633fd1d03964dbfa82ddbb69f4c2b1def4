@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17d8d70c_66e2b26f",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-09T11:31:21Z",
+      "side": 1,
+      "message": "The question: do we want to have python code in C++ or maybe it will be better to have python script which will accept some output and will plot it? Because here it\u0027s very hard to understand that python code.",
+      "range": {
+        "startLine": 97,
+        "startChar": 11,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7a745ec_fef003b1",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-09T11:31:21Z",
+      "side": 1,
+      "message": "Maybe having a StringBuilder python_code;\npython_code \u003c\u003c \"color_count \u003d \" \u003c\u003c series_list_.size() \u003c\u003c \"\\n\"\n            \u003c\u003c \"hls_colors \u003d [(i*1.0/color_count, 0.25+i*0.5/color_count, 0.8) for i in range(color_count)]\\n\"\n            \u003c\u003c \"colors \u003d [colorsys.hls_to_rgb(*hls) for hls in hls_colors]\\n\"\n\netc will be more readable?",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7be25c24_923e7f55",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-09T11:31:21Z",
+      "side": 1,
+      "message": "Please add comment which method should be used instead of this one.",
+      "range": {
+        "startLine": 105,
+        "startChar": 30,
+        "endLine": 105,
+        "endChar": 34
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdfa02cc_0621be9e",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-09T11:31:21Z",
+      "side": 1,
+      "message": "Please add comment which method should be used instead of this one.",
+      "range": {
+        "startLine": 191,
+        "startChar": 30,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc23d437_dd1d8629",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_protobuf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-09T11:31:21Z",
+      "side": 1,
+      "message": "Please add a comment what should be used instead",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce939143_375db35f",
+        "filename": "rtc_tools/rtc_event_log_visualizer/plot_python.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-09T11:31:21Z",
+      "side": 1,
+      "message": "Please add a comment what should be used instead",
+      "range": {
+        "startLine": 26,
+        "startChar": 26,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "cd71a0633fd1d03964dbfa82ddbb69f4c2b1def4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

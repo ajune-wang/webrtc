@@ -165,8 +165,9 @@ void ResourceAdaptationProcessor::RemoveResource(
     adaptation_limits_by_resources_.erase(resource_adaptation_limits);
     MaybeUpdateResourceLimitationsOnResourceRemoval(adaptation_limits);
   }
-  resources_.erase(it);
   resource->SetResourceListener(nullptr);
+  resources_.erase(it);
+  previous_mitigation_results_.erase(resource.get());
 }
 
 void ResourceAdaptationProcessor::AddAdaptationConstraint(

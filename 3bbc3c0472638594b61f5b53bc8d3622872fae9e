@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "dd9e81fb_4c386135",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-09T19:24:51Z",
+      "side": 1,
+      "message": "this file has c linkage so can\u0027t use absl. Went for a DCHECK which also meant i could write a \"death test\" ;-)",
+      "parentUuid": "979a7b4e_9a197145",
+      "range": {
+        "startLine": 766,
+        "startChar": 11,
+        "endLine": 766,
+        "endChar": 13
+      },
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52e5384b_0d9d430b",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
         "patchSetId": 1

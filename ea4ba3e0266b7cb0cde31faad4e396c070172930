@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f6973290_45235df4",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-09T19:24:51Z",
+      "side": 1,
+      "message": "I think that check merely makes sure that no out-of-bounds read happens. The smallest actual packet is three bytes iirc (with dtx) but if we change the check we should change it in the fec helper as well?\nEither way I think small packets are caught in the code below and if not we need more fuzzers.",
+      "parentUuid": "fb112dbb_8974d9a0",
+      "range": {
+        "startLine": 761,
+        "startChar": 25,
+        "endLine": 761,
+        "endChar": 50
+      },
+      "revId": "ea4ba3e0266b7cb0cde31faad4e396c070172930",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d932409c_c341a1f2",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e2e47017_a3cca6c6",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-09T19:24:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d932409c_c341a1f2",
+      "range": {
+        "startLine": 521,
+        "startChar": 39,
+        "endLine": 521,
+        "endChar": 71
+      },
+      "revId": "ea4ba3e0266b7cb0cde31faad4e396c070172930",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5feb944d_58fb115a",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
         "patchSetId": 2
@@ -92,6 +140,30 @@
       "revId": "ea4ba3e0266b7cb0cde31faad4e396c070172930",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b26dddb4_6ac5733c",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-06-09T19:24:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5feb944d_58fb115a",
+      "range": {
+        "startLine": 522,
+        "startChar": 35,
+        "endLine": 522,
+        "endChar": 63
+      },
+      "revId": "ea4ba3e0266b7cb0cde31faad4e396c070172930",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

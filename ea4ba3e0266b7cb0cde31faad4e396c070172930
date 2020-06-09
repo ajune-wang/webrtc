@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99f2cfa8_967f7dd7",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T12:57:25Z",
+      "side": 1,
+      "message": "let,s write payload_length_bytes \u003c 2 as Opus allows to have payloads with just the headers (https://tools.ietf.org/html/rfc6716#section-3.2.1). On those cases we should assume that the frame is inactive.",
+      "range": {
+        "startLine": 761,
+        "startChar": 25,
+        "endLine": 761,
+        "endChar": 50
+      },
+      "revId": "ea4ba3e0266b7cb0cde31faad4e396c070172930",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d932409c_c341a1f2",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T12:57:25Z",
+      "side": 1,
+      "message": "The packet contains information about the VAD. I will rephrase it to something like \"no frames in the packet were labelled as active\" or similar.",
+      "range": {
+        "startLine": 521,
+        "startChar": 39,
+        "endLine": 521,
+        "endChar": 71
+      },
+      "revId": "ea4ba3e0266b7cb0cde31faad4e396c070172930",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5feb944d_58fb115a",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T12:57:25Z",
+      "side": 1,
+      "message": "same here, \"the packet contains at least one active frame.\"",
+      "range": {
+        "startLine": 522,
+        "startChar": 35,
+        "endLine": 522,
+        "endChar": 63
+      },
+      "revId": "ea4ba3e0266b7cb0cde31faad4e396c070172930",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

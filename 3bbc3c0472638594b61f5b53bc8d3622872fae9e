@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "979a7b4e_9a197145",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T12:57:25Z",
+      "side": 1,
+      "message": "I would say that you allow to overwrite the info.speech value whenever that function returns an absl::optional that contains a value. Otherwise, you just leave it untouched. \n\nSo, I agree that the final result is the same when that method is used in that function. If that method is used from some other places, I think that the absl::optional makes it clear when the VAD value was correctly read.",
+      "parentUuid": "af08b0a7_823fcc6c",
+      "range": {
+        "startLine": 766,
+        "startChar": 11,
+        "endLine": 766,
+        "endChar": 13
+      },
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52e5384b_0d9d430b",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
         "patchSetId": 1
@@ -160,6 +184,30 @@
       "side": 1,
       "message": "That is easier to understand. Should I \"unroll\" the FEC loop too?",
       "parentUuid": "8b15d7a6_d14b763d",
+      "range": {
+        "startLine": 792,
+        "startChar": 1,
+        "endLine": 801,
+        "endChar": 5
+      },
+      "revId": "3bbc3c0472638594b61f5b53bc8d3622872fae9e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9af636b7_83223b77",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-09T12:57:25Z",
+      "side": 1,
+      "message": "no, let\u0027s not change too many things on the same go. The FEC has one loop less and the info is not in the most significant bits so it will not be exactly the same.",
+      "parentUuid": "8de8ad54_26da5584",
       "range": {
         "startLine": 792,
         "startChar": 1,

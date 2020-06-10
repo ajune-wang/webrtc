@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66b4e2e4_8d11738c",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-10T08:28:42Z",
+      "side": 1,
+      "message": "With the OnResourceLimitationChanged() treating null resource as a ResetActiveCounts(), is this still needed?",
+      "revId": "db15f260b598f71bb64149f743f4ba34f9bc9766",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

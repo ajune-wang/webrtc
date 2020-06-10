@@ -106,6 +106,24 @@
       "revId": "c8226014d39321782ba1b932c7cb7238042e17be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d64a400_4258b3d2",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-10T17:56:07Z",
+      "side": 1,
+      "message": "Yes---and my point is that \"nothing material new\" might still cause problems, because the status quo is conceptually broken and just happens to work anyway because who knows. For example, Chromium has a machine enforced ban on new static initializers, so if the existing implementation just happened to be constant initialized and the new implementation is not, things would break. Or, if the current implementation just happened to be trivially destructible but the new one is not, we may run into a situation where a thread tries to lock this mutex after the destructor has run.\n\nIt\u0027s not that I think these things are *likely* to happen (which is why I ended up OKing this CL after all); it\u0027s just that I like to set the bar higher than \"the old code works for unknown reasons, but we don\u0027t change it all that much, so hopefully the new code will also work for (mostly the same) unknown reasons\".",
+      "parentUuid": "8daa4ca1_716ca8a9",
+      "revId": "c8226014d39321782ba1b932c7cb7238042e17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

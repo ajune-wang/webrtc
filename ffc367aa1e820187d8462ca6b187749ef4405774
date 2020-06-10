@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4daa039_c845fe5d",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-10T12:45:05Z",
+      "side": 1,
+      "message": "nit: for consistency, add |this-\u003e|",
+      "revId": "ffc367aa1e820187d8462ca6b187749ef4405774",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "696f7e9c_fab8644e",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-10T12:45:05Z",
+      "side": 1,
+      "message": "Looks like the order of elements has changed.\nBefore the first one was \"SSSSSSSSS\", and now it\u0027s \"SSSSSRRRRR\".\nIs it fine?\n\nThis CL was intended to be a no-op refactoring, it it really no-op?\nI hope another reviewer will pay attention to this part, since I can\u0027t really tell if there\u0027s any mistake here.",
+      "revId": "ffc367aa1e820187d8462ca6b187749ef4405774",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

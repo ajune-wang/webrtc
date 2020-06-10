@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cedf2f76_11fa54d8",
+        "filename": "modules/audio_coding/neteq/neteq_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-06-10T15:13:45Z",
+      "side": 0,
+      "message": "Just changing the order of member variables to match the order in which they are initialized.",
+      "range": {
+        "startLine": 411,
+        "startChar": 2,
+        "endLine": 413,
+        "endChar": 62
+      },
+      "revId": "9cbdd6976ab1da896c9f0e60cc4fa15e487e79d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

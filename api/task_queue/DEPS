@@ -6,5 +6,6 @@ specific_include_rules = {
   ],
   "task_queue_test\.h": [
     "+test/gtest.h",
+    "+third_party/googletest/src/googletest/include/gtest/gtest.h",
   ],
 }

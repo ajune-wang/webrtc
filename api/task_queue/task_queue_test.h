@@ -14,7 +14,7 @@
 #include <memory>
 
 #include "api/task_queue/task_queue_factory.h"
-#include "test/gtest.h"
+#include "third_party/googletest/src/googletest/include/gtest/gtest.h"
 
 namespace webrtc {
 

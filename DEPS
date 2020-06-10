@@ -230,6 +230,7 @@ deps = {
       'condition': 'checkout_android',
       'dep_type': 'cipd',
   },
+  'src/third_party/perfetto': 'https://android.googlesource.com/platform/external/perfetto.git@60cf022c0223b4c28424509dca35e347872c4832',
   'src/third_party/proguard': {
       'packages': [
           {

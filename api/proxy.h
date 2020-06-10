@@ -396,6 +396,12 @@ class ConstMethodCall : public rtc::Message, public rtc::MessageHandler {
     return call.Marshal(RTC_FROM_HERE, worker_thread_);                   \
   }
 
+// For use when returning purely const state (set during construction).
+// Use with caution. This method should only be used when the return value will
+// always be the same.
+#define BYPASS_PROXY_CONSTMETHOD0(r, method) \
+  r method() const override { return c_->method(); }
+
 }  // namespace webrtc
 
 #endif  //  API_PROXY_H_

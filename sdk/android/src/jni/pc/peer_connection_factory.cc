@@ -263,7 +263,6 @@ ScopedJavaLocalRef<jobject> CreatePeerConnectionFactoryForJava(
         network_controller_factory,
     std::unique_ptr<NetworkStatePredictorFactoryInterface>
         network_state_predictor_factory,
-    std::unique_ptr<MediaTransportFactory> media_transport_factory,
     std::unique_ptr<NetEqFactory> neteq_factory) {
   // talk/ assumes pretty widely that the current Thread is ThreadManager'd, but
   // ThreadManager only WrapCurrentThread()s the thread where it is first
@@ -355,7 +354,6 @@ JNI_PeerConnectionFactory_CreatePeerConnectionFactory(
     jlong native_fec_controller_factory,
     jlong native_network_controller_factory,
     jlong native_network_state_predictor_factory,
-    jlong native_media_transport_factory,
     jlong native_neteq_factory) {
   rtc::scoped_refptr<AudioProcessing> audio_processor =
       reinterpret_cast<AudioProcessing*>(native_audio_processor);
@@ -372,8 +370,6 @@ JNI_PeerConnectionFactory_CreatePeerConnectionFactory(
           native_network_controller_factory),
       TakeOwnershipOfUniquePtr<NetworkStatePredictorFactoryInterface>(
           native_network_state_predictor_factory),
-      TakeOwnershipOfUniquePtr<MediaTransportFactory>(
-          native_media_transport_factory),
       TakeOwnershipOfUniquePtr<NetEqFactory>(native_neteq_factory));
 }
 

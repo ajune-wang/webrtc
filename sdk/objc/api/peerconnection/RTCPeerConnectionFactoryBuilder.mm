@@ -26,7 +26,6 @@
   rtc::scoped_refptr<webrtc::AudioDecoderFactory> _audioDecoderFactory;
   rtc::scoped_refptr<webrtc::AudioDeviceModule> _audioDeviceModule;
   rtc::scoped_refptr<webrtc::AudioProcessing> _audioProcessingModule;
-  std::unique_ptr<webrtc::MediaTransportFactory> _mediaTransportFactory;
 }
 
 + (RTCPeerConnectionFactoryBuilder *)builder {

@@ -65,7 +65,8 @@ class VideoSourceRestrictionsListenerForTesting
   void OnVideoSourceRestrictionsUpdated(
       VideoSourceRestrictions restrictions,
       const VideoAdaptationCounters& adaptation_counters,
-      rtc::scoped_refptr<Resource> reason) override {
+      rtc::scoped_refptr<Resource> reason,
+      const VideoSourceRestrictions& previous_restrictions) override {
     RTC_DCHECK_RUN_ON(&sequence_checker_);
     ++restrictions_updated_count_;
     restrictions_ = restrictions;
@@ -91,11 +92,13 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
         other_resource_(FakeResource::Create("OtherFakeResource")),
         adaptation_constraint_("FakeAdaptationConstraint"),
         adaptation_listener_(),
+        video_stream_adapter_(std::make_unique<VideoStreamAdapter>()),
         processor_(std::make_unique<ResourceAdaptationProcessor>(
             &input_state_provider_,
-            /*encoder_stats_observer=*/&frame_rate_provider_)) {
+            /*encoder_stats_observer=*/&frame_rate_provider_,
+            video_stream_adapter_.get())) {
     processor_->SetResourceAdaptationQueue(TaskQueueBase::Current());
-    processor_->AddRestrictionsListener(&restrictions_listener_);
+    video_stream_adapter_->AddRestrictionsListener(&restrictions_listener_);
     processor_->AddResource(resource_);
     processor_->AddResource(other_resource_);
     processor_->AddAdaptationConstraint(&adaptation_constraint_);
@@ -122,7 +125,6 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
   }
 
   void DestroyProcessor() {
-    processor_->RemoveRestrictionsListener(&restrictions_listener_);
     if (resource_) {
       processor_->RemoveResource(resource_);
     }
@@ -131,6 +133,7 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
     }
     processor_->RemoveAdaptationConstraint(&adaptation_constraint_);
     processor_->RemoveAdaptationListener(&adaptation_listener_);
+    video_stream_adapter_->RemoveRestrictionsListener(&restrictions_listener_);
     processor_.reset();
   }
 
@@ -145,6 +148,7 @@ class ResourceAdaptationProcessorTest : public ::testing::Test {
   rtc::scoped_refptr<FakeResource> other_resource_;
   FakeAdaptationConstraint adaptation_constraint_;
   FakeAdaptationListener adaptation_listener_;
+  std::unique_ptr<VideoStreamAdapter> video_stream_adapter_;
   std::unique_ptr<ResourceAdaptationProcessor> processor_;
   VideoSourceRestrictionsListenerForTesting restrictions_listener_;
 };

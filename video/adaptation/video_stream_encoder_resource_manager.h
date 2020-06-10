@@ -65,6 +65,7 @@ extern const int kDefaultInputPixelsHeight;
 // ResourceAdaptationProcessor code such as the inital frame dropping.
 class VideoStreamEncoderResourceManager
     : public VideoSourceRestrictionsListener,
+      public ResourceLimitationsListener,
       public QualityRampUpExperimentListener {
  public:
   VideoStreamEncoderResourceManager(
@@ -130,7 +131,8 @@ class VideoStreamEncoderResourceManager
   void OnVideoSourceRestrictionsUpdated(
       VideoSourceRestrictions restrictions,
       const VideoAdaptationCounters& adaptation_counters,
-      rtc::scoped_refptr<Resource> reason) override;
+      rtc::scoped_refptr<Resource> reason,
+      const VideoSourceRestrictions& previous_restrictions) override;
   void OnResourceLimitationChanged(
       rtc::scoped_refptr<Resource> resource,
       const std::map<rtc::scoped_refptr<Resource>, VideoAdaptationCounters>&

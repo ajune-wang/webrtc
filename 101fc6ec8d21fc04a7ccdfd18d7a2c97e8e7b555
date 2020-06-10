@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "abf2584e_b7adb197",
+        "filename": "common_audio/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-10T05:56:11Z",
+      "side": 1,
+      "message": "Now we place the WebRtc_GetCPUInfo(kAVX2) into the sinc_resampler.cc file to avoid having to add a dependency here for the cpu features wrapper.",
+      "parentUuid": "d602bd51_d80e1711",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 8
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b3952d55_4bb42934",
         "filename": "common_audio/resampler/sinc_resampler_sse.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-06-03T08:36:06Z",
       "side": 1,
       "message": "Would it make sense to change this naming (as well as the naming of the file) with _x86 instead of _sse to reflect that this is no longer only using SSE ?",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 33
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2680d97a_ef6924d1",
+        "filename": "common_audio/resampler/sinc_resampler_sse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-10T05:56:11Z",
+      "side": 1,
+      "message": "We created another file for Convolve_AVX2, and also add another common_audio_avx2 library at BUILD.gn, I think maybe this would make more sense, may I ask your opinion?",
+      "parentUuid": "b3952d55_4bb42934",
       "range": {
         "startLine": 25,
         "startChar": 21,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "10409fcf_4810ab94",
+        "filename": "common_audio/resampler/sinc_resampler_sse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-10T05:56:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43954022_377c596d",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fe2423e_c7de05e6",
         "filename": "common_audio/resampler/sinc_resampler_sse.cc",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2020-06-03T08:36:06Z",
       "side": 1,
       "message": "Would it be possible to use the _mm256_fmadd_ps intrinsics instead? It seems like kKernelSize should allow that.",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eba48da6_936e3162",
+        "filename": "common_audio/resampler/sinc_resampler_sse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-10T05:56:11Z",
+      "side": 1,
+      "message": "Yes, the kKernelSize allow this, we implemented the _mm256_fmadd_ps intrinsics, and it can get better performance than _mm_fmadd_ps, thanks for you reminding.",
+      "parentUuid": "7fe2423e_c7de05e6",
       "range": {
         "startLine": 41,
         "startChar": 18,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "32aec052_72300f41",
+        "filename": "common_audio/resampler/sinc_resampler_sse.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-10T05:56:11Z",
+      "side": 1,
+      "message": "Sorry, we can\u0027t assume avx2 instructions are available on x86 platforms not capable of using avx2, so we split the avx2 version to a new file, and detect the cpu features at runtime.\n\nThe normal way is when the __AVX2__ is defined, then we can include immintrin.h file.",
+      "parentUuid": "7dff54e2_064e30a4",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 5
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de0edaa1_2c66b511",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "76bdaa22_4495d811",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-10T05:56:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de0edaa1_2c66b511",
+      "range": {
+        "startLine": 31,
+        "startChar": 12,
+        "endLine": 31,
+        "endChar": 25
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7cd9dbb_6047450e",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "972c6b87_4d18470d",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-10T05:56:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7cd9dbb_6047450e",
+      "range": {
+        "startLine": 87,
+        "startChar": 24,
+        "endLine": 87,
+        "endChar": 25
+      },
+      "revId": "101fc6ec8d21fc04a7ccdfd18d7a2c97e8e7b555",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

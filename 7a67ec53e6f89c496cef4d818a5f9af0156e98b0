@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9124e571_7347997c",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-10T08:58:50Z",
+      "side": 1,
+      "message": "Managed resources are a fixed number of resources that the manager class is hardcoded with, so I wonder about adding and removing to this list adds more complexity than it\u0027s worth.\n\nIn fact, only quality_scaler_resource_ is kQuality, everything else is kCpu.\n\nWould this CL be a good CL to remove resources_ altogether in favor of...\n\nreason_resource_ \u003d\u003d quality_scaler_resource_ ? kQuality : kCpu\n\n... and then the only think we need to \"start\" and \"stop\" is to PostTask and do processor_-\u003eAdd/RemoveResource. If this is put in a helper, then I think the code would look pretty clean.\n\nWDYT?",
+      "revId": "7a67ec53e6f89c496cef4d818a5f9af0156e98b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

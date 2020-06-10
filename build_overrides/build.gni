@@ -16,6 +16,10 @@ linux_use_bundled_binutils_override = true
 # only needed to support both WebRTC standalone and Chromium builds.
 build_with_chromium = false
 
+# Used by perfetto to distinguish from its own standalone build and the
+# chromium build.
+perfetto_build_with_embedder = true
+
 # WebRTC checks out google_benchmark by default since it is always used.
 checkout_google_benchmark = true
 

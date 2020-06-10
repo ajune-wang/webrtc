@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24c03be0_db6290ce",
+        "filename": "DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-10T09:54:05Z",
+      "side": 1,
+      "message": "Nits:\n\n- Let\u0027s move the URL on a new line like for example the ones we have at line 203.\n- Let\u0027s move perfetto to ~203 (here it is in the middle of the cipd packages and they have a different structure).\n\nThis DEPS file is not sorted, unfortunately. :)",
+      "range": {
+        "startLine": 233,
+        "startChar": 2,
+        "endLine": 233,
+        "endChar": 137
+      },
+      "revId": "d4acfd65ff6adfe83e80b37e9f6b44c11c4850c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

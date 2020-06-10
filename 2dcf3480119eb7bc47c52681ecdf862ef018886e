@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b6394bd_01df16ec",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l2t1_key.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-06-10T11:08:19Z",
+      "side": 0,
+      "message": "is it not possible to change this to:\n  constexpr std::array\u003cstd::array\u003cDecodeTargetIndication, 2\u003e, 3\u003e kDtis \u003d {\n    {kSwitch, kSwitch},      // Key, S0\n    {kSwitch, kNotPresent},  // Delta, S0\n    {kNotPresent, kSwitch},  // Key and Delta, S1\n  }\n\nAnd then simply say:\n  structure.templates[1].S(0).Dtis(kDits[0]).ChainDiffs({0, 0});\n\n?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 0
+      },
+      "revId": "2dcf3480119eb7bc47c52681ecdf862ef018886e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

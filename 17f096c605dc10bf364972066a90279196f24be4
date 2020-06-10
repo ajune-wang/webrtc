@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0684e7ba_0100b71f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-10T12:01:44Z",
+      "side": 1,
+      "message": "it",
+      "range": {
+        "startLine": 222,
+        "startChar": 6,
+        "endLine": 222,
+        "endChar": 14
+      },
+      "revId": "17f096c605dc10bf364972066a90279196f24be4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b71fd96_17fa9f6c",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-10T12:01:44Z",
+      "side": 1,
+      "message": "Better explanation: and received the same picture from two different streams because SFU can\u0027t reliably correlate two simulcast streams and started relaying the second stream from the same frame it has relayed right before for the first stream.",
+      "range": {
+        "startLine": 224,
+        "startChar": 67,
+        "endLine": 225,
+        "endChar": 69
+      },
+      "revId": "17f096c605dc10bf364972066a90279196f24be4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37a65996_70f757cf",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-10T12:01:44Z",
+      "side": 1,
+      "message": "it",
+      "range": {
+        "startLine": 252,
+        "startChar": 6,
+        "endLine": 252,
+        "endChar": 14
+      },
+      "revId": "17f096c605dc10bf364972066a90279196f24be4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fd7e919_7795af29",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-10T12:01:44Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 254,
+        "startChar": 60,
+        "endLine": 255,
+        "endChar": 63
+      },
+      "revId": "17f096c605dc10bf364972066a90279196f24be4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49ed82fb_09ea3b09",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-10T12:01:44Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 270,
+        "startChar": 60,
+        "endLine": 271,
+        "endChar": 63
+      },
+      "revId": "17f096c605dc10bf364972066a90279196f24be4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

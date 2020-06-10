@@ -50,10 +50,7 @@ rtc_library("task_queue_test") {
 
     # Don't depend on WebRTC code outside of webrtc_overrides:webrtc_component
     # because this will break the WebRTC component build in Chromium.
-    deps = [
-      "../../../webrtc_overrides:webrtc_component",
-      "../../test:test_support",
-    ]
+    deps = [ "../../../webrtc_overrides:webrtc_component" ]
     absl_deps = [
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/strings",
@@ -65,7 +62,6 @@ rtc_library("task_queue_test") {
       "../../rtc_base:rtc_event",
       "../../rtc_base:timeutils",
       "../../rtc_base/task_utils:to_queued_task",
-      "../../test:test_support",
     ]
     absl_deps = [
       "//third_party/abseil-cpp/absl/memory",

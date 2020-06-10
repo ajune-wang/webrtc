@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41883302_414931d3",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-06-10T08:20:08Z",
+      "side": 1,
+      "message": "this function name is, though, a bit non-intuitive.\n\nhow about GetPacketVad?",
+      "range": {
+        "startLine": 526,
+        "startChar": 4,
+        "endLine": 526,
+        "endChar": 27
+      },
+      "revId": "eb872d5c9451390a0f9aa561259dff32bcd397b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

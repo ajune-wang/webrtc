@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb7844ae_70ad447b",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-10T10:30:39Z",
+      "side": 1,
+      "message": "Is webrtc::Mutex constant initialized and trivially destructible, so that having it as a global variable is OK? I thought it (and rtc::CriticalSection) was not, and that\u0027s why we have rtc::GlobalLock?\n\nIIUC you don\u0027t introduce this problem, but you swap the implementation, which may cause problems to surface.",
+      "revId": "c8226014d39321782ba1b932c7cb7238042e17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

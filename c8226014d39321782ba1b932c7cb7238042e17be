@@ -34,6 +34,24 @@
       "revId": "c8226014d39321782ba1b932c7cb7238042e17be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4770ae17_63e1038c",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-10T11:46:23Z",
+      "side": 1,
+      "message": "You\u0027re replacing one thing that wasn\u0027t supposed to be used in this way with another thing that also isn\u0027t supposed to be used in this way. I will not guarantee that this will not break things.\n\nParable: We have a group of more than 4 people currently occupying an elevator labeled \"max 4 people\". Even though the elevator appears to work correctly now, we cannot conclude that replacing them with another group of more than 4 people is safe.\n\nSuggestion: If you\u0027ve made a replacement for rtc::GlobalLock, use that. If you haven\u0027t, use rtc::GlobalLock.",
+      "parentUuid": "f420ce7e_eb4fdd2c",
+      "revId": "c8226014d39321782ba1b932c7cb7238042e17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

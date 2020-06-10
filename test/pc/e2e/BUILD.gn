@@ -551,8 +551,10 @@ rtc_library("default_audio_quality_analyzer") {
     "../..:perf_test",
     "../../../api:audio_quality_analyzer_api",
     "../../../api:libjingle_peerconnection_api",
+    "../../../api:rtc_stats_api",
     "../../../api:stats_observer_interface",
     "../../../api:track_id_stream_label_map",
+    "../../../api/units:timestamp",
     "../../../rtc_base:criticalsection",
     "../../../rtc_base:logging",
     "../../../rtc_base:rtc_numerics",
@@ -589,6 +591,9 @@ rtc_library("video_quality_metrics_reporter") {
   deps = [
     "../..:perf_test",
     "../../../api:peer_connection_quality_test_fixture_api",
+    "../../../api:rtc_stats_api",
+    "../../../api/units:time_delta",
+    "../../../api/units:timestamp",
     "../../../rtc_base:criticalsection",
     "../../../rtc_base:rtc_numerics",
   ]
@@ -637,6 +642,7 @@ rtc_library("network_quality_metrics_reporter") {
     "../../../api:libjingle_peerconnection_api",
     "../../../api:network_emulation_manager_api",
     "../../../api:peer_connection_quality_test_fixture_api",
+    "../../../api:rtc_stats_api",
     "../../../rtc_base:criticalsection",
     "../../../rtc_base:rtc_event",
     "../../../system_wrappers:field_trial",

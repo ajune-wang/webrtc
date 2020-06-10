@@ -50,8 +50,7 @@ extern "C" {
               nativeVideoEncoderFactory:nullptr
               nativeVideoDecoderFactory:nullptr
                       audioDeviceModule:nullptr
-                  audioProcessingModule:nullptr
-                  mediaTransportFactory:nullptr]);
+                  audioProcessingModule:nullptr]);
 #endif
   RTCPeerConnectionFactoryBuilder* builder = [[RTCPeerConnectionFactoryBuilder alloc] init];
   RTC_OBJC_TYPE(RTCPeerConnectionFactory)* peerConnectionFactory =
@@ -72,8 +71,7 @@ extern "C" {
               nativeVideoEncoderFactory:nullptr
               nativeVideoDecoderFactory:nullptr
                       audioDeviceModule:nullptr
-                  audioProcessingModule:nullptr
-                  mediaTransportFactory:nullptr]);
+                  audioProcessingModule:nullptr]);
 #endif
   RTCPeerConnectionFactoryBuilder* builder = [RTCPeerConnectionFactoryBuilder defaultBuilder];
   RTC_OBJC_TYPE(RTCPeerConnectionFactory)* peerConnectionFactory =

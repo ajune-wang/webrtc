@@ -26,7 +26,6 @@
   rtc::scoped_refptr<webrtc::AudioDecoderFactory> _audioDecoderFactory;
   rtc::scoped_refptr<webrtc::AudioDeviceModule> _audioDeviceModule;
   rtc::scoped_refptr<webrtc::AudioProcessing> _audioProcessingModule;
-  std::unique_ptr<webrtc::MediaTransportFactory> _mediaTransportFactory;
 }
 
 + (RTCPeerConnectionFactoryBuilder *)builder {
@@ -41,8 +40,7 @@
                           nativeVideoEncoderFactory:std::move(_videoEncoderFactory)
                           nativeVideoDecoderFactory:std::move(_videoDecoderFactory)
                                   audioDeviceModule:_audioDeviceModule
-                              audioProcessingModule:_audioProcessingModule
-                              mediaTransportFactory:std::move(_mediaTransportFactory)];
+                              audioProcessingModule:_audioProcessingModule];
 }
 
 - (void)setVideoEncoderFactory:(std::unique_ptr<webrtc::VideoEncoderFactory>)videoEncoderFactory {

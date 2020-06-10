@@ -10,16 +10,13 @@
 
 #include "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h"
 
+#include "absl/time/time.h"
+#include "api/stats/rtcstats_objects.h"
 #include "api/stats_types.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
-namespace {
-
-static const char kStatsAudioMediaType[] = "audio";
-
-}  // namespace
 
 void DefaultAudioQualityAnalyzer::Start(
     std::string test_case_name,
@@ -30,57 +27,94 @@ void DefaultAudioQualityAnalyzer::Start(
 
 void DefaultAudioQualityAnalyzer::OnStatsReports(
     const std::string& pc_label,
-    const StatsReports& stats_reports) {
-  for (const StatsReport* stats_report : stats_reports) {
-    // NetEq stats are only present in kStatsReportTypeSsrc reports, so all
-    // other reports are just ignored.
-    if (stats_report->type() != StatsReport::StatsType::kStatsReportTypeSsrc) {
-      continue;
-    }
-    // Ignoring stats reports of "video" SSRC.
-    const webrtc::StatsReport::Value* media_type = stats_report->FindValue(
-        StatsReport::StatsValueName::kStatsValueNameMediaType);
-    RTC_CHECK(media_type);
-    if (strcmp(media_type->static_string_val(), kStatsAudioMediaType) != 0) {
-      continue;
-    }
-    if (stats_report->FindValue(
-            webrtc::StatsReport::kStatsValueNameBytesSent)) {
-      // If kStatsValueNameBytesSent is present, it means it's a send stream,
-      // but we need audio metrics for receive stream, so skip it.
-      continue;
-    }
+    const rtc::scoped_refptr<const RTCStatsReport>& report) {
+  // TODO(landrey): use "inbound-rtp" instead of "track" stats when required
+  // audio metrics moved there
+  auto stats = report->GetStatsOfType<RTCMediaStreamTrackStats>();
 
-    const webrtc::StatsReport::Value* expand_rate = stats_report->FindValue(
-        StatsReport::StatsValueName::kStatsValueNameExpandRate);
-    const webrtc::StatsReport::Value* accelerate_rate = stats_report->FindValue(
-        StatsReport::StatsValueName::kStatsValueNameAccelerateRate);
-    const webrtc::StatsReport::Value* preemptive_rate = stats_report->FindValue(
-        StatsReport::StatsValueName::kStatsValueNamePreemptiveExpandRate);
-    const webrtc::StatsReport::Value* speech_expand_rate =
-        stats_report->FindValue(
-            StatsReport::StatsValueName::kStatsValueNameSpeechExpandRate);
-    const webrtc::StatsReport::Value* preferred_buffer_size_ms =
-        stats_report->FindValue(StatsReport::StatsValueName::
-                                    kStatsValueNamePreferredJitterBufferMs);
-    RTC_CHECK(expand_rate);
-    RTC_CHECK(accelerate_rate);
-    RTC_CHECK(preemptive_rate);
-    RTC_CHECK(speech_expand_rate);
-    RTC_CHECK(preferred_buffer_size_ms);
+  bool stat_processed = false;
+  for (auto& stat : stats) {
+    if (!stat->kind.is_defined() ||
+        !(*stat->kind == RTCMediaStreamTrackKind::kAudio) ||
+        !*stat->remote_source) {
+      continue;
+    }
+    RTC_CHECK(!stat_processed)
+        << "There can be only one audio receiving track.";
+    stat_processed = true;
+
+    StatsSample sample;
+    if (stat->total_samples_received.is_defined()) {
+      sample.total_samples_received = *stat->total_samples_received;
+    }
+    if (stat->concealed_samples.is_defined()) {
+      sample.concealed_samples = *stat->concealed_samples;
+    }
+    if (stat->removed_samples_for_acceleration.is_defined()) {
+      sample.removed_samples_for_acceleration =
+          *stat->removed_samples_for_acceleration;
+    }
+    if (stat->inserted_samples_for_deceleration.is_defined()) {
+      sample.inserted_samples_for_deceleration =
+          *stat->inserted_samples_for_deceleration;
+    }
+    if (stat->silent_concealed_samples.is_defined()) {
+      sample.silent_concealed_samples = *stat->silent_concealed_samples;
+    }
+    if (stat->jitter_buffer_target_delay.is_defined()) {
+      sample.jitter_buffer_target_delay = *stat->jitter_buffer_target_delay;
+    }
+    if (stat->jitter_buffer_emitted_count.is_defined()) {
+      sample.jitter_buffer_emitted_count = *stat->jitter_buffer_emitted_count;
+    }
 
     const std::string& stream_label =
-        GetStreamLabelFromStatsReport(stats_report);
+        analyzer_helper_->GetStreamLabelFromTrackId(*stat->track_identifier);
 
     rtc::CritScope crit(&lock_);
+    StatsSample prev_sample = last_stats_sample_[stream_label];
+    double total_samples_diff = static_cast<double>(
+        sample.total_samples_received - prev_sample.total_samples_received);
+    if (total_samples_diff == 0) {
+      return;
+    }
+
     AudioStreamStats& audio_stream_stats = streams_stats_[stream_label];
-    audio_stream_stats.expand_rate.AddSample(expand_rate->float_val());
-    audio_stream_stats.accelerate_rate.AddSample(accelerate_rate->float_val());
-    audio_stream_stats.preemptive_rate.AddSample(preemptive_rate->float_val());
+    audio_stream_stats.expand_rate.AddSample(
+        (sample.concealed_samples - prev_sample.concealed_samples) /
+        total_samples_diff);
+    audio_stream_stats.accelerate_rate.AddSample(
+        (sample.removed_samples_for_acceleration -
+         prev_sample.removed_samples_for_acceleration) /
+        total_samples_diff);
+    audio_stream_stats.preemptive_rate.AddSample(
+        (sample.inserted_samples_for_deceleration -
+         prev_sample.inserted_samples_for_deceleration) /
+        total_samples_diff);
+
+    int64_t speech_concealed_samples =
+        sample.concealed_samples - sample.silent_concealed_samples;
+    int64_t prev_speech_concealed_samples =
+        prev_sample.concealed_samples - prev_sample.silent_concealed_samples;
     audio_stream_stats.speech_expand_rate.AddSample(
-        speech_expand_rate->float_val());
-    audio_stream_stats.preferred_buffer_size_ms.AddSample(
-        preferred_buffer_size_ms->int_val());
+        (speech_concealed_samples - prev_speech_concealed_samples) /
+        total_samples_diff);
+
+    int64_t jitter_buffer_emitted_count_diff =
+        sample.jitter_buffer_emitted_count -
+        prev_sample.jitter_buffer_emitted_count;
+    if (jitter_buffer_emitted_count_diff > 0) {
+      double jitter_buffer_target_delay_diff =
+          sample.jitter_buffer_target_delay -
+          prev_sample.jitter_buffer_target_delay;
+      double jitter_buffer_target_delay_diff_ms = absl::ToDoubleMilliseconds(
+          absl::Seconds(jitter_buffer_target_delay_diff));
+      audio_stream_stats.preferred_buffer_size_ms.AddSample(
+          jitter_buffer_target_delay_diff_ms /
+          jitter_buffer_emitted_count_diff);
+    }
+
+    last_stats_sample_[stream_label] = sample;
   }
 }
 

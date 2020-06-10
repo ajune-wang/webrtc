@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bc21de1_eee23604",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 6876
+      },
+      "writtenOn": "2020-06-10T07:26:20Z",
+      "side": 1,
+      "message": "It does a bit more than detecting, doesn\u0027t it? It is ok to call it for CELT frames, it just returns -1, \"must not\" is a strong statement :).\n\nMaybe rewrite it to: \n\"This function returns the VAD information that is contained in an opus packet. For CELT-only packets that does not have VAD information, it returns -1.\"",
+      "range": {
+        "startLine": 516,
+        "startChar": 3,
+        "endLine": 517,
+        "endChar": 39
+      },
+      "revId": "8869ab6dba85ef188dcb917ffb756e5ca1ee1d1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

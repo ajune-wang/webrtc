@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9cc3b37d_9e8afae5",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-10T13:07:19Z",
+      "side": 1,
+      "message": "Done. (other functions it is done to avoid name collision, this one is the only one that has a different reason: consistency)",
+      "parentUuid": "f4daa039_c845fe5d",
+      "revId": "ffc367aa1e820187d8462ca6b187749ef4405774",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "696f7e9c_fab8644e",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "ffc367aa1e820187d8462ca6b187749ef4405774",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fd0e629_a001c882",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-10T13:07:19Z",
+      "side": 1,
+      "message": "This is fine. There are tests to make sure this structure is good, in particular there is one test to validate templates order, and another one that for each frame there is a matching template.\n\nThis CL is functionally no-op, but includes several minor performance optimizations.\nswapping order of key frame templates and T0 delta frames is one of minor optimizations:\ndependency descriptor writer search for best template and stops when it finds a perfect match,\nso putting more popular template a bit earlier makes it overall slightly faster to find the perfect template.\nBut I find this optimisation too minor to comment about it in code.",
+      "parentUuid": "696f7e9c_fab8644e",
+      "revId": "ffc367aa1e820187d8462ca6b187749ef4405774",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45ecdb3d_392a8877",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-06-10T15:28:20Z",
+      "side": 1,
+      "message": "nit: Since this function only uses config.extra_output_delay_ms, you can consider passing that value in directly instead of the whole struct.",
+      "range": {
+        "startLine": 77,
+        "startChar": 29,
+        "endLine": 77,
+        "endChar": 49
+      },
+      "revId": "3b7ca1e931530e9c27631b4903f5537b65951cd6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

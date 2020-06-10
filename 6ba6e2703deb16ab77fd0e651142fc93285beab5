@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e637256b_ddfd6428",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_s2t1.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-06-10T11:26:43Z",
+      "side": 1,
+      "message": ";",
+      "range": {
+        "startLine": 50,
+        "startChar": 59,
+        "endLine": 50,
+        "endChar": 60
+      },
+      "revId": "6ba6e2703deb16ab77fd0e651142fc93285beab5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

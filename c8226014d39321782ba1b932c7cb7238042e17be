@@ -52,6 +52,24 @@
       "revId": "c8226014d39321782ba1b932c7cb7238042e17be",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82939fac_4376491c",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-06-10T12:06:23Z",
+      "side": 1,
+      "message": "\u003e I will not guarantee that this will not break things.\nIf you peer into the implementation you\u0027ll find nothing material changed here. So how can there be a new problem with it if the old way worked?\n\nI do not want to change to GlobalMutex. If you peer into it, the implementation on POSIX is using spin locks and this is a material change compared to how it was before.\n\nI\u0027ll add a TODO to get this solved somehow.",
+      "parentUuid": "4770ae17_63e1038c",
+      "revId": "c8226014d39321782ba1b932c7cb7238042e17be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

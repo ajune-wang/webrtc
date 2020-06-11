@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "78e5de1c_abfaab4c",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-06-11T11:08:52Z",
+      "side": 1,
+      "message": "Just want to point out that no matter what this number is it does not affect the size on the wire.",
+      "parentUuid": "8c668965_13af1c25",
+      "range": {
+        "startLine": 113,
+        "startChar": 44,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1e501f1_d69d408c",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
         "patchSetId": 4

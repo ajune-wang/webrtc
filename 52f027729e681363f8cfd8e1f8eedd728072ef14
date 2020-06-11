@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c668965_13af1c25",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-11T10:31:09Z",
+      "side": 1,
+      "message": "this is same value used in FrameDependencyTemplate (see line 75)\nI guess it was chosen to be large enough to fit largest used structure (L3T3) that has 9 decode targets.\n\nthe function itself is just moved from from common_video/generic_frame_descriptor/generic_frame_info\nand renamed from GenericFrameInfo::DecodeTargetInfo\n\nI checked size of this structure locally (linux x64),\ngot 4 bytes for DecodeTargetIndication \nand 48 bytes for the absl::InlinedVector\u003cDecodeTargetIndication, 10\u003e\nit is possible to reduce those numbers (enum DecodeTargetIndictation : uint8_t {... reduces size of the vector to 24 bytes), but I prefer to trust compiler that by default alignment is more important than size.\n\nEach packet only has template for itself, so it is 48 bytes per packet.\nthe only exception is first packet of a key frame that needs frame dependency structure and thus needs multiple templates.",
+      "parentUuid": "5612c786_511eeff6",
+      "range": {
+        "startLine": 113,
+        "startChar": 44,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1e501f1_d69d408c",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dacad7e5_01bcb335",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-11T10:31:09Z",
+      "side": 1,
+      "message": "it is a dot, let me annotate that it is a reference to code.",
+      "parentUuid": "f1e501f1_d69d408c",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 34
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

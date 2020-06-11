@@ -361,6 +361,7 @@ rtc_source_set("stats_observer_interface") {
   deps = [
     # For api/stats_types.h
     ":libjingle_peerconnection_api",
+    ":rtc_stats_api",
     ":rtp_parameters",
   ]
 }

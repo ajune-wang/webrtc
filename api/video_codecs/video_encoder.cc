@@ -49,6 +49,21 @@ VideoCodecVP9 VideoEncoder::GetDefaultVp9Settings() {
   return vp9_settings;
 }
 
+VideoCodecAV1 VideoEncoder::GetDefaultAv1Settings() {
+  VideoCodecAV1 av1_settings;
+  memset(&av1_settings, 0, sizeof(av1_settings));
+
+  av1_settings.numberOfTemporalLayers = 1;
+  av1_settings.denoisingOn = true;
+  av1_settings.frameDroppingOn = true;
+  av1_settings.keyFrameInterval = 3000;
+  av1_settings.adaptiveQpMode = true;
+  av1_settings.automaticResizeOn = true;
+  av1_settings.numberOfSpatialLayers = 1;
+
+  return av1_settings;
+}
+
 VideoCodecH264 VideoEncoder::GetDefaultH264Settings() {
   VideoCodecH264 h264_settings;
   memset(&h264_settings, 0, sizeof(h264_settings));

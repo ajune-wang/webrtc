@@ -153,8 +153,8 @@ void VideoQualityAnalyzerInjectionHelper::Start(
 
 void VideoQualityAnalyzerInjectionHelper::OnStatsReports(
     const std::string& pc_label,
-    const StatsReports& stats_reports) {
-  analyzer_->OnStatsReports(pc_label, stats_reports);
+    const rtc::scoped_refptr<const RTCStatsReport>& report) {
+  analyzer_->OnStatsReports(pc_label, report);
 }
 
 void VideoQualityAnalyzerInjectionHelper::Stop() {

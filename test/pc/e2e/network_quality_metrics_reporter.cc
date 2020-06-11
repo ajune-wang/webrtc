@@ -11,6 +11,7 @@
 
 #include <utility>
 
+#include "api/stats/rtcstats_objects.h"
 #include "api/stats_types.h"
 #include "rtc_base/event.h"
 #include "system_wrappers/include/field_trial.h"
@@ -41,24 +42,25 @@ void NetworkQualityMetricsReporter::Start(absl::string_view test_case_name) {
 
 void NetworkQualityMetricsReporter::OnStatsReports(
     const std::string& pc_label,
-    const StatsReports& reports) {
-  rtc::CritScope cs(&lock_);
+    const rtc::scoped_refptr<const RTCStatsReport>& report) {
   int64_t payload_bytes_received = 0;
   int64_t payload_bytes_sent = 0;
-  for (const StatsReport* report : reports) {
-    if (report->type() == StatsReport::kStatsReportTypeSsrc) {
-      const auto* received =
-          report->FindValue(StatsReport::kStatsValueNameBytesReceived);
-      if (received) {
-        payload_bytes_received += received->int64_val();
-      }
-      const auto* sent =
-          report->FindValue(StatsReport::kStatsValueNameBytesSent);
-      if (sent) {
-        payload_bytes_sent += sent->int64_val();
-      }
+
+  auto inbound_stats = report->GetStatsOfType<RTCInboundRTPStreamStats>();
+  for (const auto& stat : inbound_stats) {
+    if (stat->bytes_received.is_defined()) {
+      payload_bytes_received += *stat->bytes_received;
     }
   }
+
+  auto outbound_stats = report->GetStatsOfType<RTCOutboundRTPStreamStats>();
+  for (const auto& stat : outbound_stats) {
+    if (stat->bytes_sent.is_defined()) {
+      payload_bytes_sent += *stat->bytes_sent;
+    }
+  }
+
+  rtc::CritScope cs(&lock_);
   PCStats& stats = pc_stats_[pc_label];
   stats.payload_bytes_received = payload_bytes_received;
   stats.payload_bytes_sent = payload_bytes_sent;

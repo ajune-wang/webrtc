@@ -6,6 +6,7 @@
 # in the file PATENTS.  All contributing project authors may
 # be found in the AUTHORS file in the root of the source tree.
 
+import("//third_party/libaom/options.gni")
 import("../webrtc.gni")
 
 rtc_library("video") {
@@ -257,6 +258,11 @@ rtc_library("video_stream_encoder_impl") {
     "../system_wrappers:field_trial",
     "adaptation:video_adaptation",
   ]
+
+  if (enable_libaom) {
+    deps += [ "../modules/video_coding/codecs/av1:libaom_av1_encoder" ]
+  }
+
   absl_deps = [
     "//third_party/abseil-cpp/absl/algorithm:container",
     "//third_party/abseil-cpp/absl/base:core_headers",

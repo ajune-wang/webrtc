@@ -29,16 +29,31 @@ void InternalStatsObserver::OnComplete(const StatsReports& reports) {
   }
 }
 
+void InternalStatsObserverNew::PollStats() {
+  peer_->pc()->GetStats(this);
+}
+void InternalStatsObserverNew::OnStatsDelivered(
+    const rtc::scoped_refptr<const RTCStatsReport>& report) {
+  for (auto* observer : observers_) {
+    observer->OnStatsReports(pc_label_, report);
+  }
+}
+
 StatsPoller::StatsPoller(std::vector<StatsObserverInterface*> observers,
                          std::map<std::string, TestPeer*> peers) {
   for (auto& peer : peers) {
     pollers_.push_back(new rtc::RefCountedObject<InternalStatsObserver>(
+        peer.first, peer.second, observers));
+    pollers_new_.push_back(new rtc::RefCountedObject<InternalStatsObserverNew>(
         peer.first, peer.second, observers));
   }
 }
 
 void StatsPoller::PollStatsAndNotifyObservers() {
   for (auto& poller : pollers_) {
+    poller->PollStats();
+  }
+  for (auto& poller : pollers_new_) {
     poller->PollStats();
   }
 }

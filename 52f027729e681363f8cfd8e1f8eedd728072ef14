@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "497962a5_b8bd65a2",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-11T10:56:10Z",
+      "side": 1,
+      "message": "Well, if this extension was included in header dumps, then the size definitely would matter since the tools might read, say, 100\u0027000 headers into memory.",
+      "parentUuid": "8c668965_13af1c25",
+      "range": {
+        "startLine": 113,
+        "startChar": 44,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1e501f1_d69d408c",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "it is a dot, let me annotate that it is a reference to code.",
       "parentUuid": "f1e501f1_d69d408c",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 34
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d1f6671_593c6df8",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-11T10:56:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dacad7e5_01bcb335",
       "range": {
         "startLine": 99,
         "startChar": 33,

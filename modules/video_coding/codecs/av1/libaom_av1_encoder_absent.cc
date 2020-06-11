@@ -12,12 +12,14 @@
 #include <memory>
 
 #include "api/video_codecs/video_encoder.h"
+#include "modules/video_coding/codecs/av1/frame_dependencies_controller.h"
 
 namespace webrtc {
 
 const bool kIsLibaomAv1EncoderSupported = false;
 
-std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder() {
+std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder(
+    FrameDependenciesController* /*controller*/) {
   return nullptr;
 }
 

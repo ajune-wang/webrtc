@@ -15,6 +15,7 @@
 #include "absl/base/attributes.h"
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/codecs/av1/scalable_video_controller.h"
+#include "modules/video_coding/codecs/av1/video_encoder_light.h"
 
 namespace webrtc {
 
@@ -23,6 +24,8 @@ ABSL_CONST_INIT extern const bool kIsLibaomAv1EncoderSupported;
 std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder();
 std::unique_ptr<VideoEncoder> CreateLibaomAv1Encoder(
     std::unique_ptr<ScalableVideoController> controller);
+
+std::unique_ptr<VideoEncoderLight> CreateLibaomAv1EncoderLight();
 
 }  // namespace webrtc
 

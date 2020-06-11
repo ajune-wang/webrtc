@@ -17,6 +17,7 @@
 #include "absl/types/optional.h"
 #include "api/test/create_frame_generator.h"
 #include "api/test/frame_generator_interface.h"
+#include "api/test/mock_video_decoder.h"
 #include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "modules/video_coding/codecs/av1/libaom_av1_decoder.h"
@@ -41,18 +42,20 @@
 namespace webrtc {
 namespace {
 
+using ::testing::_;
 using ::testing::ContainerEq;
 using ::testing::Each;
 using ::testing::ElementsAreArray;
 using ::testing::Ge;
 using ::testing::IsEmpty;
+using ::testing::NiceMock;
 using ::testing::Not;
 using ::testing::NotNull;
 using ::testing::SizeIs;
 using ::testing::Truly;
 using ::testing::Values;
 
-// Use small resolution for this test to make it faster.
+// Use small resolution to make tests faster.
 constexpr int kWidth = 320;
 constexpr int kHeight = 180;
 constexpr int kFramerate = 30;

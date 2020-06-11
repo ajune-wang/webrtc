@@ -16,6 +16,24 @@
       "revId": "7a67ec53e6f89c496cef4d818a5f9af0156e98b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a62693f4_cebeb21e",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-11T07:54:28Z",
+      "side": 1,
+      "message": "I thought about this too. The problem is these mock resources used in the tests. Not sure what to do about those...",
+      "parentUuid": "9124e571_7347997c",
+      "revId": "7a67ec53e6f89c496cef4d818a5f9af0156e98b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

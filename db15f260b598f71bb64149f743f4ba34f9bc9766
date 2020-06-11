@@ -16,6 +16,24 @@
       "revId": "db15f260b598f71bb64149f743f4ba34f9bc9766",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4d2b2b3_67b34515",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-11T08:00:48Z",
+      "side": 1,
+      "message": "Will have to address in a new patch.",
+      "parentUuid": "66b4e2e4_8d11738c",
+      "revId": "db15f260b598f71bb64149f743f4ba34f9bc9766",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

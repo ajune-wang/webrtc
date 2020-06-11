@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5612c786_511eeff6",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-11T09:57:44Z",
+      "side": 1,
+      "message": "Is there a reason for this particular number?\n\nAlso, sizeof(DecodeTargetIndication) is compiler defined afaik. What does clang choose in practice? The reason I\u0027m asking is that I\u0027m a bit worried we might end up in a situation where we create a frame dependency structure per packet, each having, say, 16 templates and each template allocates a vector of length 10 where each enum uses 4 bytes. This would give a total of 640 bytes per packet.",
+      "range": {
+        "startLine": 113,
+        "startChar": 44,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1e501f1_d69d408c",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-11T09:57:44Z",
+      "side": 1,
+      "message": "nit: , ?",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 99,
+        "endChar": 34
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

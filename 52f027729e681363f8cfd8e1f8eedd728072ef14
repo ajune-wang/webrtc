@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "f1c2c801_55f5c16d",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-06-11T16:06:08Z",
+      "side": 1,
+      "message": "Yes, I am well aware that we\u0027re talking about size in memory and not size on the wire.\n\n5 megabytes is obviously not prohibitive (and it is a lot better than the 64 megabytes I was worried about), but it is also not an insignificant increase. Depending on the resources of the machine where you are analyzing the logs and the number of logs you\u0027re processing, this may contribute to a memory bottle neck.\n\nAlso, 100\u0027000 packets was just an example and not an upper limit. To make the calculation concrete, imagine a 450 kbps audio+video call. Audio typically sends 50 packets per second and might use about 50 kbps including overhead which leave 400kbps for video. With a typical packet size of 1000 bytes, this gives an additional 50 packets per second. Assuming it is a 2-way call, we double that for 200 packets per second, meaning even a fairly low-bitrate call reaches 100\u0027000 packets in about 8 minutes. This scales with bandwidth, so a 5 Mbps call might reach 100\u0027000 packets in about 2 minutes.",
+      "parentUuid": "78e5de1c_abfaab4c",
+      "range": {
+        "startLine": 113,
+        "startChar": 44,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1e501f1_d69d408c",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
         "patchSetId": 4

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "798dfbc3_55c80f31",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-06-11T15:16:46Z",
+      "side": 1,
+      "message": "Could you please remove this constant now?",
+      "range": {
+        "startLine": 1668,
+        "startChar": 8,
+        "endLine": 1668,
+        "endChar": 27
+      },
+      "revId": "23c67723887d1827dc316443aa765b9a3f5c3102",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

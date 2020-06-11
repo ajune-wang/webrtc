@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce104e06_78e9fdb4",
+        "filename": "modules/video_coding/utility/vp9_uncompressed_header_parser.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-11T14:44:39Z",
+      "side": 1,
+      "message": "Not all fields here are strictly needed for this cl, but I\u0027ll be using most in other\nupcoming changes. Adding all parsing here just for completeness.",
+      "range": {
+        "startLine": 66,
+        "startChar": 7,
+        "endLine": 66,
+        "endChar": 16
+      },
+      "revId": "faaa7217da83044c13c8f3100cecc11572d5c761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

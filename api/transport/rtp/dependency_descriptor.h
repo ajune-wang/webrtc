@@ -13,10 +13,12 @@
 
 #include <stdint.h>
 
+#include <initializer_list>
 #include <memory>
 #include <vector>
 
 #include "absl/container/inlined_vector.h"
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 
 namespace webrtc {
@@ -52,6 +54,13 @@ enum class DecodeTargetIndication {
 };
 
 struct FrameDependencyTemplate {
+  // Setters are named briefly to chain them when building the template.
+  FrameDependencyTemplate& S(int spatial_id);
+  FrameDependencyTemplate& T(int temporal_id);
+  FrameDependencyTemplate& Dtis(absl::string_view dtis);
+  FrameDependencyTemplate& FrameDiffs(std::initializer_list<int> frame_diffs);
+  FrameDependencyTemplate& ChainDiffs(std::initializer_list<int> chain_diffs);
+
   friend bool operator==(const FrameDependencyTemplate& lhs,
                          const FrameDependencyTemplate& rhs) {
     return lhs.spatial_id == rhs.spatial_id &&
@@ -98,6 +107,37 @@ struct DependencyDescriptor {
   absl::optional<uint32_t> active_decode_targets_bitmask;
   std::unique_ptr<FrameDependencyStructure> attached_structure;
 };
+
+// Below are implementation details.
+namespace webrtc_impl {
+absl::InlinedVector<DecodeTargetIndication, 10> StringToDecodeTargetIndications(
+    absl::string_view indication_symbols);
+}  // namespace webrtc_impl
+
+inline FrameDependencyTemplate& FrameDependencyTemplate::S(int spatial_id) {
+  this->spatial_id = spatial_id;
+  return *this;
+}
+inline FrameDependencyTemplate& FrameDependencyTemplate::T(int temporal_id) {
+  this->temporal_id = temporal_id;
+  return *this;
+}
+inline FrameDependencyTemplate& FrameDependencyTemplate::Dtis(
+    absl::string_view dtis) {
+  this->decode_target_indications =
+      webrtc_impl::StringToDecodeTargetIndications(dtis);
+  return *this;
+}
+inline FrameDependencyTemplate& FrameDependencyTemplate::FrameDiffs(
+    std::initializer_list<int> frame_diffs) {
+  this->frame_diffs.assign(frame_diffs.begin(), frame_diffs.end());
+  return *this;
+}
+inline FrameDependencyTemplate& FrameDependencyTemplate::ChainDiffs(
+    std::initializer_list<int> chain_diffs) {
+  this->chain_diffs.assign(chain_diffs.begin(), chain_diffs.end());
+  return *this;
+}
 
 }  // namespace webrtc
 

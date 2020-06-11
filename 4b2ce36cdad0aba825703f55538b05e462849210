@@ -187,6 +187,30 @@
       "revId": "4b2ce36cdad0aba825703f55538b05e462849210",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7772ae7_f275dabd",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-06-11T08:33:44Z",
+      "side": 1,
+      "message": "Oh, I see now that the code adds the lengths of all the encodings in the loop below. This is fine. Thanks!",
+      "parentUuid": "75c6eaad_be161939",
+      "range": {
+        "startLine": 120,
+        "startChar": 23,
+        "endLine": 120,
+        "endChar": 38
+      },
+      "revId": "4b2ce36cdad0aba825703f55538b05e462849210",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

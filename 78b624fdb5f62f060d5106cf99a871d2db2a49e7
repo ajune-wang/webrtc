@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec9a8176_cb4f703c",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-06-11T08:33:44Z",
+      "side": 1,
+      "message": "Please use c++ style casting.\nhttps://google.github.io/styleguide/cppguide.html#Casting",
+      "range": {
+        "startLine": 315,
+        "startChar": 12,
+        "endLine": 315,
+        "endChar": 21
+      },
+      "revId": "78b624fdb5f62f060d5106cf99a871d2db2a49e7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

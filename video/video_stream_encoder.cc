@@ -26,6 +26,7 @@
 #include "api/video/video_codec_constants.h"
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
+#include "modules/video_coding/codecs/av1/libaom_svc_rate_allocator.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "rtc_base/arraysize.h"
@@ -755,6 +756,8 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     num_layers = codec.VP8()->numberOfTemporalLayers;
   } else if (codec.codecType == kVideoCodecVP9) {
     num_layers = codec.VP9()->numberOfTemporalLayers;
+  } else if (codec.codecType == kVideoCodecAV1) {
+    num_layers = codec.AV1()->numberOfTemporalLayers;
   } else if (codec.codecType == kVideoCodecH264) {
     num_layers = codec.H264()->numberOfTemporalLayers;
   } else if (codec.codecType == kVideoCodecGeneric &&
@@ -800,18 +803,26 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   bool is_svc = false;
   // Set min_bitrate_bps, max_bitrate_bps, and max padding bit rate for VP9
   // and leave only one stream containing all necessary information.
-  if (encoder_config_.codec_type == kVideoCodecVP9) {
+  if (encoder_config_.codec_type == kVideoCodecVP9 ||
+      encoder_config_.codec_type == kVideoCodecAV1) {
     // Lower max bitrate to the level codec actually can produce.
     streams[0].max_bitrate_bps =
         std::min(streams[0].max_bitrate_bps,
                  SvcRateAllocator::GetMaxBitrate(codec).bps<int>());
     streams[0].min_bitrate_bps = codec.spatialLayers[0].minBitrate * 1000;
-    // target_bitrate_bps specifies the maximum padding bitrate.
-    streams[0].target_bitrate_bps =
-        SvcRateAllocator::GetPaddingBitrate(codec).bps<int>();
+
     streams[0].width = streams.back().width;
     streams[0].height = streams.back().height;
-    is_svc = codec.VP9()->numberOfSpatialLayers > 1;
+    if (encoder_config_.codec_type == kVideoCodecVP9) {
+      // target_bitrate_bps specifies the maximum padding bitrate.
+      streams[0].target_bitrate_bps =
+          SvcRateAllocator::GetPaddingBitrate(codec).bps<int>();
+      is_svc = codec.VP9()->numberOfSpatialLayers > 1;
+    } else {
+      streams[0].target_bitrate_bps =
+          LibaomSvcRateAllocator::GetPaddingBitrate(codec).bps<int>();
+      is_svc = codec.AV1()->numberOfSpatialLayers > 1;
+    }
     streams.resize(1);
   }
 

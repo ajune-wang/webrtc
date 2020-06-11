@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7999760e_b2605597",
+        "filename": "api/transport/rtp/dependency_descriptor.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-11T11:04:59Z",
+      "side": 1,
+      "message": "header dump itself stores extension unparsed, right? there this field uses 2bits per dti (or 0 bits when there is matching template, which is expected to be most of the time)\n\nfor a tool 100\u0027000 headers each using extra 48 bytes would mean extra 4.8 megabytes. is it a lot?\nif 1000 of those headers are key frames, then that would be extra 640 kilobytes.",
+      "parentUuid": "497962a5_b8bd65a2",
+      "range": {
+        "startLine": 113,
+        "startChar": 44,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "52f027729e681363f8cfd8e1f8eedd728072ef14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1e501f1_d69d408c",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
         "patchSetId": 4

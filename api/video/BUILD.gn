@@ -6,6 +6,7 @@
 # in the file PATENTS.  All contributing project authors may
 # be found in the AUTHORS file in the root of the source tree.
 
+import("//third_party/libaom/options.gni")
 import("../../webrtc.gni")
 if (is_android) {
   import("//build/config/android/config.gni")
@@ -318,8 +319,10 @@ rtc_library("builtin_video_bitrate_allocator_factory") {
     "../../media:rtc_media_base",
     "../../modules/video_coding:video_coding_utility",
     "../../modules/video_coding:webrtc_vp9_helpers",
+    "../../modules/video_coding/codecs/av1:libaom_svc_helpers",
     "../video_codecs:video_codecs_api",
   ]
+
   absl_deps = [ "//third_party/abseil-cpp/absl/base:core_headers" ]
 }
 

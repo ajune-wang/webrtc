@@ -73,6 +73,22 @@ struct VideoCodecVP9 {
   InterLayerPredMode interLayerPred;
 };
 
+// AV1 specific.
+struct VideoCodecAV1 {
+  bool operator==(const VideoCodecAV1& other) const;
+  bool operator!=(const VideoCodecAV1& other) const {
+    return !(*this == other);
+  }
+  VideoCodecComplexity complexity;
+  unsigned char numberOfTemporalLayers;
+  bool denoisingOn;
+  bool frameDroppingOn;
+  int keyFrameInterval;
+  bool adaptiveQpMode;
+  bool automaticResizeOn;
+  unsigned char numberOfSpatialLayers;
+};
+
 // H264 specific.
 struct VideoCodecH264 {
   bool operator==(const VideoCodecH264& other) const;
@@ -91,6 +107,7 @@ RTC_EXPORT VideoCodecType PayloadStringToCodecType(const std::string& name);
 union VideoCodecUnion {
   VideoCodecVP8 VP8;
   VideoCodecVP9 VP9;
+  VideoCodecAV1 AV1;
   VideoCodecH264 H264;
 };
 
@@ -157,6 +174,8 @@ class RTC_EXPORT VideoCodec {
   const VideoCodecVP8& VP8() const;
   VideoCodecVP9* VP9();
   const VideoCodecVP9& VP9() const;
+  VideoCodecAV1* AV1();
+  const VideoCodecAV1& AV1() const;
   VideoCodecH264* H264();
   const VideoCodecH264& H264() const;
 

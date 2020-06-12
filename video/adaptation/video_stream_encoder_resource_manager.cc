@@ -596,7 +596,8 @@ int VideoStreamEncoderResourceManager::LastInputFrameSizeOrDefault() const {
 void VideoStreamEncoderResourceManager::OnVideoSourceRestrictionsUpdated(
     VideoSourceRestrictions restrictions,
     const VideoAdaptationCounters& adaptation_counters,
-    rtc::scoped_refptr<Resource> reason) {
+    rtc::scoped_refptr<Resource> reason,
+    const VideoSourceRestrictions& unfiltered_restrictions) {
   RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   // TODO(bugs.webrtc.org/11553) Remove reason parameter and add reset callback.
   if (!reason && adaptation_counters.Total() == 0) {
@@ -608,7 +609,8 @@ void VideoStreamEncoderResourceManager::OnVideoSourceRestrictionsUpdated(
   // means that if the task gets executed, |this| has not been freed yet.
   encoder_queue_->PostTask([this, restrictions] {
     RTC_DCHECK_RUN_ON(encoder_queue_);
-    video_source_restrictions_ = restrictions;
+    video_source_restrictions_ = FilterRestrictionsByDegradationPreference(
+        restrictions, degradation_preference_);
     MaybeUpdateTargetFrameRate();
   });
 }

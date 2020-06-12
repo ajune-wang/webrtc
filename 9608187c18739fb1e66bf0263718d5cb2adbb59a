@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3058088a_b8a08ba6",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-12T14:14:07Z",
+      "side": 1,
+      "message": "The total payload on the transport is header_bytes_sent + bytes_sent. However if this refers to the RTP payload, then bytes_sent is correct. You might want to check the numbers before and after this CL to see if they are roughly the same.\n\nThe same comment is true for inbound-rtp and bytes_received and header_bytes_received",
+      "revId": "9608187c18739fb1e66bf0263718d5cb2adbb59a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

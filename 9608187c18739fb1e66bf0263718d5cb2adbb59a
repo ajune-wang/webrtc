@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d0dbc10a_9366ad01",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_metrics_reporter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-06-12T18:55:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c07685c8_1458c6a5",
+      "revId": "9608187c18739fb1e66bf0263718d5cb2adbb59a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3058088a_b8a08ba6",
         "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "9608187c18739fb1e66bf0263718d5cb2adbb59a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6194444_7fb828ae",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-06-12T18:55:36Z",
+      "side": 1,
+      "message": "Actually, you were right. I had 3% diff in network metrics, but if I take header_bytes_sent into account - it eliminates the diff. So it was the transport one :)",
+      "parentUuid": "3058088a_b8a08ba6",
+      "revId": "9608187c18739fb1e66bf0263718d5cb2adbb59a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

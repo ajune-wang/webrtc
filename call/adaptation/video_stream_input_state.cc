@@ -11,6 +11,7 @@
 #include "call/adaptation/video_stream_input_state.h"
 
 #include "api/video_codecs/video_encoder.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 
@@ -31,6 +32,7 @@ void VideoStreamInputState::set_frame_size_pixels(
 }
 
 void VideoStreamInputState::set_frames_per_second(int frames_per_second) {
+  RTC_LOG(INFO) << "set fps = " << frames_per_second;
   frames_per_second_ = frames_per_second;
 }
 

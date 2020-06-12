@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c07685c8_1458c6a5",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_metrics_reporter.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-12T14:16:48Z",
+      "side": 1,
+      "message": "I think we always bundle i.e. send everything over the same transport, but note that it is possible to have multiple transport in which case you might have multiple selected ice pairs. Maybe you want to DCHECK this assumption to make sure you\u0027re not missing anything from stats",
+      "revId": "9608187c18739fb1e66bf0263718d5cb2adbb59a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3058088a_b8a08ba6",
         "filename": "test/pc/e2e/network_quality_metrics_reporter.cc",
         "patchSetId": 8

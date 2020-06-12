@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "868f41fb_c3779e6c",
+        "filename": "modules/video_coding/codecs/av1/libaom_svc_rate_allocator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-12T16:45:54Z",
+      "side": 1,
+      "message": "can you please add tests (and may be comment) to explain what this class does.\nWhy libaom needs a dedicated rate allocator? can it share one with vp9?",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "a433d1197dc5fd08bd1e5f24edddddafeddff6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

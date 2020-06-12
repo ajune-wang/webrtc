@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3d5e4c95_ffa7a8e2",
+        "filename": "modules/video_coding/codecs/av1/libaom_svc_rate_allocator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2020-06-12T18:03:49Z",
+      "side": 1,
+      "message": "The vp9 allocator has codec specific settings (like number of spatial and temporal layers are under vp9 specific settings - https://osscs.corp.google.com/chromium/chromium/src/+/master:third_party/webrtc/api/video_codecs/video_codec.h;l\u003d59\n\nI can either make those settings a generic thing for all codecs, or change the structure\u0027s name and some other related logic to make it work for av1, but I think it may cause more confusions.",
+      "parentUuid": "868f41fb_c3779e6c",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "a433d1197dc5fd08bd1e5f24edddddafeddff6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15f59d05_4cc90b99",
         "filename": "video/BUILD.gn",
         "patchSetId": 9

@@ -22,6 +22,30 @@
       "revId": "0e2dd1271e1c6c0abbaa4386711509817a97a898",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a57572cb_78a8cfc0",
+        "filename": "modules/video_coding/codecs/av1/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5366
+      },
+      "writtenOn": "2020-06-12T17:07:58Z",
+      "side": 0,
+      "message": "I got an error here if this is not removed:\n\nERROR at //webrtc.gni:669:3: assert_no_deps failed.\n  target(target_type, target_name) {\n  ^---------------------------------\n//video:video_stream_encoder_impl has an assert_no_deps entry:\n  //.:poison_software_video_codecs\nwhich fails for the dependency path:\n  //video:video_stream_encoder_impl -\u003e\n  //modules/video_coding/codecs/av1:libaom_av1_encoder -\u003e\n  //:poison_software_video_codecs\nninja: error: rebuilding \u0027build.ninja\u0027: subcommand failed\n\nWhat\u0027s the correct way to get around this?",
+      "parentUuid": "a787d1d7_d0677a42",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 41
+      },
+      "revId": "0e2dd1271e1c6c0abbaa4386711509817a97a898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

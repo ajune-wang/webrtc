@@ -13,7 +13,7 @@
 
 #include <string>
 
-#include "api/stats_types.h"
+#include "api/stats/rtc_stats_report.h"
 
 namespace webrtc {
 namespace webrtc_pc_e2e {
@@ -25,8 +25,19 @@ class StatsObserverInterface {
 
   // Method called when stats reports are available for the PeerConnection
   // identified by |pc_label|.
-  virtual void OnStatsReports(const std::string& pc_label,
-                              const StatsReports& reports) = 0;
+  virtual void OnStatsReports(
+      const std::string& pc_label,
+      const rtc::scoped_refptr<const RTCStatsReport>& report) = 0;
+
+ protected:
+  template <typename T, typename U>
+  static inline T GetStatOrDefault(const RTCStatsMember<T>& member,
+                                   U default_value) {
+    if (member.is_defined()) {
+      return *member;
+    }
+    return default_value;
+  }
 };
 
 }  // namespace webrtc_pc_e2e

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3ce974de_71be1d47",
+        "filename": "api/video/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-12T17:03:06Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "a433d1197dc5fd08bd1e5f24edddddafeddff6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "868f41fb_c3779e6c",
         "filename": "modules/video_coding/codecs/av1/libaom_svc_rate_allocator.h",
         "patchSetId": 9
@@ -18,6 +41,29 @@
         "startChar": 6,
         "endLine": 26,
         "endChar": 28
+      },
+      "revId": "a433d1197dc5fd08bd1e5f24edddddafeddff6d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15f59d05_4cc90b99",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-12T17:03:06Z",
+      "side": 1,
+      "message": "Can you open a webrtc bug on me to make these imports optional?\n\nI think we need an rtc_enable_libaom to gate these (like we do here https://cs.chromium.org/chromium/src/third_party/webrtc/webrtc.gni?l\u003d218\u0026rcl\u003d08ce986fda2e5423362de04ca97331ff44c6b5bc).",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
       },
       "revId": "a433d1197dc5fd08bd1e5f24edddddafeddff6d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

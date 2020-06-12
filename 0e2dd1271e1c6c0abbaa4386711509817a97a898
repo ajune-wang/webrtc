@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a787d1d7_d0677a42",
+        "filename": "modules/video_coding/codecs/av1/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-12T17:03:06Z",
+      "side": 0,
+      "message": "This should not be removed (same above).",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 41
+      },
+      "revId": "0e2dd1271e1c6c0abbaa4386711509817a97a898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

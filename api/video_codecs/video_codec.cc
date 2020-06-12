@@ -50,6 +50,17 @@ bool VideoCodecVP9::operator==(const VideoCodecVP9& other) const {
           flexibleMode == other.flexibleMode);
 }
 
+bool VideoCodecAV1::operator==(const VideoCodecAV1& other) const {
+  return (complexity == other.complexity &&
+          numberOfTemporalLayers == other.numberOfTemporalLayers &&
+          denoisingOn == other.denoisingOn &&
+          frameDroppingOn == other.frameDroppingOn &&
+          keyFrameInterval == other.keyFrameInterval &&
+          adaptiveQpMode == other.adaptiveQpMode &&
+          automaticResizeOn == other.automaticResizeOn &&
+          numberOfSpatialLayers == other.numberOfSpatialLayers);
+}
+
 bool VideoCodecH264::operator==(const VideoCodecH264& other) const {
   return (frameDroppingOn == other.frameDroppingOn &&
           keyFrameInterval == other.keyFrameInterval &&
@@ -103,6 +114,16 @@ VideoCodecVP9* VideoCodec::VP9() {
 const VideoCodecVP9& VideoCodec::VP9() const {
   RTC_DCHECK_EQ(codecType, kVideoCodecVP9);
   return codec_specific_.VP9;
+}
+
+VideoCodecAV1* VideoCodec::AV1() {
+  RTC_DCHECK_EQ(codecType, kVideoCodecAV1);
+  return &codec_specific_.AV1;
+}
+
+const VideoCodecAV1& VideoCodec::AV1() const {
+  RTC_DCHECK_EQ(codecType, kVideoCodecAV1);
+  return codec_specific_.AV1;
 }
 
 VideoCodecH264* VideoCodec::H264() {

@@ -90,6 +90,8 @@ class LibaomAv1Encoder final : public VideoEncoder {
   // Configures the encoder which buffers next frame updates and can reference.
   void SetSvcRefFrameConfig(
       const ScalableVideoController::LayerFrameConfig& layer_frame);
+  // Set rate allocation for SVC.
+  bool SetSvcRates(const VideoBitrateAllocation& bitrate_allocation);
 
   const std::unique_ptr<ScalableVideoController> svc_controller_;
   bool inited_;
@@ -98,6 +100,7 @@ class LibaomAv1Encoder final : public VideoEncoder {
   aom_image_t* frame_for_encode_;
   aom_codec_ctx_t ctx_;
   aom_codec_enc_cfg_t cfg_;
+  aom_svc_params_t svc_params_;
   EncodedImageCallback* encoded_image_callback_;
 };
 
@@ -283,7 +286,7 @@ bool LibaomAv1Encoder::SetSvcParams(
   if (!svc_enabled_) {
     return true;
   }
-  aom_svc_params_t svc_params = {};
+  svc_params_ = {};
   if (svc_config.num_spatial_layers < 1 || svc_config.num_spatial_layers > 4) {
     RTC_LOG(LS_WARNING) << "Av1 supports up to 4 spatial layers. "
                         << svc_config.num_spatial_layers << " configured.";
@@ -295,31 +298,31 @@ bool LibaomAv1Encoder::SetSvcParams(
                         << svc_config.num_temporal_layers << " configured.";
     return false;
   }
-  svc_params.number_spatial_layers = svc_config.num_spatial_layers;
-  svc_params.number_temporal_layers = svc_config.num_temporal_layers;
+  svc_params_.number_spatial_layers = svc_config.num_spatial_layers;
+  svc_params_.number_temporal_layers = svc_config.num_temporal_layers;
 
   int num_layers =
       svc_config.num_spatial_layers * svc_config.num_temporal_layers;
   for (int i = 0; i < num_layers; ++i) {
-    svc_params.min_quantizers[i] = kQpMin;
-    svc_params.max_quantizers[i] = encoder_settings_.qpMax;
+    svc_params_.min_quantizers[i] = kQpMin;
+    svc_params_.max_quantizers[i] = encoder_settings_.qpMax;
   }
 
   // Assume each temporal layer doubles framerate.
   for (int tid = 0; tid < svc_config.num_temporal_layers; ++tid) {
-    svc_params.framerate_factor[tid] =
+    svc_params_.framerate_factor[tid] =
         1 << (svc_config.num_temporal_layers - tid - 1);
   }
 
   // TODO(danilchap): Add support for custom resolution factor.
   for (int sid = 0; sid < svc_config.num_spatial_layers; ++sid) {
-    svc_params.scaling_factor_num[sid] = 1;
-    svc_params.scaling_factor_den[sid] =
+    svc_params_.scaling_factor_num[sid] = 1;
+    svc_params_.scaling_factor_den[sid] =
         1 << (svc_config.num_spatial_layers - sid - 1);
   }
 
   aom_codec_err_t ret =
-      aom_codec_control(&ctx_, AV1E_SET_SVC_PARAMS, &svc_params);
+      aom_codec_control(&ctx_, AV1E_SET_SVC_PARAMS, &svc_params_);
   if (ret != AOM_CODEC_OK) {
     RTC_LOG(LS_WARNING) << "LibaomAV1Encoder::EncodeInit returned " << ret
                         << " on control AV1E_SET_SVC_PARAMS.";
@@ -533,6 +536,27 @@ int32_t LibaomAv1Encoder::Encode(
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
+bool LibaomAv1Encoder::SetSvcRates(
+    const VideoBitrateAllocation& bitrate_allocation) {
+  for (int s = 0; s < svc_controller_->StreamConfig().num_spatial_layers; s++) {
+    for (int t = 0; t < svc_controller_->StreamConfig().num_temporal_layers;
+         t++) {
+      int layer_idx =
+          s * svc_controller_->StreamConfig().num_spatial_layers + t;
+      svc_params_.layer_target_bitrate[layer_idx] =
+          bitrate_allocation.GetBitrate(s, t);
+    }
+  }
+  aom_codec_err_t ret =
+      aom_codec_control(&ctx_, AV1E_SET_SVC_PARAMS, &svc_params_);
+  if (ret != AOM_CODEC_OK) {
+    RTC_LOG(LS_WARNING) << "LibaomAV1Encoder::SetSvcRates returned " << ret
+                        << " on control AV1E_SET_SVC_PARAMS.";
+    return false;
+  }
+  return true;
+}
+
 void LibaomAv1Encoder::SetRates(const RateControlParameters& parameters) {
   if (!inited_) {
     RTC_LOG(LS_WARNING) << "SetRates() while encoder is not initialized";
@@ -567,6 +591,13 @@ void LibaomAv1Encoder::SetRates(const RateControlParameters& parameters) {
   if (error_code != AOM_CODEC_OK) {
     RTC_LOG(LS_WARNING) << "Error configuring encoder, error code: "
                         << error_code;
+  }
+
+  if (svc_controller_->StreamConfig().num_spatial_layers > 1 ||
+      svc_controller_->StreamConfig().num_temporal_layers > 1) {
+    if (!SetSvcRates(parameters.bitrate)) {
+      RTC_LOG(LS_WARNING) << "Error configuring SVC rates";
+    }
   }
 }
 

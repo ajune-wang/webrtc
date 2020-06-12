@@ -15,6 +15,7 @@
 #include "absl/base/macros.h"
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video_codecs/video_codec.h"
+#include "modules/video_coding/codecs/av1/libaom_svc_rate_allocator.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 
@@ -34,6 +35,9 @@ class BuiltinVideoBitrateAllocatorFactory
     switch (codec.codecType) {
       case kVideoCodecVP9:
         rate_allocator.reset(new SvcRateAllocator(codec));
+        break;
+      case kVideoCodecAV1:
+        rate_allocator.reset(new LibaomSvcRateAllocator(codec));
         break;
       default:
         rate_allocator.reset(new SimulcastRateAllocator(codec));

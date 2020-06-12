@@ -319,6 +319,7 @@ class RTC_EXPORT VideoEncoder {
 
   static VideoCodecVP8 GetDefaultVp8Settings();
   static VideoCodecVP9 GetDefaultVp9Settings();
+  static VideoCodecAV1 GetDefaultAv1Settings();
   static VideoCodecH264 GetDefaultH264Settings();
 
   virtual ~VideoEncoder() {}

@@ -207,6 +207,14 @@ void VideoCodecTestFixtureImpl::Config::SetCodecSettings(
       break;
     case kVideoCodecAV1:
       codec_settings.qpMax = 63;
+      codec_settings.AV1()->numberOfTemporalLayers =
+          static_cast<uint8_t>(num_temporal_layers);
+      codec_settings.AV1()->denoisingOn = denoising_on;
+      codec_settings.AV1()->frameDroppingOn = frame_dropper_on;
+      codec_settings.AV1()->keyFrameInterval = kBaseKeyFrameInterval;
+      codec_settings.AV1()->automaticResizeOn = spatial_resize_on;
+      codec_settings.AV1()->numberOfSpatialLayers =
+          static_cast<uint8_t>(num_spatial_layers);
       break;
     case kVideoCodecH264:
       codec_settings.H264()->frameDroppingOn = frame_dropper_on;

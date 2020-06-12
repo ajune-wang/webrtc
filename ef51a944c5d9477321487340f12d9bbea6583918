@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "837d4fb7_f65cae28",
+        "filename": "api/video/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-12T19:18:33Z",
+      "side": 1,
+      "message": "I think this can be removed.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "ef51a944c5d9477321487340f12d9bbea6583918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8810548_17cf6ae0",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-12T19:18:33Z",
+      "side": 1,
+      "message": "Probably this can be removed.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "ef51a944c5d9477321487340f12d9bbea6583918",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

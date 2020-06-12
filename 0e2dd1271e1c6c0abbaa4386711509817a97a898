@@ -46,6 +46,30 @@
       "revId": "0e2dd1271e1c6c0abbaa4386711509817a97a898",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5f07e4e_a961740b",
+        "filename": "modules/video_coding/codecs/av1/BUILD.gn",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-12T17:23:54Z",
+      "side": 0,
+      "message": "I am not sure, but see my other comment on video/BUILD.gn, I think that dependency can be removed and then you should be able to add this back.",
+      "parentUuid": "a57572cb_78a8cfc0",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 41
+      },
+      "revId": "0e2dd1271e1c6c0abbaa4386711509817a97a898",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

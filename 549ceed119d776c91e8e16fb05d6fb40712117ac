@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30fe08c8_b26467ee",
+        "filename": "api/test/stats_observer_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-15T09:41:53Z",
+      "side": 1,
+      "message": "Is it possible (and desirable) to change to string_view here while you\u0027re updating this method signature anyway?",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "549ceed119d776c91e8e16fb05d6fb40712117ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87d1e7ac_a3816529",
+        "filename": "api/test/stats_observer_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-15T09:41:53Z",
+      "side": 1,
+      "message": "This looks like a convenient utility for implementers of this interface, not like something that should be part of the interface.",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 3
+      },
+      "revId": "549ceed119d776c91e8e16fb05d6fb40712117ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f164a7b_585e0414",
+        "filename": "api/test/video_quality_analyzer_interface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-15T09:41:53Z",
+      "side": 1,
+      "message": "string_view here too?",
+      "range": {
+        "startLine": 138,
+        "startChar": 6,
+        "endLine": 138,
+        "endChar": 24
+      },
+      "revId": "549ceed119d776c91e8e16fb05d6fb40712117ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

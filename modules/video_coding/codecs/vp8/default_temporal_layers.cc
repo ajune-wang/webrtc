@@ -311,6 +311,12 @@ Vp8EncoderConfig DefaultTemporalLayers::UpdateConfiguration(
 
   for (size_t i = 0; i < num_layers_; ++i) {
     ts_config.ts_target_bitrate[i] = (*new_bitrates_bps_)[i] / 1000;
+    // ts_target_bitrate must be increasing. If it is the same as the previous
+    // one, set the previous target bitrate to 0.
+    if (i > 0 &&
+        ts_config.ts_target_bitrate[i - 1] == ts_config.ts_target_bitrate[i]) {
+      ts_config.ts_target_bitrate[i - 1] = 0;
+    }
     // ..., 4, 2, 1
     ts_config.ts_rate_decimator[i] = 1 << (num_layers_ - i - 1);
   }

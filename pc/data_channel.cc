@@ -429,6 +429,16 @@ void DataChannel::OnTransportChannelClosed() {
   CloseAbruptlyWithError(std::move(error));
 }
 
+DataChannel::SctpStats DataChannel::GetSctpStats() const {
+  RTC_DCHECK_RUN_ON(network_thread_);
+  // TODO(tommi): Some of these getters can't currently be called on the
+  // network thread.
+  SctpStats sctp_stats{internal_id_,        id(),         label(),
+                       protocol(),          state(),      messages_sent(),
+                       messages_received(), bytes_sent(), bytes_received()};
+  return sctp_stats;
+}
+
 // The remote peer request that this channel shall be closed.
 void DataChannel::RemotePeerRequestClose() {
   RTC_DCHECK(data_channel_type_ == cricket::DCT_RTP);

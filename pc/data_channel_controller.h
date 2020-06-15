@@ -64,6 +64,9 @@ class DataChannelController : public DataChannelProviderInterface,
   void OnTransportChanged(
       DataChannelTransportInterface* data_channel_transport);
 
+  // Called from PeerConnection::GetSctpStats on the network thread.
+  std::vector<DataChannel::SctpStats> GetSctpStats_n() const;
+
   // Creates channel and adds it to the collection of DataChannels that will
   // be offered in a SessionDescription.
   rtc::scoped_refptr<DataChannel> InternalCreateDataChannel(

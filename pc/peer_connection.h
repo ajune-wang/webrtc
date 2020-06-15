@@ -281,10 +281,9 @@ class PeerConnection : public PeerConnectionInternal,
   }
 
   std::vector<rtc::scoped_refptr<DataChannel>> sctp_data_channels()
-      const override {
-    RTC_DCHECK_RUN_ON(signaling_thread());
-    return *data_channel_controller_.sctp_data_channels();
-  }
+      const override;
+
+  std::vector<DataChannel::SctpStats> GetSctpStats() const override;
 
   absl::optional<std::string> sctp_transport_name() const override;
 

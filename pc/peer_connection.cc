@@ -6225,6 +6225,18 @@ cricket::IceConfig PeerConnection::ParseIceConfig(
   return ice_config;
 }
 
+std::vector<rtc::scoped_refptr<DataChannel>>
+PeerConnection::sctp_data_channels() const {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  // Should we allow/require this method to be called on the network thread?
+  return *data_channel_controller_.sctp_data_channels();
+}
+
+std::vector<DataChannel::SctpStats> PeerConnection::GetSctpStats() const {
+  RTC_DCHECK_RUN_ON(network_thread());
+  return data_channel_controller_.GetSctpStats_n();
+}
+
 absl::optional<std::string> PeerConnection::sctp_transport_name() const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   if (sctp_mid_s_ && transport_controller_) {

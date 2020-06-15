@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "api/peer_connection_interface.h"
+#include "api/stats/rtcstats_objects.h"
 #include "call/call.h"
 #include "pc/data_channel.h"
 #include "pc/rtp_transceiver.h"
@@ -48,6 +49,9 @@ class PeerConnectionInternal : public PeerConnectionInterface {
 
   virtual std::vector<rtc::scoped_refptr<DataChannel>> sctp_data_channels()
       const = 0;
+
+  // Call on the network thread to fetch stats for all the SCTP data channels.
+  virtual std::vector<DataChannel::SctpStats> GetSctpStats() const = 0;
 
   virtual absl::optional<std::string> sctp_transport_name() const = 0;
 

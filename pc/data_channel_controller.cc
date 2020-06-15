@@ -211,6 +211,20 @@ void DataChannelController::OnTransportChanged(
   }
 }
 
+// Called from PeerConnection::GetSctpStats on the network thread.
+std::vector<DataChannel::SctpStats> DataChannelController::GetSctpStats_n()
+    const {
+  // RTC_DCHECK_RUN_ON(network_thread());
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  // TODO(tommi): figure out if sctp_data_channels_ belongs to the network
+  // thread or signaling.
+
+  std::vector<DataChannel::SctpStats> stats;
+  for (const auto& channel : sctp_data_channels_)
+    stats.push_back(channel->GetSctpStats());
+  return stats;
+}
+
 bool DataChannelController::HandleOpenMessage_s(
     const cricket::ReceiveDataParams& params,
     const rtc::CopyOnWriteBuffer& buffer) {

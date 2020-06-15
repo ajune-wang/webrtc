@@ -88,6 +88,13 @@ rtc_library("frame_utils") {
   ]
 }
 
+rtc_library("stats_utils") {
+  visibility = [ "*" ]
+  testonly = true
+  sources = [ "stats_utils.h" ]
+  deps = [ "../api:rtc_stats_api" ]
+}
+
 rtc_library("video_test_common") {
   visibility = [ "*" ]
   testonly = true

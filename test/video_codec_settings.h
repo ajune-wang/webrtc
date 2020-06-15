@@ -56,6 +56,9 @@ static void CodecSettings(VideoCodecType codec_type, VideoCodec* settings) {
     case kVideoCodecVP9:
       *(settings->VP9()) = VideoEncoder::GetDefaultVp9Settings();
       return;
+    case kVideoCodecAV1:
+      *(settings->AV1()) = VideoEncoder::GetDefaultAv1Settings();
+      return;
     case kVideoCodecH264:
       // TODO(brandtr): Set |qpMax| here, when the OpenH264 wrapper supports it.
       *(settings->H264()) = VideoEncoder::GetDefaultH264Settings();

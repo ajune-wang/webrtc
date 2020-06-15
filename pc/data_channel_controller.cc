@@ -174,6 +174,21 @@ void DataChannelController::OnTransportClosed() {
 void DataChannelController::SetupDataChannelTransport_n() {
   RTC_DCHECK_RUN_ON(network_thread());
   data_channel_transport_invoker_ = std::make_unique<rtc::AsyncInvoker>();
+
+  // There's a new data channel transport.  This needs to be signaled to the
+  // |sctp_data_channels_| so that they can reopen and reconnect.  This is
+  // necessary when bundling is applied.
+  // TODO(tommi): This is basically a copy of what OnTransportChanged below does
+  // Change it so that it's done in one place and that we call
+  // OnTransportChannelCreated on the network thread (move management of
+  // sctp_data_channels_ to the network thread).
+  data_channel_transport_invoker_->AsyncInvoke<void>(
+      RTC_FROM_HERE, signaling_thread(), [this] {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        for (const auto& channel : sctp_data_channels_) {
+          channel->OnTransportChannelCreated();
+        }
+      });
 }
 
 void DataChannelController::TeardownDataChannelTransport_n() {
@@ -209,6 +224,20 @@ void DataChannelController::OnTransportChanged(
           });
     }
   }
+}
+
+// Called from PeerConnection::GetSctpStats on the network thread.
+std::vector<DataChannel::SctpStats> DataChannelController::GetSctpStats_n()
+    const {
+  // RTC_DCHECK_RUN_ON(network_thread());
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  // TODO(tommi): figure out if sctp_data_channels_ belongs to the network
+  // thread or signaling.
+
+  std::vector<DataChannel::SctpStats> stats;
+  for (const auto& channel : sctp_data_channels_)
+    stats.push_back(channel->GetSctpStats());
+  return stats;
 }
 
 bool DataChannelController::HandleOpenMessage_s(
@@ -461,12 +490,6 @@ const std::map<std::string, rtc::scoped_refptr<DataChannel>>*
 DataChannelController::rtp_data_channels() const {
   RTC_DCHECK_RUN_ON(signaling_thread());
   return &rtp_data_channels_;
-}
-
-const std::vector<rtc::scoped_refptr<DataChannel>>*
-DataChannelController::sctp_data_channels() const {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-  return &sctp_data_channels_;
 }
 
 void DataChannelController::UpdateClosingRtpDataChannels(

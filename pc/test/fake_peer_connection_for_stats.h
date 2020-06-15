@@ -259,9 +259,12 @@ class FakePeerConnectionForStats : public FakePeerConnectionBase {
     return transceivers_;
   }
 
-  std::vector<rtc::scoped_refptr<DataChannel>> sctp_data_channels()
-      const override {
-    return sctp_data_channels_;
+  std::vector<DataChannel::SctpStats> GetSctpStats() const override {
+    RTC_DCHECK_RUN_ON(network_thread());
+    std::vector<DataChannel::SctpStats> stats;
+    for (const auto& channel : sctp_data_channels_)
+      stats.push_back(channel->GetSctpStats());
+    return stats;
   }
 
   cricket::CandidateStatsList GetPooledCandidateStats() const override {

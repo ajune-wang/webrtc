@@ -122,6 +122,7 @@ class StatsCollector {
                                        const cricket::ConnectionInfo& info);
 
   void ExtractDataInfo();
+  void ExtractDataInfo_n();
   void ExtractSessionInfo();
   void ExtractBweInfo();
   void ExtractMediaInfo();

@@ -1144,21 +1144,32 @@ void StatsCollector::ExtractSenderInfo() {
 void StatsCollector::ExtractDataInfo() {
   RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
 
-  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
+  if (pc_->network_thread()->IsCurrent()) {
+    // In case signal and network threads are one and the same.
+    ExtractDataInfo_n();
+  } else {
+    pc_->network_thread()->Invoke<void>(RTC_FROM_HERE,
+                                        [this] { ExtractDataInfo_n(); });
+  }
+}
 
-  for (const auto& dc : pc_->sctp_data_channels()) {
+void StatsCollector::ExtractDataInfo_n() {
+  RTC_DCHECK(pc_->network_thread()->IsCurrent());
+
+  std::vector<DataChannel::SctpStats> sctp_stats = pc_->GetSctpStats();
+  for (const auto& stats : sctp_stats) {
     StatsReport::Id id(StatsReport::NewTypedIntId(
-        StatsReport::kStatsReportTypeDataChannel, dc->id()));
+        StatsReport::kStatsReportTypeDataChannel, stats.id));
     StatsReport* report = reports_.ReplaceOrAddNew(id);
     report->set_timestamp(stats_gathering_started_);
-    report->AddString(StatsReport::kStatsValueNameLabel, dc->label());
+    report->AddString(StatsReport::kStatsValueNameLabel, stats.label);
     // Filter out the initial id (-1).
-    if (dc->id() >= 0) {
-      report->AddInt(StatsReport::kStatsValueNameDataChannelId, dc->id());
+    if (stats.id >= 0) {
+      report->AddInt(StatsReport::kStatsValueNameDataChannelId, stats.id);
     }
-    report->AddString(StatsReport::kStatsValueNameProtocol, dc->protocol());
+    report->AddString(StatsReport::kStatsValueNameProtocol, stats.protocol);
     report->AddString(StatsReport::kStatsValueNameState,
-                      DataChannelInterface::DataStateString(dc->state()));
+                      DataChannelInterface::DataStateString(stats.state));
   }
 }
 

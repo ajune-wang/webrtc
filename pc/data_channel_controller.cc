@@ -299,7 +299,8 @@ DataChannelController::InternalCreateDataChannel(
   }
 
   rtc::scoped_refptr<DataChannel> channel(
-      DataChannel::Create(this, data_channel_type(), label, new_config));
+      DataChannel::Create(this, signaling_thread(), network_thread(),
+                          data_channel_type(), label, new_config));
   if (!channel) {
     sid_allocator_.ReleaseSid(new_config.id);
     return nullptr;

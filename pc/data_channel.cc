@@ -135,11 +135,14 @@ void DataChannel::PacketQueue::Swap(PacketQueue* other) {
 
 rtc::scoped_refptr<DataChannel> DataChannel::Create(
     DataChannelProviderInterface* provider,
+    rtc::Thread* signaling_thread,
+    rtc::Thread* send_thread,
     cricket::DataChannelType dct,
     const std::string& label,
     const InternalDataChannelInit& config) {
   rtc::scoped_refptr<DataChannel> channel(
-      new rtc::RefCountedObject<DataChannel>(provider, dct, label));
+      new rtc::RefCountedObject<DataChannel>(provider, signaling_thread,
+                                             send_thread, dct, label));
   if (!channel->Init(config)) {
     return NULL;
   }
@@ -153,6 +156,8 @@ bool DataChannel::IsSctpLike(cricket::DataChannelType type) {
 }
 
 DataChannel::DataChannel(DataChannelProviderInterface* provider,
+                         rtc::Thread* signaling_thread,
+                         rtc::Thread* send_thread,
                          cricket::DataChannelType dct,
                          const std::string& label)
     : internal_id_(GenerateUniqueId()),
@@ -172,7 +177,9 @@ DataChannel::DataChannel(DataChannelProviderInterface* provider,
       receive_ssrc_set_(false),
       writable_(false),
       send_ssrc_(0),
-      receive_ssrc_(0) {}
+      receive_ssrc_(0),
+      signaling_thread_(signaling_thread),
+      send_thread_(send_thread) {}
 
 bool DataChannel::Init(const InternalDataChannelInit& config) {
   if (data_channel_type_ == cricket::DCT_RTP) {
@@ -248,6 +255,7 @@ bool DataChannel::reliable() const {
 }
 
 uint64_t DataChannel::buffered_amount() const {
+  rtc::CritScope cs(&send_crit_);
   return buffered_amount_;
 }
 
@@ -266,7 +274,6 @@ RTCError DataChannel::error() const {
 }
 
 bool DataChannel::Send(const DataBuffer& buffer) {
-  buffered_amount_ += buffer.size();
   if (state_ != kOpen) {
     return false;
   }
@@ -278,12 +285,14 @@ bool DataChannel::Send(const DataBuffer& buffer) {
     return true;
   }
 
-  // If the queue is non-empty, we're waiting for SignalReadyToSend,
-  // so just add to the end of the queue and keep waiting.
-  if (!queued_send_data_.Empty()) {
-    // Only SCTP DataChannel queues the outgoing data when the transport is
-    // blocked.
-    RTC_DCHECK(IsSctpLike(data_channel_type_));
+  if (data_channel_type_ == cricket::DCT_RTP) {
+    return SendDataMessage(buffer);
+  }
+
+  {
+    rtc::CritScope cs(&send_crit_);
+    buffered_amount_ += buffer.size();
+    bool trigger_async_send = queued_send_data_.Empty();
     if (!QueueSendDataMessage(buffer)) {
       RTC_LOG(LS_ERROR) << "Closing the DataChannel due to a failure to queue "
                            "additional data.";
@@ -291,17 +300,13 @@ bool DataChannel::Send(const DataBuffer& buffer) {
       // Note that the spec doesn't explicitly say to close in this situation.
       CloseAbruptlyWithError(RTCError(RTCErrorType::RESOURCE_EXHAUSTED,
                                       "Unable to queue data for sending"));
+    } else if (trigger_async_send) {
+      invoker_.AsyncInvoke<void>(RTC_FROM_HERE, send_thread_,
+                                 [this] { SendQueuedDataMessages(); });
     }
+    // Always return true for SCTP DataChannel per the spec.
     return true;
   }
-
-  bool success = SendDataMessage(buffer, true);
-  if (data_channel_type_ == cricket::DCT_RTP) {
-    return success;
-  }
-
-  // Always return true for SCTP DataChannel per the spec.
-  return true;
 }
 
 void DataChannel::SetReceiveSsrc(uint32_t receive_ssrc) {
@@ -330,6 +335,7 @@ void DataChannel::SetSctpSid(int sid) {
 void DataChannel::OnClosingProcedureStartedRemotely(int sid) {
   if (IsSctpLike(data_channel_type_) && sid == config_.id &&
       state_ != kClosing && state_ != kClosed) {
+    rtc::CritScope cs(&send_crit_);
     // Don't bother sending queued data since the side that initiated the
     // closure wouldn't receive it anyway. See crbug.com/559394 for a lengthy
     // discussion about this.
@@ -345,6 +351,7 @@ void DataChannel::OnClosingProcedureStartedRemotely(int sid) {
 
 void DataChannel::OnClosingProcedureComplete(int sid) {
   if (IsSctpLike(data_channel_type_) && sid == config_.id) {
+    rtc::CritScope cs(&send_crit_);
     // If the closing procedure is complete, we should have finished sending
     // all pending data and transitioned to kClosing already.
     RTC_DCHECK_EQ(state_, kClosing);
@@ -481,8 +488,11 @@ void DataChannel::CloseAbruptlyWithError(RTCError error) {
   }
 
   // Closing abruptly means any queued data gets thrown away.
-  queued_send_data_.Clear();
-  buffered_amount_ = 0;
+  {
+    rtc::CritScope cs(&send_crit_);
+    queued_send_data_.Clear();
+    buffered_amount_ = 0;
+  }
   queued_control_data_.Clear();
 
   // Still go to "kClosing" before "kClosed", since observers may be expecting
@@ -535,6 +545,7 @@ void DataChannel::UpdateState() {
       break;
     }
     case kClosing: {
+      rtc::CritScope cs(&send_crit_);
       // Wait for all queued data to be sent before beginning the closing
       // procedure.
       if (queued_send_data_.Empty() && queued_control_data_.Empty()) {
@@ -604,7 +615,9 @@ void DataChannel::DeliverQueuedReceivedData() {
 }
 
 void DataChannel::SendQueuedDataMessages() {
+  send_crit_.Enter();
   if (queued_send_data_.Empty()) {
+    send_crit_.Leave();
     return;
   }
 
@@ -612,16 +625,20 @@ void DataChannel::SendQueuedDataMessages() {
 
   while (!queued_send_data_.Empty()) {
     std::unique_ptr<DataBuffer> buffer = queued_send_data_.PopFront();
-    if (!SendDataMessage(*buffer, false)) {
+    send_crit_.Leave();
+    if (!SendDataMessage(*buffer)) {
+      send_crit_.Enter();
       // Return the message to the front of the queue if sending is aborted.
       queued_send_data_.PushFront(std::move(buffer));
       break;
+    } else {
+      send_crit_.Enter();
     }
   }
+  send_crit_.Leave();
 }
 
-bool DataChannel::SendDataMessage(const DataBuffer& buffer,
-                                  bool queue_if_blocked) {
+bool DataChannel::SendDataMessage(const DataBuffer& buffer) {
   cricket::SendDataParams send_params;
 
   if (IsSctpLike(data_channel_type_)) {
@@ -648,13 +665,18 @@ bool DataChannel::SendDataMessage(const DataBuffer& buffer,
   bool success = provider_->SendData(send_params, buffer.data, &send_result);
 
   if (success) {
+    rtc::CritScope cs(&send_crit_);
     ++messages_sent_;
     bytes_sent_ += buffer.size();
+    size_t buffer_size = buffer.size();
 
     RTC_DCHECK(buffered_amount_ >= buffer.size());
     buffered_amount_ -= buffer.size();
     if (observer_ && buffer.size() > 0) {
-      observer_->OnBufferedAmountChange(buffer.size());
+      invoker_.AsyncInvoke<void>(
+          RTC_FROM_HERE, signaling_thread_, [this, buffer_size] {
+            observer_->OnBufferedAmountChange(buffer_size);
+          });
     }
     return true;
   }
@@ -664,9 +686,7 @@ bool DataChannel::SendDataMessage(const DataBuffer& buffer,
   }
 
   if (send_result == cricket::SDR_BLOCK) {
-    if (!queue_if_blocked || QueueSendDataMessage(buffer)) {
-      return false;
-    }
+    return false;
   }
   // Close the channel if the error is not SDR_BLOCK, or if queuing the
   // message failed.
@@ -680,6 +700,7 @@ bool DataChannel::SendDataMessage(const DataBuffer& buffer,
 }
 
 bool DataChannel::QueueSendDataMessage(const DataBuffer& buffer) {
+  rtc::CritScope cs(&send_crit_);
   size_t start_buffered_amount = queued_send_data_.byte_count();
   if (start_buffered_amount + buffer.size() > kMaxQueuedSendDataBytes) {
     RTC_LOG(LS_ERROR) << "Can't buffer any more data for the data channel.";

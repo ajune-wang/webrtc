@@ -23,7 +23,10 @@
 #include "media/base/media_channel.h"
 #include "pc/channel.h"
 #include "rtc_base/async_invoker.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "rtc_base/thread.h"
+#include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
 
@@ -111,8 +114,12 @@ class SctpSidAllocator {
 //    callback and transition to kClosed.
 class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
  public:
+  // send_thread should be whatever thread data ends up sent on; this is the
+  // networking thread for a SCTP, and the worker thread for RTP.
   static rtc::scoped_refptr<DataChannel> Create(
       DataChannelProviderInterface* provider,
+      rtc::Thread* signaling_thread,
+      rtc::Thread* send_thread,
       cricket::DataChannelType dct,
       const std::string& label,
       const InternalDataChannelInit& config);
@@ -151,8 +158,14 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
   virtual void Close();
   virtual DataState state() const { return state_; }
   virtual RTCError error() const;
-  virtual uint32_t messages_sent() const { return messages_sent_; }
-  virtual uint64_t bytes_sent() const { return bytes_sent_; }
+  virtual uint32_t messages_sent() const {
+    rtc::CritScope cs(&send_crit_);
+    return messages_sent_;
+  }
+  virtual uint64_t bytes_sent() const {
+    rtc::CritScope cs(&send_crit_);
+    return bytes_sent_;
+  }
   virtual uint32_t messages_received() const { return messages_received_; }
   virtual uint64_t bytes_received() const { return bytes_received_; }
   virtual bool Send(const DataBuffer& buffer);
@@ -230,6 +243,8 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
 
  protected:
   DataChannel(DataChannelProviderInterface* client,
+              rtc::Thread* signaling_thread,
+              rtc::Thread* send_thread,
               cricket::DataChannelType dct,
               const std::string& label);
   virtual ~DataChannel();
@@ -274,7 +289,7 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
   void DeliverQueuedReceivedData();
 
   void SendQueuedDataMessages();
-  bool SendDataMessage(const DataBuffer& buffer, bool queue_if_blocked);
+  bool SendDataMessage(const DataBuffer& buffer);
   bool QueueSendDataMessage(const DataBuffer& buffer);
 
   void SendQueuedControlMessages();
@@ -285,15 +300,16 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
   std::string label_;
   InternalDataChannelInit config_;
   DataChannelObserver* observer_;
+  rtc::CriticalSection send_crit_;
   DataState state_;
   RTCError error_;
-  uint32_t messages_sent_;
-  uint64_t bytes_sent_;
+  uint32_t messages_sent_ RTC_GUARDED_BY(send_crit_);
+  uint64_t bytes_sent_ RTC_GUARDED_BY(send_crit_);
   uint32_t messages_received_;
   uint64_t bytes_received_;
   // Number of bytes of data that have been queued using Send(). Increased
   // before each transport send and decreased after each successful send.
-  uint64_t buffered_amount_;
+  uint64_t buffered_amount_ RTC_GUARDED_BY(send_crit_);
   cricket::DataChannelType data_channel_type_;
   DataChannelProviderInterface* provider_;
   HandshakeState handshake_state_;
@@ -309,7 +325,9 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
   // data.
   PacketQueue queued_control_data_;
   PacketQueue queued_received_data_;
-  PacketQueue queued_send_data_;
+  PacketQueue queued_send_data_ RTC_GUARDED_BY(send_crit_);
+  rtc::Thread* signaling_thread_;
+  rtc::Thread* send_thread_;
   rtc::AsyncInvoker invoker_;
 };
 

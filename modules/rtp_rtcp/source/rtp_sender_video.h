@@ -27,6 +27,7 @@
 #include "modules/include/module_common_types.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/absolute_capture_time_sender.h"
+#include "modules/rtp_rtcp/source/active_decode_target_sender.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
 #include "modules/rtp_rtcp/source/rtp_sender_video_frame_transformer_delegate.h"
@@ -214,6 +215,7 @@ class RTPSenderVideo {
   const bool generic_descriptor_auth_experiment_;
 
   AbsoluteCaptureTimeSender absolute_capture_time_sender_;
+  ActiveDecodeTargetSender active_decode_target_decider_;
 
   const rtc::scoped_refptr<RTPSenderVideoFrameTransformerDelegate>
       frame_transformer_delegate_;

@@ -54,10 +54,17 @@ FrameDependencyStructure ScalabilityStructureL1T2::DependencyStructure() const {
   return structure;
 }
 
+void ScalabilityStructureL1T2::OnRatesUpdated(
+    const VideoBitrateAllocation& bitrates) {
+  disable_t1_ = !bitrates.HasBitrate(0, /*temporal_index=*/1);
+}
+
 std::vector<ScalableVideoController::LayerFrameConfig>
 ScalabilityStructureL1T2::NextFrameConfig(bool restart) {
   if (restart) {
     next_pattern_ = kKeyFrame;
+  } else if (disable_t1_) {
+    next_pattern_ = kDeltaFrameT0;
   }
   std::vector<LayerFrameConfig> result(1);
 
@@ -97,6 +104,7 @@ absl::optional<GenericFrameInfo> ScalabilityStructureL1T2::OnEncodeDone(
   frame_info->decode_target_indications.assign(std::begin(kDtis[config.Id()]),
                                                std::end(kDtis[config.Id()]));
   frame_info->part_of_chain = {config.TemporalId() == 0};
+  frame_info->active_decode_targets = {true, !disable_t1_};
   return frame_info;
 }
 

@@ -242,9 +242,11 @@ RtpPayloadParams::GenericDescriptorFromFrameInfo(
       frame_type, frame_id, frame_info.encoder_buffers);
   generic.chain_diffs =
       chains_calculator_.From(frame_id, frame_info.part_of_chain);
+  generic.part_of_chain = frame_info.part_of_chain;
   generic.spatial_index = frame_info.spatial_id;
   generic.temporal_index = frame_info.temporal_id;
   generic.decode_target_indications = frame_info.decode_target_indications;
+  generic.active_decode_targets = frame_info.active_decode_targets;
   return generic;
 }
 

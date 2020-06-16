@@ -13,7 +13,7 @@
 
 #include <stdint.h>
 
-#include <vector>
+#include <bitset>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/types/optional.h"
@@ -28,12 +28,12 @@ class ChainDiffCalculator {
   ChainDiffCalculator& operator=(const ChainDiffCalculator&) = default;
 
   // Restarts chains, i.e. for position where chains[i] == true next chain_diff
-  // will be 0. Saves chains.size() as number of chains in the stream.
-  void Reset(const std::vector<bool>& chains);
+  // will be 0. Saves num_chains as number of chains in the stream.
+  void Reset(int num_chains, const std::bitset<32>& chains);
 
   // Returns chain diffs based on flags if frame is part of the chain.
   absl::InlinedVector<int, 4> From(int64_t frame_id,
-                                   const std::vector<bool>& chains);
+                                   const std::bitset<32>& chains);
 
  private:
   absl::InlinedVector<int, 4> ChainDiffs(int64_t frame_id) const;

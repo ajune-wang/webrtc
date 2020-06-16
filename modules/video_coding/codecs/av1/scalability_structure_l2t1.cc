@@ -93,7 +93,8 @@ absl::optional<GenericFrameInfo> ScalabilityStructureL2T1::OnEncodeDone(
   frame_info->encoder_buffers = std::move(config.Buffers());
   frame_info->decode_target_indications.assign(std::begin(kDtis[config.Id()]),
                                                std::end(kDtis[config.Id()]));
-  frame_info->part_of_chain = {config.SpatialId() == 0, true};
+  frame_info->part_of_chain.set(0, config.SpatialId() == 0);
+  frame_info->part_of_chain.set(1, true);
   return frame_info;
 }
 

@@ -254,9 +254,10 @@ void RtpPayloadParams::SetGeneric(const CodecSpecificInfo* codec_specific_info,
                                   RTPVideoHeader* rtp_video_header) {
   if (codec_specific_info && codec_specific_info->generic_frame_info &&
       !codec_specific_info->generic_frame_info->encoder_buffers.empty()) {
-    if (is_keyframe) {
+    if (is_keyframe && codec_specific_info->template_structure) {
       // Key frame resets all chains it is in.
       chains_calculator_.Reset(
+          codec_specific_info->template_structure->num_chains,
           codec_specific_info->generic_frame_info->part_of_chain);
     }
     rtp_video_header->generic =

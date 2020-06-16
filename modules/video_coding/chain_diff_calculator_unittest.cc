@@ -24,12 +24,12 @@ TEST(ChainDiffCalculatorTest, SingleChain) {
   // protects temporal layer 0.
   ChainDiffCalculator calculator;
   // Key frame.
-  calculator.Reset({true});
-  EXPECT_THAT(calculator.From(1, {true}), ElementsAre(0));
+  calculator.Reset(1, std::bitset<32>(0b1));
+  EXPECT_THAT(calculator.From(1, 0b1), ElementsAre(0));
   // T1 delta frame.
-  EXPECT_THAT(calculator.From(2, {false}), ElementsAre(1));
+  EXPECT_THAT(calculator.From(2, 0b0), ElementsAre(1));
   // T0 delta frame.
-  EXPECT_THAT(calculator.From(3, {true}), ElementsAre(2));
+  EXPECT_THAT(calculator.From(3, 0b1), ElementsAre(2));
 }
 
 TEST(ChainDiffCalculatorTest, TwoChainsFullSvc) {
@@ -37,18 +37,18 @@ TEST(ChainDiffCalculatorTest, TwoChainsFullSvc) {
   // chains are protecting temporal layers 0.
   ChainDiffCalculator calculator;
   // S0 Key frame.
-  calculator.Reset({true, true});
-  EXPECT_THAT(calculator.From(1, {true, true}), ElementsAre(0, 0));
+  calculator.Reset(2, 0b11);
+  EXPECT_THAT(calculator.From(1, 0b11), ElementsAre(0, 0));
   // S1 Key frame.
-  EXPECT_THAT(calculator.From(2, {false, true}), ElementsAre(1, 1));
+  EXPECT_THAT(calculator.From(2, 0b10), ElementsAre(1, 1));
   // S0T1 delta frame.
-  EXPECT_THAT(calculator.From(3, {false, false}), ElementsAre(2, 1));
+  EXPECT_THAT(calculator.From(3, 0b00), ElementsAre(2, 1));
   // S1T1 delta frame.
-  EXPECT_THAT(calculator.From(4, {false, false}), ElementsAre(3, 2));
+  EXPECT_THAT(calculator.From(4, 0b00), ElementsAre(3, 2));
   // S0T0 delta frame.
-  EXPECT_THAT(calculator.From(5, {true, true}), ElementsAre(4, 3));
+  EXPECT_THAT(calculator.From(5, 0b11), ElementsAre(4, 3));
   // S1T0 delta frame.
-  EXPECT_THAT(calculator.From(6, {false, true}), ElementsAre(1, 1));
+  EXPECT_THAT(calculator.From(6, 0b10), ElementsAre(1, 1));
 }
 
 TEST(ChainDiffCalculatorTest, TwoChainsKSvc) {
@@ -56,18 +56,18 @@ TEST(ChainDiffCalculatorTest, TwoChainsKSvc) {
   // chains are protecting temporal layers 0.
   ChainDiffCalculator calculator;
   // S0 Key frame.
-  calculator.Reset({true, true});
-  EXPECT_THAT(calculator.From(1, {true, true}), ElementsAre(0, 0));
+  calculator.Reset(2, 0b11);
+  EXPECT_THAT(calculator.From(1, 0b11), ElementsAre(0, 0));
   // S1 Key frame.
-  EXPECT_THAT(calculator.From(2, {false, true}), ElementsAre(1, 1));
+  EXPECT_THAT(calculator.From(2, 0b10), ElementsAre(1, 1));
   // S0T1 delta frame.
-  EXPECT_THAT(calculator.From(3, {false, false}), ElementsAre(2, 1));
+  EXPECT_THAT(calculator.From(3, 0b00), ElementsAre(2, 1));
   // S1T1 delta frame.
-  EXPECT_THAT(calculator.From(4, {false, false}), ElementsAre(3, 2));
+  EXPECT_THAT(calculator.From(4, 0b00), ElementsAre(3, 2));
   // S0T0 delta frame.
-  EXPECT_THAT(calculator.From(5, {true, false}), ElementsAre(4, 3));
+  EXPECT_THAT(calculator.From(5, 0b11), ElementsAre(4, 3));
   // S1T0 delta frame.
-  EXPECT_THAT(calculator.From(6, {false, true}), ElementsAre(1, 4));
+  EXPECT_THAT(calculator.From(6, 0b10), ElementsAre(1, 4));
 }
 
 TEST(ChainDiffCalculatorTest, TwoChainsSimulcast) {
@@ -75,51 +75,51 @@ TEST(ChainDiffCalculatorTest, TwoChainsSimulcast) {
   // chains are protecting temporal layers 0.
   ChainDiffCalculator calculator;
   // S0 Key frame.
-  calculator.Reset({true, false});
-  EXPECT_THAT(calculator.From(1, {true, false}), ElementsAre(0, 0));
+  calculator.Reset(2, 0b01);
+  EXPECT_THAT(calculator.From(1, 0b01), ElementsAre(0, 0));
   // S1 Key frame.
-  calculator.Reset({false, true});
-  EXPECT_THAT(calculator.From(2, {false, true}), ElementsAre(1, 0));
+  calculator.Reset(2, 0b10);
+  EXPECT_THAT(calculator.From(2, 0b10), ElementsAre(1, 0));
   // S0T1 delta frame.
-  EXPECT_THAT(calculator.From(3, {false, false}), ElementsAre(2, 1));
+  EXPECT_THAT(calculator.From(3, 0b00), ElementsAre(2, 1));
   // S1T1 delta frame.
-  EXPECT_THAT(calculator.From(4, {false, false}), ElementsAre(3, 2));
+  EXPECT_THAT(calculator.From(4, 0b00), ElementsAre(3, 2));
   // S0T0 delta frame.
-  EXPECT_THAT(calculator.From(5, {true, false}), ElementsAre(4, 3));
+  EXPECT_THAT(calculator.From(5, 0b01), ElementsAre(4, 3));
   // S1T0 delta frame.
-  EXPECT_THAT(calculator.From(6, {false, true}), ElementsAre(1, 4));
+  EXPECT_THAT(calculator.From(6, 0b10), ElementsAre(1, 4));
 }
 
 TEST(ChainDiffCalculatorTest, ResilentToAbsentChainConfig) {
   ChainDiffCalculator calculator;
   // Key frame.
-  calculator.Reset({true, false});
-  EXPECT_THAT(calculator.From(1, {true, false}), ElementsAre(0, 0));
+  calculator.Reset(2, 0b01);
+  EXPECT_THAT(calculator.From(1, 0b01), ElementsAre(0, 0));
   // Forgot to set chains. should still return 2 chain_diffs.
-  EXPECT_THAT(calculator.From(2, {}), ElementsAre(1, 0));
+  EXPECT_THAT(calculator.From(2, 0), ElementsAre(1, 0));
   // chain diffs for next frame(s) are undefined, but still there should be
   // correct number of them.
-  EXPECT_THAT(calculator.From(3, {true, false}), SizeIs(2));
-  EXPECT_THAT(calculator.From(4, {false, true}), SizeIs(2));
+  EXPECT_THAT(calculator.From(3, 0b01), SizeIs(2));
+  EXPECT_THAT(calculator.From(4, 0b10), SizeIs(2));
   // Since previous two frames updated all the chains, can expect what
   // chain_diffs would be.
-  EXPECT_THAT(calculator.From(5, {false, false}), ElementsAre(2, 1));
+  EXPECT_THAT(calculator.From(5, 0b00), ElementsAre(2, 1));
 }
 
 TEST(ChainDiffCalculatorTest, ResilentToTooMainChains) {
   ChainDiffCalculator calculator;
   // Key frame.
-  calculator.Reset({true, false});
-  EXPECT_THAT(calculator.From(1, {true, false}), ElementsAre(0, 0));
+  calculator.Reset(2, 0b01);
+  EXPECT_THAT(calculator.From(1, 0b01), ElementsAre(0, 0));
   // Set wrong number of chains. Expect number of chain_diffs is not changed.
-  EXPECT_THAT(calculator.From(2, {true, true, true}), ElementsAre(1, 0));
+  EXPECT_THAT(calculator.From(2, 0b111), ElementsAre(1, 0));
   // chain diffs for next frame(s) are undefined, but still there should be
   // correct number of them.
-  EXPECT_THAT(calculator.From(3, {true, false}), SizeIs(2));
-  EXPECT_THAT(calculator.From(4, {false, true}), SizeIs(2));
+  EXPECT_THAT(calculator.From(3, 0b01), SizeIs(2));
+  EXPECT_THAT(calculator.From(4, 0b10), SizeIs(2));
   // Since previous two frames updated all the chains, can expect what
   // chain_diffs would be.
-  EXPECT_THAT(calculator.From(5, {false, false}), ElementsAre(2, 1));
+  EXPECT_THAT(calculator.From(5, 0b00), ElementsAre(2, 1));
 }
 
 }  // namespace

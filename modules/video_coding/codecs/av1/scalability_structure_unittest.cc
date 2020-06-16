@@ -80,7 +80,8 @@ class ScalabilityStructureTest : public TestWithParam<SvcTestParam> {
             structure_controller->OnEncodeDone(std::move(layer_frame));
         EXPECT_TRUE(frame_info.has_value());
         if (is_keyframe) {
-          chain_diff_calculator.Reset(frame_info->part_of_chain);
+          chain_diff_calculator.Reset(structure.num_chains,
+                                      frame_info->part_of_chain);
         }
         frame_info->chain_diffs =
             chain_diff_calculator.From(frame_id, frame_info->part_of_chain);
@@ -170,8 +171,6 @@ TEST_P(ScalabilityStructureTest, FrameInfoMatchesFrameDependencyStructure) {
     EXPECT_GE(frame.temporal_id, 0) << " for frame " << frame_id;
     EXPECT_THAT(frame.decode_target_indications,
                 SizeIs(structure.num_decode_targets))
-        << " for frame " << frame_id;
-    EXPECT_THAT(frame.part_of_chain, SizeIs(structure.num_chains))
         << " for frame " << frame_id;
   }
 }

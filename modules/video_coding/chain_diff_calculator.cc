@@ -21,9 +21,9 @@
 
 namespace webrtc {
 
-void ChainDiffCalculator::Reset(const std::vector<bool>& chains) {
-  last_frame_in_chain_.resize(chains.size());
-  for (size_t i = 0; i < chains.size(); ++i) {
+void ChainDiffCalculator::Reset(int num_chains, const std::bitset<32>& chains) {
+  last_frame_in_chain_.resize(num_chains);
+  for (int i = 0; i < num_chains; ++i) {
     if (chains[i]) {
       last_frame_in_chain_[i] = absl::nullopt;
     }
@@ -42,15 +42,9 @@ absl::InlinedVector<int, 4> ChainDiffCalculator::ChainDiffs(
 
 absl::InlinedVector<int, 4> ChainDiffCalculator::From(
     int64_t frame_id,
-    const std::vector<bool>& chains) {
+    const std::bitset<32>& chains) {
   auto result = ChainDiffs(frame_id);
-  if (chains.size() != last_frame_in_chain_.size()) {
-    RTC_LOG(LS_ERROR) << "Insconsistent chain configuration for frame#"
-                      << frame_id << ": expected "
-                      << last_frame_in_chain_.size() << " chains, found "
-                      << chains.size();
-  }
-  size_t num_chains = std::min(last_frame_in_chain_.size(), chains.size());
+  size_t num_chains = last_frame_in_chain_.size();
   for (size_t i = 0; i < num_chains; ++i) {
     if (chains[i]) {
       last_frame_in_chain_[i] = frame_id;

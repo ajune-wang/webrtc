@@ -116,9 +116,10 @@ absl::optional<GenericFrameInfo> ScalabilityStructureL2T2::OnEncodeDone(
   frame_info->decode_target_indications.assign(std::begin(kDtis[config.Id()]),
                                                std::end(kDtis[config.Id()]));
   if (config.TemporalId() == 0) {
-    frame_info->part_of_chain = {config.SpatialId() == 0, true};
+    frame_info->part_of_chain.set(0, config.SpatialId() == 0);
+    frame_info->part_of_chain.set(1, true);
   } else {
-    frame_info->part_of_chain = {false, false};
+    frame_info->part_of_chain.reset();
   }
   return frame_info;
 }

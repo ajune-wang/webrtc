@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "312857bc_27863030",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-16T09:35:25Z",
+      "side": 1,
+      "message": "Can\u0027t use make_unique because the constructor is private.",
+      "parentUuid": "bb283193_6445d0e8",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e48a3b5_737edd1c",
         "filename": "video/adaptation/quality_rampup_experiment_helper.h",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3ed48334_4d15b817",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-16T09:35:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e48a3b5_737edd1c",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b60a668_7e1edb56",
         "filename": "video/adaptation/quality_rampup_experiment_helper.h",
         "patchSetId": 11
@@ -59,6 +107,30 @@
       "writtenOn": "2020-06-16T09:16:47Z",
       "side": 1,
       "message": "alternatively add RTC_DISALLOW_COPY_AND_ASSIGN(QualityRampUpExperimentHelper) at the bottom",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "458458f7_85f1f07c",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-16T09:35:25Z",
+      "side": 1,
+      "message": "I thought that was deprecated in Chromium, but perhaps it is not deprecated in webrtc? https://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++-dos-and-donts.md#explicitly-declare-class-copyability_movability",
+      "parentUuid": "7b60a668_7e1edb56",
       "range": {
         "startLine": 40,
         "startChar": 2,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4effe41b_b8d18977",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-16T09:35:25Z",
+      "side": 1,
+      "message": "I can follow up.",
+      "parentUuid": "c29c4d0b_fce749a5",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 31
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc0b0b8a_808bdfad",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
         "patchSetId": 11
@@ -114,6 +210,30 @@
       "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3acc453_89d4bec8",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-16T09:35:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc0b0b8a_808bdfad",
+      "range": {
+        "startLine": 116,
+        "startChar": 15,
+        "endLine": 116,
+        "endChar": 16
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

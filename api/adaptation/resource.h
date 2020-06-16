@@ -15,6 +15,7 @@
 
 #include "api/scoped_refptr.h"
 #include "rtc_base/ref_count.h"
+#include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
 
@@ -48,7 +49,7 @@ class ResourceListener {
 // The Resource is reference counted to prevent use-after-free when posting
 // between task queues. As such, the implementation MUST NOT make any
 // assumptions about which task queue Resource is destructed on.
-class Resource : public rtc::RefCountInterface {
+class RTC_EXPORT Resource : public rtc::RefCountInterface {
  public:
   Resource();
   // Destruction may happen on any task queue.

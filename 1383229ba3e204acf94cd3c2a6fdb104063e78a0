@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb283193_6445d0e8",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-16T09:16:47Z",
+      "side": 1,
+      "message": "or std::make_unique\u003cQualityRampUpExperimentHelper\u003e(experiment_listener, clock, experiment)",
+      "range": {
+        "startLine": 39,
+        "startChar": 11,
+        "endLine": 40,
+        "endChar": 43
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e48a3b5_737edd1c",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-16T09:16:47Z",
+      "side": 1,
+      "message": "not needed unless virtual, right?",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b60a668_7e1edb56",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-16T09:16:47Z",
+      "side": 1,
+      "message": "alternatively add RTC_DISALLOW_COPY_AND_ASSIGN(QualityRampUpExperimentHelper) at the bottom",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c29c4d0b_fce749a5",
+        "filename": "video/adaptation/quality_rampup_experiment_helper.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-16T09:16:47Z",
+      "side": 1,
+      "message": "Not sure how much overhead it would be, but whenever I do refactorings now I try to replace these int types with DataRate instead.",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 31
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc0b0b8a_808bdfad",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-16T09:16:47Z",
+      "side": 1,
+      "message": "legacy with capital L, is that a statement?",
+      "range": {
+        "startLine": 116,
+        "startChar": 15,
+        "endLine": 116,
+        "endChar": 16
+      },
+      "revId": "1383229ba3e204acf94cd3c2a6fdb104063e78a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

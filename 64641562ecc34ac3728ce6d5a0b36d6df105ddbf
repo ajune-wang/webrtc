@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "418b52b9_22e1deb4",
+        "filename": "api/adaptation/resource.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-16T13:43:35Z",
+      "side": 1,
+      "message": "Should we also RTC_EXPORT these?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 2
+      },
+      "revId": "64641562ecc34ac3728ce6d5a0b36d6df105ddbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

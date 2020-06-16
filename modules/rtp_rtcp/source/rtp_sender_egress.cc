@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "absl/strings/match.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/transport/field_trial_based_config.h"
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
@@ -86,6 +87,10 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
                                          kRtpSequenceNumberMapMaxEntries)
                                    : nullptr) {
   RTC_DCHECK(TaskQueueBase::Current());
+}
+
+RtpSenderEgress::~RtpSenderEgress() {
+  RTC_DCHECK_RUN_ON(&main_checker_);
 }
 
 void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,

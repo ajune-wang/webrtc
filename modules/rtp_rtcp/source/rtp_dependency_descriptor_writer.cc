@@ -253,10 +253,8 @@ void RtpDependencyDescriptorWriter::WriteTemplateDtis() {
   for (const FrameDependencyTemplate& current_template : structure_.templates) {
     RTC_DCHECK_EQ(current_template.decode_target_indications.size(),
                   structure_.num_decode_targets);
-    for (DecodeTargetIndication dti :
-         current_template.decode_target_indications) {
-      WriteBits(static_cast<uint32_t>(dti), 2);
-    }
+    WriteBits(current_template.decode_target_indications.Data(),
+              current_template.decode_target_indications.size() * 2);
   }
 }
 
@@ -347,10 +345,9 @@ void RtpDependencyDescriptorWriter::WriteFrameDependencyDefinition() {
 void RtpDependencyDescriptorWriter::WriteFrameDtis() {
   RTC_DCHECK_EQ(descriptor_.frame_dependencies.decode_target_indications.size(),
                 structure_.num_decode_targets);
-  for (DecodeTargetIndication dti :
-       descriptor_.frame_dependencies.decode_target_indications) {
-    WriteBits(static_cast<uint32_t>(dti), 2);
-  }
+  WriteBits(
+      descriptor_.frame_dependencies.decode_target_indications.Data(),
+      descriptor_.frame_dependencies.decode_target_indications.size() * 2);
 }
 
 void RtpDependencyDescriptorWriter::WriteFrameFdiffs() {

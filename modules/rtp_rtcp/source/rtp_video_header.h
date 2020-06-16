@@ -50,7 +50,7 @@ struct RTPVideoHeader {
     int64_t frame_id = 0;
     int spatial_index = 0;
     int temporal_index = 0;
-    absl::InlinedVector<DecodeTargetIndication, 10> decode_target_indications;
+    DecodeTargetIndicationVector decode_target_indications;
     absl::InlinedVector<int64_t, 5> dependencies;
     absl::InlinedVector<int, 4> chain_diffs;
   };

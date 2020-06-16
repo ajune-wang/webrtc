@@ -127,12 +127,9 @@ void RtpDependencyDescriptorReader::ReadTemplateLayers() {
 void RtpDependencyDescriptorReader::ReadTemplateDtis() {
   FrameDependencyStructure* structure = descriptor_->attached_structure.get();
   for (FrameDependencyTemplate& current_template : structure->templates) {
-    current_template.decode_target_indications.resize(
+    current_template.decode_target_indications.Assign(
+        ReadBits(2 * structure->num_decode_targets),
         structure->num_decode_targets);
-    for (int i = 0; i < structure->num_decode_targets; ++i) {
-      current_template.decode_target_indications[i] =
-          static_cast<DecodeTargetIndication>(ReadBits(2));
-    }
   }
 }
 
@@ -230,12 +227,9 @@ void RtpDependencyDescriptorReader::ReadFrameDependencyDefinition() {
 }
 
 void RtpDependencyDescriptorReader::ReadFrameDtis() {
-  RTC_DCHECK_EQ(
-      descriptor_->frame_dependencies.decode_target_indications.size(),
+  descriptor_->frame_dependencies.decode_target_indications.Assign(
+      ReadBits(2 * structure_->num_decode_targets),
       structure_->num_decode_targets);
-  for (auto& dti : descriptor_->frame_dependencies.decode_target_indications) {
-    dti = static_cast<DecodeTargetIndication>(ReadBits(2));
-  }
 }
 
 void RtpDependencyDescriptorReader::ReadFrameFdiffs() {

@@ -17,10 +17,9 @@
 namespace webrtc {
 namespace webrtc_impl {
 
-absl::InlinedVector<DecodeTargetIndication, 10> StringToDecodeTargetIndications(
+DecodeTargetIndicationVector StringToDecodeTargetIndications(
     absl::string_view symbols) {
-  absl::InlinedVector<DecodeTargetIndication, 10> dtis;
-  dtis.reserve(symbols.size());
+  DecodeTargetIndicationVector dtis;
   for (char symbol : symbols) {
     DecodeTargetIndication indication;
     switch (symbol) {
@@ -38,6 +37,8 @@ absl::InlinedVector<DecodeTargetIndication, 10> StringToDecodeTargetIndications(
         break;
       default:
         RTC_NOTREACHED();
+        indication = DecodeTargetIndication::kNotPresent;
+        break;
     }
     dtis.push_back(indication);
   }

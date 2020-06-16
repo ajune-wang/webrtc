@@ -40,8 +40,7 @@ class VideoFrameMetadata {
     return frame_dependencies_;
   }
 
-  rtc::ArrayView<const DecodeTargetIndication> GetDecodeTargetIndications()
-      const {
+  const DecodeTargetIndicationVector& GetDecodeTargetIndications() const {
     return decode_target_indications_;
   }
 
@@ -52,7 +51,7 @@ class VideoFrameMetadata {
   int spatial_index_ = 0;
   int temporal_index_ = 0;
   absl::InlinedVector<int64_t, 5> frame_dependencies_;
-  absl::InlinedVector<DecodeTargetIndication, 10> decode_target_indications_;
+  DecodeTargetIndicationVector decode_target_indications_;
 };
 }  // namespace webrtc
 

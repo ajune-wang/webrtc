@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "absl/strings/match.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/transport/field_trial_based_config.h"
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
@@ -26,6 +27,7 @@ constexpr uint32_t kTimestampTicksPerMs = 90;
 constexpr int kSendSideDelayWindowMs = 1000;
 constexpr int kBitrateStatisticsWindowMs = 1000;
 constexpr size_t kRtpSequenceNumberMapMaxEntries = 1 << 13;
+constexpr TimeDelta kRtpRtcpBitrateProcessTime = TimeDelta::Millis(10);
 
 bool IsEnabled(absl::string_view name,
                const WebRtcKeyValueConfig* field_trials) {
@@ -55,7 +57,8 @@ void RtpSenderEgress::NonPacedPacketSender::EnqueuePackets(
 
 RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
                                  RtpPacketHistory* packet_history)
-    : ssrc_(config.local_media_ssrc),
+    : worker_queue_(TaskQueueBase::Current()),
+      ssrc_(config.local_media_ssrc),
       rtx_ssrc_(config.rtx_send_ssrc),
       flexfec_ssrc_(config.fec_generator ? config.fec_generator->FecSsrc()
                                          : absl::nullopt),
@@ -85,7 +88,22 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
                                    ? std::make_unique<RtpSequenceNumberMap>(
                                          kRtpSequenceNumberMapMaxEntries)
                                    : nullptr) {
-  RTC_DCHECK(TaskQueueBase::Current());
+  RTC_DCHECK(worker_queue_);
+  if (bitrate_callback_) {
+    repeating_task_ = RepeatingTaskHandle::DelayedStart(
+        worker_queue_, kRtpRtcpBitrateProcessTime,
+        [this]() {
+          RTC_DCHECK_RUN_ON(worker_queue_);
+          ProcessBitrateAndNotifyObservers();
+          return kRtpRtcpBitrateProcessTime;
+        },
+        clock_);
+  }
+}
+
+RtpSenderEgress::~RtpSenderEgress() {
+  RTC_DCHECK_RUN_ON(&main_checker_);
+  repeating_task_.Stop();
 }
 
 void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
@@ -204,6 +222,8 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
 }
 
 void RtpSenderEgress::ProcessBitrateAndNotifyObservers() {
+  RTC_DCHECK_RUN_ON(worker_queue_);
+  // TODO(tommi): Move method to lambda?
   if (!bitrate_callback_)
     return;
 
@@ -215,11 +235,13 @@ void RtpSenderEgress::ProcessBitrateAndNotifyObservers() {
 }
 
 RtpSendRates RtpSenderEgress::GetSendRates() const {
+  RTC_DCHECK_RUN_ON(worker_queue_);
   rtc::CritScope lock(&lock_);
   return GetSendRatesLocked();
 }
 
 RtpSendRates RtpSenderEgress::GetSendRatesLocked() const {
+  RTC_DCHECK_RUN_ON(worker_queue_);
   const int64_t now_ms = clock_->TimeInMilliseconds();
   RtpSendRates current_rates;
   for (size_t i = 0; i < kNumMediaTypes; ++i) {

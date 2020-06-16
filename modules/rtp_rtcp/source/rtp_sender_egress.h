@@ -26,6 +26,8 @@
 #include "modules/rtp_rtcp/source/rtp_sequence_number_map.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/rate_statistics.h"
+#include "rtc_base/synchronization/sequence_checker.h"
+#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
@@ -49,7 +51,7 @@ class RtpSenderEgress {
 
   RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
                   RtpPacketHistory* packet_history);
-  ~RtpSenderEgress() = default;
+  ~RtpSenderEgress();
 
   void SendPacket(RtpPacketToSend* packet, const PacedPacketInfo& pacing_info)
       RTC_LOCKS_EXCLUDED(lock_);
@@ -103,6 +105,10 @@ class RtpSenderEgress {
   void UpdateRtpStats(const RtpPacketToSend& packet)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
 
+  // Represents the thread on which the instance is created and destructed.
+  SequenceChecker main_checker_;
+  TaskQueueBase* const worker_queue_;
+
   const uint32_t ssrc_;
   const absl::optional<uint32_t> rtx_ssrc_;
   const absl::optional<uint32_t> flexfec_ssrc_;
@@ -142,6 +148,8 @@ class RtpSenderEgress {
   // 3. Whether the packet was the last in its frame.
   const std::unique_ptr<RtpSequenceNumberMap> rtp_sequence_number_map_
       RTC_GUARDED_BY(lock_);
+
+  RepeatingTaskHandle repeating_task_ RTC_GUARDED_BY(worker_queue_);
 };
 
 }  // namespace webrtc

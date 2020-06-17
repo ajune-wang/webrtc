@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0b03ec5_bb9edd51",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-17T06:58:54Z",
+      "side": 1,
+      "message": "nit: this reads a little confusing to me. We\u0027re returning the current value of next_id_ which is the main point of the call, but incrementing the value on the same line. What\u0027s confusing is that this is the 4th line in the function that this variable is potentially incremented and it seems like it should ideally only be happening once.\n\nWdyt about something like this, which is basically the same thing but may return an error if we\u0027re full:\n\n// Initialize to 1 since usrsctp_connect failes with a value of 0.\nuintptr_t next_id_ RTC_GUARDED_BY(lock_) \u003d 1;\n\n\n\n  uintptr_t Register(cricket::SctpTransport* transport) {\n    rtc::CritScope cs(\u0026lock_);\n    RTC_DCHECK_NE(next_id_, 0);\n    uintptr_t new_id \u003d next_id_;\n    if (map_.find(new_id) !\u003d map_end())\n      return 0;  // We are out of resources.\n    map_[new_id] \u003d transport;\n    do {\n      ++next_id_\n    } while (next_id_ \u003d\u003d 0);\n    return new_id;\n  }\n\nAlternatively, we could choose to kill the process on exhaustion - assuming there\u0027s no bug there :-/ :\n\n  uintptr_t Register(cricket::SctpTransport* transport) {\n    rtc::CritScope cs(\u0026lock_);\n    RTC_DCHECK_NE(next_id_, 0);\n    uintptr_t new_id \u003d next_id_;\n    RTC_CHECK_EQ(map_.find(new_id), map_end());\n    map_[new_id] \u003d transport;\n    do {\n      ++next_id_\n    } while (next_id_ \u003d\u003d 0);\n    return new_id;\n  }",
+      "revId": "963cc1ef1336b52ca27742beb28bfbc211ed54d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5b05537_969259a4",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-17T06:58:54Z",
+      "side": 1,
+      "message": "Initialize to 1 to avoid the failure case above?",
+      "revId": "963cc1ef1336b52ca27742beb28bfbc211ed54d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

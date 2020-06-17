@@ -16,6 +16,24 @@
       "revId": "d6c4044393e61045b842d70f43ce4b61277b8f46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce987ea_4d780264",
+        "filename": "pc/data_channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-17T07:04:48Z",
+      "side": 1,
+      "message": "At the moment the channel already has pointers to the threads so we have what we need for the proxy. If down the line we want to go down to one factory method (DataChannel::Create) and not need a separate proxy method, then the parameters to the main factory method will suffice.",
+      "parentUuid": "22c690c3_ce2e72a2",
+      "revId": "d6c4044393e61045b842d70f43ce4b61277b8f46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "absl/strings/match.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/transport/field_trial_based_config.h"
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
@@ -26,6 +27,7 @@ constexpr uint32_t kTimestampTicksPerMs = 90;
 constexpr int kSendSideDelayWindowMs = 1000;
 constexpr int kBitrateStatisticsWindowMs = 1000;
 constexpr size_t kRtpSequenceNumberMapMaxEntries = 1 << 13;
+constexpr TimeDelta kRtpRtcpBitrateProcessTime = TimeDelta::Millis(10);
 
 bool IsEnabled(absl::string_view name,
                const WebRtcKeyValueConfig* field_trials) {
@@ -55,7 +57,8 @@ void RtpSenderEgress::NonPacedPacketSender::EnqueuePackets(
 
 RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
                                  RtpPacketHistory* packet_history)
-    : ssrc_(config.local_media_ssrc),
+    : worker_queue_(TaskQueueBase::Current()),
+      ssrc_(config.local_media_ssrc),
       rtx_ssrc_(config.rtx_send_ssrc),
       flexfec_ssrc_(config.fec_generator ? config.fec_generator->FecSsrc()
                                          : absl::nullopt),
@@ -85,11 +88,28 @@ RtpSenderEgress::RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
                                    ? std::make_unique<RtpSequenceNumberMap>(
                                          kRtpSequenceNumberMapMaxEntries)
                                    : nullptr) {
-  RTC_DCHECK(TaskQueueBase::Current());
+  RTC_DCHECK(worker_queue_);
+  rtp_sending_checker_.Detach();
+  if (bitrate_callback_) {
+    repeating_task_ = RepeatingTaskHandle::DelayedStart(
+        worker_queue_, kRtpRtcpBitrateProcessTime,
+        [this]() {
+          RTC_DCHECK_RUN_ON(worker_queue_);
+          ProcessBitrateAndNotifyObservers();
+          return kRtpRtcpBitrateProcessTime;
+        },
+        clock_);
+  }
+}
+
+RtpSenderEgress::~RtpSenderEgress() {
+  RTC_DCHECK_RUN_ON(&main_checker_);
+  repeating_task_.Stop();
 }
 
 void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
                                  const PacedPacketInfo& pacing_info) {
+  // Should be the 'pacer' thread.
   RTC_DCHECK(packet);
 
   const uint32_t packet_ssrc = packet->Ssrc();
@@ -204,30 +224,41 @@ void RtpSenderEgress::SendPacket(RtpPacketToSend* packet,
 }
 
 void RtpSenderEgress::ProcessBitrateAndNotifyObservers() {
-  if (!bitrate_callback_)
-    return;
+  RTC_DCHECK_RUN_ON(worker_queue_);
+  RTC_DCHECK(bitrate_callback_);
+  RtpSendRates send_rates;
 
-  rtc::CritScope lock(&lock_);
-  RtpSendRates send_rates = GetSendRatesLocked();
+  {
+    rtc::CritScope lock(&lock_);
+    uint32_t sequence = GetSendRatesLocked(&send_rates);
+    if (send_rates_callback_sequence_ == sequence) {
+      // RTC_LOG(LS_WARNING) << "\n\n***********************************************************\n\n";
+      return;
+    }
+    send_rates_callback_sequence_ = sequence;
+  }
   bitrate_callback_->Notify(
       send_rates.Sum().bps(),
       send_rates[RtpPacketMediaType::kRetransmission].bps(), ssrc_);
 }
 
 RtpSendRates RtpSenderEgress::GetSendRates() const {
+  // Called from "AudioEncoder" task queue via
+  // ModuleRtpRtcpImpl2::OnSendingRtpFrame/
   rtc::CritScope lock(&lock_);
-  return GetSendRatesLocked();
+  RtpSendRates rates;
+  GetSendRatesLocked(&rates);
+  return rates;
 }
 
-RtpSendRates RtpSenderEgress::GetSendRatesLocked() const {
+uint32_t RtpSenderEgress::GetSendRatesLocked(RtpSendRates* rates) const {
   const int64_t now_ms = clock_->TimeInMilliseconds();
-  RtpSendRates current_rates;
   for (size_t i = 0; i < kNumMediaTypes; ++i) {
     RtpPacketMediaType type = static_cast<RtpPacketMediaType>(i);
-    current_rates[type] =
+    (*rates)[type] =
         DataRate::BitsPerSec(send_rates_[i].Rate(now_ms).value_or(0));
   }
-  return current_rates;
+  return send_rates_update_sequence_;
 }
 
 void RtpSenderEgress::GetDataCounters(StreamDataCounters* rtp_stats,
@@ -458,6 +489,21 @@ void RtpSenderEgress::UpdateRtpStats(const RtpPacketToSend& packet) {
   RTC_DCHECK(packet.packet_type().has_value());
   send_rates_[static_cast<size_t>(*packet.packet_type())].Update(packet.size(),
                                                                  now_ms);
+  ++send_rates_update_sequence_;
+
+/*
+  TODO:
+  SendStatisticsProxy is the only implementation of BitrateStatisticsObserver.
+  We poll the send_rates_ data 100 times a second now to call
+  SendStatisticsProxy::Notify.
+  rtp_stats_callback_ also points to SendStatisticsProxy.
+  We should just call rtp_stats_callback_ here once with the relevant
+  data for Notify() and delete BitrateStatisticsObserver.
+  We should also make this call on the worker thread to keep the stats story
+  straight.
+  SendStatisticsProxy is n.b. also the only implementation of
+  StreamDataCountersCallback.
+*/
 
   if (rtp_stats_callback_) {
     rtp_stats_callback_->DataCountersUpdated(*counters, packet.Ssrc());

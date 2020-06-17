@@ -22,6 +22,30 @@
       "revId": "e421d419a3cc66f5e80754cbb50a7cecb4508df3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23dff4d4_7db7ceff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-17T10:54:50Z",
+      "side": 1,
+      "message": "Hi llya, sarien is a chromebook board name.",
+      "parentUuid": "8ac1e186_a8185ff0",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "e421d419a3cc66f5e80754cbb50a7cecb4508df3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

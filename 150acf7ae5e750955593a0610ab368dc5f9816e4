@@ -22,6 +22,30 @@
       "revId": "150acf7ae5e750955593a0610ab368dc5f9816e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d5ce597_791ada98",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1709,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-06-17T20:26:19Z",
+      "side": 1,
+      "message": "better safe than sorry... should this also be guarded by a \"is opus enabled\" check or does that only need to happen before it gets enabled by default (which is going to be somewhat tricky anyway).\nHave you seen THE SLIDES (TM)?",
+      "parentUuid": "fb918f09_6cdf30a1",
+      "range": {
+        "startLine": 1709,
+        "startChar": 2,
+        "endLine": 1709,
+        "endChar": 46
+      },
+      "revId": "150acf7ae5e750955593a0610ab368dc5f9816e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

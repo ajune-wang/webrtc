@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22c690c3_ce2e72a2",
+        "filename": "pc/data_channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-06-17T01:12:37Z",
+      "side": 1,
+      "message": "So in the end we\u0027d add the data channel type, worker and network threads to this method?",
+      "revId": "d6c4044393e61045b842d70f43ce4b61277b8f46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

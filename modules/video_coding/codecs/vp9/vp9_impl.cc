@@ -208,6 +208,7 @@ void UpdateRateSettings(vpx_codec_enc_cfg_t* config,
 void VP9EncoderImpl::EncoderOutputCodedPacketCallback(vpx_codec_cx_pkt* pkt,
                                                       void* user_data) {
   VP9EncoderImpl* enc = static_cast<VP9EncoderImpl*>(user_data);
+  RTC_LOG(LS_ERROR) << "!!!!!# Got packet from the encoder!";
   enc->GetEncodedLayerFrame(pkt);
 }
 
@@ -299,6 +300,8 @@ bool VP9EncoderImpl::SetSvcRates(
   std::pair<size_t, size_t> current_layers =
       GetActiveLayers(current_bitrate_allocation_);
   std::pair<size_t, size_t> new_layers = GetActiveLayers(bitrate_allocation);
+
+  RTC_LOG(LS_ERROR) << "!!! setrates: " << bitrate_allocation.ToString();
 
   const bool layer_activation_requires_key_frame =
       inter_layer_pred_ == InterLayerPredMode::kOff ||
@@ -399,7 +402,7 @@ bool VP9EncoderImpl::SetSvcRates(
       expect_no_more_active_layers = seen_active_layer;
     }
   }
-  RTC_DCHECK_GT(num_active_spatial_layers_, 0);
+  //RTC_DCHECK_GT(num_active_spatial_layers_, 0);
 
   if (higher_layers_enabled && !force_key_frame_) {
     // Prohibit drop of all layers for the next frame, so newly enabled
@@ -846,6 +849,10 @@ uint32_t VP9EncoderImpl::MaxIntraTarget(uint32_t optimal_buffer_size) {
 
 int VP9EncoderImpl::Encode(const VideoFrame& input_image,
                            const std::vector<VideoFrameType>* frame_types) {
+
+  static int counter = 0;
+
+  RTC_LOG(LS_ERROR) << "!!!!!# Starting encode of frame " << counter++;
   if (!inited_) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
@@ -1438,6 +1445,7 @@ int VP9EncoderImpl::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
   RTC_DCHECK_EQ(pkt->kind, VPX_CODEC_CX_FRAME_PKT);
 
   if (pkt->data.frame.sz == 0) {
+    RTC_LOG(LS_ERROR) << "!!!# ignore dropped frame";
     // Ignore dropped frame.
     return WEBRTC_VIDEO_CODEC_OK;
   }

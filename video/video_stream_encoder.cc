@@ -573,6 +573,13 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     RTC_LOG(LS_ERROR) << "Failed to create encoder configuration.";
   }
 
+  if (encoder_config_.codec_type == kVideoCodecVP9) {
+    // Spatial layers configuration might impose some parity restrictions,
+    // thus some cropping might be needed.
+    crop_width_ = last_frame_info_->width - codec.width;
+    crop_height_ = last_frame_info_->height - codec.height;
+  }
+
   char log_stream_buf[4 * 1024];
   rtc::SimpleStringBuilder log_stream(log_stream_buf);
   log_stream << "ReconfigureEncoder:\n";
@@ -1460,6 +1467,11 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   VideoCodecType codec = codec_specific_info
                              ? codec_specific_info->codecType
                              : VideoCodecType::kVideoCodecGeneric;
+
+  if (image_width != 1280 && image_width != 640 && image_width != 320) {
+    RTC_LOG(LS_ERROR) << "!!!!!!! Downscaled!!!";
+  }
+
   encoder_queue_.PostTask([this, codec, image_width, image_height] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     if (codec == VideoCodecType::kVideoCodecVP9 &&
@@ -1477,6 +1489,9 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
       RTC_DCHECK_LE(num_active_layers, 1)
           << "VP9 quality scaling is enabled for "
              "SVC with several active layers.";
+      if (image_width < expected_width || image_height < expected_height) {
+        RTC_LOG(LS_ERROR) << "!!!!!!! downscaled!";
+      }
       encoder_stats_observer_->OnEncoderInternalScalerUpdate(
           image_width < expected_width || image_height < expected_height);
     }

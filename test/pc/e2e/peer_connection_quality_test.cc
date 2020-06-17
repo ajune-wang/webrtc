@@ -277,6 +277,39 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
                                       return kAliveMessageLogInterval;
                                     });
 
+  RepeatingTaskHandle::DelayedStart(
+        task_queue_->Get(),
+        TimeDelta::Seconds(5),
+        [this]() {
+          auto sender = alice_->pc()->GetTransceivers()[0]->sender();
+          auto params = sender->GetParameters();
+          int state = 0;
+          if (params.encodings.size() != 3) {
+            return TimeDelta::Millis(100);
+          }
+          for (int i = 0; i < 3; ++i) {
+            if(params.encodings[i].active) {
+              state |= 1 << i;
+            }
+          }
+          if (state == 7) {
+            state = 1;
+          } else if (state == 1) {
+            state = 4;
+          } else if (state == 4) {
+             state = 1;
+          }
+          for (int i = 0; i < 3; ++i) {
+            params.encodings[i].active = (state & (1 << i)) > 0;
+          }
+
+
+          RTC_LOG(LS_ERROR) << "!!!! Setting active mask " << state;
+          sender->SetParameters(params);
+
+          return TimeDelta::Seconds(5);
+        });
+
   RTC_LOG(INFO) << "Configuration is done. Now " << *alice_->params()->name
                 << " is calling to " << *bob_->params()->name << "...";
 

@@ -18,6 +18,7 @@
 
 #include "absl/container/inlined_vector.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 
 namespace webrtc {
 namespace {
@@ -402,9 +403,12 @@ DataRate SvcRateAllocator::GetMaxBitrate(const VideoCodec& codec) {
 DataRate SvcRateAllocator::GetPaddingBitrate(const VideoCodec& codec) {
   auto start_bitrate = GetLayerStartBitrates(codec);
   if (start_bitrate.empty()) {
+    RTC_LOG(LS_ERROR) << "!!!!#$ RETURNING 0kbps padding!!";
     return DataRate::Zero();  // All layers are deactivated.
   }
 
+  RTC_LOG(LS_ERROR) << "!!!!#$ RETURNING "
+                    << start_bitrate.back().kbps() << "kbps padding";
   return start_bitrate.back();
 }
 

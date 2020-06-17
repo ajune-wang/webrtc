@@ -1456,10 +1456,16 @@ TEST(PCFullStackTest, VP9SVC_3SL_High) {
                         "Enabled,inter_layer_pred_mode:on/"));
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
+  BuiltInNetworkBehaviorConfig config;
+  config.link_capacity_kbps = 130;
+  config.queue_delay_ms=1;
+
+  printf("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! LIMIT 130 kbps\n\n");
+
   auto fixture = CreateTestFixture(
       "pc_vp9svc_3sl_high",
       CreateTwoNetworkLinks(network_emulation_manager.get(),
-                            BuiltInNetworkBehaviorConfig()),
+                            config),
       [](PeerConfigurer* alice) {
         VideoConfig video(1280, 720, 30);
         video.stream_label = "alice-video";

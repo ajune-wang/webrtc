@@ -317,10 +317,10 @@ bool QualityAnalyzingVideoEncoder::ShouldDiscard(
     if (!cur_spatial_index) {
       cur_spatial_index = 0;
     }
-    RTC_CHECK(mode_ != SimulcastMode::kNormal)
+/*    RTC_CHECK(mode_ != SimulcastMode::kNormal)
         << "Analyzing encoder is in kNormal "
            "mode, but spatial layer/simulcast "
-           "stream met.";
+           "stream met.";*/
     if (mode_ == SimulcastMode::kSimulcast) {
       // In simulcast mode only encoded images with required spatial index are
       // interested, so all others have to be discarded.
@@ -341,7 +341,8 @@ bool QualityAnalyzingVideoEncoder::ShouldDiscard(
         return *cur_spatial_index != *required_spatial_index;
       }
     } else {
-      RTC_NOTREACHED() << "Unsupported encoder mode";
+      //RTC_NOTREACHED() << "Unsupported encoder mode";
+      return false;
     }
   }
   return false;

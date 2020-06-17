@@ -74,13 +74,19 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
   video_codec.numberOfSimulcastStreams =
       static_cast<unsigned char>(streams.size());
   video_codec.minBitrate = streams[0].min_bitrate_bps / 1000;
+  // Active configuration might not be fully copied to |streams| for SVC.
+  // Therefore the |config| is checked here.
   bool codec_active = false;
-  for (const VideoStream& stream : streams) {
+  for (const VideoStream& stream : /*config.simulcast_layers*/ streams) {
+    RTC_LOG(LS_ERROR) << "!!! Stream : "
+                      << stream.height << "x" << stream.width
+                      << " active " << (int)stream.active;
     if (stream.active) {
       codec_active = true;
       break;
     }
   }
+
   // Set active for the entire video codec for the non simulcast case.
   video_codec.active = codec_active;
   if (video_codec.minBitrate < kEncoderMinBitrateKbps)
@@ -158,6 +164,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     case kVideoCodecVP9: {
       // Force the first stream to always be active.
       video_codec.simulcastStream[0].active = codec_active;
+      RTC_LOG(LS_ERROR) << "!!!! CODEC active = " << (int) codec_active;
 
       if (!config.encoder_specific_settings) {
         *video_codec.VP9() = VideoEncoder::GetDefaultVp9Settings();
@@ -205,19 +212,32 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
           spatial_layers.back().maxBitrate = video_codec.maxBitrate;
         }
 
-        for (size_t spatial_idx = 0;
-             spatial_idx < config.simulcast_layers.size() &&
-             spatial_idx < spatial_layers.size();
+        for (size_t spatial_idx = 0; spatial_idx < spatial_layers.size();
              ++spatial_idx) {
-          spatial_layers[spatial_idx - first_active_layer].active =
-              config.simulcast_layers[spatial_idx].active;
+//          spatial_layers[spatial_idx - first_active_layer].active =
+//              config.simulcast_layers[spatial_idx].active;
+          if (spatial_idx + first_active_layer < config.simulcast_layers.size()) {
+            spatial_layers[spatial_idx].active =
+                config.simulcast_layers[spatial_idx + first_active_layer].active;
+          } else {
+            spatial_layers[spatial_idx].active = false;
+          }
         }
+
       }
 
       RTC_DCHECK(!spatial_layers.empty());
       for (size_t i = 0; i < spatial_layers.size(); ++i) {
         video_codec.spatialLayers[i] = spatial_layers[i];
       }
+
+      // The top spatial layer dimensions may not be equal to the input
+      // resolution because of the rounding or explicit configuration.
+      // This difference must be propagated to the stream configuration.
+      video_codec.width = spatial_layers.back().width;
+      video_codec.height = spatial_layers.back().height;
+      video_codec.simulcastStream[0].width = spatial_layers.back().width;
+      video_codec.simulcastStream[0].height = spatial_layers.back().height;
 
       // Update layering settings.
       video_codec.VP9()->numberOfSpatialLayers =

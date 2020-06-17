@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30d265dc_6a401084",
+        "filename": "common_audio/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "These are included twice (also on lines 249-250).\n\nThat does not seem right.",
+      "range": {
+        "startLine": 269,
+        "startChar": 5,
+        "endLine": 270,
+        "endChar": 25
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2846ef33_41f79a84",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "Do we need this #define?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 36
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e173d760_3232d59c",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "-\u003e AVX2",
+      "range": {
+        "startLine": 128,
+        "startChar": 35,
+        "endLine": 128,
+        "endChar": 39
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e994991_415da2ed",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "Can this really happen? I mean, this would then mean that the CPU has SSE2, even though __SSE2__ is not set.",
+      "range": {
+        "startLine": 138,
+        "startChar": 2,
+        "endLine": 138,
+        "endChar": 72
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e32d38c5_071b33ed",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "Can we rewrite this as\nvoid SincResampler::InitializeCPUSpecificFeatures() {\n#if defined(WEBRTC_HAS_NEON)\n  convolve_proc_ \u003d Convolve_NEON;\n#elif defined(WEBRTC_ARCH_X86_FAMILY) \u0026\u0026 defined(__SSE2__)\n  // Using AVX2 instead of SSE2 when AVX2 supported.\n  convolve_proc_ \u003d WebRtc_GetCPUInfo(kAVX2) ? Convolve_AVX2 : Convolve_SSE;\n#elif defined(WEBRTC_ARCH_X86_FAMILY)\n  // x86 CPU detection required.  Function will be set by\n  // InitializeCPUSpecificFeatures().\n  // TODO(dalecurtis): Once Chrome moves to an SSE baseline this can be   \n  convolve_proc_ \u003d WebRtc_GetCPUInfo(kSSE2) ? Convolve_SSE : Convolve_C;\n#else\n  // Unknown architecture.\n  convolve_proc_ \u003d Convolve_C;\n#endif\n}\n\nI think that pattern would simplify this part.",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 6
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b907ee20_2c24c3b0",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "This I guess also implicitly ensures that there is 16 bit alignment, right?",
+      "range": {
+        "startLine": 159,
+        "startChar": 6,
+        "endLine": 159,
+        "endChar": 77
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d5d754b_9d1f34cb",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "Should we also use convolve_proc_ here?",
+      "range": {
+        "startLine": 317,
+        "startChar": 10,
+        "endLine": 317,
+        "endChar": 23
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bccf383b_2207817c",
+        "filename": "common_audio/resampler/sinc_resampler_avx2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "One general question is how this has been tested? E.g., has it been tested for bitexactness against the SSE2 code?",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "815d6e0d_cb73170a",
+        "filename": "common_audio/resampler/sinc_resampler_avx2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "For readability, I\u0027d prefer this to be changed to something like\nbool aligned_input \u003d (reinterpret_cast\u003cuintptr_t\u003e(input_ptr) \u0026 0x1F) \u003d\u003d 0;\nif (aligned_input) {\n...\n}",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe9eb4e_551d358f",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-17T15:41:52Z",
+      "side": 1,
+      "message": "This does not look right. Should it be WEBRTC_ARCH_X86_FAMILY?",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

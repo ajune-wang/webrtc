@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c5f0b408_9aafd0f4",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-06-17T17:30:45Z",
+      "side": 1,
+      "message": "Your suggestions wouldn\u0027t work if next_id_ wrapped around but there were still some old SctpTransports alive; it would return 0 or hit the RTC_CHECK_EQ even if there were available ids.\n\nI know my solution could have been cleaner (it was before I found out 0 was invalid), and I probably could have just ignored the possibility of next_id_ wrapping around (will never happen on a 64 bit system), but I knew what I had was foolproof and figured that was good enough for a temporary workaround.",
+      "parentUuid": "a0b03ec5_bb9edd51",
+      "revId": "963cc1ef1336b52ca27742beb28bfbc211ed54d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5b05537_969259a4",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 3

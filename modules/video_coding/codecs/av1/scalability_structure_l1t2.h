@@ -24,6 +24,7 @@ class ScalabilityStructureL1T2 : public ScalableVideoController {
 
   StreamLayersConfig StreamConfig() const override;
   FrameDependencyStructure DependencyStructure() const override;
+  void OnRatesUpdated(const VideoBitrateAllocation& bitrates) override;
 
   std::vector<LayerFrameConfig> NextFrameConfig(bool restart) override;
   absl::optional<GenericFrameInfo> OnEncodeDone(
@@ -37,6 +38,7 @@ class ScalabilityStructureL1T2 : public ScalableVideoController {
   };
 
   FramePattern next_pattern_ = kKeyFrame;
+  bool disable_t1_ = false;
 };
 
 }  // namespace webrtc

@@ -40,6 +40,7 @@ struct GenericFrameInfo : public FrameDependencyTemplate {
 
   absl::InlinedVector<CodecBufferUsage, kMaxEncoderBuffers> encoder_buffers;
   std::vector<bool> part_of_chain;
+  std::vector<bool> active_decode_targets;
 };
 
 class GenericFrameInfo::Builder {

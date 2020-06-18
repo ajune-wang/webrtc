@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92273d49_e9686936",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-18T12:56:12Z",
+      "side": 1,
+      "message": "Is there a unit test?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "a6563950ff5351c95b376d91edfa7f182a52317d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee77bb7_e21991ec",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-18T12:56:12Z",
+      "side": 1,
+      "message": "opus audio",
+      "range": {
+        "startLine": 103,
+        "startChar": 18,
+        "endLine": 103,
+        "endChar": 23
+      },
+      "revId": "a6563950ff5351c95b376d91edfa7f182a52317d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1bd6e5a_ae538984",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-18T12:56:12Z",
+      "side": 1,
+      "message": "Hmm. You\u0027re gating both addition of RED to the list of codecs *and* use of RED if found in the codec list behind IsAudioRedForOpusFieldTrialEnabled. This seems overly complex. Would it be sufficient to gate just the addition of RED to the list of codecs?",
+      "revId": "a6563950ff5351c95b376d91edfa7f182a52317d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5cf881_56326970",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1708,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-18T12:56:12Z",
+      "side": 1,
+      "message": "Use IsAudioRedForOpusFieldTrialEnabled instead? Or remove completely (see earlier comment)?",
+      "range": {
+        "startLine": 1708,
+        "startChar": 6,
+        "endLine": 1708,
+        "endChar": 65
+      },
+      "revId": "a6563950ff5351c95b376d91edfa7f182a52317d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

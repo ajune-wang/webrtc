@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "58dc1c97_d1dd1ef7",
+        "filename": "common_audio/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30d265dc_6a401084",
+      "range": {
+        "startLine": 269,
+        "startChar": 5,
+        "endLine": 270,
+        "endChar": 25
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2846ef33_41f79a84",
         "filename": "common_audio/resampler/sinc_resampler.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a85d388_81eefccb",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2846ef33_41f79a84",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 36
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "275f4022_1d5058be",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e173d760_3232d59c",
+      "range": {
+        "startLine": 128,
+        "startChar": 35,
+        "endLine": 128,
+        "endChar": 39
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e994991_415da2ed",
         "filename": "common_audio/resampler/sinc_resampler.cc",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2020-06-17T15:41:52Z",
       "side": 1,
       "message": "Can this really happen? I mean, this would then mean that the CPU has SSE2, even though __SSE2__ is not set.",
+      "range": {
+        "startLine": 138,
+        "startChar": 2,
+        "endLine": 138,
+        "endChar": 72
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abba399_46b4729e",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "I think this depends on the compiler, on a higher version of the compiler, it should not run to this path.",
+      "parentUuid": "5e994991_415da2ed",
       "range": {
         "startLine": 138,
         "startChar": 2,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "eb73f11f_1de1ee6f",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e32d38c5_071b33ed",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 6
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b907ee20_2c24c3b0",
         "filename": "common_audio/resampler/sinc_resampler.cc",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2020-06-17T15:41:52Z",
       "side": 1,
       "message": "This I guess also implicitly ensures that there is 16 bit alignment, right?",
+      "range": {
+        "startLine": 159,
+        "startChar": 6,
+        "endLine": 159,
+        "endChar": 77
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9abf9bef_f99ead50",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "Yes!",
+      "parentUuid": "b907ee20_2c24c3b0",
       "range": {
         "startLine": 159,
         "startChar": 6,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "3a12ca1c_9579e8a0",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d5d754b_9d1f34cb",
+      "range": {
+        "startLine": 317,
+        "startChar": 10,
+        "endLine": 317,
+        "endChar": 23
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bccf383b_2207817c",
         "filename": "common_audio/resampler/sinc_resampler_avx2.cc",
         "patchSetId": 3
@@ -174,6 +342,30 @@
       "writtenOn": "2020-06-17T15:41:52Z",
       "side": 1,
       "message": "One general question is how this has been tested? E.g., has it been tested for bitexactness against the SSE2 code?",
+      "range": {
+        "startLine": 20,
+        "startChar": 7,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c20294af_a44816d3",
+        "filename": "common_audio/resampler/sinc_resampler_avx2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "We tested for bitexactness against Convolve_C through the SincResamplerTest.Convolve, and also compared the speed between AVX2 and SSE2 through SincResamplerTest.ConvolveBenchmark. And this has been passed the common_audio_unittests.",
+      "parentUuid": "bccf383b_2207817c",
       "range": {
         "startLine": 20,
         "startChar": 7,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "f0c830f5_1cee90d1",
+        "filename": "common_audio/resampler/sinc_resampler_avx2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "815d6e0d_cb73170a",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fe9eb4e_551d358f",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 3
@@ -220,6 +436,30 @@
       "writtenOn": "2020-06-17T15:41:52Z",
       "side": 1,
       "message": "This does not look right. Should it be WEBRTC_ARCH_X86_FAMILY?",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c33f5050_29bbd38f",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-18T01:51:41Z",
+      "side": 1,
+      "message": "This corresponds to the #if on line 31.",
+      "parentUuid": "5fe9eb4e_551d358f",
       "range": {
         "startLine": 38,
         "startChar": 19,

@@ -121,6 +121,16 @@ std::vector<SpatialLayer> ConfigureSvcNormalVideo(size_t input_width,
     spatial_layers.push_back(spatial_layer);
   }
 
+  // A workaround for sitiation when single HD layer is left with minBitrate
+  // about 500kbps. This would mean that there will always be at least 500kbps
+  // allocated to video regardless of how low is the actual BWE.
+  // Also, boost maxBitrate for the first layer to account for lost ability to
+  // predict from previous layers.
+  if (first_active_layer > 0) {
+    spatial_layers[0].minBitrate = kMinVp9SvcBitrateKbps;
+    spatial_layers[0].maxBitrate *= 1.1;
+  }
+
   return spatial_layers;
 }
 

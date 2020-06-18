@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a8f5aab_b88131d5",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-18T16:19:06Z",
+      "side": 1,
+      "message": "Add a TODO about about revising how much we should add to compensate for loss of lower layers.",
+      "range": {
+        "startLine": 131,
+        "startChar": 36,
+        "endLine": 131,
+        "endChar": 39
+      },
+      "revId": "cad2027b7917a3ac0fdf3a3320e9f17805377dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0013fa57_61bb9dab",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-18T16:19:06Z",
+      "side": 1,
+      "message": "svc_config.cc ?",
+      "range": {
+        "startLine": 58,
+        "startChar": 52,
+        "endLine": 58,
+        "endChar": 64
+      },
+      "revId": "cad2027b7917a3ac0fdf3a3320e9f17805377dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e237470b_56dbfebe",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-18T16:19:06Z",
+      "side": 1,
+      "message": "Maybe add a todo about refining/quantifying this a bit more too.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 40
+      },
+      "revId": "cad2027b7917a3ac0fdf3a3320e9f17805377dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0703bcf2_2db3ecaf",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-18T16:19:06Z",
+      "side": 1,
+      "message": "I approve of increasing the max qp for here, but it feels a bit scary to do without warning 😊\nThink you also need to tweak the threshold in VideoCodecTestLibvpx.ChangeFramerateVP9 because of this...",
+      "range": {
+        "startLine": 564,
+        "startChar": 30,
+        "endLine": 564,
+        "endChar": 32
+      },
+      "revId": "cad2027b7917a3ac0fdf3a3320e9f17805377dc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

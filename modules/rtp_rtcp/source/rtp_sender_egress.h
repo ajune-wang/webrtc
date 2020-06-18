@@ -18,6 +18,7 @@
 #include "absl/types/optional.h"
 #include "api/call/transport.h"
 #include "api/rtc_event_log/rtc_event_log.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/units/data_rate.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_history.h"
@@ -26,6 +27,7 @@
 #include "modules/rtp_rtcp/source/rtp_sequence_number_map.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/rate_statistics.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
@@ -49,7 +51,7 @@ class RtpSenderEgress {
 
   RtpSenderEgress(const RtpRtcpInterface::Configuration& config,
                   RtpPacketHistory* packet_history);
-  ~RtpSenderEgress() = default;
+  ~RtpSenderEgress();
 
   void SendPacket(RtpPacketToSend* packet, const PacedPacketInfo& pacing_info)
       RTC_LOCKS_EXCLUDED(lock_);
@@ -99,9 +101,14 @@ class RtpSenderEgress {
   bool SendPacketToNetwork(const RtpPacketToSend& packet,
                            const PacketOptions& options,
                            const PacedPacketInfo& pacing_info);
-  void UpdateRtpStats(const RtpPacketToSend& packet)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
+  void UpdateRtpStats(int64_t now_ms,
+                      uint32_t packet_ssrc,
+                      RtpPacketMediaType packet_type,
+                      RtpPacketCounter counter,
+                      size_t packet_size);
 
+  TaskQueueBase* const worker_queue_;
+  SequenceChecker pacer_checker_;
   const uint32_t ssrc_;
   const absl::optional<uint32_t> rtx_ssrc_;
   const absl::optional<uint32_t> flexfec_ssrc_;
@@ -121,7 +128,7 @@ class RtpSenderEgress {
   BitrateStatisticsObserver* const bitrate_callback_;
 
   rtc::CriticalSection lock_;
-  bool media_has_been_sent_ RTC_GUARDED_BY(lock_);
+  bool media_has_been_sent_ RTC_GUARDED_BY(pacer_checker_);
   bool force_part_of_allocation_ RTC_GUARDED_BY(lock_);
   uint32_t timestamp_offset_ RTC_GUARDED_BY(lock_);
 
@@ -141,6 +148,7 @@ class RtpSenderEgress {
   // 3. Whether the packet was the last in its frame.
   const std::unique_ptr<RtpSequenceNumberMap> rtp_sequence_number_map_
       RTC_GUARDED_BY(lock_);
+  ScopedTaskSafety task_safety_;
 };
 
 }  // namespace webrtc

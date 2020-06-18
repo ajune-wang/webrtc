@@ -357,7 +357,7 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(
     : payload_type_(payload_type),
       send_side_bwe_with_overhead_(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
-      use_stable_target_for_adaptation_(webrtc::field_trial::IsEnabled(
+      use_stable_target_for_adaptation_(!webrtc::field_trial::IsDisabled(
           "WebRTC-Audio-StableTargetAdaptation")),
       adjust_bandwidth_(
           webrtc::field_trial::IsEnabled("WebRTC-AdjustOpusBandwidth")),
@@ -493,6 +493,8 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     absl::optional<int64_t> stable_target_bitrate_bps) {
   if (audio_network_adaptor_) {
     audio_network_adaptor_->SetTargetAudioBitrate(target_audio_bitrate_bps);
+    RTC_LOG(LS_WARNING) << "Use stable target bitrate: "
+                        << use_stable_target_for_adaptation_;
     if (use_stable_target_for_adaptation_) {
       if (stable_target_bitrate_bps)
         audio_network_adaptor_->SetUplinkBandwidth(*stable_target_bitrate_bps);

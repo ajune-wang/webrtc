@@ -256,10 +256,12 @@ VideoStreamEncoder::VideoStreamEncoder(
           ParseAutomatincAnimationDetectionFieldTrial()),
       encoder_switch_requested_(false),
       input_state_provider_(encoder_stats_observer),
+      video_stream_adapter_(std::make_unique<VideoStreamAdapter>()),
       resource_adaptation_processor_(
           std::make_unique<ResourceAdaptationProcessor>(
               &input_state_provider_,
-              encoder_stats_observer)),
+              encoder_stats_observer,
+              video_stream_adapter_.get())),
       adaptation_constraints_(),
       adaptation_listeners_(),
       stream_resource_manager_(&input_state_provider_,
@@ -288,9 +290,10 @@ VideoStreamEncoder::VideoStreamEncoder(
         resource_adaptation_queue_.Get());
     stream_resource_manager_.SetAdaptationProcessor(
         resource_adaptation_processor_.get());
-    resource_adaptation_processor_->AddRestrictionsListener(
+    resource_adaptation_processor_->AddResourceLimitationsListener(
         &stream_resource_manager_);
-    resource_adaptation_processor_->AddRestrictionsListener(this);
+    video_stream_adapter_->AddRestrictionsListener(&stream_resource_manager_);
+    video_stream_adapter_->AddRestrictionsListener(this);
 
     // Add the stream resource manager's resources to the processor.
     adaptation_constraints_ = stream_resource_manager_.AdaptationConstraints();
@@ -333,8 +336,10 @@ void VideoStreamEncoder::Stop() {
       for (auto* listener : adaptation_listeners_) {
         resource_adaptation_processor_->RemoveAdaptationListener(listener);
       }
-      resource_adaptation_processor_->RemoveRestrictionsListener(this);
-      resource_adaptation_processor_->RemoveRestrictionsListener(
+      video_stream_adapter_->RemoveRestrictionsListener(this);
+      video_stream_adapter_->RemoveRestrictionsListener(
+          &stream_resource_manager_);
+      resource_adaptation_processor_->RemoveResourceLimitationsListener(
           &stream_resource_manager_);
       stream_resource_manager_.SetAdaptationProcessor(nullptr);
       resource_adaptation_processor_.reset();
@@ -1758,7 +1763,8 @@ bool VideoStreamEncoder::DropDueToSize(uint32_t pixel_count) const {
 void VideoStreamEncoder::OnVideoSourceRestrictionsUpdated(
     VideoSourceRestrictions restrictions,
     const VideoAdaptationCounters& adaptation_counters,
-    rtc::scoped_refptr<Resource> reason) {
+    rtc::scoped_refptr<Resource> reason,
+    const VideoSourceRestrictions& unfiltered_restrictions) {
   RTC_DCHECK_RUN_ON(&resource_adaptation_queue_);
   std::string resource_name = reason ? reason->Name() : "<null>";
   RTC_LOG(INFO) << "Updating sink restrictions from " << resource_name << " to "
@@ -2101,8 +2107,7 @@ void VideoStreamEncoder::AddRestrictionsListenerForTesting(
   resource_adaptation_queue_.PostTask([this, restrictions_listener, &event] {
     RTC_DCHECK_RUN_ON(&resource_adaptation_queue_);
     RTC_DCHECK(resource_adaptation_processor_);
-    resource_adaptation_processor_->AddRestrictionsListener(
-        restrictions_listener);
+    video_stream_adapter_->AddRestrictionsListener(restrictions_listener);
     event.Set();
   });
   event.Wait(rtc::Event::kForever);
@@ -2114,8 +2119,7 @@ void VideoStreamEncoder::RemoveRestrictionsListenerForTesting(
   resource_adaptation_queue_.PostTask([this, restrictions_listener, &event] {
     RTC_DCHECK_RUN_ON(&resource_adaptation_queue_);
     RTC_DCHECK(resource_adaptation_processor_);
-    resource_adaptation_processor_->RemoveRestrictionsListener(
-        restrictions_listener);
+    video_stream_adapter_->RemoveRestrictionsListener(restrictions_listener);
     event.Set();
   });
   event.Wait(rtc::Event::kForever);

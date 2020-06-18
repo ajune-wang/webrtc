@@ -13,6 +13,7 @@
 
 #include <stdint.h>
 
+#include <cstdio>
 #include <list>
 #include <map>
 #include <memory>
@@ -161,6 +162,49 @@ class RTC_EXPORT ThreadManager {
   const PlatformThreadRef main_thread_ref_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(ThreadManager);
+};
+
+class ThreadInvokePolicy {
+ public:
+  virtual ~ThreadInvokePolicy() = default;
+
+  virtual bool IsInvokeAllowed(Thread* target) const = 0;
+
+ protected:
+  Thread* owner_;
+};
+
+class InvokeToThreadForbiddenPolicy : public ThreadInvokePolicy {
+ public:
+  InvokeToThreadForbiddenPolicy(Thread* target) : target_(target) {}
+  ~InvokeToThreadForbiddenPolicy() override = default;
+
+  bool IsInvokeAllowed(Thread* target) const override {
+    return target != target_;
+  }
+
+ private:
+  const Thread* const target_;
+};
+
+class InvokeToThreadAllowedPolicy : public ThreadInvokePolicy {
+ public:
+  InvokeToThreadAllowedPolicy(Thread* target) : target_(target) {}
+  ~InvokeToThreadAllowedPolicy() override = default;
+
+  bool IsInvokeAllowed(Thread* target) const override {
+    return target == target_;
+  }
+
+ private:
+  const Thread* const target_;
+};
+
+class InvokeToAnyThreadForbiddenPolicy : public ThreadInvokePolicy {
+ public:
+  ~InvokeToAnyThreadForbiddenPolicy() override = default;
+
+  bool IsInvokeAllowed(Thread* target) const override { return false; }
 };
 
 // WARNING! SUBCLASSES MUST CALL Stop() IN THEIR DESTRUCTORS!  See ~Thread().
@@ -336,6 +380,31 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
       typename = typename std::enable_if<std::is_void<ReturnT>::value>::type>
   void Invoke(const Location& posted_from, FunctionView<void()> functor) {
     InvokeInternal(posted_from, functor);
+  }
+
+  void AddInvokePolicy(std::unique_ptr<ThreadInvokePolicy> policy) {
+    rtc::CritScope scope(&crit_);
+    invoke_policies_.push_back(std::move(policy));
+  }
+
+  void ClearInvokePolicies() {
+    rtc::CritScope scope(&crit_);
+    invoke_policies_.clear();
+  }
+
+  // Returns true if no policies added or if there is at least one policy
+  // that permits invokation to |target| thread.
+  bool IsInvokeToThreadAllowed(rtc::Thread* target) {
+    CritScope cs(&crit_);
+    if (invoke_policies_.empty()) {
+      return true;
+    }
+    for (const auto& policy : invoke_policies_) {
+      if (policy->IsInvokeAllowed(target)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // Posts a task to invoke the functor on |this| thread asynchronously, i.e.
@@ -566,6 +635,9 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   MessageList messages_ RTC_GUARDED_BY(crit_);
   PriorityQueue delayed_messages_ RTC_GUARDED_BY(crit_);
   uint32_t delayed_next_num_ RTC_GUARDED_BY(crit_);
+  // Any call to Invoke have to be permitted by all policies in this list.
+  std::vector<std::unique_ptr<ThreadInvokePolicy>> invoke_policies_
+      RTC_GUARDED_BY(crit_);
   CriticalSection crit_;
   bool fInitialized_;
   bool fDestroyed_;

@@ -70,6 +70,30 @@
       "revId": "150acf7ae5e750955593a0610ab368dc5f9816e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "780d2f0b_7c98bd5f",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1709,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-06-18T10:17:25Z",
+      "side": 1,
+      "message": "There are too many DECK OF SLIDES clearly (-:\nCurrently \"this is for opus\" isn\u0027t checked. That will have to go into a fmtp line like this:\na\u003dfmtp:\u003cred pt\u003e \u003copus pt\u003e/\u003copus pt\u003e\nI was planning on adding that later when adding support for different maximum levels of redundancy.",
+      "parentUuid": "d82fa6d8_d298212e",
+      "range": {
+        "startLine": 1709,
+        "startChar": 2,
+        "endLine": 1709,
+        "endChar": 46
+      },
+      "revId": "150acf7ae5e750955593a0610ab368dc5f9816e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

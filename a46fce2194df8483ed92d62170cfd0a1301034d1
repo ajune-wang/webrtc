@@ -16,6 +16,24 @@
       "revId": "a46fce2194df8483ed92d62170cfd0a1301034d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e54eee7c_530e01e8",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-06-18T06:37:08Z",
+      "side": 0,
+      "message": "Maybe, I have no idea what it is used for.",
+      "parentUuid": "2b949cb8_3719e589",
+      "revId": "a46fce2194df8483ed92d62170cfd0a1301034d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

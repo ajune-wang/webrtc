@@ -59,9 +59,8 @@ struct SctpInboundPacket;
 // [network thread returns; sctp thread then calls the following]
 //  9.  OnSctpInboundData(data)
 // [sctp thread returns having async invoked on the network thread]
-//  10. SctpTransport::OnInboundPacketFromSctpToTransport(inboundpacket)
-//  11. SctpTransport::OnDataFromSctpToTransport(data)
-//  12. SctpTransport::SignalDataReceived(data)
+//  10. SctpTransport::OnDataFromSctpToTransport(data)
+//  11. SctpTransport::SignalDataReceived(data)
 // [from the same thread, methods registered/connected to
 //  SctpTransport are called with the recieved data]
 class SctpTransport : public SctpTransportInternal,
@@ -173,14 +172,11 @@ class SctpTransport : public SctpTransportInternal,
 
   // Called using |invoker_| to send packet on the network.
   void OnPacketFromSctpToNetwork(const rtc::CopyOnWriteBuffer& buffer);
-  // Called using |invoker_| to decide what to do with the packet.
-  // The |flags| parameter is used by SCTP to distinguish notification packets
-  // from other types of packets.
-  void OnInboundPacketFromSctpToTransport(const rtc::CopyOnWriteBuffer& buffer,
-                                          ReceiveDataParams params,
-                                          int flags);
+
+  // Called using |invoker_| to decide what to do with the data.
   void OnDataFromSctpToTransport(const ReceiveDataParams& params,
                                  const rtc::CopyOnWriteBuffer& buffer);
+  // Called using |invoker_| to decide what to do with the notification.
   void OnNotificationFromSctp(const rtc::CopyOnWriteBuffer& buffer);
   void OnNotificationAssocChange(const sctp_assoc_change& change);
 

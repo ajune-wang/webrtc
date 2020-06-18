@@ -335,6 +335,10 @@ void RTPSenderVideo::AddRtpHeaderExtensions(
           descriptor.frame_dependencies.decode_target_indications.size(),
           video_structure_->num_decode_targets);
 
+      if (first_packet) {
+        descriptor.active_decode_targets_bitmask =
+            active_decode_targets_decider_.ActiveDecodeTargetsBitmask();
+      }
       // To avoid extra structure copy, temporary share ownership of the
       // video_structure with the dependency descriptor.
       if (video_header.frame_type == VideoFrameType::kVideoFrameKey &&
@@ -413,6 +417,14 @@ bool RTPSenderVideo::SendVideo(
       !IsNoopDelay(current_playout_delay_)) {
     // Force playout delay on key-frames, if set.
     playout_delay_pending_ = true;
+  }
+
+  if (video_structure_ != nullptr && video_header.generic) {
+    active_decode_targets_decider_.OnFrame(
+        video_structure_->decode_target_protected_by_chain,
+        video_header.generic->active_decode_targets,
+        video_header.frame_type == VideoFrameType::kVideoFrameKey,
+        video_header.generic->frame_id, video_header.generic->chain_diffs);
   }
 
   // Maximum size of packet including rtp headers.

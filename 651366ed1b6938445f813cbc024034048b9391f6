@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6350b08d_0e6ec4d7",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-19T14:24:02Z",
+      "side": 1,
+      "message": "nit: You can just use {} here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 35,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "651366ed1b6938445f813cbc024034048b9391f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9557734b_044a322d",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-19T14:24:02Z",
+      "side": 1,
+      "message": "nit: Let\u0027s replace this with a set of if(condition) return statements, for better readability, i.e:\n\n  if (enumerated_window_thread_id \u003d\u003d 0)\n    return false;\n  if (enumerated_window_process_id !\u003d selected_window_process_id_ || ...)\n    return false;\n  return CheckWindowClass(hwnd)",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "651366ed1b6938445f813cbc024034048b9391f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

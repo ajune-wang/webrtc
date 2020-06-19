@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2c33f8b5_d21c42c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-19T14:24:02Z",
+      "side": 1,
+      "message": "OK, let\u0027s rephrase the CL description to explain that, and also rename the CheckWindowClass() function accordingly, and add a comment describing it.\n\ne.g. something like:\n\n  Improve checks for \"child\" windows of selected capture targets.\n\n  Previously windows other than the selected window will also be\n  captured if they share the same process \u0026 thread, to allow child\n  windows (e.g. popup menus) to be captured. This could result in\n  child windows of other top-level windows run by the same process\n  and thread, being unintentionally captured.\n\n  \u003cdescribe the extra check(s)\u003e to ensure that only child windows\n  of selected targets are captured.",
+      "parentUuid": "9b98e093_b9ee9e5a",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b19a9a9_7af7f7a7",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2
@@ -93,6 +117,30 @@
       "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "884f44fe_19fc1726",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-19T14:24:02Z",
+      "side": 1,
+      "message": "OK, let\u0027s rename this to kMaxClassNameLength to reflect that it is a maximum, and add a comment to note that this is documented in the notes for the WNDCLASS lpszClassName field.",
+      "parentUuid": "37952f0c_047867ad",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -237,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "49a6fe2c_7fd5e4d3",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-19T14:24:02Z",
+      "side": 1,
+      "message": "I don\u0027t see why the class name is really related to this at all.  If I e.g. had an editor open that handled text documents and images, for example, then those might be implemented using different classes, so this implemention would still result in the second window being unexpectedly captured.\n\nGenerally the idea of capturing child windows is to ensure that e.g. popup menus are included in the output - I\u0027d expect those to have an explicit relationship to the \"selected\" window in the window hierarchy, so that we can just say \"is this window a descendent of the selected one\"?",
+      "parentUuid": "c8ceb1e0_bcf33bad",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7cc63df_2b10ce48",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2
@@ -284,6 +356,30 @@
     },
     {
       "key": {
+        "uuid": "44aa90e7_743e28b8",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-19T14:24:02Z",
+      "side": 1,
+      "message": "OK; I think the comment should be reworded to clarify what is intended, e.g:\n\n  // Skip windows added by the system to contain visual effects, e.g. drop-shadows.",
+      "parentUuid": "7101c995_79dea7f3",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac882c18_eb4eb44a",
         "filename": "modules/desktop_capture/win/selected_window_context.h",
         "patchSetId": 2
@@ -319,6 +415,30 @@
       "side": 1,
       "message": "It\u0027s not just checking if class names match, some class names should be ignored.\nCan you suggest a good name for it?",
       "parentUuid": "ac882c18_eb4eb44a",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 23
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ebb88d2_ea007e43",
+        "filename": "modules/desktop_capture/win/selected_window_context.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-19T14:24:02Z",
+      "side": 1,
+      "message": "What job is this function actually performing, i.e. what does a return-value of |true| actually mean?  The function should be named based on that, essentially.\n\ne.g. if the function were updated to check whether the enumerated window is a descendent of the selected window, then it would be called IsDescendentOfSelectedWindow(), though AFAICT that sounds like what IsWindowOwnedBySelectedWindow() is intended to mean. :P",
+      "parentUuid": "f3eb7fb7_ef29a6fa",
       "range": {
         "startLine": 36,
         "startChar": 7,

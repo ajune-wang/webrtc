@@ -285,6 +285,7 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   SequenceChecker construction_thread_checker_;
   SequenceChecker process_thread_checker_;
+  SequenceChecker encoder_checker_;
 
   std::unique_ptr<RtpSenderContext> rtp_sender_;
 

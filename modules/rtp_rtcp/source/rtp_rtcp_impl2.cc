@@ -61,6 +61,7 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
       rtt_stats_(configuration.rtt_stats),
       rtt_ms_(0) {
   process_thread_checker_.Detach();
+  encoder_checker_.Detach();
   if (!configuration.receiver_only) {
     rtp_sender_ = std::make_unique<RtpSenderContext>(configuration);
     // Make sure rtcp sender use same timestamp offset as rtp sender.
@@ -180,9 +181,11 @@ void ModuleRtpRtcpImpl2::Process() {
     }
   }
 
+  // TODO(bugs.webrtc.org/11581): Move these timer to the respective class.
   if (rtcp_sender_.TimeToSendRTCPReport())
     rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpReport);
 
+  // TODO(bugs.webrtc.org/11581): Move these timer to the respective class.
   if (rtcp_sender_.TMMBR() && rtcp_receiver_.UpdateTmmbrTimers()) {
     rtcp_receiver_.NotifyTmmbrUpdated();
   }
@@ -319,6 +322,7 @@ RTCPSender::FeedbackState ModuleRtpRtcpImpl2::GetFeedbackState() {
 // stream. Delete rtp_sender_ check as soon as all applications are
 // updated.
 int32_t ModuleRtpRtcpImpl2::SetSendingStatus(const bool sending) {
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
   if (rtcp_sender_.Sending() != sending) {
     // Sends RTCP BYE when going from true to false
     if (rtcp_sender_.SetSendingStatus(GetFeedbackState(), sending) != 0) {
@@ -362,6 +366,7 @@ bool ModuleRtpRtcpImpl2::OnSendingRtpFrame(uint32_t timestamp,
                                            int64_t capture_time_ms,
                                            int payload_type,
                                            bool force_sender_report) {
+  // RTC_DCHECK_RUN_ON(&encoder_checker_);
   if (!Sending())
     return false;
 
@@ -375,6 +380,7 @@ bool ModuleRtpRtcpImpl2::OnSendingRtpFrame(uint32_t timestamp,
 
 bool ModuleRtpRtcpImpl2::TrySendPacket(RtpPacketToSend* packet,
                                        const PacedPacketInfo& pacing_info) {
+  RTC_DCHECK_RUN_ON(&encoder_checker_);
   RTC_DCHECK(rtp_sender_);
   // TODO(sprang): Consider if we can remove this check.
   if (!rtp_sender_->packet_generator.SendingMedia()) {
@@ -495,6 +501,7 @@ int64_t ModuleRtpRtcpImpl2::ExpectedRetransmissionTimeMs() const {
 // Force a send of an RTCP packet.
 // Normal SR and RR are triggered via the process function.
 int32_t ModuleRtpRtcpImpl2::SendRTCP(RTCPPacketType packet_type) {
+  RTC_DCHECK_RUN_ON(&encoder_checker_);
   return rtcp_sender_.SendRTCP(GetFeedbackState(), packet_type);
 }
 
@@ -561,6 +568,7 @@ void ModuleRtpRtcpImpl2::SetTmmbn(std::vector<rtcp::TmmbItem> bounding_set) {
 // Send a Negative acknowledgment packet.
 int32_t ModuleRtpRtcpImpl2::SendNACK(const uint16_t* nack_list,
                                      const uint16_t size) {
+  RTC_DCHECK_RUN_ON(&encoder_checker_);
   uint16_t nack_length = size;
   uint16_t start_id = 0;
   int64_t now_ms = clock_->TimeInMilliseconds();
@@ -595,6 +603,7 @@ int32_t ModuleRtpRtcpImpl2::SendNACK(const uint16_t* nack_list,
 
 void ModuleRtpRtcpImpl2::SendNack(
     const std::vector<uint16_t>& sequence_numbers) {
+  RTC_DCHECK_RUN_ON(&encoder_checker_);
   rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpNack, sequence_numbers.size(),
                         sequence_numbers.data());
 }
@@ -671,6 +680,7 @@ RtpSendRates ModuleRtpRtcpImpl2::GetSendRates() const {
 }
 
 void ModuleRtpRtcpImpl2::OnRequestSendReport() {
+  RTC_DCHECK_RUN_ON(&encoder_checker_);
   SendRTCP(kRtcpSr);
 }
 

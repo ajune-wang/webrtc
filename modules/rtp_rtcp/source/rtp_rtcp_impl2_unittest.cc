@@ -308,7 +308,9 @@ TEST_F(RtpRtcpImpl2Test, Rtt) {
   // Verify RTT from rtt_stats config.
   EXPECT_EQ(0, sender_.rtt_stats_.LastProcessedRtt());
   EXPECT_EQ(0, sender_.impl_->rtt_ms());
-  sender_.impl_->Process();
+  // TODO(tommi): Use simulated loop.
+  loop_.PostDelayedTask([this]() { loop_.Quit(); }, 1000);
+  loop_.Run();
   EXPECT_NEAR(2 * kOneWayNetworkDelayMs, sender_.rtt_stats_.LastProcessedRtt(),
               1);
   EXPECT_NEAR(2 * kOneWayNetworkDelayMs, sender_.impl_->rtt_ms(), 1);
@@ -335,7 +337,9 @@ TEST_F(RtpRtcpImpl2Test, RttForReceiverOnly) {
   // Verify RTT.
   EXPECT_EQ(0, receiver_.rtt_stats_.LastProcessedRtt());
   EXPECT_EQ(0, receiver_.impl_->rtt_ms());
-  receiver_.impl_->Process();
+  // TODO(tommi): Use simulated loop.
+  loop_.PostDelayedTask([this]() { loop_.Quit(); }, 1000);
+  loop_.Run();
   EXPECT_NEAR(2 * kOneWayNetworkDelayMs,
               receiver_.rtt_stats_.LastProcessedRtt(), 1);
   EXPECT_NEAR(2 * kOneWayNetworkDelayMs, receiver_.impl_->rtt_ms(), 1);

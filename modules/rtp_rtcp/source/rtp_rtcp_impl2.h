@@ -21,6 +21,7 @@
 
 #include "absl/types/optional.h"
 #include "api/rtp_headers.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/include/module_fec_types.h"
 #include "modules/remote_bitrate_estimator/include/remote_bitrate_estimator.h"
@@ -36,6 +37,8 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/gtest_prod_util.h"
 #include "rtc_base/synchronization/sequence_checker.h"
+#include "rtc_base/task_utils/pending_task_safety_flag.h"
+#include "rtc_base/task_utils/repeating_task.h"
 
 namespace webrtc {
 
@@ -285,6 +288,7 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
 
   SequenceChecker construction_thread_checker_;
   SequenceChecker process_thread_checker_;
+  TaskQueueBase* const worker_queue_;
 
   std::unique_ptr<RtpSenderContext> rtp_sender_;
 
@@ -304,6 +308,7 @@ class ModuleRtpRtcpImpl2 final : public RtpRtcpInterface,
   RemoteBitrateEstimator* const remote_bitrate_;
 
   RtcpRttStats* const rtt_stats_;
+  RepeatingTaskHandle rtt_update_task_ RTC_GUARDED_BY(worker_queue_);
 
   // The processed RTT from RtcpRttStats.
   rtc::CriticalSection critical_section_rtt_;

@@ -35,6 +35,8 @@ namespace {
 const int64_t kRtpRtcpMaxIdleTimeProcessMs = 5;
 const int64_t kRtpRtcpRttProcessTimeMs = 1000;
 const int64_t kDefaultExpectedRetransmissionTimeMs = 125;
+
+constexpr TimeDelta kRttUpdateInterval = TimeDelta::Millis(1000);
 }  // namespace
 
 ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
@@ -48,7 +50,8 @@ ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
           config.paced_sender ? config.paced_sender : &non_paced_sender) {}
 
 ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
-    : rtcp_sender_(configuration),
+    : worker_queue_(TaskQueueBase::Current()),
+      rtcp_sender_(configuration),
       rtcp_receiver_(configuration, this),
       clock_(configuration.clock),
       last_rtt_process_time_(clock_->TimeInMilliseconds()),
@@ -60,6 +63,7 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
       remote_bitrate_(configuration.remote_bitrate_estimator),
       rtt_stats_(configuration.rtt_stats),
       rtt_ms_(0) {
+  RTC_DCHECK(worker_queue_);
   process_thread_checker_.Detach();
   if (!configuration.receiver_only) {
     rtp_sender_ = std::make_unique<RtpSenderContext>(configuration);
@@ -73,10 +77,17 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
   // webrtc::VideoSendStream::Config::Rtp::kDefaultMaxPacketSize.
   const size_t kTcpOverIpv4HeaderSize = 40;
   SetMaxRtpPacketSize(IP_PACKET_SIZE - kTcpOverIpv4HeaderSize);
+
+  rtt_update_task_ = RepeatingTaskHandle::DelayedStart(
+      worker_queue_, kRttUpdateInterval, [this]() {
+        UpdateRtt();
+        return kRttUpdateInterval;
+      });
 }
 
 ModuleRtpRtcpImpl2::~ModuleRtpRtcpImpl2() {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_queue_);
+  rtt_update_task_.Stop();
 }
 
 // static
@@ -655,7 +666,7 @@ void ModuleRtpRtcpImpl2::BitrateSent(uint32_t* total_rate,
                                      uint32_t* video_rate,
                                      uint32_t* fec_rate,
                                      uint32_t* nack_rate) const {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_queue_);
   RtpSendRates send_rates = rtp_sender_->packet_sender.GetSendRates();
   *total_rate = send_rates.Sum().bps<uint32_t>();
   if (video_rate)
@@ -666,7 +677,7 @@ void ModuleRtpRtcpImpl2::BitrateSent(uint32_t* total_rate,
 }
 
 RtpSendRates ModuleRtpRtcpImpl2::GetSendRates() const {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_queue_);
   return rtp_sender_->packet_sender.GetSendRates();
 }
 
@@ -754,6 +765,20 @@ RTPSender* ModuleRtpRtcpImpl2::RtpSender() {
 
 const RTPSender* ModuleRtpRtcpImpl2::RtpSender() const {
   return rtp_sender_ ? &rtp_sender_->packet_generator : nullptr;
+}
+
+void ModuleRtpRtcpImpl2::UpdateRtt() {
+  RTC_DCHECK_RUN_ON(worker_queue_);
+
+  Timestamp check_since = clock_->CurrentTime() - kRttUpdateInterval;
+  absl::optional<int64_t> rtt =
+      rtcp_receiver_.OnPeriodicRttUpdate(check_since, rtcp_sender_.Sending());
+  if (!rtt)
+    return;
+
+  if (rtt_stats_)
+    rtt_stats_->OnRttUpdate(*rtt);
+  set_rtt_ms(*rtt);
 }
 
 }  // namespace webrtc

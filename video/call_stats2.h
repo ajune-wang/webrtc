@@ -87,12 +87,16 @@ class CallStats {
 
    private:
     void OnRttUpdate(int64_t rtt) override {
-      RTC_DCHECK_RUN_ON(&process_thread_checker_);
+      // TODO(tommi): This is now called on the worker :)
+      // RTC_DCHECK_RUN_ON(&process_thread_checker_);
       owner_->OnRttUpdate(rtt);
     }
 
     int64_t LastProcessedRtt() const override {
-      RTC_DCHECK_RUN_ON(&process_thread_checker_);
+      // RTC_DCHECK_RUN_ON(&process_thread_checker_);
+      // This call path shouldn't be used anymore. This impl is only for
+      // propagating the rtt, not for storing it.
+      RTC_NOTREACHED() << "Legacy call path";
       return owner_->LastProcessedRttFromProcessThread();
     }
 

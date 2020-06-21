@@ -70,7 +70,6 @@ class CallStats {
  private:
   // Part of the RtcpRttStats implementation. Called by RtcpRttStatsImpl.
   void OnRttUpdate(int64_t rtt);
-  int64_t LastProcessedRttFromProcessThread() const;
 
   void UpdateAndReport();
 
@@ -87,13 +86,17 @@ class CallStats {
 
    private:
     void OnRttUpdate(int64_t rtt) override {
-      RTC_DCHECK_RUN_ON(&process_thread_checker_);
+      // TODO(tommi): This is now called on the worker :)
+      // RTC_DCHECK_RUN_ON(&process_thread_checker_);
       owner_->OnRttUpdate(rtt);
     }
 
     int64_t LastProcessedRtt() const override {
-      RTC_DCHECK_RUN_ON(&process_thread_checker_);
-      return owner_->LastProcessedRttFromProcessThread();
+      // RTC_DCHECK_RUN_ON(&process_thread_checker_);
+      // This call path shouldn't be used anymore. This impl is only for
+      // propagating the rtt from the RtpRtcp module.
+      RTC_NOTREACHED() << "Legacy call path";
+      return 0;
     }
 
     CallStats* const owner_;
@@ -109,14 +112,8 @@ class CallStats {
   // The last RTT in the statistics update (zero if there is no valid estimate).
   int64_t max_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
 
-  // Accessed from two separate threads.
-  // |avg_rtt_ms_| may be read on the construction thread without a lock.
-  // |avg_rtt_ms_lock_| must be held elsewhere for reading.
-  // |avg_rtt_ms_lock_| must be held on the construction thread for writing.
-  int64_t avg_rtt_ms_;
-
-  // Protects |avg_rtt_ms_|.
-  rtc::CriticalSection avg_rtt_ms_lock_;
+  // Last reported average RTT value.
+  int64_t avg_rtt_ms_ RTC_GUARDED_BY(construction_thread_checker_);
 
   // |sum_avg_rtt_ms_|, |num_avg_rtt_| and |time_of_first_rtt_ms_| are only used
   // on the ProcessThread when running. When the Process Thread is not running,

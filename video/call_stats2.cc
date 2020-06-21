@@ -141,16 +141,26 @@ int64_t CallStats::LastProcessedRttFromProcessThread() const {
 }
 
 void CallStats::OnRttUpdate(int64_t rtt) {
-  RTC_DCHECK_RUN_ON(&process_thread_checker_);
-
+  // TODO(tommi): Should be safe to assume now that we're always called on
+  // the right thread.
   int64_t now_ms = clock_->TimeInMilliseconds();
-  task_queue_->PostTask(ToQueuedTask(task_safety_, [this, rtt, now_ms]() {
+  if (task_queue_->IsCurrent()) {
     RTC_DCHECK_RUN_ON(&construction_thread_checker_);
     reports_.push_back(RttTime(rtt, now_ms));
     if (time_of_first_rtt_ms_ == -1)
       time_of_first_rtt_ms_ = now_ms;
     UpdateAndReport();
-  }));
+  } else {
+    // TODO(tommi): Delete this scope once tests have been updated.
+    // RTC_DCHECK_RUN_ON(&process_thread_checker_);
+    task_queue_->PostTask(ToQueuedTask(task_safety_, [this, rtt, now_ms]() {
+      RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+      reports_.push_back(RttTime(rtt, now_ms));
+      if (time_of_first_rtt_ms_ == -1)
+        time_of_first_rtt_ms_ = now_ms;
+      UpdateAndReport();
+    }));
+  }
 }
 
 void CallStats::UpdateHistograms() {

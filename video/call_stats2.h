@@ -87,12 +87,14 @@ class CallStats {
 
    private:
     void OnRttUpdate(int64_t rtt) override {
-      RTC_DCHECK_RUN_ON(&process_thread_checker_);
+      // TODO(tommi): This is now called on the worker :)
+      // RTC_DCHECK_RUN_ON(&process_thread_checker_);
       owner_->OnRttUpdate(rtt);
     }
 
     int64_t LastProcessedRtt() const override {
       RTC_DCHECK_RUN_ON(&process_thread_checker_);
+      // TODO(tommi): Is this now never called?
       return owner_->LastProcessedRttFromProcessThread();
     }
 

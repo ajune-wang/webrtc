@@ -255,6 +255,51 @@ bool RTCPReceiver::GetAndResetXrRrRtt(int64_t* rtt_ms) {
   return true;
 }
 
+// Called regularly (1/sec) on the worker thread to do rtt  calculations.
+absl::optional<int64_t> RTCPReceiver::OnPeriodicRttUpdate(Timestamp newer_than,
+                                                          bool sending) {
+  absl::optional<int64_t> rtt;
+
+  if (sending) {
+    // Check if we've received a report block within the last kRttUpdateInterval
+    // amount of time.
+    int64_t last_report_ms = LastReceivedReportBlockMs();
+    if (!last_report_ms || Timestamp::Millis(last_report_ms) > newer_than) {
+      std::vector<RTCPReportBlock> receive_blocks;
+      // Note: StatisticsReceived grabs the same lock as
+      // LastReceivedReportBlockMs does.
+      StatisticsReceived(&receive_blocks);
+      int64_t max_rtt = 0;
+      for (std::vector<RTCPReportBlock>::iterator it = receive_blocks.begin();
+           it != receive_blocks.end(); ++it) {
+        int64_t rtt = 0;
+        // Note: RTT() grabs that same lock.
+        RTT(it->sender_ssrc, &rtt, nullptr, nullptr, nullptr);
+        max_rtt = (rtt > max_rtt) ? rtt : max_rtt;
+      }
+
+      *rtt = max_rtt;
+    }
+
+    // Verify receiver reports are delivered and the reported sequence number
+    // is increasing.
+    if (RtcpRrTimeout()) {
+      RTC_LOG_F(LS_WARNING) << "Timeout: No RTCP RR received.";
+    } else if (RtcpRrSequenceNumberTimeout()) {
+      RTC_LOG_F(LS_WARNING) << "Timeout: No increase in RTCP RR extended "
+                               "highest sequence number.";
+    }
+  } else {
+    // Report rtt from receiver.
+    int64_t rtt_ms;
+    if (GetAndResetXrRrRtt(&rtt_ms)) {
+      *rtt = rtt_ms;
+    }
+  }
+
+  return rtt;
+}
+
 bool RTCPReceiver::NTP(uint32_t* received_ntp_secs,
                        uint32_t* received_ntp_frac,
                        uint32_t* rtcp_arrival_time_secs,

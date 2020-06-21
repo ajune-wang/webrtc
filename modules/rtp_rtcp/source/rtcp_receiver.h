@@ -89,6 +89,11 @@ class RTCPReceiver final {
   void SetRtcpXrRrtrStatus(bool enable);
   bool GetAndResetXrRrRtt(int64_t* rtt_ms);
 
+  // Called regularly (1/sec) on the worker thread to do rtt  calculations.
+  // Returned an optional rtt value if one is available.
+  absl::optional<int64_t> OnPeriodicRttUpdate(Timestamp newer_than,
+                                              bool sending);
+
   // Get statistics.
   int32_t StatisticsReceived(std::vector<RTCPReportBlock>* receiveBlocks) const;
   // A snapshot of Report Blocks with additional data of interest to statistics.

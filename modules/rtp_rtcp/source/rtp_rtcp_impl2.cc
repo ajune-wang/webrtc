@@ -48,7 +48,8 @@ ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
           config.paced_sender ? config.paced_sender : &non_paced_sender) {}
 
 ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
-    : rtcp_sender_(configuration),
+    : worker_queue_(TaskQueueBase::Current()),
+      rtcp_sender_(configuration),
       rtcp_receiver_(configuration, this),
       clock_(configuration.clock),
       last_rtt_process_time_(clock_->TimeInMilliseconds()),
@@ -60,6 +61,7 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
       remote_bitrate_(configuration.remote_bitrate_estimator),
       rtt_stats_(configuration.rtt_stats),
       rtt_ms_(0) {
+  RTC_DCHECK(worker_queue_);
   process_thread_checker_.Detach();
   if (!configuration.receiver_only) {
     rtp_sender_ = std::make_unique<RtpSenderContext>(configuration);
@@ -76,7 +78,7 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
 }
 
 ModuleRtpRtcpImpl2::~ModuleRtpRtcpImpl2() {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_queue_);
 }
 
 // static
@@ -655,7 +657,7 @@ void ModuleRtpRtcpImpl2::BitrateSent(uint32_t* total_rate,
                                      uint32_t* video_rate,
                                      uint32_t* fec_rate,
                                      uint32_t* nack_rate) const {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_queue_);
   RtpSendRates send_rates = rtp_sender_->packet_sender.GetSendRates();
   *total_rate = send_rates.Sum().bps<uint32_t>();
   if (video_rate)
@@ -666,7 +668,7 @@ void ModuleRtpRtcpImpl2::BitrateSent(uint32_t* total_rate,
 }
 
 RtpSendRates ModuleRtpRtcpImpl2::GetSendRates() const {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_queue_);
   return rtp_sender_->packet_sender.GetSendRates();
 }
 

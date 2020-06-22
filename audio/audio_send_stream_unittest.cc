@@ -912,5 +912,33 @@ TEST(AudioSendStreamTest, ReconfigureWithFrameEncryptor) {
     send_stream->Reconfigure(new_config);
   }
 }
+
+#if WEBRTC_ENABLE_PROTOBUF
+TEST(AudioSendStreamTest, AdaptivePtimeFieldTrail) {
+  ScopedFieldTrials field_trials(
+      "WebRTC-Audio-SendSideBwe/Enabled/"
+      "WebRTC-SendSideBwe-WithOverhead/Enabled/"
+      "WebRTC-Audio-AdaptivePtime/enabled:true/");
+  for (bool use_null_audio_processing : {false, true}) {
+    ConfigHelper helper(true, true, use_null_audio_processing);
+    helper.config().send_codec_spec =
+        AudioSendStream::Config::SendCodecSpec(0, kOpusFormat);
+    helper.config().rtp.extensions.push_back(RtpExtension(
+        RtpExtension::kTransportSequenceNumberUri, kTransportSequenceNumberId));
+
+    EXPECT_CALL(helper.mock_encoder_factory(), MakeAudioEncoderMock(_, _, _, _))
+        .WillOnce(Invoke([](int payload_type, const SdpAudioFormat& format,
+                            absl::optional<AudioCodecPairId> codec_pair_id,
+                            std::unique_ptr<AudioEncoder>* return_value) {
+          auto mock_encoder = SetupAudioEncoderMock(payload_type, format);
+          EXPECT_CALL(*mock_encoder, EnableAudioNetworkAdaptor(_, _))
+              .WillOnce(Return(true));
+          *return_value = std::move(mock_encoder);
+        }));
+
+    auto send_stream = helper.CreateAudioSendStream();
+  }
+}
+#endif
 }  // namespace test
 }  // namespace webrtc

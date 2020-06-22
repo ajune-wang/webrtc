@@ -12,6 +12,7 @@
 #define AUDIO_AUDIO_SEND_STREAM_H_
 
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -48,6 +49,19 @@ struct AudioAllocationConfig {
   std::unique_ptr<StructParametersParser> Parser();
   AudioAllocationConfig();
 };
+
+struct AdaptivePtimeConfig {
+  static constexpr char kKey[] = "WebRTC-Audio-AdaptivePtime";
+
+  bool enabled = false;
+  DataRate min_payload_bitrate = DataRate::KilobitsPerSec(16);
+  bool use_slow_adaptation = true;
+
+  std::string AudioNetworkAdaptorConfig() const;
+  std::unique_ptr<StructParametersParser> Parser();
+  AdaptivePtimeConfig();
+};
+
 namespace internal {
 class AudioState;
 
@@ -156,6 +170,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   const bool enable_audio_alr_probing_;
   const bool send_side_bwe_with_overhead_;
   const AudioAllocationConfig allocation_settings_;
+  const AdaptivePtimeConfig adaptive_ptime_config_;
 
   webrtc::AudioSendStream::Config config_;
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4140da46_f1c59747",
+        "filename": "modules/audio_coding/codecs/isac/audio_encoder_isac_t.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-22T13:05:36Z",
+      "side": 1,
+      "message": "My naming sense disagrees: I like \"GetFoo\" for retrieving properties of objects, but this is a static method, so it\u0027s more like a constant, or actually one constant per sample rate.\n\nAlso, I count half a dozen getter methods in this class, and only one of them is named \"GetFoo\". :-)",
+      "parentUuid": "3538a5b9_0a0f9959",
+      "range": {
+        "startLine": 74,
+        "startChar": 23,
+        "endLine": 74,
+        "endChar": 36
+      },
+      "revId": "eb9b5bcf983f5ce424f6df8f3e51c9024f2e88fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4628e25e_479ae975",
         "filename": "modules/audio_coding/codecs/isac/audio_encoder_isac_t.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "eb9b5bcf983f5ce424f6df8f3e51c9024f2e88fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d41bea70_9300c5b6",
+        "filename": "modules/audio_coding/codecs/isac/audio_encoder_isac_t.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-22T13:05:36Z",
+      "side": 1,
+      "message": "\"super-wideband\" *is* 32 kHz, so there\u0027s nothing further to check.\n\nActually, looking at that table, we don\u0027t even have to check the frame size---the sample rate alone completely determines the max bitrate. I\u0027ll remove that argument.",
+      "parentUuid": "4628e25e_479ae975",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 57
+      },
+      "revId": "eb9b5bcf983f5ce424f6df8f3e51c9024f2e88fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4ba368a6_337502ff",
+        "filename": "modules/audio_coding/codecs/isac/audio_encoder_isac_t_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-22T13:05:36Z",
+      "side": 1,
+      "message": "Hmm. I think that would make the comment less helpful, because then we\u0027re not documenting what aspect of the Opus implementation we\u0027re imitating. My thinking is that using send_side_bwe_with_overhead_ instead of reading WebRTC-SendSideBwe-WithOverhead directly is not a problem, because the former is defined to be a shorthand for the latter.\n\nI\u0027ll add a comment on that member variable, documenting what that it is indeed just a shorthand for WebRTC-SendSideBwe-WithOverhead.",
+      "parentUuid": "f46b786a_191a866f",
+      "range": {
+        "startLine": 104,
+        "startChar": 61,
+        "endLine": 105,
+        "endChar": 47
+      },
+      "revId": "eb9b5bcf983f5ce424f6df8f3e51c9024f2e88fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75b047eb_04580125",
         "filename": "modules/audio_coding/codecs/isac/audio_encoder_isac_t_impl.h",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "eb9b5bcf983f5ce424f6df8f3e51c9024f2e88fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ac667cd_aede2eae",
+        "filename": "modules/audio_coding/codecs/isac/audio_encoder_isac_t_impl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-22T13:05:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75b047eb_04580125",
+      "range": {
+        "startLine": 186,
+        "startChar": 2,
+        "endLine": 186,
+        "endChar": 14
+      },
+      "revId": "eb9b5bcf983f5ce424f6df8f3e51c9024f2e88fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

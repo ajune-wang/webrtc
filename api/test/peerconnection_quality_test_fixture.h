@@ -334,8 +334,8 @@ class PeerConnectionE2EQualityTestFixture {
         PeerConnectionInterface::RTCConfiguration configuration) = 0;
     // Set bitrate parameters on PeerConnection. This constraints will be
     // applied to all summed RTP streams for this peer.
-    virtual PeerConfigurer* SetBitrateParameters(
-        PeerConnectionInterface::BitrateParameters bitrate_params) = 0;
+    virtual PeerConfigurer* SetBitrateSettings(
+        BitrateSettings bitrate_settings) = 0;
   };
 
   // Contains configuration for echo emulator.

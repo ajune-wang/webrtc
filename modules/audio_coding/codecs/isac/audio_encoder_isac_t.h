@@ -19,6 +19,7 @@
 #include "api/scoped_refptr.h"
 #include "api/units/time_delta.h"
 #include "rtc_base/constructor_magic.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -48,6 +49,14 @@ class AudioEncoderIsacT final : public AudioEncoder {
   size_t Num10MsFramesInNextPacket() const override;
   size_t Max10MsFramesInAPacket() const override;
   int GetTargetBitrate() const override;
+  void SetTargetBitrate(int target_bps) override;
+  void OnReceivedTargetAudioBitrate(int target_bps) override;
+  void OnReceivedUplinkBandwidth(
+      int target_audio_bitrate_bps,
+      absl::optional<int64_t> bwe_period_ms) override;
+  void OnReceivedUplinkAllocation(
+      webrtc::BitrateAllocationUpdate update) override;
+  void OnReceivedOverhead(size_t overhead_bytes_per_packet) override;
   EncodedInfo EncodeImpl(uint32_t rtp_timestamp,
                          rtc::ArrayView<const int16_t> audio,
                          rtc::Buffer* encoded) override;
@@ -60,7 +69,18 @@ class AudioEncoderIsacT final : public AudioEncoder {
   // STREAM_MAXW16_60MS for iSAC fix (60 ms).
   static const size_t kSufficientEncodeBufferSizeBytes = 400;
 
-  static const int kDefaultBitRate = 32000;
+  static constexpr int kDefaultBitRate = 32000;
+  static constexpr int kMinBitrateBps = 10000;
+  static constexpr int MaxBitrateBps(int sample_rate_hz, int frame_size_ms) {
+    return sample_rate_hz == 32000 && frame_size_ms == 30 ? 56000 : 32000;
+  }
+
+  // Initial guess for per-packet overhead.
+  static constexpr auto InitialOverheadPerPacket() {
+    return webrtc::DataSize::Bytes(28);
+  }
+
+  void SetTargetBitrate(int target_bps, bool subtract_per_packet_overhead);
 
   // Recreate the iSAC encoder instance with the given settings, and save them.
   void RecreateEncoderInstance(const Config& config);
@@ -76,6 +96,10 @@ class AudioEncoderIsacT final : public AudioEncoder {
 
   // Timestamp of the previously encoded packet.
   uint32_t last_encoded_timestamp_;
+
+  const bool send_side_bwe_with_overhead_ =
+      webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead");
+  webrtc::DataSize overhead_per_packet_ = InitialOverheadPerPacket();
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioEncoderIsacT);
 };

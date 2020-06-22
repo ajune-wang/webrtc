@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48df163a_5c94f7cf",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-06-22T12:21:13Z",
+      "side": 1,
+      "message": "Will need to keep the old signature temporarily, to migrate downstream tests.\n\nAlso, I\u0027m not that fond of the name \"SetBitrateSettings\", any suggestions?",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 46
+      },
+      "revId": "d39acc788bbd0ab8e9c450c833424407ade456ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

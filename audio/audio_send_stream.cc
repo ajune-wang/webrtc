@@ -35,10 +35,21 @@
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
+#include "rtc_base/ignore_wundef.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/audio_format_to_string.h"
 #include "rtc_base/task_queue.h"
 #include "system_wrappers/include/field_trial.h"
+
+#if WEBRTC_ENABLE_PROTOBUF
+RTC_PUSH_IGNORING_WUNDEF()
+#ifdef WEBRTC_ANDROID_PLATFORM_BUILD
+#include "external/webrtc/webrtc/modules/audio_coding/audio_network_adaptor/config.pb.h"
+#else
+#include "modules/audio_coding/audio_network_adaptor/config.pb.h"
+#endif
+RTC_POP_IGNORING_WUNDEF()
+#endif
 
 namespace webrtc {
 namespace {
@@ -88,11 +99,40 @@ std::unique_ptr<StructParametersParser> AudioAllocationConfig::Parser() {
 }
 
 AudioAllocationConfig::AudioAllocationConfig() {
-  Parser()->Parse(field_trial::FindFullName(kKey));
+  Parser()->Parse(field_trial::FindFullName(AudioAllocationConfig::kKey));
   if (priority_bitrate_raw && !priority_bitrate.IsZero()) {
     RTC_LOG(LS_WARNING) << "'priority_bitrate' and '_raw' are mutually "
                            "exclusive but both were configured.";
   }
+}
+
+constexpr char AdaptivePtimeConfig::kKey[];
+
+std::string AdaptivePtimeConfig::AudioNetworkAdaptorConfig() const {
+#if WEBRTC_ENABLE_PROTOBUF
+  audio_network_adaptor::config::ControllerManager config;
+  auto* frame_length_controller =
+      config.add_controllers()->mutable_frame_length_controller_v2();
+  frame_length_controller->set_min_payload_bitrate_bps(
+      min_payload_bitrate.bps());
+  frame_length_controller->set_use_slow_adaptation(use_slow_adaptation);
+  config.add_controllers()->mutable_bitrate_controller();
+  return config.SerializeAsString();
+#else
+  RTC_NOTREACHED();
+  return "";
+#endif
+}
+
+std::unique_ptr<StructParametersParser> AdaptivePtimeConfig::Parser() {
+  return StructParametersParser::Create(            //
+      "enabled", &enabled,                          //
+      "min_payload_bitrate", &min_payload_bitrate,  //
+      "use_slow_adaptation", &use_slow_adaptation);
+}
+
+AdaptivePtimeConfig::AdaptivePtimeConfig() {
+  Parser()->Parse(field_trial::FindFullName(AdaptivePtimeConfig::kKey));
 }
 
 namespace internal {
@@ -635,7 +675,11 @@ bool AudioSendStream::SetupSendCodec(const Config& new_config) {
   }
 
   // Enable ANA if configured (currently only used by Opus).
-  if (new_config.audio_network_adaptor_config) {
+  if (adaptive_ptime_config_.enabled) {
+    RTC_DCHECK(audio_send_side_bwe_ && send_side_bwe_with_overhead_);
+    RTC_DCHECK(encoder->EnableAudioNetworkAdaptor(
+        adaptive_ptime_config_.AudioNetworkAdaptorConfig(), event_log_));
+  } else if (new_config.audio_network_adaptor_config) {
     if (encoder->EnableAudioNetworkAdaptor(
             *new_config.audio_network_adaptor_config, event_log_)) {
       RTC_DLOG(LS_INFO) << "Audio network adaptor enabled on SSRC "
@@ -722,7 +766,8 @@ bool AudioSendStream::ReconfigureSendCodec(const Config& new_config) {
 
 void AudioSendStream::ReconfigureANA(const Config& new_config) {
   if (new_config.audio_network_adaptor_config ==
-      config_.audio_network_adaptor_config) {
+          config_.audio_network_adaptor_config ||
+      adaptive_ptime_config_.enabled) {
     return;
   }
   if (new_config.audio_network_adaptor_config) {

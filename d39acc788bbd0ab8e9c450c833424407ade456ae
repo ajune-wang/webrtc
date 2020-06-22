@@ -22,6 +22,30 @@
       "revId": "d39acc788bbd0ab8e9c450c833424407ade456ae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d3089eb_949f8eb0",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-06-22T23:54:58Z",
+      "side": 1,
+      "message": "I think SetBitrateSettings sounds fine, if not that I\u0027d just call it \"SetBitrate\"",
+      "parentUuid": "48df163a_5c94f7cf",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 46
+      },
+      "revId": "d39acc788bbd0ab8e9c450c833424407ade456ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

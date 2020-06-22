@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8b9e652_d6cfc952",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-22T13:43:37Z",
+      "side": 1,
+      "message": "I think you can just remove this method. This API is marked as in development and has no guarantees on backward compatibility.",
+      "range": {
+        "startLine": 340,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 71
+      },
+      "revId": "1b86119c8c5ce2737985b381cf15a6ff760eaa83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

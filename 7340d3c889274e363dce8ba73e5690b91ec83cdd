@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3fd873_f5080ac6",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-23T09:39:34Z",
+      "side": 1,
+      "message": "nit: Add {}",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eea7fce8_66ba143d",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-23T09:39:34Z",
+      "side": 1,
+      "message": "(No change needed, just talking)\n\nI suspect that in all cases where the restrictions are updated for a reason - except for the \"quality rampup experiment double-adapt\" - we already know about the adaptation counters before and after since the processor is the one who triggered the adaptation.\n\nPerhaps in the future, OnVideoSourceRestrictionsUpdated() does not have to take adaptation counters are arguments? Maybe it can be just take the restrictions? Or is this still needed?",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22de5c51_ae56f3a4",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-23T09:39:34Z",
+      "side": 1,
+      "message": "Add a comment why we do not broadcase (because broadcast is handled by ClearRestrictions)",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a605977_9ad606cb",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-23T09:39:34Z",
+      "side": 1,
+      "message": "nit: {}",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2157070_6778f904",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-23T09:39:34Z",
+      "side": 1,
+      "message": "Would the copy of the restrictor also have the restrictions listener copied?\n\nPeeking restrictions must not broadcast to the original listener that things have changed when they have not. Let\u0027s add a test for that.",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "446c4287_1ad4a9d9",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-23T09:39:34Z",
+      "side": 1,
+      "message": "Would this be spammy? Should this be removed before landing? Also lower case and .. looks debuggy",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41335913_d19e8620",
+        "filename": "call/adaptation/video_stream_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-23T09:39:34Z",
+      "side": 1,
+      "message": "If VideoStreamAdapter is documented as a class that is not thread-safe, and all external uses use RTC_GUARDED_BY (e.g. ResourceAdaptationProcessor::stream_adapter_ and VideoStreamEncoder::video_stream_adapter_ are both RTC_GUARDED_BY so its impossible that these classes accidentally invokes it on the wrong sequence).\n\nDo we really need the SequenceChecker if correct usage is and should be imposed by the caller?",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "899dbee2_7702048e",
+        "filename": "call/adaptation/video_stream_input_state.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-06-23T09:39:34Z",
+      "side": 1,
+      "message": "Remove before landing?",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

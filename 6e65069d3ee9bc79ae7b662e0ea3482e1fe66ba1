@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fef11656_a3725b7c",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-06-23T14:07:25Z",
+      "side": 1,
+      "message": "I am thinking return absl::nullopt here (meaning changing the return type also)\n\nand I think we can return absl::nullopt when enabled\u003dfalse.",
+      "range": {
+        "startLine": 218,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 14
+      },
+      "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1cebc73_1f815dcc",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-06-23T14:07:25Z",
+      "side": 1,
+      "message": "I think we can perhaps extend GetAudioNetworkAdaptorConfig (line 143) to gather options_, rtp_paramters_ and adaptive_ptime_config_ to make a joint decision.",
+      "range": {
+        "startLine": 841,
+        "startChar": 7,
+        "endLine": 843,
+        "endChar": 78
+      },
+      "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

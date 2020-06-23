@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2fb1cad_6f376433",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-23T12:27:36Z",
+      "side": 1,
+      "message": "This code does look strange. I think it probably works, but it looks wrong.\n\nWith the current formulation, the __SSE2__ define controls whether AVX2 can be used (or are available) but not at all if SSE2 is avalible.\n\n+Mirko: Do you know how the __SSE2__ define works?",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 72
+      },
+      "revId": "d563afcf9e670ddbdb977f2039aeabe33f42fefd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

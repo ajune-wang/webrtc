@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "011e0a50_b3725390",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-23T12:27:36Z",
+      "side": 1,
+      "message": "Mirko: do you have a comment on this? This does look strange. (I\u0027ll add a new comment on this in the new patchset, where this has been updated)",
+      "parentUuid": "9abba399_46b4729e",
+      "range": {
+        "startLine": 138,
+        "startChar": 2,
+        "endLine": 138,
+        "endChar": 72
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e32d38c5_071b33ed",
         "filename": "common_audio/resampler/sinc_resampler.cc",
         "patchSetId": 3
@@ -281,6 +305,30 @@
       "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3a6c018_1ba6b7ac",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-23T12:27:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9abf9bef_f99ead50",
+      "range": {
+        "startLine": 159,
+        "startChar": 6,
+        "endLine": 159,
+        "endChar": 77
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -460,6 +508,30 @@
       "side": 1,
       "message": "This corresponds to the #if on line 31.",
       "parentUuid": "5fe9eb4e_551d358f",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0696a2b3_92f787f6",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-06-23T12:27:36Z",
+      "side": 1,
+      "message": "Ah! Thanks! Sorry, my mistake!\n\nOne minor correction is needed though to comply with the commenting format elsewhere in the file:\n\n#endif  // defined(_MSC_VER)\n-\u003e\n#endif  // _MSC_VER",
+      "parentUuid": "c33f5050_29bbd38f",
       "range": {
         "startLine": 38,
         "startChar": 19,

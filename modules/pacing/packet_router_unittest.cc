@@ -247,7 +247,8 @@ TEST_F(PacketRouterTest, PadsOnLastActiveMediaStream) {
   packet_router_.GeneratePadding(DataSize::Bytes(kPaddingBytes));
 
   // Send media on first module. Padding should be sent on that module.
-  packet_router_.SendPacket(BuildRtpPacket(kSsrc1), PacedPacketInfo());
+  packet_router_.SendPacketAndFetchFec(BuildRtpPacket(kSsrc1),
+                                       PacedPacketInfo());
 
   EXPECT_CALL(rtp_1, GeneratePadding(kPaddingBytes))
       .Times(1)
@@ -259,7 +260,8 @@ TEST_F(PacketRouterTest, PadsOnLastActiveMediaStream) {
   packet_router_.GeneratePadding(DataSize::Bytes(kPaddingBytes));
 
   // Send media on second module. Padding should be sent there.
-  packet_router_.SendPacket(BuildRtpPacket(kSsrc2), PacedPacketInfo());
+  packet_router_.SendPacketAndFetchFec(BuildRtpPacket(kSsrc2),
+                                       PacedPacketInfo());
 
   // If the last active module is removed, and no module sends media before
   // the next padding request, and arbitrary module will be selected.
@@ -306,7 +308,7 @@ TEST_F(PacketRouterTest, AllocatesTransportSequenceNumbers) {
   for (size_t i = 0; i < kNumPackets; ++i) {
     auto packet = BuildRtpPacket(kSsrc1);
     EXPECT_TRUE(packet->ReserveExtension<TransportSequenceNumber>());
-    packet_router.SendPacket(std::move(packet), PacedPacketInfo());
+    packet_router.SendPacketAndFetchFec(std::move(packet), PacedPacketInfo());
     uint32_t expected_unwrapped_seq = static_cast<uint32_t>(kStartSeq) + i;
     EXPECT_EQ(static_cast<uint16_t>(expected_unwrapped_seq & 0xFFFF),
               packet_router.CurrentTransportSequenceNumber());
@@ -356,7 +358,7 @@ TEST_F(PacketRouterTest, SendPacketWithoutTransportSequenceNumbers) {
                    false),
           _))
       .WillOnce(Return(true));
-  packet_router_.SendPacket(std::move(packet), PacedPacketInfo());
+  packet_router_.SendPacketAndFetchFec(std::move(packet), PacedPacketInfo());
 
   packet_router_.RemoveSendRtpModule(&rtp_1);
 }
@@ -386,7 +388,7 @@ TEST_F(PacketRouterTest, SendPacketAssignsTransportSequenceNumbers) {
                    transport_sequence_number),
           _))
       .WillOnce(Return(true));
-  packet_router_.SendPacket(std::move(packet), PacedPacketInfo());
+  packet_router_.SendPacketAndFetchFec(std::move(packet), PacedPacketInfo());
 
   ++transport_sequence_number;
   packet = BuildRtpPacket(kSsrc2);
@@ -399,7 +401,7 @@ TEST_F(PacketRouterTest, SendPacketAssignsTransportSequenceNumbers) {
                    transport_sequence_number),
           _))
       .WillOnce(Return(true));
-  packet_router_.SendPacket(std::move(packet), PacedPacketInfo());
+  packet_router_.SendPacketAndFetchFec(std::move(packet), PacedPacketInfo());
 
   packet_router_.RemoveSendRtpModule(&rtp_1);
   packet_router_.RemoveSendRtpModule(&rtp_2);

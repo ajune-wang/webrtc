@@ -38,8 +38,8 @@ constexpr size_t kDefaultPacketSize = 1234;
 
 class MockPacketRouter : public PacketRouter {
  public:
-  MOCK_METHOD(void,
-              SendPacket,
+  MOCK_METHOD(std::vector<std::unique_ptr<RtpPacketToSend>>,
+              SendPacketAndFetchFec,
               (std::unique_ptr<RtpPacketToSend> packet,
                const PacedPacketInfo& cluster_info),
               (override));
@@ -137,13 +137,14 @@ namespace test {
     // Expect all of them to be sent.
     size_t packets_sent = 0;
     Timestamp end_time = Timestamp::PlusInfinity();
-    EXPECT_CALL(packet_router, SendPacket)
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec)
         .WillRepeatedly([&](std::unique_ptr<RtpPacketToSend> packet,
                             const PacedPacketInfo& cluster_info) {
           ++packets_sent;
           if (packets_sent == kPacketsToSend) {
             end_time = time_controller.GetClock()->CurrentTime();
           }
+          return std::vector<std::unique_ptr<RtpPacketToSend>>();
         });
 
     const Timestamp start_time = time_controller.GetClock()->CurrentTime();
@@ -172,7 +173,7 @@ namespace test {
     pacer.SetPacingRates(kPacingRate, DataRate::Zero());
 
     // Send some initial packets to be rid of any probes.
-    EXPECT_CALL(packet_router, SendPacket).Times(kPacketsPerSecond);
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec).Times(kPacketsPerSecond);
     pacer.EnqueuePackets(
         GeneratePackets(RtpPacketMediaType::kVideo, kPacketsPerSecond));
     time_controller.AdvanceTime(TimeDelta::Seconds(1));
@@ -184,7 +185,7 @@ namespace test {
     Timestamp second_packet_time = Timestamp::MinusInfinity();
     Timestamp third_packet_time = Timestamp::MinusInfinity();
 
-    EXPECT_CALL(packet_router, SendPacket)
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec)
         .Times(3)
         .WillRepeatedly([&](std::unique_ptr<RtpPacketToSend> packet,
                             const PacedPacketInfo& cluster_info) {
@@ -196,6 +197,7 @@ namespace test {
           } else {
             third_packet_time = time_controller.GetClock()->CurrentTime();
           }
+          return std::vector<std::unique_ptr<RtpPacketToSend>>();
         });
 
     pacer.EnqueuePackets(GeneratePackets(RtpPacketMediaType::kVideo, 3));
@@ -223,7 +225,7 @@ namespace test {
     pacer.SetPacingRates(kPacingDataRate, DataRate::Zero());
 
     // Add some initial video packets, only one should be sent.
-    EXPECT_CALL(packet_router, SendPacket);
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec);
     pacer.EnqueuePackets(GeneratePackets(RtpPacketMediaType::kVideo, 10));
     time_controller.AdvanceTime(TimeDelta::Zero());
     ::testing::Mock::VerifyAndClearExpectations(&packet_router);
@@ -232,7 +234,7 @@ namespace test {
     time_controller.AdvanceTime(kPacketPacingTime / 2);
 
     // Insert an audio packet, it should be sent immediately.
-    EXPECT_CALL(packet_router, SendPacket);
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec);
     pacer.EnqueuePackets(GeneratePackets(RtpPacketMediaType::kAudio, 1));
     time_controller.AdvanceTime(TimeDelta::Zero());
     ::testing::Mock::VerifyAndClearExpectations(&packet_router);
@@ -257,19 +259,19 @@ namespace test {
 
     // Add 10 packets. The first should be sent immediately since the buffers
     // are clear.
-    EXPECT_CALL(packet_router, SendPacket);
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec);
     pacer.EnqueuePackets(GeneratePackets(RtpPacketMediaType::kVideo, 10));
     time_controller.AdvanceTime(TimeDelta::Zero());
     ::testing::Mock::VerifyAndClearExpectations(&packet_router);
 
     // Advance time to 1ms before the coalescing window ends. No packets should
     // be sent.
-    EXPECT_CALL(packet_router, SendPacket).Times(0);
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec).Times(0);
     time_controller.AdvanceTime(kCoalescingWindow - TimeDelta::Millis(1));
 
     // Advance time to where coalescing window ends. All packets that should
     // have been sent up til now will be sent.
-    EXPECT_CALL(packet_router, SendPacket).Times(5);
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec).Times(5);
     time_controller.AdvanceTime(TimeDelta::Millis(1));
     ::testing::Mock::VerifyAndClearExpectations(&packet_router);
   }
@@ -293,7 +295,7 @@ namespace test {
 
     // Add 10 packets. The first should be sent immediately since the buffers
     // are clear. This will also trigger the probe to start.
-    EXPECT_CALL(packet_router, SendPacket).Times(AtLeast(1));
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec).Times(AtLeast(1));
     pacer.CreateProbeCluster(kPacingDataRate * 2, 17);
     pacer.EnqueuePackets(GeneratePackets(RtpPacketMediaType::kVideo, 10));
     time_controller.AdvanceTime(TimeDelta::Zero());
@@ -301,7 +303,7 @@ namespace test {
 
     // Advance time to 1ms before the coalescing window ends. Packets should be
     // flying.
-    EXPECT_CALL(packet_router, SendPacket).Times(AtLeast(1));
+    EXPECT_CALL(packet_router, SendPacketAndFetchFec).Times(AtLeast(1));
     time_controller.AdvanceTime(kCoalescingWindow - TimeDelta::Millis(1));
   }
 

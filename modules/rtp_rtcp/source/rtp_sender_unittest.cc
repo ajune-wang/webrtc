@@ -215,7 +215,10 @@ struct RtpSenderContext {
   explicit RtpSenderContext(const RtpRtcpInterface::Configuration& config)
       : packet_history_(config.clock, config.enable_rtx_padding_prioritization),
         packet_sender_(config, &packet_history_),
-        non_paced_sender_(&packet_sender_),
+        non_paced_sender_(&packet_sender_,
+                          [&](RtpPacketToSend* packet) {
+                            packet_generator_.AssignSequenceNumber(packet);
+                          }),
         packet_generator_(
             config,
             &packet_history_,
@@ -1259,6 +1262,8 @@ TEST_P(RtpSenderTest, SendFlexfecPackets) {
   video_config.clock = &fake_clock_;
   video_config.rtp_sender = rtp_sender();
   video_config.fec_generator = &flexfec_sender;
+  video_config.fec_type = flexfec_sender.GetFecType();
+  video_config.fec_overhead_bytes = flexfec_sender.MaxPacketOverhead();
   video_config.fec_type = flexfec_sender.GetFecType();
   video_config.fec_overhead_bytes = flexfec_sender.MaxPacketOverhead();
   video_config.field_trials = &field_trials;

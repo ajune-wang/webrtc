@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "54ba1806_b20dde83",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-06-23T16:15:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04c06fb1_7eada156",
+      "range": {
+        "startLine": 218,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 14
+      },
+      "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1cebc73_1f815dcc",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 4
@@ -141,6 +165,30 @@
       "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb77b185_0524e131",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-06-23T16:15:47Z",
+      "side": 1,
+      "message": "Made a local copy and re-evaluate the config each time. Looks simpler now, PTAL again.",
+      "parentUuid": "b5261f99_f92c96e1",
+      "range": {
+        "startLine": 841,
+        "startChar": 7,
+        "endLine": 843,
+        "endChar": 78
+      },
+      "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -137,8 +137,9 @@ void PacketRouter::RemoveReceiveRtpModule(
   rtcp_feedback_senders_.erase(it);
 }
 
-void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
-                              const PacedPacketInfo& cluster_info) {
+std::vector<std::unique_ptr<RtpPacketToSend>>
+PacketRouter::SendPacketAndFetchFec(std::unique_ptr<RtpPacketToSend> packet,
+                                    const PacedPacketInfo& cluster_info) {
   TRACE_EVENT2(TRACE_DISABLED_BY_DEFAULT("webrtc"), "PacketRouter::SendPacket",
                "sequence_number", packet->SequenceNumber(), "rtp_timestamp",
                packet->Timestamp());
@@ -157,13 +158,13 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
         << "Failed to send packet, matching RTP module not found "
            "or transport error. SSRC = "
         << packet->Ssrc() << ", sequence number " << packet->SequenceNumber();
-    return;
+    return {};
   }
 
   RtpRtcpInterface* rtp_module = kv->second;
   if (!rtp_module->TrySendPacket(packet.get(), cluster_info)) {
     RTC_LOG(LS_WARNING) << "Failed to send packet, rejected by RTP module.";
-    return;
+    return {};
   }
 
   if (rtp_module->SupportsRtxPayloadPadding()) {
@@ -171,6 +172,8 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
     // properties needed for payload based padding. Cache it for later use.
     last_send_module_ = rtp_module;
   }
+
+  return rtp_module->FetchFecPackets();
 }
 
 std::vector<std::unique_ptr<RtpPacketToSend>> PacketRouter::GeneratePadding(

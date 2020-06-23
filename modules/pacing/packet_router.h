@@ -55,8 +55,9 @@ class PacketRouter : public RemoteBitrateObserver,
                            bool remb_candidate);
   void RemoveReceiveRtpModule(RtcpFeedbackSenderInterface* rtcp_sender);
 
-  void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
-                  const PacedPacketInfo& cluster_info) override;
+  std::vector<std::unique_ptr<RtpPacketToSend>> SendPacketAndFetchFec(
+      std::unique_ptr<RtpPacketToSend> packet,
+      const PacedPacketInfo& cluster_info) override;
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
       DataSize size) override;
 

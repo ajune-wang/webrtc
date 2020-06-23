@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1563d16_350f8f01",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "Is there a reason why we can\u0027t split SendPacketAndFetchFec into SendPacket() and FetchFec()?",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 39
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12618630_cfbb7c82",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "\"FEC (Forward Error Correction)\"",
+      "range": {
+        "startLine": 111,
+        "startChar": 49,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4714bd1_86b0c29b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "RED (...)",
+      "range": {
+        "startLine": 115,
+        "startChar": 34,
+        "endLine": 115,
+        "endChar": 37
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9cb8fce_e411a0a6",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "It\u0027s a bit unfortunate that \"red is used here using lower case, probably pretty hard to google, would it make sense to unabbreviate, or would that be even more confusing?",
+      "range": {
+        "startLine": 116,
+        "startChar": 7,
+        "endLine": 116,
+        "endChar": 17
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b134a955_a25aa9ca",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "TODO(): Remove when X? Also below.",
+      "range": {
+        "startLine": 396,
+        "startChar": 2,
+        "endLine": 396,
+        "endChar": 16
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae2ab708_09e60cf9",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "Callback functions are really hard to investigate without a stack trace, in this case I think you should instead create an interface for AssignSequenceNumber and provide a pointer to packet_generator instead. That way it will be much easier to find it when reading the non_paced_sender implementation.",
+      "range": {
+        "startLine": 46,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39980637_1495e152",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 169,
+        "startChar": 42,
+        "endLine": 169,
+        "endChar": 45
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "798f589b_3b8f90d4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "This section contains a bunch of scary c code, would it be possible to make it more c++y? Less raw poinetrs and less memmove, etc?",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 52
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934dd8be_14fcf56d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-06-23T18:58:30Z",
+      "side": 1,
+      "message": "TODO: Remove this?",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

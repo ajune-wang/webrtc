@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "04c06fb1_7eada156",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-06-23T15:46:20Z",
+      "side": 1,
+      "message": "not sure whether WEBRTC_ENABLE_PROTOBUF\u003dfalse anywhere. I would suggest to ask mbonadei to advice whether we should handle that case with high carefullness.\n\nI think some other places treat it as firing a RTC_NOTREACHED (a DCHECK) and then continues as if the request is ignored.",
+      "parentUuid": "23bec16a_36cf7701",
+      "range": {
+        "startLine": 218,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 14
+      },
+      "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1cebc73_1f815dcc",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5261f99_f92c96e1",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-06-23T15:46:20Z",
+      "side": 1,
+      "message": "true.\n\nWhat I would suggest to achieve is a consistent way of determining audio network config in the following two paths that audio network config may change,\n\n1. SetOptions -\u003e SetAudioNetworkAdaptorConfig -\u003e ReconfigureAudioSendStream\nand\n2. SetRtpParameters -\u003e ReconfigureAudioSendStream\n\nwe cannot assume the order that the two paths gets called. I think that, before ReconfigureAudioSendStream(), both should use the same logic (one utility function) to decide the ANA. In addition, config_.audio_network_adaptor_config should always be the single ground truth for ANA.\n\nI therefore think WebRtcAudioSendStream needs to keep a local copy of options (or relevant fields in options to determine ANA. I know it is ugly that there are two such data in options)",
+      "parentUuid": "21d885c9_7979e521",
+      "range": {
+        "startLine": 841,
+        "startChar": 7,
+        "endLine": 843,
+        "endChar": 78
+      },
+      "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

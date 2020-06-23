@@ -69,12 +69,14 @@ std::unique_ptr<RtpPacketToSend> BuildPacket(RtpPacketMediaType type,
 // methods that focus on core aspects.
 class MockPacingControllerCallback : public PacingController::PacketSender {
  public:
-  void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
-                  const PacedPacketInfo& cluster_info) override {
+  std::vector<std::unique_ptr<RtpPacketToSend>> SendPacketAndFetchFec(
+      std::unique_ptr<RtpPacketToSend> packet,
+      const PacedPacketInfo&) override {
     SendPacket(packet->Ssrc(), packet->SequenceNumber(),
                packet->capture_time_ms(),
                packet->packet_type() == RtpPacketMediaType::kRetransmission,
                packet->packet_type() == RtpPacketMediaType::kPadding);
+    return std::move(generated_fec_packets);
   }
 
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
@@ -98,13 +100,15 @@ class MockPacingControllerCallback : public PacingController::PacketSender {
                bool retransmission,
                bool padding));
   MOCK_METHOD(size_t, SendPadding, (size_t target_size));
+
+  std::vector<std::unique_ptr<RtpPacketToSend>> generated_fec_packets;
 };
 
 // Mock callback implementing the raw api.
 class MockPacketSender : public PacingController::PacketSender {
  public:
-  MOCK_METHOD(void,
-              SendPacket,
+  MOCK_METHOD(std::vector<std::unique_ptr<RtpPacketToSend>>,
+              SendPacketAndFetchFec,
               (std::unique_ptr<RtpPacketToSend> packet,
                const PacedPacketInfo& cluster_info),
               (override));
@@ -120,9 +124,11 @@ class PacingControllerPadding : public PacingController::PacketSender {
 
   PacingControllerPadding() : padding_sent_(0), total_bytes_sent_(0) {}
 
-  void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
-                  const PacedPacketInfo& pacing_info) override {
+  std::vector<std::unique_ptr<RtpPacketToSend>> SendPacketAndFetchFec(
+      std::unique_ptr<RtpPacketToSend> packet,
+      const PacedPacketInfo&) override {
     total_bytes_sent_ += packet->payload_size();
+    return {};
   }
 
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
@@ -151,11 +157,13 @@ class PacingControllerProbing : public PacingController::PacketSender {
  public:
   PacingControllerProbing() : packets_sent_(0), padding_sent_(0) {}
 
-  void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
-                  const PacedPacketInfo& pacing_info) override {
+  std::vector<std::unique_ptr<RtpPacketToSend>> SendPacketAndFetchFec(
+      std::unique_ptr<RtpPacketToSend> packet,
+      const PacedPacketInfo&) override {
     if (packet->packet_type() != RtpPacketMediaType::kPadding) {
       ++packets_sent_;
     }
+    return {};
   }
 
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
@@ -1574,8 +1582,8 @@ TEST_P(PacingControllerTest, ProbeClusterId) {
   }
 
   // First probing cluster.
-  EXPECT_CALL(callback,
-              SendPacket(_, Field(&PacedPacketInfo::probe_cluster_id, 0)))
+  EXPECT_CALL(callback, SendPacketAndFetchFec(
+                            _, Field(&PacedPacketInfo::probe_cluster_id, 0)))
       .Times(5);
 
   for (int i = 0; i < 5; ++i) {
@@ -1583,8 +1591,8 @@ TEST_P(PacingControllerTest, ProbeClusterId) {
   }
 
   // Second probing cluster.
-  EXPECT_CALL(callback,
-              SendPacket(_, Field(&PacedPacketInfo::probe_cluster_id, 1)))
+  EXPECT_CALL(callback, SendPacketAndFetchFec(
+                            _, Field(&PacedPacketInfo::probe_cluster_id, 1)))
       .Times(5);
 
   for (int i = 0; i < 5; ++i) {
@@ -1602,11 +1610,12 @@ TEST_P(PacingControllerTest, ProbeClusterId) {
     return padding_packets;
   });
   bool non_probe_packet_seen = false;
-  EXPECT_CALL(callback, SendPacket)
+  EXPECT_CALL(callback, SendPacketAndFetchFec)
       .WillOnce([&](std::unique_ptr<RtpPacketToSend> packet,
                     const PacedPacketInfo& cluster_info) {
         EXPECT_EQ(cluster_info.probe_cluster_id, kNotAProbe);
         non_probe_packet_seen = true;
+        return std::vector<std::unique_ptr<RtpPacketToSend>>();
       });
   while (!non_probe_packet_seen) {
     AdvanceTimeAndProcess();
@@ -1630,25 +1639,25 @@ TEST_P(PacingControllerTest, OwnedPacketPrioritizedOnType) {
   }
 
   ::testing::InSequence seq;
-  EXPECT_CALL(
-      callback,
-      SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kAudioSsrc)), _));
-  EXPECT_CALL(
-      callback,
-      SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kVideoRtxSsrc)), _));
+  EXPECT_CALL(callback,
+              SendPacketAndFetchFec(
+                  Pointee(Property(&RtpPacketToSend::Ssrc, kAudioSsrc)), _));
+  EXPECT_CALL(callback,
+              SendPacketAndFetchFec(
+                  Pointee(Property(&RtpPacketToSend::Ssrc, kVideoRtxSsrc)), _));
 
   // FEC and video actually have the same priority, so will come out in
   // insertion order.
-  EXPECT_CALL(
-      callback,
-      SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kFlexFecSsrc)), _));
-  EXPECT_CALL(
-      callback,
-      SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kVideoSsrc)), _));
+  EXPECT_CALL(callback,
+              SendPacketAndFetchFec(
+                  Pointee(Property(&RtpPacketToSend::Ssrc, kFlexFecSsrc)), _));
+  EXPECT_CALL(callback,
+              SendPacketAndFetchFec(
+                  Pointee(Property(&RtpPacketToSend::Ssrc, kVideoSsrc)), _));
 
-  EXPECT_CALL(
-      callback,
-      SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kVideoRtxSsrc)), _));
+  EXPECT_CALL(callback,
+              SendPacketAndFetchFec(
+                  Pointee(Property(&RtpPacketToSend::Ssrc, kVideoRtxSsrc)), _));
 
   while (pacer_->QueueSizePackets() > 0) {
     if (PeriodicProcess()) {
@@ -1683,7 +1692,7 @@ TEST_P(PacingControllerTest, SmallFirstProbePacket) {
 
   size_t packets_sent = 0;
   bool media_seen = false;
-  EXPECT_CALL(callback, SendPacket)
+  EXPECT_CALL(callback, SendPacketAndFetchFec)
       .Times(::testing::AnyNumber())
       .WillRepeatedly([&](std::unique_ptr<RtpPacketToSend> packet,
                           const PacedPacketInfo& cluster_info) {
@@ -1695,6 +1704,7 @@ TEST_P(PacingControllerTest, SmallFirstProbePacket) {
           }
         }
         packets_sent++;
+        return std::vector<std::unique_ptr<RtpPacketToSend>>();
       });
   while (!media_seen) {
     pacer_->ProcessPackets();
@@ -1821,7 +1831,7 @@ TEST_P(PacingControllerTest,
   for (bool account_for_audio : {false, true}) {
     uint16_t sequence_number = 1234;
     MockPacketSender callback;
-    EXPECT_CALL(callback, SendPacket).Times(::testing::AnyNumber());
+    EXPECT_CALL(callback, SendPacketAndFetchFec).Times(::testing::AnyNumber());
     pacer_ = std::make_unique<PacingController>(&clock_, &callback, nullptr,
                                                 nullptr, GetParam());
     pacer_->SetAccountForAudioPackets(account_for_audio);
@@ -2026,6 +2036,35 @@ TEST_P(PacingControllerTest, PaddingTargetAccountsForPaddingRate) {
   pacer_->SetPacingRates(kPacingDataRate, kPacingDataRate / 2);
   EXPECT_CALL(callback_, SendPadding(expected_padding_target_bytes / 2))
       .WillOnce(Return(expected_padding_target_bytes / 2));
+  AdvanceTimeAndProcess();
+}
+
+TEST_P(PacingControllerTest, SendsDeferredFecPackets) {
+  ScopedFieldTrials trial("WebRTC-DeferredFecGeneration/Enabled/");
+  SetUp();
+
+  const uint32_t kSsrc = 12345;
+  const uint32_t kFlexSsrc = 54321;
+  uint16_t sequence_number = 1234;
+  uint16_t flexfec_sequence_number = 4321;
+  const size_t kPacketSize = 123;
+
+  // Set pacing rate to 1000 packet/s, no padding.
+  pacer_->SetPacingRates(
+      DataSize::Bytes(1000 * kPacketSize) / TimeDelta::Seconds(1),
+      DataRate::Zero());
+
+  int64_t now = clock_.TimeInMilliseconds();
+  Send(RtpPacketMediaType::kVideo, kSsrc, sequence_number, now, kPacketSize);
+  EXPECT_CALL(callback_, SendPacket(kSsrc, sequence_number, now, false, false))
+      .WillOnce([&]() {
+        callback_.generated_fec_packets.push_back(
+            BuildPacket(RtpPacketMediaType::kForwardErrorCorrection, kFlexSsrc,
+                        flexfec_sequence_number, now, kPacketSize));
+        EXPECT_CALL(callback_, SendPacket(kFlexSsrc, flexfec_sequence_number,
+                                          now, false, false));
+      });
+  AdvanceTimeAndProcess();
   AdvanceTimeAndProcess();
 }
 

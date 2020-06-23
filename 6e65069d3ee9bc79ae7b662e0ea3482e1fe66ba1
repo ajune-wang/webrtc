@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "23bec16a_36cf7701",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-06-23T14:19:11Z",
+      "side": 1,
+      "message": "This should never happen and we should crash in that case.",
+      "parentUuid": "fef11656_a3725b7c",
+      "range": {
+        "startLine": 218,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 14
+      },
+      "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1cebc73_1f815dcc",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d885c9_7979e521",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-06-23T14:19:11Z",
+      "side": 1,
+      "message": "options_ is a member of WebRtcVoiceMediaChannel and rtp_parameters_ is a member of WebRtcAudioSendStream. We can thus not make a joint decision without a refactor.",
+      "parentUuid": "e1cebc73_1f815dcc",
+      "range": {
+        "startLine": 841,
+        "startChar": 7,
+        "endLine": 843,
+        "endChar": 78
+      },
+      "revId": "6e65069d3ee9bc79ae7b662e0ea3482e1fe66ba1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

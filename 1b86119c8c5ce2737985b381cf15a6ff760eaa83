@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3eb6aafc_acbca6fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-06-23T12:38:11Z",
+      "side": 1,
+      "message": "Clearer now?",
+      "parentUuid": "848736dd_1940ef9f",
+      "revId": "1b86119c8c5ce2737985b381cf15a6ff760eaa83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "939f15de_1b43d2c8",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

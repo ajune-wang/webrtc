@@ -22,6 +22,30 @@
       "revId": "d563afcf9e670ddbdb977f2039aeabe33f42fefd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a32cfdcd_6998bcd7",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-24T09:52:36Z",
+      "side": 1,
+      "message": "The __SSE2__ macro is defined by the compiler if the toolchain knows that the target CPU has SSE2. The same goes for AVX:\n\n$ clang -mavx2 -dM -E - \u003c /dev/null | grep -E \"AVX\"\n#define __AVX2__ 1\n#define __AVX__ 1\n\n$ clang -msse2 -dM -E - \u003c /dev/null | grep -E \"AVX\"\n$\n\n$ clang -msse2 -dM -E - \u003c /dev/null | grep -E \"SSE2\"\n#define __SSE2_MATH__ 1\n#define __SSE2__ 1\n\n$ clang -msse2 -dM -E - \u003c /dev/null | grep -E \"AVX\"\n$\n\n$ clang -mavx2 -dM -E - \u003c /dev/null | grep -E \"SSE2\"\n#define __SSE2_MATH__ 1\n#define __SSE2__ 1\n\nSo when -mavx2 is used, __SSE2__ is defined and the code tries to go one step further and use AVX.\n\nI wonder if it is possible to move the detection at compile time (using __AVX__) or if we need to use cpu_features.",
+      "parentUuid": "b2fb1cad_6f376433",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 72
+      },
+      "revId": "d563afcf9e670ddbdb977f2039aeabe33f42fefd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

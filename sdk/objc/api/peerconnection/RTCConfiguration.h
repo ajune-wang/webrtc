@@ -197,6 +197,13 @@ RTC_OBJC_EXPORT
 
 @property(nonatomic, assign) BOOL allowCodecSwitching;
 
+/** Configure if we should include the SDP attribute extmap-allow-mixed in
+ * our offer. Although we currently do support this, it's not included in
+ * our offer by default due to a previous bug that caused the SDP parser to
+ * abort parsing if this attribute was present. This is fixed in Chrome 71.
+ */
+@property(nonatomic, assign) BOOL offerExtmapAllowMixed;
+
 /**
  * Defines advanced optional cryptographic settings related to SRTP and
  * frame encryption for native WebRTC. Setting this will overwrite any

@@ -544,6 +544,14 @@ public class PeerConnection {
     @Nullable public CryptoOptions cryptoOptions;
 
     /**
+     * Configure if we should include the SDP attribute extmap-allow-mixed in
+     * our offer. Although we currently do support this, it's not included in
+     * our offer by default due to a previous bug that caused the SDP parser to
+     * abort parsing if this attribute was present. This is fixed in Chrome 71.
+     */
+    public boolean offerExtmapAllowMixed;
+
+    /**
      * An optional string that if set will be attached to the
      * TURN_ALLOCATE_REQUEST which can be used to correlate client
      * logs with backend logs
@@ -591,6 +599,9 @@ public class PeerConnection {
       sdpSemantics = SdpSemantics.PLAN_B;
       activeResetSrtpParams = false;
       cryptoOptions = null;
+      // TODO(webrtc:9985): Change default to true once sufficient time has
+      // passed.
+      offerExtmapAllowMixed = false;
       turnLoggingId = null;
       allowCodecSwitching = null;
     }
@@ -806,6 +817,11 @@ public class PeerConnection {
     @CalledByNative("RTCConfiguration")
     CryptoOptions getCryptoOptions() {
       return cryptoOptions;
+    }
+
+    @CalledByNative("RTCConfiguration")
+    boolean getOfferExtmapAllowMixed() {
+      return offerExtmapAllowMixed;
     }
 
     @Nullable

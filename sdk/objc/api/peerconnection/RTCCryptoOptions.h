@@ -34,6 +34,11 @@ RTC_OBJC_EXPORT
  */
 @property(nonatomic, assign) BOOL srtpEnableAes128Sha1_32CryptoCipher;
 /**
+ * If set to true, the crypto cipher SRTP_AES128_CM_SHA1_80 will be included in
+ * the list of supported ciphers during negotiation.
+ */
+@property(nonatomic, assign) BOOL srtpEnableAes128Sha1_80CryptoCipher;
+/**
  * If set to true, encrypted RTP header extensions as defined in RFC 6904
  * will be negotiated. They will only be used if both peers support them.
  */
@@ -52,6 +57,7 @@ RTC_OBJC_EXPORT
  */
 - (instancetype)initWithSrtpEnableGcmCryptoSuites:(BOOL)srtpEnableGcmCryptoSuites
               srtpEnableAes128Sha1_32CryptoCipher:(BOOL)srtpEnableAes128Sha1_32CryptoCipher
+              srtpEnableAes128Sha1_80CryptoCipher:(BOOL)srtpEnableAes128Sha1_80CryptoCipher
            srtpEnableEncryptedRtpHeaderExtensions:(BOOL)srtpEnableEncryptedRtpHeaderExtensions
                      sframeRequireFrameEncryption:(BOOL)sframeRequireFrameEncryption
     NS_DESIGNATED_INITIALIZER;

@@ -52,6 +52,7 @@
 @synthesize turnCustomizer = _turnCustomizer;
 @synthesize activeResetSrtpParams = _activeResetSrtpParams;
 @synthesize allowCodecSwitching = _allowCodecSwitching;
+@synthesize offerExtmapAllowMixed = _offerExtmapAllowMixed;
 @synthesize cryptoOptions = _cryptoOptions;
 @synthesize rtcpAudioReportIntervalMs = _rtcpAudioReportIntervalMs;
 @synthesize rtcpVideoReportIntervalMs = _rtcpVideoReportIntervalMs;
@@ -104,6 +105,7 @@
     _iceConnectionReceivingTimeout = config.ice_connection_receiving_timeout;
     _iceBackupCandidatePairPingInterval =
         config.ice_backup_candidate_pair_ping_interval;
+    _offerExtmapAllowMixed = config.offer_extmap_allow_mixed;
     _keyType = RTCEncryptionKeyTypeECDSA;
     _iceCandidatePoolSize = config.ice_candidate_pool_size;
     _shouldPruneTurnPorts = config.prune_turn_ports;
@@ -124,6 +126,8 @@
                                                      .enable_gcm_crypto_suites
              srtpEnableAes128Sha1_32CryptoCipher:config.crypto_options->srtp
                                                      .enable_aes128_sha1_32_crypto_cipher
+             srtpEnableAes128Sha1_80CryptoCipher:config.crypto_options->srtp
+                                                     .enable_aes128_sha1_80_crypto_cipher
           srtpEnableEncryptedRtpHeaderExtensions:config.crypto_options->srtp
                                                      .enable_encrypted_rtp_header_extensions
                     sframeRequireFrameEncryption:config.crypto_options->sframe
@@ -203,6 +207,7 @@
       _iceConnectionReceivingTimeout;
   nativeConfig->ice_backup_candidate_pair_ping_interval =
       _iceBackupCandidatePairPingInterval;
+  nativeConfig->offer_extmap_allow_mixed = _offerExtmapAllowMixed;
   rtc::KeyType keyType =
       [[self class] nativeEncryptionKeyTypeForKeyType:_keyType];
   if (_certificate != nullptr) {

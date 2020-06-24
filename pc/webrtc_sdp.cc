@@ -337,7 +337,7 @@ static bool ParseIceOptions(const std::string& line,
                             std::vector<std::string>* transport_options,
                             SdpParseError* error);
 static bool ParseExtmap(const std::string& line,
-                        RtpExtension* extmap,
+                        absl::optional<RtpExtension>& extmap,
                         SdpParseError* error);
 static bool ParseFingerprintAttribute(
     const std::string& line,
@@ -1257,7 +1257,7 @@ bool ParseSctpMaxMessageSize(const std::string& line,
 }
 
 bool ParseExtmap(const std::string& line,
-                 RtpExtension* extmap,
+                 absl::optional<RtpExtension>& extmap,
                  SdpParseError* error) {
   // RFC 5285
   // a=extmap:<value>["/"<direction>] <URI> <extensionattributes>
@@ -1296,9 +1296,21 @@ bool ParseExtmap(const std::string& line,
     if (uri == RtpExtension::kEncryptHeaderExtensionsUri) {
       return ParseFailed(line, "Recursive encrypted header.", error);
     }
+
+    // Filter encrypted extensions that we cannot encrypt.
+    // Note: While it's technically possible to decrypt such extensions, the
+    // symmetric API of libsrtp does not allow us to supply different IDs for
+    // encryption/decryption of header extensions depending on whether the
+    // packet is inbound or outbound. Thereby, we are limited to what we can
+    // send in encrypted form.
+    if (!RtpExtension::IsEncryptionSupported(uri)) {
+      RTC_LOG(LS_INFO) << "Discarded RTP header extension that we cannot "
+                       << "encrypt: " << uri;
+      return true;
+    }
   }
 
-  *extmap = RtpExtension(uri, value, encrypted);
+  extmap.emplace(RtpExtension(uri, value, encrypted));
   return true;
 }
 
@@ -2223,11 +2235,13 @@ bool ParseSessionDescription(const std::string& message,
     } else if (HasAttribute(line, kAttributeExtmapAllowMixed)) {
       desc->set_extmap_allow_mixed(true);
     } else if (HasAttribute(line, kAttributeExtmap)) {
-      RtpExtension extmap;
-      if (!ParseExtmap(line, &extmap, error)) {
+      absl::optional<RtpExtension> extmap = absl::nullopt;
+      if (!ParseExtmap(line, extmap, error)) {
         return false;
       }
-      session_extmaps->push_back(extmap);
+      if (extmap.has_value()) {
+        session_extmaps->push_back(*extmap);
+      }
     }
   }
 
@@ -3175,11 +3189,13 @@ bool ParseContent(const std::string& message,
         media_desc->set_extmap_allow_mixed_enum(
             MediaContentDescription::kMedia);
       } else if (HasAttribute(line, kAttributeExtmap)) {
-        RtpExtension extmap;
-        if (!ParseExtmap(line, &extmap, error)) {
+        absl::optional<RtpExtension> extmap;
+        if (!ParseExtmap(line, extmap, error)) {
           return false;
         }
-        media_desc->AddRtpHeaderExtension(extmap);
+        if (extmap.has_value()) {
+          media_desc->AddRtpHeaderExtension(*extmap);
+        }
       } else if (HasAttribute(line, kAttributeXGoogleFlag)) {
         // Experimental attribute.  Conference mode activates more aggressive
         // AEC and NS settings.

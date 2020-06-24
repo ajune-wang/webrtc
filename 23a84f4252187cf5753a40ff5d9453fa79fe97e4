@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14959895_5eefef2f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T12:47:58Z",
+      "side": 1,
+      "message": "Duh, this won\u0027t work - it will create a copy if I change it.\nUnfortunately the only way to properly update the payload of the copy is to call SetPayloadSize() which returns the mutable uint8_t* so using a memcpy seems like the right thing.",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 74
+      },
+      "revId": "23a84f4252187cf5753a40ff5d9453fa79fe97e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

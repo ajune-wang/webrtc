@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8710c1c3_3b90b119",
+        "filename": "modules/pacing/packet_router.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T11:52:06Z",
+      "side": 1,
+      "message": "Mostly that the caller is now required to remember to always call FetchFec() after sending, and that means remembering the ssrc you sent on so we can look up the send module again.\nActually, I think storing fec packets temporarily in PacketRouter makes sense since longer term I would like fec generators to actually live there and be usable for padding.",
+      "parentUuid": "b1563d16_350f8f01",
+      "range": {
+        "startLine": 176,
+        "startChar": 2,
+        "endLine": 176,
+        "endChar": 39
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12618630_cfbb7c82",
         "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f94119f_1b3a0b9b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T11:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12618630_cfbb7c82",
+      "range": {
+        "startLine": 111,
+        "startChar": 49,
+        "endLine": 111,
+        "endChar": 52
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a85fe98a_361e6c30",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T11:52:06Z",
+      "side": 1,
+      "message": "Added link to RTC to clarify.",
+      "parentUuid": "d4714bd1_86b0c29b",
+      "range": {
+        "startLine": 115,
+        "startChar": 34,
+        "endLine": 115,
+        "endChar": 37
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9cb8fce_e411a0a6",
         "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "887c6780_06873b10",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_to_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T11:52:06Z",
+      "side": 1,
+      "message": "The official spec for this actually is titled \"RTP Payload for Redundant Audio Data\" but we seem to only be using it for video... I guess RED is for Redundancy.\nIt is called RED in the SDP which is where most of our naming is taken form, like RTX, ULPFEC etc. I\u0027ll keep it like this for now.",
+      "parentUuid": "e9cb8fce_e411a0a6",
+      "range": {
+        "startLine": 116,
+        "startChar": 7,
+        "endLine": 116,
+        "endChar": 17
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "46affec3_b7c5acdd",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T11:52:06Z",
+      "side": 1,
+      "message": "The todo is to remove this entire file (or replace the contents with rtp_rtcp_impl2 rather). Not sure there\u0027s anything specific to be done for this method.",
+      "parentUuid": "b134a955_a25aa9ca",
+      "range": {
+        "startLine": 396,
+        "startChar": 2,
+        "endLine": 396,
+        "endChar": 16
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae2ab708_09e60cf9",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "d1a4a9f3_e24204c8",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T11:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae2ab708_09e60cf9",
+      "range": {
+        "startLine": 46,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 24
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39980637_1495e152",
         "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
         "patchSetId": 5
@@ -160,6 +304,30 @@
       "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ca38e39_4a86f400",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T11:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39980637_1495e152",
+      "range": {
+        "startLine": 169,
+        "startChar": 42,
+        "endLine": 169,
+        "endChar": 45
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +374,30 @@
       "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f21896da_237b9aa3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T11:52:06Z",
+      "side": 1,
+      "message": "Actually, I can remove it right now.",
+      "parentUuid": "934dd8be_14fcf56d",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 33
+      },
+      "revId": "bde231b09f4e0ea64356a61ae5d80116b2f4c078",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

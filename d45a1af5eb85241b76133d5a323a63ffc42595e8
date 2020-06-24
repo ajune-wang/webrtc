@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c7a7bf32_bbc6a229",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T16:39:41Z",
+      "side": 1,
+      "message": "Can\u0027t easily do that because then the NonPacedSender wants the packet generator as a construction argument and the the packet generator wants the NonPacedSender as a constructor argument...",
+      "parentUuid": "e17752c5_2bd971cf",
+      "range": {
+        "startLine": 52,
+        "startChar": 1,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "d45a1af5eb85241b76133d5a323a63ffc42595e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a90721a9_93624501",
         "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b9645a2f_5a80cc43",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T16:39:41Z",
+      "side": 1,
+      "message": "I can use std::copy, but needed a bit ugly syntax since ArrayView doesn\u0027t like indexing past the end.",
+      "parentUuid": "a90721a9_93624501",
+      "range": {
+        "startLine": 182,
+        "startChar": 8,
+        "endLine": 182,
+        "endChar": 14
+      },
+      "revId": "d45a1af5eb85241b76133d5a323a63ffc42595e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63c51b49_33c53d70",
         "filename": "modules/rtp_rtcp/source/rtp_sender_egress.h",
         "patchSetId": 7
@@ -68,6 +116,30 @@
       "revId": "d45a1af5eb85241b76133d5a323a63ffc42595e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee29bc1_fb7c2379",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_egress.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-24T16:39:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63c51b49_33c53d70",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "d45a1af5eb85241b76133d5a323a63ffc42595e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

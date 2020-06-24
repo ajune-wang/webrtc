@@ -144,7 +144,7 @@ AudioSendStream::AudioSendStream(
       allocate_audio_without_feedback_(
           field_trial::IsEnabled("WebRTC-Audio-ABWENoTWCC")),
       enable_audio_alr_probing_(
-          !field_trial::IsDisabled("WebRTC-Audio-AlrProbing")),
+          field_trial::IsEnabled("WebRTC-Audio-AlrProbing")),
       send_side_bwe_with_overhead_(
           field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
       config_(Config(/*send_transport=*/nullptr)),

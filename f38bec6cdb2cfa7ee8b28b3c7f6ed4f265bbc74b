@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1e7b556_3c116507",
+        "filename": "api/test/compile_all_headers.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-06-24T13:37:48Z",
+      "side": 1,
+      "message": "This file lacked any webrtc test coverage, but resulted in a build failure in chromium.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "f38bec6cdb2cfa7ee8b28b3c7f6ed4f265bbc74b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

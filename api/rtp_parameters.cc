@@ -177,50 +177,110 @@ bool RtpExtension::IsEncryptionSupported(absl::string_view uri) {
 #endif
          uri == webrtc::RtpExtension::kAbsoluteCaptureTimeUri ||
          uri == webrtc::RtpExtension::kVideoRotationUri ||
+         uri == webrtc::RtpExtension::kVideoContentTypeUri ||
+         uri == webrtc::RtpExtension::kVideoTimingUri ||
+         uri == webrtc::RtpExtension::kGenericFrameDescriptorUri00 ||
+         uri == webrtc::RtpExtension::kDependencyDescriptorUri ||
+         uri == webrtc::RtpExtension::kColorSpaceUri ||
          uri == webrtc::RtpExtension::kTransportSequenceNumberUri ||
          uri == webrtc::RtpExtension::kTransportSequenceNumberV2Uri ||
          uri == webrtc::RtpExtension::kPlayoutDelayUri ||
-         uri == webrtc::RtpExtension::kVideoContentTypeUri ||
          uri == webrtc::RtpExtension::kMidUri ||
          uri == webrtc::RtpExtension::kRidUri ||
          uri == webrtc::RtpExtension::kRepairedRidUri;
 }
 
-const RtpExtension* RtpExtension::FindHeaderExtensionByUri(
+// Returns whether a header extension with the given URI exists.
+// Note: This does not differentiate between encrypted and non-encrypted
+// extensions, so use with care!
+static bool HeaderExtensionWithUriExists(
     const std::vector<RtpExtension>& extensions,
     absl::string_view uri) {
   for (const auto& extension : extensions) {
     if (extension.uri == uri) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const RtpExtension* RtpExtension::FindHeaderExtensionByUri(
+    const std::vector<RtpExtension>& extensions,
+    absl::string_view uri,
+    Filter filter) {
+  const webrtc::RtpExtension* fallback_extension = nullptr;
+  for (const auto& extension : extensions) {
+    if (extension.uri != uri) {
+      continue;
+    }
+
+    switch (filter) {
+      case kDiscardEncryptedExtension:
+        // We only accept an unencrypted extension.
+        if (!extension.encrypt) {
+          return &extension;
+        }
+        break;
+
+      case kPreferEncryptedExtension:
+        // We prefer an encrypted extension but we can fall back to an
+        // unencrypted extension.
+        if (extension.encrypt) {
+          return &extension;
+        } else {
+          fallback_extension = &extension;
+        }
+        break;
+
+      default:
+        RTC_NOTREACHED();
+        return nullptr;
+    }
+  }
+
+  // Returning fallback extension (if any)
+  return fallback_extension;
+}
+
+const RtpExtension* RtpExtension::FindHeaderExtensionByUriAndEncryption(
+    const std::vector<RtpExtension>& extensions,
+    absl::string_view uri,
+    bool encrypt) {
+  for (const auto& extension : extensions) {
+    if (extension.uri == uri && extension.encrypt == encrypt) {
       return &extension;
     }
   }
   return nullptr;
 }
 
-std::vector<RtpExtension> RtpExtension::FilterDuplicateNonEncrypted(
-    const std::vector<RtpExtension>& extensions) {
+const std::vector<RtpExtension> RtpExtension::DeduplicateHeaderExtensions(
+    const std::vector<RtpExtension>& extensions,
+    Filter filter) {
   std::vector<RtpExtension> filtered;
-  for (auto extension = extensions.begin(); extension != extensions.end();
-       ++extension) {
-    if (extension->encrypt) {
-      filtered.push_back(*extension);
-      continue;
-    }
 
-    // Only add non-encrypted extension if no encrypted with the same URI
-    // is also present...
-    if (std::any_of(extension + 1, extensions.end(),
-                    [&](const RtpExtension& check) {
-                      return extension->uri == check.uri;
-                    })) {
-      continue;
-    }
-
-    // ...and has not been added before.
-    if (!FindHeaderExtensionByUri(filtered, extension->uri)) {
-      filtered.push_back(*extension);
+  // If we prefer encrypted extensions, add them first
+  if (filter == kPreferEncryptedExtension) {
+    for (const auto& extension : extensions) {
+      if (!extension.encrypt) {
+        continue;
+      }
+      if (!HeaderExtensionWithUriExists(filtered, extension.uri)) {
+        filtered.push_back(extension);
+      }
     }
   }
+
+  // Add missing, non-encrypted extensions
+  for (const auto& extension : extensions) {
+    if (extension.encrypt) {
+      continue;
+    }
+    if (!HeaderExtensionWithUriExists(filtered, extension.uri)) {
+      filtered.push_back(extension);
+    }
+  }
+
   return filtered;
 }
 }  // namespace webrtc

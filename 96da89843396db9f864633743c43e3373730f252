@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6904ec8e_13d0b7dd",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-06-24T12:26:50Z",
+      "side": 1,
+      "message": "No, the values are defaulted to 0 if not specified which is what we want: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/audio_network_adaptor/controller_manager.cc?l\u003d189\u0026rcl\u003d09f635e5871bd093a7452efc734be8a25a8e8343",
+      "parentUuid": "4d3ae4c2_b0c6a00d",
+      "range": {
+        "startLine": 226,
+        "startChar": 4,
+        "endLine": 226,
+        "endChar": 59
+      },
+      "revId": "96da89843396db9f864633743c43e3373730f252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51123ef9_cb06d5db",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "1fac8817_a9093067",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-06-24T12:26:50Z",
+      "side": 1,
+      "message": "I can add a comment about that?",
+      "parentUuid": "51123ef9_cb06d5db",
+      "revId": "96da89843396db9f864633743c43e3373730f252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32d91ee7_1626e2fb",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 5
@@ -56,6 +98,24 @@
       "revId": "96da89843396db9f864633743c43e3373730f252",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a779cf3_f045a659",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-06-24T12:26:50Z",
+      "side": 1,
+      "message": "Yeah..I\u0027m not terribly happy with the name either.\n\nI agree that it is confusing that we have multiple ways to configure ANA, but the audio options one is not standardised and will likely be replaced by this instead. This whole file can probably be significantly simplified (and/or split up) but at this point I\u0027m to unfamiliar to re-write it.\n\nYou seem to suggest what we had in: https://webrtc-review.googlesource.com/c/src/+/177840/4\n\nAm I correct? I think it makes it harder to reason about what config will be used when. Now we have a single place where we set the ana config that is passed to audio send stream (config_).",
+      "parentUuid": "32d91ee7_1626e2fb",
+      "revId": "96da89843396db9f864633743c43e3373730f252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -79,6 +139,30 @@
       "revId": "96da89843396db9f864633743c43e3373730f252",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f1cad86_c0626a5e",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1197,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-06-24T12:26:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41d8f330_fbe4dbf9",
+      "range": {
+        "startLine": 1197,
+        "startChar": 0,
+        "endLine": 1197,
+        "endChar": 66
+      },
+      "revId": "96da89843396db9f864633743c43e3373730f252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

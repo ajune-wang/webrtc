@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "f6b8efbd_9691efb6",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-06-24T12:46:42Z",
+      "side": 1,
+      "message": "Hi Harald,\n\nIt is a historical reason that we used audioOptions to surface the entire configurability of ANA to applications, and that is used in java API, but unfortunately not possibly be standardized as JS API, for  which, we decided to surface a boolean in RTP parameters, plus a local config of parameters, \n\nTherefore, three (actually two, as the local parameter config is to become hardcoded after experiment) factors come into determining the eventual ANA configuration.",
+      "parentUuid": "3a779cf3_f045a659",
+      "revId": "96da89843396db9f864633743c43e3373730f252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41d8f330_fbe4dbf9",
         "filename": "media/engine/webrtc_voice_engine_unittest.cc",
         "patchSetId": 5

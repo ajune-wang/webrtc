@@ -25,6 +25,40 @@
     },
     {
       "key": {
+        "uuid": "51123ef9_cb06d5db",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-24T11:30:48Z",
+      "side": 1,
+      "message": "Here is another issue: You call UpdateAudioNetworkAdaptorConfig, which will take one of the config strings. If you change adaptive_ptime, the string chosen will change too, despite being mentioned nowhere near this part of the config. That\u0027s going to hurt you.",
+      "revId": "96da89843396db9f864633743c43e3373730f252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32d91ee7_1626e2fb",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-24T11:30:48Z",
+      "side": 1,
+      "message": "I am not happy with this variable, either the name or how it works; it seems to me to be ambiguoius.\n\nYou set it via SetAudioNetworkAdapterConfig, and if it changes, you call UpdateAudioNetworkAdapterConfig(). but if adaptive_ptime_network_config is enabled, you *ignore* the passed variable, and instead use a different one.\n\nSo you have 3 different config strings - this one, the one inside config_, and the one in adaptive_ptime_config_. That\u0027s going to hurt you.\n\nSuggestion: Delete them all. Have *one* config string which is the current config, let SetAudioNetworkAdapterConfig set that string, and let the function that sets adaptive_ptime_config_ call SetAudioNetworkAdapterConfig. No duplicates.",
+      "revId": "96da89843396db9f864633743c43e3373730f252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41d8f330_fbe4dbf9",
         "filename": "media/engine/webrtc_voice_engine_unittest.cc",
         "patchSetId": 5

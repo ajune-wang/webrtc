@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f47a01ad_baa30d16",
+        "filename": "modules/video_coding/h264_sps_pps_tracker.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-06-24T07:51:51Z",
+      "side": 1,
+      "message": "Could you please add RTC_DCHECK_GT(bitstream.size(), 0) to the top of CopyAndFixBitstream()?",
+      "range": {
+        "startLine": 131,
+        "startChar": 57,
+        "endLine": 131,
+        "endChar": 61
+      },
+      "revId": "b3162c6cbc5d1e048fe225eb23209ada83be22e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

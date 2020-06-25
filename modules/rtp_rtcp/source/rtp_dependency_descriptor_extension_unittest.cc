@@ -21,6 +21,8 @@ namespace {
 
 using ::testing::Each;
 
+constexpr std::bitset<32> kAll = ~uint32_t{0};
+
 TEST(RtpDependencyDescriptorExtensionTest, Writer3BytesForPerfectTemplate) {
   uint8_t buffer[3];
   FrameDependencyStructure structure;
@@ -31,10 +33,11 @@ TEST(RtpDependencyDescriptorExtensionTest, Writer3BytesForPerfectTemplate) {
   DependencyDescriptor descriptor;
   descriptor.frame_dependencies = structure.templates[0];
 
-  EXPECT_EQ(RtpDependencyDescriptorExtension::ValueSize(structure, descriptor),
-            3u);
-  EXPECT_TRUE(
-      RtpDependencyDescriptorExtension::Write(buffer, structure, descriptor));
+  EXPECT_EQ(
+      RtpDependencyDescriptorExtension::ValueSize(structure, kAll, descriptor),
+      3u);
+  EXPECT_TRUE(RtpDependencyDescriptorExtension::Write(buffer, structure, kAll,
+                                                      descriptor));
 }
 
 TEST(RtpDependencyDescriptorExtensionTest, WriteZeroInUnusedBits) {
@@ -51,11 +54,11 @@ TEST(RtpDependencyDescriptorExtensionTest, WriteZeroInUnusedBits) {
 
   // To test unused bytes are zeroed, need a buffer large enough.
   size_t value_size =
-      RtpDependencyDescriptorExtension::ValueSize(structure, descriptor);
+      RtpDependencyDescriptorExtension::ValueSize(structure, kAll, descriptor);
   ASSERT_LT(value_size, sizeof(buffer));
 
-  ASSERT_TRUE(
-      RtpDependencyDescriptorExtension::Write(buffer, structure, descriptor));
+  ASSERT_TRUE(RtpDependencyDescriptorExtension::Write(buffer, structure, kAll,
+                                                      descriptor));
 
   const uint8_t* unused_bytes = buffer + value_size;
   size_t num_unused_bytes = buffer + sizeof(buffer) - unused_bytes;

@@ -10,6 +10,7 @@
 
 #include "video/rtp_video_stream_receiver2.h"
 
+#include <bitset>
 #include <memory>
 #include <utility>
 
@@ -979,9 +980,10 @@ class RtpVideoStreamReceiver2DependencyDescriptorTest
   void InjectPacketWith(const FrameDependencyStructure& stream_structure,
                         const DependencyDescriptor& dependency_descriptor) {
     const std::vector<uint8_t> data = {0, 1, 2, 3, 4};
+    constexpr std::bitset<32> kAllChainsAreActive = ~uint32_t{0};
     RtpPacketReceived rtp_packet(&extension_map_);
     ASSERT_TRUE(rtp_packet.SetExtension<RtpDependencyDescriptorExtension>(
-        stream_structure, dependency_descriptor));
+        stream_structure, kAllChainsAreActive, dependency_descriptor));
     uint8_t* payload = rtp_packet.SetPayloadSize(data.size());
     ASSERT_TRUE(payload);
     memcpy(payload, data.data(), data.size());

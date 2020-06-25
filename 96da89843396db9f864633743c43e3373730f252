@@ -137,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "ecaf8123_5d0518a4",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-06-25T11:25:50Z",
+      "side": 1,
+      "message": "Deprecate two of them with RTC_DEPRECATE, and I\u0027ll be happier.",
+      "parentUuid": "f6b8efbd_9691efb6",
+      "revId": "96da89843396db9f864633743c43e3373730f252",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41d8f330_fbe4dbf9",
         "filename": "media/engine/webrtc_voice_engine_unittest.cc",
         "patchSetId": 5

@@ -12,12 +12,29 @@
 
 namespace webrtc {
 
+namespace {
+std::wstring GetWindowClassName(HWND window) {
+  // Capture the window class name, to allow specific window classes to be
+  // skipped.
+  //
+  // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-wndclassa
+  // says lpszClassName field in WNDCLASS is limited by 256 symbols, so we don't
+  // need to have a buffer bigger than that.
+  constexpr size_t kMaxClassNameLength = 256;
+  WCHAR class_name[kMaxClassNameLength] = {};
+  const int class_name_length =
+      GetClassNameW(window, class_name, kMaxClassNameLength);
+  return std::wstring(class_name, std::max(0, class_name_length));
+}
+}  // namespace
+
 SelectedWindowContext::SelectedWindowContext(
     HWND selected_window,
     DesktopRect selected_window_rect,
     WindowCaptureHelperWin* window_capture_helper)
     : selected_window_(selected_window),
       selected_window_rect_(selected_window_rect),
+      selected_window_class_name_(GetWindowClassName(selected_window)),
       window_capture_helper_(window_capture_helper) {
   selected_window_thread_id_ =
       GetWindowThreadProcessId(selected_window, &selected_window_process_id_);
@@ -39,9 +56,32 @@ bool SelectedWindowContext::IsWindowOwnedBySelectedWindow(HWND hwnd) const {
   DWORD enumerated_window_process_id = 0;
   DWORD enumerated_window_thread_id =
       GetWindowThreadProcessId(hwnd, &enumerated_window_process_id);
-  return enumerated_window_thread_id != 0 &&
-         enumerated_window_process_id == selected_window_process_id_ &&
-         enumerated_window_thread_id == selected_window_thread_id_;
+
+  if (enumerated_window_thread_id == 0) {
+    return false;
+  }
+
+  if (enumerated_window_process_id != selected_window_process_id_) {
+    return false;
+  }
+
+  if (enumerated_window_thread_id != selected_window_thread_id_) {
+    return false;
+  }
+
+  std::wstring class_name = GetWindowClassName(hwnd);
+
+  // Pop-up, context menus, tooltips windows are supposed to have
+  // different class names to reflect parent - child relationship.
+  if (class_name == selected_window_class_name_)
+    return false;
+
+  // Skip windows added by the system to contain visual effects,
+  // e.g. drop-shadows.
+  if (class_name == L"MSO_BORDEREFFECT_WINDOW_CLASS")
+    return false;
+
+  return true;
 }
 
 bool SelectedWindowContext::IsWindowOverlappingSelectedWindow(HWND hwnd) const {

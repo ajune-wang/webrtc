@@ -12,7 +12,7 @@
 #define MODULES_DESKTOP_CAPTURE_WIN_SELECTED_WINDOW_CONTEXT_H_
 
 #include <windows.h>
-
+#include <string>
 #include "modules/desktop_capture/desktop_geometry.h"
 #include "modules/desktop_capture/win/window_capture_utils.h"
 
@@ -35,6 +35,7 @@ class SelectedWindowContext {
  private:
   const HWND selected_window_;
   const DesktopRect selected_window_rect_;
+  const std::wstring selected_window_class_name_;
   WindowCaptureHelperWin* const window_capture_helper_;
   DWORD selected_window_thread_id_;
   DWORD selected_window_process_id_;

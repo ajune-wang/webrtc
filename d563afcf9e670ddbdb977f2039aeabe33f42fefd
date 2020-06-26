@@ -46,6 +46,30 @@
       "revId": "d563afcf9e670ddbdb977f2039aeabe33f42fefd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b1e3d32_8aa8af06",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-26T09:44:13Z",
+      "side": 1,
+      "message": "To clarify my previous comment after talking with peah@.\n\nIt looks like if __SSE2__ is not defined, then line 135 will always be:\n\n  convolve_proc_ \u003d Convolve_C\n\nSo, is there a way to make the code more clear? Maybe we can use only macro defines to check for AVX2 (__AVX2__) or only the runtime cpu info?",
+      "parentUuid": "a32cfdcd_6998bcd7",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 72
+      },
+      "revId": "d563afcf9e670ddbdb977f2039aeabe33f42fefd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -381,6 +381,30 @@
     },
     {
       "key": {
+        "uuid": "8f3cd336_645ef4dd",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-26T14:35:57Z",
+      "side": 1,
+      "message": "Do we have specific examples of when GetAncestor() does not have the desired effect?\n\nNote that GetAncestor() has GA_ROOTOWNER (which locates the owning top-level window) and GA_ROOT (which gets the containing window, whether top-level or popup). I\u0027d expect that the selected capture window must be a top-level window, so it should be OK to use GA_ROOTOWNER - I don\u0027t think we e.g. allow selection of dialog windows for capture?",
+      "parentUuid": "28260f24_4afba075",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7cc63df_2b10ce48",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2
@@ -559,6 +583,30 @@
       "side": 1,
       "message": "Moved to IsWindowOwnedBySelectedWindow.\nIsWindowOwnedBySelectedWindow is using early return approach now, no need to have a separate function to check class name.",
       "parentUuid": "5ebb88d2_ea007e43",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 23
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3adb2942_9fd11f51",
+        "filename": "modules/desktop_capture/win/selected_window_context.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-26T14:35:57Z",
+      "side": 1,
+      "message": "Nice!",
+      "parentUuid": "3d34a130_9d089533",
       "range": {
         "startLine": 36,
         "startChar": 7,

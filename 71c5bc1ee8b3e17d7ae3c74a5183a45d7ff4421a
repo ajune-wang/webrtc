@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6d9344c0_539fdfbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-26T00:55:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c33f8b5_d21c42c8",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 55
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b19a9a9_7af7f7a7",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2
@@ -141,6 +165,30 @@
       "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f11e4c61_e964265e",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-26T00:55:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "884f44fe_19fc1726",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -309,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "28260f24_4afba075",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-26T00:55:18Z",
+      "side": 1,
+      "message": "You\u0027re right, class name doesn\u0027t allow to check main window - popup relationship in 100 percents.\nThough process and thread don\u0027t do that neither. \n\nWhat are the options for fix here:\n1. Leave GetAncestor(hwnd, GA_ROOTOWNER) only, as result some popup window will not be recognized.\n2. Add additional check with class name, it will reduce the number of cases when the issue could be reproduced.\n\nWDYT?",
+      "parentUuid": "49a6fe2c_7fd5e4d3",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7cc63df_2b10ce48",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2
@@ -380,6 +452,30 @@
     },
     {
       "key": {
+        "uuid": "0b791f68_6112b1e0",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-26T00:55:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44aa90e7_743e28b8",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac882c18_eb4eb44a",
         "filename": "modules/desktop_capture/win/selected_window_context.h",
         "patchSetId": 2
@@ -448,6 +544,30 @@
       "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d34a130_9d089533",
+        "filename": "modules/desktop_capture/win/selected_window_context.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-06-26T00:55:18Z",
+      "side": 1,
+      "message": "Moved to IsWindowOwnedBySelectedWindow.\nIsWindowOwnedBySelectedWindow is using early return approach now, no need to have a separate function to check class name.",
+      "parentUuid": "5ebb88d2_ea007e43",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 23
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -2917,6 +2917,24 @@ TEST_F(WebRtcSdpTest, DeserializeSdpWithSctpDataChannelsWithSctpColonPort) {
   EXPECT_TRUE(CompareSessionDescription(jdesc, jdesc_output));
 }
 
+TEST_F(WebRtcSdpTest, DeserializeSdpWithSctpDataChannelsButWrongMediaType) {
+  bool use_sctpmap = true;
+  AddSctpDataChannel(use_sctpmap);
+  JsepSessionDescription jdesc(kDummyType);
+  ASSERT_TRUE(jdesc.Initialize(desc_.Clone(), kSessionId, kSessionVersion));
+
+  std::string sdp = kSdpSessionString;
+  sdp += kSdpSctpDataChannelString;
+
+  const char needle[] = "m=application ";
+  sdp.replace(sdp.find(needle), strlen(needle), "m=application:bogus ");
+
+  JsepSessionDescription jdesc_output(kDummyType);
+  EXPECT_TRUE(SdpDeserialize(sdp, &jdesc_output));
+
+  EXPECT_EQ(0u, jdesc_output.description()->contents().size());
+}
+
 // Helper function to set the max-message-size parameter in the
 // SCTP data codec.
 void MutateJsepSctpMaxMessageSize(const SessionDescription& desc,

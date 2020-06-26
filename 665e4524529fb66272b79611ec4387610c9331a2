@@ -16,6 +16,24 @@
       "revId": "665e4524529fb66272b79611ec4387610c9331a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09ec684c_650a3401",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2930,
+      "author": {
+        "id": 12609
+      },
+      "writtenOn": "2020-06-26T08:21:03Z",
+      "side": 1,
+      "message": "the current sdp is looking good for datachannels in all other respects and the parsing happened before.\n\nExtended one test and made a dedicated test for \"parses but ignores unknown things\"",
+      "parentUuid": "5f671109_bf92b336",
+      "revId": "665e4524529fb66272b79611ec4387610c9331a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

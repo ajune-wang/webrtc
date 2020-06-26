@@ -22,6 +22,30 @@
       "revId": "6dd9d96cfaaa89075ccafcc0a804b4f7289e38ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ecf6fb9_d95c44b1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-06-26T11:53:28Z",
+      "side": 1,
+      "message": "well, this class makes decisions about active decode targets... but I see it is too vague and thus looks misleading.\n\nSlightly changed the name and added a comment (can\u0027t come up with a name that would explain enough without a comment)",
+      "parentUuid": "7c0d6674_dbd2b04c",
+      "range": {
+        "startLine": 218,
+        "startChar": 28,
+        "endLine": 218,
+        "endChar": 58
+      },
+      "revId": "6dd9d96cfaaa89075ccafcc0a804b4f7289e38ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

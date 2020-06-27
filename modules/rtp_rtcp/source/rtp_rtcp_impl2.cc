@@ -33,8 +33,9 @@
 namespace webrtc {
 namespace {
 const int64_t kRtpRtcpMaxIdleTimeProcessMs = 5;
-const int64_t kRtpRtcpRttProcessTimeMs = 1000;
 const int64_t kDefaultExpectedRetransmissionTimeMs = 125;
+
+constexpr TimeDelta kRttUpdateInterval = TimeDelta::Millis(1000);
 }  // namespace
 
 ModuleRtpRtcpImpl2::RtpSenderContext::RtpSenderContext(
@@ -75,10 +76,19 @@ ModuleRtpRtcpImpl2::ModuleRtpRtcpImpl2(const Configuration& configuration)
   // webrtc::VideoSendStream::Config::Rtp::kDefaultMaxPacketSize.
   const size_t kTcpOverIpv4HeaderSize = 40;
   SetMaxRtpPacketSize(IP_PACKET_SIZE - kTcpOverIpv4HeaderSize);
+
+  if (rtt_stats_) {
+    rtt_update_task_ = RepeatingTaskHandle::DelayedStart(
+        worker_queue_, kRttUpdateInterval, [this]() {
+          UpdateRtt();
+          return kRttUpdateInterval;
+        });
+  }
 }
 
 ModuleRtpRtcpImpl2::~ModuleRtpRtcpImpl2() {
   RTC_DCHECK_RUN_ON(worker_queue_);
+  rtt_update_task_.Stop();
 }
 
 // static
@@ -105,48 +115,10 @@ void ModuleRtpRtcpImpl2::Process() {
   // times a second.
   next_process_time_ = now + kRtpRtcpMaxIdleTimeProcessMs;
 
-  // TODO(bugs.webrtc.org/11581): We update the RTT once a second, whereas other
-  // things that run in this method are updated much more frequently. Move the
-  // RTT checking over to the worker thread, which matches better with where the
-  // stats are maintained.
-  bool process_rtt = now >= last_rtt_process_time_ + kRtpRtcpRttProcessTimeMs;
+  const bool tmmbr = rtcp_sender_.TMMBR();
+
   if (rtcp_sender_.Sending()) {
-    // Process RTT if we have received a report block and we haven't
-    // processed RTT for at least |kRtpRtcpRttProcessTimeMs| milliseconds.
-    // Note that LastReceivedReportBlockMs() grabs a lock, so check
-    // |process_rtt| first.
-    if (process_rtt &&
-        rtcp_receiver_.LastReceivedReportBlockMs() > last_rtt_process_time_) {
-      std::vector<RTCPReportBlock> receive_blocks;
-      rtcp_receiver_.StatisticsReceived(&receive_blocks);
-      int64_t max_rtt = 0;
-      for (std::vector<RTCPReportBlock>::iterator it = receive_blocks.begin();
-           it != receive_blocks.end(); ++it) {
-        int64_t rtt = 0;
-        rtcp_receiver_.RTT(it->sender_ssrc, &rtt, NULL, NULL, NULL);
-        max_rtt = (rtt > max_rtt) ? rtt : max_rtt;
-      }
-      // Report the rtt.
-      if (rtt_stats_ && max_rtt != 0)
-        rtt_stats_->OnRttUpdate(max_rtt);
-    }
-
-    // Verify receiver reports are delivered and the reported sequence number
-    // is increasing.
-    // TODO(bugs.webrtc.org/11581): The timeout value needs to be checked every
-    // few seconds (see internals of RtcpRrTimeout). Here, we may be polling it
-    // a couple of hundred times a second, which isn't great since it grabs a
-    // lock. Note also that LastReceivedReportBlockMs() (called above) and
-    // RtcpRrTimeout() both grab the same lock and check the same timer, so
-    // it should be possible to consolidate that work somehow.
-    if (rtcp_receiver_.RtcpRrTimeout()) {
-      RTC_LOG_F(LS_WARNING) << "Timeout: No RTCP RR received.";
-    } else if (rtcp_receiver_.RtcpRrSequenceNumberTimeout()) {
-      RTC_LOG_F(LS_WARNING) << "Timeout: No increase in RTCP RR extended "
-                               "highest sequence number.";
-    }
-
-    if (remote_bitrate_ && rtcp_sender_.TMMBR()) {
+    if (remote_bitrate_ && tmmbr) {
       unsigned int target_bitrate = 0;
       std::vector<unsigned int> ssrcs;
       if (remote_bitrate_->LatestEstimate(&ssrcs, &target_bitrate)) {
@@ -156,36 +128,15 @@ void ModuleRtpRtcpImpl2::Process() {
         rtcp_sender_.SetTargetBitrate(target_bitrate);
       }
     }
-  } else {
-    // Report rtt from receiver.
-    if (process_rtt) {
-      int64_t rtt_ms;
-      if (rtt_stats_ && rtcp_receiver_.GetAndResetXrRrRtt(&rtt_ms)) {
-        rtt_stats_->OnRttUpdate(rtt_ms);
-      }
-    }
   }
 
-  // Get processed rtt.
-  if (process_rtt) {
-    last_rtt_process_time_ = now;
-    // TODO(bugs.webrtc.org/11581): Is this a bug? At the top of the function,
-    // next_process_time_ is incremented by 5ms, here we effectively do a
-    // std::min() of (now + 5ms, now + 1000ms). Seems like this is a no-op?
-    next_process_time_ = std::min(
-        next_process_time_, last_rtt_process_time_ + kRtpRtcpRttProcessTimeMs);
-    if (rtt_stats_) {
-      // Make sure we have a valid RTT before setting.
-      int64_t last_rtt = rtt_stats_->LastProcessedRtt();
-      if (last_rtt >= 0)
-        set_rtt_ms(last_rtt);
-    }
-  }
-
+  // The timer granularity for TimeToSendRTCPReport is 'seconds'
+  // (not milliseconds).
   if (rtcp_sender_.TimeToSendRTCPReport())
     rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpReport);
 
-  if (rtcp_sender_.TMMBR() && rtcp_receiver_.UpdateTmmbrTimers()) {
+  // kTmmbrTimeoutIntervalMs is 25 seconds, so an order of seconds again.
+  if (tmmbr && rtcp_receiver_.UpdateTmmbrTimers()) {
     rtcp_receiver_.NotifyTmmbrUpdated();
   }
 }
@@ -465,7 +416,10 @@ int32_t ModuleRtpRtcpImpl2::RemoteNTP(uint32_t* received_ntpsecs,
              : -1;
 }
 
-// Get RoundTripTime.
+// TODO(tommi): Check if |avg_rtt_ms|, |min_rtt_ms|, |max_rtt_ms| params are
+// actually used in practice (some callers ask for it but don't use it). It
+// could be that only |rtt| is needed and if so, then the fast path could be to
+// just call rtt_ms() and rely on the calculation being done periodically.
 int32_t ModuleRtpRtcpImpl2::RTT(const uint32_t remote_ssrc,
                                 int64_t* rtt,
                                 int64_t* avg_rtt,
@@ -484,7 +438,7 @@ int64_t ModuleRtpRtcpImpl2::ExpectedRetransmissionTimeMs() const {
   if (expected_retransmission_time_ms > 0) {
     return expected_retransmission_time_ms;
   }
-  // No rtt available (|kRtpRtcpRttProcessTimeMs| not yet passed?), so try to
+  // No rtt available (|kRttUpdateInterval| not yet passed?), so try to
   // poll avg_rtt_ms directly from rtcp receiver.
   if (rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), nullptr,
                          &expected_retransmission_time_ms, nullptr,
@@ -657,7 +611,7 @@ void ModuleRtpRtcpImpl2::BitrateSent(uint32_t* total_rate,
                                      uint32_t* video_rate,
                                      uint32_t* fec_rate,
                                      uint32_t* nack_rate) const {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_queue_);
   RtpSendRates send_rates = rtp_sender_->packet_sender.GetSendRates();
   *total_rate = send_rates.Sum().bps<uint32_t>();
   if (video_rate)
@@ -668,7 +622,7 @@ void ModuleRtpRtcpImpl2::BitrateSent(uint32_t* total_rate,
 }
 
 RtpSendRates ModuleRtpRtcpImpl2::GetSendRates() const {
-  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  RTC_DCHECK_RUN_ON(worker_queue_);
   return rtp_sender_->packet_sender.GetSendRates();
 }
 
@@ -731,6 +685,7 @@ bool ModuleRtpRtcpImpl2::LastReceivedNTP(
 }
 
 void ModuleRtpRtcpImpl2::set_rtt_ms(int64_t rtt_ms) {
+  RTC_DCHECK_RUN_ON(worker_queue_);
   {
     rtc::CritScope cs(&critical_section_rtt_);
     rtt_ms_ = rtt_ms;
@@ -756,6 +711,19 @@ RTPSender* ModuleRtpRtcpImpl2::RtpSender() {
 
 const RTPSender* ModuleRtpRtcpImpl2::RtpSender() const {
   return rtp_sender_ ? &rtp_sender_->packet_generator : nullptr;
+}
+
+void ModuleRtpRtcpImpl2::UpdateRtt() {
+  RTC_DCHECK_RUN_ON(worker_queue_);
+
+  Timestamp check_since = clock_->CurrentTime() - kRttUpdateInterval;
+  absl::optional<int64_t> rtt =
+      rtcp_receiver_.OnPeriodicRttUpdate(check_since, rtcp_sender_.Sending());
+  if (!rtt)
+    return;
+
+  rtt_stats_->OnRttUpdate(*rtt);
+  set_rtt_ms(*rtt);
 }
 
 }  // namespace webrtc

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4739bf6d_e7c78b69",
+        "filename": "common_audio/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-06-28T09:57:32Z",
+      "side": 1,
+      "message": "These flags should also be added for windows builds (see https://ci.chromium.org/p/webrtc/builders/try/win_compile_x64_clang_dbg/20764?).\n\nWhy are they getting limited to posix and fuchsia?",
+      "range": {
+        "startLine": 270,
+        "startChar": 4,
+        "endLine": 275,
+        "endChar": 5
+      },
+      "revId": "cd3c4a9725570ce3cb172ab76a71039ab66f3ab4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

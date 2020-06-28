@@ -70,6 +70,30 @@
       "revId": "d563afcf9e670ddbdb977f2039aeabe33f42fefd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2dd3d15_381509a4",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-28T08:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b1e3d32_8aa8af06",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 72
+      },
+      "revId": "d563afcf9e670ddbdb977f2039aeabe33f42fefd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

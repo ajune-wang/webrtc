@@ -541,6 +541,30 @@
       "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "111c75f3_df7d5bd4",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-06-28T08:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0696a2b3_92f787f6",
+      "range": {
+        "startLine": 38,
+        "startChar": 19,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "50371211408e5d7bcfdc1f6b8ce40739bff40159",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

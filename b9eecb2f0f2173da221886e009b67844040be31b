@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7a1086a6_7ce2d8a0",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T18:01:53Z",
+      "side": 1,
+      "message": "oh sorry, yes you\u0027re right. I somehow got current_thread and this reversed.",
+      "parentUuid": "7de1af5b_5e57e7f7",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c441f1c9_8fcfaf11",
         "filename": "rtc_base/thread.h",
         "patchSetId": 6

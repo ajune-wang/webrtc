@@ -30,7 +30,7 @@ constexpr char kUseStandardBytesStats[] = "WebRTC-UseStandardBytesStats";
 }
 
 void NetworkQualityMetricsReporter::Start(absl::string_view test_case_name,
-                                          const TrackIdStreamLabelMap*) {
+                                          const TrackIdStreamInfoMap*) {
   test_case_name_ = std::string(test_case_name);
   // Check that network stats are clean before test execution.
   EmulatedNetworkStats alice_stats = PopulateStats(alice_network_);

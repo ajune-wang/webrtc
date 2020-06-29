@@ -892,6 +892,7 @@ void Thread::Send(const Location& posted_from,
   AutoThread thread;
   Thread* current_thread = Thread::Current();
   RTC_DCHECK(current_thread != nullptr);  // AutoThread ensures this
+  RTC_DCHECK(current_thread->IsInvokeToThreadAllowed(this));
 #if RTC_DCHECK_IS_ON
   ThreadManager::Instance()->RegisterSendAndCheckForCycles(current_thread,
                                                            this);

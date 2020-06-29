@@ -13,6 +13,7 @@
 
 #include <stdint.h>
 
+#include <cstdio>
 #include <list>
 #include <map>
 #include <memory>
@@ -338,6 +339,47 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
     InvokeInternal(posted_from, functor);
   }
 
+  // Allows invoke to specified |thread|. Thread never will be dereferenced and
+  // will be used only for reference-based comparison, so instance can be safely
+  // deleted.
+  void AllowInvokesToThread(Thread* thread) {
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+    rtc::CritScope scope(&crit_);
+    allowed_threads_.insert(thread);
+    invoke_policy_enabled_ = true;
+#endif
+  }
+
+  void DisallowAnyInvoke() {
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+    rtc::CritScope scope(&crit_);
+    allowed_threads_.clear();
+    invoke_policy_enabled_ = true;
+#endif
+  }
+
+  void ClearInvokePolicies() {
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+    rtc::CritScope scope(&crit_);
+    allowed_threads_.clear();
+    invoke_policy_enabled_ = false;
+#endif
+  }
+
+  // Returns true if no policies added or if there is at least one policy
+  // that permits invocation to |target| thread.
+  bool IsInvokeToThreadAllowed(rtc::Thread* target) {
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+    CritScope cs(&crit_);
+    if (!invoke_policy_enabled_) {
+      return true;
+    }
+    return allowed_threads_.find(target) != allowed_threads_.end();
+#else
+    return true;
+#endif
+  }
+
   // Posts a task to invoke the functor on |this| thread asynchronously, i.e.
   // without blocking the thread that invoked PostTask(). Ownership of |functor|
   // is passed and (usually, see below) destroyed on |this| thread after it is
@@ -566,6 +608,10 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   MessageList messages_ RTC_GUARDED_BY(crit_);
   PriorityQueue delayed_messages_ RTC_GUARDED_BY(crit_);
   uint32_t delayed_next_num_ RTC_GUARDED_BY(crit_);
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+  std::set<Thread*> allowed_threads_ RTC_GUARDED_BY(crit_);
+  bool invoke_policy_enabled_ RTC_GUARDED_BY(crit_) = false;
+#endif
   CriticalSection crit_;
   bool fInitialized_;
   bool fDestroyed_;

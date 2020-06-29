@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7de1af5b_5e57e7f7",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-29T14:09:38Z",
+      "side": 1,
+      "message": "IIUC what you said is similar to what is done here. |current_thread| is the one, which is executed and will be blocked and |this| is the thread where to which we are going to send a request.",
+      "parentUuid": "4b412bf6_06577a8c",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c441f1c9_8fcfaf11",
         "filename": "rtc_base/thread.h",
         "patchSetId": 6
@@ -33,6 +51,24 @@
       "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e97ee2ce_25f7ffc0",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-29T14:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c441f1c9_8fcfaf11",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "aaca2de4_1b722b44",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-29T14:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "345b2951_56524638",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a5c440d_6dfd185f",
         "filename": "rtc_base/thread.h",
         "patchSetId": 6
@@ -67,6 +121,24 @@
       "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16329e9d_5932b15e",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-29T14:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a5c440d_6dfd185f",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "399955dd_718a5d14",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-29T14:09:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "825be526_1c6158e2",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97f7a374_576d9817",
         "filename": "rtc_base/thread.h",
         "patchSetId": 6
@@ -101,6 +191,24 @@
       "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "570db36f_df008da7",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-06-29T14:09:38Z",
+      "side": 1,
+      "message": "We need to distinguish 2 cases:\n1. No policies set, then we need do default allow, because downstream projects won\u0027t have any policy set and we don\u0027t want to break them\n2. Explicit disallow to any thread policy is set.\n\nSo when |allowed_threads_| is empty and |invoke_policy_enabled_| is true it means explicit disallow is set, otherwise if |invoke_policy_enabled_| is false, then it means that no policies were applied to this thread and we need allow always.",
+      "parentUuid": "97f7a374_576d9817",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

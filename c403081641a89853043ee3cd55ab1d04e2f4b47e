@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a5e424e_ecfca064",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2628,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T09:35:21Z",
+      "side": 1,
+      "message": "(guess this should also be const std::string\u0026 protocol \u003d fields[2])",
+      "revId": "c403081641a89853043ee3cd55ab1d04e2f4b47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98007fb3_7fae1c88",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2659,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T09:35:21Z",
+      "side": 1,
+      "message": "The name should be \"media_type\".\n\nAlso, since fields is a collection of std::string and there\u0027s no need to mutate a new copy of the media type, this should really just be a const reference:\n\nconst std::string\u0026 media_type \u003d fields[0];",
+      "revId": "c403081641a89853043ee3cd55ab1d04e2f4b47e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

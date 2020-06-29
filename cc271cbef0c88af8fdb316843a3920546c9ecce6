@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a694c72_402dfc47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-29T13:21:04Z",
+      "side": 1,
+      "message": "Self review: add tests for this case.",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "cc271cbef0c88af8fdb316843a3920546c9ecce6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

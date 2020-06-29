@@ -22,6 +22,30 @@
       "revId": "3d8154dbb5a9590be2031ee5d1d20b850e481d15",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a60f54f_09a26b1b",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-06-29T11:44:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b73b283_ebb32d91",
+      "range": {
+        "startLine": 421,
+        "startChar": 33,
+        "endLine": 422,
+        "endChar": 29
+      },
+      "revId": "3d8154dbb5a9590be2031ee5d1d20b850e481d15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

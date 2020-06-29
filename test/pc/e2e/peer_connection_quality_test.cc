@@ -259,7 +259,7 @@ void PeerConnectionE2EQualityTest::Run(RunParams run_params) {
       video_analyzer_threads);
   audio_quality_analyzer_->Start(test_case_name_, &analyzer_helper_);
   for (auto& reporter : quality_metrics_reporters_) {
-    reporter->Start(test_case_name_);
+    reporter->Start(test_case_name_, &analyzer_helper_);
   }
 
   // Start RTCEventLog recording if requested.
@@ -385,8 +385,10 @@ void PeerConnectionE2EQualityTest::OnTrackCallback(
       transceiver->receiver()->track();
   RTC_CHECK_EQ(transceiver->receiver()->stream_ids().size(), 2)
       << "Expected 2 stream ids: 1st - sync group, 2nd - unique stream label";
+  std::string sync_group_label = transceiver->receiver()->stream_ids()[0];
   std::string stream_label = transceiver->receiver()->stream_ids()[1];
-  analyzer_helper_.AddTrackToStreamMapping(track->id(), stream_label);
+  analyzer_helper_.AddTrackToStreamMapping(track->id(), stream_label,
+                                           sync_group_label);
   if (track->kind() != MediaStreamTrackInterface::kVideoKind) {
     return;
   }

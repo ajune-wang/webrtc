@@ -29,19 +29,30 @@ namespace webrtc_pc_e2e {
 // thread and since stats collection happens on the signaling thread,
 // both AddTrackToStreamMapping and GetStreamLabelFromTrackId must be
 // invoked from the signaling thread.
+// Get methods should be invoked only after all data is added. Mixing Get
+// methods with adding new data may lead to undefined behaviour.
 class AnalyzerHelper : public TrackIdStreamLabelMap {
  public:
   AnalyzerHelper();
 
   void AddTrackToStreamMapping(std::string track_id, std::string stream_label);
+  void AddTrackToStreamMapping(std::string track_id,
+                               std::string stream_label,
+                               std::string sync_group_label);
 
   const std::string& GetStreamLabelFromTrackId(
       const std::string& track_id) const override;
 
+  const std::string& GetSyncGroupLabelFromTrackId(
+      const std::string& track_id) const override;
+
  private:
+  const std::pair<std::string, std::string>& GetLabelsFromTrackId(
+      const std::string& track_id) const;
+
   SequenceChecker signaling_sequence_checker_;
-  std::map<std::string, std::string> track_to_stream_map_
-      RTC_GUARDED_BY(signaling_sequence_checker_);
+  std::map<std::string, std::pair<std::string, std::string>>
+      track_to_stream_map_ RTC_GUARDED_BY(signaling_sequence_checker_);
 };
 
 }  // namespace webrtc_pc_e2e

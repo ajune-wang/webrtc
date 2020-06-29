@@ -30,7 +30,8 @@ class NetworkQualityMetricsReporter
   ~NetworkQualityMetricsReporter() override = default;
 
   // Network stats must be empty when this method will be invoked.
-  void Start(absl::string_view test_case_name) override;
+  void Start(absl::string_view test_case_name,
+             const TrackIdStreamLabelMap*) override;
   void OnStatsReports(
       absl::string_view pc_label,
       const rtc::scoped_refptr<const RTCStatsReport>& report) override;

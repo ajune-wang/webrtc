@@ -734,7 +734,22 @@ std::vector<AudioCodec> WebRtcVoiceEngine::CollectCodecs(
 
   // Add red codec.
   if (IsAudioRedForOpusFieldTrialEnabled()) {
-    map_format({kRedCodecName, 48000, 2}, &out);
+    for (const auto& spec : specs) {
+      absl::optional<AudioCodec> opt_codec = map_format(spec.format, nullptr);
+      if (opt_codec) {
+        AudioCodec& codec = *opt_codec;
+        if (codec.name == kOpusCodecName) {
+          const std::string redundancy =
+              std::to_string(codec.id) + "/" +
+              std::to_string(codec.id);  // Double redundancy.
+          map_format({kRedCodecName,
+                      spec.format.clockrate_hz,
+                      spec.format.num_channels,
+                      {{"", redundancy}}},
+                     &out);
+        }
+      }
+    }
   }
 
   // Add telephone-event codecs last.
@@ -1780,7 +1795,8 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
     }
   }
 
-  if (IsAudioRedForOpusFieldTrialEnabled()) {
+  if (IsAudioRedForOpusFieldTrialEnabled() &&
+      send_codec_spec->format.name == kOpusCodecName) {
     // Loop through the codecs to find the RED codec that matches opus
     // with respect to clockrate and number of channels.
     for (const AudioCodec& red_codec : codecs) {
@@ -1788,6 +1804,7 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
           red_codec.clockrate == send_codec_spec->format.clockrate_hz &&
           red_codec.channels == send_codec_spec->format.num_channels) {
         send_codec_spec->red_payload_type = red_codec.id;
+        send_codec_spec->red_params = red_codec.params;
         break;
       }
     }

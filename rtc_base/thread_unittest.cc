@@ -288,6 +288,49 @@ TEST(ThreadTest, Wrap) {
   ThreadManager::Instance()->SetCurrentThread(current_thread);
 }
 
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+TEST(ThreadTest, InvokeToThreadAllowedReturnsTrueWithoutPolicies) {
+  // Create and start the thread.
+  auto thread1 = Thread::CreateWithSocketServer();
+  auto thread2 = Thread::CreateWithSocketServer();
+
+  EXPECT_TRUE(thread1->IsInvokeToThreadAllowed(thread2.get()));
+}
+
+TEST(ThreadTest, InvokeAllowedWhenThreadsAdded) {
+  // Create and start the thread.
+  auto thread1 = Thread::CreateWithSocketServer();
+  auto thread2 = Thread::CreateWithSocketServer();
+  auto thread3 = Thread::CreateWithSocketServer();
+  auto thread4 = Thread::CreateWithSocketServer();
+
+  thread1->AllowInvokesToThread(thread2.get());
+  thread1->AllowInvokesToThread(thread3.get());
+
+  EXPECT_TRUE(thread1->IsInvokeToThreadAllowed(thread2.get()));
+  EXPECT_TRUE(thread1->IsInvokeToThreadAllowed(thread3.get()));
+  EXPECT_FALSE(thread1->IsInvokeToThreadAllowed(thread4.get()));
+}
+
+TEST(ThreadTest, InvokesDisallowedWhenDisallowAnyInvoke) {
+  // Create and start the thread.
+  auto thread1 = Thread::CreateWithSocketServer();
+  auto thread2 = Thread::CreateWithSocketServer();
+
+  thread1->DisallowAnyInvoke();
+
+  EXPECT_FALSE(thread1->IsInvokeToThreadAllowed(thread2.get()));
+}
+#endif  // (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+
+TEST(ThreadTest, InvokesAllowedByDefault) {
+  // Create and start the thread.
+  auto thread1 = Thread::CreateWithSocketServer();
+  auto thread2 = Thread::CreateWithSocketServer();
+
+  EXPECT_TRUE(thread1->IsInvokeToThreadAllowed(thread2.get()));
+}
+
 TEST(ThreadTest, Invoke) {
   // Create and start the thread.
   auto thread = Thread::CreateWithSocketServer();

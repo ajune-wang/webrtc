@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b412bf6_06577a8c",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T13:00:17Z",
+      "side": 1,
+      "message": "Is this the right place to be checking?  I would expect the policy to be applied on the thread that is being blocked.\n\nI.e. here:\n\nauto* current \u003d Thread::Current();\nauto* other_thread \u003d SomeOtherThread();\nother_thread-\u003eInvoke(...);  \u003c--- Here, we should check the policy for |current|\n\n\nSo, in my mind, I\u0027m more concerned about the thread that ends up being blocked, and less concerned about whether or not the thread that does the work knows if the work is being waited on.",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c441f1c9_8fcfaf11",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T13:00:17Z",
+      "side": 1,
+      "message": "move implementations to the .cc file",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "345b2951_56524638",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T13:00:17Z",
+      "side": 1,
+      "message": "instead of locking, can we require that the policy be set on the thread itself? If not on the thread, we can just post a task.\n\nI\u0027m thinking that modifying the policy will be very rare, but checking the policy will be very frequent, so not needing a lock for that case would be better.",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a5c440d_6dfd185f",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T13:00:17Z",
+      "side": 1,
+      "message": "do we need this?",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "825be526_1c6158e2",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T13:00:17Z",
+      "side": 1,
+      "message": "any reason for choosing a std::set? It\u0027s a rather high cost container for something that\u0027ll just contain one or two items. std::vector should do I think.",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97f7a374_576d9817",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-06-29T13:00:17Z",
+      "side": 1,
+      "message": "same as !allowed_thread_.empty()?",
+      "revId": "b9eecb2f0f2173da221886e009b67844040be31b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

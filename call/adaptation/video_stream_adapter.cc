@@ -16,8 +16,10 @@
 
 #include "absl/types/optional.h"
 #include "absl/types/variant.h"
+#include "api/video/video_adaptation_counters.h"
 #include "api/video/video_adaptation_reason.h"
 #include "api/video_codecs/video_encoder.h"
+#include "call/adaptation/video_source_restrictions.h"
 #include "call/adaptation/video_stream_input_state.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
@@ -586,6 +588,57 @@ VideoStreamAdapter::StepOrState VideoStreamAdapter::GetAdaptationDownStep(
     case DegradationPreference::DISABLED:
       RTC_NOTREACHED();
       return Adaptation::Status::kLimitReached;
+  }
+}
+
+Adaptation VideoStreamAdapter::GetAdaptDownResolution() {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  VideoStreamInputState input_state = input_state_provider_->InputState();
+  switch (degradation_preference_) {
+    case DegradationPreference::DISABLED:
+    case DegradationPreference::MAINTAIN_RESOLUTION: {
+      return Adaptation(adaptation_validation_id_,
+                        Adaptation::Status::kLimitReached, input_state, false);
+    }
+    case DegradationPreference::MAINTAIN_FRAMERATE:
+      return GetAdaptationDown();
+    case DegradationPreference::BALANCED: {
+      StepOrState step_or_state = GetAdaptationDownStep(input_state);
+      Adaptation first_adaptation =
+          StepOrStateToAdaptation(step_or_state, input_state);
+
+      if (first_adaptation.status() != Adaptation::Status::kValid) {
+        return first_adaptation;
+      }
+      if (first_adaptation.status() == Adaptation::Status::kValid) {
+        RTC_DCHECK(absl::holds_alternative<Step>(step_or_state));
+        if (absl::get<Step>(step_or_state).type ==
+            StepType::kDecreaseResolution) {
+          return first_adaptation;
+        }
+      }
+
+      // We didn't decrease resolution so force it ...
+      int target_pixels =
+          GetLowerResolutionThan(input_state.frame_size_pixels().value());
+      if (!source_restrictor_->CanDecreaseResolutionTo(
+              target_pixels, first_adaptation.restrictions())) {
+        return first_adaptation;
+      }
+      VideoSourceRestrictions restrictions;
+      VideoAdaptationCounters counters;
+      std::tie(restrictions, counters) =
+          source_restrictor_->ApplyAdaptationStep(
+              Step(StepType::kDecreaseResolution, target_pixels),
+              degradation_preference_, first_adaptation.restrictions(),
+              first_adaptation.counters());
+      bool min_pixel_limit_reached =
+          target_pixels < source_restrictor_->min_pixels_per_frame();
+      return Adaptation(adaptation_validation_id_, restrictions, counters,
+                        input_state, min_pixel_limit_reached);
+    }
+    default:
+      RTC_NOTREACHED();
   }
 }
 

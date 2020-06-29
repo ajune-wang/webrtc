@@ -32,7 +32,7 @@
 #include "api/test/frame_generator_interface.h"
 #include "api/test/simulated_network.h"
 #include "api/test/stats_observer_interface.h"
-#include "api/test/track_id_stream_label_map.h"
+#include "api/test/track_id_stream_info_map.h"
 #include "api/test/video_quality_analyzer_interface.h"
 #include "api/transport/network_control.h"
 #include "api/units/time_delta.h"
@@ -422,7 +422,7 @@ class PeerConnectionE2EQualityTestFixture {
     // StopAndReportResults().
     virtual void Start(
         absl::string_view test_case_name,
-        const TrackIdStreamLabelMap* track_id_to_stream_label = nullptr) = 0;
+        const TrackIdStreamInfoMap* track_id_to_stream_info = nullptr) = 0;
 
     // Invoked by framework after call is ended and peer connection factory and
     // peer connection are destroyed.

@@ -17,9 +17,8 @@
 namespace webrtc {
 namespace webrtc_pc_e2e {
 
-void DefaultAudioQualityAnalyzer::Start(
-    std::string test_case_name,
-    TrackIdStreamLabelMap* analyzer_helper) {
+void DefaultAudioQualityAnalyzer::Start(std::string test_case_name,
+                                        TrackIdStreamInfoMap* analyzer_helper) {
   test_case_name_ = std::move(test_case_name);
   analyzer_helper_ = analyzer_helper;
 }

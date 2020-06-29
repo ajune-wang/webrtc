@@ -89,6 +89,11 @@ class RTCPReceiver final {
   void SetRtcpXrRrtrStatus(bool enable);
   bool GetAndResetXrRrRtt(int64_t* rtt_ms);
 
+  // Called regularly (1/sec) on the worker thread to do rtt  calculations.
+  // Returned an optional rtt value if one is available.
+  absl::optional<int64_t> OnPeriodicRttUpdate(Timestamp newer_than,
+                                              bool sending);
+
   // Get statistics.
   int32_t StatisticsReceived(std::vector<RTCPReportBlock>* receiveBlocks) const;
   // A snapshot of Report Blocks with additional data of interest to statistics.
@@ -208,6 +213,12 @@ class RTCPReceiver final {
 
   void HandleTransportFeedback(const rtcp::CommonHeader& rtcp_block,
                                PacketInformation* packet_information)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
+
+  bool RtcpRrTimeoutLocked(Timestamp now)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
+
+  bool RtcpRrSequenceNumberTimeoutLocked(Timestamp now)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
 
   Clock* const clock_;

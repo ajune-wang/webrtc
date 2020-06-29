@@ -1414,3 +1414,13 @@ if (is_android) {
     ]
   }
 }
+
+rtc_library("thread_benchmark") {
+  testonly = true
+  sources = [ "thread_benchmark.cc" ]
+  deps = [
+    ":rtc_base",
+    "system:unused",
+    "//third_party/google_benchmark",
+  ]
+}

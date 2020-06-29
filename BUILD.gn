@@ -587,7 +587,9 @@ if (rtc_include_tests) {
   rtc_test("benchmarks") {
     testonly = true
     deps = [
-      "rtc_base/synchronization:mutex_benchmark",
+      "rtc_base:thread_benchmark",
+
+      # "rtc_base/synchronization:mutex_benchmark",
       "test:benchmark_main",
     ]
   }

@@ -22,11 +22,13 @@ class TrackIdStreamLabelMap {
  public:
   virtual ~TrackIdStreamLabelMap() = default;
 
-  // This method must be called on the same thread where
+  // This methods must be called on the same thread where
   // StatsObserverInterface::OnStatsReports is invoked.
   // Returns a reference to a stream label owned by the TrackIdStreamLabelMap.
-  // Precondition: |track_id| must be already mapped to a stream_label.
+  // Precondition: |track_id| must be already mapped to labels.
   virtual const std::string& GetStreamLabelFromTrackId(
+      const std::string& track_id) const = 0;
+  virtual const std::string& GetSyncGroupLabelFromTrackId(
       const std::string& track_id) const = 0;
 };
 

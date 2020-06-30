@@ -11,6 +11,7 @@
 #ifndef CALL_AUDIO_SEND_STREAM_H_
 #define CALL_AUDIO_SEND_STREAM_H_
 
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -141,6 +142,7 @@ class AudioSendStream : public AudioSender {
       bool transport_cc_enabled = false;
       absl::optional<int> cng_payload_type;
       absl::optional<int> red_payload_type;
+      absl::optional<std::map<std::string, std::string>> red_params;
       // If unset, use the encoder's default target bitrate.
       absl::optional<int> target_bitrate_bps;
     };

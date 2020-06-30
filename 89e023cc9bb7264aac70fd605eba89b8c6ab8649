@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd8ea96b_366f4644",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-30T11:51:26Z",
+      "side": 1,
+      "message": "Good that you\u0027re changing to Timestamp here!\nI suggest changing last_received_rb_, last_increased_sequence_number_ to Timestamp too and report_interval_ms_ to TimeDelta. Will make the code below cleaner.",
+      "range": {
+        "startLine": 1192,
+        "startChar": 39,
+        "endLine": 1192,
+        "endChar": 48
+      },
+      "revId": "89e023cc9bb7264aac70fd605eba89b8c6ab8649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad8aa283_7b809ef9",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-30T11:51:26Z",
+      "side": 1,
+      "message": "If this is made a Timestamp, it can be set to e.g. Timstamp::MinusInfinity() to mean unset. This if can the be if(last_received_rb_.IsFinite())",
+      "range": {
+        "startLine": 1193,
+        "startChar": 6,
+        "endLine": 1193,
+        "endChar": 26
+      },
+      "revId": "89e023cc9bb7264aac70fd605eba89b8c6ab8649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b7845ba_7d400db3",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-30T11:51:26Z",
+      "side": 1,
+      "message": "nits: \n\"once per second\" is more readable imo\nremove extra space\n\"Returns\"",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 93,
+        "endChar": 56
+      },
+      "revId": "89e023cc9bb7264aac70fd605eba89b8c6ab8649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "385666a8_ac6e76b2",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-30T11:51:26Z",
+      "side": 1,
+      "message": "Maybe update the method name to indicate return value is rtt in ms, alternatively use TimeDelta instead.",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 25
+      },
+      "revId": "89e023cc9bb7264aac70fd605eba89b8c6ab8649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb2dc5fc_35081d0d",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-30T11:51:26Z",
+      "side": 1,
+      "message": "+1, especially after the fork",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 74
+      },
+      "revId": "89e023cc9bb7264aac70fd605eba89b8c6ab8649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85531508_ccd99802",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl2.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-06-30T11:51:26Z",
+      "side": 1,
+      "message": "nit: consistency in case. either rtt, rtcp and tmmbr or RTT, RTCP and TMMBR",
+      "range": {
+        "startLine": 289,
+        "startChar": 2,
+        "endLine": 290,
+        "endChar": 78
+      },
+      "revId": "89e023cc9bb7264aac70fd605eba89b8c6ab8649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

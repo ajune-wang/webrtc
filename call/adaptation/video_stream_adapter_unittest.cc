@@ -110,6 +110,28 @@ class FakeVideoStream {
   int min_pixels_per_frame_;
 };
 
+class FakeVideoStreamAdapterListner : public VideoSourceRestrictionsListener {
+ public:
+  void OnVideoSourceRestrictionsUpdated(
+      VideoSourceRestrictions restrictions,
+      const VideoAdaptationCounters& adaptation_counters,
+      rtc::scoped_refptr<Resource> reason,
+      const VideoSourceRestrictions& unfiltered_restrictions) {
+    calls_++;
+    last_restrictions_ = unfiltered_restrictions;
+  }
+
+  int calls() const { return calls_; }
+
+  VideoSourceRestrictions last_restrictions() const {
+    return last_restrictions_;
+  }
+
+ private:
+  int calls_ = 0;
+  VideoSourceRestrictions last_restrictions_;
+};
+
 }  // namespace
 
 TEST(VideoStreamAdapterTest, NoRestrictionsByDefault) {
@@ -676,6 +698,36 @@ TEST(VideoStreamAdapterTest,
   EXPECT_EQ(Adaptation::Status::kValid, adaptation.status());
 }
 
+TEST(VideoStreamAdapterTest, RestrictionsBroadcasted) {
+  VideoStreamAdapter adapter;
+  FakeVideoStreamAdapterListner listener;
+  adapter.AddRestrictionsListener(&listener);
+  adapter.SetDegradationPreference(DegradationPreference::MAINTAIN_FRAMERATE);
+  FakeVideoStream fake_stream(&adapter, 1280 * 720, 30,
+                              kDefaultMinPixelsPerFrame);
+  // Not broadcast on invalid ApplyAdaptation.
+  {
+    Adaptation adaptation = adapter.GetAdaptationUp();
+    adapter.ApplyAdaptation(adaptation);
+    EXPECT_EQ(0, listener.calls());
+  }
+
+  // Broadcast on ApplyAdaptation.
+  {
+    Adaptation adaptation = adapter.GetAdaptationDown();
+    VideoStreamAdapter::RestrictionsWithCounters peek =
+        adapter.PeekNextRestrictions(adaptation);
+    fake_stream.ApplyAdaptation(adaptation);
+    EXPECT_EQ(1, listener.calls());
+    EXPECT_EQ(peek.restrictions, listener.last_restrictions());
+  }
+
+  // Broadcast on ClearRestrictions().
+  adapter.ClearRestrictions();
+  EXPECT_EQ(2, listener.calls());
+  EXPECT_EQ(VideoSourceRestrictions(), listener.last_restrictions());
+}
+
 TEST(VideoStreamAdapterTest, PeekNextRestrictions) {
   VideoStreamAdapter adapter;
   // Any non-disabled DegradationPreference will do.
@@ -716,6 +768,18 @@ TEST(VideoStreamAdapterTest, PeekNextRestrictions) {
     EXPECT_EQ(restrictions_with_counters.adaptation_counters,
               adapter.adaptation_counters());
   }
+}
+
+TEST(VideoStreamAdapterTest, PeekRestrictionsDoesNotBroadcast) {
+  VideoStreamAdapter adapter;
+  FakeVideoStreamAdapterListner listener;
+  adapter.AddRestrictionsListener(&listener);
+  adapter.SetDegradationPreference(DegradationPreference::MAINTAIN_FRAMERATE);
+  FakeVideoStream fake_stream(&adapter, 1280 * 720, 30,
+                              kDefaultMinPixelsPerFrame);
+  Adaptation adaptation = adapter.GetAdaptationDown();
+  adapter.PeekNextRestrictions(adaptation);
+  EXPECT_EQ(0, listener.calls());
 }
 
 TEST(VideoStreamAdapterTest,

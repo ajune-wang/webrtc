@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6d54487_6d037f59",
+        "filename": "api/test/track_id_stream_info_map.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T10:27:01Z",
+      "side": 1,
+      "message": "Consider returning string_view instead.",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "c7cdd2fb5c03cfeadc3260bc9b37cad4327991b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "174aebab_95cb4707",
+        "filename": "test/pc/e2e/analyzer_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T10:27:01Z",
+      "side": 1,
+      "message": "It\u0027s unfortunate that you have to copy both of these, but relying on one of them to be evaluated before the other would be terrible for readability.",
+      "range": {
+        "startLine": 26,
+        "startChar": 39,
+        "endLine": 26,
+        "endChar": 65
+      },
+      "revId": "c7cdd2fb5c03cfeadc3260bc9b37cad4327991b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45d0041_4f04daeb",
+        "filename": "test/pc/e2e/analyzer_helper.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T10:27:01Z",
+      "side": 1,
+      "message": "The argument should almost certainly be a string_view. The return value might also be a string_view, but it\u0027s probably less of a win. See https://abseil.io/tips/1",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "c7cdd2fb5c03cfeadc3260bc9b37cad4327991b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

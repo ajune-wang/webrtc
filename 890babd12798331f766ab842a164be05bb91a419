@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "aa5ff425_39e256e9",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T11:59:31Z",
+      "side": 1,
+      "message": "I would add a new Start method that has the extra argument, and keep the old one around (as a non-virtual method of the base class) until callers have been updated. https://godbolt.org/z/_k-RRe\n\nIf you also had to be compatible with out-of-tree implementations of the interface it would be slightly harder, but if that was a concern the present solution would also fail, right?",
+      "parentUuid": "b9033e23_9706111d",
+      "range": {
+        "startLine": 425,
+        "startChar": 62,
+        "endLine": 425,
+        "endChar": 71
+      },
+      "revId": "890babd12798331f766ab842a164be05bb91a419",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "da4d6ab8_203bd6ef",
         "filename": "test/pc/e2e/analyzer/video/video_quality_metrics_reporter.cc",
         "patchSetId": 4

@@ -14,7 +14,7 @@ from collections import defaultdict
 from contextlib import contextmanager
 
 # Files and directories that are *skipped* by cpplint in the presubmit script.
-CPPLINT_BLACKLIST = [
+CPPLINT_EXCEPTIONS = [
   'api/video_codecs/video_decoder.h',
   'common_types.cc',
   'common_types.h',
@@ -45,7 +45,7 @@ CPPLINT_BLACKLIST = [
 #
 # Justifications for each filter:
 # - build/c++11         : Rvalue ref checks are unreliable (false positives),
-#                         include file and feature blacklists are
+#                         include file and feature denylists are
 #                         google3-specific.
 # - runtime/references  : Mutable references are not banned by the Google
 #                         C++ style guide anymore (starting from May 2020).
@@ -262,9 +262,9 @@ def CheckNoFRIEND_TEST(input_api, output_api,  # pylint: disable=invalid-name
       'use FRIEND_TEST_ALL_PREFIXES() instead.\n' + '\n'.join(problems))]
 
 
-def IsLintBlacklisted(blacklist_paths, file_path):
-  """ Checks if a file is blacklisted for lint check."""
-  for path in blacklist_paths:
+def IsLintDisabled(disabled_paths, file_path):
+  """ Checks if a file is disabled for lint check."""
+  for path in disabled_paths:
     if file_path == path or os.path.dirname(file_path).startswith(path):
       return True
   return False
@@ -272,7 +272,7 @@ def IsLintBlacklisted(blacklist_paths, file_path):
 
 def CheckApprovedFilesLintClean(input_api, output_api,
                                 source_file_filter=None):
-  """Checks that all new or non-blacklisted .cc and .h files pass cpplint.py.
+  """Checks that all new or non-exempt .cc and .h files pass cpplint.py.
   This check is based on CheckChangeLintsClean in
   depot_tools/presubmit_canned_checks.py but has less filters and only checks
   added files."""
@@ -288,19 +288,19 @@ def CheckApprovedFilesLintClean(input_api, output_api,
   lint_filters.extend(BLACKLIST_LINT_FILTERS)
   cpplint._SetFilters(','.join(lint_filters))
 
-  # Create a platform independent blacklist for cpplint.
-  blacklist_paths = [input_api.os_path.join(*path.split('/'))
-                     for path in CPPLINT_BLACKLIST]
+  # Create a platform independent exempt list for cpplint.
+  disabled_paths = [input_api.os_path.join(*path.split('/'))
+                     for path in CPPLINT_EXCEPTIONS]
 
   # Use the strictest verbosity level for cpplint.py (level 1) which is the
   # default when running cpplint.py from command line. To make it possible to
   # work with not-yet-converted code, we're only applying it to new (or
-  # moved/renamed) files and files not listed in CPPLINT_BLACKLIST.
+  # moved/renamed) files and files not listed in CPPLINT_EXCEPTIONS.
   verbosity_level = 1
   files = []
   for f in input_api.AffectedSourceFiles(source_file_filter):
     # Note that moved/renamed files also count as added.
-    if f.Action() == 'A' or not IsLintBlacklisted(blacklist_paths,
+    if f.Action() == 'A' or not IsLintDisabled(disabled_paths,
                                                   f.LocalPath()):
       files.append(f.AbsoluteLocalPath())
 
@@ -850,11 +850,12 @@ def CommonChecks(input_api, output_api):
   results = []
   # Filter out files that are in objc or ios dirs from being cpplint-ed since
   # they do not follow C++ lint rules.
-  black_list = input_api.DEFAULT_BLACK_LIST + (
+  exception_list = input_api.DEFAULT_BLACK_LIST + (
     r".*\bobjc[\\\/].*",
     r".*objc\.[hcm]+$",
   )
-  source_file_filter = lambda x: input_api.FilterSourceFile(x, None, black_list)
+  source_file_filter = lambda x: input_api.FilterSourceFile(x, None,
+                                                            exception_list)
   results.extend(CheckApprovedFilesLintClean(
       input_api, output_api, source_file_filter))
   results.extend(input_api.canned_checks.CheckLicense(
@@ -1073,7 +1074,7 @@ def CheckOrphanHeaders(input_api, output_api, source_file_filter):
   # eval-ed and thus doesn't have __file__.
   error_msg = """{} should be listed in {}."""
   results = []
-  orphan_blacklist = [
+  exempt_paths = [
     os.path.join('tools_webrtc', 'ios', 'SDK'),
   ]
   with _AddToPath(input_api.os_path.join(
@@ -1082,7 +1083,7 @@ def CheckOrphanHeaders(input_api, output_api, source_file_filter):
     from check_orphan_headers import IsHeaderInBuildGn
 
   file_filter = lambda x: input_api.FilterSourceFile(
-      x, black_list=orphan_blacklist) and source_file_filter(x)
+      x, black_list=exempt_paths) and source_file_filter(x)
   for f in input_api.AffectedSourceFiles(file_filter):
     if f.LocalPath().endswith('.h'):
       file_path = os.path.abspath(f.LocalPath())

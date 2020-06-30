@@ -16,6 +16,8 @@ rtc_library("resource_adaptation") {
     "adaptation_listener.h",
     "encoder_settings.cc",
     "encoder_settings.h",
+    "multi_processor_resource_adapter.cc",
+    "multi_processor_resource_adapter.h",
     "resource_adaptation_processor.cc",
     "resource_adaptation_processor.h",
     "resource_adaptation_processor_interface.cc",
@@ -57,6 +59,7 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
+      "multi_processor_resource_adapter_unittest.cc",
       "resource_adaptation_processor_unittest.cc",
       "resource_unittest.cc",
       "video_source_restrictions_unittest.cc",
@@ -96,6 +99,7 @@ if (rtc_include_tests) {
       "test/fake_frame_rate_provider.h",
       "test/fake_resource.cc",
       "test/fake_resource.h",
+      "test/mock_resource_listener.h",
     ]
     deps = [
       ":resource_adaptation",

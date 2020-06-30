@@ -12,6 +12,7 @@
 
 #include <string.h>
 
+#include <algorithm>
 #include <limits>
 #include <map>
 #include <memory>
@@ -253,6 +254,60 @@ bool RTCPReceiver::GetAndResetXrRrRtt(int64_t* rtt_ms) {
   *rtt_ms = xr_rr_rtt_ms_;
   xr_rr_rtt_ms_ = 0;
   return true;
+}
+
+// Called regularly (1/sec) on the worker thread to do rtt  calculations.
+absl::optional<int64_t> RTCPReceiver::OnPeriodicRttUpdate(Timestamp newer_than,
+                                                          bool sending) {
+  absl::optional<int64_t> rtt;
+
+  if (sending) {
+    // Check if we've received a report block within the last kRttUpdateInterval
+    // amount of time.
+    rtc::CritScope lock(&rtcp_receiver_lock_);
+    int64_t last_report_ms = last_received_rb_ms_;
+    if (!last_report_ms || Timestamp::Millis(last_report_ms) > newer_than) {
+      // Stow away the report block for the main ssrc. We'll use the associated
+      // data map to look up each sender and check the last_rtt_ms().
+      auto main_report_it = received_report_blocks_.find(main_ssrc_);
+      if (main_report_it != received_report_blocks_.end()) {
+        const ReportBlockDataMap& main_data_map = main_report_it->second;
+        int64_t max_rtt = 0;
+        for (const auto& reports_per_receiver : received_report_blocks_) {
+          for (const auto& report : reports_per_receiver.second) {
+            const RTCPReportBlock& block = report.second.report_block();
+            auto it_info = main_data_map.find(block.sender_ssrc);
+            if (it_info != main_data_map.end()) {
+              const ReportBlockData* report_block_data = &it_info->second;
+              if (report_block_data->num_rtts() > 0) {
+                max_rtt = std::max(report_block_data->last_rtt_ms(), max_rtt);
+              }
+            }
+          }
+        }
+        if (max_rtt)
+          rtt.emplace(max_rtt);
+      }
+    }
+
+    // Verify receiver reports are delivered and the reported sequence number
+    // is increasing.
+    auto now = clock_->CurrentTime();
+    if (RtcpRrTimeoutLocked(now)) {
+      RTC_LOG_F(LS_WARNING) << "Timeout: No RTCP RR received.";
+    } else if (RtcpRrSequenceNumberTimeoutLocked(now)) {
+      RTC_LOG_F(LS_WARNING) << "Timeout: No increase in RTCP RR extended "
+                               "highest sequence number.";
+    }
+  } else {
+    // Report rtt from receiver.
+    int64_t rtt_ms;
+    if (GetAndResetXrRrRtt(&rtt_ms)) {
+      rtt.emplace(rtt_ms);
+    }
+  }
+
+  return rtt;
 }
 
 bool RTCPReceiver::NTP(uint32_t* received_ntp_secs,
@@ -580,31 +635,12 @@ RTCPReceiver::TmmbrInformation* RTCPReceiver::GetTmmbrInformation(
 
 bool RTCPReceiver::RtcpRrTimeout() {
   rtc::CritScope lock(&rtcp_receiver_lock_);
-  if (last_received_rb_ms_ == 0)
-    return false;
-
-  int64_t time_out_ms = kRrTimeoutIntervals * report_interval_ms_;
-  if (clock_->TimeInMilliseconds() > last_received_rb_ms_ + time_out_ms) {
-    // Reset the timer to only trigger one log.
-    last_received_rb_ms_ = 0;
-    return true;
-  }
-  return false;
+  return RtcpRrTimeoutLocked(clock_->CurrentTime());
 }
 
 bool RTCPReceiver::RtcpRrSequenceNumberTimeout() {
   rtc::CritScope lock(&rtcp_receiver_lock_);
-  if (last_increased_sequence_number_ms_ == 0)
-    return false;
-
-  int64_t time_out_ms = kRrTimeoutIntervals * report_interval_ms_;
-  if (clock_->TimeInMilliseconds() >
-      last_increased_sequence_number_ms_ + time_out_ms) {
-    // Reset the timer to only trigger one log.
-    last_increased_sequence_number_ms_ = 0;
-    return true;
-  }
-  return false;
+  return RtcpRrSequenceNumberTimeoutLocked(clock_->CurrentTime());
 }
 
 bool RTCPReceiver::UpdateTmmbrTimers() {
@@ -1151,6 +1187,32 @@ std::vector<rtcp::TmmbItem> RTCPReceiver::TmmbrReceived() {
     }
   }
   return candidates;
+}
+
+bool RTCPReceiver::RtcpRrTimeoutLocked(Timestamp now) {
+  if (last_received_rb_ms_ == 0)
+    return false;
+
+  int64_t time_out_ms = kRrTimeoutIntervals * report_interval_ms_;
+  if (now.ms() > last_received_rb_ms_ + time_out_ms) {
+    // Reset the timer to only trigger one log.
+    last_received_rb_ms_ = 0;
+    return true;
+  }
+  return false;
+}
+
+bool RTCPReceiver::RtcpRrSequenceNumberTimeoutLocked(Timestamp now) {
+  if (last_increased_sequence_number_ms_ == 0)
+    return false;
+
+  int64_t time_out_ms = kRrTimeoutIntervals * report_interval_ms_;
+  if (now.ms() > last_increased_sequence_number_ms_ + time_out_ms) {
+    // Reset the timer to only trigger one log.
+    last_increased_sequence_number_ms_ = 0;
+    return true;
+  }
+  return false;
 }
 
 }  // namespace webrtc

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6dacf936_9a9a9536",
+        "filename": "rtc_base/time_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T22:33:47Z",
+      "side": 1,
+      "message": "Write this as int64_t{1}.\nYou can also drop the outermost parentheses, since it\u0027s well known that multiplication binds tighter than addition.",
+      "range": {
+        "startLine": 250,
+        "startChar": 36,
+        "endLine": 250,
+        "endChar": 59
+      },
+      "revId": "2d82c0e88cb30f7eefc1b5585dfa169cdfc95cec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

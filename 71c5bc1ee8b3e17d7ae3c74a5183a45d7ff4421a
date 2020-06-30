@@ -429,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "4d57e617_85da92e7",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-06-30T17:11:38Z",
+      "side": 1,
+      "message": "OK, so I think we need to err on the side of caution, which means that we only enumerate:\n- The selected window.\n- Windows which are owned by the selected window.\n- Possibly some pop-up types which have the selected window as parent.\n\nIf a window has no immediately obvious relation to the selected window then we should not capture them at all.   WDYT?",
+      "parentUuid": "b02ded28_6a18547f",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "71c5bc1ee8b3e17d7ae3c74a5183a45d7ff4421a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a7cc63df_2b10ce48",
         "filename": "modules/desktop_capture/win/selected_window_context.cc",
         "patchSetId": 2

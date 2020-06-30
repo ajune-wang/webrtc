@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e88b03b5_f1b816cc",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T12:11:30Z",
+      "side": 1,
+      "message": "\"blocklists\"? It\u0027s nice to standardize on a single replacement term.",
+      "range": {
+        "startLine": 48,
+        "startChar": 51,
+        "endLine": 48,
+        "endChar": 60
+      },
+      "revId": "35d87fc73cd37fe64827291fc28abf5eb4c7f650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6c6708c_ba46718d",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T12:11:30Z",
+      "side": 1,
+      "message": "IIUC, \"allowlist\" and \"blocklist\" (and \"whitelist\" and \"blacklist\") are not usually hyphenated or two separate words, so there should be no underscore.",
+      "range": {
+        "startLine": 179,
+        "startChar": 9,
+        "endLine": 179,
+        "endChar": 19
+      },
+      "revId": "35d87fc73cd37fe64827291fc28abf5eb4c7f650",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

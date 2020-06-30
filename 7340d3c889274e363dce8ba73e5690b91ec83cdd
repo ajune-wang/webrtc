@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4ce708a_6005b810",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-30T10:21:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3fd873_f5080ac6",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eea7fce8_66ba143d",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e53cf843_b46d51f3",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-30T10:21:46Z",
+      "side": 1,
+      "message": "I think that it can be cleaned up yes, but not currently. There is complexity regarding the filtering. I tried to remove that in general but that did not work very cleanly, which is why there are two restriction arguments. \n\nIn the future I would like to just remove the dependency on counters altogether, but the problem is that they are fundemental to the model (reducing fps requires counters), as well as AdaptUp(AdaptDown(R)) !\u003d R for restrictions R, making comparing restrictions impossible. \n\nIn summary, to remove the counters we would have to,\n1) Make all adaptations work without counters,\n2) Make restrictions comparable (fix the Up(Down(R)) !\u003d R problem)",
+      "parentUuid": "eea7fce8_66ba143d",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "80cb3d5e_5e44bc6f",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-30T10:21:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22de5c51_ae56f3a4",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a605977_9ad606cb",
         "filename": "call/adaptation/video_stream_adapter.cc",
         "patchSetId": 7
@@ -67,6 +121,24 @@
       "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c76d2a09_570be2a1",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-30T10:21:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a605977_9ad606cb",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a3e3fd7d_db756661",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-30T10:21:46Z",
+      "side": 1,
+      "message": "The VideoStreamAdapter does the broadcasting, not the restrictor. I will add a test to prove this.",
+      "parentUuid": "d2157070_6778f904",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "446c4287_1ad4a9d9",
         "filename": "call/adaptation/video_stream_adapter.cc",
         "patchSetId": 7
@@ -101,6 +191,24 @@
       "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98540346_50cdf10d",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-30T10:21:46Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "446c4287_1ad4a9d9",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "7a11aa5a_4949c149",
+        "filename": "call/adaptation/video_stream_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-30T10:21:46Z",
+      "side": 1,
+      "message": "This is prep for the future which can happen sooner rather than later. When there are potentially multiple stream or new mitigations, the ResourceAdaptationProcessor would need to save the queues that these need to be posted on. We probably want to avoid that, and this sequence checker will ensure that this gets caught if posting on the wrong queue.",
+      "parentUuid": "41335913_d19e8620",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "899dbee2_7702048e",
         "filename": "call/adaptation/video_stream_input_state.cc",
         "patchSetId": 7
@@ -135,6 +261,24 @@
       "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bff10e45_4492861a",
+        "filename": "call/adaptation/video_stream_input_state.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-06-30T10:21:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "899dbee2_7702048e",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

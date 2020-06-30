@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3478112_f896a6e3",
+        "filename": "api/test/peerconnection_quality_test_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T12:47:32Z",
+      "side": 1,
+      "message": "This one should not be virtual.",
+      "range": {
+        "startLine": 427,
+        "startChar": 4,
+        "endLine": 427,
+        "endChar": 11
+      },
+      "revId": "6b56aa49906d93a11dbdeecf40b7ab0aec0d0df4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49fc61d5_8be21e88",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_metrics_reporter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T12:47:32Z",
+      "side": 1,
+      "message": "In function *definitions*, though, this is the right thing to do, since it allows the compiler to yell at you if you forget and start referring to it anyway.",
+      "revId": "6b56aa49906d93a11dbdeecf40b7ab0aec0d0df4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c3e5f5d_c70aab5e",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_metrics_reporter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T12:47:32Z",
+      "side": 1,
+      "message": "There\u0027s no advantage to commenting out argument names in function declarations---they *never* have a purpose there except as documentation.",
+      "range": {
+        "startLine": 41,
+        "startChar": 42,
+        "endLine": 41,
+        "endChar": 61
+      },
+      "revId": "6b56aa49906d93a11dbdeecf40b7ab0aec0d0df4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ca2b97d_addce5e0",
+        "filename": "test/pc/e2e/network_quality_metrics_reporter.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T12:47:32Z",
+      "side": 1,
+      "message": "Same here---don\u0027t comment out argument names in declarations.",
+      "revId": "6b56aa49906d93a11dbdeecf40b7ab0aec0d0df4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "408d3d5f_d94d404a",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-06-30T09:46:30Z",
+      "side": 1,
+      "message": "Note for the future: This function is rather long, which makes it hard to read.",
+      "revId": "53f7d0232f68c7f5b03efa79c5cbcdbad23ebf7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

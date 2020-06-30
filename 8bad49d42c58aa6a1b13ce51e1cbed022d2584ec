@@ -22,6 +22,30 @@
       "revId": "8bad49d42c58aa6a1b13ce51e1cbed022d2584ec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06b0aa4_537b5580",
+        "filename": "test/pc/e2e/peer_configurer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-06-30T07:26:45Z",
+      "side": 1,
+      "message": "Actually, this constraint were already there :). I removed the remark about framework not doing any enforcements on sync_group.",
+      "parentUuid": "4f6b881a_6b053bd1",
+      "range": {
+        "startLine": 137,
+        "startChar": 6,
+        "endLine": 144,
+        "endChar": 7
+      },
+      "revId": "8bad49d42c58aa6a1b13ce51e1cbed022d2584ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

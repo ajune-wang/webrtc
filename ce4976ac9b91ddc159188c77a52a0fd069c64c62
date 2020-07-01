@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "ec71c71c_ec745529",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-01T14:51:34Z",
+      "side": 1,
+      "message": "nit: Can this take a const\u0026 as argument to avoid a copy?",
+      "revId": "ce4976ac9b91ddc159188c77a52a0fd069c64c62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f9c727f_10621a79",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1619,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-01T14:51:34Z",
+      "side": 1,
+      "message": "Same mistake here, please fix here too.",
+      "revId": "ce4976ac9b91ddc159188c77a52a0fd069c64c62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5284a426_297ee8ee",
         "filename": "pc/rtc_stats_collector.cc",
         "patchSetId": 1
@@ -13,6 +47,24 @@
       "writtenOn": "2020-07-01T12:29:26Z",
       "side": 1,
       "message": "The move inside a loop looks really strange as for subsequent iterations the video_outbound_rtps would be empty, but maybe I am missing something, and that was intentional.",
+      "revId": "ce4976ac9b91ddc159188c77a52a0fd069c64c62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7980e455_368e3fb9",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1696,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-01T14:51:34Z",
+      "side": 1,
+      "message": "The std::move() looks like a mistake, good catch. You should fix it for audio as well above.\n\nCan you write an rtc_stats_collector_unittest.cc to catch the bug produced by the use-after-move if multiple block datas are present?",
+      "parentUuid": "5284a426_297ee8ee",
       "revId": "ce4976ac9b91ddc159188c77a52a0fd069c64c62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

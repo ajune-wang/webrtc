@@ -25,6 +25,7 @@
 #include "audio/audio_receive_stream.h"
 #include "audio/audio_send_stream.h"
 #include "audio/audio_state.h"
+#include "call/adaptation/broadcast_resource_listener.h"
 #include "call/bitrate_allocator.h"
 #include "call/flexfec_receive_stream_impl.h"
 #include "call/receive_time_calculator.h"
@@ -335,8 +336,8 @@ class Call final : public webrtc::Call,
       RTC_GUARDED_BY(worker_thread_);
   std::set<VideoSendStream*> video_send_streams_ RTC_GUARDED_BY(worker_thread_);
 
-  std::vector<rtc::scoped_refptr<Resource>> adaptation_resources_
-      RTC_GUARDED_BY(worker_thread_);
+  std::vector<std::unique_ptr<BroadcastResourceListener>>
+      adaptation_resource_broadcasters_ RTC_GUARDED_BY(worker_thread_);
 
   using RtpStateMap = std::map<uint32_t, RtpState>;
   RtpStateMap suspended_audio_send_ssrcs_ RTC_GUARDED_BY(worker_thread_);
@@ -866,8 +867,8 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   }
   video_send_streams_.insert(send_stream);
   // Add resources that were previously added to the call to the new stream.
-  for (const auto& adaptation_resource : adaptation_resources_) {
-    send_stream->AddAdaptationResource(adaptation_resource);
+  for (const auto& broadcaster : adaptation_resource_broadcasters_) {
+    send_stream->AddAdaptationResource(broadcaster->CreateAdapterResource());
   }
 
   UpdateAggregateNetworkState();
@@ -1035,9 +1036,12 @@ void Call::DestroyFlexfecReceiveStream(FlexfecReceiveStream* receive_stream) {
 
 void Call::AddAdaptationResource(rtc::scoped_refptr<Resource> resource) {
   RTC_DCHECK_RUN_ON(worker_thread_);
-  adaptation_resources_.push_back(resource);
+  adaptation_resource_broadcasters_.push_back(
+      std::make_unique<BroadcastResourceListener>(resource));
+  const auto& broadcaster = adaptation_resource_broadcasters_.back();
+  resource->SetResourceListener(broadcaster.get());
   for (VideoSendStream* stream : video_send_streams_) {
-    stream->AddAdaptationResource(resource);
+    stream->AddAdaptationResource(broadcaster->CreateAdapterResource());
   }
 }
 

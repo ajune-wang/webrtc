@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "91e98dbe_5e761804",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-01T08:02:01Z",
+      "side": 1,
+      "message": "Ack!",
+      "parentUuid": "e53cf843_b46d51f3",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22de5c51_ae56f3a4",
         "filename": "call/adaptation/video_stream_adapter.cc",
         "patchSetId": 7
@@ -241,6 +259,24 @@
       "side": 1,
       "message": "This is prep for the future which can happen sooner rather than later. When there are potentially multiple stream or new mitigations, the ResourceAdaptationProcessor would need to save the queues that these need to be posted on. We probably want to avoid that, and this sequence checker will ensure that this gets caught if posting on the wrong queue.",
       "parentUuid": "41335913_d19e8620",
+      "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "231d62d4_b2d608b2",
+        "filename": "call/adaptation/video_stream_adapter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-01T08:02:01Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "7a11aa5a_4949c149",
       "revId": "7340d3c889274e363dce8ba73e5690b91ec83cdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

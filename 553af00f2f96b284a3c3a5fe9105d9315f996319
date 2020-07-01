@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a1bc8ba_2a249b3d",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-01T08:02:01Z",
+      "side": 1,
+      "message": "(Not this CL): When we think about different mitigation strategies in the future, would the \"most limited\" logic be moved to the VideoStreamAdapter\u0027s mitigation strategy?",
+      "revId": "553af00f2f96b284a3c3a5fe9105d9315f996319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

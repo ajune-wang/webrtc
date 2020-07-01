@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a442887c_44efa358",
+        "filename": "call/adaptation/broadcast_resource_listener.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-01T13:19:22Z",
+      "side": 1,
+      "message": "Correct. I added a TODO with a bug reference.",
+      "parentUuid": "bb3ba899_2963f073",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "45eb4476209806be709e391f96056a64c74f48f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eabf4ec_43749f83",
         "filename": "call/adaptation/broadcast_resource_listener.h",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "45eb4476209806be709e391f96056a64c74f48f9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7880f8a7_80a64316",
+        "filename": "call/adaptation/broadcast_resource_listener.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-01T13:19:22Z",
+      "side": 1,
+      "message": "Done. I made it a requirement to explicitly remove every created adapter and I enforce this with DCHECKs.\n\nA helper class (ResourceVideoSendStreamForwarder) was added to call.cc to help enforce adding and removing the adapters when a VideoSendStream is created or destroyed.",
+      "parentUuid": "0eabf4ec_43749f83",
+      "range": {
+        "startLine": 39,
+        "startChar": 31,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "45eb4476209806be709e391f96056a64c74f48f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

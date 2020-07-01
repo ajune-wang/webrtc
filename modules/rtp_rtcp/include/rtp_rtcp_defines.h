@@ -156,14 +156,12 @@ struct RtpState {
         timestamp(0),
         capture_time_ms(-1),
         last_timestamp_time_ms(-1),
-        media_has_been_sent(false),
         ssrc_has_acked(false) {}
   uint16_t sequence_number;
   uint32_t start_timestamp;
   uint32_t timestamp;
   int64_t capture_time_ms;
   int64_t last_timestamp_time_ms;
-  bool media_has_been_sent;
   bool ssrc_has_acked;
 };
 
@@ -296,6 +294,8 @@ class RtcpRttStats {
 struct RtpPacketCounter {
   RtpPacketCounter()
       : header_bytes(0), payload_bytes(0), padding_bytes(0), packets(0) {}
+
+  explicit RtpPacketCounter(const RtpPacket& packet);
 
   void Add(const RtpPacketCounter& other) {
     header_bytes += other.header_bytes;

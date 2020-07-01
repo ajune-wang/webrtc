@@ -2625,18 +2625,12 @@ bool ParseMediaDescription(
     if (!rtc::FromString<int>(fields[1], &port) || !IsValidPort(port)) {
       return ParseFailed(line, "The port number is invalid", error);
     }
-    std::string protocol = fields[2];
+    const std::string& protocol = fields[2];
 
     // <fmt>
     std::vector<int> payload_types;
     if (cricket::IsRtpProtocol(protocol)) {
       for (size_t j = 3; j < fields.size(); ++j) {
-        // TODO(wu): Remove when below bug is fixed.
-        // https://bugzilla.mozilla.org/show_bug.cgi?id=996329
-        if (fields[j].empty() && j == fields.size() - 1) {
-          continue;
-        }
-
         int pl = 0;
         if (!GetPayloadTypeFromString(line, fields[j], &pl, error)) {
           return false;
@@ -2656,17 +2650,18 @@ bool ParseMediaDescription(
     std::string content_name;
     bool bundle_only = false;
     int section_msid_signaling = 0;
-    if (HasAttribute(line, kMediaTypeVideo)) {
+    const std::string& media_type = fields[0];
+    if (media_type == kMediaTypeVideo) {
       content = ParseContentDescription<VideoContentDescription>(
           message, cricket::MEDIA_TYPE_VIDEO, mline_index, protocol,
           payload_types, pos, &content_name, &bundle_only,
           &section_msid_signaling, &transport, candidates, error);
-    } else if (HasAttribute(line, kMediaTypeAudio)) {
+    } else if (media_type == kMediaTypeAudio) {
       content = ParseContentDescription<AudioContentDescription>(
           message, cricket::MEDIA_TYPE_AUDIO, mline_index, protocol,
           payload_types, pos, &content_name, &bundle_only,
           &section_msid_signaling, &transport, candidates, error);
-    } else if (HasAttribute(line, kMediaTypeData)) {
+    } else if (media_type == kMediaTypeData) {
       if (cricket::IsDtlsSctp(protocol)) {
         // The draft-03 format is:
         // m=application <port> DTLS/SCTP <sctp-port>...

@@ -558,6 +558,47 @@ VideoStreamAdapter::GetAdaptationDownStep(
   }
 }
 
+Adaptation VideoStreamAdapter::GetAdaptDownResolution() {
+  RTC_DCHECK_RUN_ON(&sequence_checker_);
+  VideoStreamInputState input_state = input_state_provider_->InputState();
+  switch (degradation_preference_) {
+    case DegradationPreference::DISABLED:
+    case DegradationPreference::MAINTAIN_RESOLUTION: {
+      return Adaptation(adaptation_validation_id_,
+                        Adaptation::Status::kLimitReached, input_state, false);
+    }
+    case DegradationPreference::MAINTAIN_FRAMERATE:
+      return GetAdaptationDown();
+    case DegradationPreference::BALANCED: {
+      // Adapt twice if the first adaptation did not decrease resolution.
+      Adaptation first_adaptation = RestrictionsOrStateToAdaptation(
+          GetAdaptationDownStep(input_state), input_state);
+      if (first_adaptation.status() != Adaptation::Status::kValid) {
+        return first_adaptation;
+      }
+      if (first_adaptation.counters().resolution_adaptations >
+          counters_.resolution_adaptations) {
+        return first_adaptation;
+      }
+      // We didn't decrease resolution so force it; amend a resolution resuction
+      // to the existing framerate reduction in |first_adaptation|.
+      int target_pixels =
+          GetLowerResolutionThan(input_state.frame_size_pixels().value());
+      if (!source_restrictor_->CanDecreaseResolutionTo(
+              target_pixels, first_adaptation.restrictions())) {
+        return first_adaptation;
+      }
+      return RestrictionsOrStateToAdaptation(
+          source_restrictor_->DecreaseResolutionTo(
+              target_pixels, first_adaptation.restrictions(),
+              first_adaptation.counters()),
+          input_state);
+    }
+    default:
+      RTC_NOTREACHED();
+  }
+}
+
 void VideoStreamAdapter::ApplyAdaptation(
     const Adaptation& adaptation,
     rtc::scoped_refptr<Resource> resource) {

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb3ba899_2963f073",
+        "filename": "call/adaptation/broadcast_resource_listener.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-01T11:55:21Z",
+      "side": 1,
+      "message": "I guess this class will be removed when the ResourceAdaptationProcessor moves up to the call level from the VideoStreamEncoder?",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "45eb4476209806be709e391f96056a64c74f48f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0eabf4ec_43749f83",
+        "filename": "call/adaptation/broadcast_resource_listener.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-01T11:55:21Z",
+      "side": 1,
+      "message": "I think it would be good to have a remove method as well to clean these up. It looks to me like these AdapterResources will live forever.",
+      "range": {
+        "startLine": 39,
+        "startChar": 31,
+        "endLine": 39,
+        "endChar": 52
+      },
+      "revId": "45eb4476209806be709e391f96056a64c74f48f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

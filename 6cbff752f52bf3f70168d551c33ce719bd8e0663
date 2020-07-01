@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd885c80_cbb53b24",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-01T15:21:59Z",
+      "side": 0,
+      "message": "In the reland, can we move this to //third_party/usrsctp?\n\nWe should\u0027t need include_dirs if configs are configured correctly and this workaround is present in two places in this file so we should probably deduplicate it.",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 668,
+        "endChar": 7
+      },
+      "revId": "6cbff752f52bf3f70168d551c33ce719bd8e0663",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

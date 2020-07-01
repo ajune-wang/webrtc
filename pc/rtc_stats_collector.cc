@@ -1692,8 +1692,8 @@ void RTCStatsCollector::ProduceVideoRTPStreamStats_n(
        track_media_info_map.video_media_info()->senders) {
     for (const auto& report_block_data : video_sender_info.report_block_datas) {
       report->AddStats(ProduceRemoteInboundRtpStreamStatsFromReportBlockData(
-          report_block_data, cricket::MEDIA_TYPE_VIDEO,
-          std::move(video_outbound_rtps), *report));
+          report_block_data, cricket::MEDIA_TYPE_VIDEO, video_outbound_rtps,
+          *report));
     }
   }
 }

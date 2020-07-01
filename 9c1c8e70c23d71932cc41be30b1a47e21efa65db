@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02489109_84579390",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2020-07-01T11:26:46Z",
+      "side": 1,
+      "message": "this paren is not necessary",
+      "range": {
+        "startLine": 327,
+        "startChar": 7,
+        "endLine": 327,
+        "endChar": 8
+      },
+      "revId": "9c1c8e70c23d71932cc41be30b1a47e21efa65db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

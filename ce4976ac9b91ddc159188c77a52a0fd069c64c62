@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5284a426_297ee8ee",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1696,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2020-07-01T12:29:26Z",
+      "side": 1,
+      "message": "The move inside a loop looks really strange as for subsequent iterations the video_outbound_rtps would be empty, but maybe I am missing something, and that was intentional.",
+      "revId": "ce4976ac9b91ddc159188c77a52a0fd069c64c62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

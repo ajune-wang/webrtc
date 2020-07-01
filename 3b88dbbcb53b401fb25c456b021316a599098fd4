@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93432b86_4a60a79e",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-01T19:53:51Z",
+      "side": 1,
+      "message": "usrsctp was already including its include path in its public_configs, but it was including usrsctplib directly rather than the parent directory. Also, I couldn\u0027t include the full third_party path since it differs inside and outside chromium (chromium includes an extra \"usrsctplib\"). So is this okay?",
+      "revId": "3b88dbbcb53b401fb25c456b021316a599098fd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

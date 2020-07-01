@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ad69405_bffc3273",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-07-01T08:21:18Z",
+      "side": 1,
+      "message": "\"Build: Disable the iLBC audio codec by default\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "a96460734f8dcf4c25d8010f80a8630d39d1e866",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

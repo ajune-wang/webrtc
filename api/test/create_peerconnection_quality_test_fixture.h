@@ -15,6 +15,7 @@
 
 #include "api/test/audio_quality_analyzer_interface.h"
 #include "api/test/peerconnection_quality_test_fixture.h"
+#include "api/test/time_controller.h"
 #include "api/test/video_quality_analyzer_interface.h"
 
 namespace webrtc {
@@ -29,6 +30,13 @@ namespace webrtc_pc_e2e {
 std::unique_ptr<PeerConnectionE2EQualityTestFixture>
 CreatePeerConnectionE2EQualityTestFixture(
     std::string test_case_name,
+    std::unique_ptr<AudioQualityAnalyzerInterface> audio_quality_analyzer,
+    std::unique_ptr<VideoQualityAnalyzerInterface> video_quality_analyzer);
+
+std::unique_ptr<PeerConnectionE2EQualityTestFixture>
+CreatePeerConnectionE2EQualityTestFixture(
+    std::string test_case_name,
+    TimeController* time_controller,
     std::unique_ptr<AudioQualityAnalyzerInterface> audio_quality_analyzer,
     std::unique_ptr<VideoQualityAnalyzerInterface> video_quality_analyzer);
 

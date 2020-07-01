@@ -27,6 +27,7 @@ group("examples") {
       ":AppRTCMobile",
       ":AppRTCMobile_test_apk",
       ":libwebrtc_unity",
+      "androidvoip",
     ]
 
     # TODO(sakal): We include some code from the tests. Remove this dependency
@@ -180,10 +181,10 @@ if (is_android) {
       "androidapp/res/layout/fragment_call.xml",
       "androidapp/res/layout/fragment_hud.xml",
       "androidapp/res/menu/connect_menu.xml",
-      "androidapp/res/values/arrays.xml",
-      "androidapp/res/values/strings.xml",
       "androidapp/res/values-v17/styles.xml",
       "androidapp/res/values-v21/styles.xml",
+      "androidapp/res/values/arrays.xml",
+      "androidapp/res/values/strings.xml",
       "androidapp/res/xml/preferences.xml",
     ]
     custom_package = "org.appspot.apprtc"

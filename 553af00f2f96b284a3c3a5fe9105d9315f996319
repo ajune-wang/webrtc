@@ -16,6 +16,24 @@
       "revId": "553af00f2f96b284a3c3a5fe9105d9315f996319",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b376311d_0ec1304f",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-01T11:56:08Z",
+      "side": 1,
+      "message": "Yeah, could be done there, though I think it should be done here because its a more general concept. My best idea now is to have a class tracking the resource adaptations.",
+      "parentUuid": "9a1bc8ba_2a249b3d",
+      "revId": "553af00f2f96b284a3c3a5fe9105d9315f996319",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

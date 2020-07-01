@@ -88,6 +88,52 @@
     },
     {
       "key": {
+        "uuid": "0d4e16df_7e11c5b4",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-01T20:22:07Z",
+      "side": 1,
+      "message": "You could use Invoke\u003cbool\u003e to return directly the result of the invocation.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 84,
+        "endChar": 13
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3942a56a_2dd54b88",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-01T20:22:07Z",
+      "side": 1,
+      "message": "What would happen if the selected encoder does not match any of supported encoders? Should this function return a boolean and caller handles failure situation.",
+      "range": {
+        "startLine": 115,
+        "startChar": 14,
+        "endLine": 115,
+        "endChar": 28
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ec4c70f_1fe44b2a",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 1
@@ -99,6 +145,29 @@
       "writtenOn": "2020-07-01T18:52:05Z",
       "side": 1,
       "message": "There is a rule about payload type usage. Though this is a demo app, we should follow the rule to demonstrate correctness.\n\nhttps://en.wikipedia.org/wiki/RTP_payload_formats",
+      "range": {
+        "startLine": 119,
+        "startChar": 51,
+        "endLine": 119,
+        "endChar": 52
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44a3d77c_b9d8a104",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-01T20:22:07Z",
+      "side": 1,
+      "message": "Comment literal type for readability: SetSendCodec(channel_, /*payload_type*/ 0, encoder.format)",
       "range": {
         "startLine": 119,
         "startChar": 51,
@@ -265,6 +334,29 @@
         "startChar": 2,
         "endLine": 212,
         "endChar": 5
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10c3e3ec_6cd817b3",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-01T20:22:07Z",
+      "side": 1,
+      "message": "Invoke\u003cReturnType\u003e, multiple occurs.",
+      "range": {
+        "startLine": 218,
+        "startChar": 22,
+        "endLine": 218,
+        "endChar": 34
       },
       "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -587,6 +679,29 @@
         "startChar": 2,
         "endLine": 101,
         "endChar": 61
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "004cd05a_6551292a",
+        "filename": "examples/androidvoip/res/layout/activity_main.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-01T20:22:07Z",
+      "side": 1,
+      "message": "Remove tailing spaces.",
+      "range": {
+        "startLine": 2,
+        "startChar": 11,
+        "endLine": 2,
+        "endChar": 12
       },
       "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9583f37_c246bc34",
+        "filename": "call/adaptation/broadcast_resource_listener.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-07-01T17:11:31Z",
+      "side": 1,
+      "message": "It\u0027s not immediately clear to me why this lock is needed. Is it because VideoSendStreams run on different threads? Can the lock be avoided?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 29
+      },
+      "revId": "926f2dad504e066b808cb11d1914bcfeff45d2fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

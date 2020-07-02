@@ -46,6 +46,30 @@
       "revId": "926f2dad504e066b808cb11d1914bcfeff45d2fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "917a4902_faac8936",
+        "filename": "call/adaptation/broadcast_resource_listener.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-07-02T10:25:30Z",
+      "side": 1,
+      "message": "Followed up offline, this is a temporary solution and will be followed up later to move the processors to call and have a single task queue.",
+      "parentUuid": "bc9bf64b_1736c57d",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 29
+      },
+      "revId": "926f2dad504e066b808cb11d1914bcfeff45d2fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caa5faa9_7d44f617",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-02T09:59:52Z",
+      "side": 1,
+      "message": "Would it be possible to make this GetAdaptDownToTargetResolution(int target_pixels)?\n\nConsidering the use case for this method is \"don\u0027t send frames larger than X in certain circumstances\" I think the method signature should reflect that. And ideally the calling place, instead of doing maybe-adapts for the first five frames or whatever, if the calling place simply jumped to the desired target based on bitrate and encoder configs, I think that would do what is intended, and we could do a single ApplyAdaptation step rather than 0-10 adaptations spread out over 5 method calls.\n\nThe only upside with the old code is that after the first 5 frames we know that this scary part of the code will not get executed again, so if it does something whacky, it would only do so at the start. But I think that if we can adapt to the desired target immediately, then we can change the initial frame dropper counter from an int to a boolean - we only trigger it once?\n\nIn either case, please add a comment what the method is doing.",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c9509f2_1727fc99",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-02T09:59:52Z",
+      "side": 1,
+      "message": "So for example if we had an \"adapt to target resolution\" this method might be implemented as \"while (resolution is above target or limit reached) { adapt down once }\"",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2f17e3d_b792c0b7",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-02T09:59:52Z",
+      "side": 1,
+      "message": "Does this mean that even if a normal \"balanced\" adapt-down would have triggered FPS again, we would trigger resolution instead?",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e9fd621_dcf085d8",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-02T09:59:52Z",
+      "side": 1,
+      "message": "Here or in a follow-up, could we break out initial frame dropper to be a standalone component in video_stream_encoder.cc and have the frame dropper decide whether or not to tell the stream_adapter_ to adapt down?\n\nWith today\u0027s code, VSE asks Manager which asks Initial frame dropper if it should drop the frame, but VSE is also checking its own states like encoder bitrates for a resolution and current target bitrate...",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

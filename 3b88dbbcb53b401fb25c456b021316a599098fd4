@@ -16,6 +16,24 @@
       "revId": "3b88dbbcb53b401fb25c456b021316a599098fd4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1bfec3_212a05b9",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-02T07:40:49Z",
+      "side": 1,
+      "message": "Ah, the different path is unfortunate.\n\nI think we should still use \"\" instead of \u003c\u003e since this is not a system header but we still #include the one from third_party.\n\nAnother option is to keep:\n\n  #include \"usrsctplib/usrsctp.h\"\n\nAnd let clients set the correct include_dir (-I compiler flag) to the folder that contains the usrsctplib, so that \"usrsctplib/usrsctp.h\" will be found and we keep a folder in the #include, which is always good for dependencies.",
+      "parentUuid": "93432b86_4a60a79e",
+      "revId": "3b88dbbcb53b401fb25c456b021316a599098fd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

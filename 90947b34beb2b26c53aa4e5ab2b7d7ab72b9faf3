@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0fbfc9d_d7a2ab8b",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l2t1h.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-07-02T13:16:47Z",
+      "side": 1,
+      "message": "2/3 scaling?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "90947b34beb2b26c53aa4e5ab2b7d7ab72b9faf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2720107_ae08bca7",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-07-02T13:16:47Z",
+      "side": 1,
+      "message": "Is the scaling factor relative to the previous layer of the top layer?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "90947b34beb2b26c53aa4e5ab2b7d7ab72b9faf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

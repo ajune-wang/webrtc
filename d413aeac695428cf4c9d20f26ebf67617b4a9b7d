@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aa053ed_e3d77e2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-07-02T10:32:27Z",
+      "side": 1,
+      "message": "Link to previous CL?",
+      "revId": "d413aeac695428cf4c9d20f26ebf67617b4a9b7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4f3d3f6_2595a2ce",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-07-02T10:32:27Z",
+      "side": 1,
+      "message": "Meaning of the return value? Maybe add a comment. (More cases below.)",
+      "revId": "d413aeac695428cf4c9d20f26ebf67617b4a9b7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be734206_83749075",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-07-02T10:32:27Z",
+      "side": 1,
+      "message": "What does the return value mean? What are the flags?",
+      "revId": "d413aeac695428cf4c9d20f26ebf67617b4a9b7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

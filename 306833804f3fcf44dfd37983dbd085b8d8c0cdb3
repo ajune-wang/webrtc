@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1786a96e_75e7ff6f",
+        "filename": "rtc_base/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-02T12:48:46Z",
+      "side": 1,
+      "message": "nit: DisallowInvokes(), DisallowAllInvokes() or DisallowInvoke().\n\nGrammatically speaking \u0027any\u0027 could be interpreted as \"not all\". There\u0027s therefore a subtle difference between \"don\u0027t allow any\" vs \"disallow any\".",
+      "revId": "306833804f3fcf44dfd37983dbd085b8d8c0cdb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

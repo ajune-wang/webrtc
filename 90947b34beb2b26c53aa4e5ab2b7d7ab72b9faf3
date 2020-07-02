@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19bb400d_148968d5",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l2t1h.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-02T13:27:54Z",
+      "side": 1,
+      "message": "yes, 1.5 scaling\nhttps://w3c.github.io/webrtc-svc/#scalabilitymodes*\n\nin av1 two scalings are 2:1 (num\u003d1, den \u003d 2) and 1.5:1 (num\u003d2, den\u003d3)\n\nadded small comment.",
+      "parentUuid": "a0fbfc9d_d7a2ab8b",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "90947b34beb2b26c53aa4e5ab2b7d7ab72b9faf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2720107_ae08bca7",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-07-02T13:16:47Z",
       "side": 1,
       "message": "Is the scaling factor relative to the previous layer of the top layer?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 35
+      },
+      "revId": "90947b34beb2b26c53aa4e5ab2b7d7ab72b9faf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b197d8f_c3a81471",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_l3t3.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-02T13:27:54Z",
+      "side": 1,
+      "message": "to the original frame, i.e. to the top layer.\nThere is a comment next to declaration of StreamLayersConfig::scaling_factory_* members.",
+      "parentUuid": "a2720107_ae08bca7",
       "range": {
         "startLine": 88,
         "startChar": 0,

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55e75170_060e3b3a",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-02T16:46:53Z",
+      "side": 1,
+      "message": "expecting this to become a bit more complicated in the future. In particular \"is this opus and a non-silk packet? Then return 0\" to avoid redundancy of large CELT packets.",
+      "revId": "3c2bdebc461cf69c9a0ca9024dd4b47b181a4390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "543686ab_b3c21768",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-02T16:46:53Z",
+      "side": 1,
+      "message": "it would be very easy to put a condition (field trial, loss percentage) on this to make it produce red with distance 1.",
+      "revId": "3c2bdebc461cf69c9a0ca9024dd4b47b181a4390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

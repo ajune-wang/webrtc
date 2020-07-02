@@ -337,7 +337,8 @@ TEST(RtpPayloadParamsTest, SetsGenericFromGenericFrameInfo) {
       GenericFrameInfo::Builder().S(1).T(0).Dtis("S").Build();
   codec_info.generic_frame_info->encoder_buffers = {
       {/*id=*/0, /*referenced=*/false, /*updated=*/true}};
-  codec_info.generic_frame_info->part_of_chain = {true, false};
+  codec_info.generic_frame_info->part_of_chain.set(0);
+  codec_info.generic_frame_info->part_of_chain.reset(1);
   RTPVideoHeader key_header =
       params.GetRtpVideoHeader(encoded_image, &codec_info, /*frame_id=*/1);
 
@@ -355,7 +356,7 @@ TEST(RtpPayloadParamsTest, SetsGenericFromGenericFrameInfo) {
       GenericFrameInfo::Builder().S(2).T(3).Dtis("D").Build();
   codec_info.generic_frame_info->encoder_buffers = {
       {/*id=*/0, /*referenced=*/true, /*updated=*/false}};
-  codec_info.generic_frame_info->part_of_chain = {false, false};
+  codec_info.generic_frame_info->part_of_chain.reset();
   RTPVideoHeader delta_header =
       params.GetRtpVideoHeader(encoded_image, &codec_info, /*frame_id=*/3);
 

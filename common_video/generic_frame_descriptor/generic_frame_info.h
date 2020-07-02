@@ -13,7 +13,6 @@
 
 #include <bitset>
 #include <initializer_list>
-#include <vector>
 
 #include "absl/container/inlined_vector.h"
 #include "absl/strings/string_view.h"
@@ -40,7 +39,7 @@ struct GenericFrameInfo : public FrameDependencyTemplate {
   ~GenericFrameInfo();
 
   absl::InlinedVector<CodecBufferUsage, kMaxEncoderBuffers> encoder_buffers;
-  std::vector<bool> part_of_chain;
+  std::bitset<32> part_of_chain;
   std::bitset<32> active_decode_targets = ~uint32_t{0};
 };
 

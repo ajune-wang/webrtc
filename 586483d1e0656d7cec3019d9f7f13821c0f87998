@@ -25,6 +25,46 @@
     },
     {
       "key": {
+        "uuid": "94190eb5_d2345ef9",
+        "filename": "examples/androidvoip/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-02T15:03:11Z",
+      "side": 1,
+      "message": "Add the copyright header?\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/examples/androidtests/AndroidManifest.xml",
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "458d0c33_54a4844a",
+        "filename": "examples/androidvoip/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-02T15:03:11Z",
+      "side": 1,
+      "message": "Should we use 21?\n\nWe recently moved from 19 to 21.",
+      "range": {
+        "startLine": 5,
+        "startChar": 35,
+        "endLine": 5,
+        "endChar": 37
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07f100e4_a7760d41",
         "filename": "examples/androidvoip/AndroidManifest.xml",
         "patchSetId": 1
@@ -36,6 +76,46 @@
       "writtenOn": "2020-07-01T18:52:05Z",
       "side": 1,
       "message": "Is this tab? We should remove unnecessary whitespaces.",
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10550bf3_1d3dcf02",
+        "filename": "examples/androidvoip/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-02T15:03:11Z",
+      "side": 1,
+      "message": "Also here https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/call/BUILD.gn;l\u003d1-7;drc\u003d29444c65244ad11893232965a9d0b40a7d22c208.",
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a65c0cdf_d1675653",
+        "filename": "examples/androidvoip/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-02T15:03:11Z",
+      "side": 1,
+      "message": "21",
+      "range": {
+        "startLine": 8,
+        "startChar": 22,
+        "endLine": 8,
+        "endChar": 24
+      },
       "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

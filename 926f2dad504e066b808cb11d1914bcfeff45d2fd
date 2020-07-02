@@ -22,6 +22,30 @@
       "revId": "926f2dad504e066b808cb11d1914bcfeff45d2fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc9bf64b_1736c57d",
+        "filename": "call/adaptation/broadcast_resource_listener.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-02T09:02:37Z",
+      "side": 1,
+      "message": "A ResourceListener\u0027s OnResourceUsageStateMeasured() can be invoked on any thread. This is because it is triggered by a Resource, which is implemented externally.\n\nWhen a ResourceAdaptationProcessor is hooked up as the listener to a resource, it takes care of posting that signal to the resource processor\u0027s task queue to react to it, so that all the adaptation logic happening as a result is still on a single sequence. This was deemed a better solution than exposing webrtc::TaskQueueBase to the public API and letting the Resource handle queuing of tasks before invoking the ResourceListener and having the internal engine tell the external Resource when to stop using the queue (which would then also involve locks).\n\nThe TL;DR is no we need a lock because OnResourceUsageStateMeasured() and SetResourceListener() are expected to be called on different threads.",
+      "parentUuid": "b9583f37_c246bc34",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 29
+      },
+      "revId": "926f2dad504e066b808cb11d1914bcfeff45d2fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

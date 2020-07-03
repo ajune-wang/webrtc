@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "befff8e7_e52d4bd2",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-03T10:01:28Z",
+      "side": 1,
+      "message": "This can be done in a later patch. I will create a bug encapsulating these comments. https://crbug.com/webrtc/11753",
+      "parentUuid": "caa5faa9_7d44f617",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c9509f2_1727fc99",
         "filename": "call/adaptation/video_stream_adapter.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41b6adb9_0ef7a66e",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-03T10:01:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4c9509f2_1727fc99",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f07db072_bf8b8cdd",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-03T10:01:28Z",
+      "side": 1,
+      "message": "Yes, and this was the same logic as today as far as I understand. However I don\u0027t think that there is any case where this could happen because BALANCED can never have any adaptations when initial frame dropping is active, since we always reset the settings.",
+      "parentUuid": "d2f17e3d_b792c0b7",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e9fd621_dcf085d8",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03be3444_e05b535b",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-03T10:01:28Z",
+      "side": 1,
+      "message": "Added details to the bug.",
+      "parentUuid": "6e9fd621_dcf085d8",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

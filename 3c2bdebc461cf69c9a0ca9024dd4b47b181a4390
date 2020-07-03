@@ -33,6 +33,93 @@
       "revId": "3c2bdebc461cf69c9a0ca9024dd4b47b181a4390",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1361e2cf_a9daf6cc",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-07-03T06:32:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "543686ab_b3c21768",
+      "revId": "3c2bdebc461cf69c9a0ca9024dd4b47b181a4390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "515d1fee_4390509f",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-07-03T06:32:57Z",
+      "side": 1,
+      "message": "Hmm. I wonder if it\u0027s time to generalize this into a sequence container of some sort, like an std::queue, std::deque or std::list. The value type could be a pair consisting of one rtc::Buffer and one EncodedInfoLeaf.\n\nI think this could make your implementation in the cc file more generic.\n\nOr is this premature optimization? WDYT?",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "3c2bdebc461cf69c9a0ca9024dd4b47b181a4390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "208cf665_0b047e45",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-07-03T06:32:57Z",
+      "side": 1,
+      "message": "I think this should be \u0027tertiary\u0027 rather than \u0027ternary\u0027. See https://en.wiktionary.org/wiki/Appendix:English_ordinal_numbers.",
+      "range": {
+        "startLine": 79,
+        "startChar": 14,
+        "endLine": 79,
+        "endChar": 21
+      },
+      "revId": "3c2bdebc461cf69c9a0ca9024dd4b47b181a4390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "640dc937_1d779389",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-07-03T06:32:57Z",
+      "side": 1,
+      "message": "And here.",
+      "range": {
+        "startLine": 80,
+        "startChar": 18,
+        "endLine": 80,
+        "endChar": 25
+      },
+      "revId": "3c2bdebc461cf69c9a0ca9024dd4b47b181a4390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

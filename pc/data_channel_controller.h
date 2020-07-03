@@ -117,9 +117,9 @@ class DataChannelController : public DataChannelProviderInterface,
  private:
   // Parses and handles open messages.  Returns true if the message is an open
   // message, false otherwise.
-  bool HandleOpenMessage_s(const cricket::ReceiveDataParams& params,
+  bool HandleOpenMessage_n(const cricket::ReceiveDataParams& params,
                            const rtc::CopyOnWriteBuffer& buffer)
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(network_thread());
   // Called when a valid data channel OPEN message is received.
   void OnDataChannelOpenMessage(const std::string& label,
                                 const InternalDataChannelInit& config)
@@ -164,8 +164,8 @@ class DataChannelController : public DataChannelProviderInterface,
   DataChannelTransportInterface* data_channel_transport_ = nullptr;
 
   // Cached value of whether the data channel transport is ready to send.
-  bool data_channel_transport_ready_to_send_
-      RTC_GUARDED_BY(signaling_thread()) = false;
+  bool data_channel_transport_ready_to_send_ RTC_GUARDED_BY(network_thread()) =
+      false;
 
   // |rtp_data_channel_| is used if in RTP data channel mode,
   // |data_channel_transport_| when using SCTP.
@@ -184,19 +184,16 @@ class DataChannelController : public DataChannelProviderInterface,
       RTC_GUARDED_BY(signaling_thread());
 
   // Signals from |data_channel_transport_|.  These are invoked on the
-  // signaling thread.
-  // TODO(bugs.webrtc.org/11547): These '_s' signals likely all belong on the
   // network thread.
-  sigslot::signal1<bool> SignalDataChannelTransportWritable_s
-      RTC_GUARDED_BY(signaling_thread());
+  sigslot::signal1<bool> SignalDataChannelTransportWritable_n
+      RTC_GUARDED_BY(network_thread());
   sigslot::signal2<const cricket::ReceiveDataParams&,
                    const rtc::CopyOnWriteBuffer&>
-      SignalDataChannelTransportReceivedData_s
-          RTC_GUARDED_BY(signaling_thread());
-  sigslot::signal1<int> SignalDataChannelTransportChannelClosing_s
-      RTC_GUARDED_BY(signaling_thread());
-  sigslot::signal1<int> SignalDataChannelTransportChannelClosed_s
-      RTC_GUARDED_BY(signaling_thread());
+      SignalDataChannelTransportReceivedData_n RTC_GUARDED_BY(network_thread());
+  sigslot::signal1<int> SignalDataChannelTransportChannelClosing_n
+      RTC_GUARDED_BY(network_thread());
+  sigslot::signal1<int> SignalDataChannelTransportChannelClosed_n
+      RTC_GUARDED_BY(network_thread());
 
   sigslot::signal1<DataChannel*> SignalDataChannelCreated_
       RTC_GUARDED_BY(signaling_thread());

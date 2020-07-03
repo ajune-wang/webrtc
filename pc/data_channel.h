@@ -23,6 +23,7 @@
 #include "media/base/media_channel.h"
 #include "pc/channel.h"
 #include "rtc_base/async_invoker.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace webrtc {
@@ -200,9 +201,10 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
   void OnDataReceived(const cricket::ReceiveDataParams& params,
                       const rtc::CopyOnWriteBuffer& payload);
 
-  /********************************************
-   * The following methods are for SCTP only. *
-   ********************************************/
+  /*******************************************************
+   * The following methods are for SCTP only.            *
+   * They all expect to be called on the network thread. *
+   *******************************************************/
 
   // Sets the SCTP sid and adds to transport layer if not set yet. Should only
   // be called once.
@@ -315,32 +317,40 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
   const std::string label_;
   const InternalDataChannelInit config_;
   DataChannelObserver* observer_ RTC_GUARDED_BY(signaling_thread_);
-  DataState state_ RTC_GUARDED_BY(signaling_thread_);
-  RTCError error_ RTC_GUARDED_BY(signaling_thread_);
-  uint32_t messages_sent_ RTC_GUARDED_BY(signaling_thread_);
-  uint64_t bytes_sent_ RTC_GUARDED_BY(signaling_thread_);
-  uint32_t messages_received_ RTC_GUARDED_BY(signaling_thread_);
-  uint64_t bytes_received_ RTC_GUARDED_BY(signaling_thread_);
+  // State as seen by observer, updated on signaling thread. Lags behind
+  // internal_state_. Needed so that when transitioning to closed state,
+  // the observer's OnStateChange callback is invoked with state() returning
+  // kClosing, then again with kClosed. If the internal state were returned
+  // instead, it's possible the state could have already transitioned to
+  // kClosed by the time the observer gets the callback.
+  DataState external_state_ RTC_GUARDED_BY(signaling_thread_);
+  DataState internal_state_ RTC_GUARDED_BY(network_thread_);
+  RTCError error_ RTC_GUARDED_BY(network_thread_);
+  uint32_t messages_sent_ RTC_GUARDED_BY(network_thread_);
+  uint64_t bytes_sent_ RTC_GUARDED_BY(network_thread_);
+  uint32_t messages_received_ RTC_GUARDED_BY(network_thread_);
+  uint64_t bytes_received_ RTC_GUARDED_BY(network_thread_);
   // Number of bytes of data that have been queued using Send(). Increased
   // before each transport send and decreased after each successful send.
-  uint64_t buffered_amount_ RTC_GUARDED_BY(signaling_thread_);
+  uint64_t buffered_amount_ RTC_GUARDED_BY(network_thread_);
   const cricket::DataChannelType data_channel_type_;
   DataChannelProviderInterface* const provider_;
-  HandshakeState handshake_state_ RTC_GUARDED_BY(signaling_thread_);
-  bool connected_to_provider_ RTC_GUARDED_BY(signaling_thread_);
-  bool send_ssrc_set_ RTC_GUARDED_BY(signaling_thread_);
-  bool receive_ssrc_set_ RTC_GUARDED_BY(signaling_thread_);
-  bool writable_ RTC_GUARDED_BY(signaling_thread_);
+  HandshakeState handshake_state_ RTC_GUARDED_BY(network_thread_);
+  bool connected_to_provider_ RTC_GUARDED_BY(network_thread_);
+  bool send_ssrc_set_ RTC_GUARDED_BY(network_thread_);
+  bool receive_ssrc_set_ RTC_GUARDED_BY(network_thread_);
+  bool writable_ RTC_GUARDED_BY(network_thread_);
   // Did we already start the graceful SCTP closing procedure?
-  bool started_closing_procedure_ RTC_GUARDED_BY(signaling_thread_) = false;
-  uint32_t send_ssrc_ RTC_GUARDED_BY(signaling_thread_);
-  uint32_t receive_ssrc_ RTC_GUARDED_BY(signaling_thread_);
+  bool started_closing_procedure_ RTC_GUARDED_BY(network_thread_) = false;
+  uint32_t send_ssrc_ RTC_GUARDED_BY(network_thread_);
+  uint32_t receive_ssrc_ RTC_GUARDED_BY(network_thread_);
   // Control messages that always have to get sent out before any queued
   // data.
-  PacketQueue queued_control_data_ RTC_GUARDED_BY(signaling_thread_);
-  PacketQueue queued_received_data_ RTC_GUARDED_BY(signaling_thread_);
-  PacketQueue queued_send_data_ RTC_GUARDED_BY(signaling_thread_);
-  rtc::AsyncInvoker invoker_ RTC_GUARDED_BY(signaling_thread_);
+  PacketQueue queued_control_data_ RTC_GUARDED_BY(network_thread_);
+  rtc::CriticalSection received_data_crit_;
+  PacketQueue queued_received_data_ RTC_GUARDED_BY(received_data_crit_);
+  PacketQueue queued_send_data_ RTC_GUARDED_BY(network_thread_);
+  rtc::AsyncInvoker invoker_ RTC_GUARDED_BY(network_thread_);
 };
 
 }  // namespace webrtc

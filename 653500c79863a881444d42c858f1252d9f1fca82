@@ -16,6 +16,23 @@
       "revId": "653500c79863a881444d42c858f1252d9f1fca82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0feca4b_769b8d34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-03T13:14:11Z",
+      "side": 1,
+      "message": "checked \"downstream\" and still works so ready to go :-)",
+      "revId": "653500c79863a881444d42c858f1252d9f1fca82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

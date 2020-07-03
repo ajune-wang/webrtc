@@ -144,6 +144,8 @@ class VideoStreamAdapter {
   Adaptation GetAdaptationDown();
   Adaptation GetAdaptationTo(const VideoAdaptationCounters& counters,
                              const VideoSourceRestrictions& restrictions);
+  // Used for initial frame dropping
+  Adaptation GetAdaptDownResolution();
 
   // Updates source_restrictions() the Adaptation.
   void ApplyAdaptation(const Adaptation& adaptation,
@@ -167,6 +169,9 @@ class VideoStreamAdapter {
       const VideoStreamInputState& input_state) const
       RTC_RUN_ON(&sequence_checker_);
   RestrictionsOrState GetAdaptationDownStep(
+      const VideoStreamInputState& input_state) const
+      RTC_RUN_ON(&sequence_checker_);
+  RestrictionsOrState GetAdaptDownResolutionStepForBalanced(
       const VideoStreamInputState& input_state) const
       RTC_RUN_ON(&sequence_checker_);
 

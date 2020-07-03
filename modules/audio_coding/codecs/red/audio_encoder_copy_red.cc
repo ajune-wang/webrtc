@@ -56,6 +56,17 @@ int AudioEncoderCopyRed::GetTargetBitrate() const {
   return speech_encoder_->GetTargetBitrate();
 }
 
+size_t AudioEncoderCopyRed::CalculateHeaderLength() const {
+  size_t header_size = 1;
+  if (secondary_info_.encoded_bytes > 0) {
+    header_size += 4;
+  }
+  if (tertiary_info_.encoded_bytes > 0) {
+    header_size += 4;
+  }
+  return header_size > 1 ? header_size : 0;
+}
+
 AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
@@ -63,14 +74,22 @@ AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
   // Allocate room for RFC 2198 header if there is redundant data.
   // Otherwise this will send the primary payload type without
   // wrapping in RED.
-  const size_t header_length_bytes = secondary_info_.encoded_bytes > 0 ? 5 : 0;
-  size_t secondary_length_bytes = 0;
+  const size_t header_length_bytes = CalculateHeaderLength();
+  size_t redundancy_length_bytes = 0;
 
-  if (secondary_info_.encoded_bytes > 0) {
-    encoded->SetSize(header_length_bytes);
-    encoded->AppendData(secondary_encoded_);
-    secondary_length_bytes = secondary_info_.encoded_bytes;
+  encoded->SetSize(header_length_bytes);
+  if (tertiary_info_.encoded_bytes > 0) {
+    encoded->AppendData(tertiary_encoded_);
+    redundancy_length_bytes += tertiary_info_.encoded_bytes;
   }
+
+  const size_t secondary_offset = encoded->size();
+  if (secondary_info_.encoded_bytes > 0) {
+    encoded->AppendData(secondary_encoded_);
+    redundancy_length_bytes += secondary_info_.encoded_bytes;
+  }
+
+  const size_t primary_offset = encoded->size();
   EncodedInfo info = speech_encoder_->Encode(rtp_timestamp, audio, encoded);
 
   if (info.encoded_bytes == 0) {
@@ -79,20 +98,36 @@ AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
   }
 
   // Actually construct the RFC 2198 header.
+  size_t offset = 0;
+  if (tertiary_info_.encoded_bytes > 0) {
+    const uint32_t timestamp_delta =
+        info.encoded_timestamp - tertiary_info_.encoded_timestamp;
+
+    encoded->data()[offset] = tertiary_info_.payload_type | 0x80;
+    RTC_DCHECK_LT(tertiary_info_.encoded_bytes, 1 << 10);
+    rtc::SetBE16(static_cast<uint8_t*>(encoded->data()) + offset + 1,
+                 (timestamp_delta << 2) | (tertiary_info_.encoded_bytes >> 8));
+    encoded->data()[offset + 3] = tertiary_info_.encoded_bytes & 0xff;
+    offset += 4;
+  }
   if (secondary_info_.encoded_bytes > 0) {
     const uint32_t timestamp_delta =
         info.encoded_timestamp - secondary_info_.encoded_timestamp;
 
-    encoded->data()[0] = secondary_info_.payload_type | 0x80;
+    encoded->data()[offset] = secondary_info_.payload_type | 0x80;
     RTC_DCHECK_LT(secondary_info_.encoded_bytes, 1 << 10);
-    rtc::SetBE16(static_cast<uint8_t*>(encoded->data()) + 1,
+    rtc::SetBE16(static_cast<uint8_t*>(encoded->data()) + offset + 1,
                  (timestamp_delta << 2) | (secondary_info_.encoded_bytes >> 8));
-    encoded->data()[3] = secondary_info_.encoded_bytes & 0xff;
-    encoded->data()[4] = info.payload_type;
+    encoded->data()[offset + 3] = secondary_info_.encoded_bytes & 0xff;
+    offset += 4;
+  }
+  if (header_length_bytes > 0) {
+    RTC_DCHECK_EQ(offset, header_length_bytes - 1);
+    encoded->data()[offset] = info.payload_type;
   }
 
   RTC_CHECK(info.redundant.empty()) << "Cannot use nested redundant encoders.";
-  RTC_DCHECK_EQ(encoded->size() - header_length_bytes - secondary_length_bytes,
+  RTC_DCHECK_EQ(encoded->size() - header_length_bytes - redundancy_length_bytes,
                 info.encoded_bytes);
 
   // |info| will be implicitly cast to an EncodedInfoLeaf struct, effectively
@@ -104,10 +139,20 @@ AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
     info.redundant.push_back(secondary_info_);
     RTC_DCHECK_EQ(info.redundant.size(), 2);
   }
+  if (tertiary_info_.encoded_bytes > 0) {
+    info.redundant.push_back(tertiary_info_);
+    RTC_DCHECK_EQ(info.redundant.size(),
+                  2 + (secondary_info_.encoded_bytes > 0 ? 1 : 0));
+  }
+
+  // Save secondary to tertiary.
+  tertiary_encoded_.SetData(&encoded->data()[secondary_offset],
+                           secondary_info_.encoded_bytes);
+  tertiary_info_ = secondary_info_;
+
   // Save primary to secondary.
-  secondary_encoded_.SetData(
-      &encoded->data()[header_length_bytes + secondary_info_.encoded_bytes],
-      info.encoded_bytes);
+  secondary_encoded_.SetData(&encoded->data()[primary_offset],
+                             info.encoded_bytes);
   secondary_info_ = info;
   RTC_DCHECK_EQ(info.speech, info.redundant[0].speech);
 

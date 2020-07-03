@@ -14,8 +14,8 @@
 #include <utility>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/match.h"
 #include "media/engine/webrtc_voice_engine.h"
-#include "system_wrappers/include/field_trial.h"
 
 #ifdef HAVE_WEBRTC_VIDEO
 #include "media/engine/webrtc_video_engine.h"
@@ -32,11 +32,11 @@ std::unique_ptr<MediaEngineInterface> CreateMediaEngine(
       std::move(dependencies.audio_encoder_factory),
       std::move(dependencies.audio_decoder_factory),
       std::move(dependencies.audio_mixer),
-      std::move(dependencies.audio_processing));
+      std::move(dependencies.audio_processing), *dependencies.trials);
 #ifdef HAVE_WEBRTC_VIDEO
   auto video_engine = std::make_unique<WebRtcVideoEngine>(
       std::move(dependencies.video_encoder_factory),
-      std::move(dependencies.video_decoder_factory));
+      std::move(dependencies.video_decoder_factory), *dependencies.trials);
 #else
   auto video_engine = std::make_unique<NullWebRtcVideoEngine>();
 #endif
@@ -87,7 +87,8 @@ bool ValidateRtpExtensions(
 std::vector<webrtc::RtpExtension> FilterRtpExtensions(
     const std::vector<webrtc::RtpExtension>& extensions,
     bool (*supported)(absl::string_view),
-    bool filter_redundant_extensions) {
+    bool filter_redundant_extensions,
+    const webrtc::WebRtcKeyValueConfig& trials) {
   RTC_DCHECK(ValidateRtpExtensions(extensions));
   RTC_DCHECK(supported);
   std::vector<webrtc::RtpExtension> result;
@@ -121,7 +122,8 @@ std::vector<webrtc::RtpExtension> FilterRtpExtensions(
     result.erase(it, result.end());
 
     // Keep just the highest priority extension of any in the following lists.
-    if (webrtc::field_trial::IsEnabled("WebRTC-FilterAbsSendTimeExtension")) {
+    if (absl::StartsWith(trials.Lookup("WebRTC-FilterAbsSendTimeExtension"),
+                         "Enabled")) {
       static const char* const kBweExtensionPriorities[] = {
           webrtc::RtpExtension::kTransportSequenceNumberUri,
           webrtc::RtpExtension::kAbsSendTimeUri,

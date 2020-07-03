@@ -266,6 +266,10 @@ Call::Stats DegradedCall::GetStats() const {
   return call_->GetStats();
 }
 
+const WebRtcKeyValueConfig& DegradedCall::Trials() const {
+  return call_->Trials();
+}
+
 void DegradedCall::SignalChannelNetworkState(MediaType media,
                                              NetworkState state) {
   call_->SignalChannelNetworkState(media, state);

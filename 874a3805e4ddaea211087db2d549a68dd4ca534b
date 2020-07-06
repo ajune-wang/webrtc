@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "6a5d2ad5_c229de46",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-06T09:09:53Z",
+      "side": 1,
+      "message": "Agreed. I think the old behaviour was hacky but it should be fixed. As you said, its better to just adapt to the right resolution in one call.",
+      "parentUuid": "0495bf8b_ba259289",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e9fd621_dcf085d8",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 2

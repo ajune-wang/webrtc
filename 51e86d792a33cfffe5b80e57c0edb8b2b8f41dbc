@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3c12f15c_75a596ce",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-06T15:15:20Z",
+      "side": 1,
+      "message": "I\u0027d prefer to avoid mutable keyword if possible, it\u0027s a bit of a code smell. Even though I agree that it\u0027s somewhat low risk here, presumably they made absl::Mutex non-const functional on purpose. The value of having a const method for this rather than mutable isn\u0027t that high either, if it still requires a lock IMO. In general, I think const mixed with mutable keyword diminishes the utility of marking things const in the first place.\n\nDo you have more context on why absl::Mutex is not internally mutable, is marking it as mutable a common and expected pattern?",
+      "parentUuid": "4aa76ba2_f418db1d",
+      "range": {
+        "startLine": 366,
+        "startChar": 36,
+        "endLine": 366,
+        "endChar": 41
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b79996a6_7cb93456",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 3
@@ -141,6 +165,30 @@
       "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70f16557_b6bff6e2",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-06T15:15:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "16a5e65f_e99d733b",
+      "range": {
+        "startLine": 728,
+        "startChar": 4,
+        "endLine": 728,
+        "endChar": 9
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

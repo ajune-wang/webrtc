@@ -16,6 +16,40 @@
       "revId": "1250d2bf1f5ad247dbc673424a6d0338802fa79c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed8c591b_90d9ee37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T13:52:31Z",
+      "side": 1,
+      "message": "LGTM % comment",
+      "revId": "1250d2bf1f5ad247dbc673424a6d0338802fa79c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0bf56047_29eb2011",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T13:52:31Z",
+      "side": 1,
+      "message": "Its not clear from looking at the test why 10 is expected here. Can you either make the relationship more clear such as by having a parameter to TestSendRecv, or simply add a comment here saying TestSendRecv sends and recieves 10 packets, or whatever the explanation?",
+      "revId": "1250d2bf1f5ad247dbc673424a6d0338802fa79c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

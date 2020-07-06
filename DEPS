@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a9cc4f47323f082a32b295470855111ecd6427f6',
+  'chromium_revision': 'db3f6b087813b00b8cdb7a058fac2727d8c91bbb',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@e8024381661b89837d2accf007b639211e9df402',
+    'https://chromium.googlesource.com/chromium/src/base@f2a563ac130cb14acf1b0fdc6c04a543fa194ef2',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@96a67839bb93f187f3e68ff0786728925a56d9db',
+    'https://chromium.googlesource.com/chromium/src/build@b1ecaa6b5a5ac73744c317f09945a6d0ff95852a',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@6b951673d17662ea2510995700922657d30f3542',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -33,13 +33,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@420c8e8e9cca3cbd2a593c732dc3ee19fadfa68e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@1771f6dd9ddc318b2bfd9c43d80580a02cba5994',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@0822b567eebf643e98abc723a9d111150c2ee40d',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@d26a020617ef76b335c3805405c4b959ae9cb60f',
+    'https://chromium.googlesource.com/chromium/src/third_party@22fe543b732cc00c26f07b7e63e5c150f4e588b3',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@04c9d66f3ef10682cd1bed20e2bddcca203b6a25',
+    'https://chromium.googlesource.com/chromium/src/tools@e5a90abf43f94195076abcd0484ef5551f733c40',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 

@@ -272,7 +272,8 @@ VideoStreamEncoderResourceManager::VideoStreamEncoderResourceManager(
       encode_usage_resource_(
           EncodeUsageResource::Create(std::move(overuse_detector))),
       quality_scaler_resource_(
-          QualityScalerResource::Create(degradation_preference_provider_)),
+          QualityScalerResource::Create(degradation_preference_provider_,
+                                        this)),
       encoder_queue_(nullptr),
       resource_adaptation_queue_(nullptr),
       input_state_provider_(input_state_provider),
@@ -292,11 +293,10 @@ VideoStreamEncoderResourceManager::VideoStreamEncoderResourceManager(
   RTC_CHECK(degradation_preference_provider_);
   RTC_CHECK(encoder_stats_observer_);
   MapResourceToReason(encode_usage_resource_, VideoAdaptationReason::kCpu);
-  MapResourceToReason(quality_scaler_resource_,
-                      VideoAdaptationReason::kQuality);
 }
 
-VideoStreamEncoderResourceManager::~VideoStreamEncoderResourceManager() {}
+VideoStreamEncoderResourceManager::~VideoStreamEncoderResourceManager() =
+    default;
 
 void VideoStreamEncoderResourceManager::Initialize(
     rtc::TaskQueue* encoder_queue,
@@ -348,7 +348,32 @@ void VideoStreamEncoderResourceManager::StartEncodeUsageResource() {
 void VideoStreamEncoderResourceManager::StopManagedResources() {
   RTC_DCHECK_RUN_ON(encoder_queue_);
   encode_usage_resource_->StopCheckForOveruse();
-  quality_scaler_resource_->StopCheckForOveruse();
+  if (quality_scaler_resource_->is_started()) {
+    quality_scaler_resource_->StopCheckForOveruse();
+  }
+}
+
+void VideoStreamEncoderResourceManager::RemoveResource(
+    const rtc::scoped_refptr<Resource>& resource) {
+  rtc::CritScope crit(&resource_lock_);
+  RTC_DCHECK(resource);
+
+  auto resource_it = std::find_if(resources_.begin(), resources_.end(),
+                                  [resource](const ResourceAndReason& r) {
+                                    return r.resource == resource;
+                                  });
+  if (resource_it == resources_.end()) {
+    RTC_LOG(INFO) << "Resource \"" << resource->Name() << "\" already removed";
+    return;
+  }
+  resources_.erase(resource_it);
+
+  resource_adaptation_queue_->PostTask([this, resource]() {
+    RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+    if (adaptation_processor_) {
+      adaptation_processor_->RemoveResource(resource);
+    }
+  });
 }
 
 void VideoStreamEncoderResourceManager::MapResourceToReason(
@@ -360,7 +385,7 @@ void VideoStreamEncoderResourceManager::MapResourceToReason(
                              [resource](const ResourceAndReason& r) {
                                return r.resource == resource;
                              }) == resources_.end())
-      << "Resource " << resource->Name() << " already was inserted";
+      << "Resource \"" << resource->Name() << "\" already was inserted";
   resources_.emplace_back(resource, reason);
 }
 
@@ -503,14 +528,34 @@ void VideoStreamEncoderResourceManager::OnMaybeEncodeFrame() {
   }
 }
 
+void VideoStreamEncoderResourceManager::OnQualityScalerStopped() {
+  RemoveResource(quality_scaler_resource_);
+}
+
+void VideoStreamEncoderResourceManager::OnQualityScalerStarted() {
+  MapResourceToReason(quality_scaler_resource_,
+                      VideoAdaptationReason::kQuality);
+  resource_adaptation_queue_->PostTask([this]() {
+    RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+    if (adaptation_processor_) {
+      adaptation_processor_->AddResource(quality_scaler_resource_);
+    }
+  });
+}
+
 void VideoStreamEncoderResourceManager::UpdateQualityScalerSettings(
     absl::optional<VideoEncoder::QpThresholds> qp_thresholds) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
   if (qp_thresholds.has_value()) {
-    quality_scaler_resource_->StopCheckForOveruse();
-    quality_scaler_resource_->StartCheckForOveruse(qp_thresholds.value());
+    if (quality_scaler_resource_->is_started()) {
+      quality_scaler_resource_->SetQpThresholds(qp_thresholds.value());
+    } else {
+      quality_scaler_resource_->StartCheckForOveruse(qp_thresholds.value());
+    }
   } else {
-    quality_scaler_resource_->StopCheckForOveruse();
+    if (quality_scaler_resource_->is_started()) {
+      quality_scaler_resource_->StopCheckForOveruse();
+    }
   }
   initial_frame_dropper_->OnQualityScalerSettingsUpdated();
 }

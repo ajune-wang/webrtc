@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b233711_dd82c777",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-06T07:37:24Z",
+      "side": 1,
+      "message": "I think we need to\n\n#include \u003csys/socket.h\u003e\n\nSince we refer to these macros.",
+      "range": {
+        "startLine": 48,
+        "startChar": 23,
+        "endLine": 48,
+        "endChar": 30
+      },
+      "revId": "efc60ad8968aa21d417e25080ad2114200908736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f627efa_a8a8aada",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-06T07:37:24Z",
+      "side": 1,
+      "message": "This line does too many things, let\u0027s split it on more lines?",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 7
+      },
+      "revId": "efc60ad8968aa21d417e25080ad2114200908736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab64882f_5a831a2d",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-06T07:37:24Z",
+      "side": 1,
+      "message": "We need to \n\n#include \u003cerrno.h\u003e\n\nIf we use this macro.",
+      "range": {
+        "startLine": 60,
+        "startChar": 30,
+        "endLine": 60,
+        "endChar": 41
+      },
+      "revId": "efc60ad8968aa21d417e25080ad2114200908736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd67efea_0c0d394c",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-06T07:37:24Z",
+      "side": 1,
+      "message": "I think you need to use:\n\n  RTC_LOG(LS_ERROR) \u003c\u003c\n\nhere (see https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/call/call.cc;l\u003d1349;drc\u003d29444c65244ad11893232965a9d0b40a7d22c208?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F).\n\nRTC_LOG_ERR is an alias for the platform error system (https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/logging.h;l\u003d34;drc\u003df1df04b094feabfe73000a7d17accc908e8b7b81?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F).",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 25
+      },
+      "revId": "efc60ad8968aa21d417e25080ad2114200908736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1feacb3f_a0c3c75f",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-06T07:37:24Z",
+      "side": 1,
+      "message": "api/voip/voip_engine.h",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "efc60ad8968aa21d417e25080ad2114200908736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

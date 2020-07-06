@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "c700496b_a077a5e9",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-06T15:37:04Z",
+      "side": 1,
+      "message": "Yes, it\u0027s a common practise in code using absl::Mutex in repos consuming Abseil.",
+      "parentUuid": "3c12f15c_75a596ce",
+      "range": {
+        "startLine": 366,
+        "startChar": 36,
+        "endLine": 366,
+        "endChar": 41
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b79996a6_7cb93456",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 3

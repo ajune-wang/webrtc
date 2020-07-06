@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c14c2ed4_0548fc6b",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T14:25:40Z",
+      "side": 1,
+      "message": "If we automatically \"jump to\" the next most limited resource\u0027s restriction after removal, then we can get rid of this spamming of kUnderuse.\n\nCan we get rid of this code and add tests that removing a resource updates the restrictions correctly?",
+      "revId": "b70db7b4877f9db953d95cce48a69c68b4e62ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cfc54aa_17c091d9",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T14:25:40Z",
+      "side": 1,
+      "message": "Prior to this CL, the manager\u0027s resources are added/removed to the processor by VideoStreamEncoder\u0027s constructor and Stop() method.\n\nWith this CL, the manager becomes partially responsible and now removes and re-adds the QP resource. I think multiple classes both adding and removing the same set of resources is confusing and increases the risk that we accidentally add or remove something twice if one of the classes changes and not the other.\n\nFor consistency, perhaps now we should make the it responsible for all of them? Instead of exposing resources with MappedResources(), as part of Initialize() or have a AddMappedResources() that is called as part of the VideoStreamEncoder\u0027s constructor logic that does the adding.",
+      "revId": "b70db7b4877f9db953d95cce48a69c68b4e62ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73169f4_5d8df550",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T14:25:40Z",
+      "side": 1,
+      "message": "nit: Since |this| is still valid, so is |quality_scaler_resource_|. No need for |ref|",
+      "revId": "b70db7b4877f9db953d95cce48a69c68b4e62ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

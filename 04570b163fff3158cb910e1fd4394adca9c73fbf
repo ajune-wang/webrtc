@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e010d64_6fe47502",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-07-06T13:45:14Z",
+      "side": 1,
+      "message": "Can you annotate this with RTC_GUARDED_BY(audio_level_lock_) ?",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 39
+      },
+      "revId": "04570b163fff3158cb910e1fd4394adca9c73fbf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f31dbfd_080424b2",
+        "filename": "p2p/base/connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T12:40:01Z",
+      "side": 1,
+      "message": "Can you add a test covering this for Connection as close to this file as possible?\n\nNot sure where to put it but p2p_transport_channel_unittest.cc has tests for sent_total_packets and sent_discarded_packets so maybe that can also assert other stats?\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/p2p/base/p2p_transport_channel_unittest.cc;l\u003d1305?q\u003df:unittest%20sent_total_packets%20sent_discarded_packets%20f:webrtc\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "revId": "4a2eaa951ab27546555ce2dbd5b5b639d2dc5bfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7bda0a9_e7fe73a9",
+        "filename": "p2p/base/connection_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T12:40:01Z",
+      "side": 1,
+      "message": "You need to initialize this to 0 in connection_info.cc",
+      "revId": "4a2eaa951ab27546555ce2dbd5b5b639d2dc5bfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6423b43c_0c858b14",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1749,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T12:40:01Z",
+      "side": 1,
+      "message": "Can you add an rtc_stats_collector_unittest.cc that gives some fake ConnectionInfos and expects the metrics to be summed up accordingly?\n\nAnd an rtc_stats_integrationtest.cc that expects that we have these members defined and NonNegative in a real call.",
+      "revId": "4a2eaa951ab27546555ce2dbd5b5b639d2dc5bfc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67cdcb78_baef36a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-07-06T14:59:39Z",
+      "side": 1,
+      "message": "Hi Sam,\n\nPTAL at this tiny CL.",
+      "revId": "0b7b3ba3b7a4722442848a57bae49a3f1f5c0971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

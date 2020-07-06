@@ -50,6 +50,24 @@
       "revId": "1250d2bf1f5ad247dbc673424a6d0338802fa79c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aa9771d_bf1ea136",
+        "filename": "p2p/base/p2p_transport_channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-06T14:07:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bf56047_29eb2011",
+      "revId": "1250d2bf1f5ad247dbc673424a6d0338802fa79c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

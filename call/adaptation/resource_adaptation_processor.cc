@@ -160,8 +160,9 @@ void ResourceAdaptationProcessor::RemoveResource(
     adaptation_limits_by_resources_.erase(resource_adaptation_limits);
     MaybeUpdateResourceLimitationsOnResourceRemoval(adaptation_limits);
   }
-  resources_.erase(it);
   resource->SetResourceListener(nullptr);
+  resources_.erase(it);
+  previous_mitigation_results_.erase(resource.get());
 }
 
 void ResourceAdaptationProcessor::AddAdaptationConstraint(
@@ -389,6 +390,9 @@ void ResourceAdaptationProcessor::UpdateResourceLimitations(
     rtc::scoped_refptr<Resource> reason_resource,
     const VideoSourceRestrictions& restrictions,
     const VideoAdaptationCounters& counters) {
+  RTC_DCHECK(absl::c_find(resources_, reason_resource) != resources_.end())
+      << "Adapting resources must be in the resources_ list or adaptation can "
+         "get stuck.";
   auto& adaptation_limits = adaptation_limits_by_resources_[reason_resource];
   if (adaptation_limits.restrictions == restrictions &&
       adaptation_limits.counters == counters) {

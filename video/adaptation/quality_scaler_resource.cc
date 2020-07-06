@@ -27,21 +27,25 @@ const int64_t kUnderuseDueToDisabledCooldownMs = 1000;
 
 // static
 rtc::scoped_refptr<QualityScalerResource> QualityScalerResource::Create(
-    DegradationPreferenceProvider* degradation_preference_provider) {
+    DegradationPreferenceProvider* degradation_preference_provider,
+    QualityScalerResource::Listener* listener) {
   return new rtc::RefCountedObject<QualityScalerResource>(
-      degradation_preference_provider);
+      degradation_preference_provider, listener);
 }
 
 QualityScalerResource::QualityScalerResource(
-    DegradationPreferenceProvider* degradation_preference_provider)
+    DegradationPreferenceProvider* degradation_preference_provider,
+    QualityScalerResource::Listener* listener)
     : VideoStreamEncoderResource("QualityScalerResource"),
       quality_scaler_(nullptr),
       last_underuse_due_to_disabled_timestamp_ms_(absl::nullopt),
       num_handled_callbacks_(0),
       pending_callbacks_(),
       degradation_preference_provider_(degradation_preference_provider),
+      listener_(listener),
       clear_qp_samples_(false) {
   RTC_CHECK(degradation_preference_provider_);
+  RTC_CHECK(listener_);
 }
 
 QualityScalerResource::~QualityScalerResource() {
@@ -60,6 +64,7 @@ void QualityScalerResource::StartCheckForOveruse(
   RTC_DCHECK(!is_started());
   quality_scaler_ =
       std::make_unique<QualityScaler>(this, std::move(qp_thresholds));
+  listener_->OnQualityScalerStarted();
 }
 
 void QualityScalerResource::StopCheckForOveruse() {
@@ -68,6 +73,7 @@ void QualityScalerResource::StopCheckForOveruse() {
   // QualityScaler and even task queues with tasks in-flight.
   AbortPendingCallbacks();
   quality_scaler_.reset();
+  listener_->OnQualityScalerStopped();
 }
 
 void QualityScalerResource::SetQpThresholds(

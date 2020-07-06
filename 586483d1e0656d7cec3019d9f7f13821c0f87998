@@ -506,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "9a1ef085_8570c5b7",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T21:59:27Z",
+      "side": 1,
+      "message": "Same as the latest patch comment but you could add constant to make sure that we use the same payload type id for both encoder and decoder.",
+      "parentUuid": "1dfcecbb_1f314f8f",
+      "range": {
+        "startLine": 119,
+        "startChar": 51,
+        "endLine": 119,
+        "endChar": 52
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e566891_5f5bfefb",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 1

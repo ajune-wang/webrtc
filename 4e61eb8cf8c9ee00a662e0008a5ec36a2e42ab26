@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "c05546d8_c39e4b10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T21:59:27Z",
+      "side": 1,
+      "message": "Thanks again. PTAL.",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43ebfcf0_777cfe65",
         "filename": "examples/experimental/androidvoip/AndroidManifest.xml",
         "patchSetId": 4
@@ -124,6 +141,30 @@
       "side": 1,
       "message": "rtc_internal_video_codecs doesn\u0027t seem to be needed anymore. rtc_media_engine_defaults is needed for the built-in encoder and decoder factories.",
       "parentUuid": "5ce8bff8_e2eb80fe",
+      "range": {
+        "startLine": 58,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f6cbe59_3b39d568",
+        "filename": "examples/experimental/androidvoip/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T21:59:27Z",
+      "side": 1,
+      "message": "I don\u0027t think rtc_media_engine_defaults are needed.  Please take a look at /api/audio_codecs/BUILD.gn.",
+      "parentUuid": "c3ae84bd_144df5a9",
       "range": {
         "startLine": 58,
         "startChar": 6,
@@ -641,6 +682,30 @@
       "side": 1,
       "message": "I left a comment in patchset 1 about some confusions I had, I\u0027ll post it here again:\nIn the case where the payload type is dynamic what should we do? It says \"Payload identifiers 96–127 are used for payloads defined dynamically during a session\", does that mean we can allocate payload types randomly from 96-127?",
       "parentUuid": "8a24f8f1_b4d093ea",
+      "range": {
+        "startLine": 155,
+        "startChar": 51,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29201cd8_e4b7521a",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T21:59:27Z",
+      "side": 1,
+      "message": "Sorry I missed your comments. I only checked the latest code.\n\nFor dynamic ones, you can set anything in that range but we need to make sure that it matches  both encoder and decoder.",
+      "parentUuid": "4b2500f2_46cdb881",
       "range": {
         "startLine": 155,
         "startChar": 51,
@@ -1216,6 +1281,30 @@
       "side": 1,
       "message": "I found these comments a bit extra as the fields are pretty self-explanatory through their name and type, do you think I can simply drop the comments?",
       "parentUuid": "38ee8e41_91f4ebaf",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 144,
+        "endChar": 56
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2370d9a9_a2a1bc94",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T21:59:27Z",
+      "side": 1,
+      "message": "Comments aren\u0027t mandatory but rather to be useful for even for first time readers. If you feel that comments are obvious then we should remove it. Ideally these comments reveal something that doesn\u0027t require readers to read the each usage in implementation file.",
+      "parentUuid": "debe346a_36f259b5",
       "range": {
         "startLine": 134,
         "startChar": 2,

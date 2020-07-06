@@ -1,0 +1,624 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ecfbe33_37ce8f38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Thanks for the changes. I have reviewed again. PTAL.",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43ebfcf0_777cfe65",
+        "filename": "examples/experimental/androidvoip/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Is empty line intentional? If not, we should remove it.",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaa40240_fb0ee1a5",
+        "filename": "examples/experimental/androidvoip/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Is empty line intentional? If not, we should remove it.",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ce8bff8_e2eb80fe",
+        "filename": "examples/experimental/androidvoip/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Do we need these?",
+      "range": {
+        "startLine": 58,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbcc3810_07968204",
+        "filename": "examples/experimental/androidvoip/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 51
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e82a422c_0b9c6be3",
+        "filename": "examples/experimental/androidvoip/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Ideally we stick to api/voip directory only.  Can you check how this dependency happened?",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11f7b6e4_7998a0b7",
+        "filename": "examples/experimental/androidvoip/java/org/webrtc/examples/experimental/androidvoip/MainActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "It\u0027s little odd to divide the true case in two separate ways.  Can we consolidate this? \n\ne.g.       \n        if (!startSession()) {\n          showToast(\"Failed to start session\");\n          button.setChecked(false);\n          return;\n        }\n        showToast(\"Session started\");\n        switchLayout.setVisibility(View.VISIBLE);\n        scrollView.post(() -\u003e { scrollView.fullScroll(ScrollView.FOCUS_DOWN); });",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 81
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875d0aeb_cd54c656",
+        "filename": "examples/experimental/androidvoip/java/org/webrtc/examples/experimental/androidvoip/MainActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Also here as well. Please consider consolidating the logic.",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 46
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfce507b_02e591b6",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Can you check if this whole code section needs to be run by socket_thread_?",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 54
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fed5c45_d8663649",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "This should follow code style.  auto can helpful here.\n\nauto encoder_factory \u003d webrtc::CreateBuiltinAudioEncoderFactory();",
+      "range": {
+        "startLine": 80,
+        "startChar": 52,
+        "endLine": 80,
+        "endChar": 73
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "147cc9ca_690ef374",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Is there a reason for having separate local variable to be used? Could we not do this?\n\nconfig.encoder_factory \u003d webrtc::CreateBuiltinAudioEncoderFactory();\n...\nsupported_codecs_ \u003d config.encoder_factory-\u003eGetSupportedEncoders();",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 70
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "089cf30d_6f33e804",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "return here doesn\u0027t seem helpful.",
+      "range": {
+        "startLine": 107,
+        "startChar": 6,
+        "endLine": 107,
+        "endChar": 13
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e92eeef_21268f00",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Here the client is leaking memory.  I would suggest to use smart pointer to better express your intention.  \n\nstd::unique_ptr\u003cAndroidVoipClient\u003e voip_client \u003d ..;\nif (voip_client-\u003evoip_engine_) {\n  return nullptr;\n}\nreturn voip_client.release();",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 120,
+        "endChar": 3
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f94f063_62c041ec",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Could you check if const std::string\u0026 makes better sense here?",
+      "range": {
+        "startLine": 151,
+        "startChar": 1,
+        "endLine": 151,
+        "endChar": 13
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a24f8f1_b4d093ea",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Please check my last comment on payload type usage.  We also should have comment on that as well.",
+      "range": {
+        "startLine": 155,
+        "startChar": 51,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8fa03d2_17fee82b",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Also same here on payload type usage.",
+      "range": {
+        "startLine": 174,
+        "startChar": 28,
+        "endLine": 174,
+        "endChar": 37
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "371b5c29_04188cab",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "I think it\u0027s better to receive into unique ptr straight.",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 34
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d88d8878_0119e969",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "I think it\u0027s better to receive into unique ptr straight.",
+      "range": {
+        "startLine": 222,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 35
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a15b64f4_e1140ffe",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Could you check if all there are required to run in context of thread?",
+      "range": {
+        "startLine": 237,
+        "startChar": 3,
+        "endLine": 246,
+        "endChar": 16
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce897791_8bcf7fb1",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Also for these as well on if required to run in context of thread?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 1
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f47773e_bc3011bc",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "I think this is better explained like below.\n\n\"This is to comply with consistent thread usage requirement with ProcessThread used within VoipEngine.\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 52,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af6c1c81_37aceae8",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "We should have consistent spacing usage between each method declaration. I see there is not space here and next comment where I see some with a single space line.",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b20e724d_3fa561a6",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "I see some repeated comments (almost identically same except a word or two).  It may only increase line without being more helpful (and thus decrease readability).  IMO, we should have one comment that covers the both methods.",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81966df7_2ee86da2",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "You could point out readers to look at api/voip/voip_base.h and say this is only returning what it returns. The point is for readers to be aware of what return values means.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 36
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f432dafc_21cacdcf",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "\u0027name\u0027 doesn\u0027t the what it is.  It should rather be rtp_packet.",
+      "range": {
+        "startLine": 111,
+        "startChar": 41,
+        "endLine": 111,
+        "endChar": 45
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c497073c_159232e8",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "\u0027name\u0027 doesn\u0027t the what it is.  It should rather be rtcp_packet.",
+      "range": {
+        "startLine": 116,
+        "startChar": 42,
+        "endLine": 116,
+        "endChar": 46
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34a7cc14_cab9007c",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "I think it may be better to be named as voip_thread_ instead as it\u0027s not used for socket operation only. What do you think?",
+      "range": {
+        "startLine": 126,
+        "startChar": 31,
+        "endLine": 126,
+        "endChar": 46
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38ee8e41_91f4ebaf",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-06T18:17:16Z",
+      "side": 1,
+      "message": "Here also, might be helpful to consolidate comments if repeated or obvious.",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 144,
+        "endChar": 56
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

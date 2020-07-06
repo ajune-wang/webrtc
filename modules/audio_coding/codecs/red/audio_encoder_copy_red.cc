@@ -20,6 +20,7 @@
 
 namespace webrtc {
 static const int kRedMaxPacketSize = 1 << 10;
+static const size_t kAudioMaxRtpPacketLen = 1200U;
 
 AudioEncoderCopyRed::Config::Config() = default;
 AudioEncoderCopyRed::Config::Config(Config&&) = default;
@@ -27,6 +28,7 @@ AudioEncoderCopyRed::Config::~Config() = default;
 
 AudioEncoderCopyRed::AudioEncoderCopyRed(Config&& config)
     : speech_encoder_(std::move(config.speech_encoder)),
+      max_packet_length_(kAudioMaxRtpPacketLen),
       red_payload_type_(config.payload_type) {
   RTC_CHECK(speech_encoder_) << "Speech encoder not provided.";
 }
@@ -57,12 +59,16 @@ int AudioEncoderCopyRed::GetTargetBitrate() const {
   return speech_encoder_->GetTargetBitrate();
 }
 
-size_t AudioEncoderCopyRed::CalculateHeaderLength() const {
+size_t AudioEncoderCopyRed::CalculateHeaderLength(size_t encoded_bytes) const {
   size_t header_size = 1;
-  if (secondary_info_.encoded_bytes > 0) {
+  size_t bytes_available = max_packet_length_ - encoded_bytes;
+  if (secondary_info_.encoded_bytes > 0 &&
+      secondary_info_.encoded_bytes < bytes_available) {
     header_size += 4;
+    bytes_available -= secondary_info_.encoded_bytes;
   }
-  if (tertiary_info_.encoded_bytes > 0) {
+  if (tertiary_info_.encoded_bytes > 0 &&
+      tertiary_info_.encoded_bytes < bytes_available) {
     header_size += 4;
   }
   return header_size > 1 ? header_size : 0;
@@ -78,19 +84,21 @@ AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
   RTC_CHECK(info.redundant.empty()) << "Cannot use nested redundant encoders.";
   RTC_DCHECK_EQ(primary_encoded.size(), info.encoded_bytes);
 
-  if (info.encoded_bytes == 0) {
+  if (info.encoded_bytes == 0 || info.encoded_bytes > kRedMaxPacketSize) {
     return info;
   }
 
   // Allocate room for RFC 2198 header if there is redundant data.
   // Otherwise this will send the primary payload type without
   // wrapping in RED.
-  const size_t header_length_bytes = CalculateHeaderLength();
+  const size_t header_length_bytes = CalculateHeaderLength(info.encoded_bytes);
   encoded->SetSize(header_length_bytes);
 
   size_t header_offset = 0;
+  size_t bytes_available = max_packet_length_ - info.encoded_bytes;
   if (tertiary_info_.encoded_bytes > 0 &&
-      tertiary_info_.encoded_bytes < kRedMaxPacketSize) {
+      tertiary_info_.encoded_bytes + secondary_info_.encoded_bytes <
+          bytes_available) {
     encoded->AppendData(tertiary_encoded_);
 
     const uint32_t timestamp_delta =
@@ -101,10 +109,11 @@ AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
                  (timestamp_delta << 2) | (tertiary_info_.encoded_bytes >> 8));
     encoded->data()[header_offset + 3] = tertiary_info_.encoded_bytes & 0xff;
     header_offset += 4;
+    bytes_available -= tertiary_info_.encoded_bytes;
   }
 
   if (secondary_info_.encoded_bytes > 0 &&
-      secondary_info_.encoded_bytes < kRedMaxPacketSize) {
+      secondary_info_.encoded_bytes < bytes_available) {
     encoded->AppendData(secondary_encoded_);
 
     const uint32_t timestamp_delta =
@@ -115,6 +124,7 @@ AudioEncoder::EncodedInfo AudioEncoderCopyRed::EncodeImpl(
                  (timestamp_delta << 2) | (secondary_info_.encoded_bytes >> 8));
     encoded->data()[header_offset + 3] = secondary_info_.encoded_bytes & 0xff;
     header_offset += 4;
+    bytes_available -= secondary_info_.encoded_bytes;
   }
 
   encoded->AppendData(primary_encoded);
@@ -198,6 +208,11 @@ void AudioEncoderCopyRed::OnReceivedUplinkBandwidth(
 absl::optional<std::pair<TimeDelta, TimeDelta>>
 AudioEncoderCopyRed::GetFrameLengthRange() const {
   return speech_encoder_->GetFrameLengthRange();
+}
+
+void AudioEncoderCopyRed::OnReceivedOverhead(size_t overhead_bytes_per_packet) {
+  max_packet_length_ = kAudioMaxRtpPacketLen - overhead_bytes_per_packet;
+  return speech_encoder_->OnReceivedOverhead(overhead_bytes_per_packet);
 }
 
 }  // namespace webrtc

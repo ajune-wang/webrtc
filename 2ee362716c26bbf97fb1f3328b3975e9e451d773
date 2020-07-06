@@ -16,6 +16,24 @@
       "revId": "2ee362716c26bbf97fb1f3328b3975e9e451d773",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "630bd4fd_2cf004b2",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-06T09:55:58Z",
+      "side": 1,
+      "message": "I though about this, but it\u0027s actually |crit_| section from another thread. It\u0027s |crit_| for |this|, but we are checking policy for |current_thread|. Also because policies are applied only when DCHECK\u0027s are on or in debug build, it shouldn\u0027t affect performance of production code.",
+      "parentUuid": "082a95bf_b1af089c",
+      "revId": "2ee362716c26bbf97fb1f3328b3975e9e451d773",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

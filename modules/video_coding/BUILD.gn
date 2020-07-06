@@ -164,7 +164,9 @@ rtc_library("video_coding") {
     "timing.h",
     "unique_timestamp_counter.cc",
     "unique_timestamp_counter.h",
+    "video_codec.h",
     "video_codec_initializer.cc",
+    "video_encoder.h",
     "video_receiver2.cc",
     "video_receiver2.h",
   ]
@@ -937,6 +939,7 @@ if (rtc_include_tests) {
       "utility/quality_scaler_unittest.cc",
       "utility/simulcast_rate_allocator_unittest.cc",
       "video_codec_initializer_unittest.cc",
+      "video_encoder_unittest.cc",
       "video_receiver_unittest.cc",
     ]
     if (rtc_use_h264) {

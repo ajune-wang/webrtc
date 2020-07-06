@@ -15,6 +15,7 @@
 #include "modules/video_coding/encoded_frame.h"
 #include "modules/video_coding/generic_decoder.h"
 #include "modules/video_coding/timing.h"
+#include "modules/video_coding/video_codec.h"
 #include "rtc_base/thread_checker.h"
 #include "system_wrappers/include/clock.h"
 

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3a4777d_5889e807",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-06T13:39:20Z",
+      "side": 1,
+      "message": "Seems like this is the only place that would require mutable, would it be possible to unconst this, or do we depend on this being const?",
+      "range": {
+        "startLine": 366,
+        "startChar": 36,
+        "endLine": 366,
+        "endChar": 41
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b79996a6_7cb93456",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-06T13:39:20Z",
+      "side": 1,
+      "message": "Again, do we need this to be const?",
+      "range": {
+        "startLine": 728,
+        "startChar": 4,
+        "endLine": 728,
+        "endChar": 9
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0783b7_e8b7012f",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-06T13:39:20Z",
+      "side": 1,
+      "message": "Drop const?",
+      "range": {
+        "startLine": 262,
+        "startChar": 65,
+        "endLine": 262,
+        "endChar": 70
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

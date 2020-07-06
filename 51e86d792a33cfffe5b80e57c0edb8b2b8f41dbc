@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4aa76ba2_f418db1d",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-06T14:21:55Z",
+      "side": 1,
+      "message": "To answer your question, no we don\u0027t depend on it but. I would prefer not to as const signals useful information at the only expense of a mutable mutex.",
+      "parentUuid": "90ed3fbc_4afa4e8e",
+      "range": {
+        "startLine": 366,
+        "startChar": 36,
+        "endLine": 366,
+        "endChar": 41
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b79996a6_7cb93456",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 3
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "16a5e65f_e99d733b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-06T14:21:55Z",
+      "side": 1,
+      "message": "For this we definitely need to be const, it\u0027s an overridden method.",
+      "parentUuid": "f562f575_acd8ec2d",
+      "range": {
+        "startLine": 728,
+        "startChar": 4,
+        "endLine": 728,
+        "endChar": 9
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa0783b7_e8b7012f",
         "filename": "call/simulated_network.cc",
         "patchSetId": 3
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "dito",
       "parentUuid": "fa0783b7_e8b7012f",
+      "range": {
+        "startLine": 262,
+        "startChar": 65,
+        "endLine": 262,
+        "endChar": 70
+      },
+      "revId": "51e86d792a33cfffe5b80e57c0edb8b2b8f41dbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942322cd_5876b7b7",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-06T14:21:55Z",
+      "side": 1,
+      "message": "We don\u0027t depend on the method being const but I would prefer not drop it as const signals useful information at the only expense of a mutable mutex.",
+      "parentUuid": "aa499a4a_4abdfd3a",
       "range": {
         "startLine": 262,
         "startChar": 65,

@@ -16,6 +16,40 @@
       "revId": "32af1bdccb66fd7d69927017df8ac3e325f183f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "182c132c_10f08ca4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-06T21:11:42Z",
+      "side": 1,
+      "message": "one question below. Seems like we\u0027re sprinkling code related to those structs in various areas outside of the structs. If we could rather depend on the defaults being set appropriately by the struct code itself, that would be preferrable.",
+      "revId": "32af1bdccb66fd7d69927017df8ac3e325f183f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da52ffcd_0cf3a9fe",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1747,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-06T21:11:42Z",
+      "side": 1,
+      "message": "is setting the value of these variables actually needed or should we rather be expecting the constructor to have done the right thing? (in which case an RTC_DCHECK would be preferable here over unnecessary code).",
+      "revId": "32af1bdccb66fd7d69927017df8ac3e325f183f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

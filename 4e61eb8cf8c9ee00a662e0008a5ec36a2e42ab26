@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "4fb7665a_7a29be8a",
+        "filename": "examples/experimental/androidvoip/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43ebfcf0_777cfe65",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eaa40240_fb0ee1a5",
         "filename": "examples/experimental/androidvoip/AndroidManifest.xml",
         "patchSetId": 4
@@ -50,6 +68,24 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c59b5200_0cd0f719",
+        "filename": "examples/experimental/androidvoip/AndroidManifest.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaa40240_fb0ee1a5",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "c3ae84bd_144df5a9",
+        "filename": "examples/experimental/androidvoip/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "rtc_internal_video_codecs doesn\u0027t seem to be needed anymore. rtc_media_engine_defaults is needed for the built-in encoder and decoder factories.",
+      "parentUuid": "5ce8bff8_e2eb80fe",
+      "range": {
+        "startLine": 58,
+        "startChar": 6,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbcc3810_07968204",
         "filename": "examples/experimental/androidvoip/DEPS",
         "patchSetId": 4
@@ -96,6 +156,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd0637cd_61daecbf",
+        "filename": "examples/experimental/androidvoip/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbcc3810_07968204",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 51
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "178884dc_40acf684",
+        "filename": "examples/experimental/androidvoip/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "This dependency wasn\u0027t there before and everything worked fine. I only put that there to fix a presubmit warning. I\u0027ve removed it now.",
+      "parentUuid": "e82a422c_0b9c6be3",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11f7b6e4_7998a0b7",
         "filename": "examples/experimental/androidvoip/java/org/webrtc/examples/experimental/androidvoip/MainActivity.java",
         "patchSetId": 4
@@ -142,6 +250,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6bc7d7c_ec7a0871",
+        "filename": "examples/experimental/androidvoip/java/org/webrtc/examples/experimental/androidvoip/MainActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11f7b6e4_7998a0b7",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 81
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -168,6 +300,30 @@
     },
     {
       "key": {
+        "uuid": "432bcece_e94d58a9",
+        "filename": "examples/experimental/androidvoip/java/org/webrtc/examples/experimental/androidvoip/MainActivity.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "875d0aeb_cd54c656",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 46
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfce507b_02e591b6",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 4
@@ -188,6 +344,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2215c616_0abac54b",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "I\u0027ve checked before and found that config.audio_device_module threw the ThreadChecker error if it was created on the main thread, so I just decided to set up config entirely within the thread.",
+      "parentUuid": "cfce507b_02e591b6",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 54
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -214,6 +394,30 @@
     },
     {
       "key": {
+        "uuid": "e90d3fba_3688acfe",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fed5c45_d8663649",
+      "range": {
+        "startLine": 80,
+        "startChar": 52,
+        "endLine": 80,
+        "endChar": 73
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "147cc9ca_690ef374",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 4
@@ -234,6 +438,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e427747_56e34c1c",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Good point.",
+      "parentUuid": "147cc9ca_690ef374",
+      "range": {
+        "startLine": 102,
+        "startChar": 4,
+        "endLine": 102,
+        "endChar": 70
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -260,6 +488,30 @@
     },
     {
       "key": {
+        "uuid": "aa964eb0_7f995809",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "089cf30d_6f33e804",
+      "range": {
+        "startLine": 107,
+        "startChar": 6,
+        "endLine": 107,
+        "endChar": 13
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e92eeef_21268f00",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 4
@@ -280,6 +532,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfb7f483_b7764dc8",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e92eeef_21268f00",
+      "range": {
+        "startLine": 117,
+        "startChar": 2,
+        "endLine": 120,
+        "endChar": 3
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -306,6 +582,30 @@
     },
     {
       "key": {
+        "uuid": "eded509c_09b43c05",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f94f063_62c041ec",
+      "range": {
+        "startLine": 151,
+        "startChar": 1,
+        "endLine": 151,
+        "endChar": 13
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a24f8f1_b4d093ea",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 4
@@ -317,6 +617,30 @@
       "writtenOn": "2020-07-06T18:17:16Z",
       "side": 1,
       "message": "Please check my last comment on payload type usage.  We also should have comment on that as well.",
+      "range": {
+        "startLine": 155,
+        "startChar": 51,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b2500f2_46cdb881",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "I left a comment in patchset 1 about some confusions I had, I\u0027ll post it here again:\nIn the case where the payload type is dynamic what should we do? It says \"Payload identifiers 96–127 are used for payloads defined dynamically during a session\", does that mean we can allocate payload types randomly from 96-127?",
+      "parentUuid": "8a24f8f1_b4d093ea",
       "range": {
         "startLine": 155,
         "startChar": 51,
@@ -375,6 +699,30 @@
     },
     {
       "key": {
+        "uuid": "9dfcce03_3ec744f9",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "371b5c29_04188cab",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 34
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d88d8878_0119e969",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 4
@@ -395,6 +743,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2f53d74_5e175157",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d88d8878_0119e969",
+      "range": {
+        "startLine": 222,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 35
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -421,6 +793,30 @@
     },
     {
       "key": {
+        "uuid": "858c40cb_be3ebd71",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Yep I\u0027ve checked before and they all need to be run in the context of the thread.",
+      "parentUuid": "a15b64f4_e1140ffe",
+      "range": {
+        "startLine": 237,
+        "startChar": 3,
+        "endLine": 246,
+        "endChar": 16
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce897791_8bcf7fb1",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 4
@@ -441,6 +837,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91873638_b258adf6",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Yep I\u0027ve checked before and they all need to be run in the context of the thread.",
+      "parentUuid": "ce897791_8bcf7fb1",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 1
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -467,6 +887,30 @@
     },
     {
       "key": {
+        "uuid": "4fd1b561_e6db5dfa",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f47773e_bc3011bc",
+      "range": {
+        "startLine": 35,
+        "startChar": 52,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af6c1c81_37aceae8",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
         "patchSetId": 4
@@ -481,6 +925,24 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa76e438_dae94a63",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af6c1c81_37aceae8",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -507,6 +969,30 @@
     },
     {
       "key": {
+        "uuid": "d84886fd_17b96aec",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b20e724d_3fa561a6",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81966df7_2ee86da2",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
         "patchSetId": 4
@@ -527,6 +1013,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20080901_268dca61",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81966df7_2ee86da2",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 36
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -553,6 +1063,30 @@
     },
     {
       "key": {
+        "uuid": "7def416d_198a1151",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f432dafc_21cacdcf",
+      "range": {
+        "startLine": 111,
+        "startChar": 41,
+        "endLine": 111,
+        "endChar": 45
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c497073c_159232e8",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
         "patchSetId": 4
@@ -573,6 +1107,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c91ab2bb_c4e28a03",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c497073c_159232e8",
+      "range": {
+        "startLine": 116,
+        "startChar": 42,
+        "endLine": 116,
+        "endChar": 46
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -599,6 +1157,30 @@
     },
     {
       "key": {
+        "uuid": "a9666393_037ec07a",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "34a7cc14_cab9007c",
+      "range": {
+        "startLine": 126,
+        "startChar": 31,
+        "endLine": 126,
+        "endChar": 46
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38ee8e41_91f4ebaf",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
         "patchSetId": 4
@@ -610,6 +1192,30 @@
       "writtenOn": "2020-07-06T18:17:16Z",
       "side": 1,
       "message": "Here also, might be helpful to consolidate comments if repeated or obvious.",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 144,
+        "endChar": 56
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "debe346a_36f259b5",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-06T21:11:25Z",
+      "side": 1,
+      "message": "I found these comments a bit extra as the fields are pretty self-explanatory through their name and type, do you think I can simply drop the comments?",
+      "parentUuid": "38ee8e41_91f4ebaf",
       "range": {
         "startLine": 134,
         "startChar": 2,

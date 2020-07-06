@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eaf1035c_fff2f474",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-06T12:39:35Z",
+      "side": 1,
+      "message": "verified using https://github.com/webrtc/samples/pull/1327",
+      "revId": "43c3473dab02b5f4927ec343d2dade7c766cb373",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

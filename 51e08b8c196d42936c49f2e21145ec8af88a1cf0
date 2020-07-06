@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02412cef_8972b3a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-06T22:49:27Z",
+      "side": 1,
+      "message": "\u003e Patch Set 2:\n\u003e \n\u003e Seems that if we want to support all 3 configs (compiled-in usrsctp, separately-compiled usrsctp, no sctp), we should have bots that compile in all 3 configs. Configs that are possible but not tested rot.\n\n#1 is covered by default, #2 is covered by our internal build, and #3 is covered by the more_configs bot: https://ci.chromium.org/p/webrtc/builders/ci/Linux%20%28more%20configs%29",
+      "revId": "51e08b8c196d42936c49f2e21145ec8af88a1cf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

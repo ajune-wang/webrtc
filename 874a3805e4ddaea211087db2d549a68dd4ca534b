@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1494165d_40a9e778",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T09:06:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "befff8e7_e52d4bd2",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c9509f2_1727fc99",
         "filename": "call/adaptation/video_stream_adapter.cc",
         "patchSetId": 2
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Yes, and this was the same logic as today as far as I understand. However I don\u0027t think that there is any case where this could happen because BALANCED can never have any adaptations when initial frame dropping is active, since we always reset the settings.",
       "parentUuid": "d2f17e3d_b792c0b7",
+      "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0495bf8b_ba259289",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-06T09:06:12Z",
+      "side": 1,
+      "message": "BALANCED either picks a target fps based on finch configs etc or it moves down and tries out the same code path as adapting down resolution. So this may be today\u0027s behavior.\n\nHowever the old TriggerAdaptationDueToFrameDroppedDueToSize simply triggered overuse a second time if the first time did not affect resolution, so I\u0027m not certain whether or not the second one is guaranteed to affect resolution. What if BalancedDegradationSettings::MinFps returns a target fps that we can adapt to two times in a row?\n\nI don\u0027t know whether or not that is possible, and adapting the resolution is clearly the intent, so I think this CL is good to go regardless. But because balanced is so confusing, I wouldn\u0027t be surprised if today\u0027s TriggerAdaptationDueToFrameDroppedDueToSize could in some cases double-adapt FPS... Best not think about it too much or we\u0027ll get a headache lol.",
+      "parentUuid": "f07db072_bf8b8cdd",
       "revId": "874a3805e4ddaea211087db2d549a68dd4ca534b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

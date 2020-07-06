@@ -17,7 +17,10 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/video_codecs/video_encoder.h"
 #include "rtc_base/event.h"
-#include "rtc_base/task_queue.h"
+#include "rtc_base/location.h"
+#include "rtc_base/logging.h"
+#include "rtc_base/task_queue_for_test.h"
+#include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -64,11 +67,17 @@ class FakeQualityScalerQpUsageHandlerCallback
 
 class FakeDegradationPreferenceProvider : public DegradationPreferenceProvider {
  public:
-  ~FakeDegradationPreferenceProvider() override {}
+  ~FakeDegradationPreferenceProvider() override = default;
 
   DegradationPreference degradation_preference() const override {
     return DegradationPreference::MAINTAIN_FRAMERATE;
   }
+};
+
+class MockListener : public QualityScalerResource::Listener {
+ public:
+  MOCK_METHOD(void, OnQualityScalerStopped, (), (override));
+  MOCK_METHOD(void, OnQualityScalerStarted, (), (override));
 };
 
 }  // namespace
@@ -83,9 +92,9 @@ class QualityScalerResourceTest : public ::testing::Test {
         encoder_queue_(task_queue_factory_->CreateTaskQueue(
             "EncoderQueue",
             TaskQueueFactory::Priority::NORMAL)),
-        degradation_preference_provider_(),
         quality_scaler_resource_(
-            QualityScalerResource::Create(&degradation_preference_provider_)) {
+            QualityScalerResource::Create(&degradation_preference_provider_,
+                                          &listener_)) {
     quality_scaler_resource_->RegisterEncoderTaskQueue(encoder_queue_.Get());
     quality_scaler_resource_->RegisterAdaptationTaskQueue(
         resource_adaptation_queue_.Get());
@@ -98,7 +107,11 @@ class QualityScalerResourceTest : public ::testing::Test {
     event.Wait(kDefaultTimeout);
   }
 
-  ~QualityScalerResourceTest() {
+  void TearDown() override {
+    testing::Mock::VerifyAndClearExpectations(&listener_);
+  }
+
+  ~QualityScalerResourceTest() override {
     rtc::Event event;
     encoder_queue_.PostTask([this, &event] {
       quality_scaler_resource_->StopCheckForOveruse();
@@ -109,9 +122,10 @@ class QualityScalerResourceTest : public ::testing::Test {
 
  protected:
   const std::unique_ptr<TaskQueueFactory> task_queue_factory_;
-  rtc::TaskQueue resource_adaptation_queue_;
-  rtc::TaskQueue encoder_queue_;
+  TaskQueueForTest resource_adaptation_queue_;
+  TaskQueueForTest encoder_queue_;
   FakeDegradationPreferenceProvider degradation_preference_provider_;
+  testing::NiceMock<MockListener> listener_;
   rtc::scoped_refptr<QualityScalerResource> quality_scaler_resource_;
 };
 
@@ -165,6 +179,19 @@ TEST_F(QualityScalerResourceTest, AbortPendingCallbacksAndStartAgain) {
   });
   callback1->qp_usage_handled_event()->Wait(kDefaultTimeout);
   callback2->qp_usage_handled_event()->Wait(kDefaultTimeout);
+}
+
+TEST_F(QualityScalerResourceTest, ListenerTest) {
+  EXPECT_CALL(listener_, OnQualityScalerStopped()).Times(1);
+  EXPECT_CALL(listener_, OnQualityScalerStarted()).Times(1);
+  encoder_queue_.SendTask(
+      [this]() {
+        // Clear all existing calls to the listener.
+        quality_scaler_resource_->StopCheckForOveruse();
+        quality_scaler_resource_->StartCheckForOveruse(
+            VideoEncoder::QpThresholds());
+      },
+      RTC_FROM_HERE);
 }
 
 }  // namespace webrtc

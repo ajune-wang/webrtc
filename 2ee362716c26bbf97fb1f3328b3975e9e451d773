@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "082a95bf_b1af089c",
+        "filename": "rtc_base/thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 910,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-06T09:53:09Z",
+      "side": 1,
+      "message": "Can you move the access to invoke_policies_ within this entering of crit_ so that you aren\u0027t acquiring crit_ twice?",
+      "revId": "2ee362716c26bbf97fb1f3328b3975e9e451d773",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

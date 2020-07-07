@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35918a64_57c63982",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-07T18:14:40Z",
+      "side": 1,
+      "message": "LGTM, you make it look easy :-)\n",
+      "revId": "fb41f8a74892c5501d4a7a5cbde1911949fee4a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

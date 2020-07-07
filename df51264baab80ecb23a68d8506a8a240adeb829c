@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73470da7_22f94e67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-07T14:42:49Z",
+      "side": 1,
+      "message": "Wow, that SetSendCodecs function sure is getting to be a long one....\n",
+      "revId": "df51264baab80ecb23a68d8506a8a240adeb829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

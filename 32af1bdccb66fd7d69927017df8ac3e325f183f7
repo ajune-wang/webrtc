@@ -50,6 +50,24 @@
       "revId": "32af1bdccb66fd7d69927017df8ac3e325f183f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ccad57c_d0c95307",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1747,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-07T09:39:15Z",
+      "side": 1,
+      "message": "Just to clarify that |transport_stats-\u003epackets_sent| is a RTCStatsMember\u003cuint64_t\u003e, which default-initialises not to have a value: its is_defined() returns false and accessing its value will DCHECK-crash. An undefined value is not exposed in JS (as mandated by the spec), so it\u0027s qualitatively different than a 0, and this makes a difference in some cases, so defaulting to undefined has become the norm in favor of explicitly overwriting it when you do want to expose that 0.\n\nThat being said, an accumulative counter for something happening (such as number of packets sent or received) is always well-defined so metrics such as these could make sense to initialise to 0. It can be done with a second parameter to the RTCStatsMember constructor, but note that the style for the rest of the counters is currently not to default them to 0.\n\nI would either leave this as-is for the sake of style consistency or I would update the constructors of the byte counters as well as the packet counters.\n\nUp to you, I don\u0027t have a strong preference.",
+      "parentUuid": "da52ffcd_0cf3a9fe",
+      "revId": "32af1bdccb66fd7d69927017df8ac3e325f183f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

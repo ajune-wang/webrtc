@@ -16,6 +16,23 @@
       "revId": "df51264baab80ecb23a68d8506a8a240adeb829c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c55969d2_5ecd76af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-07T14:43:30Z",
+      "side": 1,
+      "message": "... but what about the tests?\n",
+      "revId": "df51264baab80ecb23a68d8506a8a240adeb829c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

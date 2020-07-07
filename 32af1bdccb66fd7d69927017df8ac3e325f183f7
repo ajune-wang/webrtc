@@ -68,6 +68,24 @@
       "revId": "32af1bdccb66fd7d69927017df8ac3e325f183f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d0c436_c71fa8cd",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1747,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-07T09:44:29Z",
+      "side": 1,
+      "message": "I think let\u0027s keep it consistent for this class and for the rest of API.",
+      "parentUuid": "3ccad57c_d0c95307",
+      "revId": "32af1bdccb66fd7d69927017df8ac3e325f183f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

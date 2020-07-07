@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0dd3b6c_08c81bcc",
+        "filename": "video/video_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-07T22:19:33Z",
+      "side": 0,
+      "message": "This code was calling into AllFramesRecorded() while holding comparison_lock_which is taken inside AllFramesRecorded. Resolved and regression controlled by use of thread annotation.",
+      "range": {
+        "startLine": 573,
+        "startChar": 30,
+        "endLine": 573,
+        "endChar": 47
+      },
+      "revId": "e7c015e11258b167f6b92e4d369d0c6204c8d735",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

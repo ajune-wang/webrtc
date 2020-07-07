@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "517cb86b_52d86960",
+        "filename": "video/video_analyzer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-07T22:19:33Z",
+      "side": 1,
+      "message": "This code was a little sloppy in calling RTC_LOCKS_EXCLUDED code taking locks when running under a lock.",
+      "range": {
+        "startLine": 188,
+        "startChar": 3,
+        "endLine": 206,
+        "endChar": 43
+      },
+      "revId": "085be422ce98fcb32e31da21f963d89bf27e24bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "d902eaba_03508b01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-07T17:45:51Z",
+      "side": 1,
+      "message": "Can you check if you commit your new changes?",
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43ebfcf0_777cfe65",
         "filename": "examples/experimental/androidvoip/AndroidManifest.xml",
         "patchSetId": 4
@@ -624,6 +641,29 @@
     },
     {
       "key": {
+        "uuid": "ba978ca8_b7c662f3",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-07T17:45:51Z",
+      "side": 1,
+      "message": "Can you inline these 2 lines? return NativeToJavaList(env, names, \u0026webrtc::NativeToJavaString);",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 132,
+        "endChar": 56
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f94f063_62c041ec",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 4
@@ -812,6 +852,54 @@
     },
     {
       "key": {
+        "uuid": "2b2a940e_96d5a63f",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-07T17:45:51Z",
+      "side": 1,
+      "message": "Does not look resolved, did you send your new commit?",
+      "parentUuid": "9dfcce03_3ec744f9",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 34
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3be7cf17_1e0c9db4",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-07T17:45:51Z",
+      "side": 1,
+      "message": "Does not look resolved, did you send your new commit?",
+      "parentUuid": "9dfcce03_3ec744f9",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 34
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d88d8878_0119e969",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 4
@@ -856,6 +944,30 @@
       "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f403fe2c_b4f8178b",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-07T17:45:51Z",
+      "side": 1,
+      "message": "Same here, do not see updated change.",
+      "parentUuid": "d2f53d74_5e175157",
+      "range": {
+        "startLine": 222,
+        "startChar": 4,
+        "endLine": 228,
+        "endChar": 35
+      },
+      "revId": "4e61eb8cf8c9ee00a662e0008a5ec36a2e42ab26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

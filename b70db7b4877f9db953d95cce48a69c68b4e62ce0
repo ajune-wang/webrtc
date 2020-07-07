@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c779b370_fdfe3c5a",
+        "filename": "video/adaptation/quality_scaler_resource.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-07T07:07:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8c2f098_3a7f6a4a",
+      "revId": "b70db7b4877f9db953d95cce48a69c68b4e62ce0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cfc54aa_17c091d9",
         "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
         "patchSetId": 4

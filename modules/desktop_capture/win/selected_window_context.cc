@@ -28,20 +28,19 @@ bool SelectedWindowContext::IsSelectedWindowValid() const {
 }
 
 bool SelectedWindowContext::IsWindowOwnedBySelectedWindow(HWND hwnd) const {
-  // This check works for drop-down menus & dialog pop-up windows. It doesn't
-  // work for context menus or tooltips, which are handled differently below.
+  // This check works for drop-down menus & dialog pop-up windows.
   if (GetAncestor(hwnd, GA_ROOTOWNER) == selected_window_) {
     return true;
   }
 
-  // Some pop-up windows aren't owned (e.g. context menus, tooltips); treat
-  // windows that belong to the same thread as owned.
-  DWORD enumerated_window_process_id = 0;
-  DWORD enumerated_window_thread_id =
-      GetWindowThreadProcessId(hwnd, &enumerated_window_process_id);
-  return enumerated_window_thread_id != 0 &&
-         enumerated_window_process_id == selected_window_process_id_ &&
-         enumerated_window_thread_id == selected_window_thread_id_;
+  // Current implementation can't detect ownwership for some context menus or
+  // tooltips. The approach with checking that both windows share the same
+  // process and thread had too many false positive results and could lead to
+  // having unintended windows in captured stream (see
+  // https://bugs.chromium.org/p/webrtc/issues/detail?id=11455). Here is an
+  // attempt to err on the side of caution returning false when we can't be
+  // sure if |hwnd| is owned by selected window.
+  return false;
 }
 
 bool SelectedWindowContext::IsWindowOverlappingSelectedWindow(HWND hwnd) const {

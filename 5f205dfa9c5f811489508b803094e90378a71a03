@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "b2537374_5b58282d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:27:06Z",
+      "side": 1,
+      "message": "Also I see some unresolved comments in first patch. Please resolve them if they are not needed to be addressed.",
+      "revId": "5f205dfa9c5f811489508b803094e90378a71a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c22d992_a1e6988f",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 7

@@ -22,6 +22,30 @@
       "revId": "1e36e1ed720fcf5dcc99db1dc4fc81ea47637338",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae050522_8a7a3b81",
+        "filename": "config.star",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2020-07-08T10:54:03Z",
+      "side": 1,
+      "message": "What mailing list do you suggest to use ?",
+      "parentUuid": "22e0dba7_dff478cc",
+      "range": {
+        "startLine": 197,
+        "startChar": 22,
+        "endLine": 197,
+        "endChar": 44
+      },
+      "revId": "1e36e1ed720fcf5dcc99db1dc4fc81ea47637338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

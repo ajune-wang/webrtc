@@ -1,0 +1,305 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c007e562_35c1075a",
+        "filename": "test/fake_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "Should it be |mutable| here?\n\nI foresee a lot of errors in the future when people would forget to add mutable.\nCan the Mutex be changed to work similarly to rtc::CriticalSection, where no mutable is needed?\nCould you please move |mutable| inside the Mutex to |impl_|? \n\nIt can be a separate CL, because a lot of existing |mutable| should be removed from all the Mutexes.",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99815426_e43695b3",
+        "filename": "video/frame_encode_metadata_writer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abdd4ea6_bf4bcb33",
+        "filename": "video/picture_id_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79839748_fe624abf",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "nit: rename to mutex_",
+      "range": {
+        "startLine": 278,
+        "startChar": 10,
+        "endLine": 278,
+        "endChar": 13
+      },
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48ac0742_1f01bfe1",
+        "filename": "video/rtp_video_stream_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "nit: lock or mutex",
+      "range": {
+        "startLine": 360,
+        "startChar": 21,
+        "endLine": 360,
+        "endChar": 23
+      },
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa7c6f87_d188b1af",
+        "filename": "video/send_delay_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcbb9cb5_69878558",
+        "filename": "video/video_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable?",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea3c92c_7039987d",
+        "filename": "video/video_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable?",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619f8ba4_db9b888c",
+        "filename": "video/video_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable?",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55b3d3fb_fe9d5c02",
+        "filename": "video/video_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable?",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63e1ad36_19161cb6",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable?",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b88d48e_8312d6a0",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1535,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1313615_0cc2f446",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1606,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a66e16_14e2e8ad",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "662d9d48_896bb6aa",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2585,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded61895_f3b0b55d",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2853,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f57a08b_b0c9582b",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3525,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-08T09:12:19Z",
+      "side": 1,
+      "message": "mutable",
+      "revId": "83f1ce112cc9a482f14b783452a168308d5cda25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

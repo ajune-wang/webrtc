@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "d4f97a4f_cfed625b",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "ok, thanks. I wanted the comments added on top so to indicate the reason for such usage. It\u0027s not aesthetic appealing and I like to see if we can avoid such enforcement.\n\n// Due to consistent thread requirement on audio_device_template.h, code is invoked in the context of voip_thread_.",
+      "parentUuid": "efd45441_485cc5c9",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 41
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0fa53883_1cae2803",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 6
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "You mean I should add \"// FYI. Thread error occurs at modules/utility/source/process_thread_impl.cc line 146 when run outside of voip_thread_ context.\" before the invoke?",
       "parentUuid": "30feba2e_f946b801",
+      "range": {
+        "startLine": 234,
+        "startChar": 15,
+        "endLine": 234,
+        "endChar": 66
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2539ddf_d9ddaf4d",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "Yeah, please refer the previous comments.",
+      "parentUuid": "70377100_69a06bf6",
       "range": {
         "startLine": 234,
         "startChar": 15,
@@ -309,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "daa1199f_b9f34f18",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "Yeah, please refer the previous comments.",
+      "parentUuid": "eb5ab7ed_fae1944b",
+      "range": {
+        "startLine": 282,
+        "startChar": 9,
+        "endLine": 282,
+        "endChar": 49
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aca8207d_2c30c6a0",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 6
@@ -368,6 +440,30 @@
       "side": 1,
       "message": "App would crash immediately when audio device is created in main thread.",
       "parentUuid": "fa1c6ee2_3a693b91",
+      "range": {
+        "startLine": 292,
+        "startChar": 9,
+        "endLine": 292,
+        "endChar": 48
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63dde229_f4ec4b87",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "Yeah, please refer the previous comments.",
+      "parentUuid": "e67ee8a5_f84193b6",
       "range": {
         "startLine": 292,
         "startChar": 9,
@@ -510,6 +606,30 @@
       "side": 1,
       "message": "App would crash immediately when audio device is created in main thread.",
       "parentUuid": "be20224f_247c2781",
+      "range": {
+        "startLine": 312,
+        "startChar": 9,
+        "endLine": 312,
+        "endChar": 51
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "954837ff_998676b7",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "Yeah, please refer the previous comments.",
+      "parentUuid": "98cdb56a_a98fae57",
       "range": {
         "startLine": 312,
         "startChar": 9,

@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78b71422_0187a788",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "Thanks again, PTAL.",
+      "revId": "5f205dfa9c5f811489508b803094e90378a71a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c22d992_a1e6988f",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "const reference? (instead of copy)",
+      "range": {
+        "startLine": 83,
+        "startChar": 19,
+        "endLine": 83,
+        "endChar": 30
+      },
+      "revId": "5f205dfa9c5f811489508b803094e90378a71a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e7745af_96b9c874",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "Here also, consider if const reference would be better or not.",
+      "range": {
+        "startLine": 217,
+        "startChar": 2,
+        "endLine": 217,
+        "endChar": 13
+      },
+      "revId": "5f205dfa9c5f811489508b803094e90378a71a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9e5cb28_c7fed76b",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "Here also, consider if const reference would be better or not.",
+      "range": {
+        "startLine": 226,
+        "startChar": 2,
+        "endLine": 226,
+        "endChar": 13
+      },
+      "revId": "5f205dfa9c5f811489508b803094e90378a71a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe64e9d_6fae282c",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T17:26:29Z",
+      "side": 1,
+      "message": "This already seems to be defined as AndroidVoipClient::StopSend?",
+      "range": {
+        "startLine": 267,
+        "startChar": 4,
+        "endLine": 270,
+        "endChar": 5
+      },
+      "revId": "5f205dfa9c5f811489508b803094e90378a71a03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -27,11 +27,18 @@ SimulatedTaskQueue::~SimulatedTaskQueue() {
 }
 
 void SimulatedTaskQueue::Delete() {
+  // Need to destroy the tasks outside of the lock because task destruction
+  // leads to executing the task and that execution can re-enter in
+  // SimulatedTaskQueue.
+  std::deque<std::unique_ptr<QueuedTask>> ready_tasks;
+  std::map<Timestamp, std::vector<std::unique_ptr<QueuedTask>>> delayed_tasks;
   {
     rtc::CritScope lock(&lock_);
-    ready_tasks_.clear();
-    delayed_tasks_.clear();
+    ready_tasks_.swap(ready_tasks);
+    delayed_tasks_.swap(delayed_tasks);
   }
+  ready_tasks.clear();
+  delayed_tasks.clear();
   delete this;
 }
 

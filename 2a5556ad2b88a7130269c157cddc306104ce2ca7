@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ea388374_2b46fa6e",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "This isn\u0027t following the code style. It would be like kPcmu, kPcma, ...",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 12
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87944d2b_410d96d3",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 6
@@ -13,6 +36,30 @@
       "writtenOn": "2020-07-07T22:21:13Z",
       "side": 1,
       "message": "FYI. Thread error occurs at modules/audio_device/android/audio_device_template.h line 58 when run outside of voip_thread_ context.",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 41
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f11eb0_f73af671",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "If you created AudioDeviceModule by the main thread, would you still require Invoke for all the other audio device related device check?",
+      "parentUuid": "87944d2b_410d96d3",
       "range": {
         "startLine": 120,
         "startChar": 4,
@@ -48,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "30feba2e_f946b801",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "Same comment before Invoke\u003c\u003e usage to clarify the usage.",
+      "parentUuid": "0fa53883_1cae2803",
+      "range": {
+        "startLine": 234,
+        "startChar": 15,
+        "endLine": 234,
+        "endChar": 66
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a63ca46c_08e5db88",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 6
@@ -59,6 +130,30 @@
       "writtenOn": "2020-07-07T22:21:13Z",
       "side": 1,
       "message": "FYI. Thread error occurs at modules/utility/source/process_thread_impl.cc line 181 when run outside of voip_thread_ context.",
+      "range": {
+        "startLine": 275,
+        "startChar": 4,
+        "endLine": 275,
+        "endChar": 50
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35d29d1a_ecf43a4c",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "Could you add the comment before Invoke\u003c\u003e usage to clarify the usage.",
+      "parentUuid": "a63ca46c_08e5db88",
       "range": {
         "startLine": 275,
         "startChar": 4,
@@ -94,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "0457735c_7d1e4c0e",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "Please check if you could remove Invoke usage if you create audio device in main thread.",
+      "parentUuid": "9f82f487_995768b5",
+      "range": {
+        "startLine": 282,
+        "startChar": 9,
+        "endLine": 282,
+        "endChar": 49
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aca8207d_2c30c6a0",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 6
@@ -105,6 +224,30 @@
       "writtenOn": "2020-07-07T22:21:13Z",
       "side": 1,
       "message": "FYI. Thread error occurs at modules/audio_device/android/opensles_recorder.cc line 149 when run outside of voip_thread_ context.",
+      "range": {
+        "startLine": 292,
+        "startChar": 9,
+        "endLine": 292,
+        "endChar": 48
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa1c6ee2_3a693b91",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "Please check if you could remove Invoke usage if you create audio device in main thread.",
+      "parentUuid": "aca8207d_2c30c6a0",
       "range": {
         "startLine": 292,
         "startChar": 9,
@@ -140,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "1f2d5fcc_af530650",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "Please check if you could remove Invoke usage if you create audio device in main thread.",
+      "parentUuid": "2f8f165d_31f7405b",
+      "range": {
+        "startLine": 302,
+        "startChar": 9,
+        "endLine": 302,
+        "endChar": 52
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9858b902_403d97b4",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 6
@@ -156,6 +323,133 @@
         "startChar": 9,
         "endLine": 312,
         "endChar": 51
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be20224f_247c2781",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "Please check if you could remove Invoke usage if you create audio device in main thread.",
+      "parentUuid": "9858b902_403d97b4",
+      "range": {
+        "startLine": 312,
+        "startChar": 9,
+        "endLine": 312,
+        "endChar": 51
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3f3cea4_a809381a",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "rtc::Thread (voip_thread_)",
+      "range": {
+        "startLine": 39,
+        "startChar": 36,
+        "endLine": 39,
+        "endChar": 50
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a54cc130_d36963de",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "I think you can remove this comment and have no new line in between SetLocalAddress.  You can still modify comment on SetLocalAddress that covers SetRemoteAddress.",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 70
+      },
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2be3d35_947ee73a",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "preferably no new line as comments on SendRtp also applies to SendRtcp.",
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48647c93_c851ddb9",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "preferably no new line as comments with similar reason.",
+      "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293ffc2b_3b504af4",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-08T00:14:47Z",
+      "side": 1,
+      "message": "You could categorize these member as related to network in comment.",
+      "range": {
+        "startLine": 146,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 42
       },
       "revId": "2a5556ad2b88a7130269c157cddc306104ce2ca7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

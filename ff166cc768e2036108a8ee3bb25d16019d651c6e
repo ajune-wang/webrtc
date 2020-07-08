@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f06b7ea2_6bb37865",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-07-08T01:56:57Z",
+      "side": 1,
+      "message": "Upload new patch implementing the latest proposal.",
+      "revId": "ff166cc768e2036108a8ee3bb25d16019d651c6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

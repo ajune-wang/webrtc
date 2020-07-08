@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cd8656f_d9705efc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-08T08:31:53Z",
+      "side": 1,
+      "message": "Adding No-Try since this doesn\u0027t affect WebRTC code (so I can skip iOS sim bots without gn analyze support).",
+      "revId": "fea4da8ce472155d9046cef629b923e356cbd2fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

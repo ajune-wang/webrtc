@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf32835a_f8c7bef9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-08T09:24:54Z",
+      "side": 1,
+      "message": "Please take a look Evan. (getStats people are OOO and I\u0027m owner, so just need a stamp for adding ScopedDisallowBlockingCalls.)",
+      "revId": "be8271b78c2a3b2567178123623783c52228631f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

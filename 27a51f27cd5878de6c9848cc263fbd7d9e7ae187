@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "b3fece4a_a8fec237",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-08T11:00:49Z",
+      "side": 1,
+      "message": "Right.\n\nIf voice activity is taken into account I think that can happen when you have .speech true on primary and tertiary encoding but false on the second one. Will make a note to have that covered by the tests when that change comes ;-)",
+      "parentUuid": "18a86638_b7668cae",
+      "revId": "27a51f27cd5878de6c9848cc263fbd7d9e7ae187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b96832c_9185e8a6",
         "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red_unittest.cc",
         "patchSetId": 1
@@ -67,6 +85,24 @@
       "revId": "27a51f27cd5878de6c9848cc263fbd7d9e7ae187",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4cadf71_0a654fa2",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-08T11:00:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b96832c_9185e8a6",
+      "revId": "27a51f27cd5878de6c9848cc263fbd7d9e7ae187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

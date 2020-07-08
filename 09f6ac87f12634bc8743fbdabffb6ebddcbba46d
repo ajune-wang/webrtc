@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbfe1f92_a01151b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-08T10:02:59Z",
+      "side": 1,
+      "message": "Safe to land as soon as the whitelist typo in chromium has landed",
+      "revId": "09f6ac87f12634bc8743fbdabffb6ebddcbba46d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

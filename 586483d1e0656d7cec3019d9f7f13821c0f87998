@@ -530,6 +530,54 @@
     },
     {
       "key": {
+        "uuid": "24f42700_d7260f3f",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-08T18:17:31Z",
+      "side": 1,
+      "message": "A method is now used to fetch the corresponding payload type.",
+      "parentUuid": "44a3d77c_b9d8a104",
+      "range": {
+        "startLine": 119,
+        "startChar": 51,
+        "endLine": 119,
+        "endChar": 52
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57b4c504_861d8278",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-08T18:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a1ef085_8570c5b7",
+      "range": {
+        "startLine": 119,
+        "startChar": 51,
+        "endLine": 119,
+        "endChar": 52
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e566891_5f5bfefb",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 1
@@ -550,6 +598,30 @@
       "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc0ab8be_c647bedf",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-08T18:17:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e566891_5f5bfefb",
+      "range": {
+        "startLine": 138,
+        "startChar": 28,
+        "endLine": 138,
+        "endChar": 37
+      },
+      "revId": "586483d1e0656d7cec3019d9f7f13821c0f87998",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b563c748_528dd6d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-08T13:51:38Z",
+      "side": 1,
+      "message": "How about:\n\"Release lock before destroying tasks in SimulatedTaskQueue\"?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "8cfa344e913b8e1d194a3dc62d086b83dc49033c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0913f4db_4894811f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-08T13:51:38Z",
+      "side": 1,
+      "message": "Move this part first and in a standalone paragraph, to make it more clear what problem is being fixed.",
+      "range": {
+        "startLine": 9,
+        "startChar": 256,
+        "endLine": 9,
+        "endChar": 452
+      },
+      "revId": "8cfa344e913b8e1d194a3dc62d086b83dc49033c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dc7d8e8_798bea45",
+        "filename": "test/time_controller/simulated_task_queue.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-08T13:51:38Z",
+      "side": 1,
+      "message": "Remove this part, the destructor won\u0027t call .Run() on the task, but a custom destructor of a task can still re-enter.",
+      "range": {
+        "startLine": 31,
+        "startChar": 5,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "8cfa344e913b8e1d194a3dc62d086b83dc49033c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

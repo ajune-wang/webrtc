@@ -32,6 +32,7 @@
 #include "call/adaptation/video_stream_adapter.h"
 #include "call/adaptation/video_stream_input_state.h"
 #include "call/adaptation/video_stream_input_state_provider.h"
+#include "rtc_base/critical_section.h"
 
 namespace webrtc {
 
@@ -150,6 +151,7 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
             VideoStreamAdapter::RestrictionsWithCounters>
   FindMostLimitedResources() const RTC_RUN_ON(resource_adaptation_queue_);
 
+  void RemoveResourceAdaptations(rtc::scoped_refptr<Resource> resource);
   void MaybeUpdateResourceLimitationsOnResourceRemoval(
       VideoStreamAdapter::RestrictionsWithCounters removed_limitations)
       RTC_RUN_ON(resource_adaptation_queue_);
@@ -159,9 +161,10 @@ class ResourceAdaptationProcessor : public ResourceAdaptationProcessorInterface,
   // Input and output.
   VideoStreamEncoderObserver* const encoder_stats_observer_
       RTC_GUARDED_BY(resource_adaptation_queue_);
-  std::vector<ResourceLimitationsListener*> resource_limitations_listeners_
-      RTC_GUARDED_BY(resource_adaptation_queue_);
+  rtc::CriticalSection resources_lock_;
   std::vector<rtc::scoped_refptr<Resource>> resources_
+      RTC_GUARDED_BY(resources_lock_);
+  std::vector<ResourceLimitationsListener*> resource_limitations_listeners_
       RTC_GUARDED_BY(resource_adaptation_queue_);
   std::vector<AdaptationConstraint*> adaptation_constraints_
       RTC_GUARDED_BY(resource_adaptation_queue_);

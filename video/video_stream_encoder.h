@@ -417,9 +417,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
       RTC_GUARDED_BY(&resource_adaptation_queue_);
   // Responsible for adapting input resolution or frame rate to ensure resources
   // (e.g. CPU or bandwidth) are not overused.
-  // This class is single-threaded on the resource adaptation queue.
-  std::unique_ptr<ResourceAdaptationProcessor> resource_adaptation_processor_
-      RTC_GUARDED_BY(&resource_adaptation_queue_);
+  std::unique_ptr<ResourceAdaptationProcessorInterface>
+      resource_adaptation_processor_;
   std::unique_ptr<DegradationPreferenceManager> degradation_preference_manager_;
   std::vector<AdaptationConstraint*> adaptation_constraints_
       RTC_GUARDED_BY(&resource_adaptation_queue_);

@@ -68,6 +68,30 @@
       "revId": "8cfa344e913b8e1d194a3dc62d086b83dc49033c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a7d0e83_701d5631",
+        "filename": "test/time_controller/simulated_task_queue.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-08T14:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dc7d8e8_798bea45",
+      "range": {
+        "startLine": 31,
+        "startChar": 5,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "8cfa344e913b8e1d194a3dc62d086b83dc49033c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

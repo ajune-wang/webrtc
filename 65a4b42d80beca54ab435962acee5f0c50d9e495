@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f4c8453_47c12bb6",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-07-08T08:58:52Z",
+      "side": 1,
+      "message": "Rebase error?",
+      "revId": "65a4b42d80beca54ab435962acee5f0c50d9e495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

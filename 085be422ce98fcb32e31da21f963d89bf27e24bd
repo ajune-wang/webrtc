@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3fd2cf9a_b1d10afc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5609
+      },
+      "writtenOn": "2020-07-08T08:56:08Z",
+      "side": 1,
+      "message": "LGTM\n\nI only reviewed the changes to video_analyzer.h and video_analyzer.cc, assuming the other files were the same as the initial CL. Let me know if I should take a look at more than this.",
+      "revId": "085be422ce98fcb32e31da21f963d89bf27e24bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "517cb86b_52d86960",
         "filename": "video/video_analyzer.h",
         "patchSetId": 2

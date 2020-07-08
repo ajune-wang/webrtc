@@ -70,6 +70,30 @@
       "revId": "1e36e1ed720fcf5dcc99db1dc4fc81ea47637338",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bb3e4d5_b56ecbd4",
+        "filename": "config.star",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2020-07-08T11:02:58Z",
+      "side": 1,
+      "message": "Ok let\u0027s try like this and change the address in a follow up.",
+      "parentUuid": "52b84d08_4425a976",
+      "range": {
+        "startLine": 197,
+        "startChar": 22,
+        "endLine": 197,
+        "endChar": 44
+      },
+      "revId": "1e36e1ed720fcf5dcc99db1dc4fc81ea47637338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -17,9 +17,11 @@
 #include "absl/algorithm/container.h"
 #include "api/video/video_adaptation_counters.h"
 #include "call/adaptation/video_stream_adapter.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 
 namespace webrtc {
@@ -130,7 +132,7 @@ void ResourceAdaptationProcessor::RemoveResourceLimitationsListener(
 
 void ResourceAdaptationProcessor::AddResource(
     rtc::scoped_refptr<Resource> resource) {
-  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+  rtc::CritScope crit(&resources_lock_);
   RTC_DCHECK(resource);
   RTC_DCHECK(absl::c_find(resources_, resource) == resources_.end())
       << "Resource \"" << resource->Name() << "\" was already registered.";
@@ -140,18 +142,33 @@ void ResourceAdaptationProcessor::AddResource(
 
 std::vector<rtc::scoped_refptr<Resource>>
 ResourceAdaptationProcessor::GetResources() const {
-  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
+  rtc::CritScope crit(&resources_lock_);
   return resources_;
 }
 
 void ResourceAdaptationProcessor::RemoveResource(
     rtc::scoped_refptr<Resource> resource) {
-  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(resource);
   RTC_LOG(INFO) << "Removing resource \"" << resource->Name() << "\".";
-  auto it = absl::c_find(resources_, resource);
-  RTC_DCHECK(it != resources_.end()) << "Resource \"" << resource->Name()
-                                     << "\" was not a registered resource.";
+  {
+    rtc::CritScope crit(&resources_lock_);
+    auto it = absl::c_find(resources_, resource);
+    RTC_DCHECK(it != resources_.end()) << "Resource \"" << resource->Name()
+                                       << "\" was not a registered resource.";
+    resources_.erase(it);
+  }
+  resource->SetResourceListener(nullptr);
+  RemoveResourceAdaptations(std::move(resource));
+}
+
+void ResourceAdaptationProcessor::RemoveResourceAdaptations(
+    rtc::scoped_refptr<Resource> resource) {
+  if (!resource_adaptation_queue_->IsCurrent()) {
+    resource_adaptation_queue_->PostTask(ToQueuedTask(
+        [this, resource]() { RemoveResourceAdaptations(resource); }));
+    return;
+  }
+  RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   auto resource_adaptation_limits =
       adaptation_limits_by_resources_.find(resource);
   if (resource_adaptation_limits != adaptation_limits_by_resources_.end()) {
@@ -160,8 +177,6 @@ void ResourceAdaptationProcessor::RemoveResource(
     adaptation_limits_by_resources_.erase(resource_adaptation_limits);
     MaybeUpdateResourceLimitationsOnResourceRemoval(adaptation_limits);
   }
-  resources_.erase(it);
-  resource->SetResourceListener(nullptr);
 }
 
 void ResourceAdaptationProcessor::AddAdaptationConstraint(
@@ -206,10 +221,13 @@ void ResourceAdaptationProcessor::OnResourceUsageStateMeasured(
   RTC_DCHECK_RUN_ON(resource_adaptation_queue_);
   RTC_DCHECK(resource);
   // |resource| could have been removed after signalling.
-  if (absl::c_find(resources_, resource) == resources_.end()) {
-    RTC_LOG(INFO) << "Ignoring signal from removed resource \""
-                  << resource->Name() << "\".";
-    return;
+  {
+    rtc::CritScope crit(&resources_lock_);
+    if (absl::c_find(resources_, resource) == resources_.end()) {
+      RTC_LOG(INFO) << "Ignoring signal from removed resource \""
+                    << resource->Name() << "\".";
+      return;
+    }
   }
   MitigationResultAndLogMessage result_and_message;
   switch (usage_state) {
@@ -308,10 +326,13 @@ ResourceAdaptationProcessor::OnResourceUnderuse(
   }
   // Apply adaptation.
   stream_adapter_->ApplyAdaptation(adaptation, reason_resource);
-  for (auto* adaptation_listener : adaptation_listeners_) {
-    adaptation_listener->OnAdaptationApplied(
-        adaptation.input_state(), restrictions_before, restrictions_after,
-        reason_resource);
+  {
+    rtc::CritScope crit(&resources_lock_);
+    for (auto* adaptation_listener : adaptation_listeners_) {
+      adaptation_listener->OnAdaptationApplied(
+          adaptation.input_state(), restrictions_before, restrictions_after,
+          reason_resource);
+    }
   }
   processing_in_progress_ = false;
   rtc::StringBuilder message;
@@ -347,10 +368,13 @@ ResourceAdaptationProcessor::OnResourceOveruse(
   UpdateResourceLimitations(reason_resource, adaptation.restrictions(),
                             adaptation.counters());
   stream_adapter_->ApplyAdaptation(adaptation, nullptr);
-  for (auto* adaptation_listener : adaptation_listeners_) {
-    adaptation_listener->OnAdaptationApplied(
-        adaptation.input_state(), restrictions_before, restrictions_after,
-        reason_resource);
+  {
+    rtc::CritScope crit(&resources_lock_);
+    for (auto* adaptation_listener : adaptation_listeners_) {
+      adaptation_listener->OnAdaptationApplied(
+          adaptation.input_state(), restrictions_before, restrictions_after,
+          reason_resource);
+    }
   }
   processing_in_progress_ = false;
   rtc::StringBuilder message;
@@ -400,6 +424,7 @@ void ResourceAdaptationProcessor::UpdateResourceLimitations(
   for (const auto& p : adaptation_limits_by_resources_) {
     limitations.insert(std::make_pair(p.first, p.second.counters));
   }
+  rtc::CritScope crit(&resources_lock_);
   for (auto limitations_listener : resource_limitations_listeners_) {
     limitations_listener->OnResourceLimitationChanged(reason_resource,
                                                       limitations);
@@ -429,6 +454,7 @@ void ResourceAdaptationProcessor::
       most_limited.counters, most_limited.restrictions);
   RTC_DCHECK_EQ(adapt_to.status(), Adaptation::Status::kValid);
   stream_adapter_->ApplyAdaptation(adapt_to, nullptr);
+  rtc::CritScope crit(&resources_lock_);
   for (auto* adaptation_listener : adaptation_listeners_) {
     adaptation_listener->OnAdaptationApplied(
         adapt_to.input_state(), removed_limitations.restrictions,
@@ -454,6 +480,7 @@ void ResourceAdaptationProcessor::OnVideoSourceRestrictionsUpdated(
     // Adaptations are cleared.
     adaptation_limits_by_resources_.clear();
     previous_mitigation_results_.clear();
+    rtc::CritScope crit(&resources_lock_);
     for (auto limitations_listener : resource_limitations_listeners_) {
       limitations_listener->OnResourceLimitationChanged(nullptr, {});
     }

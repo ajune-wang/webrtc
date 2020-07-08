@@ -16,6 +16,24 @@
       "revId": "65a4b42d80beca54ab435962acee5f0c50d9e495",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64320cc2_b9d32f8b",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-08T09:03:28Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "8f4c8453_47c12bb6",
+      "revId": "65a4b42d80beca54ab435962acee5f0c50d9e495",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

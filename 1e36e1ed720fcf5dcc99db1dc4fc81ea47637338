@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22e0dba7_dff478cc",
+        "filename": "config.star",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-08T10:00:54Z",
+      "side": 1,
+      "message": "Should we change this as well or do you want to first see if the issue was the deprecated on_failure?",
+      "range": {
+        "startLine": 197,
+        "startChar": 22,
+        "endLine": 197,
+        "endChar": 44
+      },
+      "revId": "1e36e1ed720fcf5dcc99db1dc4fc81ea47637338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

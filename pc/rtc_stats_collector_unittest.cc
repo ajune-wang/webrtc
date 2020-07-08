@@ -2139,9 +2139,6 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
   rtp_connection_info.remote_candidate = *rtp_remote_candidate.get();
   rtp_connection_info.sent_total_bytes = 42;
   rtp_connection_info.recv_total_bytes = 1337;
-  rtp_connection_info.sent_total_packets = 3;
-  rtp_connection_info.sent_discarded_packets = 2;
-  rtp_connection_info.packets_received = 4;
   cricket::TransportChannelStats rtp_transport_channel_stats;
   rtp_transport_channel_stats.component = cricket::ICE_CANDIDATE_COMPONENT_RTP;
   rtp_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
@@ -2159,9 +2156,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
           rtc::ToString(cricket::ICE_CANDIDATE_COMPONENT_RTP),
       report->timestamp_us());
   expected_rtp_transport.bytes_sent = 42;
-  expected_rtp_transport.packets_sent = 1;
   expected_rtp_transport.bytes_received = 1337;
-  expected_rtp_transport.packets_received = 4;
   expected_rtp_transport.dtls_state = RTCDtlsTransportState::kNew;
   expected_rtp_transport.selected_candidate_pair_changes = 1;
 
@@ -2176,9 +2171,6 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
   rtcp_connection_info.remote_candidate = *rtcp_remote_candidate.get();
   rtcp_connection_info.sent_total_bytes = 1337;
   rtcp_connection_info.recv_total_bytes = 42;
-  rtcp_connection_info.sent_total_packets = 3;
-  rtcp_connection_info.sent_discarded_packets = 2;
-  rtcp_connection_info.packets_received = 4;
   cricket::TransportChannelStats rtcp_transport_channel_stats;
   rtcp_transport_channel_stats.component =
       cricket::ICE_CANDIDATE_COMPONENT_RTCP;
@@ -2196,9 +2188,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
           rtc::ToString(cricket::ICE_CANDIDATE_COMPONENT_RTCP),
       report->timestamp_us());
   expected_rtcp_transport.bytes_sent = 1337;
-  expected_rtcp_transport.packets_sent = 1;
   expected_rtcp_transport.bytes_received = 42;
-  expected_rtcp_transport.packets_received = 4;
   expected_rtcp_transport.dtls_state = RTCDtlsTransportState::kConnecting;
   expected_rtcp_transport.selected_candidate_pair_changes = 0;
 
@@ -2292,9 +2282,6 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStatsWithCrypto) {
   rtp_connection_info.remote_candidate = *rtp_remote_candidate.get();
   rtp_connection_info.sent_total_bytes = 42;
   rtp_connection_info.recv_total_bytes = 1337;
-  rtp_connection_info.sent_total_packets = 3;
-  rtp_connection_info.sent_discarded_packets = 2;
-  rtp_connection_info.packets_received = 4;
   cricket::TransportChannelStats rtp_transport_channel_stats;
   rtp_transport_channel_stats.component = cricket::ICE_CANDIDATE_COMPONENT_RTP;
   rtp_transport_channel_stats.ice_transport_stats.connection_infos.push_back(
@@ -2317,9 +2304,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStatsWithCrypto) {
           rtc::ToString(cricket::ICE_CANDIDATE_COMPONENT_RTP),
       report->timestamp_us());
   expected_rtp_transport.bytes_sent = 42;
-  expected_rtp_transport.packets_sent = 1;
   expected_rtp_transport.bytes_received = 1337;
-  expected_rtp_transport.packets_received = 4;
   expected_rtp_transport.dtls_state = RTCDtlsTransportState::kConnected;
   expected_rtp_transport.selected_candidate_pair_changes = 1;
   // Crypto parameters

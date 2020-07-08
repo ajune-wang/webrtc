@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1472b61_9c27fafe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-08T14:07:56Z",
+      "side": 1,
+      "message": "Thanks, so satisfying with all-red diffs!",
+      "revId": "cd327be3706ca8277e045ff9351fe80ba0860822",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04f3ccf5_75ff0085",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-08T07:13:24Z",
+      "side": 1,
+      "message": "I like codebases where you can\u0027t change behavior without changing the test!",
+      "revId": "86d7be6f7b14b68d30323fd54cba2e03d88fa348",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

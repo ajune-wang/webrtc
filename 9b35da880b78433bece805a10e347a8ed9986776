@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17e25d08_52cfc879",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-08T09:48:41Z",
+      "side": 1,
+      "message": "\"Error: transport.packetsReceived is not a whitelisted member\"\n\nAhhh, this is due to a typo in\nhttps://source.chromium.org/chromium/chromium/src/+/master:chrome/test/data/webrtc/peerconnection_getstats.js;l\u003d516?q\u003dpeerconnection_getstats.js\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nIt says packetsRecevied instead of packetsReceived.\n\nFeel free to TBR\u003dhbos@chromium.org-land the typo fix and reland this CL",
+      "revId": "9b35da880b78433bece805a10e347a8ed9986776",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

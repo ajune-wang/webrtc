@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "3572a92a_efbfddf9",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-09T20:56:19Z",
+      "side": 1,
+      "message": "Per https://abseil.io/tips/42, I think it\u0027s fine.  I am not sure if webrtc has exposed absl::WrapUnique as absl exposure is limited here.",
+      "parentUuid": "befa7aa7_b4bd1c1f",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 74
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d2566a2a_35737b68",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 11

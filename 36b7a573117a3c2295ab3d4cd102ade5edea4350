@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7dc594fd_1bc5a5e6",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T08:09:11Z",
+      "side": 1,
+      "message": "Yeah that\u0027s true, somewhere we need to know the actual impact of the whole stack to make sure we don\u0027t have all these amazing puzzle pieces and then when we put them together they do something we don\u0027t expect.",
+      "parentUuid": "14bbdb12_456826f6",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4e0ff93_8bb0c3f7",
         "filename": "call/adaptation/video_stream_adapter.cc",
         "patchSetId": 2
@@ -100,6 +118,24 @@
       "side": 1,
       "message": "I think that this listener class should be removed completely if possible. It is only used by the QP scaler to implement the clear qp behaviour. If that can be cleaned up or removed then we can remove all this code :)",
       "parentUuid": "c8ce90d0_65c08830",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bde3753e_acffb05d",
+        "filename": "call/adaptation/video_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T08:09:11Z",
+      "side": 1,
+      "message": "Swag!",
+      "parentUuid": "fde4b46a_aa18bb2c",
       "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

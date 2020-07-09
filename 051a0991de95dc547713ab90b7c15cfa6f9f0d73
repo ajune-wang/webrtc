@@ -53,6 +53,58 @@
     },
     {
       "key": {
+        "uuid": "21f9d451_cc7e77c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T07:37:54Z",
+      "side": 1,
+      "message": "Actually the purpose of DataChannelController was to isolate SCTP data channel handling from the huge PeerConnection class - I introduced it before starting to modify the end-cause handling in SCTP data channels. The pieces of RTP data channels that were carried over were done because it was easier that way - DataChannelController doesn\u0027t even keep a list of open RTP data channels.\n\nI\u0027d be happy if all RTP-specific code was carried back to PeerConnection, but of course even happier if it was encapsulated in an RTP-only manager class.",
+      "parentUuid": "ab00c2b1_4017d3d1",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "912cdefb_6c262f60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T07:37:54Z",
+      "side": 1,
+      "message": "On third read ... this is Good Enough. Let\u0027s land it and iterate from a better place.\nNits only.\n\nLGTM.\n",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fb7210e_23637672",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T07:37:54Z",
+      "side": 1,
+      "message": "Can we avoid exposing the \"proxy\" property in the function names?\n\nI\u0027d like to get rid of the proxy eventually (choosing between acquire-lock and explicit thread jumps as appropriate for the function).",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a98c7b3a_02698a01",
         "filename": "pc/data_channel_controller.h",
         "patchSetId": 3
@@ -64,6 +116,40 @@
       "writtenOn": "2020-07-09T06:30:20Z",
       "side": 1,
       "message": "DataChannelController doesn\u0027t manage RTP data channels. This should be unnecessary.",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "829ff483_23ea6f3e",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T07:37:54Z",
+      "side": 1,
+      "message": "can this be a SctpDataChannel*?",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf024e7a_0a0a4ff3",
+        "filename": "pc/rtp_data_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T07:37:54Z",
+      "side": 1,
+      "message": "Perhaps we could move the const-valued initializations to the declaration rather than the constructor?",
       "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -150,6 +236,23 @@
       "writtenOn": "2020-07-09T06:30:20Z",
       "side": 1,
       "message": "Can you put a RTC_GUARDED_BY on provider_?\nIt\u0027s a const, so not racy in itself, but I\u0027m not sure the provider is properly guarded.",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f4480c3_6eb0271b",
+        "filename": "pc/test/mock_data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T07:37:54Z",
+      "side": 1,
+      "message": "Should we rename this to MockSctpDataChannel for clarity?",
       "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

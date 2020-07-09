@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d90880cd_d9c994bf",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T09:47:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4e0ff93_8bb0c3f7",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8ce90d0_65c08830",
         "filename": "call/adaptation/video_stream_adapter.h",
         "patchSetId": 2

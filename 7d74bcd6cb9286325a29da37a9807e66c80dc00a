@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "79e6502e_116d8bb4",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-09T08:39:26Z",
+      "side": 1,
+      "message": "synchronization/mutex.h here too.",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7fa1c4ea_c0631076",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 3
@@ -48,6 +71,29 @@
       "side": 1,
       "message": "(doesn\u0027t exist in resources_)",
       "parentUuid": "7fa1c4ea_c0631076",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cd027eb_56d0bdda",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-09T08:39:26Z",
+      "side": 1,
+      "message": "There\u0027s a work ongoing on migrating everything to rtc_base/synchronisation/mutex.h\nE.g. https://webrtc-review.googlesource.com/c/src/+/178862\n\nI suggest you use it here from the beginning. It\u0027s the same as CritSection, but you can\u0027t grab it the second time in the same thread. See the CL for example of usage.\n\nI won\u0027t ask you to do the refactoring in this CL for existing use of CriticalSection, but please don\u0027t introduce it.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 38
+      },
       "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

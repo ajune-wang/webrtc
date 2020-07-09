@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "4d9be568_cd2eb481",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-09T21:21:36Z",
+      "side": 1,
+      "message": "Per https://abseil.io/tips/134, which is an extension to the link above, I\u0027ll leave a comment to document my reason for using `new`.",
+      "parentUuid": "3572a92a_efbfddf9",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 74
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2566a2a_35737b68",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 11
@@ -89,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "ba98fba6_eea5212f",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-09T21:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2566a2a_35737b68",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 54
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccce7eb4_34aefe05",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 11
@@ -109,6 +157,30 @@
       "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30b3d5ea_738b910f",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-09T21:21:36Z",
+      "side": 1,
+      "message": "Good point.",
+      "parentUuid": "ccce7eb4_34aefe05",
+      "range": {
+        "startLine": 249,
+        "startChar": 2,
+        "endLine": 269,
+        "endChar": 3
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

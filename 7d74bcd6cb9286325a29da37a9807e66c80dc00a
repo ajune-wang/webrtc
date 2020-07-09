@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b4542e9_1de4d86c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T08:05:51Z",
+      "side": 1,
+      "message": "Nice. Mostly nits",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7fa1c4ea_c0631076",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T08:05:51Z",
+      "side": 1,
+      "message": "nit: Considering we already have to ignore signals from resources that have already removed (to suppress late-arriving signals due to the listener PostTasking delegate) this probably doesn\u0027t matter - but now that things can happen in parallel to each other, I feel like we should null the listener before removing the resource or else we can still be listening to a resource that doesn\u0027t exist.",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "590a01d5_56704685",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T08:05:51Z",
+      "side": 1,
+      "message": "Update this last paragraph to reflect that resources may be added or removed from any thread.\nAlso update the ResourceAdaptationProcessorInterface class comment.\n\nI suggest also clarifying on the method comments that deviate from the \"must be called on the adaptation task queue\" norm to say that they can be called from anywhere.",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ff5b016_b6c7819e",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T08:05:51Z",
+      "side": 1,
+      "message": "1) I think the name is not super clear. How about RemoveLimitationsImposedByResource?\n2) Can we merge this method and MaybeUpdateResourceLimitationsOnResourceRemoval? It\u0027s only calling place is from this method and from the name it is not clear which one to call when removing a resource.",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bdfa421_c3f8987a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2104,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T08:05:51Z",
+      "side": 1,
+      "message": "We have two methods: AddAdaptationResource and InjectAdaptationResource.\nThey basically do the same thing except InjectAdaptationResource allows you to specify the VideoAdapationReason and it also \n\nCan you either make sure both are updated in this CL or see if it makes sense to have AddAdaptationResource call InjectAdapationResource?",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa462f43_68b1a252",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T08:05:51Z",
+      "side": 1,
+      "message": "Please add a comment about the thread usage of VSE on this member, now that it doesn\u0027t have an RTC_GUARDED_BY anymore.",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

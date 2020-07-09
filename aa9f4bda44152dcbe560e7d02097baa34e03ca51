@@ -16,6 +16,75 @@
       "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "befa7aa7_b4bd1c1f",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-09T20:28:06Z",
+      "side": 1,
+      "message": "Avoid new in cpp:\nauto voip_client \u003d std::make_unique\u003cAndroidVoipClient\u003e();",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 74
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2566a2a_35737b68",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-09T20:28:06Z",
+      "side": 1,
+      "message": "Nit: decoder_strings_set.find(decoder.format.name) !\u003d decoder_strings_set.end()",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 54
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccce7eb4_34aefe05",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-09T20:28:06Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we re-create rtp_socket_ and rtcp_socket_ every time when StartSession is called? Otherwise the socket is not incorrect if the local address is changed by UI.",
+      "range": {
+        "startLine": 249,
+        "startChar": 2,
+        "endLine": 269,
+        "endChar": 3
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

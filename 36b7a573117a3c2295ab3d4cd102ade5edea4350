@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83f3daa4_8b9da0c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T07:46:00Z",
+      "side": 1,
+      "message": "LGTM.\nOne nit to be addressed here and two points of discussion (no change needed here).",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b719752b_1fa96b91",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T07:46:00Z",
+      "side": 1,
+      "message": "I guess when we have multiple mitigations a lot of these tests would be moved and on this layer we would assert more like the correct mitigation being chosen rather than that mitigation having certain outcomes? :) E.g. resolution getting downgraded would be VideoStreamAdapterMitigation-specific, though there is room for some amount of integration tests as well.",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4e0ff93_8bb0c3f7",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T07:46:00Z",
+      "side": 1,
+      "message": "\"attached to a VideoStreamAdapter\"",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ce90d0_65c08830",
+        "filename": "call/adaptation/video_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-09T07:46:00Z",
+      "side": 1,
+      "message": "Unrelated cleanup suggestion for the future: We now have two listeners, one defined here and another defined in its own header. Perhaps both deserve its own header.",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

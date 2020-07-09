@@ -987,7 +987,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCDataChannelStats) {
   // Note: The test assumes data channel IDs are predictable.
   // This is not a safe assumption, but in order to make it work for
   // the test, we reset the ID allocator at test start.
-  DataChannel::ResetInternalIdAllocatorForTesting(-1);
+  SctpDataChannel::ResetInternalIdAllocatorForTesting(-1);
   pc_->AddSctpDataChannel(new MockDataChannel(0, "MockDataChannel0",
                                               DataChannelInterface::kConnecting,
                                               "udp", 1, 2, 3, 4));
@@ -1400,14 +1400,14 @@ TEST_F(RTCStatsCollectorTest, CollectRTCPeerConnectionStats) {
   }
 
   // TODO(bugs.webrtc.org/11547): Supply a separate network thread.
-  rtc::scoped_refptr<DataChannel> dummy_channel_a = DataChannel::Create(
-      nullptr, cricket::DCT_NONE, "DummyChannelA", InternalDataChannelInit(),
+  rtc::scoped_refptr<SctpDataChannel> dummy_channel_a = SctpDataChannel::Create(
+      nullptr, "DummyChannelA", InternalDataChannelInit(),
       rtc::Thread::Current(), rtc::Thread::Current());
-  pc_->SignalDataChannelCreated()(dummy_channel_a.get());
-  rtc::scoped_refptr<DataChannel> dummy_channel_b = DataChannel::Create(
-      nullptr, cricket::DCT_NONE, "DummyChannelB", InternalDataChannelInit(),
+  pc_->SignalSctpDataChannelCreated()(dummy_channel_a.get());
+  rtc::scoped_refptr<SctpDataChannel> dummy_channel_b = SctpDataChannel::Create(
+      nullptr, "DummyChannelB", InternalDataChannelInit(),
       rtc::Thread::Current(), rtc::Thread::Current());
-  pc_->SignalDataChannelCreated()(dummy_channel_b.get());
+  pc_->SignalSctpDataChannelCreated()(dummy_channel_b.get());
 
   dummy_channel_a->SignalOpened(dummy_channel_a.get());
   // Closing a channel that is not opened should not affect the counts.

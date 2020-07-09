@@ -19,6 +19,57 @@
     },
     {
       "key": {
+        "uuid": "d853dbec_c57edd56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T06:30:20Z",
+      "side": 1,
+      "message": "Very nice refactor!\n\nHaven\u0027t reviewed all the files, so have to come back for another round.\n\nFirst reactions:\n- DataChannelController handles only SCTP datachannels, so it shouldn\u0027t need to be touched as much as it is in this revision. Please review.\n- Proxy maps still refer to the DataChannel class, which no longer exists. That looks strange.\n\nStill have to review in detail.",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a98c7b3a_02698a01",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T06:30:20Z",
+      "side": 1,
+      "message": "DataChannelController doesn\u0027t manage RTP data channels. This should be unnecessary.",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2a67d5f_a6bb1c58",
+        "filename": "pc/rtp_data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T06:30:20Z",
+      "side": 1,
+      "message": "Does it? I know we had a pseudo TCP part that did reliable delivery using RTP data channels; wasn\u0027t that part of the RTP data channel stack?",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27841292_572eede7",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 3
@@ -30,6 +81,58 @@
       "writtenOn": "2020-07-09T05:59:14Z",
       "side": 1,
       "message": "Needed to put an anonymous namespace because we have two files trying to define DataChannelProxy",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ba719ed_9042cd6f",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T06:30:20Z",
+      "side": 1,
+      "message": "Can\u0027t we define the proxy map on RtpDataChannel?\nThe proxy map isn\u0027t on DataChannelInterface, it\u0027s on DataChannel.\n\n(it\u0027s good to have it in a private namespace anyway. The more we can internalize the proxy ugliness, the easier it is to get rid of it.)",
+      "parentUuid": "27841292_572eede7",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "053202a7_35a87e99",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T06:30:20Z",
+      "side": 1,
+      "message": "I think this class can be merged with DataChannelController; it\u0027s basically management routines for the transport. I didn\u0027t do the merge when creating DataChannelController because it was tangled with RTP.\n\nNot needed for this CL.",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91465353_cc47f30b",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-09T06:30:20Z",
+      "side": 1,
+      "message": "Can you put a RTC_GUARDED_BY on provider_?\nIt\u0027s a const, so not racy in itself, but I\u0027m not sure the provider is properly guarded.",
       "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

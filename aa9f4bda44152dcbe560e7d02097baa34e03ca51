@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03e8b4d7_57851579",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-09T19:40:58Z",
+      "side": 1,
+      "message": "LG since we agreed to land in examples/experimentals waiting for sakal@ review.\n\nAdding an examples/OWNER for the official LGTM because I am not an OWNER.",
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

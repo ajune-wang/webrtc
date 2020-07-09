@@ -982,8 +982,10 @@ RTCStatsCollector::RTCStatsCollector(PeerConnectionInternal* pc,
   RTC_DCHECK(worker_thread_);
   RTC_DCHECK(network_thread_);
   RTC_DCHECK_GE(cache_lifetime_us_, 0);
-  pc_->SignalDataChannelCreated().connect(
-      this, &RTCStatsCollector::OnDataChannelCreated);
+  pc_->SignalRtpDataChannelCreated().connect(
+      this, &RTCStatsCollector::OnRtpDataChannelCreated);
+  pc_->SignalSctpDataChannelCreated().connect(
+      this, &RTCStatsCollector::OnSctpDataChannelCreated);
 }
 
 RTCStatsCollector::~RTCStatsCollector() {
@@ -1276,7 +1278,7 @@ void RTCStatsCollector::ProduceDataChannelStats_s(
     int64_t timestamp_us,
     RTCStatsReport* report) const {
   RTC_DCHECK_RUN_ON(signaling_thread_);
-  std::vector<DataChannel::Stats> data_stats = pc_->GetDataChannelStats();
+  std::vector<DataChannelStats> data_stats = pc_->GetDataChannelStats();
   for (const auto& stats : data_stats) {
     std::unique_ptr<RTCDataChannelStats> data_channel_stats(
         new RTCDataChannelStats(
@@ -1937,12 +1939,17 @@ std::set<std::string> RTCStatsCollector::PrepareTransportNames_s() const {
   return transport_names;
 }
 
-void RTCStatsCollector::OnDataChannelCreated(DataChannel* channel) {
+void RTCStatsCollector::OnRtpDataChannelCreated(RtpDataChannel* channel) {
   channel->SignalOpened.connect(this, &RTCStatsCollector::OnDataChannelOpened);
   channel->SignalClosed.connect(this, &RTCStatsCollector::OnDataChannelClosed);
 }
 
-void RTCStatsCollector::OnDataChannelOpened(DataChannel* channel) {
+void RTCStatsCollector::OnSctpDataChannelCreated(SctpDataChannel* channel) {
+  channel->SignalOpened.connect(this, &RTCStatsCollector::OnDataChannelOpened);
+  channel->SignalClosed.connect(this, &RTCStatsCollector::OnDataChannelClosed);
+}
+
+void RTCStatsCollector::OnDataChannelOpened(DataChannelInterface* channel) {
   RTC_DCHECK(signaling_thread_->IsCurrent());
   bool result = internal_record_.opened_data_channels
                     .insert(reinterpret_cast<uintptr_t>(channel))
@@ -1951,7 +1958,7 @@ void RTCStatsCollector::OnDataChannelOpened(DataChannel* channel) {
   RTC_DCHECK(result);
 }
 
-void RTCStatsCollector::OnDataChannelClosed(DataChannel* channel) {
+void RTCStatsCollector::OnDataChannelClosed(DataChannelInterface* channel) {
   RTC_DCHECK(signaling_thread_->IsCurrent());
   // Only channels that have been fully opened (and have increased the
   // |data_channels_opened_| counter) increase the closed counter.

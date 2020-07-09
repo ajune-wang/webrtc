@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "14bbdb12_456826f6",
+        "filename": "call/adaptation/resource_adaptation_processor_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T08:01:30Z",
+      "side": 1,
+      "message": "I think that is the long term direction. I am liking the idea of things in the ResourceAdaptationProcessor being more concrete than abstract since we probably want to have control and understanding of the order of mitigations. So have integration directly with some video stream adapter probably isn\u0027t a bad thing.",
+      "parentUuid": "b719752b_1fa96b91",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4e0ff93_8bb0c3f7",
         "filename": "call/adaptation/video_stream_adapter.cc",
         "patchSetId": 2
@@ -64,6 +82,24 @@
       "writtenOn": "2020-07-09T07:46:00Z",
       "side": 1,
       "message": "Unrelated cleanup suggestion for the future: We now have two listeners, one defined here and another defined in its own header. Perhaps both deserve its own header.",
+      "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fde4b46a_aa18bb2c",
+        "filename": "call/adaptation/video_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T08:01:30Z",
+      "side": 1,
+      "message": "I think that this listener class should be removed completely if possible. It is only used by the QP scaler to implement the clear qp behaviour. If that can be cleaned up or removed then we can remove all this code :)",
+      "parentUuid": "c8ce90d0_65c08830",
       "revId": "36b7a573117a3c2295ab3d4cd102ade5edea4350",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

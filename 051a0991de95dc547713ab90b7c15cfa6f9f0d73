@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab00c2b1_4017d3d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T05:59:14Z",
+      "side": 1,
+      "message": "PTAL.\n\nNote that I initially tried splitting DataChannelController into two as well, but this meant PeerConnection had to manage the two controllers, which made the code unnecessarily ugly.\n\nI figure we can let DataChannelController manage both SctpDataChannels and RtpDataChannels, hiding this detail (for the most part) from PeerConnection. This seems okay since I assume the whole point of DataChannelController\u0027s existence is to encapsulate ugly details like that.",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27841292_572eede7",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T05:59:14Z",
+      "side": 1,
+      "message": "Needed to put an anonymous namespace because we have two files trying to define DataChannelProxy",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

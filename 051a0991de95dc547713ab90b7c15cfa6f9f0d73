@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "d681006e_de1a09aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "I\u0027d rather not move all the RTP stuff back just to delete it soon later. Plus I think keeping it in DataChannelController is cleaner anyway.",
+      "parentUuid": "21f9d451_cc7e77c0",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fb7210e_23637672",
         "filename": "pc/data_channel_controller.cc",
         "patchSetId": 3
@@ -99,6 +117,24 @@
       "writtenOn": "2020-07-09T07:37:54Z",
       "side": 1,
       "message": "Can we avoid exposing the \"proxy\" property in the function names?\n\nI\u0027d like to get rid of the proxy eventually (choosing between acquire-lock and explicit thread jumps as appropriate for the function).",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ce58e05_aaf38d23",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "I wanted to make it clear that the controller is creating the proxy, because previously the PeerConnection was doing it. But with the SctpDataChannel/RtpDataChannel split, it was cleaner to have this class do it, because then PeerConnection doesn\u0027t even need to know the type of the channel.",
+      "parentUuid": "5fb7210e_23637672",
       "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -122,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "210630fa_59eb578f",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "Not sure what you mean. Everything I\u0027m looking at points to this class managing them, or at least hooking up signals. Do you mean cricket::RtpDataChannel?",
+      "parentUuid": "a98c7b3a_02698a01",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "829ff483_23ea6f3e",
         "filename": "pc/peer_connection.h",
         "patchSetId": 3
@@ -133,6 +187,24 @@
       "writtenOn": "2020-07-09T07:37:54Z",
       "side": 1,
       "message": "can this be a SctpDataChannel*?",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b5f5987_985e255e",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "I made the Closed signal emit a DataChannelInterface because it was all that was needed, and it let RTCStatsCollector connect signals of both RtpDataChannels and SctpDataChannels to one slot.",
+      "parentUuid": "829ff483_23ea6f3e",
       "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -156,6 +228,24 @@
     },
     {
       "key": {
+        "uuid": "d34ce148_46f9e1e7",
+        "filename": "pc/rtp_data_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf024e7a_0a0a4ff3",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2a67d5f_a6bb1c58",
         "filename": "pc/rtp_data_channel.h",
         "patchSetId": 3
@@ -167,6 +257,24 @@
       "writtenOn": "2020-07-09T06:30:20Z",
       "side": 1,
       "message": "Does it? I know we had a pseudo TCP part that did reliable delivery using RTP data channels; wasn\u0027t that part of the RTP data channel stack?",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ddb22e_2d30223a",
+        "filename": "pc/rtp_data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "If that existed, it must\u0027ve been removed before I joined Google. No such code exists now and you can\u0027t even construct an RTP data channel with reliable set to true.",
+      "parentUuid": "a2a67d5f_a6bb1c58",
       "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -208,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "6d5d0ea1_40fffa73",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "The problem is that BEGIN_PROXY_MAP(Foo) creates a proxy for FooInterface called FooProxy. BEGIN_PROXY_MAP(RtpDataChannel) would try to create a proxy for RtpDataChannelInterface which doesn\u0027t exist.\n\nI could define a new macro, or a typedef for RtpDataChannelInterface, but I think this work fine and it\u0027s only temporary anyway.",
+      "parentUuid": "3ba719ed_9042cd6f",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "053202a7_35a87e99",
         "filename": "pc/sctp_data_channel.h",
         "patchSetId": 3
@@ -219,6 +345,24 @@
       "writtenOn": "2020-07-09T06:30:20Z",
       "side": 1,
       "message": "I think this class can be merged with DataChannelController; it\u0027s basically management routines for the transport. I didn\u0027t do the merge when creating DataChannelController because it was tangled with RTP.\n\nNot needed for this CL.",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e55191b_becec1e4",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "Meaning SctpDataChannelProviderInterface can be merged with DataChannelController? Or SctpTransportInternal? Anyway, I plan to address this in the next CL.",
+      "parentUuid": "053202a7_35a87e99",
       "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -242,6 +386,24 @@
     },
     {
       "key": {
+        "uuid": "92dacf19_ee69b120",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "Done. Is this to ensure that the provider is only accessed on one thread, because that\u0027s what the implementation expects?",
+      "parentUuid": "91465353_cc47f30b",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f4480c3_6eb0271b",
         "filename": "pc/test/mock_data_channel.h",
         "patchSetId": 3
@@ -256,6 +418,24 @@
       "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b953921_09493e6b",
+        "filename": "pc/test/mock_data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-09T22:11:05Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "6f4480c3_6eb0271b",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "d07572ca_bb02d1ed",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T10:31:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79e6502e_116d8bb4",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 35
+      },
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fa1c4ea_c0631076",
         "filename": "call/adaptation/resource_adaptation_processor.cc",
         "patchSetId": 3
@@ -77,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "d0398e30_3ce45eca",
+        "filename": "call/adaptation/resource_adaptation_processor.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T10:31:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fefc5b0_f2613201",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cd027eb_56d0bdda",
         "filename": "call/adaptation/resource_adaptation_processor.h",
         "patchSetId": 3
@@ -100,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "546590c9_682e93b2",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T10:31:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cd027eb_56d0bdda",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "590a01d5_56704685",
         "filename": "call/adaptation/resource_adaptation_processor.h",
         "patchSetId": 3
@@ -114,6 +180,24 @@
       "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f72c3d1_e75d4e3e",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T10:31:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "590a01d5_56704685",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "0d9aed28_f84fc9a6",
+        "filename": "call/adaptation/resource_adaptation_processor.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T10:31:58Z",
+      "side": 1,
+      "message": "Good suggestions! Done.",
+      "parentUuid": "1ff5b016_b6c7819e",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bdfa421_c3f8987a",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3
@@ -151,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "1bbf1939_ce723d9a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2104,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T10:31:58Z",
+      "side": 1,
+      "message": "For now I think it make sense to keep both since it is a lot of work to rewrite all the VideoStreamEncoder unittests to use either real QP or mock the quality scaler somehow. I\u0027ll update both.",
+      "parentUuid": "5bdfa421_c3f8987a",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa462f43_68b1a252",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 3
@@ -165,6 +285,24 @@
       "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec917e19_3481f19f",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-07-09T10:31:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa462f43_68b1a252",
+      "revId": "7d74bcd6cb9286325a29da37a9807e66c80dc00a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

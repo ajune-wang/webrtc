@@ -16,6 +16,8 @@ vars = {
   # Xcode version in build/mac_toolchain.py
   # instead of downloading the prebuilt pinned revision.
   'mac_xcode_version': 'default',
+  'build_with_chromium': False,
+  'checkout_clang_coverage_tools': True,
 }
 
 deps = {
@@ -3090,6 +3092,13 @@ hooks = [
     'name': 'clang',
     'pattern': '.',
     'action': ['python', 'src/tools/clang/scripts/update.py'],
+  },
+  {
+    'name': 'clang_coverage_tools',
+    'pattern': '.',
+    'condition': 'not build_with_chromium and checkout_clang_coverage_tools',
+    'action': ['python', 'src/tools/clang/scripts/update.py',
+               '--package=coverage_tools'],
   },
   {
     # Update LASTCHANGE.

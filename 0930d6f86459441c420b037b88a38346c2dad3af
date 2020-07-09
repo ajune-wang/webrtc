@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3079335_b3cd1363",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-09T18:19:26Z",
+      "side": 1,
+      "message": "I just notice this but ordering should follow this.\n\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "0930d6f86459441c420b037b88a38346c2dad3af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

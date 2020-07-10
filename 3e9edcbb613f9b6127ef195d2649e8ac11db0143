@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b01636b4_c00399f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-10T09:18:22Z",
+      "side": 1,
+      "message": "I am tempted to do this and just verify we have fixed instead of waiting for another breakage.\n\nReverting the Str() CL doesn\u0027t work since they reverted the feature upstream (but I guess they will reland).",
+      "revId": "3e9edcbb613f9b6127ef195d2649e8ac11db0143",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

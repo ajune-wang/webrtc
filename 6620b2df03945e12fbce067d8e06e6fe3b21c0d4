@@ -16,6 +16,24 @@
       "revId": "6620b2df03945e12fbce067d8e06e6fe3b21c0d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdc372f7_bb0a3bb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-10T10:13:14Z",
+      "side": 1,
+      "message": "Yes we could add a test in rtc_stats_integrationtest.cc that polls gets stats and then iterates all the RTCStats objects. If any RTCStats::Members() lists the same RTCStatsMemberInterface* multiple times then we have accidentally listed it twice. It might also be useful to check that no two members have the same Name().\n\nAnother test that I think would be useful is to check the opposite: If we forgot o add any member. It happened once or twice actually that we forgot to add a metric to the list and noticed it a couple of months later \"why isn\u0027t this in stable yet?\"\n\nTesting if all members are present might be more difficult, but I\u0027m wondering if sizeof() could be used to estimate how many members are present inside of an RTCStats class and seeing if that matches Members().size()? Sounds C++ magic though",
+      "parentUuid": "ec50c312_055d7d18",
+      "revId": "6620b2df03945e12fbce067d8e06e6fe3b21c0d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

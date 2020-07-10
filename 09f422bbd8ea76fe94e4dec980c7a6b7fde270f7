@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9835483b_3bca282e",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 12894
+      },
+      "writtenOn": "2020-07-10T21:28:34Z",
+      "side": 1,
+      "message": "nit : Should we use the existing helper (base::EraseIf(..) in stl_util.h ?",
+      "range": {
+        "startLine": 377,
+        "startChar": 2,
+        "endLine": 383,
+        "endChar": 3
+      },
+      "revId": "09f422bbd8ea76fe94e4dec980c7a6b7fde270f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

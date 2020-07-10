@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "db5eb7da_1353441a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-10T09:19:10Z",
+      "side": 1,
+      "message": "nit: You might want to update the description to say why it is safe to reland now",
+      "revId": "2e9a825bedb6f4e46e1b659daec4c87cd9e54612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3bf7202_ae645323",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

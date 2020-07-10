@@ -87,6 +87,30 @@
       "revId": "09f422bbd8ea76fe94e4dec980c7a6b7fde270f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b5769f6_2994652a",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-10T23:32:37Z",
+      "side": 1,
+      "message": "I gave it a shot, but I think it ended up being less readable:\n\n  results-\u003eerase(std::remove_if(\n      results-\u003ebegin(), results-\u003eend(), [this](DesktopCapturer::Source src) {\n        return !IsWindowVisibleOnCurrentDesktop(reinterpret_cast\u003cHWND\u003e(src.id));\n      }), results-\u003eend());\n\nI think I\u0027ll just leave it how it is, unless you disagree or if I\u0027m wrong about our access to base/",
+      "parentUuid": "8dc43bf5_cee79141",
+      "range": {
+        "startLine": 377,
+        "startChar": 2,
+        "endLine": 383,
+        "endChar": 3
+      },
+      "revId": "09f422bbd8ea76fe94e4dec980c7a6b7fde270f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

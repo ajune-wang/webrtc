@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d21bce08_8b113b6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12944
+      },
+      "writtenOn": "2020-07-10T12:32:09Z",
+      "side": 1,
+      "message": "say something nice",
+      "revId": "8515d5a4ab4b2e3fd29b0d3ec572db9325262b61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

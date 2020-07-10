@@ -657,6 +657,8 @@ def main():
                  help='Be extra verbose in printing of log messages.')
   opts = p.parse_args()
 
+  raise Exception('Test')
+
   if opts.verbose:
     logging.basicConfig(level=logging.DEBUG)
   else:

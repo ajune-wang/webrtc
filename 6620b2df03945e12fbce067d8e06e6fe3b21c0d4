@@ -34,6 +34,24 @@
       "revId": "6620b2df03945e12fbce067d8e06e6fe3b21c0d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26734183_6d07ebaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-10T10:16:19Z",
+      "side": 1,
+      "message": "Maybe if you iterated all the Members() and added their sizeof(*member) together, then maybe sizeof(stats_object) \u003d\u003d total_member_size + some_fixed_number",
+      "parentUuid": "bdc372f7_bb0a3bb0",
+      "revId": "6620b2df03945e12fbce067d8e06e6fe3b21c0d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

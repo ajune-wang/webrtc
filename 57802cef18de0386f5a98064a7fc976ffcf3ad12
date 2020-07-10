@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b110615c_61f7d194",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 12949
+      },
+      "writtenOn": "2020-07-10T21:30:34Z",
+      "side": 1,
+      "message": "super nit: /wont\u0027/won\u0027t. Or perhaps it meant to say \"will be too long...\".\n\nI understand this is previously existing code, but still would be nice to fix these as git blame would point to this commit.",
+      "range": {
+        "startLine": 179,
+        "startChar": 47,
+        "endLine": 179,
+        "endChar": 52
+      },
+      "revId": "57802cef18de0386f5a98064a7fc976ffcf3ad12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "756e2e4d_bb5b2fed",
+        "filename": "modules/desktop_capture/win/window_capturer_win_wgc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 12949
+      },
+      "writtenOn": "2020-07-10T21:30:34Z",
+      "side": 1,
+      "message": "Could we also simplify these lines into a single expression?\n\nExample:\nreturn window_capture_helper_.EnumerateCapturableWindows(sources);",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "57802cef18de0386f5a98064a7fc976ffcf3ad12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

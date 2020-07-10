@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6de707ff_f0e992cc",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-10T22:33:08Z",
+      "side": 1,
+      "message": "Thanks for pointing this out, we should definitely fix issues like this even if it\u0027s just a move. I\u0027ve reworded the sentence to be clearer.",
+      "parentUuid": "b110615c_61f7d194",
+      "range": {
+        "startLine": 179,
+        "startChar": 47,
+        "endLine": 179,
+        "endChar": 52
+      },
+      "revId": "57802cef18de0386f5a98064a7fc976ffcf3ad12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "756e2e4d_bb5b2fed",
         "filename": "modules/desktop_capture/win/window_capturer_win_wgc.cc",
         "patchSetId": 1

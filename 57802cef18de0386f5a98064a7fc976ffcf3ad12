@@ -69,6 +69,30 @@
       "revId": "57802cef18de0386f5a98064a7fc976ffcf3ad12",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8199cbff_0a008200",
+        "filename": "modules/desktop_capture/win/window_capturer_win_wgc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-10T23:34:15Z",
+      "side": 1,
+      "message": "Good idea! Done.",
+      "parentUuid": "756e2e4d_bb5b2fed",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 14
+      },
+      "revId": "57802cef18de0386f5a98064a7fc976ffcf3ad12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

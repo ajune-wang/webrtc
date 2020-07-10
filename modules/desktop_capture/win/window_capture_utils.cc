@@ -13,9 +13,13 @@
 // Just for the DWMWINDOWATTRIBUTE enums (DWMWA_CLOAKED).
 #include <dwmapi.h>
 
+#include <algorithm>
+
 #include "modules/desktop_capture/win/scoped_gdi_object.h"
+#include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/string_utils.h"
 #include "rtc_base/win32.h"
 
 namespace webrtc {
@@ -157,6 +161,59 @@ bool IsWindowMaximized(HWND window, bool* result) {
   return true;
 }
 
+BOOL CALLBACK FilterUncapturableWindows(HWND hwnd, LPARAM param) {
+  DesktopCapturer::SourceList* list =
+      reinterpret_cast<DesktopCapturer::SourceList*>(param);
+
+  // Skip windows that are invisible, minimized, have no title, or are owned,
+  // unless they have the app window style set.
+  int len = GetWindowTextLength(hwnd);
+  HWND owner = GetWindow(hwnd, GW_OWNER);
+  LONG exstyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+  if (len == 0 || IsIconic(hwnd) || !IsWindowVisible(hwnd) ||
+      (owner && !(exstyle & WS_EX_APPWINDOW))) {
+    return TRUE;
+  }
+
+  // Skip unresponsive windows. Set timout with 50ms, in case system is under
+  // heavy load. We could wait longer and have a lower false negative, but that
+  // would delay the the enumeration.
+  const UINT timeout = 50;  // ms
+  if (!SendMessageTimeout(hwnd, WM_NULL, 0, 0, SMTO_ABORTIFHUNG, timeout,
+                          nullptr)) {
+    return TRUE;
+  }
+
+  // Skip the Program Manager window and the Start button.
+  WCHAR class_name[256];
+  const int class_name_length =
+      GetClassNameW(hwnd, class_name, arraysize(class_name));
+  if (class_name_length < 1)
+    return TRUE;
+
+  // Skip Program Manager window and the Start button. This is the same logic
+  // that's used in Win32WindowPicker in libjingle. Consider filtering other
+  // windows as well (e.g. toolbars).
+  if (wcscmp(class_name, L"Progman") == 0 || wcscmp(class_name, L"Button") == 0)
+    return TRUE;
+
+  DesktopCapturer::Source window;
+  window.id = reinterpret_cast<WindowId>(hwnd);
+
+  // Truncate the title if it's longer than 500 characters.
+  WCHAR window_title[500];
+  GetWindowTextW(hwnd, window_title, arraysize(window_title));
+  window.title = rtc::ToUtf8(window_title);
+
+  // Skip windows when we failed to convert the title or it is empty.
+  if (window.title.empty())
+    return TRUE;
+
+  list->push_back(window);
+
+  return TRUE;
+}
+
 // WindowCaptureHelperWin implementation.
 WindowCaptureHelperWin::WindowCaptureHelperWin() {
   // Try to load dwmapi.dll dynamically since it is not available on XP.
@@ -223,12 +280,13 @@ bool WindowCaptureHelperWin::IsWindowChromeNotification(HWND hwnd) {
 }
 
 // |content_rect| is preferred because,
-// 1. WindowCapturerWin is using GDI capturer, which cannot capture DX output.
+// 1. WindowCapturerWinGdi is using GDI capturer, which cannot capture DX
+// output.
 //    So ScreenCapturer should be used as much as possible to avoid
 //    uncapturable cases. Note: lots of new applications are using DX output
 //    (hardware acceleration) to improve the performance which cannot be
-//    captured by WindowCapturerWin. See bug http://crbug.com/741770.
-// 2. WindowCapturerWin is still useful because we do not want to expose the
+//    captured by WindowCapturerWinGdi. See bug http://crbug.com/741770.
+// 2. WindowCapturerWinGdi is still useful because we do not want to expose the
 //    content on other windows if the target window is covered by them.
 // 3. Shadow and borders should not be considered as "content" on other
 //    windows because they do not expose any useful information.
@@ -308,6 +366,23 @@ bool WindowCaptureHelperWin::IsWindowCloaked(HWND hwnd) {
   }
 
   return res != 0;
+}
+
+bool WindowCaptureHelperWin::EnumerateCapturableWindows(
+    DesktopCapturer::SourceList* results) {
+  LPARAM param = reinterpret_cast<LPARAM>(results);
+  if (!EnumWindows(&FilterUncapturableWindows, param))
+    return false;
+
+  for (auto it = results->begin(); it != results->end();) {
+    if (!IsWindowVisibleOnCurrentDesktop(reinterpret_cast<HWND>(it->id))) {
+      it = results->erase(it);
+    } else {
+      ++it;
+    }
+  }
+
+  return true;
 }
 
 }  // namespace webrtc

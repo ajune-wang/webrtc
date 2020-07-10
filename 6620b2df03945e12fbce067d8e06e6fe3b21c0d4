@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec50c312_055d7d18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9279
+      },
+      "writtenOn": "2020-07-10T09:27:31Z",
+      "side": 1,
+      "message": "Would it be possible to catch such bug with some tests?",
+      "revId": "6620b2df03945e12fbce067d8e06e6fe3b21c0d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

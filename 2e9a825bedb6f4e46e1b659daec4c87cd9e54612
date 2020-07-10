@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3bf7202_ae645323",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-10T09:18:31Z",
+      "side": 1,
+      "message": "Go ahead and land this if its ready, no need to wait more for Harald who is OOO",
+      "revId": "2e9a825bedb6f4e46e1b659daec4c87cd9e54612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

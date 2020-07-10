@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dd7cb96_9852b2a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-10T17:17:35Z",
+      "side": 1,
+      "message": "Thanks, a few other things to consider.",
+      "revId": "31be3bee3cfd0612b1fabec0b78038757c55df27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb55a963_b8b26fcc",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-10T17:17:35Z",
+      "side": 1,
+      "message": "Consider using std::find instead of using separate set as the list isn\u0027t long enough. I think that would shorten the code here and thus simpler.",
+      "range": {
+        "startLine": 201,
+        "startChar": 2,
+        "endLine": 214,
+        "endChar": 3
+      },
+      "revId": "31be3bee3cfd0612b1fabec0b78038757c55df27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df87d176_a58add37",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-10T17:17:35Z",
+      "side": 1,
+      "message": "Consider if it makes sense to return the value directly without RTC_LOG. If you are already prompting appropriate error message through toast back to user then I think it makes sense to do so.",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 5
+      },
+      "revId": "31be3bee3cfd0612b1fabec0b78038757c55df27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

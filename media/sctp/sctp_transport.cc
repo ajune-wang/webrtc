@@ -311,7 +311,6 @@ class SctpTransport::UsrSctpWrapper {
   }
 
   static void UninitializeUsrSctp() {
-    delete g_transport_map_;
     RTC_LOG(LS_INFO) << __FUNCTION__;
     // usrsctp_finish() may fail if it's called too soon after the transports
     // are
@@ -323,6 +322,8 @@ class SctpTransport::UsrSctpWrapper {
 
       rtc::Thread::SleepMs(10);
     }
+    delete g_transport_map_;
+    g_transport_map_ = nullptr;
     RTC_LOG(LS_ERROR) << "Failed to shutdown usrsctp.";
   }
 
@@ -349,6 +350,11 @@ class SctpTransport::UsrSctpWrapper {
                                   size_t length,
                                   uint8_t tos,
                                   uint8_t set_df) {
+    if (!g_transport_map_) {
+      RTC_LOG(LS_ERROR)
+          << "OnSctpOutboundPacket called after usrsctp uninitialized?";
+      return EINVAL;
+    }
     SctpTransport* transport =
         g_transport_map_->Retrieve(reinterpret_cast<uintptr_t>(addr));
     if (!transport) {
@@ -405,6 +411,12 @@ class SctpTransport::UsrSctpWrapper {
     // id of the transport that created them, so [0] is as good as any other.
     struct sockaddr_conn* sconn =
         reinterpret_cast<struct sockaddr_conn*>(&addrs[0]);
+    if (!g_transport_map_) {
+      RTC_LOG(LS_ERROR)
+          << "GetTransportFromSocket called after usrsctp uninitialized?";
+      usrsctp_freeladdrs(addrs);
+      return nullptr;
+    }
     SctpTransport* transport = g_transport_map_->Retrieve(
         reinterpret_cast<uintptr_t>(sconn->sconn_addr));
     usrsctp_freeladdrs(addrs);

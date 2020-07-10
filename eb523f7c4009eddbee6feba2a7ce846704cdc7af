@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3af448f9_2a9af33c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-10T14:40:26Z",
+      "side": 1,
+      "message": "A question first... how should a rejected m-line look like? Currently I have this output:\nv\u003d0\no\u003d- 18446744069414584320 18446462598732840960 IN IP4 127.0.0.1\ns\u003d-\nt\u003d0 0\na\u003dmsid-semantic: WMS\nm\u003dbogus 0 RTP/SAVPF 0\nc\u003dIN IP4 0.0.0.0\na\u003drtcp:9 IN IP4 0.0.0.0\na\u003dmid:bogusmid\na\u003dsendrecv\nm\u003daudio/something 0 RTP/SAVPF 0\nc\u003dIN IP4 0.0.0.0\na\u003drtcp:9 IN IP4 0.0.0.0\na\u003dmid:somethingmid\na\u003dsendrecv\n\nIt keeps the mid which is an improvement over the current behaviour of just dropping that m\u003d line from the answer. The alternative to this would be what Firefox does: throw an error when encountering an unknown type: throw an error in SRD.",
+      "revId": "eb523f7c4009eddbee6feba2a7ce846704cdc7af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

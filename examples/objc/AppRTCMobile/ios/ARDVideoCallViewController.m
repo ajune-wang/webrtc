@@ -152,13 +152,11 @@
   [self hangup];
 }
 
-- (void)videoCallViewDidSwitchCamera:(ARDVideoCallView *)view {
-  // TODO(tkchin): Rate limit this so you can't tap continously on it.
-  // Probably through an animation.
-  [_captureController switchCamera];
+- (void)switchCamera:(ARDVideoCallView *)view completion:(void (^)(NSError *))completion {
+  [_captureController switchCamera:completion];
 }
 
-- (void)videoCallViewDidChangeRoute:(ARDVideoCallView *)view {
+- (void)changeRoute:(ARDVideoCallView *)view completion:(void (^)(void))completion {
   AVAudioSessionPortOverride override = AVAudioSessionPortOverrideNone;
   if (_portOverride == AVAudioSessionPortOverrideNone) {
     override = AVAudioSessionPortOverrideSpeaker;
@@ -177,6 +175,7 @@
                                                               error.localizedDescription);
                                                 }
                                                 [session unlockForConfiguration];
+                                                completion();
                                               }];
 }
 

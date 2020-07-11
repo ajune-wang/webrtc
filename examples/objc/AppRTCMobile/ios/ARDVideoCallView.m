@@ -187,8 +187,18 @@ static CGFloat const kStatusBarHeight = 20;
 
 #pragma mark - Private
 
-- (void)onCameraSwitch:(id)sender {
-  [_delegate videoCallViewDidSwitchCamera:self];
+- (void)onCameraSwitch:(UIButton *)sender {
+  sender.enabled = false;
+  __weak ARDVideoCallView *weakSelf = self;
+  [_delegate switchCamera:self
+               completion:^(NSError *error) {
+                 ARDVideoCallView *strongSelf = weakSelf;
+                 if (strongSelf) {
+                   dispatch_async(dispatch_get_main_queue(), ^(void) {
+                     sender.enabled = YES;
+                   });
+                 }
+               }];
 }
 
 - (void)onRouteChange:(id)sender {

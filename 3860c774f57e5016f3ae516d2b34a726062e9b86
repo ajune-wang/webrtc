@@ -16,6 +16,23 @@
       "revId": "3860c774f57e5016f3ae516d2b34a726062e9b86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55b48f2a_fada626a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-11T06:11:34Z",
+      "side": 1,
+      "message": "Makes sense.\nShould the g_ pointer be a std::unique_ptr, to make ownership and clearing obvious?\n(don\u0027t know if global unique_ptrs are allowed by style guide).\n\n",
+      "revId": "3860c774f57e5016f3ae516d2b34a726062e9b86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

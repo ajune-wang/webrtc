@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '598b095453af05e891795b4af2a7fd93546c2a45',
+  'chromium_revision': '9a95ea68d50646b9471664f8fd4db1851244ac16',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@fb172975a553f2425ff0c41f745a0dd0f7cb5a1e',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@eca94691a090a39e87dfc06e92ca491246b5204d',
+    'https://chromium.googlesource.com/chromium/src/build@5e234f43d2469f13f964a44c0dad22bc0b5c5b5a',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@eb3987ec709b39469423100c1e77f0446890e059',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -39,7 +39,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@99f302a3dd969fbaa5bc535175f156d3f2152964',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@0008680207f27b2de560cc9ae08a6b94065cf8cb',
+    'https://chromium.googlesource.com/chromium/src/third_party@901c85c034c65314da5817d40be05fa73a260445',
 
   'src/buildtools/linux64': {
     'packages': [

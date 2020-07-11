@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4691fdc_9c65166c",
+        "filename": "config.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-11T13:06:28Z",
+      "side": 0,
+      "message": "I suspect this was not needed (the template was a default template) but it is not clear to me who receives these.",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 6
+      },
+      "revId": "450e9b7cd721c5a9bbfb08626a5df1ed153f2ba4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -97,7 +97,6 @@ class RTPSenderVideo {
                  uint32_t rtp_timestamp,
                  int64_t capture_time_ms,
                  rtc::ArrayView<const uint8_t> payload,
-                 const RTPFragmentationHeader* fragmentation,
                  RTPVideoHeader video_header,
                  absl::optional<int64_t> expected_retransmission_time_ms);
 
@@ -106,7 +105,6 @@ class RTPSenderVideo {
       absl::optional<VideoCodecType> codec_type,
       uint32_t rtp_timestamp,
       const EncodedImage& encoded_image,
-      const RTPFragmentationHeader* fragmentation,
       RTPVideoHeader video_header,
       absl::optional<int64_t> expected_retransmission_time_ms);
 

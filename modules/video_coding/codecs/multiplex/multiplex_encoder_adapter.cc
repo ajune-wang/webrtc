@@ -35,12 +35,11 @@ class MultiplexEncoderAdapter::AdapterEncodedImageCallback
 
   EncodedImageCallback::Result OnEncodedImage(
       const EncodedImage& encoded_image,
-      const CodecSpecificInfo* codec_specific_info,
-      const RTPFragmentationHeader* fragmentation) override {
+      const CodecSpecificInfo* codec_specific_info) override {
     if (!adapter_)
       return Result(Result::OK);
     return adapter_->OnEncodedImage(stream_idx_, encoded_image,
-                                    codec_specific_info, fragmentation);
+                                    codec_specific_info);
   }
 
  private:
@@ -286,8 +285,7 @@ VideoEncoder::EncoderInfo MultiplexEncoderAdapter::GetEncoderInfo() const {
 EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(
     AlphaCodecStream stream_idx,
     const EncodedImage& encodedImage,
-    const CodecSpecificInfo* codecSpecificInfo,
-    const RTPFragmentationHeader* fragmentation) {
+    const CodecSpecificInfo* codecSpecificInfo) {
   // Save the image
   MultiplexImageComponent image_component;
   image_component.component_index = stream_idx;
@@ -324,8 +322,7 @@ EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(
 
       CodecSpecificInfo codec_info = *codecSpecificInfo;
       codec_info.codecType = kVideoCodecMultiplex;
-      encoded_complete_callback_->OnEncodedImage(combined_image_, &codec_info,
-                                                 fragmentation);
+      encoded_complete_callback_->OnEncodedImage(combined_image_, &codec_info);
     }
 
     stashed_images_.erase(stashed_images_.begin(), stashed_image_next_itr);

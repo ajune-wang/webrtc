@@ -30,7 +30,7 @@ class RTC_EXPORT RTPFragmentationHeader {
   RTPFragmentationHeader& operator=(RTPFragmentationHeader&& other);
   ~RTPFragmentationHeader();
 
-  friend void swap(RTPFragmentationHeader& a, RTPFragmentationHeader& b);
+  //  friend void swap(RTPFragmentationHeader& a, RTPFragmentationHeader& b);
 
   void CopyFrom(const RTPFragmentationHeader& src);
   void VerifyAndAllocateFragmentationHeader(size_t size) { Resize(size); }

@@ -37,10 +37,8 @@ class FrameEncodeMetadataWriter {
 
   void FillTimingInfo(size_t simulcast_svc_idx, EncodedImage* encoded_image);
 
-  std::unique_ptr<RTPFragmentationHeader> UpdateBitstream(
-      const CodecSpecificInfo* codec_specific_info,
-      const RTPFragmentationHeader* fragmentation,
-      EncodedImage* encoded_image);
+  void UpdateBitstream(const CodecSpecificInfo* codec_specific_info,
+                       EncodedImage* encoded_image);
 
   void Reset();
 

@@ -106,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "5fe5681f_9bcc571e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-12T09:55:45Z",
+      "side": 1,
+      "message": "I\u0027d personally still prefer to move the rtp related stuff out of the DataChannelController (DCC) since it (like was the case previously with DataChannel) complicates the state of DCC. Basically at every stage we need to check if we\u0027re acting as rtp or sctp. Moving the code back to PC isn\u0027t something I\u0027d want either but I\u0027d be able to live with two separate, mutually exclusive, pointers there depending on whether rtp or sctp is being used if only to get the freedom to simplify the sctp implementation, remove all the unnecessary thread hops and be able to access const state and what could be const state such as id(), freely (without lock or thread hop) from the main UI thread.\n\nHarald - fyi - there are more details in another chat that Taylor and I had a few days ago here:\nhttps://webrtc-review.googlesource.com/c/src/+/178221",
+      "parentUuid": "d681006e_de1a09aa",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fb7210e_23637672",
         "filename": "pc/data_channel_controller.cc",
         "patchSetId": 3

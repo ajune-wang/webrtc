@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb347424_b3928a48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-12T09:55:45Z",
+      "side": 1,
+      "message": "Great stuff! 😊 sorry for the delay last week, I\u0027ve had to divert my attention fully elsewhere for a few days.",
+      "revId": "3a034e15b41a02655a494b88e4a771896a464a93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '598b095453af05e891795b4af2a7fd93546c2a45',
+  'chromium_revision': '35231c5803e5662a527c9d7044e1743f891d2aa0',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@fb172975a553f2425ff0c41f745a0dd0f7cb5a1e',
+    'https://chromium.googlesource.com/chromium/src/base@abd5405c280391efcf89f62c9951467c2e4c5774',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@eca94691a090a39e87dfc06e92ca491246b5204d',
+    'https://chromium.googlesource.com/chromium/src/build@4c3702fb7f28bd144bce70652cae8359b83b054f',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@eb3987ec709b39469423100c1e77f0446890e059',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -39,7 +39,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@99f302a3dd969fbaa5bc535175f156d3f2152964',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@0008680207f27b2de560cc9ae08a6b94065cf8cb',
+    'https://chromium.googlesource.com/chromium/src/third_party@68742f3b684c19808e045580ac49f46efc7cf658',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@2e25d4684d6d46783246360633721268616ca63a',
+    'https://chromium.googlesource.com/chromium/src/tools@a2f15a482f4066f58185e761153fb7965ca857a0',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 

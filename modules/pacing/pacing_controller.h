@@ -160,7 +160,7 @@ class PacingController {
   void UpdateBudgetWithElapsedTime(TimeDelta delta);
   void UpdateBudgetWithSentData(DataSize size);
 
-  DataSize PaddingToAdd(absl::optional<DataSize> recommended_probe_size,
+  DataSize PaddingToAdd(DataSize recommended_probe_size,
                         DataSize data_sent) const;
 
   std::unique_ptr<RtpPacketToSend> GetPendingPacket(

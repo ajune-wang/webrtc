@@ -529,7 +529,7 @@ int32_t LibaomAv1Encoder::Encode(
         }
       }
       encoded_image_callback_->OnEncodedImage(encoded_image,
-                                              &codec_specific_info, nullptr);
+                                              &codec_specific_info);
     }
   }
 

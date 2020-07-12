@@ -26,12 +26,18 @@ RTPFragmentationHeader::RTPFragmentationHeader()
 
 RTPFragmentationHeader::RTPFragmentationHeader(RTPFragmentationHeader&& other)
     : RTPFragmentationHeader() {
-  swap(*this, other);
+  using std::swap;
+  swap(fragmentationVectorSize, other.fragmentationVectorSize);
+  swap(fragmentationOffset, other.fragmentationOffset);
+  swap(fragmentationLength, other.fragmentationLength);
 }
 
 RTPFragmentationHeader& RTPFragmentationHeader::operator=(
     RTPFragmentationHeader&& other) {
-  swap(*this, other);
+  using std::swap;
+  swap(fragmentationVectorSize, other.fragmentationVectorSize);
+  swap(fragmentationOffset, other.fragmentationOffset);
+  swap(fragmentationLength, other.fragmentationLength);
   return *this;
 }
 
@@ -39,13 +45,13 @@ RTPFragmentationHeader::~RTPFragmentationHeader() {
   delete[] fragmentationOffset;
   delete[] fragmentationLength;
 }
-
+/*
 void swap(RTPFragmentationHeader& a, RTPFragmentationHeader& b) {
   using std::swap;
   swap(a.fragmentationVectorSize, b.fragmentationVectorSize);
   swap(a.fragmentationOffset, b.fragmentationOffset);
   swap(a.fragmentationLength, b.fragmentationLength);
-}
+}*/
 
 void RTPFragmentationHeader::CopyFrom(const RTPFragmentationHeader& src) {
   if (this == &src) {

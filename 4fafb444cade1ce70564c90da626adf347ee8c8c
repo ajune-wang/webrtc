@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd183c9e_8badd831",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-13T21:56:20Z",
+      "side": 1,
+      "message": "Just guarding against dereferencing a nullptr, you\u0027re right that a DCHECK accomplishes the same more succinctly, I\u0027ve updated it.",
+      "parentUuid": "f2e0664e_7f29dd7a",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 3
+      },
+      "revId": "4fafb444cade1ce70564c90da626adf347ee8c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c59c7722_433cf028",
         "filename": "modules/desktop_capture/win/window_capturer_win_wgc.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6606a89c_442fbc0a",
+        "filename": "modules/desktop_capture/win/window_capturer_win_wgc.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-13T21:56:20Z",
+      "side": 1,
+      "message": "Good idea! These checks are repeated quite frequently. I\u0027ve added the IsWindowValidAndVisible helper and replaced calls to these functions with it.",
+      "parentUuid": "c59c7722_433cf028",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 72
+      },
+      "revId": "4fafb444cade1ce70564c90da626adf347ee8c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "980c3837_648bcc20",
         "filename": "modules/desktop_capture/win/window_capturer_win_wgc.h",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "4fafb444cade1ce70564c90da626adf347ee8c8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01a091d7_8c279ed2",
+        "filename": "modules/desktop_capture/win/window_capturer_win_wgc.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-13T21:56:20Z",
+      "side": 1,
+      "message": "It is not accurate, we won\u0027t be using HDC\u0027s in this implementation. I\u0027ve removed it from the comment.",
+      "parentUuid": "980c3837_648bcc20",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "4fafb444cade1ce70564c90da626adf347ee8c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

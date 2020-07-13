@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2e0664e_7f29dd7a",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 13004
+      },
+      "writtenOn": "2020-07-13T19:59:05Z",
+      "side": 1,
+      "message": "What motivated this change to add this error handling?  Should this be a debug assert instead using RTC_DCHECK?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 3
+      },
+      "revId": "4fafb444cade1ce70564c90da626adf347ee8c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c59c7722_433cf028",
+        "filename": "modules/desktop_capture/win/window_capturer_win_wgc.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 13004
+      },
+      "writtenOn": "2020-07-13T19:59:05Z",
+      "side": 1,
+      "message": "Should we make a helper function for this repeated code?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 72
+      },
+      "revId": "4fafb444cade1ce70564c90da626adf347ee8c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "980c3837_648bcc20",
+        "filename": "modules/desktop_capture/win/window_capturer_win_wgc.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 13004
+      },
+      "writtenOn": "2020-07-13T19:59:05Z",
+      "side": 1,
+      "message": "Is this comment accurate?  I don\u0027t see an HDC member.",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "4fafb444cade1ce70564c90da626adf347ee8c8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

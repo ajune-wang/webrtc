@@ -85,10 +85,8 @@ class FakeEncoder : public VideoEncoder {
 
   // Called before the frame is passed to callback_->OnEncodedImage, to let
   // subclasses fill out codec_specific, possibly modify encodedImage.
-  // Returns an RTPFragmentationHeader, if needed by the codec.
-  virtual std::unique_ptr<RTPFragmentationHeader> EncodeHook(
-      EncodedImage* encoded_image,
-      CodecSpecificInfo* codec_specific);
+  virtual void EncodeHook(EncodedImage* encoded_image,
+                          CodecSpecificInfo* codec_specific);
 
   void SetRatesLocked(const RateControlParameters& parameters)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
@@ -117,9 +115,8 @@ class FakeH264Encoder : public FakeEncoder {
   virtual ~FakeH264Encoder() = default;
 
  private:
-  std::unique_ptr<RTPFragmentationHeader> EncodeHook(
-      EncodedImage* encoded_image,
-      CodecSpecificInfo* codec_specific) override;
+  void EncodeHook(EncodedImage* encoded_image,
+                  CodecSpecificInfo* codec_specific) override;
 
   int idr_counter_ RTC_GUARDED_BY(local_mutex_);
   Mutex local_mutex_;

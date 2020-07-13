@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "130d8093_24a98061",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-13T21:59:09Z",
+      "side": 1,
+      "message": "Hi Mirko, Jamie, and Tommi, this is the next CL for the WGC window capturer implementation, PTAL.",
+      "revId": "42719f081759bf800e9d9ec82b504ceccaaca483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

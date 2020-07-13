@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f629a87d19767ce94cc16abe32acd86df4abaf70',
+  'chromium_revision': 'bdfe27724ff7960a71174ab28b46da370058f844',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -39,7 +39,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@99f302a3dd969fbaa5bc535175f156d3f2152964',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@05a05f98457076aa03e42ee52d936862844b3485',
+    'https://chromium.googlesource.com/chromium/src/third_party@1b36b7bf704221ca691f0beea61d21d46a513175',
 
   'src/buildtools/linux64': {
     'packages': [

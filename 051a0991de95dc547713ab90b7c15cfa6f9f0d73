@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "23e0da29_df3e128e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-13T23:03:53Z",
+      "side": 1,
+      "message": "\u003e I\u0027d be able to live with two separate, mutually exclusive, pointers there depending on whether rtp or sctp is being used\n\nThat\u0027s the route I went originally, but it required *so many* additional checks for those pointers being null or non-null and similar logic, I didn\u0027t like it was looking.\n\nAnd I realized that RTP and SCTP data channels for the most part use completely separate code paths in DataChannelController, except for:\n* SendData\n* ReadyToSendData\n* OnTransportChannelClosed\n\nWhich could very easily just be split into SCTP/RTP variants.\n\nI can show you both alternatives and let you be the judge, .",
+      "parentUuid": "5fe5681f_9bcc571e",
+      "revId": "051a0991de95dc547713ab90b7c15cfa6f9f0d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fb7210e_23637672",
         "filename": "pc/data_channel_controller.cc",
         "patchSetId": 3

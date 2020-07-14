@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e9413ef_5ffa120d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-14T17:22:31Z",
+      "side": 1,
+      "message": "Hi, I believe downstream problems are fixed. But I\u0027d need some help to verify, before landing.",
+      "revId": "db8e21c99e8000f5ee599759bd643844b2b69a6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -226,6 +226,10 @@ luci.notifier(
 luci.tree_closer(
     name = "webrtc_tree_closer",
     tree_status_host = "webrtc-status.appspot.com",
+    template = luci.notifier_template(
+        name = "status",
+        body = io.read_file("luci-notify/email-templates/status.template"),
+    ),
     # TODO: These step filters are copied verbatim from Gatekeeper, for testing
     # that LUCI-Notify would take the exact same actions. Once we've switched
     # over, this should be updated - several of these steps don't exist in

@@ -4346,7 +4346,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeSimulcastAttribute) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_TRUE(media->HasSimulcast());
+  EXPECT_TRUE(media->has_simulcast());
   EXPECT_EQ(2ul, media->simulcast_description().send_layers().size());
   EXPECT_EQ(3ul, media->simulcast_description().receive_layers().size());
   EXPECT_FALSE(media->streams().empty());
@@ -4367,7 +4367,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeSimulcastAttributeRemovesUnknownRids) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_TRUE(media->HasSimulcast());
+  EXPECT_TRUE(media->has_simulcast());
   const SimulcastDescription& simulcast = media->simulcast_description();
   EXPECT_EQ(2ul, simulcast.send_layers().size());
   EXPECT_EQ(1ul, simulcast.receive_layers().size());
@@ -4405,7 +4405,7 @@ TEST_F(WebRtcSdpTest,
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_TRUE(media->HasSimulcast());
+  EXPECT_TRUE(media->has_simulcast());
   const SimulcastDescription& simulcast = media->simulcast_description();
   EXPECT_EQ(2ul, simulcast.send_layers().size());
   EXPECT_EQ(1ul, simulcast.receive_layers().size());
@@ -4431,7 +4431,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeIgnoresEmptyRidLines) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_TRUE(media->HasSimulcast());
+  EXPECT_TRUE(media->has_simulcast());
   const SimulcastDescription& simulcast = media->simulcast_description();
   EXPECT_TRUE(simulcast.receive_layers().empty());
   EXPECT_EQ(2ul, simulcast.send_layers().size());
@@ -4457,7 +4457,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeIgnoresMalformedRidLines) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_TRUE(media->HasSimulcast());
+  EXPECT_TRUE(media->has_simulcast());
   const SimulcastDescription& simulcast = media->simulcast_description();
   EXPECT_TRUE(simulcast.receive_layers().empty());
   EXPECT_EQ(1ul, simulcast.send_layers().size());
@@ -4480,7 +4480,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeRemovesRidsWithInvalidCodec) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_TRUE(media->HasSimulcast());
+  EXPECT_TRUE(media->has_simulcast());
   const SimulcastDescription& simulcast = media->simulcast_description();
   EXPECT_TRUE(simulcast.receive_layers().empty());
   EXPECT_EQ(1ul, simulcast.send_layers().size());
@@ -4509,7 +4509,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeIgnoresDuplicateRidLines) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_TRUE(media->HasSimulcast());
+  EXPECT_TRUE(media->has_simulcast());
   const SimulcastDescription& simulcast = media->simulcast_description();
   EXPECT_EQ(2ul, simulcast.send_layers().size());
   EXPECT_EQ(1ul, simulcast.receive_layers().size());
@@ -4532,7 +4532,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeRidSendDirection) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_FALSE(media->HasSimulcast());
+  EXPECT_FALSE(media->has_simulcast());
 }
 
 TEST_F(WebRtcSdpTest, TestDeserializeRidRecvDirection) {
@@ -4546,7 +4546,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeRidRecvDirection) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_FALSE(media->HasSimulcast());
+  EXPECT_FALSE(media->has_simulcast());
 }
 
 TEST_F(WebRtcSdpTest, TestDeserializeIgnoresWrongRidDirectionLines) {
@@ -4564,7 +4564,7 @@ TEST_F(WebRtcSdpTest, TestDeserializeIgnoresWrongRidDirectionLines) {
   const cricket::ContentInfos& contents = output.description()->contents();
   const cricket::MediaContentDescription* media =
       contents.back().media_description();
-  EXPECT_TRUE(media->HasSimulcast());
+  EXPECT_TRUE(media->has_simulcast());
   const SimulcastDescription& simulcast = media->simulcast_description();
   EXPECT_EQ(2ul, simulcast.send_layers().size());
   EXPECT_EQ(2ul, simulcast.receive_layers().size());

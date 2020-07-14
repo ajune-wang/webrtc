@@ -2609,7 +2609,7 @@ static void CheckSimulcastInSessionDescription(
 
   EXPECT_THAT(rids, Pointwise(RidDescriptionEquals(), send_rids));
 
-  EXPECT_TRUE(cd->HasSimulcast());
+  EXPECT_TRUE(cd->has_simulcast());
   const SimulcastDescription& simulcast = cd->simulcast_description();
   EXPECT_THAT(simulcast.send_layers(), SizeIs(send_layers.size()));
   EXPECT_THAT(simulcast.send_layers(), Pointwise(Eq(), send_layers));
@@ -2663,7 +2663,7 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestOfferWithRidsNoSimulcast) {
   const StreamParams& stream = streams[0];
   ASSERT_THAT(stream.ssrcs, IsEmpty());
   EXPECT_FALSE(stream.has_rids());
-  EXPECT_FALSE(cd->HasSimulcast());
+  EXPECT_FALSE(cd->has_simulcast());
 }
 
 // Create an answer with spec-compliant simulcast video stream.
@@ -2739,7 +2739,7 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestAnswerWithRidsNoSimulcast) {
   const StreamParams& stream = streams[0];
   ASSERT_THAT(stream.ssrcs, IsEmpty());
   EXPECT_FALSE(stream.has_rids());
-  EXPECT_FALSE(cd->HasSimulcast());
+  EXPECT_FALSE(cd->has_simulcast());
 }
 
 // Create an audio and video answer to a standard video offer with:

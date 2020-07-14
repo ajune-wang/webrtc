@@ -609,7 +609,7 @@ void ReportSimulcastApiVersion(const char* name,
     if (!content.media_description()) {
       continue;
     }
-    has_spec_compliant |= content.media_description()->HasSimulcast();
+    has_spec_compliant |= content.media_description()->has_simulcast();
     for (const StreamParams& sp : content.media_description()->streams()) {
       has_legacy |= sp.has_ssrc_group(cricket::kSimSsrcGroupSemantics);
     }
@@ -3584,7 +3584,7 @@ RTCError PeerConnection::UpdateDataChannel(
 // the number of layers may be communicated by the server).
 static std::vector<RtpEncodingParameters> GetSendEncodingsFromRemoteDescription(
     const MediaContentDescription& desc) {
-  if (!desc.HasSimulcast()) {
+  if (!desc.has_simulcast()) {
     return {};
   }
   std::vector<RtpEncodingParameters> result;
@@ -3642,8 +3642,8 @@ static bool SimulcastIsRejected(
     const MediaContentDescription& answer_media_desc) {
   bool simulcast_offered = local_content &&
                            local_content->media_description() &&
-                           local_content->media_description()->HasSimulcast();
-  bool simulcast_answered = answer_media_desc.HasSimulcast();
+                           local_content->media_description()->has_simulcast();
+  bool simulcast_answered = answer_media_desc.has_simulcast();
   bool rids_supported = RtpExtension::FindHeaderExtensionByUri(
       answer_media_desc.rtp_header_extensions(), RtpExtension::kRidUri);
   return simulcast_offered && (!simulcast_answered || !rids_supported);
@@ -3714,7 +3714,7 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
     // AddTrack cannot be called to initialize it.
     if (!transceiver &&
         RtpTransceiverDirectionHasRecv(media_desc->direction()) &&
-        !media_desc->HasSimulcast()) {
+        !media_desc->has_simulcast()) {
       transceiver = FindAvailableTransceiverToReceive(media_desc->type());
     }
     // If no RtpTransceiver was found in the previous step, create one with a
@@ -3763,7 +3763,7 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
         RTCErrorType::INVALID_PARAMETER,
         "Transceiver type does not match media description type.");
   }
-  if (media_desc->HasSimulcast()) {
+  if (media_desc->has_simulcast()) {
     std::vector<SimulcastLayer> layers =
         source == cricket::CS_LOCAL
             ? media_desc->simulcast_description().send_layers().GetAllLayers()

@@ -110,7 +110,7 @@ void SignalingInterceptor::FillSimulcastContext(
     if (media_desc->type() != cricket::MediaType::MEDIA_TYPE_VIDEO) {
       continue;
     }
-    if (media_desc->HasSimulcast()) {
+    if (media_desc->has_simulcast()) {
       // We support only single stream simulcast sections with rids.
       RTC_CHECK_EQ(media_desc->mutable_streams().size(), 1);
       RTC_CHECK(media_desc->mutable_streams()[0].has_rids());

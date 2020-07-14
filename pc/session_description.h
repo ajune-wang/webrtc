@@ -237,7 +237,7 @@ class MediaContentDescription {
   }
 
   // Simulcast functionality.
-  virtual bool HasSimulcast() const { return !simulcast_.empty(); }
+  virtual bool has_simulcast() const { return !simulcast_.empty(); }
   virtual SimulcastDescription& simulcast_description() { return simulcast_; }
   virtual const SimulcastDescription& simulcast_description() const {
     return simulcast_;

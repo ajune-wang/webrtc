@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e17a66e9_31dbedfc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-14T07:55:11Z",
+      "side": 1,
+      "message": "orodley@: Does the tree_closer send notifications? E.g. we would like sheriffs to get notifications but it is unclear what the template parameter does.",
+      "revId": "c60a103d70ccea27f7a305642ce098f6f98389c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

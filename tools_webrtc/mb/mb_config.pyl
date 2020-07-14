@@ -176,6 +176,7 @@
       'linux_compile_gcc_rel': 'gcc_release_bot_x64',
       'linux_dbg': 'debug_bot_x64',
       'linux_rel': 'release_bot_x64',
+      'coverage': 'release_bot_x64',
       'linux_x86_rel': 'release_bot_x86',
       'linux_x86_dbg': 'no_h264_debug_bot_x86',
       'linux_asan': 'asan_lsan_clang_release_bot_x64',

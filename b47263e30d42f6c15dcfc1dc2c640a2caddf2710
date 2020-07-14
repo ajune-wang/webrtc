@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cf70806_b6d10d37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-14T12:01:46Z",
+      "side": 1,
+      "message": "PTAL. Next step, deleting DataChannelInterface, looks a bit more complicated.",
+      "revId": "b47263e30d42f6c15dcfc1dc2c640a2caddf2710",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

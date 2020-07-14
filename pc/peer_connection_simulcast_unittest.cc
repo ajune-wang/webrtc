@@ -308,7 +308,7 @@ TEST_F(PeerConnectionSimulcastTests, SimulcastAppearsInSessionDescription) {
   ASSERT_EQ(1u, contents.size());
   auto content = contents[0];
   auto mcd = content.media_description();
-  ASSERT_TRUE(mcd->HasSimulcast());
+  ASSERT_TRUE(mcd->has_simulcast());
   auto simulcast = mcd->simulcast_description();
   EXPECT_THAT(simulcast.receive_layers(), IsEmpty());
   // The size is validated separately because GetAllLayers() flattens the list.
@@ -433,7 +433,7 @@ TEST_F(PeerConnectionSimulcastTests, RejectedSimulcastLayersAreDeactivated) {
   for (const auto& layer : simulcast_layers) {
     receive_layers.AddLayer(layer);
   }
-  ASSERT_TRUE(mcd_answer->HasSimulcast());
+  ASSERT_TRUE(mcd_answer->has_simulcast());
   EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
   {
     SCOPED_TRACE("after set remote");

@@ -1720,7 +1720,7 @@ void BuildRtpContentAttributes(const MediaContentDescription* media_desc,
 
   // Simulcast (a=simulcast)
   // https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13#section-5.1
-  if (media_desc->HasSimulcast()) {
+  if (media_desc->has_simulcast()) {
     const auto& simulcast = media_desc->simulcast_description();
     InitAttrLine(kAttributeSimulcast, &os);
     os << kSdpDelimiterColon

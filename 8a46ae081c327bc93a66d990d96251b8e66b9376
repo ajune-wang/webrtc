@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84b6e839_b9f159a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-14T17:12:15Z",
+      "side": 1,
+      "message": "Thanks! Looks good, except for the vp9 change, is that part intended?",
+      "revId": "8a46ae081c327bc93a66d990d96251b8e66b9376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee1e972c_a5d8cb82",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-14T17:12:15Z",
+      "side": 1,
+      "message": "Looks unrelated?",
+      "range": {
+        "startLine": 710,
+        "startChar": 6,
+        "endLine": 710,
+        "endChar": 63
+      },
+      "revId": "8a46ae081c327bc93a66d990d96251b8e66b9376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

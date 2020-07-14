@@ -16,6 +16,69 @@
       "revId": "7ebef6c3ae2205f782b76ca294b0986c35152df6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d356d404_98e10e7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-07-14T08:45:29Z",
+      "side": 1,
+      "message": "Mostly looks good to me. Looks like the compilation is failing on the bots, not sure why, this needs to solved obviously before this can be landed.",
+      "revId": "7ebef6c3ae2205f782b76ca294b0986c35152df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24102492_dda0abbe",
+        "filename": "examples/experimental/androidvoip/BUILD.gn",
+        "patchSetId": 16
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-07-14T08:45:29Z",
+      "side": 1,
+      "message": "Can we add an owners file to this folder? (With relevant people that are expected to maintain this code.)",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 69
+      },
+      "revId": "7ebef6c3ae2205f782b76ca294b0986c35152df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "753ba0f9_785b6702",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-07-14T08:45:29Z",
+      "side": 1,
+      "message": "If possible, it would be preferred to use the native APIs:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/sdk/android/native_api/audio_device_module/audio_device_android.h;l\u003d26",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 127,
+        "endChar": 41
+      },
+      "revId": "7ebef6c3ae2205f782b76ca294b0986c35152df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

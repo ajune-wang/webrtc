@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6f34165_6e311be1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-14T11:08:09Z",
+      "side": 1,
+      "message": "don\u0027t tell me I need to do a PSA about changing the API as presubmit suggests :-)\n\nsdp_changer.cc still has a HasSimulcast method but that is in a different context.",
+      "revId": "ae2484962247ef16d0941399346d14d75e964b77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

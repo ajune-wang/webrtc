@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "7a487bc0_d74fafcc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-15T17:20:56Z",
+      "side": 1,
+      "message": "Sure thing!",
+      "parentUuid": "e6618208_dbdd0ca9",
+      "revId": "42719f081759bf800e9d9ec82b504ceccaaca483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1c7e799_e0205507",
         "filename": "modules/desktop_capture/win/window_capture_utils.cc",
         "patchSetId": 4
@@ -71,6 +89,30 @@
       "side": 1,
       "message": "yup, this is definitely suspect but I think it\u0027s not an issue with this CL.",
       "parentUuid": "d1c7e799_e0205507",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 33
+      },
+      "revId": "42719f081759bf800e9d9ec82b504ceccaaca483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77a10eb1_1357932a",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-15T17:20:56Z",
+      "side": 1,
+      "message": "Right, this value was already in use since this is just a move, but you do propose an interesting solution. I can investigate an alternative in a separate CL. Thanks for the suggestion!",
+      "parentUuid": "4aeb83a5_77557e58",
       "range": {
         "startLine": 185,
         "startChar": 0,

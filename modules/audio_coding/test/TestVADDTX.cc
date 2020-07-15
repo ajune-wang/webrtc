@@ -43,6 +43,9 @@ int32_t MonitoringAudioPacketizationCallback::SendData(
     size_t payload_len_bytes,
     int64_t absolute_capture_timestamp_ms) {
   counter_[static_cast<int>(frame_type)]++;
+  printf("frame_type %d payload_type %d ts=%d len=%zu\n",
+         static_cast<int>(frame_type), payload_type, timestamp,
+         payload_len_bytes);
   return next_->SendData(frame_type, payload_type, timestamp, payload_data,
                          payload_len_bytes, absolute_capture_timestamp_ms);
 }
@@ -258,6 +261,7 @@ void TestOpusDtx::Perform() {
 
   expects[static_cast<int>(AudioFrameType::kEmptyFrame)] = 1;
   expects[static_cast<int>(AudioFrameType::kAudioFrameCN)] = 1;
+  printf("final expectations: [%d %d %d]\n", expects[0], expects[1], expects[2]);
   Run(webrtc::test::ResourcePath("audio_coding/teststereo32kHz", "pcm"), 32000,
       2, out_filename, true, expects);
 }

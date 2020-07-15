@@ -99,6 +99,30 @@
       "revId": "77da6a029455bf2db74e048da3d1b7c9da0ae5da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dfe5952_dec61513",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-15T11:14:41Z",
+      "side": 1,
+      "message": "Yes, using only one (more generic macro) is a good idea.",
+      "parentUuid": "dbdf4158_3acc4d11",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 32
+      },
+      "revId": "77da6a029455bf2db74e048da3d1b7c9da0ae5da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

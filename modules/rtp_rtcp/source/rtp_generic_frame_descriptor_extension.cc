@@ -10,6 +10,7 @@
 
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {

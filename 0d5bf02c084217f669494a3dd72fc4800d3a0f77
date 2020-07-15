@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00bfa18e_f93d25c4",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-15T09:39:47Z",
+      "side": 1,
+      "message": "... otherwise thread annotation functionality gets confused and reports \"taking lock when already taken\" at call sites.",
+      "range": {
+        "startLine": 136,
+        "startChar": 34,
+        "endLine": 136,
+        "endChar": 40
+      },
+      "revId": "0d5bf02c084217f669494a3dd72fc4800d3a0f77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

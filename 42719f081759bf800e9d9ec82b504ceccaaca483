@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "e6618208_dbdd0ca9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-15T09:12:16Z",
+      "side": 1,
+      "message": "Thanks for fixing the asserts and style issues.",
+      "revId": "42719f081759bf800e9d9ec82b504ceccaaca483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1c7e799_e0205507",
         "filename": "modules/desktop_capture/win/window_capture_utils.cc",
         "patchSetId": 4
@@ -30,6 +47,30 @@
       "writtenOn": "2020-07-14T22:32:09Z",
       "side": 1,
       "message": "How did you determine this value?\n\nApologies for my ignorance of Win32 APIs, but are you doing this check here because the code below here relies on being able to get a response from the window\u0027s owner? The reason I ask is that doing this check synchronously per-window means there\u0027s little choice but to pick a small value here, because a larger value multiplied by many windows is going to be too slow. The problem is that small values are going to give false-positives, as you point out. IIRC, Chrome metrics suggest that ~99% of users occasionally experience sporadic hangs that would break this, so the problem could be more common than one might think.\n\nAn alternative design would be to filter out windows that can be determined to be invalid without needing a response from their owner, then PostMessage  (rather than SendMessage) all of them in parallel with a longer timeout.\n\nWDYT? I don\u0027t think it needs to hold up this CL, but I think it\u0027s worth considering.\n\nEdit: I see you\u0027ve actually just moved this code, so it definitely doesn\u0027t need to hold up the CL.",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 33
+      },
+      "revId": "42719f081759bf800e9d9ec82b504ceccaaca483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4aeb83a5_77557e58",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-15T09:12:16Z",
+      "side": 1,
+      "message": "yup, this is definitely suspect but I think it\u0027s not an issue with this CL.",
+      "parentUuid": "d1c7e799_e0205507",
       "range": {
         "startLine": 185,
         "startChar": 0,

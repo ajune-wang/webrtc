@@ -16,6 +16,41 @@
       "revId": "c60a103d70ccea27f7a305642ce098f6f98389c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bff498a8_050dcaca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12079
+      },
+      "writtenOn": "2020-07-15T02:23:36Z",
+      "side": 1,
+      "message": "tree_closer doesn\u0027t send notifications. You can set up a notifier in parallel with the same step filter and apply it to the same builders, like in the chromium config: https://source.chromium.org/chromium/chromium/src/+/master:infra/config/lib/ci.star;l\u003d462;drc\u003d80a0f0e17cec60ffbee7079c41e2e1de1227083d.\n\nThis is kinda inconvenient, and it doesn\u0027t have exactly the same semantics as in Gatekeeper (it will email about a failure that would close the tree even if the tree is already closed), but it\u0027s the best we have right now.\n\nThe template parameter determines the message used to close the tree. If you\u0027re okay with the default (which I believe is identical to what you have here) you can omit it.",
+      "parentUuid": "e17a66e9_31dbedfc",
+      "revId": "c60a103d70ccea27f7a305642ce098f6f98389c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77ddf916_1feccd1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12079
+      },
+      "writtenOn": "2020-07-15T02:23:36Z",
+      "side": 1,
+      "message": "I don\u0027t have CR powers on this host, but LGTM, bearing in mind my comment below that this isn\u0027t strictly necessary.",
+      "revId": "c60a103d70ccea27f7a305642ce098f6f98389c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

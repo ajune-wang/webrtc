@@ -61,7 +61,7 @@ namespace {
 enum : int {  // The first valid value is 1.
   kAbsSendTimeExtensionId = 1,
   kGenericFrameDescriptorExtensionId00,
-  kGenericFrameDescriptorExtensionId01,
+  kDependencyDescriptorExtensionId,
   kTransportSequenceNumberExtensionId,
   kVideoContentTypeExtensionId,
   kVideoTimingExtensionId,
@@ -766,6 +766,12 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       video_send_configs_[video_idx].rtp.extensions.emplace_back(
           RtpExtension::kGenericFrameDescriptorUri00,
           kGenericFrameDescriptorExtensionId00);
+    }
+    if (params_.call.dependency_descriptor) {
+      video_send_configs_[video_idx].rtp.extensions.emplace_back(
+          RtpExtension::kDependencyDescriptorUri,
+          kDependencyDescriptorExtensionId);
+      video_send_configs_[video_idx].rtp.extmap_allow_mixed = true;
     }
 
     video_send_configs_[video_idx].rtp.extensions.emplace_back(

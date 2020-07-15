@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff86d3e5_3a55029b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-15T15:31:27Z",
+      "side": 1,
+      "message": "PTAL. I think you fixed most of these with the migration to the new mock macros.",
+      "revId": "6c8fb32d02714223dda4e773bd0c63da621a2d69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

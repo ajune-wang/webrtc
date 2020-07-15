@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f1df746_e1e014af",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-15T11:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccf0ce6c_623248a7",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 28
+      },
+      "revId": "18395563bbd1d1549e9ba61ced529f9068e97db0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f839e637_dc3ff81e",
         "filename": "webrtc.gni",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "18395563bbd1d1549e9ba61ced529f9068e97db0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf0a74d_a15a462b",
+        "filename": "webrtc.gni",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-15T11:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f839e637_dc3ff81e",
+      "revId": "18395563bbd1d1549e9ba61ced529f9068e97db0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

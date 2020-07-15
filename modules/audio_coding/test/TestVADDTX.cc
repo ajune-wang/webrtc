@@ -43,6 +43,9 @@ int32_t MonitoringAudioPacketizationCallback::SendData(
     size_t payload_len_bytes,
     int64_t absolute_capture_timestamp_ms) {
   counter_[static_cast<int>(frame_type)]++;
+  printf("frame_type %d payload_type %d ts=%d len=%zu\n",
+         static_cast<int>(frame_type), payload_type, timestamp,
+         payload_len_bytes);
   return next_->SendData(frame_type, payload_type, timestamp, payload_data,
                          payload_len_bytes, absolute_capture_timestamp_ms);
 }

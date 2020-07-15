@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "051addca_8ec871ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-15T08:25:25Z",
+      "side": 1,
+      "message": "LGTM.",
+      "revId": "8a46ae081c327bc93a66d990d96251b8e66b9376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee1e972c_a5d8cb82",
         "filename": "video/video_stream_encoder_unittest.cc",
         "patchSetId": 1
@@ -63,6 +80,30 @@
       "revId": "8a46ae081c327bc93a66d990d96251b8e66b9376",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "227160a6_36b10705",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-15T08:25:25Z",
+      "side": 1,
+      "message": "Thanks for the explanation. \n\nIf it\u0027s an issue for a particular test, might be clearer to make the automatic_resize an explicit argument to ResetEncoder, and turn it on only for tests where it is relevant. But the change looks good enough as is, so leave that for a separate cl, if you think it\u0027s a good idea.",
+      "parentUuid": "0fc8f55f_cbfc73c8",
+      "range": {
+        "startLine": 710,
+        "startChar": 6,
+        "endLine": 710,
+        "endChar": 63
+      },
+      "revId": "8a46ae081c327bc93a66d990d96251b8e66b9376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

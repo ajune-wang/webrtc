@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e53b4f2_7089e7db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-15T01:17:13Z",
+      "side": 1,
+      "message": "Hi Mirko, to disable this avx2 version, can we just do not detect the AVX2 support at [1] when using the SincResampler. Then we can still use the original logic for SSE2 and C version, this can avoid the module_unittests error. What do you think?\n\n[1] https://webrtc-review.googlesource.com/c/src/+/176382/6/common_audio/resampler/sinc_resampler.cc#129",
+      "revId": "77da6a029455bf2db74e048da3d1b7c9da0ae5da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

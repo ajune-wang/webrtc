@@ -39,6 +39,30 @@
       "revId": "8a46ae081c327bc93a66d990d96251b8e66b9376",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fc8f55f_cbfc73c8",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2020-07-15T08:08:35Z",
+      "side": 1,
+      "message": "In this CL, we set the actual codec type in EncodeHook (it used to be set to VideoCodecType::kVideoCodecGeneric). ConfiguresVp9SvcAtOddResolutions hits a DCHECK in VideoStreamEncoder: \"VP9 quality scaling is enabled for SVC with several active layers.\". The encoder configuration in the test is wrong, see: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/engine/webrtc_video_engine.cc;drc\u003d1e257cacbfb0a49d80e62993ee65369c9d08b7b6;l\u003d430. Actually the condition should probably be !screennshare \u0026\u0026 num_spatial_layers \u003d\u003d 1. Are you fine with this change?",
+      "parentUuid": "ee1e972c_a5d8cb82",
+      "range": {
+        "startLine": 710,
+        "startChar": 6,
+        "endLine": 710,
+        "endChar": 63
+      },
+      "revId": "8a46ae081c327bc93a66d990d96251b8e66b9376",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

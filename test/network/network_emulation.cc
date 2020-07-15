@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <map>
 #include <memory>
 
 #include "api/units/data_size.h"
@@ -290,8 +291,9 @@ void EmulatedEndpointImpl::OnPacketReceived(EmulatedIpPacket packet) {
     // process: one peer closed connection, second still sending data.
     RTC_LOG(INFO) << "Drop packet: no receiver registered in " << id_
                   << " on port " << packet.to.port();
-    stats_.packets_dropped++;
-    stats_.bytes_dropped += DataSize::Bytes(packet.ip_packet_size());
+    stats_.incoming_stats_per_source[packet.from.ipaddr()].packets_dropped++;
+    stats_.incoming_stats_per_source[packet.from.ipaddr()].bytes_dropped +=
+        DataSize::Bytes(packet.ip_packet_size());
     return;
   }
   // Endpoint assumes frequent calls to bind and unbind methods, so it holds
@@ -325,14 +327,18 @@ EmulatedNetworkStats EmulatedEndpointImpl::stats() {
 void EmulatedEndpointImpl::UpdateReceiveStats(const EmulatedIpPacket& packet) {
   RTC_DCHECK_RUN_ON(task_queue_);
   Timestamp current_time = clock_->CurrentTime();
-  if (stats_.first_packet_received_time.IsInfinite()) {
-    stats_.first_packet_received_time = current_time;
-    stats_.first_received_packet_size =
-        DataSize::Bytes(packet.ip_packet_size());
+  if (stats_.incoming_stats_per_source[packet.from.ipaddr()]
+          .first_packet_received_time.IsInfinite()) {
+    stats_.incoming_stats_per_source[packet.from.ipaddr()]
+        .first_packet_received_time = current_time;
+    stats_.incoming_stats_per_source[packet.from.ipaddr()]
+        .first_received_packet_size = DataSize::Bytes(packet.ip_packet_size());
   }
-  stats_.last_packet_received_time = current_time;
-  stats_.packets_received++;
-  stats_.bytes_received += DataSize::Bytes(packet.ip_packet_size());
+  stats_.incoming_stats_per_source[packet.from.ipaddr()]
+      .last_packet_received_time = current_time;
+  stats_.incoming_stats_per_source[packet.from.ipaddr()].packets_received++;
+  stats_.incoming_stats_per_source[packet.from.ipaddr()].bytes_received +=
+      DataSize::Bytes(packet.ip_packet_size());
 }
 
 EndpointsContainer::EndpointsContainer(
@@ -377,30 +383,38 @@ EmulatedNetworkStats EndpointsContainer::GetStats() const {
     EmulatedNetworkStats endpoint_stats = endpoint->stats();
     stats.packets_sent += endpoint_stats.packets_sent;
     stats.bytes_sent += endpoint_stats.bytes_sent;
-    stats.packets_received += endpoint_stats.packets_received;
-    stats.bytes_received += endpoint_stats.bytes_received;
-    stats.packets_dropped += endpoint_stats.packets_dropped;
-    stats.bytes_dropped += endpoint_stats.bytes_dropped;
-    if (stats.first_packet_received_time >
-        endpoint_stats.first_packet_received_time) {
-      stats.first_packet_received_time =
-          endpoint_stats.first_packet_received_time;
-      stats.first_received_packet_size =
-          endpoint_stats.first_received_packet_size;
-    }
     if (stats.first_packet_sent_time > endpoint_stats.first_packet_sent_time) {
       stats.first_packet_sent_time = endpoint_stats.first_packet_sent_time;
       stats.first_sent_packet_size = endpoint_stats.first_sent_packet_size;
     }
-    if (stats.last_packet_received_time.IsInfinite() ||
-        stats.last_packet_received_time <
-            endpoint_stats.last_packet_received_time) {
-      stats.last_packet_received_time =
-          endpoint_stats.last_packet_received_time;
-    }
-    if (stats.last_packet_sent_time.IsInfinite() ||
-        stats.last_packet_sent_time < endpoint_stats.last_packet_sent_time) {
+    if (stats.last_packet_sent_time < endpoint_stats.last_packet_sent_time) {
       stats.last_packet_sent_time = endpoint_stats.last_packet_sent_time;
+    }
+    for (auto& entry : endpoint_stats.incoming_stats_per_source) {
+      stats.incoming_stats_per_source[entry.first].packets_received +=
+          entry.second.packets_received;
+      stats.incoming_stats_per_source[entry.first].bytes_received +=
+          entry.second.bytes_received;
+      stats.incoming_stats_per_source[entry.first].packets_dropped +=
+          entry.second.packets_dropped;
+      stats.incoming_stats_per_source[entry.first].bytes_dropped +=
+          entry.second.bytes_dropped;
+      if (stats.incoming_stats_per_source[entry.first]
+              .first_packet_received_time >
+          entry.second.first_packet_received_time) {
+        stats.incoming_stats_per_source[entry.first]
+            .first_packet_received_time =
+            entry.second.first_packet_received_time;
+        stats.incoming_stats_per_source[entry.first]
+            .first_received_packet_size =
+            entry.second.first_received_packet_size;
+      }
+      if (stats.incoming_stats_per_source[entry.first]
+              .last_packet_received_time <
+          entry.second.last_packet_received_time) {
+        stats.incoming_stats_per_source[entry.first].last_packet_received_time =
+            entry.second.last_packet_received_time;
+      }
     }
   }
   return stats;

@@ -51,6 +51,24 @@
       "revId": "c60a103d70ccea27f7a305642ce098f6f98389c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4b0e012_20052d23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-15T06:25:34Z",
+      "side": 1,
+      "message": "Thanks a lot for the explanation.\n\nYes, now I see the status.template matches the messages used to close the tree (e.g. Tree is closed (Automatic: \"gclient runhooks\" on https://cr-buildbucket.appspot.com/build/8874861445141867552 Win32 Debug (Clang) from c7c412a36cbea0812122985872d1fcb34f688f80 )).\n\nOk, no need for sheriff notifications then since they should already receive the notification when something switches to FAILURE and the trooper receives the notification when something changes to INFRA_FAILURE.\n\nReverting this one since the default message is fine.",
+      "parentUuid": "bff498a8_050dcaca",
+      "revId": "c60a103d70ccea27f7a305642ce098f6f98389c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

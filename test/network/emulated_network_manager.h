@@ -11,6 +11,7 @@
 #ifndef TEST_NETWORK_EMULATED_NETWORK_MANAGER_H_
 #define TEST_NETWORK_EMULATED_NETWORK_MANAGER_H_
 
+#include <map>
 #include <memory>
 #include <vector>
 

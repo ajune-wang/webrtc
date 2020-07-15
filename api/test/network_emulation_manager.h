@@ -11,6 +11,7 @@
 #ifndef API_TEST_NETWORK_EMULATION_MANAGER_H_
 #define API_TEST_NETWORK_EMULATION_MANAGER_H_
 
+#include <map>
 #include <memory>
 #include <vector>
 

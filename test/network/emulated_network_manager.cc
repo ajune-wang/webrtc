@@ -10,6 +10,7 @@
 
 #include "test/network/emulated_network_manager.h"
 
+#include <map>
 #include <memory>
 #include <utility>
 

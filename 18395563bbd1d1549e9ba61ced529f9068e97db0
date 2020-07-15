@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f839e637_dc3ff81e",
+        "filename": "webrtc.gni",
+        "patchSetId": 7
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-15T11:12:36Z",
+      "side": 1,
+      "message": "Can you add a:\n\n# TODO(bugs.webrtc.org/11663): Default this to true and eventually remove.",
+      "revId": "18395563bbd1d1549e9ba61ced529f9068e97db0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ccf0ce6c_623248a7",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-15T11:15:42Z",
+      "side": 1,
+      "message": "This causes a cpplint issues:\n\n/b/s/w/ir/cache/builder/presubmit/src/common_audio/resampler/sinc_resampler.cc:135:  At least two spaces is best between code and comments  [whitespace/comments] [2]",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 28
+      },
+      "revId": "18395563bbd1d1549e9ba61ced529f9068e97db0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f839e637_dc3ff81e",
         "filename": "webrtc.gni",
         "patchSetId": 7

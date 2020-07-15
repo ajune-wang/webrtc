@@ -33,6 +33,23 @@
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93cee8b7_cc3ac11c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-15T20:38:51Z",
+      "side": 1,
+      "message": "Thanks Huib - adding terelius@ to the list of reviewers and juberti to cc.\n\nBjorn - can you look into the libsrtp update too? mbonadei@ as cc on that too.",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

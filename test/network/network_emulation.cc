@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <map>
 #include <memory>
 
 #include "api/units/data_size.h"
@@ -292,6 +293,9 @@ void EmulatedEndpointImpl::OnPacketReceived(EmulatedIpPacket packet) {
                   << " on port " << packet.to.port();
     stats_.packets_dropped++;
     stats_.bytes_dropped += DataSize::Bytes(packet.ip_packet_size());
+    stats_per_source_[packet.from.ipaddr()].packets_dropped++;
+    stats_per_source_[packet.from.ipaddr()].bytes_dropped +=
+        DataSize::Bytes(packet.ip_packet_size());
     return;
   }
   // Endpoint assumes frequent calls to bind and unbind methods, so it holds
@@ -322,6 +326,12 @@ EmulatedNetworkStats EmulatedEndpointImpl::stats() {
   return stats_;
 }
 
+std::map<rtc::IPAddress, EmulatedNetworkIncomingStats>
+EmulatedEndpointImpl::stats_per_source() {
+  RTC_DCHECK_RUN_ON(task_queue_);
+  return stats_per_source_;
+}
+
 void EmulatedEndpointImpl::UpdateReceiveStats(const EmulatedIpPacket& packet) {
   RTC_DCHECK_RUN_ON(task_queue_);
   Timestamp current_time = clock_->CurrentTime();
@@ -330,9 +340,21 @@ void EmulatedEndpointImpl::UpdateReceiveStats(const EmulatedIpPacket& packet) {
     stats_.first_received_packet_size =
         DataSize::Bytes(packet.ip_packet_size());
   }
+  if (stats_per_source_[packet.from.ipaddr()]
+          .first_packet_received_time.IsInfinite()) {
+    stats_per_source_[packet.from.ipaddr()]
+        .first_packet_received_time.IsInfinite();
+    stats_per_source_[packet.from.ipaddr()].first_received_packet_size =
+        DataSize::Bytes(packet.ip_packet_size());
+  }
   stats_.last_packet_received_time = current_time;
   stats_.packets_received++;
   stats_.bytes_received += DataSize::Bytes(packet.ip_packet_size());
+  stats_per_source_[packet.from.ipaddr()].last_packet_received_time =
+      current_time;
+  stats_per_source_[packet.from.ipaddr()].packets_received++;
+  stats_per_source_[packet.from.ipaddr()].bytes_received +=
+      DataSize::Bytes(packet.ip_packet_size());
 }
 
 EndpointsContainer::EndpointsContainer(
@@ -401,6 +423,35 @@ EmulatedNetworkStats EndpointsContainer::GetStats() const {
     if (stats.last_packet_sent_time.IsInfinite() ||
         stats.last_packet_sent_time < endpoint_stats.last_packet_sent_time) {
       stats.last_packet_sent_time = endpoint_stats.last_packet_sent_time;
+    }
+  }
+  return stats;
+}
+
+std::map<rtc::IPAddress, EmulatedNetworkIncomingStats>
+EndpointsContainer::GetStatsPerSource() const {
+  std::map<rtc::IPAddress, EmulatedNetworkIncomingStats> stats;
+  for (auto* endpoint : endpoints_) {
+    std::map<rtc::IPAddress, EmulatedNetworkIncomingStats> endpoint_stats =
+        endpoint->stats_per_source();
+    for (auto& entry : endpoint_stats) {
+      stats[entry.first].packets_received += entry.second.packets_received;
+      stats[entry.first].bytes_received += entry.second.bytes_received;
+      stats[entry.first].packets_dropped += entry.second.packets_dropped;
+      stats[entry.first].bytes_dropped += entry.second.bytes_dropped;
+      if (stats[entry.first].first_packet_received_time >
+          entry.second.first_packet_received_time) {
+        stats[entry.first].first_packet_received_time =
+            entry.second.first_packet_received_time;
+        stats[entry.first].first_received_packet_size =
+            entry.second.first_received_packet_size;
+      }
+      if (stats[entry.first].last_packet_received_time.IsInfinite() ||
+          stats[entry.first].last_packet_received_time <
+              entry.second.last_packet_received_time) {
+        stats[entry.first].last_packet_received_time =
+            entry.second.last_packet_received_time;
+      }
     }
   }
   return stats;

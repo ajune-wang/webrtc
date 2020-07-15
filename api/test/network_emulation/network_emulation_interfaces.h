@@ -10,6 +10,8 @@
 #ifndef API_TEST_NETWORK_EMULATION_NETWORK_EMULATION_INTERFACES_H_
 #define API_TEST_NETWORK_EMULATION_NETWORK_EMULATION_INTERFACES_H_
 
+#include <map>
+
 #include "absl/types/optional.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
@@ -54,6 +56,28 @@ class EmulatedNetworkReceiverInterface {
   virtual ~EmulatedNetworkReceiverInterface() = default;
 
   virtual void OnPacketReceived(EmulatedIpPacket packet) = 0;
+};
+
+struct EmulatedNetworkIncomingStats {
+  // Total amount of packets received with or without destination.
+  int64_t packets_received = 0;
+  // Total amount of bytes in received packets.
+  DataSize bytes_received = DataSize::Zero();
+  // Total amount of packets that were received, but no destination was found.
+  int64_t packets_dropped = 0;
+  // Total amount of bytes in dropped packets.
+  DataSize bytes_dropped = DataSize::Zero();
+
+  DataSize first_received_packet_size = DataSize::Zero();
+
+  Timestamp first_packet_received_time = Timestamp::PlusInfinity();
+  Timestamp last_packet_received_time = Timestamp::PlusInfinity();
+
+  DataRate AverageReceiveRate() const {
+    RTC_DCHECK_GE(packets_received, 2);
+    return (bytes_received - first_received_packet_size) /
+           (last_packet_received_time - first_packet_received_time);
+  }
 };
 
 struct EmulatedNetworkStats {
@@ -118,6 +142,8 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
   virtual rtc::IPAddress GetPeerLocalAddress() const = 0;
 
   virtual EmulatedNetworkStats stats() = 0;
+  virtual std::map<rtc::IPAddress, EmulatedNetworkIncomingStats>
+  stats_per_source() = 0;
 
  private:
   // Ensure that there can be no other subclass than EmulatedEndpointImpl. This

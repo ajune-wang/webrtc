@@ -162,6 +162,8 @@ class EmulatedEndpointImpl : public EmulatedEndpoint {
   const rtc::Network& network() const { return *network_.get(); }
 
   EmulatedNetworkStats stats() override;
+  std::map<rtc::IPAddress, EmulatedNetworkIncomingStats> stats_per_source()
+      override;
 
  private:
   static constexpr uint16_t kFirstEphemeralPort = 49152;
@@ -186,6 +188,8 @@ class EmulatedEndpointImpl : public EmulatedEndpoint {
       RTC_GUARDED_BY(receiver_lock_);
 
   EmulatedNetworkStats stats_ RTC_GUARDED_BY(task_queue_);
+  std::map<rtc::IPAddress, EmulatedNetworkIncomingStats> stats_per_source_
+      RTC_GUARDED_BY(task_queue_);
 };
 
 class EmulatedRoute {
@@ -212,6 +216,8 @@ class EndpointsContainer {
   // returned rtc::Network objects.
   std::vector<std::unique_ptr<rtc::Network>> GetEnabledNetworks() const;
   EmulatedNetworkStats GetStats() const;
+  std::map<rtc::IPAddress, EmulatedNetworkIncomingStats> GetStatsPerSource()
+      const;
 
  private:
   const std::vector<EmulatedEndpointImpl*> endpoints_;

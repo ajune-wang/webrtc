@@ -11,6 +11,7 @@
 #ifndef TEST_NETWORK_EMULATED_NETWORK_MANAGER_H_
 #define TEST_NETWORK_EMULATED_NETWORK_MANAGER_H_
 
+#include <map>
 #include <memory>
 #include <vector>
 
@@ -52,6 +53,11 @@ class EmulatedNetworkManager : public rtc::NetworkManagerBase,
   rtc::NetworkManager* network_manager() override { return this; }
   void GetStats(
       std::function<void(EmulatedNetworkStats)> stats_callback) const override;
+
+  void GetStatsPerSource(
+      std::function<
+          void(std::map<rtc::IPAddress, EmulatedNetworkIncomingStats>)>
+          stats_callback) const override;
 
  private:
   void UpdateNetworksOnce();

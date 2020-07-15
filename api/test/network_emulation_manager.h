@@ -11,6 +11,7 @@
 #ifndef API_TEST_NETWORK_EMULATION_MANAGER_H_
 #define API_TEST_NETWORK_EMULATION_MANAGER_H_
 
+#include <map>
 #include <memory>
 #include <vector>
 
@@ -70,6 +71,10 @@ class EmulatedNetworkManagerInterface {
   // Returns summarized network stats for endpoints for this manager.
   virtual void GetStats(
       std::function<void(EmulatedNetworkStats)> stats_callback) const = 0;
+  virtual void GetStatsPerSource(
+      std::function<
+          void(std::map<rtc::IPAddress, EmulatedNetworkIncomingStats>)>
+          stats_callback) const = 0;
 };
 
 enum class TimeMode { kRealTime, kSimulated };

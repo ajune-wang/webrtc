@@ -11,6 +11,7 @@
 #include "test/network/network_emulation.h"
 
 #include <atomic>
+#include <map>
 #include <memory>
 #include <set>
 
@@ -254,6 +255,18 @@ TEST(NetworkEmulationManagerTest, Run) {
     EXPECT_EQ(st.bytes_dropped.bytes(), 0l);
     received_stats_count++;
   });
+  nt1->GetStatsPerSource(
+      [&](std::map<rtc::IPAddress, EmulatedNetworkIncomingStats> st) {
+        EXPECT_EQ(st[bob_endpoint->GetPeerLocalAddress()].packets_received,
+                  2000l);
+        EXPECT_EQ(
+            st[bob_endpoint->GetPeerLocalAddress()].bytes_received.bytes(),
+            single_packet_size * 2000l);
+        EXPECT_EQ(st[bob_endpoint->GetPeerLocalAddress()].packets_dropped, 0l);
+        EXPECT_EQ(st[bob_endpoint->GetPeerLocalAddress()].bytes_dropped.bytes(),
+                  0l);
+        received_stats_count++;
+      });
   nt2->GetStats([&](EmulatedNetworkStats st) {
     EXPECT_EQ(st.packets_sent, 2000l);
     EXPECT_EQ(st.bytes_sent.bytes(), single_packet_size * 2000l);
@@ -263,7 +276,21 @@ TEST(NetworkEmulationManagerTest, Run) {
     EXPECT_EQ(st.bytes_dropped.bytes(), 0l);
     received_stats_count++;
   });
-  ASSERT_EQ_SIMULATED_WAIT(received_stats_count.load(), 2,
+  nt2->GetStatsPerSource(
+      [&](std::map<rtc::IPAddress, EmulatedNetworkIncomingStats> st) {
+        EXPECT_EQ(st[alice_endpoint->GetPeerLocalAddress()].packets_received,
+                  2000l);
+        EXPECT_EQ(
+            st[alice_endpoint->GetPeerLocalAddress()].bytes_received.bytes(),
+            single_packet_size * 2000l);
+        EXPECT_EQ(st[alice_endpoint->GetPeerLocalAddress()].packets_dropped,
+                  0l);
+        EXPECT_EQ(
+            st[alice_endpoint->GetPeerLocalAddress()].bytes_dropped.bytes(),
+            0l);
+        received_stats_count++;
+      });
+  ASSERT_EQ_SIMULATED_WAIT(received_stats_count.load(), 4,
                            kStatsWaitTimeout.ms(),
                            *network_manager.time_controller());
 }

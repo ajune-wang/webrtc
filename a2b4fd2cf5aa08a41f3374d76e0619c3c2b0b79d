@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b34f201_08a7ba50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-15T13:29:44Z",
+      "side": 1,
+      "message": "PTAL. Another small thing I stumbled on while looking at DataChannelTransportInterface usage.",
+      "revId": "a2b4fd2cf5aa08a41f3374d76e0619c3c2b0b79d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

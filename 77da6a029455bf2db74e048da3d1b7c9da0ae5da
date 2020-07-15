@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "b5e33da6_be6c0fe3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-15T09:55:19Z",
+      "side": 1,
+      "message": "Thanks Mirko, comments addressed, PTAL!",
+      "parentUuid": "3498d4af_fb3bd9c5",
+      "revId": "77da6a029455bf2db74e048da3d1b7c9da0ae5da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f86edb24_1d81688b",
         "filename": "common_audio/resampler/sinc_resampler.cc",
         "patchSetId": 6
@@ -48,6 +66,30 @@
       "writtenOn": "2020-07-15T08:50:38Z",
       "side": 1,
       "message": "Can you add a WEBRTC_ENABLE_AVX2_RESAMPLER and its rtc_enable_avx2_resampler with default value false?\n\nYou can do it here https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/webrtc.gni;l\u003d41;drc\u003d5fbd758b880d70488d0616c88999eedc3274c2ee for the GN arg and here for the macro: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/BUILD.gn;l\u003d117;drc\u003dc7f0dff19180367ea0c207b707d8bf98110a24d0.\n\nAfter we have this (and the macro defined only if rtc_enable_avx2_resampler\u003dtrue in out/Debug/args.gn) we can change this code to:\n\n  // Using AVX2 instead of SSE2 when AVX2 supported.\n  if (WebRtc_GetCPUInfo(kAVX2))\n  #if defined(WEBRTC_ENABLE_AVX2_RESAMPLER)\n    convolve_proc_ \u003d Convolve_AVX2;\n  #else\n    convolve_proc_ \u003d Convolve_SSE;\n  #endif\n  else if (WebRtc_GetCPUInfo(kSSE2))\n    convolve_proc_ \u003d Convolve_SSE;\n  else\n    convolve_proc_ \u003d Convolve_C;\n\nIf it is ok to assume SSE2 if WebRtc_GetCPUInfo(kAVX2) returned true. If not, we need to chge the code.\n\nThis will be undone by peah@ later on (I assigned the bug to him).",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 32
+      },
+      "revId": "77da6a029455bf2db74e048da3d1b7c9da0ae5da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdf4158_3acc4d11",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-15T09:55:19Z",
+      "side": 1,
+      "message": "It\u0027s ok to assume SSE2 when WebRtc_GetCPUInfo(kAVX2) returned true. And can we use the WEBRTC_ENABLE_AVX2 flag rather than limited to WEBRTC_ENABLE_AVX2_RESAMPLER? since the fir and aec3 part may also encounter this issue.",
+      "parentUuid": "f86edb24_1d81688b",
       "range": {
         "startLine": 129,
         "startChar": 0,

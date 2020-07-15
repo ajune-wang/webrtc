@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21c88a51_cccfc6d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-15T02:09:08Z",
+      "side": 1,
+      "message": "FYI, we may be butting heads soon since I plan to make some changes to DataChannelController. Probably not so large that merge conflicts will be difficult to resolve, but you may want to hold off for a bit on changing DataChannelController to use SctpTransportInternal instead of DataChannelTransportInterface.\n\nAlso, in the end I want to cut out the middleman and have SctpDataChannel use SctpTransportInternal, instead of going through SctpDataChannelProviderInterface. DataChannelController would then just be responsible for connecting them up.",
+      "revId": "b9b3ab4b1088b6526d2b7b1e3ec6c5a42e1ced57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

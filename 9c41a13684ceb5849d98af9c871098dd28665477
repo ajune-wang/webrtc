@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "f3a266a0_5f59cafb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-16T15:22:40Z",
+      "side": 1,
+      "message": "Thanks Kári Helgason for feedback,\nI\u0027ve done changes accordingly.",
+      "revId": "9c41a13684ceb5849d98af9c871098dd28665477",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2214524c_b7d0003f",
         "filename": "examples/objc/AppRTCMobile/ARDCaptureController.m",
         "patchSetId": 8

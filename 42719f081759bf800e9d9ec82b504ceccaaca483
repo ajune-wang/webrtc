@@ -146,6 +146,30 @@
       "revId": "42719f081759bf800e9d9ec82b504ceccaaca483",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2fefe017_6ee76c71",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 12416
+      },
+      "writtenOn": "2020-07-16T18:59:34Z",
+      "side": 1,
+      "message": "Sure, here\u0027s the bug https://crbug.com/webrtc/11784",
+      "parentUuid": "1ca99e44_35847d1d",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 33
+      },
+      "revId": "42719f081759bf800e9d9ec82b504ceccaaca483",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

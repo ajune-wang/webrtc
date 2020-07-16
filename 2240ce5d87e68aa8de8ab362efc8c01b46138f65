@@ -51,6 +51,98 @@
       "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a53751_647835ac",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-16T11:59:55Z",
+      "side": 1,
+      "message": "there is no BUILD.gn in the deprecated subfolder? that seems like oversight\n(rtc_base/ may be included from outside webrtc, but rtc_base/subfolder/ are considered private webrtc headers)\n\nbut, seems non-trivial to fix (deprecated signaled_thread can\u0027t be easily separated from the target it is in)",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 32
+      },
+      "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6b91ddc_dacd5628",
+        "filename": "rtc_base/deprecated/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-16T11:59:55Z",
+      "side": 1,
+      "message": "Undo, this function still not deprecated in windows",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 38
+      },
+      "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5373b97_1d611f36",
+        "filename": "rtc_base/deprecated/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-16T11:59:55Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 34
+      },
+      "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b204ca68_4c5ce242",
+        "filename": "rtc_base/deprecated/critical_section.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-16T11:59:55Z",
+      "side": 1,
+      "message": "...",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 33
+      },
+      "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

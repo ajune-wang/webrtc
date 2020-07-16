@@ -53,6 +53,8 @@ absl::optional<AudioEncoderIlbcConfig> AudioEncoderIlbc::SdpToConfig(
       config.frame_size_ms = rtc::SafeClamp<int>(whole_packets * 10, 20, 60);
     }
   }
+
+  printf("ilbc ok: %d\n", int(config.IsOk()));
   return config.IsOk() ? absl::optional<AudioEncoderIlbcConfig>(config)
                        : absl::nullopt;
 }
@@ -75,6 +77,7 @@ std::unique_ptr<AudioEncoder> AudioEncoderIlbc::MakeAudioEncoder(
     int payload_type,
     absl::optional<AudioCodecPairId> /*codec_pair_id*/) {
   RTC_DCHECK(config.IsOk());
+  printf("ilbc encoder created\n");
   return std::make_unique<AudioEncoderIlbcImpl>(config, payload_type);
 }
 

@@ -27,6 +27,7 @@ group("examples") {
       ":AppRTCMobile",
       ":AppRTCMobile_test_apk",
       ":libwebrtc_unity",
+      "experimental/androidvoip",
     ]
 
     # TODO(sakal): We include some code from the tests. Remove this dependency

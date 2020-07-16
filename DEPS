@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f831fc29d7a23fe6be71dbf1ebcd79d2f2eb5156',
+  'chromium_revision': '394d91d1eb685f31ee5a594925a44b208d7173fb',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@475d373720b816da5b3b3e1fe7fabfeb77a82fa0',
+    'https://chromium.googlesource.com/chromium/src/base@90e27fe4c8a719225d8e7f87dd13e22d3e0409e5',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@a96f2005a39ea6f99ecead9c5577a386fe7316d2',
+    'https://chromium.googlesource.com/chromium/src/build@b8ec24a3b843ef90b99908424fc14d7bbbea9e15',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@eb3987ec709b39469423100c1e77f0446890e059',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -33,7 +33,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@b50360f55b4d91782444b218520b02bed35ada7b',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@d0144a15f1438246c1bd7cce33f42e2b6d1e42df',
     'condition': 'checkout_ios',
   },
   'src/testing':
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a28935f3fb5132cf4ac378b0c11dda6ffff361fe',
+    'https://chromium.googlesource.com/chromium/src/tools@20f149a00e0595262940bc099a68745620112ff3',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 

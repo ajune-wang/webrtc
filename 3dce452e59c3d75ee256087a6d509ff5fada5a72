@@ -16,6 +16,23 @@
       "revId": "3dce452e59c3d75ee256087a6d509ff5fada5a72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c17521f6_ea0f8b19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-07-16T12:19:44Z",
+      "side": 1,
+      "message": "Please create a bug over on the tracker describing the issue (preferrably with screenshots comparing iOS 12 to 13 SDKs.\n\nThen link that issue to the CL by writing webrtc:\u003cbug-nr\u003e after the BUG field.\n\nThanks for your contribution!",
+      "revId": "3dce452e59c3d75ee256087a6d509ff5fada5a72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/critical_section.h"
+#include "rtc_base/deprecated/recursive_critical_section.h"
 
 #include <time.h>
 
@@ -28,7 +28,7 @@
 
 namespace rtc {
 
-CriticalSection::CriticalSection() {
+RecursiveCriticalSection::RecursiveCriticalSection() {
 #if defined(WEBRTC_WIN)
   InitializeCriticalSection(&crit_);
 #elif defined(WEBRTC_POSIX)
@@ -57,7 +57,7 @@ CriticalSection::CriticalSection() {
 #endif
 }
 
-CriticalSection::~CriticalSection() {
+RecursiveCriticalSection::~RecursiveCriticalSection() {
 #if defined(WEBRTC_WIN)
   DeleteCriticalSection(&crit_);
 #elif defined(WEBRTC_POSIX)
@@ -71,7 +71,7 @@ CriticalSection::~CriticalSection() {
 #endif
 }
 
-void CriticalSection::Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
+void RecursiveCriticalSection::Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
 #if defined(WEBRTC_WIN)
   EnterCriticalSection(&crit_);
 #elif defined(WEBRTC_POSIX)
@@ -130,7 +130,8 @@ void CriticalSection::Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
 #endif
 }
 
-bool CriticalSection::TryEnter() const RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
+bool RecursiveCriticalSection::TryEnter() const
+    RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
 #if defined(WEBRTC_WIN)
   return TryEnterCriticalSection(&crit_) != FALSE;
 #elif defined(WEBRTC_POSIX)
@@ -163,7 +164,7 @@ bool CriticalSection::TryEnter() const RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
 #endif
 }
 
-void CriticalSection::Leave() const RTC_UNLOCK_FUNCTION() {
+void RecursiveCriticalSection::Leave() const RTC_UNLOCK_FUNCTION() {
   RTC_DCHECK(CurrentThreadIsOwner());
 #if defined(WEBRTC_WIN)
   LeaveCriticalSection(&crit_);
@@ -191,7 +192,7 @@ void CriticalSection::Leave() const RTC_UNLOCK_FUNCTION() {
 #endif
 }
 
-bool CriticalSection::CurrentThreadIsOwner() const {
+bool RecursiveCriticalSection::CurrentThreadIsOwner() const {
 #if defined(WEBRTC_WIN)
   // OwningThread has type HANDLE but actually contains the Thread ID:
   // http://stackoverflow.com/questions/12675301/why-is-the-owningthread-member-of-critical-section-of-type-handle-when-it-is-de
@@ -210,7 +211,7 @@ bool CriticalSection::CurrentThreadIsOwner() const {
 #endif
 }
 
-CritScope::CritScope(const CriticalSection* cs) : cs_(cs) {
+CritScope::CritScope(const RecursiveCriticalSection* cs) : cs_(cs) {
   cs_->Enter();
 }
 CritScope::~CritScope() {

@@ -62,10 +62,7 @@ class ObjCVideoEncoder : public VideoEncoder {
             [(RTC_OBJC_TYPE(RTCCodecSpecificInfoH264) *)info nativeCodecSpecificInfo];
       }
 
-      std::unique_ptr<RTPFragmentationHeader> fragmentationHeader =
-          [header createNativeFragmentationHeader];
-      EncodedImageCallback::Result res =
-          callback->OnEncodedImage(encodedImage, &codecSpecificInfo, fragmentationHeader.get());
+      EncodedImageCallback::Result res = callback->OnEncodedImage(encodedImage, &codecSpecificInfo);
       return res.error == EncodedImageCallback::Result::OK;
     }];
 

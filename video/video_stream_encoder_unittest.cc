@@ -941,7 +941,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
 
     void InjectEncodedImage(const EncodedImage& image) {
       MutexLock lock(&local_mutex_);
-      encoded_image_callback_->OnEncodedImage(image, nullptr, nullptr);
+      encoded_image_callback_->OnEncodedImage(image, nullptr);
     }
 
     void SetEncodedImageData(
@@ -1004,9 +1004,8 @@ class VideoStreamEncoderTest : public ::testing::Test {
       return result;
     }
 
-    std::unique_ptr<RTPFragmentationHeader> EncodeHook(
-        EncodedImage* encoded_image,
-        CodecSpecificInfo* codec_specific) override {
+    void EncodeHook(EncodedImage* encoded_image,
+                    CodecSpecificInfo* codec_specific) override {
       {
         MutexLock lock(&mutex_);
         codec_specific->codecType = config_.codecType;
@@ -1014,15 +1013,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
       MutexLock lock(&local_mutex_);
       if (encoded_image_data_) {
         encoded_image->SetEncodedData(encoded_image_data_);
-        if (codec_specific->codecType == kVideoCodecH264) {
-          auto fragmentation = std::make_unique<RTPFragmentationHeader>();
-          fragmentation->VerifyAndAllocateFragmentationHeader(1);
-          fragmentation->fragmentationOffset[0] = 4;
-          fragmentation->fragmentationLength[0] = encoded_image->size() - 4;
-          return fragmentation;
-        }
       }
-      return nullptr;
     }
 
     int32_t InitEncode(const VideoCodec* config,
@@ -1217,23 +1208,14 @@ class VideoStreamEncoderTest : public ::testing::Test {
       return std::move(last_encoded_image_data_);
     }
 
-    RTPFragmentationHeader GetLastFragmentation() {
-      MutexLock lock(&mutex_);
-      return std::move(last_fragmentation_);
-    }
-
    private:
     Result OnEncodedImage(
         const EncodedImage& encoded_image,
-        const CodecSpecificInfo* codec_specific_info,
-        const RTPFragmentationHeader* fragmentation) override {
+        const CodecSpecificInfo* codec_specific_info) override {
       MutexLock lock(&mutex_);
       EXPECT_TRUE(expect_frames_);
       last_encoded_image_data_ = std::vector<uint8_t>(
           encoded_image.data(), encoded_image.data() + encoded_image.size());
-      if (fragmentation) {
-        last_fragmentation_.CopyFrom(*fragmentation);
-      }
       uint32_t timestamp = encoded_image.Timestamp();
       if (last_timestamp_ != timestamp) {
         num_received_layers_ = 1;
@@ -1265,7 +1247,6 @@ class VideoStreamEncoderTest : public ::testing::Test {
     TestEncoder* test_encoder_;
     rtc::Event encoded_frame_event_;
     std::vector<uint8_t> last_encoded_image_data_;
-    RTPFragmentationHeader last_fragmentation_;
     uint32_t last_timestamp_ = 0;
     int64_t last_capture_time_ms_ = 0;
     uint32_t last_height_ = 0;
@@ -5445,10 +5426,6 @@ TEST_F(VideoStreamEncoderTest, DoesNotRewriteH264BitstreamWithOptimalSps) {
 
   EXPECT_THAT(sink_.GetLastEncodedImageData(),
               testing::ElementsAreArray(optimal_sps));
-  RTPFragmentationHeader last_fragmentation = sink_.GetLastFragmentation();
-  ASSERT_THAT(last_fragmentation.fragmentationVectorSize, 1U);
-  EXPECT_EQ(last_fragmentation.fragmentationOffset[0], 4U);
-  EXPECT_EQ(last_fragmentation.fragmentationLength[0], sizeof(optimal_sps) - 4);
 
   video_stream_encoder_->Stop();
 }
@@ -5476,10 +5453,6 @@ TEST_F(VideoStreamEncoderTest, RewritesH264BitstreamWithNonOptimalSps) {
 
   EXPECT_THAT(sink_.GetLastEncodedImageData(),
               testing::ElementsAreArray(optimal_sps));
-  RTPFragmentationHeader last_fragmentation = sink_.GetLastFragmentation();
-  ASSERT_THAT(last_fragmentation.fragmentationVectorSize, 1U);
-  EXPECT_EQ(last_fragmentation.fragmentationOffset[0], 4U);
-  EXPECT_EQ(last_fragmentation.fragmentationLength[0], sizeof(optimal_sps) - 4);
 
   video_stream_encoder_->Stop();
 }

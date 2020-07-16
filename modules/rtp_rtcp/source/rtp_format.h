@@ -41,8 +41,7 @@ class RtpPacketizer {
       rtc::ArrayView<const uint8_t> payload,
       PayloadSizeLimits limits,
       // Codec-specific details.
-      const RTPVideoHeader& rtp_video_header,
-      const RTPFragmentationHeader* fragmentation);
+      const RTPVideoHeader& rtp_video_header);
 
   virtual ~RtpPacketizer() = default;
 

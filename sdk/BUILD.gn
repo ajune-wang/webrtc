@@ -104,8 +104,6 @@ if (is_ios || is_mac) {
       "objc/base/RTCMacros.h",
       "objc/base/RTCMutableI420Buffer.h",
       "objc/base/RTCMutableYUVPlanarBuffer.h",
-      "objc/base/RTCRtpFragmentationHeader.h",
-      "objc/base/RTCRtpFragmentationHeader.m",
       "objc/base/RTCVideoCapturer.h",
       "objc/base/RTCVideoCapturer.m",
       "objc/base/RTCVideoCodecInfo.h",

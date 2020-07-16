@@ -50,6 +50,74 @@
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da8191d4_9c9300e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-16T22:37:12Z",
+      "side": 1,
+      "message": "api/pc code looks good aside from one minor comment.",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6774ad40_9622a35f",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-16T22:37:12Z",
+      "side": 1,
+      "message": "nit: comment formatting",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb724e9b_69e2c62e",
+        "filename": "api/rtp_parameters_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-16T22:37:12Z",
+      "side": 1,
+      "message": "nit: Here and below, may want to put the encrypted extension last to ensure that DeduplicateHeaderExtensions/FindHeaderExtensionByUri doesn\u0027t just return the first uri match.",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34a914e5_1ec46a93",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-16T22:37:12Z",
+      "side": 1,
+      "message": "If possible, would prefer doing this filtering in media_session. There are some exceptions but our general policy is to just do parsing/encoding here and leave business logic in media_session.",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

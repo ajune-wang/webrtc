@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9cfb2795_36af1cbe",
+        "filename": "examples/objc/AppRTCMobile/ARDCaptureController.m",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-16T14:30:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2214524c_b7d0003f",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 22
+      },
+      "revId": "9c41a13684ceb5849d98af9c871098dd28665477",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc506e71_92778ca2",
         "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallView.h",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2020-07-16T12:31:16Z",
       "side": 1,
       "message": "Please rename this in line with Apple\u0027s conventions for delegate methods. See https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html for reasoning.\n\nI suggest: videoCallView:didSwitchCameraWithCompletion:",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "9c41a13684ceb5849d98af9c871098dd28665477",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e597ebc_755c1b2e",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallView.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-16T14:30:37Z",
+      "side": 1,
+      "message": "Ack\nAlso did same for videoCallView:didChangeRouteWithCompletion: (commit pending)",
+      "parentUuid": "bc506e71_92778ca2",
       "range": {
         "startLine": 22,
         "startChar": 8,
@@ -82,6 +130,30 @@
       "writtenOn": "2020-07-16T12:31:16Z",
       "side": 1,
       "message": "completion is not not nullable so please add an NSParameterAssert on it.",
+      "range": {
+        "startLine": 159,
+        "startChar": 72,
+        "endLine": 159,
+        "endChar": 82
+      },
+      "revId": "9c41a13684ceb5849d98af9c871098dd28665477",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d739b96_0d028d99",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallViewController.m",
+        "patchSetId": 8
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-16T14:30:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a6dbbe80_8af477a5",
       "range": {
         "startLine": 159,
         "startChar": 72,

@@ -16,6 +16,23 @@
       "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84955002_2c6d384f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-16T15:27:16Z",
+      "side": 1,
+      "message": "Further let me know if it make sense to rename following methods\n\nvideoCallView:didSwitchCameraWithCompletion:\nvideoCallView:didChangeRouteWithCompletion:\n\nto \n\nvideoCallView:switchCameraWithCompletion:\nvideoCallView:changeRouteWithCompletion:\n\nbecause, these methods are doing actions (switching camera and changing audio route)",
+      "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

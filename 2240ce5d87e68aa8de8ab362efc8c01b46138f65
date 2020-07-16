@@ -33,6 +33,24 @@
       "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af7a6692_46d1022c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T08:59:28Z",
+      "side": 1,
+      "message": "Nice CL! :) \n\n\nYes, I agree with both points here. With point n.2 being more important than point n.1, but if you are going to delete the class in a few months we might want to avoid the rename.",
+      "parentUuid": "a3ac84fb_924372e8",
+      "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

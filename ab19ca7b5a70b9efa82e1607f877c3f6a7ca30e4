@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67ed0aab_c10d16ea",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-07-16T11:40:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b55ec503_7a9d06fe",
+      "range": {
+        "startLine": 132,
+        "startChar": 6,
+        "endLine": 132,
+        "endChar": 49
+      },
+      "revId": "ab19ca7b5a70b9efa82e1607f877c3f6a7ca30e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26ec4b42_0a7bae98",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fd5b3459_4a0468a3",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-07-16T11:40:13Z",
+      "side": 1,
+      "message": "I initially did that, but that requires either a larger number of .value_or() calls when the value is used below, or to update the interface for PacketRouter. Both seem like candidates for followups in order to minimize risk.\n\nAgree that this should be done though.",
+      "parentUuid": "26ec4b42_0a7bae98",
+      "range": {
+        "startLine": 489,
+        "startChar": 2,
+        "endLine": 489,
+        "endChar": 30
+      },
+      "revId": "ab19ca7b5a70b9efa82e1607f877c3f6a7ca30e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccdc7e05_a9ac7839",
         "filename": "modules/pacing/pacing_controller.cc",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "ab19ca7b5a70b9efa82e1607f877c3f6a7ca30e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "518fac12_6b61bf4f",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-07-16T11:40:13Z",
+      "side": 1,
+      "message": "We should only break here if we are probing, which is what the !recommended_probe_size.IsZero() check is for. I\u0027ll add a comment to clarify.",
+      "parentUuid": "ccdc7e05_a9ac7839",
+      "range": {
+        "startLine": 577,
+        "startChar": 8,
+        "endLine": 577,
+        "endChar": 43
+      },
+      "revId": "ab19ca7b5a70b9efa82e1607f877c3f6a7ca30e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

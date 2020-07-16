@@ -103,6 +103,30 @@
       "revId": "7ebef6c3ae2205f782b76ca294b0986c35152df6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ebea73_2e5a6050",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-16T20:08:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "753ba0f9_785b6702",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 127,
+        "endChar": 41
+      },
+      "revId": "7ebef6c3ae2205f782b76ca294b0986c35152df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

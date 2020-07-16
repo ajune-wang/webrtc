@@ -16,6 +16,23 @@
       "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3ac84fb_924372e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-16T08:53:20Z",
+      "side": 1,
+      "message": "I have two suggestions:\n\n1. Make a separate cl for the deletions of unneeded #include \"rtc_base/criticalsection.h\", to make the size of this, more interesting, cl smaller.\n\n2. I think it\u0027s good to have the class name reflect the semantic. So I\u0027d prefer renaming CriticalSection -\u003e RecursiveCriticalSection. I think rtc_base/deprecated/recursive_critical_section.h is a reasonable name for the header file, and it\u0027s important that it is moved to a non-api directory.",
+      "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

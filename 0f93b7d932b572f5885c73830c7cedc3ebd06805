@@ -208,6 +208,30 @@
     },
     {
       "key": {
+        "uuid": "5f8a3ede_201be2e6",
+        "filename": "rtc_base/deprecated/recursive_critical_section.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-16T14:17:48Z",
+      "side": 1,
+      "message": "If you don\u0027t want to link something specific, maybe google.com?q\u003drecursive+lock+considered+harmful?\n\nI just think it begs for some brief explanation or motivation on why it\u0027s deprecated. If you don\u0027t have a reference you\u0027re happy with, maybe just state \"Recursive locks are a bad, because when taking a mutex recursively, there are no guarantees that the object, supposedly protected by the mutex, is in a consistent state\".",
+      "parentUuid": "9f1316e8_2721ea86",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "45feb5b6_38516557",
         "filename": "rtc_base/deprecated/recursive_critical_section.h",
         "patchSetId": 3

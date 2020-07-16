@@ -170,8 +170,8 @@ rtc_source_set("refcount") {
 
 rtc_library("criticalsection") {
   sources = [
-    "critical_section.cc",
-    "critical_section.h",
+    "deprecated/critical_section.cc",
+    "deprecated/critical_section.h",
   ]
   deps = [
     ":atomicops",
@@ -1181,7 +1181,7 @@ if (rtc_include_tests) {
       "byte_order_unittest.cc",
       "checks_unittest.cc",
       "copy_on_write_buffer_unittest.cc",
-      "critical_section_unittest.cc",
+      "deprecated/critical_section_unittest.cc",
       "event_tracer_unittest.cc",
       "event_unittest.cc",
       "logging_unittest.cc",

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/critical_section.h"
+#include "rtc_base/deprecated/critical_section.h"
 
 #include <stddef.h>
 #include <stdint.h>
@@ -124,7 +124,7 @@ class RTC_LOCKABLE CriticalSectionLock {
   void Unlock() RTC_UNLOCK_FUNCTION() { cs_.Leave(); }
 
  private:
-  CriticalSection cs_;
+  DEPRECATED_CriticalSection cs_;
 };
 
 template <class Lock>
@@ -183,7 +183,7 @@ class AtomicOpRunner : public RunnerBase {
   }
 
  private:
-  CriticalSection all_values_crit_;
+  DEPRECATED_CriticalSection all_values_crit_;
   Verifier verifier_;
 };
 
@@ -320,7 +320,7 @@ class PerfTestData {
 
  private:
   uint8_t cache_line_barrier_1_[64];
-  CriticalSection lock_;
+  DEPRECATED_CriticalSection lock_;
   uint8_t cache_line_barrier_2_[64];
   int64_t my_counter_ = 0;
   const int expected_count_;

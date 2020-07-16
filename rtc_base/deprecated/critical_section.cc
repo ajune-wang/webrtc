@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/critical_section.h"
+#include "rtc_base/deprecated/critical_section.h"
 
 #include <time.h>
 
@@ -28,9 +28,9 @@
 
 namespace rtc {
 
-CriticalSection::CriticalSection() {
+DEPRECATED_CriticalSection::DEPRECATED_CriticalSection() {
 #if defined(WEBRTC_WIN)
-  InitializeCriticalSection(&crit_);
+  InitializeDEPRECATED_CriticalSection(&crit_);
 #elif defined(WEBRTC_POSIX)
 #if defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
   lock_queue_ = 0;
@@ -57,9 +57,9 @@ CriticalSection::CriticalSection() {
 #endif
 }
 
-CriticalSection::~CriticalSection() {
+DEPRECATED_CriticalSection::~DEPRECATED_CriticalSection() {
 #if defined(WEBRTC_WIN)
-  DeleteCriticalSection(&crit_);
+  DeleteDEPRECATED_CriticalSection(&crit_);
 #elif defined(WEBRTC_POSIX)
 #if defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
   dispatch_release(semaphore_);
@@ -71,9 +71,9 @@ CriticalSection::~CriticalSection() {
 #endif
 }
 
-void CriticalSection::Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
+void DEPRECATED_CriticalSection::Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
 #if defined(WEBRTC_WIN)
-  EnterCriticalSection(&crit_);
+  EnterDEPRECATED_CriticalSection(&crit_);
 #elif defined(WEBRTC_POSIX)
 #if defined(WEBRTC_MAC) && !RTC_USE_NATIVE_MUTEX_ON_MAC
   int spin = 3000;
@@ -130,7 +130,8 @@ void CriticalSection::Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
 #endif
 }
 
-bool CriticalSection::TryEnter() const RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
+bool DEPRECATED_CriticalSection::TryEnter() const
+    RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
 #if defined(WEBRTC_WIN)
   return TryEnterCriticalSection(&crit_) != FALSE;
 #elif defined(WEBRTC_POSIX)
@@ -163,7 +164,7 @@ bool CriticalSection::TryEnter() const RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
 #endif
 }
 
-void CriticalSection::Leave() const RTC_UNLOCK_FUNCTION() {
+void DEPRECATED_CriticalSection::Leave() const RTC_UNLOCK_FUNCTION() {
   RTC_DCHECK(CurrentThreadIsOwner());
 #if defined(WEBRTC_WIN)
   LeaveCriticalSection(&crit_);
@@ -191,7 +192,7 @@ void CriticalSection::Leave() const RTC_UNLOCK_FUNCTION() {
 #endif
 }
 
-bool CriticalSection::CurrentThreadIsOwner() const {
+bool DEPRECATED_CriticalSection::CurrentThreadIsOwner() const {
 #if defined(WEBRTC_WIN)
   // OwningThread has type HANDLE but actually contains the Thread ID:
   // http://stackoverflow.com/questions/12675301/why-is-the-owningthread-member-of-critical-section-of-type-handle-when-it-is-de
@@ -210,7 +211,7 @@ bool CriticalSection::CurrentThreadIsOwner() const {
 #endif
 }
 
-CritScope::CritScope(const CriticalSection* cs) : cs_(cs) {
+CritScope::CritScope(const DEPRECATED_CriticalSection* cs) : cs_(cs) {
   cs_->Enter();
 }
 CritScope::~CritScope() {

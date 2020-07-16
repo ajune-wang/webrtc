@@ -392,7 +392,6 @@ bool RTPSenderVideo::SendVideo(
     uint32_t rtp_timestamp,
     int64_t capture_time_ms,
     rtc::ArrayView<const uint8_t> payload,
-    const RTPFragmentationHeader* fragmentation,
     RTPVideoHeader video_header,
     absl::optional<int64_t> expected_retransmission_time_ms) {
 #if RTC_TRACE_EVENTS_ENABLED
@@ -528,8 +527,8 @@ bool RTPSenderVideo::SendVideo(
            "one is required since require_frame_encryptor is set";
   }
 
-  std::unique_ptr<RtpPacketizer> packetizer = RtpPacketizer::Create(
-      codec_type, payload, limits, video_header, fragmentation);
+  std::unique_ptr<RtpPacketizer> packetizer =
+      RtpPacketizer::Create(codec_type, payload, limits, video_header);
 
   // TODO(bugs.webrtc.org/10714): retransmission_settings_ should generally be
   // replaced by expected_retransmission_time_ms.has_value(). For now, though,
@@ -541,15 +540,7 @@ bool RTPSenderVideo::SendVideo(
           : false;
   const size_t num_packets = packetizer->NumPackets();
 
-  size_t unpacketized_payload_size;
-  if (fragmentation && fragmentation->fragmentationVectorSize > 0) {
-    unpacketized_payload_size = 0;
-    for (uint16_t i = 0; i < fragmentation->fragmentationVectorSize; ++i) {
-      unpacketized_payload_size += fragmentation->fragmentationLength[i];
-    }
-  } else {
-    unpacketized_payload_size = payload.size();
-  }
+  size_t unpacketized_payload_size = payload.size();
 
   if (num_packets == 0)
     return false;
@@ -678,18 +669,17 @@ bool RTPSenderVideo::SendEncodedImage(
     absl::optional<VideoCodecType> codec_type,
     uint32_t rtp_timestamp,
     const EncodedImage& encoded_image,
-    const RTPFragmentationHeader* fragmentation,
     RTPVideoHeader video_header,
     absl::optional<int64_t> expected_retransmission_time_ms) {
   if (frame_transformer_delegate_) {
     // The frame will be sent async once transformed.
     return frame_transformer_delegate_->TransformFrame(
-        payload_type, codec_type, rtp_timestamp, encoded_image, fragmentation,
-        video_header, expected_retransmission_time_ms);
+        payload_type, codec_type, rtp_timestamp, encoded_image, video_header,
+        expected_retransmission_time_ms);
   }
   return SendVideo(payload_type, codec_type, rtp_timestamp,
-                   encoded_image.capture_time_ms_, encoded_image, fragmentation,
-                   video_header, expected_retransmission_time_ms);
+                   encoded_image.capture_time_ms_, encoded_image, video_header,
+                   expected_retransmission_time_ms);
 }
 
 uint32_t RTPSenderVideo::VideoBitrateSent() const {

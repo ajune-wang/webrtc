@@ -210,30 +210,24 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   return result;
 }
 
-void SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
+rtc::Buffer SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
     rtc::ArrayView<const uint8_t> buffer,
-    size_t num_nalus,
-    const size_t* nalu_offsets,
-    const size_t* nalu_lengths,
-    const webrtc::ColorSpace* color_space,
-    rtc::Buffer* output_buffer,
-    size_t* output_nalu_offsets,
-    size_t* output_nalu_lengths) {
+    const webrtc::ColorSpace* color_space) {
+  auto nalus = H264::FindNaluIndices(buffer.data(), buffer.size());
+
   // Allocate some extra space for potentially adding a missing VUI.
-  output_buffer->EnsureCapacity(buffer.size() + num_nalus * kMaxVuiSpsIncrease);
+  rtc::Buffer output_buffer(/*size=*/0, /*capacity=*/buffer.size() +
+                                            nalus.size() * kMaxVuiSpsIncrease);
 
-  const uint8_t* prev_nalu_ptr = buffer.data();
-  size_t prev_nalu_length = 0;
-
-  for (size_t i = 0; i < num_nalus; ++i) {
-    const uint8_t* nalu_ptr = buffer.data() + nalu_offsets[i];
-    const size_t nalu_length = nalu_lengths[i];
-
+  for (const auto& nalu : nalus) {
     // Copy NAL unit start code.
-    const uint8_t* start_code_ptr = prev_nalu_ptr + prev_nalu_length;
+    const uint8_t* start_code_ptr = buffer.data() + nalu.start_offset;
     const size_t start_code_length =
-        (nalu_ptr - prev_nalu_ptr) - prev_nalu_length;
-    output_buffer->AppendData(start_code_ptr, start_code_length);
+        nalu.payload_start_offset - nalu.start_offset;
+    output_buffer.AppendData(start_code_ptr, start_code_length);
+
+    const uint8_t* nalu_ptr = buffer.data() + nalu.payload_start_offset;
+    const size_t nalu_length = nalu.payload_size;
 
     bool updated_sps = false;
 
@@ -261,21 +255,15 @@ void SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
           &sps, color_space, &output_nalu, Direction::kOutgoing);
       if (result == ParseResult::kVuiRewritten) {
         updated_sps = true;
-        output_nalu_offsets[i] = output_buffer->size();
-        output_nalu_lengths[i] = output_nalu.size();
-        output_buffer->AppendData(output_nalu.data(), output_nalu.size());
+        output_buffer.AppendData(output_nalu.data(), output_nalu.size());
       }
     }
 
     if (!updated_sps) {
-      output_nalu_offsets[i] = output_buffer->size();
-      output_nalu_lengths[i] = nalu_length;
-      output_buffer->AppendData(nalu_ptr, nalu_length);
+      output_buffer.AppendData(nalu_ptr, nalu_length);
     }
-
-    prev_nalu_ptr = nalu_ptr;
-    prev_nalu_length = nalu_length;
   }
+  return output_buffer;
 }
 
 namespace {

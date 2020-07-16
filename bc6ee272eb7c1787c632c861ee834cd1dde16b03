@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b893c15_02700d18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-16T08:58:30Z",
+      "side": 1,
+      "message": "I\u0027ve found some downstream usage, which needs to be fixed before landing.",
+      "revId": "bc6ee272eb7c1787c632c861ee834cd1dde16b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

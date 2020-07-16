@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccf894cb_cbd9f300",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-16T08:43:25Z",
+      "side": 1,
+      "message": "Hello,\nThis is my first contribution. I am wondering how long it might take for it to be reviewed. It is very simple one line change and can be verified easily I think.",
+      "revId": "3dce452e59c3d75ee256087a6d509ff5fada5a72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

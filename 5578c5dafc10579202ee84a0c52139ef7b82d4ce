@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d77a0d6_ea6da54a",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T13:10:45Z",
+      "side": 1,
+      "message": "I would like to avoid absl::Mutex if WEBRTC_ABSL_MUTEX is not defined.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "5578c5dafc10579202ee84a0c52139ef7b82d4ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -114,6 +114,30 @@
     },
     {
       "key": {
+        "uuid": "d5b329fb_401dd166",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-16T20:54:53Z",
+      "side": 1,
+      "message": "Would it make sense to use absl::make_unique directly instead of WrapUnique? \nThe WrapUnique instead should be used when the constructor is non-public, or require brace initialization or wrap a raw pointer which is returned by legacy API, see the bullets in \"How Should We Choose Which to Use\": https://abseil.io/tips/126",
+      "parentUuid": "ecd5fd51_5548c93a",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 74
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2566a2a_35737b68",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 11

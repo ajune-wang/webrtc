@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e0531477_c2723c79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-16T08:42:45Z",
+      "side": 1,
+      "message": "Hi folks, PTAL on this change and let\u0027s discuss!",
+      "revId": "2240ce5d87e68aa8de8ab362efc8c01b46138f65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

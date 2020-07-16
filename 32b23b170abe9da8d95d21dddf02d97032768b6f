@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "942ccf53_5a24b977",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T12:15:01Z",
+      "side": 1,
+      "message": "Just to be sure, can we also DCHECK first_packet_received_time !\u003d PlusInfinity and last_packet_received_time !\u003d MinusInfinity?",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 39
+      },
+      "revId": "32b23b170abe9da8d95d21dddf02d97032768b6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7aa6436_9c17f3dc",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T12:15:01Z",
+      "side": 1,
+      "message": "regardless of the destination address?",
+      "range": {
+        "startLine": 100,
+        "startChar": 37,
+        "endLine": 100,
+        "endChar": 65
+      },
+      "revId": "32b23b170abe9da8d95d21dddf02d97032768b6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f83ffef7_5d887aa7",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T12:15:01Z",
+      "side": 1,
+      "message": "I wonder if we can merge these 2 and return a pair. If they are used one after the other maybe it is better. Non blocking anyway.",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 3
+      },
+      "revId": "32b23b170abe9da8d95d21dddf02d97032768b6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8651fc3_aacbb0be",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T12:15:01Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 14
+      },
+      "revId": "32b23b170abe9da8d95d21dddf02d97032768b6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee5ee77_5e69c790",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T12:15:01Z",
+      "side": 1,
+      "message": "This code is not easy to read, maybe take a ref to make lines shorter?",
+      "range": {
+        "startLine": 402,
+        "startChar": 6,
+        "endLine": 411,
+        "endChar": 7
+      },
+      "revId": "32b23b170abe9da8d95d21dddf02d97032768b6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4c955da_a241b2be",
+        "filename": "test/network/network_emulation_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T12:15:01Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "32b23b170abe9da8d95d21dddf02d97032768b6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

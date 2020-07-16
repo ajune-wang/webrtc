@@ -46,6 +46,30 @@
       "revId": "5578c5dafc10579202ee84a0c52139ef7b82d4ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "537e8a78_ea464cb6",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T13:43:57Z",
+      "side": 1,
+      "message": "I would like to have only 1 macro covering the feature of \"using absl::Mutex\". In the long term, it makes things easier to reason about.\n\nIt looks like WEBRTC_MUTEX_RACE_CHECK turns on absl::Mutex only for logging but not for webrtc::Mutex which is strange. Why do we unblock ourselves from webrtc::Mutex and go directly on absl::Mutex in this configuration?",
+      "parentUuid": "a0c2d202_ea8d2d8e",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 43
+      },
+      "revId": "5578c5dafc10579202ee84a0c52139ef7b82d4ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

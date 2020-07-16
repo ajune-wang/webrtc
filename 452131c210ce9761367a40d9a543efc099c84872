@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "288e4fbf_013e0880",
+        "filename": "examples/experimental/androidvoip/OWNERS",
+        "patchSetId": 17
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-16T20:41:12Z",
+      "side": 1,
+      "message": "Added Sami as an owner for now. Let me know if that should be changed.",
+      "revId": "452131c210ce9761367a40d9a543efc099c84872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b267791_395230a1",
+        "filename": "examples/experimental/androidvoip/java/org/webrtc/examples/experimental/androidvoip/MainActivity.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-16T20:41:12Z",
+      "side": 1,
+      "message": "Right now if there is an error initializing the VoIP client, there will be a toast shown to the user and nothing more than that (there will be no second attempts, and subsequent operations would just fail). Should we add code to handle this situation? If so, how should that be done?",
+      "revId": "452131c210ce9761367a40d9a543efc099c84872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

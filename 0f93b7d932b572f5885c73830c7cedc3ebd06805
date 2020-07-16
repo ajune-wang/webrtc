@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "8e9fad6d_d2ce67ea",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-16T13:39:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "740e3a4c_2828c1ad",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 3
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3157287f_335de742",
         "filename": "rtc_base/BUILD.gn",
         "patchSetId": 3
@@ -65,6 +89,54 @@
     },
     {
       "key": {
+        "uuid": "a8a16b59_ba663b93",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-16T13:39:01Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "3157287f_335de742",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 24
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86e96802_725a6f5c",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-16T13:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3157287f_335de742",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 24
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4640a62_bf93bbdb",
         "filename": "rtc_base/deprecated/recursive_critical_section.h",
         "patchSetId": 3
@@ -76,6 +148,30 @@
       "writtenOn": "2020-07-16T12:41:41Z",
       "side": 1,
       "message": "Would be nice with a link to some public doc explaining the problems with recursive locks.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1316e8_2721ea86",
+        "filename": "rtc_base/deprecated/recursive_critical_section.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-16T13:39:01Z",
+      "side": 1,
+      "message": "I\u0027d love to, but I hesitate putting random internet links on the subject (which is easy to find) in the code. Do you have a suggestion?",
+      "parentUuid": "a4640a62_bf93bbdb",
       "range": {
         "startLine": 50,
         "startChar": 0,
@@ -108,6 +204,30 @@
       "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdd64429_d717ad51",
+        "filename": "rtc_base/deprecated/recursive_critical_section.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 9515
+      },
+      "writtenOn": "2020-07-16T13:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45feb5b6_38516557",
+      "range": {
+        "startLine": 52,
+        "startChar": 19,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

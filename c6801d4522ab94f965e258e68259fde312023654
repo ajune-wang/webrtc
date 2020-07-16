@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb8ebb78_04f71c16",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2994,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-16T21:54:20Z",
+      "side": 0,
+      "message": "It looks like GetValue will already populate the error if tokenize_first fails. So are the changes here even necessary? Not that the new code is a bad thing, since the error is more specific",
+      "revId": "c6801d4522ab94f965e258e68259fde312023654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

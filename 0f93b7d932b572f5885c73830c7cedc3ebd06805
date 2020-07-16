@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58c43915_684e77e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-16T12:41:41Z",
+      "side": 1,
+      "message": "Looks good! Just some optional suggestions.",
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "740e3a4c_2828c1ad",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-16T12:41:41Z",
+      "side": 1,
+      "message": "Would be nice if this was moved to deprecated/BUILD.gn, but that can be a separate cl.",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 3
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3157287f_335de742",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-16T12:41:41Z",
+      "side": 1,
+      "message": "I hope this can be dropped, and it doesn\u0027t have to be \"exported\" in this sense?",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 24
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4640a62_bf93bbdb",
+        "filename": "rtc_base/deprecated/recursive_critical_section.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-16T12:41:41Z",
+      "side": 1,
+      "message": "Would be nice with a link to some public doc explaining the problems with recursive locks.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "0f93b7d932b572f5885c73830c7cedc3ebd06805",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

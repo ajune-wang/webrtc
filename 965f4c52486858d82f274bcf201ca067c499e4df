@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c91f7db_d737f44c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-16T14:09:03Z",
+      "side": 1,
+      "message": "Can you also mention how to turn on the feature (define the macro globally) and mention this will add a dependency on absl/syncronization from the logging module?",
+      "revId": "965f4c52486858d82f274bcf201ca067c499e4df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

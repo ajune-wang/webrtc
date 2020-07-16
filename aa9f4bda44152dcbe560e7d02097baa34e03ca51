@@ -138,6 +138,30 @@
     },
     {
       "key": {
+        "uuid": "42757903_37864331",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-16T21:47:23Z",
+      "side": 1,
+      "message": "The constructor has been changed to be private, since we now have a factory method.",
+      "parentUuid": "d5b329fb_401dd166",
+      "range": {
+        "startLine": 151,
+        "startChar": 37,
+        "endLine": 151,
+        "endChar": 74
+      },
+      "revId": "aa9f4bda44152dcbe560e7d02097baa34e03ca51",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2566a2a_35737b68",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 11

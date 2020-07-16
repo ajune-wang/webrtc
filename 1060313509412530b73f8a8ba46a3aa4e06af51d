@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a40f37aa_88c63f22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2020-07-16T09:32:03Z",
+      "side": 1,
+      "message": "Ilya, PTAL as an owner of video/.",
+      "revId": "1060313509412530b73f8a8ba46a3aa4e06af51d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -105,6 +105,24 @@
       "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cbd2e50_631a9672",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-17T12:49:03Z",
+      "side": 1,
+      "message": "Oh!\n\nWent through the doc: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html#//apple_ref/doc/uid/20001282-1001803-BCIDAIJE\n\nLooks like it is related to grammar :)\n\ni.e\n\"noun + should + verb\" for tell\nand\n\"should + verb + noun\" for ask\n\n\nSo for tell methods \"should\" could be second word in method name like\n\nvideoCallView:cameraShouldSwitchWithCompletion\nvideoCallView:routeShouldChangeWithCompletion\n\nif that make sense 😊",
+      "parentUuid": "c7f48904_08405718",
+      "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -87,6 +87,24 @@
       "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7f48904_08405718",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-07-17T12:01:41Z",
+      "side": 1,
+      "message": "I think that \"should\" is appropriate here, it\u0027s a tell, not an ask, as in, we are telling the delegate that it should take the action of switching camera, not asking we the caller should do it, if that makes sense.\n\nThat\u0027s in line with Apple\u0027s recommendations from the page I linked earlier:\n\"Although you can use “did” or “will” for methods that are invoked to ask the delegate to do something on behalf of another object, “should” is preferred.\"",
+      "parentUuid": "c52a374f_87d0d6a9",
+      "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

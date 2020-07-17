@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8ca1ad6f_58e6fb29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-17T19:12:39Z",
+      "side": 1,
+      "message": "Of libsrtp? I\u0027m not sure if I\u0027ve updated it before but I can. The last time it was updated it was to a versioned release (2.2.0), and the referenced pull request isn\u0027t in the last release (2.3.0). Shall I update to 2.3.0 and then cherry pick the pull request?",
+      "parentUuid": "a6dc2f60_34700a1e",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 67
+      },
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b09e5105_53564bb7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

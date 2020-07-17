@@ -39,6 +39,30 @@
       "revId": "30debe677f8fc04160349cb524c324157852edde",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8b2a780_35e353be",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-07-17T10:06:27Z",
+      "side": 1,
+      "message": "The loop is intended for the periodic case only where there might be a few 5ms process class that does nothing. I\u0027ll add an if/else so I remember to remove this when period is deprecated.",
+      "parentUuid": "a63b2f74_fb62ece0",
+      "range": {
+        "startLine": 1529,
+        "startChar": 5,
+        "endLine": 1532,
+        "endChar": 44
+      },
+      "revId": "30debe677f8fc04160349cb524c324157852edde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

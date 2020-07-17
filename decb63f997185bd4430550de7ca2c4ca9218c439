@@ -2,6 +2,92 @@
   "comments": [
     {
       "key": {
+        "uuid": "4a705393_969c8350",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-17T17:22:53Z",
+      "side": 1,
+      "message": "Thanks, last a few comments. PTAL.",
+      "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8068cffb_b11c29f8",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-17T17:22:53Z",
+      "side": 1,
+      "message": "Should we clear ChannelId when we stop? Is there a way to stop user from using release channel id?",
+      "range": {
+        "startLine": 281,
+        "startChar": 66,
+        "endLine": 281,
+        "endChar": 74
+      },
+      "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ae952c3_ad398383",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-17T17:22:53Z",
+      "side": 1,
+      "message": "Should use same type as uint8_t.",
+      "range": {
+        "startLine": 352,
+        "startChar": 43,
+        "endLine": 352,
+        "endChar": 56
+      },
+      "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a58036d_827e16c0",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-17T17:22:53Z",
+      "side": 1,
+      "message": "Should use same type as uint8_t",
+      "range": {
+        "startLine": 362,
+        "startChar": 42,
+        "endLine": 362,
+        "endChar": 56
+      },
+      "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9e121aa_f6313143",
         "filename": "examples/androidvoip/jni/onload.cc",
         "patchSetId": 18

@@ -16,6 +16,23 @@
       "revId": "bc6ee272eb7c1787c632c861ee834cd1dde16b03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c91cc1f5_865738b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-17T08:40:44Z",
+      "side": 1,
+      "message": "PTAL. Downstream usage of old name has been deleted.",
+      "revId": "bc6ee272eb7c1787c632c861ee834cd1dde16b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

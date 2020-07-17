@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d72fa1e_5d03233e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-17T04:03:21Z",
+      "side": 1,
+      "message": "Created bug and mentioned in description. There are screenshot and video describing the problem with IOS 13 sdk. \nI think the problem is not there with IOS 12 sdk, but couldn\u0027t take screenshot because I am getting some error when trying to compile with IOS 12 sdk.",
+      "revId": "9c8cdc06540e65e249b570ed7cae92a3bcc83689",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

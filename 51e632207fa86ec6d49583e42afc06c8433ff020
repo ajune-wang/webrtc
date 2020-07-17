@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2aef5326_e2f5a82e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-17T06:00:31Z",
+      "side": 1,
+      "message": "Sure, thanks Mirko!",
+      "parentUuid": "0b03f9ed_804d74ac",
+      "revId": "51e632207fa86ec6d49583e42afc06c8433ff020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0291308b_407256b3",
         "filename": "common_audio/fir_filter_avx2.cc",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "0f74799f_c3e06429",
+        "filename": "common_audio/fir_filter_avx2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-17T06:00:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0291308b_407256b3",
+      "range": {
+        "startLine": 23,
+        "startChar": 32,
+        "endLine": 23,
+        "endChar": 34
+      },
+      "revId": "51e632207fa86ec6d49583e42afc06c8433ff020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a951e4c_a6d2bd72",
         "filename": "common_audio/fir_filter_avx2.cc",
         "patchSetId": 4
@@ -53,6 +95,30 @@
       "writtenOn": "2020-07-16T07:56:52Z",
       "side": 1,
       "message": "This line is a bit hard to read, but I am not sure if I can find a better naming.",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 62
+      },
+      "revId": "51e632207fa86ec6d49583e42afc06c8433ff020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52d14b0e_d390e670",
+        "filename": "common_audio/fir_filter_avx2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-17T06:00:31Z",
+      "side": 1,
+      "message": "hmm, I have no better idea about the naming...",
+      "parentUuid": "9a951e4c_a6d2bd72",
       "range": {
         "startLine": 37,
         "startChar": 19,

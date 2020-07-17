@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b112e7ba_2aa07cca",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-17T12:30:25Z",
+      "side": 0,
+      "message": "since I got confused: encoded bytes for both secondary and tertiary is guaranteed to be smaller than kRedMaxPacketSize due to the check in line 87",
+      "revId": "41525d0cc0fccc57321d4600e7d11521358da439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

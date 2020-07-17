@@ -33,6 +33,24 @@
       "revId": "25ccff1db361985b0c1f25b2c83850b171e6bf95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94466f76_54b38c20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-07-17T14:11:52Z",
+      "side": 1,
+      "message": "It never did, and I agree that it would make sense. Currently working on some cleanup, so I will introduce it here again with that CL (where it would actually be used).",
+      "parentUuid": "c08e3a49_57b5ae82",
+      "revId": "25ccff1db361985b0c1f25b2c83850b171e6bf95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

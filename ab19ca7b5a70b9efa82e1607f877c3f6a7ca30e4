@@ -164,6 +164,30 @@
       "revId": "ab19ca7b5a70b9efa82e1607f877c3f6a7ca30e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479b23d5_15571b9c",
+        "filename": "modules/pacing/pacing_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-07-17T09:21:47Z",
+      "side": 1,
+      "message": "I\u0027ll bring back is_probing to make to intent more clear.\nrecommended_probe_size was optional before, but didn\u0027t find that really added value.",
+      "parentUuid": "c6a4f6d6_68445472",
+      "range": {
+        "startLine": 577,
+        "startChar": 8,
+        "endLine": 577,
+        "endChar": 43
+      },
+      "revId": "ab19ca7b5a70b9efa82e1607f877c3f6a7ca30e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

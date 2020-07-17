@@ -16,6 +16,23 @@
       "revId": "25ccff1db361985b0c1f25b2c83850b171e6bf95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c08e3a49_57b5ae82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-07-17T13:34:46Z",
+      "side": 1,
+      "message": "Did EncodedImage ever have a VideoCodecType member? (It would make some sense to me if it did).",
+      "revId": "25ccff1db361985b0c1f25b2c83850b171e6bf95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

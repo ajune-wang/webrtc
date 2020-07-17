@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e5f52d6_0d3eea7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-17T10:46:30Z",
+      "side": 1,
+      "message": "Tomas, can you PTAL on /API changes",
+      "revId": "ba66cbac3ed671dd3490322e5c605f32dc96bd82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

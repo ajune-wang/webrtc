@@ -83,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "ce0e5581_34a5239c",
+        "filename": "examples/experimental/androidvoip/BUILD.gn",
+        "patchSetId": 16
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-07-17T12:13:17Z",
+      "side": 1,
+      "message": "I can be an owner if you just need someone to stamp CLs but I don\u0027t expect to have time to maintain this code. For any issues with the code I\u0027ll have to assign to you.",
+      "parentUuid": "6a41d56b_34f06f33",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 69
+      },
+      "revId": "7ebef6c3ae2205f782b76ca294b0986c35152df6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "753ba0f9_785b6702",
         "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 16

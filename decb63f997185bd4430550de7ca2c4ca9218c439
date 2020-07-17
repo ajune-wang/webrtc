@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9e121aa_f6313143",
+        "filename": "examples/androidvoip/jni/onload.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-07-17T12:13:17Z",
+      "side": 1,
+      "message": "nit: If I remember correctly, this should be now unnecessary. I think it is only used from the legacy audio device module.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ce2dba2_61ace91b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-17T14:28:26Z",
+      "side": 1,
+      "message": "In API IIRC it is said that analyzer do a deep copy, so we need to fix that. Also IIRC analyzer might do a deep copy in some other places when OnXXXFrame is called. For consistency it will be nice to have copying either inside analyzer or outside it if possible.",
+      "range": {
+        "startLine": 391,
+        "startChar": 34,
+        "endLine": 391,
+        "endChar": 49
+      },
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4c51945_d21a258f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-17T14:28:26Z",
+      "side": 1,
+      "message": "Did you measure how long we spent inside this method? Theoretically this can be also posted to another thread to free frame object, if required.",
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08905e95_b301f1ad",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-17T14:28:26Z",
+      "side": 1,
+      "message": "I think it\u0027s better to specify type here",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 6
+      },
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc691ebd_0b6fdc6c",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-17T14:28:26Z",
+      "side": 1,
+      "message": "use low case here",
+      "range": {
+        "startLine": 187,
+        "startChar": 7,
+        "endLine": 187,
+        "endChar": 8
+      },
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740aefcf_0be8ecec",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-17T14:28:26Z",
+      "side": 1,
+      "message": "Why move analyzer call to the last? Sinks can take some time on processing, which will affect measuring of times in analyzer.",
+      "range": {
+        "startLine": 205,
+        "startChar": 13,
+        "endLine": 205,
+        "endChar": 28
+      },
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

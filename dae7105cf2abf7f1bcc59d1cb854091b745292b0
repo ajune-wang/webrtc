@@ -16,6 +16,23 @@
       "revId": "dae7105cf2abf7f1bcc59d1cb854091b745292b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33c06cef_c05f6c41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-17T06:57:41Z",
+      "side": 1,
+      "message": "Submitting. Btw, right now there are 10 people assigned to review, usually 1 will do 😊",
+      "revId": "dae7105cf2abf7f1bcc59d1cb854091b745292b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -69,6 +69,24 @@
       "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c52a374f_87d0d6a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-17T11:00:24Z",
+      "side": 1,
+      "message": "Or, can we keep names same as last commit (Patchset 9)?\n\nvideoCallView:didSwitchCameraWithCompletion:\nvideoCallView:didChangeRouteWithCompletion:\n\nBecause these names are consistent with names of other methods of the delegate\n\nvideoCallViewDidHangup:\nvideoCallViewDidEnableStats:\n\nIf that sounds ok, please go ahead with the review. Otherwise, let me know what needs to be changed.",
+      "parentUuid": "4858c3de_1e92e6c2",
+      "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -33,6 +33,24 @@
       "revId": "aa0521aa1371b44dc8c1296ba51ede2053e4a0d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05f3d38a_914ad681",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3000,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-17T07:38:00Z",
+      "side": 1,
+      "message": "whoops. Why does neither presubmit nor any of the bots complain?!",
+      "parentUuid": "1a2b1881_0b78ceb5",
+      "revId": "aa0521aa1371b44dc8c1296ba51ede2053e4a0d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "c6801d4522ab94f965e258e68259fde312023654",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365ec918_fd2c629f",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2994,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-17T07:38:00Z",
+      "side": 0,
+      "message": "the new code extracts the bandwidth type first. Different style,\n  \"get the bandwidth field and then interpret it\"\nrather than\n  \"try to get it as AS? Fails? Try again as TIAS\"\nThe old approach was fine when it just tried one thing :-)",
+      "parentUuid": "cb8ebb78_04f71c16",
+      "revId": "c6801d4522ab94f965e258e68259fde312023654",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

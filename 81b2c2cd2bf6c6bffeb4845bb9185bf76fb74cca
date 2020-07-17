@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6cbeb351_36a21d45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-17T07:38:00Z",
+      "side": 1,
+      "message": "(next action date for submitting after the cut set on the bug)",
+      "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

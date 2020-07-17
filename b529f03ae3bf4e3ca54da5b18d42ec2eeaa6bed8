@@ -123,6 +123,24 @@
       "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd06ab02_26088456",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-17T14:51:14Z",
+      "side": 1,
+      "message": "Looks like that grammar rule I mentioned in last message is not correct, because \"noun\" here is object, not subject. \n\nSo correct way should be like:\n\n\"object + should + verb + subject\" for tell\n\"should + object + verb + subject\" for ask\n\ni.e \"delegateShouldChangeRoute\" for tell\nand \"shouldDelegateChangeRoute\" for ask\n\nSo if we remove delegate from these names it becomes \"shouldChangeRoute\" for both tell and ask.\n\nSo from that perspective we can use \"videoCallView:shouldChangeRouteWithCompletion\".\n\nWhile, the example Apple gave in their document is \"windowShouldClose\".\n\nSo, looks like we need to make a choice move on.",
+      "parentUuid": "8cbd2e50_631a9672",
+      "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

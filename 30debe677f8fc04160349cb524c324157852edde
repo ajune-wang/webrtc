@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8476cd0a_2a46a876",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-17T09:53:55Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "30debe677f8fc04160349cb524c324157852edde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a63b2f74_fb62ece0",
+        "filename": "modules/pacing/pacing_controller_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-07-17T09:53:55Z",
+      "side": 1,
+      "message": "nit: Ideally we\u0027d simply wait some fixed period where we expect this to happen, if we want to optimize, I think it would still be good to add a limit, for instance iterating at most 10 times, to ensure that we don\u0027t cause a freeze if nothing is sent.",
+      "range": {
+        "startLine": 1529,
+        "startChar": 5,
+        "endLine": 1532,
+        "endChar": 44
+      },
+      "revId": "30debe677f8fc04160349cb524c324157852edde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

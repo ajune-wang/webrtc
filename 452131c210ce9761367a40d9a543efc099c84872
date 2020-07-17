@@ -33,6 +33,47 @@
       "revId": "452131c210ce9761367a40d9a543efc099c84872",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee8e10d4_f64d63a5",
+        "filename": "examples/experimental/androidvoip/java/org/webrtc/examples/experimental/androidvoip/MainActivity.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-17T16:56:16Z",
+      "side": 1,
+      "message": "I think you can add more detail logging saying \"Error while initialize audio device.\" to indicate there may be something wrong with audio device as shown in comment.\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/voip/voip_engine_factory.h;drc\u003dc0df5fc25b82fc5a2071be55e5357ce786caf637;l\u003d64",
+      "parentUuid": "6b267791_395230a1",
+      "revId": "452131c210ce9761367a40d9a543efc099c84872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23de88c2_1ddd4ecd",
+        "filename": "examples/experimental/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-17T16:56:16Z",
+      "side": 1,
+      "message": "nit: Since this is synchronously invoking the logic, you could simply mark it as [\u0026].",
+      "range": {
+        "startLine": 135,
+        "startChar": 45,
+        "endLine": 135,
+        "endChar": 58
+      },
+      "revId": "452131c210ce9761367a40d9a543efc099c84872",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -51,6 +51,24 @@
       "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4858c3de_1e92e6c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-17T10:27:42Z",
+      "side": 1,
+      "message": "In this context not sure if \"should\" should be used. \n\nBecause if we want the delegate to decide whether to go ahead with the action we might use \"-(BOOL)videoCallView:shouldChangeRoute\"\nIn that case code in button event handler might be like.\n\nif ([delegate videoCallView:self shouldChangeRoute]) {\n{\n     //Change Route\n}",
+      "parentUuid": "6e6a8a84_2c97a8a8",
+      "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -2990,17 +2990,16 @@ bool ParseContent(const std::string& message,
     if (IsLineType(line, kLineTypeSessionBandwidth)) {
       std::string bandwidth;
       std::string bandwidth_type;
-      if (HasAttribute(line, kApplicationSpecificBandwidth)) {
-        if (!GetValue(line, kApplicationSpecificBandwidth, &bandwidth, error)) {
-          return false;
-        }
-        bandwidth_type = kApplicationSpecificBandwidth;
-      } else if (HasAttribute(line, kTransportSpecificBandwidth)) {
-        if (!GetValue(line, kTransportSpecificBandwidth, &bandwidth, error)) {
-          return false;
-        }
-        bandwidth_type = kTransportSpecificBandwidth;
-      } else {
+      if (!rtc::tokenize_first(line.substr(kLinePrefixLength),
+                               kSdpDelimiterColonChar, &bandwidth_type,
+                               &bandwidth)) {
+        return ParseFailed(
+            line,
+            "b= syntax error, does not match b=<modifier>:<bandwidth-value>.",
+            error);
+      }
+      if (!(bandwidth_type == kApplicationSpecificBandwidth ||
+            bandwidth_type == kTransportSpecificBandwidth)) {
         continue;
       }
       int b = 0;

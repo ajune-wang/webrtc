@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '046ea7f66ec093e65ad29a9cf3f8df1317ab939e',
+  'chromium_revision': 'de7ce7129ecc82859f34aa4a614ee4e521372071',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@ad63522021f3b794c97945fb3b9c595b507e97a2',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@dc1d14d5e6e0103f8406f25f49f96915be5c796e',
+    'https://chromium.googlesource.com/chromium/src/build@4ab4e6ae37d53b8b983c02abeb80fcb11a022549',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@eb3987ec709b39469423100c1e77f0446890e059',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -39,7 +39,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@359089a64726854c0bce502e332cd1c2cf155680',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@9a0bffbede400efb07c455695c1c3a71524843a1',
+    'https://chromium.googlesource.com/chromium/src/third_party@7273e65f3f8fe53437d291c3adabafd095b45ca5',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -137,7 +137,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@4bbdfa583e743daeb477d848c2be9d18bf0a03a4',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@642be1d27d9796d0b49199b99deae60b35aeaaea',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@d2dd36c03501e995e8ce2d792d834392b2e62bfe',
   'src/third_party/findbugs': {
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@23e581554a90f19676cd99d8168edf2a9f5dc45e',
+    'https://chromium.googlesource.com/chromium/src/tools@1da2be8c46c56f3c1e1b4a2000d5636a2ce3c2eb',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 

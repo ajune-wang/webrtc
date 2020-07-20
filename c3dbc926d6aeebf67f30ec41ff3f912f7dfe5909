@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c9fe383_cebc2e80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6434
+      },
+      "writtenOn": "2020-07-20T11:42:46Z",
+      "side": 1,
+      "message": "Thank you for having a look at this. We only just enabled RTX in Firefox, which means that we\u0027ll now potentially send padding before media, which is what triggered this. We saw assertion failures in some of our unit tests after RTX was enabled.",
+      "revId": "c3dbc926d6aeebf67f30ec41ff3f912f7dfe5909",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

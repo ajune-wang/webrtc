@@ -50,6 +50,24 @@
       "revId": "d1087b44740b6950f713f646a433e70ba0bc566e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dee250a_1d02825c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-20T12:04:30Z",
+      "side": 1,
+      "message": "Yes, will abandon this CL\nI wasn\u0027t sure about how and when any change from master branch can be merged to other branch.\nSincerely regret any inconvenience..",
+      "parentUuid": "8db71d52_0fbb0a36",
+      "revId": "d1087b44740b6950f713f646a433e70ba0bc566e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

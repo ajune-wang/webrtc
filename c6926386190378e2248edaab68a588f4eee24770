@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "b54fd828_8d949afa",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-07-20T08:41:45Z",
+      "side": 1,
+      "message": "It takes 4 ms per frame in average. Almost all the time takes ToI420 conversion. And it seems that if we cut out unnecessary conversion it would be good enough. So no need of executing it in a separate thread.",
+      "parentUuid": "e4c51945_d21a258f",
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e44dcb8_4331d846",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-07-20T08:41:45Z",
+      "side": 1,
+      "message": "I couldn\u0027t find such comments. Also, the only other frame copying in OnXXXFrame method that I see is https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc;l\u003d251?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F (implicit, and doesn\u0027t copy video buffer). But to get rid of it we would have to change the interface to accept the frame itself instead of the const reference. And I don\u0027t think this would be a good idea.\n\nPs: I only now noticed, that we don\u0027t do ToI420 conversion while capturing the frame. Can it lead to errors during comparison (since rendered frame is converted to I420)?",
+      "parentUuid": "7ce2dba2_61ace91b",
+      "range": {
+        "startLine": 391,
+        "startChar": 34,
+        "endLine": 391,
+        "endChar": 49
+      },
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08905e95_b301f1ad",
         "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
         "patchSetId": 1
@@ -88,6 +130,54 @@
     },
     {
       "key": {
+        "uuid": "bcb4d09b_60d0d624",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-07-20T08:41:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc691ebd_0b6fdc6c",
+      "range": {
+        "startLine": 187,
+        "startChar": 7,
+        "endLine": 187,
+        "endChar": 8
+      },
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42500984_2a7b48ab",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-07-20T08:41:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08905e95_b301f1ad",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 6
+      },
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "740aefcf_0be8ecec",
         "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
         "patchSetId": 1
@@ -108,6 +198,30 @@
       "revId": "c6926386190378e2248edaab68a588f4eee24770",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64cf11d3_21f05427",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 11540
+      },
+      "writtenOn": "2020-07-20T08:41:45Z",
+      "side": 1,
+      "message": "I agree, I didn\u0027t think about it. It was an over optimization :). Just cutting off extra ToI420 conversion is good enough.",
+      "parentUuid": "740aefcf_0be8ecec",
+      "range": {
+        "startLine": 205,
+        "startChar": 13,
+        "endLine": 205,
+        "endChar": 28
+      },
+      "revId": "c6926386190378e2248edaab68a588f4eee24770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

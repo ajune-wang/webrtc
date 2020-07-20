@@ -33,6 +33,23 @@
       "revId": "d1087b44740b6950f713f646a433e70ba0bc566e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8db71d52_0fbb0a36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-20T11:03:58Z",
+      "side": 1,
+      "message": "Ah, looks like this CL was created by mistake. If that\u0027s the case, can you click \"Abandon\" to close it?",
+      "revId": "d1087b44740b6950f713f646a433e70ba0bc566e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

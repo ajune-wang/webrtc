@@ -141,6 +141,24 @@
       "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84211bd4_4dedf866",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-07-20T07:38:43Z",
+      "side": 1,
+      "message": "Thanks for the detailed explanation. To me what \"feels\" best is videoCallView:shouldChangeRouteWithCompletion, and I\u0027d prefer if we go with that.",
+      "parentUuid": "cd06ab02_26088456",
+      "revId": "b529f03ae3bf4e3ca54da5b18d42ec2eeaa6bed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

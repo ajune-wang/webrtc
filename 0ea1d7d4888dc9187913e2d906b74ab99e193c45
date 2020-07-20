@@ -70,6 +70,30 @@
       "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bfc4ce8_3224c575",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallView.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-20T08:59:19Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "caba0659_429fd6a5",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 25
+      },
+      "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

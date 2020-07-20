@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1917f8b8_d8ca02e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-20T11:01:44Z",
+      "side": 1,
+      "message": "I\u0027ve fixed the description now. Can you rebase the CL? If I understand correctly, the change in AUTHORS should go away.",
+      "revId": "d1087b44740b6950f713f646a433e70ba0bc566e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

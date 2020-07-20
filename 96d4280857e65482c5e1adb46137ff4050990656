@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6f3bf87_03068aa2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-20T06:57:13Z",
+      "side": 1,
+      "message": "Please see if it is cherry picked correctly. Referred to this documentation for doing cherry pick:\nhttps://www.chromium.org/developers/how-tos/drover\n\nCan it be merged safely?",
+      "revId": "96d4280857e65482c5e1adb46137ff4050990656",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

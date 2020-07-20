@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b7e8c8_b875c3e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6434
+      },
+      "writtenOn": "2020-07-20T11:38:10Z",
+      "side": 1,
+      "message": "In Firefox, we also added checks that would prevent this situation outside of libwebrtc. So perhaps an assertion would be fine here.",
+      "revId": "dcba84e9d09e82d816481113ce51fc8113c01743",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

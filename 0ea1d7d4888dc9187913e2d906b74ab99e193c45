@@ -22,6 +22,30 @@
       "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "213afb11_e459e9f8",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallView.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-20T08:51:14Z",
+      "side": 1,
+      "message": "Understand that strongSelf is not needed because it is not used in the block.\n\nMy reason for keeping the condition was if self(view) is not there, there is no point in doing any processing in the block.\n\nDoes following condition make sense?\nif (weakSelf) {\n          dispatch_async(dispatch_get_main_queue(), ^(void) {\n            sender.enabled \u003d true;\n          });\n}\n\nOr you think it is better to remove condition altogether along with both weakSelf and strongSelf?",
+      "parentUuid": "398ecb4d_543ba102",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 25
+      },
+      "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -16,6 +16,23 @@
       "revId": "d1087b44740b6950f713f646a433e70ba0bc566e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e2af683_a45ab887",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-20T11:02:30Z",
+      "side": 1,
+      "message": "Hang on... why is the change associated with refs/branch-heads/4147?",
+      "revId": "d1087b44740b6950f713f646a433e70ba0bc566e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

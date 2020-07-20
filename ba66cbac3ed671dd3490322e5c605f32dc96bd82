@@ -16,6 +16,40 @@
       "revId": "ba66cbac3ed671dd3490322e5c605f32dc96bd82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e84cde4_9f4efbec",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-20T09:11:20Z",
+      "side": 1,
+      "message": "any particular reason we choose to initialize this timestamp to a different \u0027unset\u0027 value than first_packet_received_time? Do we ever compare the \u0027infinite\u0027 timestamps?\nIn case of an unexpected error such as if they\u0027re both infinite when AverageReceiveRate() is called - is this then to avoid division by 0?\n(if so, you could add a comment explaining that this is a safeguard for something that should never happen)",
+      "revId": "ba66cbac3ed671dd3490322e5c605f32dc96bd82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb2514d3_159448fd",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-20T09:11:20Z",
+      "side": 1,
+      "message": "nit: Since these structs are becoming more like classes now, you might want to protect direct access to variables that should not be read directly and force use of the functions to get the right value.",
+      "revId": "ba66cbac3ed671dd3490322e5c605f32dc96bd82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

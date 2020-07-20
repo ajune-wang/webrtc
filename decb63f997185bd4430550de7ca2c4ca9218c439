@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "5ad83740_4350634d",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-20T18:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8068cffb_b11c29f8",
+      "range": {
+        "startLine": 281,
+        "startChar": 66,
+        "endLine": 281,
+        "endChar": 74
+      },
+      "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ae952c3_ad398383",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 18
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "f11b0571_a0477408",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-20T18:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ae952c3_ad398383",
+      "range": {
+        "startLine": 352,
+        "startChar": 43,
+        "endLine": 352,
+        "endChar": 56
+      },
+      "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a58036d_827e16c0",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 18
@@ -85,6 +133,30 @@
       "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eee5faa5_e6de13ad",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-20T18:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a58036d_827e16c0",
+      "range": {
+        "startLine": 362,
+        "startChar": 42,
+        "endLine": 362,
+        "endChar": 56
+      },
+      "revId": "decb63f997185bd4430550de7ca2c4ca9218c439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

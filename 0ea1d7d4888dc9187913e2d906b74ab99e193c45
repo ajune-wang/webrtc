@@ -46,6 +46,30 @@
       "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caba0659_429fd6a5",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallView.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-07-20T08:57:20Z",
+      "side": 1,
+      "message": "I\u0027d prefer to just remove it to have less clutter. The condition doesn\u0027t make a difference in practice.",
+      "parentUuid": "213afb11_e459e9f8",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 25
+      },
+      "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "22900ec6_07710f1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-20T09:18:18Z",
+      "side": 1,
+      "message": "but couldn\u0027t understand this message from commit bot:\n\n**ERROR**\n    The \"Bug: \\[bug number\\]\" footer is mandatory\\.\n\nbecause looks like bug is already mentioned in required format.",
+      "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "398ecb4d_543ba102",
         "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallView.m",
         "patchSetId": 10
@@ -94,6 +111,30 @@
       "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee15a46d_feb44bc5",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallView.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-20T09:18:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bfc4ce8_3224c575",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 25
+      },
+      "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

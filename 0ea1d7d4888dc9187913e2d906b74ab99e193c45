@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "398ecb4d_543ba102",
+        "filename": "examples/objc/AppRTCMobile/ios/ARDVideoCallView.m",
+        "patchSetId": 10
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-07-20T08:27:50Z",
+      "side": 1,
+      "message": "I don\u0027t really see that you need the reference to self in this block.",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 211,
+        "endChar": 25
+      },
+      "revId": "0ea1d7d4888dc9187913e2d906b74ab99e193c45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

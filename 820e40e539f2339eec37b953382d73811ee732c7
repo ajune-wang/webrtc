@@ -206,6 +206,24 @@
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb8a592_496c4494",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-20T07:57:28Z",
+      "side": 1,
+      "message": "Can you give me some pointers on where to move it to?",
+      "parentUuid": "34a914e5_1ec46a93",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

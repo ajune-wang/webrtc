@@ -224,6 +224,24 @@
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ca62ade_508f82a2",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-20T22:04:49Z",
+      "side": 1,
+      "message": "I think it would be NegotiateRtpHeaderExtensions; when doing this:\n\n    const webrtc::RtpExtension* theirs \u003d\n        webrtc::RtpExtension::FindHeaderExtensionByUri(offered_extensions,\n                                                       ours.uri, filter);\n\nIt should only use the \"prefer encryption\" filter if we support encryption for that particular extension.",
+      "parentUuid": "bcb8a592_496c4494",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

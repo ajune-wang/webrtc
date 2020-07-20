@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'db5fc682ba0e46ed73a0334a64dac93d6f5ca41b',
+  'chromium_revision': '10f6bb7111c9de3bae8d2f1548f3cff43562baf7',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@1c94b088d98f6910be5202f5deed491ce317029b',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@9dd58e788f3457512988032283b05583afb4cd5f',
+    'https://chromium.googlesource.com/chromium/src/build@ecd11bc1a71b5486e0fffd1497f0873c4810ffcc',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@9e121212d42be62a7cce38072f925f8398d11e49',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -130,14 +130,14 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@2757a2c9c819fcae3784576aef0c8400c7ad06d7',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@4ed789b24fc78f763332fe7dd2b4c31fdb1823ad',
+    'https://chromium.googlesource.com/catapult.git@ade0fed37fc768d0ee94fa3e4fac15e0d0782346',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@39d317835bd0c3eeeda24e394d9e58120c008ef1',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@8b4eeffd4628a54e47ccd44e7a3f426b3218bad2',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@d2dd36c03501e995e8ce2d792d834392b2e62bfe',
   'src/third_party/findbugs': {
@@ -208,7 +208,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@1dcc3cfc0639ebb0636c30a43e69f599f9c1a981',
+    'https://android.googlesource.com/platform/external/perfetto.git@3c13bf1fa86551bce5a94b6c92f98bfe31f773e1',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@a1cee8dc919df1980d802e1a9bce1259ec34cba8',
   'src/third_party/libyuv':

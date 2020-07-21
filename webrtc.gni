@@ -36,6 +36,10 @@ if (is_mac) {
 }
 
 declare_args() {
+  # Globally define WEBRTC_STANDALONE_BUILD to signal that WebRTC is built
+  # as a standalone library (compared to being built as part of Chromium).
+  rtc_define_standalone_macro = true
+
   # Setting this to true will make RTC_EXPORT (see rtc_base/system/rtc_export.h)
   # expand to code that will manage symbols visibility.
   rtc_enable_symbol_export = false

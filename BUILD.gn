@@ -113,6 +113,12 @@ config("common_inherited_config") {
   cflags = []
   ldflags = []
 
+  if (rtc_define_standalone_macro) {
+    if (!build_with_chromium) {
+      defines = [ "WEBRTC_STANDALONE_BUILD" ]
+    }
+  }
+
   if (rtc_enable_symbol_export || is_component_build) {
     defines = [ "WEBRTC_ENABLE_SYMBOL_EXPORT" ]
   }

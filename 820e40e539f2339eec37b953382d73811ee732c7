@@ -176,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "a3a85493_ce5d3c6c",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-07-21T10:22:45Z",
+      "side": 1,
+      "message": "Let\u0027s double check that the video timing header extension isn\u0027t modified in Chrome like the AbsSendTime extension. +ilnik",
+      "parentUuid": "955b0bf0_3cb52ba5",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6774ad40_9622a35f",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 2

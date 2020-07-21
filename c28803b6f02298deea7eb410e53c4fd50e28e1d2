@@ -16,6 +16,24 @@
       "revId": "c28803b6f02298deea7eb410e53c4fd50e28e1d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c0d2066_a2722d0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-07-21T10:57:25Z",
+      "side": 1,
+      "message": "While using approach you propose might make it simple, it will only work for GNOME. When we go through the portal, we target every desktop using unified API. Both major Linux desktops (KDE and GNOME) support portals so I believe it\u0027s the way to go. Also there is no guarantee that GNOME will not change DBus interface or restrict it in some way so using the portal is also future proof.",
+      "parentUuid": "bb877f78_2eb5a362",
+      "revId": "c28803b6f02298deea7eb410e53c4fd50e28e1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

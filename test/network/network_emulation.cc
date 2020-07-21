@@ -20,6 +20,26 @@
 
 namespace webrtc {
 
+EmulatedNetworkIncomingStats EmulatedNetworkStatsImpl::GetOverallIncomingStats()
+    const {
+  EmulatedNetworkIncomingStats stats;
+  for (auto& entry : incoming_stats_per_source) {
+    const EmulatedNetworkIncomingStats& source = entry.second;
+    stats.packets_received += source.packets_received;
+    stats.bytes_received += source.bytes_received;
+    stats.packets_dropped += source.packets_dropped;
+    stats.bytes_dropped += source.bytes_dropped;
+    if (stats.first_packet_received_time > source.first_packet_received_time) {
+      stats.first_packet_received_time = source.first_packet_received_time;
+      stats.first_received_packet_size = source.first_received_packet_size;
+    }
+    if (stats.last_packet_received_time < source.last_packet_received_time) {
+      stats.last_packet_received_time = source.last_packet_received_time;
+    }
+  }
+  return stats;
+}
+
 void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
   task_queue_->PostTask([this, packet = std::move(packet)]() mutable {
     RTC_DCHECK_RUN_ON(task_queue_);
@@ -318,9 +338,9 @@ bool EmulatedEndpointImpl::Enabled() const {
   return is_enabled_;
 }
 
-EmulatedNetworkStats EmulatedEndpointImpl::stats() {
+std::unique_ptr<EmulatedNetworkStats> EmulatedEndpointImpl::stats() const {
   RTC_DCHECK_RUN_ON(task_queue_);
-  return stats_;
+  return std::make_unique<EmulatedNetworkStatsImpl>(stats_);
 }
 
 void EmulatedEndpointImpl::UpdateReceiveStats(const EmulatedIpPacket& packet) {
@@ -376,23 +396,23 @@ EndpointsContainer::GetEnabledNetworks() const {
   return networks;
 }
 
-EmulatedNetworkStats EndpointsContainer::GetStats() const {
-  EmulatedNetworkStats stats;
+std::unique_ptr<EmulatedNetworkStats> EndpointsContainer::GetStats() const {
+  auto stats = std::make_unique<EmulatedNetworkStatsImpl>();
   for (auto* endpoint : endpoints_) {
-    EmulatedNetworkStats endpoint_stats = endpoint->stats();
-    stats.packets_sent += endpoint_stats.packets_sent;
-    stats.bytes_sent += endpoint_stats.bytes_sent;
-    if (stats.first_packet_sent_time > endpoint_stats.first_packet_sent_time) {
-      stats.first_packet_sent_time = endpoint_stats.first_packet_sent_time;
-      stats.first_sent_packet_size = endpoint_stats.first_sent_packet_size;
+    std::unique_ptr<EmulatedNetworkStats> endpoint_stats = endpoint->stats();
+    stats->packets_sent += endpoint_stats->PacketsSent();
+    stats->bytes_sent += endpoint_stats->BytesSent();
+    if (stats->first_packet_sent_time > endpoint_stats->FirstPacketSentTime()) {
+      stats->first_packet_sent_time = endpoint_stats->FirstPacketSentTime();
+      stats->first_sent_packet_size = endpoint_stats->FirstSentPacketSize();
     }
-    if (stats.last_packet_sent_time < endpoint_stats.last_packet_sent_time) {
-      stats.last_packet_sent_time = endpoint_stats.last_packet_sent_time;
+    if (stats->last_packet_sent_time < endpoint_stats->LastPacketSentTime()) {
+      stats->last_packet_sent_time = endpoint_stats->LastPacketSentTime();
     }
-    for (auto& entry : endpoint_stats.incoming_stats_per_source) {
+    for (auto& entry : endpoint_stats->IncomingStatsPerSource()) {
       const EmulatedNetworkIncomingStats& source = entry.second;
       EmulatedNetworkIncomingStats& in_stats =
-          stats.incoming_stats_per_source[entry.first];
+          stats->incoming_stats_per_source[entry.first];
       in_stats.packets_received += source.packets_received;
       in_stats.bytes_received += source.bytes_received;
       in_stats.packets_dropped += source.packets_dropped;

@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "bf64192e_292b9dd9",
+        "filename": "test/network/emulated_network_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T18:24:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "023a114c_cfc5a3c7",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5546b7dd_fc987e5c",
         "filename": "test/network/emulated_network_manager.h",
         "patchSetId": 5
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "8595a6e0_9d336fb7",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T18:24:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5546b7dd_fc987e5c",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3a2c526_c7d559e4",
         "filename": "test/network/emulated_network_manager.h",
         "patchSetId": 5
@@ -67,6 +103,24 @@
       "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "842749c7_b63bc17e",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T18:24:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3a2c526_c7d559e4",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9912d96a_b1182157",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T18:24:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6cf530e_4a97e64b",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "226e9f8d_f14dc63e",
         "filename": "test/network/network_emulation.h",
         "patchSetId": 5
@@ -122,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "a3c27882_6c50c316",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T18:24:12Z",
+      "side": 1,
+      "message": "used unique_ptr here. As I understand I can\u0027t return EmulatedNetworkStats directly if it\u0027s an abstract class.",
+      "parentUuid": "226e9f8d_f14dc63e",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3515670_b6b79cae",
         "filename": "test/network/network_emulation.h",
         "patchSetId": 5
@@ -136,6 +226,24 @@
       "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ecd9dc9_5fb4179d",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T18:24:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3515670_b6b79cae",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

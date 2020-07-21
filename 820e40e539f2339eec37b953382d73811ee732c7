@@ -194,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "d7c49f61_b64c4d3d",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-21T11:12:36Z",
+      "side": 1,
+      "message": "In chrome it\u0027s only modified in pacer here:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/rtp_sender_egress.cc;l\u003d228;drc\u003d918c868f6c9f8c79b68f77cf82400c21a0e741c6?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nI believe this is before the encryption.\n\nAbsSendTime is also modified here, but it\u0027s also updated way after the pacer, that\u0027s why it can\u0027t be encrypted.\n\nUpdateRtpAbsSendTimeExtension rewrites it:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/base/rtp_utils.cc;l\u003d393;drc\u003db3d2b5bc696440cb20bea823f2356d7c90bf7751?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nIt is called from ApplyPacketOptions, which is called in network threads close to sockets:\nhttps://source.chromium.org/chromium/chromium/src/+/master:services/network/p2p/socket_tcp.cc;l\u003d454;drc\u003db3d2b5bc696440cb20bea823f2356d7c90bf7751?originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F\n\nThis is NOT the case for VideoTimingExtension.",
+      "parentUuid": "a3a85493_ce5d3c6c",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6774ad40_9622a35f",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 2

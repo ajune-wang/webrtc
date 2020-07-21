@@ -16,6 +16,24 @@
       "revId": "39f83db0f7ca99723e61c9818a9c44fbac616e7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe0a89a7_806fbf0c",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T13:46:14Z",
+      "side": 1,
+      "message": "Thanks, missed that one. Done",
+      "parentUuid": "91c57b77_0ee947da",
+      "revId": "39f83db0f7ca99723e61c9818a9c44fbac616e7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

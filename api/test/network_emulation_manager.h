@@ -69,7 +69,8 @@ class EmulatedNetworkManagerInterface {
 
   // Returns summarized network stats for endpoints for this manager.
   virtual void GetStats(
-      std::function<void(EmulatedNetworkStats)> stats_callback) const = 0;
+      std::function<void(rtc::scoped_refptr<EmulatedNetworkStats>)>
+          stats_callback) const = 0;
 };
 
 enum class TimeMode { kRealTime, kSimulated };

@@ -16,6 +16,23 @@
       "revId": "ea37eaa988d53bc3cda6b96b9140251b1d37080c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76a8ce6c_155b51f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-21T13:58:16Z",
+      "side": 1,
+      "message": "personally I do not like the reason for this macro, but it would work.",
+      "revId": "ea37eaa988d53bc3cda6b96b9140251b1d37080c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

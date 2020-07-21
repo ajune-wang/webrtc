@@ -47,10 +47,10 @@ class NetworkQualityMetricsReporter
     DataSize payload_sent = DataSize::Zero();
   };
 
-  static EmulatedNetworkStats PopulateStats(
+  static rtc::scoped_refptr<EmulatedNetworkStats> PopulateStats(
       EmulatedNetworkManagerInterface* network);
   void ReportStats(const std::string& network_label,
-                   const EmulatedNetworkStats& stats,
+                   rtc::scoped_refptr<EmulatedNetworkStats> stats,
                    int64_t packet_loss);
   void ReportPCStats(const std::string& pc_label, const PCStats& stats);
   void ReportResult(const std::string& metric_name,

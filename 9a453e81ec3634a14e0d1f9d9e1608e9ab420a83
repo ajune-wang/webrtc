@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "72c0a46c_07184606",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-21T12:06:56Z",
+      "side": 1,
+      "message": "Some nits but I also would like to avoid shared ownership.",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "023a114c_cfc5a3c7",
         "filename": "test/network/emulated_network_manager.cc",
         "patchSetId": 5
@@ -19,6 +36,40 @@
     },
     {
       "key": {
+        "uuid": "5546b7dd_fc987e5c",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-21T12:06:56Z",
+      "side": 1,
+      "message": "#include \u003cfunctional\u003e",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3a2c526_c7d559e4",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-21T12:06:56Z",
+      "side": 1,
+      "message": "#include \"api/scoped_refptr.h\"",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4f286a4_9bf36da5",
         "filename": "test/network/network_emulation.h",
         "patchSetId": 5
@@ -30,6 +81,24 @@
       "writtenOn": "2020-07-21T11:29:47Z",
       "side": 1,
       "message": "having this state (meaning all member variables) shared, read/written from/to from multiple different contexts, unprotected, sounds like something I\u0027d like to avoid. As is, these members are also public which can be a big challenge to get in front of once usage has spread.",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6cf530e_4a97e64b",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-21T12:06:56Z",
+      "side": 1,
+      "message": "Yes, why not class as for EmulatedNetworkStats?",
+      "parentUuid": "c4f286a4_9bf36da5",
       "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

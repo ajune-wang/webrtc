@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "023a114c_cfc5a3c7",
+        "filename": "test/network/emulated_network_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-21T11:29:47Z",
+      "side": 1,
+      "message": "I think I\u0027d prefer std::unique_ptr\u003c\u003e here or simply EmulatedNetworkStats\u0026\u0026. scoped_refptr means shared ownership, locking and complex synchronization.",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4f286a4_9bf36da5",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-21T11:29:47Z",
+      "side": 1,
+      "message": "having this state (meaning all member variables) shared, read/written from/to from multiple different contexts, unprotected, sounds like something I\u0027d like to avoid. As is, these members are also public which can be a big challenge to get in front of once usage has spread.",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226e9f8d_f14dc63e",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-21T11:29:47Z",
+      "side": 1,
+      "message": "prefer to keep it as it was",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3515670_b6b79cae",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-21T11:29:47Z",
+      "side": 1,
+      "message": "would prefer to keep as is.",
+      "revId": "9a453e81ec3634a14e0d1f9d9e1608e9ab420a83",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

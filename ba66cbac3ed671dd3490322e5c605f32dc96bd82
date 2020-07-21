@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "206e4fd5_68c0d1e6",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T07:58:42Z",
+      "side": 1,
+      "message": "It was done to simplify computations. Minus infinity is less then any value, so fits better for   ongoing calculation of max met timestamp. Added a comment, that user have to assume that it\u0027s just some infinite value.",
+      "parentUuid": "8e84cde4_9f4efbec",
+      "revId": "ba66cbac3ed671dd3490322e5c605f32dc96bd82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb2514d3_159448fd",
         "filename": "api/test/network_emulation/network_emulation_interfaces.h",
         "patchSetId": 4
@@ -67,6 +85,24 @@
       "revId": "ba66cbac3ed671dd3490322e5c605f32dc96bd82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13540ca3_170f5da3",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-21T07:58:42Z",
+      "side": 1,
+      "message": "Yep, I am thinking of it. I think I\u0027ll do it in next CL.",
+      "parentUuid": "bb2514d3_159448fd",
+      "revId": "ba66cbac3ed671dd3490322e5c605f32dc96bd82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efe56aa3_6d591d05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-07-21T08:38:43Z",
+      "side": 1,
+      "message": "Kari, can you grant owners approval where missing?",
+      "revId": "2878056721c835d9ab5aba494ae758f3ccecb1e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

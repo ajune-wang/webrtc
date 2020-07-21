@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcea9f05_1ec7d262",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-07-21T15:25:20Z",
+      "side": 1,
+      "message": "Rebased to top of master branch.\n\nChanged part of commit massage from\n\"It also gives user a visual feedback to user.\"\nto\n\"It also gives visual feedback to user.\"",
+      "revId": "88c3ac1e09432757168146109c13f405802c22ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

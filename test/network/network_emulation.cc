@@ -20,6 +20,26 @@
 
 namespace webrtc {
 
+EmulatedNetworkIncomingStats EmulatedNetworkStatsImpl::GetOverallIncomingStats()
+    const {
+  EmulatedNetworkIncomingStats stats;
+  for (auto& entry : incoming_stats_per_source_) {
+    const EmulatedNetworkIncomingStats& source = entry.second;
+    stats.packets_received += source.packets_received;
+    stats.bytes_received += source.bytes_received;
+    stats.packets_dropped += source.packets_dropped;
+    stats.bytes_dropped += source.bytes_dropped;
+    if (stats.first_packet_received_time > source.first_packet_received_time) {
+      stats.first_packet_received_time = source.first_packet_received_time;
+      stats.first_received_packet_size = source.first_received_packet_size;
+    }
+    if (stats.last_packet_received_time < source.last_packet_received_time) {
+      stats.last_packet_received_time = source.last_packet_received_time;
+    }
+  }
+  return stats;
+}
+
 void LinkEmulation::OnPacketReceived(EmulatedIpPacket packet) {
   task_queue_->PostTask([this, packet = std::move(packet)]() mutable {
     RTC_DCHECK_RUN_ON(task_queue_);
@@ -213,13 +233,13 @@ void EmulatedEndpointImpl::SendPacket(const rtc::SocketAddress& from,
   task_queue_->PostTask([this, packet = std::move(packet)]() mutable {
     RTC_DCHECK_RUN_ON(task_queue_);
     Timestamp current_time = clock_->CurrentTime();
-    if (stats_.first_packet_sent_time.IsInfinite()) {
-      stats_.first_packet_sent_time = current_time;
-      stats_.first_sent_packet_size = DataSize::Bytes(packet.ip_packet_size());
+    if (stats_.FirstPacketSentTime().IsInfinite()) {
+      stats_.SetFirstPacketSentTime(current_time);
+      stats_.SetFirstSentPacketSize(DataSize::Bytes(packet.ip_packet_size()));
     }
-    stats_.last_packet_sent_time = current_time;
-    stats_.packets_sent++;
-    stats_.bytes_sent += DataSize::Bytes(packet.ip_packet_size());
+    stats_.SetLastPacketSentTime(current_time);
+    stats_.IncPacketsSent(1);
+    stats_.IncBytesSent(DataSize::Bytes(packet.ip_packet_size()));
 
     router_.OnPacketReceived(std::move(packet));
   });
@@ -290,8 +310,8 @@ void EmulatedEndpointImpl::OnPacketReceived(EmulatedIpPacket packet) {
     // process: one peer closed connection, second still sending data.
     RTC_LOG(INFO) << "Drop packet: no receiver registered in " << id_
                   << " on port " << packet.to.port();
-    stats_.incoming_stats_per_source[packet.from.ipaddr()].packets_dropped++;
-    stats_.incoming_stats_per_source[packet.from.ipaddr()].bytes_dropped +=
+    stats_.IncomingStatsPerSource()[packet.from.ipaddr()].packets_dropped++;
+    stats_.IncomingStatsPerSource()[packet.from.ipaddr()].bytes_dropped +=
         DataSize::Bytes(packet.ip_packet_size());
     return;
   }
@@ -318,25 +338,25 @@ bool EmulatedEndpointImpl::Enabled() const {
   return is_enabled_;
 }
 
-EmulatedNetworkStats EmulatedEndpointImpl::stats() {
+std::unique_ptr<EmulatedNetworkStats> EmulatedEndpointImpl::stats() const {
   RTC_DCHECK_RUN_ON(task_queue_);
-  return stats_;
+  return std::make_unique<EmulatedNetworkStatsImpl>(stats_);
 }
 
 void EmulatedEndpointImpl::UpdateReceiveStats(const EmulatedIpPacket& packet) {
   RTC_DCHECK_RUN_ON(task_queue_);
   Timestamp current_time = clock_->CurrentTime();
-  if (stats_.incoming_stats_per_source[packet.from.ipaddr()]
+  if (stats_.IncomingStatsPerSource()[packet.from.ipaddr()]
           .first_packet_received_time.IsInfinite()) {
-    stats_.incoming_stats_per_source[packet.from.ipaddr()]
+    stats_.IncomingStatsPerSource()[packet.from.ipaddr()]
         .first_packet_received_time = current_time;
-    stats_.incoming_stats_per_source[packet.from.ipaddr()]
+    stats_.IncomingStatsPerSource()[packet.from.ipaddr()]
         .first_received_packet_size = DataSize::Bytes(packet.ip_packet_size());
   }
-  stats_.incoming_stats_per_source[packet.from.ipaddr()]
+  stats_.IncomingStatsPerSource()[packet.from.ipaddr()]
       .last_packet_received_time = current_time;
-  stats_.incoming_stats_per_source[packet.from.ipaddr()].packets_received++;
-  stats_.incoming_stats_per_source[packet.from.ipaddr()].bytes_received +=
+  stats_.IncomingStatsPerSource()[packet.from.ipaddr()].packets_received++;
+  stats_.IncomingStatsPerSource()[packet.from.ipaddr()].bytes_received +=
       DataSize::Bytes(packet.ip_packet_size());
 }
 
@@ -376,23 +396,23 @@ EndpointsContainer::GetEnabledNetworks() const {
   return networks;
 }
 
-EmulatedNetworkStats EndpointsContainer::GetStats() const {
-  EmulatedNetworkStats stats;
+std::unique_ptr<EmulatedNetworkStats> EndpointsContainer::GetStats() const {
+  auto stats = std::make_unique<EmulatedNetworkStatsImpl>();
   for (auto* endpoint : endpoints_) {
-    EmulatedNetworkStats endpoint_stats = endpoint->stats();
-    stats.packets_sent += endpoint_stats.packets_sent;
-    stats.bytes_sent += endpoint_stats.bytes_sent;
-    if (stats.first_packet_sent_time > endpoint_stats.first_packet_sent_time) {
-      stats.first_packet_sent_time = endpoint_stats.first_packet_sent_time;
-      stats.first_sent_packet_size = endpoint_stats.first_sent_packet_size;
+    std::unique_ptr<EmulatedNetworkStats> endpoint_stats = endpoint->stats();
+    stats->IncPacketsSent(endpoint_stats->PacketsSent());
+    stats->IncBytesSent(endpoint_stats->BytesSent());
+    if (stats->FirstPacketSentTime() > endpoint_stats->FirstPacketSentTime()) {
+      stats->SetFirstPacketSentTime(endpoint_stats->FirstPacketSentTime());
+      stats->SetFirstSentPacketSize(endpoint_stats->FirstSentPacketSize());
     }
-    if (stats.last_packet_sent_time < endpoint_stats.last_packet_sent_time) {
-      stats.last_packet_sent_time = endpoint_stats.last_packet_sent_time;
+    if (stats->LastPacketSentTime() < endpoint_stats->LastPacketSentTime()) {
+      stats->SetLastPacketSentTime(endpoint_stats->LastPacketSentTime());
     }
-    for (auto& entry : endpoint_stats.incoming_stats_per_source) {
+    for (auto& entry : endpoint_stats->IncomingStatsPerSource()) {
       const EmulatedNetworkIncomingStats& source = entry.second;
       EmulatedNetworkIncomingStats& in_stats =
-          stats.incoming_stats_per_source[entry.first];
+          stats->IncomingStatsPerSource()[entry.first];
       in_stats.packets_received += source.packets_received;
       in_stats.bytes_received += source.bytes_received;
       in_stats.packets_dropped += source.packets_dropped;

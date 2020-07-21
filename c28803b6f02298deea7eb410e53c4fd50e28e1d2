@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb877f78_2eb5a362",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13129
+      },
+      "writtenOn": "2020-07-21T10:12:08Z",
+      "side": 1,
+      "message": "Even after this patch, two dialog popup\u0027s are still visible and quite confusing. Current screenshare implementation is based on flatpak portal which causes double dialog issue so I was wondering if\nwe should avoid portal based implementation and directly use dbus call to fetch screen content.\nand only in flatpak environment we should have portal based implementation.\nwhat you think?",
+      "revId": "c28803b6f02298deea7eb410e53c4fd50e28e1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

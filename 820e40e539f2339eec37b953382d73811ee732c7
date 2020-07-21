@@ -158,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "955b0bf0_3cb52ba5",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-21T08:38:03Z",
+      "side": 1,
+      "message": "Yes, it should be fine to encrypt those.\n(As I understand this is about P2P encryption, so when SFU is involved, it still can access and add/remove/modify these extensions)",
+      "parentUuid": "cbc8c495_948d7fbb",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6774ad40_9622a35f",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 2

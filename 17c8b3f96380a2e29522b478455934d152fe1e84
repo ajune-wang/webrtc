@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd1cf94f_528024d9",
+        "filename": "api/video/video_bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-22T12:22:29Z",
+      "side": 1,
+      "message": "nit: enabled would be a better name IMHO",
+      "range": {
+        "startLine": 46,
+        "startChar": 44,
+        "endLine": 46,
+        "endChar": 48
+      },
+      "revId": "17c8b3f96380a2e29522b478455934d152fe1e84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

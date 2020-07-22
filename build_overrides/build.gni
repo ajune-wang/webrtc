@@ -19,6 +19,8 @@ build_with_chromium = false
 # WebRTC checks out google_benchmark by default since it is always used.
 checkout_google_benchmark = true
 
+use_perfetto_client_library = false
+
 # Use our own suppressions files.
 asan_suppressions_file = "//build/sanitizers/asan_suppressions.cc"
 lsan_suppressions_file = "//tools_webrtc/sanitizers/lsan_suppressions_webrtc.cc"

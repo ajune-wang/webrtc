@@ -40,8 +40,12 @@ std::unique_ptr<RtpPacketizer> RtpPacketizer::Create(
     case kVideoCodecH264: {
       const auto& h264 =
           absl::get<RTPVideoHeaderH264>(rtp_video_header.video_type_header);
-      return std::make_unique<RtpPacketizerH264>(payload, limits,
-                                                 h264.packetization_mode);
+      return std::make_unique<RtpPacketizerH264>(
+          payload, limits, h264.packetization_mode,
+          /*is_keyframe=*/rtp_video_header.frame_type ==
+              VideoFrameType::kVideoFrameKey,
+          rtp_video_header.color_space ? &*rtp_video_header.color_space
+                                       : nullptr);
     }
     case kVideoCodecVP8: {
       const auto& vp8 =

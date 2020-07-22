@@ -152,6 +152,30 @@
       "revId": "51e632207fa86ec6d49583e42afc06c8433ff020",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e693a1ae_bff78684",
+        "filename": "common_audio/fir_filter_avx2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-22T09:45:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1081e0f_35e8c900",
+      "range": {
+        "startLine": 37,
+        "startChar": 19,
+        "endLine": 37,
+        "endChar": 62
+      },
+      "revId": "51e632207fa86ec6d49583e42afc06c8433ff020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "1274d895a4c2ee9f830d26d076c422da63734429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49b3c6ca_39e7cbbf",
+        "filename": "common_audio/fir_filter_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-22T09:45:39Z",
+      "side": 1,
+      "message": "Done, this is a good idea to avoid many times #if defined(WEBRTC_ENABLE_AVX2).",
+      "parentUuid": "c87d3b0c_be1a2923",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "1274d895a4c2ee9f830d26d076c422da63734429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

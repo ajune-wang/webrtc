@@ -11,15 +11,17 @@
 #ifndef PC_DATA_CHANNEL_CONTROLLER_H_
 #define PC_DATA_CHANNEL_CONTROLLER_H_
 
+#include <atomic>
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "pc/channel.h"
 #include "pc/rtp_data_channel.h"
 #include "pc/sctp_data_channel.h"
-#include "rtc_base/weak_ptr.h"
+#include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace webrtc {
 
@@ -27,9 +29,11 @@ class PeerConnection;
 
 class DataChannelController : public RtpDataChannelProviderInterface,
                               public SctpDataChannelProviderInterface,
-                              public DataChannelSink {
+                              public DataChannelSink,
+                              public sigslot::has_slots<> {
  public:
-  explicit DataChannelController(PeerConnection* pc) : pc_(pc) {}
+  explicit DataChannelController(PeerConnection* pc)
+      : has_sctp_data_channel_(false), pc_(pc) {}
 
   // Not copyable or movable.
   DataChannelController(DataChannelController&) = delete;
@@ -39,9 +43,12 @@ class DataChannelController : public RtpDataChannelProviderInterface,
 
   // Implements RtpDataChannelProviderInterface/
   // SctpDataChannelProviderInterface.
-  bool SendData(const cricket::SendDataParams& params,
-                const rtc::CopyOnWriteBuffer& payload,
-                cricket::SendDataResult* result) override;
+  bool SendRtpData(const cricket::SendDataParams& params,
+                   const rtc::CopyOnWriteBuffer& payload,
+                   cricket::SendDataResult* result) override;
+  bool SendSctpData(const cricket::SendDataParams& params,
+                    const rtc::CopyOnWriteBuffer& payload,
+                    cricket::SendDataResult* result) override;
   bool ConnectDataChannel(RtpDataChannel* webrtc_data_channel) override;
   void DisconnectDataChannel(RtpDataChannel* webrtc_data_channel) override;
   bool ConnectDataChannel(SctpDataChannel* webrtc_data_channel) override;
@@ -80,13 +87,11 @@ class DataChannelController : public RtpDataChannelProviderInterface,
           config) /* RTC_RUN_ON(signaling_thread()) */;
   void AllocateSctpSids(rtc::SSLRole role);
 
-  SctpDataChannel* FindDataChannelBySid(int sid) const;
-
   // Checks if any data channel has been added.
   bool HasDataChannels() const;
   bool HasSctpDataChannels() const {
     RTC_DCHECK_RUN_ON(signaling_thread());
-    return !sctp_data_channels_.empty();
+    return has_sctp_data_channel_;
   }
   bool HasRtpDataChannels() const {
     RTC_DCHECK_RUN_ON(signaling_thread());
@@ -112,16 +117,17 @@ class DataChannelController : public RtpDataChannelProviderInterface,
 
   sigslot::signal1<RtpDataChannel*>& SignalRtpDataChannelCreated() {
     RTC_DCHECK_RUN_ON(signaling_thread());
-    return SignalRtpDataChannelCreated_;
+    return SignalRtpDataChannelCreated_s;
   }
   sigslot::signal1<SctpDataChannel*>& SignalSctpDataChannelCreated() {
     RTC_DCHECK_RUN_ON(signaling_thread());
-    return SignalSctpDataChannelCreated_;
+    return SignalSctpDataChannelCreated_s;
   }
   // Called when the transport for the data channels is closed or destroyed.
-  void OnTransportChannelClosed();
+  void OnRtpTransportChannelClosed();
+  void OnSctpTransportChannelClosed();
 
-  void OnSctpDataChannelClosed(SctpDataChannel* channel);
+  void OnSctpDataChannelClosed(DataChannelInterface* channel);
 
  private:
   rtc::scoped_refptr<RtpDataChannel> InternalCreateRtpDataChannel(
@@ -130,18 +136,19 @@ class DataChannelController : public RtpDataChannelProviderInterface,
 
   rtc::scoped_refptr<SctpDataChannel> InternalCreateSctpDataChannel(
       const std::string& label,
-      const InternalDataChannelInit*
-          config) /* RTC_RUN_ON(signaling_thread()) */;
+      const InternalDataChannelInit* config,
+      absl::optional<rtc::SSLRole>
+          ssl_role) /* RTC_RUN_ON(signaling_thread()) */;
 
   // Parses and handles open messages.  Returns true if the message is an open
   // message, false otherwise.
-  bool HandleOpenMessage_s(const cricket::ReceiveDataParams& params,
-                           const rtc::CopyOnWriteBuffer& buffer)
-      RTC_RUN_ON(signaling_thread());
+  bool HandleOpenMessage(const cricket::ReceiveDataParams& params,
+                         const rtc::CopyOnWriteBuffer& buffer)
+      RTC_RUN_ON(network_thread());
   // Called when a valid data channel OPEN message is received.
   void OnDataChannelOpenMessage(const std::string& label,
                                 const InternalDataChannelInit& config)
-      RTC_RUN_ON(signaling_thread());
+      RTC_RUN_ON(network_thread());
 
   void CreateRemoteRtpDataChannel(const std::string& label,
                                   uint32_t remote_ssrc)
@@ -150,11 +157,6 @@ class DataChannelController : public RtpDataChannelProviderInterface,
   void UpdateClosingRtpDataChannels(
       const std::vector<std::string>& active_channels,
       bool is_local_update) RTC_RUN_ON(signaling_thread());
-
-  // Called from SendData when data_channel_transport() is true.
-  bool DataChannelSendData(const cricket::SendDataParams& params,
-                           const rtc::CopyOnWriteBuffer& payload,
-                           cricket::SendDataResult* result);
 
   // Called when all data channels need to be notified of a transport channel
   // (calls OnTransportChannelCreated on the signaling thread).
@@ -182,8 +184,8 @@ class DataChannelController : public RtpDataChannelProviderInterface,
   DataChannelTransportInterface* data_channel_transport_ = nullptr;
 
   // Cached value of whether the data channel transport is ready to send.
-  bool data_channel_transport_ready_to_send_
-      RTC_GUARDED_BY(signaling_thread()) = false;
+  bool data_channel_transport_ready_to_send_ RTC_GUARDED_BY(network_thread()) =
+      false;
 
   // |rtp_data_channel_| is used if in RTP data channel mode,
   // |data_channel_transport_| when using SCTP.
@@ -191,43 +193,39 @@ class DataChannelController : public RtpDataChannelProviderInterface,
   // TODO(bugs.webrtc.org/9987): Accessed on both
   // signaling and some other thread.
 
-  SctpSidAllocator sid_allocator_ /* RTC_GUARDED_BY(signaling_thread()) */;
+  SctpSidAllocator sid_allocator_ RTC_GUARDED_BY(network_thread());
+  std::atomic<bool> has_sctp_data_channel_;
   std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_
-      RTC_GUARDED_BY(signaling_thread());
+      RTC_GUARDED_BY(network_thread());
   std::vector<rtc::scoped_refptr<SctpDataChannel>> sctp_data_channels_to_free_
-      RTC_GUARDED_BY(signaling_thread());
+      RTC_GUARDED_BY(network_thread());
 
   // Map of label -> DataChannel
   std::map<std::string, rtc::scoped_refptr<RtpDataChannel>> rtp_data_channels_
       RTC_GUARDED_BY(signaling_thread());
 
   // Signals from |data_channel_transport_|.  These are invoked on the
-  // signaling thread.
-  // TODO(bugs.webrtc.org/11547): These '_s' signals likely all belong on the
-  // network thread.
-  sigslot::signal1<bool> SignalDataChannelTransportWritable_s
-      RTC_GUARDED_BY(signaling_thread());
+  // networking thread.
+  sigslot::signal1<bool> SignalDataChannelTransportWritable_n
+      RTC_GUARDED_BY(network_thread());
   sigslot::signal2<const cricket::ReceiveDataParams&,
                    const rtc::CopyOnWriteBuffer&>
-      SignalDataChannelTransportReceivedData_s
-          RTC_GUARDED_BY(signaling_thread());
-  sigslot::signal1<int> SignalDataChannelTransportChannelClosing_s
-      RTC_GUARDED_BY(signaling_thread());
-  sigslot::signal1<int> SignalDataChannelTransportChannelClosed_s
-      RTC_GUARDED_BY(signaling_thread());
-
-  sigslot::signal1<RtpDataChannel*> SignalRtpDataChannelCreated_
-      RTC_GUARDED_BY(signaling_thread());
-  sigslot::signal1<SctpDataChannel*> SignalSctpDataChannelCreated_
-      RTC_GUARDED_BY(signaling_thread());
-
-  // Used to invoke data channel transport signals on the signaling thread.
-  std::unique_ptr<rtc::AsyncInvoker> data_channel_transport_invoker_
+      SignalDataChannelTransportReceivedData_n RTC_GUARDED_BY(network_thread());
+  sigslot::signal1<int> SignalDataChannelTransportChannelClosing_n
       RTC_GUARDED_BY(network_thread());
+  sigslot::signal1<int> SignalDataChannelTransportChannelClosed_n
+      RTC_GUARDED_BY(network_thread());
+
+  sigslot::signal1<RtpDataChannel*> SignalRtpDataChannelCreated_s
+      RTC_GUARDED_BY(signaling_thread());
+  sigslot::signal1<SctpDataChannel*> SignalSctpDataChannelCreated_s
+      RTC_GUARDED_BY(signaling_thread());
+
+  // Used to invoke various tasks on the signaling thread.
+  rtc::AsyncInvoker async_invoker_ RTC_GUARDED_BY(network_thread());
 
   // Owning PeerConnection.
   PeerConnection* const pc_;
-  rtc::WeakPtrFactory<DataChannelController> weak_factory_{this};
 };
 
 }  // namespace webrtc

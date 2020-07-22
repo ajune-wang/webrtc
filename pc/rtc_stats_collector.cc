@@ -1136,7 +1136,6 @@ void RTCStatsCollector::ProducePartialResultsOnSignalingThreadImpl(
   RTC_DCHECK(signaling_thread_->IsCurrent());
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
 
-  ProduceDataChannelStats_s(timestamp_us, partial_report);
   ProduceMediaStreamStats_s(timestamp_us, partial_report);
   ProduceMediaStreamTrackStats_s(timestamp_us, partial_report);
   ProduceMediaSourceStats_s(timestamp_us, partial_report);
@@ -1179,6 +1178,7 @@ void RTCStatsCollector::ProducePartialResultsOnNetworkThreadImpl(
 
   ProduceCertificateStats_n(timestamp_us, transport_cert_stats, partial_report);
   ProduceCodecStats_n(timestamp_us, transceiver_stats_infos_, partial_report);
+  ProduceDataChannelStats_n(timestamp_us, partial_report);
   ProduceIceCandidateAndPairStats_n(timestamp_us, transport_stats_by_name,
                                     call_stats_, partial_report);
   ProduceTransportStats_n(timestamp_us, transport_stats_by_name,
@@ -1321,10 +1321,10 @@ void RTCStatsCollector::ProduceCodecStats_n(
   }
 }
 
-void RTCStatsCollector::ProduceDataChannelStats_s(
+void RTCStatsCollector::ProduceDataChannelStats_n(
     int64_t timestamp_us,
     RTCStatsReport* report) const {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
+  RTC_DCHECK_RUN_ON(network_thread_);
   rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
   std::vector<DataChannelStats> data_stats = pc_->GetDataChannelStats();
   for (const auto& stats : data_stats) {

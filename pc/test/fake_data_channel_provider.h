@@ -26,9 +26,9 @@ class FakeDataChannelProvider
         transport_error_(false) {}
   virtual ~FakeDataChannelProvider() {}
 
-  bool SendData(const cricket::SendDataParams& params,
-                const rtc::CopyOnWriteBuffer& payload,
-                cricket::SendDataResult* result) override {
+  bool SendSctpData(const cricket::SendDataParams& params,
+                    const rtc::CopyOnWriteBuffer& payload,
+                    cricket::SendDataResult* result) override {
     RTC_CHECK(ready_to_send_);
     RTC_CHECK(transport_available_);
     if (send_blocked_) {

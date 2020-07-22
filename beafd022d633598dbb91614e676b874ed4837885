@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a1e84c8_6ce179ab",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-22T15:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "842c0d4b_180c4cf2",
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bba47538_ae985cf9",
         "filename": "api/test/network_emulation/network_emulation_interfaces.h",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "beafd022d633598dbb91614e676b874ed4837885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe65d04_fd727fae",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-22T15:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bba47538_ae985cf9",
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4c248056_5fb31ae2",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-22T15:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da8e6dfc_60bb42b1",
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2703119_c67c374c",
         "filename": "test/network/network_emulation.h",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "beafd022d633598dbb91614e676b874ed4837885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9523be96_bb4fa8ab",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-22T15:19:27Z",
+      "side": 1,
+      "message": "I don\u0027t want to force client (reader) to use this class on a single thread. After it was returned to the API caller it\u0027s basically immutable, so should be safe from threading point of view. During creation I expect it to be lock protected externally by writer. Added a comment to explain it.",
+      "parentUuid": "c2703119_c67c374c",
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -90,6 +162,30 @@
       "revId": "beafd022d633598dbb91614e676b874ed4837885",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9cf22d3_e72c54d6",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-22T15:19:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c448f576_e0cebb80",
+      "range": {
+        "startLine": 109,
+        "startChar": 7,
+        "endLine": 109,
+        "endChar": 10
+      },
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

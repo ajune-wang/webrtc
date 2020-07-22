@@ -149,12 +149,13 @@ TEST_F(SctpDataChannelTest, StateTransition) {
   EXPECT_EQ(state_signals_listener.closed_count(), 0);
   SetChannelReady();
 
-  EXPECT_EQ(webrtc::DataChannelInterface::kOpen, webrtc_data_channel_->state());
+  EXPECT_EQ_WAIT(webrtc::DataChannelInterface::kOpen,
+                 webrtc_data_channel_->state(), kDefaultTimeout);
   EXPECT_EQ(state_signals_listener.opened_count(), 1);
   EXPECT_EQ(state_signals_listener.closed_count(), 0);
   webrtc_data_channel_->Close();
-  EXPECT_EQ(webrtc::DataChannelInterface::kClosed,
-            webrtc_data_channel_->state());
+  EXPECT_EQ_WAIT(webrtc::DataChannelInterface::kClosed,
+                 webrtc_data_channel_->state(), kDefaultTimeout);
   EXPECT_TRUE(webrtc_data_channel_->error().ok());
   EXPECT_EQ(state_signals_listener.opened_count(), 1);
   EXPECT_EQ(state_signals_listener.closed_count(), 1);
@@ -172,8 +173,8 @@ TEST_F(SctpDataChannelTest, BufferedAmountWhenBlocked) {
   size_t successful_send_count = 1;
 
   EXPECT_EQ(0U, webrtc_data_channel_->buffered_amount());
-  EXPECT_EQ(successful_send_count,
-            observer_->on_buffered_amount_change_count());
+  EXPECT_EQ_WAIT(successful_send_count,
+                 observer_->on_buffered_amount_change_count(), kDefaultTimeout);
 
   provider_->set_send_blocked(true);
 
@@ -183,14 +184,14 @@ TEST_F(SctpDataChannelTest, BufferedAmountWhenBlocked) {
   }
   EXPECT_EQ(buffer.data.size() * number_of_packets,
             webrtc_data_channel_->buffered_amount());
-  EXPECT_EQ(successful_send_count,
-            observer_->on_buffered_amount_change_count());
+  EXPECT_EQ_WAIT(successful_send_count,
+                 observer_->on_buffered_amount_change_count(), kDefaultTimeout);
 
   provider_->set_send_blocked(false);
   successful_send_count += number_of_packets;
   EXPECT_EQ(0U, webrtc_data_channel_->buffered_amount());
-  EXPECT_EQ(successful_send_count,
-            observer_->on_buffered_amount_change_count());
+  EXPECT_EQ_WAIT(successful_send_count,
+                 observer_->on_buffered_amount_change_count(), kDefaultTimeout);
 }
 
 // Tests that the queued data are sent when the channel transitions from blocked
@@ -206,8 +207,9 @@ TEST_F(SctpDataChannelTest, QueuedDataSentWhenUnblocked) {
 
   provider_->set_send_blocked(false);
   SetChannelReady();
-  EXPECT_EQ(0U, webrtc_data_channel_->buffered_amount());
-  EXPECT_EQ(1U, observer_->on_buffered_amount_change_count());
+  EXPECT_EQ_WAIT(0U, webrtc_data_channel_->buffered_amount(), kDefaultTimeout);
+  EXPECT_EQ_WAIT(1U, observer_->on_buffered_amount_change_count(),
+                 kDefaultTimeout);
 }
 
 // Tests that no crash when the channel is blocked right away while trying to
@@ -229,7 +231,8 @@ TEST_F(SctpDataChannelTest, BlockedWhenSendQueuedDataNoCrash) {
   provider_->set_send_blocked(false);
   SetChannelReady();
   EXPECT_EQ(0U, webrtc_data_channel_->buffered_amount());
-  EXPECT_EQ(1U, observer_->on_buffered_amount_change_count());
+  EXPECT_EQ_WAIT(1U, observer_->on_buffered_amount_change_count(),
+                 kDefaultTimeout);
 }
 
 // Tests that DataChannel::messages_sent() and DataChannel::bytes_sent() are
@@ -442,7 +445,7 @@ TEST_F(SctpDataChannelTest, ReceiveDataWithValidSsrc) {
   webrtc::DataBuffer buffer("abcd");
 
   webrtc_data_channel_->OnDataReceived(params, buffer.data);
-  EXPECT_EQ(1U, observer_->messages_received());
+  EXPECT_EQ_WAIT(1U, observer_->messages_received(), kDefaultTimeout);
 }
 
 // Tests that no CONTROL message is sent if the datachannel is negotiated and
@@ -487,15 +490,15 @@ TEST_F(SctpDataChannelTest, VerifyMessagesAndBytesReceived) {
   webrtc_data_channel_->OnDataReceived(params, buffers[0].data);
   webrtc_data_channel_->OnDataReceived(params, buffers[1].data);
   webrtc_data_channel_->OnDataReceived(params, buffers[2].data);
+  size_t bytes_received =
+      buffers[0].size() + buffers[1].size() + buffers[2].size();
   EXPECT_EQ(0U, observer_->messages_received());
-  EXPECT_EQ(0U, webrtc_data_channel_->messages_received());
-  EXPECT_EQ(0U, webrtc_data_channel_->bytes_received());
+  EXPECT_EQ(3U, webrtc_data_channel_->messages_received());
+  EXPECT_EQ(bytes_received, webrtc_data_channel_->bytes_received());
 
   // Open channel and make sure everything was received.
   SetChannelReady();
-  size_t bytes_received =
-      buffers[0].size() + buffers[1].size() + buffers[2].size();
-  EXPECT_EQ(3U, observer_->messages_received());
+  EXPECT_EQ_WAIT(3U, observer_->messages_received(), kDefaultTimeout);
   EXPECT_EQ(3U, webrtc_data_channel_->messages_received());
   EXPECT_EQ(bytes_received, webrtc_data_channel_->bytes_received());
 
@@ -504,7 +507,7 @@ TEST_F(SctpDataChannelTest, VerifyMessagesAndBytesReceived) {
   webrtc_data_channel_->OnDataReceived(params, buffers[4].data);
   webrtc_data_channel_->OnDataReceived(params, buffers[5].data);
   bytes_received += buffers[3].size() + buffers[4].size() + buffers[5].size();
-  EXPECT_EQ(6U, observer_->messages_received());
+  EXPECT_EQ_WAIT(6U, observer_->messages_received(), kDefaultTimeout);
   EXPECT_EQ(6U, webrtc_data_channel_->messages_received());
   EXPECT_EQ(bytes_received, webrtc_data_channel_->bytes_received());
 }
@@ -555,9 +558,11 @@ TEST_F(SctpDataChannelTest, ClosedWhenSendBufferFull) {
     EXPECT_TRUE(webrtc_data_channel_->Send(packet));
   }
 
-  EXPECT_TRUE(
+  EXPECT_TRUE_WAIT(
       webrtc::DataChannelInterface::kClosed == webrtc_data_channel_->state() ||
-      webrtc::DataChannelInterface::kClosing == webrtc_data_channel_->state());
+          webrtc::DataChannelInterface::kClosing ==
+              webrtc_data_channel_->state(),
+      kDefaultTimeout);
 }
 
 // Tests that the DataChannel is closed on transport errors.
@@ -568,8 +573,8 @@ TEST_F(SctpDataChannelTest, ClosedOnTransportError) {
 
   EXPECT_TRUE(webrtc_data_channel_->Send(buffer));
 
-  EXPECT_EQ(webrtc::DataChannelInterface::kClosed,
-            webrtc_data_channel_->state());
+  EXPECT_EQ_WAIT(webrtc::DataChannelInterface::kClosed,
+                 webrtc_data_channel_->state(), kDefaultTimeout);
   EXPECT_FALSE(webrtc_data_channel_->error().ok());
   EXPECT_EQ(webrtc::RTCErrorType::NETWORK_ERROR,
             webrtc_data_channel_->error().type());
@@ -590,8 +595,8 @@ TEST_F(SctpDataChannelTest, ClosedWhenReceivedBufferFull) {
   for (size_t i = 0; i < 16 * 1024 + 1; ++i) {
     webrtc_data_channel_->OnDataReceived(params, buffer);
   }
-  EXPECT_EQ(webrtc::DataChannelInterface::kClosed,
-            webrtc_data_channel_->state());
+  EXPECT_EQ_WAIT(webrtc::DataChannelInterface::kClosed,
+                 webrtc_data_channel_->state(), kDefaultTimeout);
   EXPECT_FALSE(webrtc_data_channel_->error().ok());
   EXPECT_EQ(webrtc::RTCErrorType::RESOURCE_EXHAUSTED,
             webrtc_data_channel_->error().type());
@@ -603,7 +608,8 @@ TEST_F(SctpDataChannelTest, ClosedWhenReceivedBufferFull) {
 TEST_F(SctpDataChannelTest, SendEmptyData) {
   webrtc_data_channel_->SetSctpSid(1);
   SetChannelReady();
-  EXPECT_EQ(webrtc::DataChannelInterface::kOpen, webrtc_data_channel_->state());
+  EXPECT_EQ_WAIT(webrtc::DataChannelInterface::kOpen,
+                 webrtc_data_channel_->state(), kDefaultTimeout);
 
   webrtc::DataBuffer buffer("");
   EXPECT_TRUE(webrtc_data_channel_->Send(buffer));

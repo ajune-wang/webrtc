@@ -167,7 +167,7 @@ class RTCStatsCollector : public virtual rtc::RefCountInterface,
       const std::vector<RtpTransceiverStatsInfo>& transceiver_stats_infos,
       RTCStatsReport* report) const;
   // Produces |RTCDataChannelStats|.
-  void ProduceDataChannelStats_s(int64_t timestamp_us,
+  void ProduceDataChannelStats_n(int64_t timestamp_us,
                                  RTCStatsReport* report) const;
   // Produces |RTCIceCandidatePairStats| and |RTCIceCandidateStats|.
   void ProduceIceCandidateAndPairStats_n(

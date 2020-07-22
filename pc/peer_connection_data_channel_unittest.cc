@@ -417,7 +417,7 @@ INSTANTIATE_TEST_SUITE_P(PeerConnectionDataChannelTest,
                          PeerConnectionDataChannelTest,
                          Values(SdpSemantics::kPlanB,
                                 SdpSemantics::kUnifiedPlan));
-
+#include "rtc_base/logging.h"
 TEST_F(PeerConnectionDataChannelUnifiedPlanTest,
        ReOfferAfterPeerRejectsDataChannel) {
   auto caller = CreatePeerConnectionWithDataChannel();
@@ -430,7 +430,11 @@ TEST_F(PeerConnectionDataChannelUnifiedPlanTest,
   auto offer = caller->CreateOffer();
   ASSERT_TRUE(offer);
   const auto& contents = offer->description()->contents();
+  std::string sdp;
+  offer->ToString(&sdp);
+  RTC_LOG(LS_INFO) << sdp;
   ASSERT_EQ(1u, contents.size());
+  ;
   EXPECT_TRUE(contents[0].rejected);
 
   ASSERT_TRUE(

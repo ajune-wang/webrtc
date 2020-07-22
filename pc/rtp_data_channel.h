@@ -34,15 +34,13 @@ class RtpDataChannel;
 class RtpDataChannelProviderInterface {
  public:
   // Sends the data to the transport.
-  virtual bool SendData(const cricket::SendDataParams& params,
-                        const rtc::CopyOnWriteBuffer& payload,
-                        cricket::SendDataResult* result) = 0;
+  virtual bool SendRtpData(const cricket::SendDataParams& params,
+                           const rtc::CopyOnWriteBuffer& payload,
+                           cricket::SendDataResult* result) = 0;
   // Connects to the transport signals.
   virtual bool ConnectDataChannel(RtpDataChannel* data_channel) = 0;
   // Disconnects from the transport signals.
   virtual void DisconnectDataChannel(RtpDataChannel* data_channel) = 0;
-  // Returns true if the transport channel is ready to send data.
-  virtual bool ReadyToSendData() const = 0;
 
  protected:
   virtual ~RtpDataChannelProviderInterface() {}

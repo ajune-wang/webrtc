@@ -274,6 +274,8 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
     }
   }
 
+  video_codec.legacy_screenshare_mode = config.legacy_conference_mode;
+
   return video_codec;
 }
 

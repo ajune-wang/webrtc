@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "6efc6f95_6c962fb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-22T09:36:08Z",
+      "side": 1,
+      "message": "Hi Sam, thanks for your comments, the WEBRTC_ENABLE_AVX2 usage is also moving into GetCPUInfo.",
+      "parentUuid": "210b2e91_25a00bc6",
+      "revId": "966b087366000f55a1b93e22b9a018f27742f023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f3fb939_f2218982",
         "filename": "common_audio/resampler/sinc_resampler.cc",
         "patchSetId": 8
@@ -93,6 +111,30 @@
     },
     {
       "key": {
+        "uuid": "b9987bef_e6ecbe2b",
+        "filename": "common_audio/resampler/sinc_resampler.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-22T09:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f3fb939_f2218982",
+      "range": {
+        "startLine": 153,
+        "startChar": 59,
+        "endLine": 153,
+        "endChar": 62
+      },
+      "revId": "966b087366000f55a1b93e22b9a018f27742f023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc39f3e4_fe1ee69b",
         "filename": "common_audio/resampler/sinc_resampler_avx2.cc",
         "patchSetId": 8
@@ -113,6 +155,30 @@
       "revId": "966b087366000f55a1b93e22b9a018f27742f023",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efd3ddd3_4a4db99b",
+        "filename": "common_audio/resampler/sinc_resampler_avx2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-22T09:36:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc39f3e4_fe1ee69b",
+      "range": {
+        "startLine": 28,
+        "startChar": 68,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "966b087366000f55a1b93e22b9a018f27742f023",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

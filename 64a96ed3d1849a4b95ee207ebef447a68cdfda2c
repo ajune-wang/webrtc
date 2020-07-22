@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "725576ba_88b51c39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2020-07-22T08:29:19Z",
+      "side": 1,
+      "message": "Maybe change the argument names of FilterSourceFile in presubmit_test_mocks.py.\n\n",
+      "revId": "64a96ed3d1849a4b95ee207ebef447a68cdfda2c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

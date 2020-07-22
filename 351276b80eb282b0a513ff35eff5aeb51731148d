@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "34085eb8_ee77c2a7",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-07-22T12:49:34Z",
+      "side": 1,
+      "message": "Wouldn\u0027t VP8 sometimes handle all simulcast layers directly?",
+      "parentUuid": "0a286839_99d5aee2",
+      "range": {
+        "startLine": 882,
+        "startChar": 61,
+        "endLine": 882,
+        "endChar": 72
+      },
+      "revId": "351276b80eb282b0a513ff35eff5aeb51731148d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9114139f_9f6a0000",
         "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "351276b80eb282b0a513ff35eff5aeb51731148d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "775140c5_47fbd2b4",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-07-22T12:49:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9114139f_9f6a0000",
+      "range": {
+        "startLine": 338,
+        "startChar": 33,
+        "endLine": 338,
+        "endChar": 37
+      },
+      "revId": "351276b80eb282b0a513ff35eff5aeb51731148d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

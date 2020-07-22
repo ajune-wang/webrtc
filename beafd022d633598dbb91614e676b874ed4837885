@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "842c0d4b_180c4cf2",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T14:44:51Z",
+      "side": 1,
+      "message": "this gives a pointer to a member variable, which takes control away from the implementation as far as how that data can be used. I\u0027d go with return by-value like the other getters.",
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bba47538_ae985cf9",
+        "filename": "api/test/network_emulation/network_emulation_interfaces.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T14:44:51Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da8e6dfc_60bb42b1",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T14:44:51Z",
+      "side": 1,
+      "message": "nit: fetch the return value from IncomingStatsPerSource() once and then use that array locally instead of fetching multiple times. Same below",
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2703119_c67c374c",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T14:44:51Z",
+      "side": 1,
+      "message": "down the line it would be good to have thread/sequence checks in this class since there\u0027s no locking but the class is now implementing an interface and it\u0027s not clear from the pov of the interface what threading restrictions there are. At the moment the implementation is single threaded, but there aren\u0027t any checks for it.",
+      "revId": "beafd022d633598dbb91614e676b874ed4837885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

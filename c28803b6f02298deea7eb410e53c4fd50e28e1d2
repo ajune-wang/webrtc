@@ -34,6 +34,24 @@
       "revId": "c28803b6f02298deea7eb410e53c4fd50e28e1d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d2ee6a2_f224bbac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13129
+      },
+      "writtenOn": "2020-07-22T05:40:12Z",
+      "side": 1,
+      "message": "Agree with your concern about non-portal implementation. It looks there is no clean solution for   multiple dialog\u0027s unless chrome try to stop showing its own dialog. Has there been any proposal/request for that before ?",
+      "parentUuid": "8c0d2066_a2722d0e",
+      "revId": "c28803b6f02298deea7eb410e53c4fd50e28e1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

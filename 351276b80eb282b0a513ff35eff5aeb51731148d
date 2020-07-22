@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e3b6e198_1eacca7e",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-22T12:54:33Z",
+      "side": 1,
+      "message": "Discussed offline. I agree this should be left here as a defensive measure.",
+      "parentUuid": "34085eb8_ee77c2a7",
+      "range": {
+        "startLine": 882,
+        "startChar": 61,
+        "endLine": 882,
+        "endChar": 72
+      },
+      "revId": "351276b80eb282b0a513ff35eff5aeb51731148d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9114139f_9f6a0000",
         "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
         "patchSetId": 7

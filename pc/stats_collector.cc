@@ -1144,8 +1144,6 @@ void StatsCollector::ExtractSenderInfo() {
 void StatsCollector::ExtractDataInfo() {
   RTC_DCHECK(pc_->signaling_thread()->IsCurrent());
 
-  rtc::Thread::ScopedDisallowBlockingCalls no_blocking_calls;
-
   std::vector<DataChannelStats> data_stats = pc_->GetDataChannelStats();
   for (const auto& stats : data_stats) {
     StatsReport::Id id(StatsReport::NewTypedIntId(

@@ -48,6 +48,8 @@ class MockSctpDataChannel : public rtc::RefCountedObject<SctpDataChannel> {
                                                network_thread) {
     EXPECT_CALL(*this, id()).WillRepeatedly(::testing::Return(id));
     EXPECT_CALL(*this, state()).WillRepeatedly(::testing::Return(state));
+    EXPECT_CALL(*this, internal_state())
+        .WillRepeatedly(::testing::Return(state));
     EXPECT_CALL(*this, protocol()).WillRepeatedly(::testing::Return(protocol));
     EXPECT_CALL(*this, messages_sent())
         .WillRepeatedly(::testing::Return(messages_sent));
@@ -60,6 +62,7 @@ class MockSctpDataChannel : public rtc::RefCountedObject<SctpDataChannel> {
   }
   MOCK_METHOD(int, id, (), (const, override));
   MOCK_METHOD(DataState, state, (), (const, override));
+  MOCK_METHOD(DataState, internal_state, (), (const, override));
   MOCK_METHOD(std::string, protocol, (), (const, override));
   MOCK_METHOD(uint32_t, messages_sent, (), (const, override));
   MOCK_METHOD(uint64_t, bytes_sent, (), (const, override));

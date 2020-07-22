@@ -16,6 +16,24 @@
       "revId": "0970f54b1b6c3edb3daa8110042a59d1ddff06e8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc1f4adb_82bf4b17",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-07-22T12:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0f25015_d2178e8a",
+      "revId": "0970f54b1b6c3edb3daa8110042a59d1ddff06e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

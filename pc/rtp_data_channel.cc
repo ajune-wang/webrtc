@@ -372,7 +372,7 @@ bool RtpDataChannel::SendDataMessage(const DataBuffer& buffer) {
   send_params.type = buffer.binary ? cricket::DMT_BINARY : cricket::DMT_TEXT;
 
   cricket::SendDataResult send_result = cricket::SDR_SUCCESS;
-  bool success = provider_->SendData(send_params, buffer.data, &send_result);
+  bool success = provider_->SendRtpData(send_params, buffer.data, &send_result);
 
   if (success) {
     ++messages_sent_;

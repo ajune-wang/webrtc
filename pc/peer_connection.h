@@ -313,8 +313,6 @@ class PeerConnection : public PeerConnectionInternal,
   }
   // Get current SSL role used by SCTP's underlying transport.
   bool GetSctpSslRole(rtc::SSLRole* role);
-  // Handler for the "channel closed" signal
-  void OnSctpDataChannelClosed(DataChannelInterface* channel);
 
   // Functions made public for testing.
   void ReturnHistogramVeryQuicklyForTesting() {
@@ -832,11 +830,6 @@ class PeerConnection : public PeerConnectionInternal,
   const RtpSenderInfo* FindSenderInfo(const std::vector<RtpSenderInfo>& infos,
                                       const std::string& stream_id,
                                       const std::string sender_id) const;
-
-  // Returns the specified SCTP DataChannel in sctp_data_channels_,
-  // or nullptr if not found.
-  SctpDataChannel* FindDataChannelBySid(int sid) const
-      RTC_RUN_ON(signaling_thread());
 
   // Called when first configuring the port allocator.
   struct InitializePortAllocatorResult {

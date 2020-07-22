@@ -2732,7 +2732,12 @@ RTCError PeerConnection::ApplyLocalDescription(
   // SCTP sids.
   rtc::SSLRole role;
   if (IsSctpLike(data_channel_type()) && GetSctpSslRole(&role)) {
-    data_channel_controller_.AllocateSctpSids(role);
+    // TODO(bugs.webrtc.org/9987): Avoid this invoke by wiring things up
+    // differently (for example, have DataChannelController respond to signal
+    // from TransportController already on network thread).
+    network_thread()->Invoke<void>(
+        RTC_FROM_HERE, rtc::Bind(&DataChannelController::AllocateSctpSids,
+                                 &data_channel_controller_, role));
   }
 
   if (IsUnifiedPlan()) {
@@ -3171,7 +3176,12 @@ RTCError PeerConnection::ApplyRemoteDescription(
   // SCTP sids.
   rtc::SSLRole role;
   if (IsSctpLike(data_channel_type()) && GetSctpSslRole(&role)) {
-    data_channel_controller_.AllocateSctpSids(role);
+    // TODO(bugs.webrtc.org/9987): Avoid this invoke by wiring things up
+    // differently (for example, have DataChannelController respond to signal
+    // from TransportController already on network thread).
+    network_thread()->Invoke<void>(
+        RTC_FROM_HERE, rtc::Bind(&DataChannelController::AllocateSctpSids,
+                                 &data_channel_controller_, role));
   }
 
   if (IsUnifiedPlan()) {
@@ -5541,13 +5551,6 @@ void PeerConnection::OnLocalSenderRemoved(const RtpSenderInfo& sender_info,
   sender->internal()->SetSsrc(0);
 }
 
-void PeerConnection::OnSctpDataChannelClosed(DataChannelInterface* channel) {
-  // Since data_channel_controller doesn't do signals, this
-  // signal is relayed here.
-  data_channel_controller_.OnSctpDataChannelClosed(
-      static_cast<SctpDataChannel*>(channel));
-}
-
 rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
 PeerConnection::GetAudioTransceiver() const {
   // This method only works with Plan B SDP, where there is a single
@@ -5640,10 +5643,6 @@ const PeerConnection::RtpSenderInfo* PeerConnection::FindSenderInfo(
     }
   }
   return nullptr;
-}
-
-SctpDataChannel* PeerConnection::FindDataChannelBySid(int sid) const {
-  return data_channel_controller_.FindDataChannelBySid(sid);
 }
 
 PeerConnection::InitializePortAllocatorResult
@@ -6032,8 +6031,9 @@ cricket::IceConfig PeerConnection::ParseIceConfig(
 }
 
 std::vector<DataChannelStats> PeerConnection::GetDataChannelStats() const {
-  RTC_DCHECK_RUN_ON(signaling_thread());
-  return data_channel_controller_.GetDataChannelStats();
+  return network_thread()->Invoke<std::vector<DataChannelStats>>(
+      RTC_FROM_HERE, rtc::Bind(&DataChannelController::GetDataChannelStats,
+                               &data_channel_controller_));
 }
 
 absl::optional<std::string> PeerConnection::sctp_transport_name() const {
@@ -7126,7 +7126,7 @@ void PeerConnection::DestroyTransceiverChannel(
 
 void PeerConnection::DestroyDataChannelTransport() {
   if (data_channel_controller_.rtp_data_channel()) {
-    data_channel_controller_.OnTransportChannelClosed();
+    data_channel_controller_.OnRtpTransportChannelClosed();
     DestroyChannelInterface(data_channel_controller_.rtp_data_channel());
     data_channel_controller_.set_rtp_data_channel(nullptr);
   }
@@ -7138,9 +7138,9 @@ void PeerConnection::DestroyDataChannelTransport() {
   // rtc::Bind will cause "Pure virtual function called" error to appear.
 
   if (sctp_mid_s_) {
-    data_channel_controller_.OnTransportChannelClosed();
     network_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
       RTC_DCHECK_RUN_ON(network_thread());
+      data_channel_controller_.OnSctpTransportChannelClosed();
       TeardownDataChannelTransport_n();
     });
     sctp_mid_s_.reset();

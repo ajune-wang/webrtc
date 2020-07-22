@@ -11,12 +11,11 @@
 #include "video/frame_encode_metadata_writer.h"
 
 #include <algorithm>
-#include <memory>
 #include <utility>
 
-#include "common_video/h264/sps_vui_rewriter.h"
 #include "modules/include/module_common_types_public.h"
 #include "modules/video_coding/include/video_coding_defines.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/time_utils.h"
@@ -200,38 +199,6 @@ void FrameEncodeMetadataWriter::FillTimingInfo(size_t simulcast_svc_idx,
   } else {
     encoded_image->timing_.flags = VideoSendTiming::kInvalid;
   }
-}
-
-std::unique_ptr<RTPFragmentationHeader>
-FrameEncodeMetadataWriter::UpdateBitstream(
-    const CodecSpecificInfo* codec_specific_info,
-    const RTPFragmentationHeader* fragmentation,
-    EncodedImage* encoded_image) {
-  if (!codec_specific_info ||
-      codec_specific_info->codecType != kVideoCodecH264 || !fragmentation ||
-      encoded_image->_frameType != VideoFrameType::kVideoFrameKey) {
-    return nullptr;
-  }
-
-  rtc::Buffer modified_buffer;
-  std::unique_ptr<RTPFragmentationHeader> modified_fragmentation =
-      std::make_unique<RTPFragmentationHeader>();
-  modified_fragmentation->CopyFrom(*fragmentation);
-
-  // Make sure that the data is not copied if owned by EncodedImage.
-  const EncodedImage& buffer = *encoded_image;
-  SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(
-      buffer, fragmentation->fragmentationVectorSize,
-      fragmentation->fragmentationOffset, fragmentation->fragmentationLength,
-      encoded_image->ColorSpace(), &modified_buffer,
-      modified_fragmentation->fragmentationOffset,
-      modified_fragmentation->fragmentationLength);
-
-  encoded_image->SetEncodedData(
-      new rtc::RefCountedObject<EncodedImageBufferWrapper>(
-          std::move(modified_buffer)));
-
-  return modified_fragmentation;
 }
 
 void FrameEncodeMetadataWriter::Reset() {

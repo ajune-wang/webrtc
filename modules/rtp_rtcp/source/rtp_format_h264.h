@@ -15,6 +15,7 @@
 #include <stdint.h>
 
 #include <deque>
+#include <forward_list>
 #include <memory>
 #include <queue>
 
@@ -33,7 +34,9 @@ class RtpPacketizerH264 : public RtpPacketizer {
   // The payload_data must be exactly one encoded H264 frame.
   RtpPacketizerH264(rtc::ArrayView<const uint8_t> payload,
                     PayloadSizeLimits limits,
-                    H264PacketizationMode packetization_mode);
+                    H264PacketizationMode packetization_mode,
+                    bool is_keyframe,
+                    const ColorSpace* color_space);
 
   ~RtpPacketizerH264() override;
 
@@ -80,6 +83,8 @@ class RtpPacketizerH264 : public RtpPacketizer {
 
   const PayloadSizeLimits limits_;
   size_t num_packets_left_;
+  // Temporary storage for modified sps nal units.
+  std::forward_list<rtc::Buffer> overwritten_sps_;
   std::deque<rtc::ArrayView<const uint8_t>> input_fragments_;
   std::queue<PacketUnit> packets_;
 

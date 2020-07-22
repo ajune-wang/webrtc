@@ -47,16 +47,50 @@ enum FuDefs : uint8_t { kSBit = 0x80, kEBit = 0x40, kRBit = 0x20 };
 
 RtpPacketizerH264::RtpPacketizerH264(rtc::ArrayView<const uint8_t> payload,
                                      PayloadSizeLimits limits,
-                                     H264PacketizationMode packetization_mode)
+                                     H264PacketizationMode packetization_mode,
+                                     bool is_keyframe,
+                                     const ColorSpace* color_space)
     : limits_(limits), num_packets_left_(0) {
   // Guard against uninitialized memory in packetization_mode.
   RTC_CHECK(packetization_mode == H264PacketizationMode::NonInterleaved ||
             packetization_mode == H264PacketizationMode::SingleNalUnit);
 
-  for (const auto& nalu :
+  for (const H264::NaluIndex& nalu_index :
        H264::FindNaluIndices(payload.data(), payload.size())) {
-    input_fragments_.push_back(
-        payload.subview(nalu.payload_start_offset, nalu.payload_size));
+    rtc::ArrayView<const uint8_t> nal_unit = payload.subview(
+        nalu_index.payload_start_offset, nalu_index.payload_size);
+    if (is_keyframe &&
+        H264::ParseNaluType(nal_unit[0]) == H264::NaluType::kSps) {
+      // Check if stream uses picture order count type 0, and if so rewrite it
+      // to enable faster decoding. Streams in that format incur additional
+      // delay because it allows decode order to differ from render order.
+      // The mechanism used is to rewrite (edit or add) the SPS's VUI to contain
+      // restrictions on the maximum number of reordered pictures. This reduces
+      // latency significantly, though it still adds about a frame of latency to
+      // decoding.
+      // Note that we do this rewriting both here (send side, in order to
+      // protect legacy receive clients) in RtpDepacketizerH264::ParseSingleNalu
+      // (receive side, in orderer to protect us from unknown or legacy send
+      // clients).
+      absl::optional<SpsParser::SpsState> sps;
+      overwritten_sps_.emplace_front();
+      rtc::Buffer& output_nalu = overwritten_sps_.front();
+
+      // Add the type header to the output buffer first, so that the rewriter
+      // can append modified payload on top of that.
+      output_nalu.AppendData(nal_unit[0]);
+
+      if (SpsVuiRewriter::ParseAndRewriteSps(
+              nal_unit.data() + H264::kNaluTypeSize,
+              nal_unit.size() - H264::kNaluTypeSize, &sps, color_space,
+              &output_nalu, SpsVuiRewriter::Direction::kOutgoing) ==
+          SpsVuiRewriter::ParseResult::kVuiRewritten) {
+        input_fragments_.push_back(output_nalu);
+        continue;
+      }
+    }
+
+    input_fragments_.push_back(nal_unit);
   }
 
   if (!GeneratePackets(packetization_mode)) {

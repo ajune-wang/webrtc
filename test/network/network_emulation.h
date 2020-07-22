@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "api/test/network_emulation_manager.h"
 #include "api/test/simulated_network.h"
 #include "api/units/timestamp.h"
@@ -34,6 +35,119 @@
 
 namespace webrtc {
 
+// This class is not thread safe. Access have to be guarded by lock in case of
+// concurrent read/write. Once returned as EmulatedNetworkStats basically become
+// immutable, because all mutation methods are private.
+class EmulatedNetworkStatsImpl final : public EmulatedNetworkStats {
+ public:
+  ~EmulatedNetworkStatsImpl() override = default;
+
+  int64_t PacketsSent() const override { return packets_sent_; }
+
+  DataSize BytesSent() const override { return bytes_sent_; }
+
+  std::vector<rtc::IPAddress> LocalAddresses() const override {
+    return local_addresses_;
+  }
+
+  DataSize FirstSentPacketSize() const override {
+    return first_sent_packet_size_;
+  }
+
+  Timestamp FirstPacketSentTime() const override {
+    return first_packet_sent_time_;
+  }
+
+  Timestamp LastPacketSentTime() const override {
+    return last_packet_sent_time_;
+  }
+
+  DataRate AverageSendRate() const override {
+    RTC_DCHECK_GE(packets_sent_, 2);
+    return (bytes_sent_ - first_sent_packet_size_) /
+           (last_packet_sent_time_ - first_packet_sent_time_);
+  }
+
+  int64_t PacketsReceived() const override {
+    return GetOverallIncomingStats().packets_received;
+  }
+
+  DataSize BytesReceived() const override {
+    return GetOverallIncomingStats().bytes_received;
+  }
+
+  int64_t PacketsDropped() const override {
+    return GetOverallIncomingStats().packets_dropped;
+  }
+
+  DataSize BytesDropped() const override {
+    return GetOverallIncomingStats().bytes_dropped;
+  }
+
+  DataSize FirstReceivedPacketSize() const override {
+    return GetOverallIncomingStats().first_received_packet_size;
+  }
+
+  Timestamp FirstPacketReceivedTime() const override {
+    return GetOverallIncomingStats().first_packet_received_time;
+  }
+
+  Timestamp LastPacketReceivedTime() const override {
+    return GetOverallIncomingStats().last_packet_received_time;
+  }
+
+  DataRate AverageReceiveRate() const override {
+    return GetOverallIncomingStats().AverageReceiveRate();
+  }
+
+  std::map<rtc::IPAddress, EmulatedNetworkIncomingStats>
+  IncomingStatsPerSource() const override {
+    return incoming_stats_per_source_;
+  }
+
+ protected:
+  friend class EmulatedEndpointImpl;
+  friend class EndpointsContainer;
+
+  void IncrementPacketsSent(int64_t count) { packets_sent_ += count; }
+
+  void IncrementBytesSent(DataSize bytes_sent) { bytes_sent_ += bytes_sent; }
+
+  void AddLocalAddress(const rtc::IPAddress& ip) {
+    local_addresses_.push_back(ip);
+  }
+
+  void SetFirstSentPacketSize(DataSize first_sent_packet_size) {
+    first_sent_packet_size_ = first_sent_packet_size;
+  }
+
+  void SetFirstPacketSentTime(Timestamp first_packet_sent_time) {
+    first_packet_sent_time_ = first_packet_sent_time;
+  }
+
+  void SetLastPacketSentTime(Timestamp last_packet_sent_time) {
+    last_packet_sent_time_ = last_packet_sent_time;
+  }
+
+  std::map<rtc::IPAddress, EmulatedNetworkIncomingStats>&
+  MutableIncomingStatsPerSource() {
+    return incoming_stats_per_source_;
+  }
+
+ private:
+  EmulatedNetworkIncomingStats GetOverallIncomingStats() const;
+
+  int64_t packets_sent_ = 0;
+  DataSize bytes_sent_ = DataSize::Zero();
+  std::vector<rtc::IPAddress> local_addresses_;
+
+  DataSize first_sent_packet_size_ = DataSize::Zero();
+  Timestamp first_packet_sent_time_ = Timestamp::PlusInfinity();
+  Timestamp last_packet_sent_time_ = Timestamp::MinusInfinity();
+
+  std::map<rtc::IPAddress, EmulatedNetworkIncomingStats>
+      incoming_stats_per_source_;
+};
 
 class LinkEmulation : public EmulatedNetworkReceiverInterface {
  public:
@@ -161,7 +275,7 @@ class EmulatedEndpointImpl : public EmulatedEndpoint {
 
   const rtc::Network& network() const { return *network_.get(); }
 
-  EmulatedNetworkStats stats() override;
+  std::unique_ptr<EmulatedNetworkStats> stats() const override;
 
  private:
   static constexpr uint16_t kFirstEphemeralPort = 49152;
@@ -185,7 +299,7 @@ class EmulatedEndpointImpl : public EmulatedEndpoint {
   std::map<uint16_t, EmulatedNetworkReceiverInterface*> port_to_receiver_
       RTC_GUARDED_BY(receiver_lock_);
 
-  EmulatedNetworkStats stats_ RTC_GUARDED_BY(task_queue_);
+  EmulatedNetworkStatsImpl stats_ RTC_GUARDED_BY(task_queue_);
 };
 
 class EmulatedRoute {
@@ -212,7 +326,7 @@ class EndpointsContainer {
   // Returns list of networks for enabled endpoints. Caller takes ownership of
   // returned rtc::Network objects.
   std::vector<std::unique_ptr<rtc::Network>> GetEnabledNetworks() const;
-  EmulatedNetworkStats GetStats() const;
+  std::unique_ptr<EmulatedNetworkStats> GetStats() const;
 
  private:
   const std::vector<EmulatedEndpointImpl*> endpoints_;

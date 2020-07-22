@@ -2399,6 +2399,8 @@ WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig(
     }
   }
 
+  encoder_config.legacy_conference_mode = parameters_.conference_mode;
+
   int max_qp = kDefaultQpMax;
   codec.GetParam(kCodecParamMaxQuantization, &max_qp);
   encoder_config.video_stream_factory =

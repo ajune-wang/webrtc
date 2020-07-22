@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad7a5d5b_38689414",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T17:19:19Z",
+      "side": 1,
+      "message": "nit: looking up the same ip twice.",
+      "revId": "d35ac4ca6ed8c1cc5e977996e9d65aeda53a77bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1376b04d_47c73ddc",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T17:19:19Z",
+      "side": 1,
+      "message": "multiple lookups for the same ip.",
+      "revId": "d35ac4ca6ed8c1cc5e977996e9d65aeda53a77bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a85721_4180f766",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T17:19:19Z",
+      "side": 1,
+      "message": "could this method be replaced with something like SetIncomingStatsPerSource(entry.first, source)?\n\nAlso, if modifying this state is strictly a test-only need, the method name could also be SetIncomingStatsPerSourceForTesting.",
+      "revId": "d35ac4ca6ed8c1cc5e977996e9d65aeda53a77bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f45e0c_674b48a5",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T17:19:19Z",
+      "side": 1,
+      "message": "nit: \"Access have\" -\u003e \"Access has\".\n\nActually, I wouldn\u0027t suggest that the external implementation uses locks etc. I would rather say that the threading model of this implementation is single threaded and the user of the class needs to be aware of that and adapt accordingly (such as by making sure all calls to the instance are sequenced).",
+      "range": {
+        "startLine": 38,
+        "startChar": 41,
+        "endLine": 38,
+        "endChar": 45
+      },
+      "revId": "d35ac4ca6ed8c1cc5e977996e9d65aeda53a77bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89cca281_c46d8825",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T17:19:19Z",
+      "side": 1,
+      "message": "RTC_DCHECK that count \u003e 0?",
+      "revId": "d35ac4ca6ed8c1cc5e977996e9d65aeda53a77bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cab0e37_e9437987",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T17:19:19Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "d35ac4ca6ed8c1cc5e977996e9d65aeda53a77bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd43ac5d_3adbef24",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T17:19:19Z",
+      "side": 1,
+      "message": "does it make sense to dcheck for expected values?",
+      "revId": "d35ac4ca6ed8c1cc5e977996e9d65aeda53a77bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccef9359_edb6a162",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-22T17:19:19Z",
+      "side": 1,
+      "message": "would be great not to need this. If this is used once for a particular purpose, I\u0027d consider having that mechanism brought into this class and not expose pointers to member variables outside of the class.",
+      "revId": "d35ac4ca6ed8c1cc5e977996e9d65aeda53a77bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

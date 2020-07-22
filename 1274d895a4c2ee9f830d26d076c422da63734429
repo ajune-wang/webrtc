@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c87d3b0c_be1a2923",
+        "filename": "common_audio/fir_filter_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-07-22T09:04:41Z",
+      "side": 1,
+      "message": "Instead of checking this after the call to WebRtc_GetCPUInfo, is it possible to move the usage of WEBRTC_ENABLE_AVX2 into GetCPUInfo, into the if (feature \u003d\u003d kAVX2) check? So that WebRtc_GetCPUInfo(kAVX) does not return true if WEBRTC_ENABLE_AVX2 is not enabled.\n\nIt seems that otherwise, #if defined(WEBRTC_ENABLE_AVX2) has to be tested anyway, every time.\n\nThis would also remove the need for checking it in sinc_resampler.cc.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "1274d895a4c2ee9f830d26d076c422da63734429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

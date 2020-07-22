@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "575390ed_a96b22e7",
+        "filename": "pc/data_channel_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 1,
+      "message": "Using this optional business because GetSctpSslRole needs to be called on signaling thread, while sctp_data_channels_ lives on network thread. Far from ideal since GetSctpSslRole calls out to the network thread itself.",
+      "revId": "d72814da1e8b0d56bbbbd28ca6cd61f55f3ff465",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15ebd0ad_0d28d97e",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 1,
+      "message": "I couldn\u0027t figure out out why this class couldn\u0027t have slots, it makes more sense than relying on PeerConnection to forward a signal.",
+      "revId": "d72814da1e8b0d56bbbbd28ca6cd61f55f3ff465",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d6594e3_70d7af5d",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 1,
+      "message": "Opted to use this so that sctp_data_channels_ can live on the network thread. HasDataChannels was the only thing that needed to read sctp_data_channels_ on the signaling thread.",
+      "revId": "d72814da1e8b0d56bbbbd28ca6cd61f55f3ff465",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

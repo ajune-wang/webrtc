@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e2e959b_ac5e3bda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 1,
+      "message": "Before reviewing this, let\u0027s discuss if it\u0027s even worth the drawbacks. You can see a long list of caveats in the CL description, and there\u0027s only one real advantage, which is only really noticeable on Chrome OS.\n\nI\u0027m concerned that subtle changes with things happening asynchronously will break some client\u0027s expectations. You can see I already had to change the tests. There\u0027s also likely some race condition I haven\u0027t considered.\n\nI may need to just go back to the drawing board. It would be great if Send could be called on the network thread while leaving everything else as is, but it accesses a bunch of members that would be otherwise owned by the signaling thread, which is why I chose the \"move everything to network thread\" approach.\n\nMaybe I could just wrap the whole Send call in a critical section, along with other methods that modify state_, provider_, etc.? There\u0027s also the problem of CloseAbruptly being called on errors, I guess that could be invoked asynchronously on the signaling thread? ",
+      "revId": "a76b3f4bf44d73422388791dbdb2277d35cc5e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2855b11_ced6d955",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 1,
+      "message": "This is necessary because it is now possible that SetSctpSid is called after OnTransportReady, because previously OnTransportReady was always called asynchronously after SetLocalDescription/SetRemoteDescription.",
+      "revId": "a76b3f4bf44d73422388791dbdb2277d35cc5e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c789c51a_3670c905",
+        "filename": "pc/sctp_data_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 1,
+      "message": "This messy business exists in order to preserve the \"close abruptly if received data exceeds max buffer size\" logic. If not for that I could just post a task to deliver the received message, and queued_received_data_ could live on the signaling thread. There\u0027s probably a simpler solution...",
+      "revId": "a76b3f4bf44d73422388791dbdb2277d35cc5e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b27fed1c_1a07ca0b",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 1,
+      "message": "If I proceed with this, I\u0027d probably want to add _n suffixes to relevant methods.",
+      "revId": "a76b3f4bf44d73422388791dbdb2277d35cc5e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b03caf0_810481ef",
+        "filename": "pc/sctp_data_channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 1,
+      "message": "I really don\u0027t like this but didn\u0027t see any other way.",
+      "revId": "a76b3f4bf44d73422388791dbdb2277d35cc5e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

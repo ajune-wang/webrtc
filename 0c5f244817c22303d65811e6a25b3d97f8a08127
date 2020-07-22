@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2970d1d7_7eeabc87",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-22T22:03:47Z",
+      "side": 0,
+      "message": "I didn\u0027t understand the point of the weak pointer factory; any pending invocations are guaranteed to finish or be canceled when AsyncInvoker\u0027s destructor is called.",
+      "revId": "0c5f244817c22303d65811e6a25b3d97f8a08127",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

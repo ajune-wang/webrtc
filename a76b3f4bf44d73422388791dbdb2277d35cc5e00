@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "413273ec_3f242d5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-23T10:14:39Z",
+      "side": 1,
+      "message": "This is not a review, but a discussion.\n\nMy general concern is that the Javascript API should be able to show a consistent narrative of what\u0027s happening with the datachannel. This includes passing through all the states, and reporting correctly all the transitions between below-threshold and above-threshold for buffered data.\n\nThe common way we have done this is to fire state updates at the browser as a series of events that contain the state - we don\u0027t ever get an event, make a thread jump, and then go back and read some more state that should be assocated with the event. We put all the information inside the event itself, and then store the information in the Javascript world for access.\n\nFor this to work, all state updates have to be sequenced. And calls in the opposite direction have to be asynchronous, with the return message being queued behind all the state updates that are logical predecessors of it.\n\nHow different is this CL from a CL that would preserve this property?",
+      "revId": "a76b3f4bf44d73422388791dbdb2277d35cc5e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2855b11_ced6d955",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 4

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eab70067_ab112d80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-23T08:50:05Z",
+      "side": 1,
+      "message": "Magnus, can you please review common_video/ as an owner.",
+      "revId": "81f9182a08a610d242e912ac0112acab9b2d342a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

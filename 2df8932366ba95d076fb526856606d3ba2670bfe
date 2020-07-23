@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ac0a86e_fdbc35c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-07-23T08:00:34Z",
+      "side": 1,
+      "message": "Hi Mirko, Sam, can we land this CL now?",
+      "revId": "2df8932366ba95d076fb526856606d3ba2670bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

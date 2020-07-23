@@ -15,6 +15,8 @@
 
 #include "modules/video_capture/device_info_impl.h"
 
+struct v4l2_capability;
+
 namespace webrtc {
 namespace videocapturemodule {
 class DeviceInfoLinux : public DeviceInfoImpl {
@@ -44,6 +46,7 @@ class DeviceInfoLinux : public DeviceInfoImpl {
 
  private:
   bool IsDeviceNameMatches(const char* name, const char* deviceUniqueIdUTF8);
+  bool IsVideoCaptureDevice(struct v4l2_capability* cap);
 };
 }  // namespace videocapturemodule
 }  // namespace webrtc

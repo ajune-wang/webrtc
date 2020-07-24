@@ -16,6 +16,23 @@
       "revId": "81f9182a08a610d242e912ac0112acab9b2d342a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5724b8f_a26144bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-07-24T14:47:54Z",
+      "side": 1,
+      "message": "Marco, do you mind reviewing common_video/ as owner?",
+      "revId": "81f9182a08a610d242e912ac0112acab9b2d342a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

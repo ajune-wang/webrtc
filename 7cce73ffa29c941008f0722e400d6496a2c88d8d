@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "638bc843_155ad291",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-24T23:19:51Z",
+      "side": 1,
+      "message": "Thanks for the change. PTAL!",
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d33af510_99595d3a",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-24T23:19:51Z",
+      "side": 1,
+      "message": "You can use GetEncoderFormat to avoid use the lock here and it\u0027s shorter.\n\nif (!GetEncoderFormat()) {\n  RTC_DLOG(..)\n  return false;\n}",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 3
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

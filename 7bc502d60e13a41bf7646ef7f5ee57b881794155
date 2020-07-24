@@ -16,6 +16,24 @@
       "revId": "7bc502d60e13a41bf7646ef7f5ee57b881794155",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61e52214_ac644f4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-07-24T15:46:35Z",
+      "side": 1,
+      "message": "Renamed all of them to legacy_conference_mode.\nThis test propagates the SDP flag to the next layer (which is used in webrtc_video_engine.cc): https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/webrtc_sdp_unittest.cc;drc\u003d20b701f3d79c499b0981f03fbf3a9b0fe531ac5d;l\u003d3207",
+      "parentUuid": "2239bf96_ffa42f36",
+      "revId": "7bc502d60e13a41bf7646ef7f5ee57b881794155",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

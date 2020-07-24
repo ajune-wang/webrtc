@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2494a4f0_ab6eeb7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-24T17:55:23Z",
+      "side": 1,
+      "message": "lgtm with a few nits addressed",
+      "revId": "73de387dd86666029fcb68675461906ba1b375be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5ea326e_bc37f6e6",
+        "filename": "test/time_controller/time_controller_conformance_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-24T17:55:23Z",
+      "side": 1,
+      "message": "nit: RTC_NOTREACHED()\n(should be enough since this is test-only code)",
+      "revId": "73de387dd86666029fcb68675461906ba1b375be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463820c0_9a9512ec",
+        "filename": "test/time_controller/time_controller_conformance_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-24T17:55:23Z",
+      "side": 1,
+      "message": "add documentation? It\u0027s not clear to me why locking is needed and I don\u0027t see any checking performed by the class. Just by looking at the implementation I would expect something like LockedAddOnlyVector 😊",
+      "revId": "73de387dd86666029fcb68675461906ba1b375be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a9f0a36_39ae88b0",
+        "filename": "test/time_controller/time_controller_conformance_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-24T17:55:23Z",
+      "side": 1,
+      "message": "Without reading the entire CL it\u0027s unclear what \u0027conformance\u0027 is referred to. Can you add some text to explain the \u0027conformance to what\u0027 part and update the CL description too?",
+      "revId": "73de387dd86666029fcb68675461906ba1b375be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4873353c_0bcab494",
+        "filename": "test/time_controller/time_controller_conformance_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-24T17:55:23Z",
+      "side": 1,
+      "message": "nit: have -\u003e has",
+      "revId": "73de387dd86666029fcb68675461906ba1b375be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1b87fa6_0c775ef7",
+        "filename": "test/time_controller/time_controller_conformance_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-24T17:55:23Z",
+      "side": 1,
+      "message": "nice - good to have this corner case covered.",
+      "revId": "73de387dd86666029fcb68675461906ba1b375be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

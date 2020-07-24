@@ -113,6 +113,7 @@
 // PortAllocator in the PeerConnection api.
 #include "p2p/base/port_allocator.h"  // nogncheck
 #include "rtc_base/network.h"
+#include "rtc_base/network_monitor.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/socket_address.h"
@@ -1295,6 +1296,10 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
   std::unique_ptr<NetworkStatePredictorFactoryInterface>
       network_state_predictor_factory;
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
+  // This will only be used if CreatePeerConnection is called without a
+  // |port_allocator|, causing the default allocator and network manager to be
+  // used.
+  std::unique_ptr<rtc::NetworkMonitorFactory> network_monitor_factory;
   std::unique_ptr<NetEqFactory> neteq_factory;
   std::unique_ptr<WebRtcKeyValueConfig> trials;
 };

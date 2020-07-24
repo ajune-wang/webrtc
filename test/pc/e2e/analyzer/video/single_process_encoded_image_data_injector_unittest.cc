@@ -28,10 +28,18 @@ rtc::Buffer CreateBufferOfSizeNFilledWithValuesFromX(size_t n, uint8_t x) {
   return buffer;
 }
 
+EncodedImage DeepCopyEncodedImage(const EncodedImage& source) {
+  EncodedImage copy = source;
+  copy.SetEncodedData(EncodedImageBuffer::Create(source.size()));
+  memcpy(copy.data(), source.data(), source.size());
+  return copy;
+}
+
 }  // namespace
 
 TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardFalse) {
   SingleProcessEncodedImageDataInjector injector;
+  injector.Start(1);
 
   rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
 
@@ -52,6 +60,7 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardFalse) {
 
 TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardTrue) {
   SingleProcessEncodedImageDataInjector injector;
+  injector.Start(1);
 
   rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
 
@@ -69,6 +78,7 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardTrue) {
 
 TEST(SingleProcessEncodedImageDataInjector, InjectWithUnsetSpatialLayerSizes) {
   SingleProcessEncodedImageDataInjector injector;
+  injector.Start(1);
 
   rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
 
@@ -94,6 +104,7 @@ TEST(SingleProcessEncodedImageDataInjector, InjectWithUnsetSpatialLayerSizes) {
 
 TEST(SingleProcessEncodedImageDataInjector, InjectWithZeroSpatialLayerSizes) {
   SingleProcessEncodedImageDataInjector injector;
+  injector.Start(1);
 
   rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
 
@@ -122,6 +133,7 @@ TEST(SingleProcessEncodedImageDataInjector, InjectWithZeroSpatialLayerSizes) {
 
 TEST(SingleProcessEncodedImageDataInjector, Inject3Extract3) {
   SingleProcessEncodedImageDataInjector injector;
+  injector.Start(1);
 
   rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
   rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
@@ -171,6 +183,7 @@ TEST(SingleProcessEncodedImageDataInjector, Inject3Extract3) {
 
 TEST(SingleProcessEncodedImageDataInjector, InjectExtractFromConcatenated) {
   SingleProcessEncodedImageDataInjector injector;
+  injector.Start(1);
 
   rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
   rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
@@ -223,6 +236,7 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractFromConcatenated) {
 TEST(SingleProcessEncodedImageDataInjector,
      InjectExtractFromConcatenatedAllDiscarded) {
   SingleProcessEncodedImageDataInjector injector;
+  injector.Start(1);
 
   rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
   rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
@@ -267,6 +281,65 @@ TEST(SingleProcessEncodedImageDataInjector,
     EXPECT_EQ(out.image.SpatialLayerFrameSize(i).value_or(0), 0ul);
   }
 }
+
+TEST(SingleProcessEncodedImageDataInjector, InjectOnceExtractTwice) {
+  SingleProcessEncodedImageDataInjector injector;
+  injector.Start(2);
+
+  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
+
+  EncodedImage source(buffer.data(), 10, 10);
+  source.SetTimestamp(123456789);
+
+  EncodedImageExtractionResult out =
+      injector.ExtractData(injector.InjectData(/*id=*/512, /*discard=*/false,
+                                               source, /*coding_entity_id=*/1),
+                           /*coding_entity_id=*/2);
+  EXPECT_EQ(out.id, 512);
+  EXPECT_FALSE(out.discard);
+  EXPECT_EQ(out.image.size(), 10ul);
+  EXPECT_EQ(out.image.capacity(), 10ul);
+  EXPECT_EQ(out.image.SpatialLayerFrameSize(0).value_or(0), 0ul);
+  for (int i = 0; i < 10; ++i) {
+    EXPECT_EQ(out.image.data()[i], i + 1);
+  }
+  out =
+      injector.ExtractData(injector.InjectData(/*id=*/512, /*discard=*/false,
+                                               source, /*coding_entity_id=*/1),
+                           2);
+  EXPECT_EQ(out.id, 512);
+  EXPECT_FALSE(out.discard);
+  EXPECT_EQ(out.image.size(), 10ul);
+  EXPECT_EQ(out.image.capacity(), 10ul);
+  EXPECT_EQ(out.image.SpatialLayerFrameSize(0).value_or(0), 0ul);
+  for (int i = 0; i < 10; ++i) {
+    EXPECT_EQ(out.image.data()[i], i + 1);
+  }
+}
+
+// Death tests.
+// Disabled on Android because death tests misbehave on Android, see
+// base/test/gtest_util.h.
+#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+TEST(SingleProcessEncodedImageDataInjector, InjectOnceExtractMoreThenExpected) {
+  SingleProcessEncodedImageDataInjector injector;
+  injector.Start(2);
+
+  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
+
+  EncodedImage source(buffer.data(), 10, 10);
+  source.SetTimestamp(123456789);
+
+  EncodedImage modified = injector.InjectData(/*id=*/512, /*discard=*/false,
+                                              source, /*coding_entity_id=*/1);
+
+  injector.ExtractData(DeepCopyEncodedImage(modified), /*coding_entity_id=*/2);
+  injector.ExtractData(DeepCopyEncodedImage(modified), /*coding_entity_id=*/2);
+  EXPECT_DEATH(injector.ExtractData(DeepCopyEncodedImage(modified),
+                                    /*coding_entity_id=*/2),
+               "Unknown sub_id=0 for frame_id=512");
+}
+#endif
 
 }  // namespace webrtc_pc_e2e
 }  // namespace webrtc

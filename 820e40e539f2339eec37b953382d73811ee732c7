@@ -158,6 +158,23 @@
     },
     {
       "key": {
+        "uuid": "2ce1f567_1e63e86f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-24T20:46:57Z",
+      "side": 1,
+      "message": "How does this change relate to a\u003dextmap-allow-mixed?",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbc8c495_948d7fbb",
         "filename": "api/rtp_parameters.cc",
         "patchSetId": 2
@@ -229,6 +246,41 @@
     },
     {
       "key": {
+        "uuid": "3c68d5c5_f4ce3282",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-24T20:46:57Z",
+      "side": 1,
+      "message": "I don\u0027t understand these comments. Since auth is applied to the entire packet, doesn\u0027t that mean all extensions can\u0027t be changed later?\n\nAlso, if some can actually not be encrypted, why not just filter them out rather than having an allow list that will have to continually be updated?",
+      "parentUuid": "d7c49f61_b64c4d3d",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88fb6fa5_75af74f5",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-24T20:46:57Z",
+      "side": 1,
+      "message": "Is there a reason we would want this policy?",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6774ad40_9622a35f",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 2
@@ -246,6 +298,23 @@
     },
     {
       "key": {
+        "uuid": "9908514f_a237942c",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-24T20:46:57Z",
+      "side": 1,
+      "message": "Should we also have a kRequireEncryptedExtension value?",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb724e9b_69e2c62e",
         "filename": "api/rtp_parameters_unittest.cc",
         "patchSetId": 2
@@ -257,6 +326,29 @@
       "writtenOn": "2020-07-16T22:37:12Z",
       "side": 1,
       "message": "nit: Here and below, may want to put the encrypted extension last to ensure that DeduplicateHeaderExtensions/FindHeaderExtensionByUri doesn\u0027t just return the first uri match.",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89eb75f3_3aafaca9",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-24T20:46:57Z",
+      "side": 1,
+      "message": "explain why URIs are not guaranteed to be unique",
+      "range": {
+        "startLine": 138,
+        "startChar": 17,
+        "endLine": 138,
+        "endChar": 23
+      },
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

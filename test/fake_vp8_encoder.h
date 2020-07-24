@@ -51,9 +51,8 @@ class FakeVp8Encoder : public FakeEncoder {
                              int stream_idx,
                              uint32_t timestamp);
 
-  std::unique_ptr<RTPFragmentationHeader> EncodeHook(
-      EncodedImage* encoded_image,
-      CodecSpecificInfo* codec_specific) override;
+  void EncodeHook(EncodedImage* encoded_image,
+                  CodecSpecificInfo* codec_specific) override;
 
   SequenceChecker sequence_checker_;
 

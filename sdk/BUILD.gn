@@ -104,8 +104,6 @@ if (is_ios || is_mac) {
       "objc/base/RTCMacros.h",
       "objc/base/RTCMutableI420Buffer.h",
       "objc/base/RTCMutableYUVPlanarBuffer.h",
-      "objc/base/RTCRtpFragmentationHeader.h",
-      "objc/base/RTCRtpFragmentationHeader.m",
       "objc/base/RTCVideoCapturer.h",
       "objc/base/RTCVideoCapturer.m",
       "objc/base/RTCVideoCodecInfo.h",
@@ -776,8 +774,6 @@ if (is_ios || is_mac) {
       sources = [
         "objc/api/peerconnection/RTCEncodedImage+Private.h",
         "objc/api/peerconnection/RTCEncodedImage+Private.mm",
-        "objc/api/peerconnection/RTCRtpFragmentationHeader+Private.h",
-        "objc/api/peerconnection/RTCRtpFragmentationHeader+Private.mm",
         "objc/api/peerconnection/RTCVideoCodecInfo+Private.h",
         "objc/api/peerconnection/RTCVideoCodecInfo+Private.mm",
         "objc/api/peerconnection/RTCVideoEncoderSettings+Private.h",

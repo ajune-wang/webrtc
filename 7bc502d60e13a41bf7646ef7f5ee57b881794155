@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2239bf96_ffa42f36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-24T14:42:42Z",
+      "side": 1,
+      "message": "I count 3 new flags:\n\n- VideoCodec::legacy_screenshare_mode_\n- VideoBitrateAllocator::legacy_conference_mode_\n- SimulcastRateAllocator::conference_screenshare_mode:\n\nAre all these 3 names referring to the same concept of \"the legacy way of doing screenshare in conferences\"? If so, shouldn\u0027t they be called the same thing?\n\nAlso, I don\u0027t see any setting of these flags based on the x-google-flag:conference, but that might be some unchanged logic that I\u0027m not seeing.\n\nThe tests modified seem to set these flags explicitly; is there a test that checks that x-google-flag:conference turns on the new flags?\n",
+      "revId": "7bc502d60e13a41bf7646ef7f5ee57b881794155",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

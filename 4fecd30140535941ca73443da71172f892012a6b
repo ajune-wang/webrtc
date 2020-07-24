@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "871d864f_eade61db",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-24T16:12:11Z",
+      "side": 1,
+      "message": "The comments for these two methods are copied from audio/voip/audio_egress.h. Is this fine or should I rephrase it?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 70
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a8e631a_e0550080",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-24T16:12:11Z",
+      "side": 1,
+      "message": "Would it be preferred to use auto here?",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

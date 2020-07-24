@@ -13,6 +13,7 @@
 #include <assert.h>
 #include <algorithm>
 #include <cstdint>
+#include <numeric>
 
 #include "absl/strings/match.h"
 #include "api/array_view.h"
@@ -265,6 +266,12 @@ int32_t AudioCodingModuleImpl::Encode(
           input_data.audio,
           input_data.audio_channel * input_data.length_per_channel),
       &encode_buffer_);
+  auto input_view = rtc::ArrayView<const int16_t>(
+          input_data.audio,
+          input_data.audio_channel * input_data.length_per_channel);
+  const int64_t input_sum = std::accumulate(input_view.begin(), input_view.end(), int64_t(0));
+  const int64_t output_sum = std::accumulate(encode_buffer_.begin(), encode_buffer_.end(), int64_t(0));
+  printf("saza encoder: %d, input sum %ld, output sum %ld\n", encoded_info.encoder_type, input_sum, output_sum);
 
   bitrate_logger_.MaybeLog(encoder_stack_->GetTargetBitrate() / 1000);
   if (encode_buffer_.size() == 0 && !encoded_info.send_even_if_empty) {

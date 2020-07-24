@@ -82,13 +82,28 @@ bool CoDelSimulation::DropDequeuedPacket(Timestamp now,
 SimulatedNetwork::SimulatedNetwork(Config config, uint64_t random_seed)
     : random_(random_seed), bursting_(false) {
   SetConfig(config);
+  printf("saza SimulatedNetwork constructor\n");
 }
 
 SimulatedNetwork::~SimulatedNetwork() = default;
 
+void PrintConfig(const SimulatedNetwork::Config& config) {
+  printf("saza config: queue_length_packets %zu, queue_delay_ms %d, delay_stdev %d, link capacity %d kbps, loss percent %d, allow reordering %d, avg burst loss length %d, packet overhead %d, codel_active_queue_management %d\n",
+    config.queue_length_packets ,
+    config.queue_delay_ms ,
+    config.delay_standard_deviation_ms ,
+    config.link_capacity_kbps ,
+    config.loss_percent ,
+    int(config.allow_reordering ),
+    config.avg_burst_loss_length ,
+    config.packet_overhead ,
+    int(config.codel_active_queue_management));
+}
+
 void SimulatedNetwork::SetConfig(const Config& config) {
   MutexLock lock(&config_lock_);
   config_state_.config = config;  // Shallow copy of the struct.
+  PrintConfig(config);
   double prob_loss = config.loss_percent / 100.0;
   if (config_state_.config.avg_burst_loss_length == -1) {
     // Uniform loss
@@ -154,6 +169,7 @@ absl::optional<int64_t> SimulatedNetwork::NextDeliveryTimeUs() const {
 
 void SimulatedNetwork::UpdateCapacityQueue(ConfigState state,
                                            int64_t time_now_us) {
+  if (!base_time_) base_time_ = time_now_us;
   bool needs_sort = false;
 
   // Catch for thread races.
@@ -215,18 +231,22 @@ void SimulatedNetwork::UpdateCapacityQueue(ConfigState state,
     pending_drain_bits_ -= packet.packet.size * 8;
     RTC_DCHECK(pending_drain_bits_ >= 0);
 
+    printf("saza time: %ld\n", time_now_us-*base_time_);
     // Drop packets at an average rate of |state.config.loss_percent| with
     // and average loss burst length of |state.config.avg_burst_loss_length|.
     if ((bursting_ && random_.Rand<double>() < state.prob_loss_bursting) ||
         (!bursting_ && random_.Rand<double>() < state.prob_start_bursting)) {
       bursting_ = true;
       packet.arrival_time_us = PacketDeliveryInfo::kNotReceived;
+      printf("saza burst\n");
     } else {
       bursting_ = false;
+      printf("saza no burst\n");
       int64_t arrival_time_jitter_us = std::max(
           random_.Gaussian(state.config.queue_delay_ms * 1000,
                            state.config.delay_standard_deviation_ms * 1000),
           0.0);
+      printf("saza arrival jitter %ld\n", arrival_time_jitter_us);
 
       // If reordering is not allowed then adjust arrival_time_jitter
       // to make sure all packets are sent in order.
@@ -236,6 +256,7 @@ void SimulatedNetwork::UpdateCapacityQueue(ConfigState state,
           packet.arrival_time_us + arrival_time_jitter_us <
               last_arrival_time_us) {
         arrival_time_jitter_us = last_arrival_time_us - packet.arrival_time_us;
+      printf("saza out of order, fix\n");
       }
       packet.arrival_time_us += arrival_time_jitter_us;
       if (packet.arrival_time_us >= last_arrival_time_us) {

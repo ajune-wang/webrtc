@@ -14,6 +14,7 @@
 #include <string.h>
 
 #include <cstdint>
+#include <numeric>
 #include <vector>
 
 #include "absl/strings/match.h"
@@ -99,6 +100,8 @@ int AcmReceiver::last_output_sample_rate_hz() const {
 
 int AcmReceiver::InsertPacket(const RTPHeader& rtp_header,
                               rtc::ArrayView<const uint8_t> incoming_payload) {
+  const int64_t payload_sum = std::accumulate(incoming_payload.begin(), incoming_payload.end(), int64_t(0));
+  printf("saza acmreceiver: payload sum %ld\n", payload_sum);
   if (incoming_payload.empty()) {
     neteq_->InsertEmptyPacket(rtp_header);
     return 0;

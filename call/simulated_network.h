@@ -103,6 +103,7 @@ class SimulatedNetwork : public SimulatedNetworkInterface {
   rtc::RaceChecker process_checker_;
   CoDelSimulation codel_controller_ RTC_GUARDED_BY(process_checker_);
   std::queue<PacketInfo> capacity_link_ RTC_GUARDED_BY(process_checker_);
+  absl::optional<int64_t> base_time_ RTC_GUARDED_BY(process_checker_);
   Random random_;
 
   std::deque<PacketInfo> delay_link_ RTC_GUARDED_BY(process_checker_);

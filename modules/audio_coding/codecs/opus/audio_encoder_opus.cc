@@ -269,6 +269,7 @@ absl::optional<AudioEncoderOpusConfig> AudioEncoderOpusImpl::SdpToConfig(
   FindSupportedFrameLengths(min_frame_length_ms, max_frame_length_ms,
                             &config.supported_frame_lengths_ms);
   RTC_DCHECK(config.IsOk());
+  printf("opus ok: %d\n", int(config.IsOk()));
   return config;
 }
 
@@ -370,6 +371,7 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(
       bitrate_smoother_(std::move(bitrate_smoother)),
       consecutive_dtx_frames_(0) {
   RTC_DCHECK(0 <= payload_type && payload_type <= 127);
+  printf("opus encoder created\n");
 
   // Sanity check of the redundant payload type field that we want to get rid
   // of. See https://bugs.chromium.org/p/webrtc/issues/detail?id=7847

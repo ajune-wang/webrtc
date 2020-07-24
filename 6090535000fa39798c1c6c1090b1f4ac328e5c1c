@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68724d0e_e13d23b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-24T22:21:21Z",
+      "side": 1,
+      "message": "PTAL, sakal for android and hta for everything else.",
+      "revId": "6090535000fa39798c1c6c1090b1f4ac328e5c1c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

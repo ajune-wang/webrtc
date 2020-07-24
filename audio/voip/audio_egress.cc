@@ -56,8 +56,16 @@ void AudioEgress::SetEncoder(int payload_type,
   audio_coding_->SetEncoder(std::move(encoder));
 }
 
-void AudioEgress::StartSend() {
+bool AudioEgress::StartSend() {
+  {
+    MutexLock lock(&lock_);
+    if (!encoder_format_) {
+      RTC_DLOG(LS_WARNING) << "Send codec has not been set yet";
+      return false;
+    }
+  }
   rtp_rtcp_->SetSendingMediaStatus(true);
+  return true;
 }
 
 void AudioEgress::StopSend() {

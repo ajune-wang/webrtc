@@ -242,7 +242,9 @@ bool VoipCore::StartSend(ChannelId channel) {
     return false;
   }
 
-  audio_channel->StartSend();
+  if (!audio_channel->StartSend()) {
+    return false;
+  }
 
   return UpdateAudioTransportWithSenders();
 }
@@ -264,7 +266,9 @@ bool VoipCore::StartPlayout(ChannelId channel) {
     return false;
   }
 
-  audio_channel->StartPlay();
+  if (!audio_channel->StartPlay()) {
+    return false;
+  }
 
   if (!audio_device_module_->Playing()) {
     if (audio_device_module_->InitPlayout() != 0) {

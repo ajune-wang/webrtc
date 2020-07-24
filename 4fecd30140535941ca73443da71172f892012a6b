@@ -2,6 +2,69 @@
   "comments": [
     {
       "key": {
+        "uuid": "759b3f99_609e1739",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-24T23:12:14Z",
+      "side": 1,
+      "message": "Thanks for the change. PTAL!",
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cbef3d5_f186110b",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-24T23:12:14Z",
+      "side": 1,
+      "message": "I think defining it in webrtc namespace directly may be cleaner (as specifying it from application can be long \"webrtc::VoipDtmf::Event::kDigitZero\") since there will be no name that start with Dtmf within webrtc namespace.\n\nnamespace webrtc {\n\nenum class DtmfEvent {\n  kDigitZero \u003d 0,\n  kDigitOne,\n  ...\n};",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 4
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4d3ade0_ab4fb93b",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-24T23:12:14Z",
+      "side": 1,
+      "message": "Ok, going over the RFC4733, I think we should change the method name to \u0027RegisterTelephoneEventType\u0027 as in AudioEgress since that is what name of the type.",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "871d864f_eade61db",
         "filename": "api/voip/voip_dtmf.h",
         "patchSetId": 1
@@ -25,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "203b9cd7_949ff370",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-24T23:12:14Z",
+      "side": 1,
+      "message": "This seems fine.",
+      "parentUuid": "871d864f_eade61db",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 70
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a8e631a_e0550080",
         "filename": "audio/voip/test/voip_core_unittest.cc",
         "patchSetId": 1
@@ -36,6 +123,30 @@
       "writtenOn": "2020-07-24T16:12:11Z",
       "side": 1,
       "message": "Would it be preferred to use auto here?",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c59e6a5d_1d17f065",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-24T23:12:14Z",
+      "side": 1,
+      "message": "I think auto is fine as the type is clear from assignment.",
+      "parentUuid": "6a8e631a_e0550080",
       "range": {
         "startLine": 29,
         "startChar": 10,

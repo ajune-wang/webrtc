@@ -470,8 +470,11 @@ Network* NetworkManagerBase::GetNetworkFromAddress(
   return nullptr;
 }
 
-BasicNetworkManager::BasicNetworkManager()
-    : thread_(nullptr), sent_first_update_(false), start_count_(0) {}
+BasicNetworkManager::BasicNetworkManager() {}
+
+BasicNetworkManager::BasicNetworkManager(
+    NetworkMonitorFactory* network_monitor_factory)
+    : network_monitor_factory_(network_monitor_factory) {}
 
 BasicNetworkManager::~BasicNetworkManager() {}
 
@@ -826,12 +829,11 @@ void BasicNetworkManager::StopUpdating() {
 }
 
 void BasicNetworkManager::StartNetworkMonitor() {
-  NetworkMonitorFactory* factory = NetworkMonitorFactory::GetFactory();
-  if (factory == nullptr) {
+  if (network_monitor_factory_ == nullptr) {
     return;
   }
   if (!network_monitor_) {
-    network_monitor_.reset(factory->CreateNetworkMonitor());
+    network_monitor_.reset(network_monitor_factory_->CreateNetworkMonitor());
     if (!network_monitor_) {
       return;
     }

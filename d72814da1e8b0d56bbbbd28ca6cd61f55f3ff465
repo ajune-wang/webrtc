@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5401d030_3b185e39",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-25T19:41:28Z",
+      "side": 1,
+      "message": "We\u0027d like to get rid of slots actually, so I\u0027d prefer not to add it as a dependency where it previously wasn\u0027t and in particular avoid using it as part of a class\u0027 public interface (since that propagates the dependency).",
+      "parentUuid": "15ebd0ad_0d28d97e",
+      "revId": "d72814da1e8b0d56bbbbd28ca6cd61f55f3ff465",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9d6594e3_70d7af5d",
         "filename": "pc/data_channel_controller.h",
         "patchSetId": 2

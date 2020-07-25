@@ -53,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "a8ee1b72_a71bc8ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-25T19:41:28Z",
+      "side": 1,
+      "message": "-1 for now since we need to discuss this and we can\u0027t change the semantics of how close() works at the api level.",
+      "revId": "a76b3f4bf44d73422388791dbdb2277d35cc5e00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a2855b11_ced6d955",
         "filename": "pc/sctp_data_channel.cc",
         "patchSetId": 4

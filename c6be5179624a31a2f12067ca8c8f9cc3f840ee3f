@@ -16,6 +16,57 @@
       "revId": "c6be5179624a31a2f12067ca8c8f9cc3f840ee3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b711daa_7a986ee7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T11:35:53Z",
+      "side": 1,
+      "message": "Nits only.",
+      "revId": "c6be5179624a31a2f12067ca8c8f9cc3f840ee3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a057aaa6_80d6794c",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3019,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T11:35:53Z",
+      "side": 1,
+      "message": "RFC 4566 doesn\u0027t say what the ABNF syntax for bandwidth is, unfortunately, but I suspect that - was not intended to be allowed. The message is good.",
+      "revId": "c6be5179624a31a2f12067ca8c8f9cc3f840ee3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18f49f8f_dff29ef4",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3030,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T11:35:53Z",
+      "side": 1,
+      "message": "Since what is not generated for what? Comment could be clearer.\n(and we need to deal with incoming TIAS even if we don\u0027t generate it)",
+      "revId": "c6be5179624a31a2f12067ca8c8f9cc3f840ee3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

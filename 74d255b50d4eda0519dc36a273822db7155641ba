@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "772b36cd_3e2eaa60",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-27T22:41:13Z",
+      "side": 1,
+      "message": "Please add a RTC_DLOG(LS_WARNING)  here.",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 17
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1898b6b_1a022d11",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-27T22:41:13Z",
+      "side": 1,
+      "message": "Is it intended that not return false here?",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 73
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91e5392c_b9969843",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-27T22:41:13Z",
+      "side": 1,
+      "message": "Same here, do we still return true if the check fails?",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 119,
+        "endChar": 73
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

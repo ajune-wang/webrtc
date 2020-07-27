@@ -16,6 +16,46 @@
       "revId": "dcba84e9d09e82d816481113ce51fc8113c01743",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41b3a104_220aeec5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-07-27T11:24:57Z",
+      "side": 1,
+      "message": "This looks reasonable to me. We might want to consider failing creating buffers with zero width or height, to avoid this situation happening at all, but for now I think this is fine.",
+      "revId": "dcba84e9d09e82d816481113ce51fc8113c01743",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e67aa474_4dc64b16",
+        "filename": "api/video/i420_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-07-27T11:24:57Z",
+      "side": 1,
+      "message": "I would be explicit here, and below: (height() \u003e 0)",
+      "range": {
+        "startLine": 218,
+        "startChar": 6,
+        "endLine": 218,
+        "endChar": 14
+      },
+      "revId": "dcba84e9d09e82d816481113ce51fc8113c01743",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

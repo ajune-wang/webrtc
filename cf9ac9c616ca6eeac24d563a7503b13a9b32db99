@@ -16,6 +16,24 @@
       "revId": "cf9ac9c616ca6eeac24d563a7503b13a9b32db99",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38b8d247_200de0e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-07-27T11:39:09Z",
+      "side": 1,
+      "message": "I haven\u0027t worked on this since last discussion, because I was sure it was not going to be merged due to controversial approach to solve a problem.\nAnyway I\u0027ve rebased and fixed merge conflicts, so not the changes should be up to date with master.",
+      "parentUuid": "319d74d6_cd89932f",
+      "revId": "cf9ac9c616ca6eeac24d563a7503b13a9b32db99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

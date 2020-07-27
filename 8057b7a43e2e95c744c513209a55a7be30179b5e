@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c45932d5_3340e2fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2020-07-27T11:39:09Z",
+      "side": 1,
+      "message": "Hello Harald,\n\nThanks for having look at this CL again! I\u0027ve rebased it.\n\nYura.",
+      "revId": "8057b7a43e2e95c744c513209a55a7be30179b5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "2943f769_f7c44d25",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T20:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4abbce0e_3a599726",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cfa5c029_aefe31cc",
         "filename": "api/voip/voip_base.h",
         "patchSetId": 2
@@ -79,6 +103,30 @@
       "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b31f5da_53e4cbd4",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T20:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfa5c029_aefe31cc",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +153,30 @@
     },
     {
       "key": {
+        "uuid": "3a9f2ed7_9f22b2d0",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T20:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35a9d3fc_253c3c77",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 3
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3d60b53_4bdafcf5",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 2
@@ -116,6 +188,30 @@
       "writtenOn": "2020-07-27T09:40:54Z",
       "side": 1,
       "message": "Even though this error occurs, the method will return true. Is that the right choice here? (I would have expected it to return false)",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 73
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "933f2b56_01b21203",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T20:58:30Z",
+      "side": 1,
+      "message": "By doing it this way, it would match the previous behavior. Previously, since method has a return type void, the error was not reported back to caller. If that wasn\u0027t the intended behavior to begin with, we can definitely change this.",
+      "parentUuid": "c3d60b53_4bdafcf5",
       "range": {
         "startLine": 92,
         "startChar": 4,
@@ -151,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "ea98670a_f649660c",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T20:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64c7ed04_f9e36003",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 17
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e3ffc4b_45accdb8",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 2
@@ -162,6 +282,30 @@
       "writtenOn": "2020-07-27T09:40:54Z",
       "side": 1,
       "message": "As above, should the method return true here?",
+      "range": {
+        "startLine": 117,
+        "startChar": 3,
+        "endLine": 117,
+        "endChar": 73
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "316d42f1_5347dea3",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T20:58:30Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "7e3ffc4b_45accdb8",
       "range": {
         "startLine": 117,
         "startChar": 3,
@@ -194,6 +338,30 @@
       "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc0b3bdd_e0b4310b",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T20:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b180e99_82a2c642",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 19
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -241,6 +409,30 @@
       "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d7cb2d1_9a3545f8",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T20:58:30Z",
+      "side": 1,
+      "message": "Good idea.",
+      "parentUuid": "328969f6_00f8ff4e",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 3
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

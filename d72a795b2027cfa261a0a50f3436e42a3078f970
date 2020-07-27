@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3e3fa3f_9346947e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-27T22:56:50Z",
+      "side": 1,
+      "message": "nisse, can you take a look at media/base if you\u0027re back?",
+      "revId": "d72a795b2027cfa261a0a50f3436e42a3078f970",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

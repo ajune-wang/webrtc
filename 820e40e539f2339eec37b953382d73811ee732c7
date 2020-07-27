@@ -335,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "769acf27_b5772d5c",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-07-27T08:58:07Z",
+      "side": 1,
+      "message": "After the extension is encrypted, it can\u0027t be updated. AbsSendTime is example of one which is modified at the point after the encryption is applied. Most of the extensions are written at the packetisation phase, before the encryption, and are never modified. There\u0027re few which are modified by the pacer, but it happens before the encryption.\n\nI agree that having a block-list of non-encryptable extensions would be a better approach.",
+      "parentUuid": "3c68d5c5_f4ce3282",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88fb6fa5_75af74f5",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 2

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7bb73e8_1ad78ca6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-07-27T13:53:38Z",
+      "side": 1,
+      "message": "Thanks for the review!\n\nNote that this CL will change which block is referenced by buffer log messages like \"Render buffer underrun detected at block XY.\" This is an improvement, because the render delay buffer will now refer to the same capture blocks as the block processor.\n\n(There is an identical issue in the render delay controller, unaddressed by this CL. Although that call counter variable is entirely unused.)",
+      "revId": "f10d13ebdef6cbf06e11c6481d5310ea38903cfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

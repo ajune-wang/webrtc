@@ -15,6 +15,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/array_view.h"
 #include "api/test/network_emulation/network_emulation_interfaces.h"
 #include "api/test/simulated_network.h"
 #include "api/test/time_controller.h"
@@ -67,6 +68,7 @@ class EmulatedNetworkManagerInterface {
 
   virtual rtc::Thread* network_thread() = 0;
   virtual rtc::NetworkManager* network_manager() = 0;
+  virtual std::vector<EmulatedEndpoint*> endpoints() const = 0;
 
   // Returns summarized network stats for endpoints for this manager.
   virtual void GetStats(
@@ -182,6 +184,12 @@ class NetworkEmulationManager {
   virtual EmulatedNetworkManagerInterface*
   CreateEmulatedNetworkManagerInterface(
       const std::vector<EmulatedEndpoint*>& endpoints) = 0;
+
+  // Returns summarized network stats for specified |endpoints|.
+  virtual void GetStats(
+      rtc::ArrayView<EmulatedEndpoint*> endpoints,
+      std::function<void(std::unique_ptr<EmulatedNetworkStats>)>
+          stats_callback) = 0;
 };
 
 }  // namespace webrtc

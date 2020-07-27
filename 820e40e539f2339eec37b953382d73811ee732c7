@@ -175,6 +175,42 @@
     },
     {
       "key": {
+        "uuid": "ad6edd52_78061611",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-27T08:41:58Z",
+      "side": 1,
+      "message": "There\u0027s no 1:1 relationship here. Rather, the amount of extensions libwebrtc uses by default multiplied by two due to each of them now having an encrypted variant runs into issues when not using a\u003dextmap-allow-mixed.",
+      "parentUuid": "2ce1f567_1e63e86f",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "123c0cf3_5ad01847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-27T08:41:58Z",
+      "side": 1,
+      "message": "Mh, where? Cant\u0027 find it.",
+      "parentUuid": "bc0b1bc4_c08e1ec2",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbc8c495_948d7fbb",
         "filename": "api/rtp_parameters.cc",
         "patchSetId": 2
@@ -281,6 +317,24 @@
     },
     {
       "key": {
+        "uuid": "a948ab6d_61f2e636",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-27T08:41:58Z",
+      "side": 1,
+      "message": "It is used when RTP header extension encryption is not activated (`enable_encrypted_rtp_header_extensions \u003d false`) which is the default atm. I\u0027m happy if we can invert that behaviour but I assume the option to turn it off should still exist?",
+      "parentUuid": "88fb6fa5_75af74f5",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6774ad40_9622a35f",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 2
@@ -315,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "d2ea7309_21619d0e",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-27T08:41:58Z",
+      "side": 1,
+      "message": "Interesting. There\u0027s no API for that right now but exposing this policy instead of the boolean `enable_encrypted_rtp_header_extensions` would allow for it. I agree this seems like a good addition. Not entirely sure it should be added in this CL though.",
+      "parentUuid": "9908514f_a237942c",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb724e9b_69e2c62e",
         "filename": "api/rtp_parameters_unittest.cc",
         "patchSetId": 2
@@ -343,6 +415,30 @@
       "writtenOn": "2020-07-24T20:46:57Z",
       "side": 1,
       "message": "explain why URIs are not guaranteed to be unique",
+      "range": {
+        "startLine": 138,
+        "startChar": 17,
+        "endLine": 138,
+        "endChar": 23
+      },
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a15d0e4_9201f368",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-27T08:41:58Z",
+      "side": 1,
+      "message": "In the comment you mean? The answer is: The same URI can appear twice, one of it encrypted and one of it non-encrypted.",
+      "parentUuid": "89eb75f3_3aafaca9",
       "range": {
         "startLine": 138,
         "startChar": 17,

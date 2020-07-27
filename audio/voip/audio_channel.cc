@@ -82,13 +82,17 @@ AudioChannel::~AudioChannel() {
   process_thread_->DeRegisterModule(rtp_rtcp_.get());
 }
 
-void AudioChannel::StartSend() {
-  egress_->StartSend();
+bool AudioChannel::StartSend() {
+  // If encoder has not been set, return false.
+  if (!egress_->StartSend()) {
+    return false;
+  }
 
   // Start sending with RTP stack if it has not been sending yet.
   if (!rtp_rtcp_->Sending() && rtp_rtcp_->SetSendingStatus(true) != 0) {
     RTC_DLOG(LS_ERROR) << "StartSend() RTP/RTCP failed to start sending";
   }
+  return true;
 }
 
 void AudioChannel::StopSend() {
@@ -103,14 +107,18 @@ void AudioChannel::StopSend() {
   }
 }
 
-void AudioChannel::StartPlay() {
-  ingress_->StartPlay();
+bool AudioChannel::StartPlay() {
+  // If decoders have not been set, return false.
+  if (!ingress_->StartPlay()) {
+    return false;
+  }
 
   // If RTP stack is not sending then start sending as in recv-only mode, RTCP
   // receiver report is expected.
   if (!rtp_rtcp_->Sending() && rtp_rtcp_->SetSendingStatus(true) != 0) {
     RTC_DLOG(LS_ERROR) << "StartPlay() RTP/RTCP failed to start sending";
   }
+  return true;
 }
 
 void AudioChannel::StopPlay() {

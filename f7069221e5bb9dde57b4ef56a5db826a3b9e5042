@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c9df103_f0d750a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T13:29:13Z",
+      "side": 1,
+      "message": "Seems reasonable, but every time I see a new variable added without RTC_GUARDED_BY, I get nervous.\n",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9dd771cf_970d79a7",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T13:29:13Z",
+      "side": 1,
+      "message": "What are the threading assumptions for this variable? Can we document them using RTC_GUARDED_BY?",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4d19aa8_f402e950",
+        "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T13:29:13Z",
+      "side": 1,
+      "message": "Can you rephrase the comment? I can\u0027t parse it.\n\"If options-\u003edisable_network_monitor is set to true, don\u0027t make a network_monitor_factory\" should do it, if i read the code right. But the code already shows that, so perhaps the comment isn\u0027t needed?",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

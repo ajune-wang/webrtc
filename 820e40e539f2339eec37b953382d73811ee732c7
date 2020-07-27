@@ -282,6 +282,24 @@
     },
     {
       "key": {
+        "uuid": "1780cea6_35c130a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-27T16:45:15Z",
+      "side": 1,
+      "message": "Right, but given the number of supported extensions, doesn\u0027t that happen on every session with a m\u003dvideo section?",
+      "parentUuid": "ad6edd52_78061611",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbc8c495_948d7fbb",
         "filename": "api/rtp_parameters.cc",
         "patchSetId": 2
@@ -389,6 +407,24 @@
     },
     {
       "key": {
+        "uuid": "8b4dbb67_a7e6c604",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-27T16:45:15Z",
+      "side": 1,
+      "message": "right, but even if it\u0027s not encrypted, it can\u0027t be updated without breaking SRTP authentication. So we must have some mechanism to solve that, which could also be used to fix the authentication.\n\nBut do we still use abs-send-time?",
+      "parentUuid": "769acf27_b5772d5c",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "88fb6fa5_75af74f5",
         "filename": "api/rtp_parameters.h",
         "patchSetId": 2
@@ -421,6 +457,24 @@
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57beb3cf_4eb4977f",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-27T16:45:15Z",
+      "side": 1,
+      "message": "Right, I now see this is an internal detail, seems fine.",
+      "parentUuid": "a948ab6d_61f2e636",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -470,6 +524,24 @@
       "side": 1,
       "message": "Interesting. There\u0027s no API for that right now but exposing this policy instead of the boolean `enable_encrypted_rtp_header_extensions` would allow for it. I agree this seems like a good addition. Not entirely sure it should be added in this CL though.",
       "parentUuid": "9908514f_a237942c",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3dd946a_56354a27",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-27T16:45:15Z",
+      "side": 1,
+      "message": "I can see us wanting a tri-state, e.g., disable, negotiate, require. Adding the \u0027require\u0027 filtering seems like a small change that might fit well in this CL.",
+      "parentUuid": "d2ea7309_21619d0e",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -528,6 +600,30 @@
       "side": 1,
       "message": "In the comment you mean? The answer is: The same URI can appear twice, one of it encrypted and one of it non-encrypted.",
       "parentUuid": "89eb75f3_3aafaca9",
+      "range": {
+        "startLine": 138,
+        "startChar": 17,
+        "endLine": 138,
+        "endChar": 23
+      },
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96fd634b_f3d2eb20",
+        "filename": "pc/session_description.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-27T16:45:15Z",
+      "side": 1,
+      "message": "right, I was just looking for this sort of clarification in the comment.",
+      "parentUuid": "7a15d0e4_9201f368",
       "range": {
         "startLine": 138,
         "startChar": 17,

@@ -33,6 +33,24 @@
       "revId": "ae2484962247ef16d0941399346d14d75e964b77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd3eac74_36acce6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-27T11:45:56Z",
+      "side": 1,
+      "message": "we have several has_something which made me look... but when dealing with mixed styles it is often best to stick the head in the sand :-)",
+      "parentUuid": "9d7bb379_a69ce3fe",
+      "revId": "ae2484962247ef16d0941399346d14d75e964b77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -19,6 +19,184 @@
     },
     {
       "key": {
+        "uuid": "a2dcfd1f_5f8cd024",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "Thanks for the CL!",
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4abbce0e_3a599726",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "Could this be changed to just stating that it returns falls if the sending did not start?",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 42
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfa5c029_aefe31cc",
+        "filename": "api/voip/voip_base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "Could this be changed to just stating that it returns falls if the playout did not start?",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35a9d3fc_253c3c77",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "Please add a comment explaining why false is returned here.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 3
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3d60b53_4bdafcf5",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "Even though this error occurs, the method will return true. Is that the right choice here? (I would have expected it to return false)",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 73
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64c7ed04_f9e36003",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "Please add a comment explaining why false is returned here.",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 17
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e3ffc4b_45accdb8",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "As above, should the method return true here?",
+      "range": {
+        "startLine": 117,
+        "startChar": 3,
+        "endLine": 117,
+        "endChar": 73
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b180e99_82a2c642",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "Please add comments that explain the boolean return values and for what conditions they are returned.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 19
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d33af510_99595d3a",
         "filename": "audio/voip/audio_egress.cc",
         "patchSetId": 2
@@ -30,6 +208,30 @@
       "writtenOn": "2020-07-24T23:19:51Z",
       "side": 1,
       "message": "You can use GetEncoderFormat to avoid use the lock here and it\u0027s shorter.\n\nif (!GetEncoderFormat()) {\n  RTC_DLOG(..)\n  return false;\n}",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 3
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328969f6_00f8ff4e",
+        "filename": "audio/voip/audio_egress.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T09:40:54Z",
+      "side": 1,
+      "message": "+1\nTims approach is safer since that reduces the number of places where the lock is acquired.",
+      "parentUuid": "d33af510_99595d3a",
       "range": {
         "startLine": 60,
         "startChar": 2,

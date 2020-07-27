@@ -52,6 +52,24 @@
       "revId": "c28803b6f02298deea7eb410e53c4fd50e28e1d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54c87cbc_a7ae6149",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-07-27T11:46:29Z",
+      "side": 1,
+      "message": "Yes. We had a long discussion and we sent a proposal where we disabled the Chrome preview dialog. This was no go for two reasons:\n1) They want to keep consistency between all the operating systems\n2) There was no easy integration of tab sharing",
+      "parentUuid": "7d2ee6a2_f224bbac",
+      "revId": "c28803b6f02298deea7eb410e53c4fd50e28e1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

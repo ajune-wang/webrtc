@@ -335,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "35bb3f83_58080d3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-27T17:46:28Z",
+      "side": 1,
+      "message": "Understood. I think the patch as it relates to header encryption seems good, we just need to agree on an answer for how we are going to handle SDP negotiation. If you want to land this as off-by-default, and fail hard if there are too many extensions, with some future TBD negotiation mechanism (either allow-mixed, or allow-encrypted) to turn this on in Chrome, I am OK with that.\n\nFor the future, since some new mechanism beyond 6904 will be needed to get to the desired end-state, I still think that we should take the opportunity to pick a mechanism that ensures we can deploy encryption as easily and broadly as possible.",
+      "parentUuid": "5852d42b_9bcd6aac",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbc8c495_948d7fbb",
         "filename": "api/rtp_parameters.cc",
         "patchSetId": 2

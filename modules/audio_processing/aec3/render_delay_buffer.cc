@@ -51,6 +51,7 @@ class RenderDelayBufferImpl final : public RenderDelayBuffer {
   BufferingEvent Insert(
       const std::vector<std::vector<std::vector<float>>>& block) override;
   BufferingEvent PrepareCaptureProcessing() override;
+  void OnSkippedCaptureProcessing() override;
   bool AlignFromDelay(size_t delay) override;
   void AlignFromExternalDelay() override;
   size_t Delay() const override { return ComputeDelay(); }
@@ -241,6 +242,10 @@ RenderDelayBuffer::BufferingEvent RenderDelayBufferImpl::Insert(
   }
 
   return event;
+}
+
+void RenderDelayBufferImpl::OnSkippedCaptureProcessing() {
+  ++capture_call_counter_;
 }
 
 // Prepares the render buffers for processing another capture block.

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "319d74d6_cd89932f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T09:51:13Z",
+      "side": 1,
+      "message": "Post-vacation catchup: Is this still active? (needs rebase)\n\nI\u0027d like to have a test at the Javascript level that provokes the issue, so that I know that the change fixes it.\n\n",
+      "revId": "cf9ac9c616ca6eeac24d563a7503b13a9b32db99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

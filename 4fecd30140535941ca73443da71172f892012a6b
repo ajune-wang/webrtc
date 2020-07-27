@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "5b2d8faa_d5ba757c",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T22:41:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cbef3d5_f186110b",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 4
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4d3ade0_ab4fb93b",
         "filename": "api/voip/voip_dtmf.h",
         "patchSetId": 1
@@ -79,6 +103,30 @@
       "revId": "4fecd30140535941ca73443da71172f892012a6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "268b4d92_6ce757c8",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T22:41:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4d3ade0_ab4fb93b",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -176,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "78a74ffd_69e3f58c",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T22:41:19Z",
+      "side": 1,
+      "message": "Since the Enum class is in the webrtc namespace now, the type name is short enough so I\u0027ll just use the explicit type name.",
+      "parentUuid": "c59e6a5d_1d17f065",
+      "range": {
+        "startLine": 29,
+        "startChar": 10,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16d45a1c_7a9cccea",
         "filename": "audio/voip/voip_core.cc",
         "patchSetId": 1
@@ -187,6 +259,30 @@
       "writtenOn": "2020-07-27T10:05:04Z",
       "side": 1,
       "message": "I would avoid using an auto here since the type returned by GetChannel is not obvious to a reader new to the code.",
+      "range": {
+        "startLine": 351,
+        "startChar": 6,
+        "endLine": 351,
+        "endChar": 10
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e63b4105_bdfa2915",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T22:41:19Z",
+      "side": 1,
+      "message": "Sure, I will make type name explicit. Also I will shorten the name by calling the Channel \"channel\" and the ChannelId \"channel_id\" throughout the file.",
+      "parentUuid": "16d45a1c_7a9cccea",
       "range": {
         "startLine": 351,
         "startChar": 6,
@@ -219,6 +315,30 @@
       "revId": "4fecd30140535941ca73443da71172f892012a6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c871ae7e_83720636",
+        "filename": "audio/voip/voip_core.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-27T22:41:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec04c63f_87ded2ff",
+      "range": {
+        "startLine": 360,
+        "startChar": 6,
+        "endLine": 360,
+        "endChar": 10
+      },
+      "revId": "4fecd30140535941ca73443da71172f892012a6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -300,6 +300,41 @@
     },
     {
       "key": {
+        "uuid": "ab2ea0b8_cd546c97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-27T17:31:42Z",
+      "side": 1,
+      "message": "Yes, at least with default settings.",
+      "parentUuid": "1780cea6_35c130a8",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5852d42b_9bcd6aac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-27T17:31:42Z",
+      "side": 1,
+      "message": "Before I continue investing time into resolving the remaining code-related issues, I\u0027d like to know where we stand on merge vs. no merge, considering the discussion that came up around RFC 6904 and its use in this stack.",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbc8c495_948d7fbb",
         "filename": "api/rtp_parameters.cc",
         "patchSetId": 2
@@ -542,6 +577,24 @@
       "side": 1,
       "message": "I can see us wanting a tri-state, e.g., disable, negotiate, require. Adding the \u0027require\u0027 filtering seems like a small change that might fit well in this CL.",
       "parentUuid": "d2ea7309_21619d0e",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80a728d4_8b6ab83d",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-27T17:31:42Z",
+      "side": 1,
+      "message": "Fair enough.",
+      "parentUuid": "d3dd946a_56354a27",
       "revId": "820e40e539f2339eec37b953382d73811ee732c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

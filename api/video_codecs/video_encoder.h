@@ -30,7 +30,6 @@
 
 namespace webrtc {
 
-class RTPFragmentationHeader;
 // TODO(pbos): Expose these through a public (root) header or change these APIs.
 struct CodecSpecificInfo;
 
@@ -75,8 +74,7 @@ class EncodedImageCallback {
   // Callback function which is called when an image has been encoded.
   virtual Result OnEncodedImage(
       const EncodedImage& encoded_image,
-      const CodecSpecificInfo* codec_specific_info,
-      const RTPFragmentationHeader* fragmentation) = 0;
+      const CodecSpecificInfo* codec_specific_info) = 0;
 
   virtual void OnDroppedFrame(DropReason reason) {}
 };

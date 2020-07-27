@@ -134,8 +134,7 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   // Returns 0 if the packet was routed / sent, -1 otherwise.
   EncodedImageCallback::Result OnEncodedImage(
       const EncodedImage& encoded_image,
-      const CodecSpecificInfo* codec_specific_info,
-      const RTPFragmentationHeader* fragmentation)
+      const CodecSpecificInfo* codec_specific_info)
       RTC_LOCKS_EXCLUDED(mutex_) override;
 
   void OnBitrateAllocationUpdated(const VideoBitrateAllocation& bitrate)

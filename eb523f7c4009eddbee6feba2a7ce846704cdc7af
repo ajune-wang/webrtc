@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "cce786f0_6462e6bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-27T13:55:32Z",
+      "side": 1,
+      "message": "I know what you expect :-)\nWasn\u0027t ready for passing the tests.",
+      "parentUuid": "35a7d64f_4ef8dce6",
+      "revId": "eb523f7c4009eddbee6feba2a7ce846704cdc7af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fa7a62b_dfbb13d3",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2020-07-27T10:04:44Z",
       "side": 1,
       "message": "Is there a difference in behavior for SDP with and without mid?",
+      "revId": "eb523f7c4009eddbee6feba2a7ce846704cdc7af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45a6bc4d_7ddb2de6",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4679,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-27T13:55:32Z",
+      "side": 1,
+      "message": "How did you come up with this interesting question?\nThe serialized sdp shows a\u003dmid:\\r\\n when there is no a\u003dmid line.\n\nHowever, it does the same for m\u003daudio and in Chrome that correctly shows the mLineIndex so I assume that backfill happens in some other place.",
+      "parentUuid": "7fa7a62b_dfbb13d3",
       "revId": "eb523f7c4009eddbee6feba2a7ce846704cdc7af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

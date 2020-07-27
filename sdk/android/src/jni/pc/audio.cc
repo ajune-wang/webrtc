@@ -17,14 +17,6 @@
 namespace webrtc {
 namespace jni {
 
-rtc::scoped_refptr<AudioDecoderFactory> CreateAudioDecoderFactory() {
-  return CreateBuiltinAudioDecoderFactory();
-}
-
-rtc::scoped_refptr<AudioEncoderFactory> CreateAudioEncoderFactory() {
-  return CreateBuiltinAudioEncoderFactory();
-}
-
 rtc::scoped_refptr<AudioProcessing> CreateAudioProcessing() {
   return AudioProcessingBuilder().Create();
 }

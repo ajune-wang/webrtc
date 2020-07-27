@@ -21,10 +21,6 @@
 namespace webrtc {
 namespace jni {
 
-rtc::scoped_refptr<AudioDecoderFactory> CreateAudioDecoderFactory();
-
-rtc::scoped_refptr<AudioEncoderFactory> CreateAudioEncoderFactory();
-
 rtc::scoped_refptr<AudioProcessing> CreateAudioProcessing();
 
 }  // namespace jni

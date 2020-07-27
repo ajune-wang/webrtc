@@ -56,6 +56,30 @@
       "revId": "dcba84e9d09e82d816481113ce51fc8113c01743",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bef889e_0283c846",
+        "filename": "api/video/i420_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6434
+      },
+      "writtenOn": "2020-07-27T13:36:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e67aa474_4dc64b16",
+      "range": {
+        "startLine": 218,
+        "startChar": 6,
+        "endLine": 218,
+        "endChar": 14
+      },
+      "revId": "dcba84e9d09e82d816481113ce51fc8113c01743",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

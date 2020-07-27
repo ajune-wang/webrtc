@@ -67,6 +67,24 @@
       "revId": "c6be5179624a31a2f12067ca8c8f9cc3f840ee3f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59bfe42e_4539915b",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3030,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-07-27T11:44:22Z",
+      "side": 1,
+      "message": "the legacy rtp data channel does set b\u003dAS:30 since it doesn\u0027t have flow control. So a nasty person *might* try to disable flow control using TIAS but that won\u0027t work either :-)",
+      "parentUuid": "18f49f8f_dff29ef4",
+      "revId": "c6be5179624a31a2f12067ca8c8f9cc3f840ee3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

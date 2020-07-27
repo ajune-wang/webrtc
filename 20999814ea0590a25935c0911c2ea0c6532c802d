@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b48dba60_70a34828",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T09:43:06Z",
+      "side": 1,
+      "message": "This is really just affecting a test harness.\nWe should have a REALLY OBNOXIOUS comment in the code saying that this is standards-breaking behavior and that we\u0027re only testing it because there\u0027s historical usage that depends on this working. Once the comment is added, I think this change makes the code more readable, which is good for a test harness.\n",
+      "revId": "20999814ea0590a25935c0911c2ea0c6532c802d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e897fde_9d9dfc85",
         "filename": "test/peer_scenario/peer_scenario_client.h",
         "patchSetId": 3

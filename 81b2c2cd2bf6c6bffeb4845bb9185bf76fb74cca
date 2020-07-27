@@ -33,6 +33,74 @@
       "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42c8a948_c49d86e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T11:01:01Z",
+      "side": 1,
+      "message": "Needs rebase. Also some nits.\n",
+      "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb29437b_b360f5c1",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3002,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T11:01:01Z",
+      "side": 1,
+      "message": "Add a comment saying \"Ignore unknown bandwidth types\" here.",
+      "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af13330e_294f1951",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2635,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T11:01:01Z",
+      "side": 1,
+      "message": "Should be UnknownBandwidthModifier to match the production name in SDP ABNF.",
+      "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4107ac_94e59b69",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3377,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T11:01:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure what tokenize_first does; will it throw on this one because it doesn\u0027t have two fields?\nWill it also barf on b\u003dAS:12:34 (3 fields)?",
+      "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

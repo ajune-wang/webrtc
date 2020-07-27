@@ -221,6 +221,7 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
                                        public sigslot::has_slots<> {
  public:
   BasicNetworkManager();
+  explicit BasicNetworkManager(NetworkMonitorFactory* network_monitor_factory);
   ~BasicNetworkManager() override;
 
   void StartUpdating() override;
@@ -274,10 +275,11 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
   // Only updates the networks; does not reschedule the next update.
   void UpdateNetworksOnce();
 
-  Thread* thread_;
-  bool sent_first_update_;
-  int start_count_;
+  Thread* thread_ = nullptr;
+  bool sent_first_update_ = true;
+  int start_count_ = 0;
   std::vector<std::string> network_ignore_list_;
+  NetworkMonitorFactory* network_monitor_factory_ = nullptr;
   std::unique_ptr<NetworkMonitorInterface> network_monitor_;
 };
 

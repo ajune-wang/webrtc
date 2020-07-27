@@ -211,6 +211,41 @@
     },
     {
       "key": {
+        "uuid": "8abc1ead_0e5b121a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T08:52:27Z",
+      "side": 1,
+      "message": "https://ci.chromium.org/p/webrtc/builders/try/linux_rel/37893? for example.\n\nIf you view the CL in Gerritt, you should see a bar of red and green boxes - the red ones are failures. Click on the box to get to the errors.",
+      "parentUuid": "123c0cf3_5ad01847",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "148f47fa_2892db05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T08:52:27Z",
+      "side": 1,
+      "message": "How to see the failing bots...",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbc8c495_948d7fbb",
         "filename": "api/rtp_parameters.cc",
         "patchSetId": 2

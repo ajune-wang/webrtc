@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "1a0b146e_fe5ddc21",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-27T23:32:51Z",
+      "side": 1,
+      "message": "It\u0027s passed into the BasicNetworkManager on the signaling thread, but actually used to construct a monitor on the network thread. So a RTC_GUARDED_BY(signaling_thread) here would be misleading.\n\nI could add an RTC_GUARDED_BY to BasicNetworkManager, but it expects everything to be called on the same thread (and enforces this with DCHECKs already), so I think adding RTC_GUARDED_BY for every member would be redundant.",
+      "parentUuid": "9dd771cf_970d79a7",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4d19aa8_f402e950",
         "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
         "patchSetId": 4
@@ -50,6 +68,24 @@
       "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38fd33e3_3c302cee",
+        "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-27T23:32:51Z",
+      "side": 1,
+      "message": "I agree, code is self explanatory",
+      "parentUuid": "e4d19aa8_f402e950",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

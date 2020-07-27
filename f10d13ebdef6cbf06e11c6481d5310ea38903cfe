@@ -16,6 +16,41 @@
       "revId": "f10d13ebdef6cbf06e11c6481d5310ea38903cfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df6d3145_1a78223c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T14:15:22Z",
+      "side": 1,
+      "message": "Thanks!!!\nlgtm!",
+      "revId": "f10d13ebdef6cbf06e11c6481d5310ea38903cfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79dbd3fb_51a07083",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-27T14:15:22Z",
+      "side": 1,
+      "message": "Good point!\nYes, I too think that this is an improvement!",
+      "parentUuid": "a7bb73e8_1ad78ca6",
+      "revId": "f10d13ebdef6cbf06e11c6481d5310ea38903cfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

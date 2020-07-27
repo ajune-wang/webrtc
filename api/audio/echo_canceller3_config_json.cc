@@ -177,6 +177,8 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
               &cfg.buffering.excess_render_detection_interval_blocks);
     ReadParam(section, "max_allowed_excess_render_blocks",
               &cfg.buffering.max_allowed_excess_render_blocks);
+    ReadParam(section, "update_counters_on_skipped_capture_block",
+              &cfg.buffering.update_counters_on_skipped_capture_block);
   }
 
   if (rtc::GetValueFromJsonObject(aec3_root, "delay", &section)) {
@@ -399,7 +401,9 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << "\"excess_render_detection_interval_blocks\": "
       << config.buffering.excess_render_detection_interval_blocks << ",";
   ost << "\"max_allowed_excess_render_blocks\": "
-      << config.buffering.max_allowed_excess_render_blocks;
+      << config.buffering.max_allowed_excess_render_blocks << ","
+      << "\"update_counters_on_skipped_capture_block\": "
+      << config.buffering.update_counters_on_skipped_capture_block;
   ost << "},";
 
   ost << "\"delay\": {";

@@ -17,6 +17,7 @@ namespace webrtc {
 
 TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
   EchoCanceller3Config cfg;
+  cfg.buffering.update_counters_on_skipped_capture_block = true;
   cfg.delay.down_sampling_factor = 1u;
   cfg.delay.log_warning_on_delay_changes = true;
   cfg.filter.refined.error_floor = 2.f;
@@ -38,6 +39,8 @@ TEST(EchoCanceller3JsonHelpers, ToStringAndParseJson) {
             cfg_transformed.suppressor.normal_tuning.mask_lf.enr_suppress);
 
   // Expect changed values to carry through the transformation.
+  EXPECT_EQ(cfg.buffering.update_counters_on_skipped_capture_block,
+            cfg_transformed.buffering.update_counters_on_skipped_capture_block);
   EXPECT_EQ(cfg.delay.down_sampling_factor,
             cfg_transformed.delay.down_sampling_factor);
   EXPECT_EQ(cfg.delay.log_warning_on_delay_changes,

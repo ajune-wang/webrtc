@@ -30,6 +30,8 @@ struct RTC_EXPORT EchoCanceller3Config {
   struct Buffering {
     size_t excess_render_detection_interval_blocks = 250;
     size_t max_allowed_excess_render_blocks = 8;
+    // TODO(bugs.webrtc.org/11803): Default to true, remove option to disable.
+    bool update_counters_on_skipped_capture_block = false;
   } buffering;
 
   struct Delay {

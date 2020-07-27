@@ -16,6 +16,23 @@
       "revId": "ae2484962247ef16d0941399346d14d75e964b77",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d7bb379_a69ce3fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-27T10:47:11Z",
+      "side": 1,
+      "message": "Well....\nthe Google style guide says:\n\nRegular functions have mixed case; accessors and mutators may be named like variables.\nOrdinarily, functions should start with a capital letter and have a capital letter for each new word.\nhttps://google.github.io/styleguide/cppguide.html#Function_Names\n\nHasSimulcast\u0027s implementation is:\n\nvirtual bool HasSimulcast() const { return !simulcast_.empty(); }\n\nIt\u0027s not an accessor as such, it computes a value and returns it.\nI think we should keep it as-is. (Feel free to argue).\n",
+      "revId": "ae2484962247ef16d0941399346d14d75e964b77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

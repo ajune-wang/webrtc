@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2b64615_326a07c6",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-27T14:32:43Z",
+      "side": 1,
+      "message": "BTW, maybe for heavy metrics you want more then 1 thread here.",
+      "range": {
+        "startLine": 582,
+        "startChar": 17,
+        "endLine": 582,
+        "endChar": 41
+      },
+      "revId": "3a376d385be9099a2d174cb7e6bfa30a3806af7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3db5a099_16b97ff4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-27T14:32:43Z",
+      "side": 1,
+      "message": "Can we remove it?",
+      "range": {
+        "startLine": 584,
+        "startChar": 2,
+        "endLine": 585,
+        "endChar": 37
+      },
+      "revId": "3a376d385be9099a2d174cb7e6bfa30a3806af7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b6d7a4b_ef1b43ff",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-27T14:32:43Z",
+      "side": 1,
+      "message": "Can we merge these loops?",
+      "range": {
+        "startLine": 595,
+        "startChar": 2,
+        "endLine": 597,
+        "endChar": 49
+      },
+      "revId": "3a376d385be9099a2d174cb7e6bfa30a3806af7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e1471d2_4c6129ab",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-27T14:32:43Z",
+      "side": 1,
+      "message": "giving",
+      "range": {
+        "startLine": 607,
+        "startChar": 34,
+        "endLine": 607,
+        "endChar": 40
+      },
+      "revId": "3a376d385be9099a2d174cb7e6bfa30a3806af7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fce4d413_2182ea17",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-27T14:32:43Z",
+      "side": 1,
+      "message": "Theoretically Stop() have to be blocking. Can you check, do we need to have a wait before calling to Stop()?",
+      "range": {
+        "startLine": 610,
+        "startChar": 2,
+        "endLine": 610,
+        "endChar": 17
+      },
+      "revId": "3a376d385be9099a2d174cb7e6bfa30a3806af7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36c373cd_cce04f20",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-27T14:32:43Z",
+      "side": 1,
+      "message": "Can we remove it?",
+      "range": {
+        "startLine": 649,
+        "startChar": 2,
+        "endLine": 650,
+        "endChar": 37
+      },
+      "revId": "3a376d385be9099a2d174cb7e6bfa30a3806af7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b7a7d61_766e4cce",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-27T14:32:43Z",
+      "side": 1,
+      "message": "Can we merge these loops?",
+      "range": {
+        "startLine": 660,
+        "startChar": 2,
+        "endLine": 662,
+        "endChar": 49
+      },
+      "revId": "3a376d385be9099a2d174cb7e6bfa30a3806af7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb9fb1e0_7b3d17e8",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-27T14:32:43Z",
+      "side": 1,
+      "message": "giving",
+      "range": {
+        "startLine": 678,
+        "startChar": 34,
+        "endLine": 678,
+        "endChar": 40
+      },
+      "revId": "3a376d385be9099a2d174cb7e6bfa30a3806af7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

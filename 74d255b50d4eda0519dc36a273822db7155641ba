@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1e3c89f3_c92cb53d",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-28T17:28:20Z",
+      "side": 1,
+      "message": "Revisiting the logic, I think I was confused on comment while I was working on it.\n\nSetSendStatus() can\u0027t fail as it is simply flipping a boolean in RTP stack. It does try to send RTCP BYE if we are ending but it shouldn\u0027t be considered error and we already have some error statement logged for it.\n\nI would suggest to change like this.\n\nif (!rtp_rtcp_-\u003eSending()) {\n  rtp_rtcp_-\u003eSetSendingStatus(true);\n}",
+      "parentUuid": "01956b01_f21bc8a4",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 73
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91e5392c_b9969843",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 3
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "See above.",
       "parentUuid": "91e5392c_b9969843",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 119,
+        "endChar": 73
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c1f7272_42a45f78",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-28T17:28:20Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "ff1d72db_23d147e1",
       "range": {
         "startLine": 119,
         "startChar": 3,

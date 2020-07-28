@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "08f0206d_2595fd7b",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-28T15:50:06Z",
+      "side": 1,
+      "message": "I didn\u0027t log here because logging is already done in AudioEgress::StartSend, do you think I should log again?",
+      "parentUuid": "772b36cd_3e2eaa60",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 17
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1898b6b_1a022d11",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "01956b01_f21bc8a4",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-28T15:50:06Z",
+      "side": 1,
+      "message": "I\u0027ve done it this way to mimic prior behavior. Previously this error was not reported back to the caller. If that wasn\u0027t the intended behavior I could return false here.",
+      "parentUuid": "d1898b6b_1a022d11",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 73
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91e5392c_b9969843",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2020-07-27T22:41:13Z",
       "side": 1,
       "message": "Same here, do we still return true if the check fails?",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 119,
+        "endChar": 73
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff1d72db_23d147e1",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-28T15:50:06Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "91e5392c_b9969843",
       "range": {
         "startLine": 119,
         "startChar": 3,

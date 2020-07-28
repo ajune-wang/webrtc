@@ -469,6 +469,14 @@ EndpointsContainer::GetEnabledNetworks() const {
   return networks;
 }
 
+std::vector<EmulatedEndpoint*> EndpointsContainer::endpoints() const {
+  std::vector<EmulatedEndpoint*> out;
+  for (auto* endpoint : endpoints_) {
+    out.push_back(endpoint);
+  }
+  return out;
+}
+
 std::unique_ptr<EmulatedNetworkStats> EndpointsContainer::GetStats() const {
   EmulatedNetworkStatsBuilder stats_builder;
   for (auto* endpoint : endpoints_) {

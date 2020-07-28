@@ -19,6 +19,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/net_helpers.h"
 #include "rtc_base/network_monitor.h"
+#include "rtc_base/network_monitor_factory.h"
 #if defined(WEBRTC_POSIX)
 #include <net/if.h>
 #include <sys/types.h>
@@ -247,6 +248,8 @@ class NetworkTest : public ::testing::Test, public sigslot::has_slots<> {
 
 class TestBasicNetworkManager : public BasicNetworkManager {
  public:
+  TestBasicNetworkManager(NetworkMonitorFactory* network_monitor_factory)
+      : BasicNetworkManager(network_monitor_factory) {}
   using BasicNetworkManager::QueryDefaultLocalAddress;
   using BasicNetworkManager::set_default_local_addresses;
 };
@@ -798,7 +801,8 @@ TEST_F(NetworkTest, TestGetAdapterTypeFromNetworkMonitor) {
   std::string ipv6_address1 = "1000:2000:3000:4000:0:0:0:1";
   std::string ipv6_address2 = "1000:2000:3000:8000:0:0:0:1";
   std::string ipv6_mask = "FFFF:FFFF:FFFF:FFFF::";
-  BasicNetworkManager manager;
+  FakeNetworkMonitorFactory factory;
+  BasicNetworkManager manager(&factory);
   // A network created before the network monitor is started will get
   // UNKNOWN type.
   ifaddrs* addr_list =
@@ -810,9 +814,7 @@ TEST_F(NetworkTest, TestGetAdapterTypeFromNetworkMonitor) {
   // and detects the network type correctly.
 
   // After the network monitor starts, the type will be updated.
-  FakeNetworkMonitorFactory* factory = new FakeNetworkMonitorFactory();
-  NetworkMonitorFactory::SetFactory(factory);
-  // This brings up the hook with the network monitor.
+  // StartUpdating brings up the hook with the network monitor.
   manager.StartUpdating();
   // Add the same ipv6 address as before but it has the right network type
   // detected by the network monitor now.
@@ -1022,11 +1024,10 @@ TEST_F(NetworkTest, TestIPv6Selection) {
 }
 
 TEST_F(NetworkTest, TestNetworkMonitoring) {
-  BasicNetworkManager manager;
+  FakeNetworkMonitorFactory factory;
+  BasicNetworkManager manager(&factory);
   manager.SignalNetworksChanged.connect(static_cast<NetworkTest*>(this),
                                         &NetworkTest::OnNetworksChanged);
-  FakeNetworkMonitorFactory* factory = new FakeNetworkMonitorFactory();
-  NetworkMonitorFactory::SetFactory(factory);
   manager.StartUpdating();
   FakeNetworkMonitor* network_monitor = GetNetworkMonitor(manager);
   EXPECT_TRUE(network_monitor && network_monitor->started());
@@ -1043,8 +1044,6 @@ TEST_F(NetworkTest, TestNetworkMonitoring) {
   // Network manager is stopped.
   manager.StopUpdating();
   EXPECT_FALSE(GetNetworkMonitor(manager)->started());
-
-  NetworkMonitorFactory::ReleaseFactory(factory);
 }
 
 // Fails on Android: https://bugs.chromium.org/p/webrtc/issues/detail?id=4364.
@@ -1055,11 +1054,10 @@ TEST_F(NetworkTest, TestNetworkMonitoring) {
 #endif
 TEST_F(NetworkTest, MAYBE_DefaultLocalAddress) {
   IPAddress ip;
-  TestBasicNetworkManager manager;
+  FakeNetworkMonitorFactory factory;
+  TestBasicNetworkManager manager(&factory);
   manager.SignalNetworksChanged.connect(static_cast<NetworkTest*>(this),
                                         &NetworkTest::OnNetworksChanged);
-  FakeNetworkMonitorFactory* factory = new FakeNetworkMonitorFactory();
-  NetworkMonitorFactory::SetFactory(factory);
   manager.StartUpdating();
   EXPECT_TRUE_WAIT(callback_called_, 1000);
 

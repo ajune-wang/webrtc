@@ -23,6 +23,7 @@
 #include "rtc_base/mdns_responder_interface.h"
 #include "rtc_base/message_handler.h"
 #include "rtc_base/network_monitor.h"
+#include "rtc_base/network_monitor_factory.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
@@ -221,6 +222,7 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
                                        public sigslot::has_slots<> {
  public:
   BasicNetworkManager();
+  explicit BasicNetworkManager(NetworkMonitorFactory* network_monitor_factory);
   ~BasicNetworkManager() override;
 
   void StartUpdating() override;
@@ -274,10 +276,11 @@ class RTC_EXPORT BasicNetworkManager : public NetworkManagerBase,
   // Only updates the networks; does not reschedule the next update.
   void UpdateNetworksOnce();
 
-  Thread* thread_;
-  bool sent_first_update_;
-  int start_count_;
+  Thread* thread_ = nullptr;
+  bool sent_first_update_ = true;
+  int start_count_ = 0;
   std::vector<std::string> network_ignore_list_;
+  NetworkMonitorFactory* network_monitor_factory_ = nullptr;
   std::unique_ptr<NetworkMonitorInterface> network_monitor_;
 };
 

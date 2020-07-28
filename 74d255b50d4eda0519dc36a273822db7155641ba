@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "01e8263e_063f3177",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-28T18:01:57Z",
+      "side": 1,
+      "message": "SG",
+      "parentUuid": "08f0206d_2595fd7b",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 17
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1898b6b_1a022d11",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 3
@@ -120,6 +144,75 @@
     },
     {
       "key": {
+        "uuid": "fa20f952_216fca2c",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-28T18:01:57Z",
+      "side": 1,
+      "message": "\"Deactivate RTP stack when both sending and receiving are stopped\" sounds more informative",
+      "range": {
+        "startLine": 101,
+        "startChar": 5,
+        "endLine": 102,
+        "endChar": 10
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ca9ffc6_fbf4efc5",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-28T18:01:57Z",
+      "side": 1,
+      "message": "I see that in this code bot ingress_-\u003eIsPlaying() and AudioChannel::IsPlaying() (and same for egress_-\u003eIsSending() and AudioChannel::IsSendingMedia()) are used. It would be good to consolidate the uses. I suggest just replaced them with ingress_-\u003eIsPlaying() or egress_-\u003eIsSending().",
+      "range": {
+        "startLine": 104,
+        "startChar": 7,
+        "endLine": 104,
+        "endChar": 16
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d4fc70f_d574828b",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-28T18:01:57Z",
+      "side": 1,
+      "message": "Same should apply here to flip the status:\nif (!IsPlaying() \u0026\u0026 rtp_rtcp_-\u003eSending()) {\n  rtp_rtcp_-\u003eSetSendingStatus(false)\n}",
+      "range": {
+        "startLine": 104,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 3
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91e5392c_b9969843",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 3
@@ -184,6 +277,29 @@
         "startChar": 3,
         "endLine": 119,
         "endChar": 73
+      },
+      "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c523c717_b0e3f55f",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-07-28T18:01:57Z",
+      "side": 1,
+      "message": "Same here for flipping the status.",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 131,
+        "endChar": 3
       },
       "revId": "74d255b50d4eda0519dc36a273822db7155641ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

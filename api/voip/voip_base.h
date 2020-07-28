@@ -55,9 +55,8 @@ class VoipBase {
   virtual void ReleaseChannel(ChannelId channel_id) = 0;
 
   // Starts sending on |channel_id|. This will start microphone if not started
-  // yet. Returns false if initialization has failed on selected microphone
-  // device. API is subject to expand to reflect error condition to application
-  // later.
+  // yet. Returns false if sending has failed to start. API is subject to expand
+  // to reflect error condition to application later.
   virtual bool StartSend(ChannelId channel_id) = 0;
 
   // Stops sending on |channel_id|. If this is the last active channel, it will
@@ -69,9 +68,8 @@ class VoipBase {
 
   // Starts playing on speaker device for |channel_id|.
   // This will start underlying platform speaker device if not started.
-  // Returns false if initialization has failed
-  // on selected speaker device. API is subject to expand to reflect error
-  // condition to application later.
+  // Returns false if playout has failed to start. API is subject to expand to
+  // reflect error condition to application later.
   virtual bool StartPlayout(ChannelId channel_id) = 0;
 
   // Stops playing on speaker device for |channel_id|.

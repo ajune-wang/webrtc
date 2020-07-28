@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3915685a_9cab772f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13245
+      },
+      "writtenOn": "2020-07-28T23:24:34Z",
+      "side": 1,
+      "message": "This is in reference to: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11785\u0026sort\u003d-status\u0026q\u003dcomponent%3DMobile\u0026can\u003d2\n\nI have reproduced this issue and confirmed on a pixel 4/android 10",
+      "revId": "e2851f78bc54f5dc7287f503ba88792118136b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

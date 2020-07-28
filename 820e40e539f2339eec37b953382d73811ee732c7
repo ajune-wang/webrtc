@@ -353,6 +353,24 @@
     },
     {
       "key": {
+        "uuid": "c2b746a6_01a18027",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-07-28T07:37:04Z",
+      "side": 1,
+      "message": "Alright, that is reasonable. I will take a look at resolving the remaining issues.",
+      "parentUuid": "35bb3f83_58080d3d",
+      "revId": "820e40e539f2339eec37b953382d73811ee732c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbc8c495_948d7fbb",
         "filename": "api/rtp_parameters.cc",
         "patchSetId": 2

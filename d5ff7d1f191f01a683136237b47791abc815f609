@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d6a68d9_fc75f0a4",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-28T02:05:05Z",
+      "side": 1,
+      "message": "I\u0027m realizing now we shouldn\u0027t add this to the API surface if at all possible.\n\nI did something similar to CallFactory where I forward declared NetworkMonitor in network_monitor_factory.h, take a look at the latest patch set.",
+      "revId": "d5ff7d1f191f01a683136237b47791abc815f609",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

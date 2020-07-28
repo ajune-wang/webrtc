@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ca1ff05_d070b8ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-28T00:08:57Z",
+      "side": 1,
+      "message": "Thanks for the change. PTAL.",
+      "revId": "232c2e1eecc0dd66c2eec719e1a229104d8a498d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3beda336_25bbdaf4",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-07-28T00:08:57Z",
+      "side": 1,
+      "message": "We should match the parameter names (channel -\u003e channel_id) here as used in voip_core.cc.\n\nAlso please take a look at other voip api headers to be matched as well. Thanks.",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 47
+      },
+      "revId": "232c2e1eecc0dd66c2eec719e1a229104d8a498d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

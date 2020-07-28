@@ -23,6 +23,7 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "api/voip/voip_base.h"
 #include "api/voip/voip_codec.h"
+#include "api/voip/voip_dtmf.h"
 #include "api/voip/voip_engine.h"
 #include "api/voip/voip_network.h"
 #include "audio/audio_transport_impl.h"
@@ -45,7 +46,8 @@ namespace webrtc {
 class VoipCore : public VoipEngine,
                  public VoipBase,
                  public VoipNetwork,
-                 public VoipCodec {
+                 public VoipCodec,
+                 public VoipDtmf {
  public:
   ~VoipCore() override = default;
 
@@ -63,35 +65,44 @@ class VoipCore : public VoipEngine,
   VoipBase& Base() override { return *this; }
   VoipNetwork& Network() override { return *this; }
   VoipCodec& Codec() override { return *this; }
+  VoipDtmf& Dtmf() override { return *this; }
 
   // Implements VoipBase interfaces.
   absl::optional<ChannelId> CreateChannel(
       Transport* transport,
       absl::optional<uint32_t> local_ssrc) override;
-  void ReleaseChannel(ChannelId channel) override;
-  bool StartSend(ChannelId channel) override;
-  bool StopSend(ChannelId channel) override;
-  bool StartPlayout(ChannelId channel) override;
-  bool StopPlayout(ChannelId channel) override;
+  void ReleaseChannel(ChannelId channel_id) override;
+  bool StartSend(ChannelId channel_id) override;
+  bool StopSend(ChannelId channel_id) override;
+  bool StartPlayout(ChannelId channel_id) override;
+  bool StopPlayout(ChannelId channel_id) override;
 
   // Implements VoipNetwork interfaces.
-  void ReceivedRTPPacket(ChannelId channel,
+  void ReceivedRTPPacket(ChannelId channel_id,
                          rtc::ArrayView<const uint8_t> rtp_packet) override;
-  void ReceivedRTCPPacket(ChannelId channel,
+  void ReceivedRTCPPacket(ChannelId channel_id,
                           rtc::ArrayView<const uint8_t> rtcp_packet) override;
 
   // Implements VoipCodec interfaces.
-  void SetSendCodec(ChannelId channel,
+  void SetSendCodec(ChannelId channel_id,
                     int payload_type,
                     const SdpAudioFormat& encoder_format) override;
   void SetReceiveCodecs(
-      ChannelId channel,
+      ChannelId channel_id,
       const std::map<int, SdpAudioFormat>& decoder_specs) override;
 
+  // Implements VoipDtmf interfaces.
+  void RegisterTelephoneEventType(ChannelId channel_id,
+                                  int rtp_payload_type,
+                                  int sample_rate_hz) override;
+  bool SendDtmfEvent(ChannelId channel_id,
+                     DtmfEvent dtmf_event,
+                     int duration_ms) override;
+
  private:
-  // Fetches the corresponding AudioChannel assigned with given |channel|.
+  // Fetches the corresponding AudioChannel assigned with given |channel_id|.
   // Returns nullptr if not found.
-  rtc::scoped_refptr<AudioChannel> GetChannel(ChannelId channel);
+  rtc::scoped_refptr<AudioChannel> GetChannel(ChannelId channel_id);
 
   // Updates AudioTransportImpl with a new set of actively sending AudioSender
   // (AudioEgress). This needs to be invoked whenever StartSend/StopSend is

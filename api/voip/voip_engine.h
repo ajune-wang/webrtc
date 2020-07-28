@@ -16,6 +16,7 @@ namespace webrtc {
 class VoipBase;
 class VoipCodec;
 class VoipNetwork;
+class VoipDtmf;
 
 // VoipEngine is the main interface serving as the entry point for all VoIP
 // APIs. A single instance of VoipEngine should suffice the most of the need for
@@ -41,27 +42,27 @@ class VoipNetwork;
 //   auto& voip_codec = voip_engine->Codec();
 //   auto& voip_network = voip_engine->Network();
 //
-//   absl::optional<ChannelId> channel =
+//   absl::optional<ChannelId> channel_id =
 //       voip_base.CreateChannel(&app_transport_);
-//   if (!channel) return some_failure;
+//   if (!channel_id) return some_failure;
 //
 //   // After SDP offer/answer, set payload type and codecs that have been
 //   // decided through SDP negotiation.
-//   voip_codec.SetSendCodec(*channel, ...);
-//   voip_codec.SetReceiveCodecs(*channel, ...);
+//   voip_codec.SetSendCodec(*channel_id, ...);
+//   voip_codec.SetReceiveCodecs(*channel_id, ...);
 //
 //   // Start sending and playing RTP on voip channel.
-//   voip_base.StartSend(*channel);
-//   voip_base.StartPlayout(*channel);
+//   voip_base.StartSend(*channel_id);
+//   voip_base.StartPlayout(*channel_id);
 //
 //   // Inject received RTP/RTCP through VoipNetwork interface.
-//   voip_network.ReceivedRTPPacket(*channel, ...);
-//   voip_network.ReceivedRTCPPacket(*channel, ...);
+//   voip_network.ReceivedRTPPacket(*channel_id, ...);
+//   voip_network.ReceivedRTCPPacket(*channel_id, ...);
 //
 //   // Stop and release voip channel.
-//   voip_base.StopSend(*channel);
-//   voip_base.StopPlayout(*channel);
-//   voip_base.ReleaseChannel(*channel);
+//   voip_base.StopSend(*channel_id);
+//   voip_base.StopPlayout(*channel_id);
+//   voip_base.ReleaseChannel(*channel_id);
 //
 // Current VoipEngine defines three sub-API classes and is subject to expand in
 // near future.
@@ -80,6 +81,9 @@ class VoipEngine {
 
   // VoipCodec provides codec configuration APIs for encoder and decoders.
   virtual VoipCodec& Codec() = 0;
+
+  // VoipDtmf provides DTMF event APIs to register and send DTMF events.
+  virtual VoipDtmf& Dtmf() = 0;
 };
 
 }  // namespace webrtc

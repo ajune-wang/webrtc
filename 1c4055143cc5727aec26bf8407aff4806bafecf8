@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "600f6fd4_faa0797e",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-28T11:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74bb2aa9_bdc2ac07",
+      "revId": "1c4055143cc5727aec26bf8407aff4806bafecf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "033a7337_7044a8ad",
         "filename": "api/test/network_emulation_manager.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "1c4055143cc5727aec26bf8407aff4806bafecf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a1fd75c_531187d5",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-28T11:45:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "033a7337_7044a8ad",
+      "revId": "1c4055143cc5727aec26bf8407aff4806bafecf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a1f33edb_5e882852",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-28T11:45:44Z",
+      "side": 1,
+      "message": "Stats collection has to be done on internal network thread.",
+      "parentUuid": "4601ecf4_5ec1be6e",
+      "revId": "1c4055143cc5727aec26bf8407aff4806bafecf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d552a597_8f76915e",
         "filename": "test/network/network_emulation.cc",
         "patchSetId": 2
@@ -67,6 +121,24 @@
       "revId": "1c4055143cc5727aec26bf8407aff4806bafecf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7f35a62_e96e926e",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-07-28T11:45:44Z",
+      "side": 1,
+      "message": "Sadly no, because endpoints_ has type std::vector\u003cEmulatedEndpointImpl*\u003e and it can\u0027t just convert it. But I simplified it a bit.",
+      "parentUuid": "d552a597_8f76915e",
+      "revId": "1c4055143cc5727aec26bf8407aff4806bafecf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

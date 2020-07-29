@@ -224,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "0f1c765f_9d57a85a",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-29T14:13:20Z",
+      "side": 1,
+      "message": "That is a good point. \nHowever, by adding a return type which signals whether the sending has started, it does not make sense to return a value that signals that it has started, when it actually has not started.\n\nI think that returning true in this case is misleading and error-prone. If this behavior is to be kept, please add a comment in the code that motivates why that is the case so that it is clear for the reader of the code, and so that that is not by mistake changed in future code changes. \nPlease also add a comment in the method description in the header that this case is excluded.\n\nI would, however, suggest that the previous behavior is re-visited to see what makes most sense to do in this case.",
+      "parentUuid": "933f2b56_01b21203",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 73
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "64c7ed04_f9e36003",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 2
@@ -306,6 +330,30 @@
       "side": 1,
       "message": "See above.",
       "parentUuid": "7e3ffc4b_45accdb8",
+      "range": {
+        "startLine": 117,
+        "startChar": 3,
+        "endLine": 117,
+        "endChar": 73
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfaab752_d8689ff2",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-07-29T14:13:20Z",
+      "side": 1,
+      "message": "See above",
+      "parentUuid": "316d42f1_5347dea3",
       "range": {
         "startLine": 117,
         "startChar": 3,

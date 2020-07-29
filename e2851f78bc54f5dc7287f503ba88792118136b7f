@@ -16,6 +16,23 @@
       "revId": "e2851f78bc54f5dc7287f503ba88792118136b7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c63dfd91_34d012a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-07-29T09:59:36Z",
+      "side": 1,
+      "message": "Thanks for the patch - have you added yourself to the AUTHORS file?",
+      "revId": "e2851f78bc54f5dc7287f503ba88792118136b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

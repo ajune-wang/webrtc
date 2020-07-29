@@ -11,7 +11,7 @@
 #include "media/engine/webrtc_voice_engine.h"
 
 #include <algorithm>
-#include <cstdio>
+#include <cstdarg>
 #include <functional>
 #include <string>
 #include <utility>
@@ -94,6 +94,22 @@ bool ValidateStreamParams(const StreamParams& sp) {
     return false;
   }
   return true;
+}
+
+#if defined(__GNUC__)
+__attribute__((__format__(__printf__, 1, 2)))
+#endif
+std::string
+StrFormat(const char* fmt, ...) {
+  constexpr int kSize = 512;
+  char buffer[kSize];
+  va_list args;
+  va_start(args, fmt);
+  int result = vsnprintf(buffer, kSize, fmt, args);
+  va_end(args);
+  RTC_DCHECK(result >= 0 && result < kSize);
+  std::string str(buffer);
+  return str;
 }
 
 // Dumps an AudioCodec in RFC 2327-ish format.
@@ -2051,14 +2067,19 @@ bool WebRtcVoiceMediaChannel::SetLocalSource(uint32_t ssrc,
 
 bool WebRtcVoiceMediaChannel::SetOutputVolume(uint32_t ssrc, double volume) {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
+  RTC_LOG(LS_INFO) << StrFormat("WRVMC::%s({ssrc=%u}, {volume=%.2f})", __func__,
+                                ssrc, volume);
   const auto it = recv_streams_.find(ssrc);
   if (it == recv_streams_.end()) {
-    RTC_LOG(LS_WARNING) << "SetOutputVolume: no recv stream " << ssrc;
+    RTC_LOG(LS_WARNING) << StrFormat(
+        "WRVMC::%s => (WARNING: no receive stream for SSRC %u)", __func__,
+        ssrc);
     return false;
   }
   it->second->SetOutputVolume(volume);
-  RTC_LOG(LS_INFO) << "SetOutputVolume() to " << volume
-                   << " for recv stream with ssrc " << ssrc;
+  RTC_LOG(LS_INFO) << StrFormat(
+      "WRVMC::%s => (stream with SSRC %u now uses volume %.2f)", __func__, ssrc,
+      volume);
   return true;
 }
 

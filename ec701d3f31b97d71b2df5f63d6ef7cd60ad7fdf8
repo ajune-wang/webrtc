@@ -16,6 +16,23 @@
       "revId": "ec701d3f31b97d71b2df5f63d6ef7cd60ad7fdf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0251d76e_4da859ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-29T11:05:08Z",
+      "side": 1,
+      "message": "Internal bot failing is rebase issue not a problem with the CL",
+      "revId": "ec701d3f31b97d71b2df5f63d6ef7cd60ad7fdf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

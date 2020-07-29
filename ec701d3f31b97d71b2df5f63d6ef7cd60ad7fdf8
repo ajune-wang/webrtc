@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23ee1faf_a1a7b991",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-29T10:14:24Z",
+      "side": 1,
+      "message": "This is a reland except we also move MaybeStartGathering to the end of the SLD call to ensure onicegatheringstatechange does not happen before SLD is resolved.",
+      "revId": "ec701d3f31b97d71b2df5f63d6ef7cd60ad7fdf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

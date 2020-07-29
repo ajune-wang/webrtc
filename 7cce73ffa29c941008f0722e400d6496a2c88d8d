@@ -248,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "75776b6c_b40a8506",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-29T14:49:21Z",
+      "side": 1,
+      "message": "That is definitely a fair point. The logic was revisited in patchset 3 and updated accordingly in patchset 4, please take a look to see if the changes were good. In the meanwhile, I will mark this as resolved. Free free to add comments to the latest patchset!",
+      "parentUuid": "0f1c765f_9d57a85a",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 73
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64c7ed04_f9e36003",
         "filename": "audio/voip/audio_channel.cc",
         "patchSetId": 2
@@ -363,6 +387,30 @@
       "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c3597a_eec2539d",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-07-29T14:49:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfaab752_d8689ff2",
+      "range": {
+        "startLine": 117,
+        "startChar": 3,
+        "endLine": 117,
+        "endChar": 73
+      },
+      "revId": "7cce73ffa29c941008f0722e400d6496a2c88d8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

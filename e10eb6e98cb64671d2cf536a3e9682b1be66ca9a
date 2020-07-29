@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7581fc7a_a507f52a",
+        "filename": "api/proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T23:27:41Z",
+      "side": 1,
+      "message": "Making an exception for Thread since it\u0027s thread safe by design.",
+      "revId": "e10eb6e98cb64671d2cf536a3e9682b1be66ca9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

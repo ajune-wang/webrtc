@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bfed549_9413937e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T23:27:41Z",
+      "side": 1,
+      "message": "PTAL:\nhta for api/ and pc/\nsakal for android/\nandersc for objc/\n\nSee bug for more context.",
+      "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8661aac2_9ce178b5",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T23:27:41Z",
+      "side": 1,
+      "message": "Is making this public acceptable? Since we\u0027re saying \"you must do stuff with SessionDescriptions on this thread\", it only seems fair to expose it.\n\nWithout doing this, getting the thread pointer to the JNI code was a pain. There are two ways to construct a Java PeerConnection, both of which would require passing the thread handle through them somehow. And these constructors are called directly from downstream code that would need updating.",
+      "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30aae60b_17d816c9",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T23:27:41Z",
+      "side": 1,
+      "message": "Would it be better to return a ScopedJavaGlobalRef, making it safe to call NativeToJavaSessionDescription on the signaling thread and pass the results across threads?",
+      "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

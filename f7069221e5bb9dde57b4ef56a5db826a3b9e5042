@@ -54,6 +54,41 @@
     },
     {
       "key": {
+        "uuid": "3bc9996e_2b5c6b2f",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-29T10:12:26Z",
+      "side": 1,
+      "message": "Hm. That\u0027s one reason I like RTC_GUARDED_BY: It forces you to do RTC_DCHECK_RUNS_ON(thread) instead of RTC_DCHECK(signaling_thread-\u003eIsCurrent()) (the way it\u0027s currently written), which allows static analysis of the requirement, and documents exactly that the requirement is linked to access to variables.\n\nMaking this RTC_GUARDED_BY would mean that the pointer is accessed only according to a given rule; what the pointed-to object is doing is not policed by RTC_GUARDED_BY. If anyone\u0027s misled by that, it means that they need to study the semantics of RTC_GUARDED_BY more carefully.\n\nI\u0027m happy to guard things one at a time; my experience shows that once we start guarding, we uncover stuff that is accessed on multiple threads, and sorting that out can take significant time, so I\u0027m happy to leave the \"guard everything\" part to another CL.\n\nA good alternative to guarding it might be to declare it const (std::unique_ptr\u003crtc::NetworkMonitorFactory\u003e const), which means that it\u0027s only written to at initialization, and never updated; in that case, multithread access is not a problem, and the lifetime of the network monitor factory is documented as being permanently locked to the lifetime of the PeerConnectionFactory, which I think is what you want anyway.",
+      "parentUuid": "1a0b146e_fe5ddc21",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3ab50eb_5c0f15bd",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-29T10:12:26Z",
+      "side": 1,
+      "message": "And which thread is this statement being executed on?",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4d19aa8_f402e950",
         "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
         "patchSetId": 4

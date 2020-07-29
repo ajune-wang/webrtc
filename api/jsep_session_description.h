@@ -29,6 +29,10 @@ namespace cricket {
 class SessionDescription;
 }
 
+namespace rtc {
+class Thread;
+}
+
 namespace webrtc {
 
 // Implementation of SessionDescriptionInterface.
@@ -42,31 +46,27 @@ class JsepSessionDescription : public SessionDescriptionInterface {
       std::unique_ptr<cricket::SessionDescription> description,
       absl::string_view session_id,
       absl::string_view session_version);
-  virtual ~JsepSessionDescription();
+  ~JsepSessionDescription() override;
 
   // Takes ownership of |description|.
   bool Initialize(std::unique_ptr<cricket::SessionDescription> description,
                   const std::string& session_id,
                   const std::string& session_version);
 
-  virtual cricket::SessionDescription* description() {
-    return description_.get();
-  }
-  virtual const cricket::SessionDescription* description() const {
-    return description_.get();
-  }
-  virtual std::string session_id() const { return session_id_; }
-  virtual std::string session_version() const { return session_version_; }
-  virtual SdpType GetType() const { return type_; }
-  virtual std::string type() const { return SdpTypeToString(type_); }
+  cricket::SessionDescription* description() override;
+  const cricket::SessionDescription* description() const override;
+  std::string session_id() const override;
+  std::string session_version() const override;
+  SdpType GetType() const override;
+  std::string type() const override;
   // Allows changing the type. Used for testing.
-  virtual bool AddCandidate(const IceCandidateInterface* candidate);
-  virtual size_t RemoveCandidates(
-      const std::vector<cricket::Candidate>& candidates);
-  virtual size_t number_of_mediasections() const;
-  virtual const IceCandidateCollection* candidates(
-      size_t mediasection_index) const;
-  virtual bool ToString(std::string* out) const;
+  bool AddCandidate(const IceCandidateInterface* candidate) override;
+  size_t RemoveCandidates(
+      const std::vector<cricket::Candidate>& candidates) override;
+  size_t number_of_mediasections() const override;
+  const IceCandidateCollection* candidates(
+      size_t mediasection_index) const override;
+  bool ToString(std::string* out) const override;
 
   static const int kDefaultVideoCodecId;
   static const char kDefaultVideoCodecName[];
@@ -77,6 +77,7 @@ class JsepSessionDescription : public SessionDescriptionInterface {
   std::string session_version_;
   SdpType type_;
   std::vector<JsepCandidateCollection> candidate_collection_;
+  rtc::Thread* thread_;
 
   bool GetMediasectionIndex(const IceCandidateInterface* candidate,
                             size_t* index);

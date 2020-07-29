@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17070630_017a4987",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-07-29T11:17:56Z",
+      "side": 1,
+      "message": "Using TBR for the reland, hope you\u0027re OK with that, otherwise I\u0027ll be more hesitant to TBR in the future.",
+      "revId": "eb4e0a3554ef0b85f7c631f8f2d8b130dce743d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

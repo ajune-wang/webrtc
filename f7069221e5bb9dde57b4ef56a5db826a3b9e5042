@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "97ebe9b8_66636868",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T21:11:09Z",
+      "side": 1,
+      "message": "Alright, made const.",
+      "parentUuid": "3bc9996e_2b5c6b2f",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3ab50eb_5c0f15bd",
         "filename": "rtc_base/network.cc",
         "patchSetId": 4
@@ -86,6 +104,24 @@
       "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b125b9aa_19fc9d6f",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T21:11:09Z",
+      "side": 1,
+      "message": "Aside from construction, this class operates entirely on network thread. Added some annotations.",
+      "parentUuid": "f3ab50eb_5c0f15bd",
+      "revId": "f7069221e5bb9dde57b4ef56a5db826a3b9e5042",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

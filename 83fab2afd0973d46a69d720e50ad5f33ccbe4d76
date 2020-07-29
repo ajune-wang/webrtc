@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e903f7_84b17036",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T21:11:09Z",
+      "side": 1,
+      "message": "Added some thread annotations; not complete but enough to protect network_monitor.",
+      "revId": "83fab2afd0973d46a69d720e50ad5f33ccbe4d76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a1a46bd_5a5cefe4",
+        "filename": "rtc_base/network_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T21:11:09Z",
+      "side": 1,
+      "message": "I now need to add StartUpdating in several places since this is what sets thread_.\n\nNote that this is a consequence of the test calling private methods; in the real world StartUpdating is always called before IsIgnoredNetwork, now that\u0027s true in the test as well.",
+      "revId": "83fab2afd0973d46a69d720e50ad5f33ccbe4d76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7b9d3a8_539465eb",
+        "filename": "rtc_base/network_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-29T21:11:09Z",
+      "side": 1,
+      "message": "This test didn\u0027t really make sense before. It says it\u0027s testing that the type of an existing network is updated after the network monitor is started, but in the real world the network monitor will *always* have been started before ConvertIfAddrs is called. Again, a case of the test calling private methods in an order that would never occur in reality.\n\nIdeally the test wouldn\u0027t be calling private methods at all, and would rely on faking the getifaddrs call, but that\u0027s a job for another CL.",
+      "revId": "83fab2afd0973d46a69d720e50ad5f33ccbe4d76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

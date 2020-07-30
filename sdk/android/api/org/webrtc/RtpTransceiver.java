@@ -210,9 +210,9 @@ public class RtpTransceiver {
    * transceiver will no longer send, the receiver will no longer receive.
    * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-stop
    */
-  public void stop() {
+  public void stopInternal() {
     checkRtpTransceiverExists();
-    nativeStop(nativeRtpTransceiver);
+    nativeStopInternal(nativeRtpTransceiver);
   }
 
   @CalledByNative
@@ -237,7 +237,7 @@ public class RtpTransceiver {
   private static native boolean nativeStopped(long rtpTransceiver);
   private static native RtpTransceiverDirection nativeDirection(long rtpTransceiver);
   private static native RtpTransceiverDirection nativeCurrentDirection(long rtpTransceiver);
-  private static native void nativeStop(long rtpTransceiver);
+  private static native void nativeStopInternal(long rtpTransceiver);
   private static native void nativeSetDirection(
       long rtpTransceiver, RtpTransceiverDirection rtpTransceiverDirection);
 }

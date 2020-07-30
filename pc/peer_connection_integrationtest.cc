@@ -2237,7 +2237,9 @@ TEST_P(PeerConnectionIntegrationTest, AudioToVideoUpgrade) {
     callee()->SetOfferAnswerOptions(options);
   } else {
     callee()->SetRemoteOfferHandler([this] {
-      callee()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)->Stop();
+      callee()
+          ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
+          ->StopInternal();
     });
   }
   // Do offer/answer and make sure audio is still received end-to-end.
@@ -2485,7 +2487,9 @@ TEST_P(PeerConnectionIntegrationTest, AnswererRejectsAudioSection) {
     // Stopping the audio RtpTransceiver will cause the media section to be
     // rejected in the answer.
     callee()->SetRemoteOfferHandler([this] {
-      callee()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_AUDIO)->Stop();
+      callee()
+          ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_AUDIO)
+          ->StopInternal();
     });
   }
   callee()->AddTrack(callee()->CreateLocalVideoTrack());
@@ -2527,7 +2531,9 @@ TEST_P(PeerConnectionIntegrationTest, AnswererRejectsVideoSection) {
     // Stopping the video RtpTransceiver will cause the media section to be
     // rejected in the answer.
     callee()->SetRemoteOfferHandler([this] {
-      callee()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)->Stop();
+      callee()
+          ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
+          ->StopInternal();
     });
   }
   callee()->AddTrack(callee()->CreateLocalAudioTrack());
@@ -2573,7 +2579,7 @@ TEST_P(PeerConnectionIntegrationTest, AnswererRejectsAudioAndVideoSections) {
     callee()->SetRemoteOfferHandler([this] {
       // Stopping all transceivers will cause all media sections to be rejected.
       for (const auto& transceiver : callee()->pc()->GetTransceivers()) {
-        transceiver->Stop();
+        transceiver->StopInternal();
       }
     });
   }
@@ -2620,7 +2626,9 @@ TEST_P(PeerConnectionIntegrationTest, VideoRejectedInSubsequentOffer) {
           }
         });
   } else {
-    caller()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)->Stop();
+    caller()
+        ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
+        ->StopInternal();
   }
   caller()->CreateAndSetAndSignalOffer();
   ASSERT_TRUE_WAIT(SignalingStateStable(), kMaxWaitForActivationMs);
@@ -4345,7 +4353,9 @@ TEST_P(PeerConnectionIntegrationTest,
     callee()->SetOfferAnswerOptions(options);
   } else {
     callee()->SetRemoteOfferHandler([this] {
-      callee()->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)->Stop();
+      callee()
+          ->GetFirstTransceiverOfType(cricket::MEDIA_TYPE_VIDEO)
+          ->StopInternal();
     });
   }
   caller()->CreateAndSetAndSignalOffer();
@@ -5552,7 +5562,7 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
     ASSERT_TRUE(ExpectNewFrames(media_expectations));
   }
 
-  audio_transceiver->Stop();
+  audio_transceiver->StopInternal();
   caller()->pc()->AddTransceiver(caller()->CreateLocalVideoTrack());
 
   caller()->CreateAndSetAndSignalOffer();

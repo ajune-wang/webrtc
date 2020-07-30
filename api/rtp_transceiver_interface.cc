@@ -25,6 +25,11 @@ RtpTransceiverInterface::fired_direction() const {
   return absl::nullopt;
 }
 
+void RtpTransceiverInterface::Stop() {
+  RTC_LOG(LS_ERROR) << "DEBUG: RtpTransceiverInterface::Stop called";
+  StopInternal();
+}
+
 RTCError RtpTransceiverInterface::SetCodecPreferences(
     rtc::ArrayView<RtpCodecCapability>) {
   RTC_NOTREACHED() << "Not implemented";
@@ -45,6 +50,18 @@ webrtc::RTCError RtpTransceiverInterface::SetOfferedRtpHeaderExtensions(
     rtc::ArrayView<const RtpHeaderExtensionCapability>
         header_extensions_to_offer) {
   return webrtc::RTCError(webrtc::RTCErrorType::UNSUPPORTED_OPERATION);
+}
+
+// TODO(hta) Remove default implem<entations when clients are updated.
+void RtpTransceiverInterface::SetDirection(
+    RtpTransceiverDirection new_direction) {
+  SetDirectionWithError(new_direction);
+}
+
+RTCError RtpTransceiverInterface::SetDirectionWithError(
+    RtpTransceiverDirection new_direction) {
+  RTC_NOTREACHED();
+  return RTCError::OK();
 }
 
 }  // namespace webrtc

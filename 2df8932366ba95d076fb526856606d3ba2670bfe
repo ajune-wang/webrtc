@@ -120,6 +120,24 @@
       "revId": "2df8932366ba95d076fb526856606d3ba2670bfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d551bc5f_0088aeac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-07-30T11:30:27Z",
+      "side": 1,
+      "message": "Hi! It seems to be an unrelated, general issue with the trybots. It should have been resolved, and I have started a new submit for this CL now.",
+      "parentUuid": "940f7d6e_6e322313",
+      "revId": "2df8932366ba95d076fb526856606d3ba2670bfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

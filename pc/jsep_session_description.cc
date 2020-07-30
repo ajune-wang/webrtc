@@ -16,6 +16,8 @@
 #include "pc/media_session.h"
 #include "pc/webrtc_sdp.h"
 #include "rtc_base/arraysize.h"
+#include "rtc_base/synchronization/sequence_checker.h"
+#include "rtc_base/thread.h"
 
 using cricket::SessionDescription;
 
@@ -172,9 +174,11 @@ std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
   return std::move(jsep_description);
 }
 
-JsepSessionDescription::JsepSessionDescription(SdpType type) : type_(type) {}
+JsepSessionDescription::JsepSessionDescription(SdpType type)
+    : type_(type), thread_(rtc::Thread::Current()) {}
 
-JsepSessionDescription::JsepSessionDescription(const std::string& type) {
+JsepSessionDescription::JsepSessionDescription(const std::string& type)
+    : thread_(rtc::Thread::Current()) {
   absl::optional<SdpType> maybe_type = SdpTypeFromString(type);
   if (maybe_type) {
     type_ = *maybe_type;
@@ -194,7 +198,8 @@ JsepSessionDescription::JsepSessionDescription(
     : description_(std::move(description)),
       session_id_(session_id),
       session_version_(session_version),
-      type_(type) {
+      type_(type),
+      thread_(rtc::Thread::Current()) {
   RTC_DCHECK(description_);
   candidate_collection_.resize(number_of_mediasections());
 }
@@ -205,6 +210,7 @@ bool JsepSessionDescription::Initialize(
     std::unique_ptr<cricket::SessionDescription> description,
     const std::string& session_id,
     const std::string& session_version) {
+  RTC_DCHECK_RUN_ON(thread_);
   if (!description)
     return false;
 
@@ -215,8 +221,39 @@ bool JsepSessionDescription::Initialize(
   return true;
 }
 
+cricket::SessionDescription* JsepSessionDescription::description() {
+  RTC_DCHECK_RUN_ON(thread_);
+  return description_.get();
+}
+
+const cricket::SessionDescription* JsepSessionDescription::description() const {
+  RTC_DCHECK_RUN_ON(thread_);
+  return description_.get();
+}
+
+std::string JsepSessionDescription::session_id() const {
+  RTC_DCHECK_RUN_ON(thread_);
+  return session_id_;
+}
+
+std::string JsepSessionDescription::session_version() const {
+  RTC_DCHECK_RUN_ON(thread_);
+  return session_version_;
+}
+
+SdpType JsepSessionDescription::GetType() const {
+  RTC_DCHECK_RUN_ON(thread_);
+  return type_;
+}
+
+std::string JsepSessionDescription::type() const {
+  RTC_DCHECK_RUN_ON(thread_);
+  return SdpTypeToString(type_);
+}
+
 bool JsepSessionDescription::AddCandidate(
     const IceCandidateInterface* candidate) {
+  RTC_DCHECK_RUN_ON(thread_);
   if (!candidate)
     return false;
   size_t mediasection_index = 0;
@@ -259,6 +296,7 @@ bool JsepSessionDescription::AddCandidate(
 
 size_t JsepSessionDescription::RemoveCandidates(
     const std::vector<cricket::Candidate>& candidates) {
+  RTC_DCHECK_RUN_ON(thread_);
   size_t num_removed = 0;
   for (auto& candidate : candidates) {
     int mediasection_index = GetMediasectionIndex(candidate);
@@ -275,6 +313,7 @@ size_t JsepSessionDescription::RemoveCandidates(
 }
 
 size_t JsepSessionDescription::number_of_mediasections() const {
+  RTC_DCHECK_RUN_ON(thread_);
   if (!description_)
     return 0;
   return description_->contents().size();
@@ -282,12 +321,14 @@ size_t JsepSessionDescription::number_of_mediasections() const {
 
 const IceCandidateCollection* JsepSessionDescription::candidates(
     size_t mediasection_index) const {
+  RTC_DCHECK_RUN_ON(thread_);
   if (mediasection_index >= candidate_collection_.size())
     return NULL;
   return &candidate_collection_[mediasection_index];
 }
 
 bool JsepSessionDescription::ToString(std::string* out) const {
+  RTC_DCHECK_RUN_ON(thread_);
   if (!description_ || !out) {
     return false;
   }

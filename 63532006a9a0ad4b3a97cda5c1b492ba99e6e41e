@@ -67,6 +67,29 @@
       "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "310a8c0c_ddb535b4",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2020-07-30T06:15:40Z",
+      "side": 1,
+      "message": "Looks like this accidentally changed to `remote` instead of `local`",
+      "range": {
+        "startLine": 365,
+        "startChar": 29,
+        "endLine": 365,
+        "endChar": 35
+      },
+      "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

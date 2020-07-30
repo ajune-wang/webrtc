@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "a506ff8f_ccba7016",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-07-30T12:11:31Z",
+      "side": 1,
+      "message": "The tests are crashing right now so that needs to be fixed obviously. The code looks good to me though.",
+      "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8661aac2_9ce178b5",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 3
@@ -64,6 +81,24 @@
       "writtenOn": "2020-07-29T23:27:41Z",
       "side": 1,
       "message": "Would it be better to return a ScopedJavaGlobalRef, making it safe to call NativeToJavaSessionDescription on the signaling thread and pass the results across threads?",
+      "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "390f228b_396582f5",
+        "filename": "sdk/android/src/jni/pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-07-30T12:11:31Z",
+      "side": 1,
+      "message": "It would gain us one less string copy. Right now it is PC -\u003e Stack -\u003e Java string\n\nI don\u0027t have a strong opinion though.",
+      "parentUuid": "30aae60b_17d816c9",
       "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

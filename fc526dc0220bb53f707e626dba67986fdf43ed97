@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0822f0da_17caa09c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-07-30T08:09:54Z",
+      "side": 1,
+      "message": "I will \"force submit this CL\" since (according to Artem) \"we have an outage with windows bots. Basically right now there are 0 bots to run tests\". My CL can\u0027t possibly break tests on Win7 since it consists of logging only.",
+      "revId": "fc526dc0220bb53f707e626dba67986fdf43ed97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

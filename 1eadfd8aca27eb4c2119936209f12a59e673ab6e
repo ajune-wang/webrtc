@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31907b5e_4f6bfb07",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-07-30T19:16:56Z",
+      "side": 1,
+      "message": "Should avoid string parsing on every reconfigure. Store this in a const bool disable_automatic_resize_.",
+      "range": {
+        "startLine": 432,
+        "startChar": 6,
+        "endLine": 432,
+        "endChar": 76
+      },
+      "revId": "1eadfd8aca27eb4c2119936209f12a59e673ab6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "495b83cc_b6296bd9",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2020-07-30T19:16:56Z",
+      "side": 1,
+      "message": "The outer parentheses are redundant.",
+      "range": {
+        "startLine": 433,
+        "startChar": 6,
+        "endLine": 433,
+        "endChar": 7
+      },
+      "revId": "1eadfd8aca27eb4c2119936209f12a59e673ab6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -429,8 +429,11 @@ WebRtcVideoChannel::WebRtcVideoSendStream::ConfigureVideoEncoderSettings(
   bool is_screencast = parameters_.options.is_screencast.value_or(false);
   // No automatic resizing when using simulcast or screencast.
   bool automatic_resize =
-      !is_screencast && (parameters_.config.rtp.ssrcs.size() == 1 ||
-                         NumActiveStreams(rtp_parameters_) == 1);
+      !webrtc::field_trial::IsEnabled("WebRTC-Video-DisableAutomaticResize") &&
+      !is_screencast &&
+      (parameters_.config.rtp.ssrcs.size() == 1 ||
+       NumActiveStreams(rtp_parameters_) == 1);
+
   bool frame_dropping = !is_screencast;
   bool denoising;
   bool codec_default_denoising = false;

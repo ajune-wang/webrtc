@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "adc2ca13_39a4d2e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-07-30T02:24:46Z",
+      "side": 1,
+      "message": "From the test failures I\u0027m realizing that the thread assertions aren\u0027t going to work, because users of the API are expected to construct the SessionDescription on their own thread and then pass it into WebRTC\u0027s signaling thread (transferring ownership).\n\nSo I need to either get rid of the assertions, or add a method to change the thread the SessionDescription is attached to. I don\u0027t like that idea because it would clutter SessionDescriptionInterface... Let me know if you have any opinions.",
+      "revId": "63532006a9a0ad4b3a97cda5c1b492ba99e6e41e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8661aac2_9ce178b5",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 3

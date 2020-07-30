@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1075b9c_46390d90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8393
+      },
+      "writtenOn": "2020-07-30T23:52:11Z",
+      "side": 1,
+      "message": "Given the conclusions from today\u0027s discussion, how would you like to proceed here? As previously mentioned, I\u0027m open to landing this patch off-by-default, but the 6904 negotiation bits will probably be removed in the near future.",
+      "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

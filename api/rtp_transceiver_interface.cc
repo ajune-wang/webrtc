@@ -47,4 +47,16 @@ webrtc::RTCError RtpTransceiverInterface::SetOfferedRtpHeaderExtensions(
   return webrtc::RTCError(webrtc::RTCErrorType::UNSUPPORTED_OPERATION);
 }
 
+// TODO(hta) Remove default implem<entations when clients are updated.
+void RtpTransceiverInterface::SetDirection(
+    RtpTransceiverDirection new_direction) {
+  SetDirectionWithError(new_direction);
+}
+
+RTCError RtpTransceiverInterface::SetDirectionWithError(
+    RtpTransceiverDirection new_direction) {
+  RTC_NOTREACHED();
+  return RTCError::OK();
+}
+
 }  // namespace webrtc

@@ -1796,15 +1796,13 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForOffer(
   switch (direction) {
     // If stream is inactive - generate list as if sendrecv.
     case RtpTransceiverDirection::kSendRecv:
+    case RtpTransceiverDirection::kStopped:
     case RtpTransceiverDirection::kInactive:
       return audio_sendrecv_codecs_;
     case RtpTransceiverDirection::kSendOnly:
       return audio_send_codecs_;
     case RtpTransceiverDirection::kRecvOnly:
       return audio_recv_codecs_;
-    case RtpTransceiverDirection::kStopped:
-      RTC_NOTREACHED();
-      return audio_sendrecv_codecs_;
   }
 }
 
@@ -1815,6 +1813,7 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForAnswer(
     // For inactive and sendrecv answers, generate lists as if we were to accept
     // the offer's direction. See RFC 3264 Section 6.1.
     case RtpTransceiverDirection::kSendRecv:
+    case RtpTransceiverDirection::kStopped:
     case RtpTransceiverDirection::kInactive:
       return GetAudioCodecsForOffer(
           webrtc::RtpTransceiverDirectionReversed(offer));
@@ -1822,9 +1821,6 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForAnswer(
       return audio_send_codecs_;
     case RtpTransceiverDirection::kRecvOnly:
       return audio_recv_codecs_;
-    case RtpTransceiverDirection::kStopped:
-      RTC_NOTREACHED();
-      return audio_sendrecv_codecs_;
   }
 }
 
@@ -1833,14 +1829,12 @@ const VideoCodecs& MediaSessionDescriptionFactory::GetVideoCodecsForOffer(
   switch (direction) {
     // If stream is inactive - generate list as if sendrecv.
     case RtpTransceiverDirection::kSendRecv:
+    case RtpTransceiverDirection::kStopped:
     case RtpTransceiverDirection::kInactive:
       return video_sendrecv_codecs_;
     case RtpTransceiverDirection::kSendOnly:
       return video_send_codecs_;
     case RtpTransceiverDirection::kRecvOnly:
-      return video_recv_codecs_;
-    case RtpTransceiverDirection::kStopped:
-      RTC_NOTREACHED();
       return video_sendrecv_codecs_;
   }
 }
@@ -1852,6 +1846,7 @@ const VideoCodecs& MediaSessionDescriptionFactory::GetVideoCodecsForAnswer(
     // For inactive and sendrecv answers, generate lists as if we were to accept
     // the offer's direction. See RFC 3264 Section 6.1.
     case RtpTransceiverDirection::kSendRecv:
+    case RtpTransceiverDirection::kStopped:
     case RtpTransceiverDirection::kInactive:
       return GetVideoCodecsForOffer(
           webrtc::RtpTransceiverDirectionReversed(offer));
@@ -1859,9 +1854,6 @@ const VideoCodecs& MediaSessionDescriptionFactory::GetVideoCodecsForAnswer(
       return video_send_codecs_;
     case RtpTransceiverDirection::kRecvOnly:
       return video_recv_codecs_;
-    case RtpTransceiverDirection::kStopped:
-      RTC_NOTREACHED();
-      return video_sendrecv_codecs_;
   }
 }
 

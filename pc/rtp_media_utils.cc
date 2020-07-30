@@ -16,6 +16,7 @@ namespace webrtc {
 
 RtpTransceiverDirection RtpTransceiverDirectionFromSendRecv(bool send,
                                                             bool recv) {
+  // TODO(armax): check if this is still the case or needs fixing for stopped.
   if (send && recv) {
     return RtpTransceiverDirection::kSendRecv;
   } else if (send && !recv) {
@@ -42,6 +43,7 @@ RtpTransceiverDirection RtpTransceiverDirectionReversed(
   switch (direction) {
     case RtpTransceiverDirection::kSendRecv:
     case RtpTransceiverDirection::kInactive:
+    case RtpTransceiverDirection::kStopped:
       return direction;
     case RtpTransceiverDirection::kSendOnly:
       return RtpTransceiverDirection::kRecvOnly;

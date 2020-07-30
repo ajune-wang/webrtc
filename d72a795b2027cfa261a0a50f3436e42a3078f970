@@ -16,6 +16,23 @@
       "revId": "d72a795b2027cfa261a0a50f3436e42a3078f970",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2cd5c3c_d98c1f08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-07-30T06:42:59Z",
+      "side": 1,
+      "message": "Since this is a reland, I  think it is OK to land it with a TBR\u003d.\n",
+      "revId": "d72a795b2027cfa261a0a50f3436e42a3078f970",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

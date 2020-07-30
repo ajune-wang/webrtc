@@ -123,7 +123,7 @@ RtpTransceiver::RtpTransceiver(
 }
 
 RtpTransceiver::~RtpTransceiver() {
-  Stop();
+  StopInternal();
 }
 
 void RtpTransceiver::SetChannel(cricket::ChannelInterface* channel) {
@@ -277,23 +277,50 @@ bool RtpTransceiver::stopped() const {
   return stopped_;
 }
 
+bool RtpTransceiver::stopping() const {
+  return stopping_;
+}
+
 RtpTransceiverDirection RtpTransceiver::direction() const {
+  if (unified_plan_ && stopping())
+    return webrtc::RtpTransceiverDirection::kStopped;
+
   return direction_;
 }
 
 void RtpTransceiver::SetDirection(RtpTransceiverDirection new_direction) {
-  if (stopped()) {
-    return;
+  // Catch internal usage of SetDirection without error.
+  // We cannot deprecate this function while it is being proxied, so
+  // settle for causing a runtime error instead.
+  RTC_NOTREACHED();
+  SetDirectionWithError(new_direction);
+}
+
+RTCError RtpTransceiver::SetDirectionWithError(
+    RtpTransceiverDirection new_direction) {
+  if (unified_plan_ && stopping()) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_STATE,
+                         "Cannot set direction on a stopping transceiver.");
   }
-  if (new_direction == direction_) {
-    return;
+  if (new_direction == direction_)
+    return RTCError::OK();
+
+  if (new_direction == RtpTransceiverDirection::kStopped) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
+                         "The set direction 'stopped' is invalid.");
   }
+
   direction_ = new_direction;
   SignalNegotiationNeeded();
+
+  return RTCError::OK();
 }
 
 absl::optional<RtpTransceiverDirection> RtpTransceiver::current_direction()
     const {
+  if (unified_plan_ && stopping())
+    return webrtc::RtpTransceiverDirection::kStopped;
+
   return current_direction_;
 }
 
@@ -302,14 +329,66 @@ absl::optional<RtpTransceiverDirection> RtpTransceiver::fired_direction()
   return fired_direction_;
 }
 
-void RtpTransceiver::Stop() {
-  for (const auto& sender : senders_) {
+void RtpTransceiver::StopSendingAndReceiving() {
+  // 1. Let sender be transceiver.[[Sender]].
+  // 2. Let receiver be transceiver.[[Receiver]].
+  //
+  // 3. Stop sending media with sender.
+  //
+  // 4. Send an RTCP BYE for each RTP stream that was being sent by sender, as
+  // specified in [RFC3550].
+  for (const auto& sender : senders_)
     sender->internal()->Stop();
-  }
-  for (const auto& receiver : receivers_) {
+
+  // 5. Stop receiving media with receiver.
+  for (const auto& receiver : receivers_)
     receiver->internal()->Stop();
+
+  stopping_ = true;
+  direction_ = webrtc::RtpTransceiverDirection::kInactive;
+}
+
+RTCError RtpTransceiver::StopStandard() {
+  RTC_DCHECK(unified_plan_);
+  // 1. Let transceiver be the RTCRtpTransceiver object on which the method is
+  // invoked.
+  //
+  // 2. Let connection be the RTCPeerConnection object associated with
+  // transceiver.
+  //
+  // 3. If connection.[[IsClosed]] is true, throw an InvalidStateError.
+  if (is_pc_closed_) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_STATE,
+                         "PeerConnection is closed.");
   }
+
+  // 4. If transceiver.[[Stopping]] is true, abort these steps.
+  if (stopping_)
+    return RTCError::OK();
+
+  // 5. Stop sending and receiving given transceiver, and update the
+  // negotiation-needed flag for connection.
+  StopSendingAndReceiving();
+  SignalNegotiationNeeded();
+
+  return RTCError::OK();
+}
+
+void RtpTransceiver::StopInternal() {
+  // 1. If transceiver.[[Stopping]] is false, stop sending and receiving given
+  // transceiver.
+  if (!stopping_)
+    StopSendingAndReceiving();
+
+  // 2. Set transceiver.[[Stopped]] to true.
   stopped_ = true;
+
+  // Signal the updated change to the senders.
+  for (const auto& sender : senders_)
+    sender->internal()->SetTransceiverAsStopped();
+
+  // 3. Set transceiver.[[Receptive]] to false.
+  // 4. Set transceiver.[[CurrentDirection]] to null.
   current_direction_ = absl::nullopt;
 }
 
@@ -401,6 +480,10 @@ RTCError RtpTransceiver::SetOfferedRtpHeaderExtensions(
   }
 
   return RTCError::OK();
+}
+
+void RtpTransceiver::SetPeerConnectionClosed() {
+  is_pc_closed_ = true;
 }
 
 }  // namespace webrtc

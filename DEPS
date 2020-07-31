@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '4d0815dcb4156a37579a7062c765d6613343ee96',
+  'chromium_revision': '67e6894163886bfad5d16e317e38b90beeea5584',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@143f2bf322df108dabcb6e8a96720aa6332f88c0',
+    'https://chromium.googlesource.com/chromium/src/base@e9d3f1bba4fe01ada87be369dad91e4f9d82d675',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@af38c5df814f377e916da8a2b139d9bdc566e0f7',
+    'https://chromium.googlesource.com/chromium/src/build@f53587b4b8803a888663f03011ac4fedacb3cb43',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@42e94619588fd2f0ceb6cc29785592640703e6a1',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -33,13 +33,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@52cafcd0643b745db6a28fbdc2d64023ad111175',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@e837e8b5df3bcab84e397bbe54beec6c2c28377a',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@5501fd11e61c7184ac1d467eeadc889bf9783537',
+    'https://chromium.googlesource.com/chromium/src/testing@74c6c20039b506db0b2fcd8788ba739db40ec5f9',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@cbac85ebcfded08916c35acf40968ac60c4d9f69',
+    'https://chromium.googlesource.com/chromium/src/third_party@c1220412bec2e9f5f57d704753547a3fd2888561',
 
   'src/buildtools/linux64': {
     'packages': [

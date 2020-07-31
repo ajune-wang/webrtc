@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03faff47_b814d751",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2020-07-31T07:41:36Z",
+      "side": 1,
+      "message": "Obj-C part lgtm",
+      "revId": "9a610d892c399e0eacc24ec55566da39d971cbd9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "d7799103_3ce3ca3c",
+        "filename": "pc/webrtc_sdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3002,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-31T07:07:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb29437b_b360f5c1",
+      "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af13330e_294f1951",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 2
@@ -87,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "433282a9_661bfe54",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2635,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-31T07:07:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af13330e_294f1951",
+      "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d4107ac_94e59b69",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 2
@@ -98,6 +134,24 @@
       "writtenOn": "2020-07-27T11:01:01Z",
       "side": 1,
       "message": "I\u0027m not sure what tokenize_first does; will it throw on this one because it doesn\u0027t have two fields?\nWill it also barf on b\u003dAS:12:34 (3 fields)?",
+      "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb0fd23a_48777a8e",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3377,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-07-31T07:07:06Z",
+      "side": 1,
+      "message": "tokenize_first fails because it doesn\u0027t find the delimiter.\nb\u003dAS:12:34 will set bandwidth to 12:34 and this will fail because of GetValueFromString.\nb\u003dAS: will also fail because of GetValueFromString.\n\nAdded tests because tests are great.",
+      "parentUuid": "8d4107ac_94e59b69",
       "revId": "81b2c2cd2bf6c6bffeb4845bb9185bf76fb74cca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

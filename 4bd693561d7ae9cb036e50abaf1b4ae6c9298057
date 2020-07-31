@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcb7242f_2ae7f461",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9002
+      },
+      "writtenOn": "2020-07-31T06:13:04Z",
+      "side": 1,
+      "message": "Thanks Christoffer! Should I interpret your +1 as ready to submit?",
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

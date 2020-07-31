@@ -10,6 +10,7 @@
 
 #include "api/media_stream_interface.h"
 #include "sdk/android/generated_peerconnection_jni/AudioTrack_jni.h"
+#include "sdk/android/src/jni/pc/audio_sink.h"
 
 namespace webrtc {
 namespace jni {
@@ -20,6 +21,29 @@ static void JNI_AudioTrack_SetVolume(JNIEnv*,
   rtc::scoped_refptr<AudioSourceInterface> source(
       reinterpret_cast<AudioTrackInterface*>(j_p)->GetSource());
   source->SetVolume(volume);
+}
+
+static void JNI_AudioTrack_AddSink(JNIEnv*,
+                                   jlong j_native_track,
+                                   jlong j_native_sink) {
+  reinterpret_cast<AudioTrackInterface*>(j_native_track)
+      ->AddSink(reinterpret_cast<AudioTrackSinkInterface*>(j_native_sink));
+}
+
+static void JNI_AudioTrack_RemoveSink(JNIEnv*,
+                                      jlong j_native_track,
+                                      jlong j_native_sink) {
+  reinterpret_cast<AudioTrackInterface*>(j_native_track)
+      ->RemoveSink(reinterpret_cast<AudioTrackSinkInterface*>(j_native_sink));
+}
+
+static jlong JNI_AudioTrack_WrapSink(JNIEnv* jni,
+                                     const JavaParamRef<jobject>& sink) {
+  return jlongFromPointer(new AudioSinkWrapper(jni, sink));
+}
+
+static void JNI_AudioTrack_FreeSink(JNIEnv* jni, jlong j_native_sink) {
+  delete reinterpret_cast<AudioSinkWrapper*>(j_native_sink);
 }
 
 }  // namespace jni

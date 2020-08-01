@@ -16,6 +16,24 @@
       "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48f5373e_ba82a37c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-08-01T10:09:48Z",
+      "side": 1,
+      "message": "Landing with off-by-default is acceptable from my perspective. As mentioned earlier, if this patch is going to be mentioned in release notes, it could point to the \u0027cryptex\u0027 plans.",
+      "parentUuid": "e1075b9c_46390d90",
+      "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd0bcff98cd11c999c42aae0be9e2ab122b791015',
+  'chromium_revision': '913f6f7fa6ef66bf48c9501901637430b39502c2',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,7 +22,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@d232d78c401cfeb418ebc107efd75404d5a7dbfb',
+    'https://chromium.googlesource.com/chromium/src/base@06e6dd039b73d93a96fd8e9753fbc749cfdd4f46',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@3715f8654630970d737b188b80452e8adc24ba30',
   'src/buildtools':
@@ -39,7 +39,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@72a06969989fa43512fa42ca44da7c0d7b2168e5',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@960cae503b777b4e331f1a07823213b4d5f856c9',
+    'https://chromium.googlesource.com/chromium/src/third_party@ddf8a08392eeee596d6fdd639cef46ba505566e9',
 
   'src/buildtools/linux64': {
     'packages': [

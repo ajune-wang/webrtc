@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '5963c7d69ad8ddc6b80606ffa666a3d40ebe3844',
+  'chromium_revision': 'b3f24b84132bf5fffd4dcc77a036ae15b9979dec',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -208,7 +208,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@4b656a010be50665d73995d66c5f5a544262b10f',
+    'https://android.googlesource.com/platform/external/perfetto.git@c6f029c304cac3a9a22e9e99b644335fbc7b060a',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@a1cee8dc919df1980d802e1a9bce1259ec34cba8',
   'src/third_party/libyuv':
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@3469aa44473b37e36ca9e50fc58e715dc5e9bba7',
+    'https://chromium.googlesource.com/chromium/src/tools@ec896ba246f6dec822714671b0148695fc0dee05',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 

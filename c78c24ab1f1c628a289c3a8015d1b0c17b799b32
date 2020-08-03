@@ -33,6 +33,23 @@
       "revId": "c78c24ab1f1c628a289c3a8015d1b0c17b799b32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6473f5da_ffc0b113",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-03T09:24:51Z",
+      "side": 1,
+      "message": "Changing reviewer. Stefan, PTAL.",
+      "revId": "c78c24ab1f1c628a289c3a8015d1b0c17b799b32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

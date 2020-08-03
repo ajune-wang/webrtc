@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "931b2669_48dfaec8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-08-03T13:09:17Z",
+      "side": 1,
+      "message": "clearly too many MTUs -- if that looks good feel free to land ;-)",
+      "revId": "43b95508f434e683ae5cdfbc0e319aa154203fc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efcb346e_fb6aa519",
         "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
         "patchSetId": 2
@@ -36,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "fd401885_3d6191f7",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-08-03T13:09:17Z",
+      "side": 1,
+      "message": "This one comes from here:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/base/rtp_data_engine.cc;l\u003d29?q\u003dstatic%20const%20size_t%20kDataMaxRtpPacketLen%20%3D%201200U;%20\u0026sq\u003d\u0026ss\u003dchromium\nThat is one MTU, there is also constexpr size_t kMtu \u003d 1200; in the goog_cc unit tests, media/engine/constants.cc:const int kVideoMtu \u003d 1200 et all.\n\nTOO MANY, will update for the constexpr ;-)",
+      "parentUuid": "efcb346e_fb6aa519",
+      "revId": "43b95508f434e683ae5cdfbc0e319aa154203fc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed2a7ca7_4eb8b58a",
         "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
         "patchSetId": 2
@@ -50,6 +85,24 @@
       "revId": "43b95508f434e683ae5cdfbc0e319aa154203fc3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854e149c_58f612b9",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 12214
+      },
+      "writtenOn": "2020-08-03T13:09:17Z",
+      "side": 1,
+      "message": "mh... for this to happen the overhead_bytes_per_packet would have to be more than 200 bytes (otherwise this gets caught by the 1024 limit above).\n\nPut the DCHECK a few lines before this since it is also used in CalculateHeaderLength.",
+      "parentUuid": "ed2a7ca7_4eb8b58a",
+      "revId": "43b95508f434e683ae5cdfbc0e319aa154203fc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

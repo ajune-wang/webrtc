@@ -39,6 +39,30 @@
       "revId": "bdddcfc74fe2e6800a8fd26d4120451ac58d4c00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4e45de3_903dbbb9",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-08-03T08:22:46Z",
+      "side": 1,
+      "message": "The new VideoStreamDecoder takes a map of payload_type --\u003e SdpVideoFormat that is used to instantiate the decoder. When we start using it then Decoder can probably be retired.",
+      "parentUuid": "23d3076a_11f69991",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 34
+      },
+      "revId": "bdddcfc74fe2e6800a8fd26d4120451ac58d4c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

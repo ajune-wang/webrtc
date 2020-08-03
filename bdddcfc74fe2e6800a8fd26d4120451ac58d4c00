@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "62b85ec4_0e1fedda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-08-03T08:36:12Z",
+      "side": 1,
+      "message": "Magnus, requesting a RS-LGTM, PTAL",
+      "revId": "bdddcfc74fe2e6800a8fd26d4120451ac58d4c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23d3076a_11f69991",
         "filename": "call/video_receive_stream.h",
         "patchSetId": 3

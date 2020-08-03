@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a18d213b_a0bc1800",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-03T23:06:21Z",
+      "side": 1,
+      "message": "PTAL. See this bug for context: https://github.com/sctplab/usrsctp/issues/506\n\nThis is just a temporary workaround until the bug above is fixed and we can roll usrsctp.",
+      "revId": "0d1406339b280fda2323f47a703ac86fc586f430",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

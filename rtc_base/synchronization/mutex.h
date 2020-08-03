@@ -19,7 +19,12 @@
 #include "rtc_base/system/unused.h"
 #include "rtc_base/thread_annotations.h"
 
-#if defined(WEBRTC_ABSL_MUTEX)
+#if defined(WEBRTC_MUTEX_RACE_CHECK)
+// To use the race check mutex, define WEBRTC_MUTEX_RACE_CHECK globally. This
+// also adds a dependency to absl::Mutex from logging.cc due to concurrent
+// invocation of the static logging system.
+#include "rtc_base/synchronization/mutex_race_check.h"
+#elif defined(WEBRTC_ABSL_MUTEX)
 #include "rtc_base/synchronization/mutex_abseil.h"  // nogncheck
 #elif defined(WEBRTC_WIN)
 #include "rtc_base/synchronization/mutex_critical_section.h"

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abcffb9b_01894c5e",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-03T22:23:44Z",
+      "side": 1,
+      "message": "Should this be invoked asynchronously on voip_thread_? It\u0027s just trivial variable assignment. But maybe we should invoke it asynchronously to be consistent with the other methods?",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 5
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5af20cdc_8c7451ee",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-03T22:23:44Z",
+      "side": 1,
+      "message": "Same here as above.",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 5
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33015ac2_7ba47636",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-03T22:23:44Z",
+      "side": 1,
+      "message": "Is there a cleaner way to do this than leaving a /*isSuccessful*/ everywhere?",
+      "range": {
+        "startLine": 267,
+        "startChar": 46,
+        "endLine": 267,
+        "endChar": 63
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6d6dc0_e37cfe91",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-03T22:23:44Z",
+      "side": 1,
+      "message": "I took a look at other places in the project that used JNIEnv* similar to how we did, and at least for the ones I\u0027ve found, none of them did anything to clean up for the JNIEnv*, so I am inclined to believe that there isn\u0027t any clean up necessary. If I am wrong, definitely let me know.",
+      "range": {
+        "startLine": 153,
+        "startChar": 2,
+        "endLine": 153,
+        "endChar": 15
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

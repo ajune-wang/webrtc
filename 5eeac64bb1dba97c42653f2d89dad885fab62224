@@ -53,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "1a75dbb8_8cabd4d6",
+        "filename": "rtc_base/synchronization/mutex_race_check.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-03T09:53:26Z",
+      "side": 1,
+      "message": "Add a comment or a message here that explains what went wrong, since this is the line users will be pointed to when they fail to guarantee nonconcurrency?",
+      "revId": "5eeac64bb1dba97c42653f2d89dad885fab62224",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a375773_9c635b18",
         "filename": "rtc_base/synchronization/mutex_race_check.h",
         "patchSetId": 8

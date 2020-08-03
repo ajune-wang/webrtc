@@ -51,6 +51,23 @@
       "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a9718fd_18c13792",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-03T07:55:06Z",
+      "side": 1,
+      "message": "Looks reasonable, but can you explain why it has to be a field trial? It sounds a bit similar to using DegradationPreference::MAINTAIN_RESOLUTION, which is in the advertised peerconnection api.",
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

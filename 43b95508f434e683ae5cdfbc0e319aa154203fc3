@@ -16,6 +16,40 @@
       "revId": "43b95508f434e683ae5cdfbc0e319aa154203fc3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "efcb346e_fb6aa519",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-03T11:34:19Z",
+      "side": 1,
+      "message": "Explain what this constant comes from?\n\nAlso, remove the unnecessary U suffix to make it easier to read?\n\nAlso, const -\u003e constexpr.",
+      "revId": "43b95508f434e683ae5cdfbc0e319aa154203fc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed2a7ca7_4eb8b58a",
+        "filename": "modules/audio_coding/codecs/red/audio_encoder_copy_red.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-03T11:34:19Z",
+      "side": 1,
+      "message": "DCHECK that this is never negative? Because unsigned arithmetic in C++ is error prone...\n\n(I almost ended up recommending that you switch as much of this CL as possible to signed integers, but there are too many interfaces that use size_t for this to be a clear net win. Personally I would have tried it, but I\u0027ll leave the choice to you. If you do, dchecked_cast is a good tool to consider.)",
+      "revId": "43b95508f434e683ae5cdfbc0e319aa154203fc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

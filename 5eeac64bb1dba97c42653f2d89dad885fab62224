@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08e2d5a3_def47ebf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-03T09:51:40Z",
+      "side": 1,
+      "message": "LGTM. But it would be nice to have comment explaining why logging still needs a real mutex, and why absl::Mutex is the hardcoded choice (I\u0027m guessing to make things simple?).",
+      "revId": "5eeac64bb1dba97c42653f2d89dad885fab62224",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe62abee_99844726",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-03T09:51:40Z",
+      "side": 1,
+      "message": "Explain in a comment before line 90 why we need absl::Mutex specifically when webrtc::Mutex is just a race checker?",
+      "revId": "5eeac64bb1dba97c42653f2d89dad885fab62224",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d712d369_40112a6c",
+        "filename": "rtc_base/synchronization/mutex.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-03T09:51:40Z",
+      "side": 1,
+      "message": "... because?",
+      "revId": "5eeac64bb1dba97c42653f2d89dad885fab62224",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a375773_9c635b18",
+        "filename": "rtc_base/synchronization/mutex_race_check.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-03T09:51:40Z",
+      "side": 1,
+      "message": "For added clarity, consider doing as in Lock(): creating a local was_free variable and returning that. The return value of .exchange() isn\u0027t entirely obvious.",
+      "revId": "5eeac64bb1dba97c42653f2d89dad885fab62224",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

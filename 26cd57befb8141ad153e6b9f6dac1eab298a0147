@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bd547dd_c70deec2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-03T23:38:48Z",
+      "side": 1,
+      "message": "Still need LGTM for api/pc and android.\n\nRemoved the thread checks because they don\u0027t work when the SessionDescription is created on the application\u0027s main thread before being passed into WebRTC (which is typical of the remote description).\n\nIf you have a suggestion on how to get around that, be my guest, but the only thing I can think of is adding a \"change owner thread\" method to SessionDescriptionInterface, which I don\u0027t like very much.",
+      "revId": "26cd57befb8141ad153e6b9f6dac1eab298a0147",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

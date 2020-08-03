@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "069ff52b_d0e7866d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-03T07:44:14Z",
+      "side": 1,
+      "message": "Change looks good. Just a few questions. ",
+      "revId": "bdddcfc74fe2e6800a8fd26d4120451ac58d4c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23d3076a_11f69991",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-03T07:44:14Z",
+      "side": 1,
+      "message": "So this is now essentially a mapping from payload type to SdpVideoFormat? Sounds reasonable to me.\n\nIs it easy to change to std::map (or some appropriate absl mapping type)?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 34
+      },
+      "revId": "bdddcfc74fe2e6800a8fd26d4120451ac58d4c00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

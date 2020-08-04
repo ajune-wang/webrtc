@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'b0f163b235ee30da7ee0631bf7b79669d5921444',
+  'chromium_revision': '4dcefee84d6037c013a7d3f25d82f8f378b5dc19',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@2f569ccb6c07068d9aa803d1dd1cf854b0396df0',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@555138aa2d3516aa6f7612bc8b53839c5e613514',
+    'https://chromium.googlesource.com/chromium/src/build@6c915ac2af1a19a105b502d761d8a768e718ffc1',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@61392178782cb7f6720228ab0cc4ef65a68c2824',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -208,7 +208,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@d14d99cd75b8ec9f83cc738b3162c3fff0b74ef1',
+    'https://android.googlesource.com/platform/external/perfetto.git@46b0d8780f6664c080dbec70c09bdd207cff12e9',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@a1cee8dc919df1980d802e1a9bce1259ec34cba8',
   'src/third_party/libyuv':

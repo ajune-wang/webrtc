@@ -2676,15 +2676,19 @@ TEST_P(PeerConnectionInterfaceTest, CloseAndTestStreamsAndStates) {
   }
 
   auto audio_receiver = GetFirstReceiverOfType(cricket::MEDIA_TYPE_AUDIO);
-  ASSERT_TRUE(audio_receiver);
   auto video_receiver = GetFirstReceiverOfType(cricket::MEDIA_TYPE_VIDEO);
-  ASSERT_TRUE(video_receiver);
-
-  // Track state may be updated asynchronously.
-  EXPECT_EQ_WAIT(MediaStreamTrackInterface::kEnded,
-                 audio_receiver->track()->state(), kTimeout);
-  EXPECT_EQ_WAIT(MediaStreamTrackInterface::kEnded,
-                 video_receiver->track()->state(), kTimeout);
+  if (sdp_semantics_ == SdpSemantics::kPlanB) {
+    ASSERT_TRUE(audio_receiver);
+    ASSERT_TRUE(video_receiver);
+    // Track state may be updated asynchronously.
+    EXPECT_EQ_WAIT(MediaStreamTrackInterface::kEnded,
+                   audio_receiver->track()->state(), kTimeout);
+    EXPECT_EQ_WAIT(MediaStreamTrackInterface::kEnded,
+                   video_receiver->track()->state(), kTimeout);
+  } else {
+    ASSERT_FALSE(audio_receiver);
+    ASSERT_FALSE(video_receiver);
+  }
 }
 
 // Test that PeerConnection methods fails gracefully after

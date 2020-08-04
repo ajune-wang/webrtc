@@ -382,6 +382,10 @@ void NetworkManagerBase::MergeNetworkList(const NetworkList& new_networks,
       if (!existing_net->active()) {
         *changed = true;
       }
+      if (net->network_preference() != existing_net->network_preference()) {
+        existing_net->set_network_preference(net->network_preference());
+        *changed = true;
+      }
       RTC_DCHECK(net->active());
       if (existing_net != net) {
         delete net;
@@ -536,6 +540,7 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
 
     AdapterType adapter_type = ADAPTER_TYPE_UNKNOWN;
     AdapterType vpn_underlying_adapter_type = ADAPTER_TYPE_UNKNOWN;
+    NetworkPreference network_preference = NetworkPreference::NEUTRAL;
     if (cursor->ifa_flags & IFF_LOOPBACK) {
       adapter_type = ADAPTER_TYPE_LOOPBACK;
     } else {
@@ -543,6 +548,8 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
       // Otherwise, get the adapter type based on a few name matching rules.
       if (network_monitor_) {
         adapter_type = network_monitor_->GetAdapterType(cursor->ifa_name);
+        network_preference =
+            network_monitor_->GetNetworkPreference(cursor->ifa_name);
       }
       if (adapter_type == ADAPTER_TYPE_UNKNOWN) {
         adapter_type = GetAdapterTypeFromName(cursor->ifa_name);
@@ -568,6 +575,7 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
       network->AddIP(ip);
       network->set_ignored(IsIgnoredNetwork(*network));
       network->set_underlying_type_for_vpn(vpn_underlying_adapter_type);
+      network->set_network_preference(network_preference);
       if (include_ignored || !network->ignored()) {
         current_networks[key] = network.get();
         networks->push_back(network.release());
@@ -580,6 +588,7 @@ void BasicNetworkManager::ConvertIfAddrs(struct ifaddrs* interfaces,
         existing_network->set_underlying_type_for_vpn(
             vpn_underlying_adapter_type);
       }
+      existing_network->set_network_preference(network_preference);
     }
   }
 }

@@ -17,7 +17,6 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import org.webrtc.NetworkMonitorAutoDetect;
 
 /**
  * Borrowed from Chromium's
@@ -166,7 +165,6 @@ public class NetworkMonitor {
 
   private NetworkMonitorAutoDetect createAutoDetect(Context appContext) {
     return new NetworkMonitorAutoDetect(new NetworkMonitorAutoDetect.Observer() {
-
       @Override
       public void onConnectionTypeChanged(
           NetworkMonitorAutoDetect.ConnectionType newConnectionType) {
@@ -181,6 +179,12 @@ public class NetworkMonitor {
       @Override
       public void onNetworkDisconnect(long networkHandle) {
         notifyObserversOfNetworkDisconnect(networkHandle);
+      }
+
+      @Override
+      public void onNetworkPreference(
+          List<NetworkMonitorAutoDetect.ConnectionType> types, int preference) {
+        notifyObserversOfNetworkPreference(types, preference);
       }
     }, appContext);
   }
@@ -220,6 +224,16 @@ public class NetworkMonitor {
     List<Long> nativeObservers = getNativeNetworkObserversSync();
     for (Long nativeObserver : nativeObservers) {
       nativeNotifyOfNetworkDisconnect(nativeObserver, networkHandle);
+    }
+  }
+
+  private void notifyObserversOfNetworkPreference(
+      List<NetworkMonitorAutoDetect.ConnectionType> types, int preference) {
+    List<Long> nativeObservers = getNativeNetworkObserversSync();
+    for (NetworkMonitorAutoDetect.ConnectionType type : types) {
+      for (Long nativeObserver : nativeObservers) {
+        nativeNotifyOfNetworkPreference(nativeObserver, type, preference);
+      }
     }
   }
 
@@ -290,6 +304,9 @@ public class NetworkMonitor {
       long nativeAndroidNetworkMonitor, long networkHandle);
   private native void nativeNotifyOfActiveNetworkList(
       long nativeAndroidNetworkMonitor, NetworkMonitorAutoDetect.NetworkInformation[] networkInfos);
+
+  private native void nativeNotifyOfNetworkPreference(long nativeAndroidNetworkMonitor,
+      NetworkMonitorAutoDetect.ConnectionType type, int preference);
 
   // For testing only.
   @Nullable

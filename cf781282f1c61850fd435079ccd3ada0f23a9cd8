@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b41e0cf7_95f023f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T10:07:24Z",
+      "side": 1,
+      "message": "Created a CL https://webrtc-review.googlesource.com/c/src/+/180882 to follow up on comments.",
+      "revId": "cf781282f1c61850fd435079ccd3ada0f23a9cd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9a15516_6368ffe0",
         "filename": "api/test/network_emulation_manager.h",
         "patchSetId": 4

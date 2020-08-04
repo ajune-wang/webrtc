@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5bdb8505_487274c5",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-04T19:00:59Z",
+      "side": 1,
+      "message": "The implementation of local_description, or SessionDescriptionInterface? local_description is already called on the signaling thread due to proxy.h. And we can\u0027t enforce that check for SessionDescriptionInterface, because the caller may create the SessionDescriptionInterface and mess around with it on their own thread before transferring ownership to the PeerConnection.",
+      "parentUuid": "7c2e75a5_ec6ac03b",
+      "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c68c9073_d15a01c2",
         "filename": "sdk/android/src/jni/pc/sdp_observer.cc",
         "patchSetId": 6
@@ -47,6 +65,24 @@
       "writtenOn": "2020-08-04T08:30:34Z",
       "side": 1,
       "message": "this looks like a debug message.... make it clear what the failure is or delete?",
+      "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbff4666_d24330e7",
+        "filename": "sdk/android/src/jni/pc/sdp_observer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-04T19:00:59Z",
+      "side": 1,
+      "message": "This was an existing log message, just moved around. It prints the description up until the point of failure.",
+      "parentUuid": "c68c9073_d15a01c2",
       "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

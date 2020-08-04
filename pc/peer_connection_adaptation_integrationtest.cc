@@ -105,13 +105,17 @@ TEST_F(PeerConnectionAdaptationIntegrationTest,
   auto callee_wrapper = CreatePcWrapper("callee");
 
   // Adding a track and negotiating ensures that a VideoSendStream exists.
+  RTC_LOG(LS_ERROR) << "DEBUG: Creating source";
   TrackWithPeriodicSource track_with_source =
       CreateTrackWithPeriodicSource(caller_wrapper->pc_factory());
   auto sender = caller->AddTrack(track_with_source.track, {}).value();
+  RTC_LOG(LS_ERROR) << "DEBUG: Negotiating";
   Negotiate(caller_wrapper, callee_wrapper);
   // Prefer degrading resolution.
+  RTC_LOG(LS_ERROR) << "DEBUG: GetParameters";
   auto parameters = sender->GetParameters();
   parameters.degradation_preference = DegradationPreference::MAINTAIN_FRAMERATE;
+  RTC_LOG(LS_ERROR) << "DEBUG: SetParameters";
   sender->SetParameters(parameters);
 
   const auto& source =
@@ -119,8 +123,10 @@ TEST_F(PeerConnectionAdaptationIntegrationTest,
   int pixel_count_before_overuse = source.wants().max_pixel_count;
 
   // Inject a fake resource and spam kOveruse until resolution becomes limited.
+  RTC_LOG(LS_ERROR) << "DEBUG: Injecting fake resource";
   auto fake_resource = FakeResource::Create("FakeResource");
   caller->AddAdaptationResource(fake_resource);
+  RTC_LOG(LS_ERROR) << "DEBUG: Waiting for overuse";
   EXPECT_TRUE_WAIT(
       TriggerOveruseAndGetSinkWants(fake_resource, source).max_pixel_count <
           pixel_count_before_overuse,

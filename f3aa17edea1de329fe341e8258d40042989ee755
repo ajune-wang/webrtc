@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e563955a_b731eb5f",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T09:52:39Z",
+      "side": 1,
+      "message": "Original comment:\nTommi:\nThis returns raw pointers to emulated endpoints. What are the scope requirements and threading rules that callers must follow?\nAssuming they are that the caller must not store these pointers for later use and that they must be used on the calling thread (which is also the construction thread of those objects?), can you add that to the documentation?",
+      "range": {
+        "startLine": 79,
+        "startChar": 41,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4b2b2db_e2665927",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T09:52:39Z",
+      "side": 1,
+      "message": "Original comment:\nTommi:\ncan you add documentation about the context (what thread/task queue) in which the stats_callback will be executed on? (ideally it should be the same thread that calls GetStats()).",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8827c5ca_75467d03",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T09:52:39Z",
+      "side": 1,
+      "message": "Original comment:\nTommi:\nplease add information about the calling context for stats_callback",
+      "range": {
+        "startLine": 201,
+        "startChar": 15,
+        "endLine": 201,
+        "endChar": 23
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a56d4d02_6d7df2f0",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T09:52:39Z",
+      "side": 1,
+      "message": "Original comment:\nTommi:\ncan you add a thread check here?\nSince this is a new method, having a thread check from the start is better than trying to add it later.",
+      "range": {
+        "startLine": 53,
+        "startChar": 33,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3278ed49_77b3811d",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T09:52:39Z",
+      "side": 1,
+      "message": "Original comment:\nTommi:\nactually... is there a reason why you create a copy of the vector here and don\u0027t simply just return a const\u0026?\nAlso, it would be good to have thread/sequence checks to ensure that this variable is accessed correctly (RTC_GUARDED_BY).",
+      "range": {
+        "startLine": 574,
+        "startChar": 51,
+        "endLine": 574,
+        "endChar": 63
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a973fac0_fea9ecf5",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T09:52:39Z",
+      "side": 1,
+      "message": "Original comment:\nTommi:\nnit: this returns a copy by value, it\u0027s not a const\u0026 getter, so my preference would be to name the method GetEndpoints() (which would be in line with GetEnabledNetworks()).",
+      "range": {
+        "startLine": 501,
+        "startChar": 33,
+        "endLine": 501,
+        "endChar": 45
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

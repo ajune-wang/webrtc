@@ -155,6 +155,10 @@ public class NetworkMonitorTest {
 
     @Override
     public void onNetworkDisconnect(long networkHandle) {}
+
+    @Override
+    public void onNetworkPreference(
+        List<NetworkMonitorAutoDetect.ConnectionType> types, int preference) {}
   }
 
   private static final Object lock = new Object();

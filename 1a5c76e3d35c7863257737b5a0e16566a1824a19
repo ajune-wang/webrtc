@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1f6f477_38aa3674",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "Could you document how this intended to be used? Does the app need to define something in their AndroidManifest?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 80
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03fa7064_d670eac5",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "Does the app need to do something to guarantee this? Shouldn\u0027t this be handled by the OS then?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a82e5bd_3eb0f920",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "Is this the recommended way to do this? Could you link to the documentation?",
+      "range": {
+        "startLine": 60,
+        "startChar": 77,
+        "endLine": 60,
+        "endChar": 95
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a8b3b3e_4334b24b",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these be defined somewhere in Android API is this intent is sent by the OS?",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 66
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "847fdf58_fa236955",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "Can we please add documentation what the different int values are here and what they mean. Possibly leveraging java_cpp_enum",
+      "range": {
+        "startLine": 684,
+        "startChar": 64,
+        "endLine": 684,
+        "endChar": 78
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88fd12a_917c0cc3",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "nit: I\u0027d prefer to just have separate cases for types \u003d\u003d null and preferences \u003d\u003d null",
+      "range": {
+        "startLine": 918,
+        "startChar": 0,
+        "endLine": 925,
+        "endChar": 29
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6348a5e0_dcdc8550",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "camelCase for Java variables",
+      "range": {
+        "startLine": 930,
+        "startChar": 30,
+        "endLine": 930,
+        "endChar": 43
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6018f57_a7288b64",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "Can we move this check outside the loop, it is not clear we should proceed if the length of the arrays doesn\u0027t match",
+      "range": {
+        "startLine": 932,
+        "startChar": 6,
+        "endLine": 932,
+        "endChar": 36
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d17154c8_0f1066fa",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 934,
+        "startChar": 13,
+        "endLine": 934,
+        "endChar": 25
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddd334c_3d0662cc",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "nit: Can we define this list in a centralised place to avoid forgetting to add new network types",
+      "range": {
+        "startLine": 951,
+        "startChar": 0,
+        "endLine": 955,
+        "endChar": 60
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30664eb8_2dad85ab",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "is _w an established pattern? WDYT about using a lambda here?",
+      "range": {
+        "startLine": 425,
+        "startChar": 28,
+        "endLine": 425,
+        "endChar": 49
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc0edd3_8d6854dc",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "Should this method be made const?",
+      "range": {
+        "startLine": 465,
+        "startChar": 46,
+        "endLine": 465,
+        "endChar": 66
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0fc104_832de44b",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "I think you are actually modifying the value stored in the map here, is this intentional?",
+      "range": {
+        "startLine": 475,
+        "startChar": 6,
+        "endLine": 475,
+        "endChar": 35
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda997f7_2603353b",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "nit: I think the code would be clearer here without auto",
+      "range": {
+        "startLine": 540,
+        "startChar": 2,
+        "endLine": 540,
+        "endChar": 6
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b81c55fe_b4d038a5",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "I\u0027d prefer usage of java_cpp_enum over error-prone manual mapping",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 555,
+        "endChar": 3
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e738648_37d50256",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T15:12:50Z",
+      "side": 1,
+      "message": "Is this really a warning?",
+      "range": {
+        "startLine": 556,
+        "startChar": 10,
+        "endLine": 556,
+        "endChar": 20
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

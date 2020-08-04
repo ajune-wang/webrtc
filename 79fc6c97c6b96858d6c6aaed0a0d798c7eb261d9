@@ -22,6 +22,30 @@
       "revId": "79fc6c97c6b96858d6c6aaed0a0d798c7eb261d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ac8860e_8d3f5a6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-08-04T11:23:36Z",
+      "side": 1,
+      "message": "patchset#2 (adding an RTC_EXPORT) fixes the breakage.",
+      "parentUuid": "50396b40_305c1b07",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 60
+      },
+      "revId": "79fc6c97c6b96858d6c6aaed0a0d798c7eb261d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '577fe5ff7c05b8dc4c7bc2597c6ab57a6c3f91b8',
+  'chromium_revision': '724ade07784fdf7a681e49b173d91d2e6ff6239f',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@7ea015fa5b731f057dde6bf43e6b3256fe0cefcc',
+    'https://chromium.googlesource.com/chromium/src/base@901b74538371dffa79baac11d070176dc66a249e',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@6d2b212669c566a961ac9498d401956f4b794cff',
+    'https://chromium.googlesource.com/chromium/src/build@b1fbbae14ed7178cef7f62935cb169898921710b',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@61392178782cb7f6720228ab0cc4ef65a68c2824',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.

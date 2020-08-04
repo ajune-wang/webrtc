@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "192c7877_e235e15f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-04T22:08:25Z",
+      "side": 1,
+      "message": "My +1 stands, but I think you can add more checks.",
+      "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c2e75a5_ec6ac03b",
         "filename": "api/peer_connection_interface.h",
         "patchSetId": 6
@@ -48,6 +65,24 @@
       "side": 1,
       "message": "The implementation of local_description, or SessionDescriptionInterface? local_description is already called on the signaling thread due to proxy.h. And we can\u0027t enforce that check for SessionDescriptionInterface, because the caller may create the SessionDescriptionInterface and mess around with it on their own thread before transferring ownership to the PeerConnection.",
       "parentUuid": "7c2e75a5_ec6ac03b",
+      "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db072b85_7f6a4565",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-04T22:08:25Z",
+      "side": 1,
+      "message": "I just added RTC_DCHECK_RUN_ON(signaling_thread()) to the implmentation of a similar function.\nYou can\u0027t add RTC_RUN_ON to the declaration, because of all the proxy stuff, but you can definitely check for thread safety from inside the function - and the implementation (the thing behind the proxy) is only ever going to live on the signaling thread, as far as I understand it.",
+      "parentUuid": "5bdb8505_487274c5",
       "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

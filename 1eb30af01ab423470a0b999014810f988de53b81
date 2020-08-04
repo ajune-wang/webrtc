@@ -19,6 +19,121 @@
     },
     {
       "key": {
+        "uuid": "5ddc7ee8_143de604",
+        "filename": "examples/androidvoip/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T11:37:14Z",
+      "side": 1,
+      "message": "Should not be depended on by an example app",
+      "range": {
+        "startLine": 69,
+        "startChar": 6,
+        "endLine": 69,
+        "endChar": 35
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8aa267e_128bbd84",
+        "filename": "examples/androidvoip/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T11:37:14Z",
+      "side": 1,
+      "message": "Example app should not include anything from here",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 21
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa3db1c1_77e4af6e",
+        "filename": "examples/androidvoip/java/org/webrtc/examples/androidvoip/VoipClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T11:37:14Z",
+      "side": 1,
+      "message": "nit: Why not pass the listener to native code instead of these wrappers",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 3
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b9f2f80_9c244946",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T11:37:14Z",
+      "side": 1,
+      "message": "Please call through native_api instead:\nhttps://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/sdk/android/native_api/jni/jvm.h;l\u003d18",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36089521_45209c4d",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T11:37:14Z",
+      "side": 1,
+      "message": "Please call through native_api instead:\nhttps://source.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/sdk/android/native_api/jni/jvm.h;l\u003d18",
+      "range": {
+        "startLine": 135,
+        "startChar": 11,
+        "endLine": 135,
+        "endChar": 49
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "abcffb9b_01894c5e",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 2
@@ -136,6 +251,29 @@
     },
     {
       "key": {
+        "uuid": "0234c7db_c0c569d5",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T11:37:14Z",
+      "side": 1,
+      "message": "nit: TaskQueues should be preferred over threads I think",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 29
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b6d6dc0_e37cfe91",
         "filename": "examples/androidvoip/jni/android_voip_client.h",
         "patchSetId": 2
@@ -152,6 +290,53 @@
         "startChar": 2,
         "endLine": 153,
         "endChar": 15
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cddd7a1_e05eb708",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T11:37:14Z",
+      "side": 1,
+      "message": "Technically:\nA native thread attached to the VM must call DetachCurrentThread() to detach itself before exiting. A thread cannot detach itself if there are Java methods on the call stack.\n\nHowever, it is not a problem as long it is used from thread that have the same lifetime as the app.\n\nHere since it is a new thread for this class, it would probably be a good idea to cleanup.",
+      "parentUuid": "2b6d6dc0_e37cfe91",
+      "range": {
+        "startLine": 153,
+        "startChar": 2,
+        "endLine": 153,
+        "endChar": 15
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c50f43f6_e06e3151",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-04T11:37:14Z",
+      "side": 1,
+      "message": "Consider annotating with RTC_GUARDED_BY to ensure access from a single thread.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 42
       },
       "revId": "1eb30af01ab423470a0b999014810f988de53b81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

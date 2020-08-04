@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0951080_ddb7fab2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13245
+      },
+      "writtenOn": "2020-08-04T22:36:10Z",
+      "side": 1,
+      "message": "Please re-review and add to commit queue please if this changeset is good to go",
+      "revId": "4f46176909bb77c7d54ce27661cb97a1b3156a08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

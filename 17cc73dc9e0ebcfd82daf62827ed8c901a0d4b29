@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d9ed7d3_1d9bc330",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-04T08:30:34Z",
+      "side": 1,
+      "message": "LGTM, but I\u0027d like to catch callers that don\u0027t respect the comment too.\n",
+      "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c2e75a5_ec6ac03b",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-04T08:30:34Z",
+      "side": 1,
+      "message": "Should their implementations also be RTC_DCHECK_RUN_ON(signaling_thread()) to catch unsafe callers?",
+      "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c68c9073_d15a01c2",
+        "filename": "sdk/android/src/jni/pc/sdp_observer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-04T08:30:34Z",
+      "side": 1,
+      "message": "this looks like a debug message.... make it clear what the failure is or delete?",
+      "revId": "17cc73dc9e0ebcfd82daf62827ed8c901a0d4b29",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

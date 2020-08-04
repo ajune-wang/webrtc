@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3296e5e5_aa177f1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-04T00:10:00Z",
+      "side": 1,
+      "message": "Thanks for the review!\n\nSami, would you take a look at some of the comments Jason put here? Thanks! ",
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abcffb9b_01894c5e",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 2
@@ -13,6 +30,30 @@
       "writtenOn": "2020-08-03T22:23:44Z",
       "side": 1,
       "message": "Should this be invoked asynchronously on voip_thread_? It\u0027s just trivial variable assignment. But maybe we should invoke it asynchronously to be consistent with the other methods?",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 5
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbb2c42b_54b6b52d",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-04T00:10:00Z",
+      "side": 1,
+      "message": "You can consider from thread safety point of view.  Where exclusive access to a variable from a thread will do away with mutex usage.",
+      "parentUuid": "abcffb9b_01894c5e",
       "range": {
         "startLine": 242,
         "startChar": 0,
@@ -59,6 +100,30 @@
       "writtenOn": "2020-08-03T22:23:44Z",
       "side": 1,
       "message": "Is there a cleaner way to do this than leaving a /*isSuccessful*/ everywhere?",
+      "range": {
+        "startLine": 267,
+        "startChar": 46,
+        "endLine": 267,
+        "endChar": 63
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19879bb2_ac63623e",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-04T00:10:00Z",
+      "side": 1,
+      "message": "I think the format is /*isSuccessful\u003d*/ ? (notice equal sign) Could you check?",
+      "parentUuid": "33015ac2_7ba47636",
       "range": {
         "startLine": 267,
         "startChar": 46,

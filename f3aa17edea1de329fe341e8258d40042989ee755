@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a958937_b9dd72a8",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T10:06:54Z",
+      "side": 1,
+      "message": "Because EmulatedEndpoint are owned by NetworkEmulationManager then they are available while NetworkEmulationManager is alive. Also added a comment to EmulatedEndpoint class that it is thread safe. \n\nSo it is expected that caller may use these pointers NetworkEmulationManager instance alive (usually it matches almost all test live time) and can access it from any thread. Should I put it like this?",
+      "parentUuid": "e563955a_b731eb5f",
+      "range": {
+        "startLine": 79,
+        "startChar": 41,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4b2b2db_e2665927",
         "filename": "api/test/network_emulation_manager.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-08-04T09:52:39Z",
       "side": 1,
       "message": "Original comment:\nTommi:\ncan you add documentation about the context (what thread/task queue) in which the stats_callback will be executed on? (ideally it should be the same thread that calls GetStats()).",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bdeefdb_4f572e56",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T10:06:54Z",
+      "side": 1,
+      "message": "Added context.\n\nIf I\u0027ll post it back to the invoker thread, then user won\u0027t be able to get results synchronously, because it will deadlock as I see (correct me if I\u0027, wrong). Currently user may pick async or sync stats getting. \n\nAlso I didn\u0027t want to put Thread::Invoke into API to prevent deadlocking.",
+      "parentUuid": "a4b2b2db_e2665927",
       "range": {
         "startLine": 84,
         "startChar": 15,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "53aa205f_eba4f7d8",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T10:06:54Z",
+      "side": 1,
+      "message": "Should we add this constrained. This one is operates with thread safe immutable object and should be also thread safe. WDYT?",
+      "parentUuid": "a56d4d02_6d7df2f0",
+      "range": {
+        "startLine": 53,
+        "startChar": 33,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3278ed49_77b3811d",
         "filename": "test/network/network_emulation.cc",
         "patchSetId": 1
@@ -105,6 +177,30 @@
       "writtenOn": "2020-08-04T09:52:39Z",
       "side": 1,
       "message": "Original comment:\nTommi:\nactually... is there a reason why you create a copy of the vector here and don\u0027t simply just return a const\u0026?\nAlso, it would be good to have thread/sequence checks to ensure that this variable is accessed correctly (RTC_GUARDED_BY).",
+      "range": {
+        "startLine": 574,
+        "startChar": 51,
+        "endLine": 574,
+        "endChar": 63
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da183e9_e783e78c",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T10:06:54Z",
+      "side": 1,
+      "message": "Copy is done to cast from std::vector\u003cEmulatedEndpointImpl*\u003e to std::vector\u003cEmulatedEndpoint*\u003e.\nAbout checker - this object is immutable and so thread safe, it is why I didn\u0027t put any thread checks into it. EmulatedEndpoint instances by itself also thread safe.",
+      "parentUuid": "3278ed49_77b3811d",
       "range": {
         "startLine": 574,
         "startChar": 51,
@@ -137,6 +233,30 @@
       "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc32bb92_cbcfcb4e",
+        "filename": "test/network/network_emulation.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-04T10:06:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a973fac0_fea9ecf5",
+      "range": {
+        "startLine": 501,
+        "startChar": 33,
+        "endLine": 501,
+        "endChar": 45
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

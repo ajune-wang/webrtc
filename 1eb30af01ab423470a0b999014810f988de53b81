@@ -160,6 +160,30 @@
     },
     {
       "key": {
+        "uuid": "caa71a9c_824cb317",
+        "filename": "examples/androidvoip/java/org/webrtc/examples/androidvoip/VoipClient.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-05T20:10:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a49c88fa_c3e1b9b2",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 3
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b9f2f80_9c244946",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 2
@@ -487,6 +511,30 @@
       "revId": "1eb30af01ab423470a0b999014810f988de53b81",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "977aab52_9c3bb5c5",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-05T20:10:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "549636c8_3e299482",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 29
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

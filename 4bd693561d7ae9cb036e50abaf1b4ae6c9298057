@@ -139,6 +139,24 @@
       "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a711a04a_4bba2179",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9002
+      },
+      "writtenOn": "2020-08-05T16:21:30Z",
+      "side": 1,
+      "message": "Thanks for the perspective -- but I\u0027m still unclear if this means I should keep the CL as-is?",
+      "parentUuid": "dd57c308_d30df91e",
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -186,7 +186,8 @@ class VideoStreamAdapter {
       const VideoStreamInputState& input_state) const
       RTC_RUN_ON(&sequence_checker_);
   RestrictionsOrState GetAdaptationDownStep(
-      const VideoStreamInputState& input_state) const
+      const VideoStreamInputState& input_state,
+      const RestrictionsWithCounters& current_restrictions) const
       RTC_RUN_ON(&sequence_checker_);
   RestrictionsOrState GetAdaptDownResolutionStepForBalanced(
       const VideoStreamInputState& input_state) const

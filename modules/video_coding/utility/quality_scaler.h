@@ -134,13 +134,9 @@ class QualityScalerQpUsageHandlerInterface {
 class QualityScalerQpUsageHandlerCallbackInterface
     : public rtc::RefCountedObject<rtc::RefCountInterface> {
  public:
-  virtual ~QualityScalerQpUsageHandlerCallbackInterface();
+  ~QualityScalerQpUsageHandlerCallbackInterface() override;
 
-  // If |clear_qp_samples| is true, existing QP samples are cleared before the
-  // next time QualityScaler checks for QP. This is usually a good idea when the
-  // stream is reconfigured. If |clear_qp_samples| is false, samples are not
-  // cleared and QualityScaler increases its frequency of checking for QP.
-  virtual void OnQpUsageHandled(bool clear_qp_samples) = 0;
+  virtual void OnQpUsageHandled() = 0;
 
  protected:
   QualityScalerQpUsageHandlerCallbackInterface();

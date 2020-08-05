@@ -22,6 +22,30 @@
       "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9cc0aa7_03bca2ca",
+        "filename": "examples/androidvoip/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-05T20:13:52Z",
+      "side": 1,
+      "message": "\"modules/utility/include/jvm_android.h\" is imported in android_voip_client.cc to fetch the jvm instance in the destructor in order to detach the current thread.",
+      "parentUuid": "c62fc265_1c95681a",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

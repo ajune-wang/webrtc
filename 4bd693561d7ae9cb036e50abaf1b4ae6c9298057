@@ -68,6 +68,24 @@
       "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d87f279c_4bdeed7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9002
+      },
+      "writtenOn": "2020-08-05T05:35:55Z",
+      "side": 1,
+      "message": "Good question. For context, the code that needs this particular change is based on webrtc/examples/peerconnection/client/conductor.cc, and it already sets the degradation preference you mention in a snippet that looks like this:\n\n  rtc::scoped_refptr\u003cwebrtc::VideoTrackInterface\u003e video_track_(\n      peer_connection_factory_-\u003eCreateVideoTrack(track_identifier,\n                                                 video_source));\n  result_or_error \u003d peer_connection_-\u003eAddTrack(video_track_, {kStreamId});\n  if (!result_or_error.ok()) {\n    std::string msg \u003d \"Failed to add video track to PeerConnection: \";\n    msg +\u003d result_or_error.error().message();\n    SendFatalError(msg);\n  }\n  webrtc::RtpParameters params \u003d result_or_error.value()-\u003eGetParameters();\n  params.degradation_preference \u003d\n      webrtc::DegradationPreference::MAINTAIN_RESOLUTION;\n  result_or_error.value()-\u003eSetParameters(params);\n\nUnfortunately, despite this, by the time we get to WebRtcVideoChannel::WebRtcVideoSendStream::ConfigureVideoEncoderSettings(), automatic_resize ends up being set to true -- hence this CL\u0027s proposal to turn automatic_resize off via a field trial.\n\nAre you proposing to change ConfigureVideoEncoderSettings() to look at GetDegradationPreference() for computing automatic_resize (assuming that the call graph permits that -- which I am don\u0027t know enough about)? If true, this seems like a change with potential ramifications well beyond this CL.",
+      "parentUuid": "4a9718fd_18c13792",
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

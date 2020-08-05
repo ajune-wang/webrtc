@@ -46,6 +46,36 @@ import java.util.List;
  * ACCESS_NETWORK_STATE permission.
  */
 public class NetworkMonitorAutoDetect extends BroadcastReceiver {
+  /**
+   * NetworkPreference is an intent that can be sent to indicate
+   * that a connection (type) should not be used as the signal strength is weak.
+   *
+   * <p>The intent shall contain one string array |CONNECTION_TYPE_EXTRA_STRING_ARRAY| and one int
+   * array |CONNECTION_PREFERENCE_EXTRA_INT_ARRAY|. When the preference of type[i] is stored in
+   * preference[i].
+   *
+   * <p>The indended use case for a module that leverages os/firmware specific information about
+   * signal strength of different connection types and provides this to webrtc.
+   */
+  public static final class NetworkPreference {
+    private NetworkPreference() {}
+
+    public static final String INTENT = "org.webrtc.NetworkMonitorAutoDetect.NETWORK_PREFERENCE";
+    public static final String CONNECTION_TYPE_EXTRA_STRING_ARRAY =
+        "connection_type"; // Array of connection types.
+    public static final String CONNECTION_PREFERENCE_EXTRA_INT_ARRAY =
+        "preference"; // Array of ints (one per connection type).
+
+    // Connection types applicable in CONNECTION_TYPE_EXTRA_STRING_ARRAY.
+    public static final String CONNECTION_ETHERNET = "ethernet";
+    public static final String CONNECTION_WIFI = "wifi";
+    public static final String CONNECTION_CELLULAR = "cellular";
+
+    // Values for the CONNECTION_PREFERENCE_EXTRA_INT_ARRAY.
+    public static final Integer CONNECTION_PREFERENCE_NOT_PREFERRED = -1;
+    public static final Integer CONNECTION_PREFERENCE_NEUTRAL = 0;
+  }
+
   public static enum ConnectionType {
     CONNECTION_UNKNOWN,
     CONNECTION_ETHERNET,
@@ -80,6 +110,7 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     public final ConnectionType underlyingTypeForVpn;
     public final long handle;
     public final IPAddress[] ipAddresses;
+
     public NetworkInformation(String name, ConnectionType type, ConnectionType underlyingTypeForVpn,
         long handle, IPAddress[] addresses) {
       this.name = name;
@@ -645,6 +676,15 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     public void onConnectionTypeChanged(ConnectionType newConnectionType);
     public void onNetworkConnect(NetworkInformation networkInfo);
     public void onNetworkDisconnect(long networkHandle);
+
+    /**
+     * Called when receiving a NetworkPreference.INTENT with a (list of) connection type(s) (e.g
+     * WIFI) is |CONNECTION_PREFERENCE_NOT_PREFERRED| or |CONNECTION_PREFERENCE_NEUTRAL|.
+     *
+     * <p>note: |types| is a list of ConnectionTypes, so that all cellular types can be modified in
+     * one call.
+     */
+    public void onNetworkPreference(List<ConnectionType> types, int preference);
   }
 
   /**
@@ -660,7 +700,9 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     final NetworkState networkState = connectivityManagerDelegate.getNetworkState();
     connectionType = getConnectionType(networkState);
     wifiSSID = getWifiSSID(networkState);
-    intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+    intentFilter = new IntentFilter();
+    intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+    intentFilter.addAction(NetworkPreference.INTENT);
 
     if (PeerConnectionFactory.fieldTrialsFindFullName("IncludeWifiDirect").equals("Enabled")) {
       wifiDirectManagerDelegate = new WifiDirectManagerDelegate(observer, context);
@@ -850,9 +892,11 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
   // BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent) {
-    final NetworkState networkState = getCurrentNetworkState();
     if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+      final NetworkState networkState = getCurrentNetworkState();
       connectionTypeChanged(networkState);
+    } else if (NetworkPreference.INTENT.equals(intent.getAction())) {
+      handleNetworkPreferenceIntent(context, intent);
     }
   }
 
@@ -866,6 +910,83 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     wifiSSID = newWifiSSID;
     Logging.d(TAG, "Network connectivity changed, type is: " + connectionType);
     observer.onConnectionTypeChanged(newConnectionType);
+  }
+
+  private boolean validate(String[] types, int[] preferences) {
+    bool ok = true;
+    if (types == null) {
+      Logging.w(TAG,
+          "Got NetworkPreference intent with missing "
+              + NetworkPreference.CONNECTION_TYPE_EXTRA_STRING_ARRAY);
+    }
+
+    if (preferences == null) {
+      Logging.w(TAG,
+          "Got NetworkPreference intent with missing "
+              + NetworkPreference.CONNECTION_PREFERENCE_EXTRA_INT_ARRAY);
+    }
+    if (types == null || preferences == null) {
+      return false;
+    }
+
+    bool ok = true;
+    for (int i = 0; i < preferences.length; i++) {
+      if (preferences[i] != NetworkPreference.CONNECTION_PREFERENCE_NOT_PREFERRED
+          && preferences[i] != NetworkPreference.CONNECTION_PREFERENCE_NEUTRAL) {
+        Logging.w(TAG,
+            "Got NetworkPreference intent with invalid preference: " + preferences[i]
+                + " at index: " + i);
+        ok = false;
+      }
+    }
+
+    if (types.length != preferences.length) {
+      ok = false;
+      Logging.w(TAG,
+          "Mismatching array length: preferences: " + preferences.length
+              + " types: " + types.length);
+    }
+    return ok;
+  }
+
+  private void handleNetworkPreferenceIntent(Context context, Intent intent) {
+    String[] types =
+        intent.getStringArrayExtra(NetworkPreference.CONNECTION_TYPE_EXTRA_STRING_ARRAY);
+    int[] preferences =
+        intent.getIntArrayExtra(NetworkPreference.CONNECTION_PREFERENCE_EXTRA_INT_ARRAY);
+    if (!validate(types, preferences)) {
+      return;
+    }
+
+    ArrayList<ConnectionType> neutral = new ArrayList<>();
+    ArrayList<ConnectionType> notPreferred = new ArrayList<>();
+    for (int i = 0; i < types.length; i++) {
+      ArrayList<ConnectionType> dst =
+          (preferences[i] == NetworkPreference.CONNECTION_PREFERENCE_NOT_PREFERRED) ? notPreferred
+                                                                                    : neutral;
+      if (NetworkPreference.CONNECTION_WIFI.equals(types[i])) {
+        dst.add(ConnectionType.CONNECTION_WIFI);
+      } else if (NetworkPreference.CONNECTION_ETHERNET.equals(types[i])) {
+        dst.add(ConnectionType.CONNECTION_ETHERNET);
+      } else if (NetworkPreference.CONNECTION_CELLULAR.equals(types[i])) {
+        dst.add(ConnectionType.CONNECTION_5G);
+        dst.add(ConnectionType.CONNECTION_4G);
+        dst.add(ConnectionType.CONNECTION_3G);
+        dst.add(ConnectionType.CONNECTION_2G);
+        dst.add(ConnectionType.CONNECTION_UNKNOWN_CELLULAR);
+      } else {
+        Logging.w(
+            TAG, "Got NetworkPreference intent with invalid type: " + types[i] + " at index: " + i);
+        return false;
+      }
+    }
+    if (!notPreferred.isEmpty()) {
+      observer.onNetworkPreference(
+          notPreferred, NetworkPreference.CONNECTION_PREFERENCE_NOT_PREFERRED);
+    }
+    if (!neutral.isEmpty()) {
+      observer.onNetworkPreference(neutral, NetworkPreference.CONNECTION_PREFERENCE_NEUTRAL);
+    }
   }
 
   /**

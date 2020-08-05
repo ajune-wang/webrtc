@@ -306,8 +306,12 @@ class RTC_EXPORT Network {
           AdapterType type);
   Network(const Network&);
   ~Network();
+
   // This signal is fired whenever type() or underlying_type_for_vpn() changes.
   sigslot::signal1<const Network*> SignalTypeChanged;
+
+  // This signal is fired whenever network preference changes.
+  sigslot::signal1<const Network*> SignalNetworkPreferenceChanged;
 
   const DefaultLocalAddressProvider* default_local_address_provider() {
     return default_local_address_provider_;
@@ -453,6 +457,17 @@ class RTC_EXPORT Network {
     }
   }
 
+  // Property set by operating system/firmware that has information
+  // about connection strength to e.g WIFI router or CELL base towers.
+  NetworkPreference network_preference() const { return network_preference_; }
+  void set_network_preference(NetworkPreference val) {
+    if (network_preference_ == val) {
+      return;
+    }
+    network_preference_ = val;
+    SignalNetworkPreferenceChanged(this);
+  }
+
   // Debugging description of this network
   std::string ToString() const;
 
@@ -473,6 +488,7 @@ class RTC_EXPORT Network {
   bool active_ = true;
   uint16_t id_ = 0;
   bool use_differentiated_cellular_costs_ = false;
+  NetworkPreference network_preference_ = NetworkPreference::NEUTRAL;
 
   friend class NetworkManager;
 };

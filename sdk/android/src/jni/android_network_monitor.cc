@@ -413,6 +413,17 @@ void AndroidNetworkMonitor::OnNetworkDisconnected_w(NetworkHandle handle) {
   }
 }
 
+void AndroidNetworkMonitor::OnNetworkPreference(
+    NetworkType type,
+    rtc::NetworkPreference preference) {
+  worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
+    auto adapter_type =
+        AdapterTypeFromNetworkType(type, surface_cellular_types_);
+    network_preference_by_adapter_type_[adapter_type] = preference;
+  });
+  OnNetworksChanged();
+}
+
 void AndroidNetworkMonitor::SetNetworkInfos(
     const std::vector<NetworkInformation>& network_infos) {
   RTC_CHECK(thread_checker_.IsCurrent());
@@ -444,6 +455,29 @@ rtc::AdapterType AndroidNetworkMonitor::GetVpnUnderlyingAdapterType(
                               ? rtc::ADAPTER_TYPE_UNKNOWN
                               : iter->second;
   return type;
+}
+
+rtc::NetworkPreference AndroidNetworkMonitor::GetNetworkPreference(
+    const std::string& if_name) {
+  auto iter = adapter_type_by_name_.find(if_name);
+  if (iter == adapter_type_by_name_.end()) {
+    return rtc::NetworkPreference::NEUTRAL;
+  }
+
+  auto adapter_type = iter->second;
+  if (adapter_type == rtc::ADAPTER_TYPE_VPN) {
+    auto iter2 = vpn_underlying_adapter_type_by_name_.find(if_name);
+    if (iter2 != vpn_underlying_adapter_type_by_name_.end()) {
+      adapter_type = iter2->second;
+    }
+  }
+
+  auto preference_iter = network_preference_by_adapter_type_.find(adapter_type);
+  if (preference_iter == network_preference_by_adapter_type_.end()) {
+    return rtc::NetworkPreference::NEUTRAL;
+  }
+
+  return preference_iter->second;
 }
 
 AndroidNetworkMonitorFactory::AndroidNetworkMonitorFactory()
@@ -492,6 +526,30 @@ void AndroidNetworkMonitor::NotifyOfNetworkDisconnect(
     const JavaRef<jobject>& j_caller,
     jlong network_handle) {
   OnNetworkDisconnected(static_cast<NetworkHandle>(network_handle));
+}
+
+void AndroidNetworkMonitor::NotifyOfNetworkPreference(
+    JNIEnv* env,
+    const JavaRef<jobject>& j_caller,
+    const JavaRef<jobject>& j_connection_type,
+    jint jpreference) {
+  NetworkType type = GetNetworkTypeFromJava(env, j_connection_type);
+  rtc::NetworkPreference preference;
+  // Values from NetworkMonitorAutoDetect.java.
+  switch (jpreference) {
+    case -1:
+      preference = rtc::NetworkPreference::NOT_PREFERRED;
+      break;
+    case 0:
+      preference = rtc::NetworkPreference::NEUTRAL;
+      break;
+    default:
+      RTC_LOG(LS_WARNING) << "Unexpected preference: " << jpreference
+                          << " for connection type: " << type;
+      preference = rtc::NetworkPreference::NEUTRAL;
+      break;
+  }
+  OnNetworkPreference(type, preference);
 }
 
 }  // namespace jni

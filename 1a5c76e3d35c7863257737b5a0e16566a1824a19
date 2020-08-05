@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ca455557_6488481a",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1f6f477_38aa3674",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 80
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03fa7064_d670eac5",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "949050ae_451fac36",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "update doc...",
+      "parentUuid": "03fa7064_d670eac5",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "165ef388_9598f3da",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a82e5bd_3eb0f920",
+      "range": {
+        "startLine": 60,
+        "startChar": 77,
+        "endLine": 60,
+        "endChar": 95
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a8b3b3e_4334b24b",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5d6efd3_7b62541c",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "updated doc.",
+      "parentUuid": "8a8b3b3e_4334b24b",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 66
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0227e9af_9c93303a",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "I think java_cpp_enum feels like overkill for only 2 values.\nDone",
+      "parentUuid": "847fdf58_fa236955",
+      "range": {
+        "startLine": 684,
+        "startChar": 64,
+        "endLine": 684,
+        "endChar": 78
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c88fd12a_917c0cc3",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e625b2f_7d9b70f3",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c88fd12a_917c0cc3",
+      "range": {
+        "startLine": 918,
+        "startChar": 0,
+        "endLine": 925,
+        "endChar": 29
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "26e5bf66_7670b7ed",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6348a5e0_dcdc8550",
+      "range": {
+        "startLine": 930,
+        "startChar": 30,
+        "endLine": 930,
+        "endChar": 43
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6018f57_a7288b64",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 4
@@ -183,6 +351,30 @@
       "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbedb501_53c4ed76",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6018f57_a7288b64",
+      "range": {
+        "startLine": 932,
+        "startChar": 6,
+        "endLine": 932,
+        "endChar": 36
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "72784ce8_1437e844",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d17154c8_0f1066fa",
+      "range": {
+        "startLine": 934,
+        "startChar": 13,
+        "endLine": 934,
+        "endChar": 25
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ddd334c_3d0662cc",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
         "patchSetId": 4
@@ -229,6 +445,30 @@
       "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a9c136_8d83400b",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 955,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "i\u0027ll skip that for now...",
+      "parentUuid": "6ddd334c_3d0662cc",
+      "range": {
+        "startLine": 951,
+        "startChar": 0,
+        "endLine": 955,
+        "endChar": 60
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "a3274400_1a7829df",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30664eb8_2dad85ab",
+      "range": {
+        "startLine": 425,
+        "startChar": 28,
+        "endLine": 425,
+        "endChar": 49
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdc0edd3_8d6854dc",
         "filename": "sdk/android/src/jni/android_network_monitor.cc",
         "patchSetId": 4
@@ -275,6 +539,30 @@
       "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e40a74d_cd2bd245",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "hmm...none of the others are.\ni\u0027ll keep it non const for now.",
+      "parentUuid": "cdc0edd3_8d6854dc",
+      "range": {
+        "startLine": 465,
+        "startChar": 46,
+        "endLine": 465,
+        "endChar": 66
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "86f7e24d_baf5b868",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Thanks!\nDone",
+      "parentUuid": "ba0fc104_832de44b",
+      "range": {
+        "startLine": 475,
+        "startChar": 6,
+        "endLine": 475,
+        "endChar": 35
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dda997f7_2603353b",
         "filename": "sdk/android/src/jni/android_network_monitor.cc",
         "patchSetId": 4
@@ -321,6 +633,30 @@
       "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25eaa1b3_3bdbb48e",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dda997f7_2603353b",
+      "range": {
+        "startLine": 540,
+        "startChar": 2,
+        "endLine": 540,
+        "endChar": 6
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "096668b4_6860170a",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "I think java_cpp_enum feels like overkill for only 2 values.",
+      "parentUuid": "b81c55fe_b4d038a5",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 555,
+        "endChar": 3
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e738648_37d50256",
         "filename": "sdk/android/src/jni/android_network_monitor.cc",
         "patchSetId": 4
@@ -367,6 +727,30 @@
       "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67ec0918_6455f311",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-05T08:22:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e738648_37d50256",
+      "range": {
+        "startLine": 556,
+        "startChar": 10,
+        "endLine": 556,
+        "endChar": 20
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

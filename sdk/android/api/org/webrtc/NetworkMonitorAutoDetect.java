@@ -645,6 +645,18 @@ public class NetworkMonitorAutoDetect extends BroadcastReceiver {
     public void onConnectionTypeChanged(ConnectionType newConnectionType);
     public void onNetworkConnect(NetworkInformation networkInfo);
     public void onNetworkDisconnect(long networkHandle);
+
+    /**
+     * Called when receiving a NetworkPreference.INTENT with a (list of) connection type(s) (e.g
+     * WIFI) is |CONNECTION_PREFERENCE_NOT_PREFERRED| or |CONNECTION_PREFERENCE_NEUTRAL|.
+     *
+     * <p>note: |types| is a list of ConnectionTypes, so that all cellular types can be modified in
+     * one call.
+     */
+    public void onNetworkPreference(List<ConnectionType> types, int preference);
+
+    public static final int CONNECTION_PREFERENCE_NEUTRAL = 0;
+    public static final int CONNECTION_PREFERENCE_NOT_PREFERRED = -1;
   }
 
   /**

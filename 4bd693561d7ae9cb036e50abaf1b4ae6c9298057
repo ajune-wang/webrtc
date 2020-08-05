@@ -86,6 +86,41 @@
       "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7e0b492_69cab40c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-05T07:24:44Z",
+      "side": 1,
+      "message": "Åsa, PTAL. Do you know how DegradationPreference::MAINTAIN_RESOLUTION is intended to interact with automatic_resize?",
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbeb1934_5277f14e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-05T07:24:44Z",
+      "side": 1,
+      "message": "I would expect using MAINTAIN_RESOLUTION to disable all downscaling of the frame, but I\u0027m not really familiar with all ways downscaling (or frame drops, for that matter) can happen. So wiring the degradation settings down to the place where automatic_resize is set sounds right to me.\n\nAdding Åsa, who knows these things a lot better than I do.\n\nMy gut feeling is that we shouldn\u0027t add any field trials that act in parallel with advertised api knobs.",
+      "parentUuid": "d87f279c_4bdeed7c",
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

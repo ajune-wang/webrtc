@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e09626a_03e67547",
+        "filename": "audio/voip/audio_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-05T20:08:26Z",
+      "side": 0,
+      "message": "To explain more on why using IsSendingMedia instead of egress_-\u003eIsSending() was to emphasize \"Media\" part. RTP stack can still send non-media (e.g RTCP) which is checked via rtp_rtcp_-\u003eSending().  Perhaps it\u0027s better to use rtp_rtcp_-\u003eSendingMedia() here to indicate that.",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 23
+      },
+      "revId": "668b0530e130fc09a5b93465f1906f6a4b6da627",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

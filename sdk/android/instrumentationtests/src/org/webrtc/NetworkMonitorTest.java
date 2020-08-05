@@ -31,6 +31,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.MediumTest;
 import android.support.test.filters.SmallTest;
 import android.support.test.rule.UiThreadTestRule;
+import java.util.List;
 import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Rule;
@@ -155,6 +156,10 @@ public class NetworkMonitorTest {
 
     @Override
     public void onNetworkDisconnect(long networkHandle) {}
+
+    @Override
+    public void onNetworkPreference(
+        List<NetworkMonitorAutoDetect.ConnectionType> types, int preference) {}
   }
 
   private static final Object lock = new Object();

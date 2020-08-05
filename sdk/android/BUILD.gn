@@ -281,6 +281,16 @@ if (is_android) {
       "api/org/webrtc/NetworkMonitorAutoDetect.java",  # TODO(sakal): Break
                                                        # dependencies and move
                                                        # to base_java.
+      "api/org/webrtc/NetworkMonitorAutoDetectFactory.java",  # TODO(sakal):
+                                                              # Break
+
+      # dependencies and move
+      # to base_java.
+      "api/org/webrtc/NetworkMonitorAutoDetectFactoryInterface.java",  # TODO(sakal):
+                                                                       # Break
+
+      # dependencies and move
+      # to base_java.
       "api/org/webrtc/NetworkStatePredictorFactoryFactory.java",
       "api/org/webrtc/PeerConnection.java",
       "api/org/webrtc/PeerConnectionDependencies.java",

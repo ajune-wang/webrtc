@@ -707,6 +707,30 @@
     },
     {
       "key": {
+        "uuid": "130680ed_ecc86c08",
+        "filename": "sdk/android/src/jni/android_network_monitor.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-05T12:01:45Z",
+      "side": 1,
+      "message": "I see your argument there but the problem is once the next value needs to be added, it will not be easy to migrate existing code. (And the author might not feel like doing so because \"this is an existing pattern\".)\n\nTherefore, I would like if we started on right track right away.",
+      "parentUuid": "096668b4_6860170a",
+      "range": {
+        "startLine": 543,
+        "startChar": 0,
+        "endLine": 555,
+        "endChar": 3
+      },
+      "revId": "1a5c76e3d35c7863257737b5a0e16566a1824a19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e738648_37d50256",
         "filename": "sdk/android/src/jni/android_network_monitor.cc",
         "patchSetId": 4

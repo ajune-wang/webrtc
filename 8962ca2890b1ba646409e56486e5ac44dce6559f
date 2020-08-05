@@ -63,6 +63,30 @@
       "revId": "8962ca2890b1ba646409e56486e5ac44dce6559f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48b75352_656b000a",
+        "filename": "audio/voip/audio_channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-05T18:32:47Z",
+      "side": 1,
+      "message": "IsSendingMedia is used in voip_core.cc",
+      "parentUuid": "453cf1f5_d8bfbbed",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 62
+      },
+      "revId": "8962ca2890b1ba646409e56486e5ac44dce6559f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

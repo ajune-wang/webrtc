@@ -79,6 +79,7 @@ if (!build_with_chromium) {
       ]
 
       libs = [
+        "ole32.lib",
         "oleaut32.lib",
         "strmiids.lib",
       ]

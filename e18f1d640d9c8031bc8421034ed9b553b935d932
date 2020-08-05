@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c62fc265_1c95681a",
+        "filename": "examples/androidvoip/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-05T19:59:32Z",
+      "side": 1,
+      "message": "Is this required?",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

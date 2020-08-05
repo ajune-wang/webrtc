@@ -121,6 +121,24 @@
       "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd57c308_d30df91e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-08-05T11:19:46Z",
+      "side": 1,
+      "message": "MAINTAIN_RESOLUTION (or DISABLED) should ensure that the resolution is not downscaled (even if automatic resize is enabled). If a downgrade is requested (due to quality or cpu), the degradation preference determines the preferred downgrading way. Automatic_resize can disable the quality scaler.",
+      "parentUuid": "a7e0b492_69cab40c",
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "cb95e925_0b59a447",
+        "filename": "api/rtp_transceiver_interface.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Done. These should never be called; they are present because of mocks in Chrome that subclass it.",
+      "parentUuid": "80bb91ee_76a15758",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 9
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "558a5ce5_74e05865",
         "filename": "api/rtp_transceiver_interface.cc",
         "patchSetId": 15
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "afb8ec8d_6fbc7672",
+        "filename": "api/rtp_transceiver_interface.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "558a5ce5_74e05865",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 11
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77a81d1d_72685bc9",
         "filename": "pc/media_session_unittest.cc",
         "patchSetId": 15
@@ -76,6 +124,30 @@
       "writtenOn": "2020-08-06T15:08:39Z",
       "side": 1,
       "message": "I don\u0027t expect armax@ to act on this :)",
+      "range": {
+        "startLine": 4867,
+        "startChar": 11,
+        "endLine": 4867,
+        "endChar": 15
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c51c69bf_8f249042",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 4867,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Changed to \"This does not happen\".",
+      "parentUuid": "77a81d1d_72685bc9",
       "range": {
         "startLine": 4867,
         "startChar": 11,
@@ -111,6 +183,30 @@
     },
     {
       "key": {
+        "uuid": "84399ba1_4a70b731",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1987,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Bug filed and referenced.",
+      "parentUuid": "08478465_7f05dd5d",
+      "range": {
+        "startLine": 1987,
+        "startChar": 7,
+        "endLine": 1987,
+        "endChar": 40
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fb14b46_b85f7b98",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 15
@@ -134,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "3b43609a_510dde29",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2623,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fb14b46_b85f7b98",
+      "range": {
+        "startLine": 2623,
+        "startChar": 12,
+        "endLine": 2623,
+        "endChar": 14
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d74e8af5_7b92c3b4",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 15
@@ -145,6 +265,30 @@
       "writtenOn": "2020-08-06T15:08:39Z",
       "side": 1,
       "message": "optional nit: you can remove {}",
+      "range": {
+        "startLine": 2720,
+        "startChar": 34,
+        "endLine": 2720,
+        "endChar": 35
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2b5b183_fbf7f369",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2720,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Personal preference :-)",
+      "parentUuid": "d74e8af5_7b92c3b4",
       "range": {
         "startLine": 2720,
         "startChar": 34,
@@ -180,6 +324,30 @@
     },
     {
       "key": {
+        "uuid": "c27e56f4_df72f18a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2809,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "As above.",
+      "parentUuid": "79ecf78a_796060cd",
+      "range": {
+        "startLine": 2809,
+        "startChar": 34,
+        "endLine": 2809,
+        "endChar": 35
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "159bf974_cce09b8b",
         "filename": "pc/peer_connection_adaptation_integrationtest.cc",
         "patchSetId": 15
@@ -191,6 +359,30 @@
       "writtenOn": "2020-08-06T15:08:39Z",
       "side": 1,
       "message": "remove logging",
+      "range": {
+        "startLine": 108,
+        "startChar": 2,
+        "endLine": 108,
+        "endChar": 9
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0f402f_c0ee92b1",
+        "filename": "pc/peer_connection_adaptation_integrationtest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Weird. I never saw those.",
+      "parentUuid": "159bf974_cce09b8b",
       "range": {
         "startLine": 108,
         "startChar": 2,
@@ -226,6 +418,30 @@
     },
     {
       "key": {
+        "uuid": "174dfb3e_1570fe12",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "It used to be an RTC_DCHECK. Now that we are removing renderers for stopped transceivers, it will happen in some tests. But not enough to be spammy. It\u0027s a noisy test anyway.",
+      "parentUuid": "fac47392_d200386e",
+      "range": {
+        "startLine": 935,
+        "startChar": 8,
+        "endLine": 935,
+        "endChar": 15
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38884428_5995bd6b",
         "filename": "pc/peer_connection_jsep_unittest.cc",
         "patchSetId": 15
@@ -249,6 +465,30 @@
     },
     {
       "key": {
+        "uuid": "0f2fccc4_9f54d7d1",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1549,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38884428_5995bd6b",
+      "range": {
+        "startLine": 1549,
+        "startChar": 3,
+        "endLine": 1549,
+        "endChar": 5
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b28a18ab_33990ff0",
         "filename": "pc/rtp_media_utils.cc",
         "patchSetId": 15
@@ -260,6 +500,30 @@
       "writtenOn": "2020-08-06T15:08:39Z",
       "side": 1,
       "message": "Remove or replace TODO",
+      "range": {
+        "startLine": 19,
+        "startChar": 3,
+        "endLine": 19,
+        "endChar": 5
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a14452df_bddf2218",
+        "filename": "pc/rtp_media_utils.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "b28a18ab_33990ff0",
       "range": {
         "startLine": 19,
         "startChar": 3,
@@ -295,6 +559,30 @@
     },
     {
       "key": {
+        "uuid": "b6b6be3a_ca7b617b",
+        "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "See PSA I sent today to discuss-webrtc.\nThis is a multistep removal and renaming process.\nI\u0027d like to add @Deprecated as appropriate in a separate CL, so as not to break more things at the same time as the main CL.",
+      "parentUuid": "bd993bc8_08ab9f9f",
+      "range": {
+        "startLine": 218,
+        "startChar": 14,
+        "endLine": 218,
+        "endChar": 26
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7446e27_e83c654f",
         "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
         "patchSetId": 15
@@ -318,6 +606,30 @@
     },
     {
       "key": {
+        "uuid": "00fe2091_00de4d4e",
+        "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "Added some text. See if it makes sense to you.",
+      "parentUuid": "f7446e27_e83c654f",
+      "range": {
+        "startLine": 223,
+        "startChar": 14,
+        "endLine": 223,
+        "endChar": 26
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c83f3e7f_8709a303",
         "filename": "sdk/android/src/jni/pc/rtp_transceiver.cc",
         "patchSetId": 15
@@ -329,6 +641,30 @@
       "writtenOn": "2020-08-06T15:04:19Z",
       "side": 1,
       "message": "I don\u0027t think we should need a duplicate native method.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 1
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9a0cf38_28096230",
+        "filename": "sdk/android/src/jni/pc/rtp_transceiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T21:21:31Z",
+      "side": 1,
+      "message": "I marked stop() (which calls StopInternal) RTC_DEPRECATED, so I\u0027m avoiding calls to it.\nMost of WebRTC will not compile if I call an RTC_DEPRECATED method.",
+      "parentUuid": "c83f3e7f_8709a303",
       "range": {
         "startLine": 142,
         "startChar": 0,

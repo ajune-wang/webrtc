@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "58c6fa3f_34d913fa",
+        "filename": "logging/rtc_event_log/events/rtc_event_frame_decoded.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-06T10:43:00Z",
+      "side": 1,
+      "message": "I more thought about readability. Because return value is simple it might be easier to read if it will be in the header file. But it also fine to keep it here, so it\u0027s up to you.",
+      "parentUuid": "4099d3f4_6f00d189",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 1
+      },
+      "revId": "f25003f382017c8a18a59bd613978f4dc112e53a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66eec745_9738fdc8",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 3

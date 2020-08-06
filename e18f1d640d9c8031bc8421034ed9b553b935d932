@@ -90,6 +90,30 @@
     },
     {
       "key": {
+        "uuid": "ab7efd45_79299495",
+        "filename": "examples/androidvoip/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-06T21:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5161d05_ce633133",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41d69cda_bac6dba7",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -113,6 +137,30 @@
     },
     {
       "key": {
+        "uuid": "a249d400_3556cfb8",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-06T21:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41d69cda_bac6dba7",
+      "range": {
+        "startLine": 168,
+        "startChar": 2,
+        "endLine": 173,
+        "endChar": 5
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6c8459c_ca74c7a5",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -124,6 +172,30 @@
       "writtenOn": "2020-08-06T00:15:42Z",
       "side": 1,
       "message": "This seems understandably repeated. Could we do something like this instead to avoid seeing whole section being always included within PostTask?  Perhaps short local macro can make this more readable.\n\nif (!voip_thread_-\u003eIsCurrent()) {\n  voip_thread_-\u003ePostTask(RTC_FROM_HERE, [this, env] { StartPlayout(env); });\n}\nRTC_DCHECK_RUN_ON(\u0026sequence_checker_);\n\n...",
+      "range": {
+        "startLine": 386,
+        "startChar": 2,
+        "endLine": 386,
+        "endChar": 48
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d253d077_a7b40375",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-06T21:49:20Z",
+      "side": 1,
+      "message": "From reading the style guide, it seems like macros are heavily discouraged?",
+      "parentUuid": "c6c8459c_ca74c7a5",
       "range": {
         "startLine": 386,
         "startChar": 2,
@@ -159,6 +231,30 @@
     },
     {
       "key": {
+        "uuid": "edfc2135_18a65a3c",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-06T21:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a192e3d6_1a61826a",
+      "range": {
+        "startLine": 422,
+        "startChar": 2,
+        "endLine": 431,
+        "endChar": 5
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7b182c8_aea0fa38",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -182,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "8ddea92a_51ae60b8",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-06T21:49:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7b182c8_aea0fa38",
+      "range": {
+        "startLine": 435,
+        "startChar": 2,
+        "endLine": 435,
+        "endChar": 56
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea4f7fae_927d3937",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -193,6 +313,30 @@
       "writtenOn": "2020-08-06T00:15:42Z",
       "side": 1,
       "message": "This will not work as we are getting temporary data in rtp_packet.",
+      "range": {
+        "startLine": 461,
+        "startChar": 23,
+        "endLine": 461,
+        "endChar": 74
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff95380_ba7c33f7",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-06T21:49:20Z",
+      "side": 1,
+      "message": "Are you saying the content in rtp_packet will be discarded after OnSignalReadRTPPacket returns? If that\u0027s the case should I do Invoke instead of PostTask?",
+      "parentUuid": "ea4f7fae_927d3937",
       "range": {
         "startLine": 461,
         "startChar": 23,
@@ -248,6 +392,30 @@
       "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4579ed9_983bb80e",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-06T21:49:20Z",
+      "side": 1,
+      "message": "I tried that at first and got compilation errors.",
+      "parentUuid": "d5e0826d_cb070462",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 38
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

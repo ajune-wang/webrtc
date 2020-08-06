@@ -562,6 +562,30 @@
     },
     {
       "key": {
+        "uuid": "16728dba_74e9ce11",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-06T21:49:20Z",
+      "side": 1,
+      "message": "Yeah, invoking is needed to conform to consistent thread requirement in modules/audio_device/android/audio_device_template.h",
+      "parentUuid": "6b3fa196_d2c71ec0",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 29
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b6d6dc0_e37cfe91",
         "filename": "examples/androidvoip/jni/android_voip_client.h",
         "patchSetId": 2

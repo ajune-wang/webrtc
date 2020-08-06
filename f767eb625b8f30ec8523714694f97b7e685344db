@@ -16,6 +16,57 @@
       "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba361453_e9b784a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T12:07:41Z",
+      "side": 1,
+      "message": "Just a couple of nits. ",
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9812af85_9a9d8a28",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T12:07:41Z",
+      "side": 1,
+      "message": "Grammar: \"true if calling network_preference() with a changed value should result in firing the SignalNetworkChanged signal.\"",
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beef2804_114ab496",
+        "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T12:07:41Z",
+      "side": 1,
+      "message": "If this needs to be kept in sync with a C++ enum, you should add a comment about it here.",
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

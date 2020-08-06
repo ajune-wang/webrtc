@@ -53,6 +53,29 @@
     },
     {
       "key": {
+        "uuid": "df0ed3dc_4223122c",
+        "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-06T14:25:32Z",
+      "side": 1,
+      "message": "I am not sure this should be in the interface?",
+      "range": {
+        "startLine": 18,
+        "startChar": 20,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "beef2804_114ab496",
         "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
         "patchSetId": 19
@@ -64,6 +87,75 @@
       "writtenOn": "2020-08-06T12:07:41Z",
       "side": 1,
       "message": "If this needs to be kept in sync with a C++ enum, you should add a comment about it here.",
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a381c1b_7e3c27cf",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-06T14:25:32Z",
+      "side": 1,
+      "message": "nit: Can you move up together with other methods and not below the native \u0026 testing only methods",
+      "range": {
+        "startLine": 341,
+        "startChar": 14,
+        "endLine": 341,
+        "endChar": 45
+      },
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fda26996_eaf207b5",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-06T14:25:32Z",
+      "side": 1,
+      "message": "I think we should add a state check that numObservers \u003d\u003d 0 here to make it obvious if the app accidentally calls things in a wrong order.",
+      "range": {
+        "startLine": 342,
+        "startChar": 9,
+        "endLine": 342,
+        "endChar": 37
+      },
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "958791cf_160a557a",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-06T14:25:32Z",
+      "side": 1,
+      "message": "nit: Can you add a small adapted test before where we set a custom networkchangedetectorfactory, start the monitoring and verify networkchangedetector is now an instance of our custom detector?",
+      "range": {
+        "startLine": 314,
+        "startChar": 14,
+        "endLine": 314,
+        "endChar": 37
+      },
       "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce101e5e_af1f9553",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-08-06T16:49:33Z",
+      "side": 1,
+      "message": "minyue: looks like you added most of these in other encoders.\nI *think* I\u0027ve got everything, should be simple pass-through. But how would I know I missed something?",
+      "revId": "24e99ff3cb4e7e52f48b2a056fd9fa5fe6053961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

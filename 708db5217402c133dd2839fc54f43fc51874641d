@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa63e936_2036a50b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-06T10:42:09Z",
+      "side": 1,
+      "message": "I think this is ready for a normal review; the tests seem to all pass.\nPSA has been sent out about behavior changes; this accounts for most of the test changes.\n\nAdding Sami to review the JNI changes.\n",
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

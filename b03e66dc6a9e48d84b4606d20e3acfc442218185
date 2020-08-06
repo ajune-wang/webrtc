@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46f28075_d572e74a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-06T11:22:19Z",
+      "side": 1,
+      "message": "Hey Asa, the move of the MinFpsDiff is ready for review. ",
+      "revId": "b03e66dc6a9e48d84b4606d20e3acfc442218185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

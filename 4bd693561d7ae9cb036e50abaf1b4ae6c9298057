@@ -157,6 +157,46 @@
       "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce17dbca_284efbf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-06T09:14:50Z",
+      "side": 1,
+      "message": "LGTM, if TODO item is added.\n\nI would still prefer fixing whatever needs fixing with the MAINTAIN_RESOLUTION api. But I don\u0027t know how to do that or how difficult it is. I was hoping Åsa would know an easy way to do it ;-)",
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "286288c5_03ce550b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1952,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-06T09:14:50Z",
+      "side": 1,
+      "message": "As discussed on email, please add a TODO item saying that we should investigate why setting DegrationPreferences::MAINTAIN_RESOLUTION isn\u0027t sufficient to disable downscaling everywhere in the pipeline.",
+      "range": {
+        "startLine": 1951,
+        "startChar": 0,
+        "endLine": 1952,
+        "endChar": 50
+      },
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

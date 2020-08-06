@@ -33,6 +33,23 @@
       "revId": "ffa8c795e6967d1cf4e2a473c885f87c587877a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d51404c9_81a7432b",
+        "filename": "modules/desktop_capture/linux/shared_x_display.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5166
+      },
+      "writtenOn": "2020-08-06T21:43:52Z",
+      "side": 1,
+      "message": "Optional: Would it make sense for this function to take a bool parameter to enable/disable the feature? I imagine a common use-case is to temporarily ignore grabs, in which case some method of un-ignoring them is needed. It\u0027s not strictly necessary for current use because remoting/ (which I assume is what this is being written for) wants to ignore grabs all the time, so I think it\u0027s also fine to keep it like this if you prefer.",
+      "revId": "ffa8c795e6967d1cf4e2a473c885f87c587877a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

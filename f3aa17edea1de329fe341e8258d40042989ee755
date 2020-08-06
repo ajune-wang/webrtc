@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "99544c1e_0b5ce1a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-08-06T12:17:57Z",
+      "side": 1,
+      "message": "thanks for the follow up 😊",
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e563955a_b731eb5f",
         "filename": "api/test/network_emulation_manager.h",
         "patchSetId": 1
@@ -46,6 +63,30 @@
       "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbfb769c_40d9756c",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-08-06T12:17:57Z",
+      "side": 1,
+      "message": "If all implementations properly DCHECK the threading expectations specified by the interface (ideally strictly), then this is alright by me.",
+      "parentUuid": "7a958937_b9dd72a8",
+      "range": {
+        "startLine": 79,
+        "startChar": 41,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +160,30 @@
     },
     {
       "key": {
+        "uuid": "ae2ac706_87d941a3",
+        "filename": "api/test/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-08-06T12:17:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8827c5ca_75467d03",
+      "range": {
+        "startLine": 201,
+        "startChar": 15,
+        "endLine": 201,
+        "endChar": 23
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a56d4d02_6d7df2f0",
         "filename": "test/network/emulated_network_manager.h",
         "patchSetId": 1
@@ -166,6 +231,47 @@
     },
     {
       "key": {
+        "uuid": "5bd34dc1_878c5e0b",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-08-06T12:17:57Z",
+      "side": 1,
+      "message": "by \u0027constrained\u0027 do you mean making it a method that\u0027s not a part of the public interface? (i.e. no override?)",
+      "parentUuid": "53aa205f_eba4f7d8",
+      "range": {
+        "startLine": 53,
+        "startChar": 33,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d22bf0ca_fb30c4e6",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-08-06T12:17:57Z",
+      "side": 1,
+      "message": "nice",
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3278ed49_77b3811d",
         "filename": "test/network/network_emulation.cc",
         "patchSetId": 1
@@ -210,6 +316,30 @@
       "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbf61d3b_fe0831bf",
+        "filename": "test/network/network_emulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-08-06T12:17:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7da183e9_e783e78c",
+      "range": {
+        "startLine": 574,
+        "startChar": 51,
+        "endLine": 574,
+        "endChar": 63
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

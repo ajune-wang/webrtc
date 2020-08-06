@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4099d3f4_6f00d189",
+        "filename": "logging/rtc_event_log/events/rtc_event_frame_decoded.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-08-06T10:37:50Z",
+      "side": 1,
+      "message": "These are always called as virtual functions through the base class, so inlining wouldn\u0027t be an optimization. Someone looking at the header file is more likely to be looking for the data members, so I prefer placing these definitions in the cc file to avoid cluttering the .h file.",
+      "parentUuid": "d903d91d_921a1084",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 1
+      },
+      "revId": "f25003f382017c8a18a59bd613978f4dc112e53a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66eec745_9738fdc8",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "f25003f382017c8a18a59bd613978f4dc112e53a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a61dd8d5_e0eafe97",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2860,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-08-06T10:37:50Z",
+      "side": 1,
+      "message": "You are right; the comment might be misleading. Updated here and elsewhere in the file.",
+      "parentUuid": "66eec745_9738fdc8",
+      "range": {
+        "startLine": 2860,
+        "startChar": 2,
+        "endLine": 2860,
+        "endChar": 19
+      },
+      "revId": "f25003f382017c8a18a59bd613978f4dc112e53a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

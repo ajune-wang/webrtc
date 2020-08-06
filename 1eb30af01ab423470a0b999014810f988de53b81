@@ -538,6 +538,30 @@
     },
     {
       "key": {
+        "uuid": "6b3fa196_d2c71ec0",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-06T14:50:02Z",
+      "side": 1,
+      "message": "Right, do we need Invoke though? Invoking is not great especially since you seem to be calling these methods from the main thread.",
+      "parentUuid": "977aab52_9c3bb5c5",
+      "range": {
+        "startLine": 145,
+        "startChar": 18,
+        "endLine": 145,
+        "endChar": 29
+      },
+      "revId": "1eb30af01ab423470a0b999014810f988de53b81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2b6d6dc0_e37cfe91",
         "filename": "examples/androidvoip/jni/android_voip_client.h",
         "patchSetId": 2

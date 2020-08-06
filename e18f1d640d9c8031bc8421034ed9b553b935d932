@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "e5161d05_ce633133",
+        "filename": "examples/androidvoip/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-06T14:50:02Z",
+      "side": 1,
+      "message": "Storing JVM there is considered deprecated by me and is only needed by the legacy audio module. Could you store JVM yourself or maybe use GetJavaVM?",
+      "parentUuid": "f9cc0aa7_03bca2ca",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41d69cda_bac6dba7",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -197,6 +221,29 @@
         "startChar": 23,
         "endLine": 479,
         "endChar": 75
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5e0826d_cb070462",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-06T14:50:02Z",
+      "side": 1,
+      "message": "nit: You should be able to use voip_thread_ here directly I think",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 38
       },
       "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

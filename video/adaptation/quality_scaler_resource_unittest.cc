@@ -34,32 +34,26 @@ class FakeQualityScalerQpUsageHandlerCallback
       : QualityScalerQpUsageHandlerCallbackInterface(),
         encoder_queue_(encoder_queue),
         is_handled_(false),
-        qp_usage_handled_event_(true /* manual_reset */, false),
-        clear_qp_samples_result_(absl::nullopt) {}
+        qp_usage_handled_event_(true /* manual_reset */, false) {}
   ~FakeQualityScalerQpUsageHandlerCallback() override {
     RTC_DCHECK(is_handled_)
         << "The callback was destroyed without being invoked.";
   }
 
-  void OnQpUsageHandled(bool clear_qp_samples) override {
+  void OnQpUsageHandled() override {
     ASSERT_TRUE(encoder_queue_->IsCurrent());
     RTC_DCHECK(!is_handled_);
-    clear_qp_samples_result_ = clear_qp_samples;
     is_handled_ = true;
     qp_usage_handled_event_.Set();
   }
 
   bool is_handled() const { return is_handled_; }
   rtc::Event* qp_usage_handled_event() { return &qp_usage_handled_event_; }
-  absl::optional<bool> clear_qp_samples_result() const {
-    return clear_qp_samples_result_;
-  }
 
  private:
   rtc::TaskQueue* const encoder_queue_;
   bool is_handled_;
   rtc::Event qp_usage_handled_event_;
-  absl::optional<bool> clear_qp_samples_result_;
 };
 
 class FakeDegradationPreferenceProvider : public DegradationPreferenceProvider {

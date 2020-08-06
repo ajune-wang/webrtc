@@ -31,7 +31,6 @@ namespace webrtc {
 
 // Handles interaction with the QualityScaler.
 class QualityScalerResource : public VideoStreamEncoderResource,
-                              public AdaptationListener,
                               public QualityScalerQpUsageHandlerInterface {
  public:
   static rtc::scoped_refptr<QualityScalerResource> Create(
@@ -60,18 +59,11 @@ class QualityScalerResource : public VideoStreamEncoderResource,
       rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface> callback)
       override;
 
-  // AdaptationListener implementation.
-  void OnAdaptationApplied(
-      const VideoStreamInputState& input_state,
-      const VideoSourceRestrictions& restrictions_before,
-      const VideoSourceRestrictions& restrictions_after,
-      rtc::scoped_refptr<Resource> reason_resource) override;
-
  private:
   size_t QueuePendingCallback(
       rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface>
           callback);
-  void HandlePendingCallback(size_t callback_id, bool clear_qp_samples);
+  void HandlePendingCallback(size_t callback_id);
   void AbortPendingCallbacks();
 
   // Members accessed on the encoder queue.
@@ -91,9 +83,6 @@ class QualityScalerResource : public VideoStreamEncoderResource,
   std::queue<rtc::scoped_refptr<QualityScalerQpUsageHandlerCallbackInterface>>
       pending_callbacks_ RTC_GUARDED_BY(encoder_queue());
   DegradationPreferenceProvider* const degradation_preference_provider_;
-
-  // Members accessed on the adaptation queue.
-  bool clear_qp_samples_ RTC_GUARDED_BY(resource_adaptation_queue());
 };
 
 }  // namespace webrtc

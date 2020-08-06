@@ -86,7 +86,6 @@ class QualityScaler::CheckQpTask {
   struct Result {
     bool observed_enough_frames = false;
     bool qp_usage_reported = false;
-    bool clear_qp_samples = false;
   };
 
   CheckQpTask(QualityScaler* quality_scaler, Result previous_task_result)
@@ -145,11 +144,9 @@ class QualityScaler::CheckQpTask {
         GetCheckingQpDelayMs());
   }
 
-  void OnQpUsageHandled(bool clear_qp_samples) {
+  void OnQpUsageHandled() {
     RTC_DCHECK_EQ(state_, State::kAwaitingQpUsageHandled);
-    result_.clear_qp_samples = clear_qp_samples;
-    if (clear_qp_samples)
-      quality_scaler_->ClearSamples();
+    quality_scaler_->ClearSamples();
     DoCompleteTask();
   }
 
@@ -184,10 +181,6 @@ class QualityScaler::CheckQpTask {
       // Use half the interval while waiting for enough frames.
       return quality_scaler_->sampling_period_ms_ / 2;
     }
-    if (!previous_task_result_.clear_qp_samples) {
-      // Check shortly again.
-      return quality_scaler_->sampling_period_ms_ / 8;
-    }
     if (quality_scaler_->scale_factor_ &&
         !previous_task_result_.qp_usage_reported) {
       // Last CheckQp did not call AdaptDown/Up, possibly reduce interval.
@@ -218,15 +211,15 @@ class QualityScaler::CheckQpTask {
 class QualityScaler::CheckQpTaskHandlerCallback
     : public QualityScalerQpUsageHandlerCallbackInterface {
  public:
-  CheckQpTaskHandlerCallback(
+  explicit CheckQpTaskHandlerCallback(
       rtc::WeakPtr<QualityScaler::CheckQpTask> check_qp_task)
       : QualityScalerQpUsageHandlerCallbackInterface(),
         check_qp_task_(std::move(check_qp_task)),
         was_handled_(false) {}
 
-  ~CheckQpTaskHandlerCallback() { RTC_DCHECK(was_handled_); }
+  ~CheckQpTaskHandlerCallback() override { RTC_DCHECK(was_handled_); }
 
-  void OnQpUsageHandled(bool clear_qp_samples) {
+  void OnQpUsageHandled() override {
     RTC_DCHECK(!was_handled_);
     was_handled_ = true;
     if (!check_qp_task_) {
@@ -234,7 +227,7 @@ class QualityScaler::CheckQpTaskHandlerCallback
       // operation is ignored.
       return;
     }
-    check_qp_task_->OnQpUsageHandled(clear_qp_samples);
+    check_qp_task_->OnQpUsageHandled();
   }
 
  private:

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "10fdcf5b_b19e0c35",
+        "filename": "logging/rtc_event_log/events/rtc_event_frame_decoded.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-08-06T12:31:52Z",
+      "side": 1,
+      "message": "Yeah, but from a readability point of view I also think that the CC file is better in this case. I don\u0027t expect anyone to ever want to read the definitions of IsConfig and GetType, so moving them to the CC file makes the actually relevant information easier to find.",
+      "parentUuid": "58c6fa3f_34d913fa",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 1
+      },
+      "revId": "f25003f382017c8a18a59bd613978f4dc112e53a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66eec745_9738fdc8",
         "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
         "patchSetId": 3

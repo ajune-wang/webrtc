@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93e05de0_2bc75f42",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "Could we use if statement here instead?\n\nif (!voip_client-\u003eInit(env, application_context)) {\n  return nullptr;\n}\nreturn voip_client.release();",
+      "range": {
+        "startLine": 167,
+        "startChar": 2,
+        "endLine": 168,
+        "endChar": 63
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61f934ca_5513e20f",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "We should apply the IsCurrent() pattern here as well.",
+      "range": {
+        "startLine": 214,
+        "startChar": 2,
+        "endLine": 215,
+        "endChar": 42
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76a3c522_d9366f5a",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "We should apply the IsCurrent() pattern here as well.",
+      "range": {
+        "startLine": 237,
+        "startChar": 2,
+        "endLine": 239,
+        "endChar": 0
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c69ae2c7_8b1f29ed",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "We should apply the IsCurrent() pattern here as well.",
+      "range": {
+        "startLine": 263,
+        "startChar": 1,
+        "endLine": 264,
+        "endChar": 42
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1581d6c2_cc6cd177",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "We should apply the IsCurrent() pattern here as well.",
+      "range": {
+        "startLine": 277,
+        "startChar": 2,
+        "endLine": 279,
+        "endChar": 0
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7e1ebb2_8d5326a0",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "packet is likely invalidated at this point.",
+      "range": {
+        "startLine": 432,
+        "startChar": 31,
+        "endLine": 432,
+        "endChar": 70
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a4289a3_849ba555",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "packet is likely invalidated at this point.",
+      "range": {
+        "startLine": 446,
+        "startChar": 48,
+        "endLine": 446,
+        "endChar": 72
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "254e7c52_9d6c4423",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "rtp_packet is likely invalidated at this point.",
+      "range": {
+        "startLine": 465,
+        "startChar": 35,
+        "endLine": 465,
+        "endChar": 56
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bde2a2cb_9b5decfd",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "rtcp_packet is likely invalidated here.",
+      "range": {
+        "startLine": 487,
+        "startChar": 36,
+        "endLine": 487,
+        "endChar": 53
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13570eb_d38902f5",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "application_context doesn\u0027t seem to be used?",
+      "range": {
+        "startLine": 141,
+        "startChar": 20,
+        "endLine": 141,
+        "endChar": 77
+      },
+      "revId": "6c65872a01b0b88e9b65748a7f12bcefe15f6452",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

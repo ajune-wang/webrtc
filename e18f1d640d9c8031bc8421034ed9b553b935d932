@@ -208,6 +208,30 @@
     },
     {
       "key": {
+        "uuid": "d33879ab_dc5210f2",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "I think since tediously repeated process, using macro can actually help the readability.\n\nYou can try something like this.\n\n#define RUN_ON_VOIP_THREAD(method, ...)                                         \\\n  if (!voip_thread_-\u003eIsCurrent()) {                                             \\\n    voip_thread_-\u003ePostTask(RTC_FROM_HERE, std::bind(\u0026AndroidVoipClient::method, \\\n                                                    this, ##__VA_ARGS__));      \\\n    return;                                                                     \\\n  }                                                                             \\\n  RTC_DCHECK_RUN_ON(\u0026voip_thread_);",
+      "parentUuid": "d253d077_a7b40375",
+      "range": {
+        "startLine": 386,
+        "startChar": 2,
+        "endLine": 386,
+        "endChar": 48
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a192e3d6_1a61826a",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -349,6 +373,30 @@
     },
     {
       "key": {
+        "uuid": "b2e2e03e_ab340e60",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "You would need to make a copy instead.",
+      "parentUuid": "5ff95380_ba7c33f7",
+      "range": {
+        "startLine": 461,
+        "startChar": 23,
+        "endLine": 461,
+        "endChar": 74
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "442b12d2_42ff3087",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -416,6 +464,30 @@
       "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c9915bf_b1367dbd",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T23:25:32Z",
+      "side": 1,
+      "message": "You will both header and here to use voip_thread_.\n\nint abc_ RTC_GUARDED_BY(voip_thread_);\n\nint method() {\n  RTC_DCHECK_RUN_ON(voip_thread_);\n  abc_ \u003d 0;\n}",
+      "parentUuid": "b4579ed9_983bb80e",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 38
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

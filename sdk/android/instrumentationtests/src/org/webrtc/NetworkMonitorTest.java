@@ -31,14 +31,15 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.filters.MediumTest;
 import android.support.test.filters.SmallTest;
 import android.support.test.rule.UiThreadTestRule;
+import java.util.List;
 import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.webrtc.NetworkMonitorAutoDetect.ConnectionType;
+import org.webrtc.NetworkChangeDetector.ConnectionType;
+import org.webrtc.NetworkChangeDetector.NetworkInformation;
 import org.webrtc.NetworkMonitorAutoDetect.ConnectivityManagerDelegate;
-import org.webrtc.NetworkMonitorAutoDetect.NetworkInformation;
 import org.webrtc.NetworkMonitorAutoDetect.NetworkState;
 
 /**
@@ -155,6 +156,10 @@ public class NetworkMonitorTest {
 
     @Override
     public void onNetworkDisconnect(long networkHandle) {}
+
+    @Override
+    public void onNetworkPreference(List<ConnectionType> types, @NetworkPreference int preference) {
+    }
   }
 
   private static final Object lock = new Object();
@@ -311,9 +316,9 @@ public class NetworkMonitorTest {
     Context context = ContextUtils.getApplicationContext();
     networkMonitor.startMonitoring(context);
     assertEquals(1, networkMonitor.getNumObservers());
-    assertNotNull(networkMonitor.getNetworkMonitorAutoDetect());
+    assertNotNull(networkMonitor.getNetworkChangeDetector());
     networkMonitor.stopMonitoring();
     assertEquals(0, networkMonitor.getNumObservers());
-    assertNull(networkMonitor.getNetworkMonitorAutoDetect());
+    assertNull(networkMonitor.getNetworkChangeDetector());
   }
 }

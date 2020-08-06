@@ -215,6 +215,16 @@ public class RtpTransceiver {
     nativeStop(nativeRtpTransceiver);
   }
 
+  public void stopInternal() {
+    checkRtpTransceiverExists();
+    nativeStopInternal(nativeRtpTransceiver);
+  }
+
+  public void stopStandard() {
+    checkRtpTransceiverExists();
+    nativeStopStandard(nativeRtpTransceiver);
+  }
+
   @CalledByNative
   public void dispose() {
     checkRtpTransceiverExists();
@@ -238,6 +248,8 @@ public class RtpTransceiver {
   private static native RtpTransceiverDirection nativeDirection(long rtpTransceiver);
   private static native RtpTransceiverDirection nativeCurrentDirection(long rtpTransceiver);
   private static native void nativeStop(long rtpTransceiver);
+  private static native void nativeStopInternal(long rtpTransceiver);
+  private static native void nativeStopStandard(long rtpTransceiver);
   private static native void nativeSetDirection(
       long rtpTransceiver, RtpTransceiverDirection rtpTransceiverDirection);
 }

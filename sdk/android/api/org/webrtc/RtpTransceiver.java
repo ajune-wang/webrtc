@@ -206,13 +206,33 @@ public class RtpTransceiver {
   }
 
   /**
-   * The Stop method irreversibly stops the RtpTransceiver. The sender of this
-   * transceiver will no longer send, the receiver will no longer receive.
-   * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-stop
+   * The Stop method will for the time being call the StopInternal method.
+   * After a migration procedure, stop() will be equivalent to StopStandard.
    */
   public void stop() {
     checkRtpTransceiverExists();
     nativeStop(nativeRtpTransceiver);
+  }
+
+  /**
+   * The StopInternal method stops the RtpTransceiver, like Stop, but goes
+   * immediately to Stopped state.
+   */
+  public void stopInternal() {
+    checkRtpTransceiverExists();
+    nativeStopInternal(nativeRtpTransceiver);
+  }
+
+  /**
+   * The StopStandard method irreversibly stops the RtpTransceiver. The sender
+   * of this transceiver will no longer send, the receiver will no longer
+   * receive.
+   * The transceiver will enter Stopping state and signal NegotiationNeeded.
+   * https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-stop
+   */
+  public void stopStandard() {
+    checkRtpTransceiverExists();
+    nativeStopStandard(nativeRtpTransceiver);
   }
 
   @CalledByNative
@@ -238,6 +258,8 @@ public class RtpTransceiver {
   private static native RtpTransceiverDirection nativeDirection(long rtpTransceiver);
   private static native RtpTransceiverDirection nativeCurrentDirection(long rtpTransceiver);
   private static native void nativeStop(long rtpTransceiver);
+  private static native void nativeStopInternal(long rtpTransceiver);
+  private static native void nativeStopStandard(long rtpTransceiver);
   private static native void nativeSetDirection(
       long rtpTransceiver, RtpTransceiverDirection rtpTransceiverDirection);
 }

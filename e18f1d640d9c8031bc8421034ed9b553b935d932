@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1e44ee5a_85f14b88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T00:15:42Z",
+      "side": 1,
+      "message": "Thanks for the change. PTAL!",
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c62fc265_1c95681a",
         "filename": "examples/androidvoip/DEPS",
         "patchSetId": 3
@@ -46,6 +63,144 @@
       "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41d69cda_bac6dba7",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T00:15:42Z",
+      "side": 1,
+      "message": "This seems odd way to create and check.  I think it would be better to create Init method under private section and put the logic in ctor.\n\nprivate:\n bool Init() {\n   // constructor logic here...\n }",
+      "range": {
+        "startLine": 168,
+        "startChar": 2,
+        "endLine": 173,
+        "endChar": 5
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6c8459c_ca74c7a5",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T00:15:42Z",
+      "side": 1,
+      "message": "This seems understandably repeated. Could we do something like this instead to avoid seeing whole section being always included within PostTask?  Perhaps short local macro can make this more readable.\n\nif (!voip_thread_-\u003eIsCurrent()) {\n  voip_thread_-\u003ePostTask(RTC_FROM_HERE, [this, env] { StartPlayout(env); });\n}\nRTC_DCHECK_RUN_ON(\u0026sequence_checker_);\n\n...",
+      "range": {
+        "startLine": 386,
+        "startChar": 2,
+        "endLine": 386,
+        "endChar": 48
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a192e3d6_1a61826a",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T00:15:42Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a good idea as it would stop webrtc audio thread until the job is done by voip thread.  We should either use a mutex on rtp_socket or post task with copy of data. I think it\u0027s fine to return true if we do post task.",
+      "range": {
+        "startLine": 422,
+        "startChar": 2,
+        "endLine": 431,
+        "endChar": 5
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7b182c8_aea0fa38",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T00:15:42Z",
+      "side": 1,
+      "message": "Same as above on blocking issue.",
+      "range": {
+        "startLine": 435,
+        "startChar": 2,
+        "endLine": 435,
+        "endChar": 56
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea4f7fae_927d3937",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T00:15:42Z",
+      "side": 1,
+      "message": "This will not work as we are getting temporary data in rtp_packet.",
+      "range": {
+        "startLine": 461,
+        "startChar": 23,
+        "endLine": 461,
+        "endChar": 74
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442b12d2_42ff3087",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-06T00:15:42Z",
+      "side": 1,
+      "message": "Also here on temporary data.",
+      "range": {
+        "startLine": 479,
+        "startChar": 23,
+        "endLine": 479,
+        "endChar": 75
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -161,34 +161,6 @@ class CpuOveruseDetectorProxy : public OveruseFrameDetector {
   rtc::Event framerate_updated_event_;
 };
 
-class FakeQualityScalerQpUsageHandlerCallback
-    : public QualityScalerQpUsageHandlerCallbackInterface {
- public:
-  FakeQualityScalerQpUsageHandlerCallback()
-      : QualityScalerQpUsageHandlerCallbackInterface(),
-        qp_usage_handled_event_(/*manual_reset=*/true,
-                                /*initially_signaled=*/false),
-        clear_qp_samples_result_(absl::nullopt) {}
-  ~FakeQualityScalerQpUsageHandlerCallback() override {
-    RTC_DCHECK(clear_qp_samples_result_.has_value());
-  }
-
-  void OnQpUsageHandled(bool clear_qp_samples) override {
-    clear_qp_samples_result_ = clear_qp_samples;
-    qp_usage_handled_event_.Set();
-  }
-
-  bool WaitForQpUsageHandled() { return qp_usage_handled_event_.Wait(5000); }
-
-  absl::optional<bool> clear_qp_samples_result() const {
-    return clear_qp_samples_result_;
-  }
-
- private:
-  rtc::Event qp_usage_handled_event_;
-  absl::optional<bool> clear_qp_samples_result_;
-};
-
 class FakeVideoSourceRestrictionsListener
     : public VideoSourceRestrictionsListener {
  public:
@@ -411,22 +383,6 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
       event.Set();
     });
     ASSERT_TRUE(event.Wait(5000));
-  }
-
-  // Fakes high QP resource usage measurements on the real
-  // QualityScalerResource. Returns whether or not QP samples would have been
-  // cleared if this had been a real signal from the QualityScaler.
-  bool TriggerQualityScalerHighQpAndReturnIfQpSamplesShouldBeCleared() {
-    rtc::scoped_refptr<FakeQualityScalerQpUsageHandlerCallback> callback =
-        new FakeQualityScalerQpUsageHandlerCallback();
-    encoder_queue()->PostTask([this, callback] {
-      // This will cause a "ping" between adaptation task queue and encoder
-      // queue. When we have the result, the |callback| will be notified.
-      quality_scaler_resource_for_testing()->OnReportQpUsageHigh(callback);
-    });
-    EXPECT_TRUE(callback->WaitForQpUsageHandled());
-    EXPECT_TRUE(callback->clear_qp_samples_result().has_value());
-    return callback->clear_qp_samples_result().value();
   }
 
   CpuOveruseDetectorProxy* overuse_detector_proxy_;
@@ -3297,13 +3253,11 @@ TEST_F(BalancedDegradationTest, AdaptDownReturnsFalseIfFpsDiffLtThreshold) {
   InsertFrameAndWaitForEncoded();
   EXPECT_THAT(source_.sink_wants(), FpsMaxResolutionMax());
 
-  // Trigger adapt down, expect scaled down framerate (640x360@24fps).
-  // Fps diff (input-requested:0) < threshold, expect adapting down not to clear
-  // QP samples.
-  EXPECT_FALSE(
-      video_stream_encoder_
-          ->TriggerQualityScalerHighQpAndReturnIfQpSamplesShouldBeCleared());
-  EXPECT_THAT(source_.sink_wants(), FpsMatchesResolutionMax(Eq(24)));
+  // Trigger adapt down, expect scaled down framerate and resolution,
+  // since Fps diff (input-requested:0) < threshold.
+  video_stream_encoder_->TriggerQualityLow();
+  EXPECT_THAT(source_.sink_wants(),
+              AllOf(WantsFps(Eq(24)), WantsMaxPixels(Le(230400))));
 
   video_stream_encoder_->Stop();
 }
@@ -3326,9 +3280,7 @@ TEST_F(BalancedDegradationTest, AdaptDownReturnsTrueIfFpsDiffGeThreshold) {
   // Trigger adapt down, expect scaled down framerate (640x360@24fps).
   // Fps diff (input-requested:1) == threshold, expect adapting down to clear QP
   // samples.
-  EXPECT_TRUE(
-      video_stream_encoder_
-          ->TriggerQualityScalerHighQpAndReturnIfQpSamplesShouldBeCleared());
+  video_stream_encoder_->TriggerQualityLow();
   EXPECT_THAT(source_.sink_wants(), FpsMatchesResolutionMax(Eq(24)));
 
   video_stream_encoder_->Stop();

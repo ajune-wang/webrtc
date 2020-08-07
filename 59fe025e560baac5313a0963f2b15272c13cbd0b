@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb986b09_b5ca7825",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-07T12:39:54Z",
+      "side": 1,
+      "message": "PTAL. Do you know any suitable tracking bug to link to? https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d7408 is related but not spot on.",
+      "revId": "59fe025e560baac5313a0963f2b15272c13cbd0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

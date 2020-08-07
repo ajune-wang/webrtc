@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f9968ce_aa2e6046",
+        "filename": "modules/video_coding/video_receiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-07T12:39:54Z",
+      "side": 0,
+      "message": "Unclear why we used to pass true in these tests.",
+      "range": {
+        "startLine": 61,
+        "startChar": 61,
+        "endLine": 61,
+        "endChar": 67
+      },
+      "revId": "c55e24acc766704338e5432a2159548ef266d251",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

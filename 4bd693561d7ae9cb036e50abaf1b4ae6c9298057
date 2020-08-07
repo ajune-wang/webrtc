@@ -245,6 +245,30 @@
       "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e2abee7_b1f63dfe",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1952,
+      "author": {
+        "id": 9002
+      },
+      "writtenOn": "2020-08-07T08:04:37Z",
+      "side": 1,
+      "message": "I asked on the email thread so that our other colleagues can answer your question, since I am not sure myself. Thanks!",
+      "parentUuid": "443fb554_79256447",
+      "range": {
+        "startLine": 1951,
+        "startChar": 0,
+        "endLine": 1952,
+        "endChar": 50
+      },
+      "revId": "4bd693561d7ae9cb036e50abaf1b4ae6c9298057",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

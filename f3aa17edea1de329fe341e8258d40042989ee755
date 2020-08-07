@@ -255,6 +255,30 @@
     },
     {
       "key": {
+        "uuid": "5d7d2cf6_fa6b768b",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-07T10:57:23Z",
+      "side": 1,
+      "message": "I mean if I\u0027ll add a thread checker, using of this method will be constrained to one thread, but it is safe to use it from any thread, because it\u0027s thread safe.",
+      "parentUuid": "5bd34dc1_878c5e0b",
+      "range": {
+        "startLine": 53,
+        "startChar": 33,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d22bf0ca_fb30c4e6",
         "filename": "test/network/emulated_network_manager.h",
         "patchSetId": 1

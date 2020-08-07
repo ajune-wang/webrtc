@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36761996_f6e257ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-07T10:21:19Z",
+      "side": 1,
+      "message": "PTAL. The comment was probably accurate on some point when I worked on the gturn deletion cls.",
+      "revId": "5b80b4fb5bc55fa5d16be960033e988ef141b579",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

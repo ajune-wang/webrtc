@@ -433,6 +433,8 @@ class WebRtcVideoChannel : public VideoMediaChannel,
     // destructed as they are used in asynchronous tasks it has to be destructed
     // first.
     rtc::AsyncInvoker invoker_;
+
+    const bool disable_automatic_resize_;
   };
 
   // Wrapper for the receiver part, contains configs etc. that are needed to

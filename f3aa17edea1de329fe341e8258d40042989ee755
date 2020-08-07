@@ -279,6 +279,30 @@
     },
     {
       "key": {
+        "uuid": "2c74370f_d363a090",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-08-07T18:34:45Z",
+      "side": 1,
+      "message": "If the interface specifies that an implementation may not alter the contents of the vector from construction to deletion and it might follow that the EmulatedEndpoints interface is free threaded (does internal locking), then that might is fine. However, in that case the getter should ideally be:\n\nconst std::vector\u003cEmulatedEndpoints*\u003e\u0026 endpoints() const;\n\nBut are the above assumptions correct? It\u0027s not how I\u0027d want interfaces to be designed in general since it leaves the interface overly open (for no specific design reason?) and it puts the requirement on all implementations that they employ locking, even though there might be no need for it.",
+      "parentUuid": "5d7d2cf6_fa6b768b",
+      "range": {
+        "startLine": 53,
+        "startChar": 33,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d22bf0ca_fb30c4e6",
         "filename": "test/network/emulated_network_manager.h",
         "patchSetId": 1

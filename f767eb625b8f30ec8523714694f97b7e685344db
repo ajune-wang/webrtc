@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "15258663_9a9e6b8e",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-07T06:31:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9812af85_9a9d8a28",
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df0ed3dc_4223122c",
         "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
         "patchSetId": 19
@@ -76,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "8bdf61c4_a048dd98",
+        "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-07T06:31:11Z",
+      "side": 1,
+      "message": "it is used/returned from NetworkMonitor and NetworkMonitorAutoDetect.\nI\u0027m not sure what the purpose is...but this seems like the right place\nto store it.",
+      "parentUuid": "df0ed3dc_4223122c",
+      "range": {
+        "startLine": 18,
+        "startChar": 20,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "beef2804_114ab496",
         "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
         "patchSetId": 19
@@ -90,6 +132,24 @@
       "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "198f768f_375c6b82",
+        "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-07T06:31:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beef2804_114ab496",
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +176,30 @@
     },
     {
       "key": {
+        "uuid": "101e7459_afa7dd47",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-07T06:31:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a381c1b_7e3c27cf",
+      "range": {
+        "startLine": 341,
+        "startChar": 14,
+        "endLine": 341,
+        "endChar": 45
+      },
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fda26996_eaf207b5",
         "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
         "patchSetId": 19
@@ -139,6 +223,30 @@
     },
     {
       "key": {
+        "uuid": "b1d62e40_9158e143",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-07T06:31:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fda26996_eaf207b5",
+      "range": {
+        "startLine": 342,
+        "startChar": 9,
+        "endLine": 342,
+        "endChar": 37
+      },
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "958791cf_160a557a",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
         "patchSetId": 19
@@ -159,6 +267,30 @@
       "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "206a917d_34967296",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2020-08-07T06:31:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "958791cf_160a557a",
+      "range": {
+        "startLine": 314,
+        "startChar": 14,
+        "endLine": 314,
+        "endChar": 37
+      },
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

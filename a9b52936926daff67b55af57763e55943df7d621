@@ -16,6 +16,75 @@
       "revId": "a9b52936926daff67b55af57763e55943df7d621",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2d40312_00f96b95",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T08:56:40Z",
+      "side": 1,
+      "message": "nit: Ideally this would be javadoc and formatted more like\n/**\n * Set the factory that will be used to create the network monitor. Needs to be called before\n * the monitoring is starts.\n */\n\nIf you know when the monitoring starts, that would be useful to add also.",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 49
+      },
+      "revId": "a9b52936926daff67b55af57763e55943df7d621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d31c36dc_562d5d8c",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitorAutoDetect.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T08:56:40Z",
+      "side": 1,
+      "message": "nit: Can this be private now?",
+      "range": {
+        "startLine": 549,
+        "startChar": 2,
+        "endLine": 549,
+        "endChar": 8
+      },
+      "revId": "a9b52936926daff67b55af57763e55943df7d621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "833fc778_c9c8c2c5",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T08:56:40Z",
+      "side": 1,
+      "message": "Also could be private, right?",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 23
+      },
+      "revId": "a9b52936926daff67b55af57763e55943df7d621",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

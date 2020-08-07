@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89d5d64e_18dc53b1",
+        "filename": "modules/video_coding/include/video_coding.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-07T14:22:15Z",
+      "side": 1,
+      "message": "I\u0027m aware of a single downstream call site for this legacy method. So should be easy to fix.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 66
+      },
+      "revId": "24b3cc79ce0a2aa282c82816dcf0c413b4e7f902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

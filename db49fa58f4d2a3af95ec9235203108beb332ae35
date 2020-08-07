@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35dbb86b_f9465fed",
+        "filename": "sdk/android/api/org/webrtc/NetworkMonitor.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T08:35:05Z",
+      "side": 1,
+      "message": "nit: Would be good to add docs here that this needs to be called before the monitoring starts",
+      "range": {
+        "startLine": 74,
+        "startChar": 14,
+        "endLine": 74,
+        "endChar": 45
+      },
+      "revId": "db49fa58f4d2a3af95ec9235203108beb332ae35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c37719f_eb01c21c",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/NetworkMonitorTest.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T08:35:05Z",
+      "side": 1,
+      "message": "Not sure why are we are using AtomicReference here. I don\u0027t think there are any threading concerns and if there are, we could just use volatile instead.",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 23
+      },
+      "revId": "db49fa58f4d2a3af95ec9235203108beb332ae35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "704cf81b_1790c88d",
+        "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T08:35:05Z",
+      "side": 1,
+      "message": "I don\u0027t see it used in NetworkMonitor anymore so I\u0027d rather place it somewhere else. Looks like it used to be used there but not anymore after this CL.",
+      "parentUuid": "8bdf61c4_a048dd98",
+      "range": {
+        "startLine": 18,
+        "startChar": 20,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "f767eb625b8f30ec8523714694f97b7e685344db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "beef2804_114ab496",
         "filename": "sdk/android/api/org/webrtc/NetworkChangeDetector.java",
         "patchSetId": 19

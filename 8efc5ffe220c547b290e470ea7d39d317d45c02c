@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f182fc0c_249eabd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-07T13:19:58Z",
+      "side": 1,
+      "message": "Ilya, PTAL. Owner\u0027s review needed for video/.",
+      "revId": "8efc5ffe220c547b290e470ea7d39d317d45c02c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

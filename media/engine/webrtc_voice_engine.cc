@@ -726,6 +726,14 @@ std::vector<AudioCodec> WebRtcVoiceEngine::CollectCodecs(
       if (codec.name == kOpusCodecName &&
           IsAudioRedForOpusFieldTrialEnabled()) {
         map_format({kRedCodecName, 48000, 2}, &out);
+        const std::string redundancy =
+            std::to_string(codec.id) + "/" + std::to_string(codec.id) + "/" +
+            std::to_string(codec.id);  // Triple redundancy.
+        map_format({kRedCodecName,
+                    spec.format.clockrate_hz,
+                    spec.format.num_channels,
+                    {{"", redundancy}}},
+                   &out);
       }
     }
   }
@@ -1782,7 +1790,8 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
     }
   }
 
-  if (IsAudioRedForOpusFieldTrialEnabled()) {
+  if (IsAudioRedForOpusFieldTrialEnabled() &&
+      send_codec_spec->format.name == kOpusCodecName) {
     // Loop through the codecs to find the RED codec that matches opus
     // with respect to clockrate and number of channels.
     size_t red_codec_position = 0;
@@ -1792,6 +1801,7 @@ bool WebRtcVoiceMediaChannel::SetSendCodecs(
           red_codec.clockrate == send_codec_spec->format.clockrate_hz &&
           red_codec.channels == send_codec_spec->format.num_channels) {
         send_codec_spec->red_payload_type = red_codec.id;
+        send_codec_spec->red_params = red_codec.params;
         break;
       }
       red_codec_position++;

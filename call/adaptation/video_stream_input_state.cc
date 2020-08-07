@@ -67,4 +67,13 @@ bool VideoStreamInputState::HasInputFrameSizeAndFramesPerSecond() const {
   return has_input_ && frame_size_pixels_.has_value();
 }
 
+bool VideoStreamInputState::operator==(
+    const VideoStreamInputState& other) const {
+  return has_input_ == other.has_input_ &&
+         frame_size_pixels_ == other.frame_size_pixels_ &&
+         frames_per_second_ == other.frames_per_second_ &&
+         video_codec_type_ == other.video_codec_type_ &&
+         min_pixels_per_frame_ == other.min_pixels_per_frame_;
+}
+
 }  // namespace webrtc

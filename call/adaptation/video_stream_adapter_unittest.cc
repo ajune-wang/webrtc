@@ -985,13 +985,13 @@ TEST(VideoStreamAdapterDeathTest,
   EXPECT_DEATH(adapter.ApplyAdaptation(adaptation, nullptr), "");
 }
 
-TEST(VideoStreamAdapterDeathTest, AdaptDownInvalidatesAdaptations) {
+TEST(VideoStreamAdapterDeathTest, ChangeInputStateInvalidatesAdaptation) {
   FakeVideoStreamInputStateProvider input_state_provider;
   VideoStreamAdapter adapter(&input_state_provider);
   adapter.SetDegradationPreference(DegradationPreference::MAINTAIN_RESOLUTION);
   input_state_provider.SetInputState(1280 * 720, 30, kDefaultMinPixelsPerFrame);
   Adaptation adaptation = adapter.GetAdaptationDown();
-  adapter.GetAdaptationDown();
+  input_state_provider.SetInputState(1280 * 720, 15, kDefaultMinPixelsPerFrame);
   EXPECT_DEATH(adapter.ApplyAdaptation(adaptation, nullptr), "");
 }
 

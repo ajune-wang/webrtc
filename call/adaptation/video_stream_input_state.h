@@ -36,6 +36,8 @@ class VideoStreamInputState {
 
   bool HasInputFrameSizeAndFramesPerSecond() const;
 
+  bool operator==(const VideoStreamInputState& other) const;
+
  private:
   bool has_input_;
   absl::optional<int> frame_size_pixels_;

@@ -583,6 +583,30 @@
     },
     {
       "key": {
+        "uuid": "fc70fec2_07996496",
+        "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T09:11:06Z",
+      "side": 1,
+      "message": "Ack, I am little confused the plan doesn\u0027t mention removing StopInternal though",
+      "parentUuid": "b6b6be3a_ca7b617b",
+      "range": {
+        "startLine": 218,
+        "startChar": 14,
+        "endLine": 218,
+        "endChar": 26
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7446e27_e83c654f",
         "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
         "patchSetId": 15
@@ -665,6 +689,30 @@
       "side": 1,
       "message": "I marked stop() (which calls StopInternal) RTC_DEPRECATED, so I\u0027m avoiding calls to it.\nMost of WebRTC will not compile if I call an RTC_DEPRECATED method.",
       "parentUuid": "c83f3e7f_8709a303",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 1
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc7f3b59_86510976",
+        "filename": "sdk/android/src/jni/pc/rtp_transceiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T09:11:06Z",
+      "side": 1,
+      "message": "Hmm, what I mean can we just remove JNI_RtpTransceiver_Stop and call nativeStopInternal() at the Java layer? These are not part of any public API so there shouldn\u0027t be any migration concerns.",
+      "parentUuid": "a9a0cf38_28096230",
       "range": {
         "startLine": 142,
         "startChar": 0,

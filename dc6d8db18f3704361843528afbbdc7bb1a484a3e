@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "155dabab_043dd4ef",
+        "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-07T09:11:06Z",
+      "side": 1,
+      "message": "nit: If the intention is to start a new paragraph, this should be:\n\n\u003cp\u003eThe transceiver\n\nand have an empty line before it\n\nhttps://google.github.io/styleguide/javaguide.html#s7.1.2-javadoc-paragraphs",
+      "range": {
+        "startLine": 230,
+        "startChar": 5,
+        "endLine": 230,
+        "endChar": 8
+      },
+      "revId": "dc6d8db18f3704361843528afbbdc7bb1a484a3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

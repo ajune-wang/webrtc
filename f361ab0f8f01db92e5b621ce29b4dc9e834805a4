@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf05c809_63210c31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-07T12:03:20Z",
+      "side": 1,
+      "message": "PTAL. (Small step to make it easier to delete VideoCodec::plType).",
+      "revId": "f361ab0f8f01db92e5b621ce29b4dc9e834805a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

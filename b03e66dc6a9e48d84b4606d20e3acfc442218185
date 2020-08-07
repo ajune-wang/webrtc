@@ -16,6 +16,75 @@
       "revId": "b03e66dc6a9e48d84b4606d20e3acfc442218185",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df9339e1_e96fff70",
+        "filename": "modules/video_coding/utility/quality_scaler.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-08-07T11:31:39Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 115,
+        "startChar": 51,
+        "endLine": 117,
+        "endChar": 21
+      },
+      "revId": "b03e66dc6a9e48d84b4606d20e3acfc442218185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4ae3f4_5e3e4c9f",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3241,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-08-07T11:31:39Z",
+      "side": 1,
+      "message": "update and same for test below",
+      "range": {
+        "startLine": 3241,
+        "startChar": 41,
+        "endLine": 3241,
+        "endChar": 53
+      },
+      "revId": "b03e66dc6a9e48d84b4606d20e3acfc442218185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7503e074_34cd2ec5",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3282,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-08-07T11:31:39Z",
+      "side": 1,
+      "message": "update comment",
+      "range": {
+        "startLine": 3281,
+        "startChar": 48,
+        "endLine": 3282,
+        "endChar": 12
+      },
+      "revId": "b03e66dc6a9e48d84b4606d20e3acfc442218185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

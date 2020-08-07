@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "463f17a5_3a945e3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-07T11:56:36Z",
+      "side": 1,
+      "message": "+holmer for video/adaptation owners review",
+      "revId": "b03e66dc6a9e48d84b4606d20e3acfc442218185",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df9339e1_e96fff70",
         "filename": "modules/video_coding/utility/quality_scaler.h",
         "patchSetId": 5

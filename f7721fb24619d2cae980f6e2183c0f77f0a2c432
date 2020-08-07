@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eeee80db_d98d9820",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-07T20:44:22Z",
+      "side": 1,
+      "message": "What\u0027s the plan for how this will be used internally by the ICE state machine? Is there an existing field used for prioritization (for example, network cost) that could have been used, or will this be treated differently than anything we have so far? Also, could you CC me on future changes?",
+      "revId": "f7721fb24619d2cae980f6e2183c0f77f0a2c432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

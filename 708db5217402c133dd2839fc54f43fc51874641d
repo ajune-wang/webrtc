@@ -607,6 +607,30 @@
     },
     {
       "key": {
+        "uuid": "12a74004_15de2a32",
+        "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-10T10:19:43Z",
+      "side": 1,
+      "message": "Yes, I\u0027d forgotten that. sent a followup to the PSA.",
+      "parentUuid": "fc70fec2_07996496",
+      "range": {
+        "startLine": 218,
+        "startChar": 14,
+        "endLine": 218,
+        "endChar": 26
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7446e27_e83c654f",
         "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
         "patchSetId": 15
@@ -761,6 +785,30 @@
       "side": 1,
       "message": "I think you know the best if the forced break makes sense or not. My comment is not about removing Java Stop() method. It is about not needing to duplicate the JNI code behind it.",
       "parentUuid": "e3480538_4582e680",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 1
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fddf81dc_b24df870",
+        "filename": "sdk/android/src/jni/pc/rtp_transceiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-10T10:19:43Z",
+      "side": 1,
+      "message": "Let\u0027s see if this implementation makes sense, then...",
+      "parentUuid": "bf0bb6ba_3b2f063e",
       "range": {
         "startLine": 142,
         "startChar": 0,

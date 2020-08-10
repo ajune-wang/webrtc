@@ -39,6 +39,30 @@
       "revId": "dc6d8db18f3704361843528afbbdc7bb1a484a3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d8f5d0f_5fe83d17",
+        "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-10T10:19:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "155dabab_043dd4ef",
+      "range": {
+        "startLine": 230,
+        "startChar": 5,
+        "endLine": 230,
+        "endChar": 8
+      },
+      "revId": "dc6d8db18f3704361843528afbbdc7bb1a484a3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

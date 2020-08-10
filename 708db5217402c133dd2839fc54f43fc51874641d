@@ -818,6 +818,30 @@
       "revId": "708db5217402c133dd2839fc54f43fc51874641d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b437d617_2eb7dc9c",
+        "filename": "sdk/android/src/jni/pc/rtp_transceiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-10T10:22:17Z",
+      "side": 1,
+      "message": "Yes, this is what I meant, thanks.",
+      "parentUuid": "fddf81dc_b24df870",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 1
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

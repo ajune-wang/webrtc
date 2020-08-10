@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58175687_458c5ba2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-10T12:26:03Z",
+      "side": 1,
+      "message": "PTAL. Extracted from the larger https://webrtc-review.googlesource.com/c/src/+/181201. This change needs landing first, for migration of downstream users of this class.",
+      "revId": "0e059e7fbc6663c2594a78ab7e47879aac936a48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

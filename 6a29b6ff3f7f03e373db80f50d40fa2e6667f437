@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50614156_a47237cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-10T09:18:46Z",
+      "side": 1,
+      "message": "There is some sort of race or unitizialzed values showing up in some tests. Needs investigation.\n\n QualityScalingTest.AdaptsDownForHighQp_H264 ",
+      "revId": "6a29b6ff3f7f03e373db80f50d40fa2e6667f437",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

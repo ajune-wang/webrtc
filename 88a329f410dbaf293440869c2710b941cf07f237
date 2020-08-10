@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99a4ae16_8381bdf1",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-10T07:59:43Z",
+      "side": 1,
+      "message": "Does this enum take its values from some sort of standards document? If so, please point this out in a comment.",
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "594ba6f6_50e6d108",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-10T07:59:43Z",
+      "side": 1,
+      "message": "What\u0027s the relation of this method to the other one? Do I have to call this one first? Exactly once?",
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f66c6996_23668168",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-10T07:59:43Z",
+      "side": 1,
+      "message": "Is this max queue length specified in the standard? Otherwise it may be better to not document it as part of the interface.",
+      "range": {
+        "startLine": 51,
+        "startChar": 49,
+        "endLine": 51,
+        "endChar": 69
+      },
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc81a7a3_102993ec",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-10T07:59:43Z",
+      "side": 1,
+      "message": "This reason for a false return value isn\u0027t documented.",
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e47e60b_99f38c81",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-10T07:59:43Z",
+      "side": 1,
+      "message": "Neither is this one.",
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6180d28e_dc17f095",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-10T07:59:43Z",
+      "side": 1,
+      "message": "The channel → channel_id rename (here and elsewhere in this CL), while presumably worthwhile, distracts from the rest of the changes; reviewing two logical changes combined into one CL is harder and more error prone that reviewing them separately. It\u0027s better to break things like this out into a separate prequel CL.",
+      "range": {
+        "startLine": 74,
+        "startChar": 32,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

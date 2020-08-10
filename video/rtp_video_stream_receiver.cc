@@ -358,6 +358,7 @@ RtpVideoStreamReceiver::~RtpVideoStreamReceiver() {
 }
 
 void RtpVideoStreamReceiver::AddReceiveCodec(
+    uint8_t payload_type,
     const VideoCodec& video_codec,
     const std::map<std::string, std::string>& codec_params,
     bool raw_payload) {

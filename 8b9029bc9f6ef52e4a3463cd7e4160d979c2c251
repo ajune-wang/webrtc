@@ -16,6 +16,23 @@
       "revId": "8b9029bc9f6ef52e4a3463cd7e4160d979c2c251",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff27317a_9d2178ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-08-10T14:52:46Z",
+      "side": 1,
+      "message": "Awesome! So much complicated code is nuked. Great change!",
+      "revId": "8b9029bc9f6ef52e4a3463cd7e4160d979c2c251",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -746,6 +746,30 @@
       "revId": "708db5217402c133dd2839fc54f43fc51874641d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf0bb6ba_3b2f063e",
+        "filename": "sdk/android/src/jni/pc/rtp_transceiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-08-10T08:17:26Z",
+      "side": 1,
+      "message": "I think you know the best if the forced break makes sense or not. My comment is not about removing Java Stop() method. It is about not needing to duplicate the JNI code behind it.",
+      "parentUuid": "e3480538_4582e680",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 1
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

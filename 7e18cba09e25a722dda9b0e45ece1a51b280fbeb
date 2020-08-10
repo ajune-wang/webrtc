@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b391d486_7624251e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 2603,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2020-08-10T11:36:40Z",
+      "side": 1,
+      "message": "optional nit: you can rewrite as \nfor (auto it \u003d transceivers_.begin(); it !\u003d transceivers_.end(); ) {",
+      "revId": "7e18cba09e25a722dda9b0e45ece1a51b280fbeb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -50,6 +50,23 @@
       "revId": "48accdb34bbb34ece3ef6722b2dfdb0b6e73f4c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0871b3be_13007865",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-10T09:20:18Z",
+      "side": 1,
+      "message": "Removing OOO reviewer",
+      "revId": "48accdb34bbb34ece3ef6722b2dfdb0b6e73f4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

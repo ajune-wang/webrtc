@@ -95,26 +95,22 @@ class Adaptation final {
   friend class VideoStreamAdapter;
 
   // Constructs with a valid adaptation. Status is kValid.
-  Adaptation(int validation_id,
-             VideoSourceRestrictions restrictions,
+  Adaptation(VideoSourceRestrictions restrictions,
              VideoAdaptationCounters counters,
              VideoStreamInputState input_state,
+             DegradationPreference degradation_preference,
              bool min_pixel_limit_reached);
   // Constructor when adaptation is not valid. Status MUST NOT be kValid.
-  Adaptation(int validation_id,
-             Status invalid_status,
+  Adaptation(Status invalid_status,
              VideoStreamInputState input_state,
+             DegradationPreference degradation_preference,
              bool min_pixel_limit_reached);
 
-  // An Adaptation can become invalidated if the state of VideoStreamAdapter is
-  // modified before the Adaptation is applied. To guard against this, this ID
-  // has to match VideoStreamAdapter::adaptation_validation_id_ when applied.
-  // TODO(https://crbug.com/webrtc/11700): Remove the validation_id_.
-  const int validation_id_;
   const Status status_;
   const bool min_pixel_limit_reached_;
   // Input state when adaptation was made.
   const VideoStreamInputState input_state_;
+  const DegradationPreference degradation_preference_;
   const VideoSourceRestrictions restrictions_;
   const VideoAdaptationCounters counters_;
 };
@@ -153,15 +149,15 @@ class VideoStreamAdapter {
   // status code indicating the reason why we cannot adapt.
   // TODO(https://crbug.com/webrtc/11771) |resource| is needed by the
   // AdaptationConstraint resources. Remove this parameter when it's removed.
-  Adaptation GetAdaptationUp(rtc::scoped_refptr<Resource> resource);
-  Adaptation GetAdaptationDown();
+  Adaptation GetAdaptationUp(rtc::scoped_refptr<Resource> resource) const;
+  Adaptation GetAdaptationDown() const;
   Adaptation GetAdaptationTo(const VideoAdaptationCounters& counters,
-                             const VideoSourceRestrictions& restrictions);
+                             const VideoSourceRestrictions& restrictions) const;
   // Tries to adapt the resolution one step. This is used for initial frame
   // dropping. Does nothing if the degradation preference is not BALANCED or
   // MAINTAIN_FRAMERATE. In the case of BALANCED, it will try twice to reduce
   // the resolution. If it fails twice it gives up.
-  Adaptation GetAdaptDownResolution();
+  Adaptation GetAdaptDownResolution() const;
 
   // Updates source_restrictions() the Adaptation.
   void ApplyAdaptation(const Adaptation& adaptation,
@@ -190,14 +186,6 @@ class VideoStreamAdapter {
       RTC_RUN_ON(&sequence_checker_);
   RestrictionsOrState GetAdaptDownResolutionStepForBalanced(
       const VideoStreamInputState& input_state) const
-      RTC_RUN_ON(&sequence_checker_);
-
-  // TODO(https://crbug.com/webrtc/11771) |resource| is needed by the
-  // AdaptationConstraint resources. Remove this parameter when it's removed.
-  Adaptation GetAdaptationUp(const VideoStreamInputState& input_state,
-                             rtc::scoped_refptr<Resource> resource) const
-      RTC_RUN_ON(&sequence_checker_);
-  Adaptation GetAdaptationDown(const VideoStreamInputState& input_state) const
       RTC_RUN_ON(&sequence_checker_);
 
   static RestrictionsOrState DecreaseResolution(
@@ -229,9 +217,6 @@ class VideoStreamAdapter {
   VideoStreamInputStateProvider* input_state_provider_;
   // Decides the next adaptation target in DegradationPreference::BALANCED.
   const BalancedDegradationSettings balanced_settings_;
-  // To guard against applying adaptations that have become invalidated, an
-  // Adaptation that is applied has to have a matching validation ID.
-  int adaptation_validation_id_ RTC_GUARDED_BY(&sequence_checker_);
   // When deciding the next target up or down, different strategies are used
   // depending on the DegradationPreference.
   // https://w3c.github.io/mst-content-hint/#dom-rtcdegradationpreference

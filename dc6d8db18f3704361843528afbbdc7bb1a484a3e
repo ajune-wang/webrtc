@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "45d62528_41ff6087",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-10T07:20:10Z",
+      "side": 1,
+      "message": "Migation advice for Java sought.\n",
+      "revId": "dc6d8db18f3704361843528afbbdc7bb1a484a3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "155dabab_043dd4ef",
         "filename": "sdk/android/api/org/webrtc/RtpTransceiver.java",
         "patchSetId": 17

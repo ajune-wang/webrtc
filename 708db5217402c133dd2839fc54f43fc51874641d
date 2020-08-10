@@ -722,6 +722,30 @@
       "revId": "708db5217402c133dd2839fc54f43fc51874641d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3480538_4582e680",
+        "filename": "sdk/android/src/jni/pc/rtp_transceiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-10T07:20:10Z",
+      "side": 1,
+      "message": "There are callers to the stop() method; I was entering this area with maximal timidity.\n\nIf the callers don\u0027t care about the difference between stopInternal() and stopStandard() we could just have the stop() method and change where it goes, but the C++ migration plan ensures that the people who call it will have a compile failure at least once so that they are forced to consider whether they care or not.\n\nShould we aim for such a break in Java too, or should we just change the semantics on them without an intermediate compile failure?",
+      "parentUuid": "bc7f3b59_86510976",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 1
+      },
+      "revId": "708db5217402c133dd2839fc54f43fc51874641d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

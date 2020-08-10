@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e68fd611_3146d1a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-10T13:36:06Z",
+      "side": 1,
+      "message": "Can you take a look for OWNERs review Ilya?",
+      "revId": "8b9029bc9f6ef52e4a3463cd7e4160d979c2c251",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

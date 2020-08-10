@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ad86c2b2_ebd1ff9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-08-10T22:58:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e5e57b8_7aa16397",
+      "range": {
+        "startLine": 9,
+        "startChar": 267,
+        "endLine": 9,
+        "endChar": 268
+      },
+      "revId": "ff166cc768e2036108a8ee3bb25d16019d651c6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f06b7ea2_6bb37865",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -79,6 +103,30 @@
       "revId": "ff166cc768e2036108a8ee3bb25d16019d651c6e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dff306f7_8636215f",
+        "filename": "modules/desktop_capture/win/selected_window_context.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-08-10T22:58:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1ccf073_30766b69",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 48
+      },
+      "revId": "ff166cc768e2036108a8ee3bb25d16019d651c6e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

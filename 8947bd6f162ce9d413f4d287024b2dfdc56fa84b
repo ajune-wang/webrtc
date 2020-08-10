@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ee79002_a1a01e4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-08-10T22:58:08Z",
+      "side": 1,
+      "message": "All comments are fixed now, is there anything expected here to put this in CQ?",
+      "revId": "8947bd6f162ce9d413f4d287024b2dfdc56fa84b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

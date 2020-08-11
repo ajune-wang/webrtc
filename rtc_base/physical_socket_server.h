@@ -18,7 +18,7 @@
 
 #include <array>
 #include <memory>
-#include <set>
+#include <utility>
 #include <vector>
 
 #include "rtc_base/deprecated/recursive_critical_section.h"
@@ -45,6 +45,10 @@ enum DispatcherEvent {
 class Signaler;
 
 class Dispatcher {
+ public:
+  typedef uint64_t key_t;
+  key_t key_ = -1;
+
  public:
   virtual ~Dispatcher() {}
   virtual uint32_t GetRequestedEvents() = 0;
@@ -85,7 +89,73 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   // The number of events to process with one call to "epoll_wait".
   static constexpr size_t kNumEpollEvents = 128;
 
-  typedef std::set<Dispatcher*> DispatcherSet;
+  class DispatcherSet {
+   private:
+    typedef std::vector<Dispatcher*> DispatcherList;
+
+   public:
+    typedef DispatcherList::size_type size_type;
+    typedef DispatcherList::difference_type difference_type;
+    typedef DispatcherList::iterator iterator;
+    typedef DispatcherList::const_iterator const_iterator;
+    typedef DispatcherList::pointer pointer;
+    typedef DispatcherList::const_pointer const_pointer;
+    typedef DispatcherList::reference reference;
+    typedef DispatcherList::const_reference const_reference;
+
+   private:
+    DispatcherList disp_list_;
+
+   public:
+    iterator begin() noexcept { return disp_list_.begin(); }
+    iterator end() noexcept { return disp_list_.end(); }
+    const_iterator begin() const noexcept { return disp_list_.begin(); }
+    const_iterator end() const noexcept { return disp_list_.end(); }
+    size_type size() const noexcept { return disp_list_.size(); }
+    bool empty() const noexcept { return disp_list_.empty(); }
+    void clear() noexcept { disp_list_.clear(); }
+    std::pair<iterator, bool> insert(Dispatcher* pdispatcher);
+    size_type erase(Dispatcher* pdispatcher);
+    iterator find(Dispatcher* pdispatcher);
+    iterator lower_bound(Dispatcher* pdispatcher);
+  };
+
+  struct DispatcherInfo {
+    typedef Dispatcher::key_t key_t;
+    Dispatcher* dispatcher;
+    key_t key;
+  };
+
+  class DispatcherInfoSet {
+   private:
+    typedef std::vector<DispatcherInfo> DispatcherInfoList;
+
+   public:
+    typedef DispatcherInfo::key_t key_t;
+    typedef DispatcherInfoList::size_type size_type;
+    typedef DispatcherInfoList::difference_type difference_type;
+    typedef DispatcherInfoList::iterator iterator;
+    typedef DispatcherInfoList::const_iterator const_iterator;
+    typedef DispatcherInfoList::pointer pointer;
+    typedef DispatcherInfoList::const_pointer const_pointer;
+    typedef DispatcherInfoList::reference reference;
+    typedef DispatcherInfoList::const_reference const_reference;
+
+   private:
+    DispatcherInfoList infos_;
+    uint32_t last_id_ = 0u;
+
+   public:
+    iterator begin() noexcept { return infos_.begin(); }
+    iterator end() noexcept { return infos_.end(); }
+    const_iterator begin() const noexcept { return infos_.begin(); }
+    const_iterator end() const noexcept { return infos_.end(); }
+    key_t insert(Dispatcher* pdispatcher);
+    size_type erase(Dispatcher* pdispatcher);
+    Dispatcher* get_by_key(key_t key) const noexcept;
+    iterator find(Dispatcher* pdispatcher) noexcept;
+    const_iterator find(Dispatcher* pdispatcher) const noexcept;
+  };
 
   void AddRemovePendingDispatchers() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
@@ -106,7 +176,7 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   std::array<epoll_event, kNumEpollEvents> epoll_events_;
   const int epoll_fd_ = INVALID_SOCKET;
 #endif  // WEBRTC_USE_EPOLL
-  DispatcherSet dispatchers_ RTC_GUARDED_BY(crit_);
+  DispatcherInfoSet dispatchers_ RTC_GUARDED_BY(crit_);
   DispatcherSet pending_add_dispatchers_ RTC_GUARDED_BY(crit_);
   DispatcherSet pending_remove_dispatchers_ RTC_GUARDED_BY(crit_);
   bool processing_dispatchers_ RTC_GUARDED_BY(crit_) = false;

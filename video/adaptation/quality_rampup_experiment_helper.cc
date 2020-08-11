@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
@@ -49,9 +50,7 @@ void QualityRampUpExperimentHelper::PerformQualityRampupExperiment(
     DataRate encoder_target_bitrate,
     DataRate max_bitrate,
     int pixels) {
-  if (!quality_scaler_resource->is_started())
-    return;
-
+  RTC_DCHECK(quality_scaler_resource);
   int64_t now_ms = clock_->TimeInMilliseconds();
   quality_rampup_experiment_.SetMaxBitrate(pixels, max_bitrate.kbps());
 

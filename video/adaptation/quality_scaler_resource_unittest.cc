@@ -42,16 +42,13 @@ class QualityScalerResourceTest : public ::testing::Test {
  public:
   QualityScalerResourceTest()
       : quality_scaler_resource_(
-            QualityScalerResource::Create(&degradation_preference_provider_)) {
+            QualityScalerResource::Create(VideoEncoder::QpThresholds())) {
     quality_scaler_resource_->RegisterEncoderTaskQueue(
         TaskQueueBase::Current());
     quality_scaler_resource_->SetResourceListener(&fake_resource_listener_);
-    quality_scaler_resource_->StartCheckForOveruse(
-        VideoEncoder::QpThresholds());
   }
 
   ~QualityScalerResourceTest() override {
-    quality_scaler_resource_->StopCheckForOveruse();
     quality_scaler_resource_->SetResourceListener(nullptr);
   }
 

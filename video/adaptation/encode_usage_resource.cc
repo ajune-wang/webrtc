@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/ref_counted_object.h"
 
 namespace webrtc {
@@ -44,6 +45,7 @@ bool EncodeUsageResource::is_started() const {
 void EncodeUsageResource::StartCheckForOveruse(CpuOveruseOptions options) {
   RTC_DCHECK_RUN_ON(encoder_queue());
   RTC_DCHECK(!is_started_);
+  RTC_LOG(INFO) << "Starting encoder usage";
   overuse_detector_->StartCheckForOveruse(TaskQueueBase::Current(),
                                           std::move(options), this);
   is_started_ = true;
@@ -52,6 +54,7 @@ void EncodeUsageResource::StartCheckForOveruse(CpuOveruseOptions options) {
 
 void EncodeUsageResource::StopCheckForOveruse() {
   RTC_DCHECK_RUN_ON(encoder_queue());
+  RTC_LOG(INFO) << "Stopping encoder usage";
   overuse_detector_->StopCheckForOveruse();
   is_started_ = false;
 }

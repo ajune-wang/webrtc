@@ -16,6 +16,24 @@
       "revId": "c61e780dc832ee3c6d762fd6aa1d7d848a40057a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f4b3b43_b715a47c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-08-11T17:32:51Z",
+      "side": 1,
+      "message": "I think Andrey has sent you an email.",
+      "parentUuid": "0cdb0d4d_3d242003",
+      "revId": "c61e780dc832ee3c6d762fd6aa1d7d848a40057a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

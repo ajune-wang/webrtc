@@ -29,14 +29,12 @@ const int64_t kStatisticsProcessIntervalMs = 1000;
 
 StreamStatistician::~StreamStatistician() {}
 
-StreamStatisticianImpl::StreamStatisticianImpl(uint32_t ssrc,
-                                               Clock* clock,
-                                               int max_reordering_threshold)
+StreamStatisticianImpl::StreamStatisticianImpl(uint32_t ssrc, Clock* clock)
     : ssrc_(ssrc),
       clock_(clock),
       incoming_bitrate_(kStatisticsProcessIntervalMs,
                         RateStatistics::kBpsScale),
-      max_reordering_threshold_(max_reordering_threshold),
+      max_reordering_threshold_(kDefaultMaxReorderingThreshold),
       enable_retransmit_detection_(false),
       jitter_q4_(0),
       cumulative_loss_(0),
@@ -299,9 +297,7 @@ std::unique_ptr<ReceiveStatistics> ReceiveStatistics::Create(Clock* clock) {
 }
 
 ReceiveStatisticsImpl::ReceiveStatisticsImpl(Clock* clock)
-    : clock_(clock),
-      last_returned_ssrc_(0),
-      max_reordering_threshold_(kDefaultMaxReorderingThreshold) {}
+    : clock_(clock), last_returned_ssrc_(0) {}
 
 ReceiveStatisticsImpl::~ReceiveStatisticsImpl() {
   while (!statisticians_.empty()) {
@@ -332,22 +328,9 @@ StreamStatisticianImpl* ReceiveStatisticsImpl::GetOrCreateStatistician(
   MutexLock lock(&receive_statistics_lock_);
   StreamStatisticianImpl*& impl = statisticians_[ssrc];
   if (impl == nullptr) {  // new element
-    impl = new StreamStatisticianImpl(ssrc, clock_, max_reordering_threshold_);
+    impl = new StreamStatisticianImpl(ssrc, clock_);
   }
   return impl;
-}
-
-void ReceiveStatisticsImpl::SetMaxReorderingThreshold(
-    int max_reordering_threshold) {
-  std::map<uint32_t, StreamStatisticianImpl*> statisticians;
-  {
-    MutexLock lock(&receive_statistics_lock_);
-    max_reordering_threshold_ = max_reordering_threshold;
-    statisticians = statisticians_;
-  }
-  for (auto& statistician : statisticians) {
-    statistician.second->SetMaxReorderingThreshold(max_reordering_threshold);
-  }
 }
 
 void ReceiveStatisticsImpl::SetMaxReorderingThreshold(

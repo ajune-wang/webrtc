@@ -16,6 +16,24 @@
       "revId": "3e332b48c64b1d4144b8ecb8b1df538e74e144d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6e99568_5608ace3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-11T14:45:21Z",
+      "side": 1,
+      "message": "Ack, nice cleanup anyway!",
+      "parentUuid": "938b468d_5b9e8daa",
+      "revId": "3e332b48c64b1d4144b8ecb8b1df538e74e144d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -33,6 +33,24 @@
       "revId": "85a68029967573ffae86b7b3aab25f1d5e59bb85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08758aff_73ca370d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-11T07:43:01Z",
+      "side": 1,
+      "message": "There will be one code line difference once I finish running the tests so that I know it is the only needed one (a deleted NOTREACHED).",
+      "parentUuid": "1b6743ec_733ce2e3",
+      "revId": "85a68029967573ffae86b7b3aab25f1d5e59bb85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

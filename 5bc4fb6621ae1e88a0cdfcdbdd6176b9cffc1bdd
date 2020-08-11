@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "543c4888_294fb235",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-08-11T11:35:42Z",
+      "side": 1,
+      "message": "then lets see how the roll goes :-)",
+      "revId": "5bc4fb6621ae1e88a0cdfcdbdd6176b9cffc1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

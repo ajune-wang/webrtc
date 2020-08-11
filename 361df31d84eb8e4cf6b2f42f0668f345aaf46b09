@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a53f71eb_5d14f93d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-11T08:02:23Z",
+      "side": 1,
+      "message": "PTAL. Downstream callers updated.",
+      "revId": "361df31d84eb8e4cf6b2f42f0668f345aaf46b09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

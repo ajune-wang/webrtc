@@ -16,6 +16,23 @@
       "revId": "88c3ac1e09432757168146109c13f405802c22ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a46e512_6c7e475f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-08-11T11:07:24Z",
+      "side": 1,
+      "message": "just sending a reminder as it has been a while since last patchset.",
+      "revId": "88c3ac1e09432757168146109c13f405802c22ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

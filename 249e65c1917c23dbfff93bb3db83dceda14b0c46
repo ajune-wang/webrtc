@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fdfe510_0df2b3fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-11T13:25:46Z",
+      "side": 1,
+      "message": "Please take a look Ilya. I was not sure if this approach of deleting the quality scaler resource is the best. Perhaps just disabling it somehow is better? Let me know what you think.",
+      "revId": "249e65c1917c23dbfff93bb3db83dceda14b0c46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

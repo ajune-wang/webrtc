@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ab1364e_1ed9a437",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-11T14:43:55Z",
+      "side": 1,
+      "message": "This is dead code now, so does it mean we\u0027re killing off the csv parameter feature of video loopback?\nI don\u0027t think it\u0027s used, but needs to be state clearly if removal is intentional.",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 688,
+        "endChar": 24
+      },
+      "revId": "851c7a4d89bc76f35104324b80e6cadbf946cc24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

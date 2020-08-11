@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39ecd261_a7ee68d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-08-11T14:19:47Z",
+      "side": 1,
+      "message": "Do we have a test when quality scaler resource gets disabled on the fly after causing adaptation? \nI don\u0027t fully understand, how the adaptations would get removed in that case.\n\nCurrently, the QualityScaler resource keeps shouting \"Underusing\" to remove them.",
+      "revId": "b0e292d74c5c481844e86c581c8bfe41396b29df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

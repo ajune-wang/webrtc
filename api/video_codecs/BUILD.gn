@@ -41,6 +41,7 @@ rtc_library("video_codecs_api") {
     "../..:webrtc_common",
     "../../modules/video_coding:codec_globals_headers",
     "../../rtc_base:checks",
+    "../../rtc_base:deprecation",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base/system:rtc_export",
     "../units:data_rate",

@@ -26,6 +26,7 @@
 #include "api/video/video_frame.h"
 #include "api/video_codecs/video_codec.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/deprecation.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -73,16 +74,16 @@ class RTC_EXPORT EncodedImageCallback {
   };
 
   // Callback function which is called when an image has been encoded.
-  // Deprecated, use OnEncodedImage below instead, see bugs.webrtc.org/6471
+  // use OnEncodedImage below instead, see bugs.webrtc.org/6471
+  RTC_DEPRECATED
   virtual Result OnEncodedImage(const EncodedImage& encoded_image,
                                 const CodecSpecificInfo* codec_specific_info,
                                 const RTPFragmentationHeader* fragmentation);
 
   // Callback function which is called when an image has been encoded.
-  // TODO(bugs.webrtc.org/6471): Make pure virtual
-  // when OnEncodedImage above is deleted.
-  virtual Result OnEncodedImage(const EncodedImage& encoded_image,
-                                const CodecSpecificInfo* codec_specific_info);
+  virtual Result OnEncodedImage(
+      const EncodedImage& encoded_image,
+      const CodecSpecificInfo* codec_specific_info) = 0;
 
   virtual void OnDroppedFrame(DropReason reason) {}
 };

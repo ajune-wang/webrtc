@@ -145,11 +145,10 @@ int32_t FakeEncoder::Encode(const VideoFrame& input_image,
       encoded.qp_ = *qp;
     encoded.SetSpatialIndex(i);
     CodecSpecificInfo codec_specific;
-    std::unique_ptr<RTPFragmentationHeader> fragmentation =
-        EncodeHook(&encoded, &codec_specific);
+    EncodeHook(&encoded, &codec_specific);
 
-    if (callback->OnEncodedImage(encoded, &codec_specific, fragmentation.get())
-            .error != EncodedImageCallback::Result::OK) {
+    if (callback->OnEncodedImage(encoded, &codec_specific).error !=
+        EncodedImageCallback::Result::OK) {
       return -1;
     }
   }

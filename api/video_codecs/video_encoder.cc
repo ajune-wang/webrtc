@@ -25,12 +25,6 @@ EncodedImageCallback::Result EncodedImageCallback::OnEncodedImage(
   return OnEncodedImage(encoded_image, codec_specific_info);
 }
 
-EncodedImageCallback::Result EncodedImageCallback::OnEncodedImage(
-    const EncodedImage& encoded_image,
-    const CodecSpecificInfo* codec_specific_info) {
-  return OnEncodedImage(encoded_image, codec_specific_info, nullptr);
-}
-
 // TODO(mflodman): Add default complexity for VP9 and VP9.
 VideoCodecVP8 VideoEncoder::GetDefaultVp8Settings() {
   VideoCodecVP8 vp8_settings;

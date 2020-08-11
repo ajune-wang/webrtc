@@ -896,7 +896,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
 
     void InjectEncodedImage(const EncodedImage& image) {
       MutexLock lock(&local_mutex_);
-      encoded_image_callback_->OnEncodedImage(image, nullptr, nullptr);
+      encoded_image_callback_->OnEncodedImage(image, nullptr);
     }
 
     void SetEncodedImageData(
@@ -1175,8 +1175,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
    private:
     Result OnEncodedImage(
         const EncodedImage& encoded_image,
-        const CodecSpecificInfo* codec_specific_info,
-        const RTPFragmentationHeader* /*fragmentation*/) override {
+        const CodecSpecificInfo* codec_specific_info) override {
       MutexLock lock(&mutex_);
       EXPECT_TRUE(expect_frames_);
       last_encoded_image_data_ = std::vector<uint8_t>(

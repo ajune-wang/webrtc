@@ -96,8 +96,6 @@ class VideoQualityTestFixtureInterface {
       int num_spatial_layers = 0;
       int selected_sl = -1;
       InterLayerPredMode inter_layer_pred = InterLayerPredMode::kOn;
-      // If empty, bitrates are generated in VP9Impl automatically.
-      std::vector<SpatialLayer> spatial_layers;
       // If set, default parameters will be used instead of |streams|.
       bool infer_streams = false;
     } ss[2];

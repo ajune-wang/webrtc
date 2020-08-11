@@ -176,48 +176,39 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       RTC_DCHECK_LE(video_codec.VP9()->numberOfTemporalLayers,
                     kMaxTemporalStreams);
 
-      RTC_DCHECK(config.spatial_layers.empty() ||
-                 config.spatial_layers.size() ==
-                     video_codec.VP9()->numberOfSpatialLayers);
-
       std::vector<SpatialLayer> spatial_layers;
-      if (!config.spatial_layers.empty()) {
-        // Layering is set explicitly.
-        spatial_layers = config.spatial_layers;
-      } else {
-        size_t first_active_layer = 0;
-        for (size_t spatial_idx = 0;
-             spatial_idx < config.simulcast_layers.size(); ++spatial_idx) {
-          if (config.simulcast_layers[spatial_idx].active) {
-            first_active_layer = spatial_idx;
-            break;
-          }
+      size_t first_active_layer = 0;
+      for (size_t spatial_idx = 0; spatial_idx < config.simulcast_layers.size();
+           ++spatial_idx) {
+        if (config.simulcast_layers[spatial_idx].active) {
+          first_active_layer = spatial_idx;
+          break;
         }
+      }
 
-        spatial_layers = GetSvcConfig(
-            video_codec.width, video_codec.height, video_codec.maxFramerate,
-            first_active_layer, video_codec.VP9()->numberOfSpatialLayers,
-            video_codec.VP9()->numberOfTemporalLayers,
-            video_codec.mode == VideoCodecMode::kScreensharing);
+      spatial_layers = GetSvcConfig(
+          video_codec.width, video_codec.height, video_codec.maxFramerate,
+          first_active_layer, video_codec.VP9()->numberOfSpatialLayers,
+          video_codec.VP9()->numberOfTemporalLayers,
+          video_codec.mode == VideoCodecMode::kScreensharing);
 
-        // If there was no request for spatial layering, don't limit bitrate
-        // of single spatial layer.
-        const bool no_spatial_layering =
-            video_codec.VP9()->numberOfSpatialLayers <= 1;
-        if (no_spatial_layering) {
-          // Use codec's bitrate limits.
-          spatial_layers.back().minBitrate = video_codec.minBitrate;
-          spatial_layers.back().targetBitrate = video_codec.maxBitrate;
-          spatial_layers.back().maxBitrate = video_codec.maxBitrate;
-        }
+      // If there was no request for spatial layering, don't limit bitrate
+      // of single spatial layer.
+      const bool no_spatial_layering =
+          video_codec.VP9()->numberOfSpatialLayers <= 1;
+      if (no_spatial_layering) {
+        // Use codec's bitrate limits.
+        spatial_layers.back().minBitrate = video_codec.minBitrate;
+        spatial_layers.back().targetBitrate = video_codec.maxBitrate;
+        spatial_layers.back().maxBitrate = video_codec.maxBitrate;
+      }
 
-        for (size_t spatial_idx = first_active_layer;
-             spatial_idx < config.simulcast_layers.size() &&
-             spatial_idx < spatial_layers.size();
-             ++spatial_idx) {
-          spatial_layers[spatial_idx - first_active_layer].active =
-              config.simulcast_layers[spatial_idx].active;
-        }
+      for (size_t spatial_idx = first_active_layer;
+           spatial_idx < config.simulcast_layers.size() &&
+           spatial_idx < spatial_layers.size();
+           ++spatial_idx) {
+        spatial_layers[spatial_idx - first_active_layer].active =
+            config.simulcast_layers[spatial_idx].active;
       }
 
       RTC_DCHECK(!spatial_layers.empty());

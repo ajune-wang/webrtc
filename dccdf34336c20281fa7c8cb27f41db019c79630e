@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32eee0ec_51597b7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-11T10:07:30Z",
+      "side": 1,
+      "message": "I think this is ready for rubber-stamping.\nThe debug win blink test bot takes forever, and crashed once due to lack of resources in compile, so we may be good (I tested the WPT in a different way).\n",
+      "revId": "dccdf34336c20281fa7c8cb27f41db019c79630e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

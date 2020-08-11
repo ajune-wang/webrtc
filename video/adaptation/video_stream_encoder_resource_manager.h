@@ -40,6 +40,7 @@
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
 #include "video/adaptation/encode_usage_resource.h"
 #include "video/adaptation/overuse_frame_detector.h"
@@ -117,10 +118,8 @@ class VideoStreamEncoderResourceManager
   // to update legacy getStats().
   void MapResourceToReason(rtc::scoped_refptr<Resource> resource,
                            VideoAdaptationReason reason);
-  std::vector<rtc::scoped_refptr<Resource>> MappedResources() const;
+  void UnmapResource(rtc::scoped_refptr<Resource> resource);
   std::vector<AdaptationConstraint*> AdaptationConstraints() const;
-  rtc::scoped_refptr<QualityScalerResource>
-  quality_scaler_resource_for_testing();
   // If true, the VideoStreamEncoder should eexecute its logic to maybe drop
   // frames baseed on size and bitrate.
   bool DropInitialFrames() const;
@@ -231,14 +230,13 @@ class VideoStreamEncoderResourceManager
   const rtc::scoped_refptr<BitrateConstraint> bitrate_constraint_;
   const rtc::scoped_refptr<BalancedConstraint> balanced_constraint_;
   const rtc::scoped_refptr<EncodeUsageResource> encode_usage_resource_;
-  const rtc::scoped_refptr<QualityScalerResource> quality_scaler_resource_;
+  rtc::scoped_refptr<QualityScalerResource> quality_scaler_resource_;
 
   rtc::TaskQueue* encoder_queue_;
   rtc::TaskQueue* resource_adaptation_queue_;
   VideoStreamInputStateProvider* const input_state_provider_
       RTC_GUARDED_BY(encoder_queue_);
-  ResourceAdaptationProcessorInterface* adaptation_processor_
-      RTC_GUARDED_BY(resource_adaptation_queue_);
+  ResourceAdaptationProcessorInterface* adaptation_processor_;
   VideoStreamAdapter* stream_adapter_
       RTC_GUARDED_BY(resource_adaptation_queue_);
   // Thread-safe.
@@ -251,7 +249,7 @@ class VideoStreamEncoderResourceManager
   const BalancedDegradationSettings balanced_settings_;
   Clock* clock_ RTC_GUARDED_BY(encoder_queue_);
   const bool experiment_cpu_load_estimator_ RTC_GUARDED_BY(encoder_queue_);
-  const std::unique_ptr<InitialFrameDropper> initial_frame_dropper_
+  std::unique_ptr<InitialFrameDropper> initial_frame_dropper_
       RTC_GUARDED_BY(encoder_queue_);
   const bool quality_scaling_experiment_enabled_ RTC_GUARDED_BY(encoder_queue_);
   absl::optional<uint32_t> encoder_target_bitrate_bps_
@@ -263,19 +261,11 @@ class VideoStreamEncoderResourceManager
   absl::optional<EncoderSettings> encoder_settings_
       RTC_GUARDED_BY(encoder_queue_);
 
+  mutable Mutex resource_lock_;
   // Ties a resource to a reason for statistical reporting. This AdaptReason is
   // also used by this module to make decisions about how to adapt up/down.
-  struct ResourceAndReason {
-    ResourceAndReason(rtc::scoped_refptr<Resource> resource,
-                      VideoAdaptationReason reason)
-        : resource(resource), reason(reason) {}
-    virtual ~ResourceAndReason() = default;
-
-    const rtc::scoped_refptr<Resource> resource;
-    const VideoAdaptationReason reason;
-  };
-  mutable Mutex resource_lock_;
-  std::vector<ResourceAndReason> resources_ RTC_GUARDED_BY(&resource_lock_);
+  std::map<rtc::scoped_refptr<Resource>, VideoAdaptationReason> resources_
+      RTC_GUARDED_BY(&resource_lock_);
 };
 
 }  // namespace webrtc

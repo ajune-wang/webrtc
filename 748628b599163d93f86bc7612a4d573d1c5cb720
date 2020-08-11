@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e58c6d44_729b5bc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-11T02:00:31Z",
+      "side": 1,
+      "message": "Hi Andrey,\n\nSorry it\u0027s taken so long, but I\u0027m finally getting around to this. First of all, thanks for the very high quality patch, the use of the key as both a unique identifier and an index into the list is pretty clever.\n\nA couple questions:\n\nWhy did you change DispatcherSet from a set to a vector? Is the idea that it should be rare for a lot of dispatchers to be added at once, and vector is more efficient for a small number of entries?\n\nAlso, I noticed an existing problem when looking at the \"processing_dispatchers_\" logic; if the dispatcher is actually deleted, it\u0027s not safe to add it to a \"pending removal\" list, because that doesn\u0027t affect it from being dereferenced. Using DispatcherInfoSet it was pretty trivial to deal with this",
+      "revId": "748628b599163d93f86bc7612a4d573d1c5cb720",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

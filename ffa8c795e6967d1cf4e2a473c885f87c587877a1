@@ -50,6 +50,24 @@
       "revId": "ffa8c795e6967d1cf4e2a473c885f87c587877a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a87c204_8fff8ee8",
+        "filename": "modules/desktop_capture/linux/shared_x_display.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6911
+      },
+      "writtenOn": "2020-08-11T01:21:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d51404c9_81a7432b",
+      "revId": "ffa8c795e6967d1cf4e2a473c885f87c587877a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

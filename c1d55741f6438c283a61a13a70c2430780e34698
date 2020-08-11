@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "350b8eab_eb6166a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11970
+      },
+      "writtenOn": "2020-08-11T12:46:24Z",
+      "side": 1,
+      "message": "I see commit queue buttons enabled. \nIs it ok for me to press +1 or +2 on commit queue?",
+      "revId": "c1d55741f6438c283a61a13a70c2430780e34698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

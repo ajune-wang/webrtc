@@ -46,6 +46,30 @@
       "revId": "851c7a4d89bc76f35104324b80e6cadbf946cc24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "372799c6_ecf6bad0",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-11T15:01:14Z",
+      "side": 1,
+      "message": "Not that I can find, apart from video_loopback --help\nthen reading the code.\nBut that kind of testing is probably better done as part of the video codec tests instead of full-stack, so I think removing is ok. I can\u0027t find any reference to anyone using it.",
+      "parentUuid": "b45026aa_1b6d0352",
+      "range": {
+        "startLine": 679,
+        "startChar": 0,
+        "endLine": 688,
+        "endChar": 24
+      },
+      "revId": "851c7a4d89bc76f35104324b80e6cadbf946cc24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -625,7 +625,6 @@ void VideoQualityTest::FillScalabilitySettings(
     encoder_config.min_transmit_bitrate_bps =
         params->video[video_idx].min_transmit_bps;
     encoder_config.number_of_streams = num_streams;
-    encoder_config.spatial_layers = params->ss[video_idx].spatial_layers;
     encoder_config.simulcast_layers = std::vector<VideoStream>(num_streams);
     encoder_config.video_stream_factory =
         new rtc::RefCountedObject<cricket::EncoderStreamFactory>(
@@ -807,8 +806,6 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
             params_.ss[video_idx].streams[0].max_qp,
             params_.screenshare[video_idx].enabled, true);
 
-    video_encoder_configs_[video_idx].spatial_layers =
-        params_.ss[video_idx].spatial_layers;
     decode_all_receive_streams = params_.ss[video_idx].selected_stream ==
                                  params_.ss[video_idx].streams.size();
     absl::optional<int> decode_sub_stream;
@@ -985,7 +982,6 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
     std::vector<VideoStream> streams{params_.ss[0].streams[0]};
     thumbnail_encoder_config.video_stream_factory =
         new rtc::RefCountedObject<VideoStreamFactory>(streams);
-    thumbnail_encoder_config.spatial_layers = params_.ss[0].spatial_layers;
 
     thumbnail_encoder_configs_.push_back(thumbnail_encoder_config.Copy());
     thumbnail_send_configs_.push_back(thumbnail_send_config.Copy());

@@ -153,7 +153,6 @@ class VideoEncoderConfig {
   SdpVideoFormat video_format;
 
   rtc::scoped_refptr<VideoStreamFactoryInterface> video_stream_factory;
-  std::vector<SpatialLayer> spatial_layers;
   ContentType content_type;
   rtc::scoped_refptr<const EncoderSpecificSettings> encoder_specific_settings;
 

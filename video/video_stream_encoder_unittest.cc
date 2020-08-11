@@ -959,25 +959,16 @@ class VideoStreamEncoderTest : public ::testing::Test {
       return result;
     }
 
-    std::unique_ptr<RTPFragmentationHeader> EncodeHook(
-        EncodedImage* encoded_image,
-        CodecSpecificInfo* codec_specific) override {
+    void EncodeHook(EncodedImage& encoded_image,
+                    CodecSpecificInfo& codec_specific) override {
       {
         MutexLock lock(&mutex_);
-        codec_specific->codecType = config_.codecType;
+        codec_specific.codecType = config_.codecType;
       }
       MutexLock lock(&local_mutex_);
       if (encoded_image_data_) {
-        encoded_image->SetEncodedData(encoded_image_data_);
-        if (codec_specific->codecType == kVideoCodecH264) {
-          auto fragmentation = std::make_unique<RTPFragmentationHeader>();
-          fragmentation->VerifyAndAllocateFragmentationHeader(1);
-          fragmentation->fragmentationOffset[0] = 4;
-          fragmentation->fragmentationLength[0] = encoded_image->size() - 4;
-          return fragmentation;
-        }
+        encoded_image.SetEncodedData(encoded_image_data_);
       }
-      return nullptr;
     }
 
     int32_t InitEncode(const VideoCodec* config,

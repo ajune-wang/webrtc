@@ -88,23 +88,21 @@ void FakeVp8Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   }
 }
 
-std::unique_ptr<RTPFragmentationHeader> FakeVp8Encoder::EncodeHook(
-    EncodedImage* encoded_image,
-    CodecSpecificInfo* codec_specific) {
+void FakeVp8Encoder::EncodeHook(EncodedImage& encoded_image,
+                                CodecSpecificInfo& codec_specific) {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
-  uint8_t stream_idx = encoded_image->SpatialIndex().value_or(0);
+  uint8_t stream_idx = encoded_image.SpatialIndex().value_or(0);
   frame_buffer_controller_->NextFrameConfig(stream_idx,
-                                            encoded_image->Timestamp());
-  PopulateCodecSpecific(codec_specific, encoded_image->size(),
-                        encoded_image->_frameType, stream_idx,
-                        encoded_image->Timestamp());
+                                            encoded_image.Timestamp());
+  PopulateCodecSpecific(&codec_specific, encoded_image.size(),
+                        encoded_image._frameType, stream_idx,
+                        encoded_image.Timestamp());
 
   // Write width and height to the payload the same way as the real encoder
   // does.
-  WriteFakeVp8(encoded_image->data(), encoded_image->_encodedWidth,
-               encoded_image->_encodedHeight,
-               encoded_image->_frameType == VideoFrameType::kVideoFrameKey);
-  return nullptr;
+  WriteFakeVp8(encoded_image.data(), encoded_image._encodedWidth,
+               encoded_image._encodedHeight,
+               encoded_image._frameType == VideoFrameType::kVideoFrameKey);
 }
 
 VideoEncoder::EncoderInfo FakeVp8Encoder::GetEncoderInfo() const {

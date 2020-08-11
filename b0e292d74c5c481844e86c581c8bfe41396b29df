@@ -16,6 +16,24 @@
       "revId": "b0e292d74c5c481844e86c581c8bfe41396b29df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85dd1bfe_2a103870",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-11T15:24:41Z",
+      "side": 1,
+      "message": "I agree its confusing. I think maybe no deleting the resource might make it more obvious. The adaptations get removed when the resource is removed from the ResourceAdaptationProcessor. This is buried in other function calls. I\u0027ll see what is possible.",
+      "parentUuid": "39ecd261_a7ee68d1",
+      "revId": "b0e292d74c5c481844e86c581c8bfe41396b29df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

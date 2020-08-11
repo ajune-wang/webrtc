@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "938b468d_5b9e8daa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-08-11T11:33:14Z",
+      "side": 1,
+      "message": "still haven\u0027t cleaned enough of EncodedImageCallback interface, so can\u0027t mark it as deprecated yet,\nbut cleaned enough of MockEncodedImageCallback, so it looks safe to delete legacy variant",
+      "revId": "3e332b48c64b1d4144b8ecb8b1df538e74e144d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

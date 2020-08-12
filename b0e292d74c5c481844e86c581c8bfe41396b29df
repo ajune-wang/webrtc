@@ -34,6 +34,24 @@
       "revId": "b0e292d74c5c481844e86c581c8bfe41396b29df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e09b461_e0b55a07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-12T10:28:24Z",
+      "side": 1,
+      "message": "I have uploaded a new patch now that does not null the result. I think it is simpler.\n\nWith regards to the unit tests, I am not sure where that should go. If its in the video stream encoder tests, then we need to make sure that the QP is high. Do you think it makes sense to somehow inject a new QualityScalerResource somehow into the resource manager?",
+      "parentUuid": "85dd1bfe_2a103870",
+      "revId": "b0e292d74c5c481844e86c581c8bfe41396b29df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

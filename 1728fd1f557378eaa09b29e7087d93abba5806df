@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb1671cd_a2ea247b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-08-12T14:40:37Z",
+      "side": 1,
+      "message": "Thank you for adding the test! LGTM with a minor comment about the test utility routine.",
+      "revId": "1728fd1f557378eaa09b29e7087d93abba5806df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9425a45_159bd543",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-08-12T14:40:37Z",
+      "side": 1,
+      "message": "Please add comment that this is the delay between adaptation processing.\n\nOr better yet, instead of a constant make it a parameter and add a comment in the newly added test.\nOr rename the function to indicate that it\u0027s waiting for adaptation processing to happen. \n\nCurrently it\u0027s not clear why is it 5000, is it safe to change the value? From the call site it\u0027s not clear at all what this function does or how is it different from WaitUntilAdaptationTaskQueueIsIdle() and why the latter can\u0027t be used instead.",
+      "range": {
+        "startLine": 356,
+        "startChar": 64,
+        "endLine": 356,
+        "endChar": 68
+      },
+      "revId": "1728fd1f557378eaa09b29e7087d93abba5806df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

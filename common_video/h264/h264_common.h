@@ -21,6 +21,7 @@
 namespace webrtc {
 
 namespace H264 {
+
 // The size of a full NALU start sequence {0 0 0 1}, used for the first NALU
 // of an access unit, and for SPS and PPS blocks.
 const size_t kNaluLongStartSequenceSize = 4;

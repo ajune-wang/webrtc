@@ -348,6 +348,15 @@ class VideoStreamEncoderUnderTest : public VideoStreamEncoder {
     ASSERT_TRUE(event.Wait(5000));
   }
 
+  void WaitForDelayedTaskOnEncoderQueue(uint32_t delay_ms) {
+    // TODO(eshr): This function is unfortunate, but needed for testing with
+    // quality scaler. Replace this method with task queues running on simulated
+    // time.
+    rtc::Event event;
+    encoder_queue()->PostDelayedTask([&event] { event.Set(); }, delay_ms);
+    ASSERT_TRUE(event.Wait(delay_ms + 1000));
+  }
+
   // Triggers resource usage measurements on the fake CPU resource.
   void TriggerCpuOveruse() {
     rtc::Event event;
@@ -4206,6 +4215,52 @@ TEST_F(VideoStreamEncoderTest, RampsUpInQualityWhenBwIsHigh) {
   timestamp_ms += kFrameIntervalMs;
   source.IncomingCapturedFrame(CreateFrame(timestamp_ms, kWidth, kHeight));
   WaitForEncodedFrame(kWidth, kHeight);
+  EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_resolution);
+
+  video_stream_encoder_->Stop();
+}
+
+TEST_F(VideoStreamEncoderTest,
+       QualityScalerAdaptationsRemovedWhenQualityScalingDisabled) {
+  AdaptingFrameForwarder source;
+  source.set_adaptation_enabled(true);
+  video_stream_encoder_->SetSource(&source,
+                                   DegradationPreference::MAINTAIN_FRAMERATE);
+  video_stream_encoder_->OnBitrateUpdatedAndWaitForManagedResources(
+      DataRate::BitsPerSec(kTargetBitrateBps),
+      DataRate::BitsPerSec(kTargetBitrateBps),
+      DataRate::BitsPerSec(kTargetBitrateBps), 0, 0, 0);
+  fake_encoder_.SetQp(kQpHigh + 1);
+  const int kWidth = 1280;
+  const int kHeight = 720;
+  const int64_t kFrameIntervalMs = 100;
+  int64_t timestamp_ms = kFrameIntervalMs;
+  for (size_t i = 1; i <= 100; i++) {
+    timestamp_ms += kFrameIntervalMs;
+    source.IncomingCapturedFrame(CreateFrame(timestamp_ms, kWidth, kHeight));
+    WaitForEncodedFrame(timestamp_ms);
+  }
+  // Wait for QualityScaler, which will wait for 2000*2.5 ms until checking QP
+  // for the first time.
+  video_stream_encoder_->WaitForDelayedTaskOnEncoderQueue(5000);
+  timestamp_ms += kFrameIntervalMs;
+  source.IncomingCapturedFrame(CreateFrame(timestamp_ms, kWidth, kHeight));
+  WaitForEncodedFrame(timestamp_ms);
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  video_stream_encoder_->WaitUntilAdaptationTaskQueueIsIdle();
+  EXPECT_THAT(source.sink_wants(), WantsMaxPixels(Lt(kWidth * kHeight)));
+  EXPECT_TRUE(stats_proxy_->GetStats().bw_limited_resolution);
+
+  // Disable Quality scaling by turning off scaler on the encoder and
+  // reconfiguring.
+  fake_encoder_.SetQualityScaling(false);
+  video_stream_encoder_->ConfigureEncoder(video_encoder_config_.Copy(),
+                                          kMaxPayloadLength);
+  video_stream_encoder_->WaitUntilTaskQueueIsIdle();
+  video_stream_encoder_->WaitUntilAdaptationTaskQueueIsIdle();
+  // Since we turned off the quality scaler, the adaptations made by it are
+  // removed.
+  EXPECT_THAT(source.sink_wants(), ResolutionMax());
   EXPECT_FALSE(stats_proxy_->GetStats().bw_limited_resolution);
 
   video_stream_encoder_->Stop();

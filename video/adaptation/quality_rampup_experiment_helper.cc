@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+#include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {

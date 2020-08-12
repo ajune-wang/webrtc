@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '54b8c1d09983552ff9d18cdcad8e47344b4fcff7',
+  'chromium_revision': '191403a1b0b0d20cfa8114251128aba8caf4fef4',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -33,13 +33,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@b0b7693530f7e28d91eb1d1b2454c3400c6168b4',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@cbeba414ebcd292bd48b454a226c0ad00ad35d49',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@e3ac1706db1bf70a8c2660551ebe3b481aaed683',
+    'https://chromium.googlesource.com/chromium/src/testing@577c4c6bc33962d7894b151f3edd343cc3349714',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@fb8c70e76ac12220febe4ef3cda42535a4354a22',
+    'https://chromium.googlesource.com/chromium/src/third_party@1bd85e5ab16bf153c78f698f763fe793e9eb90a3',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -137,7 +137,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@65eb98d6ed3a80086d31a54f3c0165c7b466a967',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@4de6cfa5a9368a4a10937e6527e55bc993113858',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@d2dd36c03501e995e8ce2d792d834392b2e62bfe',
   'src/third_party/findbugs': {

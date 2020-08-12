@@ -219,9 +219,7 @@ QualityScaler::QualityScaler(QualityScalerQpUsageHandlerInterface* handler,
                    << ", high: " << thresholds_.high;
 }
 
-QualityScaler::~QualityScaler() {
-  RTC_DCHECK_RUN_ON(&task_checker_);
-}
+QualityScaler::~QualityScaler() = default;
 
 void QualityScaler::StartNextCheckQpTask() {
   RTC_DCHECK_RUN_ON(&task_checker_);

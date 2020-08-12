@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de0aea61_99637a0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-08-12T10:41:40Z",
+      "side": 1,
+      "message": "I agree this version is clearer.\n\nCould you please add a test on video stream encoder level or adaptation processor level, which ensures that disabling quality scaler on the fly indeed removes adaptations? Or point me to that test, if it already exists.",
+      "revId": "db36c52c873c25fa8e4bdfdab08353ef4681863f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

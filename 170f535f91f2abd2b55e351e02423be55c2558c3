@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66f7973e_ba9868ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-08-12T16:09:00Z",
+      "side": 1,
+      "message": "Is the size of the change ok, or would you prefer me to split it into several?",
+      "revId": "170f535f91f2abd2b55e351e02423be55c2558c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

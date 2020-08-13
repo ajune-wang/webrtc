@@ -19,7 +19,6 @@
 #endif
 #import "RTCCodecSpecificInfoH264.h"
 #import "RTCH264ProfileLevelId.h"
-#import "api/peerconnection/RTCRtpFragmentationHeader+Private.h"
 #import "api/peerconnection/RTCVideoCodecInfo+Private.h"
 #import "base/RTCCodecSpecificInfo.h"
 #import "base/RTCI420Buffer.h"
@@ -40,14 +39,17 @@
 #include "sdk/objc/components/video_codec/nalu_rewriter.h"
 #include "third_party/libyuv/include/libyuv/convert_from.h"
 
-@interface RTC_OBJC_TYPE (RTCVideoEncoderH264)
-()
+@interface RTC_OBJC_TYPE(RTCVideoEncoderH264) ()
 
-    - (void)frameWasEncoded : (OSStatus)status flags : (VTEncodeInfoFlags)infoFlags sampleBuffer
-    : (CMSampleBufferRef)sampleBuffer codecSpecificInfo
-    : (id<RTC_OBJC_TYPE(RTCCodecSpecificInfo)>)codecSpecificInfo width : (int32_t)width height
-    : (int32_t)height renderTimeMs : (int64_t)renderTimeMs timestamp : (uint32_t)timestamp rotation
-    : (RTCVideoRotation)rotation;
+- (void)frameWasEncoded:(OSStatus)status
+                  flags:(VTEncodeInfoFlags)infoFlags
+           sampleBuffer:(CMSampleBufferRef)sampleBuffer
+      codecSpecificInfo:(id<RTC_OBJC_TYPE(RTCCodecSpecificInfo)>)codecSpecificInfo
+                  width:(int32_t)width
+                 height:(int32_t)height
+           renderTimeMs:(int64_t)renderTimeMs
+              timestamp:(uint32_t)timestamp
+               rotation:(RTCVideoRotation)rotation;
 
 @end
 
@@ -783,16 +785,10 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
   }
 
   __block std::unique_ptr<rtc::Buffer> buffer = std::make_unique<rtc::Buffer>();
-  RTC_OBJC_TYPE(RTCRtpFragmentationHeader) * header;
-  {
-    std::unique_ptr<webrtc::RTPFragmentationHeader> header_cpp;
-    bool result =
-        H264CMSampleBufferToAnnexBBuffer(sampleBuffer, isKeyframe, buffer.get(), &header_cpp);
-    header = [[RTC_OBJC_TYPE(RTCRtpFragmentationHeader) alloc]
-        initWithNativeFragmentationHeader:header_cpp.get()];
-    if (!result) {
-      return;
-    }
+
+  bool result = webrtc::H264CMSampleBufferToAnnexBBuffer(sampleBuffer, isKeyframe, buffer.get());
+  if (!result) {
+    return;
   }
 
   RTC_OBJC_TYPE(RTCEncodedImage) *frame = [[RTC_OBJC_TYPE(RTCEncodedImage) alloc] init];
@@ -818,7 +814,7 @@ NSUInteger GetMaxSampleRate(const webrtc::H264::ProfileLevelId &profile_level_id
   _h264BitstreamParser.GetLastSliceQp(&qp);
   frame.qp = @(qp);
 
-  BOOL res = _callback(frame, codecSpecificInfo, header);
+  BOOL res = _callback(frame, codecSpecificInfo);
   if (!res) {
     RTC_LOG(LS_ERROR) << "Encode callback failed";
     return;

@@ -11,7 +11,6 @@
 #import "api/video_codec/RTCVideoCodecConstants.h"
 #import "base/RTCCodecSpecificInfo.h"
 #import "base/RTCEncodedImage.h"
-#import "base/RTCRtpFragmentationHeader.h"
 #import "base/RTCVideoCodecInfo.h"
 #import "base/RTCVideoDecoder.h"
 #import "base/RTCVideoEncoder.h"

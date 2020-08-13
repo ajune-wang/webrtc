@@ -89,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "4a7a9f93_fd8c9145",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-13T12:49:55Z",
+      "side": 1,
+      "message": "I\u0027m thinking that disabling avx2 code should be done by the code calling this function. If AVX2 is disabled as compile time, there should be no place where this function is called with kAVX2.\nLeaving just the detection code in should be harmless.\n\nI don\u0027t have a strong opinion here, but the fewer #if:s we have, the better.\n\nBut regardless, we should have the same guards here and around the xgetbv function, for consistency.",
+      "parentUuid": "b868b482_5a7c5ae9",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "d24a77d2cdb05fd455e647ff8c44cc6b2c08d712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d639350_ebc184a8",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 1
@@ -219,6 +243,30 @@
       "side": 1,
       "message": "Yes, when the num_ids \u003c 7, this condition will not be met. It\u0027s not a typo. Actually, the below four condition is used to check avx support.\n           (cpu_info[2] \u0026 0x10000000) !\u003d 0 \u0026\u0026\n           (cpu_info[2] \u0026 0x04000000) !\u003d 0 /* XSAVE */ \u0026\u0026\n           (cpu_info[2] \u0026 0x08000000) !\u003d 0 /* OSXSAVE */ \u0026\u0026\n           (xgetbv(0) \u0026 0x00000006) \u003d\u003d 6 /* XSAVE enabled by kernel */.\nAnd the avx2 support needs (avx_support \u0026\u0026 (cpu_info7[1] \u0026 0x00000020) !\u003d 0;).",
       "parentUuid": "1c8eb3f7_50a3837e",
+      "range": {
+        "startLine": 89,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 24
+      },
+      "revId": "d24a77d2cdb05fd455e647ff8c44cc6b2c08d712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d362ff8_da1918f9",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-13T12:49:55Z",
+      "side": 1,
+      "message": "I see now, I misread the initialization as an assignment.\n\nBut if result is known when num_ids \u003c 7 (i.e., if all cpus supporting avx2 always have num_ids \u003e\u003d 7), it could be simplified as\n\n  if (num_ids \u003c 7) {\n    return 0;\n  }\n  \n  __cpuid(cpu_info7, 7);\n  return ... cpu_info7[1] ...\n\nwith no other initialization of cpu_info7;",
+      "parentUuid": "100f96ee_6e83a100",
       "range": {
         "startLine": 89,
         "startChar": 12,

@@ -51,6 +51,24 @@
       "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b6b86b9_1b35e5b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-13T11:17:11Z",
+      "side": 1,
+      "message": "Is the feature off-by-default now?",
+      "parentUuid": "dc69e17a_fee695bf",
+      "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

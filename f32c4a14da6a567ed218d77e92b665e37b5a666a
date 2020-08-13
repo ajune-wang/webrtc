@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb0a83ab_017e8523",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-08-13T09:24:10Z",
+      "side": 1,
+      "message": "The bots seem happy now, I ran the test 1000x in a loop locally and it still worked.\nLets put the old bug to rest? ;-)",
+      "revId": "f32c4a14da6a567ed218d77e92b665e37b5a666a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

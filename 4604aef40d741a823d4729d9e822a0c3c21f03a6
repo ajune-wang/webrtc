@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c8bbab4_66b8fb17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-08-13T09:48:29Z",
+      "side": 1,
+      "message": "Hi Danil, PTAL.\n\nDo you have a bug for this?",
+      "revId": "4604aef40d741a823d4729d9e822a0c3c21f03a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

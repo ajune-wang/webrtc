@@ -17,7 +17,6 @@
 #import "base/RTCVideoEncoderFactory.h"
 #import "components/video_codec/RTCCodecSpecificInfoH264+Private.h"
 #import "sdk/objc/api/peerconnection/RTCEncodedImage+Private.h"
-#import "sdk/objc/api/peerconnection/RTCRtpFragmentationHeader+Private.h"
 #import "sdk/objc/api/peerconnection/RTCVideoCodecInfo+Private.h"
 #import "sdk/objc/api/peerconnection/RTCVideoEncoderSettings+Private.h"
 #import "sdk/objc/api/video_codec/RTCVideoCodecConstants.h"
@@ -51,8 +50,7 @@ class ObjCVideoEncoder : public VideoEncoder {
 
   int32_t RegisterEncodeCompleteCallback(EncodedImageCallback *callback) override {
     [encoder_ setCallback:^BOOL(RTC_OBJC_TYPE(RTCEncodedImage) * _Nonnull frame,
-                                id<RTC_OBJC_TYPE(RTCCodecSpecificInfo)> _Nonnull info,
-                                RTC_OBJC_TYPE(RTCRtpFragmentationHeader) * _Nonnull header) {
+                                id<RTC_OBJC_TYPE(RTCCodecSpecificInfo)> _Nonnull info) {
       EncodedImage encodedImage = [frame nativeEncodedImage];
 
       // Handle types that can be converted into one of CodecSpecificInfo's hard coded cases.
@@ -62,10 +60,7 @@ class ObjCVideoEncoder : public VideoEncoder {
             [(RTC_OBJC_TYPE(RTCCodecSpecificInfoH264) *)info nativeCodecSpecificInfo];
       }
 
-      std::unique_ptr<RTPFragmentationHeader> fragmentationHeader =
-          [header createNativeFragmentationHeader];
-      EncodedImageCallback::Result res =
-          callback->OnEncodedImage(encodedImage, &codecSpecificInfo, fragmentationHeader.get());
+      EncodedImageCallback::Result res = callback->OnEncodedImage(encodedImage, &codecSpecificInfo);
       return res.error == EncodedImageCallback::Result::OK;
     }];
 

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80c63202_dcb8aaee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-13T20:38:08Z",
+      "side": 1,
+      "message": "PTAL.",
+      "revId": "b612c4ea3aadb2d8c5d3f76f27de5ba6bee99af4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c18a0f7e_ba6c6b32",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-13T20:38:08Z",
+      "side": 1,
+      "message": "We already have this mechanism to deal with dispatchers being added/removed during the select() loop. So I think this could be used for epoll as well; if a dispatcher is removed and a new one is added with the same address, the new one wouldn\u0027t be added until the next iteration, and any events produced by the old one would be ignored.\n\nHowever, we still need some custom structure to deal with the new test I added (because we need the ability to mark an entry as invalid without modifying the list). And I like the key implementation personally, it makes lookup O(1) and gives added peace of mind in case there\u0027s a case of the ABA problem I haven\u0027t thought of, or could be introduced in the future.",
+      "revId": "b612c4ea3aadb2d8c5d3f76f27de5ba6bee99af4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b4acd2d_51c85ae4",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-13T20:38:08Z",
+      "side": 1,
+      "message": "These three methods technically should have CamelCase naming according to Google style, but I thought keeping the naming scheme consistent with the C++ container methods makes more sense.",
+      "revId": "b612c4ea3aadb2d8c5d3f76f27de5ba6bee99af4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

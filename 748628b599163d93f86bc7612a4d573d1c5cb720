@@ -52,6 +52,24 @@
       "revId": "748628b599163d93f86bc7612a4d573d1c5cb720",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a627fdd_840203e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-13T20:38:08Z",
+      "side": 1,
+      "message": "\u003e There are places where elements are searched and removed by value from that set, and I also was not sure if an element could be added more than once into that set, so flat_set instead of a plain unordered list seemed more appropriate.\n\nI guess I would assume it\u0027s possible, since a set was being used before.",
+      "parentUuid": "783b8394_41a7b5c7",
+      "revId": "748628b599163d93f86bc7612a4d573d1c5cb720",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "b868b482_5a7c5ae9",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-08-13T12:17:56Z",
+      "side": 1,
+      "message": "According to our discussion, we don\u0027t want to enable the avx2 support as default until the module unittest failure is fixed! So this is needed.",
+      "parentUuid": "7084b225_4a4b25a9",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "d24a77d2cdb05fd455e647ff8c44cc6b2c08d712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d639350_ebc184a8",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 1

@@ -22,6 +22,30 @@
       "revId": "ba8abbb630cdd9d05e22c830d0845e920762850d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "488c2899_b5c06b70",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-08-13T13:22:33Z",
+      "side": 0,
+      "message": "This was accidentally removed, fixed.",
+      "parentUuid": "9eb86001_faed2b4e",
+      "range": {
+        "startLine": 790,
+        "startChar": 8,
+        "endLine": 790,
+        "endChar": 40
+      },
+      "revId": "ba8abbb630cdd9d05e22c830d0845e920762850d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "748628b599163d93f86bc7612a4d573d1c5cb720",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c293a65_813f3697",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-13T00:53:56Z",
+      "side": 1,
+      "message": "Oh, another question about DispatcherSet: why are the entries still kept sorted? I thought that was just a consequence of the choice to use std::set and wasn\u0027t actually required.",
+      "parentUuid": "e58c6d44_729b5bc9",
+      "revId": "748628b599163d93f86bc7612a4d573d1c5cb720",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

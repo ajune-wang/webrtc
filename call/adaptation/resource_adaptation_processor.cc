@@ -130,6 +130,7 @@ void ResourceAdaptationProcessor::AddResource(
     resources_.push_back(resource);
   }
   resource->SetResourceListener(resource_listener_delegate_);
+  RTC_LOG(INFO) << "Registered resource \"" << resource->Name() << "\".";
 }
 
 std::vector<rtc::scoped_refptr<Resource>>

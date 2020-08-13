@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b398d4e_4cef77e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-08-13T13:40:22Z",
+      "side": 1,
+      "message": "Could you please rephrase and elaborate more? I don\u0027t understand what this sentence speaks about at all.\n\nMaybe something like:\n\nSome restrictions previously were preventing adaptation up caused by the quality resource. However, it makes sense to use the same restrictions in the case of other resources. This CL removes now unneeded wire-up of reason/resource causing adaptation.",
+      "revId": "b377bfe7ea8c9990cd145525c11a6c854df100a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

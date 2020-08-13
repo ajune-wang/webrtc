@@ -69,6 +69,58 @@
       "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf904238_6e631a9e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-13T22:02:04Z",
+      "side": 1,
+      "message": "It looks like it already was and still is, CryptoOptions:: enable_encrypted_rtp_header_extensions defaults to false and is only set to true via command line flag.",
+      "parentUuid": "8b6b86b9_1b35e5b7",
+      "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33a8b5d6_6816c0f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-13T22:02:04Z",
+      "side": 1,
+      "message": "api/pc LGTM. I assume tests are failing due to the two byte extension issue?",
+      "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4f3c3bf_1fb08e18",
+        "filename": "api/rtp_parameters.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-13T22:02:04Z",
+      "side": 1,
+      "message": "nit: You don\u0027t need a default for switch statements, we have a compiler error that triggers if a switch statement has any enum left out.",
+      "revId": "127ac35f5496d53039f69e4615b5ddb4e4bd8f0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

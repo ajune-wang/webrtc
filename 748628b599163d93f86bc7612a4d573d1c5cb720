@@ -34,6 +34,24 @@
       "revId": "748628b599163d93f86bc7612a4d573d1c5cb720",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "783b8394_41a7b5c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13594
+      },
+      "writtenOn": "2020-08-13T09:33:37Z",
+      "side": 1,
+      "message": "\u003e Why did you change DispatcherSet from a set to a vector? Is the idea that it should be rare for a lot of dispatchers to be added at once, and vector is more efficient for a small number of entries?\n\nYes, mostly. Basically, it\u0027s a reimplemented flat_set. I expect \"small\" to be in the order of hundreds of elements on most systems, especially given that the element type is a small POD. It has faster clear(), it is much more efficient for iteration. The vector is also more efficient in terms of storage and has memory caching property, so in the long term it should perform even better.\n\n\u003e Oh, another question about DispatcherSet: why are the entries still kept sorted?\n\nI used the flat_set as a drop in replacement for std::set. There are places where elements are searched and removed by value from that set, and I also was not sure if an element could be added more than once into that set, so flat_set instead of a plain unordered list seemed more appropriate.",
+      "parentUuid": "3c293a65_813f3697",
+      "revId": "748628b599163d93f86bc7612a4d573d1c5cb720",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -125,7 +125,7 @@ declare_args() {
 
   # Enable use of Android AAudio which requires Android SDK 26 or above and
   # NDK r16 or above.
-  rtc_enable_android_aaudio = false
+  rtc_enable_android_aaudio = true
 
   # Set to "func", "block", "edge" for coverage generation.
   # At unit test runtime set UBSAN_OPTIONS="coverage=1".

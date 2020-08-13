@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71e6ec57_ab493c1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-08-13T13:29:01Z",
+      "side": 1,
+      "message": "Thank you!",
+      "revId": "c0f40e56b8804d5e6be220e5d6b2d06f1df8e3c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69f4b6b4_e246cdde",
+        "filename": "sdk/objc/components/video_codec/nalu_rewriter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-08-13T13:29:01Z",
+      "side": 1,
+      "message": "you can delete these 3 variables too (they are only used to fill RTPFragmentationHeader)",
+      "range": {
+        "startLine": 69,
+        "startChar": 1,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "c0f40e56b8804d5e6be220e5d6b2d06f1df8e3c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "339ddb6e_0bb2ab9b",
+        "filename": "sdk/objc/components/video_codec/nalu_rewriter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-08-13T13:29:01Z",
+      "side": 1,
+      "message": "remove this comment line about the RTPFragmentationHeader",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "c0f40e56b8804d5e6be220e5d6b2d06f1df8e3c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

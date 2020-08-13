@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3274de2d_50faf068",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-13T12:57:20Z",
+      "side": 1,
+      "message": "PTAL. I\u0027m inclined to just delete this, without any PSA. Do you think that\u0027s ok?",
+      "revId": "f44d133c9d4e7cc2a1c5cee9ff366196c3addd74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

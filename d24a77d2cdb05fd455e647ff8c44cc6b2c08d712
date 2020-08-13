@@ -85,6 +85,30 @@
       "revId": "d24a77d2cdb05fd455e647ff8c44cc6b2c08d712",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25e82d04_be39a1c5",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-08-13T09:26:06Z",
+      "side": 1,
+      "message": "Hi Niels, AVX instructions can be used when a)they are supported by the CPU, b) XSAVE is supported by the CPU and c) XSAVE is enabled by the kernel. See http://software.intel.com/en-us/blogs/2011/04/14/is-avx-enabled",
+      "parentUuid": "1d639350_ebc184a8",
+      "range": {
+        "startLine": 85,
+        "startChar": 11,
+        "endLine": 87,
+        "endChar": 59
+      },
+      "revId": "d24a77d2cdb05fd455e647ff8c44cc6b2c08d712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9eb86001_faed2b4e",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-08-13T09:58:09Z",
+      "side": 0,
+      "message": "that means buffer is left empty? how does it work?\n(result buffer still should be the AnnexB format)",
+      "range": {
+        "startLine": 790,
+        "startChar": 8,
+        "endLine": 790,
+        "endChar": 40
+      },
+      "revId": "ba8abbb630cdd9d05e22c830d0845e920762850d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

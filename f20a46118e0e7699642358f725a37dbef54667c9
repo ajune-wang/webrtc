@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff3f1c6b_91fdc9eb",
+        "filename": "sdk/objc/base/RTCVideoEncoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-08-13T09:58:09Z",
+      "side": 1,
+      "message": "this change will not create any issue for the downstream project that pass callback accepting 3 parameters?\n\nLooking at the green bot, it seems safe to do. I\u0027m surprised.",
+      "revId": "f20a46118e0e7699642358f725a37dbef54667c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

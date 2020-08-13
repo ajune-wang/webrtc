@@ -16,6 +16,144 @@
       "revId": "2efd80550a90f1c28bdae30b0e059b52665248fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1903cc83_a63a8597",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-13T12:26:17Z",
+      "side": 1,
+      "message": "Maybe const auto\u0026?",
+      "range": {
+        "startLine": 904,
+        "startChar": 9,
+        "endLine": 904,
+        "endChar": 13
+      },
+      "revId": "2efd80550a90f1c28bdae30b0e059b52665248fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84e06f6e_cc323213",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-13T12:26:17Z",
+      "side": 1,
+      "message": "const auto\u0026?",
+      "range": {
+        "startLine": 669,
+        "startChar": 7,
+        "endLine": 669,
+        "endChar": 11
+      },
+      "revId": "2efd80550a90f1c28bdae30b0e059b52665248fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa1d2dc_db5acb01",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-13T12:26:17Z",
+      "side": 1,
+      "message": "maybe specify type here, it\u0027s already quite hard to remember what is this type..",
+      "range": {
+        "startLine": 671,
+        "startChar": 10,
+        "endLine": 671,
+        "endChar": 14
+      },
+      "revId": "2efd80550a90f1c28bdae30b0e059b52665248fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61fae92b_c7025c70",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-13T12:26:17Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 675,
+        "startChar": 10,
+        "endLine": 675,
+        "endChar": 14
+      },
+      "revId": "2efd80550a90f1c28bdae30b0e059b52665248fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb6d7fc_111917d5",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-13T12:26:17Z",
+      "side": 1,
+      "message": "I\u0027m thinking that having type here actually also will make it more readable. Same for other places in this file, but it\u0027s not in this CL.. Maybe keep auto for now and update in separate CL all auto usages..?",
+      "range": {
+        "startLine": 663,
+        "startChar": 8,
+        "endLine": 663,
+        "endChar": 12
+      },
+      "revId": "2efd80550a90f1c28bdae30b0e059b52665248fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c4f12b7_c9706965",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-08-13T12:26:17Z",
+      "side": 1,
+      "message": "Also I\u0027ll prefer have type here and in the next line.",
+      "range": {
+        "startLine": 667,
+        "startChar": 10,
+        "endLine": 667,
+        "endChar": 14
+      },
+      "revId": "2efd80550a90f1c28bdae30b0e059b52665248fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

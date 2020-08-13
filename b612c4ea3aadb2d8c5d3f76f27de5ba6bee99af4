@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "0f976514_e8ad20f7",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 13594
+      },
+      "writtenOn": "2020-08-13T22:11:16Z",
+      "side": 1,
+      "message": "\u003e We already have this mechanism to deal with dispatchers being added/removed during the select() loop. So I think this could be used for epoll as well; if a dispatcher is removed and a new one is added with the same address, the new one wouldn\u0027t be added until the next iteration, and any events produced by the old one would be ignored.\n\n1. The dispatched can be removed/added while the event loop thread has not yet locked crit_ after return from epoll_wait. processing_dispatchers_ is not set at that point. The reported events may be related to the dispatcher that has already been removed.\n\n2. We may hit the limit on the number of events reported from epoll_wait. So it is possible that events pertaining to a removed dispatcher will be delivered with a delay of one or more epoll_wait loop iterations. This makes the processing_dispatchers_ check ineffective.",
+      "parentUuid": "c18a0f7e_ba6c6b32",
+      "revId": "b612c4ea3aadb2d8c5d3f76f27de5ba6bee99af4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b4acd2d_51c85ae4",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 9

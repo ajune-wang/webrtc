@@ -148,6 +148,30 @@
     },
     {
       "key": {
+        "uuid": "37509848_276f3214",
+        "filename": "system_wrappers/source/cpu_features.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-08-14T09:36:38Z",
+      "side": 1,
+      "message": "I prefer to leave the possibility to call GetCPUInfo(kAVX2) even if AVX2 is turned off in order to limit the #ifdef only to this place instead of having it in multiple places.\n\nAnyway, as soon as this lands peah@ will take this and try to remove the #ifdef entirely.",
+      "parentUuid": "4a7a9f93_fd8c9145",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "d24a77d2cdb05fd455e647ff8c44cc6b2c08d712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d639350_ebc184a8",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 1

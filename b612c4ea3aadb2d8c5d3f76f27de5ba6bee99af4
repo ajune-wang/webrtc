@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "46829394_a5878ad7",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-14T00:40:57Z",
+      "side": 1,
+      "message": "Good points. I tend to forget about the critical section because, as far as I know, WebRTC only interacts with sockets on one thread.\n\nJust curious, is #2 a problem even if we do EPOLL_CTL_DEL with the old socket before calling epoll_wait again?\n\nAlso, unless I\u0027m mistaken, we still have problem #2 with the normal select loop; a socket could be closed and a new one created with the same handle during the select() call. To address this, we could add an \"added_to_fd_set\" flag to Dispatcher which would only be set to true once FD_SET is called. Can you think of anything more elegant?\n\nGuess this is a problem for Windows as well. Though now that I\u0027m finally looking at it, I don\u0027t understand the Windows code *at all*. All actual sockets will return WSA_INVALID_EVENT for GetWSAEvent, yet they\u0027re still added to the event list. Instead of each socket having its own event, WSAEventSelect is called with events[0] for every socket. So WSAWaitForMultipleEvents is actually only waiting for a single event which indicates \"WakeUp was called or something happened to one of the sockets\". Then *all* sockets are iterated (even if WakeUp was called and nothing actually happened to any socket!).\n\nIs this is busted as it seems? Been a while since I worked with Windows sockets but this seems to confirm: https://stackoverflow.com/questions/19936131/wsaeventselect-one-event-multiple-sockets",
+      "parentUuid": "0f976514_e8ad20f7",
+      "revId": "b612c4ea3aadb2d8c5d3f76f27de5ba6bee99af4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b4acd2d_51c85ae4",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 9

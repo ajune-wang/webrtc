@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "0120b104_55face8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-08-14T09:29:03Z",
+      "side": 1,
+      "message": "Sure, just do this in your git repo.\n\ngit checkout master\ngit pull --rebase\ngit new-branch reland-avx2-audio-resampler\ngit cl patch https://webrtc-review.googlesource.com/c/src/+/181540\n\nThen you will have a branch linked with this CL, just make the changes you need and then:\n\ngit add .\ngit commit\ngit cl upload",
+      "parentUuid": "c63fdc59_c072f8b5",
+      "revId": "d24a77d2cdb05fd455e647ff8c44cc6b2c08d712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d572ce32_5df241a7",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 1

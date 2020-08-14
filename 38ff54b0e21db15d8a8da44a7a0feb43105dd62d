@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "443d705f_19e98a62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-14T22:22:50Z",
+      "side": 1,
+      "message": "After fixing the remaining ABA problems (with select() and WSAWaitForMultipleEvents()), there was only one more use of processing_dispatchers_, so I went ahead and got rid of it. So we now have one definitive mechanism for dealing with dispatchers being added/removed while waiting, which makes me feel even better about this.",
+      "revId": "38ff54b0e21db15d8a8da44a7a0feb43105dd62d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7c01dab_eb86b054",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-14T22:22:50Z",
+      "side": 1,
+      "message": "Is there any standard utility class that would do this?",
+      "revId": "38ff54b0e21db15d8a8da44a7a0feb43105dd62d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "2a5fd4db_b51b0ec7",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-14T22:22:50Z",
+      "side": 1,
+      "message": "Good suggestion to use an array of keys.\n\nAnd you\u0027re probably right about WSA_MAXIMUM_WAIT_EVENTS. Looks like it\u0027s typically 64, which is far lower than the typical FD_SETSIZE, and is a limit WebRTC could potentially reach even with a single client, under the worst conditions.\n\nAlso I read the Windows code wrong, it actually does use different events for the wake up and socket events. So given the WSA_MAXIMUM_WAIT_EVENTS restriction, the code actually does make sense, though still would ideally use up to WSA_MAXIMUM_WAIT_EVENTS events.",
+      "parentUuid": "b6551997_f1822ab7",
+      "revId": "b612c4ea3aadb2d8c5d3f76f27de5ba6bee99af4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b4acd2d_51c85ae4",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 9

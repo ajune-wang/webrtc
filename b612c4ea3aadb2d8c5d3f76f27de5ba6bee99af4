@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "b6551997_f1822ab7",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1225,
+      "author": {
+        "id": 13594
+      },
+      "writtenOn": "2020-08-14T11:16:10Z",
+      "side": 1,
+      "message": "\u003e I tend to forget about the critical section because, as far as I know, WebRTC only interacts with sockets on one thread.\n\nIf so then crit_ is probably not needed. I can\u0027t be sure if that\u0027s the case, though.\n\n\u003e Just curious, is #2 a problem even if we do EPOLL_CTL_DEL with the old socket before calling epoll_wait again?\n\nProbably not. epoll_wait description suggests that it uses round robin selection of the file descriptors to report events, rather than internal queueing of events. This means that if a file descriptor is removed from epoll then it will no longer be reported in events after the removal. So, I probably overthought #2 wrt. epoll.\n\n\u003e Also, unless I\u0027m mistaken, we still have problem #2 with the normal select loop; a socket could be closed and a new one created with the same handle during the select() call.\n\nIt\u0027s more like #1, but yes, it seems possible. I would probably try a solution that reuses the dispatcher-\u003ekey_ infrastructure. For example, make an array/vector of keys that you initialize along with fdsets in WaitSelect with keys of dispatchers that you intend to select on. Then, when select returns, iterate over that array and lookup for keys in dispatchers_. If the key is found then the dispatcher is valid and you can carry on. If not, it has been removed and has to be skipped from processing.\n\nThe array could be made a member of PhysicalSocketServer to cache memory.\n\n\u003e Guess this is a problem for Windows as well.\n\nI have little knowledge how Windows sockets work. But it seems to do something along the lines of what I\u0027ve described above, only in two vectors, without keys and memory caching. It seems to be vulnerable to the ABA problem (i.e. it saves the dispatcher pointer to event_owners, which it later looks up in dispatchers_; that pointer may get reused by a different dispatcher). It looks like it could be ported to the same key infrastructure, and that should solve the ABA problem. Also, I would move the vectors to PhysicalSocketServer members to cache memory.\n\nI can\u0027t comment about the GetWSAEvent part much. It looks like the code multiplexes all sockets on a single WSAEVENT by calling WSAEventSelect, and adds all non-socket dispatchers to the list as is. So you have a socket-specific WSAEVENT entry first in the list and then all non-socket WSAEVENTs. When WSAWaitForMultipleEvents returns you have to iterate over dispatchers if the first WSAEVENT is signalled (which indicates socket activity). This is the point where you would try bringing keys into the picture, e.g. don\u0027t iterate over dispatchers_ but instead iterate over the array of keys that you saved earlier, when you called WSAEventSelect for a socket dispatcher. Check those keys against dispatchers_, similar to the select case.\n\nI\u0027m not sure if this is the most efficient way to do this on Windows. I don\u0027t know the reason for the complexity of multiplexing all sockets into one WSAEVENT. I suppose, it could be because of the WSA_MAXIMUM_WAIT_EVENTS limit. But I wonder if it would be more efficient to use one WSAEVENT per socket up until that limit is reached and thus reduce the need for iterating over all dispatchers. But this idea is for another patch.",
+      "parentUuid": "46829394_a5878ad7",
+      "revId": "b612c4ea3aadb2d8c5d3f76f27de5ba6bee99af4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b4acd2d_51c85ae4",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 9

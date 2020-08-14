@@ -232,6 +232,30 @@
     },
     {
       "key": {
+        "uuid": "f067266d_cca9122d",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-14T23:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d33879ab_dc5210f2",
+      "range": {
+        "startLine": 386,
+        "startChar": 2,
+        "endLine": 386,
+        "endChar": 48
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a192e3d6_1a61826a",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -397,6 +421,30 @@
     },
     {
       "key": {
+        "uuid": "25197398_301b3834",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-14T23:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2e2e03e_ab340e60",
+      "range": {
+        "startLine": 461,
+        "startChar": 23,
+        "endLine": 461,
+        "endChar": 74
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "442b12d2_42ff3087",
         "filename": "examples/androidvoip/jni/android_voip_client.cc",
         "patchSetId": 3
@@ -417,6 +465,30 @@
       "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e21a45b_d1bfbb44",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-14T23:07:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "442b12d2_42ff3087",
+      "range": {
+        "startLine": 479,
+        "startChar": 23,
+        "endLine": 479,
+        "endChar": 75
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -479,6 +551,30 @@
       "side": 1,
       "message": "You will both header and here to use voip_thread_.\n\nint abc_ RTC_GUARDED_BY(voip_thread_);\n\nint method() {\n  RTC_DCHECK_RUN_ON(voip_thread_);\n  abc_ \u003d 0;\n}",
       "parentUuid": "b4579ed9_983bb80e",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 38
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b1441a3_1f5bbc20",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 12794
+      },
+      "writtenOn": "2020-08-14T23:07:08Z",
+      "side": 1,
+      "message": "Maybe I am doing something wrong but that is exactly what I tried and I got the following error on RTC_DCHECK_RUN_ON(voip_thread_): no matching constructor for initialization of \u0027webrtc::webrtc_seq_check_impl::SequenceCheckerScope\u0027",
+      "parentUuid": "5c9915bf_b1367dbd",
       "range": {
         "startLine": 152,
         "startChar": 21,

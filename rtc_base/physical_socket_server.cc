@@ -835,7 +835,7 @@ void SocketDispatcher::OnEvent(uint32_t ff, int err) {
 
 #if defined(WEBRTC_USE_EPOLL)
 
-static int GetEpollEvents(uint32_t ff) {
+inline static int GetEpollEvents(uint32_t ff) {
   int events = 0;
   if (ff & (DE_READ | DE_ACCEPT)) {
     events |= EPOLLIN;
@@ -1029,6 +1029,128 @@ class Signaler : public EventDispatcher {
   bool* pf_;
 };
 
+inline std::pair<PhysicalSocketServer::DispatcherSet::iterator, bool>
+PhysicalSocketServer::DispatcherSet::insert(Dispatcher* pdispatcher) {
+  auto it = this->lower_bound(pdispatcher);
+  bool inserted = false;
+  if (it == this->end() || *it != pdispatcher) {
+    it = disp_list_.insert(it, pdispatcher);
+    inserted = true;
+  }
+  return {it, inserted};
+}
+
+inline PhysicalSocketServer::DispatcherSet::size_type
+PhysicalSocketServer::DispatcherSet::erase(Dispatcher* pdispatcher) {
+  auto it = this->lower_bound(pdispatcher);
+  if (it != this->end() && *it == pdispatcher) {
+    disp_list_.erase(it);
+    return 1u;
+  }
+  return 0u;
+}
+
+inline PhysicalSocketServer::DispatcherSet::iterator
+PhysicalSocketServer::DispatcherSet::find(Dispatcher* pdispatcher) {
+  auto it = this->lower_bound(pdispatcher);
+  if (it != this->end() && *it != pdispatcher)
+    it = this->end();
+  return it;
+}
+
+inline PhysicalSocketServer::DispatcherSet::iterator
+PhysicalSocketServer::DispatcherSet::lower_bound(Dispatcher* pdispatcher) {
+  return std::lower_bound(disp_list_.begin(), disp_list_.end(), pdispatcher);
+}
+
+inline PhysicalSocketServer::DispatcherInfoSet::key_t
+PhysicalSocketServer::DispatcherInfoSet::insert(Dispatcher* pdispatcher) {
+  auto it = this->find(pdispatcher);
+  if (it != this->end())
+    return it->key;
+
+  it = std::find_if(
+      infos_.begin(), infos_.end(),
+      [](DispatcherInfo const& info) { return info.dispatcher == nullptr; });
+  if (it == infos_.end()) {
+    infos_.emplace_back();
+    it = infos_.end();
+    --it;
+  }
+
+  key_t key = (static_cast<uint64_t>(last_id_) << 32) |
+              static_cast<uint64_t>(static_cast<uint32_t>(it - infos_.begin()));
+  last_id_ += 2u;  // make sure the lowest bit is never set, which is a
+                   // guarantee that key value of -1 is never valid
+  it->dispatcher = pdispatcher;
+  it->key = key;
+  pdispatcher->key_ = key;
+  return key;
+}
+
+inline PhysicalSocketServer::DispatcherInfoSet::size_type
+PhysicalSocketServer::DispatcherInfoSet::erase(Dispatcher* pdispatcher) {
+  auto it = this->find(pdispatcher);
+  if (it != this->end()) {
+    it->dispatcher = nullptr;
+    pdispatcher->key_ = -1;
+    // Remove any invalid entries from the tail.
+    clean();
+    return 1u;
+  }
+  return 0u;
+}
+
+inline PhysicalSocketServer::DispatcherInfoSet::size_type
+PhysicalSocketServer::DispatcherInfoSet::invalidate(Dispatcher* pdispatcher) {
+  auto it = this->find(pdispatcher);
+  if (it != this->end()) {
+    it->dispatcher = nullptr;
+    pdispatcher->key_ = -1;
+    return 1u;
+  }
+  return 0u;
+}
+
+inline void PhysicalSocketServer::DispatcherInfoSet::clean() {
+  auto it = std::find_if(infos_.rbegin(), infos_.rend(),
+                         [](DispatcherInfo const& info) {
+                           return info.dispatcher != nullptr;
+                         })
+                .base();
+  infos_.erase(it, infos_.end());
+}
+
+inline Dispatcher* PhysicalSocketServer::DispatcherInfoSet::get_by_key(
+    key_t key) const noexcept {
+  uint32_t index = static_cast<uint32_t>(key);
+  if (index < infos_.size()) {
+    DispatcherInfo const& info = infos_[index];
+    if (info.key == key)
+      return info.dispatcher;
+  }
+  return nullptr;
+}
+
+inline PhysicalSocketServer::DispatcherInfoSet::iterator
+PhysicalSocketServer::DispatcherInfoSet::find(
+    Dispatcher* pdispatcher) noexcept {
+  key_t key = pdispatcher->key_;
+  uint32_t index = static_cast<uint32_t>(key);
+  if (index < infos_.size()) {
+    DispatcherInfo const& info = infos_[index];
+    if (info.dispatcher == pdispatcher)
+      return infos_.begin() + index;
+  }
+  return infos_.end();
+}
+
+inline PhysicalSocketServer::DispatcherInfoSet::const_iterator
+PhysicalSocketServer::DispatcherInfoSet::find(
+    Dispatcher* pdispatcher) const noexcept {
+  return const_cast<DispatcherInfoSet*>(this)->find(pdispatcher);
+}
+
 PhysicalSocketServer::PhysicalSocketServer()
     :
 #if defined(WEBRTC_USE_EPOLL)
@@ -1105,7 +1227,6 @@ void PhysicalSocketServer::Add(Dispatcher* pdispatcher) {
     // list of socket events.
     // Defer adding to "dispatchers_" set until processing is done to avoid
     // invalidating the iterator in "Wait".
-    pending_remove_dispatchers_.erase(pdispatcher);
     pending_add_dispatchers_.insert(pdispatcher);
   } else {
     dispatchers_.insert(pdispatcher);
@@ -1123,16 +1244,15 @@ void PhysicalSocketServer::Remove(Dispatcher* pdispatcher) {
     // A dispatcher is being removed while a "Wait" call is processing the
     // list of socket events.
     // Defer removal from "dispatchers_" set until processing is done to avoid
-    // invalidating the iterator in "Wait".
+    // invalidating the iterator in "Wait", but still invalidate the entry so
+    // Wait doesn't attempt to dereference it.
     if (!pending_add_dispatchers_.erase(pdispatcher) &&
-        dispatchers_.find(pdispatcher) == dispatchers_.end()) {
+        !dispatchers_.invalidate(pdispatcher)) {
       RTC_LOG(LS_WARNING) << "PhysicalSocketServer asked to remove a unknown "
                              "dispatcher, potentially from a duplicate call to "
                              "Add.";
       return;
     }
-
-    pending_remove_dispatchers_.insert(pdispatcher);
   } else if (!dispatchers_.erase(pdispatcher)) {
     RTC_LOG(LS_WARNING)
         << "PhysicalSocketServer asked to remove a unknown "
@@ -1169,12 +1289,8 @@ void PhysicalSocketServer::AddRemovePendingDispatchers() {
     pending_add_dispatchers_.clear();
   }
 
-  if (!pending_remove_dispatchers_.empty()) {
-    for (Dispatcher* pdispatcher : pending_remove_dispatchers_) {
-      dispatchers_.erase(pdispatcher);
-    }
-    pending_remove_dispatchers_.clear();
-  }
+  // Removes any potential invalid entries from the end of the list.
+  dispatchers_.clean();
 }
 
 #if defined(WEBRTC_POSIX)
@@ -1205,6 +1321,9 @@ static void ProcessEvents(Dispatcher* dispatcher,
                  &len);
   }
 
+  // Most often the socket is writable or readable or both, so make a single
+  // virtual call to get requested events
+  const uint32_t requested_events = dispatcher->GetRequestedEvents();
   uint32_t ff = 0;
 
   // Check readable descriptors. If we're waiting on an accept, signal
@@ -1212,7 +1331,7 @@ static void ProcessEvents(Dispatcher* dispatcher,
   // readable or really closed.
   // TODO(pthatcher): Only peek at TCP descriptors.
   if (readable) {
-    if (dispatcher->GetRequestedEvents() & DE_ACCEPT) {
+    if (requested_events & DE_ACCEPT) {
       ff |= DE_ACCEPT;
     } else if (errcode || dispatcher->IsDescriptorClosed()) {
       ff |= DE_CLOSE;
@@ -1224,7 +1343,7 @@ static void ProcessEvents(Dispatcher* dispatcher,
   // Check writable descriptors. If we're waiting on a connect, detect
   // success versus failure by the reaped error code.
   if (writable) {
-    if (dispatcher->GetRequestedEvents() & DE_CONNECT) {
+    if (requested_events & DE_CONNECT) {
       if (!errcode) {
         ff |= DE_CONNECT;
       } else {
@@ -1258,13 +1377,9 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
     stop_us = rtc::TimeMicros() + cmsWait * 1000;
   }
 
-  // Zero all fd_sets. Don't need to do this inside the loop since
-  // select() zeros the descriptors not signaled
 
   fd_set fdsRead;
-  FD_ZERO(&fdsRead);
   fd_set fdsWrite;
-  FD_ZERO(&fdsWrite);
 // Explicitly unpoison these FDs on MemorySanitizer which doesn't handle the
 // inline assembly in FD_ZERO.
 // http://crbug.com/344505
@@ -1276,16 +1391,23 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
   fWait_ = true;
 
   while (fWait_) {
+    // Zero all fd_sets. Although select() zeros the descriptors not signaled,
+    // we may need to do this for dispatchers that were deleted while
+    // iterating.
+    FD_ZERO(&fdsRead);
+    FD_ZERO(&fdsWrite);
     int fdmax = -1;
     {
       CritScope cr(&crit_);
-      // TODO(jbauch): Support re-entrant waiting.
-      RTC_DCHECK(!processing_dispatchers_);
-      for (Dispatcher* pdispatcher : dispatchers_) {
+      current_dispatcher_keys_.clear();
+      for (auto const& info : dispatchers_) {
+        Dispatcher* pdispatcher = info.dispatcher;
+        if (!pdispatcher)
+          continue;
         // Query dispatchers for read and write wait state
-        RTC_DCHECK(pdispatcher);
         if (!process_io && (pdispatcher != signal_wakeup_))
           continue;
+        current_dispatcher_keys_.push_back(info.key);
         int fd = pdispatcher->GetDescriptor();
         // "select"ing a file descriptor that is equal to or larger than
         // FD_SETSIZE will result in undefined behavior.
@@ -1323,8 +1445,14 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
     } else {
       // We have signaled descriptors
       CritScope cr(&crit_);
-      processing_dispatchers_ = true;
-      for (Dispatcher* pdispatcher : dispatchers_) {
+      // Iterate only on the dispatchers whose sockets were passed into
+      // WSAEventSelect; this avoids the ABA problem (a socket being
+      // destroyed and a new one created with the same handle).
+      for (Dispatcher::key_t key : current_dispatcher_keys_) {
+        Dispatcher* pdispatcher = dispatchers_.get_by_key(key);
+        if (!pdispatcher)
+          continue;
+
         int fd = pdispatcher->GetDescriptor();
 
         bool readable = FD_ISSET(fd, &fdsRead);
@@ -1340,11 +1468,6 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
         // The error code can be signaled through reads or writes.
         ProcessEvents(pdispatcher, readable, writable, readable || writable);
       }
-
-      processing_dispatchers_ = false;
-      // Process deferred dispatchers that have been added/removed while the
-      // events were handled above.
-      AddRemovePendingDispatchers();
     }
 
     // Recalc the time remaining to wait. Doing it here means it doesn't get
@@ -1373,9 +1496,18 @@ void PhysicalSocketServer::AddEpoll(Dispatcher* pdispatcher) {
     return;
   }
 
+  if (pdispatcher->key_ == -1) {
+    // This should not happen since epoll wait doesn't use
+    // processing_dispatchers_, which means that the dispatcher must always be
+    // added to dispatchers_ before this call.
+    RTC_LOG(LS_ERROR) << "Attempt to add a dispatcher to epoll before adding "
+                         "to the list of dispatchers";
+    return;
+  }
+
   struct epoll_event event = {0};
   event.events = GetEpollEvents(pdispatcher->GetRequestedEvents());
-  event.data.ptr = pdispatcher;
+  event.data.u64 = pdispatcher->key_;
   int err = epoll_ctl(epoll_fd_, EPOLL_CTL_ADD, fd, &event);
   RTC_DCHECK_EQ(err, 0);
   if (err == -1) {
@@ -1414,7 +1546,7 @@ void PhysicalSocketServer::UpdateEpoll(Dispatcher* pdispatcher) {
 
   struct epoll_event event = {0};
   event.events = GetEpollEvents(pdispatcher->GetRequestedEvents());
-  event.data.ptr = pdispatcher;
+  event.data.u64 = pdispatcher->key_;
   int err = epoll_ctl(epoll_fd_, EPOLL_CTL_MOD, fd, &event);
   RTC_DCHECK_EQ(err, 0);
   if (err == -1) {
@@ -1456,8 +1588,9 @@ bool PhysicalSocketServer::WaitEpoll(int cmsWait) {
       CritScope cr(&crit_);
       for (int i = 0; i < n; ++i) {
         const epoll_event& event = epoll_events_[i];
-        Dispatcher* pdispatcher = static_cast<Dispatcher*>(event.data.ptr);
-        if (dispatchers_.find(pdispatcher) == dispatchers_.end()) {
+        DispatcherInfoSet::key_t key = event.data.u64;
+        Dispatcher* pdispatcher = dispatchers_.get_by_key(key);
+        if (!pdispatcher) {
           // The dispatcher for this socket no longer exists.
           continue;
         }
@@ -1472,7 +1605,7 @@ bool PhysicalSocketServer::WaitEpoll(int cmsWait) {
 
     if (cmsWait != kForever) {
       tvWait = TimeDiff(tvStop, TimeMillis());
-      if (tvWait < 0) {
+      if (tvWait <= 0) {
         // Return success on timeout.
         return true;
       }
@@ -1562,7 +1695,7 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
   fWait_ = true;
   while (fWait_) {
     std::vector<WSAEVENT> events;
-    std::vector<Dispatcher*> event_owners;
+    std::vector<DispatcherInfo::key_t> event_owners;
 
     events.push_back(socket_ev_);
 
@@ -1574,7 +1707,11 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
       // Calling "CheckSignalClose" might remove a closed dispatcher from the
       // set. This must be deferred to prevent invalidating the iterator.
       processing_dispatchers_ = true;
-      for (Dispatcher* disp : dispatchers_) {
+      current_dispatcher_keys_.clear();
+      for (auto const& info : dispatchers_) {
+        Dispatcher* disp = info.dispatcher;
+        if (!disp)
+          continue;
         if (!process_io && (disp != signal_wakeup_))
           continue;
         SOCKET s = disp->GetSocket();
@@ -1583,9 +1720,10 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
         } else if (s != INVALID_SOCKET) {
           WSAEventSelect(s, events[0],
                          FlagsToEvents(disp->GetRequestedEvents()));
+          current_dispatcher_keys_.push_back(info.key);
         } else {
           events.push_back(disp->GetWSAEvent());
-          event_owners.push_back(disp);
+          event_owners.push_back(info.key);
         }
       }
 
@@ -1624,15 +1762,21 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
       int index = dw - WSA_WAIT_EVENT_0;
       if (index > 0) {
         --index;  // The first event is the socket event
-        Dispatcher* disp = event_owners[index];
+        DispatcherInfo::key_t key = event_owners[index];
+        Dispatcher* disp = dispatchers_.get_by_key(key);
         // The dispatcher could have been removed while waiting for events.
-        if (dispatchers_.find(disp) != dispatchers_.end()) {
+        if (disp) {
           disp->OnPreEvent(0);
           disp->OnEvent(0, 0);
         }
       } else if (process_io) {
-        processing_dispatchers_ = true;
-        for (Dispatcher* disp : dispatchers_) {
+        // Iterate only on the dispatchers whose sockets were passed into
+        // WSAEventSelect; this avoids the ABA problem (a socket being
+        // destroyed and a new one created with the same handle).
+        for (Dispatcher::key_t key : current_dispatcher_keys_) {
+          Dispatcher* disp = dispatchers_.get_by_key(key);
+          if (!disp)
+            continue;
           SOCKET s = disp->GetSocket();
           if (s == INVALID_SOCKET)
             continue;
@@ -1698,11 +1842,6 @@ bool PhysicalSocketServer::Wait(int cmsWait, bool process_io) {
             }
           }
         }
-
-        processing_dispatchers_ = false;
-        // Process deferred dispatchers that have been added/removed while the
-        // events were handled above.
-        AddRemovePendingDispatchers();
       }
 
       // Reset the network event until new activity occurs

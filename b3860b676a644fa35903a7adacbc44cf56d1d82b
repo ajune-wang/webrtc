@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79af1fe5_d300f6a5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-08-14T08:45:24Z",
+      "side": 1,
+      "message": "Did you mean one of these:\nwe are adapting? \nwe adapt?\nthere\u0027s an adaptation?",
+      "range": {
+        "startLine": 9,
+        "startChar": 17,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "b3860b676a644fa35903a7adacbc44cf56d1d82b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

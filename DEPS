@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'd83bc8545cbae94bc9180fa372b9e5e4a478b762',
+  'chromium_revision': 'eb7d5d27819fa8b20011969efd72d37c9ce7ee96',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@aa805b069cca3f3391ccc33b58ad3f8b6f247ac7',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@d0ba06b1aa51c9227fb4d81ba0a1416b65621b99',
+    'https://chromium.googlesource.com/chromium/src/build@c843282e3af31d4d3e286140a2c81d3e4dcbaf88',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@b00ad0af636401e5eb4b5d0ab01b65164dca1914',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -37,9 +37,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@50d18acdf702d2aaa97daabcd9414b5e7d894794',
+    'https://chromium.googlesource.com/chromium/src/testing@874ab6556ecb10aea69fad62697db5324d7c4ffa',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@01ec673cc60cf1a3776520e4e4818c73b79738a9',
+    'https://chromium.googlesource.com/chromium/src/third_party@23f06e95e7c50dc8bbce1106cf795ddc2fb419ae',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@efcff456066b74e161044ec93bb8ff98636a19be',
+    'https://chromium.googlesource.com/chromium/src/tools@2871942fb4d7f8c9269fdd0358c66b67c84b2196',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 

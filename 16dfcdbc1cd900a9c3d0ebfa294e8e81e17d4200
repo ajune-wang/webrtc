@@ -16,6 +16,24 @@
       "revId": "16dfcdbc1cd900a9c3d0ebfa294e8e81e17d4200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14da0ab3_f903ca80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-08-17T11:07:48Z",
+      "side": 1,
+      "message": "we can still have nice things? \\o/",
+      "parentUuid": "e4831486_91bfe5cb",
+      "revId": "16dfcdbc1cd900a9c3d0ebfa294e8e81e17d4200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -151,18 +151,20 @@ void JNI_RtpTransceiver_StopStandard(JNIEnv* jni,
       ->StopStandard();
 }
 
-void JNI_RtpTransceiver_SetDirection(
+jboolean JNI_RtpTransceiver_SetDirection(
     JNIEnv* jni,
     jlong j_rtp_transceiver_pointer,
     const base::android::JavaParamRef<jobject>& j_rtp_transceiver_direction) {
   if (IsNull(jni, j_rtp_transceiver_direction)) {
-    return;
+    return false;
   }
   RtpTransceiverDirection direction = static_cast<RtpTransceiverDirection>(
       Java_RtpTransceiverDirection_getNativeIndex(jni,
                                                   j_rtp_transceiver_direction));
-  reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)
-      ->SetDirection(direction);
+  webrtc::RTCError error =
+      reinterpret_cast<RtpTransceiverInterface*>(j_rtp_transceiver_pointer)
+          ->SetDirectionWithError(direction);
+  return error.ok();
 }
 
 }  // namespace jni

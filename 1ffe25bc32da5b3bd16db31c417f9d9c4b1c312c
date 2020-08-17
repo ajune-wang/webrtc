@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3edfbcd8_796f21c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Thanks for the change. PTAL.",
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "924c574a_701017c5",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Where is this used?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 40
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49737327_13e2f557",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Should we check jvm value here?",
+      "range": {
+        "startLine": 168,
+        "startChar": 4,
+        "endLine": 168,
+        "endChar": 26
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25761892_21be093f",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Please specify variables that being copied instead.",
+      "range": {
+        "startLine": 242,
+        "startChar": 41,
+        "endLine": 242,
+        "endChar": 42
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "297c1366_7e2d8e13",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Here as well for specifying variables.",
+      "range": {
+        "startLine": 269,
+        "startChar": 41,
+        "endLine": 269,
+        "endChar": 42
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45c45636_f05c214a",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Here also.",
+      "range": {
+        "startLine": 287,
+        "startChar": 21,
+        "endLine": 287,
+        "endChar": 24
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58d22e77_0b6af447",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Here also.",
+      "range": {
+        "startLine": 305,
+        "startChar": 22,
+        "endLine": 305,
+        "endChar": 23
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10d72c8b_c2d864d1",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "absl::nullopt",
+      "range": {
+        "startLine": 311,
+        "startChar": 54,
+        "endLine": 311,
+        "endChar": 55
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73d9b5b3_da139625",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Here also. packet_copy \u003d std::move(packet_copy)",
+      "range": {
+        "startLine": 483,
+        "startChar": 32,
+        "endLine": 483,
+        "endChar": 67
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f5c84d3_723bb3ad",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "I think {} use is discouraged here. \n\npacket_copy \u003d std::move(packet_copy)",
+      "range": {
+        "startLine": 508,
+        "startChar": 32,
+        "endLine": 508,
+        "endChar": 67
+      },
+      "revId": "1ffe25bc32da5b3bd16db31c417f9d9c4b1c312c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

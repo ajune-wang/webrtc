@@ -584,6 +584,30 @@
       "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f14116d2_02f25535",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T18:04:41Z",
+      "side": 1,
+      "message": "Perhaps check header file inclusion?\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/synchronization/sequence_checker.h;drc\u003d18523c34b464600540b4b1f042d0d5519a5be953;l\u003d115",
+      "parentUuid": "5b1441a3_1f5bbc20",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 38
+      },
+      "revId": "e18f1d640d9c8031bc8421034ed9b553b935d932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

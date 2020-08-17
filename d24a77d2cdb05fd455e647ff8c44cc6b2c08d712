@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8ef787d1_d8ff5958",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-08-17T01:17:07Z",
+      "side": 1,
+      "message": "Hi Mirko, I try to upload a new PS as you showed above, but it doesn\u0027t work.\n\"\"\"\nWARNING: Change 181540 is owned by mbonadei@webrtc.org, but you authenticate to Gerrit as zhaoliang.ma@intel.com.\nUploading may fail due to lack of permissions.\nPress Enter to upload, or Ctrl+C to abort\n\"\"\" \nIt failed when I press enter, is this the permissions issue? I\u0027m sorry I don\u0027t know much about it 😊",
+      "parentUuid": "0120b104_55face8e",
+      "revId": "d24a77d2cdb05fd455e647ff8c44cc6b2c08d712",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d572ce32_5df241a7",
         "filename": "system_wrappers/source/cpu_features.cc",
         "patchSetId": 1

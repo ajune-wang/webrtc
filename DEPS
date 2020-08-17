@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'a0c9fe7f5962d4394d07fba88d954bd6691adba6',
+  'chromium_revision': '9c7c40bb7e6daf46586ec8fa321ef610ae1514c0',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@484923d4614cd107b927373c69a138ff15f63935',
+    'https://chromium.googlesource.com/chromium/src/base@2f2417fe84f478e9752576d6e4a4eb93c90c11f2',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@d3c6d765e3cd0df4450cf938547aa2f1567233b5',
+    'https://chromium.googlesource.com/chromium/src/build@848957a42c99069d57995cc4e8906a909d7cfee8',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@b00ad0af636401e5eb4b5d0ab01b65164dca1914',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -33,13 +33,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@68c8e6f811c8cfee80f739a90f859c2aeedad294',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@1596ffdd412fa5b3102bafdbfbed7571b8063ea9',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@33eb831324539ee095427bedc5307a5e8df4b6eb',
+    'https://chromium.googlesource.com/chromium/src/testing@35f4fccb91f0295b3fe9a5a7b190fd34ad8d25ce',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@518477574efdb84becf5a03e39f6203bb508aece',
+    'https://chromium.googlesource.com/chromium/src/third_party@07562eae0904359d392c55e00a71c62a2352fc0d',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -137,7 +137,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@b93d82c4c5a812e4807852b9020fa0d28859aa69',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@42e3f1d3cb7698b5ad20475f5b942c4404bea155',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@d2dd36c03501e995e8ce2d792d834392b2e62bfe',
   'src/third_party/findbugs': {
@@ -208,7 +208,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@699711c7e3cdf2adf40f882b97b13f2fcb3e3737',
+    'https://android.googlesource.com/platform/external/perfetto.git@d2a9f66615975d5f19b744c213a0ab9c6f832550',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@a1cee8dc919df1980d802e1a9bce1259ec34cba8',
   'src/third_party/libyuv':
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@f8707b84fa2366f4d4256784054d418855b1f922',
+    'https://chromium.googlesource.com/chromium/src/tools@4bafe1fedd7fcbb09259c61ed3b1fae2b2da7b95',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 
@@ -1334,17 +1334,6 @@ deps = {
           {
               'package': 'chromium/third_party/android_deps/libs/androidx_webkit_webkit',
               'version': 'version:1.3.0-rc01-cr0',
-          },
-      ],
-      'condition': 'checkout_android',
-      'dep_type': 'cipd',
-  },
-
-  'src/third_party/android_deps/libs/androidx_window_window': {
-      'packages': [
-          {
-              'package': 'chromium/third_party/android_deps/libs/androidx_window_window',
-              'version': 'version:1.0.0-alpha01-cr0',
           },
       ],
       'condition': 'checkout_android',

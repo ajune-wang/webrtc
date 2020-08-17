@@ -13,6 +13,7 @@
 #include <queue>
 #include <string>
 
+#include "absl/strings/str_join.h"
 #include "media/sctp/sctp_transport_internal.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/gunit.h"
@@ -661,10 +662,10 @@ TEST_F(UsrSctpReliabilityTest,
   SctpPingPong test(1, kTransport1Port, kTransport2Port, thread1.get(),
                     thread2.get(), messages_count, packet_loss_percents,
                     avg_send_delay_millis, send_params);
-  EXPECT_TRUE(test.Start()) << rtc::join(test.GetErrorsList(), ';');
+  EXPECT_TRUE(test.Start()) << absl::StrJoin(test.GetErrorsList(), ";");
   test.WaitForCompletion(wait_timeout);
   auto errors_list = test.GetErrorsList();
-  EXPECT_TRUE(errors_list.empty()) << rtc::join(errors_list, ';');
+  EXPECT_TRUE(errors_list.empty()) << absl::StrJoin(errors_list, ";");
 }
 
 /**
@@ -700,10 +701,10 @@ TEST_F(UsrSctpReliabilityTest,
                     thread2.get(), messages_count, packet_loss_percents,
                     avg_send_delay_millis, send_params);
 
-  EXPECT_TRUE(test.Start()) << rtc::join(test.GetErrorsList(), ';');
+  EXPECT_TRUE(test.Start()) << absl::StrJoin(test.GetErrorsList(), ";");
   test.WaitForCompletion(wait_timeout);
   auto errors_list = test.GetErrorsList();
-  EXPECT_TRUE(errors_list.empty()) << rtc::join(errors_list, ';');
+  EXPECT_TRUE(errors_list.empty()) << absl::StrJoin(errors_list, ";");
 }
 
 /**
@@ -739,10 +740,10 @@ TEST_F(UsrSctpReliabilityTest,
                     thread2.get(), messages_count, packet_loss_percents,
                     avg_send_delay_millis, send_params);
 
-  EXPECT_TRUE(test.Start()) << rtc::join(test.GetErrorsList(), ';');
+  EXPECT_TRUE(test.Start()) << absl::StrJoin(test.GetErrorsList(), ";");
   test.WaitForCompletion(wait_timeout);
   auto errors_list = test.GetErrorsList();
-  EXPECT_TRUE(errors_list.empty()) << rtc::join(errors_list, ';');
+  EXPECT_TRUE(errors_list.empty()) << absl::StrJoin(errors_list, ";");
 }
 
 /**
@@ -801,7 +802,7 @@ TEST_F(UsrSctpReliabilityTest,
         messages_count, packet_loss_percents, avg_send_delay_millis,
         send_params);
 
-    EXPECT_TRUE(test->Start()) << rtc::join(test->GetErrorsList(), ';');
+    EXPECT_TRUE(test->Start()) << absl::StrJoin(test->GetErrorsList(), ";");
     tests.emplace(std::move(test));
 
     while (tests.size() >= parallel_ping_pongs) {
@@ -809,7 +810,7 @@ TEST_F(UsrSctpReliabilityTest,
       oldest_test->WaitForCompletion(wait_timeout);
 
       auto errors_list = oldest_test->GetErrorsList();
-      EXPECT_TRUE(errors_list.empty()) << rtc::join(errors_list, ';');
+      EXPECT_TRUE(errors_list.empty()) << absl::StrJoin(errors_list, ";");
       tests.pop();
     }
   }
@@ -819,7 +820,7 @@ TEST_F(UsrSctpReliabilityTest,
     oldest_test->WaitForCompletion(wait_timeout);
 
     auto errors_list = oldest_test->GetErrorsList();
-    EXPECT_TRUE(errors_list.empty()) << rtc::join(errors_list, ';');
+    EXPECT_TRUE(errors_list.empty()) << absl::StrJoin(errors_list, ";");
     tests.pop();
   }
 }

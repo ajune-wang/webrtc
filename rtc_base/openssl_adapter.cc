@@ -21,6 +21,7 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/str_join.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
@@ -353,7 +354,7 @@ int OpenSSLAdapter::BeginSSL() {
   }
 
   if (!elliptic_curves_.empty()) {
-    SSL_set1_curves_list(ssl_, rtc::join(elliptic_curves_, ':').c_str());
+    SSL_set1_curves_list(ssl_, absl::StrJoin(elliptic_curves_, ":").c_str());
   }
 
   // Now that the initial config is done, transfer ownership of |bio| to the

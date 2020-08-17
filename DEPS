@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '2ecce21d7662f3f3d07b43e89771885f1a78ece8',
+  'chromium_revision': 'af2991e7b639a25047f714e6dbe7088e35a6b968',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@b4438d2f33adca35c66302de0c3c7cc162967b01',
+    'https://chromium.googlesource.com/chromium/src/base@dc9649174a3736d723fb3c61b38fb3d31a3f225a',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@de86388b3a1b7c658a51ac663455165ba60f8147',
+    'https://chromium.googlesource.com/chromium/src/build@727b80122cf0282d1600a421e3fa90a9bf8efabc',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@b00ad0af636401e5eb4b5d0ab01b65164dca1914',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -33,13 +33,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@753ac1430102985584a4abf9ba0326876a72158e',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@7311cdfce3873c674390b7606ea239c6e6bac081',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@e8d1e81d40b7e6edcf65e6a4604c3b4218404b53',
+    'https://chromium.googlesource.com/chromium/src/testing@f59b893e34774bea6f58d8c26336e868392114cf',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@35a32dde14ff96c0559694e4dda106ed1ad26f27',
+    'https://chromium.googlesource.com/chromium/src/third_party@7532883a5381b4729e49154afcb4d2df473822d9',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@257d1911e9c61434812e9c532f8e152c54b2e9be',
+    'https://chromium.googlesource.com/chromium/src/tools@83fd66e77c91439e53a8db41c7457ccd6a5e4f68',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 
@@ -1807,6 +1807,17 @@ deps = {
           {
               'package': 'chromium/third_party/android_deps/libs/com_android_tools_desugar_jdk_libs',
               'version': 'version:1.0.5-cr0',
+          },
+      ],
+      'condition': 'checkout_android',
+      'dep_type': 'cipd',
+  },
+
+  'src/third_party/android_deps/libs/com_android_tools_desugar_jdk_libs_configuration': {
+      'packages': [
+          {
+              'package': 'chromium/third_party/android_deps/libs/com_android_tools_desugar_jdk_libs_configuration',
+              'version': 'version:0.11.1-cr0',
           },
       ],
       'condition': 'checkout_android',

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bce5c3d_dfe1e9bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2020-08-17T18:52:38Z",
+      "side": 1,
+      "message": "LGTM, please fix the lambda captures.",
+      "revId": "c80dc0367166d716d18bf58f6784f252877b7010",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd9f4724_a8881231",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-17T13:38:08Z",
+      "side": 1,
+      "message": "Adding brandtr@ who has worked on the same issue, and hbos@ as the \"ask me about SDP\" person.\nwdyt, does this work?\nIt\u0027s _really_ tricky to repro in a good way - PeerConnection isn\u0027t designed to allow triggering the condition and the unit-level-test to all use too many fake classes to reproduce it.",
+      "revId": "ce24348b7f276902287a14c06c927ad694076e08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

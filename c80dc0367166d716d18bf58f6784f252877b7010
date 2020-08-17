@@ -16,6 +16,52 @@
       "revId": "c80dc0367166d716d18bf58f6784f252877b7010",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d8274de_35dcf3fe",
+        "filename": "examples/androidvoip/jni/android_voip_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T19:24:15Z",
+      "side": 1,
+      "message": "RTC_DCHECK_RUN_ON(voip_thread_.get());",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 36
+      },
+      "revId": "c80dc0367166d716d18bf58f6784f252877b7010",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42240fa6_0bbee6bd",
+        "filename": "examples/androidvoip/jni/android_voip_client.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-08-17T19:24:15Z",
+      "side": 1,
+      "message": "RTC_GUARED_BY(voip_thread_);",
+      "range": {
+        "startLine": 188,
+        "startChar": 42,
+        "endLine": 188,
+        "endChar": 72
+      },
+      "revId": "c80dc0367166d716d18bf58f6784f252877b7010",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

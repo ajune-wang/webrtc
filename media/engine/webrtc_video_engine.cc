@@ -3512,10 +3512,29 @@ EncoderStreamFactory::CreateSimulcastOrConfereceModeScreenshareStreams(
       encoder_config.simulcast_layers, [](const webrtc::VideoStream& layer) {
         return layer.scale_resolution_down_by != -1.;
       });
+
+  // TODO(asapersson): remove when EncodeInfo::requested_resolution_alignment
+  // has been updated.
+  bool using_default_scale_factors = true;
+  if (has_scale_resolution_down_by) {
+    double scale_factor = 1.0;
+    for (int i = encoder_config.simulcast_layers.size() - 1; i >= 0; --i) {
+      if (encoder_config.simulcast_layers[i].scale_resolution_down_by !=
+          scale_factor) {
+        using_default_scale_factors = false;
+      }
+      scale_factor *= 2.0;
+    }
+  }
   const int normalized_width =
-      NormalizeSimulcastSize(width, encoder_config.number_of_streams);
+      using_default_scale_factors
+          ? NormalizeSimulcastSize(width, encoder_config.number_of_streams)
+          : width;
   const int normalized_height =
-      NormalizeSimulcastSize(height, encoder_config.number_of_streams);
+      using_default_scale_factors
+          ? NormalizeSimulcastSize(height, encoder_config.number_of_streams)
+          : height;
+
   for (size_t i = 0; i < layers.size(); ++i) {
     layers[i].active = encoder_config.simulcast_layers[i].active;
     // Update with configured num temporal layers if supported by codec.

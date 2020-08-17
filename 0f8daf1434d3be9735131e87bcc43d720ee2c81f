@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b659a21_5284e3f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-08-17T13:44:21Z",
+      "side": 1,
+      "message": "this doesn\u0027t fully build even and bails out with linker errors:\n  gn gen out/no-x11/ --args\u003d\u0027rtc_use_x11\u003dfalse rtc_use_x11_extensions\u003dfalse\u0027\n\nbut at least it gets far enough to run this particular test:\n  out/no-x11/modules_unittests --gtest_filter\u003d\"MouseCursorMonitorTest.*\"\nwhich locally shows three skipped tests so we should be good.\n\nI\u0027m also confused about the WEBRTC_USE_X11 in the linux mouse cursor monitor since if that isn\u0027t defined, the null monitor should be used (from the gn file)\nWhat did I start :-)",
+      "revId": "0f8daf1434d3be9735131e87bcc43d720ee2c81f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

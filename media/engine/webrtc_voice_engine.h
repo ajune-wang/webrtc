@@ -165,6 +165,9 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   bool AddRecvStream(const StreamParams& sp) override;
   bool RemoveRecvStream(uint32_t ssrc) override;
   void ResetUnsignaledRecvStream() override;
+  // Check if 'ssrc' is an unsignaled stream, and if so mark it as not being
+  // unsignaled anymore (i.e. it is now removed, or signaled), and return true.
+  bool MaybeDeregisterUnsignaledRecvStream(uint32_t ssrc) override;
 
   // E2EE Frame API
   // Set a frame decryptor to a particular ssrc that will intercept all
@@ -260,9 +263,6 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   bool DeleteVoEChannel(int channel);
   bool SetMaxSendBitrate(int bps);
   void SetupRecording();
-  // Check if 'ssrc' is an unsignaled stream, and if so mark it as not being
-  // unsignaled anymore (i.e. it is now removed, or signaled), and return true.
-  bool MaybeDeregisterUnsignaledRecvStream(uint32_t ssrc);
 
   rtc::ThreadChecker worker_thread_checker_;
 

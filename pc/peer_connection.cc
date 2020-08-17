@@ -5893,6 +5893,30 @@ RTCError PeerConnection::PushdownMediaDescription(
                                    : remote_description());
   RTC_DCHECK(sdesc);
 
+  std::set<uint32_t> receive_ssrcs;
+  for (auto& content_info : sdesc->description()->contents()) {
+    switch (content_info.media_description()->direction()) {
+      case RtpTransceiverDirection::kRecvOnly:
+      case RtpTransceiverDirection::kSendRecv:
+        for (auto& stream : content_info.media_description()->streams()) {
+          for (uint32_t ssrc : stream.ssrcs) {
+            receive_ssrcs.insert(ssrc);
+          }
+        }
+        break;
+      default:
+        continue;
+    }
+  }
+  for (const auto& transceiver : transceivers_) {
+    cricket::ChannelInterface* channel = transceiver->internal()->channel();
+    if (channel) {
+      for (uint32_t ssrc : receive_ssrcs) {
+        channel->MaybeDeregisterUnsignaledRecvStream(ssrc);
+      }
+    }
+  }
+
   // Push down the new SDP media section for each audio/video transceiver.
   for (const auto& transceiver : transceivers_) {
     const ContentInfo* content_info =

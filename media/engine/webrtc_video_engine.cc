@@ -1512,6 +1512,17 @@ void WebRtcVideoChannel::ResetUnsignaledRecvStream() {
   }
 }
 
+bool WebRtcVideoChannel::MaybeDeregisterUnsignaledRecvStream(uint32_t ssrc) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_LOG(LS_INFO) << "MaybeRemoveUnsignaledRecvStream " << ssrc;
+  auto it = receive_streams_.find(ssrc);
+  if (it != receive_streams_.end() && it->second->IsDefaultStream()) {
+    RemoveRecvStream(ssrc);
+    return true;
+  }
+  return false;
+}
+
 bool WebRtcVideoChannel::SetSink(
     uint32_t ssrc,
     rtc::VideoSinkInterface<webrtc::VideoFrame>* sink) {

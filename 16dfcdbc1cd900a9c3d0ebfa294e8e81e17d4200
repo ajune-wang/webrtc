@@ -70,6 +70,24 @@
       "revId": "16dfcdbc1cd900a9c3d0ebfa294e8e81e17d4200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6ffc61f_53e90849",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-08-17T11:22:15Z",
+      "side": 1,
+      "message": "Thanks.\n\nI think Chromium has it (it starts from https://source.chromium.org/chromium/chromium/src/+/master:build/config/ui.gni;l\u003d45;drc\u003d26ce7bdac6c72a285008fc28780b1c6c97f86dce and that is used to define the macro in the WebRTC build config).",
+      "parentUuid": "86fd3718_40ebb931",
+      "revId": "16dfcdbc1cd900a9c3d0ebfa294e8e81e17d4200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -29,6 +29,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_stream_adapter.h"
+#include "media/base/video_common.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "rtc_base/arraysize.h"
@@ -177,6 +178,74 @@ VideoBitrateAllocation UpdateAllocationFromEncoderInfo(
   }
   new_allocation.set_bw_limited(allocation.is_bw_limited());
   return new_allocation;
+}
+
+int MakeAlignmentApplyToScaledSize(int requested_alignment,
+                                   VideoEncoderConfig* config) {
+  if (requested_alignment <= 1 || config->number_of_streams <= 1 ||
+      config->simulcast_layers.size() <= 1) {
+    return requested_alignment;
+  }
+
+  const bool has_scale_resolution_down_by = absl::c_any_of(
+      config->simulcast_layers, [](const webrtc::VideoStream& layer) {
+        return layer.scale_resolution_down_by != -1.;
+      });
+
+  if (!has_scale_resolution_down_by) {
+    // Default resolution downscaling used (scale factors: 1, 2, 4, ...).
+    return requested_alignment * (1 << (config->simulcast_layers.size() - 1));
+  }
+
+  // Get alignment for simulcast layers.
+  int alignment_layers = 1;
+  for (auto& layer : config->simulcast_layers) {
+    // Min valid value: 1.0
+    layer.scale_resolution_down_by =
+        std::max(layer.scale_resolution_down_by, 1.0);
+    layer.scale_resolution_down_by =
+        std::min(layer.scale_resolution_down_by, 1000.0);
+    // |scale_resolution_down_by| to fraction.
+    int numerator = round(layer.scale_resolution_down_by * 10.0);
+    layer.scale_resolution_down_by = numerator / 10.0;
+    int alignment = numerator / cricket::GreatestCommonDivisor(numerator, 10);
+    alignment_layers =
+        cricket::LeastCommonMultiple(alignment, alignment_layers);
+  }
+
+  // Limit alignment to avoid a largely cropped frame and possibly with an
+  // aspect ratio far from the original.
+  const int kMaxMultiple = 8;
+  if (alignment_layers <= kMaxMultiple) {
+    return requested_alignment * alignment_layers;
+  }
+
+  // Decide on multiple to use. Use largest rounded |scale_resolution_down_by|.
+  int multiple = 1;
+  for (const auto& layer : config->simulcast_layers) {
+    int scale = std::round(layer.scale_resolution_down_by);
+    multiple = std::max(std::min(scale, kMaxMultiple), multiple);
+  }
+  if (multiple < 3) {
+    multiple = 4;  // For more scaling steps.
+  }
+
+  // Adjust scale factor to the closest value that is a multiple of |multiple|.
+  for (auto& layer : config->simulcast_layers) {
+    double min_dist = std::numeric_limits<double>::max();
+    double new_scale = 1.0;
+    for (int i = 1; i <= multiple; ++i) {
+      double dist = std::abs(layer.scale_resolution_down_by -
+                             multiple / static_cast<double>(i));
+      if (dist <= min_dist) {
+        min_dist = dist;
+        new_scale = multiple / static_cast<double>(i);
+      }
+    }
+    layer.scale_resolution_down_by = new_scale;
+  }
+
+  return requested_alignment * multiple;
 }
 
 }  //  namespace
@@ -589,6 +658,36 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     encoder_switch_requested_ = true;
   }
 
+  bool encoder_reset_required = false;
+  if (pending_encoder_creation_) {
+    // Destroy existing encoder instance before creating a new one. Otherwise
+    // attempt to create another instance will fail if encoder factory
+    // supports only single instance of encoder of given type.
+    encoder_.reset();
+
+    encoder_ = settings_.encoder_factory->CreateVideoEncoder(
+        encoder_config_.video_format);
+    // TODO(nisse): What to do if creating the encoder fails? Crash,
+    // or just discard incoming frames?
+    RTC_CHECK(encoder_);
+
+    if (encoder_selector_) {
+      encoder_selector_->OnCurrentEncoder(encoder_config_.video_format);
+    }
+
+    encoder_->SetFecControllerOverride(fec_controller_override_);
+
+    codec_info_ = settings_.encoder_factory->QueryVideoEncoder(
+        encoder_config_.video_format);
+
+    encoder_reset_required = true;
+  }
+
+  // Possibly adjust scale_resolution_down_by to get correct alignment.
+  int alignment = MakeAlignmentApplyToScaledSize(
+      encoder_->GetEncoderInfo().requested_resolution_alignment,
+      &encoder_config_);
+
   std::vector<VideoStream> streams =
       encoder_config_.video_stream_factory->CreateEncoderStreams(
           last_frame_info_->width, last_frame_info_->height, encoder_config_);
@@ -620,31 +719,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   RTC_CHECK_GE(last_frame_info_->height, highest_stream_height);
   crop_width_ = last_frame_info_->width - highest_stream_width;
   crop_height_ = last_frame_info_->height - highest_stream_height;
-
-  bool encoder_reset_required = false;
-  if (pending_encoder_creation_) {
-    // Destroy existing encoder instance before creating a new one. Otherwise
-    // attempt to create another instance will fail if encoder factory
-    // supports only single instance of encoder of given type.
-    encoder_.reset();
-
-    encoder_ = settings_.encoder_factory->CreateVideoEncoder(
-        encoder_config_.video_format);
-    // TODO(nisse): What to do if creating the encoder fails? Crash,
-    // or just discard incoming frames?
-    RTC_CHECK(encoder_);
-
-    if (encoder_selector_) {
-      encoder_selector_->OnCurrentEncoder(encoder_config_.video_format);
-    }
-
-    encoder_->SetFecControllerOverride(fec_controller_override_);
-
-    codec_info_ = settings_.encoder_factory->QueryVideoEncoder(
-        encoder_config_.video_format);
-
-    encoder_reset_required = true;
-  }
 
   encoder_bitrate_limits_ =
       encoder_->GetEncoderInfo().GetEncoderBitrateLimitsForResolution(
@@ -753,7 +827,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   for (const auto& stream : streams) {
     max_framerate = std::max(stream.max_framerate, max_framerate);
   }
-  int alignment = encoder_->GetEncoderInfo().requested_resolution_alignment;
   if (max_framerate != video_source_sink_controller_.frame_rate_upper_limit() ||
       alignment != video_source_sink_controller_.resolution_alignment()) {
     video_source_sink_controller_.SetFrameRateUpperLimit(max_framerate);

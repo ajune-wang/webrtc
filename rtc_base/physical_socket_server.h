@@ -18,7 +18,7 @@
 
 #include <array>
 #include <memory>
-#include <set>
+#include <utility>
 #include <vector>
 
 #include "rtc_base/deprecated/recursive_critical_section.h"
@@ -46,6 +46,12 @@ class Signaler;
 
 class Dispatcher {
  public:
+  // This key is used to uniquely identify the dispatcher in order to avoid the
+  // ABA problem during the epoll loop (a dispatcher being destroyed and
+  // replaced by one with the same address). It also doubles as an index into
+  // the dispatcher set.
+  typedef uint64_t key_t;
+
   virtual ~Dispatcher() {}
   virtual uint32_t GetRequestedEvents() = 0;
   virtual void OnPreEvent(uint32_t ff) = 0;
@@ -58,6 +64,9 @@ class Dispatcher {
   virtual int GetDescriptor() = 0;
   virtual bool IsDescriptorClosed() = 0;
 #endif
+
+  // For internal use by PhysicalSocketServer and DispatcherInfoSet only.
+  key_t key_ = -1;
 };
 
 // A socket server that provides the real sockets of the underlying OS.
@@ -85,9 +94,43 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   // The number of events to process with one call to "epoll_wait".
   static constexpr size_t kNumEpollEvents = 128;
 
-  typedef std::set<Dispatcher*> DispatcherSet;
+  struct DispatcherInfo {
+    typedef Dispatcher::key_t key_t;
+    Dispatcher* dispatcher;
+    key_t key;
+  };
 
-  void AddRemovePendingDispatchers() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
+  class DispatcherInfoSet {
+   private:
+    typedef std::vector<DispatcherInfo> DispatcherInfoList;
+
+   public:
+    typedef DispatcherInfo::key_t key_t;
+    typedef DispatcherInfoList::size_type size_type;
+    typedef DispatcherInfoList::difference_type difference_type;
+    typedef DispatcherInfoList::iterator iterator;
+    typedef DispatcherInfoList::const_iterator const_iterator;
+    typedef DispatcherInfoList::pointer pointer;
+    typedef DispatcherInfoList::const_pointer const_pointer;
+    typedef DispatcherInfoList::reference reference;
+    typedef DispatcherInfoList::const_reference const_reference;
+
+   public:
+    iterator begin() noexcept { return infos_.begin(); }
+    iterator end() noexcept { return infos_.end(); }
+    const_iterator begin() const noexcept { return infos_.begin(); }
+    const_iterator end() const noexcept { return infos_.end(); }
+    bool empty() const noexcept { return infos_.empty(); }
+    key_t insert(Dispatcher* pdispatcher);
+    size_type erase(Dispatcher* pdispatcher);
+    Dispatcher* get_by_key(key_t key) const noexcept;
+    iterator find(Dispatcher* pdispatcher) noexcept;
+    const_iterator find(Dispatcher* pdispatcher) const noexcept;
+
+   private:
+    DispatcherInfoList infos_;
+    uint32_t last_id_ = 0u;
+  };
 
 #if defined(WEBRTC_POSIX)
   bool WaitSelect(int cms, bool process_io);
@@ -106,16 +149,23 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   std::array<epoll_event, kNumEpollEvents> epoll_events_;
   const int epoll_fd_ = INVALID_SOCKET;
 #endif  // WEBRTC_USE_EPOLL
-  DispatcherSet dispatchers_ RTC_GUARDED_BY(crit_);
-  DispatcherSet pending_add_dispatchers_ RTC_GUARDED_BY(crit_);
-  DispatcherSet pending_remove_dispatchers_ RTC_GUARDED_BY(crit_);
-  bool processing_dispatchers_ RTC_GUARDED_BY(crit_) = false;
+  DispatcherInfoSet dispatchers_ RTC_GUARDED_BY(crit_);
+  // A list of dispatcher keys that we're interested in for the current
+  // select() or WSAWaitForMultipleEvents() loop. Used to avoid the ABA problem
+  // (a socket being destroyed and a new one created with the same handle,
+  // erroneously receiving the events from the destroyed socket).
+  //
+  // Kept as a member variable just for efficiency.
+  std::vector<Dispatcher::key_t> current_dispatcher_keys_;
   Signaler* signal_wakeup_;  // Assigned in constructor only
   RecursiveCriticalSection crit_;
 #if defined(WEBRTC_WIN)
   const WSAEVENT socket_ev_;
 #endif
   bool fWait_;
+  // Are we currently in a select()/epoll()/WSAWaitForMultipleEvents loop?
+  // Used for a DCHECK, because we don't support reentrant waiting.
+  bool waiting_ = false;
 };
 
 class PhysicalSocket : public AsyncSocket, public sigslot::has_slots<> {

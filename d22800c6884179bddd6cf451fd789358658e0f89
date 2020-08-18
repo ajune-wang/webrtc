@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92cc2c3f_97b3a234",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-08-18T07:26:55Z",
+      "side": 1,
+      "message": "This looks good to me.\n\nPer do you want to take one last look?",
+      "revId": "d22800c6884179bddd6cf451fd789358658e0f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

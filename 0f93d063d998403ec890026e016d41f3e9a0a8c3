@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d4526ddb_9c08bd6d",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T17:11:03Z",
+      "side": 1,
+      "message": "I would like for the docs to either say what happens if I call it twice, or say that I\u0027m not allowed to. Allowing it, but not defining what happens, would make it impossible for users to call it in any sane way.\n\nIf you don\u0027t actually need to support multiple calls, the by far easiest way is to just forbid it until you need it.",
+      "parentUuid": "6d51181c_0fb204d8",
+      "revId": "0f93d063d998403ec890026e016d41f3e9a0a8c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d527d906_a95ef1ef",
         "filename": "api/voip/voip_dtmf.h",
         "patchSetId": 5

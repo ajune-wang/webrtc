@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f3ea7f4_c454993a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-08-18T07:38:40Z",
+      "side": 1,
+      "message": "Hi, PTAL at this reland. The only change is moving the overhead lock before calling the encoder.",
+      "revId": "03e5aafbaac3d03fb84e82a8e8e778e852039124",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

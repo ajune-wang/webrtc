@@ -16,6 +16,46 @@
       "revId": "0f93d063d998403ec890026e016d41f3e9a0a8c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca03415e_187be539",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T08:56:36Z",
+      "side": 1,
+      "message": "Am I allowed to call it more than once? And if so, what happens?",
+      "revId": "0f93d063d998403ec890026e016d41f3e9a0a8c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d527d906_a95ef1ef",
+        "filename": "api/voip/voip_dtmf.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T08:56:36Z",
+      "side": 1,
+      "message": "The same thing but with fewer words, if you like: \"Returns true if the requested DTMF event is successfully scheduled.\"\n\nPlease document under what circumstances the function may fail. APIs where functions may fail arbitrarily for undocumented reasons are a pain to use, and may cause callers to employ ill-advised retry heuristics.",
+      "range": {
+        "startLine": 54,
+        "startChar": 5,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "0f93d063d998403ec890026e016d41f3e9a0a8c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

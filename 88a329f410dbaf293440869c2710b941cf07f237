@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "ab610391_3cb3317d",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T08:56:36Z",
+      "side": 1,
+      "message": "Sorry, I meant that it isn\u0027t mentioned in the docs for SendDtmfEvent. The comment here wasn\u0027t at fault.",
+      "parentUuid": "53c5955f_6098a94f",
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e47e60b_99f38c81",
         "filename": "audio/voip/test/voip_core_unittest.cc",
         "patchSetId": 4
@@ -186,6 +204,24 @@
       "revId": "88a329f410dbaf293440869c2710b941cf07f237",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f219bab_3dd12da0",
+        "filename": "audio/voip/test/voip_core_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T08:56:36Z",
+      "side": 1,
+      "message": "Sorry, I meant that it isn\u0027t mentioned in the docs for SendDtmfEvent. The comment here wasn\u0027t at fault.",
+      "parentUuid": "4fcc4571_83428148",
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -224,6 +260,30 @@
       "side": 1,
       "message": "Will separate into a separate CL.",
       "parentUuid": "6180d28e_dc17f095",
+      "range": {
+        "startLine": 74,
+        "startChar": 32,
+        "endLine": 74,
+        "endChar": 42
+      },
+      "revId": "88a329f410dbaf293440869c2710b941cf07f237",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "883fcc91_12e2dab6",
+        "filename": "audio/voip/voip_core.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T08:56:36Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "dc6a91a7_819766da",
       "range": {
         "startLine": 74,
         "startChar": 32,

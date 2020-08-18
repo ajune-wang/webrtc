@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e860df7_dcdbcf15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-08-18T15:09:25Z",
+      "side": 1,
+      "message": "Hi Jakob, PTAL at this fix for the NetEq simulator.",
+      "revId": "a589aa7054bf9a2a43a88f488a6c59c6c7e3b02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0bf5eafd_f8aec470",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T10:39:55Z",
+      "side": 1,
+      "message": "This is rather complex (which is costly in terms of dev time, review time, time it takes whenever someone needs to read this code, expected number of bugs, etc.). Would it work to simply use a map (either std::map or absl::flat_hash_map) with uint64_t keys, where keys are simply 0, 1, 2, 3, ...?",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da601dae_7b3b1798",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T10:39:55Z",
+      "side": 1,
+      "message": "Either check that the old value was false (in the constructor) or reset to the old value regardless of whether it was true or false (in the destructor)?",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "015e1590_630841b4",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T10:39:55Z",
+      "side": 1,
+      "message": "If a standard map can\u0027t be used (see my other comment) and the proposed solution is necessary, I would like a cleaner construction of the key type. Something along the lines of\n\n  struct Key {\n    uint32_t id;\n    uint32_t index;\n  };\n\n  uint64_t ToUint64(Key k) {\n    return k.id \u003c\u003c 32 | k.index;\n  }\n\n  optional\u003cKey\u003e FromUint64(uint64_t n) {\n    if (n \u003d\u003d -1) return absl::nullopt;\n    return {n \u003e\u003e 32, static_cast\u003cuint32_t\u003e(n)};\n  }\n\nwith Key used throughout except when you need to store it in the .u64 member.\n\nAnd with better names, obviously...",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84b9bb24_357492f7",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T10:39:55Z",
+      "side": 1,
+      "message": "There\u0027s no reason to use `typedef` in new code; `using` is easier to read.",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6542f5ed_ff4fab4f",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T10:39:55Z",
+      "side": 1,
+      "message": "You\u0027re adding a mutable data member to an interface. Please avoid this if at all possible.",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4db4fea9_01ff0a5d",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-18T10:39:55Z",
+      "side": 1,
+      "message": "Are all of these really needed?",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

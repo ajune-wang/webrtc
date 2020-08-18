@@ -73,6 +73,7 @@ class RtpDataMediaChannel : public DataMediaChannel {
   virtual bool AddRecvStream(const StreamParams& sp);
   virtual bool RemoveRecvStream(uint32_t ssrc);
   virtual void ResetUnsignaledRecvStream();
+  virtual bool MaybeDeregisterUnsignaledRecvStream(uint32_t);
   virtual bool SetSend(bool send) {
     sending_ = send;
     return true;

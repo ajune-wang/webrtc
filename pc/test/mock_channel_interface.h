@@ -46,6 +46,10 @@ class MockChannelInterface : public cricket::ChannelInterface {
                webrtc::SdpType,
                std::string*),
               (override));
+  MOCK_METHOD(bool,
+              MaybeDeregisterUnsignaledRecvStream,
+              (uint32_t),
+              (override));
   MOCK_METHOD(const std::vector<StreamParams>&,
               local_streams,
               (),

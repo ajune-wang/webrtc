@@ -30,7 +30,17 @@ class SignalingRoute {
 
   void StartIceSignaling();
 
+  // The |modify_offer| callback is used to modify an offer after the local
+  // description has been set. This is legal (but odd) behavior.
+  // The |munge_offer| callback is used to modify an offer between its creation
+  // and set local description. This behavior is forbidden according to the spec
+  // but available here in order to allow test coverage on corner cases.
   // TODO(srte): Handle lossy links.
+  void NegotiateSdp(
+      std::function<void(SessionDescriptionInterface* offer)> munge_offer,
+      std::function<void(SessionDescriptionInterface* offer)> modify_offer,
+      std::function<void(const SessionDescriptionInterface& answer)>
+          exchange_finished);
   void NegotiateSdp(
       std::function<void(SessionDescriptionInterface* offer)> modify_offer,
       std::function<void(const SessionDescriptionInterface& answer)>

@@ -196,6 +196,9 @@ bool RtpDataMediaChannel::RemoveRecvStream(uint32_t ssrc) {
 
 // Not implemented.
 void RtpDataMediaChannel::ResetUnsignaledRecvStream() {}
+bool RtpDataMediaChannel::MaybeDeregisterUnsignaledRecvStream(uint32_t) {
+  return false;
+}
 
 void RtpDataMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
                                            int64_t /* packet_time_us */) {

@@ -5893,6 +5893,35 @@ RTCError PeerConnection::PushdownMediaDescription(
                                    : remote_description());
   RTC_DCHECK(sdesc);
 
+  // Delete any created default streams. This is needed to avoid SSRC collisions
+  // in Call's RtpDemuxer, in the case that a transceiver has created a default
+  // stream, and then some other channel gets the SSRC signaled in the
+  // corresponding Unified Plan "m=" section.
+  std::set<uint32_t> receive_ssrcs;
+  for (auto& content_info : sdesc->description()->contents()) {
+    switch (content_info.media_description()->direction()) {
+      case RtpTransceiverDirection::kRecvOnly:
+      case RtpTransceiverDirection::kSendRecv:
+        for (auto& stream : content_info.media_description()->streams()) {
+          for (uint32_t ssrc : stream.ssrcs) {
+            receive_ssrcs.insert(ssrc);
+          }
+        }
+        break;
+      default:
+        continue;
+    }
+  }
+  for (uint32_t ssrc : receive_ssrcs) {
+    for (const auto& transceiver : transceivers_) {
+      cricket::ChannelInterface* channel = transceiver->internal()->channel();
+      if (channel && channel->MaybeDeregisterUnsignaledRecvStream(ssrc)) {
+        // Default stream removed, continue to next SSRC.
+        break;
+      }
+    }
+  }
+
   // Push down the new SDP media section for each audio/video transceiver.
   for (const auto& transceiver : transceivers_) {
     const ContentInfo* content_info =

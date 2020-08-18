@@ -6228,7 +6228,8 @@ TEST_F(WebRtcVideoChannelTest, RecvUnsignaledSsrcWithSignaledStreamId) {
 
   // Reset the unsignaled stream to clear the cache. This time when
   // a default video receive stream is created it won't have a sync_group.
-  channel_->ResetUnsignaledRecvStream();
+  EXPECT_TRUE(
+      channel_->MaybeDeregisterUnsignaledRecvStream(kIncomingUnsignalledSsrc));
   EXPECT_EQ(0u, fake_call_->GetVideoReceiveStreams().size());
 
   channel_->OnPacketReceived(packet, /* packet_time_us */ -1);
@@ -6257,8 +6258,10 @@ TEST_F(WebRtcVideoChannelTest,
             kIncomingUnsignalledSsrc);
 
   // Stream with another SSRC gets signaled.
-  channel_->ResetUnsignaledRecvStream();
   constexpr uint32_t kIncomingSignalledSsrc = kIncomingUnsignalledSsrc + 1;
+  EXPECT_TRUE(
+      channel_->MaybeDeregisterUnsignaledRecvStream(kIncomingUnsignalledSsrc));
+
   ASSERT_TRUE(channel_->AddRecvStream(
       cricket::StreamParams::CreateLegacy(kIncomingSignalledSsrc)));
 

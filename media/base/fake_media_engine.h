@@ -336,6 +336,9 @@ class FakeVoiceMediaChannel : public RtpHelper<VoiceMediaChannel> {
 
   bool AddRecvStream(const StreamParams& sp) override;
   bool RemoveRecvStream(uint32_t ssrc) override;
+  bool MaybeDeregisterUnsignaledRecvStream(uint32_t ssrc) override {
+    return false;
+  }
 
   bool CanInsertDtmf() override;
   bool InsertDtmf(uint32_t ssrc, int event_code, int duration) override;
@@ -419,6 +422,9 @@ class FakeVideoMediaChannel : public RtpHelper<VideoMediaChannel> {
   bool SetRecvParameters(const VideoRecvParameters& params) override;
   bool AddSendStream(const StreamParams& sp) override;
   bool RemoveSendStream(uint32_t ssrc) override;
+  bool MaybeDeregisterUnsignaledRecvStream(uint32_t ssrc) override {
+    return false;
+  }
 
   bool GetSendCodec(VideoCodec* send_codec) override;
   bool SetSink(uint32_t ssrc,
@@ -488,6 +494,9 @@ class FakeDataMediaChannel : public RtpHelper<DataMediaChannel> {
   bool SetReceive(bool receive) override;
   bool AddRecvStream(const StreamParams& sp) override;
   bool RemoveRecvStream(uint32_t ssrc) override;
+  bool MaybeDeregisterUnsignaledRecvStream(uint32_t ssrc) override {
+    return false;
+  }
 
   bool SendData(const SendDataParams& params,
                 const rtc::CopyOnWriteBuffer& payload,

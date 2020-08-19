@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48c64242_4dfb845c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-19T14:42:42Z",
+      "side": 1,
+      "message": "+hta, the question is being raised again, why are we even supporting unsignaled default streams? Can we remove that instead?",
+      "revId": "db9c04e38d6c3c662c6b56512ecd5a051e00e41b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

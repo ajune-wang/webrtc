@@ -90,6 +90,30 @@
     },
     {
       "key": {
+        "uuid": "7b16f411_35f174b6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5941,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-19T13:52:25Z",
+      "side": 1,
+      "message": "Not as far as I can tell. A transceiver can in fact contain both a signaled and an unsignaled stream at the same time... If it\u0027s thread jumps you\u0027re worried about we could do the iteration over transceivers in a lambda we post to the worker thread?",
+      "parentUuid": "d6a100af_4702379f",
+      "range": {
+        "startLine": 5941,
+        "startChar": 34,
+        "endLine": 5941,
+        "endChar": 50
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1471c09a_c6cdc151",
         "filename": "test/peer_scenario/signaling_route.h",
         "patchSetId": 3
@@ -110,6 +134,30 @@
       "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "251bffee_e6c5ff18",
+        "filename": "test/peer_scenario/signaling_route.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-19T13:52:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1471c09a_c6cdc151",
+      "range": {
+        "startLine": 37,
+        "startChar": 72,
+        "endLine": 38,
+        "endChar": 2
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -136,6 +184,30 @@
     },
     {
       "key": {
+        "uuid": "b6f91623_3e85e902",
+        "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-19T13:52:25Z",
+      "side": 1,
+      "message": "It\u0027s per track. I have two video tracks in this test. Updated the name.",
+      "parentUuid": "c75ac07e_c7a025b9",
+      "range": {
+        "startLine": 35,
+        "startChar": 61,
+        "endLine": 35,
+        "endChar": 66
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe602b1a_a541ac30",
         "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
         "patchSetId": 3
@@ -156,6 +228,30 @@
       "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bca6fef9_4cb91d88",
+        "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-19T13:52:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe602b1a_a541ac30",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -182,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "4866abd9_18a99ee6",
+        "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-19T13:52:25Z",
+      "side": 1,
+      "message": "If the stream that arrives is missing the first packets, then yes webrtc will need to detect that and request a keyframe. The problem is outside the scope of what we\u0027re testing here.\n\nAll we want to do here is verify that if default stream exists for ssrc X, and a new track is added that actually signals the use of ssrc X - then we want to remove the default stream regardless of which transceiver is has been created in.",
+      "parentUuid": "e21737ed_432f7a29",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 62,
+        "endChar": 26
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d74a9a21_417332ea",
         "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
         "patchSetId": 3
@@ -202,6 +322,30 @@
       "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9a144e_8c6c2178",
+        "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-19T13:52:25Z",
+      "side": 1,
+      "message": "We only want to simulate a stray media packet arriving too early. The second video track we add below will then continue to produce packets for this ssrc.",
+      "parentUuid": "d74a9a21_417332ea",
+      "range": {
+        "startLine": 115,
+        "startChar": 17,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

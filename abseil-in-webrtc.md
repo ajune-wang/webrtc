@@ -26,6 +26,7 @@ adds the first use.
 * `absl/base/const_init.h` for mutex initialization.
 * The macros in `absl/base/attributes.h`, `absl/base/config.h` and
   `absl/base/macros.h`.
+* `absl::flat_hash_map`
 
 
 ## **Disallowed**

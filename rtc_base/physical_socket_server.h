@@ -18,9 +18,10 @@
 
 #include <array>
 #include <memory>
-#include <set>
 #include <vector>
 
+#include "absl/container/flat_hash_map.h"
+#include "absl/types/optional.h"
 #include "rtc_base/deprecated/recursive_critical_section.h"
 #include "rtc_base/net_helpers.h"
 #include "rtc_base/socket_server.h"
@@ -46,6 +47,11 @@ class Signaler;
 
 class Dispatcher {
  public:
+  // This key is used to uniquely identify the dispatcher in order to avoid the
+  // ABA problem during the epoll loop (a dispatcher being destroyed and
+  // replaced by one with the same address).
+  typedef uint64_t key_t;
+
   virtual ~Dispatcher() {}
   virtual uint32_t GetRequestedEvents() = 0;
   virtual void OnPreEvent(uint32_t ff) = 0;
@@ -58,6 +64,9 @@ class Dispatcher {
   virtual int GetDescriptor() = 0;
   virtual bool IsDescriptorClosed() = 0;
 #endif
+
+  // For internal use by PhysicalSocketServer only.
+  absl::optional<key_t> key_;
 };
 
 // A socket server that provides the real sockets of the underlying OS.
@@ -85,10 +94,6 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   // The number of events to process with one call to "epoll_wait".
   static constexpr size_t kNumEpollEvents = 128;
 
-  typedef std::set<Dispatcher*> DispatcherSet;
-
-  void AddRemovePendingDispatchers() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
-
 #if defined(WEBRTC_POSIX)
   bool WaitSelect(int cms, bool process_io);
 #endif  // WEBRTC_POSIX
@@ -106,16 +111,26 @@ class RTC_EXPORT PhysicalSocketServer : public SocketServer {
   std::array<epoll_event, kNumEpollEvents> epoll_events_;
   const int epoll_fd_ = INVALID_SOCKET;
 #endif  // WEBRTC_USE_EPOLL
-  DispatcherSet dispatchers_ RTC_GUARDED_BY(crit_);
-  DispatcherSet pending_add_dispatchers_ RTC_GUARDED_BY(crit_);
-  DispatcherSet pending_remove_dispatchers_ RTC_GUARDED_BY(crit_);
-  bool processing_dispatchers_ RTC_GUARDED_BY(crit_) = false;
+  // Used to avoid ABA problem; see comment above Dispatcher::key_t.
+  Dispatcher::key_t last_dispatcher_key_ = -1;
+  absl::flat_hash_map<Dispatcher::key_t, Dispatcher*> dispatchers_
+      RTC_GUARDED_BY(crit_);
+  // A list of dispatcher keys that we're interested in for the current
+  // select() or WSAWaitForMultipleEvents() loop. Used to avoid the ABA problem
+  // (a socket being destroyed and a new one created with the same handle,
+  // erroneously receiving the events from the destroyed socket).
+  //
+  // Kept as a member variable just for efficiency.
+  std::vector<Dispatcher::key_t> current_dispatcher_keys_;
   Signaler* signal_wakeup_;  // Assigned in constructor only
   RecursiveCriticalSection crit_;
 #if defined(WEBRTC_WIN)
   const WSAEVENT socket_ev_;
 #endif
   bool fWait_;
+  // Are we currently in a select()/epoll()/WSAWaitForMultipleEvents loop?
+  // Used for a DCHECK, because we don't support reentrant waiting.
+  bool waiting_ = false;
 };
 
 class PhysicalSocket : public AsyncSocket, public sigslot::has_slots<> {

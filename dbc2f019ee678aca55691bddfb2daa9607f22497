@@ -16,6 +16,29 @@
       "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92e25d05_9f5eeebd",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5941,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-19T08:40:26Z",
+      "side": 1,
+      "message": "I think it would make more sense if the above is done inside channel-\u003eSetRemoteContent.",
+      "range": {
+        "startLine": 5941,
+        "startChar": 34,
+        "endLine": 5941,
+        "endChar": 50
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

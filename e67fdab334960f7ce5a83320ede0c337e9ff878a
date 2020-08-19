@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b3ef8ff5_b6e1db70",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-19T00:15:04Z",
+      "side": 1,
+      "message": "I can\u0027t think of any reason why that wouldn\u0027t work. May use more memory on average but worth it in terms of simplicity.",
+      "parentUuid": "0bf5eafd_f8aec470",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da601dae_7b3b1798",
         "filename": "rtc_base/physical_socket_server.cc",
         "patchSetId": 18
@@ -33,6 +51,24 @@
       "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64dc6ea4_63434589",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-19T00:15:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "da601dae_7b3b1798",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4ac642af_854db2c5",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-19T00:15:04Z",
+      "side": 1,
+      "message": "N/A with latest patchset.",
+      "parentUuid": "015e1590_630841b4",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84b9bb24_357492f7",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 18
@@ -67,6 +121,24 @@
       "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0d0d34_4950a49b",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-19T00:15:04Z",
+      "side": 1,
+      "message": "N/A with latest patchset.",
+      "parentUuid": "84b9bb24_357492f7",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "e2488441_40d2a009",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-19T00:15:04Z",
+      "side": 1,
+      "message": "I didn\u0027t like it either, but we need a way to get the key for calls to Remove. Have any suggestions? Do you just want a virtual getter/setter?",
+      "parentUuid": "6542f5ed_ff4fab4f",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4db4fea9_01ff0a5d",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 18
@@ -101,6 +191,24 @@
       "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ba5ff82_74764498",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-19T00:15:04Z",
+      "side": 1,
+      "message": "N/A with latest patchset.",
+      "parentUuid": "4db4fea9_01ff0a5d",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

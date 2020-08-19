@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "469e2de4_f8a37df7",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-19T00:15:04Z",
+      "side": 1,
+      "message": "I\u0027m handling the key stuff in Add/Remove instead of in a custom structure, is that acceptable?",
+      "revId": "c53f4b133a9d110f1d5b7937e868849f59435d42",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

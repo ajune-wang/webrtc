@@ -195,6 +195,30 @@
     },
     {
       "key": {
+        "uuid": "f543a470_caaf5d5c",
+        "filename": "common_audio/fir_filter_avx2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-08-19T07:24:03Z",
+      "side": 1,
+      "message": "Ah, you are correct. Thanks!",
+      "parentUuid": "2ea42d5a_6cc2aba6",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 53
+      },
+      "revId": "d22800c6884179bddd6cf451fd789358658e0f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d74f4af_d531bfbc",
         "filename": "common_audio/fir_filter_avx2.h",
         "patchSetId": 8

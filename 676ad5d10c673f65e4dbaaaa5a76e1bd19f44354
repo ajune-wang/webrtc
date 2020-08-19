@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0ec0ef9_01a19a3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-19T08:16:43Z",
+      "side": 1,
+      "message": "Can we delete this without sending out a PSA?",
+      "revId": "676ad5d10c673f65e4dbaaaa5a76e1bd19f44354",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

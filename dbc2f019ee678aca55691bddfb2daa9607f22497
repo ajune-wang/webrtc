@@ -39,6 +39,30 @@
       "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd649e92_25495536",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5941,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-19T09:12:35Z",
+      "side": 1,
+      "message": "I don\u0027t see how we can do that easily. The problem we\u0027re trying to solve here is when another transceiver A is already using SSRC X for a an unsignaled stream and then we update the remote description for transceiver B to actually start using SSRC X for a signaled stream. The RtpDemuxer will then fail to handle the signaled stream.\n\nRemoving the unsignaled ssrc from A would then mean we need to call back up from that SetRemoteContent to somewhere that can find the correct transceiver. Seems more convoluted?",
+      "parentUuid": "92e25d05_9f5eeebd",
+      "range": {
+        "startLine": 5941,
+        "startChar": 34,
+        "endLine": 5941,
+        "endChar": 50
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

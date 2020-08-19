@@ -63,6 +63,145 @@
       "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6a100af_4702379f",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5941,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-19T11:48:35Z",
+      "side": 1,
+      "message": "I see. But is there no identifier of a \"default stream\" or transceiver? Do we have to call MaybeDeregisterUnsignaledRecvStream on every transeiver, since that cause  thread hop?",
+      "parentUuid": "dd649e92_25495536",
+      "range": {
+        "startLine": 5941,
+        "startChar": 34,
+        "endLine": 5941,
+        "endChar": 50
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1471c09a_c6cdc151",
+        "filename": "test/peer_scenario/signaling_route.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-19T11:48:35Z",
+      "side": 1,
+      "message": "Would you mind to also document exchange_finished?",
+      "range": {
+        "startLine": 37,
+        "startChar": 72,
+        "endLine": 38,
+        "endChar": 2
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c75ac07e_c7a025b9",
+        "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-19T11:48:35Z",
+      "side": 1,
+      "message": "index? what does it mean here? Seems to mean audio or video ? Use FirstContentByType instead? Do you need index at all?",
+      "range": {
+        "startLine": 35,
+        "startChar": 61,
+        "endLine": 35,
+        "endChar": 66
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe602b1a_a541ac30",
+        "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-19T11:48:35Z",
+      "side": 1,
+      "message": "why mutable? Should not need a mutable stream?",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21737ed_432f7a29",
+        "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-19T11:48:35Z",
+      "side": 1,
+      "message": "Wouldnt it make more sense if this \"default\" transciever and sink was reconfigured? Ie, doesnt recreating the stream require a new keyframe etc?",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 62,
+        "endChar": 26
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d74a9a21_417332ea",
+        "filename": "test/peer_scenario/tests/unsignaled_stream_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-19T11:48:35Z",
+      "side": 1,
+      "message": "shouldnt you continue to modify the ssrc forever? Why  !got_unsignaled_packet?",
+      "range": {
+        "startLine": 115,
+        "startChar": 17,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "dbc2f019ee678aca55691bddfb2daa9607f22497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

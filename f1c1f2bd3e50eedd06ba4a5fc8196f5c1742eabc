@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec3208bf_061abd93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-08-20T15:12:12Z",
+      "side": 1,
+      "message": "Thanks for the added comment!\nlgtm for this CL, but this lock-construct seems error-prone and should be addressed.",
+      "revId": "f1c1f2bd3e50eedd06ba4a5fc8196f5c1742eabc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

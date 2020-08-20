@@ -33,6 +33,23 @@
       "revId": "03e5aafbaac3d03fb84e82a8e8e778e852039124",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea015d46_906efc9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-08-20T13:02:04Z",
+      "side": 1,
+      "message": "Thanks for the CL\nSince the code (at least the code with the CL) is deadlock prone I think the CL must include comments in the code as to why the construct is safe and what the requirements are for the code to avoid deadlocks.\n\nAs it is now, it is very hard for me as a reviewer to see that the lock-situation in the code is ok. That also holds true for the ability of any reader to understand the lock-situation and for future changes in the lock-situation to avoid causing the same issue.",
+      "revId": "03e5aafbaac3d03fb84e82a8e8e778e852039124",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

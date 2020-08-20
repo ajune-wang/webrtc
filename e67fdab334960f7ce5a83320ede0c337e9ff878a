@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "cfb8029b_a31d21ed",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 13594
+      },
+      "writtenOn": "2020-08-20T14:23:37Z",
+      "side": 1,
+      "message": "Having the key a member of dispatcher is important to maintain constant-time lookup in DispatcherInfoSet.",
+      "parentUuid": "df5cff1e_3f00688a",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4db4fea9_01ff0a5d",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 18

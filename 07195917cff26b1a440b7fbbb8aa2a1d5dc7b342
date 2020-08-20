@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb2b9a77_045cf880",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-20T07:24:20Z",
+      "side": 1,
+      "message": "Thanks! And sorry for the delays...",
+      "revId": "07195917cff26b1a440b7fbbb8aa2a1d5dc7b342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

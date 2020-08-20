@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6bc454c_3d4e5205",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-20T23:45:33Z",
+      "side": 1,
+      "message": "Yep, speech to text mistake",
+      "parentUuid": "d59bb58d_c52cf4a7",
+      "range": {
+        "startLine": 21,
+        "startChar": 27,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "69bde56b660c98a1fc1cf1fdf404f72e3505da7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1b99ae6_3797b866",
         "filename": "rtc_base/physical_socket_server.cc",
         "patchSetId": 21
@@ -45,6 +69,30 @@
       "revId": "69bde56b660c98a1fc1cf1fdf404f72e3505da7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bdd14e6_cef28136",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-20T23:45:33Z",
+      "side": 1,
+      "message": "Well, the ABA bug would at least be astronomically unlikely. But you\u0027re right, this was pointless, just force of habit.",
+      "parentUuid": "f1b99ae6_3797b866",
+      "range": {
+        "startLine": 1121,
+        "startChar": 4,
+        "endLine": 1123,
+        "endChar": 55
+      },
+      "revId": "69bde56b660c98a1fc1cf1fdf404f72e3505da7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "774bd54e_540a876d",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-20T23:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "185f4302_b4dadd19",
+      "range": {
+        "startLine": 1289,
+        "startChar": 43,
+        "endLine": 1289,
+        "endChar": 53
+      },
+      "revId": "69bde56b660c98a1fc1cf1fdf404f72e3505da7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ab92f3c_3d340a6d",
         "filename": "rtc_base/physical_socket_server.cc",
         "patchSetId": 21
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4688e3da_c68fe45a",
+        "filename": "rtc_base/physical_socket_server.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 1329,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-20T23:45:33Z",
+      "side": 1,
+      "message": "By \"handle\" I meant file descriptor, I\u0027ll make that more clear.",
+      "parentUuid": "3ab92f3c_3d340a6d",
+      "range": {
+        "startLine": 1327,
+        "startChar": 9,
+        "endLine": 1329,
+        "endChar": 63
+      },
+      "revId": "69bde56b660c98a1fc1cf1fdf404f72e3505da7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2eba3ead_59ce8729",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 21
@@ -108,6 +204,24 @@
       "revId": "69bde56b660c98a1fc1cf1fdf404f72e3505da7a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70b1574d_189b275d",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-20T23:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eba3ead_59ce8729",
+      "revId": "69bde56b660c98a1fc1cf1fdf404f72e3505da7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1ff2d4c_43843c0f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-20T23:45:33Z",
+      "side": 1,
+      "message": "All comments should be addressed. Most notable changes are the introduction of a reverse lookup map, and switching from flat_hash_map to unordered_map, due to a compilation issue (which I filed a bug for)",
+      "revId": "b7ed954d9c287f8b2a5e33374482f421d91b0385",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

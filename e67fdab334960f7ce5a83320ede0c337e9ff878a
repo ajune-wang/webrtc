@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "e5933c0b_ef179fcf",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-20T23:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87a6c295_4a987269",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6542f5ed_ff4fab4f",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 18
@@ -246,6 +264,24 @@
       "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d1a6ed_f7099b84",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-20T23:45:33Z",
+      "side": 1,
+      "message": "Given that both are O(1) I think it\u0027s fine; better than O(log n) of std::set. The update does happen in UpdateEpoll though, which happens for each socket event.",
+      "parentUuid": "8b9db9f2_ccd52f7f",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

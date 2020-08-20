@@ -231,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "8b9db9f2_ccd52f7f",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-20T15:08:04Z",
+      "side": 1,
+      "message": "Looking up the ID in a flat_hash_map doesn\u0027t take long, though obviously longer than just loading it from a data member. Do we do the Dispatcher* -\u003e ID lookup often enough for this to matter?",
+      "parentUuid": "cfb8029b_a31d21ed",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4db4fea9_01ff0a5d",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 18

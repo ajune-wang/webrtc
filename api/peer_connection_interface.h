@@ -124,6 +124,10 @@ namespace rtc {
 class Thread;
 }  // namespace rtc
 
+namespace cricket {
+class SctpTransportInternalFactory;
+}
+
 namespace webrtc {
 
 // MediaStream container interface.
@@ -1311,6 +1315,7 @@ struct RTC_EXPORT PeerConnectionFactoryDependencies final {
       network_state_predictor_factory;
   std::unique_ptr<NetworkControllerFactoryInterface> network_controller_factory;
   std::unique_ptr<NetEqFactory> neteq_factory;
+  std::unique_ptr<cricket::SctpTransportInternalFactory> sctp_factory;
   std::unique_ptr<WebRtcKeyValueConfig> trials;
 };
 

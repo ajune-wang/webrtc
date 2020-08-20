@@ -45,11 +45,12 @@
 #ifdef WEBRTC_ANDROID
 #include "pc/test/android_test_initializer.h"
 #endif
-#include "pc/test/fake_sctp_transport.h"
 #include "rtc_base/virtual_socket_server.h"
+#include "test/pc/sctp/fake_sctp_transport.h"
 
 namespace webrtc {
 
+using cricket::FakeSctpTransportFactory;
 using RTCConfiguration = PeerConnectionInterface::RTCConfiguration;
 using RTCOfferAnswerOptions = PeerConnectionInterface::RTCOfferAnswerOptions;
 using ::testing::HasSubstr;

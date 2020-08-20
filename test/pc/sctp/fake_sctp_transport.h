@@ -8,18 +8,22 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_TEST_FAKE_SCTP_TRANSPORT_H_
-#define PC_TEST_FAKE_SCTP_TRANSPORT_H_
+#ifndef TEST_PC_SCTP_FAKE_SCTP_TRANSPORT_H_
+#define TEST_PC_SCTP_FAKE_SCTP_TRANSPORT_H_
 
 #include <memory>
 
 #include "media/sctp/sctp_transport_internal.h"
 
+namespace cricket {
 // Used for tests in this file to verify that PeerConnection responds to signals
 // from the SctpTransport correctly, and calls Start with the correct
 // local/remote ports.
 class FakeSctpTransport : public cricket::SctpTransportInternal {
  public:
+  FakeSctpTransport() = default;
+  ~FakeSctpTransport() = default;
+
   void SetDtlsTransport(rtc::PacketTransportInternal* transport) override {}
   bool Start(int local_port, int remote_port, int max_message_size) override {
     local_port_.emplace(local_port);
@@ -66,4 +70,6 @@ class FakeSctpTransportFactory : public cricket::SctpTransportInternalFactory {
   FakeSctpTransport* last_fake_sctp_transport_ = nullptr;
 };
 
-#endif  // PC_TEST_FAKE_SCTP_TRANSPORT_H_
+}  // namespace cricket
+
+#endif  // TEST_PC_SCTP_FAKE_SCTP_TRANSPORT_H_

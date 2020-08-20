@@ -20,6 +20,7 @@
 #include "api/task_queue/default_task_queue_factory.h"
 #include "media/base/media_engine.h"
 #include "media/engine/webrtc_media_engine.h"
+#include "media/sctp/sctp_transport.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/thread.h"
@@ -61,6 +62,10 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
   media_dependencies.video_decoder_factory = std::move(video_decoder_factory);
   dependencies.media_engine =
       cricket::CreateMediaEngine(std::move(media_dependencies));
+#ifdef HAVE_SCTP
+  dependencies.sctp_factory =
+      std::make_unique<cricket::SctpTransportFactory>(network_thread);
+#endif
 
   return CreateModularPeerConnectionFactory(std::move(dependencies));
 }

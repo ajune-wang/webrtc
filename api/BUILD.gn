@@ -199,6 +199,7 @@ rtc_library("libjingle_peerconnection_api") {
     "..:webrtc_common",
     "../media:rtc_media_base",
     "../media:rtc_media_config",
+   # "../media:rtc_data", Causes build breakage since rtc_data deps on ice_logging
     "../modules/audio_processing:audio_processing_statistics",
     "../rtc_base",
     "../rtc_base:checks",

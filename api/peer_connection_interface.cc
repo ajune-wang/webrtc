@@ -12,6 +12,7 @@
 
 #include "api/dtls_transport_interface.h"
 #include "api/sctp_transport_interface.h"
+#include "media/sctp/sctp_transport_internal.h"
 
 namespace webrtc {
 

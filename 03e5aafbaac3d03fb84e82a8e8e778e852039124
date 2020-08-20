@@ -50,6 +50,24 @@
       "revId": "03e5aafbaac3d03fb84e82a8e8e778e852039124",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f91cdaa8_0710490c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-08-20T14:53:28Z",
+      "side": 1,
+      "message": "Added a comment where my newly added code is. However, this still doesn\u0027t make it clear at the other places where this lock is used (which is spread out in multiple places unfortunately). I would like to improve that situation but might do it in a later cl if that is OK with you?",
+      "parentUuid": "ea015d46_906efc9b",
+      "revId": "03e5aafbaac3d03fb84e82a8e8e778e852039124",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

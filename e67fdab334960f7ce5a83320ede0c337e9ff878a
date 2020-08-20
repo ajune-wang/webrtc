@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "87a6c295_4a987269",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-20T13:15:33Z",
+      "side": 1,
+      "message": "No, it\u0027s still there AFAICT. But with the key being a plain int64_t, the key_t alias is probably unnecessary and can be removed.",
+      "parentUuid": "9b0d0d34_4950a49b",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6542f5ed_ff4fab4f",
         "filename": "rtc_base/physical_socket_server.h",
         "patchSetId": 18
@@ -171,6 +189,24 @@
       "side": 1,
       "message": "I didn\u0027t like it either, but we need a way to get the key for calls to Remove. Have any suggestions? Do you just want a virtual getter/setter?",
       "parentUuid": "6542f5ed_ff4fab4f",
+      "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df5cff1e_3f00688a",
+        "filename": "rtc_base/physical_socket_server.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-20T13:15:33Z",
+      "side": 1,
+      "message": "Yes, it adds an annoying amount of boilerplate, but having data members in an interface is much worse. You could also solve the issue by storing the address -\u003e key mapping in a separate table (IOW, maintain both an ID -\u003e Dispatcher* table and a Dispatcher* -\u003e ID table).\n\nThe more I think about it, the more I prefer the double map solution. It avoids the virtual getter+setter, and it avoids the Dispatcher having to know the ID assigned to it, which is really a property of the container, not the Dispatcher.",
+      "parentUuid": "e2488441_40d2a009",
       "revId": "e67fdab334960f7ce5a83320ede0c337e9ff878a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "54655a2b_b3833f01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-21T15:22:16Z",
+      "side": 1,
+      "message": "Testing is complex since the peer connection classes don\u0027t really support the RTP behavior that triggers the conflict.\n\nIn the test I added here, we first complete a negotiation with only a single track (m\u003d section).\nI then simulate adding a second track, but inject an early media packet which triggers a default receive stream to be added to the first Channel.\nI don\u0027t know this code well, but it seems that the SetRemoteDescription() does not remove the default stream. The SDP for that Channel is not changed?\nThen, the second Channel is added and here the RtpDemuxer refuses to add the sink since it would result in a conflict.\nWe\u0027re not relying on thread-level raciness, it\u0027s sufficient that the media packet arrives before renegotation starts, which seems to be fairly easy to trigger.\n\nAs a side note, both default stream and the new signaled one will be registered with an SSRC here, because that can be parsed from the default RTP header. It will then conflict with the other sink which also uses this ssrc, but also adds mids etc.\n\nReading your comments I think my fix still has a race, a packet could potentially arrive in between calling MaybeDeregister.. and SetRemoteDescription(), re-adding a default stream. This should however be far less likely to happen the the packet/signaling race I describe above.\n\nMaybe addressing that could be a follow-up.\n\nI also don\u0027t fully understand the comment that we can remove all default streams if we add a new signaled one. In which cases are default-stream not allowed to exist according the spec?",
+      "parentUuid": "9e942b90_93a5dc4c",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80249c12_dd3821f5",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5
@@ -51,6 +69,24 @@
       "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81099eb2_8f6e7732",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5899,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-21T15:22:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80249c12_dd3821f5",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

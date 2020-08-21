@@ -16,6 +16,24 @@
       "revId": "1126a186f6fd422b2872e5fb38a6dfe826e522d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa6b279f_84db8cb2",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1504,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-21T15:22:16Z",
+      "side": 0,
+      "message": "It\u0027s redundant now since we call MaybeDeregisterUnsignaledRecvStream() instead.\nWe should really remove ResetUnsignaledRecvStream() entirely, but would like to save that for a follow-up. Added TODO.",
+      "parentUuid": "4d1ad9c9_d2f87bf2",
+      "revId": "1126a186f6fd422b2872e5fb38a6dfe826e522d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f76aad68_15fe4b8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-21T00:59:05Z",
+      "side": 1,
+      "message": "Can you clarify how the conflict occurs? From what I can gather it\u0027s something like this:\n\n1. Set a remote description with a video m\u003d section with no ssrcs\n2. Start receiving packets with SSRC X\n3. Set a new remote description with two video m\u003d sections, with SSRCs Y and X respectively\n4. Attempt is made to create new receive stream for X, but that doesn\u0027t work because one already exists.\n\nWhat I don\u0027t understand is: Since the m\u003d sections (and their corresponding VideoChannels/WebrtcVideoEngines) are processed in order, shouldn\u0027t the default receive stream already have been destroyed by the time the actual receive stream is created? \n\nAs for the fix... I think it could be made even more general; instead of removing specific SSRCs, it could simply remove *all* unsignaled streams as long as there\u0027s more than one m\u003d section with the same media type.\n\nBut it seems like this is vulnerable to a race condition currently. What\u0027s stopping the default stream from being re-created right after it\u0027s been destroyed, when control returns to the signaling thread? Something needs to put the WebrtcVideoEngine in a \"don\u0027t create more default streams\" state.\n\nAlso, as an aside, the way I\u0027d hoped/imagined this would work is that the default stream would call RtpDemuxer::AddSink with criteria that only included payload types (meaning \"all video packets go to this sink\"). So if AddSink is called later with an SSRC, the RtpDemuxerCriteria criteria would not conflict, instead the SSRC criteria would just take precedence over the payload type criteria. And that *is* what happens with the RtpDemuxer at the BaseChannel level, but I see we\u0027re still in an odd place where there are two RtpDemuxer instances.",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80249c12_dd3821f5",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5899,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-21T00:59:05Z",
+      "side": 1,
+      "message": "Could link to the bug for more context. (https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11477)",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

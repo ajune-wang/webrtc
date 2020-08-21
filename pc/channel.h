@@ -124,6 +124,7 @@ class BaseChannel : public ChannelInterface,
   bool SetRemoteContent(const MediaContentDescription* content,
                         webrtc::SdpType type,
                         std::string* error_desc) override;
+  bool MaybeDeregisterUnsignaledRecvStream(uint32_t ssrc) override;
 
   bool Enable(bool enable) override;
 
@@ -224,6 +225,7 @@ class BaseChannel : public ChannelInterface,
   bool AddRecvStream_w(const StreamParams& sp);
   bool RemoveRecvStream_w(uint32_t ssrc);
   void ResetUnsignaledRecvStream_w();
+  bool MaybeDeregisterUnsignaledRecvStream_w(uint32_t ssrc);
   bool AddSendStream_w(const StreamParams& sp);
   bool RemoveSendStream_w(uint32_t ssrc);
 

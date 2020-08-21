@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b10b71b_0c04c059",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-08-21T14:29:32Z",
+      "side": 1,
+      "message": "Hi Chen and Stefan,\n\nPlease take a look at this CL. Fairly small.",
+      "revId": "0de6c1eb4340344e77ddb1e2a587e33b7f13e19d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

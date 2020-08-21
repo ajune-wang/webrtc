@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "2721172e_9a53b215",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-21T22:19:01Z",
+      "side": 1,
+      "message": "\u003e Due to the per-channel thread hops that occur during the Set{Local,Remote}Content calls: during the window between the time when the old default receive stream is destroyed and the time the new video channel has been created, a stray RTP packet could be handled that creates yet another default receive stream\n\nHow does this patch prevent that race, though? We\u0027re talking about a packet received between channel1-\u003eSetRemoteContent() and channel2-\u003eSetRemoteContent(), right? But MaybeDeregisterUnsignaledRecvStream happens before both of those calls.\n\n\u003e I don\u0027t know this code well, but it seems that the SetRemoteDescription() does not remove the default stream. The SDP for that Channel is not changed?\n\nI\u0027d consider that a bug... see below.\n\n\u003e I also don\u0027t fully understand the comment that we can remove all default streams if we add a new signaled one. In which cases are default-stream not allowed to exist according the spec?\n\nI don\u0027t know if this is covered in any specification, but my understanding is that default streams should not exist if there are multiple m\u003d sections of the same media type. If we only have one video section, we can safely assume any video packets are associated with it. But as soon as we have two video sections, we need an additional field in order to demux (SSRC/MID/RSID). So I\u0027d either add an \"enable_default_streams\" argument to SetRemoteContent, or change \"MaybeDeregisterUnsignaledRecvStream\" to \"DisableUnsignaledRecvStreams\".\n\nI might go a step further and say default streams should not be created if the m\u003d section has explicitly signaled SSRCs/MID. I\u0027m a little surprised that in your test, the first media channel creates a receive stream for SSRC 2 even though it already has one for SSRC 1. That change would have a higher probability of breaking something though.",
+      "parentUuid": "54655a2b_b3833f01",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80249c12_dd3821f5",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5

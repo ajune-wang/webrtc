@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
@@ -76,10 +77,11 @@ rtc::scoped_refptr<RTCStatsReport> RTCStatsReport::Copy() const {
 void RTCStatsReport::AddStats(std::unique_ptr<const RTCStats> stats) {
   auto result =
       stats_.insert(std::make_pair(std::string(stats->id()), std::move(stats)));
-  RTC_DCHECK(result.second)
-      << "A stats object with ID " << result.first->second->id()
-      << " is already "
-         "present in this stats report.";
+  if (!result.second) {
+    RTC_LOG(LS_WARNING) << "A stats object with ID "
+                        << result.first->second->id()
+                        << " is already present in this stats report.";
+  }
 }
 
 const RTCStats* RTCStatsReport::Get(const std::string& id) const {

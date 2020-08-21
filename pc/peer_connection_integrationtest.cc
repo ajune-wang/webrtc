@@ -3573,10 +3573,9 @@ TEST_P(PeerConnectionIntegrationTest, RtpDataChannelsRejectedByCallee) {
   PeerConnectionInterface::RTCConfiguration rtc_config_1;
   rtc_config_1.enable_rtp_data_channel = true;
   // Must disable DTLS to make negotiation succeed.
-  rtc_config_1.enable_dtls_srtp = false;
+  rtc_config_1.enable_dtls_srtp = true;
   PeerConnectionInterface::RTCConfiguration rtc_config_2;
-  rtc_config_2.enable_dtls_srtp = false;
-  rtc_config_2.enable_dtls_srtp = false;
+  rtc_config_2.enable_dtls_srtp = true;
   ASSERT_TRUE(
       CreatePeerConnectionWrappersWithConfig(rtc_config_1, rtc_config_2));
   ConnectFakeSignaling();

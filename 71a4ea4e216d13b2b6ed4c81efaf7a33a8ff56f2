@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e942b90_93a5dc4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-08-21T06:41:38Z",
+      "side": 1,
+      "message": "\u003e What I don\u0027t understand is: Since the m\u003d sections (and their corresponding VideoChannels/WebrtcVideoEngines) are processed in order, shouldn\u0027t the default receive stream already have been destroyed by the time the actual receive stream is created?\nYes, that should be the case. But I believe there is still a race, due to the per-channel thread hops that occur during the Set{Local,Remote}Content calls: during the window between the time when the old default receive stream is destroyed and the time the new video channel has been created, a stray RTP packet could be handled that creates yet another default receive stream. This latter default receive stream is the problem (due to the permanent collision in the Call-level RtpDemuxer), that I believe is handled by this patch.",
+      "parentUuid": "f76aad68_15fe4b8a",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80249c12_dd3821f5",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5

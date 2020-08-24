@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ac004b1_22546734",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-08-24T07:11:40Z",
+      "side": 1,
+      "message": "How about `apply_alignment_to_all_simulcast_layers`?\n\nThe top layer will always be properly aligned, so I\u0027m thinking it would be important to name this field so that it\u0027s clear that _all_ layers get the alignment.",
+      "range": {
+        "startLine": 184,
+        "startChar": 9,
+        "endLine": 184,
+        "endChar": 44
+      },
+      "revId": "bec968e5f785681e33c2a9052ab6b5401fe398c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

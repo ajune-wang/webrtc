@@ -39,7 +39,6 @@ rtc_library("module_api") {
   visibility = [ "*" ]
   sources = [
     "include/module.h",
-    "include/module_common_types.cc",
     "include/module_common_types.h",
   ]
   deps = [

@@ -52,6 +52,24 @@
       "revId": "79c73d876bedd57168939075e04bfa0c214064cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "109b0051_eed16dff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-24T07:11:47Z",
+      "side": 1,
+      "message": "I guess if waiting is not a problem, that would be ideal since it will result in the least amount of total work.\n\nYou have my LGTM in either case.",
+      "parentUuid": "652fd0e2_dd836b98",
+      "revId": "79c73d876bedd57168939075e04bfa0c214064cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

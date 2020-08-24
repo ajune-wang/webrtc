@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "2450e9d8_15726c7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-08-24T07:06:30Z",
+      "side": 1,
+      "message": "\u003e How does this patch prevent that race, though? We\u0027re talking about a packet received between channel1-\u003eSetRemoteContent() and channel2-\u003eSetRemoteContent(), right? But MaybeDeregisterUnsignaledRecvStream happens before both of those calls.\nYes, you are right. I realized this after sending my comment above :) Erik expands on it well in his comment.",
+      "parentUuid": "2721172e_9a53b215",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80249c12_dd3821f5",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5

@@ -16,6 +16,23 @@
       "revId": "0de6c1eb4340344e77ddb1e2a587e33b7f13e19d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fab6596b_8d49dd24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-08-24T07:11:12Z",
+      "side": 1,
+      "message": "Hi Stefan,\n\nI need your owner\u0027s approval to this.",
+      "revId": "0de6c1eb4340344e77ddb1e2a587e33b7f13e19d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

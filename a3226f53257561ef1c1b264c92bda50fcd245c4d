@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "94eb4261_9215195f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-08-24T14:39:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "127c5346_16f877ec",
+      "revId": "a3226f53257561ef1c1b264c92bda50fcd245c4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b0c6e3f_730f45b9",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2020-08-18T07:58:04Z",
       "side": 1,
       "message": "Maybe add a comment why 10.0 was selected here. (Would there be any benefit/downside to go to, let\u0027s say, 100 instead?)",
+      "range": {
+        "startLine": 208,
+        "startChar": 59,
+        "endLine": 208,
+        "endChar": 63
+      },
+      "revId": "a3226f53257561ef1c1b264c92bda50fcd245c4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add57519_204e9065",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-08-24T14:39:13Z",
+      "side": 1,
+      "message": "Changed to 100.",
+      "parentUuid": "2b0c6e3f_730f45b9",
       "range": {
         "startLine": 208,
         "startChar": 59,

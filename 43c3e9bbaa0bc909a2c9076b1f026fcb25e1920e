@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c575b42_fba3c509",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-08-24T14:29:24Z",
+      "side": 1,
+      "message": "Looks good, just make sure to update old comments +1",
+      "revId": "43c3e9bbaa0bc909a2c9076b1f026fcb25e1920e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac38937_38db505d",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-08-24T14:29:24Z",
+      "side": 1,
+      "message": "This comment can be deleted now",
+      "revId": "43c3e9bbaa0bc909a2c9076b1f026fcb25e1920e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf9a0d2_f4692418",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-08-24T14:29:24Z",
+      "side": 1,
+      "message": "Update comment",
+      "revId": "43c3e9bbaa0bc909a2c9076b1f026fcb25e1920e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

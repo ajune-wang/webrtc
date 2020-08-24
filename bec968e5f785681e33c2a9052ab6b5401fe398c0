@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "8ab0cb1c_ba0d5f18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-08-24T07:12:24Z",
+      "side": 1,
+      "message": "Still lgtm, btw 😊\n\n[Gerrit doesn\u0027t explicitly show this in the reply, apparently, like other code review tools do.]",
+      "revId": "bec968e5f785681e33c2a9052ab6b5401fe398c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ac004b1_22546734",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 6

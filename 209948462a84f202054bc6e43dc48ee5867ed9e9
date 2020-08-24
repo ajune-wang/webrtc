@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5265ec1b_a08315d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-08-24T14:35:23Z",
+      "side": 1,
+      "message": "Clarify in description why it can be relanded.",
+      "revId": "209948462a84f202054bc6e43dc48ee5867ed9e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bc7cf7e_5a8598a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-08-24T14:35:23Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "209948462a84f202054bc6e43dc48ee5867ed9e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

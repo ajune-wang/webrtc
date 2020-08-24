@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eb5dd50_c8fb8ea7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-08-24T08:44:50Z",
+      "side": 1,
+      "message": "Sorry for the delay, but I was OOO and then busy with other things.\n\nIs the libsrtp roll still a blocker for this?",
+      "revId": "599bd8d385d70d35dcc5dec285bedc866c1e11c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

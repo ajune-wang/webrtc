@@ -45,8 +45,8 @@
 #ifdef WEBRTC_ANDROID
 #include "pc/test/android_test_initializer.h"
 #endif
-#include "pc/test/fake_sctp_transport.h"
 #include "rtc_base/virtual_socket_server.h"
+#include "test/pc/sctp/fake_sctp_transport.h"
 
 namespace webrtc {
 
@@ -71,6 +71,7 @@ PeerConnectionFactoryDependencies CreatePeerConnectionFactoryDependencies(
   deps.task_queue_factory = CreateDefaultTaskQueueFactory();
   deps.media_engine = std::move(media_engine);
   deps.call_factory = std::move(call_factory);
+  deps.sctp_factory = std::make_unique<FakeSctpTransportFactory>();
   return deps;
 }
 
@@ -86,13 +87,9 @@ class PeerConnectionFactoryForDataChannelTest
                 rtc::Thread::Current(),
                 rtc::Thread::Current(),
                 std::make_unique<cricket::FakeMediaEngine>(),
-                CreateCallFactory())) {}
-
-  std::unique_ptr<cricket::SctpTransportInternalFactory>
-  CreateSctpTransportInternalFactory() {
-    auto factory = std::make_unique<FakeSctpTransportFactory>();
-    last_fake_sctp_transport_factory_ = factory.get();
-    return factory;
+                CreateCallFactory())) {
+    last_fake_sctp_transport_factory_ =
+        static_cast<FakeSctpTransportFactory*>(sctp_transport_factory());
   }
 
   FakeSctpTransportFactory* last_fake_sctp_transport_factory_ = nullptr;

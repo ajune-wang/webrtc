@@ -21,10 +21,10 @@
 #include "pc/test/android_test_initializer.h"
 #endif
 #include "pc/test/fake_audio_capture_module.h"
-#include "pc/test/fake_sctp_transport.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
+#include "test/pc/sctp/fake_sctp_transport.h"
 
 // This file contains tests that ensure the PeerConnection's implementation of
 // CreateOffer/CreateAnswer/SetLocalDescription/SetRemoteDescription conform
@@ -57,13 +57,10 @@ class PeerConnectionFactoryForJsepTest : public PeerConnectionFactory {
           dependencies.media_engine =
               cricket::CreateMediaEngine(std::move(media_deps));
           dependencies.call_factory = CreateCallFactory();
+          dependencies.sctp_factory =
+              std::make_unique<FakeSctpTransportFactory>();
           return dependencies;
         }()) {}
-
-  std::unique_ptr<cricket::SctpTransportInternalFactory>
-  CreateSctpTransportInternalFactory() {
-    return std::make_unique<FakeSctpTransportFactory>();
-  }
 };
 
 class PeerConnectionJsepTest : public ::testing::Test {

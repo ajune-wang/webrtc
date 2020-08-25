@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c5f2c18_2117a984",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-08-25T15:14:36Z",
+      "side": 1,
+      "message": "TBR-landing to avoid reverting the CL that added the test. The problem is with the test, not with the feature, and it is exercised by other tests.\n\nI can improve the test in a follow-up CL if you don\u0027t like EXPECT_TRUE_WAIT usage. For example, I can introduce events that the callback function is setting to make EXPECT_EQ safe to use on the test thread.",
+      "revId": "930fd0817fe1a3b9db45991c588142db89ec6100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

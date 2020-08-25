@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba4474b3_3ff69181",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-25T19:22:16Z",
+      "side": 1,
+      "message": "LGTM.\n\nSometimes I like EXPECT_TRUE_WAIT better than event-waiting, because it\u0027s less likely to lock up the whole test because of a timing error.\n\nThis also documents that the incrementing of the callback counter *isn\u0027t* called before the async operation completes.",
+      "revId": "e8b00a1a748c20b0364d76115fb0a9bc4a3fd30e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

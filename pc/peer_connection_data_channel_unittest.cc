@@ -45,8 +45,8 @@
 #ifdef WEBRTC_ANDROID
 #include "pc/test/android_test_initializer.h"
 #endif
-#include "pc/test/fake_sctp_transport.h"
 #include "rtc_base/virtual_socket_server.h"
+#include "test/pc/sctp/fake_sctp_transport.h"
 
 namespace webrtc {
 
@@ -88,7 +88,7 @@ class PeerConnectionFactoryForDataChannelTest
                 std::make_unique<cricket::FakeMediaEngine>(),
                 CreateCallFactory())) {}
 
-  std::unique_ptr<cricket::SctpTransportInternalFactory>
+  std::unique_ptr<SctpTransportFactoryInterface>
   CreateSctpTransportInternalFactory() {
     auto factory = std::make_unique<FakeSctpTransportFactory>();
     last_fake_sctp_transport_factory_ = factory.get();

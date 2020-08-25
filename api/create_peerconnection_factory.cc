@@ -61,7 +61,6 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
   media_dependencies.video_decoder_factory = std::move(video_decoder_factory);
   dependencies.media_engine =
       cricket::CreateMediaEngine(std::move(media_dependencies));
-
   return CreateModularPeerConnectionFactory(std::move(dependencies));
 }
 

@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "c75c9571_61b4849f",
+        "filename": "video/adaptation/video_stream_encoder_resource_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-25T07:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac38937_38db505d",
+      "revId": "43c3e9bbaa0bc909a2c9076b1f026fcb25e1920e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bf9a0d2_f4692418",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 5
@@ -50,6 +68,24 @@
       "revId": "43c3e9bbaa0bc909a2c9076b1f026fcb25e1920e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa86f503_85b27ce0",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-08-25T07:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bf9a0d2_f4692418",
+      "revId": "43c3e9bbaa0bc909a2c9076b1f026fcb25e1920e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -53,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "1fe5f1db_64874f6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-08-26T06:40:06Z",
+      "side": 1,
+      "message": "LGTM % comment in api/transport/sctp_transport_factory_interface.h about opaque pointers.",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1aa9e45_1054a978",
         "filename": "api/transport/sctp_transport_factory_interface.h",
         "patchSetId": 4
@@ -88,6 +105,30 @@
       "side": 1,
       "message": "The reason for not doing that is to say \"use at your own risk, we don\u0027t guarantee the SctpTransportInternal interface will remain stable\". Meaning that only internal users (in this case a test framework) are expected to use it, and if it breaks it\u0027s on them to fix it.\n\nCallFactory and NetworkMonitorFactory are in a similar boat. Except in that case, it\u0027s the Android/iOS SDK code that\u0027s using the private interface.",
       "parentUuid": "e1aa9e45_1054a978",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9727409b_0d04e783",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-08-26T06:40:06Z",
+      "side": 1,
+      "message": "Agreed, sounds good to me. I think writing a comment on the \"use at your own risk because SctpTransportInternal is not guaranteed to remain stable in future WebRTC versions\" is something we might want to do anyway in this file.",
+      "parentUuid": "48a40aa7_4d46db7c",
       "range": {
         "startLine": 16,
         "startChar": 0,

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d91a57f_694509bb",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T02:06:28Z",
+      "side": 0,
+      "message": "What was the reason for this move?",
+      "revId": "059f4f74df61a1315529fa5911bfe74f532fa411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e35a5de2_532938f5",
+        "filename": "pc/peer_connection_jsep_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T02:06:28Z",
+      "side": 0,
+      "message": "nit: Same as with earlier comment. Now that this class doesn\u0027t override any virtual methods, it\u0027s pointless; can just construct a normal PeerConnectionFactory below passing in the PeerConnectionFactoryDependencies from above",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 36
+      },
+      "revId": "059f4f74df61a1315529fa5911bfe74f532fa411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

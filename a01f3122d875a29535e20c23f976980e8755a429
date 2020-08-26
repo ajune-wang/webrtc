@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "59572937_0388e27e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T02:06:28Z",
+      "side": 1,
+      "message": "LGTM with nits",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1aa9e45_1054a978",
         "filename": "api/transport/sctp_transport_factory_interface.h",
         "patchSetId": 4
@@ -53,6 +70,47 @@
         "endLine": 23,
         "endChar": 19
       },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a40aa7_4d46db7c",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T02:06:28Z",
+      "side": 1,
+      "message": "The reason for not doing that is to say \"use at your own risk, we don\u0027t guarantee the SctpTransportInternal interface will remain stable\". Meaning that only internal users (in this case a test framework) are expected to use it, and if it breaks it\u0027s on them to fix it.\n\nCallFactory and NetworkMonitorFactory are in a similar boat. Except in that case, it\u0027s the Android/iOS SDK code that\u0027s using the private interface.",
+      "parentUuid": "e1aa9e45_1054a978",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e43f7a0_3c09f54a",
+        "filename": "pc/peer_connection_data_channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T02:06:28Z",
+      "side": 1,
+      "message": "nit: Now that this class doesn\u0027t override any virtual methods, it\u0027s a bit pointless. Could just construct a normal PeerConnectionFactory.\n\nWhile you\u0027re at it, it\u0027s odd that CreatePeerConnectionFactoryDependencies constructs some things itself but takes others as arguments. And it only is called in one place. I\u0027d either get rid of it or have it take no arguments and construct everything itself,.",
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -16,6 +16,23 @@
       "revId": "494ece65993ed776cef0cb64f2a8e944b5d5eb9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef1aa667_2306ff0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-08-26T12:50:23Z",
+      "side": 1,
+      "message": "LGTM.\n\nBy the way, do we currently have enough C++ test coverage for stop and stopping (not this CL)?\nE.g. rollback doesn\u0027t undo stop, a transceiver is only negotiated to be stopped in an offer, not an answer (to prevent killing offerer-tagged m\u003d section) etc?",
+      "revId": "494ece65993ed776cef0cb64f2a8e944b5d5eb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

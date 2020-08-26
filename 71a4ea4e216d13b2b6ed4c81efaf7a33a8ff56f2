@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "170fa7da_64b51b8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-26T13:23:21Z",
+      "side": 1,
+      "message": "\u003e How does this patch prevent that race, though? We\u0027re talking about a packet \n\u003e received between channel1-\u003eSetRemoteContent() and channel2-\u003eSetRemoteContent(),\n\u003e right? But MaybeDeregisterUnsignaledRecvStream happens before both of those \n\u003e calls.\n\nThis CL didn\u0027t prevent that race. The issue I was primarily interested in occurs in a multi-way conference when a new participant joins a call: The first negotiation sets up a single stream. Then a media packet arrives, followed by renegotation to add the stream we already received an early packet for.\n\n\u003e default streams should not exist if there are multiple m\u003d sections of the same media type\n\nThat will simplify things. I now made the assumption this is true for both audio and video, and that it\u0027s possible to use unsignalled streams again after removing a transceiver. Is that true or can we simplify more by forever disallowing unsignalled streams when that happens?\nIt seems I also used the British/Canadian spelling \"unsignalled\" instead of \"unsignaled\". Should I change that to make it more \u0027murica?\n\nOverall this CL needs some cleanup and perhaps another test case before landing, but would like to clarify the constraints we have first.",
+      "parentUuid": "2450e9d8_15726c7d",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80249c12_dd3821f5",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5

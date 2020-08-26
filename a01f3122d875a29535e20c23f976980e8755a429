@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a61c30f4_140467ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80a5d0cd_7bce455b",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fdb0348_729d15ce",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -110,6 +134,24 @@
     },
     {
       "key": {
+        "uuid": "a3a8263e_4944b7ef",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "Correct - I dont intend to, only the PeerConnection implementation will. This is the same as CallFactory and NetworkMonitorFactory. See the discussion below. \n\nThe whole purpose is just to allow tests to have a different implementation of data channels. With my external hat on - I intend to provide an alternative implementation I can use for tests but as a starting point - use the factory in test/pc/sctp....",
+      "parentUuid": "54055d2a_5a0d72d6",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1aa9e45_1054a978",
         "filename": "api/transport/sctp_transport_factory_interface.h",
         "patchSetId": 4
@@ -181,6 +223,30 @@
     },
     {
       "key": {
+        "uuid": "7aa93314_3c76d382",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "Done in comment for SctpTransportFactoryInterface.",
+      "parentUuid": "9727409b_0d04e783",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3c313f8_2f8d598c",
         "filename": "api/transport/sctp_transport_factory_interface.h",
         "patchSetId": 4
@@ -204,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "2961c8db_a8eb1d91",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3c313f8_2f8d598c",
+      "range": {
+        "startLine": 32,
+        "startChar": 43,
+        "endLine": 32,
+        "endChar": 45
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e43f7a0_3c09f54a",
         "filename": "pc/peer_connection_data_channel_unittest.cc",
         "patchSetId": 4
@@ -218,6 +308,24 @@
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a948c40f_8ce16970",
+        "filename": "pc/peer_connection_data_channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e43f7a0_3c09f54a",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -238,6 +346,24 @@
     },
     {
       "key": {
+        "uuid": "4b72239d_01a97e66",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "yes, depending on compile flags and injection. Also, usage of it still use ptr for none const object.",
+      "parentUuid": "a1a8e147_71fdb768",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70d1eb7a_dbe2fff9",
         "filename": "pc/peer_connection_factory.h",
         "patchSetId": 4
@@ -252,6 +378,24 @@
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c055f59_c58eea4c",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "No, as with the other deps, they are actually moved into the factory.",
+      "parentUuid": "70d1eb7a_dbe2fff9",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +422,30 @@
     },
     {
       "key": {
+        "uuid": "0a24abdc_1641faee",
+        "filename": "test/pc/sctp/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2700482_4fc1d3f9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 11
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e31ef374_c7c339e5",
         "filename": "test/pc/sctp/BUILD.gn",
         "patchSetId": 4
@@ -301,6 +469,30 @@
     },
     {
       "key": {
+        "uuid": "e79fe84b_09a5dfb3",
+        "filename": "test/pc/sctp/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "It is to be able to use this in our test frame work. Same as FakeVideoEncoder etc",
+      "parentUuid": "e31ef374_c7c339e5",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e1fabb2_8e48de4c",
         "filename": "test/pc/sctp/fake_sctp_transport.h",
         "patchSetId": 4
@@ -315,6 +507,24 @@
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab9a84c_60a265df",
+        "filename": "test/pc/sctp/fake_sctp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T09:34:24Z",
+      "side": 1,
+      "message": "both are",
+      "parentUuid": "2e1fabb2_8e48de4c",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

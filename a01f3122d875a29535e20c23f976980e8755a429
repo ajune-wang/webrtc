@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0e7492d2_140fb81a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T14:54:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "365313b1_af827abf",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fdb0348_729d15ce",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -191,6 +215,24 @@
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66c7c180_5203d3ef",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T14:54:44Z",
+      "side": 1,
+      "message": "Did you see what Mirko suggested and I added in the next patch? Anyway, modified slightly again.",
+      "parentUuid": "6ea60a44_69cfa7db",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -456,6 +498,24 @@
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "073e3804_bcff9569",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-26T14:54:44Z",
+      "side": 1,
+      "message": "ah, sorry no you are right. I thought the comment was about the unique_ptr in deps.",
+      "parentUuid": "d134f585_038aab84",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

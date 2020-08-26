@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c9b3e2c_848c9a24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T22:16:34Z",
+      "side": 1,
+      "message": "I\u0027m good with this approach; might want to check with Harald as well.",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b4413f9_4153f772",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T22:16:34Z",
+      "side": 1,
+      "message": "I\u0027m still not clear on how there could be multiple default streams. Doesn\u0027t DefaultUnsignaledSsrcHandler prevents that? https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/engine/webrtc_video_engine.cc;l\u003d529;drc\u003dc70af83bc44f6829277cdc3621e7015d6e0d7530;bpv\u003d0;bpt\u003d0",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23842398_c59dcc56",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5904,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T22:16:34Z",
+      "side": 1,
+      "message": "Surprised I didn\u0027t notice this earlier, but we should only be doing this for the remote description, right? It\u0027s possible you could set a local offer with two video m\u003d sections but the answer could reject the second one.",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b33112c_963b4e52",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5938,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T22:16:34Z",
+      "side": 1,
+      "message": "nit: This adds more worker thread invokes; would be nice if it could piggyback on SetRemoteContent. Unless that ends up being too difficult for whatever reason.",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a6e1163_68ee8e86",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5947,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T22:16:34Z",
+      "side": 1,
+      "message": "This should also apply to any subsequently created channels.",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

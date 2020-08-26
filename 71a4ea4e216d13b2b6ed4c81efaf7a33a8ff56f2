@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "52e557fb_564d328c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T22:16:34Z",
+      "side": 1,
+      "message": "\u003e Is that true or can we simplify more by forever disallowing unsignalled streams when that happens?\n\nWe might be able to disallow them forever, but let\u0027s be conservative and not do that for now. Could break some 3pcc use case, transferring from endpoints that signal SSRCs to one that doesn\u0027t.\n\n\u003e It seems I also used the British/Canadian spelling \"unsignalled\" instead of \"unsignaled\". Should I change that to make it more \u0027murica?\n\nI\u0027d just use whatever is most consistent; \"unsignalled\" is already used in WebrtcVideoEngine so that\u0027s fine.",
+      "parentUuid": "170fa7da_64b51b8d",
+      "revId": "71a4ea4e216d13b2b6ed4c81efaf7a33a8ff56f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80249c12_dd3821f5",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 5

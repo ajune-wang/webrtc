@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e673416b_dec5cd1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-26T12:19:30Z",
+      "side": 1,
+      "message": "The actual fix is an one-liner. The rest is test \u0026 prettifying.\n",
+      "revId": "494ece65993ed776cef0cb64f2a8e944b5d5eb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

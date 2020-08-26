@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "365313b1_af827abf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T11:12:16Z",
+      "side": 1,
+      "message": "The commit message looks exactly like before. Did you forget to upload the change?",
+      "parentUuid": "a61c30f4_140467ce",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fdb0348_729d15ce",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -149,6 +173,24 @@
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ea60a44_69cfa7db",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T11:12:16Z",
+      "side": 1,
+      "message": "Ah---is the idea that user code will pass around SctpTransportFactoryInterface objects, but never use them directly, and never implement the interface? If so, note this in the docs?",
+      "parentUuid": "a3a8263e_4944b7ef",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -396,6 +438,24 @@
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d134f585_038aab84",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T11:12:16Z",
+      "side": 1,
+      "message": "It look like it\u0027s initialized on line 89 of pc/peer_connection_factory.cc, and then never modified. Am I missing something that would prevent it being const? (The outer `const` here applies to the unique_ptr, not to the object it owns. As long as the unique_ptr is set at construction and not modified, all is well.)",
+      "parentUuid": "4c055f59_c58eea4c",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

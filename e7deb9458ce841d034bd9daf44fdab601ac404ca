@@ -16,6 +16,23 @@
       "revId": "e7deb9458ce841d034bd9daf44fdab601ac404ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32bb7fc8_caff7c29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-26T22:21:45Z",
+      "side": 1,
+      "message": "Changes since my last review look good.",
+      "revId": "e7deb9458ce841d034bd9daf44fdab601ac404ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

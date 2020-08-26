@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "80a5d0cd_7bce455b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T07:33:00Z",
+      "side": 1,
+      "message": "This looks truncated---what exactly was renamed to SctpTransportFactoryInterface?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3fdb0348_729d15ce",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -67,6 +90,23 @@
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54055d2a_5a0d72d6",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T07:33:00Z",
+      "side": 1,
+      "message": "Doesn\u0027t this make it impossible to use SctpTransportFactoryInterface with only the public API? You couldn\u0027t call CreateSctpTransport, because std::unique_ptr\u003ccricket::SctpTransportInternal\u003e needs to be able to access SctpTransportInternal\u0027s destructor.",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -141,6 +181,29 @@
     },
     {
       "key": {
+        "uuid": "f3c313f8_2f8d598c",
+        "filename": "api/transport/sctp_transport_factory_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T07:33:00Z",
+      "side": 1,
+      "message": "´\u003ddefault´? It\u0027s good to get into the habit...",
+      "range": {
+        "startLine": 32,
+        "startChar": 43,
+        "endLine": 32,
+        "endChar": 45
+      },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e43f7a0_3c09f54a",
         "filename": "pc/peer_connection_data_channel_unittest.cc",
         "patchSetId": 4
@@ -152,6 +215,40 @@
       "writtenOn": "2020-08-26T02:06:28Z",
       "side": 1,
       "message": "nit: Now that this class doesn\u0027t override any virtual methods, it\u0027s a bit pointless. Could just construct a normal PeerConnectionFactory.\n\nWhile you\u0027re at it, it\u0027s odd that CreatePeerConnectionFactoryDependencies constructs some things itself but takes others as arguments. And it only is called in one place. I\u0027d either get rid of it or have it take no arguments and construct everything itself,.",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1a8e147_71fdb768",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T07:33:00Z",
+      "side": 1,
+      "message": "Can this ever return null? If not, return a reference instead?",
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70d1eb7a_dbe2fff9",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T07:33:00Z",
+      "side": 1,
+      "message": "Can the type be `const std::unique_ptr\u003cSctpTransportFactoryInterface\u003e`? That would make the code easier to read.",
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -198,6 +295,23 @@
         "endLine": 12,
         "endChar": 22
       },
+      "revId": "a01f3122d875a29535e20c23f976980e8755a429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e1fabb2_8e48de4c",
+        "filename": "test/pc/sctp/fake_sctp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-08-26T07:33:00Z",
+      "side": 1,
+      "message": "At least the latter of these two seems unnecessary.",
       "revId": "a01f3122d875a29535e20c23f976980e8755a429",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -157,6 +157,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   bool AddRecvStream(const StreamParams& sp, bool default_stream);
   bool RemoveRecvStream(uint32_t ssrc) override;
   void ResetUnsignaledRecvStream() override;
+  void SetUnsignalledReceiveStreamsAllowed(bool enabled) override;
   bool SetSink(uint32_t ssrc,
                rtc::VideoSinkInterface<webrtc::VideoFrame>* sink) override;
   void SetDefaultSink(
@@ -619,6 +620,7 @@ class WebRtcVideoChannel : public VideoMediaChannel,
   // before the unsignaled receive stream is created when the first packet is
   // received.
   StreamParams unsignaled_stream_params_ RTC_GUARDED_BY(thread_checker_);
+  bool unsignalled_streams_allowed_ RTC_GUARDED_BY(thread_checker_);
   // Per peer connection crypto options that last for the lifetime of the peer
   // connection.
   const webrtc::CryptoOptions crypto_options_ RTC_GUARDED_BY(thread_checker_);

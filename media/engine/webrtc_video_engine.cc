@@ -640,6 +640,7 @@ WebRtcVideoChannel::WebRtcVideoChannel(
       last_stats_log_ms_(-1),
       discard_unknown_ssrc_packets_(webrtc::field_trial::IsEnabled(
           "WebRTC-Video-DiscardPacketsWithUnknownSsrc")),
+      unsignalled_streams_allowed_(true),
       crypto_options_(crypto_options),
       unknown_ssrc_packet_buffer_(
           webrtc::field_trial::IsEnabled(
@@ -1512,6 +1513,15 @@ void WebRtcVideoChannel::ResetUnsignaledRecvStream() {
   }
 }
 
+void WebRtcVideoChannel::SetUnsignalledReceiveStreamsAllowed(bool enabled) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  RTC_LOG(LS_INFO) << "SetUnsignalledReceiveStreamsAllowed.";
+  if (!enabled) {
+    ResetUnsignaledRecvStream();
+  }
+  unsignalled_streams_allowed_ = enabled;
+}
+
 bool WebRtcVideoChannel::SetSink(
     uint32_t ssrc,
     rtc::VideoSinkInterface<webrtc::VideoFrame>* sink) {
@@ -1645,7 +1655,7 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
     return;
   }
 
-  if (discard_unknown_ssrc_packets_) {
+  if (discard_unknown_ssrc_packets_ || !unsignalled_streams_allowed_) {
     return;
   }
 

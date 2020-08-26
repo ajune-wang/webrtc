@@ -289,6 +289,13 @@ bool BaseChannel::SetRemoteContent(const MediaContentDescription* content,
       Bind(&BaseChannel::SetRemoteContent_w, this, content, type, error_desc));
 }
 
+void BaseChannel::SetUnsignalledReceiveStreamsAllowed(bool enabled) {
+  TRACE_EVENT0("webrtc", "BaseChannel::SetUnsignalledReceiveStreamsAllowed");
+  InvokeOnWorker<void>(
+      RTC_FROM_HERE,
+      Bind(&BaseChannel::SetUnsignalledReceiveStreamsAllowed_w, this, enabled));
+}
+
 bool BaseChannel::IsReadyToReceiveMedia_w() const {
   // Receive data if we are enabled and have local content,
   return enabled() &&
@@ -573,6 +580,11 @@ bool BaseChannel::RemoveRecvStream_w(uint32_t ssrc) {
 void BaseChannel::ResetUnsignaledRecvStream_w() {
   RTC_DCHECK(worker_thread() == rtc::Thread::Current());
   media_channel()->ResetUnsignaledRecvStream();
+}
+
+void BaseChannel::SetUnsignalledReceiveStreamsAllowed_w(bool enabled) {
+  RTC_DCHECK(worker_thread() == rtc::Thread::Current());
+  media_channel()->SetUnsignalledReceiveStreamsAllowed(enabled);
 }
 
 bool BaseChannel::UpdateLocalStreams_w(const std::vector<StreamParams>& streams,

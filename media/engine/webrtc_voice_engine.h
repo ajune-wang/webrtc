@@ -165,6 +165,7 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   bool AddRecvStream(const StreamParams& sp) override;
   bool RemoveRecvStream(uint32_t ssrc) override;
   void ResetUnsignaledRecvStream() override;
+  void SetUnsignalledReceiveStreamsAllowed(bool enabled) override;
 
   // E2EE Frame API
   // Set a frame decryptor to a particular ssrc that will intercept all
@@ -295,6 +296,8 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   // before the unsignaled receive stream is created when the first packet is
   // received.
   StreamParams unsignaled_stream_params_;
+
+  bool unsignalled_streams_allowed_;
 
   // Volume for unsignaled streams, which may be set before the stream exists.
   double default_recv_volume_ = 1.0;

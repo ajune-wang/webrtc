@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce80c57a_19f717d5",
+        "filename": "api/video_codecs/video_encoder_config.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-08-26T13:34:58Z",
+      "side": 1,
+      "message": "Is this not useful?",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 56
+      },
+      "revId": "5c4ecade3ba34ecdecbeff2cc8160ae95d138d63",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

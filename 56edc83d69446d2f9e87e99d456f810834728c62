@@ -50,6 +50,23 @@
       "revId": "56edc83d69446d2f9e87e99d456f810834728c62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa4ae40e_3bf03c71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-27T06:51:14Z",
+      "side": 1,
+      "message": "LGTM.\n\nIf the function is supposed to never be called, it would be even better to arrange so that it isn\u0027t even compiled in the no-proto configuration.",
+      "revId": "56edc83d69446d2f9e87e99d456f810834728c62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

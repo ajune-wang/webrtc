@@ -16,6 +16,40 @@
       "revId": "2e3a7bac807dedd12192b0f0a0b16939bc8b21f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfe42be7_6f480210",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T23:08:26Z",
+      "side": 1,
+      "message": "This is harder to follow than before, especially since the signaling thread is handled later; could we just create the SCTP factory in Initialize() and lose the const? I don\u0027t think it buys much; anyone familiar with this class knows that all the members are constant after initialization.",
+      "revId": "2e3a7bac807dedd12192b0f0a0b16939bc8b21f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe7053e_21280f86",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T23:08:26Z",
+      "side": 1,
+      "message": "Worker thread should not have a socket server.",
+      "revId": "2e3a7bac807dedd12192b0f0a0b16939bc8b21f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

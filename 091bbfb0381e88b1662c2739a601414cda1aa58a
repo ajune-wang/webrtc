@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5af02ce2_7dc60c3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-27T11:06:59Z",
+      "side": 1,
+      "message": "Add \"This lets the peer know that this candidate pair has been selected, which causes some peers to unblock sending on the candidate pair\".\n\nOr words to that effect.",
+      "revId": "091bbfb0381e88b1662c2739a601414cda1aa58a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2242039f_a9640059",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-27T11:06:59Z",
+      "side": 1,
+      "message": "A few words about why would make for more happiness :-)\n\nCode looks fine!\n",
+      "revId": "091bbfb0381e88b1662c2739a601414cda1aa58a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

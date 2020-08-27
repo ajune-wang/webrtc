@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "876b2050_7e9aa890",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-08-27T08:00:06Z",
+      "side": 1,
+      "message": "Yes would have been good.",
+      "parentUuid": "a860efed_13a687fb",
+      "range": {
+        "startLine": 202,
+        "startChar": 23,
+        "endLine": 202,
+        "endChar": 25
+      },
+      "revId": "861c08c9bdb8e7588b575ebf774d928c6693fdba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ceb12fd3_dc628354",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 10
@@ -70,6 +94,30 @@
       "writtenOn": "2020-08-26T13:34:58Z",
       "side": 1,
       "message": "I\u0027m wondering if this is brittle? Maybe it would be more robust to check if `scale_resolution_down_by \u003c 1.0`, since all of those values should be invalid?\n\n\"The value must be greater than or equal to 1.0.\" from\nhttps://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters-scaleresolutiondownby",
+      "range": {
+        "startLine": 225,
+        "startChar": 46,
+        "endLine": 225,
+        "endChar": 52
+      },
+      "revId": "861c08c9bdb8e7588b575ebf774d928c6693fdba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "856562a6_e9fd1371",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-08-27T08:00:06Z",
+      "side": 1,
+      "message": "Changed to check \u003e\u003d 1.0 (when RtpEncodingParameters is set, error is returned if \u003c 1.0 and in VideoStream initialized to -1.0).",
+      "parentUuid": "ceb12fd3_dc628354",
       "range": {
         "startLine": 225,
         "startChar": 46,

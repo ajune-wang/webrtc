@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "cd38a7d8_bd1e9cb0",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T22:42:07Z",
+      "side": 1,
+      "message": "Nevermind, I was confused because based on the description I thought https://webrtc-review.googlesource.com/c/src/+/172622 was changing from \"delete one stream\" to \"delete all streams\", so I was confused how this would make a difference if there is only one to begin with.\n\nBut it looks like before that CL *none* of the default streams were being deleted.",
+      "parentUuid": "8cf7e0fd_cee6385e",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23842398_c59dcc56",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 8
@@ -118,6 +136,24 @@
       "side": 1,
       "message": "The transceiver instances are already created at this time, and I\u0027m not convinced that we guarantee that any default stream created is set on the first entry in transceivers_. If it\u0027s not we might still end up with a collision if we try to disable up update on a per channel basis.\n\nAlso this should only happen when the numbers of transceivers pass up or down past the 1 per type limit, so should be fairly uncommon.",
       "parentUuid": "0b33112c_963b4e52",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8290fb8_8ebb87f8",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5938,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T22:42:07Z",
+      "side": 1,
+      "message": "Ack; there is definitely some corner case where doing it one-by-one doesn\u0027t work, for example if the second transceiver had the default stream due to the first being send only, and then switching to send/receive.",
+      "parentUuid": "52e5eb3a_7cdfed76",
       "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

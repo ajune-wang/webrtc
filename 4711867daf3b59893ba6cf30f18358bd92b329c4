@@ -16,6 +16,74 @@
       "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b668f757_8510d653",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T22:42:07Z",
+      "side": 1,
+      "message": "I think I uncovered one more annoying corner case, see comment.",
+      "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d96f15ae_6a1937aa",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3546,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T22:42:07Z",
+      "side": 1,
+      "message": "nit: Could this be moved inside CreateVoiceChannel?\n\n... And preferably be added as an argument to ChannelManager::CreateVoiceChannel? Again, I don\u0027t want to add any extra invokes if possible, there are already so many and they really add up.",
+      "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f07c1419_1aadd717",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5909,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T22:42:07Z",
+      "side": 1,
+      "message": "The direction is interpreted incorrectly here; \"receive\" in the remote description equates to \"send\" in the local description, so you actually want SendOnly and SendRecv. You can simplify this with:\n\n  if (!RtpTransceiverDirectionHasSend(content_info.media_description()-\u003edirection())) {\n    continue;\n  }\n\nAlso, question: If a media channel is going from \"can receive\" to \"can\u0027t receive\", will anything cause its default stream(s) to be closed? I may be missing it, but it doesn\u0027t appear so to me. channel.cc will only call ResetUnsignaledRecvStream_w if going from unsignaled to signaled.\n\nSo you could have a weird variant of this bug, going from 1 sendrecv transceiver (with the default stream) to 1 sendonly and 1 recvonly, with the latter having the SSRC information...\n\nResetUnsignaledRecvStream_w could be called in SetRemoteContent upon changes to direction, but if the transceiver going from sendrecv to recvonly isn\u0027t the first entry, you could still run into problems, as you point out in your comment below.\n\nSo I guess you want to explicitly call SetUnsignalledReceiveStreamsAllowed(false) on any transceiver going from \"can receive\" to \"can\u0027t receive\"? Then you have to also deal with setting it back to true if the direction changes back... and it\u0027s possible for the direction to change upon setting a local description as well. This is getting a lot messier than I thought it would be; might need to rethink the logic. For example:\n\n worker_thread()-\u003eInvoke\u003cvoid\u003e(RTC_FROM_HERE, [\u0026]() {\n    // Count transceivers as before...\n    bool allow_unsignalled_video \u003d num_video_transceivers \u003c\u003d 1;\n    bool allow_unsignalled_audio \u003d num_video_transceivers \u003c\u003d 1;\n    for (const auto\u0026 transceiver : transceivers_) {\n      cricket::ChannelInterface* channel \u003d transceiver-\u003einternal()-\u003echannel();\n      if (!channel) {\n        continue;\n      }\n      const ContentInfo* content \u003d\n          FindMediaSectionForTransceiver(transceiver, sdesc);\n      RtpTransceiverDirection local_direction \u003d content-\u003emedia_description()-\u003edirection();\n      if (source \u003d\u003d cricket::CS_REMOTE) {\n        local_direction \u003d RtpTransceiverDirectionReversed(local_direction);\n      }\n      cricket::MediaType media_type \u003d channel-\u003emedia_type();\n      if (media_type \u003d\u003d cricket::MediaType::MEDIA_TYPE_AUDIO) {\n        channel-\u003eSetUnsignalledReceiveStreamsAllowed(\n            allow_unsignalled_audio \u0026\u0026 RtpTransceiverDirectionHasRecv(local_direction));\n      } else if (media_type \u003d\u003d cricket::MediaType::MEDIA_TYPE_VIDEO) {\n        channel-\u003eSetUnsignalledReceiveStreamsAllowed(\n            allow_unsignalled_video \u0026\u0026 RtpTransceiverDirectionHasRecv(local_direction));\n      }\n    }\n  });\n\nThis would be called for both local and remote descriptions. Adds an extra invoke if nothing is changing, but at least it can be limited to one, I hope.",
+      "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708bd7e6_173a68ed",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5931,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T22:42:07Z",
+      "side": 1,
+      "message": "Should be num_audio_transceivers",
+      "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

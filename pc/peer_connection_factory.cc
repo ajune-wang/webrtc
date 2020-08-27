@@ -67,11 +67,43 @@ CreateModularPeerConnectionFactory(
                                             pc_factory);
 }
 
+namespace {
+
+std::unique_ptr<rtc::Thread> CreateThread(const std::string& name) {
+  auto thread = rtc::Thread::CreateWithSocketServer();
+  thread->SetName(name, nullptr);
+  thread->Start();
+  return thread;
+}
+
+std::unique_ptr<SctpTransportFactoryInterface> MaybeCreateSctpFactory(
+    PeerConnectionFactoryDependencies* dependencies,
+    rtc::Thread* network_thread) {
+  if (dependencies->sctp_factory) {
+    return std::move(dependencies->sctp_factory);
+  }
+#ifdef HAVE_SCTP
+  return std::make_unique<cricket::SctpTransportFactory>(network_thread);
+#endif
+  return nullptr;
+}
+
+}  // namespace
+
 PeerConnectionFactory::PeerConnectionFactory(
     PeerConnectionFactoryDependencies dependencies)
     : wraps_current_thread_(false),
-      network_thread_(dependencies.network_thread),
-      worker_thread_(dependencies.worker_thread),
+      owned_network_thread_(dependencies.network_thread
+                                ? nullptr
+                                : CreateThread("pc_network_thread")),
+      network_thread_(dependencies.network_thread
+                          ? dependencies.network_thread
+                          : owned_network_thread_.get()),
+      owned_worker_thread_(dependencies.worker_thread
+                               ? nullptr
+                               : CreateThread("pc_worker_thread")),
+      worker_thread_(dependencies.worker_thread ? dependencies.worker_thread
+                                                : owned_worker_thread_.get()),
       signaling_thread_(dependencies.signaling_thread),
       task_queue_factory_(std::move(dependencies.task_queue_factory)),
       network_monitor_factory_(std::move(dependencies.network_monitor_factory)),
@@ -84,22 +116,9 @@ PeerConnectionFactory::PeerConnectionFactory(
       injected_network_controller_factory_(
           std::move(dependencies.network_controller_factory)),
       neteq_factory_(std::move(dependencies.neteq_factory)),
+      sctp_factory_(MaybeCreateSctpFactory(&dependencies, network_thread_)),
       trials_(dependencies.trials ? std::move(dependencies.trials)
                                   : std::make_unique<FieldTrialBasedConfig>()) {
-  if (!network_thread_) {
-    owned_network_thread_ = rtc::Thread::CreateWithSocketServer();
-    owned_network_thread_->SetName("pc_network_thread", nullptr);
-    owned_network_thread_->Start();
-    network_thread_ = owned_network_thread_.get();
-  }
-
-  if (!worker_thread_) {
-    owned_worker_thread_ = rtc::Thread::Create();
-    owned_worker_thread_->SetName("pc_worker_thread", nullptr);
-    owned_worker_thread_->Start();
-    worker_thread_ = owned_worker_thread_.get();
-  }
-
   if (!signaling_thread_) {
     signaling_thread_ = rtc::Thread::Current();
     if (!signaling_thread_) {
@@ -324,15 +343,6 @@ rtc::scoped_refptr<AudioTrackInterface> PeerConnectionFactory::CreateAudioTrack(
   RTC_DCHECK(signaling_thread_->IsCurrent());
   rtc::scoped_refptr<AudioTrackInterface> track(AudioTrack::Create(id, source));
   return AudioTrackProxy::Create(signaling_thread_, track);
-}
-
-std::unique_ptr<cricket::SctpTransportInternalFactory>
-PeerConnectionFactory::CreateSctpTransportInternalFactory() {
-#ifdef HAVE_SCTP
-  return std::make_unique<cricket::SctpTransportFactory>(network_thread());
-#else
-  return nullptr;
-#endif
 }
 
 cricket::ChannelManager* PeerConnectionFactory::channel_manager() {

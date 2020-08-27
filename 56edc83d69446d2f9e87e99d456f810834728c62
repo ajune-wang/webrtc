@@ -33,6 +33,23 @@
       "revId": "56edc83d69446d2f9e87e99d456f810834728c62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73110dd7_4fb972e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T03:18:56Z",
+      "side": 1,
+      "message": "nisse, as an owner can you take a quick look?",
+      "revId": "56edc83d69446d2f9e87e99d456f810834728c62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

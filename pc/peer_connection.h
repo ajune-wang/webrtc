@@ -1333,6 +1333,9 @@ class PeerConnection : public PeerConnectionInternal,
       local_ice_credentials_to_replace_ RTC_GUARDED_BY(signaling_thread());
   bool is_negotiation_needed_ RTC_GUARDED_BY(signaling_thread()) = false;
 
+  bool allow_unsignalled_audio_ RTC_GUARDED_BY(signaling_thread()) = true;
+  bool allow_unsignalled_video_ RTC_GUARDED_BY(signaling_thread()) = true;
+
   DataChannelController data_channel_controller_;
   rtc::WeakPtrFactory<PeerConnection> weak_ptr_factory_
       RTC_GUARDED_BY(signaling_thread());

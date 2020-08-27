@@ -3543,9 +3543,11 @@ RTCError PeerConnection::UpdateTransceiverChannel(
     if (!channel) {
       if (transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
         channel = CreateVoiceChannel(content.name);
+        channel->SetUnsignalledReceiveStreamsAllowed(allow_unsignalled_audio_);
       } else {
         RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, transceiver->media_type());
         channel = CreateVideoChannel(content.name);
+        channel->SetUnsignalledReceiveStreamsAllowed(allow_unsignalled_video_);
       }
       if (!channel) {
         LOG_AND_RETURN_ERROR(
@@ -5893,6 +5895,63 @@ RTCError PeerConnection::PushdownMediaDescription(
                                    : remote_description());
   RTC_DCHECK(sdesc);
 
+  if (source == cricket::CS_REMOTE) {
+    // Delete any created default streams. This is needed to avoid SSRC
+    // collisions in Call's RtpDemuxer, in the case that a transceiver has
+    // created a default stream, and then some other channel gets the SSRC
+    // signaled in the corresponding Unified Plan "m=" section. For more context
+    // see https://bugs.chromium.org/p/webrtc/issues/detail?id=11477
+
+    size_t num_video_transceivers = 0;
+    size_t num_audio_transceivers = 0;
+
+    for (auto& content_info : sdesc->description()->contents()) {
+      switch (content_info.media_description()->direction()) {
+        case RtpTransceiverDirection::kRecvOnly:
+        case RtpTransceiverDirection::kSendRecv:
+          switch (content_info.media_description()->type()) {
+            case cricket::MediaType::MEDIA_TYPE_AUDIO:
+              ++num_audio_transceivers;
+              break;
+            case cricket::MediaType::MEDIA_TYPE_VIDEO:
+              ++num_video_transceivers;
+              break;
+            default:
+              // Ignore data channels.
+              continue;
+          }
+          break;
+        default:
+          // Ignore send or inactive channels.
+          continue;
+      }
+    }
+
+    bool allow_unsignalled_video = num_video_transceivers <= 1;
+    bool allow_unsignalled_audio = num_video_transceivers <= 1;
+
+    if (allow_unsignalled_audio != allow_unsignalled_audio_ ||
+        allow_unsignalled_video != allow_unsignalled_video_) {
+      for (const auto& transceiver : transceivers_) {
+        cricket::ChannelInterface* channel = transceiver->internal()->channel();
+        if (channel) {
+          cricket::MediaType media_type = channel->media_type();
+          if (media_type == cricket::MediaType::MEDIA_TYPE_AUDIO &&
+              allow_unsignalled_audio != allow_unsignalled_audio_) {
+            channel->SetUnsignalledReceiveStreamsAllowed(
+                allow_unsignalled_audio);
+          } else if (media_type == cricket::MediaType::MEDIA_TYPE_VIDEO &&
+                     allow_unsignalled_video != allow_unsignalled_video_) {
+            channel->SetUnsignalledReceiveStreamsAllowed(
+                allow_unsignalled_video);
+          }
+        }
+      }
+    }
+    allow_unsignalled_audio_ = allow_unsignalled_audio;
+    allow_unsignalled_video_ = allow_unsignalled_video;
+  }
+
   // Push down the new SDP media section for each audio/video transceiver.
   for (const auto& transceiver : transceivers_) {
     const ContentInfo* content_info =
@@ -6438,6 +6497,8 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create voice channel.");
     }
+    voice_channel->SetUnsignalledReceiveStreamsAllowed(
+        allow_unsignalled_audio_);
     GetAudioTransceiver()->internal()->SetChannel(voice_channel);
   }
 
@@ -6449,6 +6510,8 @@ RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Failed to create video channel.");
     }
+    video_channel->SetUnsignalledReceiveStreamsAllowed(
+        allow_unsignalled_video_);
     GetVideoTransceiver()->internal()->SetChannel(video_channel);
   }
 

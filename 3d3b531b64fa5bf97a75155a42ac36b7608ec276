@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2051a7a2_56d7baa2",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1774,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-27T20:33:47Z",
+      "side": 1,
+      "message": "This only makes a difference with renomination enabled, right? With aggressive nomination, we\u0027ve already set the \"use candidate\" bit on the initial ping, so by the time we receive a connectivity check response, the other peer already knows it should be using that pair.\n\nHowever, with renomination, we don\u0027t use that bit, so in order to be nominated the connection must first be selected and then pinged again.\n\nIs my understanding correct?",
+      "revId": "3d3b531b64fa5bf97a75155a42ac36b7608ec276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

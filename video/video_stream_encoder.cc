@@ -29,6 +29,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_stream_adapter.h"
+#include "media/base/video_common.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "rtc_base/arraysize.h"
@@ -177,6 +178,93 @@ VideoBitrateAllocation UpdateAllocationFromEncoderInfo(
   }
   new_allocation.set_bw_limited(allocation.is_bw_limited());
   return new_allocation;
+}
+
+// Round scale factor to the closest value that is a multiple of |multiple| and
+// return the diff in distance.
+double RoundToMultiple(int multiple,
+                       VideoEncoderConfig* config,
+                       bool update_config) {
+  double diff = 0.0;
+  for (auto& layer : config->simulcast_layers) {
+    double min_dist = std::numeric_limits<double>::max();
+    double new_scale = 1.0;
+    for (int i = 1; i <= multiple; ++i) {
+      double dist = std::abs(layer.scale_resolution_down_by -
+                             multiple / static_cast<double>(i));
+      if (dist <= min_dist) {
+        min_dist = dist;
+        new_scale = multiple / static_cast<double>(i);
+      }
+    }
+    diff += std::abs(layer.scale_resolution_down_by - new_scale);
+    if (update_config) {
+      RTC_LOG(LS_INFO) << "scale_resolution_down_by "
+                       << layer.scale_resolution_down_by << " -> " << new_scale;
+      layer.scale_resolution_down_by = new_scale;
+    }
+  }
+  return diff;
+}
+
+int GetAlignment(const VideoEncoder::EncoderInfo& encoder_info,
+                 VideoEncoderConfig* config) {
+  const int requested_alignment = encoder_info.requested_resolution_alignment;
+  if (!encoder_info.apply_alignment_to_all_simulcast_layers) {
+    return requested_alignment;
+  }
+
+  if (requested_alignment < 1 || config->number_of_streams <= 1 ||
+      config->simulcast_layers.size() <= 1) {
+    return requested_alignment;
+  }
+
+  // Update alignment to also apply to simulcast layers.
+  const bool has_scale_resolution_down_by = absl::c_any_of(
+      config->simulcast_layers, [](const webrtc::VideoStream& layer) {
+        return layer.scale_resolution_down_by >= 1.0;
+      });
+
+  if (!has_scale_resolution_down_by) {
+    // Default resolution downscaling used (scale factors: 1, 2, 4, ...).
+    return requested_alignment * (1 << (config->simulcast_layers.size() - 1));
+  }
+
+  // Get alignment for downscaled layers.
+  int alignment_layers = 1;
+  for (auto& layer : config->simulcast_layers) {
+    layer.scale_resolution_down_by =
+        std::max(layer.scale_resolution_down_by, 1.0);
+    layer.scale_resolution_down_by =
+        std::min(layer.scale_resolution_down_by, 1000.0);
+    // |scale_resolution_down_by| to fraction.
+    int numerator = round(layer.scale_resolution_down_by * 100.0);
+    layer.scale_resolution_down_by = numerator / 100.0;
+    int alignment = numerator / cricket::GreatestCommonDivisor(numerator, 100);
+    alignment_layers =
+        cricket::LeastCommonMultiple(alignment, alignment_layers);
+  }
+
+  // Limit alignment to avoid a largely cropped frame and possibly with an
+  // aspect ratio far from the original.
+  const int kMaxMultiple = (requested_alignment == 1) ? 16 : 8;
+  if (alignment_layers <= kMaxMultiple) {
+    return requested_alignment * alignment_layers;
+  }
+
+  // Decide on multiple to use.
+  double min_diff = std::numeric_limits<double>::max();
+  int multiple = 1;
+  for (int i = 1; i <= kMaxMultiple; ++i) {
+    double diff = RoundToMultiple(i, config, /*update_config=*/false);
+    if (diff < min_diff) {
+      min_diff = diff;
+      multiple = i;
+    }
+  }
+  RoundToMultiple(multiple, config, /*update_config=*/true);
+
+  return requested_alignment * multiple;
 }
 
 }  //  namespace
@@ -589,6 +677,34 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     encoder_switch_requested_ = true;
   }
 
+  bool encoder_reset_required = false;
+  if (pending_encoder_creation_) {
+    // Destroy existing encoder instance before creating a new one. Otherwise
+    // attempt to create another instance will fail if encoder factory
+    // supports only single instance of encoder of given type.
+    encoder_.reset();
+
+    encoder_ = settings_.encoder_factory->CreateVideoEncoder(
+        encoder_config_.video_format);
+    // TODO(nisse): What to do if creating the encoder fails? Crash,
+    // or just discard incoming frames?
+    RTC_CHECK(encoder_);
+
+    if (encoder_selector_) {
+      encoder_selector_->OnCurrentEncoder(encoder_config_.video_format);
+    }
+
+    encoder_->SetFecControllerOverride(fec_controller_override_);
+
+    codec_info_ = settings_.encoder_factory->QueryVideoEncoder(
+        encoder_config_.video_format);
+
+    encoder_reset_required = true;
+  }
+
+  // Possibly adjusts scale_resolution_down_by to limit the alignment value.
+  int alignment = GetAlignment(encoder_->GetEncoderInfo(), &encoder_config_);
+
   std::vector<VideoStream> streams =
       encoder_config_.video_stream_factory->CreateEncoderStreams(
           last_frame_info_->width, last_frame_info_->height, encoder_config_);
@@ -620,31 +736,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   RTC_CHECK_GE(last_frame_info_->height, highest_stream_height);
   crop_width_ = last_frame_info_->width - highest_stream_width;
   crop_height_ = last_frame_info_->height - highest_stream_height;
-
-  bool encoder_reset_required = false;
-  if (pending_encoder_creation_) {
-    // Destroy existing encoder instance before creating a new one. Otherwise
-    // attempt to create another instance will fail if encoder factory
-    // supports only single instance of encoder of given type.
-    encoder_.reset();
-
-    encoder_ = settings_.encoder_factory->CreateVideoEncoder(
-        encoder_config_.video_format);
-    // TODO(nisse): What to do if creating the encoder fails? Crash,
-    // or just discard incoming frames?
-    RTC_CHECK(encoder_);
-
-    if (encoder_selector_) {
-      encoder_selector_->OnCurrentEncoder(encoder_config_.video_format);
-    }
-
-    encoder_->SetFecControllerOverride(fec_controller_override_);
-
-    codec_info_ = settings_.encoder_factory->QueryVideoEncoder(
-        encoder_config_.video_format);
-
-    encoder_reset_required = true;
-  }
 
   encoder_bitrate_limits_ =
       encoder_->GetEncoderInfo().GetEncoderBitrateLimitsForResolution(
@@ -753,7 +844,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   for (const auto& stream : streams) {
     max_framerate = std::max(stream.max_framerate, max_framerate);
   }
-  int alignment = encoder_->GetEncoderInfo().requested_resolution_alignment;
   if (max_framerate != video_source_sink_controller_.frame_rate_upper_limit() ||
       alignment != video_source_sink_controller_.resolution_alignment()) {
     video_source_sink_controller_.SetFrameRateUpperLimit(max_framerate);

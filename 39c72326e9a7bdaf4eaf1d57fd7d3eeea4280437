@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "b9ecbca5_79c2306a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-08-27T13:43:07Z",
+      "side": 1,
+      "message": "To clarify: There are two things I really don\u0027t like about the current implementation:\n\n1) It changes configures scaling factors. This is not according to spec. I understand, cropping image here and there by 1 pixels if encoder doesn\u0027t support odd resolutions (as it\u0027s done now), but if the user requests scaling factors {7, 3.333} it would be bad to instead scale down to {7, 3.5}.\n\n2) It seems overly complicated for the task you are solving.\n\n\nI\u0027m probably missing some design reasons behind 1). Maybe my understanding is wrong, please provide your reasoning.\n\nThen, after we are on the same page about how the solution should work, let\u0027s thing about making it simpler.\n",
+      "revId": "39c72326e9a7bdaf4eaf1d57fd7d3eeea4280437",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02f69731_b7ce6c19",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 11

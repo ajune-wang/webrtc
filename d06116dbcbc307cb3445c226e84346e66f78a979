@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "8cf7e0fd_cee6385e",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-27T15:09:34Z",
+      "side": 1,
+      "message": "It seems there is one such instance per WebRtcVideoChannel...\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/engine/webrtc_video_engine.h;drc\u003d3cb11f65d275e83b68fc2c8b707db37177f9a701;bpv\u003d1;bpt\u003d1;l\u003d576",
+      "parentUuid": "0b4413f9_4153f772",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23842398_c59dcc56",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 8
@@ -50,6 +68,24 @@
       "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac00894_906f31ef",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5904,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-27T15:09:34Z",
+      "side": 1,
+      "message": "Good catch, thanks!",
+      "parentUuid": "23842398_c59dcc56",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "52e5eb3a_7cdfed76",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5938,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-27T15:09:34Z",
+      "side": 1,
+      "message": "The transceiver instances are already created at this time, and I\u0027m not convinced that we guarantee that any default stream created is set on the first entry in transceivers_. If it\u0027s not we might still end up with a collision if we try to disable up update on a per channel basis.\n\nAlso this should only happen when the numbers of transceivers pass up or down past the 1 per type limit, so should be fairly uncommon.",
+      "parentUuid": "0b33112c_963b4e52",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a6e1163_68ee8e86",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 8
@@ -84,6 +138,24 @@
       "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "897cc241_22cf2d64",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 5947,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-27T15:09:34Z",
+      "side": 1,
+      "message": "Ah, yes. I also assigned to allow_unsignalled_audio instead of allow_unsignalled_audio_ ...",
+      "parentUuid": "5a6e1163_68ee8e86",
+      "revId": "d06116dbcbc307cb3445c226e84346e66f78a979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

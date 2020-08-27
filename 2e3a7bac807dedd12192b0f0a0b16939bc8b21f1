@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b360b3ea_dbba02ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-08-27T19:08:07Z",
+      "side": 1,
+      "message": "Please again? \nThere was a bug  in patch1 since it did not consider the case when network thread is not injected. ",
+      "revId": "2e3a7bac807dedd12192b0f0a0b16939bc8b21f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3c042b63_7adfeb34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-08-28T06:27:58Z",
+      "side": 1,
+      "message": "Standards comment: Aggressive mode was defined in ICE (version 1), but has been deprecated in ICE version 2. We shouldn\u0027t use it.See https://tools.ietf.org/html/rfc8445#section-8.1.1 - it\u0027s about nominating multiple candidate pairs at the same time.\n\nLite mode is the mode where you don\u0027t send out pings, you just respond to them - useful if you know for sure you\u0027re on a globally reachable IP address.",
+      "revId": "3d3b531b64fa5bf97a75155a42ac36b7608ec276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2051a7a2_56d7baa2",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 3

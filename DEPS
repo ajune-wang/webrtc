@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '4bf6d3988344437b58061622f985da6ce825be53',
+  'chromium_revision': '6adbb767b012c41efaeab0d1bdbb3eefed0977bc',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -39,7 +39,7 @@ deps = {
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@29e981694d4210e0986581445fbdd2b6742b757f',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@806b312ce34920a602f6fe776f320b3fb5df7bd5',
+    'https://chromium.googlesource.com/chromium/src/third_party@f6ccd3329d3cbb67e92f26eb629419363f4f7445',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@8a337e371d420426bfe00f4e8ee67c887fd58355',
+    'https://chromium.googlesource.com/chromium/src/tools@87b7d6fd0107631b8ba996d299967ae45bf9559e',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@4c095d04179dc725a300085ae21fe3b79900d072',
 

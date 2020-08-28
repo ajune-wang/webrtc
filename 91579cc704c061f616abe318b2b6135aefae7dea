@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e00c67e0_dc8031ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-28T14:07:28Z",
+      "side": 1,
+      "message": "PTAL. Method only used by a test, and that test appears to not test anything interesting in the production code.",
+      "revId": "91579cc704c061f616abe318b2b6135aefae7dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

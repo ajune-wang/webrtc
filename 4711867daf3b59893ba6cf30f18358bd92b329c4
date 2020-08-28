@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "998603c3_683ed523",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3546,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-28T13:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96f15ae_6a1937aa",
+      "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f07c1419_1aadd717",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 9
@@ -70,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "356e7963_2c64631a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5909,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-28T13:15:09Z",
+      "side": 1,
+      "message": "I think you\u0027re right. Ugh, there\u0027s so many degrees of freedom handling all of this becomes quite tricky.\nMoved code to a helper method, now update all based on your solution. Needed to separate out steps protected by signalling thread (e.g. FindMediaSectionForTransceiver()) though.",
+      "parentUuid": "f07c1419_1aadd717",
+      "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "708bd7e6_173a68ed",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 9
@@ -84,6 +120,24 @@
       "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "373ae29e_45f5d524",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 5931,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-28T13:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "708bd7e6_173a68ed",
+      "revId": "4711867daf3b59893ba6cf30f18358bd92b329c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

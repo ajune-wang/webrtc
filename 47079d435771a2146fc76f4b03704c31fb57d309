@@ -16,6 +16,40 @@
       "revId": "47079d435771a2146fc76f4b03704c31fb57d309",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61716052_c4ebd1e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-28T23:16:46Z",
+      "side": 1,
+      "message": "Looks good assuming remaining comment is addressed.",
+      "revId": "47079d435771a2146fc76f4b03704c31fb57d309",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c5096a3_1837c95d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 5903,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-28T23:16:46Z",
+      "side": 1,
+      "message": "Need to check HasRecv for local descriptions. Could either do the RtpTransceiverDirectionReversed thing like happens below, or: \n\n    if ((source \u003d\u003d CS_LOCAL \u0026\u0026 !RtpTransceiverDirectionHasRecv(\n            content_info.media_description()-\u003edirection())) ||\n        (source \u003d\u003d CS_REMOTE \u0026\u0026 !RtpTransceiverDirectionHasSend(\n            content_info.media_description()-\u003edirection()))) \n\nWhatever you think\u0027s cleaner.",
+      "revId": "47079d435771a2146fc76f4b03704c31fb57d309",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

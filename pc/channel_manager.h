@@ -96,16 +96,16 @@ class ChannelManager final {
   // call the appropriate Destroy*Channel method when done.
 
   // Creates a voice channel, to be associated with the specified session.
-  VoiceChannel* CreateVoiceChannel(
-      webrtc::Call* call,
-      const cricket::MediaConfig& media_config,
-      webrtc::RtpTransportInternal* rtp_transport,
-      rtc::Thread* signaling_thread,
-      const std::string& content_name,
-      bool srtp_required,
-      const webrtc::CryptoOptions& crypto_options,
-      rtc::UniqueRandomIdGenerator* ssrc_generator,
-      const AudioOptions& options);
+  VoiceChannel* CreateVoiceChannel(webrtc::Call* call,
+                                   const cricket::MediaConfig& media_config,
+                                   webrtc::RtpTransportInternal* rtp_transport,
+                                   rtc::Thread* signaling_thread,
+                                   const std::string& content_name,
+                                   bool srtp_required,
+                                   const webrtc::CryptoOptions& crypto_options,
+                                   rtc::UniqueRandomIdGenerator* ssrc_generator,
+                                   const AudioOptions& options,
+                                   bool allow_unsignalled_streams);
   // Destroys a voice channel created by CreateVoiceChannel.
   void DestroyVoiceChannel(VoiceChannel* voice_channel);
 
@@ -122,7 +122,8 @@ class ChannelManager final {
       const webrtc::CryptoOptions& crypto_options,
       rtc::UniqueRandomIdGenerator* ssrc_generator,
       const VideoOptions& options,
-      webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory);
+      webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory,
+      bool allow_unsignalled_streams);
   // Destroys a video channel created by CreateVideoChannel.
   void DestroyVideoChannel(VideoChannel* video_channel);
 

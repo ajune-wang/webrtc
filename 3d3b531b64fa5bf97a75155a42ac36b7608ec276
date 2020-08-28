@@ -19,6 +19,41 @@
     },
     {
       "key": {
+        "uuid": "0d27d7ce_e5c88a91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-28T20:39:26Z",
+      "side": 1,
+      "message": "Unfortunately we still haven\u0027t implemented regular nomination. I don\u0027t remember all the details of \"semi aggressive\" nomination but it\u0027s effectively the same as aggressive.\n\nThe hard part of regular nomination is figuring out when to cut our losses and settle for the best connection we have so far. Though in theory, we shouldn\u0027t lose anything by waiting, because *technically* it should be possible to receive media before nomination. So should we just wait for everything to time out? Guess that\u0027s a discussion for some other day.",
+      "parentUuid": "3c042b63_7adfeb34",
+      "revId": "3d3b531b64fa5bf97a75155a42ac36b7608ec276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3c5643f_8c6128bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-28T20:39:26Z",
+      "side": 1,
+      "message": "\u003e Patch Set 3:\n\u003e \n\u003e Hi and thanks for the comments!\n\u003e \n\u003e 1) The use_attr is only used if renomination is disabled, correct\n\u003e \n\u003e With use_attr\n\u003e \n\u003e a) The default NominationMode seems to be cricket::NominationMode::SEMI_AGGRESSIVE,\n\u003e \n\u003e I have not found it modified anywhere. Is it ??\n\u003e \n\u003e b) The semi aggressive does differently depending on remote_ice_mode,\n\u003e \n\u003e ICEMODE_LITE only sets use attr on a selected (writable) connection\n\u003e \n\u003e i.e the use_attr will be transported on the first ping after it has been selected.\n\u003e \n\u003e ICEMODE_FULL does aggressive setting of use_attr\n\u003e \n\u003e the default ice mode is FULL but this is modifiable with SDP...hence can be \"anything\" :)\n\u003e \n\u003e 2)  If renomination is enabled,\n\u003e \n\u003e the connection will be selected, and the the nomination value will be transported on the next ping\n\u003e \n\u003e ---\n\u003e \n\u003e Does this answer your question?\n\u003e \n\u003e /Jonas\n\nIt sounds like the short answer is \"yes, this only makes a difference for renomination\" (or ICEMODE_LITE). I guess that means we\u0027re sending an extra ping for no reason in that case, but that shouldn\u0027t be a big deal.",
+      "revId": "3d3b531b64fa5bf97a75155a42ac36b7608ec276",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2051a7a2_56d7baa2",
         "filename": "p2p/base/p2p_transport_channel.cc",
         "patchSetId": 3

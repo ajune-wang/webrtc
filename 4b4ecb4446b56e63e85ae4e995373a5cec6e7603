@@ -34,6 +34,24 @@
       "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21f301b4_f9779f95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-31T22:18:08Z",
+      "side": 1,
+      "message": "Sorry for overlooking this, but Steve\u0027s right; I forgot that MID-based demuxing relied on the unsignaled SSRC handling underneath. The scenario you describe with a single default stream being destroyed and recreated won\u0027t happen, because the RtpDemuxer at the BaseChannel level will direct packets to the correct channel based on the MID extension; each WebrtcVideoChannel should only be getting packets from one stream.\n\nSo, when removing the unsignaled streams, we *don\u0027t* want to remove streams that were matched via MID or RID; only those that were matched on payload type alone.\n\nHowever, I don\u0027t see any way to identify said streams; the RtpDemuxer doesn\u0027t keep track of whether an SSRC-\u003esink binding was created from a payload type or a MID. Theoretically you could add the bindings created from payload type to a separate list, but that could get complicated. The simpler approach would be to just remove all unsignaled streams, potentially causing a brief hiccup for streams that didn\u0027t need to be removed and will need to be recreated.\n\nSo basically, I\u0027d suggest changing SetUnsignalledReceiveStreamsAllowed to \"SetPayloadTypeDemuxingEnabled\". On setting to false, it would remove all unsignaled streams (but not disable them from being created later), remove payload types from demuxer_criteria_, and prevent them from being added to demuxer_criteria_ in the future. If you like I can take over from here since I\u0027m familiar with this code.",
+      "parentUuid": "6b7a58a7_56b19775",
+      "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1368,6 +1368,7 @@ WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel(
       engine_(engine),
       call_(call),
       audio_config_(config.audio),
+      unsignalled_streams_allowed_(true),
       crypto_options_(crypto_options) {
   RTC_LOG(LS_VERBOSE) << "WebRtcVoiceMediaChannel::WebRtcVoiceMediaChannel";
   RTC_DCHECK(call);
@@ -2031,6 +2032,17 @@ void WebRtcVoiceMediaChannel::ResetUnsignaledRecvStream() {
   unsignaled_stream_params_ = StreamParams();
 }
 
+void WebRtcVoiceMediaChannel::SetUnsignalledReceiveStreamsAllowed(
+    bool enabled) {
+  RTC_DCHECK(worker_thread_checker_.IsCurrent());
+  RTC_LOG(LS_INFO) << "SetUnsignalledReceiveStreamsAllowed.";
+  if (!enabled) {
+    unsignaled_stream_params_ = StreamParams();
+    unsignaled_recv_ssrcs_.clear();
+  }
+  unsignalled_streams_allowed_ = enabled;
+}
+
 bool WebRtcVoiceMediaChannel::SetLocalSource(uint32_t ssrc,
                                              AudioSource* source) {
   auto it = send_streams_.find(ssrc);
@@ -2187,6 +2199,10 @@ void WebRtcVoiceMediaChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
                                        packet_time_us);
 
   if (delivery_result != webrtc::PacketReceiver::DELIVERY_UNKNOWN_SSRC) {
+    return;
+  }
+
+  if (!unsignalled_streams_allowed_) {
     return;
   }
 

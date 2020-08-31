@@ -76,13 +76,15 @@ class ChannelManagerTest : public ::testing::Test {
     cricket::VoiceChannel* voice_channel = cm_->CreateVoiceChannel(
         &fake_call_, cricket::MediaConfig(), rtp_transport,
         rtc::Thread::Current(), cricket::CN_AUDIO, kDefaultSrtpRequired,
-        webrtc::CryptoOptions(), &ssrc_generator_, AudioOptions());
+        webrtc::CryptoOptions(), &ssrc_generator_, AudioOptions(),
+        /*allow_unsignalled_streams=*/true);
     EXPECT_TRUE(voice_channel != nullptr);
     cricket::VideoChannel* video_channel = cm_->CreateVideoChannel(
         &fake_call_, cricket::MediaConfig(), rtp_transport,
         rtc::Thread::Current(), cricket::CN_VIDEO, kDefaultSrtpRequired,
         webrtc::CryptoOptions(), &ssrc_generator_, VideoOptions(),
-        video_bitrate_allocator_factory_.get());
+        video_bitrate_allocator_factory_.get(),
+        /*allow_unsignalled_streams=*/true);
     EXPECT_TRUE(video_channel != nullptr);
     cricket::RtpDataChannel* rtp_data_channel = cm_->CreateRtpDataChannel(
         cricket::MediaConfig(), rtp_transport, rtc::Thread::Current(),

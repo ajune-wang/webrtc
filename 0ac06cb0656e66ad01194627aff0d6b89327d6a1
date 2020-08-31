@@ -16,6 +16,23 @@
       "revId": "0ac06cb0656e66ad01194627aff0d6b89327d6a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6700eeed_638a2d94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-08-31T07:18:52Z",
+      "side": 1,
+      "message": "lgtm.\n\nHowever, I\u0027d also consider it an api bug that the two objects, which are both injected by the application, depend on each other in a way that the PeerConnection needs to be aware of.",
+      "revId": "0ac06cb0656e66ad01194627aff0d6b89327d6a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b13c3f85_ebe2fc1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-08-31T16:25:38Z",
+      "side": 1,
+      "message": "Two tests are now failing, but from what I can tell it\u0027s actually the tests that don\u0027t behave to spec.\n+titovartem,shampson can I disable these for now, and then we can fix and re-enable them?\n\n* PeerConnectionIntegrationTestUnifiedPlan.EndToEndCallWithTwoVideoTracksAndNoSignaledSsrc\nComment states that:\n// Tests that video flows between multiple video tracks when SSRCs are not\n// signaled. This exercises the MID RTP header extension which is needed to\n// demux the incoming video tracks.\nThe test calls RemoveSsrcsAndKeepMsids() in order to achieve this, but it does not appear that |stream_ids| (i.e. mids) are always empty, so this has in fact been using a single default receive stream which has just been repeatedly created and destroyed for each new ssrc seen. Presumable single-packet frames makes this pass.\n\n* PeerConnectionE2EQualityTestSmokeTest.Simulcast\nThis smoke test sets up a simulcast sender and then expects a single receiver to receive and decode all of the SSRCs. This is in fact not supported and has also been relying on a default stream to decode at least some of the layers.\n",
+      "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

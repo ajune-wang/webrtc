@@ -33,6 +33,24 @@
       "revId": "0ac06cb0656e66ad01194627aff0d6b89327d6a1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49435dda_68b01459",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-08-31T20:12:06Z",
+      "side": 1,
+      "message": "True, though I think PortAllocator will be going away eventually.",
+      "parentUuid": "6700eeed_638a2d94",
+      "revId": "0ac06cb0656e66ad01194627aff0d6b89327d6a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

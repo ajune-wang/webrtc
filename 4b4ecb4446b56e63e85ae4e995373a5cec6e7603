@@ -16,6 +16,24 @@
       "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b7a58a7_56b19775",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2020-08-31T16:56:44Z",
+      "side": 1,
+      "message": "Re: EndToEndCallWithTwoVideoTracksAndNoSignaledSsrc\n\nI don\u0027t see anything wrong with that test as written. It\u0027s checking the basic premise of spec-compliant Unified Plan, i.e. not signaling SSRCs and relying on the MID RTP header extension (note: MID not MSID).\n\nAt the WebRtcVideoEngine level I believe that behavior relied on unsignaled SSRC handling to create the video receive stream. However, there were still some remaining bugs with this implementation, like RTX not working: bugs.webrtc.org/10297",
+      "parentUuid": "b13c3f85_ebe2fc1f",
+      "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

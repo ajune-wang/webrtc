@@ -420,6 +420,7 @@ if (rtc_include_tests) {
         "../../api/audio:echo_control",
         "../../rtc_base:rtc_base_tests_utils",
         "../../rtc_base:rtc_task_queue",
+        "../../system_wrappers:cpu_features_api",
         "aec_dump",
         "aec_dump:aec_dump_unittests",
       ]

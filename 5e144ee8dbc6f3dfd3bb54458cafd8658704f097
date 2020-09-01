@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13f455e8_7807bf74",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-01T13:00:21Z",
+      "side": 1,
+      "message": "Nice!\n\nI\u0027d expect that a few of the includes of module_common_types.h, and dependencies on the module_api target, can be deleted too.",
+      "revId": "5e144ee8dbc6f3dfd3bb54458cafd8658704f097",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

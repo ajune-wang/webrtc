@@ -52,6 +52,24 @@
       "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d33bff3_060ceaf8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-09-01T00:32:23Z",
+      "side": 1,
+      "message": "Re: PeerConnectionE2EQualityTestSmokeTest.Simulcast\nThere is SDP modification in the middle, so for single receiver it actually should be 3 different streams signaled by MID. Modification swaps MID and RID header extensions in the packets, so for receiver what was RID for sender will become a MID and should be accepted. \n\nThis behavior is also used in a batch of performance tests that we have in pc_full_stack_tests.cc. I suppose they may also fail if we won\u0027t fix things here.\n\nI think maybe the thing explained by Steve and Taylor maybe the case for this issue too.",
+      "parentUuid": "21f301b4_f9779f95",
+      "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

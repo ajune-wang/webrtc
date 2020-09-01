@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "db455b43_1a6999b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-01T14:37:00Z",
+      "side": 1,
+      "message": "Yes, \nI think you are correct, it should be a DCHECK_GE.\n\nI\u0027ve corrected that in the new patchset.\n\nPTAL",
+      "parentUuid": "e5cea604_a6135238",
+      "revId": "516d7e265e436d632fb636a07544a00317c9652d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baf32a42_fcdfbdd6",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 2
@@ -47,6 +65,30 @@
       "writtenOn": "2020-09-01T14:20:19Z",
       "side": 1,
       "message": "How different are the values with avx2?\n\nAsking because as I understand it, the bit-exactness test is only mostly bitexact, and has some  tolerance.",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 3
+      },
+      "revId": "516d7e265e436d632fb636a07544a00317c9652d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e31aa454_88c66963",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-01T14:37:00Z",
+      "side": 1,
+      "message": "There is a difference. It is small but for recursive algorithms the differences builds up over time. \n\nI\u0027ve checked the APM performance on a number of recordings and from what I can see the differences are negligible/nonnoticeable.",
+      "parentUuid": "baf32a42_fcdfbdd6",
       "range": {
         "startLine": 358,
         "startChar": 0,

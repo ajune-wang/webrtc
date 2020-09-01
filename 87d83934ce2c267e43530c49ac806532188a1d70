@@ -16,6 +16,24 @@
       "revId": "87d83934ce2c267e43530c49ac806532188a1d70",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffaee601_f72bfa19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-01T19:44:11Z",
+      "side": 1,
+      "message": "Thanks for the CL!\n\n\u003e mbonadei@ Two things:\n\u003e - I have not been able to actually build the targets I changed locally so I am hoping the CQ builds them. If it doesn\u0027t, or you are not sure please let me know of some docs on how to build the webrtc targets from within a chromium checkout.\n\nYes, I see them built for example here: https://ci.chromium.org/p/webrtc/builders/try/android_arm_rel/22910?, so we should be fine.\n\n\u003e - I left in the \"custom_package\" template arg even though it is no longer required because I noticed some comments about a Bazel converter, I suspect that it might need that template arg. If you know that it doesn\u0027t, please let me know and I will remove the template arg. However it does not hurt to keep it since we plan on supporting that for now (only create_srcjar \u003d true will be fully deprecated).\n\nYes, this is still needed. When you will deprecate that as well we will have to update the Bazel converter we use for WebRTC.",
+      "parentUuid": "8fb033fe_18b94ac3",
+      "revId": "87d83934ce2c267e43530c49ac806532188a1d70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

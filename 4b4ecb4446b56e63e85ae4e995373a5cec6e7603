@@ -70,6 +70,24 @@
       "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b1cadbc_debf4e7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-01T13:24:56Z",
+      "side": 1,
+      "message": "Thank for your replies!\nI see, I misunderstood. This is new territory for me and code is getting quite complex. If you have the time Taylor I\u0027d appreciate if you took over as per your offer so that I don\u0027t waste more time falling into these pitfalls :)\nLet me know if there are other places where I can contribute.\n\nRe the solution. One option I considered was adding metadata to the RtpPacketReceived as it\u0027s passed through the RtpDemuxer. However, in BaseChannel::OnRtpPacket() that is stripped down again to just CopyOnWriteBuffer.\nThis buffer is then passed to the media channel which then passes it to Call, which re-parses it again to an RtpPacketReceived. It seems to me like a good refactoring to plumb the parsed packet all the way - but that\u0027s way out of scope for this CL...",
+      "parentUuid": "7d33bff3_060ceaf8",
+      "revId": "4b4ecb4446b56e63e85ae4e995373a5cec6e7603",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

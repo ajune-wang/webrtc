@@ -244,7 +244,7 @@ declare_args() {
 
   # Set this to true to enable the avx2 support in webrtc.
   # TODO(bugs.webrtc.org/11663): Default this to true and eventually remove.
-  rtc_enable_avx2 = false
+  rtc_enable_avx2 = true
 
   # Include tests in standalone checkout.
   rtc_include_tests = !build_with_chromium && !build_with_mozilla

@@ -33,6 +33,24 @@
       "revId": "385499ca90daeb8b7532d8d51966bfb05925abb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7c1189a_885ce7ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-01T19:56:03Z",
+      "side": 1,
+      "message": "Sorry for not catching this earlier!\n\nWe need to add it here to declare the data dependency: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/BUILD.gn;l\u003d127;drc\u003dcccd55094dbec7b8a0f7823ecf9c69d674200d87.\n\nAnd we need to upload the resource as well but I think you have done it since we have the .sha1 file.\n\nJust add \"../resources/audio_processing/output_data_float_avx2.pb\" to the link above.",
+      "parentUuid": "9dda8c31_021c09c1",
+      "revId": "385499ca90daeb8b7532d8d51966bfb05925abb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

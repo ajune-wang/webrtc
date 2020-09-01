@@ -16,6 +16,23 @@
       "revId": "385499ca90daeb8b7532d8d51966bfb05925abb3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9dda8c31_021c09c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-01T16:16:54Z",
+      "side": 1,
+      "message": "Mirko: do you know why the bots are failing?\nIt seems line the adde file in resources is found, but I cannot find any error anywhere in the CL that could cause that. Is there any way one could verify whether the file is present or not on the test bots?\n",
+      "revId": "385499ca90daeb8b7532d8d51966bfb05925abb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

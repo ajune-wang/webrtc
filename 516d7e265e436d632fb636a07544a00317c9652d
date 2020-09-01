@@ -16,6 +16,29 @@
       "revId": "516d7e265e436d632fb636a07544a00317c9652d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baf32a42_fcdfbdd6",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-09-01T14:20:19Z",
+      "side": 1,
+      "message": "How different are the values with avx2?\n\nAsking because as I understand it, the bit-exactness test is only mostly bitexact, and has some  tolerance.",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 3
+      },
+      "revId": "516d7e265e436d632fb636a07544a00317c9652d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

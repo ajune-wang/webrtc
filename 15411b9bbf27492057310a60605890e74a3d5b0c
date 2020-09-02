@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19dbf33d_758893ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-09-02T06:12:24Z",
+      "side": 1,
+      "message": "\u003e Patch Set 16: Code-Review+1\n\u003e \n\u003e (3 comments)\n\u003e \n\u003e lgtm with some minor style things. I\u0027m also fine with addressing those separately.\n\nHi,\n\nmay I ask for one more round of review? This should be last iteration. Function-wise it didn\u0027t change much, it is just now splitted into more classes to make them more re-usable.\n\nThank you.\n\nJan",
+      "revId": "15411b9bbf27492057310a60605890e74a3d5b0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

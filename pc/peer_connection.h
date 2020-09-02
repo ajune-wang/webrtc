@@ -1142,6 +1142,9 @@ class PeerConnection : public PeerConnectionInternal,
   // | sdp_type | is the type of the SDP that caused the rollback.
   RTCError Rollback(SdpType sdp_type);
 
+  bool IsFieldTrialEnabled(absl::string_view name) const;
+  bool IsFieldTrialDisabled(absl::string_view name) const;
+
   // Storing the factory as a scoped reference pointer ensures that the memory
   // in the PeerConnectionFactoryImpl remains available as long as the
   // PeerConnection is running. It is passed to PeerConnection as a raw pointer.

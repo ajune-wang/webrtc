@@ -98,6 +98,30 @@
       "revId": "516d7e265e436d632fb636a07544a00317c9652d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0407d01e_daa8595d",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-09-02T06:49:56Z",
+      "side": 1,
+      "message": "ok, sgtm\n\nIs it unexpected, then, that SSE2 vs C-version do not have different results?\nOr do we never run C-version on bots?",
+      "parentUuid": "e31aa454_88c66963",
+      "range": {
+        "startLine": 358,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 3
+      },
+      "revId": "516d7e265e436d632fb636a07544a00317c9652d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

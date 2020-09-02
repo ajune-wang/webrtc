@@ -16,6 +16,23 @@
       "revId": "e8251b57f4b95308edc7c44191c61381b47cfc33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5b22c29_d1391ae9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-02T06:39:48Z",
+      "side": 1,
+      "message": "Per, tomorrow we will be able to land this one (after the 14 day period from PSA has expired).\n\nPTAL.",
+      "revId": "e8251b57f4b95308edc7c44191c61381b47cfc33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

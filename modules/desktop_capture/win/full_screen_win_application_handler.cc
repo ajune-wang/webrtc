@@ -24,23 +24,20 @@
 namespace webrtc {
 namespace {
 
-// Utility function to verify that |window| has class name equal to
-// string literal |class_name|
-template <typename T>
-bool CheckWindowClassName(HWND window, const T& class_name) {
-  constexpr size_t kClassNameLength = arraysize(class_name) - 1;
+// Utility function to verify that |window| has class name equal to |class_name|
+bool CheckWindowClassName(HWND window, const wchar_t* class_name) {
+  const size_t classNameLength = wcslen(class_name);
 
-  // We need to verify that window class is equal to |class_name|.
-  // To do that we need a buffer large enough to include a null terminated
-  // string one code point bigger than |class_name|. It will help us to
-  // check that size of class name string returned by GetClassNameW is equal
-  // to |kScreenClassNameLength| not being limited by size of buffer (case
-  // when |class_name| is a prefix for class name string).
-  WCHAR buffer[arraysize(class_name) + 3];
-  const int length = ::GetClassNameW(window, buffer, arraysize(buffer));
-  if (length != kClassNameLength)
+  // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-wndclassa
+  // says lpszClassName field in WNDCLASS is limited by 256 symbols, so we don't
+  // need to have a buffer bigger than that.
+  constexpr size_t kMaxClassNameLength = 256;
+  WCHAR buffer[kMaxClassNameLength];
+
+  const int length = ::GetClassNameW(window, buffer, kMaxClassNameLength);
+  if (length != classNameLength)
     return false;
-  return wcsncmp(buffer, class_name, kClassNameLength) == 0;
+  return wcsncmp(buffer, class_name, classNameLength) == 0;
 }
 
 std::string WindowText(HWND window) {
@@ -196,9 +193,10 @@ class OpenOfficeApplicationHandler : public FullScreenApplicationHandler {
         GetProcessWindows(window_list, process_id, nullptr);
 
     DesktopCapturer::SourceList document_windows;
-    std::copy_if(app_windows.begin(), app_windows.end(),
-                 std::back_inserter(document_windows),
-                 [this](const auto& x) { return IsEditorWindow(x); });
+    std::copy_if(
+        app_windows.begin(), app_windows.end(),
+        std::back_inserter(document_windows),
+        [this](const DesktopCapturer::Source& x) { return IsEditorWindow(x); });
 
     // Check if we have only one document window, otherwise it's not possible
     // to securely match a document window and a slide show window which has
@@ -215,7 +213,9 @@ class OpenOfficeApplicationHandler : public FullScreenApplicationHandler {
     // Check if we have a slide show window.
     auto slide_show_window =
         std::find_if(app_windows.begin(), app_windows.end(),
-                     [this](const auto& x) { return IsSlideShowWindow(x); });
+                     [this](const DesktopCapturer::Source& x) {
+                       return IsSlideShowWindow(x);
+                     });
 
     if (slide_show_window == app_windows.end())
       return 0;
@@ -233,7 +233,9 @@ class OpenOfficeApplicationHandler : public FullScreenApplicationHandler {
   }
 
   bool IsSlideShowWindow(const DesktopCapturer::Source& source) const {
-    if (source.title.length() > 0) {
+    // Check title size to filter out a Presenter Control window which shares
+    // window class with Slide Show window but has non empty title.
+    if (!source.title.empty()) {
       return false;
     }
 

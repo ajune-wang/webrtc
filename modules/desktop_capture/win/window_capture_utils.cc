@@ -414,10 +414,11 @@ bool WindowCaptureHelperWin::IsWindowCloaked(HWND hwnd) {
 
 bool WindowCaptureHelperWin::EnumerateCapturableWindows(
     DesktopCapturer::SourceList* results) {
-  if (!webrtc::GetWindowList(GetWindowListFlags::kIgnoreUntitled |
-                                 GetWindowListFlags::kIgnoreUnresponsive,
-                             results))
+  if (!webrtc::GetWindowList((GetWindowListFlags::kIgnoreUntitled |
+                              GetWindowListFlags::kIgnoreUnresponsive),
+                             results)) {
     return false;
+  }
 
   for (auto it = results->begin(); it != results->end();) {
     if (!IsWindowVisibleOnCurrentDesktop(reinterpret_cast<HWND>(it->id))) {

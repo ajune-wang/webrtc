@@ -168,7 +168,7 @@ class OpenOfficeApplicationHandler : public FullScreenMacApplicationHandler {
     // to securely match a document window and a slide show window which has
     // empty title.
     if (std::any_of(cache_sources_.begin(), cache_sources_.end(),
-                    [&original_title](const auto& src) {
+                    [&original_title](const DesktopCapturer::Source& src) {
                       return src.title.length() && src.title != original_title;
                     })) {
       return kCGNullWindowID;

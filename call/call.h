@@ -156,6 +156,8 @@ class Call {
   virtual void SetClientBitratePreferences(
       const BitrateSettings& preferences) = 0;
 
+  virtual const WebRtcKeyValueConfig& Trials() const = 0;
+
   virtual ~Call() {}
 };
 

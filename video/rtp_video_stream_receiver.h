@@ -143,8 +143,6 @@ class RtpVideoStreamReceiver : public LossNotificationSender,
   // Implements RtpPacketSinkInterface.
   void OnRtpPacket(const RtpPacketReceived& packet) override;
 
-  // TODO(philipel): Stop using VCMPacket in the new jitter buffer and then
-  //                 remove this function. Public only for tests.
   void OnReceivedPayloadData(rtc::CopyOnWriteBuffer codec_payload,
                              const RtpPacketReceived& rtp_packet,
                              const RTPVideoHeader& video);

@@ -16,6 +16,138 @@
       "revId": "15411b9bbf27492057310a60605890e74a3d5b0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2faadff3_47b969e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-03T13:21:01Z",
+      "side": 1,
+      "message": "again, not a domain expert here so just some style nits",
+      "revId": "15411b9bbf27492057310a60605890e74a3d5b0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55ad8ff3_5fecf37e",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-03T13:21:01Z",
+      "side": 1,
+      "message": "nit: anything.\nAlso, encode comments with period, here and elsewhere.",
+      "range": {
+        "startLine": 156,
+        "startChar": 7,
+        "endLine": 156,
+        "endChar": 14
+      },
+      "revId": "15411b9bbf27492057310a60605890e74a3d5b0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d07e96c8_fb14f768",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-03T13:21:01Z",
+      "side": 1,
+      "message": "newline between methods",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 2
+      },
+      "revId": "15411b9bbf27492057310a60605890e74a3d5b0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c29aba91_76979541",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-03T13:21:01Z",
+      "side": 1,
+      "message": "requested_type_",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 55
+      },
+      "revId": "15411b9bbf27492057310a60605890e74a3d5b0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99011829_add9bbe3",
+        "filename": "modules/desktop_capture/linux/base_capturer_pipewire.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-03T13:21:01Z",
+      "side": 1,
+      "message": "If 0 a magic value to denote \"none\" I suggest adding a named constant perhaps using an optional (in which case request_id() could also return an optional)",
+      "range": {
+        "startLine": 48,
+        "startChar": 16,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "15411b9bbf27492057310a60605890e74a3d5b0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8e891f0_9e488cb2",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-03T13:21:01Z",
+      "side": 1,
+      "message": "Avoid default values.\nIf \"no id\" is legal, use an optional instead.\n(here and below)",
+      "range": {
+        "startLine": 67,
+        "startChar": 46,
+        "endLine": 67,
+        "endChar": 49
+      },
+      "revId": "15411b9bbf27492057310a60605890e74a3d5b0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -10,6 +10,9 @@
 
 #include <cpu-features.h>
 
+extern "C" {
+
 uint64_t WebRtc_GetCPUFeaturesARM(void) {
   return android_getCpuFeatures();
+}
 }

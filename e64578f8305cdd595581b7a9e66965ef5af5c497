@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1b17040_c15fe80c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-03T13:42:13Z",
+      "side": 1,
+      "message": "I guess there\u0027s still work to do to eliminate VCMPacket, but this comment at this place doesn\u0027t seem helpful.",
+      "revId": "e64578f8305cdd595581b7a9e66965ef5af5c497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

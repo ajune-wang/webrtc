@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32c964e7_74219241",
+        "filename": "system_wrappers/include/cpu_features_wrapper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-03T22:04:41Z",
+      "side": 0,
+      "message": "Since we don\u0027t access these from C, I removed this but maybe this is something we want to avoid since we have some C code in the codebase. WDYT?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "a92521d78163b964e9bb17e5b8b05bef92d99b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

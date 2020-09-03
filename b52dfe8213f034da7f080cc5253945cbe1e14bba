@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f526ca29_27f32808",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-03T21:03:22Z",
+      "side": 1,
+      "message": "Taking another pass at this (previous attempt was https://webrtc-review.googlesource.com/c/src/+/183345).\n\nThis protects variables touched by Send using a lock, rather than by moving everything else to the network thread as well.\n\nThis has a much smaller impact to the behavior of the class from the perspective of the API user, as evidenced by the fact that I didn\u0027t have to change any tests this time.",
+      "revId": "b52dfe8213f034da7f080cc5253945cbe1e14bba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

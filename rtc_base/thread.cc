@@ -938,7 +938,7 @@ void Thread::InvokeInternal(const Location& posted_from,
   TRACE_EVENT2("webrtc", "Thread::Invoke", "src_file", posted_from.file_name(),
                "src_func", posted_from.function_name());
 
-  class FunctorMessageHandler : public MessageHandler {
+  class FunctorMessageHandler : public MessageHandlerInterface {
    public:
     explicit FunctorMessageHandler(rtc::FunctionView<void()> functor)
         : functor_(functor) {}

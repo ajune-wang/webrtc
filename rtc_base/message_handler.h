@@ -21,11 +21,19 @@ namespace rtc {
 
 struct Message;
 
-// Messages get dispatched to a MessageHandler
-class RTC_EXPORT MessageHandler {
+// Messages get dispatched to a MessageHandler.
+class RTC_EXPORT MessageHandlerInterface {
  public:
-  virtual ~MessageHandler();
+  virtual ~MessageHandlerInterface() {}
   virtual void OnMessage(Message* msg) = 0;
+};
+
+// An implementation that automatically calls |ThreadManager::Clear(this)|
+// when destructed. That's an expensive operation, so not recommended for
+// single-use MessageHandler implementations.
+class RTC_EXPORT MessageHandler : public MessageHandlerInterface {
+ public:
+  ~MessageHandler() override;
 
  protected:
   MessageHandler() {}

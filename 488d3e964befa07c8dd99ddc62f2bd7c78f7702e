@@ -33,6 +33,24 @@
       "revId": "488d3e964befa07c8dd99ddc62f2bd7c78f7702e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "652cc984_229082d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-09-03T13:08:25Z",
+      "side": 1,
+      "message": "I found this bug https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10474\nwhich is about the same issue.",
+      "parentUuid": "6325dcbb_5f83ae6a",
+      "revId": "488d3e964befa07c8dd99ddc62f2bd7c78f7702e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

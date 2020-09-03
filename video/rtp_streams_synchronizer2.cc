@@ -147,8 +147,13 @@ void RtpStreamsSynchronizer::UpdateDelay() {
                      << "target_delay_ms: " << target_video_delay_ms << "} ";
   }
 
-  syncable_audio_->SetMinimumPlayoutDelay(target_audio_delay_ms);
-  syncable_video_->SetMinimumPlayoutDelay(target_video_delay_ms);
+  const bool audio_update_success =
+      syncable_audio_->SetMinimumPlayoutDelay(target_audio_delay_ms);
+  const bool video_update_success =
+      syncable_video_->SetMinimumPlayoutDelay(target_video_delay_ms);
+  if (!audio_update_success || !video_update_success) {
+    sync_->Reset();
+  }
 }
 
 // TODO(https://bugs.webrtc.org/7065): Move RtpToNtpEstimator out of

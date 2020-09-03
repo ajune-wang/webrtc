@@ -44,6 +44,9 @@ class StreamSynchronization {
   // |target_delay_ms|.
   void SetTargetBufferingDelay(int target_delay_ms);
 
+  // Resets internal state. Can be used to recover from errors.
+  void Reset();
+
   uint32_t audio_stream_id() const { return audio_stream_id_; }
   uint32_t video_stream_id() const { return video_stream_id_; }
 

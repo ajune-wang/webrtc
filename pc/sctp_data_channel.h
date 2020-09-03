@@ -23,7 +23,10 @@
 #include "pc/data_channel_utils.h"
 #include "rtc_base/async_invoker.h"
 #include "rtc_base/ssl_stream_adapter.h"  // For SSLRole
+#include "rtc_base/synchronization/mutex.h"
+#include "rtc_base/synchronization/sequence_checker.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
 
@@ -124,8 +127,9 @@ class SctpDataChannel : public DataChannelInterface,
   static rtc::scoped_refptr<DataChannelInterface> CreateProxy(
       rtc::scoped_refptr<SctpDataChannel> channel);
 
-  void RegisterObserver(DataChannelObserver* observer) override;
-  void UnregisterObserver() override;
+  void RegisterObserver(DataChannelObserver* observer) override
+      RTC_LOCKS_EXCLUDED(mutex_);
+  void UnregisterObserver() override RTC_LOCKS_EXCLUDED(mutex_);
 
   std::string label() const override { return label_; }
   bool reliable() const override;
@@ -154,24 +158,26 @@ class SctpDataChannel : public DataChannelInterface,
 
   virtual int internal_id() const { return internal_id_; }
 
-  uint64_t buffered_amount() const override;
-  void Close() override;
-  DataState state() const override;
+  uint64_t buffered_amount() const override RTC_LOCKS_EXCLUDED(mutex_);
+  void Close() override RTC_LOCKS_EXCLUDED(mutex_);
+  DataState state() const override RTC_LOCKS_EXCLUDED(mutex_);
   RTCError error() const override;
   uint32_t messages_sent() const override;
   uint64_t bytes_sent() const override;
   uint32_t messages_received() const override;
   uint64_t bytes_received() const override;
-  bool Send(const DataBuffer& buffer) override;
+  bool Send(const DataBuffer& buffer) override RTC_LOCKS_EXCLUDED(mutex_);
 
   // Close immediately, ignoring any queued data or closing procedure.
   // This is called when the underlying SctpTransport is being destroyed.
   // It is also called by the PeerConnection if SCTP ID assignment fails.
-  void CloseAbruptlyWithError(RTCError error);
+  void CloseAbruptlyWithError(RTCError error) RTC_LOCKS_EXCLUDED(mutex_);
   // Specializations of CloseAbruptlyWithError
-  void CloseAbruptlyWithDataChannelFailure(const std::string& message);
+  void CloseAbruptlyWithDataChannelFailure(const std::string& message)
+      RTC_LOCKS_EXCLUDED(mutex_);
   void CloseAbruptlyWithSctpCauseCode(const std::string& message,
-                                      uint16_t cause_code);
+                                      uint16_t cause_code)
+      RTC_LOCKS_EXCLUDED(mutex_);
 
   // Slots for provider to connect signals to.
   //
@@ -181,30 +187,31 @@ class SctpDataChannel : public DataChannelInterface,
   // Called when the SctpTransport's ready to use. That can happen when we've
   // finished negotiation, or if the channel was created after negotiation has
   // already finished.
-  void OnTransportReady(bool writable);
+  void OnTransportReady(bool writable) RTC_LOCKS_EXCLUDED(mutex_);
 
   void OnDataReceived(const cricket::ReceiveDataParams& params,
-                      const rtc::CopyOnWriteBuffer& payload);
+                      const rtc::CopyOnWriteBuffer& payload)
+      RTC_LOCKS_EXCLUDED(mutex_);
 
   // Sets the SCTP sid and adds to transport layer if not set yet. Should only
   // be called once.
-  void SetSctpSid(int sid);
+  void SetSctpSid(int sid) RTC_LOCKS_EXCLUDED(mutex_);
   // The remote side started the closing procedure by resetting its outgoing
   // stream (our incoming stream). Sets state to kClosing.
-  void OnClosingProcedureStartedRemotely(int sid);
+  void OnClosingProcedureStartedRemotely(int sid) RTC_LOCKS_EXCLUDED(mutex_);
   // The closing procedure is complete; both incoming and outgoing stream
   // resets are done and the channel can transition to kClosed. Called
   // asynchronously after RemoveSctpDataStream.
-  void OnClosingProcedureComplete(int sid);
+  void OnClosingProcedureComplete(int sid) RTC_LOCKS_EXCLUDED(mutex_);
   // Called when the transport channel is created.
   // Only needs to be called for SCTP data channels.
-  void OnTransportChannelCreated();
+  void OnTransportChannelCreated() RTC_LOCKS_EXCLUDED(mutex_);
   // Called when the transport channel is unusable.
   // This method makes sure the DataChannel is disconnected and changes state
   // to kClosed.
   void OnTransportChannelClosed();
 
-  DataChannelStats GetStats() const;
+  DataChannelStats GetStats() const RTC_LOCKS_EXCLUDED(mutex_);
 
   // Emitted when state transitions to kOpen.
   sigslot::signal1<DataChannelInterface*> SignalOpened;
@@ -234,20 +241,35 @@ class SctpDataChannel : public DataChannelInterface,
     kHandshakeReady
   };
 
-  bool Init();
-  void UpdateState();
-  void SetState(DataState state);
-  void DisconnectFromProvider();
+  bool Init() RTC_LOCKS_EXCLUDED(mutex_);
+  void UpdateState() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  void SetState(DataState state) RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  void ConnectToProvider() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  void DisconnectFromProvider() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   void DeliverQueuedReceivedData();
 
-  void SendQueuedDataMessages();
-  bool SendDataMessage(const DataBuffer& buffer, bool queue_if_blocked);
-  bool QueueSendDataMessage(const DataBuffer& buffer);
+  void SendQueuedDataMessages() RTC_LOCKS_EXCLUDED(mutex_);
+  bool SendDataMessage(const DataBuffer& buffer, bool queue_if_blocked)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  bool QueueSendDataMessage(const DataBuffer& buffer)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+  // Called on the network thread to queue up a closure on the signaling
+  // thread.
+  void QueueAbruptClosure(RTCError error) RTC_RUN_ON(network_thread_);
+  // Called on the signaling thread to indicate that a method was successfully
+  // sent.
+  void OnDataMessageSent(size_t message_size) RTC_LOCKS_EXCLUDED(mutex_);
 
-  void SendQueuedControlMessages();
+  void SendQueuedControlMessages() RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
   void QueueControlMessage(const rtc::CopyOnWriteBuffer& buffer);
-  bool SendControlMessage(const rtc::CopyOnWriteBuffer& buffer);
+  bool SendControlMessage(const rtc::CopyOnWriteBuffer& buffer)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
+
+  // Only difference between this and CloseAbruptlyWithError is that this
+  // expects the mutex to already be locked.
+  void InternalCloseAbruptlyWithError(RTCError error)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_);
 
   rtc::Thread* const signaling_thread_;
   rtc::Thread* const network_thread_;
@@ -255,7 +277,10 @@ class SctpDataChannel : public DataChannelInterface,
   const std::string label_;
   const InternalDataChannelInit config_;
   DataChannelObserver* observer_ RTC_GUARDED_BY(signaling_thread_) = nullptr;
-  DataState state_ RTC_GUARDED_BY(signaling_thread_) = kConnecting;
+  DataState state_ RTC_GUARDED_BY(mutex_) = kConnecting;
+  // Has the network thread already queued up a closure? Shouldn't even try
+  // sending if true.
+  bool pending_closure_ RTC_GUARDED_BY(network_thread_) = true;
   RTCError error_ RTC_GUARDED_BY(signaling_thread_);
   uint32_t messages_sent_ RTC_GUARDED_BY(signaling_thread_) = 0;
   uint64_t bytes_sent_ RTC_GUARDED_BY(signaling_thread_) = 0;
@@ -263,11 +288,9 @@ class SctpDataChannel : public DataChannelInterface,
   uint64_t bytes_received_ RTC_GUARDED_BY(signaling_thread_) = 0;
   // Number of bytes of data that have been queued using Send(). Increased
   // before each transport send and decreased after each successful send.
-  uint64_t buffered_amount_ RTC_GUARDED_BY(signaling_thread_) = 0;
-  SctpDataChannelProviderInterface* const provider_
-      RTC_GUARDED_BY(signaling_thread_);
-  HandshakeState handshake_state_ RTC_GUARDED_BY(signaling_thread_) =
-      kHandshakeInit;
+  uint64_t buffered_amount_ RTC_GUARDED_BY(mutex_) = 0;
+  SctpDataChannelProviderInterface* const provider_ RTC_GUARDED_BY(mutex_);
+  HandshakeState handshake_state_ RTC_GUARDED_BY(mutex_) = kHandshakeInit;
   bool connected_to_provider_ RTC_GUARDED_BY(signaling_thread_) = false;
   bool writable_ RTC_GUARDED_BY(signaling_thread_) = false;
   // Did we already start the graceful SCTP closing procedure?
@@ -276,8 +299,12 @@ class SctpDataChannel : public DataChannelInterface,
   // data.
   PacketQueue queued_control_data_ RTC_GUARDED_BY(signaling_thread_);
   PacketQueue queued_received_data_ RTC_GUARDED_BY(signaling_thread_);
-  PacketQueue queued_send_data_ RTC_GUARDED_BY(signaling_thread_);
-  rtc::AsyncInvoker invoker_ RTC_GUARDED_BY(signaling_thread_);
+  PacketQueue queued_send_data_ RTC_GUARDED_BY(mutex_);
+  rtc::AsyncInvoker invoker_;
+
+  // Protects variables are accessed by both Send on the network thread and
+  // other methods on the signaling thread.
+  mutable Mutex mutex_;
 };
 
 }  // namespace webrtc

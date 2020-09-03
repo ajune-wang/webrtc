@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e5006f9_88c8940b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-03T11:19:32Z",
+      "side": 1,
+      "message": "Hi Åsa,\n\nPTAL at this CL to make the AV sync code robust to failures to set the minimum delay.",
+      "revId": "debb5068bccfd39507408ac09d7cc8491757884e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

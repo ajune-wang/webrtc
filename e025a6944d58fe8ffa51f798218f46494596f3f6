@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b56b5f52_062ebc21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-09-03T06:13:14Z",
+      "side": 1,
+      "message": "Hello, please review the pull request. Thank you.",
+      "revId": "e025a6944d58fe8ffa51f798218f46494596f3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

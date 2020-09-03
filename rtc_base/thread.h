@@ -80,7 +80,7 @@ class RTC_EXPORT ThreadManager {
 
   static void Add(Thread* message_queue);
   static void Remove(Thread* message_queue);
-  static void Clear(MessageHandler* handler);
+  static void Clear(MessageHandlerInterface* handler);
 
   // For testing purposes, for use with a simulated clock.
   // Ensures that all message queues have processed delayed messages
@@ -125,7 +125,7 @@ class RTC_EXPORT ThreadManager {
   void SetCurrentThreadInternal(Thread* thread);
   void AddInternal(Thread* message_queue);
   void RemoveInternal(Thread* message_queue);
-  void ClearInternal(MessageHandler* handler);
+  void ClearInternal(MessageHandlerInterface* handler);
   void ProcessAllMessageQueuesInternal();
 #if RTC_DCHECK_IS_ON
   void RemoveFromSendGraph(Thread* thread) RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
@@ -238,21 +238,21 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   virtual bool Peek(Message* pmsg, int cmsWait = 0);
   // |time_sensitive| is deprecated and should always be false.
   virtual void Post(const Location& posted_from,
-                    MessageHandler* phandler,
+                    MessageHandlerInterface* phandler,
                     uint32_t id = 0,
                     MessageData* pdata = nullptr,
                     bool time_sensitive = false);
   virtual void PostDelayed(const Location& posted_from,
                            int delay_ms,
-                           MessageHandler* phandler,
+                           MessageHandlerInterface* phandler,
                            uint32_t id = 0,
                            MessageData* pdata = nullptr);
   virtual void PostAt(const Location& posted_from,
                       int64_t run_at_ms,
-                      MessageHandler* phandler,
+                      MessageHandlerInterface* phandler,
                       uint32_t id = 0,
                       MessageData* pdata = nullptr);
-  virtual void Clear(MessageHandler* phandler,
+  virtual void Clear(MessageHandlerInterface* phandler,
                      uint32_t id = MQID_ANY,
                      MessageList* removed = nullptr);
   virtual void Dispatch(Message* pmsg);
@@ -305,7 +305,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   virtual void Run();
 
   virtual void Send(const Location& posted_from,
-                    MessageHandler* phandler,
+                    MessageHandlerInterface* phandler,
                     uint32_t id = 0,
                     MessageData* pdata = nullptr);
 
@@ -496,7 +496,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   void DoDelayPost(const Location& posted_from,
                    int64_t cmsDelay,
                    int64_t tstamp,
-                   MessageHandler* phandler,
+                   MessageHandlerInterface* phandler,
                    uint32_t id,
                    MessageData* pdata);
 
@@ -506,7 +506,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   // Does not take any lock. Must be called either while holding crit_, or by
   // the destructor (by definition, the latter has exclusive access).
-  void ClearInternal(MessageHandler* phandler,
+  void ClearInternal(MessageHandlerInterface* phandler,
                      uint32_t id,
                      MessageList* removed) RTC_EXCLUSIVE_LOCKS_REQUIRED(&crit_);
 
@@ -568,7 +568,7 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
 
   // Returns a static-lifetime MessageHandler which runs message with
   // MessageLikeTask payload data.
-  static MessageHandler* GetPostTaskMessageHandler();
+  static MessageHandlerInterface* GetPostTaskMessageHandler();
 
   bool fPeekKeep_;
   Message msgPeek_;

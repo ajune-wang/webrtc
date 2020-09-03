@@ -68,7 +68,7 @@ void SimulatedThread::RunReady(Timestamp at_time) {
 }
 
 void SimulatedThread::Send(const rtc::Location& posted_from,
-                           rtc::MessageHandler* phandler,
+                           rtc::MessageHandlerInterface* phandler,
                            uint32_t id,
                            rtc::MessageData* pdata) {
   if (IsQuitting())
@@ -91,7 +91,7 @@ void SimulatedThread::Send(const rtc::Location& posted_from,
 }
 
 void SimulatedThread::Post(const rtc::Location& posted_from,
-                           rtc::MessageHandler* phandler,
+                           rtc::MessageHandlerInterface* phandler,
                            uint32_t id,
                            rtc::MessageData* pdata,
                            bool time_sensitive) {
@@ -102,7 +102,7 @@ void SimulatedThread::Post(const rtc::Location& posted_from,
 
 void SimulatedThread::PostDelayed(const rtc::Location& posted_from,
                                   int delay_ms,
-                                  rtc::MessageHandler* phandler,
+                                  rtc::MessageHandlerInterface* phandler,
                                   uint32_t id,
                                   rtc::MessageData* pdata) {
   rtc::Thread::PostDelayed(posted_from, delay_ms, phandler, id, pdata);
@@ -113,7 +113,7 @@ void SimulatedThread::PostDelayed(const rtc::Location& posted_from,
 
 void SimulatedThread::PostAt(const rtc::Location& posted_from,
                              int64_t target_time_ms,
-                             rtc::MessageHandler* phandler,
+                             rtc::MessageHandlerInterface* phandler,
                              uint32_t id,
                              rtc::MessageData* pdata) {
   rtc::Thread::PostAt(posted_from, target_time_ms, phandler, id, pdata);

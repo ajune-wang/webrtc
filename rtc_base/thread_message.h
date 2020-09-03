@@ -102,12 +102,12 @@ const uint32_t MQID_DISPOSE = static_cast<uint32_t>(-2);
 
 struct Message {
   Message() : phandler(nullptr), message_id(0), pdata(nullptr) {}
-  inline bool Match(MessageHandler* handler, uint32_t id) const {
+  inline bool Match(MessageHandlerInterface* handler, uint32_t id) const {
     return (handler == nullptr || handler == phandler) &&
            (id == MQID_ANY || id == message_id);
   }
   Location posted_from;
-  MessageHandler* phandler;
+  MessageHandlerInterface* phandler;
   uint32_t message_id;
   MessageData* pdata;
 };

@@ -183,10 +183,10 @@ void ThreadManager::RegisterSendAndCheckForCycles(Thread* source,
 #endif
 
 // static
-void ThreadManager::Clear(MessageHandler* handler) {
+void ThreadManager::Clear(MessageHandlerInterface* handler) {
   return Instance()->ClearInternal(handler);
 }
-void ThreadManager::ClearInternal(MessageHandler* handler) {
+void ThreadManager::ClearInternal(MessageHandlerInterface* handler) {
   // Deleted objects may cause re-entrant calls to ClearInternal. This is
   // allowed as the list of message queues does not change while queues are
   // cleared.
@@ -531,7 +531,7 @@ bool Thread::Get(Message* pmsg, int cmsWait, bool process_io) {
 }
 
 void Thread::Post(const Location& posted_from,
-                  MessageHandler* phandler,
+                  MessageHandlerInterface* phandler,
                   uint32_t id,
                   MessageData* pdata,
                   bool time_sensitive) {
@@ -559,7 +559,7 @@ void Thread::Post(const Location& posted_from,
 
 void Thread::PostDelayed(const Location& posted_from,
                          int delay_ms,
-                         MessageHandler* phandler,
+                         MessageHandlerInterface* phandler,
                          uint32_t id,
                          MessageData* pdata) {
   return DoDelayPost(posted_from, delay_ms, TimeAfter(delay_ms), phandler, id,
@@ -568,7 +568,7 @@ void Thread::PostDelayed(const Location& posted_from,
 
 void Thread::PostAt(const Location& posted_from,
                     int64_t run_at_ms,
-                    MessageHandler* phandler,
+                    MessageHandlerInterface* phandler,
                     uint32_t id,
                     MessageData* pdata) {
   return DoDelayPost(posted_from, TimeUntil(run_at_ms), run_at_ms, phandler, id,
@@ -578,7 +578,7 @@ void Thread::PostAt(const Location& posted_from,
 void Thread::DoDelayPost(const Location& posted_from,
                          int64_t delay_ms,
                          int64_t run_at_ms,
-                         MessageHandler* phandler,
+                         MessageHandlerInterface* phandler,
                          uint32_t id,
                          MessageData* pdata) {
   if (IsQuitting()) {
@@ -624,7 +624,7 @@ int Thread::GetDelay() {
   return kForever;
 }
 
-void Thread::ClearInternal(MessageHandler* phandler,
+void Thread::ClearInternal(MessageHandlerInterface* phandler,
                            uint32_t id,
                            MessageList* removed) {
   // Remove messages with phandler
@@ -868,7 +868,7 @@ void Thread::Stop() {
 }
 
 void Thread::Send(const Location& posted_from,
-                  MessageHandler* phandler,
+                  MessageHandlerInterface* phandler,
                   uint32_t id,
                   MessageData* pdata) {
   RTC_DCHECK(!IsQuitting());
@@ -938,7 +938,7 @@ void Thread::InvokeInternal(const Location& posted_from,
   TRACE_EVENT2("webrtc", "Thread::Invoke", "src_file", posted_from.file_name(),
                "src_func", posted_from.function_name());
 
-  class FunctorMessageHandler : public MessageHandler {
+  class FunctorMessageHandler : public MessageHandlerInterface {
    public:
     explicit FunctorMessageHandler(rtc::FunctionView<void()> functor)
         : functor_(functor) {}
@@ -1045,7 +1045,7 @@ bool Thread::IsProcessingMessagesForTesting() {
   return (owned_ || IsCurrent()) && !IsQuitting();
 }
 
-void Thread::Clear(MessageHandler* phandler,
+void Thread::Clear(MessageHandlerInterface* phandler,
                    uint32_t id,
                    MessageList* removed) {
   CritScope cs(&crit_);
@@ -1110,9 +1110,9 @@ bool Thread::IsRunning() {
 }
 
 // static
-MessageHandler* Thread::GetPostTaskMessageHandler() {
+MessageHandlerInterface* Thread::GetPostTaskMessageHandler() {
   // Allocate at first call, never deallocate.
-  static MessageHandler* handler = new MessageHandlerWithTask;
+  static MessageHandlerInterface* handler = new MessageHandlerWithTask;
   return handler;
 }
 

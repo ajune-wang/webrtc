@@ -192,10 +192,14 @@ QualityScaler::QualityScaler(QualityScalerQpUsageHandlerInterface* handler,
                              int64_t sampling_period_ms)
     : handler_(handler),
       thresholds_(thresholds),
-      sampling_period_ms_(sampling_period_ms),
+      sampling_period_ms_(QualityScalerSettings::ParseFromFieldTrials()
+                              .SamplingPeriod()
+                              .value_or(sampling_period_ms)),
       fast_rampup_(true),
       // Arbitrarily choose size based on 30 fps for 5 seconds.
-      average_qp_(5 * 30),
+      average_qp_(QualityScalerSettings::ParseFromFieldTrials()
+                      .AverageQpWindow()
+                      .value_or(5 * 30)),
       framedrop_percent_media_opt_(5 * 30),
       framedrop_percent_all_(5 * 30),
       experiment_enabled_(QualityScalingExperiment::Enabled()),

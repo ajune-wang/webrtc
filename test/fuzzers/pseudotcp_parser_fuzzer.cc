@@ -35,7 +35,7 @@ struct Environment {
 
   // We need the thread to avoid some uninteresting crashes, since the
   // production code expects there to be a thread object available.
-  rtc::AutoThread thread;
+  rtc::AutoThreadForTest thread;
   cricket::PseudoTcp ptcp;
 };
 

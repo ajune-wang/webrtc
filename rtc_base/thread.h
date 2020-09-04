@@ -622,17 +622,17 @@ class RTC_LOCKABLE RTC_EXPORT Thread : public webrtc::TaskQueueBase {
   RTC_DISALLOW_COPY_AND_ASSIGN(Thread);
 };
 
-// AutoThread automatically installs itself at construction
+// AutoThreadForTest automatically installs itself at construction
 // uninstalls at destruction, if a Thread object is
 // _not already_ associated with the current OS thread.
 
-class AutoThread : public Thread {
+class AutoThreadForTest : public Thread {
  public:
-  AutoThread();
-  ~AutoThread() override;
+  AutoThreadForTest();
+  ~AutoThreadForTest() override;
 
  private:
-  RTC_DISALLOW_COPY_AND_ASSIGN(AutoThread);
+  RTC_DISALLOW_COPY_AND_ASSIGN(AutoThreadForTest);
 };
 
 // AutoSocketServerThread automatically installs itself at

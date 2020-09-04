@@ -16,6 +16,24 @@
       "revId": "6b01d04713ce4b0e96d307c565aa70e66c6a0875",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9633e35d_ec2e4894",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-04T22:40:03Z",
+      "side": 1,
+      "message": "In my local setup, eliminating the signaling thread from the Send call reduced the average round trip time (over Wi-Fi) from 7ms to ~6.5ms, and standard deviation from ~3ms to ~2ms, due to eliminating a decent amount of spikes.\n\nThe problem with the previous CL was that many callbacks became asynchronous. But as long as methods are called directly on the network thread, we can\u0027t synchronously invoke the callbacks on the signaling thread; invokes can only go in the other direction, and we wouldn\u0027t want to do that anyway since that would eliminate the performance benefit.\n\nSo I don\u0027t really know how to fix the previous CL\u0027s problems. I can\u0027t imagine any way to achieve what we want without the API\u0027s behavior changing in some way.",
+      "parentUuid": "849bd723_8004947c",
+      "revId": "6b01d04713ce4b0e96d307c565aa70e66c6a0875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

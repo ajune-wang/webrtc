@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "594112a3_bfe4eee7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-04T22:40:03Z",
+      "side": 1,
+      "message": "You can disregard this CL, I thought it was working but I was testing in the wrong directory by accident.\n\nThis doesn\u0027t work because methods called on the signaling thread will first acquire the mutex, and then invoke on the network thread. Which conflicts with Send, already running on the network thread, trying to acquire the mutex.\n\nI\u0027d have to make the other methods temporarily release the mutex before invoking on the network thread, but I don\u0027t imagine that working out.",
+      "revId": "e2bca42a4e6b5986c519df0d3cf1e41f9d9e9dd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

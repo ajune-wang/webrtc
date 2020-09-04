@@ -282,7 +282,8 @@ int ConnectionRequest::resend_delay() {
 Connection::Connection(Port* port,
                        size_t index,
                        const Candidate& remote_candidate)
-    : id_(rtc::CreateRandomId()),
+    : MessageHandler(false),
+      id_(rtc::CreateRandomId()),
       port_(port),
       local_candidate_index_(index),
       remote_candidate_(remote_candidate),

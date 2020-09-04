@@ -14,7 +14,7 @@ namespace webrtc {
 namespace internal {
 
 SynchronousMethodCall::SynchronousMethodCall(rtc::MessageHandler* proxy)
-    : proxy_(proxy) {}
+    : rtc::MessageHandler(false), proxy_(proxy) {}
 
 SynchronousMethodCall::~SynchronousMethodCall() = default;
 

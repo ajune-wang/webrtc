@@ -478,13 +478,17 @@ Network* NetworkManagerBase::GetNetworkFromAddress(
   return nullptr;
 }
 
-BasicNetworkManager::BasicNetworkManager() {}
+BasicNetworkManager::BasicNetworkManager() : MessageHandler(false) {}
 
 BasicNetworkManager::BasicNetworkManager(
     NetworkMonitorFactory* network_monitor_factory)
-    : network_monitor_factory_(network_monitor_factory) {}
+    : MessageHandler(false),
+      network_monitor_factory_(network_monitor_factory) {}
 
-BasicNetworkManager::~BasicNetworkManager() {}
+BasicNetworkManager::~BasicNetworkManager() {
+  if (thread_)
+    thread_->Clear(this);
+}
 
 void BasicNetworkManager::OnNetworksChanged() {
   RTC_DCHECK_RUN_ON(thread_);
@@ -820,6 +824,7 @@ bool BasicNetworkManager::IsIgnoredNetwork(const Network& network) const {
 }
 
 void BasicNetworkManager::StartUpdating() {
+  RTC_DCHECK(!thread_);
   thread_ = Thread::Current();
   // Redundant but necessary for thread annotations.
   RTC_DCHECK_RUN_ON(thread_);

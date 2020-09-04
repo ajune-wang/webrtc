@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "849bd723_8004947c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-04T13:11:37Z",
+      "side": 1,
+      "message": "Do you have some data that backs up the performance benefits?\n\nGenerally this approach seems like a step backwards to me since before, we at least were starting to establish a known thread pattern and reducing explicit usage of locks. With this cl, there are locks all over the place.",
+      "revId": "6b01d04713ce4b0e96d307c565aa70e66c6a0875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

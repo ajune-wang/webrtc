@@ -16,6 +16,24 @@
       "revId": "6c91589ec65cd744cfa3069346eb435616e72ab3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65f89ed1_bb346b2b",
+        "filename": "system_wrappers/source/cpu_features_linux.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-04T20:34:31Z",
+      "side": 1,
+      "message": "Nice catch!",
+      "parentUuid": "6be7d1fa_ee4df5b6",
+      "revId": "6c91589ec65cd744cfa3069346eb435616e72ab3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

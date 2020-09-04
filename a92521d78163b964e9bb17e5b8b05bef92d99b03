@@ -69,6 +69,30 @@
       "revId": "a92521d78163b964e9bb17e5b8b05bef92d99b03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9459e47_6e68178e",
+        "filename": "system_wrappers/include/cpu_features_wrapper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-04T20:34:31Z",
+      "side": 0,
+      "message": "SGTM to remove WebRtc_ prefixes in a follow-up CL, for the extern \"C\", if I postpone the removal I need to modify cpu_features_android.cc (see https://ci.chromium.org/p/webrtc/builders/try/android_arm_rel/22974?):\n\nld.lld: error: undefined symbol: WebRtc_GetCPUFeaturesARM\n\u003e\u003e\u003e referenced by sinc_resampler_unittest.cc:126 (../../common_audio/resampler/sinc_resampler_unittest.cc:126)\n\u003e\u003e\u003e               obj/common_audio/common_audio_unittests__library/sinc_resampler_unittest.o:(webrtc::SincResamplerTest_Convolve_Test::TestBody())\n\u003e\u003e\u003e referenced by sinc_resampler_unittest.cc:187 (../../common_audio/resampler/sinc_resampler_unittest.cc:187)\n\u003e\u003e\u003e               obj/common_audio/common_audio_unittests__library/sinc_resampler_unittest.o:(webrtc::SincResamplerTest_ConvolveBenchmark_Test::TestBody())\n\u003e\u003e\u003e did you mean to declare WebRtc_GetCPUFeaturesARM() as extern \"C\"?\n\u003e\u003e\u003e defined in: obj/system_wrappers/libsystem_wrappers.a(system_wrappers/cpu_features_android.o)\n\nSince in both cases I need to do a change to the new .cc files I propose to land as is and file a follow-up to rename (which is the change that should generated most of the diff). WDYT?",
+      "parentUuid": "3d253dbc_735fbc67",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "a92521d78163b964e9bb17e5b8b05bef92d99b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

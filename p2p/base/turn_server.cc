@@ -973,7 +973,7 @@ void TurnServerAllocation::OnChannelDestroyed(Channel* channel) {
 
 TurnServerAllocation::Permission::Permission(rtc::Thread* thread,
                                              const rtc::IPAddress& peer)
-    : thread_(thread), peer_(peer) {
+    : rtc::MessageHandler(false), thread_(thread), peer_(peer) {
   Refresh();
 }
 
@@ -996,7 +996,7 @@ void TurnServerAllocation::Permission::OnMessage(rtc::Message* msg) {
 TurnServerAllocation::Channel::Channel(rtc::Thread* thread,
                                        int id,
                                        const rtc::SocketAddress& peer)
-    : thread_(thread), id_(id), peer_(peer) {
+    : MessageHandler(false), thread_(thread), id_(id), peer_(peer) {
   Refresh();
 }
 

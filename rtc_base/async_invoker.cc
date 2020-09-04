@@ -16,7 +16,8 @@
 namespace rtc {
 
 AsyncInvoker::AsyncInvoker()
-    : pending_invocations_(0),
+    : MessageHandler(false),
+      pending_invocations_(0),
       invocation_complete_(new RefCountedObject<Event>()),
       destroying_(false) {}
 

@@ -120,7 +120,8 @@ class MethodCall : public rtc::Message, public rtc::MessageHandler {
  public:
   typedef R (C::*Method)(Args...);
   MethodCall(C* c, Method m, Args&&... args)
-      : c_(c),
+      : rtc::MessageHandler(false),
+        c_(c),
         m_(m),
         args_(std::forward_as_tuple(std::forward<Args>(args)...)) {}
 
@@ -148,7 +149,8 @@ class ConstMethodCall : public rtc::Message, public rtc::MessageHandler {
  public:
   typedef R (C::*Method)(Args...) const;
   ConstMethodCall(const C* c, Method m, Args&&... args)
-      : c_(c),
+      : rtc::MessageHandler(false),
+        c_(c),
         m_(m),
         args_(std::forward_as_tuple(std::forward<Args>(args)...)) {}
 

@@ -120,12 +120,14 @@ class MethodCall : public rtc::Message, public rtc::MessageHandler {
  public:
   typedef R (C::*Method)(Args...);
   MethodCall(C* c, Method m, Args&&... args)
-      : c_(c),
+      : rtc::MessageHandler(false),
+        c_(c),
         m_(m),
         args_(std::forward_as_tuple(std::forward<Args>(args)...)) {}
 
   R Marshal(const rtc::Location& posted_from, rtc::Thread* t) {
-    internal::SynchronousMethodCall(this).Invoke(posted_from, t);
+    t->Send(posted_from, this);
+    // internal::SynchronousMethodCall(this).Invoke(posted_from, t);
     return r_.moved_result();
   }
 
@@ -148,12 +150,14 @@ class ConstMethodCall : public rtc::Message, public rtc::MessageHandler {
  public:
   typedef R (C::*Method)(Args...) const;
   ConstMethodCall(const C* c, Method m, Args&&... args)
-      : c_(c),
+      : rtc::MessageHandler(false),
+        c_(c),
         m_(m),
         args_(std::forward_as_tuple(std::forward<Args>(args)...)) {}
 
   R Marshal(const rtc::Location& posted_from, rtc::Thread* t) {
-    internal::SynchronousMethodCall(this).Invoke(posted_from, t);
+    // internal::SynchronousMethodCall(this).Invoke(posted_from, t);
+    t->Send(posted_from, this);
     return r_.moved_result();
   }
 

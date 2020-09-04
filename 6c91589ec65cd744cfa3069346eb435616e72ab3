@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6be7d1fa_ee4df5b6",
+        "filename": "system_wrappers/source/cpu_features_linux.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-04T12:39:57Z",
+      "side": 1,
+      "message": "Ugh. Names with double underscores are reserved for the implementation. I tried to fix it: https://webrtc-review.googlesource.com/c/src/+/183440/",
+      "revId": "6c91589ec65cd744cfa3069346eb435616e72ab3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

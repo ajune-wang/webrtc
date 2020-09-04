@@ -22,6 +22,53 @@
       "revId": "a92521d78163b964e9bb17e5b8b05bef92d99b03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2758e929_1beecbf8",
+        "filename": "system_wrappers/include/cpu_features_wrapper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-04T12:39:57Z",
+      "side": 0,
+      "message": "Yes, getting rid of this if we don\u0027t need it seems like a good thing. But...",
+      "parentUuid": "32c964e7_74219241",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "a92521d78163b964e9bb17e5b8b05bef92d99b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d253dbc_735fbc67",
+        "filename": "system_wrappers/include/cpu_features_wrapper.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-04T12:39:57Z",
+      "side": 0,
+      "message": "...drop these prefixes and move the stuff to the webrtc namespace at the same time? (This change is maybe large enough that it---and dropping extern \"C\"---might belong in a separate CL.)",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 21
+      },
+      "revId": "a92521d78163b964e9bb17e5b8b05bef92d99b03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

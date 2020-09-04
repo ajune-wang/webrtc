@@ -16,7 +16,7 @@
 int main(int argc, char* argv[]) {
   rtc::test::ConfigureCoverageReportPath();
 
-  rtc::AutoThread main_thread;
+  rtc::AutoThreadForTest main_thread;
 
   @autoreleasepool {
     return UIApplicationMain(argc, argv, nil, nil);

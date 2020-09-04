@@ -371,7 +371,7 @@ TEST(ThreadTest, Invoke) {
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
 TEST(ThreadTest, TwoThreadsInvokeDeathTest) {
   ::testing::GTEST_FLAG(death_test_style) = "threadsafe";
-  AutoThread thread;
+  AutoThreadForTest thread;
   Thread* main_thread = Thread::Current();
   auto other_thread = Thread::CreateWithSocketServer();
   other_thread->Start();
@@ -382,7 +382,7 @@ TEST(ThreadTest, TwoThreadsInvokeDeathTest) {
 
 TEST(ThreadTest, ThreeThreadsInvokeDeathTest) {
   ::testing::GTEST_FLAG(death_test_style) = "threadsafe";
-  AutoThread thread;
+  AutoThreadForTest thread;
   Thread* first = Thread::Current();
 
   auto second = Thread::Create();
@@ -403,7 +403,7 @@ TEST(ThreadTest, ThreeThreadsInvokeDeathTest) {
 // to invoke A at the same time, thread A does not handle C's invoke while
 // invoking B.
 TEST(ThreadTest, ThreeThreadsInvoke) {
-  AutoThread thread;
+  AutoThreadForTest thread;
   Thread* thread_a = Thread::Current();
   auto thread_b = Thread::CreateWithSocketServer();
   auto thread_c = Thread::CreateWithSocketServer();
@@ -498,7 +498,7 @@ TEST(ThreadTest, SetNameOnSignalQueueDestroyed) {
   SetNameOnSignalQueueDestroyedTester tester1(thread1.get());
   thread1.reset();
 
-  Thread* thread2 = new AutoThread();
+  Thread* thread2 = new AutoThreadForTest();
   SetNameOnSignalQueueDestroyedTester tester2(thread2);
   delete thread2;
 }

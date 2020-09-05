@@ -59,6 +59,8 @@
 #include <utility>
 
 #include "api/scoped_refptr.h"
+// This include isn't needed - but we break downstream projects
+// (third_party/nearby in chromium), if we remove it.
 #include "rtc_base/event.h"
 #include "rtc_base/message_handler.h"
 #include "rtc_base/ref_counted_object.h"
@@ -97,22 +99,9 @@ class ReturnType<void> {
 };
 
 namespace internal {
-
-class RTC_EXPORT SynchronousMethodCall : public rtc::MessageData,
-                                         public rtc::MessageHandler {
- public:
-  explicit SynchronousMethodCall(rtc::MessageHandler* proxy);
-  ~SynchronousMethodCall() override;
-
-  void Invoke(const rtc::Location& posted_from, rtc::Thread* t);
-
- private:
-  void OnMessage(rtc::Message*) override;
-
-  rtc::Event e_;
-  rtc::MessageHandler* proxy_;
-};
-
+void InvokeOnThread(const rtc::Location& posted_from,
+                    rtc::Thread* t,
+                    rtc::MessageHandler* handler);
 }  // namespace internal
 
 template <typename C, typename R, typename... Args>
@@ -120,12 +109,13 @@ class MethodCall : public rtc::Message, public rtc::MessageHandler {
  public:
   typedef R (C::*Method)(Args...);
   MethodCall(C* c, Method m, Args&&... args)
-      : c_(c),
+      : rtc::MessageHandler(false),
+        c_(c),
         m_(m),
         args_(std::forward_as_tuple(std::forward<Args>(args)...)) {}
 
   R Marshal(const rtc::Location& posted_from, rtc::Thread* t) {
-    internal::SynchronousMethodCall(this).Invoke(posted_from, t);
+    internal::InvokeOnThread(posted_from, t, this);
     return r_.moved_result();
   }
 
@@ -148,12 +138,13 @@ class ConstMethodCall : public rtc::Message, public rtc::MessageHandler {
  public:
   typedef R (C::*Method)(Args...) const;
   ConstMethodCall(const C* c, Method m, Args&&... args)
-      : c_(c),
+      : rtc::MessageHandler(false),
+        c_(c),
         m_(m),
         args_(std::forward_as_tuple(std::forward<Args>(args)...)) {}
 
   R Marshal(const rtc::Location& posted_from, rtc::Thread* t) {
-    internal::SynchronousMethodCall(this).Invoke(posted_from, t);
+    internal::InvokeOnThread(posted_from, t, this);
     return r_.moved_result();
   }
 

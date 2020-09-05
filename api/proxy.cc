@@ -13,24 +13,27 @@
 namespace webrtc {
 namespace internal {
 
-SynchronousMethodCall::SynchronousMethodCall(rtc::MessageHandler* proxy)
-    : proxy_(proxy) {}
-
-SynchronousMethodCall::~SynchronousMethodCall() = default;
-
-void SynchronousMethodCall::Invoke(const rtc::Location& posted_from,
-                                   rtc::Thread* t) {
-  if (t->IsCurrent()) {
-    proxy_->OnMessage(nullptr);
-  } else {
-    t->Post(posted_from, this, 0);
-    e_.Wait(rtc::Event::kForever);
+void InvokeOnThread(const rtc::Location& posted_from,
+                    rtc::Thread* t,
+                    rtc::MessageHandler* handler) {
+  // TODO(bugs.webrtc.org/11908): Remove thread policy workaround once calls in
+  // chrome (nearby) don't need this.
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+  bool invoke_was_allowed = true;
+  rtc::Thread* current_thread = rtc::Thread::Current();
+  if (current_thread) {
+    invoke_was_allowed = current_thread->IsInvokeToThreadAllowed(t);
+    if (!invoke_was_allowed)
+      current_thread->AllowInvokesToThread(t);
   }
-}
+#endif
 
-void SynchronousMethodCall::OnMessage(rtc::Message*) {
-  proxy_->OnMessage(nullptr);
-  e_.Set();
+  t->Send(posted_from, handler);
+
+#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+  if (!invoke_was_allowed)
+    current_thread->DisallowInvokesToThread(t);
+#endif
 }
 
 }  // namespace internal

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3537aa07_2668b2e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-06T19:10:08Z",
+      "side": 1,
+      "message": "\u003e Patch Set 3:\n\u003e \n\u003e Thanks Mirko - the iOS chromium bots are still red on an error that to me indicates that they\u0027re missing picking up some new dependencies.\n\u003e \n\u003e From what I can tell, we\u0027ve imported Chromium though, since that dependency got introduced - any idea what the issue might be?\n\nI suspect it is because Chromium is using a newer xcode build on their bots. I have sent out https://chromium-review.googlesource.com/c/chromium/src/+/2391155 to update our FYI bots as well. If that is the case I will update also WebRTC\u0027s CI bots.",
+      "revId": "950635277edb4986b4b55d7d7f35e710c84d878d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

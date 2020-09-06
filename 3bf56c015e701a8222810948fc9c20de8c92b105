@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87ac62b5_a4544f09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-06T09:38:55Z",
+      "side": 1,
+      "message": "Re-landing with no changes after fixing downstream projects.",
+      "revId": "3bf56c015e701a8222810948fc9c20de8c92b105",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

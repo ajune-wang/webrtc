@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03fe0a33_59b16281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T13:23:20Z",
+      "side": 1,
+      "message": "Hi, I had a quick look to see if I could understand which counters are clobbered, with undesired interaction between old and new GetStats, and noticed these two which appear unused.",
+      "revId": "c245f4a64bb02145cceac3e903d0f0d32a2da917",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

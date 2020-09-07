@@ -39,6 +39,30 @@
       "revId": "debb5068bccfd39507408ac09d7cc8491757884e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708dfed0_1d25bb6d",
+        "filename": "video/rtp_streams_synchronizer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-07T14:14:29Z",
+      "side": 1,
+      "message": "That sounds reasonable, but it is possible that the sync-\u003eComputeDelays() function would keep further increasing the target audio/video delays while this happens. Do you think it makes sense to undo a call to ComputeDelays() if it leads to a failure in SetMinimumPlayoutDelay?",
+      "parentUuid": "5dd88503_5b00850e",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 18
+      },
+      "revId": "debb5068bccfd39507408ac09d7cc8491757884e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

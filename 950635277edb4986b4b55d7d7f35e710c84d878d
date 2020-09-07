@@ -16,6 +16,24 @@
       "revId": "950635277edb4986b4b55d7d7f35e710c84d878d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54cc56f0_df3699a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-07T11:15:36Z",
+      "side": 1,
+      "message": "Ok, now it builds but it fails to run on Swarming because the new xcode is not there. Looking into it.",
+      "parentUuid": "3537aa07_2668b2e0",
+      "revId": "950635277edb4986b4b55d7d7f35e710c84d878d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,29 @@
       "revId": "debb5068bccfd39507408ac09d7cc8491757884e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5dd88503_5b00850e",
+        "filename": "video/rtp_streams_synchronizer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-09-07T11:12:21Z",
+      "side": 1,
+      "message": "If update fails, maybe sync_ should be kept at its current state to get as close as possible instead of resetting (and increase delay again)?",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 18
+      },
+      "revId": "debb5068bccfd39507408ac09d7cc8491757884e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

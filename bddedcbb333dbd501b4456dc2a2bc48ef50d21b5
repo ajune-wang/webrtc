@@ -51,6 +51,29 @@
       "revId": "bddedcbb333dbd501b4456dc2a2bc48ef50d21b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e54c43ed_48bb0c1b",
+        "filename": "modules/desktop_capture/mouse_cursor_monitor_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-07T18:36:56Z",
+      "side": 1,
+      "message": "I wonder if we should just avoid to use the preprocessor but instead just make the tests pass in case it is not supposed to run (see line 92).",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "bddedcbb333dbd501b4456dc2a2bc48ef50d21b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

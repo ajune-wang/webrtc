@@ -1,6 +1,14 @@
-# Names should be added to this file like so:
-# Name or Organization <email address>
+# Names should be added to this file with this pattern:
+#
+# For individuals:
+#   Name <email address>
+#
+# For organizations:
+#   Organization <fnmatch pattern>
+#
+# See python fnmatch module documentation for more information.
 
+# BEGIN individuals section.
 Adam Fedor <adam.fedor@gmail.com>
 Akshay Shah <meetakshay99@gmail.com>
 Alex Henrie <alexhenrie24@gmail.com>
@@ -92,7 +100,10 @@ Miguel Paris <mparisdiaz@gmail.com>
 Raman Budny <budnyjj@gmail.com>
 Stephan Hartmann <stha09@googlemail.com>
 Lennart Grahl <lennart.grahl@gmail.com>
+Dennis Angelo <dennis.angelo@gmail.com>
+# END individuals section.
 
+# BEGIN organizations section.
 &yet LLC <*@andyet.com>
 8x8 Inc. <*@sip-communicator.org>
 8x8 Inc. <*@8x8.com>
@@ -130,4 +141,4 @@ CoSMo Software Consulting, Pte Ltd <*@cosmosoftware.io>
 Tuple, LLC <*@tuple.app>
 Videona Socialmedia <*@videona.com>
 Threema GmbH <*@threema.ch>
-Dennis Angelo <dennis.angelo@gmail.com>
+# END organizations section.

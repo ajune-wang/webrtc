@@ -62,11 +62,10 @@ TaskQueuePacedSender::~TaskQueuePacedSender() {
   });
 }
 
-void TaskQueuePacedSender::CreateProbeCluster(DataRate bitrate,
-                                              int cluster_id) {
-  task_queue_.PostTask([this, bitrate, cluster_id]() {
+void TaskQueuePacedSender::CreateProbeCluster(DataRate bitrate) {
+  task_queue_.PostTask([this, bitrate]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
-    pacing_controller_.CreateProbeCluster(bitrate, cluster_id);
+    pacing_controller_.CreateProbeCluster(bitrate);
     MaybeProcessPackets(Timestamp::MinusInfinity());
   });
 }

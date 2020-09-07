@@ -208,14 +208,6 @@ struct PacerConfig {
   DataRate pad_rate() const { return pad_window / time_window; }
 };
 
-struct ProbeClusterConfig {
-  Timestamp at_time = Timestamp::PlusInfinity();
-  DataRate target_data_rate = DataRate::Zero();
-  TimeDelta target_duration = TimeDelta::Zero();
-  int32_t target_probe_count = 0;
-  int32_t id = 0;
-};
-
 struct TargetTransferRate {
   Timestamp at_time = Timestamp::PlusInfinity();
   // The estimate on which the target rate is based on.
@@ -234,7 +226,7 @@ struct NetworkControlUpdate {
   ~NetworkControlUpdate();
   absl::optional<DataSize> congestion_window;
   absl::optional<PacerConfig> pacer_config;
-  std::vector<ProbeClusterConfig> probe_cluster_configs;
+  std::vector<DataRate> probe_cluster_rates;
   absl::optional<TargetTransferRate> target_rate;
 };
 

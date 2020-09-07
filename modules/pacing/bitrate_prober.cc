@@ -11,6 +11,7 @@
 #include "modules/pacing/bitrate_prober.h"
 
 #include <algorithm>
+#include <memory>
 
 #include "absl/memory/memory.h"
 #include "api/rtc_event_log/rtc_event.h"
@@ -57,12 +58,15 @@ BitrateProber::~BitrateProber() {
                             total_failed_probe_count_);
 }
 
-BitrateProber::BitrateProber(const WebRtcKeyValueConfig& field_trials)
+BitrateProber::BitrateProber(const WebRtcKeyValueConfig& field_trials,
+                             RtcEventLog* event_log)
     : probing_state_(ProbingState::kDisabled),
       next_probe_time_(Timestamp::PlusInfinity()),
       total_probe_count_(0),
       total_failed_probe_count_(0),
-      config_(&field_trials) {
+      next_cluster_id_(0),
+      config_(&field_trials),
+      event_log_(event_log) {
   SetEnabled(true);
 }
 
@@ -89,9 +93,7 @@ void BitrateProber::OnIncomingPacket(DataSize packet_size) {
   }
 }
 
-void BitrateProber::CreateProbeCluster(DataRate bitrate,
-                                       Timestamp now,
-                                       int cluster_id) {
+void BitrateProber::CreateProbeCluster(DataRate bitrate, Timestamp now) {
   RTC_DCHECK(probing_state_ != ProbingState::kDisabled);
   RTC_DCHECK_GT(bitrate, DataRate::Zero());
 
@@ -109,8 +111,16 @@ void BitrateProber::CreateProbeCluster(DataRate bitrate,
       (bitrate * config_.min_probe_duration.Get()).bytes();
   RTC_DCHECK_GE(cluster.pace_info.probe_cluster_min_bytes, 0);
   cluster.pace_info.send_bitrate_bps = bitrate.bps();
-  cluster.pace_info.probe_cluster_id = cluster_id;
+  cluster.pace_info.probe_cluster_id = next_cluster_id_;
+  ++next_cluster_id_;
   clusters_.push(cluster);
+
+  if (event_log_) {
+    event_log_->Log(std::make_unique<RtcEventProbeClusterCreated>(
+        cluster.pace_info.probe_cluster_id, cluster.pace_info.send_bitrate_bps,
+        cluster.pace_info.probe_cluster_min_probes,
+        cluster.pace_info.probe_cluster_min_bytes));
+  }
 
   RTC_LOG(LS_INFO) << "Probe cluster (bitrate:min bytes:min packets): ("
                    << cluster.pace_info.send_bitrate_bps << ":"

@@ -15,7 +15,6 @@
 #include "api/transport/network_types.h"
 #include "api/units/data_rate.h"
 #include "api/units/timestamp.h"
-#include "logging/rtc_event_log/mock/mock_rtc_event_log.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/clock.h"
 #include "test/field_trial.h"
@@ -48,12 +47,11 @@ constexpr int kBitrateDropTimeoutMs = 5000;
 class ProbeControllerTest : public ::testing::Test {
  protected:
   ProbeControllerTest() : clock_(100000000L) {
-    probe_controller_.reset(
-        new ProbeController(&field_trial_config_, &mock_rtc_event_log));
+    probe_controller_.reset(new ProbeController(&field_trial_config_));
   }
   ~ProbeControllerTest() override {}
 
-  std::vector<ProbeClusterConfig> SetNetworkAvailable(bool available) {
+  std::vector<DataRate> SetNetworkAvailable(bool available) {
     NetworkAvailability msg;
     msg.at_time = Timestamp::Millis(NowMs());
     msg.network_available = available;
@@ -64,7 +62,6 @@ class ProbeControllerTest : public ::testing::Test {
 
   FieldTrialBasedConfig field_trial_config_;
   SimulatedClock clock_;
-  NiceMock<MockRtcEventLog> mock_rtc_event_log;
   std::unique_ptr<ProbeController> probe_controller_;
 };
 
@@ -93,12 +90,11 @@ TEST_F(ProbeControllerTest, InitiatesProbingOnMaxBitrateIncrease) {
   probes = probe_controller_->SetBitrates(kMinBitrateBps, kStartBitrateBps,
                                           kMaxBitrateBps + 100, NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), kMaxBitrateBps + 100);
+  EXPECT_EQ(probes[0].bps(), kMaxBitrateBps + 100);
 }
 
 TEST_F(ProbeControllerTest, ProbesOnMaxBitrateIncreaseOnlyWhenInAlr) {
-  probe_controller_.reset(
-      new ProbeController(&field_trial_config_, &mock_rtc_event_log));
+  probe_controller_.reset(new ProbeController(&field_trial_config_));
   auto probes = probe_controller_->SetBitrates(kMinBitrateBps, kStartBitrateBps,
                                                kMaxBitrateBps, NowMs());
   probes = probe_controller_->SetEstimatedBitrate(kMaxBitrateBps - 1, NowMs());
@@ -132,7 +128,7 @@ TEST_F(ProbeControllerTest, InitiatesProbingOnMaxBitrateIncreaseAtMaxBitrate) {
   probes = probe_controller_->SetBitrates(kMinBitrateBps, kStartBitrateBps,
                                           kMaxBitrateBps + 100, NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), kMaxBitrateBps + 100);
+  EXPECT_EQ(probes[0].bps(), kMaxBitrateBps + 100);
 }
 
 TEST_F(ProbeControllerTest, TestExponentialProbing) {
@@ -146,7 +142,7 @@ TEST_F(ProbeControllerTest, TestExponentialProbing) {
 
   probes = probe_controller_->SetEstimatedBitrate(1800, NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 2 * 1800);
+  EXPECT_EQ(probes[0].bps(), 2 * 1800);
 }
 
 TEST_F(ProbeControllerTest, TestExponentialProbingTimeout) {
@@ -173,7 +169,7 @@ TEST_F(ProbeControllerTest, RequestProbeInAlr) {
   probes = probe_controller_->RequestProbe(NowMs());
 
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 0.85 * 500);
+  EXPECT_EQ(probes[0].bps(), 0.85 * 500);
 }
 
 TEST_F(ProbeControllerTest, RequestProbeWhenAlrEndedRecently) {
@@ -191,7 +187,7 @@ TEST_F(ProbeControllerTest, RequestProbeWhenAlrEndedRecently) {
   probes = probe_controller_->RequestProbe(NowMs());
 
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 0.85 * 500);
+  EXPECT_EQ(probes[0].bps(), 0.85 * 500);
 }
 
 TEST_F(ProbeControllerTest, RequestProbeWhenAlrNotEndedRecently) {
@@ -239,7 +235,7 @@ TEST_F(ProbeControllerTest, PeriodicProbing) {
   clock_.AdvanceTimeMilliseconds(5000);
   probes = probe_controller_->Process(NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 1000);
+  EXPECT_EQ(probes[0].bps(), 1000);
 
   probes = probe_controller_->SetEstimatedBitrate(500, NowMs());
 
@@ -259,8 +255,7 @@ TEST_F(ProbeControllerTest, PeriodicProbing) {
 }
 
 TEST_F(ProbeControllerTest, PeriodicProbingAfterReset) {
-  probe_controller_.reset(
-      new ProbeController(&field_trial_config_, &mock_rtc_event_log));
+  probe_controller_.reset(new ProbeController(&field_trial_config_));
   int64_t alr_start_time = clock_.TimeInMilliseconds();
 
   probe_controller_->SetAlrStartTimeMs(alr_start_time);
@@ -284,7 +279,7 @@ TEST_F(ProbeControllerTest, PeriodicProbingAfterReset) {
   clock_.AdvanceTimeMilliseconds(10000);
   probes = probe_controller_->Process(NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), kStartBitrateBps * 2);
+  EXPECT_EQ(probes[0].bps(), kStartBitrateBps * 2);
 }
 
 TEST_F(ProbeControllerTest, TestExponentialProbingOverflow) {
@@ -295,7 +290,7 @@ TEST_F(ProbeControllerTest, TestExponentialProbingOverflow) {
   probes =
       probe_controller_->SetEstimatedBitrate(60 * kMbpsMultiplier, NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 100 * kMbpsMultiplier);
+  EXPECT_EQ(probes[0].bps(), 100 * kMbpsMultiplier);
   // Verify that repeated probes aren't sent.
   probes =
       probe_controller_->SetEstimatedBitrate(100 * kMbpsMultiplier, NowMs());
@@ -327,7 +322,7 @@ TEST_F(ProbeControllerTest, TestAllocatedBitrateCap) {
   clock_.AdvanceTimeMilliseconds(5000);
   probes = probe_controller_->Process(NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 2 * max_allocated_bps);
+  EXPECT_EQ(probes[0].bps(), 2 * max_allocated_bps);
 
   // Remove allocation limit.
   EXPECT_TRUE(
@@ -335,7 +330,7 @@ TEST_F(ProbeControllerTest, TestAllocatedBitrateCap) {
   clock_.AdvanceTimeMilliseconds(5000);
   probes = probe_controller_->Process(NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), estimated_bitrate_bps * 2);
+  EXPECT_EQ(probes[0].bps(), estimated_bitrate_bps * 2);
 }
 
 TEST_F(ProbeControllerTest, ConfigurableProbingFieldTrial) {
@@ -343,13 +338,12 @@ TEST_F(ProbeControllerTest, ConfigurableProbingFieldTrial) {
       "WebRTC-Bwe-ProbingConfiguration/"
       "p1:2,p2:5,step_size:3,further_probe_threshold:0.8,"
       "alloc_p1:2,alloc_p2/");
-  probe_controller_.reset(
-      new ProbeController(&field_trial_config_, &mock_rtc_event_log));
+  probe_controller_.reset(new ProbeController(&field_trial_config_));
   auto probes = probe_controller_->SetBitrates(kMinBitrateBps, kStartBitrateBps,
                                                5000000, NowMs());
   EXPECT_EQ(probes.size(), 2u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 600);
-  EXPECT_EQ(probes[1].target_data_rate.bps(), 1500);
+  EXPECT_EQ(probes[0].bps(), 600);
+  EXPECT_EQ(probes[1].bps(), 1500);
 
   // Repeated probe should only be sent when estimated bitrate climbs above
   // 0.8 * 5 * kStartBitrateBps = 1200.
@@ -358,7 +352,7 @@ TEST_F(ProbeControllerTest, ConfigurableProbingFieldTrial) {
 
   probes = probe_controller_->SetEstimatedBitrate(1250, NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 3 * 1250);
+  EXPECT_EQ(probes[0].bps(), 3 * 1250);
 
   clock_.AdvanceTimeMilliseconds(5000);
   probes = probe_controller_->Process(NowMs());
@@ -366,7 +360,7 @@ TEST_F(ProbeControllerTest, ConfigurableProbingFieldTrial) {
   probe_controller_->SetAlrStartTimeMs(NowMs());
   probes = probe_controller_->OnMaxTotalAllocatedBitrate(200000, NowMs());
   EXPECT_EQ(probes.size(), 1u);
-  EXPECT_EQ(probes[0].target_data_rate.bps(), 400000);
+  EXPECT_EQ(probes[0].bps(), 400000);
 }
 
 }  // namespace test

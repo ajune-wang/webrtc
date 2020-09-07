@@ -88,8 +88,7 @@ GoogCcNetworkController::GoogCcNetworkController(NetworkControllerConfig config,
           RateControlSettings::ParseFromKeyValueConfig(key_value_config_)),
       loss_based_stable_rate_(
           IsEnabled(key_value_config_, "WebRTC-Bwe-LossBasedStableRate")),
-      probe_controller_(
-          new ProbeController(key_value_config_, config.event_log)),
+      probe_controller_(new ProbeController(key_value_config_)),
       congestion_window_pushback_controller_(
           rate_control_settings_.UseCongestionWindowPushback()
               ? std::make_unique<CongestionWindowPushbackController>(
@@ -133,7 +132,7 @@ GoogCcNetworkController::~GoogCcNetworkController() {}
 NetworkControlUpdate GoogCcNetworkController::OnNetworkAvailability(
     NetworkAvailability msg) {
   NetworkControlUpdate update;
-  update.probe_cluster_configs = probe_controller_->OnNetworkAvailability(msg);
+  update.probe_cluster_rates = probe_controller_->OnNetworkAvailability(msg);
   return update;
 }
 
@@ -168,7 +167,7 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
   bandwidth_estimation_->OnRouteChange();
   probe_controller_->Reset(msg.at_time.ms());
   NetworkControlUpdate update;
-  update.probe_cluster_configs = ResetConstraints(msg.constraints);
+  update.probe_cluster_rates = ResetConstraints(msg.constraints);
   MaybeTriggerOnNetworkChanged(&update, msg.at_time);
   return update;
 }
@@ -177,8 +176,7 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
     ProcessInterval msg) {
   NetworkControlUpdate update;
   if (initial_config_) {
-    update.probe_cluster_configs =
-        ResetConstraints(initial_config_->constraints);
+    update.probe_cluster_rates = ResetConstraints(initial_config_->constraints);
     update.pacer_config = GetPacingRates(msg.at_time);
 
     if (initial_config_->stream_based_config.requests_alr_probing) {
@@ -190,8 +188,8 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
     if (total_bitrate) {
       auto probes = probe_controller_->OnMaxTotalAllocatedBitrate(
           total_bitrate->bps(), msg.at_time.ms());
-      update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
-                                          probes.begin(), probes.end());
+      update.probe_cluster_rates.insert(update.probe_cluster_rates.end(),
+                                        probes.begin(), probes.end());
 
       max_total_allocated_bitrate_ = *total_bitrate;
     }
@@ -207,8 +205,8 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
   probe_controller_->SetAlrStartTimeMs(start_time_ms);
 
   auto probes = probe_controller_->Process(msg.at_time.ms());
-  update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
-                                      probes.begin(), probes.end());
+  update.probe_cluster_rates.insert(update.probe_cluster_rates.end(),
+                                    probes.begin(), probes.end());
 
   if (rate_control_settings_.UseCongestionWindow() &&
       last_packet_received_time_.IsFinite() && !feedback_max_rtts_.empty()) {
@@ -290,7 +288,7 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
   if (msg.max_total_allocated_bitrate &&
       *msg.max_total_allocated_bitrate != max_total_allocated_bitrate_) {
     if (rate_control_settings_.TriggerProbeOnMaxAllocatedBitrateChange()) {
-      update.probe_cluster_configs =
+      update.probe_cluster_rates =
           probe_controller_->OnMaxTotalAllocatedBitrate(
               msg.max_total_allocated_bitrate->bps(), msg.at_time.ms());
     } else {
@@ -327,7 +325,7 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
 NetworkControlUpdate GoogCcNetworkController::OnTargetRateConstraints(
     TargetRateConstraints constraints) {
   NetworkControlUpdate update;
-  update.probe_cluster_configs = ResetConstraints(constraints);
+  update.probe_cluster_rates = ResetConstraints(constraints);
   MaybeTriggerOnNetworkChanged(&update, constraints.at_time);
   return update;
 }
@@ -351,7 +349,7 @@ void GoogCcNetworkController::ClampConstraints() {
   }
 }
 
-std::vector<ProbeClusterConfig> GoogCcNetworkController::ResetConstraints(
+std::vector<DataRate> GoogCcNetworkController::ResetConstraints(
     TargetRateConstraints new_constraints) {
   min_target_rate_ = new_constraints.min_data_rate.value_or(DataRate::Zero());
   max_data_rate_ =
@@ -559,13 +557,13 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   if (recovered_from_overuse) {
     probe_controller_->SetAlrStartTimeMs(alr_start_time);
     auto probes = probe_controller_->RequestProbe(report.feedback_time.ms());
-    update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
-                                        probes.begin(), probes.end());
+    update.probe_cluster_rates.insert(update.probe_cluster_rates.end(),
+                                      probes.begin(), probes.end());
   } else if (backoff_in_alr) {
     // If we just backed off during ALR, request a new probe.
     auto probes = probe_controller_->RequestProbe(report.feedback_time.ms());
-    update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
-                                        probes.begin(), probes.end());
+    update.probe_cluster_rates.insert(update.probe_cluster_rates.end(),
+                                      probes.begin(), probes.end());
   }
 
   // No valid RTT could be because send-side BWE isn't used, in which case
@@ -680,8 +678,8 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
 
     auto probes = probe_controller_->SetEstimatedBitrate(
         loss_based_target_rate.bps(), at_time.ms());
-    update->probe_cluster_configs.insert(update->probe_cluster_configs.end(),
-                                         probes.begin(), probes.end());
+    update->probe_cluster_rates.insert(update->probe_cluster_rates.end(),
+                                       probes.begin(), probes.end());
     update->pacer_config = GetPacingRates(at_time);
 
     RTC_LOG(LS_VERBOSE) << "bwe " << at_time.ms() << " pushback_target_bps="

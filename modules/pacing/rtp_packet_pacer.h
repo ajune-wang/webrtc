@@ -26,7 +26,7 @@ class RtpPacketPacer {
  public:
   virtual ~RtpPacketPacer() = default;
 
-  virtual void CreateProbeCluster(DataRate bitrate, int cluster_id) = 0;
+  virtual void CreateProbeCluster(DataRate bitrate) = 0;
 
   // Temporarily pause all sending.
   virtual void Pause() = 0;

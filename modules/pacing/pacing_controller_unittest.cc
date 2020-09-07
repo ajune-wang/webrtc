@@ -224,8 +224,8 @@ class PacingControllerTest
   }
 
   void Init() {
-    pacer_->CreateProbeCluster(kFirstClusterRate, /*cluster_id=*/0);
-    pacer_->CreateProbeCluster(kSecondClusterRate, /*cluster_id=*/1);
+    pacer_->CreateProbeCluster(kFirstClusterRate);
+    pacer_->CreateProbeCluster(kSecondClusterRate);
     // Default to bitrate probing disabled for testing purposes. Probing tests
     // have to enable probing, either by creating a new PacingController
     // instance or by calling SetProbingEnabled(true).
@@ -1405,10 +1405,8 @@ TEST_P(PacingControllerTest, ProbingWithInsertedPackets) {
   PacingControllerProbing packet_sender;
   pacer_ = std::make_unique<PacingController>(&clock_, &packet_sender, nullptr,
                                               nullptr, GetParam());
-  pacer_->CreateProbeCluster(kFirstClusterRate,
-                             /*cluster_id=*/0);
-  pacer_->CreateProbeCluster(kSecondClusterRate,
-                             /*cluster_id=*/1);
+  pacer_->CreateProbeCluster(kFirstClusterRate);
+  pacer_->CreateProbeCluster(kSecondClusterRate);
   pacer_->SetPacingRates(
       DataRate::BitsPerSec(kInitialBitrateBps * kPaceMultiplier),
       DataRate::Zero());
@@ -1478,8 +1476,7 @@ TEST_P(PacingControllerTest, SkipsProbesWhenProcessIntervalTooLarge) {
     }
 
     // Probe at a very high rate.
-    pacer_->CreateProbeCluster(DataRate::KilobitsPerSec(10000),  // 10 Mbps.
-                               /*cluster_id=*/kProbeClusterId);
+    pacer_->CreateProbeCluster(DataRate::KilobitsPerSec(10000));  // 10 Mbps.
     // We need one packet to start the probe.
     Send(RtpPacketMediaType::kVideo, ssrc, sequence_number++,
          clock_.TimeInMilliseconds(), kPacketSize);
@@ -1571,8 +1568,7 @@ TEST_P(PacingControllerTest, ProbingWithPaddingSupport) {
   PacingControllerProbing packet_sender;
   pacer_ = std::make_unique<PacingController>(&clock_, &packet_sender, nullptr,
                                               nullptr, GetParam());
-  pacer_->CreateProbeCluster(kFirstClusterRate,
-                             /*cluster_id=*/0);
+  pacer_->CreateProbeCluster(kFirstClusterRate);
   pacer_->SetPacingRates(
       DataRate::BitsPerSec(kInitialBitrateBps * kPaceMultiplier),
       DataRate::Zero());
@@ -1742,7 +1738,7 @@ TEST_P(PacingControllerTest, SmallFirstProbePacket) {
   MockPacketSender callback;
   pacer_ = std::make_unique<PacingController>(&clock_, &callback, nullptr,
                                               nullptr, GetParam());
-  pacer_->CreateProbeCluster(kFirstClusterRate, /*cluster_id=*/0);
+  pacer_->CreateProbeCluster(kFirstClusterRate);
   pacer_->SetPacingRates(kTargetRate * kPaceMultiplier, DataRate::Zero());
 
   // Add high prio media.
@@ -1835,8 +1831,7 @@ TEST_P(PacingControllerTest, NoProbingWhilePaused) {
   }
 
   // Trigger probing.
-  pacer_->CreateProbeCluster(DataRate::KilobitsPerSec(10000),  // 10 Mbps.
-                             /*cluster_id=*/3);
+  pacer_->CreateProbeCluster(DataRate::KilobitsPerSec(10000));  // 10 Mbps.
 
   // Time to next send time should be small.
   EXPECT_LT(pacer_->NextSendTime() - clock_.CurrentTime(),

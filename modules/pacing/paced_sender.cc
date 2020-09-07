@@ -57,9 +57,9 @@ PacedSender::~PacedSender() {
   }
 }
 
-void PacedSender::CreateProbeCluster(DataRate bitrate, int cluster_id) {
+void PacedSender::CreateProbeCluster(DataRate bitrate) {
   rtc::CritScope cs(&critsect_);
-  return pacing_controller_.CreateProbeCluster(bitrate, cluster_id);
+  return pacing_controller_.CreateProbeCluster(bitrate);
 }
 
 void PacedSender::Pause() {

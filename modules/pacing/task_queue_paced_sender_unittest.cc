@@ -320,7 +320,7 @@ namespace test {
     // Add 10 packets. The first should be sent immediately since the buffers
     // are clear. This will also trigger the probe to start.
     EXPECT_CALL(packet_router, SendPacket).Times(AtLeast(1));
-    pacer.CreateProbeCluster(kPacingDataRate * 2, 17);
+    pacer.CreateProbeCluster(kPacingDataRate * 2);
     pacer.EnqueuePackets(GeneratePackets(RtpPacketMediaType::kVideo, 10));
     time_controller.AdvanceTime(TimeDelta::Zero());
     ::testing::Mock::VerifyAndClearExpectations(&packet_router);
@@ -464,8 +464,7 @@ namespace test {
     // Trigger a probe at 4x the current pacing rate and insert the number of
     // packets the probe needs.
     const DataRate kProbeRate = 2 * kPacingDataRate;
-    const int kProbeClusterId = 1;
-    pacer.CreateProbeCluster(kProbeRate, kProbeClusterId);
+    pacer.CreateProbeCluster(kProbeRate);
 
     // Expected size for each probe in a cluster is twice the expected bits
     // sent during min_probe_delta.
@@ -475,8 +474,7 @@ namespace test {
         (kProbeSize + kPacketSize - DataSize::Bytes(1)) / kPacketSize;
     EXPECT_CALL(
         packet_router,
-        SendPacket(_, ::testing::Field(&PacedPacketInfo::probe_cluster_id,
-                                       kProbeClusterId)))
+        SendPacket(_, ::testing::Field(&PacedPacketInfo::probe_cluster_id, 0)))
         .Times(kNumPacketsInProbe);
 
     pacer.EnqueuePackets(
@@ -489,8 +487,7 @@ namespace test {
 
     EXPECT_CALL(
         packet_router,
-        SendPacket(_, ::testing::Field(&PacedPacketInfo::probe_cluster_id,
-                                       kProbeClusterId)))
+        SendPacket(_, ::testing::Field(&PacedPacketInfo::probe_cluster_id, 0)))
         .Times(AtLeast(1));
     time_controller.AdvanceTime(TimeDelta::Millis(2));
   }
@@ -521,9 +518,8 @@ namespace test {
             [](DataSize target_size) { return GeneratePadding(target_size); });
 
     // Set a high probe rate.
-    const int kProbeClusterId = 1;
     DataRate kProbingRate = kPacingDataRate * 10;
-    pacer.CreateProbeCluster(kProbingRate, kProbeClusterId);
+    pacer.CreateProbeCluster(kProbingRate);
 
     // Advance time less than PacingController::kMinSleepTime, probing packets
     // for the first millisecond should be sent immediately. Min delta between
@@ -532,8 +528,7 @@ namespace test {
     DataSize data_sent = DataSize::Zero();
     EXPECT_CALL(
         packet_router,
-        SendPacket(_, ::testing::Field(&PacedPacketInfo::probe_cluster_id,
-                                       kProbeClusterId)))
+        SendPacket(_, ::testing::Field(&PacedPacketInfo::probe_cluster_id, 0)))
         .Times(AtLeast(4))
         .WillRepeatedly([&](std::unique_ptr<RtpPacketToSend> packet,
                             const PacedPacketInfo&) {

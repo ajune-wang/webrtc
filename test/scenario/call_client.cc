@@ -148,8 +148,8 @@ NetworkControlUpdate NetworkControleUpdateCache::Update(
     update_state_.pacer_config = update.pacer_config;
   if (update.congestion_window)
     update_state_.congestion_window = update.congestion_window;
-  if (!update.probe_cluster_configs.empty())
-    update_state_.probe_cluster_configs = update.probe_cluster_configs;
+  if (!update.probe_cluster_rates.empty())
+    update_state_.probe_cluster_rates = update.probe_cluster_rates;
   return update;
 }
 

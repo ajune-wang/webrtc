@@ -64,7 +64,7 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
 
   // Methods implementing RtpPacketPacer:
 
-  void CreateProbeCluster(DataRate bitrate, int cluster_id) override;
+  void CreateProbeCluster(DataRate bitrate) override;
 
   // Temporarily pause all sending.
   void Pause() override;

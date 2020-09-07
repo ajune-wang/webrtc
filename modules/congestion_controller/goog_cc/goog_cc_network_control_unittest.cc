@@ -137,10 +137,8 @@ class GoogCcNetworkControllerTest : public ::testing::Test {
     EXPECT_EQ(update.pacer_config->data_rate(),
               kInitialBitrate * kDefaultPacingRate);
 
-    EXPECT_EQ(update.probe_cluster_configs[0].target_data_rate,
-              kInitialBitrate * 3);
-    EXPECT_EQ(update.probe_cluster_configs[1].target_data_rate,
-              kInitialBitrate * 5);
+    EXPECT_EQ(update.probe_cluster_rates[0], kInitialBitrate * 3);
+    EXPECT_EQ(update.probe_cluster_rates[1], kInitialBitrate * 5);
   }
   // Custom setup - use an observer that tracks the target bitrate, without
   // prescribing on which iterations it must change (like a mock would).
@@ -332,7 +330,7 @@ TEST_F(GoogCcNetworkControllerTest, OnNetworkRouteChanged) {
   update = controller_->OnNetworkRouteChange(CreateRouteChange(new_bitrate));
   EXPECT_EQ(update.target_rate->target_rate, new_bitrate);
   EXPECT_EQ(update.pacer_config->data_rate(), new_bitrate * kDefaultPacingRate);
-  EXPECT_EQ(update.probe_cluster_configs.size(), 2u);
+  EXPECT_EQ(update.probe_cluster_rates.size(), 2u);
 
   // If the bitrate is reset to -1, the new starting bitrate will be
   // the minimum default bitrate.
@@ -341,7 +339,7 @@ TEST_F(GoogCcNetworkControllerTest, OnNetworkRouteChanged) {
   EXPECT_EQ(update.target_rate->target_rate, kDefaultMinBitrate);
   EXPECT_NEAR(update.pacer_config->data_rate().bps<double>(),
               kDefaultMinBitrate.bps<double>() * kDefaultPacingRate, 10);
-  EXPECT_EQ(update.probe_cluster_configs.size(), 2u);
+  EXPECT_EQ(update.probe_cluster_rates.size(), 2u);
 }
 
 TEST_F(GoogCcNetworkControllerTest, ProbeOnRouteChange) {
@@ -351,11 +349,9 @@ TEST_F(GoogCcNetworkControllerTest, ProbeOnRouteChange) {
 
   EXPECT_TRUE(update.pacer_config.has_value());
   EXPECT_EQ(update.target_rate->target_rate, kInitialBitrate * 2);
-  EXPECT_EQ(update.probe_cluster_configs.size(), 2u);
-  EXPECT_EQ(update.probe_cluster_configs[0].target_data_rate,
-            kInitialBitrate * 6);
-  EXPECT_EQ(update.probe_cluster_configs[1].target_data_rate,
-            kInitialBitrate * 12);
+  EXPECT_EQ(update.probe_cluster_rates.size(), 2u);
+  EXPECT_EQ(update.probe_cluster_rates[0], kInitialBitrate * 6);
+  EXPECT_EQ(update.probe_cluster_rates[1], kInitialBitrate * 12);
 
   update = controller_->OnProcessInterval(DefaultInterval());
 }

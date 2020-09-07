@@ -92,7 +92,7 @@ class PacingController {
   // it's time to send.
   void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet);
 
-  void CreateProbeCluster(DataRate bitrate, int cluster_id);
+  void CreateProbeCluster(DataRate bitrate);
 
   void Pause();   // Temporarily pause all sending.
   void Resume();  // Resume sending packets.

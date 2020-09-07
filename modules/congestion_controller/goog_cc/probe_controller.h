@@ -59,11 +59,10 @@ struct ProbeControllerConfig {
 // bitrate is adjusted by an application.
 class ProbeController {
  public:
-  explicit ProbeController(const WebRtcKeyValueConfig* key_value_config,
-                           RtcEventLog* event_log);
+  explicit ProbeController(const WebRtcKeyValueConfig* key_value_config);
   ~ProbeController();
 
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> SetBitrates(
+  RTC_WARN_UNUSED_RESULT std::vector<DataRate> SetBitrates(
       int64_t min_bitrate_bps,
       int64_t start_bitrate_bps,
       int64_t max_bitrate_bps,
@@ -71,14 +70,14 @@ class ProbeController {
 
   // The total bitrate, as opposed to the max bitrate, is the sum of the
   // configured bitrates for all active streams.
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig>
-  OnMaxTotalAllocatedBitrate(int64_t max_total_allocated_bitrate,
-                             int64_t at_time_ms);
+  RTC_WARN_UNUSED_RESULT std::vector<DataRate> OnMaxTotalAllocatedBitrate(
+      int64_t max_total_allocated_bitrate,
+      int64_t at_time_ms);
 
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> OnNetworkAvailability(
+  RTC_WARN_UNUSED_RESULT std::vector<DataRate> OnNetworkAvailability(
       NetworkAvailability msg);
 
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> SetEstimatedBitrate(
+  RTC_WARN_UNUSED_RESULT std::vector<DataRate> SetEstimatedBitrate(
       int64_t bitrate_bps,
       int64_t at_time_ms);
 
@@ -87,8 +86,7 @@ class ProbeController {
   void SetAlrStartTimeMs(absl::optional<int64_t> alr_start_time);
   void SetAlrEndedTimeMs(int64_t alr_end_time);
 
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> RequestProbe(
-      int64_t at_time_ms);
+  RTC_WARN_UNUSED_RESULT std::vector<DataRate> RequestProbe(int64_t at_time_ms);
 
   // Sets a new maximum probing bitrate, without generating a new probe cluster.
   void SetMaxBitrate(int64_t max_bitrate_bps);
@@ -97,8 +95,7 @@ class ProbeController {
   // created EXCEPT for |enable_periodic_alr_probing_|.
   void Reset(int64_t at_time_ms);
 
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> Process(
-      int64_t at_time_ms);
+  RTC_WARN_UNUSED_RESULT std::vector<DataRate> Process(int64_t at_time_ms);
 
  private:
   enum class State {
@@ -110,9 +107,9 @@ class ProbeController {
     kProbingComplete,
   };
 
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig>
-  InitiateExponentialProbing(int64_t at_time_ms);
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> InitiateProbing(
+  RTC_WARN_UNUSED_RESULT std::vector<DataRate> InitiateExponentialProbing(
+      int64_t at_time_ms);
+  RTC_WARN_UNUSED_RESULT std::vector<DataRate> InitiateProbing(
       int64_t now_ms,
       std::vector<int64_t> bitrates_to_probe,
       bool probe_further);
@@ -138,9 +135,6 @@ class ProbeController {
   bool mid_call_probing_waiting_for_result_;
   int64_t mid_call_probing_bitrate_bps_;
   int64_t mid_call_probing_succcess_threshold_;
-  RtcEventLog* event_log_;
-
-  int32_t next_probe_cluster_id_ = 1;
 
   ProbeControllerConfig config_;
 

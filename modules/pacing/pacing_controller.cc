@@ -126,7 +126,7 @@ PacingController::PacingController(Clock* clock,
       padding_debt_(DataSize::Zero()),
       media_rate_(DataRate::Zero()),
       padding_rate_(DataRate::Zero()),
-      prober_(*field_trials_),
+      prober_(*field_trials_, event_log),
       probing_send_failure_(false),
       pacing_bitrate_(DataRate::Zero()),
       last_process_time_(clock->CurrentTime()),
@@ -151,8 +151,8 @@ PacingController::PacingController(Clock* clock,
 
 PacingController::~PacingController() = default;
 
-void PacingController::CreateProbeCluster(DataRate bitrate, int cluster_id) {
-  prober_.CreateProbeCluster(bitrate, CurrentTime(), cluster_id);
+void PacingController::CreateProbeCluster(DataRate bitrate) {
+  prober_.CreateProbeCluster(bitrate, CurrentTime());
 }
 
 void PacingController::Pause() {

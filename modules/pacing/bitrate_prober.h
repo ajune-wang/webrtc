@@ -18,6 +18,7 @@
 
 #include "api/transport/field_trial_based_config.h"
 #include "api/transport/network_types.h"
+#include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 
 namespace webrtc {
@@ -46,7 +47,8 @@ struct BitrateProberConfig {
 // on being protected by the caller.
 class BitrateProber {
  public:
-  explicit BitrateProber(const WebRtcKeyValueConfig& field_trials);
+  BitrateProber(const WebRtcKeyValueConfig& field_trials,
+                RtcEventLog* event_log);
   ~BitrateProber();
 
   void SetEnabled(bool enable);
@@ -63,7 +65,7 @@ class BitrateProber {
 
   // Create a cluster used to probe for |bitrate_bps| with |num_probes| number
   // of probes.
-  void CreateProbeCluster(DataRate bitrate, Timestamp now, int cluster_id);
+  void CreateProbeCluster(DataRate bitrate, Timestamp now);
 
   // Returns the time at which the next probe should be sent to get accurate
   // probing. If probing is not desired at this time, Timestamp::PlusInfinity()
@@ -124,7 +126,10 @@ class BitrateProber {
   int total_probe_count_;
   int total_failed_probe_count_;
 
-  BitrateProberConfig config_;
+  int next_cluster_id_;
+
+  const BitrateProberConfig config_;
+  RtcEventLog* const event_log_;
 };
 
 }  // namespace webrtc

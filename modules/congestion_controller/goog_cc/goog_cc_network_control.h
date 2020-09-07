@@ -71,8 +71,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
 
  private:
   friend class GoogCcStatePrinter;
-  std::vector<ProbeClusterConfig> ResetConstraints(
-      TargetRateConstraints new_constraints);
+  std::vector<DataRate> ResetConstraints(TargetRateConstraints new_constraints);
   void ClampConstraints();
   void MaybeTriggerOnNetworkChanged(NetworkControlUpdate* update,
                                     Timestamp at_time);

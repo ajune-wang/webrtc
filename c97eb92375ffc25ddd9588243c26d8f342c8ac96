@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab7b53db_d134f578",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-07T11:32:55Z",
+      "side": 1,
+      "message": "are we now guaranteed that ulp_info is never used to generate content on the wire, or affected by bits from the wire?\n\nI\u0027d be happier if there was a giant RTC_CHECK(GetTransportFromSocket(sock) \u003d\u003d static_cast\u003cSctpTransport*\u003e(ulp_info) in at least the first version that uses this new signature.",
+      "revId": "c97eb92375ffc25ddd9588243c26d8f342c8ac96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

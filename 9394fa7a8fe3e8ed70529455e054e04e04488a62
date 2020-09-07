@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2432024a_872e9c01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-07T16:46:21Z",
+      "side": 1,
+      "message": "Saw it in chromium, found it nice ;-)",
+      "revId": "9394fa7a8fe3e8ed70529455e054e04e04488a62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

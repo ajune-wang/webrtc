@@ -303,6 +303,30 @@
     },
     {
       "key": {
+        "uuid": "4baca999_c7bd4107",
+        "filename": "test/network/emulated_network_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-08T09:15:33Z",
+      "side": 1,
+      "message": "Thanks for the offline discussion - this is OK with me as is. Down the line it would be good for us to consider const\u0026 since the interface is specified in the api/ folder and therefore could be relied upon externally and have alternate implementations. Right now the implementation has certain properties that have affected the api design, or leaky abstraction.",
+      "parentUuid": "2c74370f_d363a090",
+      "range": {
+        "startLine": 53,
+        "startChar": 33,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "f3aa17edea1de329fe341e8258d40042989ee755",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d22bf0ca_fb30c4e6",
         "filename": "test/network/emulated_network_manager.h",
         "patchSetId": 1

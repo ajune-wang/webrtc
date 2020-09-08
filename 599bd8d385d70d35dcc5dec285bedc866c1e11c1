@@ -34,6 +34,24 @@
       "revId": "599bd8d385d70d35dcc5dec285bedc866c1e11c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59107fcc_3158d9f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-08T12:51:16Z",
+      "side": 1,
+      "message": "Early roll attempt at https://chromium-review.googlesource.com/c/chromium/deps/libsrtp/+/2397898.\n\nCan you update your CL with https://webrtc-review.googlesource.com/c/src/+/183621. That is not ready to land but at least you can trigger the trybots and ensure everything is green. Then you can revert the DEPS change and in the next few days, hopefully the roll be land.",
+      "parentUuid": "a9bbd07d_61c0536a",
+      "revId": "599bd8d385d70d35dcc5dec285bedc866c1e11c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "c97eb92375ffc25ddd9588243c26d8f342c8ac96",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45a41a82_261f8d6d",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-08T20:41:04Z",
+      "side": 1,
+      "message": "ulp_info was never sent on the wire. It\u0027s sconn_addr you\u0027re thinking of, which we were using precisely because this callback (and send_cb) didn\u0027t provide ulp_info directly, so we had to get it from the socket address instead.\n\nNote that we\u0027re already casting directly from ulp_info to SctpTransport in the receive callback here: \nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/media/sctp/sctp_transport.cc;l\u003d396;drc\u003dbb733b33b305d7bb1eb4b6553e470cc3afc5bf51;bpv\u003d0;bpt\u003d1?q\u003dsctp_transport.cc\u0026ss\u003dchromium%2Fchromium%2Fsrc\n\nI went ahead and added the checks anyway, let me know if you want me to undo them.",
+      "parentUuid": "ab7b53db_d134f578",
+      "revId": "c97eb92375ffc25ddd9588243c26d8f342c8ac96",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

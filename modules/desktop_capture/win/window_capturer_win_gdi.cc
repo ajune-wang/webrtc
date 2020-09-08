@@ -10,6 +10,7 @@
 
 #include "modules/desktop_capture/win/window_capturer_win_gdi.h"
 
+#include <cmath>
 #include <map>
 #include <memory>
 #include <utility>
@@ -228,6 +229,19 @@ WindowCapturerWinGdi::CaptureResults WindowCapturerWinGdi::CaptureFrame(
         static_cast<double>(window_dc_size.height()) / original_rect.height();
     original_rect.Scale(horizontal_scale, vertical_scale);
     cropped_rect.Scale(horizontal_scale, vertical_scale);
+
+    // Scaling the two rects will handle the right and bottom portions of the
+    // clipped region however we also need to adjust the left and top strips as
+    // well.  Otherwise the clipped window will appear to shift to the right as
+    // the DPI is increased and at some point, the capture will start failing as
+    // the clipped region will no longer fit inside the frame.  We need to scale
+    // the left and top clipped regions and translate to prevent this shifting.
+    // See crbug.com/1083527 for more info.
+    int translate_left = static_cast<int>(std::round(
+        (cropped_rect.left() - original_rect.left()) * (horizontal_scale - 1)));
+    int translate_top = static_cast<int>(std::round(
+        (cropped_rect.top() - original_rect.top()) * (vertical_scale - 1)));
+    cropped_rect.Translate(translate_left, translate_top);
   }
 
   std::unique_ptr<DesktopFrameWin> frame(

@@ -87,6 +87,30 @@
       "revId": "debb5068bccfd39507408ac09d7cc8491757884e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8cbf9f9_9d27f3b2",
+        "filename": "video/rtp_streams_synchronizer2.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-08T14:32:17Z",
+      "side": 1,
+      "message": "PTAL. I\u0027ve implemented an alternative, where we reduce delay by 10% instead of resetting. Wdyt? Does that make sense?",
+      "parentUuid": "ae8c5929_b877951f",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 18
+      },
+      "revId": "debb5068bccfd39507408ac09d7cc8491757884e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

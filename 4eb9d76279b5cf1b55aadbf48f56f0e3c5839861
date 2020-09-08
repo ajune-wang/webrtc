@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "169d53e5_51351d58",
+        "filename": "call/call.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-09-08T08:52:07Z",
+      "side": 1,
+      "message": "nit: trials (Or GetTrials, but I like trials() better)",
+      "range": {
+        "startLine": 159,
+        "startChar": 38,
+        "endLine": 159,
+        "endChar": 44
+      },
+      "revId": "4eb9d76279b5cf1b55aadbf48f56f0e3c5839861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58352036_0ad01c48",
         "filename": "media/engine/webrtc_media_engine.cc",
         "patchSetId": 14
@@ -35,6 +58,53 @@
         "startChar": 0,
         "endLine": 33,
         "endChar": 68
+      },
+      "revId": "4eb9d76279b5cf1b55aadbf48f56f0e3c5839861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b6589c9_6af179d2",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-09-08T08:52:07Z",
+      "side": 1,
+      "message": "Could we have a TODO about clearing it up with some info on what to check, eg. \"remove when Adroid SDK has been fixed\" or so?",
+      "parentUuid": "58352036_0ad01c48",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 68
+      },
+      "revId": "4eb9d76279b5cf1b55aadbf48f56f0e3c5839861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c7640d_5c376b29",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-09-08T08:52:07Z",
+      "side": 1,
+      "message": "Why not return the string value instead?",
+      "range": {
+        "startLine": 1145,
+        "startChar": 0,
+        "endLine": 1146,
+        "endChar": 58
       },
       "revId": "4eb9d76279b5cf1b55aadbf48f56f0e3c5839861",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

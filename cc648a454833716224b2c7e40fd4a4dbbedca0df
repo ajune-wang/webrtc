@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ce2a255a_00b70a14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10798
+      },
+      "writtenOn": "2020-09-08T07:57:54Z",
+      "side": 1,
+      "message": "You should probably unit test UntypedFunction directly; most of the complicated things that can happen are in there, and it\u0027s simpler than the full CSC.",
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2e31e49_8e0a204f",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 4
@@ -40,6 +57,29 @@
         "startLine": 23,
         "startChar": 44,
         "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "511cd20d_3b2d745c",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 10798
+      },
+      "writtenOn": "2020-09-08T07:57:54Z",
+      "side": 1,
+      "message": "Why this particular name? I would suggest either something meaningful (e.g. \"csc\" or \"callbacks\") or a much shorter nonsense name (e.g. \"a\").",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
         "endChar": 45
       },
       "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
@@ -94,6 +134,80 @@
     },
     {
       "key": {
+        "uuid": "52a362f4_34889760",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 10798
+      },
+      "writtenOn": "2020-09-08T07:57:54Z",
+      "side": 1,
+      "message": "Also test the zero argument case?",
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c79aa53c_7c637718",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 10798
+      },
+      "writtenOn": "2020-09-08T07:57:54Z",
+      "side": 1,
+      "message": "This doesn\u0027t work---FunctionView doesn\u0027t own the callable it points to, so as soon as this statement is finished, the lambda (which is a temporary) is destroyed, and the FunctionView now has a dangling pointer.\n\nJust like string_view, FunctionView is most useful as a function argument type; other good use cases are rare. Here, you should just store the lambda type directly:\n\n  auto fvTest \u003d [](int\u0026 index) { index++; };\n\nor even simpler, just pass it directly without binding it to a local variable:\n\n  c.AddReceiver([](int\u0026 index) { index++; });",
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "318d4e94_ec84ff00",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 10798
+      },
+      "writtenOn": "2020-09-08T07:57:54Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 57,
+        "startChar": 35,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e35f9d67_cfe53dd4",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 10798
+      },
+      "writtenOn": "2020-09-08T07:57:54Z",
+      "side": 1,
+      "message": "This lambda does have some state, but it\u0027s still trivially copyable and trivially destructible. You\u0027d need to use e.g. unique_ptr or std::vector instead of a plain int.\n\nVerify that the lambda is nontrivial in the desired way by testing it with the is_trivially_* functions here: https://en.cppreference.com/w/cpp/types",
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "895d4da9_8138862e",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 4
@@ -111,6 +225,23 @@
         "endLine": 68,
         "endChar": 31
       },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0615dc5f_946c53c0",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 10798
+      },
+      "writtenOn": "2020-09-08T07:57:54Z",
+      "side": 1,
+      "message": "Test this by storing the lambda in a local variable and using sizeof on it. (Hint: As is, this test will fail, because the lambda\u0027s state is a single int.)",
       "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

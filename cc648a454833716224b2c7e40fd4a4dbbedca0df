@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2e31e49_8e0a204f",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-08T06:46:27Z",
+      "side": 1,
+      "message": "2020",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51451da_f197d05f",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-08T06:46:27Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 23,
+        "startChar": 44,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1794c1ff_17b56cee",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-08T06:46:27Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d54b7cd7_208053a8",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-08T06:46:27Z",
+      "side": 1,
+      "message": "I would say \"MultipleParametersMessage\" in this case where we have two params for CSC.\n\nSingle message sounds like \"single .Send\" more than single parameter.",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "895d4da9_8138862e",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-08T06:46:27Z",
+      "side": 1,
+      "message": "a",
+      "range": {
+        "startLine": 68,
+        "startChar": 30,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e15583_b766c9b5",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-08T06:46:27Z",
+      "side": 1,
+      "message": "We might also want to add tests for:\n\n* multiple receivers and multiple send, actually you might want to take the previous tests and parametrize them to let\u0027s say work with 0..N receivers (see https://chromium.googlesource.com/external/github.com/google/googletest/+/HEAD/googletest/docs/advanced.md#value_parameterized-tests or just use a for loop if that is more readable).\n\n* something similar to production examples, see for example https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/p2p/base/port_interface.h;l\u003d98-104 where we have a mixture of references, pointers, value parameters, etc... But let\u0027s try to be sure that things work well with const parameters in the mix.\n\n* I forgot to ask Karl last time but the rtc::bind might be something we need to support, let me ask it on our chat.",
+      "range": {
+        "startLine": 83,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 16
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

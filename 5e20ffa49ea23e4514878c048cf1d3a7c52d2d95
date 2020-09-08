@@ -16,6 +16,40 @@
       "revId": "5e20ffa49ea23e4514878c048cf1d3a7c52d2d95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5093c32c_91bdb6b3",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5348
+      },
+      "writtenOn": "2020-09-08T22:35:18Z",
+      "side": 1,
+      "message": "Would it be clearer to say that scaling handles the width and height, rather than the right and bottom? Right/bottom are only correct if top/left are, so this comment left me wondering what\u0027s special about them that means they don\u0027t need special treatment.\n\nTo put it another way, if bottom/right are correct here, they are wrong after you call translate().",
+      "revId": "5e20ffa49ea23e4514878c048cf1d3a7c52d2d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e4bb830_ba1b05b5",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5348
+      },
+      "writtenOn": "2020-09-08T22:35:18Z",
+      "side": 1,
+      "message": "It took me longer than I care to admit to convince myself that this was right, and what was going on with the -1. I think a comment along the lines of \"translate the cropped rect such that left -\u003e horizontal_scale * left\" would have made it more obvious (you basically just want to update top/left without changing width/height, but the DesktopRect doesn\u0027t have an API for that).",
+      "revId": "5e20ffa49ea23e4514878c048cf1d3a7c52d2d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

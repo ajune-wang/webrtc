@@ -16,6 +16,23 @@
       "revId": "2ded2f45c66da0314f91600b9fa34d01959c073c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e135a4b7_636b579b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-09-09T11:45:28Z",
+      "side": 1,
+      "message": "call/ LGTM\n\nLet me know if you want me to review the rest too.",
+      "revId": "2ded2f45c66da0314f91600b9fa34d01959c073c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

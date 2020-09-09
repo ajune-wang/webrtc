@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "d0461f10_9760a6e4",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-09-09T18:25:39Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "5093c32c_91bdb6b3",
+      "revId": "5e20ffa49ea23e4514878c048cf1d3a7c52d2d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e4bb830_ba1b05b5",
         "filename": "modules/desktop_capture/win/window_capturer_win_gdi.cc",
         "patchSetId": 2
@@ -67,6 +85,24 @@
       "revId": "5e20ffa49ea23e4514878c048cf1d3a7c52d2d95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40466850_8963250b",
+        "filename": "modules/desktop_capture/win/window_capturer_win_gdi.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-09-09T18:25:39Z",
+      "side": 1,
+      "message": "I want to scale the difference between a rect and an inset rect.  I\u0027m happy updating the comment so it is more readable.  I was trying to give additional background on the \u0027why\u0027 (which  seems like a common pattern in this file) but I\u0027m fine reducing it a bit if that makes it easier to grok.",
+      "parentUuid": "3e4bb830_ba1b05b5",
+      "revId": "5e20ffa49ea23e4514878c048cf1d3a7c52d2d95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

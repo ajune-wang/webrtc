@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1642ba8_1a9ab67e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-09T14:00:09Z",
+      "side": 1,
+      "message": "Hmm, the GCC failure is strange for this CL.. :/",
+      "revId": "fa34a6dfbca471fcc328a43236d7e344039ae3d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

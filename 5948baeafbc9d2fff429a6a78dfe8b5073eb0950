@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d0e27ca_40d96ae2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-09T07:00:29Z",
+      "side": 1,
+      "message": "Check looks good to me, let\u0027s roll!\n",
+      "revId": "5948baeafbc9d2fff429a6a78dfe8b5073eb0950",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

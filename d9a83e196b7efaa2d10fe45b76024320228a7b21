@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "762a9053_632a4e0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-09T15:49:30Z",
+      "side": 1,
+      "message": "can you say \"+1\" once more please? Otherwise this will trigger some alarms when getting imported apparently ;-)",
+      "revId": "d9a83e196b7efaa2d10fe45b76024320228a7b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

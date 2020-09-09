@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65446cd8_19af2620",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12299
+      },
+      "writtenOn": "2020-09-09T19:20:29Z",
+      "side": 1,
+      "message": "Some things like \u0027Pc_\u0027 or \u0027_3sl_\u0027 don\u0027t look to good but it should do the work.",
+      "revId": "e1d09b5267a2f331c1c54367b330fa260f097b25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

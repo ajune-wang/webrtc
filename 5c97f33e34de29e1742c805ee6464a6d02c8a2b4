@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb1e7bfa_7f6f930e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-09T14:30:13Z",
+      "side": 1,
+      "message": "Oh, this is because GN is detecting a dependency on .vpython from code that is part of WebRTC deps!\n\nanalyze output:\n{\n  \"compile_targets\": [\n    \"base:base_i18n_perftests\", \n    \"base:base_perftests\", \n    \"base:base_unittests\", \n    \"third_party/abseil-cpp:absl_tests\", \n    \"third_party/catapult/tracing/tracing:histogram_unittests\", \n    \"third_party/ced:ced_unittests\", \n    \"third_party/libyuv:libyuv_unittest\", \n    \"third_party/opus:opus_tests\", \n    \"third_party/opus:test_opus_api\", \n    \"third_party/opus:test_opus_decode\", \n    \"third_party/opus:test_opus_encode\", \n    \"third_party/opus:test_opus_padding\", \n    \"third_party/pffft:pffft_unittest\"\n  ], \n  \"status\": \"Found dependency\", \n  \"test_targets\": []\n}\n\nI will force submit since //base is not supporting GCC for years now.",
+      "revId": "5c97f33e34de29e1742c805ee6464a6d02c8a2b4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -174,6 +174,30 @@
       "revId": "26cb71794d1fe7b5f6aee60d2163ade1f70fa309",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bedce770_ffd3a324",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-10T14:34:27Z",
+      "side": 1,
+      "message": "\u003e \u003e Is there any good reason to split meta data between VideoFrame and the new struct?\n\u003e \n\u003e The initial (current) design of OnDecodedFrame is just a mirroring of the DecodedImageCallback::Decoded callback, now that I added an additional member I though creating a FrameInfo struct was cleaner, can\u0027t say if it\u0027s the better design or not.\n\nI think a struct is an improvement ofer a bunch of separate arguments.\n\n\u003e Was not aware of |processing_time_|, it should also be set in the VideoStreamDecoder (but that\u0027s for another CL).\n\nWhen you do that, you can delete the decode_time_ms from FrameInfo, right?\n \n\u003e I think at some point we have to decide if we want a VideoFrame (that represents just the decoded video frame, and timestamp I guess), or an RtcVideoFrame (that contains all kind of information relevant for an RTC system). Maybe the VideoFrameBuffer could already be considered to be the \"VideoFrame\" though...\n\nCurrent design has VideoFrameBuffer representing the pixels (in one of several possible ways), while VideoFrame carries the metadata + VideoFramebuffer reference. I think that\u0027s still a good design, even if VideoFrameBuffer has grown quite a bit larger than initially imagined. It would make some sense to share some meta data struct between classes representing raw frames and encoded frames, such a struct would then be a member of VideoFrame.",
+      "parentUuid": "ea256229_e548c922",
+      "range": {
+        "startLine": 53,
+        "startChar": 31,
+        "endLine": 54,
+        "endChar": 63
+      },
+      "revId": "26cb71794d1fe7b5f6aee60d2163ade1f70fa309",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

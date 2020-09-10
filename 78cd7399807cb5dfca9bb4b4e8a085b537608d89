@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4093614_3846bacf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-10T14:34:27Z",
+      "side": 1,
+      "message": "Looks good. Please mention the new FrameInfo struct in the commit message.",
+      "revId": "78cd7399807cb5dfca9bb4b4e8a085b537608d89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -76,6 +76,13 @@ class RTC_EXPORT VideoFrameBuffer : public rtc::RefCountInterface {
   // doesn't affect binary data at all. Another example is any I420A buffer.
   virtual const I420BufferInterface* GetI420() const;
 
+  // Returns a CPU-readable frame buffer in NV12 format. This method can only be
+  // called when the input buffer format is kNV12 or kNative(which is NV12
+  // texture). e.g. media::VideoFrame::STORAGE_GPU_MEMORY_BUFFER in chrome is
+  // NV12 format now, which can be map to CPU-readable buffer and feed to libvpx
+  // encoder directly.
+  virtual rtc::scoped_refptr<NV12BufferInterface> ToNV12();
+
   // These functions should only be called if type() is of the correct type.
   // Calling with a different type will result in a crash.
   const I420ABufferInterface* GetI420A() const;
@@ -206,6 +213,8 @@ class BiplanarYuv8Buffer : public BiplanarYuvBuffer {
 class NV12BufferInterface : public BiplanarYuv8Buffer {
  public:
   Type type() const override;
+  rtc::scoped_refptr<I420BufferInterface> ToI420() override;
+  rtc::scoped_refptr<NV12BufferInterface> ToNV12() override;
 
   int ChromaWidth() const final;
   int ChromaHeight() const final;

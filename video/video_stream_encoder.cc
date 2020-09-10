@@ -1295,26 +1295,36 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
        info.supports_native_handle);
 
   if (!is_buffer_type_supported) {
-    // This module only supports software encoding.
-    rtc::scoped_refptr<I420BufferInterface> converted_buffer(
-        out_frame.video_frame_buffer()->ToI420());
-
-    if (!converted_buffer) {
-      RTC_LOG(LS_ERROR) << "Frame conversion failed, dropping frame.";
-      return;
-    }
-
     VideoFrame::UpdateRect update_rect = out_frame.update_rect();
-    if (!update_rect.IsEmpty() &&
-        out_frame.video_frame_buffer()->GetI420() == nullptr) {
-      // UpdatedRect is reset to full update if it's not empty, and buffer was
-      // converted, therefore we can't guarantee that pixels outside of
-      // UpdateRect didn't change comparing to the previous frame.
-      update_rect =
-          VideoFrame::UpdateRect{0, 0, out_frame.width(), out_frame.height()};
-    }
 
-    out_frame.set_video_frame_buffer(converted_buffer);
+    // This module only supports software encoding.
+    if (info.implementation_name != "libvpx" ||
+        !out_frame.video_frame_buffer()->ToNV12()) {
+      rtc::scoped_refptr<I420BufferInterface> converted_i420_buffer(
+          out_frame.video_frame_buffer()->ToI420());
+      if (!converted_i420_buffer) {
+        RTC_LOG(LS_ERROR) << "Frame conversion failed, dropping frame.";
+        return;
+      }
+      if (!update_rect.IsEmpty() &&
+          out_frame.video_frame_buffer()->GetI420() == nullptr) {
+        // UpdatedRect is reset to full update if it's not empty, and buffer was
+        // converted, therefore we can't guarantee that pixels outside of
+        // UpdateRect didn't change comparing to the previous frame.
+        update_rect =
+            VideoFrame::UpdateRect{0, 0, out_frame.width(), out_frame.height()};
+      }
+      out_frame.set_video_frame_buffer(converted_i420_buffer);
+    } else {
+      rtc::scoped_refptr<NV12BufferInterface> converted_nv12_buffer(
+          out_frame.video_frame_buffer()->ToNV12());
+      if (!update_rect.IsEmpty() &&
+          out_frame.video_frame_buffer()->GetNV12() == nullptr) {
+        update_rect =
+            VideoFrame::UpdateRect{0, 0, out_frame.width(), out_frame.height()};
+      }
+      out_frame.set_video_frame_buffer(converted_nv12_buffer);
+    }
     out_frame.set_update_rect(update_rect);
   }
 

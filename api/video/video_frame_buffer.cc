@@ -14,6 +14,12 @@
 
 namespace webrtc {
 
+// This method can only be called when buffer(either memory-backed or native
+// texture) in nv12.
+rtc::scoped_refptr<NV12BufferInterface> VideoFrameBuffer::ToNV12() {
+  return nullptr;
+}
+
 const I420BufferInterface* VideoFrameBuffer::GetI420() const {
   // Overridden by subclasses that can return an I420 buffer without any
   // conversion, in particular, I420BufferInterface.
@@ -86,6 +92,14 @@ int I010BufferInterface::ChromaWidth() const {
 
 int I010BufferInterface::ChromaHeight() const {
   return (height() + 1) / 2;
+}
+
+rtc::scoped_refptr<I420BufferInterface> NV12BufferInterface::ToI420() {
+  return nullptr;
+}
+
+rtc::scoped_refptr<NV12BufferInterface> NV12BufferInterface::ToNV12() {
+  return this;
 }
 
 VideoFrameBuffer::Type NV12BufferInterface::type() const {

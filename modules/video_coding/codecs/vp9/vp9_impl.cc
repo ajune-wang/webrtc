@@ -870,6 +870,15 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     return WEBRTC_VIDEO_CODEC_OK;
   }
 
+  if (input_image.video_frame_buffer()->type() ==
+          VideoFrameBuffer::Type::kNV12 &&
+      is_i420_vpx_img_) {
+    RTC_LOG(LS_ERROR) << __func__ << " 7001test need to wrap vpx image again";
+    raw_ = vpx_img_wrap(nullptr, VPX_IMG_FMT_NV12, raw_->d_w, raw_->d_h, 1,
+                        nullptr);
+    is_i420_vpx_img_ = false;
+  }
+
   // We only support one stream at the moment.
   if (frame_types && !frame_types->empty()) {
     if ((*frame_types)[0] == VideoFrameType::kVideoFrameKey) {
@@ -979,19 +988,35 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
 
   // Keep reference to buffer until encode completes.
   rtc::scoped_refptr<I420BufferInterface> i420_buffer;
+  rtc::scoped_refptr<NV12BufferInterface> nv12_buffer;
   const I010BufferInterface* i010_buffer;
   rtc::scoped_refptr<const I010BufferInterface> i010_copy;
   switch (profile_) {
     case VP9Profile::kProfile0: {
-      i420_buffer = input_image.video_frame_buffer()->ToI420();
-      // Image in vpx_image_t format.
-      // Input image is const. VPX's raw image is not defined as const.
-      raw_->planes[VPX_PLANE_Y] = const_cast<uint8_t*>(i420_buffer->DataY());
-      raw_->planes[VPX_PLANE_U] = const_cast<uint8_t*>(i420_buffer->DataU());
-      raw_->planes[VPX_PLANE_V] = const_cast<uint8_t*>(i420_buffer->DataV());
-      raw_->stride[VPX_PLANE_Y] = i420_buffer->StrideY();
-      raw_->stride[VPX_PLANE_U] = i420_buffer->StrideU();
-      raw_->stride[VPX_PLANE_V] = i420_buffer->StrideV();
+      if (input_image.video_frame_buffer()->type() ==
+          VideoFrameBuffer::Type::kNV12) {
+        nv12_buffer = input_image.video_frame_buffer()->ToNV12();
+        RTC_LOG(LS_ERROR) << __func__ << " 7001test ToNV12";
+
+        raw_->planes[VPX_PLANE_Y] = const_cast<uint8_t*>(nv12_buffer->DataY());
+        raw_->planes[VPX_PLANE_U] = const_cast<uint8_t*>(nv12_buffer->DataUV());
+        raw_->planes[VPX_PLANE_V] = raw_->planes[VPX_PLANE_U] + 1;
+        raw_->stride[VPX_PLANE_Y] = nv12_buffer->StrideY();
+        raw_->stride[VPX_PLANE_U] = nv12_buffer->StrideUV();
+        raw_->stride[VPX_PLANE_V] = nv12_buffer->StrideUV();
+      } else {
+        RTC_LOG(LS_ERROR) << __func__ << " 7001test ToI420";
+        i420_buffer = input_image.video_frame_buffer()->ToI420();
+        // Image in vpx_image_t format.
+        // Input image is const. VPX's raw image is not defined as const.
+        raw_->planes[VPX_PLANE_Y] = const_cast<uint8_t*>(i420_buffer->DataY());
+        raw_->planes[VPX_PLANE_U] = const_cast<uint8_t*>(i420_buffer->DataU());
+        raw_->planes[VPX_PLANE_V] = const_cast<uint8_t*>(i420_buffer->DataV());
+        raw_->stride[VPX_PLANE_Y] = i420_buffer->StrideY();
+        raw_->stride[VPX_PLANE_U] = i420_buffer->StrideU();
+        raw_->stride[VPX_PLANE_V] = i420_buffer->StrideV();
+      }
+
       break;
     }
     case VP9Profile::kProfile1: {

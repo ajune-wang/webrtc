@@ -51,6 +51,24 @@
       "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c4144ce_d53cad20",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-10T14:00:08Z",
+      "side": 1,
+      "message": "ok, since there\u0027s no comment around it, it looks like an oversight right now.\nFor these sort of things, we could have a \"TODO(\u003cbug link): Remove once ...\" type comment that explains why it\u0027s a CHECK and not DCHECK.",
+      "parentUuid": "3fb83b83_f4df9d6f",
+      "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

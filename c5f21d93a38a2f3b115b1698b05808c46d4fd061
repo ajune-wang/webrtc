@@ -51,6 +51,41 @@
       "revId": "c5f21d93a38a2f3b115b1698b05808c46d4fd061",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1ec2644_65e96246",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13893
+      },
+      "writtenOn": "2020-09-10T10:38:58Z",
+      "side": 1,
+      "message": "Looks not, IIUC.\n\nthe variable is assigned by checking self.platform, which is sys.platform.\nOn Chrome OS build, we expect it is cross build on linux platform, so it would not be affected.",
+      "parentUuid": "aace96e6_e0d5f76e",
+      "revId": "c5f21d93a38a2f3b115b1698b05808c46d4fd061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "860f9250_728ed9af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13893
+      },
+      "writtenOn": "2020-09-10T10:38:58Z",
+      "side": 1,
+      "message": "Thank you for review!",
+      "revId": "c5f21d93a38a2f3b115b1698b05808c46d4fd061",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

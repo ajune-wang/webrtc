@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81bce2f1_80082c0b",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-09-10T11:41:22Z",
+      "side": 0,
+      "message": "The only thing we need to initialize is the |timestamp| so that an uninitialized value does not match in |GetFrameMetaInfo|. Updated |FrameMetaInfo| to initialize |timestamp| to -1.",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

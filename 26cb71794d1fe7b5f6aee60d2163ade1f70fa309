@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33dcdd2b_5f12fe54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-09-10T11:41:22Z",
+      "side": 1,
+      "message": "Nisse, PTAL",
+      "revId": "26cb71794d1fe7b5f6aee60d2163ade1f70fa309",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

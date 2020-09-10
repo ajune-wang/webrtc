@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "be8bf7c3_467f7ecb",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-09-10T13:35:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc0ca38b_2f886aaf",
+      "range": {
+        "startLine": 33,
+        "startChar": 11,
+        "endLine": 33,
+        "endChar": 24
+      },
+      "revId": "26cb71794d1fe7b5f6aee60d2163ade1f70fa309",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2cca18b_302c8e9e",
         "filename": "api/video/video_stream_decoder.h",
         "patchSetId": 2
@@ -82,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "283d4d7f_353f76db",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-09-10T13:35:34Z",
+      "side": 1,
+      "message": "correct",
+      "parentUuid": "c2cca18b_302c8e9e",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 36
+      },
+      "revId": "26cb71794d1fe7b5f6aee60d2163ade1f70fa309",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09c2f687_94b2155d",
         "filename": "api/video/video_stream_decoder.h",
         "patchSetId": 2
@@ -93,6 +141,30 @@
       "writtenOn": "2020-09-10T12:46:05Z",
       "side": 1,
       "message": "Is there any good reason to split meta data between VideoFrame and the new struct?\n\nwebrtc::VideoFrame already has a processing_time_ member which appears to have a similar purpose as the decode_time_ms. It would make some sense to add a VideoContentType to VideoFrame. Adding qp would be more questionable.\n\nProper design also depends also a bit on where these values are expected to be consumed. By the direct callee of OnDecodedFrame, or will they be passed on through the pipeline together with the VideoFrame?",
+      "range": {
+        "startLine": 53,
+        "startChar": 31,
+        "endLine": 54,
+        "endChar": 63
+      },
+      "revId": "26cb71794d1fe7b5f6aee60d2163ade1f70fa309",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea256229_e548c922",
+        "filename": "api/video/video_stream_decoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-09-10T13:35:34Z",
+      "side": 1,
+      "message": "\u003e Is there any good reason to split meta data between VideoFrame and the new struct?\n\nThe initial (current) design of OnDecodedFrame is just a mirroring of the DecodedImageCallback::Decoded callback, now that I added an additional member I though creating a FrameInfo struct was cleaner, can\u0027t say if it\u0027s the better design or not.\n\n\u003e webrtc::VideoFrame already has a processing_time_ member which appears to have a similar purpose as the decode_time_ms. It would make some sense to add a VideoContentType to VideoFrame. Adding qp would be more questionable.\n\nWas not aware of |processing_time_|, it should also be set in the VideoStreamDecoder (but that\u0027s for another CL).\n\n\u003e Proper design also depends also a bit on where these values are expected to be consumed. By the direct callee of OnDecodedFrame, or will they be passed on through the pipeline together with the VideoFrame?\n\nThe VideoContentType does not follow the frame throughout the rest of the pipeline, it goes its own way and is only used to separate video and screenshare metrics.\n\nI think at some point we have to decide if we want a VideoFrame (that represents just the decoded video frame, and timestamp I guess), or an RtcVideoFrame (that contains all kind of information relevant for an RTC system). Maybe the VideoFrameBuffer could already be considered to be the \"VideoFrame\" though...",
+      "parentUuid": "09c2f687_94b2155d",
       "range": {
         "startLine": 53,
         "startChar": 31,

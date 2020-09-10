@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccdd00d7_db73b098",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-10T21:16:32Z",
+      "side": 1,
+      "message": "Looks reasonable to me.\nadding sakal@ to look at it with Java eyes.\n",
+      "revId": "1ceb3486c45d26982bdf7bea8639dbccd18f62b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

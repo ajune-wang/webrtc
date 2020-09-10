@@ -22,6 +22,30 @@
       "revId": "ec9d3ecd07100e6eefc2d9b93dee6642c25c6b56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4bc99a5_b2716ac8",
+        "filename": "api/media_stream_track_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-10T11:05:32Z",
+      "side": 1,
+      "message": "I need to double check if there\u0027s something to be aware of for Android, but the native C++ implementation is safe - I just didn\u0027t remove the DCHECK.\n\nIt returns a constant:\n\nstd::string AudioTrack::kind() const {\n  RTC_DCHECK(thread_checker_.IsCurrent()); \u003c- not needed  \n  return kAudioKind;\n}",
+      "parentUuid": "6954a4d7_3d14d94d",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "ec9d3ecd07100e6eefc2d9b93dee6642c25c6b56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

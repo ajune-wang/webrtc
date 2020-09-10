@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "eea4710f_1edf8df5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-10T13:30:18Z",
+      "side": 1,
+      "message": "Why are we changing the behavior of the QualityScaler through a field trial? Is the goal to experiment and find out what the best value it to then propose changing the default, or is the field trial added as a permanent \"API surface\" to the QualityScaler?\n\nCan you reference a bug that describes what the plan is?",
+      "revId": "e025a6944d58fe8ffa51f798218f46494596f3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b56b5f52_062ebc21",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -50,6 +67,23 @@
       "revId": "e025a6944d58fe8ffa51f798218f46494596f3f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d52c343c_2e062a8f",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-10T13:30:18Z",
+      "side": 1,
+      "message": "|sampling_period_ms| is no longer the sampling period. Can you either move this logic to the other constructor and pass down \"SamplingPeriod().value_or(kMeasureMs)\" as the |sampling_period_ms| value to this constructor, or else rename |sampling_period_ms| to |default_sampling_period_ms| to indicate that this might not be the value used?",
+      "revId": "e025a6944d58fe8ffa51f798218f46494596f3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "4409e249_f5f9a18c",
+        "filename": "call/call.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-10T17:25:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "169d53e5_51351d58",
+      "range": {
+        "startLine": 159,
+        "startChar": 38,
+        "endLine": 159,
+        "endChar": 44
+      },
+      "revId": "4eb9d76279b5cf1b55aadbf48f56f0e3c5839861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58352036_0ad01c48",
         "filename": "media/engine/webrtc_media_engine.cc",
         "patchSetId": 14
@@ -89,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "217f7aff_6bce149e",
+        "filename": "media/engine/webrtc_media_engine.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-10T17:25:40Z",
+      "side": 1,
+      "message": "Could be external usage too, so I\u0027ll post a PSA and remove it down the line.\nAdded todo.",
+      "parentUuid": "9b6589c9_6af179d2",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 68
+      },
+      "revId": "4eb9d76279b5cf1b55aadbf48f56f0e3c5839861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0c7640d_5c376b29",
         "filename": "pc/peer_connection.h",
         "patchSetId": 14
@@ -109,6 +157,30 @@
       "revId": "4eb9d76279b5cf1b55aadbf48f56f0e3c5839861",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a5ee2a_3c1f2599",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-10T17:25:40Z",
+      "side": 1,
+      "message": "Just felt it would be easier to read, but since these (internal) helper methods were only used in one place each, I\u0027ll just remove the helpers altogether.",
+      "parentUuid": "d0c7640d_5c376b29",
+      "range": {
+        "startLine": 1145,
+        "startChar": 0,
+        "endLine": 1146,
+        "endChar": 58
+      },
+      "revId": "4eb9d76279b5cf1b55aadbf48f56f0e3c5839861",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

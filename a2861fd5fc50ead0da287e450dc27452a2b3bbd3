@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11765a7f_0cc70ac7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-10T17:31:39Z",
+      "side": 1,
+      "message": "can you take an initial look?",
+      "revId": "a2861fd5fc50ead0da287e450dc27452a2b3bbd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f79772ac_c8361a87",
+        "filename": "examples/androidtests/src/org/appspot/apprtc/test/PeerConnectionClientTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-10T17:31:39Z",
+      "side": 1,
+      "message": "(here and below)\nI am surprised this works since the offer has a\u003dsetup:actpass and I don\u0027t think that is legal in an answer?",
+      "revId": "a2861fd5fc50ead0da287e450dc27452a2b3bbd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

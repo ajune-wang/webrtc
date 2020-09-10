@@ -16,6 +16,29 @@
       "revId": "b57a9480e09b7bd509bdbd76472fb66a9eb5bfad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22b6a604_08ad2665",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-10T14:56:25Z",
+      "side": 1,
+      "message": "I think this is fine, but I am a little curious what happens if a derived class doesn\u0027t override wither of these :-) I\u0027m guessing it will be an infinite loop?",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 0
+      },
+      "revId": "b57a9480e09b7bd509bdbd76472fb66a9eb5bfad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -361,7 +361,7 @@ TEST(FullStackTest, ForemanCifPlr5Flexfec) {
   fixture->RunWithAnalyzer(foreman_cif);
 }
 
-TEST(FullStackTest, ForemanCif500kbpsPlr3Flexfec) {
+TEST(FullStackTest, Foreman_Cif_500Kbps_Delay_50_0_Plr_3_Flexfec) {
   auto fixture = CreateVideoQualityTestFixture();
   ParamsWithLogging foreman_cif;
   foreman_cif.call.send_side_bwe = true;
@@ -971,7 +971,7 @@ ParamsWithLogging::Video SimulcastVp8VideoLow() {
 
 #if defined(RTC_ENABLE_VP9)
 
-TEST(FullStackTest, ScreenshareSlidesVP9_3SL_High_Fps) {
+TEST(FullStackTest, Screenshare_Slides_Vp9_3Sl_High_Fps) {
   auto fixture = CreateVideoQualityTestFixture();
   ParamsWithLogging screenshare;
   screenshare.call.send_side_bwe = true;

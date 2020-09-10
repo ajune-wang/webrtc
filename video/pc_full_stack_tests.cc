@@ -624,7 +624,7 @@ TEST(PCFullStackTest, ForemanCifWithoutPacketlossH264) {
   fixture->Run(std::move(run_params));
 }
 
-TEST(PCFullStackTest, ForemanCif30kbpsWithoutPacketlossH264) {
+TEST(PCFullStackTest, Pc_Foreman_Cif_30Kbps_Net_Delay_0_0_Plr_0_H264) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   BuiltInNetworkBehaviorConfig config;
@@ -1146,7 +1146,7 @@ TEST(PCFullStackTest, ScreenshareSlidesVP8_2TL_NoConferenceMode) {
   fixture->Run(std::move(run_params));
 }
 
-TEST(PCFullStackTest, ScreenshareSlidesVP8_2TL) {
+TEST(PCFullStackTest, Pc_Screenshare_Slides) {
   std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
       CreateNetworkEmulationManager();
   auto fixture = CreateTestFixture(

@@ -16,6 +16,23 @@
       "revId": "8947bd6f162ce9d413f4d287024b2dfdc56fa84b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37309763_11c040d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-09-10T21:05:14Z",
+      "side": 1,
+      "message": "Hi guys, can you check if everything is ok now?",
+      "revId": "8947bd6f162ce9d413f4d287024b2dfdc56fa84b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

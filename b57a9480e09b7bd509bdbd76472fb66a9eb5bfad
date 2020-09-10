@@ -39,6 +39,30 @@
       "revId": "b57a9480e09b7bd509bdbd76472fb66a9eb5bfad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8211313a_7417b00b",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-10T15:00:13Z",
+      "side": 1,
+      "message": "It will. So looks a bit scary, but I think it\u0027s the standard pattern for changing method signature. \n\nAny existing and working code must be overriding it, since it used to be pure virtual.",
+      "parentUuid": "22b6a604_08ad2665",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 0
+      },
+      "revId": "b57a9480e09b7bd509bdbd76472fb66a9eb5bfad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

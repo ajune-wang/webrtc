@@ -401,9 +401,8 @@ TEST(SpsVuiRewriterOutgoingVuiTest, ParseOutgoingBitstreamOptimalVui) {
   buffer.AppendData(kStartSequence);
   buffer.AppendData(kIdr1);
 
-  EXPECT_THAT(
-      SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(buffer, nullptr),
-      ::testing::ElementsAreArray(buffer));
+  EXPECT_THAT(SpsVuiRewriter::ParseOutgoingBitstreamAndRewrite(buffer, nullptr),
+              ::testing::ElementsAreArray(buffer));
 }
 
 TEST(SpsVuiRewriterOutgoingVuiTest, ParseOutgoingBitstreamNoVui) {
@@ -433,8 +432,7 @@ TEST(SpsVuiRewriterOutgoingVuiTest, ParseOutgoingBitstreamNoVui) {
   expected_buffer.AppendData(kStartSequence);
   expected_buffer.AppendData(kIdr2);
 
-  EXPECT_THAT(
-      SpsVuiRewriter::ParseOutgoingBitstreamAndRewriteSps(buffer, nullptr),
-      ::testing::ElementsAreArray(expected_buffer));
+  EXPECT_THAT(SpsVuiRewriter::ParseOutgoingBitstreamAndRewrite(buffer, nullptr),
+              ::testing::ElementsAreArray(expected_buffer));
 }
 }  // namespace webrtc

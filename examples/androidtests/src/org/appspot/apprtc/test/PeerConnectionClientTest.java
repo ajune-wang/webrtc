@@ -77,9 +77,9 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
   private ExecutorService signalingExecutor;
   private boolean isClosed;
   private boolean isIceConnected;
-  private SessionDescription localSdp;
+  private SessionDescription localDesc;
   private List<IceCandidate> iceCandidates = new ArrayList<>();
-  private final Object localSdpEvent = new Object();
+  private final Object localDescEvent = new Object();
   private final Object iceCandidateEvent = new Object();
   private final Object iceConnectedEvent = new Object();
   private final Object closeEvent = new Object();
@@ -133,11 +133,11 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
 
   // Peer connection events implementation.
   @Override
-  public void onLocalDescription(SessionDescription sdp) {
-    Log.d(TAG, "LocalSDP type: " + sdp.type);
-    synchronized (localSdpEvent) {
-      localSdp = sdp;
-      localSdpEvent.notifyAll();
+  public void onLocalDescription(SessionDescription desc) {
+    Log.d(TAG, "LocalSDP type: " + desc.type);
+    synchronized (localDescEvent) {
+      localDesc = desc;
+      localDescEvent.notifyAll();
     }
   }
 
@@ -212,14 +212,14 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
 
   // Helper wait functions.
   private boolean waitForLocalSDP(int timeoutMs) throws InterruptedException {
-    synchronized (localSdpEvent) {
+    synchronized (localDescEvent) {
       final long endTimeMs = System.currentTimeMillis() + timeoutMs;
-      while (localSdp == null) {
+      while (localDesc == null) {
         final long waitTimeMs = endTimeMs - System.currentTimeMillis();
         if (waitTimeMs < 0) {
           return false;
         }
-        localSdpEvent.wait(waitTimeMs);
+        localDescEvent.wait(waitTimeMs);
       }
       return true;
     }
@@ -400,7 +400,7 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
     // Wait for local SDP, rename it to answer and set as remote SDP.
     assertTrue("Local SDP was not set.", waitForLocalSDP(WAIT_TIMEOUT));
     SessionDescription remoteSdp = new SessionDescription(
-        SessionDescription.Type.fromCanonicalForm("answer"), localSdp.description);
+        SessionDescription.Type.fromCanonicalForm("answer"), localDesc.description);
     pcClient.setRemoteDescription(remoteSdp);
 
     // Wait for ICE connection.
@@ -523,7 +523,7 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
     // Wait for local SDP, rename it to answer and set as remote SDP.
     assertTrue("Local SDP was not set.", waitForLocalSDP(WAIT_TIMEOUT));
     SessionDescription remoteSdp = new SessionDescription(
-        SessionDescription.Type.fromCanonicalForm("answer"), localSdp.description);
+        SessionDescription.Type.fromCanonicalForm("answer"), localDesc.description);
     pcClient.setRemoteDescription(remoteSdp);
 
     // Wait for ICE connection.
@@ -571,7 +571,7 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
     // Wait for local SDP, rename it to answer and set as remote SDP.
     assertTrue("Local SDP was not set.", waitForLocalSDP(WAIT_TIMEOUT));
     SessionDescription remoteSdp = new SessionDescription(
-        SessionDescription.Type.fromCanonicalForm("answer"), localSdp.description);
+        SessionDescription.Type.fromCanonicalForm("answer"), localDesc.description);
     pcClient.setRemoteDescription(remoteSdp);
 
     // Wait for ICE connection.
@@ -620,7 +620,7 @@ public class PeerConnectionClientTest implements PeerConnectionEvents {
     // Wait for local SDP, rename it to answer and set as remote SDP.
     assertTrue("Local SDP was not set.", waitForLocalSDP(WAIT_TIMEOUT));
     SessionDescription remoteSdp = new SessionDescription(
-        SessionDescription.Type.fromCanonicalForm("answer"), localSdp.description);
+        SessionDescription.Type.fromCanonicalForm("answer"), localDesc.description);
     pcClient.setRemoteDescription(remoteSdp);
 
     // Wait for ICE connection.

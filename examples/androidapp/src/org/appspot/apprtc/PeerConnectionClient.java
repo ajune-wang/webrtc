@@ -843,25 +843,24 @@ public class PeerConnectionClient {
     });
   }
 
-  public void setRemoteDescription(final SessionDescription sdp) {
+  public void setRemoteDescription(final SessionDescription desc) {
     executor.execute(() -> {
       if (peerConnection == null || isError) {
         return;
       }
-      String sdpDescription = sdp.description;
+      String sdp = desc.description;
       if (preferIsac) {
-        sdpDescription = preferCodec(sdpDescription, AUDIO_CODEC_ISAC, true);
+        sdp = preferCodec(sdp, AUDIO_CODEC_ISAC, true);
       }
       if (isVideoCallEnabled()) {
-        sdpDescription =
-            preferCodec(sdpDescription, getSdpVideoCodecName(peerConnectionParameters), false);
+        sdp = preferCodec(sdp, getSdpVideoCodecName(peerConnectionParameters), false);
       }
       if (peerConnectionParameters.audioStartBitrate > 0) {
-        sdpDescription = setStartBitrate(
-            AUDIO_CODEC_OPUS, false, sdpDescription, peerConnectionParameters.audioStartBitrate);
+        sdp = setStartBitrate(
+            AUDIO_CODEC_OPUS, false, sdp, peerConnectionParameters.audioStartBitrate);
       }
       Log.d(TAG, "Set remote SDP.");
-      SessionDescription sdpRemote = new SessionDescription(sdp.type, sdpDescription);
+      SessionDescription sdpRemote = new SessionDescription(desc.type, sdp);
       peerConnection.setRemoteDescription(sdpObserver, sdpRemote);
     });
   }
@@ -1002,8 +1001,8 @@ public class PeerConnectionClient {
 
   @SuppressWarnings("StringSplitter")
   private static String setStartBitrate(
-      String codec, boolean isVideoCodec, String sdpDescription, int bitrateKbps) {
-    String[] lines = sdpDescription.split("\r\n");
+      String codec, boolean isVideoCodec, String sdp, int bitrateKbps) {
+    String[] lines = sdp.split("\r\n");
     int rtpmapLineIndex = -1;
     boolean sdpFormatUpdated = false;
     String codecRtpMap = null;
@@ -1021,7 +1020,7 @@ public class PeerConnectionClient {
     }
     if (codecRtpMap == null) {
       Log.w(TAG, "No rtpmap for " + codec + " codec");
-      return sdpDescription;
+      return sdp;
     }
     Log.d(TAG, "Found " + codec + " rtpmap " + codecRtpMap + " at " + lines[rtpmapLineIndex]);
 
@@ -1112,12 +1111,12 @@ public class PeerConnectionClient {
     return joinString(newLineParts, " ", false /* delimiterAtEnd */);
   }
 
-  private static String preferCodec(String sdpDescription, String codec, boolean isAudio) {
-    final String[] lines = sdpDescription.split("\r\n");
+  private static String preferCodec(String sdp, String codec, boolean isAudio) {
+    final String[] lines = sdp.split("\r\n");
     final int mLineIndex = findMediaDescriptionLine(isAudio, lines);
     if (mLineIndex == -1) {
       Log.w(TAG, "No mediaDescription line, so can't prefer " + codec);
-      return sdpDescription;
+      return sdp;
     }
     // A list with all the payload types with name |codec|. The payload types are integers in the
     // range 96-127, but they are stored as strings here.
@@ -1132,12 +1131,12 @@ public class PeerConnectionClient {
     }
     if (codecPayloadTypes.isEmpty()) {
       Log.w(TAG, "No payload types with name " + codec);
-      return sdpDescription;
+      return sdp;
     }
 
     final String newMLine = movePayloadTypesToFront(codecPayloadTypes, lines[mLineIndex]);
     if (newMLine == null) {
-      return sdpDescription;
+      return sdp;
     }
     Log.d(TAG, "Change media description from: " + lines[mLineIndex] + " to " + newMLine);
     lines[mLineIndex] = newMLine;
@@ -1301,24 +1300,23 @@ public class PeerConnectionClient {
   // as well as adding remote ICE candidates once the answer SDP is set.
   private class SDPObserver implements SdpObserver {
     @Override
-    public void onCreateSuccess(final SessionDescription origSdp) {
+    public void onCreateSuccess(final SessionDescription desc) {
       if (localSdp != null) {
         reportError("Multiple SDP create.");
         return;
       }
-      String sdpDescription = origSdp.description;
+      String sdp = desc.description;
       if (preferIsac) {
-        sdpDescription = preferCodec(sdpDescription, AUDIO_CODEC_ISAC, true);
+        sdp = preferCodec(sdp, AUDIO_CODEC_ISAC, true);
       }
       if (isVideoCallEnabled()) {
-        sdpDescription =
-            preferCodec(sdpDescription, getSdpVideoCodecName(peerConnectionParameters), false);
+        sdp = preferCodec(sdp, getSdpVideoCodecName(peerConnectionParameters), false);
       }
-      final SessionDescription sdp = new SessionDescription(origSdp.type, sdpDescription);
+      final SessionDescription sdp = new SessionDescription(desc.type, sdp);
       localSdp = sdp;
       executor.execute(() -> {
         if (peerConnection != null && !isError) {
-          Log.d(TAG, "Set local SDP from " + sdp.type);
+          Log.d(TAG, "Set local SDP from " + desc.type);
           peerConnection.setLocalDescription(sdpObserver, sdp);
         }
       });

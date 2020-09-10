@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5dd316f2_9ed71c42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-10T13:15:41Z",
+      "side": 1,
+      "message": "CHECK for paranoia only, I hope.\n",
+      "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb467f6e_0e0b5ebd",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 6
@@ -13,6 +30,24 @@
       "writtenOn": "2020-09-10T08:44:42Z",
       "side": 1,
       "message": "Is this intentionally a CHECK and not DCHECK?\nThis runs code in all builds solely for the purposes of checking a pointer and we don\u0027t return an error but rather kill the process if it doesn\u0027t match.\n\nIn line 440, we return an error instead for example.",
+      "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb83b83_f4df9d6f",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-10T13:15:41Z",
+      "side": 1,
+      "message": "I asked for a CHECK here because the GetTransportFromSocket mechanism was added to get around a rather nasty vulnerability, and I want to be sure we\u0027re not reintroducing anything like it again.\n\nOnce SCTP has rolled, I think we can and should delete the entire GetTransportFromSocket mechanism; this is an interim CHECK in case someone\u0027s performing an actual attack and our defense isn\u0027t defeating it.",
+      "parentUuid": "cb467f6e_0e0b5ebd",
       "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

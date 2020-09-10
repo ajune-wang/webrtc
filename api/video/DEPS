@@ -19,6 +19,7 @@ specific_include_rules = {
   ],
 
   "nv12_buffer\.h": [
+    "+common_video/libyuv/include/webrtc_libyuv.h",
     "+rtc_base/memory/aligned_malloc.h",
   ],
 

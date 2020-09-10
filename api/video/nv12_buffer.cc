@@ -11,6 +11,7 @@
 #include "api/video/nv12_buffer.h"
 
 #include "api/video/i420_buffer.h"
+#include "common_video/libyuv/include/webrtc_libyuv.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ref_counted_object.h"
 #include "third_party/libyuv/include/libyuv/convert.h"
@@ -99,6 +100,15 @@ uint8_t* NV12Buffer::MutableDataY() {
 
 uint8_t* NV12Buffer::MutableDataUV() {
   return data_.get() + UVOffset();
+}
+
+void NV12Buffer::ScaleFrom(const NV12BufferInterface& src) {
+  const size_t tmp_size = src.width() * src.height() / 2 + width_ * height_ / 2;
+  std::vector<uint8_t> tmp_buffer(tmp_size);
+  NV12Scale(tmp_buffer.data(), src.DataY(), src.StrideY(), src.DataUV(),
+            src.StrideUV(), src.width(), src.height(),
+            const_cast<uint8_t*>(DataY()), StrideY(),
+            const_cast<uint8_t*>(DataUV()), StrideUV(), width_, height_);
 }
 
 size_t NV12Buffer::UVOffset() const {

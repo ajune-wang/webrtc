@@ -128,6 +128,7 @@ rtc_library("video_frame_nv12") {
     "nv12_buffer.h",
   ]
   deps = [
+    ":common_video",
     ":video_frame",
     ":video_frame_i420",
     "..:scoped_refptr",

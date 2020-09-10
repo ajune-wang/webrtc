@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "a1379ca8_e7c95d2d",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2e31e49_8e0a204f",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f51451da_f197d05f",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 4
@@ -62,6 +86,30 @@
       "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "405a436b_951165a9",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f51451da_f197d05f",
+      "range": {
+        "startLine": 23,
+        "startChar": 44,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "8b25c9b7_57a79899",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "511cd20d_3b2d745c",
+      "range": {
+        "startLine": 24,
+        "startChar": 41,
+        "endLine": 24,
+        "endChar": 45
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1794c1ff_17b56cee",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 4
@@ -108,6 +180,30 @@
       "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2857e509_980c5027",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1794c1ff_17b56cee",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +230,30 @@
     },
     {
       "key": {
+        "uuid": "5e76efb3_50960925",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d54b7cd7_208053a8",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52a362f4_34889760",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 4
@@ -151,6 +271,24 @@
     },
     {
       "key": {
+        "uuid": "9eb738a6_cc748414",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52a362f4_34889760",
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c79aa53c_7c637718",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 4
@@ -165,6 +303,24 @@
       "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd9452b_047a25e3",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c79aa53c_7c637718",
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +347,30 @@
     },
     {
       "key": {
+        "uuid": "988ccc6e_278bc619",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "318d4e94_ec84ff00",
+      "range": {
+        "startLine": 57,
+        "startChar": 35,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e35f9d67_cfe53dd4",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 4
@@ -205,6 +385,24 @@
       "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a720fce2_87113061",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Use a struct to test nontrivial case also std::function test also will cover this case.",
+      "parentUuid": "e35f9d67_cfe53dd4",
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -231,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "71a79ba4_6d222153",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "895d4da9_8138862e",
+      "range": {
+        "startLine": 68,
+        "startChar": 30,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0615dc5f_946c53c0",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 4
@@ -245,6 +467,24 @@
       "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4e3d9db_7189a5ca",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "You are right created a function outside the test and used std::function for clarity and made sure the test is hitting the else condition.\nThanks for catching this.",
+      "parentUuid": "0615dc5f_946c53c0",
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -268,6 +508,30 @@
       "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a28c1d2_63edda6e",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-10T21:05:31Z",
+      "side": 1,
+      "message": "1. Since the handling receivers is fairly simple did the following for multiReceiverSendTest\naddReceiver\n...\nSend\n...\n\nAssert\n2. Updated the MultipleParameterMessageTest to hold different types.\n\n3. for now added a todo for rtc:Bind.",
+      "parentUuid": "48e15583_b766c9b5",
+      "range": {
+        "startLine": 83,
+        "startChar": 3,
+        "endLine": 83,
+        "endChar": 16
+      },
+      "revId": "cc648a454833716224b2c7e40fd4a4dbbedca0df",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

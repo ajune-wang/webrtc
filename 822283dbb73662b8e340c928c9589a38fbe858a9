@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb467f6e_0e0b5ebd",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 6720
+      },
+      "writtenOn": "2020-09-10T08:44:42Z",
+      "side": 1,
+      "message": "Is this intentionally a CHECK and not DCHECK?\nThis runs code in all builds solely for the purposes of checking a pointer and we don\u0027t return an error but rather kill the process if it doesn\u0027t match.\n\nIn line 440, we return an error instead for example.",
+      "revId": "822283dbb73662b8e340c928c9589a38fbe858a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

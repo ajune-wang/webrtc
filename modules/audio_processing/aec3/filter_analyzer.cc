@@ -204,7 +204,9 @@ FilterAnalyzer::ConsistentFilterDetector::ConsistentFilterDetector(
     const EchoCanceller3Config& config)
     : active_render_threshold_(config.render_levels.active_render_limit *
                                config.render_levels.active_render_limit *
-                               kFftLengthBy2) {}
+                               kFftLengthBy2) {
+  Reset();
+}
 
 void FilterAnalyzer::ConsistentFilterDetector::Reset() {
   significant_peak_ = false;

@@ -34,19 +34,19 @@ template <typename RetT, typename... ArgT>
 struct CallHelpers<RetT(ArgT...)> {
   using return_type = RetT;
   template <typename F>
-  static RetT CallVoidPtr(VoidUnion* vu, ArgT... args) {
+  static RetT CallVoidPtr(VoidUnion* vu, ArgT&&... args) {
     return (*static_cast<F*>(vu->void_ptr))(std::forward<ArgT>(args)...);
   }
-  static RetT CallFunPtr(VoidUnion* vu, ArgT... args) {
+  static RetT CallFunPtr(VoidUnion* vu, ArgT&&... args) {
     return (reinterpret_cast<RetT (*)(ArgT...)>(vu->fun_ptr))(
         std::forward<ArgT>(args)...);
   }
   template <typename F>
-  static RetT CallInlineStorage(VoidUnion* vu, ArgT... args) {
+  static RetT CallInlineStorage(VoidUnion* vu, ArgT&&... args) {
     return (*reinterpret_cast<F*>(&vu->inline_storage))(
         std::forward<ArgT>(args)...);
   }
-  static RetT DoCall(FunVoid* f, VoidUnion* vu, ArgT... args) {
+  static RetT DoCall(FunVoid* f, VoidUnion* vu, ArgT&&... args) {
     return reinterpret_cast<RetT (*)(VoidUnion*, ArgT...)>(f)(
         vu, std::forward<ArgT>(args)...);
   }
@@ -85,6 +85,15 @@ class UntypedFunction final {
     // TODO(C++17): Use `constexpr if` here. The compiler appears to do the
     // right thing anyway w.r.t. resolving the branch statically and
     // eliminating dead code, but it would be good for readability.
+    if (!std::is_trivially_move_constructible<F_deref>::value) {
+      // exit(-1);
+    } else if (!std::is_trivially_destructible<F_deref>::value) {
+      exit(-1);
+    } else if (sizeof(F_deref) >
+               sizeof(webrtc_function_impl::VoidUnion::inline_storage)) {
+      // exit(-1);
+    }
+
     if (std::is_trivially_move_constructible<F_deref>::value &&
         std::is_trivially_destructible<F_deref>::value &&
         sizeof(F_deref) <=
@@ -123,6 +132,7 @@ class UntypedFunction final {
   // the result is an empty UntypedFunction.
   template <typename Signature>
   static UntypedFunction Create(Signature* f) {
+    exit(-1);
     return UntypedFunction(
         reinterpret_cast<webrtc_function_impl::FunVoid*>(f),
         f ? reinterpret_cast<webrtc_function_impl::FunVoid*>(
@@ -169,7 +179,7 @@ class UntypedFunction final {
 
   template <typename Signature, typename... ArgT>
   typename webrtc_function_impl::CallHelpers<Signature>::return_type Call(
-      ArgT... args) {
+      ArgT&&... args) {
     return webrtc_function_impl::CallHelpers<Signature>::DoCall(
         call_, &f_, std::forward<ArgT>(args)...);
   }

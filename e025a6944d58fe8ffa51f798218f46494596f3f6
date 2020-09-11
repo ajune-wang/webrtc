@@ -105,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "74a3c35e_f3513e8c",
+        "filename": "modules/video_coding/utility/quality_scaler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-09-11T07:38:44Z",
+      "side": 1,
+      "message": "Given that all field trials are passed in the protected ctor, went with the second recommendation you made. Thanks",
+      "parentUuid": "d52c343c_2e062a8f",
+      "revId": "e025a6944d58fe8ffa51f798218f46494596f3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f688ee3d_ebd33359",
         "filename": "rtc_base/experiments/quality_scaler_settings.h",
         "patchSetId": 1
@@ -116,6 +134,30 @@
       "writtenOn": "2020-09-10T08:00:53Z",
       "side": 1,
       "message": "maybe SamplingPeriodMs",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 36
+      },
+      "revId": "e025a6944d58fe8ffa51f798218f46494596f3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "750e7a41_293ed7fd",
+        "filename": "rtc_base/experiments/quality_scaler_settings.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-09-11T07:38:44Z",
+      "side": 1,
+      "message": "Updated, thanks!",
+      "parentUuid": "f688ee3d_ebd33359",
       "range": {
         "startLine": 24,
         "startChar": 22,

@@ -1,0 +1,354 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38f1b063_8edda099",
+        "filename": "rtc_base/cancer_stick_castle.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this is right---we should leave the signature alone.",
+      "range": {
+        "startLine": 61,
+        "startChar": 23,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8b05112_2f88f006",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "Why this namespace? If you pick webrtc instead, you can drop a bunch of webrtc:: prefixes below.",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ee97f14_6f375c3d",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "Is this necessary? You don\u0027t actually modify the lambda\u0027s state.",
+      "range": {
+        "startLine": 55,
+        "startChar": 38,
+        "endLine": 55,
+        "endChar": 45
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d664cd4_50128979",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "`\u0026i`, please, so that you capture as little as possible.",
+      "range": {
+        "startLine": 55,
+        "startChar": 17,
+        "endLine": 55,
+        "endChar": 18
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86614e8a_cb2d2162",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "There\u0027s no function pointer in this test.",
+      "range": {
+        "startLine": 61,
+        "startChar": 24,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97b2fdb8_ac723e3e",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "Are you sure this qualifies as \"small\"? It looks like it\u0027s 24 or 32 bytes to me: https://godbolt.org/z/q6Gch1\nUse static_assert in the test to verify and document this.",
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3954d44_c68e3b47",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "static_assert this?",
+      "range": {
+        "startLine": 97,
+        "startChar": 3,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b782ede_7a4f049c",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "Or just `int a[5]`.",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 20
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dda812e5_ea88feb6",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "This looks unused.",
+      "range": {
+        "startLine": 101,
+        "startChar": 22,
+        "endLine": 101,
+        "endChar": 29
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163a9346_8423584f",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "`LargeTrivial l;` does the exact same thing.",
+      "range": {
+        "startLine": 106,
+        "startChar": 2,
+        "endLine": 106,
+        "endChar": 34
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74296a2c_337e8efa",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "Why do you need this?",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac80ea9_2a41012b",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "This variable looks unused.",
+      "range": {
+        "startLine": 114,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 8
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "799cfbab_2a1b4e9d",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "Is this line necessary?",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 44
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "435b82d9_c1bebad4",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "This test is using an object that is also copy constructible.",
+      "range": {
+        "startLine": 121,
+        "startChar": 40,
+        "endLine": 121,
+        "endChar": 44
+      },
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7012f2f9_7ff5fea4",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "Also test that the receivers get deleted when the CSC is destroyed? The code does that manually, so it should be tested. (Basically, you make an object whose destructor has a side effect that you can observe.)",
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c01929e_a720c230",
+        "filename": "rtc_base/function.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-11T02:23:22Z",
+      "side": 1,
+      "message": "This method will be handy in unit tests, because for a non-moved-from object it\u0027ll be true iff the callable is trivial and small.",
+      "revId": "2b3d05a1959c3ed17191884292ebf59f26ffb64a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

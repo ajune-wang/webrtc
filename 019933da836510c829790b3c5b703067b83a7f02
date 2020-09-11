@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "760fe163_e06a570e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-11T21:54:05Z",
+      "side": 1,
+      "message": "Downstream changes are still landing, but the change is simple and ready to review.",
+      "revId": "019933da836510c829790b3c5b703067b83a7f02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

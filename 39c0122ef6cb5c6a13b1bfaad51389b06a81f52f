@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78a28b42_669ac587",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-11T14:46:41Z",
+      "side": 1,
+      "message": "adding owners for sdk/objc, api/ and pc/",
+      "revId": "39c0122ef6cb5c6a13b1bfaad51389b06a81f52f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

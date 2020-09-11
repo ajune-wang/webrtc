@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a7ff058_ecf1e52a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-09-11T14:24:26Z",
+      "side": 1,
+      "message": "Nisse, PTAL\nIlya, RSLGTM please",
+      "revId": "337b28e6f276bafddfd2e2274fc991fda37fd291",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

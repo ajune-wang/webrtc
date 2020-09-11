@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a6a9834_636d00ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-09-11T10:39:10Z",
+      "side": 1,
+      "message": "Hi,\n\nthe chromium review, which depends on this one, has been approved. May I ask you to find some time and look into this? Thank you.",
+      "revId": "68050721386c8dffb1acb07a5eda8487a255ab10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

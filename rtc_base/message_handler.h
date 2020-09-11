@@ -39,7 +39,7 @@ class RTC_EXPORT MessageHandler {
  protected:
   // TODO(bugs.webrtc.org/11908): The |auto_cleanup| parameter needs to have a
   // backwards compatible default value while external code is being updated.
-  explicit MessageHandler(bool auto_cleanup = true)
+  explicit MessageHandler(bool auto_cleanup)
       : auto_cleanup_(auto_cleanup) {}
 
  private:

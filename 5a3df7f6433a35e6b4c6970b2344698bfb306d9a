@@ -33,6 +33,23 @@
       "revId": "5a3df7f6433a35e6b4c6970b2344698bfb306d9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d31ea064_64126f9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2020-09-11T17:45:57Z",
+      "side": 1,
+      "message": "Hi Ivo, seems like you worked in AVSync recently, so you might be able to review / comment on this.",
+      "revId": "5a3df7f6433a35e6b4c6970b2344698bfb306d9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

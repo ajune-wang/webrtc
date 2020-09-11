@@ -307,6 +307,7 @@ class Call final : public webrtc::Call,
   void UpdateAggregateNetworkState();
 
   void RegisterRateObserver();
+  void EnsureStarted();
 
   rtc::TaskQueue* send_transport_queue() const {
     return transport_send_ptr_->GetWorkerQueue();
@@ -666,8 +667,11 @@ void Call::RegisterRateObserver() {
   // This call seems to kick off a number of things, so probably better left
   // off being kicked off on request rather than in the ctor.
   transport_send_ptr_->RegisterTargetTransferRateObserver(this);
+}
 
+void Call::EnsureStarted() {
   module_process_thread_->EnsureStarted();
+  transport_send_ptr_->EnsureStarted();
 }
 
 void Call::SetClientBitratePreferences(const BitrateSettings& preferences) {
@@ -763,6 +767,7 @@ webrtc::AudioSendStream* Call::CreateAudioSendStream(
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   RegisterRateObserver();
+  EnsureStarted();
 
   // Stream config is logged in AudioSendStream::ConfigureStream, as it may
   // change during the stream's lifetime.
@@ -823,6 +828,7 @@ webrtc::AudioReceiveStream* Call::CreateAudioReceiveStream(
   TRACE_EVENT0("webrtc", "Call::CreateAudioReceiveStream");
   RTC_DCHECK_RUN_ON(worker_thread_);
   RegisterRateObserver();
+  EnsureStarted();
   event_log_->Log(std::make_unique<RtcEventAudioReceiveStreamConfig>(
       CreateRtcLogStreamConfig(config)));
   AudioReceiveStream* receive_stream = new AudioReceiveStream(
@@ -878,6 +884,7 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   RegisterRateObserver();
+  EnsureStarted();
 
   video_send_delay_stats_->AddSsrcs(config);
   for (size_t ssrc_index = 0; ssrc_index < config.rtp.ssrcs.size();
@@ -977,6 +984,7 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
       SendPeriodicFeedback(configuration.rtp.extensions));
 
   RegisterRateObserver();
+  EnsureStarted();
 
   TaskQueueBase* current = GetCurrentTaskQueueOrThread();
   RTC_CHECK(current);

@@ -46,6 +46,9 @@ class RTC_EXPORT NV12Buffer : public NV12BufferInterface {
   uint8_t* MutableDataY();
   uint8_t* MutableDataUV();
 
+  // Scale all of |src| to the size of |this| buffer.
+  void ScaleFrom(const NV12BufferInterface& src);
+
  protected:
   NV12Buffer(int width, int height);
   NV12Buffer(int width, int height, int stride_y, int stride_uv);

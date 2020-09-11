@@ -118,6 +118,7 @@ class LibvpxVp8Encoder : public VideoEncoder {
   std::vector<bool> key_frame_request_;
   std::vector<bool> send_stream_;
   std::vector<int> cpu_speed_;
+  bool is_i420_vpx_image_ = true;
   std::vector<vpx_image_t> raw_images_;
   std::vector<EncodedImage> encoded_images_;
   std::vector<vpx_codec_ctx_t> encoders_;

@@ -109,6 +109,7 @@ class VP9EncoderImpl : public VP9Encoder {
   uint32_t rc_max_intra_target_;
   vpx_codec_ctx_t* encoder_;
   vpx_codec_enc_cfg_t* config_;
+  bool is_i420_vpx_img_ = true;
   vpx_image_t* raw_;
   vpx_svc_extra_cfg_t svc_params_;
   const VideoFrame* input_image_;

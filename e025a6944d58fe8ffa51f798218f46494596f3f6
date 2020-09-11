@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2f15f434_4564a312",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-09-11T06:45:43Z",
+      "side": 1,
+      "message": "Correct, it would be nice to have the option to experiment with these parameters. They are chosen arbitrarily today for 30 FPS, and might need modification for 60 FPS streaming where finer control over video quality is desired. Please refer https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d11924 for motivation of the change. The change is simply extending the already present field trial to control other quality scalar settings.",
+      "parentUuid": "eea4710f_1edf8df5",
+      "revId": "e025a6944d58fe8ffa51f798218f46494596f3f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b56b5f52_062ebc21",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1

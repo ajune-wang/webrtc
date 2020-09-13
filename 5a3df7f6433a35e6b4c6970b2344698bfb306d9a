@@ -50,6 +50,23 @@
       "revId": "5a3df7f6433a35e6b4c6970b2344698bfb306d9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6acea73d_bf4a14ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-13T14:15:29Z",
+      "side": 1,
+      "message": "Ivo or minyue@ are probably good reviewers for this. I don\u0027t know the code, but can +1 as owner if reviews are ok. Please remove others from review list.\nOtherwise looks ok to me, but I would suggest adding a unit test too.",
+      "revId": "5a3df7f6433a35e6b4c6970b2344698bfb306d9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

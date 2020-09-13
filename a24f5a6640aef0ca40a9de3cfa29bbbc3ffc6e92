@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e4e6970_d328a774",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-13T19:00:19Z",
+      "side": 1,
+      "message": "The commit message is now out of date.",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "286094fb_f596dfc7",
+        "filename": "rtc_base/cancer_stick_castle.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-13T19:00:19Z",
+      "side": 1,
+      "message": "This should be\n\n  void Send(ArgT\u0026\u0026... args) {\n    receivers_.Foreach([\u0026](UntypedFunction\u0026 f) {\n      f.Call\u003cvoid(ArgT...)\u003e(std::forward\u003cArgT\u003e(args)...);\n    });\n  }\n\nSee https://en.cppreference.com/w/cpp/utility/forward (especially the first example). You also already make correct fixes to function.h.",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53a45443_62634eee",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-13T19:00:19Z",
+      "side": 1,
+      "message": "Nit: Blank line between line 19 and 20?",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1725bba8_e91a65a0",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-13T19:00:19Z",
+      "side": 1,
+      "message": "\"large_func\" is the Google C++ way to spell that name. https://google.github.io/styleguide/cppguide.html#Variable_Names",
+      "range": {
+        "startLine": 89,
+        "startChar": 28,
+        "endLine": 89,
+        "endChar": 37
+      },
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a433e5_8a87b826",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-13T19:00:19Z",
+      "side": 1,
+      "message": "\"l\" is almost always a bad variable name choice. It\u0027s too visually similar to \"1\". \"lt\", maybe?",
+      "range": {
+        "startLine": 108,
+        "startChar": 15,
+        "endLine": 108,
+        "endChar": 16
+      },
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1157548_9e624427",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-13T19:00:19Z",
+      "side": 1,
+      "message": "Verify that the call happened? You do it everywhere else.",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0037edc_6bb5c74e",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-13T19:00:19Z",
+      "side": 1,
+      "message": "Verify that the call happened.",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

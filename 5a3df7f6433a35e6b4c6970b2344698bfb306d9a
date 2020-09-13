@@ -67,6 +67,23 @@
       "revId": "5a3df7f6433a35e6b4c6970b2344698bfb306d9a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "396ac16b_fa0c6d43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2020-09-13T15:25:33Z",
+      "side": 1,
+      "message": "Thanks erik for comment. adding minyue@ for review, removing others.",
+      "revId": "5a3df7f6433a35e6b4c6970b2344698bfb306d9a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

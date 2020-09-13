@@ -383,6 +383,61 @@ TEST_F(StreamSynchronizationTest, AudioDelayed) {
             total_audio_delay_ms);
 }
 
+TEST_F(StreamSynchronizationTest, NoAudioIncomingUnboundedIncrease) {
+  // test how audio delay can grow unbounded when audio stops coming in
+  const int kVideoDelayMs = 300;
+  const int kAudioDelayMs = 100;
+  int current_audio_delay_ms = kAudioDelayMs;
+  int total_audio_delay_ms = 0;
+  int total_video_delay_ms = 0;
+
+  EXPECT_TRUE(DelayedStreams(/*audio_delay_ms=*/0, kVideoDelayMs,
+                             current_audio_delay_ms, &total_audio_delay_ms,
+                             &total_video_delay_ms));
+  EXPECT_EQ(0, total_video_delay_ms);
+  // The delay is not allowed to change more than this.
+  EXPECT_EQ((kVideoDelayMs - kAudioDelayMs) / kSmoothingFilter,
+            total_audio_delay_ms);
+  int last_total_audio_delay_ms = total_audio_delay_ms;
+
+  // Set new current audio delay: simulate audio samples are flowing in
+  current_audio_delay_ms = total_audio_delay_ms;
+
+  clock_sender_.AdvanceTimeMilliseconds(1000);
+  clock_receiver_.AdvanceTimeMilliseconds(1000);
+  EXPECT_TRUE(DelayedStreams(/*audio_delay_ms=*/0, kVideoDelayMs,
+                             current_audio_delay_ms, &total_audio_delay_ms,
+                             &total_video_delay_ms));
+  EXPECT_EQ(0, total_video_delay_ms);
+  EXPECT_EQ(last_total_audio_delay_ms +
+                MaxAudioDelayChangeMs(current_audio_delay_ms, kVideoDelayMs),
+            total_audio_delay_ms);
+  last_total_audio_delay_ms = total_audio_delay_ms;
+
+  // simulate audio stall don't update audio delay.
+  const int kMaxDeltaDelayMs = 10000;
+
+  const int kSimulationSecs = 300;  // 5min
+  for (auto time_secs = 0; time_secs < kSimulationSecs; time_secs++) {
+    clock_sender_.AdvanceTimeMilliseconds(1000);
+    clock_receiver_.AdvanceTimeMilliseconds(1000);
+    EXPECT_TRUE(DelayedStreams(/*audio_delay_ms=*/0, kVideoDelayMs,
+                               current_audio_delay_ms, &total_audio_delay_ms,
+                               &total_video_delay_ms));
+    EXPECT_EQ(0, total_video_delay_ms);
+
+    // audio delay does not go above kMaxDeltaDelayMs
+    EXPECT_EQ(std::min(kMaxDeltaDelayMs,
+                       last_total_audio_delay_ms +
+                           MaxAudioDelayChangeMs(current_audio_delay_ms,
+                                                 kVideoDelayMs)),
+              total_audio_delay_ms);
+    last_total_audio_delay_ms = total_audio_delay_ms;
+  }
+  // by now the audio delay has grown unbounded to kMaxDeltaDelayMs
+  EXPECT_EQ(kMaxDeltaDelayMs, last_total_audio_delay_ms);
+}
+
 TEST_F(StreamSynchronizationTest, BothDelayedVideoLater) {
   BothDelayedVideoLaterTest(0);
 }

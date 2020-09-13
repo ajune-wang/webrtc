@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b048151_42328506",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-13T15:48:23Z",
+      "side": 1,
+      "message": "nice!",
+      "revId": "8e837d44cc20ff3a70ec7ab0d1400b00de8f5db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe93ed31_5d4f3abc",
+        "filename": "call/call.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-13T15:48:23Z",
+      "side": 1,
+      "message": "Since the name of the function is now pretty general, it would be good to document what exactly is started in this function since \u0027ensure that the call is started\u0027 is a bit ambiguous.\n\nMaybe EnsureThreadsStarted()?\nOr even EnsureProcessThreadsStarted() since that way we indicate that this is specifically for those instances and that once we don\u0027t use them, we can remove the function. (Also indicates that more things shouldn\u0027t be added to the function).",
+      "revId": "8e837d44cc20ff3a70ec7ab0d1400b00de8f5db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d861a4d_c0f2d71d",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-13T15:48:23Z",
+      "side": 1,
+      "message": "You can call Stop() without worrying about if it\u0027s running or not.",
+      "revId": "8e837d44cc20ff3a70ec7ab0d1400b00de8f5db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c899b30c_5bd2cde9",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-13T15:48:23Z",
+      "side": 1,
+      "message": "You can call Start() if it\u0027s running without hitting a dcheck.\nI think that the process_thread_started_ flag is probably superfluous",
+      "revId": "8e837d44cc20ff3a70ec7ab0d1400b00de8f5db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

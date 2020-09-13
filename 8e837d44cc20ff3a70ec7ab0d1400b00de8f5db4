@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "4b102592_0efe9a99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-13T15:49:04Z",
+      "side": 1,
+      "message": "lgtm from me though, since those are all nits.",
+      "revId": "8e837d44cc20ff3a70ec7ab0d1400b00de8f5db4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe93ed31_5d4f3abc",
         "filename": "call/call.cc",
         "patchSetId": 5

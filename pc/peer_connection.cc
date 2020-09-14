@@ -1262,10 +1262,11 @@ bool PeerConnection::Initialize(
     }
   }
 
-  if (configuration.enable_rtp_data_channel) {
+  if (configuration.enable_rtp_data_channel || !dtls_enabled_) {
     // Enable creation of RTP data channels if the kEnableRtpDataChannels is
     // set. It takes precendence over the disable_sctp_data_channels
     // PeerConnectionFactoryInterface::Options.
+    // Note that disabling DTLS implies RTP datachannels.
     data_channel_controller_.set_data_channel_type(cricket::DCT_RTP);
   } else {
     // DTLS has to be enabled to use SCTP.

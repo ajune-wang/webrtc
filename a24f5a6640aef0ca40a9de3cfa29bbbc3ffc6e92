@@ -125,6 +125,42 @@
     },
     {
       "key": {
+        "uuid": "ca26d30d_f6e6afe5",
+        "filename": "rtc_base/cancer_stick_castle.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-14T14:46:45Z",
+      "side": 1,
+      "message": "I get one test failure if I do this still.",
+      "parentUuid": "84494503_839bc745",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80f33592_359c571b",
+        "filename": "rtc_base/cancer_stick_castle.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-14T14:46:45Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "84494503_839bc745",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53a45443_62634eee",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 14
@@ -336,6 +372,24 @@
       "side": 1,
       "message": "Yes please---global variables have several drawbacks. Can you use call signatures with a mutable reference or pointer like in e.g. FunctionPtrTest?",
       "parentUuid": "0b8bd8e2_511fbcd8",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10267b7b_2bd70bdb",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-14T14:46:45Z",
+      "side": 1,
+      "message": "If I use a reference or a pointer the struct becomes non-trivial.",
+      "parentUuid": "996fb425_7c77bc1d",
       "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

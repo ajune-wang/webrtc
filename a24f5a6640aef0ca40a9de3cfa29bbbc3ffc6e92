@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "2413c6dd_5670b097",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-14T04:19:21Z",
+      "side": 1,
+      "message": "Thanks Karl, I\u0027ll work on other comments.",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "286094fb_f596dfc7",
         "filename": "rtc_base/cancer_stick_castle.h",
         "patchSetId": 14
@@ -30,6 +47,24 @@
       "writtenOn": "2020-09-13T19:00:19Z",
       "side": 1,
       "message": "This should be\n\n  void Send(ArgT\u0026\u0026... args) {\n    receivers_.Foreach([\u0026](UntypedFunction\u0026 f) {\n      f.Call\u003cvoid(ArgT...)\u003e(std::forward\u003cArgT\u003e(args)...);\n    });\n  }\n\nSee https://en.cppreference.com/w/cpp/utility/forward (especially the first example). You also already make correct fixes to function.h.",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5dde0f86_e0d63f43",
+        "filename": "rtc_base/cancer_stick_castle.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-14T04:19:21Z",
+      "side": 1,
+      "message": "I keep getting following test failure for the PointerTest,\n[ RUN      ] CancerStickCastle.PointerTest\n*** SIGSEGV received at time\u003d1600057048 ***\nPC: @     0x56039c7773e0  (unknown)  webrtc::(anonymous namespace)::CancerStickCastle_PointerTest_Test::TestBody()::$_2::operator()()\n    @     0x56039cd558d1         48  absl::WriteFailureInfo()\n    @     0x56039cd55582         80  absl::AbslFailureSignalHandler()\n    @     0x7fd2eafad140  (unknown)  (unknown)\n    @     0x56039c7773bd         48  webrtc::webrtc_function_impl::CallHelpers\u003c\u003e::CallInlineStorage\u003c\u003e()\n    @     0x56039c779cad         64  webrtc::webrtc_function_impl::CallHelpers\u003c\u003e::DoCall()\n    @     0x56039c779c5c         48  webrtc::UntypedFunction::Call\u003c\u003e()\n    @     0x56039c779c13         48  webrtc::CancerStickCastle\u003c\u003e::Send()::{lambda()#1}::operator()()\n    @     0x56039c779bcd         48  rtc::FunctionView\u003c\u003e::CallVoidPtr\u003c\u003e()\n    @     0x56039d5895ef        128  rtc::FunctionView\u003c\u003e::operator()()\n    @     0x56039d5893ac         80  webrtc::cancer_stick_castle_impl::CancerStickCastleReceivers::Foreach()\n    @     0x56039c779b41         64  webrtc::CancerStickCastle\u003c\u003e::Send()\n    @     0x56039c7771a6        112  webrtc::(anonymous namespace)::CancerStickCastle_PointerTest_Test::TestBody()\n    @     0x56039cd4c644         96  testing::internal::HandleSehExceptionsInMethodIfSupported\u003c\u003e()\n    @     0x56039cd3c132        112  testing::internal::HandleExceptionsInMethodIfSupported\u003c\u003e()\n    @     0x56039cd2b921         96  testing::Test::Run()\n    @     0x56039cd2c071        112  testing::TestInfo::Run()\n    @     0x56039cd2c70d        112  testing::TestSuite::Run()\n    @     0x56039cd35dd8        240  testing::internal::UnitTestImpl::RunAllTests()\n    @     0x56039cd50ce4         96  testing::internal::HandleSehExceptionsInMethodIfSupported\u003c\u003e()\n    @     0x56039cd3de42        128  testing::internal::HandleExceptionsInMethodIfSupported\u003c\u003e()\n    @     0x56039cd35969         96  testing::UnitTest::Run()\n    @     0x56039d58f651         16  RUN_ALL_TESTS()\n    @     0x56039d58d190        192  webrtc::(anonymous namespace)::TestMainImpl::Run()\n    @     0x56039cb22bb0         96  main\n    @     0x7fd2eab4dcca  (unknown)  __libc_start_main\n    @ 0x5541d68949564100  (unknown)  (unknown)\nSegmentation fault",
+      "parentUuid": "286094fb_f596dfc7",
       "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

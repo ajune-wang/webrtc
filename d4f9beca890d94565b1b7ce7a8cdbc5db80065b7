@@ -207,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "66333bfb_ef1c36a9",
+        "filename": "video/stream_synchronization_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-14T15:41:06Z",
+      "side": 1,
+      "message": "In DelayManager the MaxBufferTimeQ75 function calculates the max allowed minDelay (sounds strange, I know). This is calculated as: 0.75 * max_nr_packets * packet_duration_ms, which works out to be 0.75 * 200 * 20 \u003d 3000 ms for the case of 20ms packets, and 9000 ms for 60ms packets.\n\nYou\u0027re right that it makes more sense to calculate these kinds of limits in time units instead of number of packets, this is mainly for legacy reasons. It is on our todo list to address this (although not currently high priority). A workaround is to lower the max_nr_packets when using 60ms packets.\n\nSee https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/audio_coding/neteq/delay_manager.cc;l\u003d442;drc\u003d5c860faff8acca32094b87f229b630519326372e",
+      "parentUuid": "87ec562d_81f2bb0d",
+      "range": {
+        "startLine": 419,
+        "startChar": 31,
+        "endLine": 419,
+        "endChar": 71
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d6d02e4_b551c9ea",
         "filename": "video/stream_synchronization_unittest.cc",
         "patchSetId": 4
@@ -242,6 +266,30 @@
       "side": 1,
       "message": "You are absolutely right; this test is just exposing the issue with StreamSynchronization class. This class is used by higher level rtp_video_stream_receiver.cc which uses NetEQ, audio, video components along with StreamSynchronization to figure out the delays. \nThe main issue happens because StreamSynchronization\u0027s audio delay is never updated and its mostly how NetEQ works: NetEQ does not update delay till packets are flowing in. \nThe fix is at higher level, where we stop calling StreamSynchronization when audio stops flowing in.\n\nSince rtp_video_stream_receiver deals with so many different components, I guess it was not easy to unit test at that level, hence no unit tests for that class.\n\nI tried to simulate the issue via unit test; if this is ever fixed in StreamSynchronization, maybe caller don\u0027t need to handle this case.",
       "parentUuid": "4d6d02e4_b551c9ea",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 438,
+        "endChar": 0
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2012628_0e0bab68",
+        "filename": "video/stream_synchronization_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-14T15:41:06Z",
+      "side": 1,
+      "message": "Ah, I see, that makes sense, thanks for the explanation. \n\nPerhaps it would be good to add a comment to the test to explain that this issue is handled at a higher level, in the RtpStreamsSynchronizer class.",
+      "parentUuid": "b799e5fc_e404a9d5",
       "range": {
         "startLine": 436,
         "startChar": 0,

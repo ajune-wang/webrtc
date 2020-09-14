@@ -31,7 +31,7 @@
 }
 
 - (instancetype)initWithType:(RTCSdpType)type sdp:(NSString *)sdp {
-  NSParameterAssert(sdp.length);
+  NSParameterAssert(sdp.length || type == RTCSdpTypeRollback);
   if (self = [super init]) {
     _type = type;
     _sdp = [sdp copy];

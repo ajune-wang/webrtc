@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b582e5c_58521a16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-14T20:35:02Z",
+      "side": 1,
+      "message": "I\u0027ll go ahead and land, can update nits later if tommi@ feels it\u0027s needed",
+      "revId": "acc1bcb6d5b137dbb107422a863ed6aa2f2f5efb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

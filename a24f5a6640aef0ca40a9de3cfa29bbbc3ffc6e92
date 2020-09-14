@@ -393,6 +393,24 @@
       "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4bce58_768074b3",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-14T16:04:15Z",
+      "side": 1,
+      "message": "Sorry, I meant calling with a reference or pointer as an argument, not storing it in the callable\u0027s state.\n\nThat said, a callable with a reference argument such as this one\n\n  int state \u003d 0;\n  [\u0026state](int arg){ state +\u003d arg; }\n\nshould still be trivially copyable and deletable.",
+      "parentUuid": "10267b7b_2bd70bdb",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8c456c8_e361cfc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13776
+      },
+      "writtenOn": "2020-09-14T17:12:57Z",
+      "side": 1,
+      "message": "Thank you for the upvote, guys. Can you please help with the merge? Thanks.",
+      "revId": "a96d91dd900b8bfff396c8671cce71cebb258390",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

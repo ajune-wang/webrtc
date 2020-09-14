@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8eb59615_5e105b31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-14T04:02:55Z",
+      "side": 1,
+      "message": "I already have these changes in my CL. Do you still want to commit ?",
+      "revId": "9f3dd392a34fe89592871c54a68a28ff2221119e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

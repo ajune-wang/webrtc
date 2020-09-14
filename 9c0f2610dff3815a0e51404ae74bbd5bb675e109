@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cfe3ecd_290f728a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2020-09-14T17:14:54Z",
+      "side": 1,
+      "message": "Added comment in unit test explaining how issue is handled in caller. ",
+      "revId": "9c0f2610dff3815a0e51404ae74bbd5bb675e109",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

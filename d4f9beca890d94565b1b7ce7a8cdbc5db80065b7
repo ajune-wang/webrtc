@@ -231,6 +231,30 @@
     },
     {
       "key": {
+        "uuid": "98208f39_5cd2d074",
+        "filename": "video/stream_synchronization_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2020-09-14T17:14:54Z",
+      "side": 1,
+      "message": "Thanks, this makes sense, I missed this Q75 check. I am not sure if there is a way to set the max neteq packets in chrome via sdp; maybe the new RTP extension to set max delay would help. https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/rtp-hdrext/playout-delay",
+      "parentUuid": "66333bfb_ef1c36a9",
+      "range": {
+        "startLine": 419,
+        "startChar": 31,
+        "endLine": 419,
+        "endChar": 71
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d6d02e4_b551c9ea",
         "filename": "video/stream_synchronization_unittest.cc",
         "patchSetId": 4
@@ -299,6 +323,30 @@
       "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b3ce99_31188d00",
+        "filename": "video/stream_synchronization_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2020-09-14T17:14:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2012628_0e0bab68",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 438,
+        "endChar": 0
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

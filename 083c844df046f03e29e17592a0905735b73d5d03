@@ -16,6 +16,52 @@
       "revId": "083c844df046f03e29e17592a0905735b73d5d03",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "173797a8_7a521b1c",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-09-14T14:12:23Z",
+      "side": 1,
+      "message": "perhaps \"and not aud\"?",
+      "range": {
+        "startLine": 263,
+        "startChar": 28,
+        "endLine": 263,
+        "endChar": 30
+      },
+      "revId": "083c844df046f03e29e17592a0905735b73d5d03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a3ddb9e_9975c842",
+        "filename": "common_video/h264/sps_vui_rewriter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-09-14T14:12:23Z",
+      "side": 1,
+      "message": "Can we add a test with AUD and verify that it gets removed?",
+      "range": {
+        "startLine": 392,
+        "startChar": 36,
+        "endLine": 392,
+        "endChar": 68
+      },
+      "revId": "083c844df046f03e29e17592a0905735b73d5d03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

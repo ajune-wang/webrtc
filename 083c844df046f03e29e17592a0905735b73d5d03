@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d9701d6_0396606a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2020-09-14T13:57:43Z",
+      "side": 1,
+      "message": "I think Stefan and Magnus will be more appropriate reviewers for this change than me.",
+      "revId": "083c844df046f03e29e17592a0905735b73d5d03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

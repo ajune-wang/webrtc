@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "88bda70e_ab5162d7",
+        "filename": "rtc_base/cancer_stick_castle.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-14T12:33:23Z",
+      "side": 1,
+      "message": "Do you get that error only if you make the change I suggest here?",
+      "parentUuid": "5dde0f86_e0d63f43",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53a45443_62634eee",
         "filename": "rtc_base/cancer_stick_castle_unittest.cc",
         "patchSetId": 14
@@ -285,6 +303,24 @@
       "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "996fb425_7c77bc1d",
+        "filename": "rtc_base/cancer_stick_castle_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-14T12:33:23Z",
+      "side": 1,
+      "message": "Yes please---global variables have several drawbacks. Can you use call signatures with a mutable reference or pointer like in e.g. FunctionPtrTest?",
+      "parentUuid": "0b8bd8e2_511fbcd8",
+      "revId": "a24f5a6640aef0ca40a9de3cfa29bbbc3ffc6e92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0812ecd0_40a814e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-14T06:51:25Z",
+      "side": 1,
+      "message": "LGTM - I don\u0027t see how leaving the data channel transport invoker around is going to harm anything.\n\nI\u0027m always worried about changes with no tests - a test that showed an effect would involve doing something that fires a signal that should have been handled after transport teardown. But the new lifetime seems unlikely to cause new issues.\n",
+      "revId": "56819dbb1f79f3d4b9759036901f09cb787bec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea6296d6_8673308a",
+        "filename": "pc/data_channel_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-14T06:51:25Z",
+      "side": 1,
+      "message": "From my understanding, the semantics of RTC_GUARDED_BY is different now - this says that you can only invoke from the network thread; the previous said that you could only modify the pointer on the network thread. The new meaning is strictly narrower than the old, and I think it\u0027s a Good Thing.",
+      "revId": "56819dbb1f79f3d4b9759036901f09cb787bec09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

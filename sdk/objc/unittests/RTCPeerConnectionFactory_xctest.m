@@ -270,6 +270,55 @@
   XCTAssertTrue(true, "Expect test does not crash");
 }
 
+- (void)testRollback {
+  @autoreleasepool {
+    RTC_OBJC_TYPE(RTCConfiguration) *config = [[RTC_OBJC_TYPE(RTCConfiguration) alloc] init];
+    config.sdpSemantics = RTCSdpSemanticsUnifiedPlan;
+    RTC_OBJC_TYPE(RTCMediaConstraints) *constraints =
+        [[RTC_OBJC_TYPE(RTCMediaConstraints) alloc] initWithMandatoryConstraints:@{
+          kRTCMediaConstraintsOfferToReceiveAudio : kRTCMediaConstraintsValueTrue
+        }
+                                                             optionalConstraints:nil];
+
+    RTC_OBJC_TYPE(RTCPeerConnectionFactory) * factory;
+    RTC_OBJC_TYPE(RTCPeerConnection) * pc1;
+    RTC_OBJC_TYPE(RTCSessionDescription) *rollback =
+        [[RTCSessionDescription alloc] initWithType:RTCSdpTypeRollback sdp:@""];
+
+    @autoreleasepool {
+      factory = [[RTC_OBJC_TYPE(RTCPeerConnectionFactory) alloc] init];
+      pc1 = [factory peerConnectionWithConfiguration:config constraints:constraints delegate:nil];
+      dispatch_semaphore_t negotiatedSem = dispatch_semaphore_create(0);
+      [pc1 offerForConstraints:constraints
+             completionHandler:^(RTC_OBJC_TYPE(RTCSessionDescription) * offer, NSError * error) {
+               XCTAssertNil(error);
+               XCTAssertNotNil(offer);
+               __weak typeof(pc1) weakPc1 = pc1;
+               [pc1 setLocalDescription:offer
+                      completionHandler:^(NSError *error) {
+                        XCTAssertNil(error);
+                        [weakPc1 setLocalDescription:rollback
+                                   completionHandler:^(NSError *error) {
+                                     XCTAssertNil(error);
+                                   }];
+                      }];
+               NSTimeInterval negotiationTimeout = 15;
+               dispatch_semaphore_wait(
+                   negotiatedSem,
+                   dispatch_time(DISPATCH_TIME_NOW, (int64_t)(negotiationTimeout * NSEC_PER_SEC)));
+
+               XCTAssertEqual(pc1.signalingState, RTCSignalingStateStable);
+
+               [pc1 close];
+               pc1 = nil;
+               factory = nil;
+             }];
+    }
+
+    XCTAssertTrue(true, "Expect test does not crash");
+  }
+}
+
 - (bool)negotiatePeerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)pc1
              withPeerConnection:(RTC_OBJC_TYPE(RTCPeerConnection) *)pc2
              negotiationTimeout:(NSTimeInterval)timeout {

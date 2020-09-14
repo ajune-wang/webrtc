@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8046b0c7_913956ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-14T12:44:41Z",
+      "side": 1,
+      "message": "Thanks for making a fix for this issue! See some comments below.",
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9981f38_4d408381",
+        "filename": "video/rtp_streams_synchronizer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-14T12:44:41Z",
+      "side": 1,
+      "message": "nit: last_audio_receive_time_ms",
+      "range": {
+        "startLine": 92,
+        "startChar": 10,
+        "endLine": 92,
+        "endChar": 31
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "292daf77_d91fad43",
+        "filename": "video/stream_synchronization_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-14T12:44:41Z",
+      "side": 1,
+      "message": "nit: Please end comments with a \u0027.\u0027 (also applies to comments below).",
+      "range": {
+        "startLine": 403,
+        "startChar": 5,
+        "endLine": 403,
+        "endChar": 71
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c242dff_adc9c995",
+        "filename": "video/stream_synchronization_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-14T12:44:41Z",
+      "side": 1,
+      "message": "nit: Please start comments with a capital (also applies to comments below).",
+      "range": {
+        "startLine": 417,
+        "startChar": 5,
+        "endLine": 417,
+        "endChar": 6
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "703250e1_2e14c6d1",
+        "filename": "video/stream_synchronization_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-14T12:44:41Z",
+      "side": 1,
+      "message": "In practice the max audio delay that is accepted by NetEq is 3000 ms, higher delays will be ignored.",
+      "range": {
+        "startLine": 419,
+        "startChar": 31,
+        "endLine": 419,
+        "endChar": 71
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d6d02e4_b551c9ea",
+        "filename": "video/stream_synchronization_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-14T12:44:41Z",
+      "side": 1,
+      "message": "Maybe I\u0027m misunderstanding something, but isn\u0027t this exactly what this CL is trying to prevent?",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 438,
+        "endChar": 0
+      },
+      "revId": "d4f9beca890d94565b1b7ce7a8cdbc5db80065b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

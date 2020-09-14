@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "966a1037_8233db26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-14T16:09:09Z",
+      "side": 1,
+      "message": "of course there was a pitfall... in this case an assert. Maybe that should be removed?\nThe empty string is the default for sdp in\n https://w3c.github.io/webrtc-pc/#dom-rtcsessiondescription-sdp\nso I think it makes sense to use it for rollback.",
+      "revId": "004978c13e774f56a232d5059a5a4765c3abbd18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

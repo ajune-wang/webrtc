@@ -124,7 +124,8 @@ class UntypedFunction final {
   template <typename Signature>
   static UntypedFunction Create(Signature* f) {
     return UntypedFunction(
-        reinterpret_cast<webrtc_function_impl::FunVoid*>(f),
+        webrtc_function_impl::VoidUnion{
+            .fun_ptr = reinterpret_cast<webrtc_function_impl::FunVoid*>(f)},
         f ? reinterpret_cast<webrtc_function_impl::FunVoid*>(
                 webrtc_function_impl::CallHelpers<Signature>::CallFunPtr)
           : nullptr,
@@ -169,7 +170,7 @@ class UntypedFunction final {
 
   template <typename Signature, typename... ArgT>
   typename webrtc_function_impl::CallHelpers<Signature>::return_type Call(
-      ArgT... args) {
+      ArgT&&... args) {
     return webrtc_function_impl::CallHelpers<Signature>::DoCall(
         call_, &f_, std::forward<ArgT>(args)...);
   }

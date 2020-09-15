@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afccdad0_2f99ccef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-15T11:49:13Z",
+      "side": 1,
+      "message": "sami: where would I look for a test that does\n  pc.createOffer();\n  pc.setLocalDescription(offer);\n  pc.setLocalDescription({type: rollback})\n  assert(pc.signalingStable \u003d\u003d stable)\n?",
+      "revId": "de87215008fd5858a9abbbc8cfe30b8ffa104325",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

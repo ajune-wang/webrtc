@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10e3f0af_a2eb1189",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-09-15T07:36:25Z",
+      "side": 1,
+      "message": "Can someone trigger a try build?",
+      "revId": "836ac001464b826d164be179f0ab4ec311164361",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

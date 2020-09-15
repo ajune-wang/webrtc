@@ -52,6 +52,24 @@
       "revId": "599bd8d385d70d35dcc5dec285bedc866c1e11c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f07ce10b_a5cf0d48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8882
+      },
+      "writtenOn": "2020-09-15T07:36:25Z",
+      "side": 1,
+      "message": "Ok, done. Sorry for the delay - must have missed the notification.",
+      "parentUuid": "59107fcc_3158d9f1",
+      "revId": "599bd8d385d70d35dcc5dec285bedc866c1e11c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

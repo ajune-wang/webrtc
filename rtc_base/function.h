@@ -102,9 +102,10 @@ class UntypedFunction final {
     } else {
       // The callable is either nontrivial or too large, so we can't keep it
       // in the inline storage; use the heap instead.
+      webrtc_function_impl::VoidUnion vu;
+      vu.void_ptr = new F_deref(std::forward<F>(f));
       return UntypedFunction(
-          webrtc_function_impl::VoidUnion{.void_ptr =
-                                              new F_deref(std::forward<F>(f))},
+          vu,
           reinterpret_cast<webrtc_function_impl::FunVoid*>(
               webrtc_function_impl::CallHelpers<
                   Signature>::template CallVoidPtr<F_deref>),
@@ -124,7 +125,8 @@ class UntypedFunction final {
   template <typename Signature>
   static UntypedFunction Create(Signature* f) {
     return UntypedFunction(
-        reinterpret_cast<webrtc_function_impl::FunVoid*>(f),
+        webrtc_function_impl::VoidUnion{
+            .fun_ptr = reinterpret_cast<webrtc_function_impl::FunVoid*>(f)},
         f ? reinterpret_cast<webrtc_function_impl::FunVoid*>(
                 webrtc_function_impl::CallHelpers<Signature>::CallFunPtr)
           : nullptr,
@@ -133,6 +135,18 @@ class UntypedFunction final {
 
   // Default constructor. Creates an empty UntypedFunction.
   UntypedFunction() : call_(nullptr), delete_(nullptr) {}
+
+  // Nullptr constructor and assignment. Creates an empty UntypedFunction.
+  UntypedFunction(std::nullptr_t)  // NOLINT(runtime/explicit)
+      : call_(nullptr), delete_(nullptr) {}
+  UntypedFunction& operator=(std::nullptr_t) {
+    call_ = nullptr;
+    if (delete_) {
+      delete_(&f_);
+      delete_ = nullptr;
+    }
+    return *this;
+  }
 
   // Not copyable.
   UntypedFunction(const UntypedFunction&) = delete;
@@ -144,6 +158,9 @@ class UntypedFunction final {
     other.delete_ = nullptr;
   }
   UntypedFunction& operator=(UntypedFunction&& other) {
+    if (delete_) {
+      delete_(&f_);
+    }
     f_ = other.f_;
     call_ = other.call_;
     delete_ = other.delete_;
@@ -169,7 +186,7 @@ class UntypedFunction final {
 
   template <typename Signature, typename... ArgT>
   typename webrtc_function_impl::CallHelpers<Signature>::return_type Call(
-      ArgT... args) {
+      ArgT&&... args) {
     return webrtc_function_impl::CallHelpers<Signature>::DoCall(
         call_, &f_, std::forward<ArgT>(args)...);
   }

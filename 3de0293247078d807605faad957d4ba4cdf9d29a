@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37ba993e_e4e023ca",
+        "filename": "rtc_base/function.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-15T10:23:42Z",
+      "side": 1,
+      "message": "Is this for readability or was an issue?",
+      "range": {
+        "startLine": 105,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 52
+      },
+      "revId": "3de0293247078d807605faad957d4ba4cdf9d29a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

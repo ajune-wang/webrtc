@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '2c970cbe2fff902259b215c149ff3ed020efc3cb',
+  'chromium_revision': '49c59cce3ae51e19a7dd7eade7bf4f5ea1518cfa',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@ea9d15525e02764268fde77b2e485512f3bfc778',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@9f51c92f5c461d7e9aa8b3dd0b6c89bc0fe77c55',
+    'https://chromium.googlesource.com/chromium/src/build@a7ac2c226f55f7ec0026143ea2c78ebf39d9747b',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@3ff4f5027b4b81a6c9c36d64d71444f2709a4896',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -37,9 +37,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@49c4639b9aac5ff60a6996d794ff954bfcd0f375',
+    'https://chromium.googlesource.com/chromium/src/testing@4a60f45fa13aec982787544674b38330ca119bcf',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@fb6ac2eca46204838d6875adb1d4d56cbe301c09',
+    'https://chromium.googlesource.com/chromium/src/third_party@639ce17ee94f8c1443e2e82da5b80f9d414e66d5',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@084749d9cba74a228ae9f91606e432177b6a82fd',
+    'https://chromium.googlesource.com/chromium/src/tools@9a3898df7c2f6e627b3be7bc8ba3c7347979197a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@44c13d73156581ea09b9389001e58c23a4b8d70a',
 

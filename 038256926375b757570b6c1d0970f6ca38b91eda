@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8c84037_3fc390e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-09-15T17:52:32Z",
+      "side": 1,
+      "message": "I\u0027m updating the OWNERS file to replace Sergey with myself.  LMK if you think we should add anyone else.",
+      "revId": "038256926375b757570b6c1d0970f6ca38b91eda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

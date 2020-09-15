@@ -257,6 +257,12 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
   bool keyframe_generation_requested_ RTC_GUARDED_BY(worker_sequence_checker_) =
       false;
 
+  // Set by the field trial WebRTC-LowLatencyRenderer. The parameter
+  // include_predecode_buffer determines if the predecode buffer should be
+  // taken into account when calculating maximum number of frames in
+  // composition queue.
+  FieldTrialOptional<bool> include_predecode_buffer_;
+
   // Defined last so they are destroyed before all other members.
   rtc::TaskQueue decode_queue_;
 

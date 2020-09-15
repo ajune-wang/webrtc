@@ -34,19 +34,19 @@ template <typename RetT, typename... ArgT>
 struct CallHelpers<RetT(ArgT...)> {
   using return_type = RetT;
   template <typename F>
-  static RetT CallVoidPtr(VoidUnion* vu, ArgT... args) {
+  static RetT CallVoidPtr(VoidUnion* vu, ArgT&&... args) {
     return (*static_cast<F*>(vu->void_ptr))(std::forward<ArgT>(args)...);
   }
-  static RetT CallFunPtr(VoidUnion* vu, ArgT... args) {
+  static RetT CallFunPtr(VoidUnion* vu, ArgT&&... args) {
     return (reinterpret_cast<RetT (*)(ArgT...)>(vu->fun_ptr))(
         std::forward<ArgT>(args)...);
   }
   template <typename F>
-  static RetT CallInlineStorage(VoidUnion* vu, ArgT... args) {
+  static RetT CallInlineStorage(VoidUnion* vu, ArgT&&... args) {
     return (*reinterpret_cast<F*>(&vu->inline_storage))(
         std::forward<ArgT>(args)...);
   }
-  static RetT DoCall(FunVoid* f, VoidUnion* vu, ArgT... args) {
+  static RetT DoCall(FunVoid* f, VoidUnion* vu, ArgT&&... args) {
     return reinterpret_cast<RetT (*)(VoidUnion*, ArgT...)>(f)(
         vu, std::forward<ArgT>(args)...);
   }
@@ -124,7 +124,8 @@ class UntypedFunction final {
   template <typename Signature>
   static UntypedFunction Create(Signature* f) {
     return UntypedFunction(
-        reinterpret_cast<webrtc_function_impl::FunVoid*>(f),
+        webrtc_function_impl::VoidUnion{
+            .fun_ptr = reinterpret_cast<webrtc_function_impl::FunVoid*>(f)},
         f ? reinterpret_cast<webrtc_function_impl::FunVoid*>(
                 webrtc_function_impl::CallHelpers<Signature>::CallFunPtr)
           : nullptr,
@@ -169,7 +170,7 @@ class UntypedFunction final {
 
   template <typename Signature, typename... ArgT>
   typename webrtc_function_impl::CallHelpers<Signature>::return_type Call(
-      ArgT... args) {
+      ArgT&&... args) {
     return webrtc_function_impl::CallHelpers<Signature>::DoCall(
         call_, &f_, std::forward<ArgT>(args)...);
   }

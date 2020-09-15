@@ -56,9 +56,9 @@ class CancerStickCastle {
     receivers_.AddReceiver(
         UntypedFunction::Create<void(ArgT...)>(std::forward<F>(f)));
   }
-  void Send(ArgT... args) {
+  void Send(ArgT&&... args) {
     receivers_.Foreach([&](UntypedFunction& f) {
-      f.Call<void(ArgT...)>(std::forward<ArgT>(args)...);
+      f.Call<void(ArgT && ...)>(std::forward<ArgT>(args)...);
     });
   }
 

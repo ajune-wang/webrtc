@@ -22,6 +22,30 @@
       "revId": "3de0293247078d807605faad957d4ba4cdf9d29a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c508c5df_72644b5b",
+        "filename": "rtc_base/function.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 10798
+      },
+      "writtenOn": "2020-09-15T12:08:34Z",
+      "side": 1,
+      "message": "Designated initializers are a C++20 feature. Gcc and Clang accept them anyway in C++14 mode unless one asks them to forbid it (which is why I didn\u0027t find this earlier), but MSVC does not. Since we aim for C++14, not using designated initializers is the right choice.",
+      "parentUuid": "37ba993e_e4e023ca",
+      "range": {
+        "startLine": 105,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 52
+      },
+      "revId": "3de0293247078d807605faad957d4ba4cdf9d29a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

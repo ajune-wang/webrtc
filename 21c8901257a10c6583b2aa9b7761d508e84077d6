@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6fb1776_2ff9b44c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-15T15:33:55Z",
+      "side": 1,
+      "message": "fought a bit with the offer expectations stuff but... test passes now. \nIf you could please take a look :-)",
+      "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

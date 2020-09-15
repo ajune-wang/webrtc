@@ -16,6 +16,24 @@
       "revId": "004978c13e774f56a232d5059a5a4765c3abbd18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a834479d_3763dd9a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-09-15T07:11:49Z",
+      "side": 1,
+      "message": "Yeah, I think it makes sense to just remove this assert.",
+      "parentUuid": "966a1037_8233db26",
+      "revId": "004978c13e774f56a232d5059a5a4765c3abbd18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

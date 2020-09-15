@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53c528ea_1520f591",
+        "filename": "rtc_base/function.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-15T07:55:08Z",
+      "side": 1,
+      "message": "This was a bug: During move assignment, we failed to delete the overwritten object.",
+      "revId": "da9bd64c28801b7c1a8141600874a798052e83a1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

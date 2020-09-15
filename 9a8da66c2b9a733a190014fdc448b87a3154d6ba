@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a40671af_0bbf51b9",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 21
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-15T18:16:29Z",
+      "side": 1,
+      "message": "Do you need all these? (One way to tell is to comment them all out, then run `gn check` and add them back one by one until it stops complaining.)",
+      "revId": "9a8da66c2b9a733a190014fdc448b87a3154d6ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8791ed46_c5cdc5f8",
+        "filename": "rtc_base/function.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-15T18:16:29Z",
+      "side": 1,
+      "message": "This will run afoul of the MSVC bots, which (rightly) don\u0027t support designated initializer syntax in C++14 mode.\n\nOne way for you to handle this is to just let https://webrtc-review.googlesource.com/c/src/+/184260 land before your CL.",
+      "revId": "9a8da66c2b9a733a190014fdc448b87a3154d6ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

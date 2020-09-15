@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8236fda1_ba23e51e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-15T19:55:31Z",
+      "side": 1,
+      "message": "PTAL; this is another potential cause of the crash in the linked bug",
+      "revId": "ae5b990bdb3369c6bd80bb76abe6a31f54f2a857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "642129ed_1b0c8bbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14004
+      },
+      "writtenOn": "2020-09-16T18:37:50Z",
+      "side": 1,
+      "message": "lgtm, after crrev/c/2414169 lands",
+      "revId": "bf7afa24bef5e1c1f1b9e9ba92f9e2c2b4fad655",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

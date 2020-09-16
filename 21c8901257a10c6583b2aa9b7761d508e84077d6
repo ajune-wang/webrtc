@@ -16,6 +16,52 @@
       "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dde9be7_6330c375",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-09-16T09:57:18Z",
+      "side": 1,
+      "message": "Looks weird, I wouldn\u0027t expect anything to change just creating the objects. Should this be higher up?",
+      "range": {
+        "startLine": 1518,
+        "startChar": 4,
+        "endLine": 1518,
+        "endChar": 70
+      },
+      "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4947a38_d1d7391c",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-09-16T09:57:18Z",
+      "side": 1,
+      "message": "Are there any stronger expectation about the rollback being successful?\n\nEven onSetFailure completes this expectation.",
+      "range": {
+        "startLine": 1520,
+        "startChar": 4,
+        "endLine": 1520,
+        "endChar": 33
+      },
+      "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

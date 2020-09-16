@@ -200,7 +200,7 @@ deps = {
   'src/third_party/libjpeg_turbo':
     'https://chromium.googlesource.com/chromium/deps/libjpeg_turbo.git@7e3ad79800a7945fb37173149842b494ab8982b2',
   'src/third_party/libsrtp':
-    'https://chromium.googlesource.com/chromium/deps/libsrtp.git@650611720ecc23e0e6b32b0e3100f8b4df91696c',
+    'https://chromium.googlesource.com/chromium/deps/libsrtp.git@refs/changes/98/2397898/3',
   'src/third_party/libaom/source/libaom':
     'https://aomedia.googlesource.com/aom.git@4dcbd921c3a686185c705eeccb154da52858d23b',
   'src/third_party/libunwindstack': {

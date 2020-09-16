@@ -150,6 +150,7 @@ static const RtpExtension kAudioRtpExtensionEncrypted1[] = {
     RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 8),
     RtpExtension("http://google.com/testing/audio_something", 10),
     RtpExtension("urn:ietf:params:rtp-hdrext:ssrc-audio-level", 12, true),
+    RtpExtension("http://google.com/testing/audio_something", 11, true),
 };
 
 static const RtpExtension kAudioRtpExtension2[] = {
@@ -191,7 +192,8 @@ static const RtpExtension kVideoRtpExtension1[] = {
 static const RtpExtension kVideoRtpExtensionEncrypted1[] = {
     RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 14),
     RtpExtension("http://google.com/testing/video_something", 13),
-    RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 11, true),
+    RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 9, true),
+    RtpExtension("http://google.com/testing/video_something", 7, true),
 };
 
 static const RtpExtension kVideoRtpExtension2[] = {
@@ -216,7 +218,7 @@ static const RtpExtension kVideoRtpExtensionAnswer[] = {
 };
 
 static const RtpExtension kVideoRtpExtensionEncryptedAnswer[] = {
-    RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 11, true),
+    RtpExtension("urn:ietf:params:rtp-hdrext:toffset", 9, true),
 };
 
 static const RtpExtension kRtpExtensionTransportSequenceNumber01[] = {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f1817c1_49c77446",
+        "filename": "rtc_base/cancer_stick_castle.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-16T17:09:26Z",
+      "side": 1,
+      "message": "You seem to have lost this fix in the most recent patch sets?",
+      "revId": "85047a74d20308a9928b21384d80721ca4909bc3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

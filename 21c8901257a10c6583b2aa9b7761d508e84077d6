@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "e22a279e_790589fb",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-16T11:40:09Z",
+      "side": 1,
+      "message": "I looked at testSurfaceIceCandidatesWhenIceTransportTypeChanged for the style. Afaics the pattern is\n- push the event you expect (signalingstatechange which should go back to stable)\n- do the thing that triggers the event",
+      "parentUuid": "8dde9be7_6330c375",
+      "range": {
+        "startLine": 1518,
+        "startChar": 4,
+        "endLine": 1518,
+        "endChar": 70
+      },
+      "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4947a38_d1d7391c",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
         "patchSetId": 5
@@ -53,6 +77,30 @@
       "writtenOn": "2020-09-16T09:57:18Z",
       "side": 1,
       "message": "Are there any stronger expectation about the rollback being successful?\n\nEven onSetFailure completes this expectation.",
+      "range": {
+        "startLine": 1520,
+        "startChar": 4,
+        "endLine": 1520,
+        "endChar": 33
+      },
+      "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e2cefdc_7fc41397",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-16T11:40:09Z",
+      "side": 1,
+      "message": "i could add an assertEquals for pc.signalingState() which should be stable.\nMaybe I am missing a final\n assertTrue(offeringExpectations.waitForAllExpectationsToBeSatisfied(DEFAULT_TIMEOUT_SECONDS));\nthough.",
+      "parentUuid": "b4947a38_d1d7391c",
       "range": {
         "startLine": 1520,
         "startChar": 4,

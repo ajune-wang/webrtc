@@ -181,19 +181,23 @@ AudioFrameList AudioMixerImpl::GetAudioFromSources() {
   std::vector<SourceFrame> audio_source_mixing_data_list;
   std::vector<SourceFrame> ramp_list;
 
-  // Get audio from the audio sources and put it in the SourceFrame vector.
-  for (auto& source_and_status : audio_source_list_) {
-    const auto audio_frame_info =
-        source_and_status->audio_source->GetAudioFrameWithInfo(
-            OutputFrequency(), &source_and_status->audio_frame);
+  {
+    MutexLock lock(&mutex_);
+    // Get audio from the audio sources and put it in the SourceFrame vector.
+    for (auto& source_and_status : audio_source_list_) {
+      const auto audio_frame_info =
+          source_and_status->audio_source->GetAudioFrameWithInfo(
+              OutputFrequency(), &source_and_status->audio_frame);
 
-    if (audio_frame_info == Source::AudioFrameInfo::kError) {
-      RTC_LOG_F(LS_WARNING) << "failed to GetAudioFrameWithInfo() from source";
-      continue;
+      if (audio_frame_info == Source::AudioFrameInfo::kError) {
+        RTC_LOG_F(LS_WARNING)
+            << "failed to GetAudioFrameWithInfo() from source";
+        continue;
+      }
+      audio_source_mixing_data_list.emplace_back(
+          source_and_status.get(), &source_and_status->audio_frame,
+          audio_frame_info == Source::AudioFrameInfo::kMuted);
     }
-    audio_source_mixing_data_list.emplace_back(
-        source_and_status.get(), &source_and_status->audio_frame,
-        audio_frame_info == Source::AudioFrameInfo::kMuted);
   }
 
   // Sort frames by sorting function.

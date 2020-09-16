@@ -338,6 +338,7 @@ class NetEqImpl : public webrtc::NetEq {
   Clock* const clock_;
 
   mutable Mutex mutex_;
+  const std::unique_ptr<StatisticsCalculator> stats_ RTC_GUARDED_BY(mutex_);
   const std::unique_ptr<TickTimer> tick_timer_ RTC_GUARDED_BY(mutex_);
   const std::unique_ptr<DecoderDatabase> decoder_database_
       RTC_GUARDED_BY(mutex_);
@@ -355,7 +356,6 @@ class NetEqImpl : public webrtc::NetEq {
       RTC_GUARDED_BY(mutex_);
   const std::unique_ptr<PreemptiveExpandFactory> preemptive_expand_factory_
       RTC_GUARDED_BY(mutex_);
-  const std::unique_ptr<StatisticsCalculator> stats_ RTC_GUARDED_BY(mutex_);
 
   std::unique_ptr<BackgroundNoise> background_noise_ RTC_GUARDED_BY(mutex_);
   std::unique_ptr<NetEqController> controller_ RTC_GUARDED_BY(mutex_);

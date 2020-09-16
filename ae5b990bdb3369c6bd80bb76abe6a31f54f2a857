@@ -16,6 +16,108 @@
       "revId": "ae5b990bdb3369c6bd80bb76abe6a31f54f2a857",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5112d2f_1f970672",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-16T07:16:39Z",
+      "side": 1,
+      "message": "Given that we\u0027re essentially trying to give information that\u0027s useful in figuring out something that really shouldn\u0027t happen, I think we should make sure the errors give information enough to figure out more about what the issue was.\n\nOtherwise it looks fine (but not a fix for the underlying problem).\n\n",
+      "revId": "ae5b990bdb3369c6bd80bb76abe6a31f54f2a857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e57dfd01_49e1aba2",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-16T07:16:39Z",
+      "side": 1,
+      "message": "Suggest making the errors different - \"SCTP notification is shorter than header size: \" \u003c\u003c buffer.size",
+      "revId": "ae5b990bdb3369c6bd80bb76abe6a31f54f2a857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46821c4c_81020425",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-16T07:16:39Z",
+      "side": 1,
+      "message": "This should trigger if we ever hit a partial message. Suggest logging buffer.size and sn_length here.",
+      "revId": "ae5b990bdb3369c6bd80bb76abe6a31f54f2a857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5375bb1_eb852863",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1260,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-16T07:16:39Z",
+      "side": 1,
+      "message": "SCTP ASSOC_CHANGE has length less than required length: \u003c\u003c buffer.size",
+      "revId": "ae5b990bdb3369c6bd80bb76abe6a31f54f2a857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0ba1812_93c035b1",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-16T07:16:39Z",
+      "side": 1,
+      "message": "similar",
+      "revId": "ae5b990bdb3369c6bd80bb76abe6a31f54f2a857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72d62ba2_767a2bb4",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-16T07:16:39Z",
+      "side": 1,
+      "message": "and here",
+      "revId": "ae5b990bdb3369c6bd80bb76abe6a31f54f2a857",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

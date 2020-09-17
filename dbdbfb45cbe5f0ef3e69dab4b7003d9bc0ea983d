@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78231f6f_b24e1341",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-17T11:16:50Z",
+      "side": 1,
+      "message": "nit: You can get start from |floor(multiple/layer.scale_resolution_down_by)| and try the only 2 values.\n\nNot that it\u0027s a huge speedup.",
+      "revId": "dbdbfb45cbe5f0ef3e69dab4b7003d9bc0ea983d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93b2716c_645fcce5",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-17T11:16:50Z",
+      "side": 1,
+      "message": "Having kMaxMultiple chosen this way is a little inconsistent. If I request alignment of 1 or 2, i could get result as large as 16. If I ask for 3, it could be 24 and so on.\n\nI would prefer something like 16/requested_alignment",
+      "revId": "dbdbfb45cbe5f0ef3e69dab4b7003d9bc0ea983d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b168bf09_5bbd4364",
+        "filename": "video/alignment_adjuster_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-17T11:16:50Z",
+      "side": 1,
+      "message": "This is quite confusing. Could you please change the test, so that you compare result of GetAlignment() directly, not that it\u0027s a given multiple of kRequestedAlignment.",
+      "revId": "dbdbfb45cbe5f0ef3e69dab4b7003d9bc0ea983d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f210786_51c9c64c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-17T11:16:50Z",
+      "side": 1,
+      "message": "nit: adjusts scale_resolution_down_by in |encoder_config_|",
+      "range": {
+        "startLine": 618,
+        "startChar": 14,
+        "endLine": 618,
+        "endChar": 46
+      },
+      "revId": "dbdbfb45cbe5f0ef3e69dab4b7003d9bc0ea983d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

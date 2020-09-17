@@ -39,6 +39,30 @@
       "revId": "cf14f962a7f37275296b2f6ea7a35e39434b0a02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be22ecd9_1de770a1",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-17T09:35:53Z",
+      "side": 1,
+      "message": "IIRC absl::StrFormat is not as bad as absl::StrCat (and it\u0027s not disallowed: https://webrtc.googlesource.com/src/+/master/abseil-in-webrtc.md), and we were thinking of allowing it. I seem to recall making a CL to allow it... Mirko, do you remember?",
+      "parentUuid": "d4b931a2_8e97f04d",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 43
+      },
+      "revId": "cf14f962a7f37275296b2f6ea7a35e39434b0a02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -87,6 +87,30 @@
       "revId": "cf14f962a7f37275296b2f6ea7a35e39434b0a02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab5dc7b_38687465",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-17T09:43:38Z",
+      "side": 1,
+      "message": "Yes, the binary size plugin is not working at the moment but it should come back soon.\n\nIIRC we were leaning towards using it (especially because of the speed improvements).",
+      "parentUuid": "9a56c826_4029984c",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 43
+      },
+      "revId": "cf14f962a7f37275296b2f6ea7a35e39434b0a02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "95f24f34_59dff730",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-17T11:30:45Z",
+      "side": 1,
+      "message": "be adjusted so that a common multiple is not too big to avoid",
+      "range": {
+        "startLine": 181,
+        "startChar": 62,
+        "endLine": 182,
+        "endChar": 31
+      },
+      "revId": "dbdbfb45cbe5f0ef3e69dab4b7003d9bc0ea983d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf095e73_fb813320",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-17T11:30:45Z",
+      "side": 1,
+      "message": "WARNING: big values of scale_resolution_down_by could be changed considerably, especially if |requested_resolution_alignment| is also big.",
+      "revId": "dbdbfb45cbe5f0ef3e69dab4b7003d9bc0ea983d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "78231f6f_b24e1341",
         "filename": "video/alignment_adjuster.cc",
         "patchSetId": 14
@@ -13,6 +53,23 @@
       "writtenOn": "2020-09-17T11:16:50Z",
       "side": 1,
       "message": "nit: You can get start from |floor(multiple/layer.scale_resolution_down_by)| and try the only 2 values.\n\nNot that it\u0027s a huge speedup.",
+      "revId": "dbdbfb45cbe5f0ef3e69dab4b7003d9bc0ea983d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dde8dbc9_85c71db8",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-17T11:30:45Z",
+      "side": 1,
+      "message": "Please add formal problem writeup. Something like that:\n\nInput: vector config-\u003escale_resolution_down_by (S[i])\nInput: encoder_info.requested_resolution_alignment (K)\nOutput: \nIf there\u0027s S[i] \u003c 1.0 or there\u0027s no S[i] \u003d\u003d 1.0, returns K and doesn\u0027t adjust scaling factors.\nOtherwise, returns adjusted alignment (A), adjusted scaling factors (S\u0027[i]) are written in |config| s.t:\n\nA / S\u0027[i] are integers divisible by K\nsum abs(S\u0027[i] - S[i]) -\u003e min\nA/K integer \u003c\u003d 16 (????? not currently reflecting the code)\n\n\nSolution bruteforces X\u003d A/K then choses closest S\u0027[i] in a form X/j for some j.",
       "revId": "dbdbfb45cbe5f0ef3e69dab4b7003d9bc0ea983d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

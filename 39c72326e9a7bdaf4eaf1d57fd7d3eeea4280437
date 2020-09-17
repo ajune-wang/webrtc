@@ -73,6 +73,30 @@
       "revId": "39c72326e9a7bdaf4eaf1d57fd7d3eeea4280437",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10074e2d_1c9ec505",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-09-17T07:12:28Z",
+      "side": 1,
+      "message": "Needs to be called before CreateEncoderStreams since scale factors can be adjusted. Also moved alignment code to separate class as discussed offline.",
+      "parentUuid": "02f69731_b7ce6c19",
+      "range": {
+        "startLine": 706,
+        "startChar": 2,
+        "endLine": 706,
+        "endChar": 17
+      },
+      "revId": "39c72326e9a7bdaf4eaf1d57fd7d3eeea4280437",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

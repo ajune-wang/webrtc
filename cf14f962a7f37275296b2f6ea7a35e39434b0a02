@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa3008e2_34560ea6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-17T09:27:16Z",
+      "side": 1,
+      "message": "PTAL. It seems rtc::LeftPad is used in only one place.",
+      "revId": "cf14f962a7f37275296b2f6ea7a35e39434b0a02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4b931a2_8e97f04d",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-17T09:27:16Z",
+      "side": 1,
+      "message": "I\u0027m not aware of any mainstream C++ way to do this kind of formatting, is there any? (And absl::StrFormat is disallowed due to binary size concerns). With this change, we get a single call to snprintf, rather than two calls + six std::string temporaries.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 43
+      },
+      "revId": "cf14f962a7f37275296b2f6ea7a35e39434b0a02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

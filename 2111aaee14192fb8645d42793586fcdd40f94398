@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68789f55_98e2255b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-17T07:01:52Z",
+      "side": 1,
+      "message": "TBR since this is a minor config change.",
+      "revId": "2111aaee14192fb8645d42793586fcdd40f94398",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

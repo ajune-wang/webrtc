@@ -63,6 +63,30 @@
       "revId": "cf14f962a7f37275296b2f6ea7a35e39434b0a02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a56c826_4029984c",
+        "filename": "rtc_base/logging.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-17T09:38:01Z",
+      "side": 1,
+      "message": "Ah, here it is: https://webrtc-review.googlesource.com/c/src/+/173080",
+      "parentUuid": "be22ecd9_1de770a1",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 43
+      },
+      "revId": "cf14f962a7f37275296b2f6ea7a35e39434b0a02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

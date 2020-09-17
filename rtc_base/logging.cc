@@ -33,6 +33,7 @@
 static const int kMaxLogLineSize = 1024 - 60;
 #endif  // WEBRTC_MAC && !defined(WEBRTC_IOS) || WEBRTC_ANDROID
 
+#include <inttypes.h>
 #include <stdio.h>
 #include <time.h>
 
@@ -110,9 +111,12 @@ LogMessage::LogMessage(const char* file,
     // Also ensure WallClockStartTime is initialized, so that it matches
     // LogStartTime.
     WallClockStartTime();
-    print_stream_ << "[" << rtc::LeftPad('0', 3, rtc::ToString(time / 1000))
-                  << ":" << rtc::LeftPad('0', 3, rtc::ToString(time % 1000))
-                  << "] ";
+    char timestamp[30];  // Maximum string length size is about 23.
+    int len =
+        snprintf(timestamp, sizeof(timestamp), "[%03" PRId64 ":%03" PRId64 "]",
+                 time / 1000, time % 1000);
+    RTC_DCHECK_LT(len, sizeof(timestamp));
+    print_stream_ << timestamp;
   }
 
   if (thread_) {

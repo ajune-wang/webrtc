@@ -121,6 +121,30 @@
       "revId": "39c72326e9a7bdaf4eaf1d57fd7d3eeea4280437",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e02b52ab_0e36d439",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-09-18T11:10:07Z",
+      "side": 1,
+      "message": "Renamed toGetAlignmentAndMaybeAdjustScaleFactors",
+      "parentUuid": "7abd8619_3ed77f2d",
+      "range": {
+        "startLine": 706,
+        "startChar": 2,
+        "endLine": 706,
+        "endChar": 17
+      },
+      "revId": "39c72326e9a7bdaf4eaf1d57fd7d3eeea4280437",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

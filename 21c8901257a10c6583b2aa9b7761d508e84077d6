@@ -158,6 +158,30 @@
       "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba3d4ecc_c687694c",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-18T21:04:03Z",
+      "side": 1,
+      "message": "I agree that waitForAllExpectationsToBeSatisfied is necessary. If you wanted to go all-out you could try doing a complete offer/answer after this, but that should already be covered by native tests. So here, just verifying the signaling state goes back to stable should be fine, that at least tells us that the rollback went through from Java to C++.",
+      "parentUuid": "bd700609_9afe2420",
+      "range": {
+        "startLine": 1520,
+        "startChar": 4,
+        "endLine": 1520,
+        "endChar": 33
+      },
+      "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

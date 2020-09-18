@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "6a42d1cd_8309b210",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-09-18T10:40:38Z",
+      "side": 1,
+      "message": "I see ok.",
+      "parentUuid": "e22a279e_790589fb",
+      "range": {
+        "startLine": 1518,
+        "startChar": 4,
+        "endLine": 1518,
+        "endChar": 70
+      },
+      "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4947a38_d1d7391c",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
         "patchSetId": 5
@@ -101,6 +125,30 @@
       "side": 1,
       "message": "i could add an assertEquals for pc.signalingState() which should be stable.\nMaybe I am missing a final\n assertTrue(offeringExpectations.waitForAllExpectationsToBeSatisfied(DEFAULT_TIMEOUT_SECONDS));\nthough.",
       "parentUuid": "b4947a38_d1d7391c",
+      "range": {
+        "startLine": 1520,
+        "startChar": 4,
+        "endLine": 1520,
+        "endChar": 33
+      },
+      "revId": "21c8901257a10c6583b2aa9b7761d508e84077d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd700609_9afe2420",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionEndToEndTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-09-18T10:40:38Z",
+      "side": 1,
+      "message": "Taylor, any comments on what makes sense here?",
+      "parentUuid": "0e2cefdc_7fc41397",
       "range": {
         "startLine": 1520,
         "startChar": 4,

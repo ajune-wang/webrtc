@@ -51,6 +51,23 @@
       "revId": "8a435556e93df2d0e2321b0f9ae4e7e8f3bc014e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab4b9527_0eda482c",
+        "filename": "video/rtp_video_stream_receiver2_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:59:39Z",
+      "side": 1,
+      "message": "The MSAN is complaining that sps_data.data() has some uninitialized garbage in.\n\nThen it\u0027s checked at line 126 with memcmp.",
+      "revId": "8a435556e93df2d0e2321b0f9ae4e7e8f3bc014e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

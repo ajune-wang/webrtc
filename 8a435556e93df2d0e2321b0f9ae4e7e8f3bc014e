@@ -33,6 +33,24 @@
       "revId": "8a435556e93df2d0e2321b0f9ae4e7e8f3bc014e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cbd636d_40ea334d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:52:57Z",
+      "side": 1,
+      "message": "Some failures are transient like linux_more_configs.\n\nThe others have newly enabled test fail on MSAN:\nSpsPpsIdrIsKeyframe/RtpVideoStreamReceiver2TestH264.InBandSpsPps\nand a newly added test:\nRtpVideoStreamReceiver2TestH264.ForceSpsPpsIdrIsKeyframe\n\nThese are caused by this CL. It\u0027s fine to leave the old test disabled, but the new one you should fix.\n\nYou can run the test on msan locally by adding \"is_msan\u003dtrue\" in \"gn args\" config.\nThen run your new test only.",
+      "parentUuid": "2cf794db_7353d82a",
+      "revId": "8a435556e93df2d0e2321b0f9ae4e7e8f3bc014e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

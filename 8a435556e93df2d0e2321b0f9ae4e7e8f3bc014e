@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31ef868b_506c41a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14040
+      },
+      "writtenOn": "2020-09-18T11:12:15Z",
+      "side": 1,
+      "message": "If it looks good, you\u0027ll have to submit to CQ, I\u0027m a new contributor 😊 Thanks!",
+      "revId": "8a435556e93df2d0e2321b0f9ae4e7e8f3bc014e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

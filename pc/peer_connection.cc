@@ -1299,6 +1299,12 @@ bool PeerConnection::Initialize(
   transport_controller_->SignalIceCandidatePairChanged.connect(
       this, &PeerConnection::OnTransportControllerCandidateChanged);
 
+  transport_controller_->SignalIceConnectionState1.AddReceiver(
+      [this](cricket::IceConnectionState& s) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        OnTransportControllerConnectionState(s);
+      });
+
   stats_.reset(new StatsCollector(this));
   stats_collector_ = RTCStatsCollector::Create(this);
 
@@ -5792,7 +5798,6 @@ PeerConnection::InitializePortAllocator_n(
                  "Disabled")) {
     port_allocator_flags &= ~(cricket::PORTALLOCATOR_ENABLE_IPV6);
   }
-
   if (configuration.disable_ipv6_on_wifi) {
     port_allocator_flags &= ~(cricket::PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
     RTC_LOG(LS_INFO) << "IPv6 candidates on Wi-Fi are disabled.";

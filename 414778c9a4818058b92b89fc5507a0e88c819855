@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baad8cf4_7820a74c",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:44:46Z",
+      "side": 1,
+      "message": "Round each scale factor to the closest rational in form alignment/i, s.t. i is a multiple of config.requested_alignment \n\nThat way each resolution divisible by |alignment| after the scale factor is applied would be divisible by config.requested_alignment.",
+      "revId": "414778c9a4818058b92b89fc5507a0e88c819855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb01ba18_b24cee3a",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:44:46Z",
+      "side": 1,
+      "message": "alignment",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "414778c9a4818058b92b89fc5507a0e88c819855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f49f393_3166442d",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:44:46Z",
+      "side": 1,
+      "message": "i \u003d config.requested_alignment; i \u003c\u003d multiple; i+\u003d config.requested_alignment",
+      "revId": "414778c9a4818058b92b89fc5507a0e88c819855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77a29ef7_d6898c49",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:44:46Z",
+      "side": 1,
+      "message": "This function is not needed.",
+      "revId": "414778c9a4818058b92b89fc5507a0e88c819855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a174e64d_391e336e",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:44:46Z",
+      "side": 1,
+      "message": "kMaxAlignment \u003d 16;",
+      "revId": "414778c9a4818058b92b89fc5507a0e88c819855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "644a64fd_6c370415",
+        "filename": "video/alignment_adjuster.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:44:46Z",
+      "side": 1,
+      "message": "for (int alignment \u003d 1; alignment \u003c\u003d kMaxAlignment; ++alignment) {\n     double diff \u003d RoundToMultiple(alignment, config, /*update_config\u003d*/false);\n     if (diff \u003c min_diff) {\n       min_diff \u003d diff;\n       best_alignment \u003d alignment;\n     }\n   }",
+      "range": {
+        "startLine": 116,
+        "startChar": 2,
+        "endLine": 122,
+        "endChar": 3
+      },
+      "revId": "414778c9a4818058b92b89fc5507a0e88c819855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "221489d9_b43faec1",
+        "filename": "video/alignment_adjuster_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:44:46Z",
+      "side": 1,
+      "message": "nit: consider substituting 2 instead of kRequestedAlignment and simplifying the constant experssions (2*1 \u003d\u003e 2).\nAlso, consider making kRequestedAlignment a test parameter. No need to test other values, it\u0027s just inconsistent that some input values are here and some are fixed in separate constant.",
+      "revId": "414778c9a4818058b92b89fc5507a0e88c819855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3710780f_8b5d2f20",
+        "filename": "video/alignment_adjuster_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-18T12:44:46Z",
+      "side": 1,
+      "message": "{3.0 / 2.0, 5.0 / 2.0},\n15",
+      "range": {
+        "startLine": 77,
+        "startChar": 24,
+        "endLine": 78,
+        "endChar": 47
+      },
+      "revId": "414778c9a4818058b92b89fc5507a0e88c819855",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

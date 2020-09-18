@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bca9230_ab6be643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-09-18T15:47:10Z",
+      "side": 1,
+      "message": "lgtm even if I was too late... :)",
+      "revId": "84bd70c6abb87f935972f366ebc81fbe73b91d88",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

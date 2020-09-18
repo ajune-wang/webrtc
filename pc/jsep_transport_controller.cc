@@ -1259,6 +1259,8 @@ void JsepTransportController::UpdateAggregateStates_n() {
     invoker_.AsyncInvoke<void>(RTC_FROM_HERE, signaling_thread_,
                                [this, new_connection_state] {
                                  SignalIceConnectionState(new_connection_state);
+                                 SignalIceConnectionState1.Send(
+                                     new_connection_state);
                                });
   }
 

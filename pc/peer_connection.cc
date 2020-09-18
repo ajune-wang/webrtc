@@ -1282,6 +1282,22 @@ bool PeerConnection::Initialize(
       async_resolver_factory_.get(), config));
   transport_controller_->SignalIceConnectionState.connect(
       this, &PeerConnection::OnTransportControllerConnectionState);
+  /*
+    void(PeerConnection::*f)(cricket::IceConnectionState) =
+    &PeerConnection::OnTransportControllerConnectionState; auto f_l = [this]
+    (cricket::IceConnectionState state)
+    {OnTransportControllerConnectionState(state);}; int size = sizeof(f);
+    RTC_LOG(LS_INFO)<< size + sizeof(f_l);
+        //std::bind(&PeerConnection::OnTransportControllerConnectionState,
+        //this);*/
+  std::function<void(cricket::IceConnectionState)> f =
+      [this](cricket::IceConnectionState s) {
+        RTC_DCHECK_RUN_ON(signaling_thread());
+        OnTransportControllerConnectionState(s);
+      };
+  // transport_controller_->SignalIceConnectionState1.AddReceiver(f);
+
+  RTC_LOG(LS_INFO) << sizeof(f);
   transport_controller_->SignalStandardizedIceConnectionState.connect(
       this, &PeerConnection::SetStandardizedIceConnectionState);
   transport_controller_->SignalConnectionState.connect(
@@ -5792,7 +5808,6 @@ PeerConnection::InitializePortAllocator_n(
                  "Disabled")) {
     port_allocator_flags &= ~(cricket::PORTALLOCATOR_ENABLE_IPV6);
   }
-
   if (configuration.disable_ipv6_on_wifi) {
     port_allocator_flags &= ~(cricket::PORTALLOCATOR_ENABLE_IPV6_ON_WIFI);
     RTC_LOG(LS_INFO) << "IPv6 candidates on Wi-Fi are disabled.";

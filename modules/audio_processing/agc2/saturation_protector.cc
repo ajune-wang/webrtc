@@ -13,93 +13,107 @@
 #include <algorithm>
 #include <iterator>
 
+#include <iostream>
+
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/numerics/safe_minmax.h"
 
 namespace webrtc {
-
 namespace {
-void ShiftBuffer(std::array<float, kPeakEnveloperBufferSize>* buffer_) {
-  // Move everything one element back.
-  std::copy(buffer_->begin() + 1, buffer_->end(), buffer_->begin());
-}
+
+// Min/max margins are based on speech crest-factor.
+constexpr float kMinMarginDb = 12.f;
+constexpr float kMaxMarginDb = 25.f;
+
+constexpr int kRingBuffCapacity = static_cast<int>(kPeakEnveloperBufferSize);
+
 }  // namespace
 
-SaturationProtector::PeakEnveloper::PeakEnveloper() = default;
+void ResetSaturationProtectorState(float initial_margin_db,
+                                   SaturationProtectorState& state) {
+  state.margin_db = initial_margin_db;
+  state.speech_peaks_dbfs.next = 0;
+  state.speech_peaks_dbfs.size = 0;
+  state.max_peaks_dbfs = kMinLevelDbfs;
+  state.time_since_push_ms = 0;
+}
 
-void SaturationProtector::PeakEnveloper::Process(float frame_peak_dbfs) {
-  // Update the delayed buffer and the current superframe peak.
-  current_superframe_peak_dbfs_ =
-      std::max(current_superframe_peak_dbfs_, frame_peak_dbfs);
-  speech_time_in_estimate_ms_ += kFrameDurationMs;
-  if (speech_time_in_estimate_ms_ > kPeakEnveloperSuperFrameLengthMs) {
-    speech_time_in_estimate_ms_ = 0;
-    const bool buffer_full = elements_in_buffer_ == kPeakEnveloperBufferSize;
-    if (buffer_full) {
-      ShiftBuffer(&peak_delay_buffer_);
-      *peak_delay_buffer_.rbegin() = current_superframe_peak_dbfs_;
-    } else {
-      peak_delay_buffer_[elements_in_buffer_] = current_superframe_peak_dbfs_;
-      elements_in_buffer_++;
+bool SaturationProtectorState::operator==(
+    const SaturationProtectorState& b) const {
+  if (margin_db != b.margin_db ||
+      speech_peaks_dbfs.buffer.size() != b.speech_peaks_dbfs.buffer.size() ||
+      speech_peaks_dbfs.next != b.speech_peaks_dbfs.next ||
+      speech_peaks_dbfs.size != b.speech_peaks_dbfs.size ||
+      time_since_push_ms != b.time_since_push_ms ||
+      max_peaks_dbfs != b.max_peaks_dbfs) {
+    return false;
+  }
+  RTC_DCHECK_EQ(static_cast<int>(speech_peaks_dbfs.buffer.size()),
+                kRingBuffCapacity);
+  // No need to take into account `speech_peaks_dbfs.next` since
+  // - if the buffer is full, we must compare all the pairs
+  // - otherwise, only the indexes in [0, size) are used.
+  for (int i = 0; i < speech_peaks_dbfs.size; ++i) {
+    RTC_DCHECK_LT(i, kRingBuffCapacity);
+    if (speech_peaks_dbfs.buffer[i] != b.speech_peaks_dbfs.buffer[i]) {
+      return false;
     }
-    current_superframe_peak_dbfs_ = -90.f;
   }
+  return true;
 }
 
-float SaturationProtector::PeakEnveloper::Query() const {
-  float result;
-  if (elements_in_buffer_ > 0) {
-    result = peak_delay_buffer_[0];
+bool SaturationProtectorState::operator!=(
+    const SaturationProtectorState& s) const {
+  return !(*this == s);
+}
+
+void UpdateSaturationProtectorState(float speech_level_dbfs,
+                                    float speech_peak_dbfs,
+                                    SaturationProtectorState& state) {
+  auto& ring_buffer = state.speech_peaks_dbfs.buffer;
+  auto& next = state.speech_peaks_dbfs.next;
+  auto& size = state.speech_peaks_dbfs.size;
+  RTC_DCHECK_EQ(static_cast<int>(ring_buffer.size()), kRingBuffCapacity);
+  RTC_DCHECK_LT(next, kRingBuffCapacity);
+  RTC_DCHECK_LE(size, kRingBuffCapacity);
+
+  // Get the max peak over `kPeakEnveloperSuperFrameLengthMs` ms.
+  state.max_peaks_dbfs = std::max(state.max_peaks_dbfs, speech_peak_dbfs);
+  state.time_since_push_ms += kFrameDurationMs;
+  if (state.time_since_push_ms >
+      static_cast<int>(kPeakEnveloperSuperFrameLengthMs)) {
+    // Push `max_peaks_dbfs` back into the ring buffer.
+    ring_buffer[next++] = state.max_peaks_dbfs;
+    if (next == kRingBuffCapacity) {
+      next = 0;
+    }
+    if (size < kRingBuffCapacity) {
+      size++;
+    }
+    // Reset.
+    state.time_since_push_ms = 0;
+    state.max_peaks_dbfs = kMinLevelDbfs;
+  }
+
+  // Update margin by comparing the estimated speech level and the delayed max
+  // speech peak power.
+  // TODO(alessiob): Check with aleloi@ why we use a delay and how to tune it.
+  const float delayed_peak_dbfs =
+      size == 0 ? state.max_peaks_dbfs
+                : ring_buffer[size == kRingBuffCapacity ? next : 0];
+  const float difference_db = delayed_peak_dbfs - speech_level_dbfs;
+  if (difference_db > state.margin_db) {
+    // Attack.
+    state.margin_db =
+        state.margin_db * kSaturationProtectorAttackConstant +
+        difference_db * (1.f - kSaturationProtectorAttackConstant);
   } else {
-    result = current_superframe_peak_dbfs_;
+    // Decay.
+    state.margin_db = state.margin_db * kSaturationProtectorDecayConstant +
+                      difference_db * (1.f - kSaturationProtectorDecayConstant);
   }
-  return result;
-}
-
-SaturationProtector::SaturationProtector(ApmDataDumper* apm_data_dumper)
-    : SaturationProtector(apm_data_dumper, GetExtraSaturationMarginOffsetDb()) {
-}
-
-SaturationProtector::SaturationProtector(ApmDataDumper* apm_data_dumper,
-                                         float extra_saturation_margin_db)
-    : apm_data_dumper_(apm_data_dumper),
-      last_margin_(GetInitialSaturationMarginDb()),
-      extra_saturation_margin_db_(extra_saturation_margin_db) {}
-
-void SaturationProtector::UpdateMargin(
-    const VadWithLevel::LevelAndProbability& vad_data,
-    float last_speech_level_estimate) {
-  peak_enveloper_.Process(vad_data.speech_peak_dbfs);
-  const float delayed_peak_dbfs = peak_enveloper_.Query();
-  const float difference_db = delayed_peak_dbfs - last_speech_level_estimate;
-
-  if (last_margin_ < difference_db) {
-    last_margin_ = last_margin_ * kSaturationProtectorAttackConstant +
-                   difference_db * (1.f - kSaturationProtectorAttackConstant);
-  } else {
-    last_margin_ = last_margin_ * kSaturationProtectorDecayConstant +
-                   difference_db * (1.f - kSaturationProtectorDecayConstant);
-  }
-
-  last_margin_ = rtc::SafeClamp<float>(last_margin_, 12.f, 25.f);
-}
-
-float SaturationProtector::LastMargin() const {
-  return last_margin_ + extra_saturation_margin_db_;
-}
-
-void SaturationProtector::Reset() {
-  peak_enveloper_ = PeakEnveloper();
-}
-
-void SaturationProtector::DebugDumpEstimate() const {
-  if (apm_data_dumper_) {
-    apm_data_dumper_->DumpRaw(
-        "agc2_adaptive_saturation_protector_delayed_peak_dbfs",
-        peak_enveloper_.Query());
-    apm_data_dumper_->DumpRaw("agc2_adaptive_saturation_margin_db",
-                              last_margin_);
-  }
+  state.margin_db =
+      rtc::SafeClamp<float>(state.margin_db, kMinMarginDb, kMaxMarginDb);
 }
 
 }  // namespace webrtc

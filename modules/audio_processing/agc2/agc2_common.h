@@ -19,6 +19,8 @@ constexpr float kMinFloatS16Value = -32768.f;
 constexpr float kMaxFloatS16Value = 32767.f;
 constexpr float kMaxAbsFloatS16Value = 32768.0f;
 
+constexpr float kMinLevelDbfs = -90.f;
+
 constexpr size_t kFrameDurationMs = 10;
 constexpr size_t kSubFramesInFrame = 20;
 constexpr size_t kMaximalNumberOfSamplesPerChannel = 480;
@@ -26,7 +28,7 @@ constexpr size_t kMaximalNumberOfSamplesPerChannel = 480;
 constexpr float kAttackFilterConstant = 0.f;
 
 // Adaptive digital gain applier settings below.
-constexpr float kMaxGainChangePerSecondDb = 3.f;
+constexpr float kMaxGainChangePerSecondDb = 6.f;
 constexpr float kMaxGainChangePerFrameDb =
     kMaxGainChangePerSecondDb * kFrameDurationMs / 1000.f;
 constexpr float kHeadroomDbfs = 1.f;
@@ -42,6 +44,14 @@ constexpr float kMaxNoiseLevelDbfs = -50.f;
 // speech level, measuring the amount of speech, and decide when to allow target
 // gain reduction.
 constexpr float kVadConfidenceThreshold = 0.9f;
+
+// Robust VAD probability and speech decisions.
+int GetMinConsecutiveSpeechFrames();
+// TODO(alessiob): Switch to field trials.
+constexpr float kSmoothVadProbabilityAttack = 0.25f;
+constexpr int kVadMinSpeechLengthMs = 200;
+static_assert(kVadMinSpeechLengthMs % kFrameDurationMs == 0, "");
+constexpr int kVadMinSpeechFrames = kVadMinSpeechLengthMs / kFrameDurationMs;
 
 // The amount of 'memory' of the Level Estimator. Decides leak factors.
 constexpr size_t kFullBufferSizeMs = 1200;

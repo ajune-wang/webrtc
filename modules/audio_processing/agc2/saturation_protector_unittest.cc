@@ -13,135 +13,118 @@
 #include <algorithm>
 
 #include "modules/audio_processing/agc2/agc2_common.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/gunit.h"
 
 namespace webrtc {
 namespace {
+
+constexpr float kInitialMarginDb = 20.f;
+
+SaturationProtectorState CreateSaturationProtectorState() {
+  SaturationProtectorState state;
+  ResetSaturationProtectorState(kInitialMarginDb, state);
+  return state;
+}
+
+// Updates `state` for `num_iterations` times with constant speech level and
+// peak powers and returns the maximum margin.
 float RunOnConstantLevel(int num_iterations,
-                         VadWithLevel::LevelAndProbability vad_data,
-                         float estimated_level_dbfs,
-                         SaturationProtector* saturation_protector) {
-  float last_margin = saturation_protector->LastMargin();
+                         float speech_level_dbfs,
+                         float speech_peak_dbfs,
+                         SaturationProtectorState& state) {
+  float last_margin = state.margin_db;
   float max_difference = 0.f;
   for (int i = 0; i < num_iterations; ++i) {
-    saturation_protector->UpdateMargin(vad_data, estimated_level_dbfs);
-    const float new_margin = saturation_protector->LastMargin();
+    UpdateSaturationProtectorState(speech_level_dbfs, speech_peak_dbfs, state);
+    const float new_margin = state.margin_db;
     max_difference =
         std::max(max_difference, std::abs(new_margin - last_margin));
     last_margin = new_margin;
-    saturation_protector->DebugDumpEstimate();
   }
   return max_difference;
 }
+
 }  // namespace
 
-TEST(AutomaticGainController2SaturationProtector, ProtectorShouldNotCrash) {
-  ApmDataDumper apm_data_dumper(0);
-  SaturationProtector saturation_protector(&apm_data_dumper);
-  VadWithLevel::LevelAndProbability vad_data(1.f, -20.f, -10.f);
+// Checks that a state after reset equals a state after construction.
+TEST(AutomaticGainController2SaturationProtector, ResetState) {
+  SaturationProtectorState init_state;
+  ResetSaturationProtectorState(kInitialMarginDb, init_state);
 
-  saturation_protector.UpdateMargin(vad_data, -20.f);
-  static_cast<void>(saturation_protector.LastMargin());
-  saturation_protector.DebugDumpEstimate();
+  SaturationProtectorState state;
+  ResetSaturationProtectorState(kInitialMarginDb, state);
+  RunOnConstantLevel(/*num_iterations=*/10, /*speech_level_dbfs=*/-20.f,
+                     /*speech_peak_dbfs=*/-10.f, state);
+  ASSERT_NE(init_state, state);  // Make sure that there are side-effects.
+  ResetSaturationProtectorState(kInitialMarginDb, state);
+
+  EXPECT_EQ(init_state, state);
 }
 
-// Check that the estimate converges to the ratio between peaks and
-// level estimator values after a while.
+// Checks that the estimate converges to the ratio between peaks and level
+// estimator values after a while.
 TEST(AutomaticGainController2SaturationProtector,
      ProtectorEstimatesCrestRatio) {
-  ApmDataDumper apm_data_dumper(0);
-  SaturationProtector saturation_protector(&apm_data_dumper);
-
+  constexpr int kNumIterations = 2000;
   constexpr float kPeakLevel = -20.f;
-  const float kCrestFactor = GetInitialSaturationMarginDb() + 1.f;
-  const float kSpeechLevel = kPeakLevel - kCrestFactor;
-  const float kMaxDifference =
-      0.5 * std::abs(GetInitialSaturationMarginDb() - kCrestFactor);
+  constexpr float kCrestFactor = kInitialMarginDb + 1.f;
+  constexpr float kSpeechLevel = kPeakLevel - kCrestFactor;
+  const float kMaxDifference = 0.5 * std::abs(kInitialMarginDb - kCrestFactor);
 
-  static_cast<void>(RunOnConstantLevel(
-      2000, VadWithLevel::LevelAndProbability(1.f, -90.f, kPeakLevel),
-      kSpeechLevel, &saturation_protector));
+  auto state = CreateSaturationProtectorState();
+  RunOnConstantLevel(kNumIterations, kSpeechLevel, kPeakLevel, state);
 
-  EXPECT_NEAR(
-      saturation_protector.LastMargin() - GetExtraSaturationMarginOffsetDb(),
-      kCrestFactor, kMaxDifference);
+  EXPECT_NEAR(state.margin_db, kCrestFactor, kMaxDifference);
 }
 
-TEST(AutomaticGainController2SaturationProtector, ProtectorChangesSlowly) {
-  ApmDataDumper apm_data_dumper(0);
-  SaturationProtector saturation_protector(&apm_data_dumper);
-
-  constexpr float kPeakLevel = -20.f;
-  const float kCrestFactor = GetInitialSaturationMarginDb() - 5.f;
-  const float kOtherCrestFactor = GetInitialSaturationMarginDb();
-  const float kSpeechLevel = kPeakLevel - kCrestFactor;
-  const float kOtherSpeechLevel = kPeakLevel - kOtherCrestFactor;
-
+// Checks that the margin does not change too quickly.
+TEST(AutomaticGainController2SaturationProtector, ChangeSlowly) {
   constexpr int kNumIterations = 1000;
-  float max_difference = RunOnConstantLevel(
-      kNumIterations, VadWithLevel::LevelAndProbability(1.f, -90.f, kPeakLevel),
-      kSpeechLevel, &saturation_protector);
+  constexpr float kPeakLevel = -20.f;
+  constexpr float kCrestFactor = kInitialMarginDb - 5.f;
+  constexpr float kOtherCrestFactor = kInitialMarginDb;
+  constexpr float kSpeechLevel = kPeakLevel - kCrestFactor;
+  constexpr float kOtherSpeechLevel = kPeakLevel - kOtherCrestFactor;
 
-  max_difference =
-      std::max(RunOnConstantLevel(
-                   kNumIterations,
-                   VadWithLevel::LevelAndProbability(1.f, -90.f, kPeakLevel),
-                   kOtherSpeechLevel, &saturation_protector),
-               max_difference);
+  auto state = CreateSaturationProtectorState();
+  float max_difference =
+      RunOnConstantLevel(kNumIterations, kSpeechLevel, kPeakLevel, state);
+  max_difference = std::max(
+      RunOnConstantLevel(kNumIterations, kOtherSpeechLevel, kPeakLevel, state),
+      max_difference);
 
-  constexpr float kMaxChangeSpeedDbPerSecond = 0.5;  // 1 db / 2 seconds.
-
+  constexpr float kMaxChangeSpeedDbPerSecond = 0.5f;  // 1 db / 2 seconds.
   EXPECT_LE(max_difference,
             kMaxChangeSpeedDbPerSecond / 1000 * kFrameDurationMs);
 }
 
-TEST(AutomaticGainController2SaturationProtector,
-     ProtectorAdaptsToDelayedChanges) {
-  ApmDataDumper apm_data_dumper(0);
-  SaturationProtector saturation_protector(&apm_data_dumper);
-
+// Checks that there is a delay between input change and margin adaptations.
+TEST(AutomaticGainController2SaturationProtector, AdaptToDelayedChanges) {
   constexpr int kDelayIterations = kFullBufferSizeMs / kFrameDurationMs;
-  constexpr float kInitialSpeechLevelDbfs = -30;
-  constexpr float kLaterSpeechLevelDbfs = -15;
+  constexpr float kInitialSpeechLevelDbfs = -30.f;
+  constexpr float kLaterSpeechLevelDbfs = -15.f;
 
+  auto state = CreateSaturationProtectorState();
   // First run on initial level.
-  float max_difference = RunOnConstantLevel(
-      kDelayIterations,
-      VadWithLevel::LevelAndProbability(
-          1.f, -90.f, kInitialSpeechLevelDbfs + GetInitialSaturationMarginDb()),
-      kInitialSpeechLevelDbfs, &saturation_protector);
-
+  float max_difference =
+      RunOnConstantLevel(kDelayIterations, kInitialSpeechLevelDbfs,
+                         kInitialSpeechLevelDbfs + kInitialMarginDb, state);
   // Then peak changes, but not RMS.
-  max_difference =
-      std::max(RunOnConstantLevel(
-                   kDelayIterations,
-                   VadWithLevel::LevelAndProbability(
-                       1.f, -90.f,
-                       kLaterSpeechLevelDbfs + GetInitialSaturationMarginDb()),
-                   kInitialSpeechLevelDbfs, &saturation_protector),
-               max_difference);
-
+  max_difference = std::max(
+      RunOnConstantLevel(kDelayIterations, kInitialSpeechLevelDbfs,
+                         kLaterSpeechLevelDbfs + kInitialMarginDb, state),
+      max_difference);
   // Then both change.
-  max_difference =
-      std::max(RunOnConstantLevel(
-                   kDelayIterations,
-                   VadWithLevel::LevelAndProbability(
-                       1.f, -90.f,
-                       kLaterSpeechLevelDbfs + GetInitialSaturationMarginDb()),
-                   kLaterSpeechLevelDbfs, &saturation_protector),
-               max_difference);
+  max_difference = std::max(
+      RunOnConstantLevel(kDelayIterations, kLaterSpeechLevelDbfs,
+                         kLaterSpeechLevelDbfs + kInitialMarginDb, state),
+      max_difference);
 
   // The saturation protector expects that the RMS changes roughly
-  // 'kFullBufferSizeMs' after peaks change. This is to account for
-  // delay introduces by the level estimator. Therefore, the input
-  // above is 'normal' and 'expected', and shouldn't influence the
-  // margin by much.
-
-  const float total_difference = std::abs(saturation_protector.LastMargin() -
-                                          GetExtraSaturationMarginOffsetDb() -
-                                          GetInitialSaturationMarginDb());
-
+  // 'kFullBufferSizeMs' after peaks change. This is to account for delay
+  // introduced by the level estimator. Therefore, the input above is 'normal'
+  // and 'expected', and shouldn't influence the margin by much.
+  const float total_difference = std::abs(state.margin_db - kInitialMarginDb);
   EXPECT_LE(total_difference, 0.05f);
   EXPECT_LE(max_difference, 0.01f);
 }

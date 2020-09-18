@@ -87,7 +87,6 @@ float ComputeGainChangeThisFrameDb(float target_gain_db,
 
 SignalWithLevels::SignalWithLevels(AudioFrameView<float> float_frame)
     : float_frame(float_frame) {}
-SignalWithLevels::SignalWithLevels(const SignalWithLevels&) = default;
 
 AdaptiveDigitalGainApplier::AdaptiveDigitalGainApplier(
     ApmDataDumper* apm_data_dumper)
@@ -120,11 +119,18 @@ void AdaptiveDigitalGainApplier::Process(SignalWithLevels signal_with_levels) {
       signal_with_levels.estimate_is_confident);
 
   // Forbid increasing the gain when there is no speech.
-  gain_increase_allowed_ = signal_with_levels.vad_result.speech_probability >
-                           kVadConfidenceThreshold;
+  // TODO(alessiob): This might be too aggressive, so we might want to
+  // compensate with a quicker adaptation.
+  if (signal_with_levels.vad_result.speech_probability <
+      kVadConfidenceThreshold) {
+    time_to_gain_increase_allowed_ = kVadMinSpeechFrames;
+  } else if (time_to_gain_increase_allowed_ > 0) {
+    time_to_gain_increase_allowed_--;
+  }
 
   const float gain_change_this_frame_db = ComputeGainChangeThisFrameDb(
-      target_gain_db, last_gain_db_, gain_increase_allowed_);
+      target_gain_db, last_gain_db_,
+      /*gain_increase_allowed=*/time_to_gain_increase_allowed_ == 0);
 
   apm_data_dumper_->DumpRaw("agc2_want_to_change_by_db",
                             target_gain_db - last_gain_db_);

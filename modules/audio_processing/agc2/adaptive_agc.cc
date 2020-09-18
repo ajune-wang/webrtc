@@ -42,7 +42,7 @@ AdaptiveAgc::~AdaptiveAgc() = default;
 
 void AdaptiveAgc::Process(AudioFrameView<float> float_frame,
                           float last_audio_level) {
-  auto signal_with_levels = SignalWithLevels(float_frame);
+  SignalWithLevels signal_with_levels(float_frame);
   signal_with_levels.vad_result = vad_.AnalyzeFrame(float_frame);
   apm_data_dumper_->DumpRaw("agc2_vad_probability",
                             signal_with_levels.vad_result.speech_probability);
@@ -51,10 +51,9 @@ void AdaptiveAgc::Process(AudioFrameView<float> float_frame,
   apm_data_dumper_->DumpRaw("agc2_vad_peak_dbfs",
                             signal_with_levels.vad_result.speech_peak_dbfs);
 
-  speech_level_estimator_.UpdateEstimation(signal_with_levels.vad_result);
+  speech_level_estimator_.Update(signal_with_levels.vad_result);
 
-  signal_with_levels.input_level_dbfs =
-      speech_level_estimator_.LatestLevelEstimate();
+  signal_with_levels.input_level_dbfs = speech_level_estimator_.GetLevelDbfs();
 
   signal_with_levels.input_noise_level_dbfs =
       noise_level_estimator_.Analyze(float_frame);
@@ -63,12 +62,12 @@ void AdaptiveAgc::Process(AudioFrameView<float> float_frame,
                             signal_with_levels.input_noise_level_dbfs);
 
   signal_with_levels.limiter_audio_level_dbfs =
-      last_audio_level > 0 ? FloatS16ToDbfs(last_audio_level) : -90.f;
+      last_audio_level > 0 ? FloatS16ToDbfs(last_audio_level) : kMinLevelDbfs;
   apm_data_dumper_->DumpRaw("agc2_last_limiter_audio_level",
                             signal_with_levels.limiter_audio_level_dbfs);
 
   signal_with_levels.estimate_is_confident =
-      speech_level_estimator_.LevelEstimationIsConfident();
+      speech_level_estimator_.IsConfident();
 
   // The gain applier applies the gain.
   gain_applier_.Process(signal_with_levels);

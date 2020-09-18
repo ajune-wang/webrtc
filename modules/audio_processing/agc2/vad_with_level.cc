@@ -16,11 +16,12 @@
 
 #include "api/array_view.h"
 #include "common_audio/include/audio_util.h"
+#include "modules/audio_processing/agc2/agc2_common.h"
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 
 namespace webrtc {
-
 namespace {
+
 float ProcessForPeak(AudioFrameView<const float> frame) {
   float current_max = 0;
   for (const auto& x : frame.channel(0)) {
@@ -36,9 +37,21 @@ float ProcessForRms(AudioFrameView<const float> frame) {
   }
   return std::sqrt(rms / frame.samples_per_channel());
 }
+
+float SmoothedVadProbability(float p_old, float p_new) {
+  if (p_new < p_old) {
+    // Instant decay.
+    return p_new;
+  } else {
+    // Attack phase.
+    return kSmoothVadProbabilityAttack * p_new +
+           (1.f - kSmoothVadProbabilityAttack) * p_old;
+  }
+}
+
 }  // namespace
 
-VadWithLevel::VadWithLevel() = default;
+VadWithLevel::VadWithLevel() : vad_probability_(0.f) {}
 VadWithLevel::~VadWithLevel() = default;
 
 VadWithLevel::LevelAndProbability VadWithLevel::AnalyzeFrame(
@@ -55,7 +68,9 @@ VadWithLevel::LevelAndProbability VadWithLevel::AnalyzeFrame(
       work_frame, feature_vector);
   const float vad_probability =
       rnn_vad_.ComputeVadProbability(feature_vector, is_silence);
-  return LevelAndProbability(vad_probability,
+  vad_probability_ = SmoothedVadProbability(
+      /*p_old=*/vad_probability_, /*p_new=*/vad_probability);
+  return LevelAndProbability(vad_probability_,
                              FloatS16ToDbfs(ProcessForRms(frame)),
                              FloatS16ToDbfs(ProcessForPeak(frame)));
 }

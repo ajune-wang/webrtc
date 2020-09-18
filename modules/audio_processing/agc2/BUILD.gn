@@ -69,6 +69,7 @@ rtc_library("adaptive_digital") {
     "../../../rtc_base:safe_minmax",
     "../../../system_wrappers:metrics",
   ]
+  absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
 }
 
 rtc_library("biquad_filter") {
@@ -165,6 +166,7 @@ rtc_library("rnn_vad_with_level") {
     "vad_with_level.h",
   ]
   deps = [
+    ":common",
     "..:audio_frame_view",
     "../../../api:array_view",
     "../../../common_audio",

@@ -21,8 +21,7 @@ namespace webrtc {
 class ApmDataDumper;
 
 struct SignalWithLevels {
-  SignalWithLevels(AudioFrameView<float> float_frame);
-  SignalWithLevels(const SignalWithLevels&);
+  explicit SignalWithLevels(AudioFrameView<float> float_frame);
 
   float input_level_dbfs = -1.f;
   float input_noise_level_dbfs = -1.f;
@@ -47,9 +46,10 @@ class AdaptiveDigitalGainApplier {
   // the level is not allowed. Since we may get VAD results in bursts,
   // we keep track of this variable until the next VAD results come
   // in.
-  bool gain_increase_allowed_ = true;
+  int time_to_gain_increase_allowed_ = kVadMinSpeechFrames;
   ApmDataDumper* apm_data_dumper_ = nullptr;
 };
+
 }  // namespace webrtc
 
 #endif  // MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_DIGITAL_GAIN_APPLIER_H_

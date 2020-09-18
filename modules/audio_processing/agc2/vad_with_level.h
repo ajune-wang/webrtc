@@ -17,6 +17,7 @@
 #include "modules/audio_processing/include/audio_frame_view.h"
 
 namespace webrtc {
+
 class VadWithLevel {
  public:
   struct LevelAndProbability {
@@ -41,6 +42,7 @@ class VadWithLevel {
   rnn_vad::RnnBasedVad rnn_vad_;
   rnn_vad::FeaturesExtractor features_extractor_;
   PushResampler<float> resampler_;
+  float vad_probability_;
 };
 
 }  // namespace webrtc

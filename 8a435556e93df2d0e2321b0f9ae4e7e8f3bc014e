@@ -68,6 +68,24 @@
       "revId": "8a435556e93df2d0e2321b0f9ae4e7e8f3bc014e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb16abbb_c3030b68",
+        "filename": "video/rtp_video_stream_receiver2_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 14040
+      },
+      "writtenOn": "2020-09-19T04:57:27Z",
+      "side": 1,
+      "message": "Thanks. Trying to run msan locally. Any tips on getting symbols from a release +msan build? Already tried symbol_level\u003d2 in args.gn, but stack traces in gdb are still opaque (see below)\nNote: Google Test filter \u003d SpsPpsIdrIsKeyframe/RtpVideoStreamReceiver2TestH264.ForceSpsPpsIdrIsKeyframe*                                                                                                                                                                                                                                                                                                                         [34/9567]\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] Running 2 tests from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 2 tests from SpsPpsIdrIsKeyframe/RtpVideoStreamReceiver2TestH264\n[ RUN      ] SpsPpsIdrIsKeyframe/RtpVideoStreamReceiver2TestH264.ForceSpsPpsIdrIsKeyframe/0\n(field_trial.cc:140): Setting field trial string:\n(rtp_video_stream_receiver2.cc:1141): Found out of band supplied codec parameters for payload type: 99\nUninitialized bytes in MemcmpInterceptorCommon at offset 4 inside [0x720000000000, 31)\n\u003d\u003d4575\u003d\u003dWARNING: MemorySanitizer: use-of-uninitialized-value\n    #0 0x555555a14cce  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x4c0cce)\n    #1 0x5555567e398e  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x128f98e)\n    #2 0x555558eb53c0  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x39613c0)\n    #3 0x555558e6e1bb  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x391a1bb)\n    #4 0x555558eb4d7a  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x3960d7a)\n    #5 0x555558eb0ea7  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x395cea7)\n    #6 0x555558eadc4a  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x3959c4a)\n    #7 0x5555567a57d3  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x12517d3)\n    #8 0x555556f966f1  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x1a426f1)\n    #9 0x555556f99c37  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x1a45c37)\n    #10 0x555556f9c6c6  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x1a486c6)\n    #11 0x555556fd90ac  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x1a850ac)\n    #12 0x555556fd7582  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x1a83582)\n    #13 0x5555573d9852  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x1e85852)\n    #14 0x5555563bd6e6  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0xe696e6)\n    #15 0x7ffff6bb9b96  (/lib/x86_64-linux-gnu/libc.so.6+0x21b96)\n    #16 0x5555559ed7a9  (/home/dev/Documents/src/google/build/linux64/Release/video_engine_tests+0x4997a9)",
+      "parentUuid": "ab4b9527_0eda482c",
+      "revId": "8a435556e93df2d0e2321b0f9ae4e7e8f3bc014e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

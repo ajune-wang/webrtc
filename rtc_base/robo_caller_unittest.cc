@@ -50,6 +50,24 @@ TEST(RoboCaller, ReferenceTest) {
   EXPECT_EQ(index, 2);
 }
 
+enum IceConnectionState {
+  kIceConnectionNew,
+  kIceConnectionChecking,
+  kIceConnectionConnected,
+  kIceConnectionCompleted,
+  kIceConnectionFailed,
+  kIceConnectionDisconnected,
+  kIceConnectionClosed,
+  kIceConnectionMax,
+};
+
+TEST(RoboCaller, SingleEnumTest) {
+  RoboCaller<IceConnectionState&> c;
+  IceConnectionState s = kIceConnectionChecking;
+
+  c.Send(s);
+}
+
 TEST(RoboCaller, ConstReferenceTest) {
   RoboCaller<int&> c;
   int i = 0;
@@ -154,6 +172,22 @@ TEST(RoboCaller, MultipleReceiverSendTest) {
   c.Send(index);
 
   EXPECT_EQ(index, 5);
+}
+
+class A {
+ public:
+  void increment(int& i) { i++; }
+};
+
+TEST(RoboCaller, MemberFunctionTest) {
+  RoboCaller<int&> c;
+  A a;
+  int index = 1;
+
+  c.AddReceiver([a](int& i) mutable { a.increment(i); });
+  c.Send(index);
+
+  EXPECT_EQ(index, 2);
 }
 // todo(glahiru): Add a test case to catch some error for Karl's first fix
 // todo(glahiru): Add a test for rtc::Bind

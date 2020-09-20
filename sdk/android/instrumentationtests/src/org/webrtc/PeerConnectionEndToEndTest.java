@@ -1488,6 +1488,40 @@ public class PeerConnectionEndToEndTest {
     factory.dispose();
   }
 
+  @Test
+  @SmallTest
+  public void testRollback() throws Exception {
+    PeerConnectionFactory factory = PeerConnectionFactory.builder().createPeerConnectionFactory();
+    PeerConnection.RTCConfiguration config = new PeerConnection.RTCConfiguration(Arrays.asList());
+    config.sdpSemantics = PeerConnection.SdpSemantics.UNIFIED_PLAN;
+
+    ObserverExpectations offeringExpectations = new ObserverExpectations("PCTest:offerer");
+    PeerConnection pc = factory.createPeerConnection(config, offeringExpectations);
+
+    MediaConstraints offerConstraints = new MediaConstraints();
+    offerConstraints.mandatory.add(
+        new MediaConstraints.KeyValuePair("OfferToReceiveAudio", "true"));
+    SdpObserverLatch sdpLatch = new SdpObserverLatch();
+    pc.createOffer(sdpLatch, offerConstraints);
+    assertTrue(sdpLatch.await());
+    SessionDescription offer = sdpLatch.getSdp();
+
+    sdpLatch = new SdpObserverLatch();
+    offeringExpectations.expectSignalingChange(SignalingState.HAVE_LOCAL_OFFER);
+    offeringExpectations.expectIceGatheringChange(IceGatheringState.COMPLETE);
+    offeringExpectations.expectIceCandidates(2);
+    pc.setLocalDescription(sdpLatch, offer);
+    assertTrue(sdpLatch.await());
+
+    SessionDescription rollback = new SessionDescription(SessionDescription.Type.ROLLBACK, "");
+    sdpLatch = new SdpObserverLatch();
+    offeringExpectations.expectSignalingChange(SignalingState.STABLE);
+    pc.setLocalDescription(sdpLatch, offer);
+    assertTrue(sdpLatch.await());
+
+    assertTrue(expectations.waitForAllExpectationsToBeSatisfied(DEFAULT_TIMEOUT_SECONDS));
+  }
+
   private static void negotiate(PeerConnection offeringPC,
       ObserverExpectations offeringExpectations, PeerConnection answeringPC,
       ObserverExpectations answeringExpectations) {

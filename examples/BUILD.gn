@@ -673,6 +673,7 @@ if (is_linux || is_chromeos || is_win) {
       "../api/video_codecs:video_codecs_api",
       "../media:rtc_media_base",
       "../p2p:rtc_p2p",
+      "../pc:video_track_source",
       "../rtc_base:checks",
       "../rtc_base/third_party/sigslot",
       "../system_wrappers:field_trial",

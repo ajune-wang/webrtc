@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ca7cf3e_d6332818",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-09-21T18:46:19Z",
+      "side": 1,
+      "message": "LGTM (with small note)",
+      "revId": "a89cbf0095eec9b7088d391faae0d0affbbc64f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2e7b862_5d4909dd",
+        "filename": "common_video/h264/sps_vui_rewriter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-09-21T18:46:19Z",
+      "side": 1,
+      "message": "this comment is missing https://en.wikipedia.org/wiki/Full_stop",
+      "range": {
+        "startLine": 259,
+        "startChar": 9,
+        "endLine": 259,
+        "endChar": 44
+      },
+      "revId": "a89cbf0095eec9b7088d391faae0d0affbbc64f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

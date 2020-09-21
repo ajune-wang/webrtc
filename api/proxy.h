@@ -412,6 +412,19 @@ class ConstMethodCall : public QueuedTask {
     return c_->method();                                                    \
   }
 
+// For methods that are thread safe, and should be invoked directly, with no
+// thread jump and no blocking wait.
+#define BYPASS_PROXY_METHOD0(r, method) \
+  r method() override { return c_->method(); }
+
+#define BYPASS_PROXY_METHOD1(r, method, t1) \
+  r method(t1 a1) override { return c_->method(std::move(a1)); }
+
+#define BYPASS_PROXY_METHOD2(r, method, t1, t2)      \
+  r method(t1 a1, t2 a2) override {                  \
+    return c_->method(std::move(a1), std::move(a2)); \
+  }
+
 }  // namespace webrtc
 
 #endif  //  API_PROXY_H_

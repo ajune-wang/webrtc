@@ -49,11 +49,11 @@ PROXY_CONSTMETHOD0(bool, enabled)
 PROXY_METHOD1(bool, set_enabled, bool)
 PROXY_CONSTMETHOD0(ContentHint, content_hint)
 PROXY_METHOD1(void, set_content_hint, ContentHint)
-PROXY_WORKER_METHOD2(void,
+BYPASS_PROXY_METHOD2(void,
                      AddOrUpdateSink,
                      rtc::VideoSinkInterface<VideoFrame>*,
                      const rtc::VideoSinkWants&)
-PROXY_WORKER_METHOD1(void, RemoveSink, rtc::VideoSinkInterface<VideoFrame>*)
+BYPASS_PROXY_METHOD1(void, RemoveSink, rtc::VideoSinkInterface<VideoFrame>*)
 PROXY_CONSTMETHOD0(VideoTrackSourceInterface*, GetSource)
 
 PROXY_METHOD1(void, RegisterObserver, ObserverInterface*)

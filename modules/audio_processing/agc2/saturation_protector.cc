@@ -26,17 +26,10 @@ constexpr int kRingBuffCapacity = kPeakEnveloperBufferSize;
 
 }  // namespace
 
-SaturationProtector::SaturationProtector(ApmDataDumper* apm_data_dumper)
-    : SaturationProtector(apm_data_dumper,
-                          GetInitialSaturationMarginDb(),
-                          GetExtraSaturationMarginOffsetDb()) {}
-
 SaturationProtector::SaturationProtector(ApmDataDumper* apm_data_dumper,
-                                         float initial_saturation_margin_db,
-                                         float extra_saturation_margin_db)
+                                         float initial_saturation_margin_db)
     : apm_data_dumper_(apm_data_dumper),
-      initial_saturation_margin_db_(initial_saturation_margin_db),
-      extra_saturation_margin_db_(extra_saturation_margin_db) {
+      initial_saturation_margin_db_(initial_saturation_margin_db) {
   Reset();
 }
 
@@ -94,10 +87,6 @@ float SaturationProtector::GetDelayedPeakDbfs() const {
                    .buffer[peak_delay_buffer_.size == kRingBuffCapacity
                                ? peak_delay_buffer_.next
                                : 0];
-}
-
-float SaturationProtector::GetMarginDb() const {
-  return margin_db_ + extra_saturation_margin_db_;
 }
 
 void SaturationProtector::DebugDumpEstimate() const {

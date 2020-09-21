@@ -23,8 +23,7 @@ class SaturationProtector {
  public:
   explicit SaturationProtector(ApmDataDumper* apm_data_dumper);
   SaturationProtector(ApmDataDumper* apm_data_dumper,
-                      float initial_saturation_margin_db,
-                      float extra_saturation_margin_db);
+                      float initial_saturation_margin_db);
 
   // Updates the margin by analyzing the estimated speech level
   // `speech_level_dbfs` and the peak power `speech_peak_dbfs` for an observed
@@ -32,7 +31,7 @@ class SaturationProtector {
   void UpdateMargin(float speech_peak_dbfs, float speech_level_dbfs);
 
   // Returns latest computed margin.
-  float GetMarginDb() const;
+  float margin_db() const { return margin_db_; }
 
   void Reset();
 
@@ -44,7 +43,6 @@ class SaturationProtector {
   ApmDataDumper* apm_data_dumper_;
   // Parameters.
   const float initial_saturation_margin_db_;
-  const float extra_saturation_margin_db_;
   // State.
   float margin_db_;
   struct {  // Ring buffer which only supports push back and read.

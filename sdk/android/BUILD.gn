@@ -740,6 +740,7 @@ if (current_os == "linux" || is_android) {
       "../../modules/audio_device",
       "../../modules/audio_processing:api",
       "../../modules/utility",
+      "../../pc:peer_connection_internal",
       "../../pc:peerconnection",
       "../../rtc_base",
       "../../rtc_base:checks",

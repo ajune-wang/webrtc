@@ -53,6 +53,29 @@
     },
     {
       "key": {
+        "uuid": "6804b916_456975d7",
+        "filename": "api/video/nv12_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-09-21T14:55:10Z",
+      "side": 1,
+      "message": "This function seems inefficient, as it has to merge the planes back to NV12 after scaling. Have you tested the power impact when the input needs to be scaled?",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 11
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8bc0a51a_bc8b9ea3",
         "filename": "api/video/video_frame_buffer.h",
         "patchSetId": 4

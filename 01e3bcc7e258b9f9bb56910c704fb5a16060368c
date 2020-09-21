@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "d52a8c3c_fb57fc28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-09-21T09:01:28Z",
+      "side": 1,
+      "message": "Thanks for the contribution Zhaoliang! \n\nAdded some comments above. Please try to add some tests for NV12 buffers going through the encoders, as well as proving the switch from I420 frames to NV12 (and back again) works. ",
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bc0a51a_bc8b9ea3",
         "filename": "api/video/video_frame_buffer.h",
         "patchSetId": 4
@@ -76,6 +93,30 @@
     },
     {
       "key": {
+        "uuid": "6cab45b5_733aedf6",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-09-21T09:01:28Z",
+      "side": 1,
+      "message": "Yes ToI420 can not return nullptr as I420 is used in other codecs and for scaling in other places.",
+      "parentUuid": "c7ca4cc3_5adfe0f8",
+      "range": {
+        "startLine": 216,
+        "startChar": 42,
+        "endLine": 216,
+        "endChar": 48
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc6bcce9_00fb90c4",
         "filename": "api/video/video_frame_buffer.h",
         "patchSetId": 4
@@ -92,6 +133,52 @@
         "startChar": 42,
         "endLine": 217,
         "endChar": 48
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c2dc632_8ed0e551",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-09-21T09:01:28Z",
+      "side": 1,
+      "message": "Needs to go back to I420 when a frame with non-NV12 comes in. It would be also good to log something here so we know when the frame type has switched. If the log is spammy then there is a real problem because the frame type shouldn\u0027t change very often.",
+      "range": {
+        "startLine": 960,
+        "startChar": 6,
+        "endLine": 961,
+        "endChar": 24
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeab5d2f_b88da9f3",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-09-21T09:01:28Z",
+      "side": 1,
+      "message": "This flag should be the same as \n\n  raw_images_[0].fmt \u003d\u003d VPX_IMG_FMT_I420",
+      "range": {
+        "startLine": 969,
+        "startChar": 4,
+        "endLine": 969,
+        "endChar": 22
       },
       "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

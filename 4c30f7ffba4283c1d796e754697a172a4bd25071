@@ -16,6 +16,24 @@
       "revId": "4c30f7ffba4283c1d796e754697a172a4bd25071",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18858233_311be9d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-21T18:57:00Z",
+      "side": 1,
+      "message": "Native fires twice even...",
+      "parentUuid": "181fca8a_e0d2d549",
+      "revId": "4c30f7ffba4283c1d796e754697a172a4bd25071",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

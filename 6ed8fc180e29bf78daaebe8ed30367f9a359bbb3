@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8691287_e8eeb743",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-21T14:10:10Z",
+      "side": 1,
+      "message": "PTAL. To quote conclusions on the previous attempt:\n\nOk, now I\u0027ve found what makes this change difficult. The implementation of AddOrUpdateSink in the VideoTrack class wants to act as a proxy for the video source, to be able to modify the sink wants on the way. It sets the wants.black_frames flag based on the track\u0027s enabled flag, and that flag is accessed on the worker thread.\n\nI think it still would make sense to require that AddOrUpdateSink and RemoveSink (part of the VideoSourceInterface) are thread safe, since typical implementations use VideoBroadcaster, which shares state between data plane and signalling plane, in a way that is tricky to do without locks. But that no longer matters for these call sites.",
+      "revId": "6ed8fc180e29bf78daaebe8ed30367f9a359bbb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

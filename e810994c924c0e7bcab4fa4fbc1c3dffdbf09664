@@ -34,6 +34,24 @@
       "revId": "e810994c924c0e7bcab4fa4fbc1c3dffdbf09664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c8ddca1_868c59ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-09-21T15:03:37Z",
+      "side": 1,
+      "message": "sgtm, I\u0027ll lgtm in the meantime.\n\nWhat got me asking is that `margin_db_` is now reset in SaturationProtector::Reset(), but I am not sure it was reset before.",
+      "parentUuid": "f6935d8c_59bdebdb",
+      "revId": "e810994c924c0e7bcab4fa4fbc1c3dffdbf09664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

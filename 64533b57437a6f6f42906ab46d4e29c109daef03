@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "853d9363_48a99d0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-21T11:03:15Z",
+      "side": 1,
+      "message": "This seems to pass \"gn check\". Does it pass a sniff test?\n\n",
+      "revId": "64533b57437a6f6f42906ab46d4e29c109daef03",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

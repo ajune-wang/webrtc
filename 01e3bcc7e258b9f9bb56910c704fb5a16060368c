@@ -16,6 +16,86 @@
       "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9be7bf6_fff81fc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-21T08:38:51Z",
+      "side": 1,
+      "message": "Thank you for working on this. Please be in touch with eshr@ as he is currently implementing exactly the same thing.\n\n+eshr@, please review: How does this CL intersect with your work?\n",
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bc0a51a_bc8b9ea3",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-21T08:38:51Z",
+      "side": 1,
+      "message": "I don\u0027t like the idea of adding another set ToXXX methods.\n\nWhat you are doing (checking if the kNative frame is NV12 under the hood) can be done with GetNV12 method. (See the comment on GetI420 and do the similar thing).\n\nCould you please remove this method and udpate GetNV12 instead?",
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ca4cc3_5adfe0f8",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-21T08:38:51Z",
+      "side": 1,
+      "message": "You shouldn\u0027t override this here.\nToI420() must always return converted buffer as this is the fallback to default buffer format. So it has to be undefined to force the actual implementation of the NV12BufferInterface to implement specific conversion.\n\nWell, if you want, you can override it here, but the default implementation must call libyuv::NV12toI420, as DataY, DataUV and so on are available here. But the only benefit here would be if we expect to have a lot of NV12BufferInterface implementations, which is probably not the case.",
+      "range": {
+        "startLine": 216,
+        "startChar": 42,
+        "endLine": 216,
+        "endChar": 48
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc6bcce9_00fb90c4",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-21T08:38:51Z",
+      "side": 1,
+      "message": "This one goes away, and GetNV12() method can be overridden by WebRtcVideoFrameAdapter, as GetI420() already is.",
+      "range": {
+        "startLine": 217,
+        "startChar": 42,
+        "endLine": 217,
+        "endChar": 48
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

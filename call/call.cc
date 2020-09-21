@@ -630,6 +630,7 @@ Call::Call(Clock* clock,
 }
 
 Call::~Call() {
+  // test
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   RTC_CHECK(audio_send_ssrcs_.empty());

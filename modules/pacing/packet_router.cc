@@ -116,11 +116,10 @@ void PacketRouter::RemoveSendRtpModule(RtpRtcpInterface* rtp_module) {
 void PacketRouter::AddReceiveRtpModule(RtcpFeedbackSenderInterface* rtcp_sender,
                                        bool remb_candidate) {
   MutexLock lock(&modules_mutex_);
-  RTC_DCHECK(std::find(rtcp_feedback_senders_.begin(),
-                       rtcp_feedback_senders_.end(),
-                       rtcp_sender) == rtcp_feedback_senders_.end());
+  RTC_DCHECK(rtcp_feedback_senders_.find(rtcp_sender->SSRC()) ==
+             rtcp_feedback_senders_.end());
 
-  rtcp_feedback_senders_.push_back(rtcp_sender);
+  rtcp_feedback_senders_[rtcp_sender->SSRC()] = rtcp_sender;
 
   if (remb_candidate) {
     AddRembModuleCandidate(rtcp_sender, /* media_sender = */ false);
@@ -131,8 +130,7 @@ void PacketRouter::RemoveReceiveRtpModule(
     RtcpFeedbackSenderInterface* rtcp_sender) {
   MutexLock lock(&modules_mutex_);
   MaybeRemoveRembModuleCandidate(rtcp_sender, /* media_sender = */ false);
-  auto it = std::find(rtcp_feedback_senders_.begin(),
-                      rtcp_feedback_senders_.end(), rtcp_sender);
+  auto it = rtcp_feedback_senders_.find(rtcp_sender->SSRC());
   RTC_DCHECK(it != rtcp_feedback_senders_.end());
   rtcp_feedback_senders_.erase(it);
 }
@@ -174,6 +172,55 @@ void PacketRouter::SendPacket(std::unique_ptr<RtpPacketToSend> packet,
 
   for (auto& packet : rtp_module->FetchFecPackets()) {
     pending_fec_packets_.push_back(std::move(packet));
+  }
+}
+
+void PacketRouter::SendRtcpPackets(
+    std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) {
+  std::vector<std::unique_ptr<rtcp::RtcpPacket>> unassigned_packets;
+  std::unordered_map<uint32_t, std::vector<std::unique_ptr<rtcp::RtcpPacket>>>
+      packets_by_sender_ssrc;
+
+  for (auto& packet : packets) {
+    if (packet->has_sender_ssrc()) {
+      packets_by_sender_ssrc[packet->sender_ssrc()].push_back(
+          std::move(packet));
+    }
+  }
+
+  MutexLock lock(&modules_mutex_);
+  for (auto& kv : packets_by_sender_ssrc) {
+    uint32_t ssrc = kv.first;
+    auto sender = send_modules_map_.find(ssrc);
+    if (sender != send_modules_map_.end()) {
+      sender->second->SendCombinedRtcpPacket(std::move(kv.second));
+    } else {
+      auto receiver = rtcp_feedback_senders_.find(ssrc);
+      if (receiver != rtcp_feedback_senders_.end()) {
+        receiver->second->SendCombinedRtcpPacket(std::move(kv.second));
+      } else {
+        RTC_LOG(LS_WARNING)
+            << "Failed to send RTCP, no module found for SSRC = " << ssrc;
+        continue;
+      }
+    }
+  }
+
+  if (!unassigned_packets.empty()) {
+    // Prefer send modules.
+    for (RtpRtcpInterface* rtp_module : send_modules_list_) {
+      if (rtp_module->RTCP() == RtcpMode::kOff) {
+        continue;
+      }
+      rtp_module->SendCombinedRtcpPacket(std::move(packets));
+      return;
+    }
+
+    // Pick any available receive module and hope for the best.
+    if (!rtcp_feedback_senders_.empty()) {
+      auto rtcp_sender = rtcp_feedback_senders_.begin()->second;
+      rtcp_sender->SendCombinedRtcpPacket(std::move(packets));
+    }
   }
 }
 
@@ -305,25 +352,11 @@ bool PacketRouter::SendRemb(int64_t bitrate_bps,
   return true;
 }
 
+// TODO(sprang): Remove this method.
 bool PacketRouter::SendCombinedRtcpPacket(
     std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) {
-  MutexLock lock(&modules_mutex_);
-
-  // Prefer send modules.
-  for (RtpRtcpInterface* rtp_module : send_modules_list_) {
-    if (rtp_module->RTCP() == RtcpMode::kOff) {
-      continue;
-    }
-    rtp_module->SendCombinedRtcpPacket(std::move(packets));
-    return true;
-  }
-
-  if (rtcp_feedback_senders_.empty()) {
-    return false;
-  }
-  auto* rtcp_sender = rtcp_feedback_senders_[0];
-  rtcp_sender->SendCombinedRtcpPacket(std::move(packets));
-  return true;
+  SendRtcpPackets(std::move(packets));
+  return true;  // Return value ignored anyway.
 }
 
 void PacketRouter::AddRembModuleCandidate(

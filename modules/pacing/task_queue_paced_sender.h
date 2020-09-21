@@ -62,6 +62,9 @@ class TaskQueuePacedSender : public RtpPacketPacer, public RtpPacketSender {
   void EnqueuePackets(
       std::vector<std::unique_ptr<RtpPacketToSend>> packets) override;
 
+  void EnqueueRtcpPackets(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) override;
+
   // Methods implementing RtpPacketPacer:
 
   void CreateProbeCluster(DataRate bitrate, int cluster_id) override;

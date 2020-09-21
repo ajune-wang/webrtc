@@ -31,14 +31,28 @@ RoundRobinPacketQueue::QueuedPacket::QueuedPacket(
     Timestamp enqueue_time,
     uint64_t enqueue_order,
     std::multiset<Timestamp>::iterator enqueue_time_it,
-    std::unique_ptr<RtpPacketToSend> packet)
+    absl::variant<std::unique_ptr<RtpPacketToSend>,
+                  std::unique_ptr<rtcp::RtcpPacket>> packet)
     : priority_(priority),
       enqueue_time_(enqueue_time),
       enqueue_order_(enqueue_order),
-      is_retransmission_(packet->packet_type() ==
-                         RtpPacketMediaType::kRetransmission),
+      is_retransmission_(
+          absl::holds_alternative<std::unique_ptr<RtpPacketToSend>>(packet) &&
+          absl::get<std::unique_ptr<RtpPacketToSend>>(packet)->packet_type() ==
+              RtpPacketMediaType::kRetransmission),
       enqueue_time_it_(enqueue_time_it),
-      owned_packet_(packet.release()) {}
+      owned_rtp_packet_(
+          absl::holds_alternative<std::unique_ptr<RtpPacketToSend>>(packet)
+              ? absl::get<std::unique_ptr<RtpPacketToSend>>(packet).release()
+              : nullptr),
+      owned_rtcp_packet_(
+          absl::holds_alternative<std::unique_ptr<rtcp::RtcpPacket>>(packet)
+              ? absl::get<std::unique_ptr<rtcp::RtcpPacket>>(packet).release()
+              : nullptr) {
+  if (owned_rtp_packet_) {
+    RTC_DCHECK(owned_rtp_packet_->packet_type().has_value());
+  }
+}
 
 bool RoundRobinPacketQueue::QueuedPacket::operator<(
     const RoundRobinPacketQueue::QueuedPacket& other) const {
@@ -54,12 +68,19 @@ int RoundRobinPacketQueue::QueuedPacket::Priority() const {
   return priority_;
 }
 
-RtpPacketMediaType RoundRobinPacketQueue::QueuedPacket::Type() const {
-  return *owned_packet_->packet_type();
+bool RoundRobinPacketQueue::QueuedPacket::IsAudio() const {
+  return owned_rtp_packet_ &&
+         *owned_rtp_packet_->packet_type() == RtpPacketMediaType::kAudio;
 }
 
 uint32_t RoundRobinPacketQueue::QueuedPacket::Ssrc() const {
-  return owned_packet_->Ssrc();
+  if (owned_rtp_packet_) {
+    return owned_rtp_packet_->Ssrc();
+  }
+  if (owned_rtcp_packet_->has_sender_ssrc()) {
+    return owned_rtcp_packet_->sender_ssrc();
+  }
+  return 0;
 }
 
 Timestamp RoundRobinPacketQueue::QueuedPacket::EnqueueTime() const {
@@ -67,7 +88,8 @@ Timestamp RoundRobinPacketQueue::QueuedPacket::EnqueueTime() const {
 }
 
 bool RoundRobinPacketQueue::QueuedPacket::IsRetransmission() const {
-  return Type() == RtpPacketMediaType::kRetransmission;
+  return owned_rtp_packet_ && owned_rtp_packet_->packet_type() ==
+                                  RtpPacketMediaType::kRetransmission;
 }
 
 uint64_t RoundRobinPacketQueue::QueuedPacket::EnqueueOrder() const {
@@ -75,7 +97,11 @@ uint64_t RoundRobinPacketQueue::QueuedPacket::EnqueueOrder() const {
 }
 
 RtpPacketToSend* RoundRobinPacketQueue::QueuedPacket::RtpPacket() const {
-  return owned_packet_;
+  return owned_rtp_packet_;
+}
+
+rtcp::RtcpPacket* RoundRobinPacketQueue::QueuedPacket::RtcpPacket() const {
+  return owned_rtcp_packet_;
 }
 
 void RoundRobinPacketQueue::QueuedPacket::UpdateEnqueueTimeIterator(
@@ -114,9 +140,7 @@ bool IsEnabled(const WebRtcKeyValueConfig* field_trials, const char* name) {
   return absl::StartsWith(field_trials->Lookup(name), "Enabled");
 }
 
-RoundRobinPacketQueue::RoundRobinPacketQueue(
-    Timestamp start_time,
-    const WebRtcKeyValueConfig* field_trials)
+RoundRobinPacketQueue::RoundRobinPacketQueue(Timestamp start_time)
     : transport_overhead_per_packet_(DataSize::Zero()),
       time_last_updated_(start_time),
       paused_(false),
@@ -134,11 +158,12 @@ RoundRobinPacketQueue::~RoundRobinPacketQueue() {
   }
 }
 
-void RoundRobinPacketQueue::Push(int priority,
-                                 Timestamp enqueue_time,
-                                 uint64_t enqueue_order,
-                                 std::unique_ptr<RtpPacketToSend> packet) {
-  RTC_DCHECK(packet->packet_type().has_value());
+void RoundRobinPacketQueue::Push(
+    int priority,
+    Timestamp enqueue_time,
+    uint64_t enqueue_order,
+    absl::variant<std::unique_ptr<RtpPacketToSend>,
+                  std::unique_ptr<rtcp::RtcpPacket>> packet) {
   if (size_packets_ == 0) {
     // Single packet fast-path.
     single_packet_queue_.emplace(
@@ -155,16 +180,26 @@ void RoundRobinPacketQueue::Push(int priority,
   }
 }
 
-std::unique_ptr<RtpPacketToSend> RoundRobinPacketQueue::Pop() {
+absl::variant<std::unique_ptr<RtpPacketToSend>,
+              std::unique_ptr<rtcp::RtcpPacket>>
+RoundRobinPacketQueue::Pop() {
   if (single_packet_queue_.has_value()) {
     RTC_DCHECK(stream_priorities_.empty());
-    std::unique_ptr<RtpPacketToSend> rtp_packet(
-        single_packet_queue_->RtpPacket());
+    absl::variant<std::unique_ptr<RtpPacketToSend>,
+                  std::unique_ptr<rtcp::RtcpPacket>>
+        packet;
+    if (single_packet_queue_->RtpPacket()) {
+      packet =
+          std::unique_ptr<RtpPacketToSend>(single_packet_queue_->RtpPacket());
+    } else {
+      packet =
+          std::unique_ptr<rtcp::RtcpPacket>(single_packet_queue_->RtcpPacket());
+    }
     single_packet_queue_.reset();
     queue_time_sum_ = TimeDelta::Zero();
     size_packets_ = 0;
     size_ = DataSize::Zero();
-    return rtp_packet;
+    return packet;
   }
 
   RTC_DCHECK(!Empty());
@@ -200,7 +235,14 @@ std::unique_ptr<RtpPacketToSend> RoundRobinPacketQueue::Pop() {
   size_packets_ -= 1;
   RTC_CHECK(size_packets_ > 0 || queue_time_sum_ == TimeDelta::Zero());
 
-  std::unique_ptr<RtpPacketToSend> rtp_packet(queued_packet.RtpPacket());
+  absl::variant<std::unique_ptr<RtpPacketToSend>,
+                std::unique_ptr<rtcp::RtcpPacket>>
+      packet;
+  if (queued_packet.RtpPacket()) {
+    packet = std::unique_ptr<RtpPacketToSend>(queued_packet.RtpPacket());
+  } else {
+    packet = std::unique_ptr<rtcp::RtcpPacket>(queued_packet.RtcpPacket());
+  }
   stream->packet_queue.pop();
 
   // If there are packets left to be sent, schedule the stream again.
@@ -213,7 +255,7 @@ std::unique_ptr<RtpPacketToSend> RoundRobinPacketQueue::Pop() {
         StreamPrioKey(priority, stream->size), stream->ssrc);
   }
 
-  return rtp_packet;
+  return packet;
 }
 
 bool RoundRobinPacketQueue::Empty() const {
@@ -236,7 +278,7 @@ DataSize RoundRobinPacketQueue::Size() const {
 absl::optional<Timestamp> RoundRobinPacketQueue::LeadingAudioPacketEnqueueTime()
     const {
   if (single_packet_queue_.has_value()) {
-    if (single_packet_queue_->Type() == RtpPacketMediaType::kAudio) {
+    if (single_packet_queue_->IsAudio()) {
       return single_packet_queue_->EnqueueTime();
     }
     return absl::nullopt;
@@ -248,7 +290,7 @@ absl::optional<Timestamp> RoundRobinPacketQueue::LeadingAudioPacketEnqueueTime()
   uint32_t ssrc = stream_priorities_.begin()->second;
 
   const auto& top_packet = streams_.find(ssrc)->second.packet_queue.top();
-  if (top_packet.Type() == RtpPacketMediaType::kAudio) {
+  if (top_packet.IsAudio()) {
     return top_packet.EnqueueTime();
   }
   return absl::nullopt;
@@ -367,11 +409,19 @@ void RoundRobinPacketQueue::Push(QueuedPacket packet) {
 }
 
 DataSize RoundRobinPacketQueue::PacketSize(const QueuedPacket& packet) const {
-  DataSize packet_size = DataSize::Bytes(packet.RtpPacket()->payload_size() +
-                                         packet.RtpPacket()->padding_size());
+  if (packet.RtpPacket()) {
+    DataSize packet_size = DataSize::Bytes(packet.RtpPacket()->payload_size() +
+                                           packet.RtpPacket()->padding_size());
+    if (include_overhead_) {
+      packet_size += DataSize::Bytes(packet.RtpPacket()->headers_size()) +
+                     transport_overhead_per_packet_;
+    }
+    return packet_size;
+  }
+
+  DataSize packet_size = DataSize::Bytes(packet.RtcpPacket()->BlockLength());
   if (include_overhead_) {
-    packet_size += DataSize::Bytes(packet.RtpPacket()->headers_size()) +
-                   transport_overhead_per_packet_;
+    packet_size += transport_overhead_per_packet_;
   }
   return packet_size;
 }

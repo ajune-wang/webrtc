@@ -30,6 +30,7 @@
 #include "modules/pacing/rtp_packet_pacer.h"
 #include "modules/rtp_rtcp/include/rtp_packet_sender.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/thread_annotations.h"
@@ -56,6 +57,8 @@ class PacingController {
     virtual ~PacketSender() = default;
     virtual void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
                             const PacedPacketInfo& cluster_info) = 0;
+    virtual void SendRtcpPackets(
+        std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) = 0;
     // Should be called after each call to SendPacket().
     virtual std::vector<std::unique_ptr<RtpPacketToSend>> FetchFec() = 0;
     virtual std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
@@ -91,6 +94,7 @@ class PacingController {
   // Adds the packet to the queue and calls PacketRouter::SendPacket() when
   // it's time to send.
   void EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet);
+  void EnqueueRtcpPackets(std::unique_ptr<rtcp::RtcpPacket> packet);
 
   void CreateProbeCluster(DataRate bitrate, int cluster_id);
 
@@ -162,13 +166,12 @@ class PacingController {
   DataSize PaddingToAdd(DataSize recommended_probe_size,
                         DataSize data_sent) const;
 
-  std::unique_ptr<RtpPacketToSend> GetPendingPacket(
-      const PacedPacketInfo& pacing_info,
-      Timestamp target_send_time,
-      Timestamp now);
-  void OnPacketSent(RtpPacketMediaType packet_type,
-                    DataSize packet_size,
-                    Timestamp send_time);
+  absl::optional<absl::variant<std::unique_ptr<RtpPacketToSend>,
+                               std::unique_ptr<rtcp::RtcpPacket>>>
+  GetPendingPacket(const PacedPacketInfo& pacing_info,
+                   Timestamp target_send_time,
+                   Timestamp now);
+  void OnPacketSent(bool is_audio, DataSize packet_size, Timestamp send_time);
   void OnPaddingSent(DataSize padding_sent);
 
   Timestamp CurrentTime() const;

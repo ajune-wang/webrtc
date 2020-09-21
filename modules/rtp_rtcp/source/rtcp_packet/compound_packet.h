@@ -43,7 +43,6 @@ class CompoundPacket : public RtcpPacket {
               size_t max_length,
               PacketReadyCallback callback) const override;
 
- protected:
   std::vector<std::unique_ptr<RtcpPacket>> appended_packets_;
 
  private:

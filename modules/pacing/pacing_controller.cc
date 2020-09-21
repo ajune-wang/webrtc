@@ -131,7 +131,7 @@ PacingController::PacingController(Clock* clock,
       pacing_bitrate_(DataRate::Zero()),
       last_process_time_(clock->CurrentTime()),
       last_send_time_(last_process_time_),
-      packet_queue_(last_process_time_, field_trials_),
+      packet_queue_(last_process_time_),
       packet_counter_(0),
       congestion_window_size_(DataSize::PlusInfinity()),
       outstanding_data_(DataSize::Zero()),
@@ -241,6 +241,24 @@ void PacingController::EnqueuePacket(std::unique_ptr<RtpPacketToSend> packet) {
   // moved before GetPriorityForType() being called.
   const int priority = GetPriorityForType(*packet->packet_type());
   EnqueuePacketInternal(std::move(packet), priority);
+}
+
+void PacingController::EnqueueRtcpPackets(
+    std::unique_ptr<rtcp::RtcpPacket> packet) {
+  RTC_DCHECK(pacing_bitrate_ > DataRate::Zero())
+      << "SetPacingRate must be called before InsertPacket.";
+
+  const int priority = 0;  // ??
+
+  // TODO(sprang): Make sure tests respect this, replace with DCHECK.
+  Timestamp now = CurrentTime();
+
+  if (mode_ == ProcessMode::kDynamic && packet_queue_.Empty() &&
+      NextSendTime() <= now) {
+    TimeDelta elapsed_time = UpdateTimeAndGetElapsed(now);
+    UpdateBudgetWithElapsedTime(elapsed_time);
+  }
+  packet_queue_.Push(priority, now, packet_counter_++, std::move(packet));
 }
 
 void PacingController::SetAccountForAudioPackets(bool account_for_audio) {
@@ -514,6 +532,7 @@ void PacingController::ProcessPackets() {
   }
 
   DataSize data_sent = DataSize::Zero();
+  DataSize rtcp_data_sent = DataSize::Zero();
 
   // The paused state is checked in the loop since it leaves the critical
   // section allowing the paused state to be changed from other code.
@@ -546,10 +565,9 @@ void PacingController::ProcessPackets() {
 
     // Fetch the next packet, so long as queue is not empty or budget is not
     // exhausted.
-    std::unique_ptr<RtpPacketToSend> rtp_packet =
-        GetPendingPacket(pacing_info, target_send_time, now);
+    auto packet = GetPendingPacket(pacing_info, target_send_time, now);
 
-    if (rtp_packet == nullptr) {
+    if (!packet.has_value()) {
       // No packet available to send, check if we should send padding.
       DataSize padding_to_add = PaddingToAdd(recommended_probe_size, data_sent);
       if (padding_to_add > DataSize::Zero()) {
@@ -570,29 +588,51 @@ void PacingController::ProcessPackets() {
       break;
     }
 
-    RTC_DCHECK(rtp_packet);
-    RTC_DCHECK(rtp_packet->packet_type().has_value());
-    const RtpPacketMediaType packet_type = *rtp_packet->packet_type();
-    DataSize packet_size = DataSize::Bytes(rtp_packet->payload_size() +
-                                           rtp_packet->padding_size());
+    RTC_DCHECK(packet);
+    bool is_audio = false;
+    DataSize packet_size = DataSize::Zero();
+    if (absl::holds_alternative<std::unique_ptr<RtpPacketToSend>>(*packet)) {
+      std::unique_ptr<RtpPacketToSend> rtp_packet =
+          std::move(absl::get<std::unique_ptr<RtpPacketToSend>>(*packet));
+      RTC_DCHECK(rtp_packet->packet_type().has_value());
+      if (rtp_packet->packet_type() == RtpPacketMediaType::kAudio) {
+        is_audio = true;
+      }
+      packet_size = DataSize::Bytes(rtp_packet->payload_size() +
+                                    rtp_packet->padding_size());
 
-    if (include_overhead_) {
-      packet_size += DataSize::Bytes(rtp_packet->headers_size()) +
-                     transport_overhead_per_packet_;
-    }
+      if (include_overhead_) {
+        packet_size += DataSize::Bytes(rtp_packet->headers_size()) +
+                       transport_overhead_per_packet_;
+      }
 
-    packet_sender_->SendPacket(std::move(rtp_packet), pacing_info);
-    for (auto& packet : packet_sender_->FetchFec()) {
-      EnqueuePacket(std::move(packet));
+      packet_sender_->SendPacket(std::move(rtp_packet), pacing_info);
+      for (auto& packet : packet_sender_->FetchFec()) {
+        EnqueuePacket(std::move(packet));
+      }
+    } else {
+      std::unique_ptr<rtcp::RtcpPacket> rtcp_packet =
+          std::move(absl::get<std::unique_ptr<rtcp::RtcpPacket>>(*packet));
+      is_audio = false;
+      packet_size = DataSize::Bytes(rtcp_packet->BlockLength());
+      if (include_overhead_) {
+        packet_size += transport_overhead_per_packet_;
+      }
+
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets;
+      rtcp_packets.push_back(std::move(rtcp_packet));
+      packet_sender_->SendRtcpPackets(std::move(rtcp_packets));
+
+      rtcp_data_sent += packet_size;
     }
     data_sent += packet_size;
 
     // Send done, update send/process time to the target send time.
-    OnPacketSent(packet_type, packet_size, target_send_time);
+    OnPacketSent(is_audio, packet_size, target_send_time);
 
     // If we are currently probing, we need to stop the send loop when we have
     // reached the send target.
-    if (is_probing && data_sent >= recommended_probe_size) {
+    if (is_probing && (data_sent - rtcp_data_sent) >= recommended_probe_size) {
       break;
     }
 
@@ -611,9 +651,9 @@ void PacingController::ProcessPackets() {
   last_process_time_ = std::max(last_process_time_, previous_process_time);
 
   if (is_probing) {
-    probing_send_failure_ = data_sent == DataSize::Zero();
+    probing_send_failure_ = (data_sent - rtcp_data_sent) == DataSize::Zero();
     if (!probing_send_failure_) {
-      prober_.ProbeSent(CurrentTime(), data_sent);
+      prober_.ProbeSent(CurrentTime(), (data_sent - rtcp_data_sent));
     }
   }
 }
@@ -652,12 +692,13 @@ DataSize PacingController::PaddingToAdd(DataSize recommended_probe_size,
   return DataSize::Zero();
 }
 
-std::unique_ptr<RtpPacketToSend> PacingController::GetPendingPacket(
-    const PacedPacketInfo& pacing_info,
-    Timestamp target_send_time,
-    Timestamp now) {
+absl::optional<absl::variant<std::unique_ptr<RtpPacketToSend>,
+                             std::unique_ptr<rtcp::RtcpPacket>>>
+PacingController::GetPendingPacket(const PacedPacketInfo& pacing_info,
+                                   Timestamp target_send_time,
+                                   Timestamp now) {
   if (packet_queue_.Empty()) {
-    return nullptr;
+    return absl::nullopt;
   }
 
   // First, check if there is any reason _not_ to send the next queued packet.
@@ -669,13 +710,13 @@ std::unique_ptr<RtpPacketToSend> PacingController::GetPendingPacket(
   if (!unpaced_audio_packet && !is_probe) {
     if (Congested()) {
       // Don't send anything if congested.
-      return nullptr;
+      return absl::nullopt;
     }
 
     if (mode_ == ProcessMode::kPeriodic) {
       if (media_budget_.bytes_remaining() <= 0) {
         // Not enough budget.
-        return nullptr;
+        return absl::nullopt;
       }
     } else {
       // Dynamic processing mode.
@@ -685,7 +726,7 @@ std::unique_ptr<RtpPacketToSend> PacingController::GetPendingPacket(
         // is not more than would be reduced to zero at the target sent time.
         TimeDelta flush_time = media_debt_ / media_rate_;
         if (now + flush_time > target_send_time) {
-          return nullptr;
+          return absl::nullopt;
         }
       }
     }
@@ -694,14 +735,13 @@ std::unique_ptr<RtpPacketToSend> PacingController::GetPendingPacket(
   return packet_queue_.Pop();
 }
 
-void PacingController::OnPacketSent(RtpPacketMediaType packet_type,
+void PacingController::OnPacketSent(bool is_audio,
                                     DataSize packet_size,
                                     Timestamp send_time) {
   if (!first_sent_packet_time_) {
     first_sent_packet_time_ = send_time;
   }
-  bool audio_packet = packet_type == RtpPacketMediaType::kAudio;
-  if (!audio_packet || account_for_audio_) {
+  if (!is_audio || account_for_audio_) {
     // Update media bytes sent.
     UpdateBudgetWithSentData(packet_size);
   }

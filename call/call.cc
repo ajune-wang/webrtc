@@ -980,6 +980,9 @@ webrtc::VideoReceiveStream* Call::CreateVideoReceiveStream(
 
   TaskQueueBase* current = GetCurrentTaskQueueOrThread();
   RTC_CHECK(current);
+  if (transport_send_ptr_) {
+    configuration.paced_rtcp_sender = transport_send_ptr_->packet_sender();
+  }
   VideoReceiveStream2* receive_stream = new VideoReceiveStream2(
       task_queue_factory_, current, &video_receiver_controller_, num_cpu_cores_,
       transport_send_ptr_->packet_router(), std::move(configuration),

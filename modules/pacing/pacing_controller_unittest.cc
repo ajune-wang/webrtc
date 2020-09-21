@@ -98,6 +98,10 @@ class MockPacingControllerCallback : public PacingController::PacketSender {
                int64_t capture_timestamp,
                bool retransmission,
                bool padding));
+  MOCK_METHOD(void,
+              SendRtcpPackets,
+              (std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets),
+              (override));
   MOCK_METHOD(std::vector<std::unique_ptr<RtpPacketToSend>>,
               FetchFec,
               (),
@@ -112,6 +116,10 @@ class MockPacketSender : public PacingController::PacketSender {
               SendPacket,
               (std::unique_ptr<RtpPacketToSend> packet,
                const PacedPacketInfo& cluster_info),
+              (override));
+  MOCK_METHOD(void,
+              SendRtcpPackets,
+              (std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets),
               (override));
   MOCK_METHOD(std::vector<std::unique_ptr<RtpPacketToSend>>,
               FetchFec,
@@ -134,6 +142,8 @@ class PacingControllerPadding : public PacingController::PacketSender {
                   const PacedPacketInfo& pacing_info) override {
     total_bytes_sent_ += packet->payload_size();
   }
+  void SendRtcpPackets(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>>) override {}
 
   std::vector<std::unique_ptr<RtpPacketToSend>> FetchFec() override {
     return {};
@@ -172,6 +182,9 @@ class PacingControllerProbing : public PacingController::PacketSender {
     }
     last_pacing_info_ = pacing_info;
   }
+
+  void SendRtcpPackets(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>>) override {}
 
   std::vector<std::unique_ptr<RtpPacketToSend>> FetchFec() override {
     return {};

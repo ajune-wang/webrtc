@@ -158,6 +158,11 @@ class MockRtpPacketPacer : public RtpPacketSender {
               EnqueuePackets,
               (std::vector<std::unique_ptr<RtpPacketToSend>>),
               (override));
+
+  MOCK_METHOD(void,
+              EnqueueRtcpPackets,
+              (std::vector<std::unique_ptr<rtcp::RtcpPacket>>),
+              (override));
 };
 
 class MockSendSideDelayObserver : public SendSideDelayObserver {
@@ -228,6 +233,17 @@ class TaskQueuePacketSender : public RtpPacketSender {
     queue_->PostTask(ToQueuedTask([sender = packet_sender_.get(),
                                    packets_ = std::move(packets)]() mutable {
       sender->EnqueuePackets(std::move(packets_));
+    }));
+    // Trigger task we just enqueued to be executed by updating the simulated
+    // time controller.
+    time_controller_->AdvanceTime(TimeDelta::Zero());
+  }
+
+  void EnqueueRtcpPackets(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) override {
+    queue_->PostTask(ToQueuedTask([sender = packet_sender_.get(),
+                                   packets_ = std::move(packets)]() mutable {
+      sender->EnqueueRtcpPackets(std::move(packets_));
     }));
     // Trigger task we just enqueued to be executed by updating the simulated
     // time controller.

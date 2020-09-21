@@ -56,6 +56,8 @@ class PacketRouter : public RemoteBitrateObserver,
 
   void SendPacket(std::unique_ptr<RtpPacketToSend> packet,
                   const PacedPacketInfo& cluster_info) override;
+  void SendRtcpPackets(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) override;
   std::vector<std::unique_ptr<RtpPacketToSend>> FetchFec() override;
   std::vector<std::unique_ptr<RtpPacketToSend>> GeneratePadding(
       DataSize size) override;
@@ -103,9 +105,9 @@ class PacketRouter : public RemoteBitrateObserver,
       RTC_GUARDED_BY(modules_mutex_);
   // The last module used to send media.
   RtpRtcpInterface* last_send_module_ RTC_GUARDED_BY(modules_mutex_);
-  // Rtcp modules of the rtp receivers.
-  std::vector<RtcpFeedbackSenderInterface*> rtcp_feedback_senders_
-      RTC_GUARDED_BY(modules_mutex_);
+  // Rtcp modules of the rtp receivers, by local ssrc.
+  std::unordered_map<uint32_t, RtcpFeedbackSenderInterface*>
+      rtcp_feedback_senders_ RTC_GUARDED_BY(modules_mutex_);
 
   // TODO(eladalon): remb_mutex_ only ever held from one function, and it's not
   // clear if that function can actually be called from more than one thread.

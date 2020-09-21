@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 
 namespace webrtc {
@@ -28,6 +29,9 @@ class RtpPacketSender {
   // packets and the current target send rate.
   virtual void EnqueuePackets(
       std::vector<std::unique_ptr<RtpPacketToSend>> packets) = 0;
+
+  virtual void EnqueueRtcpPackets(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) = 0;
 };
 
 }  // namespace webrtc

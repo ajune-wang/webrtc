@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/function_view.h"
 #include "rtc_base/buffer.h"
@@ -59,7 +60,8 @@ class RtcpPacket {
   virtual ~RtcpPacket() = default;
 
   void SetSenderSsrc(uint32_t ssrc) { sender_ssrc_ = ssrc; }
-  uint32_t sender_ssrc() const { return sender_ssrc_; }
+  uint32_t sender_ssrc() const { return sender_ssrc_.value(); }
+  bool has_sender_ssrc() const { return sender_ssrc_.has_value(); }
 
   // Convenience method mostly used for test. Creates packet without
   // fragmentation using BlockLength() to allocate big enough buffer.
@@ -104,7 +106,7 @@ class RtcpPacket {
   size_t HeaderLength() const;
 
  private:
-  uint32_t sender_ssrc_ = 0;
+  absl::optional<uint32_t> sender_ssrc_;
 };
 }  // namespace rtcp
 }  // namespace webrtc

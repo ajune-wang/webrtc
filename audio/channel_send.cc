@@ -261,6 +261,12 @@ class RtpPacketSenderProxy : public RtpPacketSender {
     rtp_packet_pacer_->EnqueuePackets(std::move(packets));
   }
 
+  void EnqueueRtcpPackets(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) override {
+    MutexLock lock(&mutex_);
+    rtp_packet_pacer_->EnqueueRtcpPackets(std::move(packets));
+  }
+
  private:
   rtc::ThreadChecker thread_checker_;
   Mutex mutex_;

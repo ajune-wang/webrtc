@@ -80,6 +80,7 @@ std::unique_ptr<ModuleRtpRtcpImpl2> CreateRtpRtcpModule(
     Clock* clock,
     ReceiveStatistics* receive_statistics,
     Transport* outgoing_transport,
+    RtpPacketSender* paced_sender,
     RtcpRttStats* rtt_stats,
     RtcpPacketTypeCounterObserver* rtcp_packet_type_counter_observer,
     RtcpCnameCallback* rtcp_cname_callback,
@@ -90,6 +91,7 @@ std::unique_ptr<ModuleRtpRtcpImpl2> CreateRtpRtcpModule(
   configuration.receiver_only = true;
   configuration.receive_statistics = receive_statistics;
   configuration.outgoing_transport = outgoing_transport;
+  configuration.paced_sender = paced_sender;
   configuration.rtt_stats = rtt_stats;
   configuration.rtcp_packet_type_counter_observer =
       rtcp_packet_type_counter_observer;
@@ -231,6 +233,7 @@ RtpVideoStreamReceiver2::RtpVideoStreamReceiver2(
       rtp_rtcp_(CreateRtpRtcpModule(clock,
                                     rtp_receive_statistics_,
                                     transport,
+                                    config_.paced_rtcp_sender,
                                     rtt_stats,
                                     rtcp_packet_type_counter_observer,
                                     rtcp_cname_callback,

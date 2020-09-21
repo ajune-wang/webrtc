@@ -258,6 +258,7 @@ class RtcpFeedbackSenderInterface {
       std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) = 0;
   virtual void SetRemb(int64_t bitrate_bps, std::vector<uint32_t> ssrcs) = 0;
   virtual void UnsetRemb() = 0;
+  virtual uint32_t SSRC() const = 0;
 };
 
 class StreamFeedbackObserver {

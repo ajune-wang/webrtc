@@ -92,6 +92,9 @@ class RtcpTransceiver : public RtcpFeedbackSenderInterface {
   // requested ssrc.
   void SendFullIntraRequest(std::vector<uint32_t> ssrcs, bool new_request);
 
+  // Returns the sender SSRC.
+  uint32_t SSRC() const override;
+
  private:
   TaskQueueBase* const task_queue_;
   std::unique_ptr<RtcpTransceiverImpl> rtcp_transceiver_;

@@ -356,13 +356,13 @@ namespace test {
     // Advance time half of the min stats update interval, and trigger a
     // refresh - stats should not be updated yet.
     time_controller.AdvanceTime(kMinTimeBetweenStatsUpdates / 2);
-    pacer.EnqueuePackets({});
+    pacer.EnqueuePackets(std::vector<std::unique_ptr<RtpPacketToSend>>{});
     time_controller.AdvanceTime(TimeDelta::Zero());
     EXPECT_EQ(pacer.num_stats_updates_, 1u);
 
     // Advance time the next half, now stats update is triggered.
     time_controller.AdvanceTime(kMinTimeBetweenStatsUpdates / 2);
-    pacer.EnqueuePackets({});
+    pacer.EnqueuePackets(std::vector<std::unique_ptr<RtpPacketToSend>>{});
     time_controller.AdvanceTime(TimeDelta::Zero());
     EXPECT_EQ(pacer.num_stats_updates_, 2u);
   }
@@ -407,7 +407,7 @@ namespace test {
       // Advance time to halfway through pacing time, expect another stats
       // update.
       time_controller.AdvanceTime(kPacketPacingTime / 2);
-      pacer.EnqueuePackets({});
+      pacer.EnqueuePackets(std::vector<std::unique_ptr<RtpPacketToSend>>{});
       time_controller.AdvanceTime(TimeDelta::Zero());
       EXPECT_EQ(pacer.num_stats_updates_, ++num_expected_stats_updates);
 

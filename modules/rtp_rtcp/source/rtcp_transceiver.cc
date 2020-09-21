@@ -150,4 +150,9 @@ void RtcpTransceiver::SendFullIntraRequest(std::vector<uint32_t> ssrcs,
       }));
 }
 
+uint32_t RtcpTransceiver::SSRC() const {
+  RTC_CHECK(rtcp_transceiver_);
+  return rtcp_transceiver_->sender_ssrc();
+}
+
 }  // namespace webrtc

@@ -34,6 +34,7 @@
 #include "call/rtp_config.h"
 #include "common_video/frame_counts.h"
 #include "modules/rtp_rtcp/include/rtcp_statistics.h"
+#include "modules/rtp_rtcp/include/rtp_packet_sender.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 
 namespace webrtc {
@@ -231,6 +232,7 @@ class VideoReceiveStream {
 
     // Transport for outgoing packets (RTCP).
     Transport* rtcp_send_transport = nullptr;
+    RtpPacketSender* paced_rtcp_sender = nullptr;
 
     // Must always be set.
     rtc::VideoSinkInterface<VideoFrame>* renderer = nullptr;

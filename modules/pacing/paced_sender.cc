@@ -130,6 +130,17 @@ void PacedSender::EnqueuePackets(
   MaybeWakupProcessThread();
 }
 
+void PacedSender::EnqueueRtcpPackets(
+    std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) {
+  {
+    rtc::CritScope cs(&critsect_);
+    for (auto& packet : packets) {
+      pacing_controller_.EnqueueRtcpPackets(std::move(packet));
+    }
+  }
+  MaybeWakupProcessThread();
+}
+
 void PacedSender::SetAccountForAudioPackets(bool account_for_audio) {
   rtc::CritScope cs(&critsect_);
   pacing_controller_.SetAccountForAudioPackets(account_for_audio);

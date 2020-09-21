@@ -48,6 +48,10 @@ class RtpSenderEgress {
 
     void EnqueuePackets(
         std::vector<std::unique_ptr<RtpPacketToSend>> packets) override;
+    void EnqueueRtcpPackets(
+        std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) override {
+      RTC_NOTREACHED();
+    }
 
    private:
     void PrepareForSend(RtpPacketToSend* packet);

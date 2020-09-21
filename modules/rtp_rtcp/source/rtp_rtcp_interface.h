@@ -210,9 +210,6 @@ class RtpRtcpInterface : public RtcpFeedbackSenderInterface {
   virtual RtpState GetRtpState() const = 0;
   virtual RtpState GetRtxState() const = 0;
 
-  // Returns SSRC.
-  virtual uint32_t SSRC() const = 0;
-
   // Sets the value for sending in the RID (and Repaired) RTP header extension.
   // RIDs are used to identify an RTP stream if SSRCs are not negotiated.
   // If the RID and Repaired RID extensions are not registered, the RID will

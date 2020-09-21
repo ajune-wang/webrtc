@@ -142,6 +142,17 @@ void TaskQueuePacedSender::EnqueuePackets(
   });
 }
 
+void TaskQueuePacedSender::EnqueueRtcpPackets(
+    std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) {
+  task_queue_.PostTask([this, packets_ = std::move(packets)]() mutable {
+    RTC_DCHECK_RUN_ON(&task_queue_);
+    for (auto& packet : packets_) {
+      pacing_controller_.EnqueueRtcpPackets(std::move(packet));
+    }
+    MaybeProcessPackets(Timestamp::MinusInfinity());
+  });
+}
+
 void TaskQueuePacedSender::SetAccountForAudioPackets(bool account_for_audio) {
   task_queue_.PostTask([this, account_for_audio]() {
     RTC_DCHECK_RUN_ON(&task_queue_);

@@ -41,6 +41,10 @@ class DEPRECATED_RtpSenderEgress {
 
     void EnqueuePackets(
         std::vector<std::unique_ptr<RtpPacketToSend>> packets) override;
+    void EnqueueRtcpPackets(
+        std::vector<std::unique_ptr<rtcp::RtcpPacket>> packets) override {
+      RTC_NOTREACHED();
+    }
 
    private:
     uint16_t transport_sequence_number_;

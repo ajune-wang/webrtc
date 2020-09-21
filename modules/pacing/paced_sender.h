@@ -73,6 +73,8 @@ class PacedSender : public Module,
   // it's time to send.
   void EnqueuePackets(
       std::vector<std::unique_ptr<RtpPacketToSend>> packet) override;
+  void EnqueueRtcpPackets(
+      std::vector<std::unique_ptr<rtcp::RtcpPacket>> packet) override;
 
   // Methods implementing RtpPacketPacer:
 

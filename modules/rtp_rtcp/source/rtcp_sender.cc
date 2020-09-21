@@ -152,6 +152,7 @@ RTCPSender::RTCPSender(const RtpRtcpInterface::Configuration& config)
       method_(RtcpMode::kOff),
       event_log_(config.event_log),
       transport_(config.outgoing_transport),
+      pacer_(config.paced_sender),
       report_interval_ms_(config.rtcp_report_interval_ms > 0
                               ? config.rtcp_report_interval_ms
                               : (config.audio ? kDefaultAudioReportInterval
@@ -694,6 +695,15 @@ int32_t RTCPSender::SendCompoundRTCP(
     const std::set<RTCPPacketType>& packet_types,
     int32_t nack_size,
     const uint16_t* nack_list) {
+  if (pacer_) {
+    MutexLock lock(&mutex_rtcp_sender_);
+    rtcp::CompoundPacket compound;
+    auto result = ComputeCompoundRTCPPacket(feedback_state, packet_types,
+                                            nack_size, nack_list, &compound);
+    pacer_->EnqueueRtcpPackets(std::move(compound.appended_packets_));
+    return result.value_or(0);
+  }
+
   PacketContainer container(transport_, event_log_);
   size_t max_packet_size;
 
@@ -716,6 +726,14 @@ int32_t RTCPSender::SendCompoundRTCPLocked(
     const std::set<RTCPPacketType>& packet_types,
     int32_t nack_size,
     const uint16_t* nack_list) {
+  if (pacer_) {
+    rtcp::CompoundPacket compound;
+    auto result = ComputeCompoundRTCPPacket(feedback_state, packet_types,
+                                            nack_size, nack_list, &compound);
+    pacer_->EnqueueRtcpPackets(std::move(compound.appended_packets_));
+    return result.value_or(0);
+  }
+
   PacketContainer container(transport_, event_log_);
   auto result = ComputeCompoundRTCPPacket(feedback_state, packet_types,
                                           nack_size, nack_list, &container);
@@ -994,16 +1012,13 @@ absl::optional<VideoBitrateAllocation> RTCPSender::CheckAndUpdateLayerStructure(
 void RTCPSender::SendCombinedRtcpPacket(
     std::vector<std::unique_ptr<rtcp::RtcpPacket>> rtcp_packets) {
   size_t max_packet_size;
-  uint32_t ssrc;
   {
     MutexLock lock(&mutex_rtcp_sender_);
     if (method_ == RtcpMode::kOff) {
       RTC_LOG(LS_WARNING) << "Can't send rtcp if it is disabled.";
       return;
     }
-
     max_packet_size = max_packet_size_;
-    ssrc = ssrc_;
   }
   RTC_DCHECK_LE(max_packet_size, IP_PACKET_SIZE);
   auto callback = [&](rtc::ArrayView<const uint8_t> packet) {
@@ -1012,9 +1027,12 @@ void RTCPSender::SendCombinedRtcpPacket(
         event_log_->Log(std::make_unique<RtcEventRtcpPacketOutgoing>(packet));
     }
   };
+
   PacketSender sender(callback, max_packet_size);
   for (auto& rtcp_packet : rtcp_packets) {
-    rtcp_packet->SetSenderSsrc(ssrc);
+    if (!rtcp_packet->has_sender_ssrc()) {
+      rtcp_packet->SetSenderSsrc(ssrc_);
+    }
     sender.AppendPacket(*rtcp_packet);
   }
   sender.Send();

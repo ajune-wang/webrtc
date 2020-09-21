@@ -219,6 +219,7 @@ class RTCPSender final {
 
   RtcEventLog* const event_log_;
   Transport* const transport_;
+  RtpPacketSender* const pacer_;
 
   const int report_interval_ms_;
 

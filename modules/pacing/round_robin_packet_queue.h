@@ -21,6 +21,7 @@
 #include <set>
 
 #include "absl/types/optional.h"
+#include "absl/types/variant.h"
 #include "api/transport/webrtc_key_value_config.h"
 #include "api/units/data_size.h"
 #include "api/units/time_delta.h"
@@ -33,15 +34,17 @@ namespace webrtc {
 
 class RoundRobinPacketQueue {
  public:
-  RoundRobinPacketQueue(Timestamp start_time,
-                        const WebRtcKeyValueConfig* field_trials);
+  explicit RoundRobinPacketQueue(Timestamp start_time);
   ~RoundRobinPacketQueue();
 
   void Push(int priority,
             Timestamp enqueue_time,
             uint64_t enqueue_order,
-            std::unique_ptr<RtpPacketToSend> packet);
-  std::unique_ptr<RtpPacketToSend> Pop();
+            absl::variant<std::unique_ptr<RtpPacketToSend>,
+                          std::unique_ptr<rtcp::RtcpPacket>> packet);
+  absl::variant<std::unique_ptr<RtpPacketToSend>,
+                std::unique_ptr<rtcp::RtcpPacket>>
+  Pop();
 
   bool Empty() const;
   size_t SizeInPackets() const;
@@ -66,19 +69,21 @@ class RoundRobinPacketQueue {
                  Timestamp enqueue_time,
                  uint64_t enqueue_order,
                  std::multiset<Timestamp>::iterator enqueue_time_it,
-                 std::unique_ptr<RtpPacketToSend> packet);
+                 absl::variant<std::unique_ptr<RtpPacketToSend>,
+                               std::unique_ptr<rtcp::RtcpPacket>> packet);
     QueuedPacket(const QueuedPacket& rhs);
     ~QueuedPacket();
 
     bool operator<(const QueuedPacket& other) const;
 
     int Priority() const;
-    RtpPacketMediaType Type() const;
+    bool IsAudio() const;
     uint32_t Ssrc() const;
     Timestamp EnqueueTime() const;
     bool IsRetransmission() const;
     uint64_t EnqueueOrder() const;
     RtpPacketToSend* RtpPacket() const;
+    rtcp::RtcpPacket* RtcpPacket() const;
 
     std::multiset<Timestamp>::iterator EnqueueTimeIterator() const;
     void UpdateEnqueueTimeIterator(std::multiset<Timestamp>::iterator it);
@@ -92,7 +97,8 @@ class RoundRobinPacketQueue {
     std::multiset<Timestamp>::iterator enqueue_time_it_;
     // Raw pointer since priority_queue doesn't allow for moving
     // out of the container.
-    RtpPacketToSend* owned_packet_;
+    RtpPacketToSend* owned_rtp_packet_;
+    rtcp::RtcpPacket* owned_rtcp_packet_;
   };
 
   class PriorityPacketQueue : public std::priority_queue<QueuedPacket> {

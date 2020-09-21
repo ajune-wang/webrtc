@@ -16,6 +16,24 @@
       "revId": "e810994c924c0e7bcab4fa4fbc1c3dffdbf09664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6935d8c_59bdebdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-21T14:59:17Z",
+      "side": 1,
+      "message": "Good point. Actually I did test bit-exactness of the big CL I\u0027m splitting, but not for all the intermediate changes. And very good point on doing that via audioproc_f. I will do so, update the CL description and mark this comments as resolved once everything is ok.",
+      "parentUuid": "96ac6ab8_54d3bb32",
+      "revId": "e810994c924c0e7bcab4fa4fbc1c3dffdbf09664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

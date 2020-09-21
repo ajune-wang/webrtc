@@ -20,6 +20,7 @@
 
 #include "api/scoped_refptr.h"
 #include "api/video/i420_buffer.h"
+#include "api/video/nv12_buffer.h"
 #include "api/video/video_codec_constants.h"
 #include "api/video/video_frame_buffer.h"
 #include "api/video/video_rotation.h"
@@ -376,8 +377,6 @@ int SimulcastEncoderAdapter::Encode(
     }
   }
 
-  // Temporary thay may hold the result of texture to i420 buffer conversion.
-  rtc::scoped_refptr<I420BufferInterface> src_buffer;
   int src_width = input_image.width();
   int src_height = input_image.height();
   for (size_t stream_idx = 0; stream_idx < streaminfos_.size(); ++stream_idx) {
@@ -432,18 +431,36 @@ int SimulcastEncoderAdapter::Encode(
         return ret;
       }
     } else {
-      if (src_buffer == nullptr) {
-        src_buffer = input_image.video_frame_buffer()->ToI420();
-      }
-      rtc::scoped_refptr<I420Buffer> dst_buffer =
-          I420Buffer::Create(dst_width, dst_height);
-
-      dst_buffer->ScaleFrom(*src_buffer);
-
-      // UpdateRect is not propagated to lower simulcast layers currently.
-      // TODO(ilnik): Consider scaling UpdateRect together with the buffer.
       VideoFrame frame(input_image);
-      frame.set_video_frame_buffer(dst_buffer);
+      std::string encoder_name = streaminfos_[stream_idx]
+                                     .encoder->GetEncoderInfo()
+                                     .implementation_name;
+
+      // If input_image VideoFrameBuffer is NV12 format, then it can feed to
+      // libvpx encoder directly.
+      if (encoder_name == "libvpx" &&
+          input_image.video_frame_buffer()->ToNV12()) {
+        // Temporary thay may hold the result of texture to NV12 buffer scaling.
+        rtc::scoped_refptr<NV12BufferInterface> src_buffer =
+            input_image.video_frame_buffer()->ToNV12();
+        rtc::scoped_refptr<NV12Buffer> dst_buffer =
+            NV12Buffer::Create(dst_width, dst_height);
+
+        dst_buffer->ScaleFrom(*src_buffer);
+        frame.set_video_frame_buffer(dst_buffer);
+      } else {
+        // Need to convert to I420 format.
+        rtc::scoped_refptr<I420BufferInterface> src_buffer =
+            input_image.video_frame_buffer()->ToI420();
+        rtc::scoped_refptr<I420Buffer> dst_buffer =
+            I420Buffer::Create(dst_width, dst_height);
+
+        dst_buffer->ScaleFrom(*src_buffer);
+        // UpdateRect is not propagated to lower simulcast layers currently.
+        // TODO(ilnik): Consider scaling UpdateRect together with the buffer.
+        frame.set_video_frame_buffer(dst_buffer);
+      }
+
       frame.set_rotation(webrtc::kVideoRotation_0);
       frame.set_update_rect(
           VideoFrame::UpdateRect{0, 0, frame.width(), frame.height()});

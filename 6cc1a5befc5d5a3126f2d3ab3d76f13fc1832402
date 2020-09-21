@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f22fbed1_b10afbde",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-21T08:46:56Z",
+      "side": 1,
+      "message": "Thank you for your accommodating my requests.\nSorry for being so nit-picky.",
+      "revId": "6cc1a5befc5d5a3126f2d3ab3d76f13fc1832402",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

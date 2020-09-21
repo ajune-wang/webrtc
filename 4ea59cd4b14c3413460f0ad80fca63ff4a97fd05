@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc18b361_b406c1e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-21T23:11:30Z",
+      "side": 1,
+      "message": "Prequel to https://webrtc-review.googlesource.com/c/src/+/184934, reducing the amount of code I have to refactor.",
+      "revId": "4ea59cd4b14c3413460f0ad80fca63ff4a97fd05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

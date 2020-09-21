@@ -32,7 +32,9 @@ AdaptiveModeLevelEstimator::AdaptiveModeLevelEstimator(
     float extra_saturation_margin_db)
     : level_estimator_(level_estimator),
       use_saturation_protector_(use_saturation_protector),
-      saturation_protector_(apm_data_dumper, extra_saturation_margin_db),
+      saturation_protector_(apm_data_dumper,
+                            GetInitialSaturationMarginDb(),
+                            extra_saturation_margin_db),
       apm_data_dumper_(apm_data_dumper) {}
 
 void AdaptiveModeLevelEstimator::UpdateEstimation(

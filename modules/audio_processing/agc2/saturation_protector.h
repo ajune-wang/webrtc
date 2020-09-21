@@ -24,6 +24,7 @@ class SaturationProtector {
   explicit SaturationProtector(ApmDataDumper* apm_data_dumper);
 
   SaturationProtector(ApmDataDumper* apm_data_dumper,
+                      float initial_saturation_margin_db,
                       float extra_saturation_margin_db);
 
   // Updates the margin by analyzing the estimated speech level
@@ -39,29 +40,21 @@ class SaturationProtector {
   void DebugDumpEstimate() const;
 
  private:
-  // Computes a delayed envelope of peaks.
-  class PeakEnveloper {
-   public:
-    PeakEnveloper();
-    void Reset();
-    void Process(float frame_peak_dbfs);
-    float Query() const;
-
-   private:
-    size_t time_since_push_ms_;
-    float max_peaks_dbfs_;
-    struct {  // Ring buffer which only supports push back and read.
-      std::array<float, kPeakEnveloperBufferSize> buffer;
-      int next;  // Where to write the next pushed value.
-      int size;  // Number of elements (up to size of `buffer`).
-    } peak_delay_buffer_;
-  };
+  float GetDelayedPeakDbfs() const;
 
   ApmDataDumper* apm_data_dumper_;
-
-  float last_margin_;
-  PeakEnveloper peak_enveloper_;
+  // Parameters.
+  const float initial_saturation_margin_db_;
   const float extra_saturation_margin_db_;
+  // State.
+  float margin_db_;
+  struct {  // Ring buffer which only supports push back and read.
+    std::array<float, kPeakEnveloperBufferSize> buffer;
+    int next;  // Where to write the next pushed value.
+    int size;  // Number of elements (up to size of `buffer`).
+  } peak_delay_buffer_;
+  float max_peaks_dbfs_;
+  int time_since_push_ms_;
 };
 
 }  // namespace webrtc

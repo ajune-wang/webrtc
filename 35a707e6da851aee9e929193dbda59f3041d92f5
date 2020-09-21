@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f88bd0fc_1a67ce54",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-21T14:20:50Z",
+      "side": 1,
+      "message": "This could be dropped, there are no longer any virtual methods on this class.",
+      "range": {
+        "startLine": 334,
+        "startChar": 4,
+        "endLine": 334,
+        "endChar": 11
+      },
+      "revId": "35a707e6da851aee9e929193dbda59f3041d92f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

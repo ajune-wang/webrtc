@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a34f98e5_d7f3d19e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2020-09-22T18:03:59Z",
+      "side": 1,
+      "message": "Hi, PTAL\n\nNot sure if openssl_stream_adapter.h is the right place to expose the function, but it\u0027s the simplest starting point. \nSee corresponding Chromium CL at https://chromium-review.googlesource.com/c/chromium/src/+/2364614\n",
+      "revId": "5834b86434aac4aabf8844f3d176bf27553d00e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -80,6 +80,30 @@
       "revId": "35a707e6da851aee9e929193dbda59f3041d92f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00888ae7_3e5e6f23",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-22T07:24:07Z",
+      "side": 1,
+      "message": "Done. I wonder if it has any measureable effect on binary size (since it should eliminate the vtable for this class).",
+      "parentUuid": "8d0e1bad_ebe82e6e",
+      "range": {
+        "startLine": 334,
+        "startChar": 4,
+        "endLine": 334,
+        "endChar": 11
+      },
+      "revId": "35a707e6da851aee9e929193dbda59f3041d92f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -24,6 +24,7 @@
 #include "rtc_base/ssl_identity.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/stream.h"
+#include "rtc_base/system/rtc_export.h"
 
 namespace rtc {
 
@@ -54,6 +55,8 @@ namespace rtc {
 class SSLCertChain;
 
 ///////////////////////////////////////////////////////////////////////////////
+
+RTC_EXPORT void SetAllowLegacyTLSProtocols(bool allow);
 
 class OpenSSLStreamAdapter final : public SSLStreamAdapter {
  public:

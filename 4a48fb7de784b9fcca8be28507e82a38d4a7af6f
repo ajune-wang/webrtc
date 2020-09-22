@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c424e3eb_366c963c",
+        "filename": "rtc_base/robo_caller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-22T02:47:29Z",
+      "side": 1,
+      "message": "I wonder there\u0027s a better way to do this other than wrapping it with a lambda.",
+      "revId": "4a48fb7de784b9fcca8be28507e82a38d4a7af6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

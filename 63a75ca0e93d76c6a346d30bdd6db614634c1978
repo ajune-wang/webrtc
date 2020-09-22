@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e58c8d3d_cb8d3efe",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-22T06:36:21Z",
+      "side": 1,
+      "message": "Do we need to add it here as well (and below, for RTC_LOG_TAG).\n\nThey are less used so we probably don\u0027t care that much but since we are here.",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 641,
+        "endChar": 32
+      },
+      "revId": "63a75ca0e93d76c6a346d30bdd6db614634c1978",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

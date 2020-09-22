@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23ac6f09_f860aaed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-09-22T15:21:32Z",
+      "side": 1,
+      "message": "Holmer, you hit all the owner spots, so please take a peek.",
+      "revId": "173c97cd56c8e631b4b56da286eb69ad649fcf0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

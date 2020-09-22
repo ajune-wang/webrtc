@@ -16,6 +16,47 @@
       "revId": "4a48fb7de784b9fcca8be28507e82a38d4a7af6f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdd0af2c_b56dfb4f",
+        "filename": "rtc_base/robo_caller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-22T11:41:34Z",
+      "side": 1,
+      "message": "You capture the class by value here. Did you intend to do that?",
+      "range": {
+        "startLine": 184,
+        "startChar": 17,
+        "endLine": 184,
+        "endChar": 18
+      },
+      "revId": "4a48fb7de784b9fcca8be28507e82a38d4a7af6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "341dfada_60d72b3c",
+        "filename": "rtc_base/robo_caller_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-22T11:41:34Z",
+      "side": 1,
+      "message": "Not really. Member function pointers exist, but they are arcane, and you still need to capture `this` somehow. Lambdas on the other hand are flexible, reasonably easy to understand (largely because every C++ programmer needs to know how they work), and make you pay only for the features you use.",
+      "parentUuid": "c424e3eb_366c963c",
+      "revId": "4a48fb7de784b9fcca8be28507e82a38d4a7af6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

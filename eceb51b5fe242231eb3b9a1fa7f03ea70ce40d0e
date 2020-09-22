@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f9dc74f7_a1584727",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-09-22T14:21:34Z",
+      "side": 1,
+      "message": "It might become a nullptr when someone alters the code.\nI added an RTC_DCHECK to catch if this happens.",
+      "parentUuid": "d4960611_008be783",
+      "range": {
+        "startLine": 120,
+        "startChar": 32,
+        "endLine": 120,
+        "endChar": 48
+      },
+      "revId": "eceb51b5fe242231eb3b9a1fa7f03ea70ce40d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87b16d9a_bdba40e2",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-09-22T13:49:48Z",
       "side": 1,
       "message": "or\nforced_playout_delay_.value_or(header.playout_delay);\nhttps://en.cppreference.com/w/cpp/utility/optional/value_or",
+      "range": {
+        "startLine": 808,
+        "startChar": 6,
+        "endLine": 808,
+        "endChar": 75
+      },
+      "revId": "eceb51b5fe242231eb3b9a1fa7f03ea70ce40d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8109fdf_4c09b83c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2020-09-22T14:21:34Z",
+      "side": 1,
+      "message": "Yes, that\u0027s more compact.",
+      "parentUuid": "87b16d9a_bdba40e2",
       "range": {
         "startLine": 808,
         "startChar": 6,

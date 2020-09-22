@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "09ad8f70_b9a6ba74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-22T07:53:08Z",
+      "side": 1,
+      "message": "Oh, but this is brilliant! 😊\n\nI have just LGTM\u0027d your tiny prequel CL.",
+      "parentUuid": "46d93f04_634b5425",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 8
+      },
+      "revId": "4ea59cd4b14c3413460f0ad80fca63ff4a97fd05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc18b361_b406c1e2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1

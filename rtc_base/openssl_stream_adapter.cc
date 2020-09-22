@@ -21,6 +21,7 @@
 #include <openssl/ssl.h>
 #endif
 
+#include <atomic>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -265,6 +266,14 @@ static long stream_ctrl(BIO* b, int cmd, long num, void* ptr) {
 // OpenSSLStreamAdapter
 /////////////////////////////////////////////////////////////////////////////
 
+static std::atomic<bool> g_allow_legacy_tls_protocols(false);
+void SetAllowLegacyTLSProtocols(bool allow) {
+  g_allow_legacy_tls_protocols.store(allow);
+}
+bool ShouldAllowLegacyTLSProtocols() {
+  return g_allow_legacy_tls_protocols.load();
+}
+
 OpenSSLStreamAdapter::OpenSSLStreamAdapter(
     std::unique_ptr<StreamInterface> stream)
     : SSLStreamAdapter(std::move(stream)),
@@ -279,6 +288,7 @@ OpenSSLStreamAdapter::OpenSSLStreamAdapter(
       // Default is to support legacy TLS protocols.
       // This will be changed to default non-support in M82 or M83.
       support_legacy_tls_protocols_flag_(
+          ShouldAllowLegacyTLSProtocols() ||
           !webrtc::field_trial::IsDisabled("WebRTC-LegacyTlsProtocols")) {}
 
 OpenSSLStreamAdapter::~OpenSSLStreamAdapter() {

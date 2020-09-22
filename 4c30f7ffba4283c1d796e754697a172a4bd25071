@@ -34,6 +34,24 @@
       "revId": "4c30f7ffba4283c1d796e754697a172a4bd25071",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61aa8fd3_82ccf23e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-22T01:22:55Z",
+      "side": 1,
+      "message": "I think firing once is expected, since we\u0027re returning to the stable state and still have some stuff that needs negotiating. It shouldn\u0027t fire twice though. Can you track down what\u0027s causing it to fire?",
+      "parentUuid": "18858233_311be9d3",
+      "revId": "4c30f7ffba4283c1d796e754697a172a4bd25071",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

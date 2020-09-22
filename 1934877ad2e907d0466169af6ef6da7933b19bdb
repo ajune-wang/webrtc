@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ed2c006_5a55bbaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2020-09-22T06:44:10Z",
+      "side": 1,
+      "message": "Stefan can approve changes in both dirs. Stefan, could you please take a look?",
+      "revId": "1934877ad2e907d0466169af6ef6da7933b19bdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

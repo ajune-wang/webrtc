@@ -33,6 +33,52 @@
       "revId": "439ce6f5f8bf3d909e7c0fda063c5b06b6d7c824",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1403d96_d1e62c11",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-22T20:03:32Z",
+      "side": 1,
+      "message": "are these two parameters to be experimented separately?",
+      "range": {
+        "startLine": 26,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 45
+      },
+      "revId": "439ce6f5f8bf3d909e7c0fda063c5b06b6d7c824",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a32a5028_8f1523c8",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-22T20:03:32Z",
+      "side": 1,
+      "message": "RTC_DISALLOW_COPY_AND_ASSIGN maybe?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 13
+      },
+      "revId": "439ce6f5f8bf3d909e7c0fda063c5b06b6d7c824",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4960611_008be783",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-22T13:49:48Z",
+      "side": 1,
+      "message": "can key_value_config be nullptr?\nif yes, please check it before calling Lookup.\nif no, please pass it by reference.",
+      "range": {
+        "startLine": 120,
+        "startChar": 32,
+        "endLine": 120,
+        "endChar": 48
+      },
+      "revId": "eceb51b5fe242231eb3b9a1fa7f03ea70ce40d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87b16d9a_bdba40e2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-22T13:49:48Z",
+      "side": 1,
+      "message": "or\nforced_playout_delay_.value_or(header.playout_delay);\nhttps://en.cppreference.com/w/cpp/utility/optional/value_or",
+      "range": {
+        "startLine": 808,
+        "startChar": 6,
+        "endLine": 808,
+        "endChar": 75
+      },
+      "revId": "eceb51b5fe242231eb3b9a1fa7f03ea70ce40d0e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

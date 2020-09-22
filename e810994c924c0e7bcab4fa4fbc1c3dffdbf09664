@@ -52,6 +52,24 @@
       "revId": "e810994c924c0e7bcab4fa4fbc1c3dffdbf09664",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb5a298_5c8aaf00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-22T09:20:51Z",
+      "side": 1,
+      "message": "Good catch, I will add that detail in the CL description.",
+      "parentUuid": "5c8ddca1_868c59ea",
+      "revId": "e810994c924c0e7bcab4fa4fbc1c3dffdbf09664",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

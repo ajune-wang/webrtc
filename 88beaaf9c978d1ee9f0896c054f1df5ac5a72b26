@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "53681cad_3841232b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-22T08:40:35Z",
+      "side": 1,
+      "message": "LGTM since a follow-up CL will fix the 2 other places.",
+      "revId": "88beaaf9c978d1ee9f0896c054f1df5ac5a72b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a487b18_908c8e36",
         "filename": "rtc_base/logging.h",
         "patchSetId": 2

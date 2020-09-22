@@ -20,21 +20,22 @@ namespace webrtc {
 namespace webrtc_pc_e2e {
 namespace {
 
-rtc::Buffer CreateBufferOfSizeNFilledWithValuesFromX(size_t n, uint8_t x) {
-  rtc::Buffer buffer(n);
+void AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(EncodedImage* image,
+                                                            size_t n,
+                                                            uint8_t x) {
+  auto buffer = EncodedImageBuffer::Create(n);
   for (size_t i = 0; i < n; ++i) {
-    buffer[i] = static_cast<uint8_t>(x + i);
+    buffer->data()[i] = static_cast<uint8_t>(x + i);
   }
-  return buffer;
+  image->SetEncodedData(buffer);
 }
 
 TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardFalse) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(1);
 
-  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-
-  EncodedImage source(buffer.data(), 10, 10);
+  EncodedImage source;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source, 10, 1);
   source.SetTimestamp(123456789);
 
   EncodedImageExtractionResult out =
@@ -53,9 +54,8 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractDiscardTrue) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(1);
 
-  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-
-  EncodedImage source(buffer.data(), 10, 10);
+  EncodedImage source;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source, 10, 1);
   source.SetTimestamp(123456789);
 
   EncodedImageExtractionResult out =
@@ -71,9 +71,8 @@ TEST(SingleProcessEncodedImageDataInjector, InjectWithUnsetSpatialLayerSizes) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(1);
 
-  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-
-  EncodedImage source(buffer.data(), 10, 10);
+  EncodedImage source;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source, 10, 1);
   source.SetTimestamp(123456789);
 
   EncodedImage intermediate = injector.InjectData(512, false, source, 1);
@@ -97,9 +96,8 @@ TEST(SingleProcessEncodedImageDataInjector, InjectWithZeroSpatialLayerSizes) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(1);
 
-  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-
-  EncodedImage source(buffer.data(), 10, 10);
+  EncodedImage source;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source, 10, 1);
   source.SetTimestamp(123456789);
 
   EncodedImage intermediate = injector.InjectData(512, false, source, 1);
@@ -126,18 +124,17 @@ TEST(SingleProcessEncodedImageDataInjector, Inject3Extract3) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(1);
 
-  rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-  rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
-  rtc::Buffer buffer3 = CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
-
   // 1st frame
-  EncodedImage source1(buffer1.data(), 10, 10);
+  EncodedImage source1;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source1, 10, 1);
   source1.SetTimestamp(123456710);
   // 2nd frame 1st spatial layer
-  EncodedImage source2(buffer2.data(), 10, 10);
+  EncodedImage source2;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source2, 10, 11);
   source2.SetTimestamp(123456720);
   // 2nd frame 2nd spatial layer
-  EncodedImage source3(buffer3.data(), 10, 10);
+  EncodedImage source3;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source3, 10, 21);
   source3.SetTimestamp(123456720);
 
   EncodedImage intermediate1 = injector.InjectData(510, false, source1, 1);
@@ -176,15 +173,14 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractFromConcatenated) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(1);
 
-  rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-  rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
-  rtc::Buffer buffer3 = CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
-
-  EncodedImage source1(buffer1.data(), 10, 10);
+  EncodedImage source1;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source1, 10, 1);
   source1.SetTimestamp(123456710);
-  EncodedImage source2(buffer2.data(), 10, 10);
+  EncodedImage source2;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source2, 10, 11);
   source2.SetTimestamp(123456710);
-  EncodedImage source3(buffer3.data(), 10, 10);
+  EncodedImage source3;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source3, 10, 21);
   source3.SetTimestamp(123456710);
 
   // Inject id into 3 images with same frame id.
@@ -200,8 +196,9 @@ TEST(SingleProcessEncodedImageDataInjector, InjectExtractFromConcatenated) {
   concatenated_buffer.AppendData(intermediate1.data(), intermediate1.size());
   concatenated_buffer.AppendData(intermediate2.data(), intermediate2.size());
   concatenated_buffer.AppendData(intermediate3.data(), intermediate3.size());
-  EncodedImage concatenated(concatenated_buffer.data(), concatenated_length,
-                            concatenated_length);
+  EncodedImage concatenated;
+  concatenated.SetEncodedData(EncodedImageBuffer::Create(
+      concatenated_buffer.data(), concatenated_length));
   concatenated.SetSpatialIndex(2);
   concatenated.SetSpatialLayerFrameSize(0, intermediate1.size());
   concatenated.SetSpatialLayerFrameSize(1, intermediate2.size());
@@ -229,15 +226,14 @@ TEST(SingleProcessEncodedImageDataInjector,
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(1);
 
-  rtc::Buffer buffer1 = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-  rtc::Buffer buffer2 = CreateBufferOfSizeNFilledWithValuesFromX(10, 11);
-  rtc::Buffer buffer3 = CreateBufferOfSizeNFilledWithValuesFromX(10, 21);
-
-  EncodedImage source1(buffer1.data(), 10, 10);
+  EncodedImage source1;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source1, 10, 1);
   source1.SetTimestamp(123456710);
-  EncodedImage source2(buffer2.data(), 10, 10);
+  EncodedImage source2;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source2, 10, 11);
   source2.SetTimestamp(123456710);
-  EncodedImage source3(buffer3.data(), 10, 10);
+  EncodedImage source3;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source3, 10, 21);
   source3.SetTimestamp(123456710);
 
   // Inject id into 3 images with same frame id.
@@ -253,8 +249,10 @@ TEST(SingleProcessEncodedImageDataInjector,
   concatenated_buffer.AppendData(intermediate1.data(), intermediate1.size());
   concatenated_buffer.AppendData(intermediate2.data(), intermediate2.size());
   concatenated_buffer.AppendData(intermediate3.data(), intermediate3.size());
-  EncodedImage concatenated(concatenated_buffer.data(), concatenated_length,
-                            concatenated_length);
+  EncodedImage concatenated;
+  concatenated.SetEncodedData(EncodedImageBuffer::Create(
+      concatenated_buffer.data(), concatenated_length));
+  memcpy(concatenated.data(), concatenated_buffer.data(), concatenated_length);
   concatenated.SetSpatialIndex(2);
   concatenated.SetSpatialLayerFrameSize(0, intermediate1.size());
   concatenated.SetSpatialLayerFrameSize(1, intermediate2.size());
@@ -277,9 +275,8 @@ TEST(SingleProcessEncodedImageDataInjector, InjectOnceExtractTwice) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(2);
 
-  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-
-  EncodedImage source(buffer.data(), 10, 10);
+  EncodedImage source;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source, 10, 1);
   source.SetTimestamp(123456789);
 
   EncodedImageExtractionResult out =
@@ -323,9 +320,8 @@ TEST(SingleProcessEncodedImageDataInjector, InjectOnceExtractMoreThenExpected) {
   SingleProcessEncodedImageDataInjector injector;
   injector.Start(2);
 
-  rtc::Buffer buffer = CreateBufferOfSizeNFilledWithValuesFromX(10, 1);
-
-  EncodedImage source(buffer.data(), 10, 10);
+  EncodedImage source;
+  AllocateEncodedImageBufferOfSizeNFilledWithValuesFromX(&source, 10, 1);
   source.SetTimestamp(123456789);
 
   EncodedImage modified = injector.InjectData(/*id=*/512, /*discard=*/false,

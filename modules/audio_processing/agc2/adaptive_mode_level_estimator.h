@@ -13,6 +13,7 @@
 
 #include <stddef.h>
 
+#include "absl/types/optional.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
 #include "modules/audio_processing/agc2/saturation_protector.h"
 #include "modules/audio_processing/agc2/vad_with_level.h"
@@ -21,6 +22,7 @@
 namespace webrtc {
 class ApmDataDumper;
 
+// Level estimator for the digital adaptive gain controller.
 class AdaptiveModeLevelEstimator {
  public:
   explicit AdaptiveModeLevelEstimator(ApmDataDumper* apm_data_dumper);
@@ -36,30 +38,55 @@ class AdaptiveModeLevelEstimator {
   // TODO(crbug.com/webrtc/7494): Replace ctor above with the one below.
   AdaptiveModeLevelEstimator(
       ApmDataDumper* apm_data_dumper,
-      AudioProcessing::Config::GainController2::LevelEstimator level_estimator,
-      bool use_saturation_protector,
       float initial_saturation_margin_db,
+      AudioProcessing::Config::GainController2::LevelEstimator level_estimator,
+      int min_consecutive_speech_frames,
+      bool use_saturation_protector,
       float extra_saturation_margin_db);
-  void UpdateEstimation(const VadWithLevel::LevelAndProbability& vad_data);
-  float LatestLevelEstimate() const;
+
+  // Returns true if enough speech frames have been observed.
+  bool IsConfident() const;
+  // Returns the estimated speech plus noise level.
+  float GetLevelDbfs() const;
+  // Updates the level estimation.
+  void Update(const VadWithLevel::LevelAndProbability& vad_data);
+
   void Reset();
-  bool LevelEstimationIsConfident() const {
-    return buffer_size_ms_ >= kFullBufferSizeMs;
-  }
 
  private:
+  // Part of the level estimator state used for check-pointing and restore ops.
+  struct State {
+    bool operator==(const State& s) const;
+    bool operator!=(const State& s) const;
+    struct Ratio {
+      float numerator;
+      float denominator;
+      float GetRatio() const;
+    };
+    int time_to_full_buffer_ms;
+    absl::optional<Ratio> level_dbfs;
+    // TODO(crbug.com/webrtc/7494): Add saturation protector state.
+  };
+  static_assert(std::is_trivially_copyable<State>::value, "");
+
   void DebugDumpEstimate();
+  void ResetState(State& state);
+  // Analyzes `vad_data` and `state` and updates `state`.
+  void UpdateState(const VadWithLevel::LevelAndProbability& vad_data,
+                   State& state);
+
+  ApmDataDumper* const apm_data_dumper_;
+  SaturationProtector saturation_protector_;
 
   const AudioProcessing::Config::GainController2::LevelEstimator
-      level_estimator_;
+      level_estimator_type_;
+  const int min_consecutive_speech_frames_;
   const bool use_saturation_protector_;
   const float extra_saturation_margin_db_;
-  size_t buffer_size_ms_ = 0;
-  float last_estimate_with_offset_dbfs_ = kInitialSpeechLevelEstimateDbfs;
-  float estimate_numerator_ = 0.f;
-  float estimate_denominator_ = 0.f;
-  SaturationProtector saturation_protector_;
-  ApmDataDumper* const apm_data_dumper_;
+  State temporary_state_;
+  State last_state_;
+  absl::optional<float> last_level_dbfs_;
+  int num_adjacent_speech_frames_;
 };
 
 }  // namespace webrtc

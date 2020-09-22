@@ -18,6 +18,27 @@
 
 namespace webrtc {
 
+int GetMinConsecutiveSpeechFrames() {
+  constexpr char kForceMinConsecutiveSpeechFramesFieldTrial[] =
+      "WebRTC-Audio-Agc2ForceMinConsecutiveSpeechFrames";
+
+  const bool use_forced_min_consecutive_speech_frames =
+      webrtc::field_trial::IsEnabled(
+          kForceMinConsecutiveSpeechFramesFieldTrial);
+  if (use_forced_min_consecutive_speech_frames) {
+    const std::string field_trial_string = webrtc::field_trial::FindFullName(
+        kForceMinConsecutiveSpeechFramesFieldTrial);
+    int min_consecutive_speech_frames = 1;
+    if (sscanf(field_trial_string.c_str(), "Enabled-%d",
+               &min_consecutive_speech_frames) == 1 &&
+        min_consecutive_speech_frames >= 1) {
+      return min_consecutive_speech_frames;
+    }
+  }
+  constexpr int kDefaultMinConsecutiveSpeechFrames = 1;
+  return kDefaultMinConsecutiveSpeechFrames;
+}
+
 float GetInitialSaturationMarginDb() {
   constexpr char kForceInitialSaturationMarginFieldTrial[] =
       "WebRTC-Audio-Agc2ForceInitialSaturationMargin";

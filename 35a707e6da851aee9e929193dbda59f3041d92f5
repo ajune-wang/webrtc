@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "8eef5baf_ce7e6da4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-22T07:13:43Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "35a707e6da851aee9e929193dbda59f3041d92f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f88bd0fc_1a67ce54",
         "filename": "media/engine/webrtc_video_engine.h",
         "patchSetId": 2
@@ -30,6 +47,30 @@
       "writtenOn": "2020-09-21T14:20:50Z",
       "side": 1,
       "message": "This could be dropped, there are no longer any virtual methods on this class.",
+      "range": {
+        "startLine": 334,
+        "startChar": 4,
+        "endLine": 334,
+        "endChar": 11
+      },
+      "revId": "35a707e6da851aee9e929193dbda59f3041d92f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d0e1bad_ebe82e6e",
+        "filename": "media/engine/webrtc_video_engine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-22T07:13:43Z",
+      "side": 1,
+      "message": "Sure let\u0027s drop it, this is a private nested class with no hierarchy",
+      "parentUuid": "f88bd0fc_1a67ce54",
       "range": {
         "startLine": 334,
         "startChar": 4,

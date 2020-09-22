@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c7ff51e_623119d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-22T21:12:39Z",
+      "side": 1,
+      "message": "FYI. Reverted; I hope this unblocks the roll.\n",
+      "revId": "881bca1ab96d05dae8be27070d02aabd70035614",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

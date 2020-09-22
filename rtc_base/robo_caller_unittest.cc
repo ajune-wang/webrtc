@@ -50,6 +50,21 @@ TEST(RoboCaller, ReferenceTest) {
   EXPECT_EQ(index, 2);
 }
 
+enum State {
+  kNew,
+  kChecking,
+};
+
+TEST(RoboCaller, SingleEnumTest) {
+  RoboCaller<State&> c;
+  State s = kNew;
+
+  c.AddReceiver([](State& s) { s = kChecking; });
+  c.Send(s);
+
+  EXPECT_EQ(s, kChecking);
+}
+
 TEST(RoboCaller, ConstReferenceTest) {
   RoboCaller<int&> c;
   int i = 0;
@@ -154,6 +169,22 @@ TEST(RoboCaller, MultipleReceiverSendTest) {
   c.Send(index);
 
   EXPECT_EQ(index, 5);
+}
+
+class A {
+ public:
+  void increment(int& i) { i++; }
+};
+
+TEST(RoboCaller, MemberFunctionTest) {
+  RoboCaller<int&> c;
+  A a;
+  int index = 1;
+
+  c.AddReceiver([a](int& i) mutable { a.increment(i); });
+  c.Send(index);
+
+  EXPECT_EQ(index, 2);
 }
 // todo(glahiru): Add a test case to catch some error for Karl's first fix
 // todo(glahiru): Add a test for rtc::Bind

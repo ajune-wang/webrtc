@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0558d56d_433d746a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-22T08:41:27Z",
+      "side": 1,
+      "message": "LGTM on this one as well since the places where we need to follow-up will be addressed in another CL.",
+      "revId": "6cf15f41892680a722a98a91c6a51a7d1f72270e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

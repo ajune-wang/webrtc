@@ -17,6 +17,11 @@
 
 namespace webrtc {
 
+float AdaptiveModeLevelEstimator::State::Ratio::GetRatio() const {
+  RTC_DCHECK_NE(denominator, 0.f);
+  return numerator / denominator;
+}
+
 AdaptiveModeLevelEstimator::AdaptiveModeLevelEstimator(
     ApmDataDumper* apm_data_dumper)
     : AdaptiveModeLevelEstimator(
@@ -43,13 +48,20 @@ AdaptiveModeLevelEstimator::AdaptiveModeLevelEstimator(
     bool use_saturation_protector,
     float initial_saturation_margin_db,
     float extra_saturation_margin_db)
-    : level_estimator_(level_estimator),
+    : apm_data_dumper_(apm_data_dumper),
+      saturation_protector_(apm_data_dumper, initial_saturation_margin_db),
+      level_estimator_type_(level_estimator),
       use_saturation_protector_(use_saturation_protector),
       extra_saturation_margin_db_(extra_saturation_margin_db),
-      saturation_protector_(apm_data_dumper, initial_saturation_margin_db),
-      apm_data_dumper_(apm_data_dumper) {}
+      last_level_dbfs_(absl::nullopt) {}
 
-void AdaptiveModeLevelEstimator::UpdateEstimation(
+void AdaptiveModeLevelEstimator::Reset() {
+  saturation_protector_.Reset();
+  ResetState(state_);
+  last_level_dbfs_ = absl::nullopt;
+}
+
+void AdaptiveModeLevelEstimator::Update(
     const VadWithLevel::LevelAndProbability& vad_data) {
   RTC_DCHECK_GT(vad_data.speech_rms_dbfs, -150.f);
   RTC_DCHECK_LT(vad_data.speech_rms_dbfs, 50.f);
@@ -63,64 +75,80 @@ void AdaptiveModeLevelEstimator::UpdateEstimation(
     return;
   }
 
-  const bool buffer_is_full = buffer_size_ms_ >= kFullBufferSizeMs;
+  // Update the state.
+  const bool buffer_is_full = state_.time_to_full_buffer_ms == 0;
   if (!buffer_is_full) {
-    buffer_size_ms_ += kFrameDurationMs;
+    state_.time_to_full_buffer_ms -= kFrameDurationMs;
   }
 
-  const float leak_factor = buffer_is_full ? kFullBufferLeakFactor : 1.f;
-
-  // Read speech level estimation.
-  float speech_level_dbfs = 0.f;
+  // Read level estimation.
+  float level_dbfs = 0.f;
   using LevelEstimatorType =
       AudioProcessing::Config::GainController2::LevelEstimator;
-  switch (level_estimator_) {
+  switch (level_estimator_type_) {
     case LevelEstimatorType::kRms:
-      speech_level_dbfs = vad_data.speech_rms_dbfs;
+      level_dbfs = vad_data.speech_rms_dbfs;
       break;
     case LevelEstimatorType::kPeak:
-      speech_level_dbfs = vad_data.speech_peak_dbfs;
+      level_dbfs = vad_data.speech_peak_dbfs;
       break;
   }
 
-  // Update speech level estimation.
-  estimate_numerator_ = estimate_numerator_ * leak_factor +
-                        speech_level_dbfs * vad_data.speech_probability;
-  estimate_denominator_ =
-      estimate_denominator_ * leak_factor + vad_data.speech_probability;
-  last_estimate_with_offset_dbfs_ = estimate_numerator_ / estimate_denominator_;
-
-  if (use_saturation_protector_) {
-    saturation_protector_.UpdateMargin(vad_data.speech_peak_dbfs,
-                                       last_estimate_with_offset_dbfs_);
-    DebugDumpEstimate();
+  // Update level estimation (average level weighted by speech probability).
+  RTC_DCHECK_GT(vad_data.speech_probability, 0.f);
+  if (!state_.level_dbfs.has_value()) {
+    state_.level_dbfs = {/*numerator=*/level_dbfs * vad_data.speech_probability,
+                         /*denominator=*/vad_data.speech_probability};
+  } else {
+    const float leak_factor = buffer_is_full ? kFullBufferLeakFactor : 1.f;
+    state_.level_dbfs->numerator = state_.level_dbfs->numerator * leak_factor +
+                                   level_dbfs * vad_data.speech_probability;
+    state_.level_dbfs->denominator =
+        state_.level_dbfs->denominator * leak_factor +
+        vad_data.speech_probability;
   }
+
+  // Cache level estimation.
+  RTC_DCHECK(state_.level_dbfs.has_value());
+  last_level_dbfs_ = state_.level_dbfs->GetRatio();
+
+  // TODO(crbug.com/webrtc/7494): Update saturation protector state in `state`.
+  if (use_saturation_protector_) {
+    saturation_protector_.UpdateMargin(
+        /*speech_peak_dbfs=*/vad_data.speech_peak_dbfs,
+        /*speech_level_dbfs=*/state_.level_dbfs->GetRatio());
+  }
+
+  DebugDumpEstimate();
 }
 
-float AdaptiveModeLevelEstimator::LatestLevelEstimate() const {
-  return rtc::SafeClamp<float>(
-      last_estimate_with_offset_dbfs_ +
-          (use_saturation_protector_ ? (saturation_protector_.margin_db() +
-                                        extra_saturation_margin_db_)
-                                     : 0.f),
-      -90.f, 30.f);
+float AdaptiveModeLevelEstimator::GetLevelDbfs() const {
+  float level_dbfs = last_level_dbfs_.has_value()
+                         ? last_level_dbfs_.value()
+                         : kInitialSpeechLevelEstimateDbfs;
+  if (use_saturation_protector_) {
+    level_dbfs += saturation_protector_.margin_db();
+    level_dbfs += extra_saturation_margin_db_;
+  }
+  return rtc::SafeClamp<float>(level_dbfs, -90.f, 30.f);
 }
 
-void AdaptiveModeLevelEstimator::Reset() {
-  buffer_size_ms_ = 0;
-  last_estimate_with_offset_dbfs_ = kInitialSpeechLevelEstimateDbfs;
-  estimate_numerator_ = 0.f;
-  estimate_denominator_ = 0.f;
-  saturation_protector_.Reset();
+bool AdaptiveModeLevelEstimator::IsConfident() const {
+  return state_.time_to_full_buffer_ms == 0;
 }
 
 void AdaptiveModeLevelEstimator::DebugDumpEstimate() {
   if (apm_data_dumper_) {
-    apm_data_dumper_->DumpRaw("agc2_adaptive_level_estimate_with_offset_dbfs",
-                              last_estimate_with_offset_dbfs_);
     apm_data_dumper_->DumpRaw("agc2_adaptive_level_estimate_dbfs",
-                              LatestLevelEstimate());
+                              GetLevelDbfs());
   }
   saturation_protector_.DebugDumpEstimate();
 }
+
+void AdaptiveModeLevelEstimator::ResetState(State& state) {
+  state.time_to_full_buffer_ms = kFullBufferSizeMs;
+  state.level_dbfs = absl::nullopt;
+  // TODO(crbug.com/webrtc/7494): Reset saturation protector state in `state`.
+}
+
 }  // namespace webrtc

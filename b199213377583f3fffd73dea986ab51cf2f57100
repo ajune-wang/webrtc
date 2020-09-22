@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cec820c3_2d8d5b99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-09-22T14:50:14Z",
+      "side": 1,
+      "message": "weak",
+      "range": {
+        "startLine": 9,
+        "startChar": 21,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "b199213377583f3fffd73dea986ab51cf2f57100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -14,45 +14,46 @@
 
 #include <string>
 
+#include "absl/types/optional.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
+namespace {
 
-float GetInitialSaturationMarginDb() {
-  constexpr char kForceInitialSaturationMarginFieldTrial[] =
-      "WebRTC-Audio-Agc2ForceInitialSaturationMargin";
-
-  const bool use_forced_initial_saturation_margin =
-      webrtc::field_trial::IsEnabled(kForceInitialSaturationMarginFieldTrial);
-  if (use_forced_initial_saturation_margin) {
-    const std::string field_trial_string = webrtc::field_trial::FindFullName(
-        kForceInitialSaturationMarginFieldTrial);
-    float margin_db = -1;
-    if (sscanf(field_trial_string.c_str(), "Enabled-%f", &margin_db) == 1 &&
-        margin_db >= 12.f && margin_db <= 25.f) {
-      return margin_db;
+absl::optional<float> GetFloatFieldTrial(const char* name,
+                                         float min,
+                                         float max) {
+  if (webrtc::field_trial::IsEnabled(name)) {
+    const std::string field_trial_value =
+        webrtc::field_trial::FindFullName(name);
+    float value;
+    if (sscanf(field_trial_value.c_str(), "Enabled-%f", &value) == 1 &&
+        value >= min && value <= max) {
+      return value;
     }
   }
-  constexpr float kDefaultInitialSaturationMarginDb = 20.f;
-  return kDefaultInitialSaturationMarginDb;
+  return absl::nullopt;
+}
+
+}  // namespace
+
+float GetSmoothedVadProbabilityAttack() {
+  return GetFloatFieldTrial(
+             "WebRTC-Audio-Agc2ForceSmoothedVadProbabilityAttack", /*min=*/0.f,
+             /*max=*/1.f)
+      .value_or(1.f);
+}
+
+float GetInitialSaturationMarginDb() {
+  return GetFloatFieldTrial("WebRTC-Audio-Agc2ForceInitialSaturationMargin",
+                            /*min=*/12.f, /*max=*/25.f)
+      .value_or(20.f);
 }
 
 float GetExtraSaturationMarginOffsetDb() {
-  constexpr char kForceExtraSaturationMarginFieldTrial[] =
-      "WebRTC-Audio-Agc2ForceExtraSaturationMargin";
-
-  const bool use_forced_extra_saturation_margin =
-      webrtc::field_trial::IsEnabled(kForceExtraSaturationMarginFieldTrial);
-  if (use_forced_extra_saturation_margin) {
-    const std::string field_trial_string = webrtc::field_trial::FindFullName(
-        kForceExtraSaturationMarginFieldTrial);
-    float margin_db = -1;
-    if (sscanf(field_trial_string.c_str(), "Enabled-%f", &margin_db) == 1 &&
-        margin_db >= 0.f && margin_db <= 10.f) {
-      return margin_db;
-    }
-  }
-  constexpr float kDefaultExtraSaturationMarginDb = 2.f;
-  return kDefaultExtraSaturationMarginDb;
+  return GetFloatFieldTrial("WebRTC-Audio-Agc2ForceExtraSaturationMargin",
+                            /*min=*/0.f, /*max=*/10.f)
+      .value_or(2.f);
 }
+
 }  // namespace webrtc

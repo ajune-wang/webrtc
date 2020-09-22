@@ -36,5 +36,7 @@ TEST(AutomaticGainController2VadWithLevelEstimator,
             levels_and_vad_prob.speech_peak_dbfs);
 }
 
+// TODO(alessiob): Add a test to compare with ánd without vad prob attack.
+
 }  // namespace test
 }  // namespace webrtc

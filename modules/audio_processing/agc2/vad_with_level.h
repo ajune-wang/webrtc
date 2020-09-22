@@ -31,6 +31,7 @@ class VadWithLevel {
   };
 
   VadWithLevel();
+  explicit VadWithLevel(float vad_probability_attack);
   ~VadWithLevel();
 
   LevelAndProbability AnalyzeFrame(AudioFrameView<const float> frame);
@@ -38,9 +39,12 @@ class VadWithLevel {
  private:
   void SetSampleRate(int sample_rate_hz);
 
+  const float vad_probability_attack_;
+
   rnn_vad::RnnBasedVad rnn_vad_;
   rnn_vad::FeaturesExtractor features_extractor_;
   PushResampler<float> resampler_;
+  float vad_probability_ = 0.f;
 };
 
 }  // namespace webrtc

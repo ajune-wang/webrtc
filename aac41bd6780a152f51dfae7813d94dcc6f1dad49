@@ -22,6 +22,30 @@
       "revId": "aac41bd6780a152f51dfae7813d94dcc6f1dad49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dae493c_d7623f6b",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-23T14:36:43Z",
+      "side": 0,
+      "message": "Yes, this is fine to remove.",
+      "parentUuid": "6ef17d01_b7b6d897",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "aac41bd6780a152f51dfae7813d94dcc6f1dad49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

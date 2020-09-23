@@ -16,6 +16,69 @@
       "revId": "dc3cdc3ebc4d923a522dabfb69e8d9f32f22622f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "599437b5_6c639197",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-23T14:36:43Z",
+      "side": 1,
+      "message": "Nice!\n\nJust 2 small comments, they are non blocking.",
+      "revId": "dc3cdc3ebc4d923a522dabfb69e8d9f32f22622f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19ffbdd0_2918b686",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-23T14:36:43Z",
+      "side": 1,
+      "message": "I have looked at the code and you might even want to remove this and add a TODO in case we add NEON support (looks like it always falls back on default https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/audio_processing/agc2/rnn_vad/rnn.cc;l\u003d305-311;drc\u003db2b2031457525bbfb147bed39dbc5c70563aec06).\n\nNo need to do it anyway, just if you want to simplify the code (if NEON support is not underway).",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 3
+      },
+      "revId": "dc3cdc3ebc4d923a522dabfb69e8d9f32f22622f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f383dc_14d6fb00",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-23T14:36:43Z",
+      "side": 1,
+      "message": "Does \":*\" works?\n\nI think it is the one we use more frequently in the codebase (they should do the same almost thing anyway, \":*\" limits to this folder while \"/*\" also allow sub-folders but we don\u0027t have one in this case).",
+      "range": {
+        "startLine": 57,
+        "startChar": 5,
+        "endLine": 57,
+        "endChar": 8
+      },
+      "revId": "dc3cdc3ebc4d923a522dabfb69e8d9f32f22622f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

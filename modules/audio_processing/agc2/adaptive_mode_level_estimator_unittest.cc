@@ -16,11 +16,15 @@
 
 namespace webrtc {
 namespace {
+
+constexpr float kMinSpeechProbability = 0.f;
+constexpr float kMaxSpeechProbability = 1.f;
+
 void RunOnConstantLevel(int num_iterations,
-                        VadWithLevel::LevelAndProbability vad_data,
+                        const VadLevelAnalyzer::Result& vad_level,
                         AdaptiveModeLevelEstimator* level_estimator) {
   for (int i = 0; i < num_iterations; ++i) {
-    level_estimator->UpdateEstimation(vad_data);  // By copy
+    level_estimator->UpdateEstimation(vad_level);
   }
 }
 }  // namespace
@@ -30,8 +34,9 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator,
   ApmDataDumper apm_data_dumper(0);
   AdaptiveModeLevelEstimator level_estimator(&apm_data_dumper);
 
-  VadWithLevel::LevelAndProbability vad_data(1.f, -20.f, -10.f);
-  level_estimator.UpdateEstimation(vad_data);
+  VadLevelAnalyzer::Result vad_level{kMaxSpeechProbability, /*rms_dbfs=*/-20.f,
+                                     /*peak_dbfs=*/-10.f};
+  level_estimator.UpdateEstimation(vad_level);
   static_cast<void>(level_estimator.LatestLevelEstimate());
 }
 
@@ -40,11 +45,13 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator, LevelShouldStabilize) {
   AdaptiveModeLevelEstimator level_estimator(&apm_data_dumper);
 
   constexpr float kSpeechPeakDbfs = -15.f;
-  RunOnConstantLevel(100,
-                     VadWithLevel::LevelAndProbability(
-                         1.f, kSpeechPeakDbfs - GetInitialSaturationMarginDb(),
-                         kSpeechPeakDbfs),
-                     &level_estimator);
+  RunOnConstantLevel(
+      100,
+      VadLevelAnalyzer::Result{
+          kMaxSpeechProbability,
+          /*rms_dbfs=*/kSpeechPeakDbfs - GetInitialSaturationMarginDb(),
+          kSpeechPeakDbfs},
+      &level_estimator);
 
   EXPECT_NEAR(level_estimator.LatestLevelEstimate() -
                   GetExtraSaturationMarginOffsetDb(),
@@ -60,15 +67,19 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator,
   constexpr float kSpeechRmsDbfs = -25.f;
   RunOnConstantLevel(
       100,
-      VadWithLevel::LevelAndProbability(
-          1.f, kSpeechRmsDbfs - GetInitialSaturationMarginDb(), kSpeechRmsDbfs),
+      VadLevelAnalyzer::Result{
+          kMaxSpeechProbability,
+          /*rms_dbfs=*/kSpeechRmsDbfs - GetInitialSaturationMarginDb(),
+          /*peak_dbfs=*/kSpeechRmsDbfs},
       &level_estimator);
 
   // Run for one more second, but mark as not speech.
   constexpr float kNoiseRmsDbfs = 0.f;
-  RunOnConstantLevel(
-      100, VadWithLevel::LevelAndProbability(0.f, kNoiseRmsDbfs, kNoiseRmsDbfs),
-      &level_estimator);
+  RunOnConstantLevel(100,
+                     VadLevelAnalyzer::Result{kMinSpeechProbability,
+                                              /*rms_dbfs=*/kNoiseRmsDbfs,
+                                              /*peak_dbfs=*/kNoiseRmsDbfs},
+                     &level_estimator);
 
   // Level should not have changed.
   EXPECT_NEAR(level_estimator.LatestLevelEstimate() -
@@ -84,9 +95,10 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator, TimeToAdapt) {
   constexpr float kInitialSpeechRmsDbfs = -30.f;
   RunOnConstantLevel(
       kFullBufferSizeMs / kFrameDurationMs,
-      VadWithLevel::LevelAndProbability(
-          1.f, kInitialSpeechRmsDbfs - GetInitialSaturationMarginDb(),
-          kInitialSpeechRmsDbfs),
+      VadLevelAnalyzer::Result{
+          kMaxSpeechProbability,
+          /*rms_dbfs=*/kInitialSpeechRmsDbfs - GetInitialSaturationMarginDb(),
+          /*peak_dbfs=*/kInitialSpeechRmsDbfs},
       &level_estimator);
 
   // Run for one half 'window size' interval. This should not be enough to
@@ -97,9 +109,10 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator, TimeToAdapt) {
       0.25 * std::abs(kDifferentSpeechRmsDbfs - kInitialSpeechRmsDbfs);
   RunOnConstantLevel(
       static_cast<int>(kFullBufferSizeMs / kFrameDurationMs / 2),
-      VadWithLevel::LevelAndProbability(
-          1.f, kDifferentSpeechRmsDbfs - GetInitialSaturationMarginDb(),
-          kDifferentSpeechRmsDbfs),
+      VadLevelAnalyzer::Result{
+          kMaxSpeechProbability,
+          /*rms_dbfs=*/kDifferentSpeechRmsDbfs - GetInitialSaturationMarginDb(),
+          /*peak_dbfs=*/kDifferentSpeechRmsDbfs},
       &level_estimator);
   EXPECT_GT(
       std::abs(kDifferentSpeechRmsDbfs - level_estimator.LatestLevelEstimate()),
@@ -108,9 +121,10 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator, TimeToAdapt) {
   // Run for some more time. Afterwards, we should have adapted.
   RunOnConstantLevel(
       static_cast<int>(3 * kFullBufferSizeMs / kFrameDurationMs),
-      VadWithLevel::LevelAndProbability(
-          1.f, kDifferentSpeechRmsDbfs - GetInitialSaturationMarginDb(),
-          kDifferentSpeechRmsDbfs),
+      VadLevelAnalyzer::Result{
+          kMaxSpeechProbability,
+          /*rms_dbfs=*/kDifferentSpeechRmsDbfs - GetInitialSaturationMarginDb(),
+          /*peak_dbfs=*/kDifferentSpeechRmsDbfs},
       &level_estimator);
   EXPECT_NEAR(level_estimator.LatestLevelEstimate() -
                   GetExtraSaturationMarginOffsetDb(),
@@ -127,9 +141,10 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator,
   constexpr float kInitialSpeechRmsDbfs = -30.f;
   RunOnConstantLevel(
       kFullBufferSizeMs / kFrameDurationMs,
-      VadWithLevel::LevelAndProbability(
-          1.f, kInitialSpeechRmsDbfs - GetInitialSaturationMarginDb(),
-          kInitialSpeechRmsDbfs),
+      VadLevelAnalyzer::Result{
+          kMaxSpeechProbability,
+          /*rms_dbfs=*/kInitialSpeechRmsDbfs - GetInitialSaturationMarginDb(),
+          /*peak_dbfs=*/kInitialSpeechRmsDbfs},
       &level_estimator);
 
   constexpr float kDifferentSpeechRmsDbfs = -10.f;
@@ -138,9 +153,10 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator,
 
   RunOnConstantLevel(
       kFullBufferSizeMs / kFrameDurationMs / 2,
-      VadWithLevel::LevelAndProbability(
-          1.f, kDifferentSpeechRmsDbfs - GetInitialSaturationMarginDb(),
-          kDifferentSpeechRmsDbfs),
+      VadLevelAnalyzer::Result{
+          kMaxSpeechProbability,
+          /*rms_dbfs=*/kDifferentSpeechRmsDbfs - GetInitialSaturationMarginDb(),
+          /*peak_dbfs=*/kDifferentSpeechRmsDbfs},
       &level_estimator);
 
   // The level should be close to 'kDifferentSpeechRmsDbfs'.

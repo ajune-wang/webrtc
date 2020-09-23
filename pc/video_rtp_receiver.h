@@ -89,6 +89,7 @@ class VideoRtpReceiver : public rtc::RefCountedObject<RtpReceiverInternal>,
 
   // RtpReceiverInternal implementation.
   void Stop() override;
+  void StopAndEndTrack() override;
   void SetupMediaChannel(uint32_t ssrc) override;
   void SetupUnsignaledMediaChannel() override;
   uint32_t ssrc() const override { return ssrc_.value_or(0); }

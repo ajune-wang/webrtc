@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "302726ab_10d1ba22",
+        "filename": "api/video/nv12_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-23T13:23:01Z",
+      "side": 1,
+      "message": "Currently there\u0027s no difference, because NV12Scale mostly converts to I420 under the hood.\n\nUtilising gpu service is a big and complicated project in itself.\n\nCurrently, for one incoming video frame, there might be up to 3 downscale calls (one due to adaptations in WebrtcVideoTrackSource) and two other for simulcast (SimulcastAdapter and LibvpxVp8Encoder).\n\nThe first approximation might be like that:\n1) a new Scale() interface should be added to VideoFrameBuffer and webrtc should use it.\n2) WebrtcVideoFrameAdapter makes calls to GPU service to perform the scaling.\n\nBut having up to 3 IPC roundtrips might add enough overhead to completely remove all benefits (comparing to optimised NV12Scale, which is being worked on).\n\nBut discussion is ongoing on a better solution and we are working on it.",
+      "parentUuid": "bfe9766c_c45d55c8",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 11
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8bc0a51a_bc8b9ea3",
         "filename": "api/video/video_frame_buffer.h",
         "patchSetId": 4

@@ -16,6 +16,120 @@
       "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbadb2eb_e3552954",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-23T07:14:46Z",
+      "side": 1,
+      "message": "This is always true, right? They are both kPeakEnveloperBufferSize.",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 40
+      },
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00277252_1ea87de0",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-23T07:14:46Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right. Two ring buffers whose last kPeakEnveloperBufferSize PushBack calls inserted the same values ought to compare equal regardless of their earlier history.\n\nThis is also an argument against the `next_ !\u003d b.next_` comparison above.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e98825d7_ac6c8449",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-23T07:14:46Z",
+      "side": 1,
+      "message": "Make this inline?",
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe869d27_db1dae7a",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-23T07:14:46Z",
+      "side": 1,
+      "message": "Inline?",
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac7b47c2_36fd6e6a",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-23T07:14:46Z",
+      "side": 1,
+      "message": "Structs are not allowed to have private stuff, says the styleguide. Make RingBuffer public or move it out of SaturationProtectorState?",
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91795bdb_e112f142",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-23T07:14:46Z",
+      "side": 1,
+      "message": "Define !\u003d inline as just the inverse of \u003d\u003d? (One more case below.)",
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

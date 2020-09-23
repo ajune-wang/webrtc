@@ -43,8 +43,6 @@ struct TestLevelEstimator {
   std::unique_ptr<AdaptiveModeLevelEstimator> estimator;
 };
 
-}  // namespace
-
 TEST(AutomaticGainController2AdaptiveModeLevelEstimator,
      EstimatorShouldNotCrash) {
   TestLevelEstimator level_estimator;
@@ -167,4 +165,5 @@ TEST(AutomaticGainController2AdaptiveModeLevelEstimator,
             kMaxDifferenceDb);
 }
 
+}  // namespace
 }  // namespace webrtc

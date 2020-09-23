@@ -217,6 +217,8 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
   std::unique_ptr<RtxReceiveStream> rtx_receive_stream_;
   std::unique_ptr<RtpStreamReceiverInterface> rtx_receiver_;
 
+  int next_decode_counter_ = 0;
+
   // Whenever we are in an undecodable state (stream has just started or due to
   // a decoding error) we require a keyframe to restart the stream.
   bool keyframe_required_ RTC_GUARDED_BY(decode_queue_) = true;
@@ -256,6 +258,12 @@ class VideoReceiveStream2 : public webrtc::VideoReceiveStream,
   // Set to true while we're requesting keyframes but not yet received one.
   bool keyframe_generation_requested_ RTC_GUARDED_BY(worker_sequence_checker_) =
       false;
+
+  // Set by the field trial WebRTC-LowLatencyRenderer. The parameter
+  // include_predecode_buffer determines if the predecode buffer should be
+  // taken into account when calculating maximum number of frames in
+  // composition queue.
+  FieldTrialOptional<bool> include_predecode_buffer_;
 
   // Defined last so they are destroyed before all other members.
   rtc::TaskQueue decode_queue_;

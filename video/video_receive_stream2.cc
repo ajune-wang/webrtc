@@ -76,7 +76,8 @@ class WebRtcRecordableEncodedFrame : public RecordableEncodedFrame {
         codec_(frame.CodecSpecific()->codecType),
         is_key_frame_(frame.FrameType() == VideoFrameType::kVideoFrameKey),
         resolution_{frame.EncodedImage()._encodedWidth,
-                    frame.EncodedImage()._encodedHeight} {
+                    frame.EncodedImage()._encodedHeight},
+        decode_counter_(frame.DecodeCounter()) {
     if (frame.ColorSpace()) {
       color_space_ = *frame.ColorSpace();
     }
@@ -102,12 +103,17 @@ class WebRtcRecordableEncodedFrame : public RecordableEncodedFrame {
     return Timestamp::Millis(render_time_ms_);
   }
 
+  absl::optional<int> decode_counter() const override {
+    return decode_counter_;
+  }
+
  private:
   rtc::scoped_refptr<EncodedImageBufferInterface> buffer_;
   int64_t render_time_ms_;
   VideoCodecType codec_;
   bool is_key_frame_;
   EncodedResolution resolution_;
+  absl::optional<int> decode_counter_;
   absl::optional<webrtc::ColorSpace> color_space_;
 };
 
@@ -233,6 +239,7 @@ VideoReceiveStream2::VideoReceiveStream2(
       max_wait_for_frame_ms_(KeyframeIntervalSettings::ParseFromFieldTrials()
                                  .MaxWaitForFrameMs()
                                  .value_or(kMaxWaitForFrameMs)),
+      include_predecode_buffer_("include_predecode_buffer", true),
       decode_queue_(task_queue_factory_->CreateTaskQueue(
           "DecodingQueue",
           TaskQueueFactory::Priority::HIGH)) {
@@ -273,6 +280,9 @@ VideoReceiveStream2::VideoReceiveStream2(
     rtp_receive_statistics_->EnableRetransmitDetection(config.rtp.remote_ssrc,
                                                        true);
   }
+
+  ParseFieldTrial({&include_predecode_buffer_},
+                  field_trial::FindFullName("WebRTC-LowLatencyRenderer"));
 }
 
 VideoReceiveStream2::~VideoReceiveStream2() {
@@ -667,6 +677,7 @@ void VideoReceiveStream2::HandleEncodedFrame(
   const bool keyframe_request_is_due =
       now_ms >= (last_keyframe_request_ms_ + max_wait_for_keyframe_ms_);
 
+  frame->SetDecodeCounter(++next_decode_counter_);
   int decode_result = video_receiver_.Decode(frame.get());
   if (decode_result == WEBRTC_VIDEO_CODEC_OK ||
       decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME) {
@@ -780,6 +791,22 @@ void VideoReceiveStream2::UpdatePlayoutDelays() const {
                 syncable_minimum_playout_delay_ms_});
   if (minimum_delay_ms >= 0) {
     timing_->set_min_playout_delay(minimum_delay_ms);
+    bool low_latency_field_trial = true;
+    if (frame_minimum_playout_delay_ms_ == 0 &&
+        frame_maximum_playout_delay_ms_ > 0 && low_latency_field_trial) {
+      // TODO(kron): Estimate frame rate from video stream.
+      constexpr double kFrameRate = 60.0;
+      int max_composition_delay_in_frames = std::lrint(
+          static_cast<double>(frame_maximum_playout_delay_ms_ * kFrameRate) /
+          rtc::kNumMillisecsPerSec);
+      if (!include_predecode_buffer_ ||
+          (include_predecode_buffer_ && *include_predecode_buffer_)) {
+        max_composition_delay_in_frames = std::max<int16_t>(
+            max_composition_delay_in_frames - frame_buffer_->FramesInBuffer(),
+            0);
+      }
+      timing_->SetMaxCompositionDelayInFrames(max_composition_delay_in_frames);
+    }
   }
 
   const int maximum_delay_ms = frame_maximum_playout_delay_ms_;

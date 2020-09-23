@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "dedadf21_3d799ed4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-09-23T03:02:18Z",
+      "side": 1,
+      "message": "Hi Evan, how can we test both I420 and NV12 buffers for encoding? now I changed the kI420 to kNV12 for VideoCodecUnitTest at https://webrtc-review.googlesource.com/c/src/+/183840/4..5/modules/video_coding/codecs/test/video_codec_unittest.cc#78.",
+      "parentUuid": "d52a8c3c_fb57fc28",
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6804b916_456975d7",
         "filename": "api/video/nv12_buffer.cc",
         "patchSetId": 4
@@ -64,6 +82,30 @@
       "writtenOn": "2020-09-21T14:55:10Z",
       "side": 1,
       "message": "This function seems inefficient, as it has to merge the planes back to NV12 after scaling. Have you tested the power impact when the input needs to be scaled?",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 11
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe9766c_c45d55c8",
+        "filename": "api/video/nv12_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-09-23T03:02:18Z",
+      "side": 1,
+      "message": "When the frame need scaling, the power difference between convertToI420Scale and NV12Scale is very small, almost no difference can be seen..., Later on, I want to try offloading the NV12Scale to gpu service(vaapi for cros) on the chromium side.",
+      "parentUuid": "6804b916_456975d7",
       "range": {
         "startLine": 112,
         "startChar": 2,
@@ -90,6 +132,24 @@
       "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37875702_e09639e3",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-09-23T03:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bc0a51a_bc8b9ea3",
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "8ae50b16_58c3b545",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-09-23T03:02:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6cab45b5_733aedf6",
+      "range": {
+        "startLine": 216,
+        "startChar": 42,
+        "endLine": 216,
+        "endChar": 48
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc6bcce9_00fb90c4",
         "filename": "api/video/video_frame_buffer.h",
         "patchSetId": 4
@@ -160,6 +244,30 @@
       "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "604ce954_784ecd57",
+        "filename": "api/video/video_frame_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-09-23T03:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc6bcce9_00fb90c4",
+      "range": {
+        "startLine": 217,
+        "startChar": 42,
+        "endLine": 217,
+        "endChar": 48
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "111dff9e_e3bc39cf",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-09-23T03:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c2dc632_8ed0e551",
+      "range": {
+        "startLine": 960,
+        "startChar": 6,
+        "endLine": 961,
+        "endChar": 24
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeab5d2f_b88da9f3",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 4
@@ -206,6 +338,30 @@
       "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04707e2_31e7dbbd",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-09-23T03:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeab5d2f_b88da9f3",
+      "range": {
+        "startLine": 969,
+        "startChar": 4,
+        "endLine": 969,
+        "endChar": 22
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

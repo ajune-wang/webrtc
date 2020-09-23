@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "f8c5256a_3271278d",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T09:03:59Z",
+      "side": 1,
+      "message": "Yes, but what if we change the container e.g., to std::vector?\nAlso consider that \u003d\u003d is only used in one DCHECK and in the unit tests (so it\u0027s not critical to remove unnecessary checks).",
+      "parentUuid": "fbadb2eb_e3552954",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 40
+      },
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00277252_1ea87de0",
         "filename": "modules/audio_processing/agc2/saturation_protector.cc",
         "patchSetId": 4
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "afb1a960_f6354625",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T09:03:59Z",
+      "side": 1,
+      "message": "Good point. This is written taking into account how the class is used (and that\u0027s not good).\nFixed.",
+      "parentUuid": "00277252_1ea87de0",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 3
+      },
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e98825d7_ac6c8449",
         "filename": "modules/audio_processing/agc2/saturation_protector.cc",
         "patchSetId": 4
@@ -79,6 +127,24 @@
       "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e457902b_7060ebd7",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T09:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e98825d7_ac6c8449",
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +165,24 @@
     },
     {
       "key": {
+        "uuid": "0861b3cd_b10267dc",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T09:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe869d27_db1dae7a",
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac7b47c2_36fd6e6a",
         "filename": "modules/audio_processing/agc2/saturation_protector.h",
         "patchSetId": 4
@@ -116,6 +200,24 @@
     },
     {
       "key": {
+        "uuid": "4665c817_4bedaaad",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T09:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac7b47c2_36fd6e6a",
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91795bdb_e112f142",
         "filename": "modules/audio_processing/agc2/saturation_protector.h",
         "patchSetId": 4
@@ -130,6 +232,24 @@
       "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40823ff3_dd356c5f",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T09:03:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91795bdb_e112f142",
+      "revId": "89fc2c17e6782628d7bd6304f1715ba5f0f515f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

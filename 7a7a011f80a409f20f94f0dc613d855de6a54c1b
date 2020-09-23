@@ -56,6 +56,30 @@
       "revId": "7a7a011f80a409f20f94f0dc613d855de6a54c1b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3cef7c7_62b9ffd0",
+        "filename": "modules/audio_processing/agc2/agc2_common.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T11:36:50Z",
+      "side": 1,
+      "message": "as discussed offline, the functions in this file are wrong and I must instead edit https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/modules/mediastream/media_stream_audio_processor.cc;l\u003d593-596?q\u003dHybridAgc\u0026start\u003d11 in chromium",
+      "parentUuid": "9adc66ec_c69f6925",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "7a7a011f80a409f20f94f0dc613d855de6a54c1b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

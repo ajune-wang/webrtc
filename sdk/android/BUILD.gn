@@ -648,6 +648,7 @@ if (current_os == "linux" || is_android) {
       "../../api/video_codecs:rtc_software_fallback_wrappers",
       "../../api/video_codecs:video_codecs_api",
       "../../common_video",
+      "../../common_video:webrtc_libyuv",
       "../../media:rtc_media_base",
       "../../modules/video_coding:codec_globals_headers",
       "../../modules/video_coding:video_codec_interface",

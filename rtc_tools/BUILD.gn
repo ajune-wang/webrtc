@@ -216,6 +216,7 @@ if (!is_component_build) {
       "../call",
       "../call:call_interfaces",
       "../common_video",
+      "../common_video:webrtc_libyuv",
       "../media:rtc_internal_video_codecs",
       "../rtc_base:checks",
       "../rtc_base:rtc_json",

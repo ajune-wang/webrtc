@@ -53,9 +53,11 @@ rtc_library("frame_generator_impl") {
     "../api/video:video_frame",
     "../api/video:video_frame_i010",
     "../api/video:video_frame_i420",
+    "../api/video:video_frame_nv12",
     "../api/video:video_rtp_headers",
     "../api/video_codecs:video_codecs_api",
     "../common_video",
+    "../common_video:webrtc_libyuv",
     "../media:rtc_media_base",
     "../modules/video_coding:video_codec_interface",
     "../modules/video_coding:video_coding_utility",
@@ -114,6 +116,7 @@ rtc_library("video_test_common") {
     "../api/video:video_frame",
     "../api/video:video_frame_i010",
     "../api/video:video_frame_i420",
+    "../api/video:video_frame_nv12",
     "../api/video:video_rtp_headers",
     "../api/video_codecs:video_codecs_api",
     "../common_video",
@@ -362,6 +365,7 @@ rtc_library("video_test_support") {
     "../api/video:video_frame_i420",
     "../api/video_codecs:video_codecs_api",
     "../common_video",
+    "../common_video:webrtc_libyuv",
     "../media:rtc_media_base",
     "../modules/video_coding:video_codec_interface",
     "../modules/video_coding:video_coding_utility",
@@ -519,6 +523,7 @@ if (rtc_include_tests) {
       "../api/video_codecs:video_codecs_api",
       "../call:video_stream_api",
       "../common_video",
+      "../common_video:webrtc_libyuv",
       "../media:rtc_media_base",
       "../modules/rtp_rtcp",
       "../modules/rtp_rtcp:rtp_rtcp_format",
@@ -958,6 +963,7 @@ rtc_library("test_renderer_generic") {
   deps = [
     "../api/video:video_frame",
     "../common_video",
+    "../common_video:webrtc_libyuv",
     "../rtc_base:checks",
   ]
   if (is_win) {

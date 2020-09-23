@@ -75,7 +75,7 @@ void VideoCodecUnitTest::SetUp() {
 
   input_frame_generator_ = test::CreateSquareFrameGenerator(
       codec_settings_.width, codec_settings_.height,
-      test::FrameGeneratorInterface::OutputType::kI420, absl::optional<int>());
+      test::FrameGeneratorInterface::OutputType::kNV12, absl::optional<int>());
 
   encoder_ = CreateEncoder();
   decoder_ = CreateDecoder();

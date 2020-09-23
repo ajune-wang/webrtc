@@ -33,7 +33,6 @@ rtc_library("common_video") {
     "include/video_frame_buffer.h",
     "include/video_frame_buffer_pool.h",
     "incoming_video_stream.cc",
-    "libyuv/include/webrtc_libyuv.h",
     "libyuv/webrtc_libyuv.cc",
     "video_frame_buffer.cc",
     "video_frame_buffer_pool.cc",
@@ -42,6 +41,7 @@ rtc_library("common_video") {
   ]
 
   deps = [
+    ":webrtc_libyuv",
     "../api:scoped_refptr",
     "../api/task_queue",
     "../api/units:time_delta",
@@ -65,6 +65,17 @@ rtc_library("common_video") {
     "//third_party/libyuv",
   ]
   absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+}
+
+rtc_source_set("webrtc_libyuv") {
+  visibility = [ "*" ]
+
+  sources = [ "libyuv/include/webrtc_libyuv.h" ]
+  deps = [
+    "../api:scoped_refptr",
+    "../api/video:video_frame",
+    "../rtc_base/system:rtc_export",
+  ]
 }
 
 rtc_source_set("frame_counts") {
@@ -102,6 +113,7 @@ if (rtc_include_tests) {
 
     deps = [
       ":common_video",
+      ":webrtc_libyuv",
       "../api:scoped_refptr",
       "../api/units:time_delta",
       "../api/video:video_frame",

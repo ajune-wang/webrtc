@@ -16,6 +16,7 @@
 #include <memory>
 
 #include "api/video/i010_buffer.h"
+#include "api/video/nv12_buffer.h"
 #include "api/video/video_rotation.h"
 #include "common_video/include/video_frame_buffer.h"
 #include "common_video/libyuv/include/webrtc_libyuv.h"
@@ -87,6 +88,16 @@ FrameGeneratorInterface::VideoFrameData SquareGenerator::NextFrame() {
           rtc::Bind(&KeepBufferRefs, yuv_buffer, axx_buffer));
       break;
     }
+    case OutputType::kNV12: {
+      rtc::scoped_refptr<NV12Buffer> nv12_buffer(
+          NV12Buffer::Create(width_, height_));
+      memset(nv12_buffer->MutableDataY(), 127,
+             height_ * nv12_buffer->StrideY());
+      memset(nv12_buffer->MutableDataUV(), 127,
+             nv12_buffer->ChromaHeight() * nv12_buffer->StrideUV());
+      buffer = nv12_buffer;
+      break;
+    }
     default:
       RTC_NOTREACHED() << "The given output format is not supported.";
   }
@@ -114,7 +125,29 @@ SquareGenerator::Square::Square(int width, int height, int seed)
 void SquareGenerator::Square::Draw(
     const rtc::scoped_refptr<VideoFrameBuffer>& frame_buffer) {
   RTC_DCHECK(frame_buffer->type() == VideoFrameBuffer::Type::kI420 ||
-             frame_buffer->type() == VideoFrameBuffer::Type::kI420A);
+             frame_buffer->type() == VideoFrameBuffer::Type::kI420A ||
+             frame_buffer->type() == VideoFrameBuffer::Type::kNV12);
+
+  if (frame_buffer->type() == VideoFrameBuffer::Type::kNV12) {
+    const NV12BufferInterface* buffer = frame_buffer->GetNV12();
+    int length_cap = std::min(buffer->height(), buffer->width()) / 4;
+    int length = std::min(length_, length_cap);
+    x_ = (x_ + random_generator_.Rand(0, 4)) % (buffer->width() - length);
+    y_ = (y_ + random_generator_.Rand(0, 4)) % (buffer->height() - length);
+    for (int y = y_; y < y_ + length; ++y) {
+      uint8_t* pos_y =
+          (const_cast<uint8_t*>(buffer->DataY()) + x_ + y * buffer->StrideY());
+      memset(pos_y, yuv_y_, length);
+    }
+
+    for (int y = y_; y < y_ + length; y = y + 2) {
+      uint8_t* pos_uv = (const_cast<uint8_t*>(buffer->DataUV()) + x_ +
+                         y / 2 * buffer->StrideUV());
+      memset(pos_uv, yuv_u_, length / 2);
+    }
+    return;
+  }
+
   rtc::scoped_refptr<I420BufferInterface> buffer = frame_buffer->ToI420();
   int length_cap = std::min(buffer->height(), buffer->width()) / 4;
   int length = std::min(length_, length_cap);

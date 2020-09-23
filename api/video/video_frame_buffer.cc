@@ -20,6 +20,14 @@ const I420BufferInterface* VideoFrameBuffer::GetI420() const {
   return nullptr;
 }
 
+// This method can only be called when buffer(either memory-backed or native
+// texture) in nv12, otherwise will return nullptr.
+const NV12BufferInterface* VideoFrameBuffer::GetNV12() const {
+  // Overridden by subclasses that can return an mapped NV12 buffer without
+  // any conversion, in particular, native nv12 texture.
+  return nullptr;
+}
+
 const I420ABufferInterface* VideoFrameBuffer::GetI420A() const {
   RTC_CHECK(type() == Type::kI420A);
   return static_cast<const I420ABufferInterface*>(this);
@@ -33,11 +41,6 @@ const I444BufferInterface* VideoFrameBuffer::GetI444() const {
 const I010BufferInterface* VideoFrameBuffer::GetI010() const {
   RTC_CHECK(type() == Type::kI010);
   return static_cast<const I010BufferInterface*>(this);
-}
-
-const NV12BufferInterface* VideoFrameBuffer::GetNV12() const {
-  RTC_CHECK(type() == Type::kNV12);
-  return static_cast<const NV12BufferInterface*>(this);
 }
 
 VideoFrameBuffer::Type I420BufferInterface::type() const {
@@ -86,6 +89,10 @@ int I010BufferInterface::ChromaWidth() const {
 
 int I010BufferInterface::ChromaHeight() const {
   return (height() + 1) / 2;
+}
+
+const NV12BufferInterface* NV12BufferInterface::GetNV12() const {
+  return this;
 }
 
 VideoFrameBuffer::Type NV12BufferInterface::type() const {

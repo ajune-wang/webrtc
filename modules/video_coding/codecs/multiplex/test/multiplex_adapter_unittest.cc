@@ -86,6 +86,10 @@ class TestMultiplexAdapter : public VideoCodecUnitTest,
       VideoFrame* video_frame) {
     rtc::scoped_refptr<VideoFrameBuffer> video_buffer =
         video_frame->video_frame_buffer();
+    if (video_frame->video_frame_buffer()->type() ==
+        VideoFrameBuffer::Type::kNV12) {
+      video_buffer = video_frame->video_frame_buffer()->ToI420();
+    }
     std::unique_ptr<uint8_t[]> data =
         std::unique_ptr<uint8_t[]>(new uint8_t[16]);
     for (int i = 0; i < 16; i++) {
@@ -211,7 +215,7 @@ TEST_P(TestMultiplexAdapter, ConstructAndDestructEncoder) {
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, encoder_->Release());
 }
 
-TEST_P(TestMultiplexAdapter, EncodeDecodeI420Frame) {
+TEST_P(TestMultiplexAdapter, EncodeDecodeFrame) {
   std::unique_ptr<VideoFrame> input_frame = CreateInputFrame(false);
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, encoder_->Encode(*input_frame, nullptr));
   EncodedImage encoded_frame;

@@ -979,19 +979,45 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
 
   // Keep reference to buffer until encode completes.
   rtc::scoped_refptr<I420BufferInterface> i420_buffer;
+  const NV12BufferInterface* nv12_buffer;
   const I010BufferInterface* i010_buffer;
   rtc::scoped_refptr<const I010BufferInterface> i010_copy;
   switch (profile_) {
     case VP9Profile::kProfile0: {
-      i420_buffer = input_image.video_frame_buffer()->ToI420();
-      // Image in vpx_image_t format.
-      // Input image is const. VPX's raw image is not defined as const.
-      raw_->planes[VPX_PLANE_Y] = const_cast<uint8_t*>(i420_buffer->DataY());
-      raw_->planes[VPX_PLANE_U] = const_cast<uint8_t*>(i420_buffer->DataU());
-      raw_->planes[VPX_PLANE_V] = const_cast<uint8_t*>(i420_buffer->DataV());
-      raw_->stride[VPX_PLANE_Y] = i420_buffer->StrideY();
-      raw_->stride[VPX_PLANE_U] = i420_buffer->StrideU();
-      raw_->stride[VPX_PLANE_V] = i420_buffer->StrideV();
+      if (input_image.video_frame_buffer()->type() ==
+          VideoFrameBuffer::Type::kNV12) {
+        nv12_buffer = input_image.video_frame_buffer()->GetNV12();
+        if (raw_->fmt != VPX_IMG_FMT_NV12) {
+          RTC_LOG(LS_INFO) << "Incoming VideoFrameBuffer type changed, re-wrap "
+                              "to nv12 vpx_img";
+          raw_ = vpx_img_wrap(nullptr, VPX_IMG_FMT_NV12, raw_->d_w, raw_->d_h,
+                              1, nullptr);
+        }
+
+        raw_->planes[VPX_PLANE_Y] = const_cast<uint8_t*>(nv12_buffer->DataY());
+        raw_->planes[VPX_PLANE_U] = const_cast<uint8_t*>(nv12_buffer->DataUV());
+        raw_->planes[VPX_PLANE_V] = raw_->planes[VPX_PLANE_U] + 1;
+        raw_->stride[VPX_PLANE_Y] = nv12_buffer->StrideY();
+        raw_->stride[VPX_PLANE_U] = nv12_buffer->StrideUV();
+        raw_->stride[VPX_PLANE_V] = nv12_buffer->StrideUV();
+      } else {
+        i420_buffer = input_image.video_frame_buffer()->ToI420();
+        if (raw_->fmt != VPX_IMG_FMT_I420) {
+          RTC_LOG(LS_INFO) << "Incoming VideoFrameBuffer type changed, re-wrap "
+                              "to i420 vpx_img";
+          raw_ = vpx_img_wrap(nullptr, VPX_IMG_FMT_I420, raw_->d_w, raw_->d_h,
+                              1, nullptr);
+        }
+        // Image in vpx_image_t format.
+        // Input image is const. VPX's raw image is not defined as const.
+        raw_->planes[VPX_PLANE_Y] = const_cast<uint8_t*>(i420_buffer->DataY());
+        raw_->planes[VPX_PLANE_U] = const_cast<uint8_t*>(i420_buffer->DataU());
+        raw_->planes[VPX_PLANE_V] = const_cast<uint8_t*>(i420_buffer->DataV());
+        raw_->stride[VPX_PLANE_Y] = i420_buffer->StrideY();
+        raw_->stride[VPX_PLANE_U] = i420_buffer->StrideU();
+        raw_->stride[VPX_PLANE_V] = i420_buffer->StrideV();
+      }
+
       break;
     }
     case VP9Profile::kProfile1: {
@@ -999,6 +1025,12 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
       break;
     }
     case VP9Profile::kProfile2: {
+      if (raw_->fmt != VPX_IMG_FMT_I42016) {
+        RTC_LOG(LS_INFO) << "Incoming VideoFrameBuffer type changed, re-wrap "
+                            "to i42016 vpx_img";
+        raw_ = vpx_img_wrap(nullptr, VPX_IMG_FMT_I42016, raw_->d_w, raw_->d_h,
+                            1, nullptr);
+      }
       // We can inject kI010 frames directly for encode. All other formats
       // should be converted to it.
       switch (input_image.video_frame_buffer()->type()) {

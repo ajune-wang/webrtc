@@ -54,6 +54,9 @@ class RTC_EXPORT NV12Buffer : public NV12BufferInterface {
   // are resolved in a better way. Or in the mean time, use SetBlack.
   void InitializeData();
 
+  // Scale all of |src| to the size of |this| buffer.
+  void ScaleFrom(const NV12BufferInterface& src);
+
  protected:
   NV12Buffer(int width, int height);
   NV12Buffer(int width, int height, int stride_y, int stride_uv);

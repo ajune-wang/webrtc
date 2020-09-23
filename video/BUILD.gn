@@ -313,6 +313,7 @@ if (rtc_include_tests) {
       "../call:fake_network",
       "../call:simulated_network",
       "../common_video",
+      "../common_video:webrtc_libyuv",
       "../media:rtc_audio_video",
       "../media:rtc_encoder_simulcast_proxy",
       "../media:rtc_internal_video_codecs",

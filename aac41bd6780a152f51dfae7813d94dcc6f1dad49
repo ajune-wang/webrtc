@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ef17d01_b7b6d897",
+        "filename": "modules/audio_processing/agc2/rnn_vad/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T12:33:44Z",
+      "side": 0,
+      "message": "is it safe to remove this? or do we have to empty that explicitly?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "aac41bd6780a152f51dfae7813d94dcc6f1dad49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

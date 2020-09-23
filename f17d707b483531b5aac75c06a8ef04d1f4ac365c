@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fba94f9_b379b174",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T13:28:40Z",
+      "side": 1,
+      "message": "Hi Minyue,\nI isolated the field trial related changes and I\u0027m going to upload a new child CL.\nCould you PTAL again?\nCheers,\nAlessio",
+      "revId": "f17d707b483531b5aac75c06a8ef04d1f4ac365c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

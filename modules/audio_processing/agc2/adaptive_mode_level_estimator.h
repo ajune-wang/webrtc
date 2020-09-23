@@ -29,7 +29,7 @@ class AdaptiveModeLevelEstimator {
       AudioProcessing::Config::GainController2::LevelEstimator level_estimator,
       bool use_saturation_protector,
       float extra_saturation_margin_db);
-  void UpdateEstimation(const VadWithLevel::LevelAndProbability& vad_data);
+  void UpdateEstimation(const VadLevelAnalyzer::Result& vad_level);
   float LatestLevelEstimate() const;
   void Reset();
   bool LevelEstimationIsConfident() const {

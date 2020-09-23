@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2583ecf_5d442e2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-23T07:24:30Z",
+      "side": 1,
+      "message": "Thanks for the review Jakob and the comments Minyue.",
+      "revId": "0481de6aaf534b013016e09f130ba700ea183448",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

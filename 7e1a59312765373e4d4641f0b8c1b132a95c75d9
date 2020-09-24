@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "cbbea852_efdb4950",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-24T15:29:08Z",
+      "side": 1,
+      "message": "it can never become negative, let me add a DCHECK",
+      "parentUuid": "ea21a901_c5c209f2",
+      "range": {
+        "startLine": 75,
+        "startChar": 60,
+        "endLine": 75,
+        "endChar": 62
+      },
+      "revId": "7e1a59312765373e4d4641f0b8c1b132a95c75d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56b00491_2d050e1a",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 16
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "2d459ff2_15537ed3",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-24T15:29:08Z",
+      "side": 1,
+      "message": "Thanks for checking this part.\n\nThis was added by aleloi@ in https://webrtc-review.googlesource.com/c/src/+/64820/ and actually reviewed by you at that time (not a reason to avoid your question).\n\nI spent time on this section a few days ago, in particular to make sure that no overflow can take place. The goal is to compute a weighted average of the audio levels that are classified as speech where the weight is the speech probability. That\u0027s why the numerator adds `probability * level` and the denominator adds `probability`.\n\nThe leak factor is designed to simulate the memory/forgetting behavior of a ring buffer using an exponential process.\n\nFeel free to reopen this comment if there\u0027s anything that can be improved (e.g., adding a comment that explains the process) or that needs more attention.",
+      "parentUuid": "56b00491_2d050e1a",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 0
+      },
+      "revId": "7e1a59312765373e4d4641f0b8c1b132a95c75d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9babf7a2_fcbf0f23",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 16
@@ -85,6 +133,30 @@
       "revId": "7e1a59312765373e4d4641f0b8c1b132a95c75d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87cec4d5_40cfd853",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-24T15:29:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9babf7a2_fcbf0f23",
+      "range": {
+        "startLine": 115,
+        "startChar": 21,
+        "endLine": 117,
+        "endChar": 59
+      },
+      "revId": "7e1a59312765373e4d4641f0b8c1b132a95c75d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

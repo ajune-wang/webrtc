@@ -268,6 +268,7 @@ static long stream_ctrl(BIO* b, int cmd, long num, void* ptr) {
 OpenSSLStreamAdapter::OpenSSLStreamAdapter(
     std::unique_ptr<StreamInterface> stream)
     : SSLStreamAdapter(std::move(stream)),
+      owner_(rtc::Thread::Current()),
       state_(SSL_NONE),
       role_(SSL_CLIENT),
       ssl_read_needs_write_(false),
@@ -283,6 +284,7 @@ OpenSSLStreamAdapter::OpenSSLStreamAdapter(
 
 OpenSSLStreamAdapter::~OpenSSLStreamAdapter() {
   Cleanup(0);
+  owner_->Clear(this);
 }
 
 void OpenSSLStreamAdapter::SetIdentity(std::unique_ptr<SSLIdentity> identity) {

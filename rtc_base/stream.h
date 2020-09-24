@@ -96,13 +96,6 @@ class RTC_EXPORT StreamInterface : public MessageHandlerAutoCleanup {
   // certain events will be raised in the future.
   sigslot::signal3<StreamInterface*, int, int> SignalEvent;
 
-  // Like calling SignalEvent, but posts a message to the specified thread,
-  // which will call SignalEvent.  This helps unroll the stack and prevent
-  // re-entrancy.
-  void PostEvent(Thread* t, int events, int err);
-  // Like the aforementioned method, but posts to the current thread.
-  void PostEvent(int events, int err);
-
   // Return true if flush is successful.
   virtual bool Flush();
 

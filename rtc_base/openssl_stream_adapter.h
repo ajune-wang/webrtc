@@ -126,6 +126,12 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
   void OnEvent(StreamInterface* stream, int events, int err) override;
 
  private:
+  void PostEvent(int events, int err) {
+    RTC_DCHECK_EQ(owner_, rtc::Thread::Current());
+    rtc::Thread::Current()->Post(RTC_FROM_HERE, this, MSG_POST_EVENT,
+                                 new StreamEventData(events, err));
+  }
+
   enum SSLState {
     // Before calling one of the StartSSL methods, data flows
     // in clear text.
@@ -183,6 +189,8 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
     return !peer_certificate_digest_algorithm_.empty() &&
            !peer_certificate_digest_value_.empty();
   }
+
+  rtc::Thread* const owner_;
 
   SSLState state_;
   SSLRole role_;

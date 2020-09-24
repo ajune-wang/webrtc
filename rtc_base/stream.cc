@@ -44,15 +44,6 @@ StreamResult StreamInterface::WriteAll(const void* data,
   return result;
 }
 
-void StreamInterface::PostEvent(Thread* t, int events, int err) {
-  t->Post(RTC_FROM_HERE, this, MSG_POST_EVENT,
-          new StreamEventData(events, err));
-}
-
-void StreamInterface::PostEvent(int events, int err) {
-  PostEvent(Thread::Current(), events, err);
-}
-
 bool StreamInterface::Flush() {
   return false;
 }

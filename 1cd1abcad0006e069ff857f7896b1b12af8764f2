@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a710dfe_fd2b76b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2020-09-24T18:23:56Z",
+      "side": 1,
+      "message": "PTAL.\nNote that I didn\u0027t add a test with client Disabled/server Disabled overrides because comments in a similar test with the field-trial flag say handshake should fail, but it doesn\u0027t.\nThe reason the original Disabled/Disabled test works is because line 1504 is commented out and the server is always allowing legacy protocols, so the test that looks like Disabled/Disabled is actually Disabled/Enabled which indeed causes handshake to fail.\nNot sure if there is a bug in the actual implementation or it\u0027s just an issue with the tests and their comments.\n",
+      "revId": "1cd1abcad0006e069ff857f7896b1b12af8764f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b354483b_1558513b",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1504,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2020-09-24T18:23:56Z",
+      "side": 1,
+      "message": "This commented-out line is probably wrong, but uncommenting it makes disabled-disabled tests fail (comments say handshake should fail, but it succeeds).",
+      "revId": "1cd1abcad0006e069ff857f7896b1b12af8764f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

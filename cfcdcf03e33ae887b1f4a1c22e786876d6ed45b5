@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "41f6b815_ac89806b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-24T07:34:47Z",
+      "side": 1,
+      "message": "Hello Zhaoliang,\n\nI\u0027ll remove myself from the review and leave this to Evan, since he is currently working exactly on the project you are doing. I\u0027ll RS LGTM it after him, if owners approval is needed.\n\nUnfortunately, he is not available today, but hopefully will be back soon. Also there\u0027s a good chance that he will just redo all this work in a slightly different way very soon.\n\nTherefore, please don\u0027t spend any more time on this for now, but don\u0027t worry - we will make sure that libvpx consumes NV12 frames.",
+      "revId": "cfcdcf03e33ae887b1f4a1c22e786876d6ed45b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0a94307_483813e8",
         "filename": "api/video/video_frame_buffer.h",
         "patchSetId": 5

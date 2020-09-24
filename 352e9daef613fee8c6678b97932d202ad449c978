@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "669573bd_423f9fd7",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-24T11:49:50Z",
+      "side": 0,
+      "message": "I thought the time to delete these was when we removed GetTransportFromSocket....",
+      "revId": "352e9daef613fee8c6678b97932d202ad449c978",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

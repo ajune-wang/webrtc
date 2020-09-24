@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29daa332_d752834c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-24T12:50:07Z",
+      "side": 1,
+      "message": "The sanitizer bots don\u0027t like me playing fast and loose with static_cast, so I\u0027ll have to revisit that part. Should be possible.\n",
+      "revId": "97b1bf556e0c66f8969c918255adb462793f2825",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

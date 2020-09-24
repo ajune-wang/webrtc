@@ -16,6 +16,24 @@
       "revId": "29c373ed8530920482c30f71d4eac9da42c7fb7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4406944_cf18d019",
+        "filename": "pc/rtp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-24T12:50:07Z",
+      "side": 1,
+      "message": "This causes an event to be fired. The spec language is actually weak on exactly when the event is fired (\"this causes an event\"). Code for firing the event was already present.\n\nThere are a number of tests for ending behavior in the WPT test RTCRtpTransceiver.html; that\u0027s where I started digging into this. They pass with the patch, but don\u0027t verify if the track state is updated synchronously.",
+      "parentUuid": "71545682_1dd7a543",
+      "revId": "29c373ed8530920482c30f71d4eac9da42c7fb7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5deb59c5_d1727976",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-24T11:39:09Z",
+      "side": 1,
+      "message": "Can you add a test to ssl_stream_adapter_unittests that documents the interactions between SetAllowLegacyTLSProtocols and the finch flag?\n\nIn particular, I think the policy should override the finch flag both when set to true and set to false, but the finch flag should rule when the function is not called (existing test).\n",
+      "revId": "4be16ee223b4fde17bd853bfd338df6f3194efd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c70a282_9067f2ee",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-24T11:39:09Z",
+      "side": 1,
+      "message": "I would think cl-format would make a blank line above this one?",
+      "revId": "4be16ee223b4fde17bd853bfd338df6f3194efd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72963f64_e0613b6b",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-24T11:39:09Z",
+      "side": 1,
+      "message": "Flipping the default is a job for the next CL....",
+      "revId": "4be16ee223b4fde17bd853bfd338df6f3194efd4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

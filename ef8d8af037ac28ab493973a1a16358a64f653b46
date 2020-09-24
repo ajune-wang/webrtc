@@ -46,6 +46,30 @@
       "revId": "ef8d8af037ac28ab493973a1a16358a64f653b46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97178d9a_f8cf6daa",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-24T15:40:17Z",
+      "side": 1,
+      "message": "I had an offline discussion with Per about the child CL. As I see this a problem discuss in that CL, let\u0027s do this:\n- leave the ring buffer for now\n- finalize this CL with Karl",
+      "parentUuid": "0fd207e6_9a7b9e5c",
+      "range": {
+        "startLine": 45,
+        "startChar": 20,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "ef8d8af037ac28ab493973a1a16358a64f653b46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -34,6 +34,24 @@
       "revId": "29c373ed8530920482c30f71d4eac9da42c7fb7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6969b75_abfb7e97",
+        "filename": "pc/rtp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-24T13:04:21Z",
+      "side": 1,
+      "message": "OK the test I want to see in WPT is this:\n\ntransceiver.stop();\nassert_true(transceiver.receiver.track.ended);\n\nI am surprised that the spec says to do something synchronously that causes an event to be fired. At close() there are three occurrences of \"This does not fire any event.\", but here the spec does say to fire it.\n\nIs firing onended in response to stop() a spec mistake or intentional? I filed https://github.com/w3c/webrtc-pc/issues/2581",
+      "parentUuid": "f4406944_cf18d019",
+      "revId": "29c373ed8530920482c30f71d4eac9da42c7fb7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

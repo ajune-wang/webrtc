@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ab239a2_dfdd560b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-09-24T20:05:33Z",
+      "side": 1,
+      "message": "Thanks for the CL!\nThe code looks good to me. I have not run any simulations to verify VAD results.",
+      "revId": "a39033ff0b11e40dbe47371e2089f3821e913370",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,320 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "056a1112_ed875895",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "Thanks for the CL!",
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abe1cd71_9cb66bf5",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "If DumpDebugData is moved (according to the suggestion below) and the else if with the DCHECK is removed (according to the other suggestion) these two if-statements can be turned into one single if-statement, which I think would be good for the readability of this code (bundled if-statements are hard to follow).",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "208913ce_52d28929",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "I see the point of using the temporary and reliable states.\nHowever, this potentially is a very expensive copy since it copies the whole ring-buffer in SaturationProtectorState.\n\nWould it be possible to somehow avoid these copies? Also, copying ring-buffers kind of lose the whole point with using ring-buffers (the main value of ring-buffers is to avoid having to copy their data during updates).",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8db739bd_2987ba3e",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "I would suggest that this is skipped. It requires the implementation of the operators, and it is code that is there only to check the rest of the code. As of now, it adds 10 extra lines of code.\nAlso, the state machine for this is quite complicated to follow and it would be good to be able to avoid this if-statement.\n\nIf this behavior needs to be locked down, please add a unittest for it instead.",
+      "range": {
+        "startLine": 89,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da0b446d_bc6d049b",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "DumpDebugData(); is called in 3 places in this method. Please move it so that it is only called once (I would suggest at the entry of the method)",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 20
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2196d6f2_e4d35dd2",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "To me it looks like this copying has some side-effect. For instance time_to_full_buffer_ms indicates that there is a buffer somewhere that is filled, and that will become full in a certain number of ms.\nThis copy sets changes that value, but I don\u0027t see that that buffer is affected by this setting.\n\nLooking a bit more into detail I have a feeling that the buffer being referred to is the ring-buffer in SaturationProtectorState? If that is the case, please move this counter there instead. Having this kind of distributed book-keeping is error prone and confusing.",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 39
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "420ad0e6_1c49e2d2",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "From what I can see, the reliable_state_ is only used here to report values.\n\nIf that is the case, I don\u0027t see why two states are needed.\nIt should be possible to only use one state and store the outputs for these two as the reliable values.\n\nThat would eliminate the need for the copying of the complete states, and probably also simplify the logic for how the temporary and reliable states are handled.",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 53
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0628c560_ea5acc98",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "This should go into the header file to allow inlining.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 1
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74691477_eaa56567",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "Please add a comment, either here or in the header, what this method does. UpdateState is a very nondescriptive name.",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 45
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "070672d4_3a966c97",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "Is there anything that prohibits this from becoming negative? What is the effect in that case (A negative time seems strange)?",
+      "range": {
+        "startLine": 140,
+        "startChar": 1,
+        "endLine": 142,
+        "endChar": 3
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32123ed6_1ef418dd",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "This kind of goes against the idea of the data dumper class. If data dumping is not activated, the DumpRaw() calls compile to no-ops.\nI would suggest that the data dumper is always created and that the if-statement is skipped.\n(this is the pattern used in AEC3).",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 25
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04ead340_1724a685",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "Since this is (as stated in the comment) a part of the level estimator state and not the actual state, I think a more descriptive name should be used for it than State.",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "461150d7_40ee9a5f",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "Please rename this. With its current naming, it seems like this is a minimum value for the seen consecutive speech frames. But it is actually a threshold.",
+      "range": {
+        "startLine": 82,
+        "startChar": 12,
+        "endLine": 82,
+        "endChar": 42
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b3efef_ad8a542c",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:55:59Z",
+      "side": 1,
+      "message": "Nit: I think that with the way this is used in the CL, this is more of a preliminary state than a temporary state.",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 17
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

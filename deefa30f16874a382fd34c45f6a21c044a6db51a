@@ -175,6 +175,30 @@
     },
     {
       "key": {
+        "uuid": "51579f88_588d06c2",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T09:21:20Z",
+      "side": 1,
+      "message": "Yes, absolutely.",
+      "parentUuid": "1a9942a8_fa8233d1",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 39
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "420ad0e6_1c49e2d2",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3
@@ -210,6 +234,30 @@
       "side": 1,
       "message": "\u003e From what I can see, the reliable_state_ is only used here to report values.\n\nNope. Once enough consecutive speech frames are observed, `reliable_state_` is *updated* (see line 113). Also note that `reliable_state_` is implicitly used in line 122 because `last_level_dbfs_` always equals `reliable_state_.level_dbfs.GetRatio()` - the ratio is cached so that we don\u0027t need to compute the ratio every time that `GetLevelDbfs()` is called.\n\n\u003e If that is the case, I don\u0027t see why two states are needed.\n\nGood point on making sure that we don\u0027t have redundancy and hence a minimal state.\nLet\u0027s think of alternative approaches.\n\n1. The level estimator state only holds a `Ratio` (two floats), hence we keep `preliminary_level_dbfs_` and `reliable_level_dbfs_` so that we have an affordable copy (two floats) once the level estimation becomes reliable - i.e., enough consecutive speech frames are observed.\n - PRO: no need to copy a larger struct, but just two floats\n - CON: that works only if the saturation protector is not used\n\n2. As above and we intentionally exclude the saturation protector state from the feature added in this CL (i.e., requiring enough consecutive speech frames in order to update the reliable state)\n - PRO: same as above\n - CON: we accept the consequences of a frame that is incorrectly labeled as speech (false positive); for instance, a frame with noise and low peak power may lower the safety margin recommended by the protector and that could lead to clipping - i.e., we disable the saturation protector\n\n\u003e It should be possible to only use one state and store the outputs for these two as the reliable values.\n\u003e \n\u003e That would eliminate the need for the copying of the complete states, and probably also simplify the logic for how the temporary and reliable states are handled.\n\nI still believe that we need two states because `reliable_state_` is *updated* after it\u0027s copied from `preliminary_state_`.\n\nAlso, I don\u0027t think that excluding the saturation protector (alternative #2) is a good idea (see CONs).\n\nWhat we can for sure do is to reduce the size of `Struct` by\n  (i) always use the saturation protector and get rid of `time_to_full_buffer_ms` (see my previous answer)\n  (ii) replace the saturation protector ring buffer (4 floats + 2 ints) to an array of 4 floats.\nIn this way, when a copy between preliminary and reliable states occurs, we copy 7 floats and 1 int (32 bytes), namely:\n - 2 `Ratio`, i.e., 2 floats\n - minimized* saturation protector state:\n   - array of 4 floats\n   - float margin_db\n   - int time_since_push_ms\n\n*: switch from ring buffer to array and get rid of `max_peaks_dbfs`, which seems to be doable when we switch (back) to an array\n\nWDYT?",
       "parentUuid": "420ad0e6_1c49e2d2",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 53
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baaafdad_1c06faf4",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T09:21:20Z",
+      "side": 1,
+      "message": "||From what I can see, the reliable_state_ is only used here to report values.\n\n|Nope. Once enough consecutive speech frames are observed, `reliable_state_` |is *updated* (see line 113). Also note that `reliable_state_` is implicitly |used in line 122 because `last_level_dbfs_` always equals |`reliable_state_.level_dbfs.GetRatio()` - the ratio is cached so that we |don\u0027t need to compute the ratio every time that `GetLevelDbfs()` is called.\nWhat I meant was that this is the only place where it is used to produce output.\n\n||If that is the case, I don\u0027t see why two states are needed.\n\n|Good point on making sure that we don\u0027t have redundancy and hence a minimal |state.\n|Let\u0027s think of alternative approaches.\nMy main concern is actually the copies of the states that contains a ring-buffer. I\u0027m less concerned about the redundancy.\n\nYou know best what options to pursue. I don\u0027t think we should compromise the quality with the way we choose but an option that keeps copying structures of data should be avoided, and looking at the code I think it should be avoidable.\n\n|I still believe that we need two states because `reliable_state_` is |*updated* after it\u0027s copied from `preliminary_state_`.\nAs I see it, the idea with the two states is that the reliable_state_ can be \"frozen\" and then updated with the temporary state whenever it again should be updated.\nHowever, with the current code I don\u0027t see why the same effect cannot be achieved by\n1. Only having one state that is updated\n2. Instead of as before freezing the whole state, only freezing the outputs produced by the state.\n\n\n| (i) always use the saturation protector and get rid of |`time_to_full_buffer_ms` (see my previous answer)\n|  (ii) replace the saturation protector ring buffer (4 floats + 2 ints) to |an array of 4 floats.\n|In this way, when a copy between preliminary and reliable states occurs, we |copy 7 floats and 1 int (32 bytes), namely:\n| - 2 `Ratio`, i.e., 2 floats\n| - minimized* saturation protector state:\n|   - array of 4 floats\n|   - float margin_db\n|   - int time_since_push_ms\nYes, this is also an option. But I don\u0027t think two states are needed. Also, as you point out in another it may be that the ringbuffer will need to be increased in size, which means that going for this approach will lock us into a construct that is more expensive than it has to be.",
+      "parentUuid": "9edd318b_00f62e66",
       "range": {
         "startLine": 121,
         "startChar": 0,

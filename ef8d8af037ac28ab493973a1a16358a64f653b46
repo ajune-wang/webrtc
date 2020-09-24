@@ -22,6 +22,30 @@
       "revId": "ef8d8af037ac28ab493973a1a16358a64f653b46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fd207e6_9a7b9e5c",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-24T07:39:16Z",
+      "side": 1,
+      "message": "Thanks Per.\n\nYes, 4 is the current size. I switched to a ring buffer a few days ago; before we had an array and for every update 3 elements were copied. I have probably rushed, but a ring buffer scales better in case we need to retune the saturation protector and increase the buffer size. However, even if we retune, I don\u0027t expect that the buffer size will change magnitude; so it makes sense to switch back to an array.\n\nLet\u0027s hold on until we know what will be the final shape of the follow-up CL (namely, https://webrtc-review.googlesource.com/c/src/+/185125) and then we take a decision on which type of buffer we should use in the saturation protector.",
+      "parentUuid": "7444b4e7_218a1dd8",
+      "range": {
+        "startLine": 45,
+        "startChar": 20,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "ef8d8af037ac28ab493973a1a16358a64f653b46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

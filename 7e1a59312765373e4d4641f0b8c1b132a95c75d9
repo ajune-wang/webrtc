@@ -184,6 +184,29 @@
     },
     {
       "key": {
+        "uuid": "c94ddafc_886c7626",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-24T19:53:05Z",
+      "side": 1,
+      "message": "more explicit name may be preferred.",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 27
+      },
+      "revId": "7e1a59312765373e4d4641f0b8c1b132a95c75d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21753ca4_6646b3ca",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
         "patchSetId": 16

@@ -16,6 +16,23 @@
       "revId": "e6cba17b7fb3dc20a4ec3a9234dd6a71271db3eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b1fe574_556bb1a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-24T18:53:54Z",
+      "side": 1,
+      "message": "Hmm, looks like we need some tweaking for the MSVC builds as well...\n\n./../modules/audio_processing/aec3/subtractor_unittest.cc(334): error: The difference between 1.f and echo_to_nearend_power is 0.27713096141815186, which exceeds 0.25f, where\n1.f evaluates to 1,\necho_to_nearend_power evaluates to 1.2771309614181519, and\n0.25f evaluates to 0.25.",
+      "revId": "e6cba17b7fb3dc20a4ec3a9234dd6a71271db3eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

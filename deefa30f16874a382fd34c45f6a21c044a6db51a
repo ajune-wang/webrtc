@@ -270,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "581e1b74_066e499d",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-24T09:58:48Z",
+      "side": 1,
+      "message": "Ok, let\u0027s then think about the option of only updating the level estimation once enough speech frames are observed. What I want to show below is that we cannot achieve the same result with the approach you suggest - it may solve the problem we address, but the output won\u0027t be bit-exact.\n\nSo, we get rid of the two states; instead, we keep a single state instance which essentially spans:\n- `Ratio level_ratio_dbfs_`\n- `SaturationProtectorState saturation_protector_state_`\n- `float reliable_level_dbfs_`\n\nOnce enough consecutive speech frames are observed, we assign `reliable_level_dbfs_ \u003d level_ratio_dbfs_.GetRatio();` - i.e., the level estimation is updated.\n\nBut what happens if the VAD produces frequent isolated false positives (high probability spikes) during a long near-end inactivity turn? `reliable_level_dbfs_` won\u0027t be updated, but the rest will be updated since there is no mechanism that restores `level_ratio_dbfs_` and `saturation_protector_state_` to any previous (reliable) state. More in detail:\n- With the false positives we want to fight, we will analyze frames with low peak/rms power; hence\n  - `level_ratio_dbfs_` will converge to a lower level\n  - `saturation_protector_state_` will be updated and the safety margin will get lower and lower\n\n`reliable_level_dbfs_` is not updated, so everything looks ok until this point.\n\nBut then the near-end becomes active and the VAD correctly detects speech.\n`level_ratio_dbfs_` and `saturation_protector_state_` are in a wrong state and it\u0027ll take time before they converge to a correct state based on the actual speech level. However, as soon as enough consecutive speech frames are observed (say 200 ms), `reliable_level_dbfs_` is updated and it is influenced by the previous unwanted udpates of `level_ratio_dbfs_` and `saturation_protector_state_`.\n\nSo, this example proves that we can\u0027t produce the same behavior by switching to a single state. Please, correct me if I\u0027m wrong.\n\nMore importantly, the different behavior is not what we want and that\u0027s why I believe we should keep two states for the best possible result.\n\nOne alternative is to reset the `level_ratio_dbfs_` and `saturation_protector_state_` when the speech probability is below the threshold - i.e., not a speech frame. However, this will lead to fluctuating `reliable_level_dbfs_` values because the estimation will be based on a short term analysis (we can\u0027t implement a long term memory anymore).",
+      "parentUuid": "baaafdad_1c06faf4",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 53
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0628c560_ea5acc98",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3

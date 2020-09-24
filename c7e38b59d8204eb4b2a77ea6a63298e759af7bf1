@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3541852b_a5e76ffa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-24T14:58:49Z",
+      "side": 1,
+      "message": "Hi Gustaf,\nCould you PTAL?\nAlessio",
+      "revId": "c7e38b59d8204eb4b2a77ea6a63298e759af7bf1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "352e9daef613fee8c6678b97932d202ad449c978",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bdca73d_fd560def",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-24T22:24:30Z",
+      "side": 0,
+      "message": "Well, I hadn\u0027t actually removed it yet.",
+      "parentUuid": "669573bd_423f9fd7",
+      "revId": "352e9daef613fee8c6678b97932d202ad449c978",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "7bedb8e1_8b631ed1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-24T22:24:30Z",
+      "side": 1,
+      "message": "Would be hard to reproduce in a unit test since it\u0027s reliable on a race between the timer thread and main thread, and specifically a race that involves delivering a notification.\n\nWe definitely need more tests around closing, though; it\u0027s been a common source of races and deadlocks. There\u0027s a meeting tomorrow talking about data channel testing where I plan to discuss this.",
+      "parentUuid": "01bdc1e9_7c5b7637",
+      "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6422c8c4_0d75daa9",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 2
@@ -47,6 +65,24 @@
       "writtenOn": "2020-09-24T11:49:50Z",
       "side": 1,
       "message": "Going back to the older way??",
+      "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c143e5_e626bae8",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-24T22:24:30Z",
+      "side": 1,
+      "message": "GetTransportFromSocket verifies that the transport is present in the map, which means it hasn\u0027t been destroyed yet, so yes this is intentional.",
+      "parentUuid": "6422c8c4_0d75daa9",
       "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "b7d0f507_829deae4",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-24T22:24:30Z",
+      "side": 1,
+      "message": "See above",
+      "parentUuid": "38efd274_fb1173d1",
+      "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27d393df_52f1bf38",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 2
@@ -84,6 +138,24 @@
       "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae33c69d_923078db",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1136,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-24T22:24:30Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "27d393df_52f1bf38",
+      "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

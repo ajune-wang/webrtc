@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71545682_1dd7a543",
+        "filename": "pc/rtp_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-24T07:24:08Z",
+      "side": 1,
+      "message": "LGTM. Does this also cause any surfacing of the state to get posted to blink?\n\nWhether it does or it doesn\u0027t, because stop() is supposed to be a synchronous operation, we can\u0027t wait for a PostTask to tell the blink track to end; it has to end immediately.\n\nWe\u0027ll need to verify in WPTs that the track\u0027s state is updated even if we don\u0027t do any \"awaiting\". Here\u0027s[1] what was done about muting/unmuting FYI, which required chromium layer changes for timing.\n\n[1] https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/modules/peerconnection/rtc_peer_connection.cc;l\u003d3160?q\u003drtc_peer_connection.cc\u0026originalUrl\u003dhttps:%2F%2Fcs.chromium.org%2F",
+      "revId": "29c373ed8530920482c30f71d4eac9da42c7fb7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

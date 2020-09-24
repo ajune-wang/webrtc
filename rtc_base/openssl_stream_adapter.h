@@ -126,6 +126,11 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
   void OnEvent(StreamInterface* stream, int events, int err) override;
 
  private:
+  void PostEvent(int events, int err) {
+    rtc::Thread::Current()->Post(RTC_FROM_HERE, this, MSG_POST_EVENT,
+                                 new StreamEventData(events, err));
+  }
+
   enum SSLState {
     // Before calling one of the StartSSL methods, data flows
     // in clear text.

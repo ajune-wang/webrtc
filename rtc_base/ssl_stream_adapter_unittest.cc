@@ -213,6 +213,12 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
     out_->Close();
   }
 
+ private:
+  void PostEvent(int events, int err) {
+    rtc::Thread::Current()->Post(RTC_FROM_HERE, this, MSG_POST_EVENT,
+                                 new rtc::StreamEventData(events, err));
+  }
+
  protected:
   SSLStreamAdapterTestBase* test_base_;
   const std::string side_;
@@ -230,7 +236,8 @@ class SSLDummyStreamTLS : public SSLDummyStreamBase {
       : SSLDummyStreamBase(test, side, in, out) {}
 };
 
-class BufferQueueStream : public rtc::BufferQueue, public rtc::StreamInterface {
+class BufferQueueStream final : public rtc::BufferQueue,
+                                public rtc::StreamInterface {
  public:
   BufferQueueStream(size_t capacity, size_t default_size)
       : rtc::BufferQueue(capacity, default_size) {}
@@ -269,9 +276,15 @@ class BufferQueueStream : public rtc::BufferQueue, public rtc::StreamInterface {
   void NotifyReadableForTest() override { PostEvent(rtc::SE_READ, 0); }
 
   void NotifyWritableForTest() override { PostEvent(rtc::SE_WRITE, 0); }
+
+ private:
+  void PostEvent(int events, int err) {
+    rtc::Thread::Current()->Post(RTC_FROM_HERE, this, MSG_POST_EVENT,
+                                 new rtc::StreamEventData(events, err));
+  }
 };
 
-class SSLDummyStreamDTLS : public SSLDummyStreamBase {
+class SSLDummyStreamDTLS final : public SSLDummyStreamBase {
  public:
   SSLDummyStreamDTLS(SSLStreamAdapterTestBase* test,
                      const std::string& side,

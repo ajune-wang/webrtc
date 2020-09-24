@@ -98,6 +98,11 @@ class FifoBuffer final : public StreamInterface {
   bool GetWriteRemaining(size_t* size) const;
 
  private:
+  void PostEvent(int events, int err) {
+    owner_->Post(RTC_FROM_HERE, this, MSG_POST_EVENT,
+                 new StreamEventData(events, err));
+  }
+
   // Helper method that implements ReadOffset. Caller must acquire a lock
   // when calling this method.
   StreamResult ReadOffsetLocked(void* buffer,
@@ -125,7 +130,7 @@ class FifoBuffer final : public StreamInterface {
   // offset to the readable data
   size_t read_position_ RTC_GUARDED_BY(mutex_);
   // stream callbacks are dispatched on this thread
-  Thread* owner_;
+  Thread* const owner_;
   // object lock
   mutable webrtc::Mutex mutex_;
   RTC_DISALLOW_COPY_AND_ASSIGN(FifoBuffer);

@@ -47,6 +47,8 @@ class MemoryStream final : public StreamInterface {
   void SetData(const void* data, size_t length);
 
  private:
+  void PostEvent(int events, int err) override { RTC_DCHECK(false); }
+
   StreamResult DoReserve(size_t size, int* error);
 
   // Invariant: 0 <= seek_position <= data_length_ <= buffer_length_

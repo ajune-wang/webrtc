@@ -99,9 +99,10 @@ class RTC_EXPORT StreamInterface : public MessageHandlerAutoCleanup {
   // Like calling SignalEvent, but posts a message to the specified thread,
   // which will call SignalEvent.  This helps unroll the stack and prevent
   // re-entrancy.
-  void PostEvent(Thread* t, int events, int err);
+  // void PostEvent(Thread* t, int events, int err) = 0;
+
   // Like the aforementioned method, but posts to the current thread.
-  void PostEvent(int events, int err);
+  virtual void PostEvent(int events, int err) = 0;
 
   // Return true if flush is successful.
   virtual bool Flush();

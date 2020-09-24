@@ -54,6 +54,8 @@ class StreamInterfaceChannel : public rtc::StreamInterface {
                           int* error) override;
 
  private:
+  void PostEvent(int events, int err) override { RTC_DCHECK(false); }
+
   IceTransportInternal* ice_transport_;  // owned by DtlsTransport
   rtc::StreamState state_;
   rtc::BufferQueue packets_;

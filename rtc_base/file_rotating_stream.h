@@ -83,6 +83,8 @@ class FileRotatingStream : public StreamInterface {
   virtual void OnRotation() {}
 
  private:
+  void PostEvent(int events, int err) override { RTC_NOTREACHED(); }
+
   bool OpenCurrentFile();
   void CloseCurrentFile();
 

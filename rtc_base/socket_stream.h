@@ -22,7 +22,7 @@ namespace rtc {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class SocketStream : public StreamInterface, public sigslot::has_slots<> {
+class SocketStream final : public StreamInterface, public sigslot::has_slots<> {
  public:
   explicit SocketStream(AsyncSocket* socket);
   ~SocketStream() override;
@@ -47,6 +47,8 @@ class SocketStream : public StreamInterface, public sigslot::has_slots<> {
   void Close() override;
 
  private:
+  void PostEvent(int events, int err) override { RTC_NOTREACHED(); }
+
   void OnConnectEvent(AsyncSocket* socket);
   void OnReadEvent(AsyncSocket* socket);
   void OnWriteEvent(AsyncSocket* socket);

@@ -104,6 +104,8 @@ class LogSinkImpl : public LogSink, public Base {
   explicit LogSinkImpl(P* p) : Base(p) {}
 
  private:
+  void PostEvent(int events, int err) override { RTC_NOTREACHED(); }
+
   void OnLogMessage(const std::string& message) override {
     static_cast<Base*>(this)->WriteAll(message.data(), message.size(), nullptr,
                                        nullptr);

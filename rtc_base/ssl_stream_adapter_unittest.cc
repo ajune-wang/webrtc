@@ -228,9 +228,13 @@ class SSLDummyStreamTLS : public SSLDummyStreamBase {
                     rtc::FifoBuffer* in,
                     rtc::FifoBuffer* out)
       : SSLDummyStreamBase(test, side, in, out) {}
+
+ private:
+  void PostEvent(int events, int err) override { RTC_NOTREACHED(); }
 };
 
-class BufferQueueStream : public rtc::BufferQueue, public rtc::StreamInterface {
+class BufferQueueStream final : public rtc::BufferQueue,
+                                public rtc::StreamInterface {
  public:
   BufferQueueStream(size_t capacity, size_t default_size)
       : rtc::BufferQueue(capacity, default_size) {}
@@ -269,15 +273,24 @@ class BufferQueueStream : public rtc::BufferQueue, public rtc::StreamInterface {
   void NotifyReadableForTest() override { PostEvent(rtc::SE_READ, 0); }
 
   void NotifyWritableForTest() override { PostEvent(rtc::SE_WRITE, 0); }
+
+ private:
+  void PostEvent(int events, int err) override {
+    rtc::Thread::Current()->Post(RTC_FROM_HERE, this, MSG_POST_EVENT,
+                                 new rtc::StreamEventData(events, err));
+  }
 };
 
-class SSLDummyStreamDTLS : public SSLDummyStreamBase {
+class SSLDummyStreamDTLS final : public SSLDummyStreamBase {
  public:
   SSLDummyStreamDTLS(SSLStreamAdapterTestBase* test,
                      const std::string& side,
                      BufferQueueStream* in,
                      BufferQueueStream* out)
       : SSLDummyStreamBase(test, side, in, out) {}
+
+ private:
+  void PostEvent(int events, int err) override { RTC_NOTREACHED(); }
 };
 
 static const int kFifoBufferSize = 4096;

@@ -146,6 +146,13 @@ void AudioRtpReceiver::Stop() {
   stopped_ = true;
 }
 
+void AudioRtpReceiver::StopAndEndTrack() {
+  Stop();
+  static_cast<AudioTrackProxyWithInternal<AudioTrack>*>(track_.get())
+      ->internal()
+      ->set_ended();
+}
+
 void AudioRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
   RTC_DCHECK(media_channel_);
   if (!stopped_ && ssrc_ == ssrc) {

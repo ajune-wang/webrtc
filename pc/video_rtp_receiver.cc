@@ -136,6 +136,13 @@ void VideoRtpReceiver::Stop() {
   stopped_ = true;
 }
 
+void VideoRtpReceiver::StopAndEndTrack() {
+  Stop();
+  static_cast<VideoTrackProxyWithInternal<VideoTrack>*>(track_.get())
+      ->internal()
+      ->set_ended();
+}
+
 void VideoRtpReceiver::RestartMediaChannel(absl::optional<uint32_t> ssrc) {
   RTC_DCHECK(media_channel_);
   if (!stopped_ && ssrc_ == ssrc) {

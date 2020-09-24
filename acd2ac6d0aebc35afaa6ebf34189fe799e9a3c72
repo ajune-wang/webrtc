@@ -16,6 +16,29 @@
       "revId": "acd2ac6d0aebc35afaa6ebf34189fe799e9a3c72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd517ac3_befa8833",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-24T20:03:59Z",
+      "side": 1,
+      "message": "divide by 0 in float gives NaN or +/-Inf, I think +/-Inf should work as rtc::SafeClamp\u003cfloat\u003e will handle that. Not sure about NaN case.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "acd2ac6d0aebc35afaa6ebf34189fe799e9a3c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

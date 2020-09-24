@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7444b4e7_218a1dd8",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-24T05:41:03Z",
+      "side": 1,
+      "message": "Run-by comment: From what I can see, kPeakEnveloperBufferSize is 4. If that is correct,  is it really worth having a ring-buffer for that?\nConsidering the overhead in keeping track of the indices my guess is that a linear buffer of 4 elements is much faster, easier to follow and requires much less code.",
+      "range": {
+        "startLine": 45,
+        "startChar": 20,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "ef8d8af037ac28ab493973a1a16358a64f653b46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

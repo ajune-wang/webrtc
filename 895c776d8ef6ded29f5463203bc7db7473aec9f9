@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "100b3f05_751245d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-24T08:54:41Z",
+      "side": 1,
+      "message": "I would phrase this as e.g.\n\n  Replace one use of sigslot with RoboCaller\n\n  The eventual goal is to replace sigslot entirely, but we need to\n  start small, tread carefully, and evaluate how it works out.\n\n  Also add a few more RoboCaller unit tests to cover the types we\n  now use with RoboCaller.",
+      "revId": "895c776d8ef6ded29f5463203bc7db7473aec9f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a94f09b_94d41188",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-24T08:54:41Z",
+      "side": 1,
+      "message": "You will have to change this one to `cricket::IceConnectionState` as well; there\u0027s supposed to be a compile error otherwise.",
+      "range": {
+        "startLine": 1301,
+        "startChar": 13,
+        "endLine": 1301,
+        "endChar": 47
+      },
+      "revId": "895c776d8ef6ded29f5463203bc7db7473aec9f9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '532b3f340b7c84fde77a9702f2c62005e0fd5c7f',
+  'chromium_revision': 'f90cc712942f53e6eb784927f47c77eecee90c5a',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@a2779142aeb783321f425522ecd982219da5ef6f',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@c2ba724f112860021bd707a1fc77fe4b364240d5',
+    'https://chromium.googlesource.com/chromium/src/build@cd7202be2fa4b06d165cf30f787f8cda517e6d0c',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@3ff4f5027b4b81a6c9c36d64d71444f2709a4896',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -37,9 +37,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@4b7950adc9d329e86c46ec49d88b7c73802c4031',
+    'https://chromium.googlesource.com/chromium/src/testing@bdb6d1832136967c77b250d39b6bf32fdb304d52',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@2a69bf52c287294994fd4ac250947663d97c7879',
+    'https://chromium.googlesource.com/chromium/src/third_party@446ce340a3d29414b90cdfb0cd5575f68c7f02fb',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -208,7 +208,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@61c15b0ea08f9958fb7cbd2d16216aa7c7585a4e',
+    'https://android.googlesource.com/platform/external/perfetto.git@4e32ab4dd7c307c0c527b9133fa369e81457f00e',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@97356acb50e212fcfb7c91715718ec70953f780c',
   'src/third_party/libyuv':
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@0fb0218fbfb581e14358857445ea2709dfbb8bfb',
+    'https://chromium.googlesource.com/chromium/src/tools@4327a25562a0891e3169584b8b95a17123e3be50',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@44c13d73156581ea09b9389001e58c23a4b8d70a',
 

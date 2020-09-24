@@ -142,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "950f2b89_437c1815",
+        "filename": "api/video/nv12_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9741
+      },
+      "writtenOn": "2020-09-24T02:24:39Z",
+      "side": 1,
+      "message": "That approximation sounds great!!!, we have implemented a Mojo ImageProcessor interface as part of the gpu service, this would allow us to use ImageProcessor(https://source.chromium.org/chromium/chromium/src/+/master:media/gpu/chromeos/image_processor.h) do frame processing on any processes, the original intention of this is that we want to offload the GMB buffer rotation to GPU process from the browser process(https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1031436), can we use the ImageProcessor to do frame scaling in WebRtcVideoFrameAdapter. but the IP is restricted to cros, I\u0027m not sure can we move it to all platforms? now the IP has three backend(V4l2, Vaapi, Libyuv).",
+      "parentUuid": "302726ab_10d1ba22",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 11
+      },
+      "revId": "01e3bcc7e258b9f9bb56910c704fb5a16060368c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8bc0a51a_bc8b9ea3",
         "filename": "api/video/video_frame_buffer.h",
         "patchSetId": 4

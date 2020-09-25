@@ -207,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "7c90a211_9a26fa85",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T07:12:02Z",
+      "side": 1,
+      "message": "Can you make a suggestion?\n\nI switched to a shorter name in a recent CL because the caller typically looks like `level_estimator.IsConfident()` which to me reads well. The docstring clarifies what criteria is used. I wouldn\u0027t name after the criteria (e.g., EnoughSpeechObserved() or SpeechBufferIsFull()) as that would reveal an implementation detail.",
+      "parentUuid": "c94ddafc_886c7626",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 27
+      },
+      "revId": "7e1a59312765373e4d4641f0b8c1b132a95c75d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "21753ca4_6646b3ca",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
         "patchSetId": 16
@@ -227,6 +251,30 @@
       "revId": "7e1a59312765373e4d4641f0b8c1b132a95c75d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a1491fd_51af2d85",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T07:12:02Z",
+      "side": 1,
+      "message": "This is still the case, all AdaptiveModeLevelEstimator ctors call AdaptiveModeLevelEstimator::Reset which zeroes num and den.",
+      "parentUuid": "21753ca4_6646b3ca",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 21
+      },
+      "revId": "7e1a59312765373e4d4641f0b8c1b132a95c75d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

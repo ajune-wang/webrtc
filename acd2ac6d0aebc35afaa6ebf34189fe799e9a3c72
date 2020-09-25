@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "d6b1f87f_f7099c59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T07:12:02Z",
+      "side": 1,
+      "message": "Thanks Minyue.",
+      "revId": "acd2ac6d0aebc35afaa6ebf34189fe799e9a3c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd517ac3_befa8833",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 17
@@ -39,6 +56,30 @@
       "revId": "acd2ac6d0aebc35afaa6ebf34189fe799e9a3c72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "472fbc54_979a98fd",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T07:12:02Z",
+      "side": 1,
+      "message": "Thanks for the clarification. I still prefer to keep this check since `Ratio` is not part of the public API (so no need to handle div-by-0) and, in this specific case, the denominator can never be zero: it is a sum of speech probabilities above the threshold with which speech frames are selected.",
+      "parentUuid": "dd517ac3_befa8833",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "acd2ac6d0aebc35afaa6ebf34189fe799e9a3c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

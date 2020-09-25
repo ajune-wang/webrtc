@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70024dbe_76855822",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-25T12:35:04Z",
+      "side": 1,
+      "message": "This is a re-land. It is identical to the initial CL and can be landed once the downstream dependencies have been resolved.",
+      "revId": "1b5acc3297fb5806f22f3c8249325daf97420d99",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

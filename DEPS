@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '0957d98fca1a12b12e998b8182251c1e335af344',
+  'chromium_revision': 'ec504a5b316ed5ce64c01e472d793f4c5452ea13',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@29a51be43d8884dc480fde18790e15fe01a64fda',
+    'https://chromium.googlesource.com/chromium/src/base@6f6316def79e35f17ab152d4c67b2a8b5a08dc23',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@9efd36f044df2e88f554a7303d7ad25e2b174308',
+    'https://chromium.googlesource.com/chromium/src/build@1cbee5ce702a225d6faf26ad2572398c6ebddbab',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@3ff4f5027b4b81a6c9c36d64d71444f2709a4896',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -33,13 +33,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@3ad13d95c46d056635d8ff1584efa8aa11e2dbec',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@394fbb77d72f9853cbb3c0c713675185ac7e90b7',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@de417f8eec485e3eda18615228b3da58b8988c55',
+    'https://chromium.googlesource.com/chromium/src/testing@7910f0b2431501f53cebdb60732d03c1cb53a501',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@a7885aa0c6b7f7ad55bce4c496b85f06300a7f1f',
+    'https://chromium.googlesource.com/chromium/src/third_party@09eea777f8f5866d070e3b67d621d4ae8a95b497',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -126,7 +126,7 @@ deps = {
   },
 
   'src/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@c947efabcbc38dcf93e8ad0e6a76206cf0ec8072',
+    'https://boringssl.googlesource.com/boringssl.git@3743aafdacff2f7b083615a043a37101f740fa53',
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@9c4671f2e3a63c0f155d9b2511192d0b5fa7f760',
   'src/third_party/catapult':
@@ -137,7 +137,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@c39ab997ba7aee82304f839845c8a2a0166ffb39',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@7f386135788acc078009ebfc529b07eeeb3394ee',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@e61dd757a8c09139c03ffa2ef285d5678909370a',
   'src/third_party/findbugs': {
@@ -208,7 +208,7 @@ deps = {
       'condition': 'checkout_android',
   },
   'src/third_party/perfetto':
-    'https://android.googlesource.com/platform/external/perfetto.git@df53732e1b695553e7ac2fc23cc874961034e637',
+    'https://android.googlesource.com/platform/external/perfetto.git@d62c73fbf4d46e2df9f1fd3e7b6abf15cc4dcc8c',
   'src/third_party/libvpx/source/libvpx':
     'https://chromium.googlesource.com/webm/libvpx.git@97356acb50e212fcfb7c91715718ec70953f780c',
   'src/third_party/libyuv':
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@aebf124119e386912ee129d342d47a41a7c25208',
+    'https://chromium.googlesource.com/chromium/src/tools@25c2064eb9cc0ae1fc82f7930f57d20b02a04c6b',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@44c13d73156581ea09b9389001e58c23a4b8d70a',
 

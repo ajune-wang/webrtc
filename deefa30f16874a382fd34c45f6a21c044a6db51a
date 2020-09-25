@@ -177,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "fec38f48_7eaa43b3",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-25T11:50:04Z",
+      "side": 1,
+      "message": "Thanks!\nI still think that is fine to skip the DCHECK. Since the DCHECK requires a fair amount of in itself untested code to be added, I don\u0027t think it adds that much value.",
+      "parentUuid": "9913af27_08811e8b",
+      "range": {
+        "startLine": 89,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0b446d_bc6d049b",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3

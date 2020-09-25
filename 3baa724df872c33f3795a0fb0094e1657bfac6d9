@@ -16,6 +16,98 @@
       "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b69ac9_c8a136e1",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-25T11:50:04Z",
+      "side": 1,
+      "message": "There is a comparison between\nnum_adjacent_speech_frames_  \nand\nmin_consecutive_speech_frames_\n\nI guess that both of these mean the same but please either use consecutive or adjacent. Using both makes the code less readable.",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 66
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4436a4da_66cf3df4",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-25T11:50:04Z",
+      "side": 1,
+      "message": "Looking at bit more on this I realized that this copy is actually unnecessary even though there are two different states.\n\nIf you have two states\nA\nB\nand two references to the states\nreliable, temporary, \nyou can just swap the pointers at this point (e.g, let reliable point to what temporary pointed to previously and let the temporary point to what the reliable previously pointed to.",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 39
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df4d570e_b824b9cb",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-25T11:50:04Z",
+      "side": 1,
+      "message": "As commented before. I don\u0027t think this is a minimum (a minimum I interpret at a minimum value). It is rather a threshold against which the consecutive_speech_frames are compared.",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0b16f01_cebf829b",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-25T11:50:04Z",
+      "side": 1,
+      "message": "This seems to be repeated in each test. Please instead make a new constant to pass:\ne.g., \nconstexpr float kRmsdBfs\u003dkDifferentSpeechRmsDbfs - kInitialSaturationMarginDb;",
+      "range": {
+        "startLine": 136,
+        "startChar": 23,
+        "endLine": 136,
+        "endChar": 75
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12641342_a9a7ef0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-25T07:37:44Z",
+      "side": 1,
+      "message": "Nice!\n\nThe binary size reduction is surprisingly large. I wonder if we got rid of a lot of vtables (or maybe just a few large ones)?",
+      "revId": "03621c9b39699943c558a6ff1b25b68f72a53ab2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

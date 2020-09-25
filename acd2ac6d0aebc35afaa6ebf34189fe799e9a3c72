@@ -80,6 +80,30 @@
       "revId": "acd2ac6d0aebc35afaa6ebf34189fe799e9a3c72",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ccaeaa7_74775469",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-25T07:19:21Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "472fbc54_979a98fd",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "acd2ac6d0aebc35afaa6ebf34189fe799e9a3c72",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

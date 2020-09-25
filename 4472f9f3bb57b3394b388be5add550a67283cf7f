@@ -76,6 +76,30 @@
     },
     {
       "key": {
+        "uuid": "c9248d44_ca584dc2",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T11:24:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d75966f_ed5a6c5f",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 39
+      },
+      "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79975984_6b5364a3",
         "filename": "modules/audio_processing/agc2/vad_with_level.h",
         "patchSetId": 4
@@ -99,6 +123,30 @@
     },
     {
       "key": {
+        "uuid": "91108839_f57b9661",
+        "filename": "modules/audio_processing/agc2/vad_with_level.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T11:24:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79975984_6b5364a3",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1971eb7c_ab0b8317",
         "filename": "modules/audio_processing/agc2/vad_with_level_unittest.cc",
         "patchSetId": 4
@@ -119,6 +167,30 @@
       "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a846bc4e_abaf054f",
+        "filename": "modules/audio_processing/agc2/vad_with_level_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T11:24:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1971eb7c_ab0b8317",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 33
+      },
+      "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

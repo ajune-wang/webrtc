@@ -462,8 +462,8 @@ JsepTransportController::CreateDtlsTransport(
       this, &JsepTransportController::OnTransportWritableState_n);
   dtls->SignalReceivingState.connect(
       this, &JsepTransportController::OnTransportReceivingState_n);
-  //dtls->SignalDtlsHandshakeError.connect(
-  //      this, &JsepTransportController::OnDtlsHandshakeError);
+  dtls->SignalDtlsHandshakeError.connect(
+      this, &JsepTransportController::OnDtlsHandshakeError);
   dtls->ice_transport()->SignalGatheringState.connect(
       this, &JsepTransportController::OnTransportGatheringState_n);
   dtls->ice_transport()->SignalCandidateGathered.connect(
@@ -1152,9 +1152,10 @@ void JsepTransportController::OnTransportCandidateGathered_n(
     return;
   }
   std::string transport_name = transport->transport_name();
+  std::vector<cricket::Candidate> candidates = {candidate};
   invoker_.AsyncInvoke<void>(
-      RTC_FROM_HERE, signaling_thread_, [this, transport_name, candidate] {
-        SignalIceCandidatesGathered.Send(transport_name, {candidate});
+      RTC_FROM_HERE, signaling_thread_, [this, transport_name, candidates] {
+        SignalIceCandidatesGathered.Send(transport_name, candidates);
       });
 }
 
@@ -1409,7 +1410,7 @@ void JsepTransportController::OnRtcpPacketReceived_n(
 
 void JsepTransportController::OnDtlsHandshakeError(
     rtc::SSLHandshakeError error) {
-  SignalDtlsHandshakeError.Send(error);
+  SignalDtlsHandshakeError(error);
 }
 
 }  // namespace webrtc

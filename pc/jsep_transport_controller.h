@@ -200,10 +200,10 @@ class JsepTransportController : public sigslot::has_slots<> {
   // Else => connecting
   RoboCaller<cricket::IceConnectionState> SignalIceConnectionState;
 
-  sigslot::signal1<PeerConnectionInterface::PeerConnectionState>
+  RoboCaller<PeerConnectionInterface::PeerConnectionState>
       SignalConnectionState;
 
-  sigslot::signal1<PeerConnectionInterface::IceConnectionState>
+  RoboCaller<PeerConnectionInterface::IceConnectionState>
       SignalStandardizedIceConnectionState;
 
   // If all transports done gathering => complete,
@@ -222,7 +222,7 @@ class JsepTransportController : public sigslot::has_slots<> {
   RoboCaller<const cricket::CandidatePairChangeEvent&>
       SignalIceCandidatePairChanged;
 
-  RoboCaller<rtc::SSLHandshakeError&> SignalDtlsHandshakeError;
+  sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
 
  private:
   RTCError ApplyDescription_n(bool local,

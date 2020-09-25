@@ -1278,18 +1278,21 @@ bool PeerConnection::Initialize(
   transport_controller_.reset(new JsepTransportController(
       signaling_thread(), network_thread(), port_allocator_.get(),
       async_resolver_factory_.get(), config));
+  transport_controller_->SignalDtlsHandshakeError.connect(
+      this, &PeerConnection::OnTransportControllerDtlsHandshakeError);
+
   transport_controller_->SignalIceConnectionState.AddReceiver(
       [this](cricket::IceConnectionState s) {
         RTC_DCHECK_RUN_ON(signaling_thread());
         OnTransportControllerConnectionState(s);
       });
   transport_controller_->SignalConnectionState.AddReceiver(
-      [this](const PeerConnectionInterface::PeerConnectionState s) {
+      [this](PeerConnectionInterface::PeerConnectionState s) {
         RTC_DCHECK_RUN_ON(signaling_thread());
         SetConnectionState(s);
       });
   transport_controller_->SignalStandardizedIceConnectionState.AddReceiver(
-      [this](const PeerConnectionInterface::IceConnectionState& s) {
+      [this](PeerConnectionInterface::IceConnectionState s) {
         RTC_DCHECK_RUN_ON(signaling_thread());
         SetStandardizedIceConnectionState(s);
       });
@@ -1319,12 +1322,6 @@ bool PeerConnection::Initialize(
         RTC_DCHECK_RUN_ON(signaling_thread());
         OnTransportControllerCandidateChanged(event);
       });
-   transport_controller_->SignalDtlsHandshakeError.AddReceiver(
-      [this](rtc::SSLHandshakeError& event) {
-        RTC_DCHECK_RUN_ON(signaling_thread());
-        OnTransportControllerDtlsHandshakeError(event);
-      });
-
   stats_.reset(new StatsCollector(this));
   stats_collector_ = RTCStatsCollector::Create(this);
 

@@ -50,6 +50,7 @@
 
 namespace rtc {
 namespace {
+enum { MSG_TIMEOUT = 0xF1F1 + 1 };
 
 // SRTP cipher suite table. |internal_name| is used to construct a
 // colon-separated profile strings which is needed by
@@ -268,6 +269,7 @@ static long stream_ctrl(BIO* b, int cmd, long num, void* ptr) {
 OpenSSLStreamAdapter::OpenSSLStreamAdapter(
     std::unique_ptr<StreamInterface> stream)
     : SSLStreamAdapter(std::move(stream)),
+      owner_(rtc::Thread::Current()),
       state_(SSL_NONE),
       role_(SSL_CLIENT),
       ssl_read_needs_write_(false),
@@ -282,6 +284,7 @@ OpenSSLStreamAdapter::OpenSSLStreamAdapter(
           !webrtc::field_trial::IsDisabled("WebRTC-LegacyTlsProtocols")) {}
 
 OpenSSLStreamAdapter::~OpenSSLStreamAdapter() {
+  owner_->Clear(this);
   Cleanup(0);
 }
 
@@ -958,7 +961,9 @@ void OpenSSLStreamAdapter::OnMessage(Message* msg) {
     DTLSv1_handle_timeout(ssl_);
     ContinueSSL();
   } else {
-    StreamInterface::OnMessage(msg);
+    StreamEventData* pe = static_cast<StreamEventData*>(msg->pdata);
+    SignalEvent(this, pe->events, pe->error);
+    delete msg->pdata;
   }
 }
 

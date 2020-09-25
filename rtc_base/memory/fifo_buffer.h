@@ -20,7 +20,7 @@ namespace rtc {
 
 // FifoBuffer allows for efficient, thread-safe buffering of data between
 // writer and reader.
-class FifoBuffer final : public StreamInterface {
+class FifoBuffer final : public StreamInterface, public MessageHandler {
  public:
   // Creates a FIFO buffer with the specified capacity.
   explicit FifoBuffer(size_t length);
@@ -98,6 +98,25 @@ class FifoBuffer final : public StreamInterface {
   bool GetWriteRemaining(size_t* size) const;
 
  private:
+  enum { MSG_POST_EVENT = 0xF1F1 };
+  // TODO(tommi): Delete.
+  struct StreamEventData : public MessageData {
+    int events, error;
+    StreamEventData(int ev, int er) : events(ev), error(er) {}
+  };
+
+  void PostEvent(int events, int err) {
+    owner_->Post(RTC_FROM_HERE, this, MSG_POST_EVENT,
+                 new StreamEventData(events, err));
+  }
+
+  void OnMessage(Message* msg) override {
+    RTC_DCHECK_EQ(MSG_POST_EVENT, msg->message_id);
+    StreamEventData* pe = static_cast<StreamEventData*>(msg->pdata);
+    SignalEvent(this, pe->events, pe->error);
+    delete msg->pdata;
+  }
+
   // Helper method that implements ReadOffset. Caller must acquire a lock
   // when calling this method.
   StreamResult ReadOffsetLocked(void* buffer,
@@ -125,7 +144,7 @@ class FifoBuffer final : public StreamInterface {
   // offset to the readable data
   size_t read_position_ RTC_GUARDED_BY(mutex_);
   // stream callbacks are dispatched on this thread
-  Thread* owner_;
+  Thread* const owner_;
   // object lock
   mutable webrtc::Mutex mutex_;
   RTC_DISALLOW_COPY_AND_ASSIGN(FifoBuffer);

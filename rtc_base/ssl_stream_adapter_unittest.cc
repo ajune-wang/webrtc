@@ -141,6 +141,7 @@ static const char kCACert[] =
 class SSLStreamAdapterTestBase;
 
 class SSLDummyStreamBase : public rtc::StreamInterface,
+                           public rtc::MessageHandler,
                            public sigslot::has_slots<> {
  public:
   SSLDummyStreamBase(SSLStreamAdapterTestBase* test,
@@ -151,6 +152,8 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
     in_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventIn);
     out_->SignalEvent.connect(this, &SSLDummyStreamBase::OnEventOut);
   }
+
+  ~SSLDummyStreamBase() override { thread_->Clear(this); }
 
   rtc::StreamState GetState() const override { return rtc::SS_OPEN; }
 
@@ -213,7 +216,26 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
     out_->Close();
   }
 
+ private:
+  // TODO(tommi): Delete.
+  struct StreamEventData : public rtc::MessageData {
+    int events, error;
+    StreamEventData(int ev, int er) : events(ev), error(er) {}
+  };
+
+  void OnMessage(rtc::Message* msg) override {
+    StreamEventData* pe = static_cast<StreamEventData*>(msg->pdata);
+    SignalEvent(this, pe->events, pe->error);
+    delete msg->pdata;
+  }
+
+  void PostEvent(int events, int err) {
+    RTC_DCHECK_EQ(thread_, rtc::Thread::Current());
+    thread_->Post(RTC_FROM_HERE, this, 0, new StreamEventData(events, err));
+  }
+
  protected:
+  rtc::Thread* const thread_ = rtc::Thread::Current();
   SSLStreamAdapterTestBase* test_base_;
   const std::string side_;
   rtc::StreamInterface* in_;
@@ -230,10 +252,13 @@ class SSLDummyStreamTLS : public SSLDummyStreamBase {
       : SSLDummyStreamBase(test, side, in, out) {}
 };
 
-class BufferQueueStream : public rtc::BufferQueue, public rtc::StreamInterface {
+class BufferQueueStream final : public rtc::BufferQueue,
+                                public rtc::MessageHandler,
+                                public rtc::StreamInterface {
  public:
   BufferQueueStream(size_t capacity, size_t default_size)
       : rtc::BufferQueue(capacity, default_size) {}
+  ~BufferQueueStream() { thread_->Clear(this); }
 
   // Implementation of abstract StreamInterface methods.
 
@@ -269,9 +294,29 @@ class BufferQueueStream : public rtc::BufferQueue, public rtc::StreamInterface {
   void NotifyReadableForTest() override { PostEvent(rtc::SE_READ, 0); }
 
   void NotifyWritableForTest() override { PostEvent(rtc::SE_WRITE, 0); }
+
+ private:
+  // TODO(tommi): Delete.
+  struct StreamEventData : public rtc::MessageData {
+    int events, error;
+    StreamEventData(int ev, int er) : events(ev), error(er) {}
+  };
+
+  void OnMessage(rtc::Message* msg) override {
+    StreamEventData* pe = static_cast<StreamEventData*>(msg->pdata);
+    SignalEvent(this, pe->events, pe->error);
+    delete msg->pdata;
+  }
+
+  void PostEvent(int events, int err) {
+    RTC_DCHECK_EQ(thread_, rtc::Thread::Current());
+    thread_->Post(RTC_FROM_HERE, this, 0, new StreamEventData(events, err));
+  }
+
+  rtc::Thread* const thread_ = rtc::Thread::Current();
 };
 
-class SSLDummyStreamDTLS : public SSLDummyStreamBase {
+class SSLDummyStreamDTLS final : public SSLDummyStreamBase {
  public:
   SSLDummyStreamDTLS(SSLStreamAdapterTestBase* test,
                      const std::string& side,

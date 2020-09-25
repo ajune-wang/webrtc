@@ -12,6 +12,7 @@
 #define MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_MODE_LEVEL_ESTIMATOR_H_
 
 #include <stddef.h>
+#include <type_traits>
 
 #include "absl/types/optional.h"
 #include "modules/audio_processing/agc2/agc2_common.h"
@@ -39,6 +40,7 @@ class AdaptiveModeLevelEstimator {
   AdaptiveModeLevelEstimator(
       ApmDataDumper* apm_data_dumper,
       AudioProcessing::Config::GainController2::LevelEstimator level_estimator,
+      int min_consecutive_speech_frames,
       bool use_saturation_protector,
       float initial_saturation_margin_db,
       float extra_saturation_margin_db);
@@ -55,6 +57,8 @@ class AdaptiveModeLevelEstimator {
  private:
   // Part of the level estimator state used for check-pointing and restore ops.
   struct State {
+    bool operator==(const State& s) const;
+    inline bool operator!=(const State& s) const { return !(*this == s); }
     struct Ratio {
       float numerator;
       float denominator;
@@ -64,20 +68,24 @@ class AdaptiveModeLevelEstimator {
     Ratio level_dbfs;
     SaturationProtectorState saturation_protector;
   };
+  static_assert(std::is_trivially_copyable<State>::value, "");
 
+  void UpdateState(const VadLevelAnalyzer::Result& vad_level, State& state);
   void ResetState(State& state);
-  void DebugDumpEstimate();
+  void DumpDebugData();
 
   ApmDataDumper* const apm_data_dumper_;
 
   const AudioProcessing::Config::GainController2::LevelEstimator
       level_estimator_type_;
+  const int min_consecutive_speech_frames_;
   const bool use_saturation_protector_;
   const float initial_saturation_margin_db_;
   const float extra_saturation_margin_db_;
-  // TODO(crbug.com/webrtc/7494): Add temporary state.
-  State state_;
+  State temporary_state_;
+  State reliable_state_;
   absl::optional<float> last_level_dbfs_;
+  int num_adjacent_speech_frames_;
 };
 
 }  // namespace webrtc

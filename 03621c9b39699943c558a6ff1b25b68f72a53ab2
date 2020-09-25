@@ -16,6 +16,24 @@
       "revId": "03621c9b39699943c558a6ff1b25b68f72a53ab2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63b4cd78_4be4582d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-09-25T11:41:34Z",
+      "side": 1,
+      "message": "yes indeed. Must be vtables(?) maybe we\u0027ll get more gains like this when I\u0027m done with the cleanup.",
+      "parentUuid": "12641342_a9a7ef0e",
+      "revId": "03621c9b39699943c558a6ff1b25b68f72a53ab2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

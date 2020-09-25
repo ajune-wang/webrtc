@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91aec9af_f15aa76b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-25T15:45:26Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "b4b915b9498cf28d1e91abbef437d62c5bfecab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0490c3d3_962c2617",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1259,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-25T15:45:26Z",
+      "side": 1,
+      "message": "Nit: stray blank line",
+      "revId": "b4b915b9498cf28d1e91abbef437d62c5bfecab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef7b4ae7_0a5b4445",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-25T15:45:26Z",
+      "side": 1,
+      "message": "Move this up to before line 1281, where the old sigslot code was? So that we preserve the order.",
+      "revId": "b4b915b9498cf28d1e91abbef437d62c5bfecab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

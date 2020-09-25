@@ -19,7 +19,6 @@
 
 #include "absl/memory/memory.h"
 #include "rtc_base/deprecation.h"
-#include "rtc_base/robo_caller.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_identity.h"
 #include "rtc_base/stream.h"
@@ -269,7 +268,7 @@ class SSLStreamAdapter : public StreamAdapterInterface {
   // authentication.
   bool GetClientAuthEnabled() const { return client_auth_enabled_; }
 
-  webrtc::RoboCaller<SSLHandshakeError&> SignalSSLHandshakeError;
+  sigslot::signal1<SSLHandshakeError> SignalSSLHandshakeError;
 
  private:
   // If true (default), the client is required to provide a certificate during

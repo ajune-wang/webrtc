@@ -94,11 +94,11 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
           JsepTransportControllerTest::OnConnectionState(s);
         });
     transport_controller_->SignalConnectionState.AddReceiver(
-        [this](const PeerConnectionInterface::PeerConnectionState& s) {
+        [this](PeerConnectionInterface::PeerConnectionState s) {
           JsepTransportControllerTest::OnCombinedConnectionState(s);
         });
     transport_controller_->SignalStandardizedIceConnectionState.AddReceiver(
-        [this](const PeerConnectionInterface::IceConnectionState& s) {
+        [this](PeerConnectionInterface::IceConnectionState s) {
           JsepTransportControllerTest::OnStandardizedIceConnectionState(s);
         });
     transport_controller_->SignalIceGatheringState.AddReceiver(

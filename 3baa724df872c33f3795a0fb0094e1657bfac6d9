@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "945b2c92_6d9c08ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Thanks Per. I uploaded a new patch set. Could you PTAL?",
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

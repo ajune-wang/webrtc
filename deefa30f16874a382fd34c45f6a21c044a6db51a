@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "a11266c2_87932232",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abe1cd71_9cb66bf5",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "208913ce_52d28929",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3
@@ -79,6 +103,30 @@
       "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26055064_28950136",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "We agreed offline on keeping the two states and the copy op.",
+      "parentUuid": "208913ce_52d28929",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 43
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +153,30 @@
     },
     {
       "key": {
+        "uuid": "9913af27_08811e8b",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Done, but I added more details below as we might want to keep this DCHECK.\n\nRTC_DCHECK is not compiled in prod and hence the empty scope will be removed by the compiler.\nWhat the DCHECK protects from can\u0027t be checked in a unit test since the state is private.\nI added the DCHECK to make sure that calling `temporary_state_ \u003d reliable_state_;` once (see line 87) is enough and there\u0027s no need to do that for each frame having a speech probability below the threshold.\n\nMarking as resolved, but if you believe the DCHECK has a value I\u0027ll be happy to add it back.",
+      "parentUuid": "8db739bd_2987ba3e",
+      "range": {
+        "startLine": 89,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da0b446d_bc6d049b",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3
@@ -125,6 +197,30 @@
       "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae3227de_2774b217",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da0b446d_bc6d049b",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 20
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +283,30 @@
       "side": 1,
       "message": "Yes, absolutely.",
       "parentUuid": "1a9942a8_fa8233d1",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 39
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "641d018d_5bd62326",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Is it ok if I hardcode the saturation protector usage in a follow-up CL? I will then remove the double book-keeping you spot in such a CL. In this way, this CL will remain focused on one thing.",
+      "parentUuid": "51579f88_588d06c2",
       "range": {
         "startLine": 111,
         "startChar": 4,
@@ -318,6 +438,30 @@
     },
     {
       "key": {
+        "uuid": "89dbacd7_f5e70394",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Update: Per and I had an offline discussion and agreed on keeping two states and the copy operation. For now let\u0027s also live with a ring buffer and maybe switch (back) to a simple array in a follow up CL.",
+      "parentUuid": "581e1b74_066e499d",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 53
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0628c560_ea5acc98",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3
@@ -338,6 +482,30 @@
       "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52a6e5a6_727df23e",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0628c560_ea5acc98",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 1
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -364,6 +532,30 @@
     },
     {
       "key": {
+        "uuid": "bcee0200_5bf72dc3",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "74691477_eaa56567",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 45
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "070672d4_3a966c97",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3
@@ -387,6 +579,30 @@
     },
     {
       "key": {
+        "uuid": "d53e9c6c_2c1e8078",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "I added a DCHECK, time cannot be negative",
+      "parentUuid": "070672d4_3a966c97",
+      "range": {
+        "startLine": 140,
+        "startChar": 1,
+        "endLine": 142,
+        "endChar": 3
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32123ed6_1ef418dd",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3
@@ -407,6 +623,30 @@
       "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdfef818_6b9cde70",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-25T10:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32123ed6_1ef418dd",
+      "range": {
+        "startLine": 189,
+        "startChar": 2,
+        "endLine": 189,
+        "endChar": 25
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "734935ef_3dfd812a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-25T10:40:18Z",
+      "side": 1,
+      "message": "I won\u0027t insist on the test. But if we have an unit testing framework (as opposed to an integration test that incorporates real SCTP), it should be easy to write.\n\nIf we don\u0027t have such a framework already, it\u0027s probably not worth the effort to make one for this.\n",
+      "revId": "e9c776a652e549e8e6ef6459b16a995c7cc71fac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

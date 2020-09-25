@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6e898f95_fedecf4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-25T10:40:18Z",
+      "side": 1,
+      "message": "For an unit test, it should be a matter of calling the \"deliver a notifcation\" function after closing the transport. That\u0027s the big thing about unit tests - they permit you to reliably do things that happen very rarely in Real Life.",
+      "parentUuid": "7bedb8e1_8b631ed1",
+      "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6422c8c4_0d75daa9",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 2
@@ -89,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "07498578_8d6706f8",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-25T10:40:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "12c143e5_e626bae8",
+      "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38efd274_fb1173d1",
         "filename": "media/sctp/sctp_transport.cc",
         "patchSetId": 2
@@ -121,6 +157,24 @@
       "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6c9f9b_cce299be",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-25T10:40:18Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b7d0f507_829deae4",
+      "revId": "aeeb0bfbd18cabfa21b20413959c4075ef15a38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

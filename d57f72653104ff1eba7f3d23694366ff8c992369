@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "49327061_c0d96c7e",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-25T07:31:46Z",
+      "side": 1,
+      "message": "You should be able to successfully use pass-by-value here now that https://webrtc-review.googlesource.com/c/src/+/185400/ has landed.\n\nAs for why pass-by-value is faster: Basically it boils down to it being more efficient to pass a small integer around directly, as opposed to passing around an address to the memory location where that small integer is stored. You can see here [https://godbolt.org/z/1G893s] that it takes more instructions and more memory accesses to do the job with const int\u0026 compared to just int, for both the caller and the callee.",
+      "parentUuid": "ac0e35e6_521dfeee",
+      "range": {
+        "startLine": 201,
+        "startChar": 19,
+        "endLine": 201,
+        "endChar": 46
+      },
+      "revId": "d57f72653104ff1eba7f3d23694366ff8c992369",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d9609c8_fa128cfa",
         "filename": "rtc_base/robo_caller_unittest.cc",
         "patchSetId": 11

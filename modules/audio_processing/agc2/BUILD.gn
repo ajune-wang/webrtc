@@ -201,6 +201,7 @@ rtc_library("adaptive_digital_unittests") {
     "../../../rtc_base:checks",
     "../../../rtc_base:gunit_helpers",
     "../../../rtc_base:rtc_base_approved",
+    "../../../test:test_support",
   ]
 }
 

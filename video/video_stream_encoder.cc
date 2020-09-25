@@ -787,6 +787,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       encoder_->RegisterEncodeCompleteCallback(this);
       frame_encode_metadata_writer_.OnEncoderInit(send_codec_,
                                                   HasInternalSource());
+      next_frame_types_.clear();
+      next_frame_types_.resize(
+          std::max(static_cast<int>(codec.numberOfSimulcastStreams), 1),
+          VideoFrameType::kVideoFrameKey);
     }
 
     frame_encode_metadata_writer_.Reset();
@@ -798,10 +802,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   OnEncoderSettingsChanged();
 
   if (success) {
-    next_frame_types_.clear();
-    next_frame_types_.resize(
-        std::max(static_cast<int>(codec.numberOfSimulcastStreams), 1),
-        VideoFrameType::kVideoFrameKey);
     RTC_LOG(LS_VERBOSE) << " max bitrate " << codec.maxBitrate
                         << " start bitrate " << codec.startBitrate
                         << " max frame rate " << codec.maxFramerate

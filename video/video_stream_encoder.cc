@@ -119,14 +119,23 @@ bool RequiresEncoderReset(const VideoCodec& prev_send_codec,
             prev_send_codec.simulcastStream[i].width ||
         new_send_codec.simulcastStream[i].height !=
             prev_send_codec.simulcastStream[i].height ||
-        new_send_codec.simulcastStream[i].maxFramerate !=
-            prev_send_codec.simulcastStream[i].maxFramerate ||
         new_send_codec.simulcastStream[i].numberOfTemporalLayers !=
             prev_send_codec.simulcastStream[i].numberOfTemporalLayers ||
         new_send_codec.simulcastStream[i].qpMax !=
-            prev_send_codec.simulcastStream[i].qpMax ||
-        new_send_codec.simulcastStream[i].active !=
-            prev_send_codec.simulcastStream[i].active) {
+            prev_send_codec.simulcastStream[i].qpMax) {
+      return true;
+    }
+  }
+
+  for (unsigned char i = 0; i < new_send_codec.num_spatial_layers; ++i) {
+    if (new_send_codec.spatialLayers[i].width !=
+            prev_send_codec.spatialLayers[i].width ||
+        new_send_codec.spatialLayers[i].height !=
+            prev_send_codec.spatialLayers[i].height ||
+        new_send_codec.spatialLayers[i].numberOfTemporalLayers !=
+            prev_send_codec.spatialLayers[i].numberOfTemporalLayers ||
+        new_send_codec.spatialLayers[i].qpMax !=
+            prev_send_codec.spatialLayers[i].qpMax) {
       return true;
     }
   }
@@ -787,6 +796,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       encoder_->RegisterEncodeCompleteCallback(this);
       frame_encode_metadata_writer_.OnEncoderInit(send_codec_,
                                                   HasInternalSource());
+      next_frame_types_.clear();
+      next_frame_types_.resize(
+          std::max(static_cast<int>(codec.numberOfSimulcastStreams), 1),
+          VideoFrameType::kVideoFrameKey);
     }
 
     frame_encode_metadata_writer_.Reset();
@@ -798,10 +811,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   OnEncoderSettingsChanged();
 
   if (success) {
-    next_frame_types_.clear();
-    next_frame_types_.resize(
-        std::max(static_cast<int>(codec.numberOfSimulcastStreams), 1),
-        VideoFrameType::kVideoFrameKey);
     RTC_LOG(LS_VERBOSE) << " max bitrate " << codec.maxBitrate
                         << " start bitrate " << codec.startBitrate
                         << " max frame rate " << codec.maxFramerate

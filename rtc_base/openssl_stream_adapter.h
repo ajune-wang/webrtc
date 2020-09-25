@@ -55,7 +55,8 @@ class SSLCertChain;
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class OpenSSLStreamAdapter final : public SSLStreamAdapter {
+class OpenSSLStreamAdapter final : public SSLStreamAdapter,
+                                   public MessageHandler {
  public:
   explicit OpenSSLStreamAdapter(std::unique_ptr<StreamInterface> stream);
   ~OpenSSLStreamAdapter() override;
@@ -126,6 +127,17 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
   void OnEvent(StreamInterface* stream, int events, int err) override;
 
  private:
+  // TODO(tommi): Delete.
+  struct StreamEventData : public MessageData {
+    int events, error;
+    StreamEventData(int ev, int er) : events(ev), error(er) {}
+  };
+
+  void PostEvent(int events, int err) {
+    RTC_DCHECK_EQ(owner_, rtc::Thread::Current());
+    owner_->Post(RTC_FROM_HERE, this, 0, new StreamEventData(events, err));
+  }
+
   enum SSLState {
     // Before calling one of the StartSSL methods, data flows
     // in clear text.
@@ -136,8 +148,6 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
     SSL_ERROR,       // some SSL error occurred, stream is closed
     SSL_CLOSED       // Clean close
   };
-
-  enum { MSG_TIMEOUT = MSG_MAX + 1 };
 
   // The following three methods return 0 on success and a negative
   // error code on failure. The error code may be from OpenSSL or -1
@@ -183,6 +193,8 @@ class OpenSSLStreamAdapter final : public SSLStreamAdapter {
     return !peer_certificate_digest_algorithm_.empty() &&
            !peer_certificate_digest_value_.empty();
   }
+
+  rtc::Thread* const owner_;
 
   SSLState state_;
   SSLRole role_;

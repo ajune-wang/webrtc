@@ -33,6 +33,92 @@
       "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ddce3d2e_136c2521",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-25T10:32:42Z",
+      "side": 1,
+      "message": "and nits",
+      "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d75966f_ed5a6c5f",
+        "filename": "modules/audio_processing/agc2/vad_with_level.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-25T10:32:42Z",
+      "side": 1,
+      "message": "in -\u003e is",
+      "range": {
+        "startLine": 40,
+        "startChar": 37,
+        "endLine": 40,
+        "endChar": 39
+      },
+      "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79975984_6b5364a3",
+        "filename": "modules/audio_processing/agc2/vad_with_level.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-25T10:32:42Z",
+      "side": 1,
+      "message": "Injects -\u003e Uses",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1971eb7c_ab0b8317",
+        "filename": "modules/audio_processing/agc2/vad_with_level_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-09-25T10:32:42Z",
+      "side": 1,
+      "message": "var name update too?",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 33
+      },
+      "revId": "4472f9f3bb57b3394b388be5add550a67283cf7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

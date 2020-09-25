@@ -53,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "69f8e463_a0b4dd5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-25T17:56:16Z",
+      "side": 1,
+      "message": "Thanks for the comments! will update the commit",
+      "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "095e7643_f6a9cfa1",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1
@@ -64,6 +81,24 @@
       "writtenOn": "2020-09-25T08:09:13Z",
       "side": 1,
       "message": "I would argue that changes in maxFramerate shouldn\u0027t trigger key-frame. Please remove the check.",
+      "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226d2f18_d6a62902",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-25T17:56:16Z",
+      "side": 1,
+      "message": "Agree",
+      "parentUuid": "095e7643_f6a9cfa1",
       "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +122,24 @@
     },
     {
       "key": {
+        "uuid": "1a436402_e13adbe1",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-25T17:56:16Z",
+      "side": 1,
+      "message": "Good point, save some re-init when some layer become inactive.",
+      "parentUuid": "aa75c9bd_37684521",
+      "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8b8032b_41632181",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1
@@ -98,6 +151,24 @@
       "writtenOn": "2020-09-25T08:09:13Z",
       "side": 1,
       "message": "Please add here another loop to check if there\u0027s any change between |new_send_codec.spatialLayers[]| and |prev_send_codec.spatialLayers[]|\n\nUnlike with simulcastStreams you only need to check width/height/qpMax/numberOfTemporalLayers. |active| flags would be correctly processed by vp9 encoder.",
+      "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c56f009_dd68b4f1",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-25T17:56:16Z",
+      "side": 1,
+      "message": "sounds good",
+      "parentUuid": "c8b8032b_41632181",
       "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

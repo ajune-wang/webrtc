@@ -294,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "f6bac399_07abc339",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-25T10:04:32Z",
+      "side": 1,
+      "message": "As discussed offline, I think you are correct. Two states are indeed as you say needed.",
+      "parentUuid": "581e1b74_066e499d",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 53
+      },
+      "revId": "deefa30f16874a382fd34c45f6a21c044a6db51a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0628c560_ea5acc98",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 3

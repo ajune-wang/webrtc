@@ -70,6 +70,23 @@
     },
     {
       "key": {
+        "uuid": "631aefd8_250d2b5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-25T20:55:20Z",
+      "side": 1,
+      "message": "Some other thoughts",
+      "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "095e7643_f6a9cfa1",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1
@@ -134,6 +151,24 @@
       "side": 1,
       "message": "Good point, save some re-init when some layer become inactive.",
       "parentUuid": "aa75c9bd_37684521",
+      "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14146d75_b120794c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-25T20:55:20Z",
+      "side": 1,
+      "message": "It looks simulcast encoders will always decide it is active or not based on the bitrate allocation (target bitrate \u003e 0)\nbitrate allocation will take care of stream state active/inactive\nSo it seems no matter active-\u003einactive or inactive -\u003e active, we don\u0027t need encoder reset\n\nbut regarding other stuff like width/height ... we always need the check no matter active or not, since we always save the new_send_codec later, if we don\u0027t do reset, there maybe some misalignment, like if we say L0 is 360p\n1st:360p (active) -\u003e 2nd:480p (inactive) -\u003e 3rd:480p (active)\nif we skip 2nd reset, the 3rd one will think we already on 480p but actually encoder is not\n\nis my understand correct here?",
+      "parentUuid": "1a436402_e13adbe1",
       "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

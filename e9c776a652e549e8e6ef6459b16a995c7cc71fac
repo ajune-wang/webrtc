@@ -16,6 +16,24 @@
       "revId": "e9c776a652e549e8e6ef6459b16a995c7cc71fac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4fde3d05_d0439297",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-26T18:13:11Z",
+      "side": 1,
+      "message": "Oh, I understand what you\u0027re asking for now. No, we don\u0027t currently have tests that replace the usrsctp implementation with a fake one, but that would be a very good idea; I\u0027ll add it to the doc.",
+      "parentUuid": "734935ef_3dfd812a",
+      "revId": "e9c776a652e549e8e6ef6459b16a995c7cc71fac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "7453bae8_069d9b49",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-28T12:44:32Z",
+      "side": 1,
+      "message": "good catch, adjacent is shorter so I picked that",
+      "parentUuid": "77b69ac9_c8a136e1",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 99,
+        "endChar": 66
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4436a4da_66cf3df4",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 5
@@ -62,6 +86,30 @@
       "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ad95d7b_0ec3b0c1",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-28T12:44:32Z",
+      "side": 1,
+      "message": "I spent time on it and rewrote the method. Compared to the previous patch set it looks like we now save one copy, but that\u0027s not exact. What happens now is that we always make a copy at the end of each sequence of adjacent speech frames (regardless of the length); whereas before one extra copy took place when transitioning from preliminary to reliable. The trick is to look at the sequence length after a speech sequence.\n\nAt least, the code looks simpler now (to me at least) and it is clear when we make a copy.\n\nBTW, I thought that we could swap reliable and preliminary states after the end of a speech sequence, but then doesn\u0027t work unfortunately - after a long enough sequence, the preliminary state would become equal to the reliable one and then we lose the most recent updates.",
+      "parentUuid": "4436a4da_66cf3df4",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 39
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "561143b2_11439058",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-28T12:44:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df4d570e_b824b9cb",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 42
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0b16f01_cebf829b",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator_unittest.cc",
         "patchSetId": 5
@@ -108,6 +180,30 @@
       "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "778ae6ab_a119c4fd",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-28T12:44:32Z",
+      "side": 1,
+      "message": "This is not part of this CL and I\u0027d prefer to keep such a clean up in a separate change.\nMaybe the author intentionally avoided a constant to highlight the subtraction.\nI added a TODO for now since I want to review the existing tests with care.",
+      "parentUuid": "e0b16f01_cebf829b",
+      "range": {
+        "startLine": 136,
+        "startChar": 23,
+        "endLine": 136,
+        "endChar": 75
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

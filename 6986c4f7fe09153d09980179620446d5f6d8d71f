@@ -193,6 +193,24 @@
     },
     {
       "key": {
+        "uuid": "08180db1_63fadcc2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-28T17:38:42Z",
+      "side": 1,
+      "message": "I see, yea, this makes a lot sense.\nI will update as \u0027only reset encoder when stream becomes active (inactive -\u003e active)\u0027.\nIf stream is currently inactive, we could skip all the other checks like width/height",
+      "parentUuid": "f4b82c45_ffafaa9c",
+      "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8b8032b_41632181",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1

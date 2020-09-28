@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f7fb6d0_96ff06d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-28T17:38:42Z",
+      "side": 1,
+      "message": "Thanks for the comment, update the code.\n1. Only trigger reset when stream change as inactive -\u003e active. Ignore changes for width/height etc if stream status is inactive.\n2. fix spatial layer check for vp9 only",
+      "revId": "d9114d96487a46425e281db5f74bc18b63e5594c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

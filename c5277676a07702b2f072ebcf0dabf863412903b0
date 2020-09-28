@@ -16,6 +16,23 @@
       "revId": "c5277676a07702b2f072ebcf0dabf863412903b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2587adda_e8cd6238",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10558
+      },
+      "writtenOn": "2020-09-28T20:43:25Z",
+      "side": 1,
+      "message": "That\u0027s fair ask. I will work on adding a test case on it. Thanks!",
+      "revId": "c5277676a07702b2f072ebcf0dabf863412903b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

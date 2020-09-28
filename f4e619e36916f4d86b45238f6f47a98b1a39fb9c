@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1eed14c_d8388c08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-28T15:35:42Z",
+      "side": 1,
+      "message": "Hi again Per,\n\nI\u0027ve created 2 intermediate CLs to remove clutter and keep a better focus in this one. The additional CLs are changes introduced to address part of your comments, so no new feature. It also helped me to find a bug due to which the default behavior was changing (now fixed). So, could you take a look at the diff between head and the last patchset instead of comparing to the last patchset with comments from you?\n\nCheers,\nAlessio",
+      "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

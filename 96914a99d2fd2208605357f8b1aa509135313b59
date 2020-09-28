@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ea06f71_2ad3e463",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-28T19:09:12Z",
+      "side": 1,
+      "message": "A slightly smaller refactoring.\n",
+      "revId": "96914a99d2fd2208605357f8b1aa509135313b59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

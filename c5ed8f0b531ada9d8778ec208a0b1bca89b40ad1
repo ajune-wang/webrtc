@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fcafb17_62b583a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-28T21:22:00Z",
+      "side": 1,
+      "message": "PTAL; going to wait to submit this until tomorrow though, because https://webrtc-review.googlesource.com/c/src/+/184240 hasn\u0027t yet shipped in canary.",
+      "revId": "c5ed8f0b531ada9d8778ec208a0b1bca89b40ad1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -53,7 +53,7 @@ void AdaptiveAgc::Process(AudioFrameView<float> float_frame,
 
   speech_level_estimator_.Update(signal_with_levels.vad_result);
 
-  signal_with_levels.input_level_dbfs = speech_level_estimator_.GetLevelDbfs();
+  signal_with_levels.input_level_dbfs = speech_level_estimator_.level_dbfs();
 
   signal_with_levels.input_noise_level_dbfs =
       noise_level_estimator_.Analyze(float_frame);
@@ -74,6 +74,7 @@ void AdaptiveAgc::Process(AudioFrameView<float> float_frame,
 }
 
 void AdaptiveAgc::Reset() {
+  std::printf("\n");
   speech_level_estimator_.Reset();
 }
 

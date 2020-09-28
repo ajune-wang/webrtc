@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb88ce3b_ffeb3333",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-28T19:29:22Z",
+      "side": 1,
+      "message": "Nice!\nlgtm,\nHowever, it would be nice to have a test for this as well.",
+      "revId": "c5277676a07702b2f072ebcf0dabf863412903b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

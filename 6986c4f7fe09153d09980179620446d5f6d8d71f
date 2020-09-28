@@ -175,6 +175,24 @@
     },
     {
       "key": {
+        "uuid": "f4b82c45_ffafaa9c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-28T07:30:49Z",
+      "side": 1,
+      "message": "I believe it\u0027s not generally true for all encoders (especially external encoders e.g. in chrome). Therefore I suggest to leave |active| checks, but only trigger the KF if the state is changed from inactive to active. It\u0027s just safer.",
+      "parentUuid": "14146d75_b120794c",
+      "revId": "6986c4f7fe09153d09980179620446d5f6d8d71f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8b8032b_41632181",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 1

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd55f452_04a55f36",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-28T07:30:49Z",
+      "side": 1,
+      "message": "This will not compile, since the only instance of |numberOfSpatialLayers| is in |.VP9()|\n\nTherefore this is what you need to do:\n\nif (new_send_codec.codecType \u003d\u003d kVideoCodecVP9) {\n   const int num_spatial_layers \u003d new_send_codec.VP9().numberOfSpatialLayers;\n   for (i \u003d 0; i \u003c num_spatial_layers;++i) {\n     ...\n   }\n}",
+      "revId": "20ab7a0282d6a72c772e06705d3b6fb67eb751e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

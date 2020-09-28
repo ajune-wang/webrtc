@@ -16,6 +16,23 @@
       "revId": "eb667c510ffd98ed48e4f8f79a4bc0af0ef4acda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a43a0d8d_827c260e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-09-28T21:15:20Z",
+      "side": 1,
+      "message": "LGTM given that you have the todo and bug link.",
+      "revId": "eb667c510ffd98ed48e4f8f79a4bc0af0ef4acda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

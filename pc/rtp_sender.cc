@@ -127,6 +127,8 @@ void RtpSenderBase::SetFrameEncryptor(
 }
 
 void RtpSenderBase::SetMediaChannel(cricket::MediaChannel* media_channel) {
+  RTC_LOG(LS_ERROR)
+      << "************ RtpSenderBase::SetMediaChannel **********************";
   RTC_DCHECK(media_channel == nullptr ||
              media_channel->media_type() == media_type());
   media_channel_ = media_channel;

@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "d64619a9_c7ec8ad1",
+        "filename": "pc/stats_collector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-29T14:23:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e37918dc_55444612",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "accc75f61ec86f49a4b57303a65716cc10bc7268",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "848f6007_ae240fd0",
         "filename": "pc/stats_collector_interface.h",
         "patchSetId": 2
@@ -62,6 +86,30 @@
       "revId": "accc75f61ec86f49a4b57303a65716cc10bc7268",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35710762_7291d467",
+        "filename": "pc/stats_collector_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-29T14:23:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "848f6007_ae240fd0",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "accc75f61ec86f49a4b57303a65716cc10bc7268",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

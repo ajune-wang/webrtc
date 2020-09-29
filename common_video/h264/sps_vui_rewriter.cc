@@ -255,8 +255,9 @@ rtc::Buffer SpsVuiRewriter::ParseOutgoingBitstreamAndRewrite(
         output_buffer.AppendData(output_nalu.data(), output_nalu.size());
         continue;
       }
-    } else if (H264::ParseNaluType(nalu_ptr[0]) == H264::NaluType::kAud) {
-      // Skip the access unit delimiter copy.
+    } else if (H264::ParseNaluType(nalu_ptr[0]) == H264::NaluType::kAud ||
+               H264::ParseNaluType(nalu_ptr[0]) == H264::NaluType::kPrefix) {
+      // Skip the access unit delimiter and prefix copy.
       continue;
     }
 

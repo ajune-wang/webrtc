@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e57fb1e_b23c97f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-29T13:09:43Z",
+      "side": 1,
+      "message": "Thanks for the CL!!!\nlgtm but please have a look at the comments.",
+      "revId": "848b05def7ea21007e41ec984b5c8c2efa7fa611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e70d550_94399530",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-29T13:09:43Z",
+      "side": 1,
+      "message": "Nit: Thinking a bit more I\u0027d suggest not doing this alias, but instead rather use the fully name of the preliminary_state_ everywhere below.\n\nNone of the lines will wrap due to that, and it is easier to see what state is being changed.",
+      "range": {
+        "startLine": 143,
+        "startChar": 2,
+        "endLine": 143,
+        "endChar": 50
+      },
+      "revId": "848b05def7ea21007e41ec984b5c8c2efa7fa611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf0305cc_93545eab",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-29T13:09:43Z",
+      "side": 1,
+      "message": "Please change this into one single DCHECK instead of a DCHECK within an if-statement:\nRTC_DCHECK(reliable_state_.time_to_full_buffer_ms !\u003d 0 || preliminary_state_.time_to_full_buffer_ms \u003d\u003d 0);",
+      "range": {
+        "startLine": 180,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 3
+      },
+      "revId": "848b05def7ea21007e41ec984b5c8c2efa7fa611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

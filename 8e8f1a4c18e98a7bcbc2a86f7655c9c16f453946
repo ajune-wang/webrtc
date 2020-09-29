@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1f2802e_c4d5d5a1",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-29T07:35:12Z",
+      "side": 1,
+      "message": "To fix the errors you see on the bots, try use a \"rtc_source_set\" here.\n\nrtc_librrary is better but in case of header only targets we need rtc_source_set because the mac toolchain will complain when generating the static library.",
+      "range": {
+        "startLine": 393,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 11
+      },
+      "revId": "8e8f1a4c18e98a7bcbc2a86f7655c9c16f453946",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

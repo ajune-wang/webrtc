@@ -70,6 +70,30 @@
       "revId": "ed428dc0c2c9b3f5720c79aa1291f4f17a958b2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46c9c47b_c7d60042",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-29T11:24:51Z",
+      "side": 1,
+      "message": "LGTM.",
+      "parentUuid": "429bec2a_11886f17",
+      "range": {
+        "startLine": 225,
+        "startChar": 2,
+        "endLine": 225,
+        "endChar": 34
+      },
+      "revId": "ed428dc0c2c9b3f5720c79aa1291f4f17a958b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

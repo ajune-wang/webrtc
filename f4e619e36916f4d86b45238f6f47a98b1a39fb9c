@@ -16,6 +16,75 @@
       "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c029135_93666ac8",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-29T09:50:04Z",
+      "side": 1,
+      "message": "Since this goes in both the if-statements on 123 and 127 I would instead write this as a nested if and discard the constant requires_adjacent_speech_frames (if you want to make it clear what that adjacent_speech_frames_threshold_ \u003e 1 means I think it is better to do that in a comment than using a constant with specified naming.\ni.e., as\nif (adjacent_speech_frames_threshold_ \u003e 1) {\n  if(num_adjacent_speech_frames_ \u003e\u003d adjacent_speech_frames_threshold_) {\n     ...\n  } else if ( num_adjacent_speech_frames_ \u003e 0) {\n    ...\n  }\n}\n\n\nI think this will make the logic in this statement more readable.",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 39
+      },
+      "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d53e037_a3893d29",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-29T09:50:04Z",
+      "side": 1,
+      "message": "A concern with this approach is that all new updates will only go into the preliminary_state until a non-speech frame is received, at which the copy to the reliable_state_ is made.\n\nI think that if the code instead would make sure to instead use the most appropriately updated state for this that could be fully avoided, while still using the current approach of copying the states.",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 34
+      },
+      "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e84b85a9_f0966eb7",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-29T09:50:04Z",
+      "side": 1,
+      "message": "Please name the type instead of using auto. \nThe code will still fit into one line and since this is strongly typed the reader will benefit more from being able to read the type, instead of using an auto.",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 140,
+        "endChar": 35
+      },
+      "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

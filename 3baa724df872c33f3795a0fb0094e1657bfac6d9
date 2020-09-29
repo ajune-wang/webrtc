@@ -113,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "7aa6b16b_0a10f693",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-29T09:50:04Z",
+      "side": 1,
+      "message": "If you think this works, then it is good. However, with the new version all data that went into reliable_state_ after  num_adjacent_speech_frames_ \u003emin_consecutive_speech_frames_ will only be reflected in the reliable_state_ after a non-speech frame has appeared. (please see comment in the most recent patchset).",
+      "parentUuid": "1ad95d7b_0ec3b0c1",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 39
+      },
+      "revId": "3baa724df872c33f3795a0fb0094e1657bfac6d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df4d570e_b824b9cb",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
         "patchSetId": 5

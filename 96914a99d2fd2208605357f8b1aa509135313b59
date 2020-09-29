@@ -16,6 +16,57 @@
       "revId": "96914a99d2fd2208605357f8b1aa509135313b59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39591ab2_9f486fc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-29T07:20:52Z",
+      "side": 1,
+      "message": "LGTM % comments",
+      "revId": "96914a99d2fd2208605357f8b1aa509135313b59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94bee771_4cfe406c",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-29T07:20:52Z",
+      "side": 1,
+      "message": "Always use crbug references in TODO comments",
+      "revId": "96914a99d2fd2208605357f8b1aa509135313b59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2a96dcb_6a27b75e",
+        "filename": "pc/transceiver_list.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-09-29T07:20:52Z",
+      "side": 1,
+      "message": "TransPtr sounds like a raw pointer to an RtpTransceiver.\n\nIf you\u0027re going to use a typedef, prefer something like RtpTransceiverProxyRefPtr even if that is longer. All parts of this type is important for usage (that it\u0027s a refptr, that it\u0027s a proxy, etc) so all of it has to be clear from the typedef IMO.",
+      "revId": "96914a99d2fd2208605357f8b1aa509135313b59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

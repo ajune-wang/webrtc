@@ -157,6 +157,30 @@
       "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "54dfc1f9_5bc57f34",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-09-29T10:53:43Z",
+      "side": 1,
+      "message": "My concern with the current implementation is that if someone speaks continuously for a long time, the state will not be updated during that time\n\nI don\u0027t think the extra copy is needed to avoid this.\nDuring that speech period the preliminary_ state contains all the information that eventually will end up in the reliable_state_. Therefore the information in preliminary_state can meanwhile be used in place of reliable_state.\n\nMy previous comment about using a reference was to achieve that in a nice manner for the code, basically by using a state named reliable_state which is a reference to two underlying states.",
+      "parentUuid": "78695185_a4c3ecc5",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 34
+      },
+      "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

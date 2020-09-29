@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "564209f2_7fed314d",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-29T07:33:22Z",
+      "side": 1,
+      "message": "If we end up into this branch https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/test/testsupport/file_utils.cc;l\u003d191-197;drc\u003da4d873786f10eedd72de25ad0d94ad7c53c1f68a we might have a crash but I think it is ok. We will see the error and understand why there is a file with the same name as a directory (at least we expect a directory).",
+      "range": {
+        "startLine": 225,
+        "startChar": 2,
+        "endLine": 225,
+        "endChar": 34
+      },
+      "revId": "ed428dc0c2c9b3f5720c79aa1291f4f17a958b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

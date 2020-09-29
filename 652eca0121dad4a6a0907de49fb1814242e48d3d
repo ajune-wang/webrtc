@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "914f9a21_8c3fa1d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-29T13:51:33Z",
+      "side": 1,
+      "message": "I need to go through this a couple more times go grasp all the details but at my current level understanding this LGTM.\n\nDo you want to land now or wait for a good amount of places to be replaced and see the nice diff on the CL?",
+      "revId": "652eca0121dad4a6a0907de49fb1814242e48d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "652eca0121dad4a6a0907de49fb1814242e48d3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec47c873_cf52f9a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-29T16:17:52Z",
+      "side": 1,
+      "message": "\u003e I need to go through this a couple more times go grasp all the details but at my current level understanding this LGTM.\n\nThe tl;dr is that instead of having the inlined UntypedFunction::Create return an UntypedFunction which is then passed as an argument to non-inlined RoboCallerReceivers::AddReceiver, we let UntypedFunction::PrepareArgs return a few different kinds of trivial structs which are passed as arguments to non-inlined RoboCallerReceivers::AddReceiver (which then converts them to UntypedFunction by calling UntypedFunction::Create). These structs are smaller than UntypedFunction and optimized for argument passing, so many fewer instructions are needed.\n\n\u003e Do you want to land now or wait for a good amount of places to be replaced and see the nice diff on the CL?\n\nEither way is fine with me. So let\u0027s land it now because that\u0027s less work than keeping track of it; we can always try the reverse patch later if we want to see the impact.",
+      "parentUuid": "914f9a21_8c3fa1d2",
+      "revId": "652eca0121dad4a6a0907de49fb1814242e48d3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

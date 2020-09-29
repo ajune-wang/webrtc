@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a471861_846660f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-09-29T10:47:43Z",
+      "side": 1,
+      "message": "PTAL - since you\u0027re re-reviewing anyway, I moved some lookup functions into the class too.\n",
+      "revId": "aed71495778668f951b7710520c58f45101969f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

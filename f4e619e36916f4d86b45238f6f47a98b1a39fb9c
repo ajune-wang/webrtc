@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "19921bb5_b184d264",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-29T10:38:55Z",
+      "side": 1,
+      "message": "yes it reads better and I switched to that; I wanted to avoid nested IFs",
+      "parentUuid": "2c029135_93666ac8",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 123,
+        "endChar": 39
+      },
+      "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d53e037_a3893d29",
         "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
         "patchSetId": 12
@@ -85,6 +109,54 @@
       "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78695185_a4c3ecc5",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-29T10:38:55Z",
+      "side": 1,
+      "message": "The price to pay for this approach, thanks to which the impl for `AdaptiveModeLevelEstimator::Update` became simpler, is visible in `AdaptiveModeLevelEstimator::IsConfident()` which is not trivial anymore.\n\nThe previous solution works as follows:\n 1. preliminary state is being updated as long as too few adjacent speech frames are observed\n 2. once enough frames are observed \"reliable state \u003c- preliminary state\" (copy op) in order to make sure that reliable state benefits from what we can learn from the initial speech frames (those analyzed in the preliminary phase)\n 3. once enough frames are observed reliable state is being updated\nI still don\u0027t see an option to avoid step 2 (namely, the copy op \"reliable \u003c- preliminary\"), which is now moved at the end of a long enough speech sequence.\nIf I understand correctly your initial proposal was to use mutable aliases to switch from preliminary to reliable during a speech sequence based on whether the number of adjacent speech frames is greater than the threshold. If this is what you suggested, note that it won\u0027t work as intended since the state updates that happened in the preliminary phase will be ignored slowing down the convergence of the level estimator.\n\nI don\u0027t have a strong preference between the previous and the current approach for `AdaptiveModeLevelEstimator::Update`; but if there is a more efficient (bit-exact) implementation that I still don\u0027t see, we could chat offline.",
+      "parentUuid": "2d53e037_a3893d29",
+      "range": {
+        "startLine": 140,
+        "startChar": 16,
+        "endLine": 140,
+        "endChar": 34
+      },
+      "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2a05176_156375fc",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-29T10:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e84b85a9_f0966eb7",
+      "range": {
+        "startLine": 140,
+        "startChar": 2,
+        "endLine": 140,
+        "endChar": 35
+      },
+      "revId": "f4e619e36916f4d86b45238f6f47a98b1a39fb9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

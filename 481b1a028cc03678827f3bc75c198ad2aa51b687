@@ -16,6 +16,115 @@
       "revId": "481b1a028cc03678827f3bc75c198ad2aa51b687",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "730861d5_c386fb69",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-29T09:03:38Z",
+      "side": 1,
+      "message": "Hmm. I still think it\u0027s confusing to have this comparison here, since it could trick the reader into believing that the outcome is in doubt. If you do want to keep it, consider using static_assert.",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 40
+      },
+      "revId": "481b1a028cc03678827f3bc75c198ad2aa51b687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4817135b_cb5d499d",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-29T09:03:38Z",
+      "side": 1,
+      "message": "Move these to the top?",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 43
+      },
+      "revId": "481b1a028cc03678827f3bc75c198ad2aa51b687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12ce74fc_39add399",
+        "filename": "modules/audio_processing/agc2/saturation_protector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-29T09:03:38Z",
+      "side": 1,
+      "message": "These should be % buffer_.size(), not % size_, right? They technically amount to the same thing, but (1) the invariant that guarantees this isn\u0027t trivial, and (2) % is often much less expensive if the rhs is a compile time constant (especially a power of two).",
+      "revId": "481b1a028cc03678827f3bc75c198ad2aa51b687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c99a1c10_a283a740",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-29T09:03:38Z",
+      "side": 1,
+      "message": "\"Size\"? You capitalize all other methods, including the ones that mimic std:: naming.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 10
+      },
+      "revId": "481b1a028cc03678827f3bc75c198ad2aa51b687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f9777d3_6d5d7937",
+        "filename": "modules/audio_processing/agc2/saturation_protector.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-29T09:03:38Z",
+      "side": 1,
+      "message": "Document these three? Maybe in one single comment that describes how the queue is laid out.",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "481b1a028cc03678827f3bc75c198ad2aa51b687",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

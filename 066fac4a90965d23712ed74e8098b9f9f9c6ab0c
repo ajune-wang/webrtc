@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a719d352_caf3b84e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-09-30T13:54:57Z",
+      "side": 1,
+      "message": "Thanks for the CL! Looks good except for the naming of \"time_to_gain_increase_allowed_\" (see comment).",
+      "revId": "066fac4a90965d23712ed74e8098b9f9f9c6ab0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "786fcd78_e50a45f7",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-09-30T13:54:57Z",
+      "side": 1,
+      "message": "\"time\" feels a bit misleading as it is a number of frames, right?",
+      "revId": "066fac4a90965d23712ed74e8098b9f9f9c6ab0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

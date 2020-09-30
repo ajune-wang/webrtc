@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3465743a_9a6dff6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-30T11:51:41Z",
+      "side": 1,
+      "message": "PTAL. Do you know the background on the usage in sinc_resampler_unittest?",
+      "revId": "b9f6ac71d02258f7fc521d08e8ed762e18acff8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -16,6 +16,29 @@
       "revId": "41350e288ead58ad9197636a97c5d4e153604022",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd5daf8d_cf19713a",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2020-09-30T13:36:12Z",
+      "side": 1,
+      "message": "To avoid similar constants in different places, should kDigitalGainApplierAdjacentSpeechFramesThreshold now be removed from agc2_common? If it is only used for testing, maybe it is enough to only define it in adaptive_digital_gain_applier_unittest.cc.",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 62
+      },
+      "revId": "41350e288ead58ad9197636a97c5d4e153604022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

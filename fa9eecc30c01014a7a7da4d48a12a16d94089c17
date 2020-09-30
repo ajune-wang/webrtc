@@ -46,6 +46,30 @@
       "revId": "fa9eecc30c01014a7a7da4d48a12a16d94089c17",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae7ccfbd_5210eb8d",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-30T20:50:59Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "973bc0c6_0a9ba16f",
+      "range": {
+        "startLine": 287,
+        "startChar": 2,
+        "endLine": 287,
+        "endChar": 62
+      },
+      "revId": "fa9eecc30c01014a7a7da4d48a12a16d94089c17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

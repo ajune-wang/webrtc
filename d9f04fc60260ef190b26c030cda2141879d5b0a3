@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47daeadd_96be4a62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-09-30T20:34:30Z",
+      "side": 1,
+      "message": "can you folks help Lennart so he doesn\u0027t end up in patch hell?",
+      "revId": "d9f04fc60260ef190b26c030cda2141879d5b0a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

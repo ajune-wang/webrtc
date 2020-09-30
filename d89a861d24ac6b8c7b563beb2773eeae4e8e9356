@@ -16,6 +16,276 @@
       "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e7f995d_302e4a04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "First pass: style comments, as these are easier.\nI still haven\u0027t check nor what is put into this extension, nor format, nor implementation.\nAs a next step will take a closer look at what your are putting into this extension.",
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6558d1ce_2723f49b",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "put members after function.\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 26,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 0
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "752f3291_dae90dda",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "for operator\u003d\u003d prefer 2-parameter version:\nfriend bool operator\u003d\u003d(const ResolutionAndFrameRate\u0026 lhs, const ResolutionAndFrameRate\u0026 rhs) {",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 55
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45d28cb5_1d4542d7",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "when you declare operator\u003d\u003d it is a good idea to also add matching !\u003d operator:\nfriend bool operator!\u003d(const ResolutionAndFrameRate\u0026 lhs, const ResolutionAndFrameRate\u0026 rhs) {\n  return !(lhs \u003d\u003d rhs);\n}",
+      "range": {
+        "startLine": 30,
+        "startChar": 9,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51312349_22a29509",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "this comment imply that \"simulcast\" term can be understood differently\n(one meaning is \u0027independent stream\u0027, another meaning is \u0027differetnt ssrc/rtp stream\u0027)\nbecause of the first meaning (which seems more spread) may be don\u0027t call this variable \"simulcast\" in the first place.\n\nHow about something like\n// Index of the simulcast encoding this allocation is sent on. When all layers are sent over same ssrc/rtp stream, this value is 0.\nint rtp_stream_index \u003d 0;",
+      "range": {
+        "startLine": 36,
+        "startChar": 46,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c34c05c_69c0b071",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "inlined vector has dynamic size (and allows to grow beyound 2nd template parameter. it just used dynamic memory in that case)\nc-array has static size.\nhere you are using static size for spatial layers and dynamic size for temporal layers.\nNext variable you are using dynamic size for spatial layers.\nwhy treat them differently?\n\nmay be for simplicity use just c-array (or std::array), i.e. static size.\nif number of temporal/spatial layers can never be more than 4, you do not need InlinedVector.",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 80
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "092e4d5d_86a22831",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "put functions before members\n\nbtw, why call it equal instead of \nfriend bool operator\u003d\u003d(const VideoLayerAllocation\u0026 lhs, const VideoLayerAllocation\u0026 rhs) {",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 54
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05c2a46c_c11c2867",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "may be call it result (since in this content res might also mean resolution)\n\nOr may be you do not need that variable at all:\nif (lhs.sid !\u003d rhs.sid || lhs.resolution !\u003d rhs.resolution) {\n  return false;\n}\n\nfor (...) {\n  if (lhs.bitrate[i] !\u003d rhs.bitrate(i)) return false;\n}\n\nreturn true;",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7a3952f_8e4e6053",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "keep this constant in unnamed namespace (or add static keyword for internal linkage)",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c05a9246_49d0065b",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "either DCHECK or recover (or CHECK)\n\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#check_dcheck_and-notreached\n\n\"you should not handle DCHECK() failures\"",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 71
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06da745f_be79eeb4",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "It is likely this extension will be changed, including what and how is sent on the wire.\nI suggest to add a version suffix (e.g. \"-00\")",
+      "range": {
+        "startLine": 24,
+        "startChar": 52,
+        "endLine": 24,
+        "endChar": 76
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "786043df_82df236f",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T08:35:32Z",
+      "side": 1,
+      "message": "prefer free function in the unnamed namespace in the .cc over static private helper\ngo/totw/186",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

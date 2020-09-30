@@ -64,7 +64,7 @@ AdaptiveModeLevelEstimator::AdaptiveModeLevelEstimator(
     : AdaptiveModeLevelEstimator(
           apm_data_dumper,
           AudioProcessing::Config::GainController2::LevelEstimator::kRms,
-          kDefaultAdjacentSpeechFramesThreshold,
+          kDefaultLevelEstimatorAdjacentSpeechFramesThreshold,
           kDefaultInitialSaturationMarginDb,
           kDefaultExtraSaturationMarginDb) {}
 
@@ -73,11 +73,12 @@ AdaptiveModeLevelEstimator::AdaptiveModeLevelEstimator(
     AudioProcessing::Config::GainController2::LevelEstimator level_estimator,
     bool use_saturation_protector,
     float extra_saturation_margin_db)
-    : AdaptiveModeLevelEstimator(apm_data_dumper,
-                                 level_estimator,
-                                 kDefaultAdjacentSpeechFramesThreshold,
-                                 kDefaultInitialSaturationMarginDb,
-                                 extra_saturation_margin_db) {
+    : AdaptiveModeLevelEstimator(
+          apm_data_dumper,
+          level_estimator,
+          kDefaultLevelEstimatorAdjacentSpeechFramesThreshold,
+          kDefaultInitialSaturationMarginDb,
+          extra_saturation_margin_db) {
   if (!use_saturation_protector) {
     RTC_LOG(LS_WARNING) << "The saturation protector cannot be disabled.";
   }
@@ -115,12 +116,12 @@ void AdaptiveModeLevelEstimator::Update(
   if (vad_level.speech_probability < kVadConfidenceThreshold) {
     // Not a speech frame.
     if (adjacent_speech_frames_threshold_ > 1) {
-      // When two or more adjacent speech frames are required in order to update
-      // the state, we need to decide whether to discard or confirm the updates
-      // based on the speech sequence length.
+      // When two or more adjacent speech frames are required in order to
+      // update the state, we need to decide whether to discard or confirm the
+      // updates based on the speech sequence length.
       if (num_adjacent_speech_frames_ >= adjacent_speech_frames_threshold_) {
-        // First non-speech frame after a long enough sequence of speech frames.
-        // Update the reliable state.
+        // First non-speech frame after a long enough sequence of speech
+        // frames. Update the reliable state.
         reliable_state_ = preliminary_state_;
       } else if (num_adjacent_speech_frames_ > 0) {
         // First non-speech frame after a too short sequence of speech frames.

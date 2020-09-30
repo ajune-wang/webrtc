@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "025038df_bcfafd5c",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "Done.\nAFP can be synchronous, it\u0027s just used asynchronously.",
+      "parentUuid": "1d267583_4f1da35d",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "091f3d01_41058203",
         "filename": "api/audio/audio_frame_processor.h",
         "patchSetId": 16
@@ -33,6 +51,24 @@
       "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e03887a2_6addf950",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091f3d01_41058203",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "41d317c2_464ef480",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "See below regarding lifetime: the sink can change. We do not have control of AudioFrameProcessor lifetime, it may be reused in multiple peer connections, foe example.",
+      "parentUuid": "e47754a0_acceca5e",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e92495a1_8052ce69",
         "filename": "audio/audio_state_unittest.cc",
         "patchSetId": 16
@@ -64,6 +118,24 @@
       "writtenOn": "2020-09-30T12:32:11Z",
       "side": 1,
       "message": "Can you use testing::Bool() and testing::Combine() here? I think it\u0027ll be Combine(Bool(), Bool()). https://chromium.googlesource.com/external/github.com/google/googletest/+/HEAD/googletest/docs/advanced.md#how-to-write-value_parameterized-tests",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5e625b_b6b0e2bf",
+        "filename": "audio/audio_state_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "Considered it, but it requires std::tuple and I liked to have ConfigHelper::Params - it\u0027s more readable, and I already implemented it. So I did not see a point to spend more time on this code, seems to be good enough. I\u0027d prefer to keep it as this if you don\u0027t feel strongly: the tests are already better than I found them, and some efforts have more priority that others :)",
+      "parentUuid": "e92495a1_8052ce69",
       "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "53bb1198_57251c78",
+        "filename": "modules/async_audio_processing/async_audio_processing.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac66ade2_0b20143e",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 12
+      },
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d2626ec_136aaabc",
         "filename": "modules/async_audio_processing/async_audio_processing.cc",
         "patchSetId": 16
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "ec614cd7_6567b605",
+        "filename": "modules/async_audio_processing/async_audio_processing.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d2626ec_136aaabc",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 10
+      },
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18e06ed0_d8a866dc",
         "filename": "modules/async_audio_processing/async_audio_processing.h",
         "patchSetId": 16
@@ -127,6 +247,24 @@
       "writtenOn": "2020-09-30T12:32:11Z",
       "side": 1,
       "message": "I don\u0027t quite understand how this class interacts with AudioFrameProcessor. It seems like AsyncAudioProcessing adds a layer of asynchronousness by posting the processing work on a TQ and by posting the sink callback on the same TQ, but why is this necessary? Why not just rely on the asynchronousness that\u0027s already in the AudioFrameProcessor interface?",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6e57268_c30c4c78",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "AudioFrameProcessor is not asynchronous, it\u0027s just a processor - which is used asynchronously.\nThat\u0027s a problem of lifetime management we discussed back when this work started. TQ in combination with SetSink() guarantees that AudioFrameProcessor does not post a reply which will be executed after a sink is deleted.\nLifetime of AudioFrameProcessor exceeds lifetime of PeerConnection factory and all this stuff.\n\nI elaborated a bit in the comments.",
+      "parentUuid": "18e06ed0_d8a866dc",
       "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "41c3936e_51d03c2a",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e89d0e59_47916ed6",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92ea1846_8184ea3e",
         "filename": "modules/async_audio_processing/async_audio_processing.h",
         "patchSetId": 16
@@ -164,6 +320,24 @@
       "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3928bb84_be2e58f9",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5826
+      },
+      "writtenOn": "2020-09-30T16:28:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92ea1846_8184ea3e",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -3569,10 +3569,14 @@ EncoderStreamFactory::CreateSimulcastOrConferenceModeScreenshareStreams(
           std::max(layers[i].max_bitrate_bps, layers[i].min_bitrate_bps);
     } else if (encoder_config.simulcast_layers[i].max_bitrate_bps > 0) {
       // Only max bitrate is configured, make sure min/target are below max.
+      // Set target bitrate to 3/4 of the max bitrate or the one calculated
+      // from GetSimulcastConfig() which is larger.
       layers[i].min_bitrate_bps =
           std::min(layers[i].min_bitrate_bps, layers[i].max_bitrate_bps);
       layers[i].target_bitrate_bps =
-          std::min(layers[i].target_bitrate_bps, layers[i].max_bitrate_bps);
+          std::min(std::max(layers[i].target_bitrate_bps,
+                            layers[i].max_bitrate_bps * 3 / 4),
+                   layers[i].max_bitrate_bps);
     }
     if (i == layers.size() - 1) {
       is_highest_layer_max_bitrate_configured =

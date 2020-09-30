@@ -33,6 +33,24 @@
       "revId": "066fac4a90965d23712ed74e8098b9f9f9c6ab0c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da141783_bc315391",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-30T14:55:29Z",
+      "side": 1,
+      "message": "good point, I switched to `frames_to_gain_increase_allowed_`",
+      "parentUuid": "786fcd78_e50a45f7",
+      "revId": "066fac4a90965d23712ed74e8098b9f9f9c6ab0c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

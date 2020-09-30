@@ -39,6 +39,30 @@
       "revId": "41350e288ead58ad9197636a97c5d4e153604022",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03cdcbed_3ba35c2c",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-30T13:46:07Z",
+      "side": 1,
+      "message": "Good point. Unfortunately doing that requires to fix a number of ctors and this CL would explode. I will be happy to clean up after the branch cut. I can add a TODO for now. WDYT?",
+      "parentUuid": "cd5daf8d_cf19713a",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 351,
+        "endChar": 62
+      },
+      "revId": "41350e288ead58ad9197636a97c5d4e153604022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

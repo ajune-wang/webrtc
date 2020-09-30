@@ -16,6 +16,46 @@
       "revId": "3b536732d6825461b9b8841695bcaaced90bdcc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe88c571_22e1e0f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T10:45:56Z",
+      "side": 1,
+      "message": "LGTM for C++, but I can\u0027t speak for the signal processing. Bitexactness ought to count for a great deal, though.",
+      "revId": "3b536732d6825461b9b8841695bcaaced90bdcc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee38404a_a0b9d5e4",
+        "filename": "modules/audio_processing/agc2/adaptive_agc.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T10:45:56Z",
+      "side": 1,
+      "message": "Pass `dumper` by reference instead?",
+      "range": {
+        "startLine": 22,
+        "startChar": 19,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "3b536732d6825461b9b8841695bcaaced90bdcc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

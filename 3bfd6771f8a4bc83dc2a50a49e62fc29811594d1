@@ -34,6 +34,24 @@
       "revId": "3bfd6771f8a4bc83dc2a50a49e62fc29811594d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1dbae5fa_77d89e98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-09-30T08:40:45Z",
+      "side": 1,
+      "message": "We could merge it to M87 even if we miss the cut by 1-2 days, so no issue here.",
+      "parentUuid": "d795fe76_35fc2b3f",
+      "revId": "3bfd6771f8a4bc83dc2a50a49e62fc29811594d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

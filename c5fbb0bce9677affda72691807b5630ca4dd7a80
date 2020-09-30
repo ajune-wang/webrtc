@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d386c97_4278183e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-09-30T13:07:35Z",
+      "side": 1,
+      "message": "+Mirko \"No-Try: True\" added as agreed offline (reason: all try bots are green, but internal_compile_lite)",
+      "revId": "c5fbb0bce9677affda72691807b5630ca4dd7a80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

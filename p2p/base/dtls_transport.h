@@ -215,7 +215,7 @@ class DtlsTransport : public DtlsTransportInternal {
   bool SetupDtls();
   void MaybeStartDtls();
   bool HandleDtlsPacket(const char* data, size_t size);
-  void OnDtlsHandshakeError(rtc::SSLHandshakeError error);
+  void OnDtlsHandshakeError(rtc::SSLHandshakeError& error);
   void ConfigureHandshakeTimeout();
 
   void set_receiving(bool receiving);

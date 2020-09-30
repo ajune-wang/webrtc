@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d267583_4f1da35d",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "Better to document the contract than who we think the caller is. Maybe\n\n  // Passes `frame` to the asynchronous processor, and returns immediately.\n  // When processing is finished, the sink (see `SetSink` below) will be\n  // called exactly once.\n\nOr should implementations be free to do the processing synchronously?",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "091f3d01_41058203",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "Same. Maybe\n\n  // Atomically replaces the current sink with the new one. (Before the\n  // first call to this function, the sink is null; that means that\n  // processed frames are simply discarded.)",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e47754a0_acceca5e",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "(I seem to remember that we\u0027ve already had the discussion about whether runtime replacement of sinks is a good idea or not. In case I\u0027m wrong, and if callers would always set the sink once before the first Process() call and then never again, consider changing the API to enforce this; you\u0027ll probably end up with a factory that takes a sink argument and produces an object that has a Process() but not a SetSink() method.)",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e92495a1_8052ce69",
+        "filename": "audio/audio_state_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "Can you use testing::Bool() and testing::Combine() here? I think it\u0027ll be Combine(Bool(), Bool()). https://chromium.googlesource.com/external/github.com/google/googletest/+/HEAD/googletest/docs/advanced.md#how-to-write-value_parameterized-tests",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac66ade2_0b20143e",
+        "filename": "modules/async_audio_processing/async_audio_processing.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "I think you can remove this.",
+      "range": {
+        "startLine": 53,
+        "startChar": 6,
+        "endLine": 53,
+        "endChar": 12
+      },
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2626ec_136aaabc",
+        "filename": "modules/async_audio_processing/async_audio_processing.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "Likewise.",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 10
+      },
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18e06ed0_d8a866dc",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand how this class interacts with AudioFrameProcessor. It seems like AsyncAudioProcessing adds a layer of asynchronousness by posting the processing work on a TQ and by posting the sink callback on the same TQ, but why is this necessary? Why not just rely on the asynchronousness that\u0027s already in the AudioFrameProcessor interface?",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e89d0e59_47916ed6",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "Use references instead of pointers if null isn\u0027t allowed?",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92ea1846_8184ea3e",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-09-30T12:32:11Z",
+      "side": 1,
+      "message": "Use references instead of pointers if null isn\u0027t allowed?",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

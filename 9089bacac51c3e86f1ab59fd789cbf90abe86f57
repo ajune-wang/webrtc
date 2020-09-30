@@ -33,6 +33,70 @@
       "revId": "9089bacac51c3e86f1ab59fd789cbf90abe86f57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73e559db_911de2ed",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-09-30T06:09:32Z",
+      "side": 1,
+      "message": "Interesting. It looks like that function was symmetric w.r.t. the arguments before this patch. Good catch though :)",
+      "parentUuid": "13f323e3_4aeff99a",
+      "revId": "9089bacac51c3e86f1ab59fd789cbf90abe86f57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92c2a78e_3a414eaa",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 6151,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-09-30T06:09:32Z",
+      "side": 1,
+      "message": "According to the Google C++ style guide, we should name things with snake case: `downscale_factors`.",
+      "range": {
+        "startLine": 6151,
+        "startChar": 14,
+        "endLine": 6151,
+        "endChar": 30
+      },
+      "revId": "9089bacac51c3e86f1ab59fd789cbf90abe86f57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b9b0033_f1c5f41a",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 6152,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-09-30T06:09:32Z",
+      "side": 1,
+      "message": "Could this be `sizeof(downscale_factors)` ?",
+      "range": {
+        "startLine": 6152,
+        "startChar": 27,
+        "endLine": 6152,
+        "endChar": 28
+      },
+      "revId": "9089bacac51c3e86f1ab59fd789cbf90abe86f57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

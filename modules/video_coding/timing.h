@@ -100,6 +100,9 @@ class VCMTiming {
   void SetTimingFrameInfo(const TimingFrameInfo& info);
   absl::optional<TimingFrameInfo> GetTimingFrameInfo();
 
+  void SetMaxCompositionDelayInFrames(int max_composition_delay_in_frames);
+  int MaxCompositionDelayInFrames() const;
+
   enum { kDefaultRenderDelayMs = 10 };
   enum { kDelayMaxChangeMsPerS = 100 };
 
@@ -128,6 +131,7 @@ class VCMTiming {
   uint32_t prev_frame_timestamp_ RTC_GUARDED_BY(mutex_);
   absl::optional<TimingFrameInfo> timing_frame_info_ RTC_GUARDED_BY(mutex_);
   size_t num_decoded_frames_ RTC_GUARDED_BY(mutex_);
+  int max_composition_delay_in_frames_ RTC_GUARDED_BY(mutex_);
 };
 }  // namespace webrtc
 

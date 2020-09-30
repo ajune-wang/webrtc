@@ -35,9 +35,11 @@ struct VCMFrameInformation {
   void* userData;
   VideoRotation rotation;
   VideoContentType content_type;
+  PlayoutDelay playout_delay;
   EncodedImage::Timing timing;
   int64_t ntp_time_ms;
   RtpPacketInfos packet_infos;
+  absl::optional<int> decode_counter;
   // ColorSpace is not stored here, as it might be modified by decoders.
 };
 
@@ -75,6 +77,11 @@ class VCMDecodedFrameCallback : public DecodedImageCallback {
   int64_t ntp_offset_;
   // Set by the field trial WebRTC-SlowDownDecoder to simulate a slow decoder.
   FieldTrialOptional<TimeDelta> _extra_decode_time;
+  // Set by the field trial WebRTC-LowLatencyRenderer. The parameter
+  // include_predecode_buffer determines if the predecode buffer should be
+  // taken into account when calculating maximum number of frames in
+  // composition queue.
+  FieldTrialOptional<bool> _include_predecode_buffer;
 };
 
 class VCMGenericDecoder {

@@ -52,6 +52,9 @@ class RecordableEncodedFrame {
 
   // Returns the computed render time
   virtual Timestamp render_time() const = 0;
+
+  // Returns a sequence number of when the frame was submitted to the decoder.
+  virtual absl::optional<int> decode_counter() const { return absl::nullopt; }
 };
 
 }  // namespace webrtc

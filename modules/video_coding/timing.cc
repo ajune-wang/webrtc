@@ -177,7 +177,9 @@ int64_t VCMTiming::RenderTimeMs(uint32_t frame_timestamp,
 
 int64_t VCMTiming::RenderTimeMsInternal(uint32_t frame_timestamp,
                                         int64_t now_ms) const {
-  if (min_playout_delay_ms_ == 0 && max_playout_delay_ms_ == 0) {
+  bool low_latency_field_trial = true;
+  if ((min_playout_delay_ms_ == 0 && max_playout_delay_ms_ == 0) ||
+      (min_playout_delay_ms_ == 0 && low_latency_field_trial)) {
     // Render as soon as possible.
     return 0;
   }
@@ -244,6 +246,17 @@ void VCMTiming::SetTimingFrameInfo(const TimingFrameInfo& info) {
 absl::optional<TimingFrameInfo> VCMTiming::GetTimingFrameInfo() {
   MutexLock lock(&mutex_);
   return timing_frame_info_;
+}
+
+void VCMTiming::SetMaxCompositionDelayInFrames(
+    int max_composition_delay_in_frames) {
+  MutexLock lock(&mutex_);
+  max_composition_delay_in_frames_ = max_composition_delay_in_frames;
+}
+
+int VCMTiming::MaxCompositionDelayInFrames() const {
+  MutexLock lock(&mutex_);
+  return max_composition_delay_in_frames_;
 }
 
 }  // namespace webrtc

@@ -60,4 +60,11 @@ VCMFrameInformation* VCMTimestampMap::Pop(uint32_t timestamp) {
 bool VCMTimestampMap::IsEmpty() const {
   return (next_add_idx_ == next_pop_idx_);
 }
+
+size_t VCMTimestampMap::Size() const {
+  return next_add_idx_ >= next_pop_idx_
+             ? next_add_idx_ - next_pop_idx_
+             : next_add_idx_ + capacity_ - next_pop_idx_;
+}
+
 }  // namespace webrtc

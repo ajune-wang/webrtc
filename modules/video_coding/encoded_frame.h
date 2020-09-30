@@ -34,6 +34,8 @@ class RTC_EXPORT VCMEncodedFrame : protected EncodedImage {
     _renderTimeMs = renderTimeMs;
   }
 
+  VideoPlayoutDelay PlayoutDelay() const { return playout_delay_; }
+
   void SetPlayoutDelay(VideoPlayoutDelay playout_delay) {
     playout_delay_ = playout_delay;
   }
@@ -112,6 +114,13 @@ class RTC_EXPORT VCMEncodedFrame : protected EncodedImage {
   void SetCodecSpecific(const CodecSpecificInfo* codec_specific) {
     _codecSpecificInfo = *codec_specific;
   }
+  /**
+   *   The counter of when this frame was sent to the decoder, if applicable.
+   */
+  const absl::optional<int> DecodeCounter() const { return _decodeCounter; }
+  void SetDecodeCounter(absl::optional<int> counter) {
+    _decodeCounter = counter;
+  }
 
  protected:
   void Reset();
@@ -123,6 +132,7 @@ class RTC_EXPORT VCMEncodedFrame : protected EncodedImage {
   bool _missingFrame;
   CodecSpecificInfo _codecSpecificInfo;
   webrtc::VideoCodecType _codec;
+  absl::optional<int> _decodeCounter;
 };
 
 }  // namespace webrtc

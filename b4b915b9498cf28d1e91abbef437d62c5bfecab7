@@ -22,6 +22,30 @@
       "revId": "b4b915b9498cf28d1e91abbef437d62c5bfecab7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b9cf8c1_ceace422",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-09-30T17:06:00Z",
+      "side": 0,
+      "message": "Though I removed all the sigslot usages but this file still got some callbacks, so first have to remove those before removing the inheritance.\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/pc/jsep_transport_controller.cc;l\u003d461?q\u003djsep_transport_controll\u0026ss\u003dchromium%2Fchromium%2Fsrc:third_party%2Fwebrtc%2F",
+      "parentUuid": "69d4c2aa_7056ad44",
+      "range": {
+        "startLine": 48,
+        "startChar": 32,
+        "endLine": 48,
+        "endChar": 59
+      },
+      "revId": "b4b915b9498cf28d1e91abbef437d62c5bfecab7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

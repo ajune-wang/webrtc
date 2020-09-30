@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16610b8e_da5f36c6",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-09-30T15:29:25Z",
+      "side": 1,
+      "message": "I think EXPECT_GT(audio.float_frame_view().channel(0)[0], prev_gain); gives better error messages if it fails.",
+      "range": {
+        "startLine": 287,
+        "startChar": 2,
+        "endLine": 287,
+        "endChar": 62
+      },
+      "revId": "fa9eecc30c01014a7a7da4d48a12a16d94089c17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

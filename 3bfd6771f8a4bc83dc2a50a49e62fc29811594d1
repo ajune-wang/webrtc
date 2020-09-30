@@ -16,6 +16,24 @@
       "revId": "3bfd6771f8a4bc83dc2a50a49e62fc29811594d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d795fe76_35fc2b3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2020-09-30T07:53:30Z",
+      "side": 1,
+      "message": "The M87 branch cut is tomorrow, so if the CL lands today it should make it fine. I  just kicked off a presubmit run, let\u0027s hope it passes.",
+      "parentUuid": "71493cc7_d261f5d3",
+      "revId": "3bfd6771f8a4bc83dc2a50a49e62fc29811594d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

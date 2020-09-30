@@ -335,6 +335,29 @@
     },
     {
       "key": {
+        "uuid": "41d653d7_0d563f05",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-09-30T10:54:09Z",
+      "side": 1,
+      "message": "is there difference between \ntemporal_layers \u003d 1\nbitrates \u003d {100\u0027000},\nand\ntemporal_layers \u003d 2\nbitrates \u003d {100\u0027000, 0};\n\nif not, may be drop this extra rule for zero bitrate, but instead communicate disabled temporal layer with number of [active] temporal layers.",
+      "range": {
+        "startLine": 40,
+        "startChar": 48,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "179939f8_8c3395f7",
         "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
         "patchSetId": 3

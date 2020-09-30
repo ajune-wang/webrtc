@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55b4c425_049d95a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-30T03:34:59Z",
+      "side": 1,
+      "message": "Added unit test for different parameter change like dimension, max_bitrate, layer status on/off,\ncheck the encoder/key frames status",
+      "revId": "9089bacac51c3e86f1ab59fd789cbf90abe86f57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f323e3_4aeff99a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-09-30T03:34:59Z",
+      "side": 1,
+      "message": "Thanks to unit test, find another bug,\nthe signature of this function should be (prev_codec, new_codec),\nbut what we passed in is (new_codec, prev_codec) before\n\nFix it.",
+      "revId": "9089bacac51c3e86f1ab59fd789cbf90abe86f57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

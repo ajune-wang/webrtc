@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5464900_479129db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-09-30T13:38:21Z",
+      "side": 1,
+      "message": "Should go green after https://webrtc-review.googlesource.com/c/src/+/186080.",
+      "revId": "031e2a286a62d064dd95877f2f1cfa7410a439f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

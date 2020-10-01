@@ -53,6 +53,23 @@
     },
     {
       "key": {
+        "uuid": "8c0ba5ff_8a0da4ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-01T12:27:30Z",
+      "side": 1,
+      "message": "Thanks!\n",
+      "revId": "9d92f0c5db8fea5634f42f7ac94d97a7316392f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bdb5fa1_51f09b35",
         "filename": "pc/peer_connection.h",
         "patchSetId": 1
@@ -64,6 +81,30 @@
       "writtenOn": "2020-10-01T12:17:48Z",
       "side": 1,
       "message": "Is there a reason for moving the thread check into the function for GetSendersInternal, but not GetReceiversInternal?",
+      "range": {
+        "startLine": 418,
+        "startChar": 31,
+        "endLine": 418,
+        "endChar": 60
+      },
+      "revId": "9d92f0c5db8fea5634f42f7ac94d97a7316392f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fed752f3_0dc2758b",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-01T12:27:30Z",
+      "side": 1,
+      "message": "I\u0027ll get to the other one in time - I\u0027m moving the thread check into the function whenever it is called from the other module. I suspect GetReceiversInternal\u0027s time will come.",
+      "parentUuid": "3bdb5fa1_51f09b35",
       "range": {
         "startLine": 418,
         "startChar": 31,

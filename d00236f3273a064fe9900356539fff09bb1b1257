@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56c8c873_684436a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5221
+      },
+      "writtenOn": "2020-10-01T20:40:13Z",
+      "side": 1,
+      "message": "Looks good but does it fix the remoting/protocol/webrtc_video_renderer_adapter.cc build error?",
+      "revId": "d00236f3273a064fe9900356539fff09bb1b1257",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

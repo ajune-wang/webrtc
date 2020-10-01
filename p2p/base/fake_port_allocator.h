@@ -119,8 +119,8 @@ class FakePortAllocatorSession : public PortAllocatorSession {
                                       username(), password(), std::string(),
                                       false));
       RTC_DCHECK(port_);
-      port_->SignalDestroyed.connect(
-          this, &FakePortAllocatorSession::OnPortDestroyed);
+      // port_->SignalDestroyed.AddReceiver(
+      //    [this](cricket::Port* port) { OnPortDestroyed(port); });
       AddPort(port_.get());
     }
     ++port_config_count_;
@@ -133,7 +133,7 @@ class FakePortAllocatorSession : public PortAllocatorSession {
   bool IsCleared() const override { return is_cleared; }
 
   void RegatherOnFailedNetworks() override {
-    SignalIceRegathering(this, IceRegatheringReason::NETWORK_FAILURE);
+    SignalIceRegathering.Send(this, IceRegatheringReason::NETWORK_FAILURE);
   }
 
   std::vector<PortInterface*> ReadyPorts() const override {
@@ -170,20 +170,20 @@ class FakePortAllocatorSession : public PortAllocatorSession {
   void AddPort(cricket::Port* port) {
     port->set_component(component());
     port->set_generation(generation());
-    port->SignalPortComplete.connect(this,
-                                     &FakePortAllocatorSession::OnPortComplete);
+    // port->SignalPortComplete.AddReceiver(
+    //    [this](cricket::Port* port) { OnPortComplete(port); });
     port->PrepareAddress();
     ready_ports_.push_back(port);
-    SignalPortReady(this, port);
+    SignalPortReady.Send(this, port);
     port->KeepAliveUntilPruned();
   }
   void OnPortComplete(cricket::Port* port) {
     const std::vector<Candidate>& candidates = port->Candidates();
     candidates_.insert(candidates_.end(), candidates.begin(), candidates.end());
-    SignalCandidatesReady(this, candidates);
+    SignalCandidatesReady.Send(this, candidates);
 
     allocation_done_ = true;
-    SignalCandidatesAllocationDone(this);
+    SignalCandidatesAllocationDone.Send(this);
   }
   void OnPortDestroyed(cricket::PortInterface* port) {
     // Don't want to double-delete port if it deletes itself.

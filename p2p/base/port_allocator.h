@@ -21,9 +21,9 @@
 #include "p2p/base/port_interface.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/proxy_info.h"
+#include "rtc_base/robo_caller.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/system/rtc_export.h"
-#include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_checker.h"
 
@@ -261,29 +261,29 @@ class RTC_EXPORT PortAllocatorSession : public sigslot::has_slots<> {
   // destroyed if no connection is using them.
   virtual void PruneAllPorts() {}
 
-  sigslot::signal2<PortAllocatorSession*, PortInterface*> SignalPortReady;
+  webrtc::RoboCaller<PortAllocatorSession*, PortInterface*> SignalPortReady;
   // Fires this signal when the network of the ports failed (either because the
   // interface is down, or because there is no connection on the interface),
   // or when TURN ports are pruned because a higher-priority TURN port becomes
   // ready(pairable).
-  sigslot::signal2<PortAllocatorSession*, const std::vector<PortInterface*>&>
+  webrtc::RoboCaller<PortAllocatorSession*, const std::vector<PortInterface*>&>
       SignalPortsPruned;
-  sigslot::signal2<PortAllocatorSession*, const std::vector<Candidate>&>
+  webrtc::RoboCaller<PortAllocatorSession*, const std::vector<Candidate>&>
       SignalCandidatesReady;
-  sigslot::signal2<PortAllocatorSession*, const IceCandidateErrorEvent&>
+  webrtc::RoboCaller<PortAllocatorSession*, const IceCandidateErrorEvent&>
       SignalCandidateError;
   // Candidates should be signaled to be removed when the port that generated
   // the candidates is removed.
-  sigslot::signal2<PortAllocatorSession*, const std::vector<Candidate>&>
+  webrtc::RoboCaller<PortAllocatorSession*, const std::vector<Candidate>&>
       SignalCandidatesRemoved;
-  sigslot::signal1<PortAllocatorSession*> SignalCandidatesAllocationDone;
+  webrtc::RoboCaller<PortAllocatorSession*> SignalCandidatesAllocationDone;
 
-  sigslot::signal2<PortAllocatorSession*, IceRegatheringReason>
+  webrtc::RoboCaller<PortAllocatorSession*, IceRegatheringReason>
       SignalIceRegathering;
 
   virtual uint32_t generation();
   virtual void set_generation(uint32_t generation);
-  sigslot::signal1<PortAllocatorSession*> SignalDestroyed;
+  webrtc::RoboCaller<PortAllocatorSession*> SignalDestroyed;
 
  protected:
   // This method is called when a pooled session (which doesn't have these
@@ -600,7 +600,7 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
   std::vector<IceParameters> GetPooledIceCredentials();
 
   // Fired when |candidate_filter_| changes.
-  sigslot::signal2<uint32_t /* prev_filter */, uint32_t /* cur_filter */>
+  webrtc::RoboCaller<uint32_t /* prev_filter */, uint32_t /* cur_filter */>
       SignalCandidateFilterChanged;
 
  protected:

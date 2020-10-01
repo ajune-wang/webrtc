@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04359014_628a2448",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-01T23:03:25Z",
+      "side": 1,
+      "message": "Do we know why the binary size increases so much? (You can probably find out by commenting out individual AddReceiver and Send calls.)",
+      "revId": "47b471944783bb428d9097f12831614a74ea437e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd59ed0d_1397c2e3",
+        "filename": "p2p/base/dtls_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-01T23:03:25Z",
+      "side": 1,
+      "message": "Why? Isn\u0027t this an enum? Passing those by value is preferred.",
+      "revId": "47b471944783bb428d9097f12831614a74ea437e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc503617_2962eef0",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-01T23:03:25Z",
+      "side": 1,
+      "message": "Constructing the vector outside the lambda and then capturing it may be bad for binary size, because now we need code for copying/moving the vector. I think this syntax will work, and do the same thing as the old code:\n\n      RTC_FROM_HERE, signaling_thread_, [this, transport_name, candidate] {\n        SignalIceCandidatesGathered.Send(transport_name, std::vector\u003ccricket::Candidate\u003e{candidate});\n\nI haven\u0027t actually tried this, though, so the binary size effect might disappoint!\n\nAlternatively, if you do want to capture the vector in the lambda, replace\n\n  [this, transport_name, candidates]\n\nwith\n\n  [this, transport_name, candidates \u003d std::move(candidates)]\n\nso that you move the vector into the lambda instead of copying it. It looks like this should improve binary size: https://godbolt.org/z/TdTEvT (And it will certainly take less time to execute.)",
+      "revId": "47b471944783bb428d9097f12831614a74ea437e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91ceb440_8d617489",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-01T23:03:25Z",
+      "side": 1,
+      "message": "Did you verify that `this` lives longer than transport_controller_?",
+      "revId": "47b471944783bb428d9097f12831614a74ea437e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

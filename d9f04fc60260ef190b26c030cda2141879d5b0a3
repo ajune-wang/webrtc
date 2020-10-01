@@ -33,6 +33,52 @@
       "revId": "d9f04fc60260ef190b26c030cda2141879d5b0a3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c7db02b_61694dfc",
+        "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-10-01T09:15:27Z",
+      "side": 1,
+      "message": "I think the default was true previously:\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/crypto/crypto_options.h;l\u003d54?q\u003denable_aes128_sha1_80_crypto_cipher\n\nIt looks to me this makes the default false.",
+      "range": {
+        "startLine": 126,
+        "startChar": 20,
+        "endLine": 126,
+        "endChar": 51
+      },
+      "revId": "d9f04fc60260ef190b26c030cda2141879d5b0a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d13a815_061c8454",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-10-01T09:15:27Z",
+      "side": 1,
+      "message": "The latest comment here is \"Time to flip\". I think we can just use true as the default here to avoid having to remember to change in the future.",
+      "range": {
+        "startLine": 602,
+        "startChar": 6,
+        "endLine": 603,
+        "endChar": 16
+      },
+      "revId": "d9f04fc60260ef190b26c030cda2141879d5b0a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

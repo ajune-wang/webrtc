@@ -351,6 +351,14 @@ bool BitBufferWriter::WriteExponentialGolomb(uint32_t val) {
   return WriteBits(val_to_encode, CountBits(val_to_encode) * 2 - 1);
 }
 
+size_t BitBufferWriter::SizeExponentialGolomb(uint32_t val) {
+  if (val == std::numeric_limits<uint32_t>::max()) {
+    return 0;
+  }
+  uint64_t val_to_encode = static_cast<uint64_t>(val) + 1;
+  return CountBits(val_to_encode) * 2 - 1;
+}
+
 bool BitBufferWriter::WriteSignedExponentialGolomb(int32_t val) {
   if (val == 0) {
     return WriteExponentialGolomb(0);

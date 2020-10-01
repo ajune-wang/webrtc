@@ -737,8 +737,10 @@ TEST_F(NetEqDecodingTestWithMutedState, MutedStateOldPacket) {
   GetAudioUntilMuted();
 
   EXPECT_NE(AudioFrame::kNormalSpeech, out_frame_.speech_type_);
-  // Insert packet which is older than the first packet.
-  InsertPacket(kSamples * (counter_ - 1000));
+  // Insert a few packets which are older than the first packet.
+  for (int i = 0; i < 5; ++i) {
+    InsertPacket(kSamples * (i - 1000));
+  }
   EXPECT_FALSE(GetAudioReturnMuted());
   EXPECT_EQ(AudioFrame::kNormalSpeech, out_frame_.speech_type_);
 }
@@ -853,9 +855,11 @@ TEST_F(NetEqDecodingTestTwoInstances, CompareMutedStateOnOff) {
 
   // Insert new data. Timestamp is corrected for the time elapsed since the last
   // packet.
-  PopulateRtpInfo(0, kSamples * 1000, &rtp_info);
-  EXPECT_EQ(0, neteq_->InsertPacket(rtp_info, payload));
-  EXPECT_EQ(0, neteq2_->InsertPacket(rtp_info, payload));
+  for (int i = 0; i < 5; ++i) {
+    PopulateRtpInfo(0, kSamples * 1000 + kSamples * i, &rtp_info);
+    EXPECT_EQ(0, neteq_->InsertPacket(rtp_info, payload));
+    EXPECT_EQ(0, neteq2_->InsertPacket(rtp_info, payload));
+  }
 
   int counter = 0;
   while (out_frame1.speech_type_ != AudioFrame::kNormalSpeech) {
@@ -1264,7 +1268,7 @@ TEST(NetEqOutputDelayTest, RunTestWithFieldTrial) {
 
   // The base delay values are taken from the resuts of the non-delayed case in
   // NetEqOutputDelayTest.RunTest above.
-  EXPECT_EQ(10 + kExpectedDelayMs, result.target_delay_ms);
+  EXPECT_EQ(20 + kExpectedDelayMs, result.target_delay_ms);
   EXPECT_EQ(24 + kExpectedDelayMs, result.filtered_current_delay_ms);
 }
 
@@ -1279,7 +1283,7 @@ TEST(NetEqOutputDelayTest, RunTestWithFieldTrialOddValue) {
 
   // The base delay values are taken from the resuts of the non-delayed case in
   // NetEqOutputDelayTest.RunTest above.
-  EXPECT_EQ(10 + kRoundedDelayMs, result.target_delay_ms);
+  EXPECT_EQ(20 + kRoundedDelayMs, result.target_delay_ms);
   EXPECT_EQ(24 + kRoundedDelayMs, result.filtered_current_delay_ms);
 }
 

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5509ca3c_4a513c52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-01T10:58:51Z",
+      "side": 1,
+      "message": "... but don\u0027t use that style of casting ....\n",
+      "revId": "20c0095b4ca6ff9f09795a26b76ce1ba803cb47f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "672299f5_91dee1df",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5404,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-01T10:58:51Z",
+      "side": 1,
+      "message": "Missed this on the first round - don\u0027t use () casting (style guide).\nFor casting away constness (ouch!), use const_cast.\n\nFor manipulating a codec while respecting const, take a copy and use set_codecs:\n\ncricket::VideoCodecs copy \u003d video-\u003ecodecs(); (the vector is returned by value)\nspin to the right member of \"copy\" and use SetParam\nvideo-\u003eset_codecs(copy)",
+      "revId": "20c0095b4ca6ff9f09795a26b76ce1ba803cb47f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

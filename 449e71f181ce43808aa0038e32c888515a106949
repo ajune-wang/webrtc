@@ -16,6 +16,52 @@
       "revId": "449e71f181ce43808aa0038e32c888515a106949",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b71fd182_48e35a72",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-01T11:30:46Z",
+      "side": 1,
+      "message": "I understand this, but the gain change is not uniform across frames.",
+      "range": {
+        "startLine": 91,
+        "startChar": 9,
+        "endLine": 91,
+        "endChar": 51
+      },
+      "revId": "449e71f181ce43808aa0038e32c888515a106949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3da9ed6f_8a612145",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-01T11:30:46Z",
+      "side": 1,
+      "message": "this is used only one time, right? no need to separate it out as a helper function.",
+      "range": {
+        "startLine": 106,
+        "startChar": 10,
+        "endLine": 106,
+        "endChar": 33
+      },
+      "revId": "449e71f181ce43808aa0038e32c888515a106949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

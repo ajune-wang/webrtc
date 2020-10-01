@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e009ee02_a4c4e223",
+        "filename": "rtc_base/bit_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-01T12:39:59Z",
+      "side": 1,
+      "message": "can be moved to separate cl if you agree on the structure.",
+      "range": {
+        "startLine": 137,
+        "startChar": 16,
+        "endLine": 137,
+        "endChar": 37
+      },
+      "revId": "8734331406ab7177dfe3dbe4390866defa1e27c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

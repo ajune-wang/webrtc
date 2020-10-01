@@ -465,7 +465,8 @@ bool PeerConnectionClient::ParseServerResponse(const std::string& response,
 
   *peer_id = -1;
 
-  // See comment in peer_channel.cc for why we use the Pragma header.
+  // See comment in peer_channel.cc for why we use the Pragma header and
+  // not e.g. "X-Peer-Id".
   GetHeaderValue(response, *eoh, "\r\nPragma: ", peer_id);
 
   return true;

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2804f1e7_f5a3a7c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-01T08:49:39Z",
+      "side": 1,
+      "message": "Things to note:\n- Some tests broke due to postpone decoding after expand got triggered. It did not before since packet length was set to 0 in these tests.\n- Will fix bit exactness tests after review is done.",
+      "revId": "427644970bad9d53d34e9bb2b224806adfdd845b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

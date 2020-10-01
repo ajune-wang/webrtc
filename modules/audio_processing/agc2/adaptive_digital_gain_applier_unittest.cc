@@ -32,6 +32,21 @@ static_assert(std::is_trivially_destructible<VadLevelAnalyzer::Result>::value,
               "");
 constexpr VadLevelAnalyzer::Result kVadSpeech{1.f, -20.f, 0.f};
 
+constexpr float kMaxGainChangePerSecondDb = 3.f;
+constexpr float kMaxGainChangePerFrameDb =
+    kMaxGainChangePerSecondDb * kFrameDurationMs / 1000.f;
+
+// Helper to instance `AdaptiveDigitalGainApplier`.
+struct GainApplierHelper {
+  GainApplierHelper()
+      : apm_data_dumper(0),
+        gain_applier(&apm_data_dumper,
+                     /*adjacent_speech_frames_threshold=*/1,
+                     kMaxGainChangePerSecondDb) {}
+  ApmDataDumper apm_data_dumper;
+  AdaptiveDigitalGainApplier gain_applier;
+};
+
 // Runs gain applier and returns the applied gain in linear scale.
 float RunOnConstantLevel(int num_iterations,
                          VadLevelAnalyzer::Result vad_level,
@@ -62,25 +77,22 @@ constexpr AdaptiveDigitalGainApplier::FrameInfo kFrameInfo{
     /*estimate_is_confident=*/true};
 
 TEST(AutomaticGainController2AdaptiveGainApplier, GainApplierShouldNotCrash) {
-  ApmDataDumper apm_data_dumper(0);
-  AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper);
-
+  GainApplierHelper helper;
   // Make one call with reasonable audio level values and settings.
   VectorFloatFrame fake_audio(kStereo, kFrameLen10ms48kHz, 10000.f);
   AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
   info.input_level_dbfs = -5.0;
-  gain_applier.Process(kFrameInfo, fake_audio.float_frame_view());
+  helper.gain_applier.Process(kFrameInfo, fake_audio.float_frame_view());
 }
 
 // Check that the output is -kHeadroom dBFS.
 TEST(AutomaticGainController2AdaptiveGainApplier, TargetLevelIsReached) {
-  ApmDataDumper apm_data_dumper(0);
-  AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper);
+  GainApplierHelper helper;
 
   constexpr float initial_level_dbfs = -5.f;
 
-  const float applied_gain =
-      RunOnConstantLevel(200, kVadSpeech, initial_level_dbfs, &gain_applier);
+  const float applied_gain = RunOnConstantLevel(
+      200, kVadSpeech, initial_level_dbfs, &helper.gain_applier);
 
   EXPECT_NEAR(applied_gain, DbToRatio(-kHeadroomDbfs - initial_level_dbfs),
               0.1f);
@@ -88,8 +100,7 @@ TEST(AutomaticGainController2AdaptiveGainApplier, TargetLevelIsReached) {
 
 // Check that the output is -kHeadroom dBFS
 TEST(AutomaticGainController2AdaptiveGainApplier, GainApproachesMaxGain) {
-  ApmDataDumper apm_data_dumper(0);
-  AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper);
+  GainApplierHelper helper;
 
   constexpr float initial_level_dbfs = -kHeadroomDbfs - kMaxGainDb - 10.f;
   // A few extra frames for safety.
@@ -97,7 +108,7 @@ TEST(AutomaticGainController2AdaptiveGainApplier, GainApproachesMaxGain) {
       static_cast<int>(kMaxGainDb / kMaxGainChangePerFrameDb) + 10;
 
   const float applied_gain = RunOnConstantLevel(
-      kNumFramesToAdapt, kVadSpeech, initial_level_dbfs, &gain_applier);
+      kNumFramesToAdapt, kVadSpeech, initial_level_dbfs, &helper.gain_applier);
   EXPECT_NEAR(applied_gain, DbToRatio(kMaxGainDb), 0.1f);
 
   const float applied_gain_db = 20.f * std::log10(applied_gain);
@@ -105,8 +116,7 @@ TEST(AutomaticGainController2AdaptiveGainApplier, GainApproachesMaxGain) {
 }
 
 TEST(AutomaticGainController2AdaptiveGainApplier, GainDoesNotChangeFast) {
-  ApmDataDumper apm_data_dumper(0);
-  AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper);
+  GainApplierHelper helper;
 
   constexpr float initial_level_dbfs = -25.f;
   // A few extra frames for safety.
@@ -121,7 +131,7 @@ TEST(AutomaticGainController2AdaptiveGainApplier, GainDoesNotChangeFast) {
     VectorFloatFrame fake_audio(kMono, 1, 1.f);
     AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
     info.input_level_dbfs = initial_level_dbfs;
-    gain_applier.Process(info, fake_audio.float_frame_view());
+    helper.gain_applier.Process(info, fake_audio.float_frame_view());
     float current_gain_linear = fake_audio.float_frame_view().channel(0)[0];
     EXPECT_LE(std::abs(current_gain_linear - last_gain_linear),
               kMaxChangePerFrameLinear);
@@ -134,7 +144,7 @@ TEST(AutomaticGainController2AdaptiveGainApplier, GainDoesNotChangeFast) {
     VectorFloatFrame fake_audio(kMono, 1, 1.f);
     AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
     info.input_level_dbfs = 0.f;
-    gain_applier.Process(info, fake_audio.float_frame_view());
+    helper.gain_applier.Process(info, fake_audio.float_frame_view());
     float current_gain_linear = fake_audio.float_frame_view().channel(0)[0];
     EXPECT_LE(std::abs(current_gain_linear - last_gain_linear),
               kMaxChangePerFrameLinear);
@@ -143,15 +153,14 @@ TEST(AutomaticGainController2AdaptiveGainApplier, GainDoesNotChangeFast) {
 }
 
 TEST(AutomaticGainController2AdaptiveGainApplier, GainIsRampedInAFrame) {
-  ApmDataDumper apm_data_dumper(0);
-  AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper);
+  GainApplierHelper helper;
 
   constexpr float initial_level_dbfs = -25.f;
 
   VectorFloatFrame fake_audio(kMono, kFrameLen10ms48kHz, 1.f);
   AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
   info.input_level_dbfs = initial_level_dbfs;
-  gain_applier.Process(info, fake_audio.float_frame_view());
+  helper.gain_applier.Process(info, fake_audio.float_frame_view());
   float maximal_difference = 0.f;
   float current_value = 1.f * DbToRatio(kInitialAdaptiveDigitalGainDb);
   for (const auto& x : fake_audio.float_frame_view().channel(0)) {
@@ -168,8 +177,7 @@ TEST(AutomaticGainController2AdaptiveGainApplier, GainIsRampedInAFrame) {
 }
 
 TEST(AutomaticGainController2AdaptiveGainApplier, NoiseLimitsGain) {
-  ApmDataDumper apm_data_dumper(0);
-  AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper);
+  GainApplierHelper helper;
 
   constexpr float initial_level_dbfs = -25.f;
   constexpr int num_initial_frames =
@@ -183,7 +191,7 @@ TEST(AutomaticGainController2AdaptiveGainApplier, NoiseLimitsGain) {
     AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
     info.input_level_dbfs = initial_level_dbfs;
     info.input_noise_level_dbfs = kWithNoiseDbfs;
-    gain_applier.Process(info, fake_audio.float_frame_view());
+    helper.gain_applier.Process(info, fake_audio.float_frame_view());
 
     // Wait so that the adaptive gain applier has time to lower the gain.
     if (i > num_initial_frames) {
@@ -197,19 +205,17 @@ TEST(AutomaticGainController2AdaptiveGainApplier, NoiseLimitsGain) {
 }
 
 TEST(AutomaticGainController2GainApplier, CanHandlePositiveSpeechLevels) {
-  ApmDataDumper apm_data_dumper(0);
-  AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper);
+  GainApplierHelper helper;
 
   // Make one call with positive audio level values and settings.
   VectorFloatFrame fake_audio(kStereo, kFrameLen10ms48kHz, 10000.f);
   AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
   info.input_level_dbfs = 5.f;
-  gain_applier.Process(info, fake_audio.float_frame_view());
+  helper.gain_applier.Process(info, fake_audio.float_frame_view());
 }
 
 TEST(AutomaticGainController2GainApplier, AudioLevelLimitsGain) {
-  ApmDataDumper apm_data_dumper(0);
-  AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper);
+  GainApplierHelper helper;
 
   constexpr float initial_level_dbfs = -25.f;
   constexpr int num_initial_frames =
@@ -224,7 +230,7 @@ TEST(AutomaticGainController2GainApplier, AudioLevelLimitsGain) {
     info.input_level_dbfs = initial_level_dbfs;
     info.limiter_envelope_dbfs = 1.f;
     info.estimate_is_confident = false;
-    gain_applier.Process(info, fake_audio.float_frame_view());
+    helper.gain_applier.Process(info, fake_audio.float_frame_view());
 
     // Wait so that the adaptive gain applier has time to lower the gain.
     if (i > num_initial_frames) {
@@ -247,7 +253,8 @@ TEST_P(AdaptiveDigitalGainApplierTest,
   const int adjacent_speech_frames_threshold = AdjacentSpeechFramesThreshold();
   ApmDataDumper apm_data_dumper(0);
   AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper,
-                                          adjacent_speech_frames_threshold);
+                                          adjacent_speech_frames_threshold,
+                                          kMaxGainChangePerFrameDb);
   AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
   info.input_level_dbfs = -25.0;
 
@@ -268,7 +275,8 @@ TEST_P(AdaptiveDigitalGainApplierTest, IncreaseGainWithEnoughSpeechFrames) {
   const int adjacent_speech_frames_threshold = AdjacentSpeechFramesThreshold();
   ApmDataDumper apm_data_dumper(0);
   AdaptiveDigitalGainApplier gain_applier(&apm_data_dumper,
-                                          adjacent_speech_frames_threshold);
+                                          adjacent_speech_frames_threshold,
+                                          kMaxGainChangePerFrameDb);
   AdaptiveDigitalGainApplier::FrameInfo info = kFrameInfo;
   info.input_level_dbfs = -25.0;
 

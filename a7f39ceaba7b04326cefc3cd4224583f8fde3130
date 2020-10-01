@@ -16,6 +16,276 @@
       "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "192e6249_70e7c782",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "if you want something to start experimenting with, this would work,\nbut I would prefer to think a bit more about simulcast vs spatial layer (can mixed mode be added without spending many bits when not used?)\nand format in general (seems it can be byte-aligned without extra overhead, which is generally simpler/faster than when it is not.)",
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60824d3e_22df9d3b",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "nit:\nhttps://tools.ietf.org/html/rfc7667\nused to call it \"Selective Forwarding Unit\",\nbut now it switched to SFM: \"Selective Forwarding Middlebox\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 3,
+        "endLine": 21,
+        "endChar": 7
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90e7f61b_01e6d2d5",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "frame_rate ?",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 49
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7906e5_47b50b61",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "nit:\nidentified by\n_top_ (or maximum)\nspatial and temporal layer [included into that decode target]",
+      "range": {
+        "startLine": 66,
+        "startChar": 46,
+        "endLine": 67,
+        "endChar": 11
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf47f46d_0bac8e8b",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "may be store bitrates as\nDataRate from api/units/data_rate.h\n\n(though be carefully about DataRate::kbps - that one rounds to nearest, not up.\ni.e. it might be fine to use kpbs(), but then you shouldn\u0027t claim that bitrate is rounded up.\nIn practice it is likely that 1kps won\u0027t matter, or this message would use higher precision)",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 30
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a76bb0a4_03d4339a",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "put unnamed namespace inside webrtc namespace.\n\n(usually it doesn\u0027t matter, but if some other file would declare this constant in webrtc namespace, code here would try to use that one instead. May be it would have different type changing some code here.)",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f8910ca_daf44a4e",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "add termination comment\n} // namespace\n\nhttps://google.github.io/styleguide/cppguide.html#Unnamed_Namespaces_and_Static_Variables",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93c26932_30ef3937",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "rtc_base/numerics/divide_round.h\nhas a helper\nDivideRoundUp\n\nthat might be tiny less eficcient, but clearer shows the intent\n\n(btw, what would be the value of bitrate when it was 0?\nsince bitrate is unsigned I\u0027m not sure about the answer, it even might be platform dependant)",
+      "range": {
+        "startLine": 110,
+        "startChar": 6,
+        "endLine": 110,
+        "endChar": 50
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b00dd798_986595a4",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "I would probably be a bit more specific and call it has_resolution",
+      "range": {
+        "startLine": 145,
+        "startChar": 7,
+        "endLine": 145,
+        "endChar": 20
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36e14ae5_494bc790",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "temporal_layers (since you\u0027ve already created that alias)",
+      "range": {
+        "startLine": 189,
+        "startChar": 7,
+        "endLine": 189,
+        "endChar": 40
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d104653b_4ae5606a",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 190,
+        "startChar": 6,
+        "endLine": 191,
+        "endChar": 14
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ec6165_c5fb78ce",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like realistic use case, why test it?\n\nT2 target bitrate shouldn\u0027t be lower than T1 target bitrate since in practice T2 always includes T1?\n\n(in theory yes, it is possible to design structure when it would happen, may be postpone adding such a test unless we have a realistic use case for it)",
+      "range": {
+        "startLine": 65,
+        "startChar": 5,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

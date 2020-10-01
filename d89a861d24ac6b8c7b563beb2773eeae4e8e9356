@@ -130,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "4434fae3_cbdf883c",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "I see a comment now. From it I see that 7.5 can be represented as 8. That likely is good enough.\n\nnit: may be add units to the variable name, i.e. frame_rate_fps\nor embed units into type, i.e. use api/units/frequency.h\n(personally I prefer former or none. it is unusual to represent frame rate in anything other than frames per second)",
+      "parentUuid": "4c5e1158_b0de2156",
+      "range": {
+        "startLine": 28,
+        "startChar": 12,
+        "endLine": 28,
+        "endChar": 22
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6558d1ce_2723f49b",
         "filename": "api/video/video_layers_allocation.h",
         "patchSetId": 3
@@ -412,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "437f95b3_b51fedf7",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "I think \nabsl::InlinedVector\u003cabsl::InlinedVector\u003cuint32_t, kMaxTemporalIds\u003e, kMaxSpatialIds\u003e target_bitrate;\nwould be better.\n\nalternatively you might structure it something like\nstruct Allocation {\n  struct SpatialLayer {\n    InlinedVector\u003cDataRate\u003e target_bitrate_per_temporal_layer;\n    optional\u003cResolutionAndFrameRate\u003e resolution\n  };\n\n  InlinedVector\u003cSpatialLayer\u003e active_spatial_layers;\n}\n\nBut that structure badly captures that resolutions are either always present or never are....\nthen next idea is to always have resolution field, but have a dedicated boolean to indicate if they have meaningful value:\n\nstruct Allocation {\n  struct SpatialLayer {\n    InlinedVector\u003cDataRate\u003e target_bitrate_per_temporal_layer;\n    ResolutionAndFrameRate resolution;\n  };\n\n  bool has_resolutions \u003d false;\n  InlinedVector\u003cSpatialLayer\u003e active_spatial_layers;\n}",
+      "parentUuid": "37ed8b5e_f323ea99",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 80
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "092e4d5d_86a22831",
         "filename": "api/video/video_layers_allocation.h",
         "patchSetId": 3
@@ -576,6 +624,30 @@
     },
     {
       "key": {
+        "uuid": "71917225_3276c7d6",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "I think we\u0027ll need to. Though may be later (I have a scenario in mind), i.e. unsure.\n\nI\u0027m more worried how SFM would distinguish simulcast from SVC.\ne.g. it received this message, see that there are 3 spatial/simulcast layers, and this packet is for id\u003d0. Should it assume multiple ssrcs or single ssrc?\nUsing extra information it probably can distingush (i.e. check payload type. If \nVP8 assume multiple ssrc. If vp9 or there is a DD, check information there how many spatial layers are on current ssrc).\n\nBut it still seems hacky to me to mix these concepts together.",
+      "parentUuid": "17480a37_a23db807",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 53
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98b5bfce_82ff323d",
         "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
         "patchSetId": 3
@@ -693,6 +765,30 @@
     },
     {
       "key": {
+        "uuid": "e58973c4_458ef65e",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "If I would design packetization, I would probably spend a bit of effort to make it fully byte-aligned and then read/write it as byte array rather than bit array.\nThat looks possible without much overhead (may even with less overhead)",
+      "parentUuid": "286ca60e_4c0cc742",
+      "range": {
+        "startLine": 47,
+        "startChar": 56,
+        "endLine": 47,
+        "endChar": 63
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13168c84_a247373c",
         "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
         "patchSetId": 3
@@ -740,6 +836,30 @@
     },
     {
       "key": {
+        "uuid": "c66fa531_51bf87dc",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "you put Resolutions block(#3) after NumTemporalLayersBlock(#1), but block#1 is currently not byte aligned, i.e. it is practically same as before for writing/parsing.\n\nNumTemporalLayersBlock(#1) is required to read bitrates, but is not needed to read Resolutions.\n\n(if you decide to actully swap resolutions and num_temporal_layers, then for symmetry it would make sense to swap X and T bits too)",
+      "parentUuid": "329dea54_810cb972",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 28
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c05a9246_49d0065b",
         "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
         "patchSetId": 3
@@ -775,6 +895,30 @@
       "side": 1,
       "message": "I was thinking about fuzzers but maybe that is not necessary. When creating a packet- they should have correct input.",
       "parentUuid": "c05a9246_49d0065b",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 71
+      },
+      "revId": "d89a861d24ac6b8c7b563beb2773eeae4e8e9356",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23e17310_1601fdd4",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-01T16:23:37Z",
+      "side": 1,
+      "message": "it depends what you want to fuzz.\nYou sure want to fuzz raw incoming bytes. but it is still not possible to read large values from 2 bits. \n\nif it would be possible, then it would be runtime check, but not DCHECK.\nsince it is not possible, DCHECK or nothing should be enough.\n\nif you want to fuzz Allocation structure..... then I\u0027m not sure how do you want to support invalid data. Either you want support it (then run-time check), or you do n\u0027t (then DCHECK and design fuzzer so that it does not provide invalid data)",
+      "parentUuid": "d85a0c04_eb97f57b",
       "range": {
         "startLine": 63,
         "startChar": 2,

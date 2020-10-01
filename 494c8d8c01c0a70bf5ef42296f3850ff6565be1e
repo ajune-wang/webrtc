@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2040870_7bf210a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5182
+      },
+      "writtenOn": "2020-10-01T21:51:06Z",
+      "side": 1,
+      "message": "+henrika since Mirko is OOO",
+      "revId": "494c8d8c01c0a70bf5ef42296f3850ff6565be1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

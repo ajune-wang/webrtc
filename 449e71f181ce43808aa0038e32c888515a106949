@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "3eefea92_e03f5317",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-01T14:25:32Z",
+      "side": 1,
+      "message": "Thanks Minyue. You\u0027re right it\u0027s dB/s to dB/10ms. I also clarified that the max gain change speed is enforced uniformly across frames (see the .h file).",
+      "parentUuid": "b71fd182_48e35a72",
+      "range": {
+        "startLine": 91,
+        "startChar": 9,
+        "endLine": 91,
+        "endChar": 51
+      },
+      "revId": "449e71f181ce43808aa0038e32c888515a106949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3da9ed6f_8a612145",
         "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
         "patchSetId": 1
@@ -62,6 +86,30 @@
       "revId": "449e71f181ce43808aa0038e32c888515a106949",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe341e7_c8fd65e5",
+        "filename": "modules/audio_processing/agc2/adaptive_digital_gain_applier.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-01T14:25:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3da9ed6f_8a612145",
+      "range": {
+        "startLine": 106,
+        "startChar": 10,
+        "endLine": 106,
+        "endChar": 33
+      },
+      "revId": "449e71f181ce43808aa0038e32c888515a106949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

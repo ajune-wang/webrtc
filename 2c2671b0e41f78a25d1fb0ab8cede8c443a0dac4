@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "288cec1f_7db3403c",
+        "filename": "modules/audio_coding/neteq/buffer_level_filter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-01T14:02:55Z",
+      "side": 1,
+      "message": "Yeah. This whole filter should probably be reconsidered..",
+      "parentUuid": "2e2386db_f3a5efd3",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 34
+      },
+      "revId": "2c2671b0e41f78a25d1fb0ab8cede8c443a0dac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c789b71_1a8da9e8",
         "filename": "modules/audio_coding/neteq/decision_logic.cc",
         "patchSetId": 2
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "57a81de1_687d81ed",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-01T14:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c789b71_1a8da9e8",
+      "range": {
+        "startLine": 293,
+        "startChar": 42,
+        "endLine": 293,
+        "endChar": 61
+      },
+      "revId": "2c2671b0e41f78a25d1fb0ab8cede8c443a0dac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07d6004d_c1682bd3",
         "filename": "modules/audio_coding/neteq/delay_manager.cc",
         "patchSetId": 2
@@ -85,6 +133,30 @@
       "revId": "2c2671b0e41f78a25d1fb0ab8cede8c443a0dac4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90c73c12_b203f68c",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-01T14:02:55Z",
+      "side": 1,
+      "message": "It should be well defined how that underflow is handled and the correct result should be obtained after converted to int32. The test of this still works so I\u0027m trusting that ;)",
+      "parentUuid": "07d6004d_c1682bd3",
+      "range": {
+        "startLine": 137,
+        "startChar": 13,
+        "endLine": 137,
+        "endChar": 62
+      },
+      "revId": "2c2671b0e41f78a25d1fb0ab8cede8c443a0dac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

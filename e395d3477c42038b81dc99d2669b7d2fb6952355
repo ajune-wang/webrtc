@@ -16,6 +16,24 @@
       "revId": "e395d3477c42038b81dc99d2669b7d2fb6952355",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d5347d0_b113d565",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-02T10:09:56Z",
+      "side": 1,
+      "message": "Yes - as for naming the function, I suggest you follow this precedence:\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:base/win/scoped_bstr.cc;drc\u003dfd81134e0f39ca711ee71ca951f74411c0bd793f;l\u003d66",
+      "parentUuid": "ddf7b3fd_d4db35b7",
+      "revId": "e395d3477c42038b81dc99d2669b7d2fb6952355",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ccb0388c_0979f7f2",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-02T11:03:31Z",
+      "side": 1,
+      "message": "OK, I think I get it---the asynchronicity in this interface is for the convenience of *implementing* Process, not for calling it. Because you expect implementations to sometimes be naturally asynchronous, and forcing such an implementation into a synchronous interface would require it to block waiting for the result.",
+      "parentUuid": "025038df_bcfafd5c",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "091f3d01_41058203",
         "filename": "api/audio/audio_frame_processor.h",
         "patchSetId": 16
@@ -107,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "e651d955_fa08ffaa",
+        "filename": "api/audio/audio_frame_processor.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-02T11:03:31Z",
+      "side": 1,
+      "message": "OK, then there is a genuine need for changing sinks. Thanks.",
+      "parentUuid": "41d317c2_464ef480",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e92495a1_8052ce69",
         "filename": "audio/audio_state_unittest.cc",
         "patchSetId": 16
@@ -139,6 +175,24 @@
       "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9253b1_050b6624",
+        "filename": "audio/audio_state_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-02T11:03:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d5e625b_b6b0e2bf",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -268,6 +322,24 @@
       "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad9f1c6a_ac02c413",
+        "filename": "modules/async_audio_processing/async_audio_processing.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-02T11:03:31Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "b6e57268_c30c4c78",
+      "revId": "4836b0763d9c8ca867763b4edd01aaab64e47c21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

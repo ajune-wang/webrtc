@@ -16,6 +16,46 @@
       "revId": "0498504204b2723724f78bc7f3653506086809a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c39e52f0_3054ccf2",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-02T14:46:48Z",
+      "side": 1,
+      "message": "nit: This redundancy seems a bit redundant. :)\n\nMaybe replace by \"specified in https://w3c.github.io/webrtc-pc/#process-remote-track-removal\" and remove the link on line 352 below? I don\u0027t want to block the CL on it though.",
+      "range": {
+        "startLine": 345,
+        "startChar": 66,
+        "endLine": 346,
+        "endChar": 30
+      },
+      "revId": "0498504204b2723724f78bc7f3653506086809a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a8fb6eb_7723c64e",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-02T14:46:48Z",
+      "side": 1,
+      "message": "nit: Is there a reason for not having a blank line here?",
+      "revId": "0498504204b2723724f78bc7f3653506086809a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44d6e860_0e5a6208",
+        "filename": "modules/video_capture/linux/device_info_linux.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T07:01:52Z",
+      "side": 1,
+      "message": "Sorry for the very late reply. (I am not working much in the webrtc code base these days and missed this)\n\nPlease move this method and the IsDeviceNameMatches to an anonymous namespace in this cc file and remove the declaration from the header file. Then there is no need to forward declare  v4l2_capability either.",
+      "range": {
+        "startLine": 233,
+        "startChar": 22,
+        "endLine": 233,
+        "endChar": 42
+      },
+      "revId": "ab5c7715bbcfd4fb42c2fb941347a1e16ce45adf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

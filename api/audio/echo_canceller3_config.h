@@ -76,7 +76,7 @@ struct RTC_EXPORT EchoCanceller3Config {
       float noise_gate;
     };
 
-    RefinedConfiguration refined = {13,     0.00005f, 0.05f,
+    RefinedConfiguration refined = {13,     0.00005f, 0.07f,
                                     0.001f, 2.f,      20075344.f};
     CoarseConfiguration coarse = {13, 0.7f, 20075344.f};
 
@@ -90,6 +90,8 @@ struct RTC_EXPORT EchoCanceller3Config {
     bool enable_coarse_filter_output_usage = true;
     bool use_linear_filter = true;
     bool export_linear_aec_output = false;
+    size_t num_error_comparison_blocks = 8;
+    float convergence_threshold = 0.75f;
   } filter;
 
   struct Erle {

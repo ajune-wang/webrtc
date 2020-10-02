@@ -96,9 +96,7 @@ Subtractor::Subtractor(const EchoCanceller3Config& config,
         config_.filter.coarse_initial.length_blocks,
         config.filter.config_change_duration_blocks, num_render_channels,
         optimization, data_dumper_);
-    refined_gains_[ch] = std::make_unique<RefinedFilterUpdateGain>(
-        config_.filter.refined_initial,
-        config_.filter.config_change_duration_blocks);
+    refined_gains_[ch] = std::make_unique<RefinedFilterUpdateGain>(config_);
     coarse_gains_[ch] = std::make_unique<CoarseFilterUpdateGain>(
         config_.filter.coarse_initial,
         config.filter.config_change_duration_blocks);

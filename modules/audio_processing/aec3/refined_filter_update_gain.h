@@ -19,6 +19,7 @@
 #include "api/array_view.h"
 #include "api/audio/echo_canceller3_config.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
+#include "modules/audio_processing/aec3/moving_average.h"
 
 namespace webrtc {
 
@@ -33,9 +34,12 @@ struct SubtractorOutput;
 // filter.
 class RefinedFilterUpdateGain {
  public:
+  RefinedFilterUpdateGain(const EchoCanceller3Config& config);
   RefinedFilterUpdateGain(
       const EchoCanceller3Config::Filter::RefinedConfiguration& config,
-      size_t config_change_duration_blocks);
+      size_t config_change_duration_blocks,
+      size_t num_error_comparison_blocks,
+      float convergence_threshold);
   ~RefinedFilterUpdateGain();
 
   RefinedFilterUpdateGain(const RefinedFilterUpdateGain&) = delete;
@@ -79,6 +83,9 @@ class RefinedFilterUpdateGain {
   size_t poor_excitation_counter_;
   size_t call_counter_ = 0;
   int config_change_counter_ = 0;
+  aec3::MovingAverage E2_coarse_smoother_;
+  aec3::MovingAverage E2_refined_smoother_;
+  float convergence_threshold_;
 
   // Updates the current config towards the target config.
   void UpdateCurrentConfig();

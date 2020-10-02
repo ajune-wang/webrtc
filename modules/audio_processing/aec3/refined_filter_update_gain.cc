@@ -34,13 +34,24 @@ constexpr int kPoorExcitationCounterInitial = 1000;
 int RefinedFilterUpdateGain::instance_count_ = 0;
 
 RefinedFilterUpdateGain::RefinedFilterUpdateGain(
+    const EchoCanceller3Config& config)
+    : RefinedFilterUpdateGain(config.filter.refined_initial,
+                              config.filter.config_change_duration_blocks,
+                              config.filter.num_error_comparison_blocks,
+                              config.filter.convergence_threshold) {}
+RefinedFilterUpdateGain::RefinedFilterUpdateGain(
     const EchoCanceller3Config::Filter::RefinedConfiguration& config,
-    size_t config_change_duration_blocks)
+    size_t config_change_duration_blocks,
+    size_t num_error_comparison_blocks,
+    float convergence_threshold)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
       config_change_duration_blocks_(
           static_cast<int>(config_change_duration_blocks)),
-      poor_excitation_counter_(kPoorExcitationCounterInitial) {
+      poor_excitation_counter_(kPoorExcitationCounterInitial),
+      E2_coarse_smoother_(kFftLengthBy2Plus1, num_error_comparison_blocks),
+      E2_refined_smoother_(kFftLengthBy2Plus1, num_error_comparison_blocks),
+      convergence_threshold_(convergence_threshold) {
   SetConfig(config, true);
   H_error_.fill(kHErrorInitial);
   RTC_DCHECK_LT(0, config_change_duration_blocks_);
@@ -124,8 +135,12 @@ void RefinedFilterUpdateGain::Compute(
   }
 
   // H_error = H_error + factor * erl.
+  std::array<float, kFftLengthBy2Plus1> E2_coarse_avg;
+  std::array<float, kFftLengthBy2Plus1> E2_refined_avg;
+  E2_coarse_smoother_.Average(E2_coarse, E2_coarse_avg);
+  E2_refined_smoother_.Average(E2_refined, E2_refined_avg);
   for (size_t k = 0; k < kFftLengthBy2Plus1; ++k) {
-    if (E2_coarse[k] >= E2_refined[k]) {
+    if (E2_coarse_avg[k] >= convergence_threshold_ * E2_refined_avg[k]) {
       H_error_[k] += current_config_.leakage_converged * erl[k];
     } else {
       H_error_[k] += current_config_.leakage_diverged * erl[k];

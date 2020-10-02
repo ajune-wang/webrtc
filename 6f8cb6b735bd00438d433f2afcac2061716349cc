@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfe5fb9c_62cccd12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-10-02T18:24:11Z",
+      "side": 1,
+      "message": "Fixed the unit test ",
+      "revId": "6f8cb6b735bd00438d433f2afcac2061716349cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -124,6 +124,24 @@
       "revId": "3bfd6771f8a4bc83dc2a50a49e62fc29811594d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "557cf0eb_4f6aebec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-10-02T09:49:16Z",
+      "side": 1,
+      "message": "Sure, thanks for the update!",
+      "parentUuid": "f38d7c6b_2b94c9cf",
+      "revId": "3bfd6771f8a4bc83dc2a50a49e62fc29811594d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

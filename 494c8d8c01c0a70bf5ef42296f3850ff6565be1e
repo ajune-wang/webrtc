@@ -16,6 +16,23 @@
       "revId": "494c8d8c01c0a70bf5ef42296f3850ff6565be1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87b9ae88_8cdf9aef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2020-10-02T08:00:26Z",
+      "side": 1,
+      "message": "Please wait for OK from Mirko as well since he knows our building system really well.",
+      "revId": "494c8d8c01c0a70bf5ef42296f3850ff6565be1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

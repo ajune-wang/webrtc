@@ -133,6 +133,8 @@ class BitBufferWriter : public BitBuffer {
   // Signed exponential golomb values are just the unsigned values mapped to the
   // sequence 0, 1, -1, 2, -2, etc. in order.
   bool WriteSignedExponentialGolomb(int32_t val);
+  // Returns number of bits required to store |val| as ExponentialGolomb.
+  static size_t SizeExponentialGolomb(uint32_t val);
 
  private:
   // The buffer, as a writable array.

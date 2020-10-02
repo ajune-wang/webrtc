@@ -34,6 +34,24 @@
       "revId": "e395d3477c42038b81dc99d2669b7d2fb6952355",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc766236_6e550747",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-02T12:50:57Z",
+      "side": 1,
+      "message": "Thank you. \n\nI pushed hopefully latest iteration. Making the one argument constructor of the Scope class explicit made some conversion errors, which I didn\u0027t discover before as it takes a while to build everything after rebase. It seems to build now and also there are no presubmit errors.",
+      "parentUuid": "1d5347d0_b113d565",
+      "revId": "e395d3477c42038b81dc99d2669b7d2fb6952355",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

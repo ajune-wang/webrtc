@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddf7b3fd_d4db35b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-02T08:51:27Z",
+      "side": 1,
+      "message": "Hmm, I thought those presubmit warnings are harmless. Anyway, I fixed them, but there is one I\u0027m not sure about.\n\n/home/jgrulich/development/projects/others/chromium/src/third_party/webrtc/modules/desktop_capture/linux/xdg_desktop_portal_base.cc:37:  Unary operator\u0026 is dangerous.  Do not use it.  [runtime/operator] [4]\n\nThat\u0027s about the operator\u0026 I use for the Scoped() object to get a pointer to pointer. The only workaround for this might be not using the operator, but use something like:\n\nT** getPointer() { \n   RTC_CHECK(!ptr_);\n   return \u0026ptr_;\n}\n\nThis should be working the same way, however the code readability is much worse as instead of using \"\u0026scoped\" I have to use \"scoped.getPointer()\". Should I go this way?",
+      "revId": "e395d3477c42038b81dc99d2669b7d2fb6952355",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

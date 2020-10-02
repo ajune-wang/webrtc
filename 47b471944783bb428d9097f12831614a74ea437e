@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8060542d_7a3f8cd6",
+        "filename": "p2p/base/dtls_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-02T20:03:07Z",
+      "side": 1,
+      "message": "Thanks. I suspect a lot of the extra binary size was because of this; not only does it take more instructions to store an integer in memory and pass around its address than to just pass the integer around directly, you also didn\u0027t consistently pass it by reference, so the compiler had to generate code for converting back and forth between the two representations. Demo here: https://godbolt.org/z/zef3Kz",
+      "parentUuid": "33ce64ca_968cef53",
+      "revId": "47b471944783bb428d9097f12831614a74ea437e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc503617_2962eef0",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 9
@@ -121,6 +139,24 @@
       "revId": "47b471944783bb428d9097f12831614a74ea437e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64ac95be_0b47613a",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-02T20:03:07Z",
+      "side": 1,
+      "message": "Yes. Thanks!",
+      "parentUuid": "f16621f8_71f6242c",
+      "revId": "47b471944783bb428d9097f12831614a74ea437e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

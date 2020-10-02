@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46f2b8f5_31a35038",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-02T07:19:05Z",
+      "side": 1,
+      "message": "Looks like deps need to be updated. A way to check this locally is to run \"gn check .\" from inside your build folder.",
+      "revId": "a3151f93b87b2d8123b71f286cf9a89ca5444e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

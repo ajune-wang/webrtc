@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6696bd5_9f76aef7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-02T19:59:44Z",
+      "side": 1,
+      "message": "Looks it still fails to build with ASAN, however I\u0027m not sure it\u0027s related to my changes.\n\nChecking https://logs.chromium.org/logs/webrtc/buildbucket/cr-buildbucket.appspot.com/8867534887940424048/+/steps/modules_tests/0/stdout\n\nThere is:\nNote: Google Test filter \u003d ScreenCapturerIntegrationTest.CaptureUpdatedRegion\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] Running 1 test from 1 test suite.\n[----------] Global test environment set-up.\n[----------] 1 test from ScreenCapturerIntegrationTest\n[ RUN      ] ScreenCapturerIntegrationTest.CaptureUpdatedRegion\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\u003d\u003d8126\u003d\u003dERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fd0a44a4cd8 at pc 0x55c4569243ec bp 0x7fff4be7c1d0 sp 0x7fff4be7b998\nWRITE of size 25 at 0x7fd0a44a4cd8 thread T0\n    #0 0x55c4569243eb in __asan_memset /b/s/w/ir/cache/builder/src/third_party/llvm/compiler-rt/lib/asan/asan_interceptors_memintrinsics.cpp:26:3\n    #1 0x55c459a96ee9 in scoped_refptr api/scoped_refptr.h:76:21\n    #2 0x55c459a96ee9 in DesktopCaptureOptions modules/desktop_capture/desktop_capture_options.cc:20:24\n    #3 0x55c459a96ee9 in webrtc::DesktopCaptureOptions::CreateDefault() modules/desktop_capture/desktop_capture_options.cc:34:25\n    #4 0x55c456bdf18f in webrtc::ScreenCapturerIntegrationTest::SetUp() modules/desktop_capture/screen_capturer_integration_test.cc:85:9\n    #5 0x55c456cc014d in HandleExceptionsInMethodIfSupported\u003ctesting::Test, void\u003e third_party/googletest/src/googletest/src/gtest.cc\n    #6 0x55c456cc014d in testing::Test::Run() third_party/googletest/src/googletest/src/gtest.cc:2684:3\n    #7 0x55c456cc3612 in testing::TestInfo::Run() third_party/googletest/src/googletest/src/gtest.cc:2866:11\n    #8 0x55c456cc543e in testing::TestSuite::Run() third_party/googletest/src/googletest/src/gtest.cc:3020:28\n    #9 0x55c456cfe4ae in testing::internal::UnitTestImpl::RunAllTests() third_party/googletest/src/googletest/src/gtest.cc:5730:44\n    #10 0x55c456cfd11b in HandleExceptionsInMethodIfSupported\u003ctesting::internal::UnitTestImpl, bool\u003e third_party/googletest/src/googletest/src/gtest.cc\n    #11 0x55c456cfd11b in testing::UnitTest::Run() third_party/googletest/src/googletest/src/gtest.cc:5313:10\n    #12 0x55c456bf0b58 in RUN_ALL_TESTS third_party/googletest/src/googletest/include/gtest/gtest.h:2485:46\n    #13 0x55c456bf0b58 in webrtc::(anonymous namespace)::TestMainImpl::Run(int, char**) test/test_main_lib.cc:223:21\n    #14 0x55c456950fe7 in main test/test_main.cc:33:16\n    #15 0x7fd0a8a5c83f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2083f)\n\nWhich is not reference to any new code if I\u0027m not mistaken and I\u0027m not sure why it complains about scoped_refptr.\n\nCan you give me any hint?",
+      "revId": "f2ef78b8449f8228e3eb7c048ac8ca2b167a2bae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

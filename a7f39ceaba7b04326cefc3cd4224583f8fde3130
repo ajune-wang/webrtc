@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "a81bd3a9_c30c6854",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T12:49:22Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "60824d3e_22df9d3b",
+      "range": {
+        "startLine": 21,
+        "startChar": 3,
+        "endLine": 21,
+        "endChar": 7
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90e7f61b_01e6d2d5",
         "filename": "api/video/video_layers_allocation.h",
         "patchSetId": 5
@@ -79,6 +103,30 @@
       "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ecb582_fc70740a",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T12:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90e7f61b_01e6d2d5",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 49
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +164,30 @@
       "writtenOn": "2020-10-01T16:23:37Z",
       "side": 1,
       "message": "may be store bitrates as\nDataRate from api/units/data_rate.h\n\n(though be carefully about DataRate::kbps - that one rounds to nearest, not up.\ni.e. it might be fine to use kpbs(), but then you shouldn\u0027t claim that bitrate is rounded up.\nIn practice it is likely that 1kps won\u0027t matter, or this message would use higher precision)",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 30
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e9f4e4d_7774dff6",
+        "filename": "api/video/video_layers_allocation.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T12:49:22Z",
+      "side": 1,
+      "message": "I like DataRate but it has not been used in the encoder parts of the code for some reason and therefore I did not either. But start somwhere- why not here.",
+      "parentUuid": "cf47f46d_0bac8e8b",
       "range": {
         "startLine": 68,
         "startChar": 22,
@@ -174,6 +246,54 @@
     },
     {
       "key": {
+        "uuid": "07f58dbf_4e9df4b7",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T12:49:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f8910ca_daf44a4e",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3393937_7880aeb7",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T12:49:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a76bb0a4_03d4339a",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93c26932_30ef3937",
         "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
         "patchSetId": 5
@@ -185,6 +305,30 @@
       "writtenOn": "2020-10-01T16:23:37Z",
       "side": 1,
       "message": "rtc_base/numerics/divide_round.h\nhas a helper\nDivideRoundUp\n\nthat might be tiny less eficcient, but clearer shows the intent\n\n(btw, what would be the value of bitrate when it was 0?\nsince bitrate is unsigned I\u0027m not sure about the answer, it even might be platform dependant)",
+      "range": {
+        "startLine": 110,
+        "startChar": 6,
+        "endLine": 110,
+        "endChar": 50
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67b9635b_30959ae4",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T12:49:22Z",
+      "side": 1,
+      "message": "Using DataRate",
+      "parentUuid": "93c26932_30ef3937",
       "range": {
         "startLine": 110,
         "startChar": 6,
@@ -266,6 +410,30 @@
     },
     {
       "key": {
+        "uuid": "1d9bed1a_e546434f",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T12:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d104653b_4ae5606a",
+      "range": {
+        "startLine": 190,
+        "startChar": 6,
+        "endLine": 191,
+        "endChar": 14
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40ec6165_c5fb78ce",
         "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension_unittest.cc",
         "patchSetId": 5
@@ -277,6 +445,30 @@
       "writtenOn": "2020-10-01T16:23:37Z",
       "side": 1,
       "message": "This doesn\u0027t look like realistic use case, why test it?\n\nT2 target bitrate shouldn\u0027t be lower than T1 target bitrate since in practice T2 always includes T1?\n\n(in theory yes, it is possible to design structure when it would happen, may be postpone adding such a test unless we have a realistic use case for it)",
+      "range": {
+        "startLine": 65,
+        "startChar": 5,
+        "endLine": 65,
+        "endChar": 57
+      },
+      "revId": "a7f39ceaba7b04326cefc3cd4224583f8fde3130",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "902004a0_f2e4b003",
+        "filename": "modules/rtp_rtcp/source/rtp_video_layers_allocation_extension_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-02T12:49:22Z",
+      "side": 1,
+      "message": "Added to test the previous encoding. No longer needed.",
+      "parentUuid": "40ec6165_c5fb78ce",
       "range": {
         "startLine": 65,
         "startChar": 5,

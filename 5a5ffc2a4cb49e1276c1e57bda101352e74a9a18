@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18d56929_9722e873",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-10-02T09:55:19Z",
+      "side": 1,
+      "message": "Thanks for the review here!\nWondering is this good to put in queue.",
+      "revId": "5a5ffc2a4cb49e1276c1e57bda101352e74a9a18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

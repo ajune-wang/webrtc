@@ -1718,7 +1718,7 @@ TEST_P(PacingControllerTest, OwnedPacketPrioritizedOnType) {
   // insertion order.
   EXPECT_CALL(
       callback,
-      SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kFlexFecSsrc)), _));
+      SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kFlexSsrc)), _));
   EXPECT_CALL(
       callback,
       SendPacket(Pointee(Property(&RtpPacketToSend::Ssrc, kVideoSsrc)), _));
@@ -2106,10 +2106,7 @@ TEST_P(PacingControllerTest, PaddingTargetAccountsForPaddingRate) {
   AdvanceTimeAndProcess();
 }
 
-TEST_P(PacingControllerTest, SendsDeferredFecPackets) {
-  ScopedFieldTrials trial("WebRTC-DeferredFecGeneration/Enabled/");
-  SetUp();
-
+TEST_P(PacingControllerTest, SendsFecPackets) {
   const uint32_t kSsrc = 12345;
   const uint32_t kFlexSsrc = 54321;
   uint16_t sequence_number = 1234;

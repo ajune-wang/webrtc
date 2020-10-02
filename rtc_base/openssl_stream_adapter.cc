@@ -35,7 +35,6 @@
 #include "rtc_base/openssl_identity.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/stream.h"
-#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/field_trial.h"
@@ -52,6 +51,7 @@
 
 namespace rtc {
 namespace {
+
 // SRTP cipher suite table. |internal_name| is used to construct a
 // colon-separated profile strings which is needed by
 // SSL_CTX_set_tlsext_use_srtp().
@@ -284,7 +284,6 @@ bool ShouldAllowLegacyTLSProtocols() {
 OpenSSLStreamAdapter::OpenSSLStreamAdapter(
     std::unique_ptr<StreamInterface> stream)
     : SSLStreamAdapter(std::move(stream)),
-      owner_(rtc::Thread::Current()),
       state_(SSL_NONE),
       role_(SSL_CLIENT),
       ssl_read_needs_write_(false),
@@ -298,7 +297,6 @@ OpenSSLStreamAdapter::OpenSSLStreamAdapter(
       support_legacy_tls_protocols_flag_(ShouldAllowLegacyTLSProtocols()) {}
 
 OpenSSLStreamAdapter::~OpenSSLStreamAdapter() {
-  timeout_task_.Stop();
   Cleanup(0);
 }
 
@@ -547,7 +545,7 @@ StreamResult OpenSSLStreamAdapter::Write(const void* data,
                                          size_t data_len,
                                          size_t* written,
                                          int* error) {
-  RTC_LOG(LS_VERBOSE) << "OpenSSLStreamAdapter::Write(" << data_len << ")";
+  RTC_DLOG(LS_VERBOSE) << "OpenSSLStreamAdapter::Write(" << data_len << ")";
 
   switch (state_) {
     case SSL_NONE:
@@ -587,18 +585,18 @@ StreamResult OpenSSLStreamAdapter::Write(const void* data,
   int ssl_error = SSL_get_error(ssl_, code);
   switch (ssl_error) {
     case SSL_ERROR_NONE:
-      RTC_LOG(LS_VERBOSE) << " -- success";
+      RTC_DLOG(LS_VERBOSE) << " -- success";
       RTC_DCHECK_GT(code, 0);
       RTC_DCHECK_LE(code, data_len);
       if (written)
         *written = code;
       return SR_SUCCESS;
     case SSL_ERROR_WANT_READ:
-      RTC_LOG(LS_VERBOSE) << " -- error want read";
+      RTC_DLOG(LS_VERBOSE) << " -- error want read";
       ssl_write_needs_read_ = true;
       return SR_BLOCK;
     case SSL_ERROR_WANT_WRITE:
-      RTC_LOG(LS_VERBOSE) << " -- error want write";
+      RTC_DLOG(LS_VERBOSE) << " -- error want write";
       return SR_BLOCK;
 
     case SSL_ERROR_ZERO_RETURN:
@@ -616,7 +614,7 @@ StreamResult OpenSSLStreamAdapter::Read(void* data,
                                         size_t data_len,
                                         size_t* read,
                                         int* error) {
-  RTC_LOG(LS_VERBOSE) << "OpenSSLStreamAdapter::Read(" << data_len << ")";
+  RTC_DLOG(LS_VERBOSE) << "OpenSSLStreamAdapter::Read(" << data_len << ")";
   switch (state_) {
     case SSL_NONE:
       // pass-through in clear text
@@ -654,7 +652,7 @@ StreamResult OpenSSLStreamAdapter::Read(void* data,
 
   switch (ssl_error) {
     case SSL_ERROR_NONE:
-      RTC_LOG(LS_VERBOSE) << " -- success";
+      RTC_DLOG(LS_VERBOSE) << " -- success";
       RTC_DCHECK_GT(code, 0);
       RTC_DCHECK_LE(code, data_len);
       if (read) {
@@ -666,7 +664,7 @@ StreamResult OpenSSLStreamAdapter::Read(void* data,
         unsigned int pending = SSL_pending(ssl_);
 
         if (pending) {
-          RTC_LOG(LS_INFO) << " -- short DTLS read. flushing";
+          RTC_DLOG(LS_INFO) << " -- short DTLS read. flushing";
           FlushInput(pending);
           if (error) {
             *error = SSE_MSG_TRUNC;
@@ -676,14 +674,14 @@ StreamResult OpenSSLStreamAdapter::Read(void* data,
       }
       return SR_SUCCESS;
     case SSL_ERROR_WANT_READ:
-      RTC_LOG(LS_VERBOSE) << " -- error want read";
+      RTC_DLOG(LS_VERBOSE) << " -- error want read";
       return SR_BLOCK;
     case SSL_ERROR_WANT_WRITE:
-      RTC_LOG(LS_VERBOSE) << " -- error want write";
+      RTC_DLOG(LS_VERBOSE) << " -- error want write";
       ssl_read_needs_write_ = true;
       return SR_BLOCK;
     case SSL_ERROR_ZERO_RETURN:
-      RTC_LOG(LS_VERBOSE) << " -- remote side closed";
+      RTC_DLOG(LS_VERBOSE) << " -- remote side closed";
       Close();
       return SR_EOS;
     default:
@@ -713,7 +711,7 @@ void OpenSSLStreamAdapter::FlushInput(unsigned int left) {
       return;
     }
 
-    RTC_LOG(LS_VERBOSE) << " -- flushed " << code << " bytes";
+    RTC_DLOG(LS_VERBOSE) << " -- flushed " << code << " bytes";
     left -= code;
   }
 }
@@ -751,7 +749,7 @@ void OpenSSLStreamAdapter::OnEvent(StreamInterface* stream,
   RTC_DCHECK(stream == this->stream());
 
   if ((events & SE_OPEN)) {
-    RTC_LOG(LS_VERBOSE) << "OpenSSLStreamAdapter::OnEvent SE_OPEN";
+    RTC_DLOG(LS_VERBOSE) << "OpenSSLStreamAdapter::OnEvent SE_OPEN";
     if (state_ != SSL_WAIT) {
       RTC_DCHECK(state_ == SSL_NONE);
       events_to_signal |= SE_OPEN;
@@ -765,9 +763,9 @@ void OpenSSLStreamAdapter::OnEvent(StreamInterface* stream,
   }
 
   if ((events & (SE_READ | SE_WRITE))) {
-    RTC_LOG(LS_VERBOSE) << "OpenSSLStreamAdapter::OnEvent"
-                        << ((events & SE_READ) ? " SE_READ" : "")
-                        << ((events & SE_WRITE) ? " SE_WRITE" : "");
+    RTC_DLOG(LS_VERBOSE) << "OpenSSLStreamAdapter::OnEvent"
+                         << ((events & SE_READ) ? " SE_READ" : "")
+                         << ((events & SE_WRITE) ? " SE_WRITE" : "");
     if (state_ == SSL_NONE) {
       events_to_signal |= events & (SE_READ | SE_WRITE);
     } else if (state_ == SSL_CONNECTING) {
@@ -778,20 +776,20 @@ void OpenSSLStreamAdapter::OnEvent(StreamInterface* stream,
     } else if (state_ == SSL_CONNECTED) {
       if (((events & SE_READ) && ssl_write_needs_read_) ||
           (events & SE_WRITE)) {
-        RTC_LOG(LS_VERBOSE) << " -- onStreamWriteable";
+        RTC_DLOG(LS_VERBOSE) << " -- onStreamWriteable";
         events_to_signal |= SE_WRITE;
       }
       if (((events & SE_WRITE) && ssl_read_needs_write_) ||
           (events & SE_READ)) {
-        RTC_LOG(LS_VERBOSE) << " -- onStreamReadable";
+        RTC_DLOG(LS_VERBOSE) << " -- onStreamReadable";
         events_to_signal |= SE_READ;
       }
     }
   }
 
   if ((events & SE_CLOSE)) {
-    RTC_LOG(LS_VERBOSE) << "OpenSSLStreamAdapter::OnEvent(SE_CLOSE, " << err
-                        << ")";
+    RTC_DLOG(LS_VERBOSE) << "OpenSSLStreamAdapter::OnEvent(SE_CLOSE, " << err
+                         << ")";
     Cleanup(0);
     events_to_signal |= SE_CLOSE;
     // SE_CLOSE is the only event that uses the final parameter to OnEvent().
@@ -804,37 +802,10 @@ void OpenSSLStreamAdapter::OnEvent(StreamInterface* stream,
   }
 }
 
-void OpenSSLStreamAdapter::PostEvent(int events, int err) {
-  owner_->PostTask(webrtc::ToQueuedTask(
-      task_safety_, [this, events, err]() { SignalEvent(this, events, err); }));
-}
-
-void OpenSSLStreamAdapter::SetTimeout(int delay_ms) {
-  // We need to accept 0 delay here as well as >0 delay, because
-  // DTLSv1_get_timeout seems to frequently return 0 ms.
-  RTC_DCHECK_GE(delay_ms, 0);
-  RTC_DCHECK(!timeout_task_.Running());
-
-  timeout_task_ = webrtc::RepeatingTaskHandle::DelayedStart(
-      owner_, webrtc::TimeDelta::Millis(delay_ms),
-      [flag = task_safety_.flag(), this]() {
-        if (flag->alive()) {
-          RTC_LOG(LS_INFO) << "DTLS timeout expired";
-          timeout_task_.Stop();
-          DTLSv1_handle_timeout(ssl_);
-          ContinueSSL();
-        } else {
-          RTC_NOTREACHED();
-        }
-        // This callback will never run again (stopped above).
-        return webrtc::TimeDelta::PlusInfinity();
-      });
-}
-
 int OpenSSLStreamAdapter::BeginSSL() {
   RTC_DCHECK(state_ == SSL_CONNECTING);
   // The underlying stream has opened.
-  RTC_LOG(LS_INFO) << "BeginSSL with peer.";
+  RTC_DLOG(LS_INFO) << "BeginSSL with peer.";
 
   BIO* bio = nullptr;
 
@@ -877,18 +848,18 @@ int OpenSSLStreamAdapter::BeginSSL() {
 }
 
 int OpenSSLStreamAdapter::ContinueSSL() {
-  RTC_LOG(LS_VERBOSE) << "ContinueSSL";
+  RTC_DLOG(LS_VERBOSE) << "ContinueSSL";
   RTC_DCHECK(state_ == SSL_CONNECTING);
 
   // Clear the DTLS timer
-  timeout_task_.Stop();
+  Thread::Current()->Clear(this, MSG_TIMEOUT);
 
   const int code = (role_ == SSL_CLIENT) ? SSL_connect(ssl_) : SSL_accept(ssl_);
   const int ssl_error = SSL_get_error(ssl_, code);
 
   switch (ssl_error) {
     case SSL_ERROR_NONE:
-      RTC_LOG(LS_VERBOSE) << " -- success";
+      RTC_DLOG(LS_VERBOSE) << " -- success";
       // By this point, OpenSSL should have given us a certificate, or errored
       // out if one was missing.
       RTC_DCHECK(peer_cert_chain_ || !GetClientAuthEnabled());
@@ -909,16 +880,18 @@ int OpenSSLStreamAdapter::ContinueSSL() {
       break;
 
     case SSL_ERROR_WANT_READ: {
-      RTC_LOG(LS_VERBOSE) << " -- error want read";
+      RTC_DLOG(LS_VERBOSE) << " -- error want read";
       struct timeval timeout;
       if (DTLSv1_get_timeout(ssl_, &timeout)) {
         int delay = timeout.tv_sec * 1000 + timeout.tv_usec / 1000;
-        SetTimeout(delay);
+
+        Thread::Current()->PostDelayed(RTC_FROM_HERE, delay, this, MSG_TIMEOUT,
+                                       0);
       }
     } break;
 
     case SSL_ERROR_WANT_WRITE:
-      RTC_LOG(LS_VERBOSE) << " -- error want write";
+      RTC_DLOG(LS_VERBOSE) << " -- error want write";
       break;
 
     case SSL_ERROR_ZERO_RETURN:
@@ -928,8 +901,8 @@ int OpenSSLStreamAdapter::ContinueSSL() {
       if (err_code != 0 && ERR_GET_REASON(err_code) == SSL_R_NO_SHARED_CIPHER) {
         ssl_handshake_err = SSLHandshakeError::INCOMPATIBLE_CIPHERSUITE;
       }
-      RTC_LOG(LS_VERBOSE) << " -- error " << code << ", " << err_code << ", "
-                          << ERR_GET_REASON(err_code);
+      RTC_DLOG(LS_VERBOSE) << " -- error " << code << ", " << err_code << ", "
+                           << ERR_GET_REASON(err_code);
       SignalSSLHandshakeError(ssl_handshake_err);
       return (ssl_error != 0) ? ssl_error : -1;
   }
@@ -952,7 +925,7 @@ void OpenSSLStreamAdapter::Error(const char* context,
 }
 
 void OpenSSLStreamAdapter::Cleanup(uint8_t alert) {
-  RTC_LOG(LS_INFO) << "Cleanup";
+  RTC_DLOG(LS_INFO) << "Cleanup";
 
   if (state_ != SSL_ERROR) {
     state_ = SSL_CLOSED;
@@ -990,7 +963,18 @@ void OpenSSLStreamAdapter::Cleanup(uint8_t alert) {
   peer_cert_chain_.reset();
 
   // Clear the DTLS timer
-  timeout_task_.Stop();
+  Thread::Current()->Clear(this, MSG_TIMEOUT);
+}
+
+void OpenSSLStreamAdapter::OnMessage(Message* msg) {
+  // Process our own messages and then pass others to the superclass
+  if (MSG_TIMEOUT == msg->message_id) {
+    RTC_DLOG(LS_INFO) << "DTLS timeout expired";
+    DTLSv1_handle_timeout(ssl_);
+    ContinueSSL();
+  } else {
+    StreamInterface::OnMessage(msg);
+  }
 }
 
 SSL_CTX* OpenSSLStreamAdapter::SetupSSLContext() {
@@ -1103,7 +1087,7 @@ bool OpenSSLStreamAdapter::VerifyPeerCertificate() {
   // Ignore any verification error if the digest matches, since there is no
   // value in checking the validity of a self-signed cert issued by untrusted
   // sources.
-  RTC_LOG(LS_INFO) << "Accepted peer certificate.";
+  RTC_DLOG(LS_INFO) << "Accepted peer certificate.";
   peer_certificate_verified_ = true;
   return true;
 }
@@ -1138,7 +1122,7 @@ int OpenSSLStreamAdapter::SSLVerifyCallback(X509_STORE_CTX* store, void* arg) {
   // If the peer certificate digest isn't known yet, we'll wait to verify
   // until it's known, and for now just return a success status.
   if (stream->peer_certificate_digest_algorithm_.empty()) {
-    RTC_LOG(LS_INFO) << "Waiting to verify certificate until digest is known.";
+    RTC_DLOG(LS_INFO) << "Waiting to verify certificate until digest is known.";
     return 1;
   }
 

@@ -84,16 +84,16 @@ TEST_F(NetEqDecodingTest, MAYBE_TestBitExactness) {
       webrtc::test::ResourcePath("audio_coding/neteq_universal_new", "rtp");
 
   const std::string output_checksum =
-      PlatformChecksum("6ae9f643dc3e5f3452d28a772eef7e00e74158bc",
+      PlatformChecksum("68ec266d2d152dfc0d938484e7936f6af4f803e3",
                        "f4374430e870d66268c1b8e22fb700eb072d567e", "not used",
-                       "6ae9f643dc3e5f3452d28a772eef7e00e74158bc",
+                       "68ec266d2d152dfc0d938484e7936f6af4f803e3",
                        "8d73c98645917cdeaaa01c20cf095ccc5a10b2b5");
 
   const std::string network_stats_checksum =
-      PlatformChecksum("8e50f528f245b7957db20ab406a72d81be60f5f4",
+      PlatformChecksum("2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7",
                        "4260b22ea6d2723b2d573e50d2c1476680c7fa4c", "not used",
-                       "8e50f528f245b7957db20ab406a72d81be60f5f4",
-                       "8e50f528f245b7957db20ab406a72d81be60f5f4");
+                       "2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7",
+                       "2a5516cdc1c6af9f1d9d3c2f95ed292f509311c7");
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -138,14 +138,14 @@ TEST_F(NetEqDecodingTest, MAYBE_TestOpusDtxBitExactness) {
       webrtc::test::ResourcePath("audio_coding/neteq_opus_dtx", "rtp");
 
   const std::string maybe_sse =
-      "df5d1d3019bf3764829b84f4fb315721f4adde29"
+      "0fb0a3d6b3758ca6e108368bb777cd38d0a865af"
       "|5935d2fad14a69a8b61dbc8e6f2d37c8c0814925";
   const std::string output_checksum = PlatformChecksum(
       maybe_sse, "551df04e8f45cd99eff28503edf0cf92974898ac",
       "709a3f0f380393d3a67bace10e2265b90a6ebbeb", maybe_sse, maybe_sse);
 
   const std::string network_stats_checksum =
-      "80f5283ac71b27596204210152927666c1732de4";
+      "18983bb67a57628c604dbdefa99574c6e0c5bb48";
 
   DecodeAndCompare(input_rtp_file, output_checksum, network_stats_checksum,
                    absl::GetFlag(FLAGS_gen_ref));
@@ -737,8 +737,10 @@ TEST_F(NetEqDecodingTestWithMutedState, MutedStateOldPacket) {
   GetAudioUntilMuted();
 
   EXPECT_NE(AudioFrame::kNormalSpeech, out_frame_.speech_type_);
-  // Insert packet which is older than the first packet.
-  InsertPacket(kSamples * (counter_ - 1000));
+  // Insert a few packets which are older than the first packet.
+  for (int i = 0; i < 5; ++i) {
+    InsertPacket(kSamples * (i - 1000));
+  }
   EXPECT_FALSE(GetAudioReturnMuted());
   EXPECT_EQ(AudioFrame::kNormalSpeech, out_frame_.speech_type_);
 }
@@ -853,9 +855,11 @@ TEST_F(NetEqDecodingTestTwoInstances, CompareMutedStateOnOff) {
 
   // Insert new data. Timestamp is corrected for the time elapsed since the last
   // packet.
-  PopulateRtpInfo(0, kSamples * 1000, &rtp_info);
-  EXPECT_EQ(0, neteq_->InsertPacket(rtp_info, payload));
-  EXPECT_EQ(0, neteq2_->InsertPacket(rtp_info, payload));
+  for (int i = 0; i < 5; ++i) {
+    PopulateRtpInfo(0, kSamples * 1000 + kSamples * i, &rtp_info);
+    EXPECT_EQ(0, neteq_->InsertPacket(rtp_info, payload));
+    EXPECT_EQ(0, neteq2_->InsertPacket(rtp_info, payload));
+  }
 
   int counter = 0;
   while (out_frame1.speech_type_ != AudioFrame::kNormalSpeech) {
@@ -1264,7 +1268,7 @@ TEST(NetEqOutputDelayTest, RunTestWithFieldTrial) {
 
   // The base delay values are taken from the resuts of the non-delayed case in
   // NetEqOutputDelayTest.RunTest above.
-  EXPECT_EQ(10 + kExpectedDelayMs, result.target_delay_ms);
+  EXPECT_EQ(20 + kExpectedDelayMs, result.target_delay_ms);
   EXPECT_EQ(24 + kExpectedDelayMs, result.filtered_current_delay_ms);
 }
 
@@ -1279,7 +1283,7 @@ TEST(NetEqOutputDelayTest, RunTestWithFieldTrialOddValue) {
 
   // The base delay values are taken from the resuts of the non-delayed case in
   // NetEqOutputDelayTest.RunTest above.
-  EXPECT_EQ(10 + kRoundedDelayMs, result.target_delay_ms);
+  EXPECT_EQ(20 + kRoundedDelayMs, result.target_delay_ms);
   EXPECT_EQ(24 + kRoundedDelayMs, result.filtered_current_delay_ms);
 }
 

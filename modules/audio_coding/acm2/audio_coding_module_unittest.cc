@@ -937,7 +937,7 @@ class AcmReceiverBitExactnessOldApi : public ::testing::Test {
 #if (defined(WEBRTC_CODEC_ISAC) || defined(WEBRTC_CODEC_ISACFX)) && \
     defined(WEBRTC_CODEC_ILBC)
 TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
-  Run(8000, PlatformChecksum("6c204b289486b0695b08a9e94fab1948",
+  Run(8000, PlatformChecksum("c119fda4ea2c119ff2a720fd0c289071",
                              "ff5ffee2ee92f8fe61d9f2010b8a68a3",
                              "53494a96f3db4a5b07d723e0cbac0ad7",
                              "4598140b5e4f7ee66c5adad609e65a3e",
@@ -945,7 +945,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 8kHzOutput) {
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
-  Run(16000, PlatformChecksum("226dbdbce2354399c6df05371042cda3",
+  Run(16000, PlatformChecksum("36dc8c0532ba0efa099e2b6a689cde40",
                               "9c80bf5ec496c41ce8112e1523bf8c83",
                               "11a6f170fdaffa81a2948af121f370af",
                               "f2aad418af974a3b1694d5ae5cc2c3c7",
@@ -953,7 +953,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 16kHzOutput) {
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
-  Run(32000, PlatformChecksum("f94665cc0e904d5d5cf0394e30ee4edd",
+  Run(32000, PlatformChecksum("c848ce9002d3825056a1eac2a067c0d3",
                               "697934bcf0849f80d76ce20854161220",
                               "3609aa5288c1d512e8e652ceabecb495",
                               "100869c8dcde51346c2073e52a272d98",
@@ -961,7 +961,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 32kHzOutput) {
 }
 
 TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutput) {
-  Run(48000, PlatformChecksum("2955d0b83602541fd92d9b820ebce68d",
+  Run(48000, PlatformChecksum("ba0f66d538487bba377e721cfac62d1e",
                               "f4a8386a6a49439ced60ed9a7c7f75fd",
                               "d8169dfeba708b5212bdc365e08aee9d",
                               "bd44bf97e7899186532f91235cef444d",
@@ -1044,7 +1044,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
   rtc::scoped_refptr<rtc::RefCountedObject<ADFactory>> factory(
       new rtc::RefCountedObject<ADFactory>);
   Run(48000,
-      PlatformChecksum("2955d0b83602541fd92d9b820ebce68d",
+      PlatformChecksum("ba0f66d538487bba377e721cfac62d1e",
                        "f4a8386a6a49439ced60ed9a7c7f75fd",
                        "d8169dfeba708b5212bdc365e08aee9d",
                        "bd44bf97e7899186532f91235cef444d",
@@ -1282,11 +1282,11 @@ TEST_F(AcmSenderBitExactnessOldApi, IsacWb30ms) {
 TEST_F(AcmSenderBitExactnessOldApi, IsacWb60ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("ISAC", 16000, 1, 103, 960, 960));
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(
-          "f59760fa000991ee5fa81f2e607db254",
+          "1ad29139a04782a33daad8c2b9b35875",
           "986aa16d7097a26e32e212e39ec58517",
           "9a81e467eb1485f84aca796f8ea65011",
           "ef75e900e6f375e3061163c53fd09a63",
-          "f59760fa000991ee5fa81f2e607db254"),
+          "1ad29139a04782a33daad8c2b9b35875"),
       AcmReceiverBitExactnessOldApi::PlatformChecksum(
           "9e0a0ab743ad987b55b8e14802769c56",
           "ebe04a819d3a9d83a83a17f271e1139a",
@@ -1319,37 +1319,37 @@ TEST_F(AcmSenderBitExactnessOldApi, MAYBE_IsacSwb30ms) {
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_8000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 8000, 1, 107, 80, 80));
-  Run("de4a98e1406f8b798d99cd0704e862e2", "c1edd36339ce0326cc4550041ad719a0",
+  Run("15396f66b5b0ab6842e151c807395e4c", "c1edd36339ce0326cc4550041ad719a0",
       100, test::AcmReceiveTestOldApi::kMonoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_16000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 16000, 1, 108, 160, 160));
-  Run("ae646d7b68384a1269cc080dd4501916", "ad786526383178b08d80d6eee06e9bad",
+  Run("54ae004529874c2b362c7f0ccd19cb99", "ad786526383178b08d80d6eee06e9bad",
       100, test::AcmReceiveTestOldApi::kMonoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_32000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 32000, 1, 109, 320, 320));
-  Run("7fe325e8fbaf755e3c5df0b11a4774fb", "5ef82ea885e922263606c6fdbc49f651",
+  Run("d6a4a68b8c838dcc1e7ae7136467cdf0", "5ef82ea885e922263606c6fdbc49f651",
       100, test::AcmReceiveTestOldApi::kMonoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_stereo_8000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 8000, 2, 111, 80, 80));
-  Run("fb263b74e7ac3de915474d77e4744ceb", "62ce5adb0d4965d0a52ec98ae7f98974",
+  Run("6b011dab43e3a8a46ccff7e4412ed8a2", "62ce5adb0d4965d0a52ec98ae7f98974",
       100, test::AcmReceiveTestOldApi::kStereoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_stereo_16000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 16000, 2, 112, 160, 160));
-  Run("d09e9239553649d7ac93e19d304281fd", "41ca8edac4b8c71cd54fd9f25ec14870",
+  Run("17fc9854358bfe0419408290664bd78e", "41ca8edac4b8c71cd54fd9f25ec14870",
       100, test::AcmReceiveTestOldApi::kStereoOutput);
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, Pcm16_stereo_32000khz_10ms) {
   ASSERT_NO_FATAL_FAILURE(SetUpTest("L16", 32000, 2, 113, 320, 320));
-  Run("5f025d4f390982cc26b3d92fe02e3044", "50e58502fb04421bf5b857dda4c96879",
+  Run("9ac9a1f64d55da2fc9f3167181cc511d", "50e58502fb04421bf5b857dda4c96879",
       100, test::AcmReceiveTestOldApi::kStereoOutput);
 }
 

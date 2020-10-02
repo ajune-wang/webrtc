@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff7a2639_4dfe2c17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-02T17:29:46Z",
+      "side": 1,
+      "message": "lg, but I\u0027m not familiar with this code: I have no idea how helpful these logs for debugability.\n(from high level view seems not that useful)",
+      "revId": "acd7f9f4c1c83566899e5e8a676abc3599e4471e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

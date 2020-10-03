@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '9291040a965858d333c4cd1a89d173a663af1404',
+  'chromium_revision': '709680170a7397bb7a315a9ffd11948dc2005f19',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -33,13 +33,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@de80d6cf56ba2ee0575973ca267bedfcf173c74b',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@24d62e4701382a47776e5d7e0e1e5b8ced94335f',
     'condition': 'checkout_ios',
   },
   'src/testing':
     'https://chromium.googlesource.com/chromium/src/testing@b6ea222dbaa04449d3624cf0860b8609a4fa3ed1',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@33cac08018c0d2a27ff6c69f573f96489223e572',
+    'https://chromium.googlesource.com/chromium/src/third_party@7d0e722192f499a61c4c0350409a5f8a766dfaff',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -130,7 +130,7 @@ deps = {
   'src/third_party/breakpad/breakpad':
     'https://chromium.googlesource.com/breakpad/breakpad.git@9c4671f2e3a63c0f155d9b2511192d0b5fa7f760',
   'src/third_party/catapult':
-    'https://chromium.googlesource.com/catapult.git@b494582b95e5351c5cbe358e75af393a3af1becb',
+    'https://chromium.googlesource.com/catapult.git@d82d30da43cdc96ee5026acc1e0d7d8a33d14313',
   'src/third_party/ced/src': {
     'url': 'https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@ba412eaaacd3186085babcd901679a48863c7dd5',
   },
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@5944dc4b50127311ba595e9c39c300b44cb8b602',
+    'https://chromium.googlesource.com/chromium/src/tools@3b1c83f27c1bbd7d0a36c3e504e3c923d4aff8ee',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@44c13d73156581ea09b9389001e58c23a4b8d70a',
 

@@ -33,6 +33,7 @@
 #include "rtc_base/openssl_adapter.h"
 #include "rtc_base/openssl_digest.h"
 #include "rtc_base/openssl_identity.h"
+#include "rtc_base/robo_caller.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/thread.h"
@@ -900,9 +901,9 @@ int OpenSSLStreamAdapter::ContinueSSL() {
       if (err_code != 0 && ERR_GET_REASON(err_code) == SSL_R_NO_SHARED_CIPHER) {
         ssl_handshake_err = SSLHandshakeError::INCOMPATIBLE_CIPHERSUITE;
       }
-      RTC_DLOG(LS_VERBOSE) << " -- error " << code << ", " << err_code << ", "
-                           << ERR_GET_REASON(err_code);
-      SignalSSLHandshakeError(ssl_handshake_err);
+      RTC_LOG(LS_VERBOSE) << " -- error " << code << ", " << err_code << ", "
+                          << ERR_GET_REASON(err_code);
+      SignalSSLHandshakeError.Send(ssl_handshake_err);
       return (ssl_error != 0) ? ssl_error : -1;
   }
 

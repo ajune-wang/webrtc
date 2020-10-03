@@ -1775,7 +1775,7 @@ TEST_F(ApmTest, Process) {
                   max_output_average - kMaxOutputAverageOffset,
                   kMaxOutputAverageNear);
 #if defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE)
-      const double kFloatNear = 0.0005;
+      const double kFloatNear = 0.002;
       EXPECT_NEAR(test->rms_dbfs_average(), rms_dbfs_average, kFloatNear);
 #endif
     } else {

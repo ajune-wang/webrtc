@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "e85dd3d1_2c7e5006",
+        "filename": "p2p/base/dtls_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-10-03T12:54:30Z",
+      "side": 1,
+      "message": "Thanks Karl.",
+      "parentUuid": "8060542d_7a3f8cd6",
+      "revId": "47b471944783bb428d9097f12831614a74ea437e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc503617_2962eef0",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 9

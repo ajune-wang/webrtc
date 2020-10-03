@@ -386,10 +386,14 @@ class P2PTransportChannelTestBase : public ::testing::Test,
     ep2_.cd1_.ch_->SetIceConfig(ep2_config);
     ep1_.cd1_.ch_->MaybeStartGathering();
     ep2_.cd1_.ch_->MaybeStartGathering();
-    ep1_.cd1_.ch_->allocator_session()->SignalIceRegathering.connect(
-        &ep1_, &Endpoint::OnIceRegathering);
-    ep2_.cd1_.ch_->allocator_session()->SignalIceRegathering.connect(
-        &ep2_, &Endpoint::OnIceRegathering);
+    ep1_.cd1_.ch_->allocator_session()->SignalIceRegathering.AddReceiver(
+        [&](PortAllocatorSession* session, IceRegatheringReason reason) {
+          ep1_.OnIceRegathering(session, reason);
+        });
+    ep2_.cd1_.ch_->allocator_session()->SignalIceRegathering.AddReceiver(
+        [&](PortAllocatorSession* session, IceRegatheringReason reason) {
+          ep2_.OnIceRegathering(session, reason);
+        });
   }
 
   void CreateChannels() {
@@ -4516,7 +4520,7 @@ TEST_F(P2PTransportChannelPingTest, TestIceRoleUpdatedOnRemovedPort) {
   // Make a fake signal to remove the ports in the p2ptransportchannel. then
   // change the ICE role and expect it to be updated.
   std::vector<PortInterface*> ports(1, conn->PortForTest());
-  ch.allocator_session()->SignalPortsPruned(ch.allocator_session(), ports);
+  ch.allocator_session()->SignalPortsPruned.Send(ch.allocator_session(), ports);
   ch.SetIceRole(ICEROLE_CONTROLLED);
   EXPECT_EQ(ICEROLE_CONTROLLED, conn->PortForTest()->GetIceRole());
 }

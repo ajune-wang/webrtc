@@ -174,7 +174,6 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   const bool account_for_packetization_overhead_;
   const bool use_early_loss_detection_;
   const bool has_packet_feedback_;
-  const bool use_deferred_fec_;
 
   // TODO(holmer): Remove mutex_ once RtpVideoSender runs on the
   // transport task queue.

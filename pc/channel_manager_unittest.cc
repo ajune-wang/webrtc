@@ -55,12 +55,16 @@ class ChannelManagerTest : public ::testing::Test {
         cm_(new cricket::ChannelManager(
             std::unique_ptr<MediaEngineInterface>(fme_),
             std::unique_ptr<DataEngineInterface>(fdme_),
-            rtc::Thread::Current(),
-            rtc::Thread::Current())),
+            worker_.get(),
+            network_.get())),
         fake_call_() {
     fme_->SetAudioCodecs(MAKE_VECTOR(kAudioCodecs));
     fme_->SetVideoCodecs(MAKE_VECTOR(kVideoCodecs));
+    network_->Start();
+    worker_->Start();
   }
+
+  ~ChannelManagerTest() {}
 
   std::unique_ptr<webrtc::RtpTransportInternal> CreateDtlsSrtpTransport() {
     rtp_dtls_transport_ = std::make_unique<FakeDtlsTransport>(
@@ -73,25 +77,27 @@ class ChannelManagerTest : public ::testing::Test {
   }
 
   void TestCreateDestroyChannels(webrtc::RtpTransportInternal* rtp_transport) {
-    cricket::VoiceChannel* voice_channel = cm_->CreateVoiceChannel(
-        &fake_call_, cricket::MediaConfig(), rtp_transport,
-        rtc::Thread::Current(), cricket::CN_AUDIO, kDefaultSrtpRequired,
-        webrtc::CryptoOptions(), &ssrc_generator_, AudioOptions());
-    EXPECT_TRUE(voice_channel != nullptr);
-    cricket::VideoChannel* video_channel = cm_->CreateVideoChannel(
-        &fake_call_, cricket::MediaConfig(), rtp_transport,
-        rtc::Thread::Current(), cricket::CN_VIDEO, kDefaultSrtpRequired,
-        webrtc::CryptoOptions(), &ssrc_generator_, VideoOptions(),
-        video_bitrate_allocator_factory_.get());
-    EXPECT_TRUE(video_channel != nullptr);
-    cricket::RtpDataChannel* rtp_data_channel = cm_->CreateRtpDataChannel(
-        cricket::MediaConfig(), rtp_transport, rtc::Thread::Current(),
-        cricket::CN_DATA, kDefaultSrtpRequired, webrtc::CryptoOptions(),
-        &ssrc_generator_);
-    EXPECT_TRUE(rtp_data_channel != nullptr);
-    cm_->DestroyVideoChannel(video_channel);
-    cm_->DestroyVoiceChannel(voice_channel);
-    cm_->DestroyRtpDataChannel(rtp_data_channel);
+    worker_->Invoke<void>(RTC_FROM_HERE, [this, rtp_transport]() {
+      cricket::VoiceChannel* voice_channel = cm_->CreateVoiceChannel(
+          &fake_call_, cricket::MediaConfig(), rtp_transport,
+          rtc::Thread::Current(), cricket::CN_AUDIO, kDefaultSrtpRequired,
+          webrtc::CryptoOptions(), &ssrc_generator_, AudioOptions());
+      EXPECT_TRUE(voice_channel != nullptr);
+      cricket::VideoChannel* video_channel = cm_->CreateVideoChannel(
+          &fake_call_, cricket::MediaConfig(), rtp_transport,
+          rtc::Thread::Current(), cricket::CN_VIDEO, kDefaultSrtpRequired,
+          webrtc::CryptoOptions(), &ssrc_generator_, VideoOptions(),
+          video_bitrate_allocator_factory_.get());
+      EXPECT_TRUE(video_channel != nullptr);
+      cricket::RtpDataChannel* rtp_data_channel = cm_->CreateRtpDataChannel(
+          cricket::MediaConfig(), rtp_transport, rtc::Thread::Current(),
+          cricket::CN_DATA, kDefaultSrtpRequired, webrtc::CryptoOptions(),
+          &ssrc_generator_);
+      EXPECT_TRUE(rtp_data_channel != nullptr);
+      cm_->DestroyVideoChannel(video_channel);
+      cm_->DestroyVoiceChannel(voice_channel);
+      cm_->DestroyRtpDataChannel(rtp_data_channel);
+    });
     cm_->Terminate();
   }
 
@@ -111,7 +117,6 @@ class ChannelManagerTest : public ::testing::Test {
 // Test that we startup/shutdown properly.
 TEST_F(ChannelManagerTest, StartupShutdown) {
   EXPECT_FALSE(cm_->initialized());
-  EXPECT_EQ(rtc::Thread::Current(), cm_->worker_thread());
   EXPECT_TRUE(cm_->Init());
   EXPECT_TRUE(cm_->initialized());
   cm_->Terminate();
@@ -120,19 +125,11 @@ TEST_F(ChannelManagerTest, StartupShutdown) {
 
 // Test that we startup/shutdown properly with a worker thread.
 TEST_F(ChannelManagerTest, StartupShutdownOnThread) {
-  network_->Start();
-  worker_->Start();
   EXPECT_FALSE(cm_->initialized());
-  EXPECT_EQ(rtc::Thread::Current(), cm_->worker_thread());
-  EXPECT_TRUE(cm_->set_network_thread(network_.get()));
   EXPECT_EQ(network_.get(), cm_->network_thread());
-  EXPECT_TRUE(cm_->set_worker_thread(worker_.get()));
   EXPECT_EQ(worker_.get(), cm_->worker_thread());
   EXPECT_TRUE(cm_->Init());
   EXPECT_TRUE(cm_->initialized());
-  // Setting the network or worker thread while initialized should fail.
-  EXPECT_FALSE(cm_->set_network_thread(rtc::Thread::Current()));
-  EXPECT_FALSE(cm_->set_worker_thread(rtc::Thread::Current()));
   cm_->Terminate();
   EXPECT_FALSE(cm_->initialized());
 }
@@ -183,10 +180,6 @@ TEST_F(ChannelManagerTest, CreateDestroyChannels) {
 }
 
 TEST_F(ChannelManagerTest, CreateDestroyChannelsOnThread) {
-  network_->Start();
-  worker_->Start();
-  EXPECT_TRUE(cm_->set_worker_thread(worker_.get()));
-  EXPECT_TRUE(cm_->set_network_thread(network_.get()));
   EXPECT_TRUE(cm_->Init());
   auto rtp_transport = CreateDtlsSrtpTransport();
   TestCreateDestroyChannels(rtp_transport.get());

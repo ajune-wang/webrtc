@@ -2995,10 +2995,15 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
     const cricket::ContentGroup* bundle_group) {
   RTC_DCHECK(IsUnifiedPlan());
   RTC_DCHECK(transceiver);
+  // TODO(tommi): Perhaps this entire function should (needs to?) run on the
+  // worker thread. The Create and Destroy  methods, internally hop to the
+  // worker. It's likely that SetChannel() also needs to run there.
   cricket::ChannelInterface* channel = transceiver->internal()->channel();
   if (content.rejected) {
     if (channel) {
+      RTC_LOG(LS_ERROR) << "vvvvvvvvvvv On worker? vvvvvvvvvvv";
       transceiver->internal()->SetChannel(nullptr);
+      RTC_LOG(LS_ERROR) << "^^^^^^^^^^^ On worker? ^^^^^^^^^^^";
       pc_->DestroyChannelInterface(channel);
     }
   } else {
@@ -3014,7 +3019,9 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiverChannel(
             RTCErrorType::INTERNAL_ERROR,
             "Failed to create channel for mid=" + content.name);
       }
+      RTC_LOG(LS_ERROR) << "vvvvvvvvvvv On worker? vvvvvvvvvvv";
       transceiver->internal()->SetChannel(channel);
+      RTC_LOG(LS_ERROR) << "^^^^^^^^^^^ On worker? ^^^^^^^^^^^";
     }
   }
   return RTCError::OK();

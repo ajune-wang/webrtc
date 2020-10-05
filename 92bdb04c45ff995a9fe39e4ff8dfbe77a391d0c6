@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5e85587_4e78f72c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:28:11Z",
+      "side": 1,
+      "message": "Triggering another CQ dry-run.",
+      "revId": "92bdb04c45ff995a9fe39e4ff8dfbe77a391d0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

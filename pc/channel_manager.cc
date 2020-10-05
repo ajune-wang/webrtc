@@ -29,7 +29,7 @@ ChannelManager::ChannelManager(
     std::unique_ptr<DataEngineInterface> data_engine,
     rtc::Thread* worker_thread,
     rtc::Thread* network_thread)
-    : media_engine_(std::move(media_engine)),
+    : media_engine_(media_engine.release()),  // Take ownership.
       data_engine_(std::move(data_engine)),
       main_thread_(rtc::Thread::Current()),
       worker_thread_(worker_thread),
@@ -40,15 +40,21 @@ ChannelManager::ChannelManager(
 }
 
 ChannelManager::~ChannelManager() {
+  RTC_DCHECK_RUN_ON(main_thread_);
   if (initialized_) {
     Terminate();
   }
   // The media engine needs to be deleted on the worker thread for thread safe
   // destruction,
-  worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] { media_engine_.reset(); });
+  if (media_engine_) {
+    // TODO(tommi): Post?
+    worker_thread_->Invoke<void>(RTC_FROM_HERE,
+                                 [engine = media_engine_] { delete engine; });
+  }
 }
 
 bool ChannelManager::SetVideoRtxEnabled(bool enable) {
+  RTC_DCHECK_RUN_ON(main_thread_);
   // To be safe, this call is only allowed before initialization. Apps like
   // Flute only have a singleton ChannelManager and we don't want this flag to
   // be toggled between calls or when there's concurrent calls. We expect apps
@@ -61,6 +67,11 @@ bool ChannelManager::SetVideoRtxEnabled(bool enable) {
     RTC_LOG(LS_WARNING) << "Cannot toggle rtx after initialization!";
     return false;
   }
+}
+
+bool ChannelManager::initialized() const {
+  RTC_DCHECK_RUN_ON(main_thread_);
+  return initialized_;
 }
 
 void ChannelManager::GetSupportedAudioSendCodecs(
@@ -119,6 +130,7 @@ void ChannelManager::GetSupportedDataCodecs(
 }
 
 bool ChannelManager::Init() {
+  RTC_DCHECK_RUN_ON(main_thread_);
   RTC_DCHECK(!initialized_);
   if (initialized_) {
     return false;
@@ -170,12 +182,14 @@ ChannelManager::GetSupportedVideoRtpHeaderExtensions() const {
 }
 
 void ChannelManager::Terminate() {
+  RTC_DCHECK_RUN_ON(main_thread_);
   RTC_DCHECK(initialized_);
   if (!initialized_) {
     return;
   }
   // Need to destroy the channels on the worker thread.
   worker_thread_->Invoke<void>(RTC_FROM_HERE, [&] {
+    RTC_DCHECK_RUN_ON(worker_thread_);
     video_channels_.clear();
     voice_channels_.clear();
     data_channels_.clear();
@@ -193,19 +207,7 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
     const webrtc::CryptoOptions& crypto_options,
     rtc::UniqueRandomIdGenerator* ssrc_generator,
     const AudioOptions& options) {
-  // TODO(bugs.webrtc.org/11992): Remove this workaround after updates in
-  // PeerConnection and add the expectation that we're already on the right
-  // thread.
-  if (!worker_thread_->IsCurrent()) {
-    return worker_thread_->Invoke<VoiceChannel*>(RTC_FROM_HERE, [&] {
-      return CreateVoiceChannel(call, media_config, rtp_transport,
-                                signaling_thread, content_name, srtp_required,
-                                crypto_options, ssrc_generator, options);
-    });
-  }
-
   RTC_DCHECK_RUN_ON(worker_thread_);
-  RTC_DCHECK(initialized_);
   RTC_DCHECK(call);
   if (!media_engine_) {
     return nullptr;
@@ -231,16 +233,8 @@ VoiceChannel* ChannelManager::CreateVoiceChannel(
 
 void ChannelManager::DestroyVoiceChannel(VoiceChannel* voice_channel) {
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyVoiceChannel");
-  if (!voice_channel) {
-    return;
-  }
-  if (!worker_thread_->IsCurrent()) {
-    worker_thread_->Invoke<void>(RTC_FROM_HERE,
-                                 [&] { DestroyVoiceChannel(voice_channel); });
-    return;
-  }
-
-  RTC_DCHECK(initialized_);
+  RTC_DCHECK(voice_channel);
+  RTC_DCHECK_RUN_ON(worker_thread_);
 
   auto it = absl::c_find_if(voice_channels_,
                             [&](const std::unique_ptr<VoiceChannel>& p) {
@@ -265,20 +259,7 @@ VideoChannel* ChannelManager::CreateVideoChannel(
     rtc::UniqueRandomIdGenerator* ssrc_generator,
     const VideoOptions& options,
     webrtc::VideoBitrateAllocatorFactory* video_bitrate_allocator_factory) {
-  // TODO(bugs.webrtc.org/11992): Remove this workaround after updates in
-  // PeerConnection and add the expectation that we're already on the right
-  // thread.
-  if (!worker_thread_->IsCurrent()) {
-    return worker_thread_->Invoke<VideoChannel*>(RTC_FROM_HERE, [&] {
-      return CreateVideoChannel(call, media_config, rtp_transport,
-                                signaling_thread, content_name, srtp_required,
-                                crypto_options, ssrc_generator, options,
-                                video_bitrate_allocator_factory);
-    });
-  }
-
   RTC_DCHECK_RUN_ON(worker_thread_);
-  RTC_DCHECK(initialized_);
   RTC_DCHECK(call);
   if (!media_engine_) {
     return nullptr;
@@ -305,16 +286,8 @@ VideoChannel* ChannelManager::CreateVideoChannel(
 
 void ChannelManager::DestroyVideoChannel(VideoChannel* video_channel) {
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyVideoChannel");
-  if (!video_channel) {
-    return;
-  }
-  if (!worker_thread_->IsCurrent()) {
-    worker_thread_->Invoke<void>(RTC_FROM_HERE,
-                                 [&] { DestroyVideoChannel(video_channel); });
-    return;
-  }
-
-  RTC_DCHECK(initialized_);
+  RTC_DCHECK(video_channel);
+  RTC_DCHECK_RUN_ON(worker_thread_);
 
   auto it = absl::c_find_if(video_channels_,
                             [&](const std::unique_ptr<VideoChannel>& p) {
@@ -336,16 +309,8 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel(
     bool srtp_required,
     const webrtc::CryptoOptions& crypto_options,
     rtc::UniqueRandomIdGenerator* ssrc_generator) {
-  if (!worker_thread_->IsCurrent()) {
-    return worker_thread_->Invoke<RtpDataChannel*>(RTC_FROM_HERE, [&] {
-      return CreateRtpDataChannel(media_config, rtp_transport, signaling_thread,
-                                  content_name, srtp_required, crypto_options,
-                                  ssrc_generator);
-    });
-  }
+  RTC_DCHECK_RUN_ON(worker_thread_);
 
-  // This is ok to alloc from a thread other than the worker thread.
-  RTC_DCHECK(initialized_);
   DataMediaChannel* media_channel = data_engine_->CreateChannel(media_config);
   if (!media_channel) {
     RTC_LOG(LS_WARNING) << "Failed to create RTP data channel.";
@@ -367,16 +332,8 @@ RtpDataChannel* ChannelManager::CreateRtpDataChannel(
 
 void ChannelManager::DestroyRtpDataChannel(RtpDataChannel* data_channel) {
   TRACE_EVENT0("webrtc", "ChannelManager::DestroyRtpDataChannel");
-  if (!data_channel) {
-    return;
-  }
-  if (!worker_thread_->IsCurrent()) {
-    worker_thread_->Invoke<void>(
-        RTC_FROM_HERE, [&] { return DestroyRtpDataChannel(data_channel); });
-    return;
-  }
-
-  RTC_DCHECK(initialized_);
+  RTC_DCHECK(data_channel);
+  RTC_DCHECK_RUN_ON(worker_thread_);
 
   auto it = absl::c_find_if(data_channels_,
                             [&](const std::unique_ptr<RtpDataChannel>& p) {
@@ -390,16 +347,21 @@ void ChannelManager::DestroyRtpDataChannel(RtpDataChannel* data_channel) {
   data_channels_.erase(it);
 }
 
+bool ChannelManager::has_channels() const {
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  return (!voice_channels_.empty() || !video_channels_.empty() ||
+          !data_channels_.empty());
+}
+
 bool ChannelManager::StartAecDump(webrtc::FileWrapper file,
                                   int64_t max_size_bytes) {
-  return worker_thread_->Invoke<bool>(RTC_FROM_HERE, [&] {
-    return media_engine_->voice().StartAecDump(std::move(file), max_size_bytes);
-  });
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  return media_engine_->voice().StartAecDump(std::move(file), max_size_bytes);
 }
 
 void ChannelManager::StopAecDump() {
-  worker_thread_->Invoke<void>(RTC_FROM_HERE,
-                               [&] { media_engine_->voice().StopAecDump(); });
+  RTC_DCHECK_RUN_ON(worker_thread_);
+  media_engine_->voice().StopAecDump();
 }
 
 }  // namespace cricket

@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "bd274cf0_f6ebcce0",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-05T10:59:46Z",
+      "side": 1,
+      "message": "I do not like \u0027base layer\u0027 (it AV1 it is defined as layer with temporal AND SPATIAL id equal to 0).\nI\u0027m not sure has_recent_t0 reflects better captures what this boolean is.\nright now it is set when single frame is skipped.\nMay be it would be better to set it only when at least 3 frames are skipped.\nOn the other hand it might make sense to set it even when 0 frames are skipped to generate spatial upswitch.\n\nwdyt about can_depend_on_t0_frame_for_spatial_id ?",
+      "parentUuid": "121c5f24_fbe087cd",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 59
+      },
+      "revId": "a4411436321cb3be08e8d09bf5841f3b791b0a75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73593dc0_66219608",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
         "patchSetId": 2
@@ -62,6 +86,30 @@
       "revId": "a4411436321cb3be08e8d09bf5841f3b791b0a75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9e6d6e3_9423dcf8",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-05T10:59:46Z",
+      "side": 1,
+      "message": "First I need to implement 3 temporal layers (I left todo in the full_svc.h)",
+      "parentUuid": "73593dc0_66219608",
+      "range": {
+        "startLine": 349,
+        "startChar": 25,
+        "endLine": 349,
+        "endChar": 31
+      },
+      "revId": "a4411436321cb3be08e8d09bf5841f3b791b0a75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

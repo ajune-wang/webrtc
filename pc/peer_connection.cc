@@ -2331,6 +2331,12 @@ void PeerConnection::GenerateMediaDescriptionOptions(
       }
       session_options->media_description_options.back().header_extensions =
           channel_manager()->GetSupportedVideoRtpHeaderExtensions();
+    } else if (IsUnsupportedContent(&content)) {
+      session_options->media_description_options.push_back(
+          cricket::MediaDescriptionOptions(cricket::MEDIA_TYPE_UNSUPPORTED,
+                                           content.name,
+                                           RtpTransceiverDirection::kInactive,
+                                           /*stopped=*/true));
     } else {
       RTC_DCHECK(IsDataContent(&content));
       // If we already have an data m= section, reject this extra one.

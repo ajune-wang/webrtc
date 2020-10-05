@@ -422,15 +422,11 @@ int PseudoTcp::Recv(char* buffer, size_t len) {
   }
 
   size_t read = 0;
-  rtc::StreamResult result = m_rbuf.Read(buffer, len, &read, NULL);
-
-  // If there's no data in |m_rbuf|.
-  if (result == rtc::SR_BLOCK) {
+  if (!m_rbuf.Read(buffer, len, &read, NULL)) {
     m_bReadEnable = true;
     m_error = EWOULDBLOCK;
     return SOCKET_ERROR;
   }
-  RTC_DCHECK(result == rtc::SR_SUCCESS);
 
   size_t available_space = 0;
   m_rbuf.GetWriteRemaining(&available_space);
@@ -532,9 +528,9 @@ IPseudoTcpNotify::WriteResult PseudoTcp::packet(uint32_t seq,
 
   if (len) {
     size_t bytes_read = 0;
-    rtc::StreamResult result =
+    bool result =
         m_sbuf.ReadOffset(buffer.get() + HEADER_SIZE, len, offset, &bytes_read);
-    RTC_DCHECK(result == rtc::SR_SUCCESS);
+    RTC_DCHECK(result);
     RTC_DCHECK(static_cast<uint32_t>(bytes_read) == len);
   }
 
@@ -924,14 +920,10 @@ bool PseudoTcp::process(Segment& seg) {
     } else {
       uint32_t nOffset = seg.seq - m_rcv_nxt;
 
-      rtc::StreamResult result =
-          m_rbuf.WriteOffset(seg.data, seg.len, nOffset, NULL);
-      if (result == rtc::SR_BLOCK) {
+      if (!m_rbuf.WriteOffset(seg.data, seg.len, nOffset, NULL)) {
         // Ignore incoming packets outside of the receive window.
         return false;
       }
-
-      RTC_DCHECK(result == rtc::SR_SUCCESS);
 
       if (seg.seq == m_rcv_nxt) {
         m_rbuf.ConsumeWriteBuffer(seg.len);
@@ -1298,6 +1290,155 @@ void PseudoTcp::resizeReceiveBuffer(uint32_t new_size) {
   size_t available_space = 0;
   m_rbuf.GetWriteRemaining(&available_space);
   m_rcv_wnd = static_cast<uint32_t>(available_space);
+}
+
+PseudoTcp::LockedFifoBuffer::LockedFifoBuffer(size_t size)
+    : buffer_(new char[size]),
+      buffer_length_(size),
+      data_length_(0),
+      read_position_(0) {}
+
+PseudoTcp::LockedFifoBuffer::~LockedFifoBuffer() {}
+
+// Gets the amount of data currently readable from the buffer.
+bool PseudoTcp::LockedFifoBuffer::GetBuffered(size_t* data_len) const {
+  webrtc::MutexLock lock(&mutex_);
+  *data_len = data_length_;
+  return true;
+}
+
+bool PseudoTcp::LockedFifoBuffer::SetCapacity(size_t size) {
+  webrtc::MutexLock lock(&mutex_);
+  if (data_length_ > size)
+    return false;
+
+  if (size != buffer_length_) {
+    char* buffer = new char[size];
+    const size_t copy = data_length_;
+    const size_t tail_copy = std::min(copy, buffer_length_ - read_position_);
+    memcpy(buffer, &buffer_[read_position_], tail_copy);
+    memcpy(buffer + tail_copy, &buffer_[0], copy - tail_copy);
+    buffer_.reset(buffer);
+    read_position_ = 0;
+    buffer_length_ = size;
+  }
+
+  return true;
+}
+
+bool PseudoTcp::LockedFifoBuffer::ReadOffset(void* buffer,
+                                             size_t bytes,
+                                             size_t offset,
+                                             size_t* bytes_read) {
+  webrtc::MutexLock lock(&mutex_);
+  return ReadOffsetLocked(buffer, bytes, offset, bytes_read);
+}
+
+bool PseudoTcp::LockedFifoBuffer::WriteOffset(const void* buffer,
+                                              size_t bytes,
+                                              size_t offset,
+                                              size_t* bytes_written) {
+  webrtc::MutexLock lock(&mutex_);
+  return WriteOffsetLocked(buffer, bytes, offset, bytes_written);
+}
+
+bool PseudoTcp::LockedFifoBuffer::Read(void* buffer,
+                                       size_t bytes,
+                                       size_t* bytes_read,
+                                       int* error) {
+  webrtc::MutexLock lock(&mutex_);
+  size_t copy = 0;
+  if (!ReadOffsetLocked(buffer, bytes, 0, &copy))
+    return false;
+
+  // If read was successful then adjust the read position and number of
+  // bytes buffered.
+  read_position_ = (read_position_ + copy) % buffer_length_;
+  data_length_ -= copy;
+  if (bytes_read)
+    *bytes_read = copy;
+
+  return true;
+}
+
+bool PseudoTcp::LockedFifoBuffer::Write(const void* buffer,
+                                        size_t bytes,
+                                        size_t* bytes_written,
+                                        int* error) {
+  webrtc::MutexLock lock(&mutex_);
+  size_t copy = 0;
+  if (!WriteOffsetLocked(buffer, bytes, 0, &copy))
+    return false;
+
+  // If write was successful then adjust the number of readable bytes.
+  data_length_ += copy;
+  if (bytes_written) {
+    *bytes_written = copy;
+  }
+
+  return true;
+}
+
+void PseudoTcp::LockedFifoBuffer::ConsumeReadData(size_t size) {
+  webrtc::MutexLock lock(&mutex_);
+  RTC_DCHECK(size <= data_length_);
+  read_position_ = (read_position_ + size) % buffer_length_;
+  data_length_ -= size;
+}
+
+void PseudoTcp::LockedFifoBuffer::ConsumeWriteBuffer(size_t size) {
+  webrtc::MutexLock lock(&mutex_);
+  RTC_DCHECK(size <= buffer_length_ - data_length_);
+  data_length_ += size;
+}
+
+bool PseudoTcp::LockedFifoBuffer::GetWriteRemaining(size_t* size) const {
+  webrtc::MutexLock lock(&mutex_);
+  *size = buffer_length_ - data_length_;
+  return true;
+}
+
+bool PseudoTcp::LockedFifoBuffer::ReadOffsetLocked(void* buffer,
+                                                   size_t bytes,
+                                                   size_t offset,
+                                                   size_t* bytes_read) {
+  if (offset >= data_length_)
+    return false;
+
+  const size_t available = data_length_ - offset;
+  const size_t read_position = (read_position_ + offset) % buffer_length_;
+  const size_t copy = std::min(bytes, available);
+  const size_t tail_copy = std::min(copy, buffer_length_ - read_position);
+  char* const p = static_cast<char*>(buffer);
+  memcpy(p, &buffer_[read_position], tail_copy);
+  memcpy(p + tail_copy, &buffer_[0], copy - tail_copy);
+
+  if (bytes_read)
+    *bytes_read = copy;
+
+  return true;
+}
+
+bool PseudoTcp::LockedFifoBuffer::WriteOffsetLocked(const void* buffer,
+                                                    size_t bytes,
+                                                    size_t offset,
+                                                    size_t* bytes_written) {
+  if (data_length_ + offset >= buffer_length_)
+    return false;
+
+  const size_t available = buffer_length_ - data_length_ - offset;
+  const size_t write_position =
+      (read_position_ + data_length_ + offset) % buffer_length_;
+  const size_t copy = std::min(bytes, available);
+  const size_t tail_copy = std::min(copy, buffer_length_ - write_position);
+  const char* const p = static_cast<const char*>(buffer);
+  memcpy(&buffer_[write_position], p, tail_copy);
+  memcpy(&buffer_[0], p + tail_copy, copy - tail_copy);
+
+  if (bytes_written)
+    *bytes_written = copy;
+
+  return true;
 }
 
 }  // namespace cricket

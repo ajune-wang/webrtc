@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4662f484_62a9da89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:07:33Z",
+      "side": 1,
+      "message": "LGTM % some nits.\n\nNice dependency cut! :) ",
+      "revId": "2a55ee8b1da6f97d08e73915795d256158c06ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab05f9b_c51def0b",
+        "filename": "p2p/base/pseudo_tcp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:07:33Z",
+      "side": 1,
+      "message": "#include \u003cstring.h\u003e\n\n(for memcpy)",
+      "revId": "2a55ee8b1da6f97d08e73915795d256158c06ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f2c10a8_0cb764bf",
+        "filename": "p2p/base/pseudo_tcp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:07:33Z",
+      "side": 1,
+      "message": "Since this cannot fail, should we just replace this with void?",
+      "range": {
+        "startLine": 1304,
+        "startChar": 0,
+        "endLine": 1304,
+        "endChar": 4
+      },
+      "revId": "2a55ee8b1da6f97d08e73915795d256158c06ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "274f1dd2_e1ceb78e",
+        "filename": "p2p/base/pseudo_tcp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:07:33Z",
+      "side": 1,
+      "message": "Since we are here (and the LockedFifoBuffer is not an exact copy of FifoBuffer), should we remove these error args from Read and Write?",
+      "range": {
+        "startLine": 1348,
+        "startChar": 39,
+        "endLine": 1348,
+        "endChar": 49
+      },
+      "revId": "2a55ee8b1da6f97d08e73915795d256158c06ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e323676_a9315c8b",
+        "filename": "p2p/base/pseudo_tcp.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:07:33Z",
+      "side": 1,
+      "message": "See previous comment.",
+      "range": {
+        "startLine": 1367,
+        "startChar": 40,
+        "endLine": 1367,
+        "endChar": 50
+      },
+      "revId": "2a55ee8b1da6f97d08e73915795d256158c06ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904d9eb1_57e005e5",
+        "filename": "p2p/base/pseudo_tcp.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:07:33Z",
+      "side": 1,
+      "message": "Should we just remove this line?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "2a55ee8b1da6f97d08e73915795d256158c06ef7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

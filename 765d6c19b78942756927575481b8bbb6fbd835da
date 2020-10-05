@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86f36919_9400b422",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:37:50Z",
+      "side": 0,
+      "message": "Should this still be a DLOG?",
+      "range": {
+        "startLine": 903,
+        "startChar": 10,
+        "endLine": 903,
+        "endChar": 11
+      },
+      "revId": "765d6c19b78942756927575481b8bbb6fbd835da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

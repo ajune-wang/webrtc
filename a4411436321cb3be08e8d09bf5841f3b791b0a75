@@ -90,6 +90,30 @@
     },
     {
       "key": {
+        "uuid": "d343d60d_324274c5",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-05T11:42:21Z",
+      "side": 1,
+      "message": "if s1 was disabled for 10 minutes, there is a frame for spatial id1, but you shouldn\u0027t use it as a dependency.",
+      "parentUuid": "21c60160_94bde93d",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 59
+      },
+      "revId": "a4411436321cb3be08e8d09bf5841f3b791b0a75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73593dc0_66219608",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
         "patchSetId": 2

@@ -16,6 +16,23 @@
       "revId": "514178028719370785504491aa23f5290feaf44a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba5a4172_d85fc104",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-05T12:52:17Z",
+      "side": 1,
+      "message": "test/ lgtm\nWill have a closer look later but I don\u0027t want to block you :)",
+      "revId": "514178028719370785504491aa23f5290feaf44a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

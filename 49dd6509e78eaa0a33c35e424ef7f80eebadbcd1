@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfdef0ff_7b65293c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-05T20:26:19Z",
+      "side": 1,
+      "message": "Alright, I still have no idea what might be wrong.\n\nI have a guess, but correct me please if I say something not making sense.\n\nFrom one of the tests, it says:\n// (shared_x_display.cc:38): Unable to open display\n\nWhen I check the code in shared_x_display.cc, then I see this warning is printed right before a nullptr is returned and assigned to \"scoped_refptr\u003cSharedX1isplay\u003e x_display_\" in DesktopCaptureOptions. However this assignment is made to an uninitialized variable. When I check scoped_refptr code, there is mentioned:\n//     scoped_refptr\u003cMyFoo\u003e foo \u003d new MyFoo();\n//     ...\n//     foo \u003d nullptr;  // explicitly releases |foo|\n\nIs it possible that this assignment makes ASAN to complain? The failure of the tests saying \"Unable to open display\" is probably because of the test environment and it\u0027s definitely not related to my change. It\u0027s the ASAN failure that makes me unhappy.\n\n",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

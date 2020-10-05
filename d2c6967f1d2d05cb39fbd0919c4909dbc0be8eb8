@@ -16,6 +16,24 @@
       "revId": "d2c6967f1d2d05cb39fbd0919c4909dbc0be8eb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "415f42b7_b4db2aae",
+        "filename": "rtc_base/robo_caller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T15:46:52Z",
+      "side": 1,
+      "message": "I would say yes, it makes sense.",
+      "parentUuid": "e0a93155_7e08d1a7",
+      "revId": "d2c6967f1d2d05cb39fbd0919c4909dbc0be8eb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

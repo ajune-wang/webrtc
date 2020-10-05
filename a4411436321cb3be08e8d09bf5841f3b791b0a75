@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "21c60160_94bde93d",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-05T11:29:03Z",
+      "side": 1,
+      "message": "I still prefer |has_t0_frame_for_spatial_id_| but I don\u0027t feel strongly about it.",
+      "parentUuid": "bd274cf0_f6ebcce0",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 59
+      },
+      "revId": "a4411436321cb3be08e8d09bf5841f3b791b0a75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73593dc0_66219608",
         "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
         "patchSetId": 2
@@ -101,6 +125,30 @@
       "side": 1,
       "message": "First I need to implement 3 temporal layers (I left todo in the full_svc.h)",
       "parentUuid": "73593dc0_66219608",
+      "range": {
+        "startLine": 349,
+        "startChar": 25,
+        "endLine": 349,
+        "endChar": 31
+      },
+      "revId": "a4411436321cb3be08e8d09bf5841f3b791b0a75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9cde85c_125e58ee",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-05T11:29:03Z",
+      "side": 1,
+      "message": "Ah, ofc :)",
+      "parentUuid": "f9e6d6e3_9423dcf8",
       "range": {
         "startLine": 349,
         "startChar": 25,

@@ -499,6 +499,7 @@ struct VoiceReceiverInfo : public MediaReceiverInfo {
   uint64_t removed_samples_for_acceleration = 0;
   uint64_t fec_packets_received = 0;
   uint64_t fec_packets_discarded = 0;
+  uint64_t nack_packets_sent = 0;
   // Stats below DO NOT correspond directly to anything in the WebRTC stats
   // fraction of synthesized audio inserted through expansion.
   float expand_rate = 0.0f;

@@ -385,7 +385,7 @@ class RTC_EXPORT RTCRTPStreamStats : public RTCStats {
   RTCStatsMember<uint32_t> fir_count;
   RTCStatsMember<uint32_t> pli_count;
   // TODO(hbos): NACK count should be collected by |RTCStatsCollector| for both
-  // audio and video but is only defined in the "video" case. crbug.com/657856
+  // audio and video but is not implemented for outbound audio. crbug.com/657856
   RTCStatsMember<uint32_t> nack_count;
   // TODO(hbos): Not collected by |RTCStatsCollector|. crbug.com/657854
   // SLI count is only defined for |media_type == "video"|.

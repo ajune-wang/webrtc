@@ -16,6 +16,23 @@
       "revId": "92bdb04c45ff995a9fe39e4ff8dfbe77a391d0c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bd5f37c_3c6948fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T11:47:00Z",
+      "side": 1,
+      "message": "Aside form the comment on DLOG (which might contribute to the binary size in the opposite direction), this one LGTM.",
+      "revId": "92bdb04c45ff995a9fe39e4ff8dfbe77a391d0c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

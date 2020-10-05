@@ -2382,6 +2382,7 @@ bool WebRtcVoiceMediaChannel::GetStats(VoiceMediaInfo* info,
     rinfo.packets_rcvd = stats.packets_rcvd;
     rinfo.fec_packets_received = stats.fec_packets_received;
     rinfo.fec_packets_discarded = stats.fec_packets_discarded;
+    rinfo.nack_packets_sent = stats.nack_packets_sent;
     rinfo.packets_lost = stats.packets_lost;
     rinfo.codec_name = stats.codec_name;
     rinfo.codec_payload_type = stats.codec_payload_type;

@@ -78,7 +78,8 @@ AudioCodingModule::Config AcmConfig(
   return acm_config;
 }
 
-class ChannelReceive : public ChannelReceiveInterface {
+class ChannelReceive : public ChannelReceiveInterface,
+                       public RtcpPacketTypeCounterObserver {
  public:
   // Used for receive streams.
   ChannelReceive(
@@ -155,6 +156,11 @@ class ChannelReceive : public ChannelReceiveInterface {
 
   CallReceiveStatistics GetRTCPStatistics() const override;
   void SetNACKStatus(bool enable, int maxNumberOfPackets) override;
+
+  // Overrides RtcpPacketTypeCounterObserver.
+  void RtcpPacketTypesCounterUpdated(
+      uint32_t ssrc,
+      const RtcpPacketTypeCounter& packet_counter) override;
 
   AudioMixer::Source::AudioFrameInfo GetAudioFrameWithInfo(
       int sample_rate_hz,
@@ -279,6 +285,8 @@ class ChannelReceive : public ChannelReceiveInterface {
 
   rtc::scoped_refptr<ChannelReceiveFrameTransformerDelegate>
       frame_transformer_delegate_;
+
+  uint32_t nack_packets_;
 };
 
 void ChannelReceive::OnReceivedPayloadData(
@@ -302,6 +310,7 @@ void ChannelReceive::OnReceivedPayloadData(
 
   std::vector<uint16_t> nack_list = acm_receiver_.GetNackList(round_trip_time);
   if (!nack_list.empty()) {
+    RTC_LOG(LS_INFO) << "[NACK] GetNackList " << nack_list.size();
     // Can't use nack_list.data() since it's not supported by all
     // compilers.
     ResendPackets(&(nack_list[0]), static_cast<int>(nack_list.size()));
@@ -481,7 +490,8 @@ ChannelReceive::ChannelReceive(
       associated_send_channel_(nullptr),
       frame_decryptor_(frame_decryptor),
       crypto_options_(crypto_options),
-      absolute_capture_time_receiver_(clock) {
+      absolute_capture_time_receiver_(clock),
+      nack_packets_(0) {
   // TODO(nisse): Use _moduleProcessThreadPtr instead?
   module_process_thread_checker_.Detach();
 
@@ -502,6 +512,7 @@ ChannelReceive::ChannelReceive(
   configuration.receiver_only = true;
   configuration.outgoing_transport = rtcp_send_transport;
   configuration.receive_statistics = rtp_receive_statistics_.get();
+  configuration.rtcp_packet_type_counter_observer = this;
   configuration.event_log = event_log_;
   configuration.local_media_ssrc = local_ssrc;
 
@@ -721,6 +732,14 @@ void ChannelReceive::ResetReceiverCongestionControlObjects() {
   packet_router_ = nullptr;
 }
 
+void ChannelReceive::RtcpPacketTypesCounterUpdated(
+    uint32_t ssrc,
+    const RtcpPacketTypeCounter& packet_counter) {
+  if (ssrc != remote_ssrc_)
+    return;
+  nack_packets_ = packet_counter.nack_packets;
+}
+
 CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
   RTC_DCHECK(worker_thread_checker_.IsCurrent());
   // --- RtcpStatistics
@@ -757,6 +776,8 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
     stats.packetsReceived = 0;
     stats.last_packet_received_timestamp_ms = absl::nullopt;
   }
+
+  stats.nackPackets = nack_packets_;
 
   // --- Timestamps
   {

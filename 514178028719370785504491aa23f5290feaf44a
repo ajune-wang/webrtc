@@ -33,6 +33,23 @@
       "revId": "514178028719370785504491aa23f5290feaf44a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8aaea0cf_7401eb10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-05T13:20:37Z",
+      "side": 1,
+      "message": "Seems like sprang@ approval was not enough.\nHenrikm can you please take a look at test/fuzzer changes? You are an owner ",
+      "revId": "514178028719370785504491aa23f5290feaf44a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

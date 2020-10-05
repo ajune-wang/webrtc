@@ -422,15 +422,11 @@ int PseudoTcp::Recv(char* buffer, size_t len) {
   }
 
   size_t read = 0;
-  rtc::StreamResult result = m_rbuf.Read(buffer, len, &read, NULL);
-
-  // If there's no data in |m_rbuf|.
-  if (result == rtc::SR_BLOCK) {
+  if (!m_rbuf.Read(buffer, len, &read, NULL)) {
     m_bReadEnable = true;
     m_error = EWOULDBLOCK;
     return SOCKET_ERROR;
   }
-  RTC_DCHECK(result == rtc::SR_SUCCESS);
 
   size_t available_space = 0;
   m_rbuf.GetWriteRemaining(&available_space);
@@ -532,9 +528,9 @@ IPseudoTcpNotify::WriteResult PseudoTcp::packet(uint32_t seq,
 
   if (len) {
     size_t bytes_read = 0;
-    rtc::StreamResult result =
+    bool result =
         m_sbuf.ReadOffset(buffer.get() + HEADER_SIZE, len, offset, &bytes_read);
-    RTC_DCHECK(result == rtc::SR_SUCCESS);
+    RTC_DCHECK(result);
     RTC_DCHECK(static_cast<uint32_t>(bytes_read) == len);
   }
 
@@ -924,14 +920,10 @@ bool PseudoTcp::process(Segment& seg) {
     } else {
       uint32_t nOffset = seg.seq - m_rcv_nxt;
 
-      rtc::StreamResult result =
-          m_rbuf.WriteOffset(seg.data, seg.len, nOffset, NULL);
-      if (result == rtc::SR_BLOCK) {
+      if (!m_rbuf.WriteOffset(seg.data, seg.len, nOffset, NULL)) {
         // Ignore incoming packets outside of the receive window.
         return false;
       }
-
-      RTC_DCHECK(result == rtc::SR_SUCCESS);
 
       if (seg.seq == m_rcv_nxt) {
         m_rbuf.ConsumeWriteBuffer(seg.len);

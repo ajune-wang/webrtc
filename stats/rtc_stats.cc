@@ -22,6 +22,18 @@ namespace {
 
 // Produces "[a,b,c]". Works for non-vector |RTCStatsMemberInterface::Type|
 // types.
+std::string VectorToString(const std::vector<bool>& vector) {
+  rtc::StringBuilder sb;
+  sb << "[";
+  const char* separator = "";
+  for (bool element : vector) {
+    sb << separator << rtc::ToString(element);
+    separator = ",";
+  }
+  sb << "]";
+  return sb.Release();
+}
+
 template <typename T>
 std::string VectorToString(const std::vector<T>& vector) {
   rtc::StringBuilder sb;

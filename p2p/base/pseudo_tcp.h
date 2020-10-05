@@ -15,11 +15,178 @@
 #include <stdint.h>
 
 #include <list>
+#include <memory>
 
-#include "rtc_base/memory/fifo_buffer.h"
+// #include "rtc_base/memory/fifo_buffer.h"
+#include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace cricket {
+
+class LockedFifoBuffer final {
+ public:
+  explicit LockedFifoBuffer(size_t size)
+      : buffer_(new char[size]),
+        buffer_length_(size),
+        data_length_(0),
+        read_position_(0) {}
+
+  ~LockedFifoBuffer() {}
+
+  // Gets the amount of data currently readable from the buffer.
+  bool GetBuffered(size_t* data_len) const {
+    webrtc::MutexLock lock(&mutex_);
+    *data_len = data_length_;
+    return true;
+  }
+
+  // Resizes the buffer to the specified capacity. Fails if data_length_ > size
+  bool SetCapacity(size_t size) {
+    webrtc::MutexLock lock(&mutex_);
+    if (data_length_ > size)
+      return false;
+
+    if (size != buffer_length_) {
+      char* buffer = new char[size];
+      const size_t copy = data_length_;
+      const size_t tail_copy = std::min(copy, buffer_length_ - read_position_);
+      memcpy(buffer, &buffer_[read_position_], tail_copy);
+      memcpy(buffer + tail_copy, &buffer_[0], copy - tail_copy);
+      buffer_.reset(buffer);
+      read_position_ = 0;
+      buffer_length_ = size;
+    }
+
+    return true;
+  }
+
+  bool ReadOffset(void* buffer,
+                  size_t bytes,
+                  size_t offset,
+                  size_t* bytes_read) {
+    webrtc::MutexLock lock(&mutex_);
+    return ReadOffsetLocked(buffer, bytes, offset, bytes_read);
+  }
+
+  bool WriteOffset(const void* buffer,
+                   size_t bytes,
+                   size_t offset,
+                   size_t* bytes_written) {
+    webrtc::MutexLock lock(&mutex_);
+    return WriteOffsetLocked(buffer, bytes, offset, bytes_written);
+  }
+
+  bool Read(void* buffer, size_t bytes, size_t* bytes_read, int* error) {
+    webrtc::MutexLock lock(&mutex_);
+    size_t copy = 0;
+    if (!ReadOffsetLocked(buffer, bytes, 0, &copy))
+      return false;
+
+    // If read was successful then adjust the read position and number of
+    // bytes buffered.
+    read_position_ = (read_position_ + copy) % buffer_length_;
+    data_length_ -= copy;
+    if (bytes_read)
+      *bytes_read = copy;
+
+    return true;
+  }
+
+  bool Write(const void* buffer,
+             size_t bytes,
+             size_t* bytes_written,
+             int* error) {
+    webrtc::MutexLock lock(&mutex_);
+    size_t copy = 0;
+    if (!WriteOffsetLocked(buffer, bytes, 0, &copy))
+      return false;
+
+    // If write was successful then adjust the number of readable bytes.
+    data_length_ += copy;
+    if (bytes_written) {
+      *bytes_written = copy;
+    }
+
+    return true;
+  }
+
+  void ConsumeReadData(size_t size) {
+    webrtc::MutexLock lock(&mutex_);
+    RTC_DCHECK(size <= data_length_);
+    read_position_ = (read_position_ + size) % buffer_length_;
+    data_length_ -= size;
+  }
+
+  void ConsumeWriteBuffer(size_t size) {
+    webrtc::MutexLock lock(&mutex_);
+    RTC_DCHECK(size <= buffer_length_ - data_length_);
+    data_length_ += size;
+  }
+
+  // Return the number of Write()-able bytes remaining before end-of-stream.
+  // Returns false if not known.
+  bool GetWriteRemaining(size_t* size) const {
+    webrtc::MutexLock lock(&mutex_);
+    *size = buffer_length_ - data_length_;
+    return true;
+  }
+
+ private:
+  bool ReadOffsetLocked(void* buffer,
+                        size_t bytes,
+                        size_t offset,
+                        size_t* bytes_read)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_) {
+    if (offset >= data_length_)
+      return false;
+
+    const size_t available = data_length_ - offset;
+    const size_t read_position = (read_position_ + offset) % buffer_length_;
+    const size_t copy = std::min(bytes, available);
+    const size_t tail_copy = std::min(copy, buffer_length_ - read_position);
+    char* const p = static_cast<char*>(buffer);
+    memcpy(p, &buffer_[read_position], tail_copy);
+    memcpy(p + tail_copy, &buffer_[0], copy - tail_copy);
+
+    if (bytes_read)
+      *bytes_read = copy;
+
+    return true;
+  }
+
+  bool WriteOffsetLocked(const void* buffer,
+                         size_t bytes,
+                         size_t offset,
+                         size_t* bytes_written)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(mutex_) {
+    if (data_length_ + offset >= buffer_length_)
+      return false;
+
+    const size_t available = buffer_length_ - data_length_ - offset;
+    const size_t write_position =
+        (read_position_ + data_length_ + offset) % buffer_length_;
+    const size_t copy = std::min(bytes, available);
+    const size_t tail_copy = std::min(copy, buffer_length_ - write_position);
+    const char* const p = static_cast<const char*>(buffer);
+    memcpy(&buffer_[write_position], p, tail_copy);
+    memcpy(&buffer_[0], p + tail_copy, copy - tail_copy);
+
+    if (bytes_written)
+      *bytes_written = copy;
+
+    return true;
+  }
+
+  // the allocated buffer
+  std::unique_ptr<char[]> buffer_ RTC_GUARDED_BY(mutex_);
+  // size of the allocated buffer
+  size_t buffer_length_ RTC_GUARDED_BY(mutex_);
+  // amount of readable data in the buffer
+  size_t data_length_ RTC_GUARDED_BY(mutex_);
+  // offset to the readable data
+  size_t read_position_ RTC_GUARDED_BY(mutex_);
+  mutable webrtc::Mutex mutex_;
+};
 
 //////////////////////////////////////////////////////////////////////
 // IPseudoTcpNotify
@@ -211,13 +378,13 @@ class RTC_EXPORT PseudoTcp {
   RList m_rlist;
   uint32_t m_rbuf_len, m_rcv_nxt, m_rcv_wnd, m_lastrecv;
   uint8_t m_rwnd_scale;  // Window scale factor.
-  rtc::FifoBuffer m_rbuf;
+  LockedFifoBuffer m_rbuf;
 
   // Outgoing data
   SList m_slist;
   uint32_t m_sbuf_len, m_snd_nxt, m_snd_wnd, m_lastsend, m_snd_una;
   uint8_t m_swnd_scale;  // Window scale factor.
-  rtc::FifoBuffer m_sbuf;
+  LockedFifoBuffer m_sbuf;
 
   // Maximum segment size, estimated protocol level, largest segment sent
   uint32_t m_mss, m_msslevel, m_largest, m_mtu_advise;

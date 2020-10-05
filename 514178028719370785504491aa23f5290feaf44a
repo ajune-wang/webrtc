@@ -50,6 +50,23 @@
       "revId": "514178028719370785504491aa23f5290feaf44a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32a25699_ed518cef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2020-10-05T13:34:08Z",
+      "side": 1,
+      "message": "LGTM for test/fuzzers/rtp_packet_fuzzer.cc",
+      "revId": "514178028719370785504491aa23f5290feaf44a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

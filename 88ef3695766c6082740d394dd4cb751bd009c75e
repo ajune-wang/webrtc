@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "659bc0c3_6deaac1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-05T09:16:58Z",
+      "side": 1,
+      "message": "Not sure if we should update all our python code to be compliant with this in order to avoid confusion. WDYT?",
+      "revId": "88ef3695766c6082740d394dd4cb751bd009c75e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

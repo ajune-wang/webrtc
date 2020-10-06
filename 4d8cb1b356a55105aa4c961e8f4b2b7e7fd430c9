@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97031631_7d9adb73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-06T15:03:58Z",
+      "side": 1,
+      "message": "Not sure if the build target is the right place, do you have a preference?\nFor context, this CL caused the win_x86_msvc_rel bot (and _only_ that bot) to start flaking:\nhttps://webrtc-review.googlesource.com/c/src/+/186661\n\nThis change felt a bit large to be part of that though...",
+      "revId": "4d8cb1b356a55105aa4c961e8f4b2b7e7fd430c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

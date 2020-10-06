@@ -89,6 +89,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c99af7f_5f8a4109",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T17:54:56Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ed7b6fd7_8b32cb11",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38392033_b6dc0b36",
@@ -431,6 +449,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31315451_1731e448",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T17:54:56Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "61bc232a_c72bf87b",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d993f1ed_55863359",
@@ -480,6 +516,24 @@
       "side": 1,
       "message": "yup, I know. I\u0027d prefer to have it be const so that it\u0027s not possible to forget to initialize it (e.g. if someone adds a default ctor) and that the value never changes.\n\nBtw, can you change the ctor to use an initializer list?",
       "parentUuid": "2d6fdfe1_f3a10756",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26d24814_6251e255",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T17:54:56Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "7ab94bd4_b43723b1",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

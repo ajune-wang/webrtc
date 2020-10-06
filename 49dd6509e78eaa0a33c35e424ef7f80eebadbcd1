@@ -53,6 +53,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34304840_353ac682",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "That shouldn\u0027t be needed as you don\u0027t need to pass the ownership like you do with unique_ptr, or am I wrong? It\u0027s not used even above in set_x_display(), which also takes rtc::scoped_refptr.",
+      "parentUuid": "e414cd76_089fd287",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38392033_b6dc0b36",
@@ -66,6 +84,24 @@
       "writtenOn": "2020-10-06T14:50:04Z",
       "side": 1,
       "message": "if you just construct an instance of ConnectionData and delete it, will all of these be harmless?",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4210725_890eef0d",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 29
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "I think this would lead into leaks.",
+      "parentUuid": "38392033_b6dc0b36",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -141,6 +177,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa3ee1c3_e8f8a603",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "Can you guide me how this is supposed to be used? \n\nWill I need to use RefCountedObject in the definition of set_xdp_base() method? WIll users need to pass new rtc::RefCountedObject\u003cXdgDesktopPortalBase\u003e() instead?\n\nIt\u0027s a public method which can be used outside and I use it in Chromium for example.",
+      "parentUuid": "c37da553_4645145b",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "390768cf_4872c16d",
@@ -154,6 +208,30 @@
       "writtenOn": "2020-10-06T14:50:04Z",
       "side": 1,
       "message": "member variables should be below methods",
+      "range": {
+        "startLine": 83,
+        "startChar": 41,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5625d0b_d6c0cc91",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390768cf_4872c16d",
       "range": {
         "startLine": 83,
         "startChar": 41,
@@ -187,6 +265,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d533318_d89b5ea0",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb31fd9e_412cd68b",
+      "range": {
+        "startLine": 90,
+        "startChar": 14,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4494df30_817169cc",
@@ -200,6 +302,24 @@
       "writtenOn": "2020-10-06T14:50:04Z",
       "side": 1,
       "message": "const",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0816cc9_e50bee0e",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4494df30_817169cc",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -221,6 +341,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28c01c7_c889e437",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "Well, this all is already a class because of that.",
+      "parentUuid": "077791f5_1ab46d1d",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d993f1ed_55863359",
@@ -238,6 +376,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d6fdfe1_f3a10756",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "The id_ is initialized in the constructor:\nConnectionData::ConnectionData(int32_t id) {\n  id_ \u003d id;\n}",
+      "parentUuid": "d993f1ed_55863359",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58ef26b4_1bc4ad9f",
@@ -251,6 +407,24 @@
       "writtenOn": "2020-10-06T14:50:04Z",
       "side": 1,
       "message": "skip \u003d {}",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa9bf73a_f75a7c17",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T16:11:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58ef26b4_1bc4ad9f",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ca62823_e9a12be2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-10-06T13:03:18Z",
+      "side": 1,
+      "message": "PTAL Stefan for common_video/ and Peter for sdk/objc",
+      "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

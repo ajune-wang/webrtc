@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed7b6fd7_8b32cb11",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T17:02:27Z",
+      "side": 1,
+      "message": "std::move here, would represent transfering ownership of a currently held reference.\nThe difference is an additional set of AddRef/Release operations.",
+      "parentUuid": "34304840_353ac682",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38392033_b6dc0b36",
@@ -209,6 +227,24 @@
       "side": 1,
       "message": "Can you guide me how this is supposed to be used? \n\nWill I need to use RefCountedObject in the definition of set_xdp_base() method? WIll users need to pass new rtc::RefCountedObject\u003cXdgDesktopPortalBase\u003e() instead?\n\nIt\u0027s a public method which can be used outside and I use it in Chromium for example.",
       "parentUuid": "c37da553_4645145b",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7dc3a19_239e445d",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T17:02:27Z",
+      "side": 1,
+      "message": "oh, sorry, nevermind this. I was mentally thinking that there was a common ref counted interface that XdgDesktopPortalBase and SharedXDisplay were implementing.\nLooking a bit closer I see that\u0027s not the case. What you have is fine.",
+      "parentUuid": "fa3ee1c3_e8f8a603",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -377,6 +413,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61bc232a_c72bf87b",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T17:02:27Z",
+      "side": 1,
+      "message": "The convention is for class to default to having member variables be private, whereas if they\u0027re by default public (which appears to be the case here), we use struct.",
+      "parentUuid": "e28c01c7_c889e437",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d993f1ed_55863359",
@@ -408,6 +462,24 @@
       "side": 1,
       "message": "The id_ is initialized in the constructor:\nConnectionData::ConnectionData(int32_t id) {\n  id_ \u003d id;\n}",
       "parentUuid": "d993f1ed_55863359",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab94bd4_b43723b1",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T17:02:27Z",
+      "side": 1,
+      "message": "yup, I know. I\u0027d prefer to have it be const so that it\u0027s not possible to forget to initialize it (e.g. if someone adds a default ctor) and that the value never changes.\n\nBtw, can you change the ctor to use an initializer list?",
+      "parentUuid": "2d6fdfe1_f3a10756",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

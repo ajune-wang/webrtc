@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1890f29f_2e8cf3e4",
+        "filename": "sdk/objc/components/video_frame_buffer/RTCCVPixelBuffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2020-10-06T14:12:16Z",
+      "side": 1,
+      "message": "Could we remove this as well or do we anticipate other pixel formats that would require the tmp buffer? To avoid breaking can we add the signature without tmpBuffer to the API and mark this as deprecated?",
+      "range": {
+        "startLine": 124,
+        "startChar": 8,
+        "endLine": 124,
+        "endChar": 51
+      },
+      "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d281b02e_4dd5150f",
+        "filename": "sdk/objc/components/video_frame_buffer/RTCCVPixelBuffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2020-10-06T14:12:16Z",
+      "side": 1,
+      "message": "This can be removed.",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 9
+      },
+      "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "28d18d9d_cf7ecdad",
         "filename": "sdk/objc/components/video_frame_buffer/RTCCVPixelBuffer.mm",
         "patchSetId": 1

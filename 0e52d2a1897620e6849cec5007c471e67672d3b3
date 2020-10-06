@@ -39,6 +39,30 @@
       "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d0a6d2c_6d44130d",
+        "filename": "sdk/objc/components/video_frame_buffer/RTCCVPixelBuffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-10-06T13:33:51Z",
+      "side": 1,
+      "message": "kFilterBox is not yet supported by UV scale. I can set this to kFilterBox which will switch to Bilinear right now by default.",
+      "parentUuid": "28d18d9d_cf7ecdad",
+      "range": {
+        "startLine": 305,
+        "startChar": 28,
+        "endLine": 305,
+        "endChar": 43
+      },
+      "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

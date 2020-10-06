@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "0ca62823_e9a12be2",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "PTAL Stefan for common_video/ and Peter for sdk/objc",
       "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "28d18d9d_cf7ecdad",
         "filename": "sdk/objc/components/video_frame_buffer/RTCCVPixelBuffer.mm",
@@ -37,10 +38,10 @@
         "endChar": 43
       },
       "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0d0a6d2c_6d44130d",
         "filename": "sdk/objc/components/video_frame_buffer/RTCCVPixelBuffer.mm",
@@ -61,8 +62,31 @@
         "endChar": 43
       },
       "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6d47a95_8aa5df48",
+        "filename": "sdk/objc/components/video_frame_buffer/RTCCVPixelBuffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-10-06T13:51:32Z",
+      "side": 1,
+      "message": "Could this be why the test is failing, because the PSNR has changed from \"perfect\" to slightly less? \n\nIf that is the case, how critical is Box versus Bilinear? I just tested in video_loopback with simulcast downscaling and couldn\u0027t notice a difference.",
+      "parentUuid": "0d0a6d2c_6d44130d",
+      "range": {
+        "startLine": 305,
+        "startChar": 28,
+        "endLine": 305,
+        "endChar": 43
+      },
+      "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

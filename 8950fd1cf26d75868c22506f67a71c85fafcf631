@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "946f8ebc_72ed90ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-06T12:34:31Z",
+      "side": 1,
+      "message": "Ufff, this was pain in the ass. I built the tests locally with ASAN and spent hours of debugging and investigating what is wrong. Then I just randomly removed the scoped_refptr variable causing ASAN to complain out of the PIPEWIRE define and it suddenty passed the tests.\n\nThis was because the tests were built without WEBRTC_USE_PIPEWIRE define, while WebRTC itself used it. I think the tests links against WebRTC, but they used the headers with different defines and this was most likely the issue.",
+      "revId": "8950fd1cf26d75868c22506f67a71c85fafcf631",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

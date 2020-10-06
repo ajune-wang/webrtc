@@ -23,6 +23,7 @@
 #include "api/scoped_refptr.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_frame_buffer.h"
+#include "rtc_base/deprecation.h"
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
@@ -107,19 +108,20 @@ double I420SSIM(const I420BufferInterface& ref_buffer,
 // then |tmp_buffer| is not used. In other cases, the minimum size of
 // |tmp_buffer| should be:
 //   (src_width/2) * (src_height/2) * 2 + (dst_width/2) * (dst_height/2) * 2
-void NV12Scale(uint8_t* tmp_buffer,
-               const uint8_t* src_y,
-               int src_stride_y,
-               const uint8_t* src_uv,
-               int src_stride_uv,
-               int src_width,
-               int src_height,
-               uint8_t* dst_y,
-               int dst_stride_y,
-               uint8_t* dst_uv,
-               int dst_stride_uv,
-               int dst_width,
-               int dst_height);
+//  Deprecated: Use libyuv::NV12Scale instead.
+RTC_DEPRECATED void NV12Scale(uint8_t*,
+                              const uint8_t* src_y,
+                              int src_stride_y,
+                              const uint8_t* src_uv,
+                              int src_stride_uv,
+                              int src_width,
+                              int src_height,
+                              uint8_t* dst_y,
+                              int dst_stride_y,
+                              uint8_t* dst_uv,
+                              int dst_stride_uv,
+                              int dst_width,
+                              int dst_height);
 
 // Helper class for directly converting and scaling NV12 to I420. The Y-plane
 // will be scaled directly to the I420 destination, which makes this faster

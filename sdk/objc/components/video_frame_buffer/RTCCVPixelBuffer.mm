@@ -136,7 +136,7 @@
         if ([self requiresScalingToWidth:dstWidth height:dstHeight]) {
           RTC_DCHECK(tmpBuffer);
         }
-        [self cropAndScaleNV12To:outputPixelBuffer withTempBuffer:tmpBuffer];
+        [self cropAndScaleNV12To:outputPixelBuffer];
       }
       break;
     }
@@ -264,7 +264,7 @@
 
 #pragma mark - Private
 
-- (void)cropAndScaleNV12To:(CVPixelBufferRef)outputPixelBuffer withTempBuffer:(uint8_t*)tmpBuffer {
+- (void)cropAndScaleNV12To:(CVPixelBufferRef)outputPixelBuffer {
   // Prepare output pointers.
   CVReturn cvRet = CVPixelBufferLockBaseAddress(outputPixelBuffer, 0);
   if (cvRet != kCVReturnSuccess) {
@@ -290,8 +290,7 @@
   srcY += srcYStride * _cropY + _cropX;
   srcUV += srcUVStride * (_cropY / 2) + _cropX;
 
-  webrtc::NV12Scale(tmpBuffer,
-                    srcY,
+  libyuv::NV12Scale(srcY,
                     srcYStride,
                     srcUV,
                     srcUVStride,
@@ -302,7 +301,8 @@
                     dstUV,
                     dstUVStride,
                     dstWidth,
-                    dstHeight);
+                    dstHeight,
+                    libyuv::kFilterBilinear);
 
   CVPixelBufferUnlockBaseAddress(_pixelBuffer, kCVPixelBufferLock_ReadOnly);
   CVPixelBufferUnlockBaseAddress(outputPixelBuffer, 0);

@@ -16,6 +16,29 @@
       "message": "Not sure if the build target is the right place, do you have a preference?\nFor context, this CL caused the win_x86_msvc_rel bot (and _only_ that bot) to start flaking:\nhttps://webrtc-review.googlesource.com/c/src/+/186661\n\nThis change felt a bit large to be part of that though...",
       "revId": "4d8cb1b356a55105aa4c961e8f4b2b7e7fd430c9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c0b9b8_ec853fef",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-06T15:07:43Z",
+      "side": 1,
+      "message": "FYI, this method only disables the RTP modules. Need the code below too, otherwise video encoder config isn\u0027t updated with correct active-flags, and bandwidth allocation also needs that.",
+      "range": {
+        "startLine": 482,
+        "startChar": 20,
+        "endLine": 482,
+        "endChar": 47
+      },
+      "revId": "4d8cb1b356a55105aa4c961e8f4b2b7e7fd430c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "44becc5b_2166b72f",
         "filename": "/PATCHSET_LEVEL",
@@ -14,8 +15,24 @@
       "side": 1,
       "message": "Breaking up isn\u0027t so hard to do once you get in the flow....\n",
       "revId": "be26042bef4845c675ea2a4388134cd0fdd28386",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4203fa7b_a4125174",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-06T15:29:43Z",
+      "side": 1,
+      "message": "LGTM % backwards compatibility for downstream clients (as discussed on chat).",
+      "revId": "be26042bef4845c675ea2a4388134cd0fdd28386",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -23,6 +23,8 @@
 #include "test/field_trial.h"
 #include "test/gtest.h"
 
+# foooooo
+# baaaar
 namespace cricket {
 namespace {
 const int kWidth = 1280;

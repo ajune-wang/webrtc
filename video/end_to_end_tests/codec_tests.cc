@@ -140,7 +140,7 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesVP8Rotation90) {
 #if defined(RTC_ENABLE_VP9)
 TEST_F(CodecEndToEndTest, SendsAndReceivesVP9) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
   test::FunctionVideoDecoderFactory decoder_factory(
       []() { return VP9Decoder::Create(); });
   CodecObserver test(500, kVideoRotation_0, absl::nullopt, "VP9",
@@ -150,7 +150,7 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesVP9) {
 
 TEST_F(CodecEndToEndTest, SendsAndReceivesVP9VideoRotation90) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
   test::FunctionVideoDecoderFactory decoder_factory(
       []() { return VP9Decoder::Create(); });
   CodecObserver test(5, kVideoRotation_90, absl::nullopt, "VP9",
@@ -160,7 +160,7 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesVP9VideoRotation90) {
 
 TEST_F(CodecEndToEndTest, SendsAndReceivesVP9ExplicitColorSpace) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
   test::FunctionVideoDecoderFactory decoder_factory(
       []() { return VP9Decoder::Create(); });
   CodecObserver test(5, kVideoRotation_90,
@@ -172,7 +172,7 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesVP9ExplicitColorSpace) {
 TEST_F(CodecEndToEndTest,
        SendsAndReceivesVP9ExplicitColorSpaceWithHdrMetadata) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
   test::FunctionVideoDecoderFactory decoder_factory(
       []() { return VP9Decoder::Create(); });
   CodecObserver test(5, kVideoRotation_90,

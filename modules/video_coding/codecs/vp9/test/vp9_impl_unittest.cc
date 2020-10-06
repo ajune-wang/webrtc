@@ -10,6 +10,7 @@
 
 #include "api/test/create_frame_generator.h"
 #include "api/test/frame_generator_interface.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/video/color_space.h"
 #include "api/video/i420_buffer.h"
 #include "api/video_codecs/video_encoder.h"
@@ -58,7 +59,7 @@ VideoCodec DefaultCodecSettings() {
 class TestVp9Impl : public VideoCodecUnitTest {
  protected:
   std::unique_ptr<VideoEncoder> CreateEncoder() override {
-    return VP9Encoder::Create();
+    return CreateVp9Encoder({}, FieldTrialBasedConfig());
   }
 
   std::unique_ptr<VideoDecoder> CreateDecoder() override {
@@ -188,7 +189,8 @@ TEST_F(TestVp9Impl, SwitchInputPixelFormatsWithoutReconfigure) {
 }
 
 TEST(Vp9ImplTest, ParserQpEqualsEncodedQp) {
-  std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
+  std::unique_ptr<VideoEncoder> encoder =
+      CreateVp9Encoder({}, FieldTrialBasedConfig());
   VideoCodec codec_settings = DefaultCodecSettings();
   encoder->InitEncode(&codec_settings, kSettings);
 
@@ -205,7 +207,8 @@ TEST(Vp9ImplTest, ParserQpEqualsEncodedQp) {
 }
 
 TEST(Vp9ImplTest, EncoderWith2TemporalLayers) {
-  std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
+  std::unique_ptr<VideoEncoder> encoder =
+      CreateVp9Encoder({}, FieldTrialBasedConfig());
   VideoCodec codec_settings = DefaultCodecSettings();
   codec_settings.VP9()->numberOfTemporalLayers = 2;
   // Tl0PidIdx is only used in non-flexible mode.
@@ -227,7 +230,8 @@ TEST(Vp9ImplTest, EncoderWith2TemporalLayers) {
 }
 
 TEST(Vp9ImplTest, EncoderWith2SpatialLayers) {
-  std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
+  std::unique_ptr<VideoEncoder> encoder =
+      CreateVp9Encoder({}, FieldTrialBasedConfig());
   VideoCodec codec_settings = DefaultCodecSettings();
   codec_settings.VP9()->numberOfSpatialLayers = 2;
   EXPECT_EQ(encoder->InitEncode(&codec_settings, kSettings),
@@ -1445,7 +1449,8 @@ TEST_P(Vp9ImplWithLayeringTest, FlexibleMode) {
   // encoder and writes it into RTP payload descriptor. Check that reference
   // list in payload descriptor matches the predefined one, which is used
   // in non-flexible mode.
-  std::unique_ptr<VideoEncoder> encoder = VP9Encoder::Create();
+  std::unique_ptr<VideoEncoder> encoder =
+      CreateVp9Encoder({}, FieldTrialBasedConfig());
   VideoCodec codec_settings = DefaultCodecSettings();
   codec_settings.VP9()->flexibleMode = true;
   codec_settings.VP9()->frameDroppingOn = false;
@@ -1637,7 +1642,7 @@ class TestVp9ImplProfile2 : public TestVp9Impl {
     cricket::VideoCodec profile2_codec;
     profile2_codec.SetParam(kVP9FmtpProfileId,
                             VP9ProfileToString(VP9Profile::kProfile2));
-    return VP9Encoder::Create(profile2_codec);
+    return CreateVp9Encoder(profile2_codec, FieldTrialBasedConfig());
   }
 
   std::unique_ptr<VideoDecoder> CreateDecoder() override {

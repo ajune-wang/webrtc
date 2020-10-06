@@ -13,6 +13,7 @@
 #include <string>
 
 #include "absl/strings/match.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "media/base/codec.h"
 #include "media/base/media_constants.h"
@@ -46,7 +47,8 @@ std::unique_ptr<VideoEncoder> InternalEncoderFactory::CreateVideoEncoder(
   if (absl::EqualsIgnoreCase(format.name, cricket::kVp8CodecName))
     return VP8Encoder::Create();
   if (absl::EqualsIgnoreCase(format.name, cricket::kVp9CodecName))
-    return VP9Encoder::Create(cricket::VideoCodec(format));
+    return CreateVp9Encoder(cricket::VideoCodec(format),
+                            FieldTrialBasedConfig());
   if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName))
     return H264Encoder::Create(cricket::VideoCodec(format));
   if (kIsLibaomAv1EncoderSupported &&

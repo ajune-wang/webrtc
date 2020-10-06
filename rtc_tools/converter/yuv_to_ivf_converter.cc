@@ -19,6 +19,7 @@
 #include "api/task_queue/default_task_queue_factory.h"
 #include "api/test/create_frame_generator.h"
 #include "api/test/frame_generator_interface.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_codec_type.h"
 #include "api/video_codecs/video_codec.h"
@@ -269,7 +270,8 @@ int main(int argc, char* argv[]) {
   if (absl::EqualsIgnoreCase(codec_name, cricket::kVp9CodecName)) {
     webrtc::test::WriteVideoFile(
         input_file_name, width, height, output_file_name,
-        webrtc::VideoCodecType::kVideoCodecVP9, webrtc::VP9Encoder::Create());
+        webrtc::VideoCodecType::kVideoCodecVP9,
+        webrtc::CreateVp9Encoder({}, webrtc::FieldTrialBasedConfig()));
     return 0;
   }
 #if defined(WEBRTC_USE_H264)

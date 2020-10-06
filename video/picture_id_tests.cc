@@ -417,7 +417,7 @@ TEST_P(PictureIdTest, ContinuousAfterStreamCountChangeSimulcastEncoderAdapter) {
 
 TEST_P(PictureIdTest, IncreasingAfterRecreateStreamVp9) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
   SetupEncoder(&encoder_factory, "VP9");
   TestPictureIdIncreaseAfterRecreateStreams({1, 1});
 }

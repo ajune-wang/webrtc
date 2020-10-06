@@ -16,6 +16,7 @@
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "test/call_test.h"
+#include "test/explicit_key_value_config.h"
 #include "test/field_trial.h"
 #include "test/frame_generator_capturer.h"
 
@@ -233,8 +234,8 @@ TEST_F(QualityScalingTest, NoAdaptDownForLowStartBitrateWithScalingOff) {
 
 TEST_F(QualityScalingTest, NoAdaptDownForHighQp_Vp9) {
   // VP9 QP thresholds, low:1, high:1 -> high QP.
-  test::ScopedFieldTrials field_trials(kPrefix + "0,0,1,1,0,0" + kEnd +
-                                       "WebRTC-VP9QualityScaler/Disabled/");
+  test::ExplicitKeyValueConfig field_trials(
+      kPrefix + "0,0,1,1,0,0" + kEnd + "WebRTC-VP9QualityScaler/Disabled/");
 
   // QualityScaler always disabled.
   const bool kAutomaticResize = true;
@@ -242,7 +243,7 @@ TEST_F(QualityScalingTest, NoAdaptDownForHighQp_Vp9) {
   const bool kExpectAdapt = false;
 
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      [&] { return CreateVp9Encoder({}, field_trials); });
   RunTest(&encoder_factory, "VP9", kHighStartBps, kAutomaticResize,
           kFrameDropping, kExpectAdapt);
 }

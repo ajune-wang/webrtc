@@ -19,6 +19,7 @@
 #include "api/scoped_refptr.h"
 #include "api/test/mock_video_decoder_factory.h"
 #include "api/test/mock_video_encoder_factory.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_frame_buffer.h"
@@ -190,7 +191,8 @@ class TestMultiplexAdapter : public VideoCodecUnitTest,
     EXPECT_CALL(*encoder_factory_, Die);
     EXPECT_CALL(*encoder_factory_, CreateVideoEncoder)
         .Times(2)
-        .WillRepeatedly([] { return VP9Encoder::Create(); });
+        .WillRepeatedly(
+            [] { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
 
     VideoCodecUnitTest::SetUp();
   }

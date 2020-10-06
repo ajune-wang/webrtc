@@ -218,7 +218,8 @@ void MultiCodecReceiveTest::RunTestWithCodecs(
           return VP8Encoder::Create();
         }
         if (format.name == "VP9") {
-          return VP9Encoder::Create();
+          return CreateVp9Encoder(cricket::VideoCodec("VP9"),
+                                  FieldTrialBasedConfig());
         }
         if (format.name == "H264") {
           return H264Encoder::Create(cricket::VideoCodec("H264"));

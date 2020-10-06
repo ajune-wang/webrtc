@@ -15,9 +15,11 @@
 #include <memory>
 #include <vector>
 
+#include "api/transport/webrtc_key_value_config.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "media/base/codec.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -29,15 +31,19 @@ std::vector<SdpVideoFormat> SupportedVP9Codecs();
 // preference. These will be availble for receive-only connections.
 std::vector<SdpVideoFormat> SupportedVP9DecoderCodecs();
 
-class VP9Encoder : public VideoEncoder {
- public:
+// Parses VP9 Profile from |codec|, configures experimental features of
+// the encoder from |trials| and returns the approriate implementation.
+std::unique_ptr<VideoEncoder> CreateVp9Encoder(
+    const cricket::VideoCodec& codec,
+    const WebRtcKeyValueConfig& trials);
+
+// Use CreateVp9Encoder factory directly.
+struct RTC_DEPRECATED VP9Encoder {
   // Deprecated. Returns default implementation using VP9 Profile 0.
   // TODO(emircan): Remove once this is no longer used.
-  static std::unique_ptr<VP9Encoder> Create();
+  static std::unique_ptr<VideoEncoder> Create();
   // Parses VP9 Profile from |codec| and returns the appropriate implementation.
-  static std::unique_ptr<VP9Encoder> Create(const cricket::VideoCodec& codec);
-
-  ~VP9Encoder() override {}
+  static std::unique_ptr<VideoEncoder> Create(const cricket::VideoCodec& codec);
 };
 
 class VP9Decoder : public VideoDecoder {

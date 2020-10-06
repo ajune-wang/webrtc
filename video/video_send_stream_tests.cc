@@ -697,7 +697,7 @@ TEST_F(VideoSendStreamTest, DoesUtilizeUlpfecForVp8WithNackEnabled) {
 #if defined(RTC_ENABLE_VP9)
 TEST_F(VideoSendStreamTest, DoesUtilizeUlpfecForVp9WithNackEnabled) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
   UlpfecObserver test(false, true, true, true, "VP9", &encoder_factory);
   RunBaseTest(&test);
 }
@@ -871,14 +871,14 @@ TEST_F(VideoSendStreamTest, SupportsFlexfecWithRtpExtensionsVp8) {
 #if defined(RTC_ENABLE_VP9)
 TEST_F(VideoSendStreamTest, SupportsFlexfecVp9) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
   FlexfecObserver test(false, false, "VP9", &encoder_factory, 1);
   RunBaseTest(&test);
 }
 
 TEST_F(VideoSendStreamTest, SupportsFlexfecWithNackVp9) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
   FlexfecObserver test(false, true, "VP9", &encoder_factory, 1);
   RunBaseTest(&test);
 }
@@ -3221,7 +3221,8 @@ class Vp9HeaderObserver : public test::SendTest {
  public:
   Vp9HeaderObserver()
       : SendTest(VideoSendStreamTest::kLongTimeoutMs),
-        encoder_factory_([]() { return VP9Encoder::Create(); }),
+        encoder_factory_(
+            []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); }),
         vp9_settings_(VideoEncoder::GetDefaultVp9Settings()),
         packets_sent_(0),
         frames_sent_(0),

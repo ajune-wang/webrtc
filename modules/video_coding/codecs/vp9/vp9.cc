@@ -12,6 +12,7 @@
 
 #include <memory>
 
+#include "api/transport/field_trial_based_config.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "modules/video_coding/codecs/vp9/vp9_impl.h"
 #include "rtc_base/checks.h"
@@ -61,26 +62,23 @@ std::vector<SdpVideoFormat> SupportedVP9DecoderCodecs() {
 #endif
 }
 
-std::unique_ptr<VP9Encoder> VP9Encoder::Create() {
+std::unique_ptr<VideoEncoder> CreateVp9Encoder(
+    const cricket::VideoCodec& codec,
+    const WebRtcKeyValueConfig& trials) {
 #ifdef RTC_ENABLE_VP9
-  return std::make_unique<VP9EncoderImpl>(cricket::VideoCodec());
+  return std::make_unique<VP9EncoderImpl>(codec, trials);
 #else
   RTC_NOTREACHED();
   return nullptr;
 #endif
 }
 
-std::unique_ptr<VP9Encoder> VP9Encoder::Create(
+std::unique_ptr<VideoEncoder> CreateVp9Encoder(
     const cricket::VideoCodec& codec) {
-#ifdef RTC_ENABLE_VP9
-  return std::make_unique<VP9EncoderImpl>(codec);
-#else
-  RTC_NOTREACHED();
-  return nullptr;
-#endif
+  return CreateVp9Encoder(codec, FieldTrialBasedConfig());
 }
 
-std::unique_ptr<VP9Decoder> VP9Decoder::Create() {
+std::unique_ptr<VideoDecoder> CreateVp9Decoder() {
 #ifdef RTC_ENABLE_VP9
   return std::make_unique<VP9DecoderImpl>();
 #else

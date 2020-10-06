@@ -222,9 +222,6 @@ void VP9EncoderImpl::EncoderOutputCodedPacketCallback(vpx_codec_cx_pkt* pkt,
   enc->GetEncodedLayerFrame(pkt);
 }
 
-VP9EncoderImpl::VP9EncoderImpl(const cricket::VideoCodec& codec)
-    : VP9EncoderImpl(codec, FieldTrialBasedConfig()) {}
-
 VP9EncoderImpl::VP9EncoderImpl(const cricket::VideoCodec& codec,
                                const WebRtcKeyValueConfig& trials)
     : encoded_image_(),

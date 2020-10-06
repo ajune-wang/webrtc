@@ -137,7 +137,7 @@ std::unique_ptr<VideoDecoder> IvfVideoFrameGenerator::CreateVideoDecoder(
     return VP8Decoder::Create();
   }
   if (codec_type == VideoCodecType::kVideoCodecVP9) {
-    return VP9Decoder::Create();
+    return CreateVp9Decoder();
   }
   if (codec_type == VideoCodecType::kVideoCodecH264) {
     return H264Decoder::Create();

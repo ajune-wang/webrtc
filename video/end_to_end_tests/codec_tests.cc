@@ -140,9 +140,8 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesVP8Rotation90) {
 #if defined(RTC_ENABLE_VP9)
 TEST_F(CodecEndToEndTest, SendsAndReceivesVP9) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
-  test::FunctionVideoDecoderFactory decoder_factory(
-      []() { return VP9Decoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
+  test::FunctionVideoDecoderFactory decoder_factory(CreateVp9Decoder);
   CodecObserver test(500, kVideoRotation_0, absl::nullopt, "VP9",
                      &encoder_factory, &decoder_factory);
   RunBaseTest(&test);
@@ -150,9 +149,8 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesVP9) {
 
 TEST_F(CodecEndToEndTest, SendsAndReceivesVP9VideoRotation90) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
-  test::FunctionVideoDecoderFactory decoder_factory(
-      []() { return VP9Decoder::Create(); });
+      []() { return CreateVp9Encoder({}); });
+  test::FunctionVideoDecoderFactory decoder_factory(CreateVp9Decoder);
   CodecObserver test(5, kVideoRotation_90, absl::nullopt, "VP9",
                      &encoder_factory, &decoder_factory);
   RunBaseTest(&test);
@@ -160,9 +158,8 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesVP9VideoRotation90) {
 
 TEST_F(CodecEndToEndTest, SendsAndReceivesVP9ExplicitColorSpace) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
-  test::FunctionVideoDecoderFactory decoder_factory(
-      []() { return VP9Decoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
+  test::FunctionVideoDecoderFactory decoder_factory(CreateVp9Decoder);
   CodecObserver test(5, kVideoRotation_90,
                      CreateTestColorSpace(/*with_hdr_metadata=*/false), "VP9",
                      &encoder_factory, &decoder_factory);
@@ -172,9 +169,8 @@ TEST_F(CodecEndToEndTest, SendsAndReceivesVP9ExplicitColorSpace) {
 TEST_F(CodecEndToEndTest,
        SendsAndReceivesVP9ExplicitColorSpaceWithHdrMetadata) {
   test::FunctionVideoEncoderFactory encoder_factory(
-      []() { return VP9Encoder::Create(); });
-  test::FunctionVideoDecoderFactory decoder_factory(
-      []() { return VP9Decoder::Create(); });
+      []() { return CreateVp9Encoder({}, FieldTrialBasedConfig()); });
+  test::FunctionVideoDecoderFactory decoder_factory(CreateVp9Decoder);
   CodecObserver test(5, kVideoRotation_90,
                      CreateTestColorSpace(/*with_hdr_metadata=*/true), "VP9",
                      &encoder_factory, &decoder_factory);

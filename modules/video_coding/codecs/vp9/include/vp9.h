@@ -15,9 +15,11 @@
 #include <memory>
 #include <vector>
 
+#include "api/transport/webrtc_key_value_config.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "media/base/codec.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "rtc_base/deprecation.h"
 
 namespace webrtc {
 
@@ -29,23 +31,34 @@ std::vector<SdpVideoFormat> SupportedVP9Codecs();
 // preference. These will be availble for receive-only connections.
 std::vector<SdpVideoFormat> SupportedVP9DecoderCodecs();
 
-class VP9Encoder : public VideoEncoder {
- public:
-  // Deprecated. Returns default implementation using VP9 Profile 0.
-  // TODO(emircan): Remove once this is no longer used.
-  static std::unique_ptr<VP9Encoder> Create();
-  // Parses VP9 Profile from |codec| and returns the appropriate implementation.
-  static std::unique_ptr<VP9Encoder> Create(const cricket::VideoCodec& codec);
+// Parses VP9 Profile from |codec|, configures experimental features of
+// the encoder from |trials| and returns the approriate implementation.
+std::unique_ptr<VideoEncoder> CreateVp9Encoder(
+    const cricket::VideoCodec& codec);
+std::unique_ptr<VideoEncoder> CreateVp9Encoder(
+    const cricket::VideoCodec& codec,
+    const WebRtcKeyValueConfig& trials);
 
-  ~VP9Encoder() override {}
-};
+namespace VP9Encoder {
+// Returns default implementation using VP9 Profile 0.
+// TODO(emircan): Remove once this is no longer used.
+inline RTC_DEPRECATED std::unique_ptr<VideoEncoder> Create() {
+  return CreateVp9Encoder({});
+}
+// Parses VP9 Profile from |codec| and returns the appropriate implementation.
+inline RTC_DEPRECATED std::unique_ptr<VideoEncoder> Create(
+    const cricket::VideoCodec& codec) {
+  return CreateVp9Encoder(codec);
+}
+}  // namespace VP9Encoder
 
-class VP9Decoder : public VideoDecoder {
- public:
-  static std::unique_ptr<VP9Decoder> Create();
+std::unique_ptr<VideoDecoder> CreateVp9Decoder();
 
-  ~VP9Decoder() override {}
-};
+namespace VP9Decoder {
+inline RTC_DEPRECATED std::unique_ptr<VideoDecoder> Create() {
+  return CreateVp9Decoder();
+}
+}  // namespace VP9Decoder
 }  // namespace webrtc
 
 #endif  // MODULES_VIDEO_CODING_CODECS_VP9_INCLUDE_VP9_H_

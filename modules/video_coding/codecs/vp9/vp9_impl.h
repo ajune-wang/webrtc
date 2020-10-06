@@ -33,9 +33,8 @@
 
 namespace webrtc {
 
-class VP9EncoderImpl : public VP9Encoder {
+class VP9EncoderImpl : public VideoEncoder {
  public:
-  explicit VP9EncoderImpl(const cricket::VideoCodec& codec);
   VP9EncoderImpl(const cricket::VideoCodec& codec,
                  const WebRtcKeyValueConfig& trials);
 
@@ -202,7 +201,7 @@ class VP9EncoderImpl : public VP9Encoder {
   bool config_changed_;
 };
 
-class VP9DecoderImpl : public VP9Decoder {
+class VP9DecoderImpl : public VideoDecoder {
  public:
   VP9DecoderImpl();
   explicit VP9DecoderImpl(const WebRtcKeyValueConfig& trials);

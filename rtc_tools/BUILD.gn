@@ -390,6 +390,7 @@ if (rtc_include_tests) {
       "../api:create_frame_generator",
       "../api:frame_generator_api",
       "../api/task_queue:default_task_queue_factory",
+      "../api/transport:field_trial_based_config",
       "../api/video:encoded_image",
       "../api/video:video_frame",
       "../api/video_codecs:video_codecs_api",

@@ -63,7 +63,7 @@ std::unique_ptr<VideoDecoder> InternalDecoderFactory::CreateVideoDecoder(
   if (absl::EqualsIgnoreCase(format.name, cricket::kVp8CodecName))
     return VP8Decoder::Create();
   if (absl::EqualsIgnoreCase(format.name, cricket::kVp9CodecName))
-    return VP9Decoder::Create();
+    return CreateVp9Decoder();
   if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName))
     return H264Decoder::Create();
   if (kIsLibaomAv1DecoderSupported &&

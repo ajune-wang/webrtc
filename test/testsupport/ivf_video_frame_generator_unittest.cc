@@ -183,7 +183,7 @@ TEST_F(IvfVideoFrameGeneratorTest, Vp8DoubleRead) {
 }
 
 TEST_F(IvfVideoFrameGeneratorTest, Vp9) {
-  CreateTestVideoFile(VideoCodecType::kVideoCodecVP9, VP9Encoder::Create());
+  CreateTestVideoFile(VideoCodecType::kVideoCodecVP9, CreateVp9Encoder({}));
   IvfVideoFrameGenerator generator(file_name_);
   for (size_t i = 0; i < video_frames_.size(); ++i) {
     auto& expected_frame = video_frames_[i];

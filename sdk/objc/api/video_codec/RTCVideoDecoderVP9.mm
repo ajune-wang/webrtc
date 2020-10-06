@@ -21,7 +21,7 @@
 
 + (id<RTC_OBJC_TYPE(RTCVideoDecoder)>)vp9Decoder {
   return [[RTC_OBJC_TYPE(RTCWrappedNativeVideoDecoder) alloc]
-      initWithNativeDecoder:std::unique_ptr<webrtc::VideoDecoder>(webrtc::VP9Decoder::Create())];
+      initWithNativeDecoder:webrtc::CreateVp9Decoder()];
 }
 
 @end

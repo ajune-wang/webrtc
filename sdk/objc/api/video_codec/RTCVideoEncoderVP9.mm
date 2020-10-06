@@ -21,7 +21,7 @@
 
 + (id<RTC_OBJC_TYPE(RTCVideoEncoder)>)vp9Encoder {
   return [[RTC_OBJC_TYPE(RTCWrappedNativeVideoEncoder) alloc]
-      initWithNativeEncoder:std::unique_ptr<webrtc::VideoEncoder>(webrtc::VP9Encoder::Create())];
+      initWithNativeEncoder:std::unique_ptr<webrtc::VideoEncoder>(CreateVp9Encoder({}))];
 }
 
 @end

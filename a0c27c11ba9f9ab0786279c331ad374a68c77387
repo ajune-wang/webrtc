@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d3d8408_ae021c3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-10-06T15:42:38Z",
+      "side": 1,
+      "message": "Is there a difference to the original CL?",
+      "revId": "a0c27c11ba9f9ab0786279c331ad374a68c77387",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

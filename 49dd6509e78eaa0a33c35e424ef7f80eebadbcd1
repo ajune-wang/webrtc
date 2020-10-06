@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "cfdef0ff_7b65293c",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Alright, I still have no idea what might be wrong.\n\nI have a guess, but correct me please if I say something not making sense.\n\nFrom one of the tests, it says:\n// (shared_x_display.cc:38): Unable to open display\n\nWhen I check the code in shared_x_display.cc, then I see this warning is printed right before a nullptr is returned and assigned to \"scoped_refptr\u003cSharedX1isplay\u003e x_display_\" in DesktopCaptureOptions. However this assignment is made to an uninitialized variable. When I check scoped_refptr code, there is mentioned:\n//     scoped_refptr\u003cMyFoo\u003e foo \u003d new MyFoo();\n//     ...\n//     foo \u003d nullptr;  // explicitly releases |foo|\n\nIs it possible that this assignment makes ASAN to complain? The failure of the tests saying \"Unable to open display\" is probably because of the test environment and it\u0027s definitely not related to my change. It\u0027s the ASAN failure that makes me unhappy.\n\n",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b91d1789_025d745d",
         "filename": "/PATCHSET_LEVEL",
@@ -32,10 +33,44 @@
       "message": "Done",
       "parentUuid": "cfdef0ff_7b65293c",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e414cd76_089fd287",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "use std::move?",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38392033_b6dc0b36",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.cc",
+        "patchSetId": 29
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "if you just construct an instance of ConnectionData and delete it, will all of these be harmless?",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f87e2f61_137cd26d",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
@@ -49,10 +84,10 @@
       "side": 1,
       "message": "Let\u0027s skip inheriting from RefCountedBase this way. Instead use RefCountedObject\u003c\u003e.",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6dc99b4f_4badc0c4",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
@@ -67,10 +102,10 @@
       "message": "What about what I wrote above? Btw. SharedXDisplay also inherits RefCountedBase and is used the same way in DesktopCaptureOptions.",
       "parentUuid": "f87e2f61_137cd26d",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b06457cc_e8053d22",
         "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
@@ -85,8 +120,139 @@
       "message": "Done",
       "parentUuid": "6dc99b4f_4badc0c4",
       "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c37da553_4645145b",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "I still prefer using RefCountedObject. As is, the instance is being deleted from a parent class which can get hairy if this implementation gets more complex down the line. Also, although there are couple of examples of inheriting from RefCountedBase in the source code, it\u0027s much more the rule to use RefCountedObject.",
+      "parentUuid": "b06457cc_e8053d22",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "390768cf_4872c16d",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "member variables should be below methods",
+      "range": {
+        "startLine": 83,
+        "startChar": 41,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb31fd9e_412cd68b",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "generally it would also be good to keep the static methods at the top, then non static ones.\nIf there are special reasons to keep them mixed, comments could explain why.",
+      "range": {
+        "startLine": 90,
+        "startChar": 14,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4494df30_817169cc",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "const",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "077791f5_1ab46d1d",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "lots of public member variables - should this be a struct?",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d993f1ed_55863359",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "Uninitialized?\nCould it be made const?",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58ef26b4_1bc4ad9f",
+        "filename": "modules/desktop_capture/linux/xdg_desktop_portal_base.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:50:04Z",
+      "side": 1,
+      "message": "skip \u003d {}",
+      "revId": "49dd6509e78eaa0a33c35e424ef7f80eebadbcd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

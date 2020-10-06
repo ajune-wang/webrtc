@@ -142,6 +142,24 @@
       "revId": "3bfd6771f8a4bc83dc2a50a49e62fc29811594d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1bcd987_159b2d67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14174
+      },
+      "writtenOn": "2020-10-06T09:00:48Z",
+      "side": 1,
+      "message": "Hey Ilya, any news here on branch cut?",
+      "parentUuid": "557cf0eb_4f6aebec",
+      "revId": "3bfd6771f8a4bc83dc2a50a49e62fc29811594d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

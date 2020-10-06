@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2cd76fe_1efe5b30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-06T13:58:48Z",
+      "side": 1,
+      "message": "I take it this allows the environment to use \"RTC_DCHECK_IS_ON\u003dfalse\" and have the expected effect.\n",
+      "revId": "687262b1391a279fa41c462654c7c35d9e6191e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

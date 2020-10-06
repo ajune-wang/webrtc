@@ -16,6 +16,24 @@
       "message": "I take it this allows the environment to use \"RTC_DCHECK_IS_ON\u003dfalse\" and have the expected effect.\n",
       "revId": "687262b1391a279fa41c462654c7c35d9e6191e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d96e02d_e5f7a172",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-06T14:07:59Z",
+      "side": 1,
+      "message": "Yes - well, RTC_DCHECK_IS_ON is always defined. It\u0027s either defined as 0 or 1:\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/checks.h;l\u003d18?q\u003dRTC_DCHECK_IS_ON\u0026ss\u003dchromium",
+      "parentUuid": "c2cd76fe_1efe5b30",
+      "revId": "687262b1391a279fa41c462654c7c35d9e6191e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

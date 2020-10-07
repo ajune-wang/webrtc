@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83d5849e_b1a76949",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-07T14:31:55Z",
+      "side": 1,
+      "message": "Byoungchan, can you click reland on https://webrtc-review.googlesource.com/c/src/+/185920 (so can retain ownership of the CL) and wait for my LGTM to reland (tomorrow probably).",
+      "revId": "f25590e00bceadb2eb72c1fb66b3de1e0b9f0316",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

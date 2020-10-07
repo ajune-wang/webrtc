@@ -16,6 +16,23 @@
       "message": "Please?",
       "revId": "a0a8e7defeefc00ceccf8ddfe9a5d9ae54c5c004",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd1aa421_b7153e9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-07T10:20:14Z",
+      "side": 1,
+      "message": "Ah, I totally forgot about that aspect. It also won\u0027t be needed with the header extension...",
+      "revId": "a0a8e7defeefc00ceccf8ddfe9a5d9ae54c5c004",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

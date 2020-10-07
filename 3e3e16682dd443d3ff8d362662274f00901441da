@@ -16,6 +16,24 @@
       "message": "If you couldn\u0027t remove the sigslot because it still has users, is it really safe to stop sending signals on it?",
       "revId": "3e3e16682dd443d3ff8d362662274f00901441da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f37e5d79_a0911330",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 823,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-07T07:27:44Z",
+      "side": 0,
+      "message": "Yes, I think the fix here is to maintain both sigslot and RC while we cleanup downstream clients by moving them to RC.",
+      "parentUuid": "f71e0082_9bbfe5dd",
+      "revId": "3e3e16682dd443d3ff8d362662274f00901441da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

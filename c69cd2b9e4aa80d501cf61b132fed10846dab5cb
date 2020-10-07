@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0633c395_b180df3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-07T05:36:36Z",
+      "side": 1,
+      "message": "Tomas, is everything now fixed as you requested? Can you trigger last build?\n\nIn the previous  build everything was finally green and I don\u0027t expect those mimor things I changed to break anything, but I guess it\u0027s needed in order to finish this review.",
+      "revId": "c69cd2b9e4aa80d501cf61b132fed10846dab5cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

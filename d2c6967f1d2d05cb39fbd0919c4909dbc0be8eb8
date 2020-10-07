@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "e0a93155_7e08d1a7",
         "filename": "rtc_base/robo_caller.cc",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Do you think adding a test case for case with more than 4 arguments is\nuseful here ?",
       "revId": "d2c6967f1d2d05cb39fbd0919c4909dbc0be8eb8",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": true
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "415f42b7_b4db2aae",
         "filename": "rtc_base/robo_caller.cc",
@@ -32,10 +33,10 @@
       "message": "I would say yes, it makes sense.",
       "parentUuid": "e0a93155_7e08d1a7",
       "revId": "d2c6967f1d2d05cb39fbd0919c4909dbc0be8eb8",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "cce46965_472a96fe",
         "filename": "rtc_base/robo_caller.cc",
@@ -50,8 +51,25 @@
       "message": "We already do test it: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/robo_caller_unittest.cc;l\u003d145-162;drc\u003de99c68dd2124aaf95e921629101964eee544cbc9\n\nOr did you mean something else?",
       "parentUuid": "415f42b7_b4db2aae",
       "revId": "d2c6967f1d2d05cb39fbd0919c4909dbc0be8eb8",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d4c072e_9fe712f5",
+        "filename": "rtc_base/robo_caller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-07T13:55:25Z",
+      "side": 1,
+      "message": "Sorry, that covers it. Thanks.",
+      "parentUuid": "cce46965_472a96fe",
+      "revId": "d2c6967f1d2d05cb39fbd0919c4909dbc0be8eb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

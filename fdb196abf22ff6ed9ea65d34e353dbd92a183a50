@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4262281_d88e8929",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-07T12:40:52Z",
+      "side": 1,
+      "message": "I intend to land this tomorrow. Then it\u0027s been a week without any reported issues, and we are past the branch too.",
+      "revId": "fdb196abf22ff6ed9ea65d34e353dbd92a183a50",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

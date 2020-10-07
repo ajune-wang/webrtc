@@ -3,3 +3,10 @@ Try to write something funny. And please don't add trailing whitespace.
 
 Once upon a time there was an elephant in Stockholm.
 Everyone knew about it, but nobody dared say anything.
+<<<<<<< HEAD   (76725a Merge selective fallback to M81 branch (r30427+r30504))
+=======
+In the end it didn't make a difference since everyone was working from home.
+
+
+
+>>>>>>> CHANGE (08b625 Trigger post-submit bots.)

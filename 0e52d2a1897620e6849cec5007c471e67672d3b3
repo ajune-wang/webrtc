@@ -181,6 +181,30 @@
       },
       "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c944171_141fdc4c",
+        "filename": "sdk/objc/components/video_frame_buffer/RTCCVPixelBuffer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-10-07T09:47:55Z",
+      "side": 1,
+      "message": "Do we have numbers of how much cheaper it is to do NV12 scaling using a bilinear filter compared to do NV12-\u003eI420 conversion followed by the box filter? Would be good to understand the trade-off.\n\nThe quality difference is likely to be more visible when you downscale by \u003e\u003d2x (https://en.wikipedia.org/wiki/Image_scaling#Box_sampling)",
+      "parentUuid": "827203c5_3be8ab08",
+      "range": {
+        "startLine": 305,
+        "startChar": 28,
+        "endLine": 305,
+        "endChar": 43
+      },
+      "revId": "0e52d2a1897620e6849cec5007c471e67672d3b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

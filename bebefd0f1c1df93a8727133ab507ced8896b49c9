@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "087a8a0b_5d570ee4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-07T07:57:23Z",
+      "side": 1,
+      "message": "Just a CL to trigger CI bots and see if the infra failure is stable or transient.",
+      "revId": "bebefd0f1c1df93a8727133ab507ced8896b49c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

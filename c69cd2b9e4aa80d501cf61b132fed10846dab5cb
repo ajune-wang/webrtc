@@ -33,6 +33,24 @@
       "message": "Can you re-try? This is not a buid failure:\nrecipe infra failure: Infra Failure: Step(\u0027bot_update\u0027) (retcode: 1)",
       "revId": "c69cd2b9e4aa80d501cf61b132fed10846dab5cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e616e50e_ba3c95a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-07T13:14:38Z",
+      "side": 1,
+      "message": "landed! 😄 Thanks for all the hard work",
+      "parentUuid": "299c9ea7_b23cfa2f",
+      "revId": "c69cd2b9e4aa80d501cf61b132fed10846dab5cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

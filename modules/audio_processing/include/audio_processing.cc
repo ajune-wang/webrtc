@@ -104,16 +104,27 @@ std::string AudioProcessing::Config::ToString() const {
           << ", analog_level_minimum: " << gain_controller1.analog_level_minimum
           << ", analog_level_maximum: " << gain_controller1.analog_level_maximum
           << " }, gain_controller2: { enabled: " << gain_controller2.enabled
-          << ", fixed_digital: { gain_db: "
+          << "fixed_digital: { gain_db: "
           << gain_controller2.fixed_digital.gain_db
-          << " }, adaptive_digital: { enabled: "
-          << gain_controller2.adaptive_digital.enabled << ", level_estimator: "
+          << "}, adaptive_digital: { enabled: "
+          << gain_controller2.adaptive_digital.enabled
+          << ", level_estimator: { type: "
           << GainController2LevelEstimatorToString(
                  gain_controller2.adaptive_digital.level_estimator)
-          << ", use_saturation_protector: "
-          << gain_controller2.adaptive_digital.use_saturation_protector
+          << ", adjacent_speech_frames_threshold: "
+          << gain_controller2.adaptive_digital
+                 .level_estimator_adjacent_speech_frames_threshold
+          << ", initial_saturation_margin_db: "
+          << gain_controller2.adaptive_digital.initial_saturation_margin_db
           << ", extra_saturation_margin_db: "
           << gain_controller2.adaptive_digital.extra_saturation_margin_db
+          << "}, gain_applier: { adjacent_speech_frames_threshold: "
+          << gain_controller2.adaptive_digital
+                 .gain_applier_adjacent_speech_frames_threshold
+          << ", max_gain_change_db_per_second: "
+          << gain_controller2.adaptive_digital.max_gain_change_db_per_second
+          << ", max_output_noise_level_dbfs: "
+          << gain_controller2.adaptive_digital.max_output_noise_level_dbfs
           << " } }, residual_echo_detector: { enabled: "
           << residual_echo_detector.enabled
           << " }, level_estimation: { enabled: " << level_estimation.enabled

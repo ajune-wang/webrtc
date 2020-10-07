@@ -26,6 +26,7 @@
 #include "api/video/video_adaptation_reason.h"
 #include "api/video/video_bitrate_allocator_factory.h"
 #include "api/video/video_codec_constants.h"
+#include "api/video/video_layers_allocation.h"
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_stream_adapter.h"
@@ -198,6 +199,64 @@ VideoBitrateAllocation UpdateAllocationFromEncoderInfo(
   return new_allocation;
 }
 
+// Converts a VideoBitrateAllocation that contains allocated bitrate per layer,
+// and an EncoderInfo that contains information about the actual encoder
+// structure used by a codec. Stream structures can be Ksvc, Full SVC, Simulcast
+// etc.
+VideoLayersAllocation CreateVideoLayersAllocation(
+    const VideoCodec& encoder_config,
+    const VideoBitrateAllocation& allocation,
+    const VideoEncoder::EncoderInfo& encoder_info) {
+  VideoLayersAllocation layers_allocation;
+  if (allocation.get_sum_bps() == 0) {
+    return layers_allocation;
+  }
+
+  if (encoder_config.numberOfSimulcastStreams > 0) {
+    for (int si = 0; si < encoder_config.numberOfSimulcastStreams; ++si) {
+      if (allocation.GetSpatialLayerSum(si) == 0) {
+        break;
+      }
+      layers_allocation.active_spatial_layers.emplace_back();
+      VideoLayersAllocation::SpatialLayer& spatial_layer =
+          layers_allocation.active_spatial_layers.back();
+      spatial_layer.width = encoder_config.simulcastStream[si].width;
+      spatial_layer.height = encoder_config.simulcastStream[si].height;
+      spatial_layer.frame_rate_fps =
+          static_cast<uint8_t>(encoder_config.simulcastStream[si].maxFramerate);
+      spatial_layer.rtp_stream_index = si;
+      spatial_layer.spatial_id = 0;
+      if (encoder_info.fps_allocation[si].size() == 1 &&
+          allocation.IsSpatialLayerUsed(si)) {
+        // One TL is signalled to be used by the encoder. Do not distribute
+        // bitrate allocation across TLs (use sum at ti:0).
+        spatial_layer.target_bitrate_per_temporal_layer.push_back(
+            DataRate::BitsPerSec(allocation.GetSpatialLayerSum(si)));
+      } else {
+        // Assume the encoder obeys the allocation.
+        uint32_t temporal_layer_bitrate_bps = 0;
+        for (int ti = 0; ti < kMaxTemporalStreams; ++ti) {
+          if (!allocation.HasBitrate(si, ti)) {
+            break;
+          }
+          temporal_layer_bitrate_bps += allocation.GetBitrate(si, ti);
+          if (temporal_layer_bitrate_bps > 0) {
+            spatial_layer.target_bitrate_per_temporal_layer.push_back(
+                DataRate::BitsPerSec(temporal_layer_bitrate_bps));
+          }
+        }
+      }
+    }
+  } else {
+    // todo Populate resolution using SpatialLayer struct?  Or can all other
+    // codecs be populated this way?
+  }
+
+  // TODO SVC
+  // TODO kSVC
+  return layers_allocation;
+}
+
 }  //  namespace
 
 VideoStreamEncoder::EncoderRateSettings::EncoderRateSettings()
@@ -325,7 +384,6 @@ VideoStreamEncoder::VideoStreamEncoder(
       animation_start_time_(Timestamp::PlusInfinity()),
       cap_resolution_due_to_video_content_(false),
       expect_resize_state_(ExpectResizeState::kNoResize),
-      bitrate_observer_(nullptr),
       fec_controller_override_(nullptr),
       force_disable_frame_dropper_(false),
       input_framerate_(kFrameRateAvergingWindowSizeMs, 1000),
@@ -419,21 +477,10 @@ void VideoStreamEncoder::Stop() {
       resource_adaptation_processor_.reset();
     }
     rate_allocator_ = nullptr;
-    bitrate_observer_ = nullptr;
     ReleaseEncoder();
     shutdown_event.Set();
   });
   shutdown_event.Wait(rtc::Event::kForever);
-}
-
-void VideoStreamEncoder::SetBitrateAllocationObserver(
-    VideoBitrateAllocationObserver* bitrate_observer) {
-  RTC_DCHECK_RUN_ON(main_queue_);
-  encoder_queue_.PostTask([this, bitrate_observer] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
-    RTC_DCHECK(!bitrate_observer_);
-    bitrate_observer_ = bitrate_observer;
-  });
 }
 
 void VideoStreamEncoder::SetFecControllerOverride(
@@ -1135,13 +1182,26 @@ void VideoStreamEncoder::SetEncoderRates(
         rate_settings.rate_control.bitrate,
         static_cast<uint32_t>(rate_settings.rate_control.framerate_fps + 0.5));
     stream_resource_manager_.SetEncoderRates(rate_settings.rate_control);
-    if (bitrate_observer_) {
-      bitrate_observer_->OnBitrateAllocationUpdated(
+    if ((settings_.allocation_cb_type ==
+         VideoStreamEncoderSettings::BitrateAllocationCallbackType::
+             kVideoBitrateAllocation) ||
+        (encoder_config_.content_type ==
+             VideoEncoderConfig::ContentType::kScreen &&
+         settings_.allocation_cb_type ==
+             VideoStreamEncoderSettings::BitrateAllocationCallbackType::
+                 kVideoBitrateAllocationWhenScreenSharing)) {
+      sink_->OnBitrateAllocationUpdated(
           // Update allocation according to info from encoder. An encoder may
           // choose to not use all layers due to for example HW.
           UpdateAllocationFromEncoderInfo(
               rate_settings.rate_control.target_bitrate,
               encoder_->GetEncoderInfo()));
+    } else if (settings_.allocation_cb_type ==
+               VideoStreamEncoderSettings::BitrateAllocationCallbackType::
+                   kVideoLayersAllocation) {
+      sink_->OnVideoLayersAllocationUpdated(CreateVideoLayersAllocation(
+          send_codec_, rate_settings.rate_control.target_bitrate,
+          encoder_->GetEncoderInfo()));
     }
 }
 

@@ -198,6 +198,70 @@ VideoBitrateAllocation UpdateAllocationFromEncoderInfo(
   return new_allocation;
 }
 
+// Converts a VideoBitrateAllocation that contains allocated bitrate per layer,
+// and an EncoderInfo that contains information about the actual encoder
+// structure used by a codec. Stream structures can be Ksvc, Full SVC, Simulcast
+// etc.
+VideoLayersAllocation CreateVideoLayersAllocation(
+    const VideoCodec& encoder_config,
+    const VideoEncoder::RateControlParameters& current_rate,
+    const VideoEncoder::EncoderInfo& encoder_info) {
+  const VideoBitrateAllocation& target_bitrate = current_rate.target_bitrate;
+  VideoLayersAllocation layers_allocation;
+  if (target_bitrate.get_sum_bps() == 0) {
+    return layers_allocation;
+  }
+
+  if (encoder_config.numberOfSimulcastStreams > 0) {
+    layers_allocation.resolution_and_frame_rate_is_valid = true;
+    for (int si = 0; si < encoder_config.numberOfSimulcastStreams; ++si) {
+      if (target_bitrate.GetSpatialLayerSum(si) == 0) {
+        break;
+      }
+      layers_allocation.active_spatial_layers.emplace_back();
+      VideoLayersAllocation::SpatialLayer& spatial_layer =
+          layers_allocation.active_spatial_layers.back();
+      spatial_layer.width = encoder_config.simulcastStream[si].width;
+      spatial_layer.height = encoder_config.simulcastStream[si].height;
+      spatial_layer.rtp_stream_index = si;
+      spatial_layer.spatial_id = 0;
+      int frame_rate_fraction = 0;
+      if (encoder_info.fps_allocation[si].size() <= 1 &&
+          target_bitrate.IsSpatialLayerUsed(si)) {
+        // One TL is signalled to be used by the encoder. Do not distribute
+        // bitrate allocation across TLs (use sum at ti:0).
+        spatial_layer.target_bitrate_per_temporal_layer.push_back(
+            DataRate::BitsPerSec(target_bitrate.GetSpatialLayerSum(si)));
+        frame_rate_fraction = encoder_info.fps_allocation[si].empty()
+                                  ? 255
+                                  : encoder_info.fps_allocation[si][0];
+      } else {  // Temporal layers are supported.
+        uint32_t temporal_layer_bitrate_bps = 0;
+        for (size_t ti = 0; ti < encoder_info.fps_allocation[si].size(); ++ti) {
+          if (!target_bitrate.HasBitrate(si, ti)) {
+            break;
+          }
+          temporal_layer_bitrate_bps += target_bitrate.GetBitrate(si, ti);
+          if (temporal_layer_bitrate_bps > 0) {
+            frame_rate_fraction = encoder_info.fps_allocation[si][ti];
+            spatial_layer.target_bitrate_per_temporal_layer.push_back(
+                DataRate::BitsPerSec(temporal_layer_bitrate_bps));
+          }
+        }
+      }
+      // Encoder may drop frames internally if `maxFramerate` is set.
+      spatial_layer.frame_rate_fps = std::min(
+          static_cast<uint8_t>(encoder_config.simulcastStream[si].maxFramerate),
+          static_cast<uint8_t>(
+              (current_rate.framerate_fps * frame_rate_fraction) / 255));
+    }
+  } else {
+    // TODO(bugs.webrtc.org/12000): Implement support for kSVC and full SVC.
+  }
+
+  return layers_allocation;
+}
+
 }  //  namespace
 
 VideoStreamEncoder::EncoderRateSettings::EncoderRateSettings()
@@ -1124,6 +1188,12 @@ void VideoStreamEncoder::SetEncoderRates(
         rate_settings.rate_control.bitrate,
         static_cast<uint32_t>(rate_settings.rate_control.framerate_fps + 0.5));
     stream_resource_manager_.SetEncoderRates(rate_settings.rate_control);
+    if (settings_.allocation_cb_type ==
+        VideoStreamEncoderSettings::BitrateAllocationCallbackType::
+            kVideoLayersAllocation) {
+      sink_->OnVideoLayersAllocationUpdated(CreateVideoLayersAllocation(
+          send_codec_, rate_settings.rate_control, encoder_->GetEncoderInfo()));
+    }
   }
   if ((settings_.allocation_cb_type ==
        VideoStreamEncoderSettings::BitrateAllocationCallbackType::

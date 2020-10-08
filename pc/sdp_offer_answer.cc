@@ -522,6 +522,8 @@ static absl::string_view GetDefaultMidForPlanB(cricket::MediaType media_type) {
       return cricket::CN_VIDEO;
     case cricket::MEDIA_TYPE_DATA:
       return cricket::CN_DATA;
+    case cricket::MEDIA_TYPE_UNSUPPORTED:
+      return "not supported";
   }
   RTC_NOTREACHED();
   return "";
@@ -2903,6 +2905,8 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiversAndDataChannels(
       if (!error.ok()) {
         return error;
       }
+    } else if (media_type == cricket::MEDIA_TYPE_UNSUPPORTED) {
+      RTC_LOG(LS_INFO) << "Ignoring unsupported media type";
     } else {
       LOG_AND_RETURN_ERROR(RTCErrorType::INTERNAL_ERROR,
                            "Unknown section type.");
@@ -3604,6 +3608,12 @@ void SdpOfferAnswerHandler::GetOptionsForUnifiedPlanAnswer(
                                              RtpTransceiverDirection::kInactive,
                                              /*stopped=*/true));
       }
+    } else if (media_type == cricket::MEDIA_TYPE_UNSUPPORTED) {
+      RTC_DCHECK(content.rejected);
+      session_options->media_description_options.push_back(
+          cricket::MediaDescriptionOptions(media_type, content.name,
+                                           RtpTransceiverDirection::kInactive,
+                                           /*stopped=*/true));
     } else {
       RTC_CHECK_EQ(cricket::MEDIA_TYPE_DATA, media_type);
       // Reject all data sections if data channels are disabled.
@@ -4546,6 +4556,12 @@ void SdpOfferAnswerHandler::GenerateMediaDescriptionOptions(
       }
       session_options->media_description_options.back().header_extensions =
           channel_manager()->GetSupportedVideoRtpHeaderExtensions();
+    } else if (IsUnsupportedContent(&content)) {
+      session_options->media_description_options.push_back(
+          cricket::MediaDescriptionOptions(cricket::MEDIA_TYPE_UNSUPPORTED,
+                                           content.name,
+                                           RtpTransceiverDirection::kInactive,
+                                           /*stopped=*/true));
     } else {
       RTC_DCHECK(IsDataContent(&content));
       // If we already have an data m= section, reject this extra one.

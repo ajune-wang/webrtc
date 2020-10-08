@@ -1713,6 +1713,14 @@ MediaSessionDescriptionFactory::CreateAnswer(
           return nullptr;
         }
         break;
+      case MEDIA_TYPE_UNSUPPORTED:
+        if (!AddUnsupportedContentForAnswer(
+                media_description_options, session_options, offer_content,
+                offer, current_content, current_description,
+                bundle_transport.get(), answer.get(), &ice_credentials)) {
+          return nullptr;
+        }
+        break;
       default:
         RTC_NOTREACHED();
     }
@@ -2745,6 +2753,42 @@ bool MediaSessionDescriptionFactory::AddDataContentForAnswer(
   return true;
 }
 
+bool MediaSessionDescriptionFactory::AddUnsupportedContentForAnswer(
+    const MediaDescriptionOptions& media_description_options,
+    const MediaSessionOptions& session_options,
+    const ContentInfo* offer_content,
+    const SessionDescription* offer_description,
+    const ContentInfo* current_content,
+    const SessionDescription* current_description,
+    const TransportInfo* bundle_transport,
+    SessionDescription* answer,
+    IceCredentialsIterator* ice_credentials) const {
+  std::unique_ptr<TransportDescription> unsupported_transport =
+      CreateTransportAnswer(media_description_options.mid, offer_description,
+                            media_description_options.transport_options,
+                            current_description, bundle_transport != nullptr,
+                            ice_credentials);
+  if (!unsupported_transport) {
+    return false;
+  }
+  RTC_CHECK(IsMediaContentOfType(offer_content, MEDIA_TYPE_UNSUPPORTED));
+
+  const UnsupportedContentDescription* offer_unsupported_description =
+      offer_content->media_description()->as_unsupported();
+  std::unique_ptr<MediaContentDescription> unsupported_answer =
+      std::make_unique<UnsupportedContentDescription>(
+          offer_unsupported_description->media_type());
+  unsupported_answer->set_protocol(offer_unsupported_description->protocol());
+
+  if (!AddTransportAnswer(media_description_options.mid,
+                          *(unsupported_transport.get()), answer)) {
+    return false;
+  }
+  answer->AddContent(media_description_options.mid, offer_content->type,
+                     /*rejected=*/true, std::move(unsupported_answer));
+  return true;
+}
+
 void MediaSessionDescriptionFactory::ComputeAudioCodecsIntersectionAndUnion() {
   audio_sendrecv_codecs_.clear();
   all_audio_codecs_.clear();
@@ -2820,6 +2864,10 @@ bool IsVideoContent(const ContentInfo* content) {
 
 bool IsDataContent(const ContentInfo* content) {
   return IsMediaContentOfType(content, MEDIA_TYPE_DATA);
+}
+
+bool IsUnsupportedContent(const ContentInfo* content) {
+  return IsMediaContentOfType(content, MEDIA_TYPE_UNSUPPORTED);
 }
 
 const ContentInfo* GetFirstMediaContent(const ContentInfos& contents,

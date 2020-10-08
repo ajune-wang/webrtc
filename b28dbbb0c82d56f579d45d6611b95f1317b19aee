@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a69d13c_d23ca24e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-08T17:55:56Z",
+      "side": 1,
+      "message": "please take another look at the test assertions (+ rebase).\nTried to dump the answer sdp but that was... not easy so i\u0027ll just drop this into chrome",
+      "revId": "b28dbbb0c82d56f579d45d6611b95f1317b19aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

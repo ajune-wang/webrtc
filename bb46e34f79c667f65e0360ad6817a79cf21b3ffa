@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00629e70_a7ce9262",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-10-08T14:37:24Z",
+      "side": 1,
+      "message": "Mirko, Sami, Niels, Stefan, Evan, please LGTM this reland with no changes.",
+      "revId": "bb46e34f79c667f65e0360ad6817a79cf21b3ffa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

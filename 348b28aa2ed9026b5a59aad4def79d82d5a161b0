@@ -71,6 +71,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61641561_76ebde13",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-10-08T20:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c35ae4c_d5fd82c1",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fda15b4e_4bf6e191",
@@ -84,6 +102,24 @@
       "writtenOn": "2020-10-08T11:14:45Z",
       "side": 1,
       "message": "TODO in all caps.",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b7d9a0_d5a582af",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-10-08T20:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fda15b4e_4bf6e191",
       "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -105,6 +141,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3629d09b_4b40ab54",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-10-08T20:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4bb91ae_923c79f7",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03b55c76_cc56eefd",
@@ -118,6 +172,24 @@
       "writtenOn": "2020-10-08T11:14:45Z",
       "side": 1,
       "message": "TODO",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5588cff6_616d99ca",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-10-08T20:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03b55c76_cc56eefd",
       "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

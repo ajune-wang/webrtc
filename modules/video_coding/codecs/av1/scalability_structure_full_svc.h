@@ -35,12 +35,13 @@ class ScalabilityStructureFullSvc : public ScalableVideoController {
  private:
   enum FramePattern {
     kKey,
+    kDeltaT2A,
     kDeltaT1,
+    kDeltaT2B,
     kDeltaT0,
   };
   static constexpr int kMaxNumSpatialLayers = 3;
-  // TODO(bugs.webrtc.org/11999): Support up to 3 temporal layers.
-  static constexpr int kMaxNumTemporalLayers = 2;
+  static constexpr int kMaxNumTemporalLayers = 3;
 
   // Index of the buffer to store last frame for layer (`sid`, `tid`)
   int BufferIndex(int sid, int tid) const {

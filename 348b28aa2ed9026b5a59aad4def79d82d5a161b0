@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1228ec03_a92a12f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-08T12:36:05Z",
+      "side": 1,
+      "message": "Yes, so I suggest we find another name (one that we are happy to use as new and stable name. I think having `RC` in the names is something we should avoid, so maybe we should go with SSLHandshakeErrorSignal? (tricky to confuse but probably future proof). WDYT?",
+      "parentUuid": "3f9e9924_8a422c32",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c690c8fb_0f5afc98",
         "filename": "p2p/base/dtls_transport.cc",
         "patchSetId": 10
@@ -31,6 +49,24 @@
       "writtenOn": "2020-10-08T11:14:45Z",
       "side": 1,
       "message": "It should be sufficient to have a TODO on the sigslot member varaible.",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c35ae4c_d5fd82c1",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-08T12:36:05Z",
+      "side": 1,
+      "message": "Also (nit) the format of the TODO should be:\n\n  TODO(bugs.webrtc.org/11943)",
+      "parentUuid": "c690c8fb_0f5afc98",
       "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },

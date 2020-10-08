@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f9e9924_8a422c32",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-08T11:14:45Z",
+      "side": 1,
+      "message": "Looks good, but won\u0027t you be stuck with the RC* names? You can\u0027t change those names without breaking the downstream code again.",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c690c8fb_0f5afc98",
+        "filename": "p2p/base/dtls_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-08T11:14:45Z",
+      "side": 1,
+      "message": "It should be sufficient to have a TODO on the sigslot member varaible.",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fda15b4e_4bf6e191",
+        "filename": "p2p/base/dtls_transport_internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-08T11:14:45Z",
+      "side": 1,
+      "message": "TODO in all caps.",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4bb91ae_923c79f7",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-08T11:14:45Z",
+      "side": 1,
+      "message": "Remove this as well?",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03b55c76_cc56eefd",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-08T11:14:45Z",
+      "side": 1,
+      "message": "TODO",
+      "revId": "348b28aa2ed9026b5a59aad4def79d82d5a161b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

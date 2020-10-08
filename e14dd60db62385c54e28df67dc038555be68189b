@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179ce10c_39731eba",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-10-08T14:19:32Z",
+      "side": 1,
+      "message": "Self review: Should now be checking the dst buffers in all cases.",
+      "range": {
+        "startLine": 366,
+        "startChar": 5,
+        "endLine": 369,
+        "endChar": 7
+      },
+      "revId": "e14dd60db62385c54e28df67dc038555be68189b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

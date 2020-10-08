@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d9cffbe_1b32e0ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5182
+      },
+      "writtenOn": "2020-10-08T15:46:45Z",
+      "side": 1,
+      "message": "This is still not rolled into Chromium yet. Do you know when will the roll happen? Can I manually trigger a roll?",
+      "revId": "9f32f3b423ae198600d2a4513d370dfcfaf70bb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

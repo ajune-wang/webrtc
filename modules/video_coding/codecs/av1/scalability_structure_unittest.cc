@@ -348,11 +348,13 @@ INSTANTIATE_TEST_SUITE_P(Svc,
                          ScalabilityStructureSetRatesTest,
                          Values(SvcTestParam{"L1T2",
                                              /*num_temporal_units=*/4},
+                                SvcTestParam{"L1T3", /*num_temporal_units=*/8},
                                 SvcTestParam{"L2T1",
                                              /*num_temporal_units=*/3},
                                 SvcTestParam{"L2T2",
                                              /*num_temporal_units=*/4},
-                                SvcTestParam{"L3T1", /*num_temporal_units=*/3}),
+                                SvcTestParam{"L3T1", /*num_temporal_units=*/3},
+                                SvcTestParam{"L3T3", /*num_temporal_units=*/8}),
                          [](const testing::TestParamInfo<SvcTestParam>& info) {
                            return info.param.name;
                          });

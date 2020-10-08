@@ -135,7 +135,20 @@ ScalabilityStructureFullSvc::NextFrameConfig(bool restart) {
         spatial_dependency_buffer_id = BufferIndex(sid, /*tid=*/0);
       }
 
-      next_pattern_ = num_temporal_layers_ == 2 ? kDeltaT1 : kDeltaT0;
+      switch (num_temporal_layers_) {
+        case 1:
+          next_pattern_ = kDeltaT0;
+          break;
+        case 2:
+          next_pattern_ = kDeltaT1;
+          break;
+        case 3:
+          next_pattern_ = kDeltaT2A;
+          break;
+        default:
+          RTC_NOTREACHED();
+          break;
+      }
       break;
     case kDeltaT1:
       for (int sid = 0; sid < num_spatial_layers_; ++sid) {
@@ -154,12 +167,38 @@ ScalabilityStructureFullSvc::NextFrameConfig(bool restart) {
           config.Reference(*spatial_dependency_buffer_id);
         }
         // No frame reference top layer frame, so no need save it into a buffer.
-        if (sid < num_spatial_layers_ - 1) {
+        if (num_temporal_layers_ > 2 || sid < num_spatial_layers_ - 1) {
           config.Update(BufferIndex(sid, /*tid=*/1));
         }
         spatial_dependency_buffer_id = BufferIndex(sid, /*tid=*/1);
       }
-      next_pattern_ = kDeltaT0;
+      next_pattern_ = num_temporal_layers_ == 2 ? kDeltaT0 : kDeltaT2B;
+      break;
+    case kDeltaT2A:
+    case kDeltaT2B:
+      for (int sid = 0; sid < num_spatial_layers_; ++sid) {
+        if (!DecodeTargetIsActive(sid, /*tid=*/2) ||
+            !can_depend_on_t0_frame_for_spatial_id_[sid]) {
+          continue;
+        }
+        configs.emplace_back();
+        ScalableVideoController::LayerFrameConfig& config = configs.back();
+        config.Id(next_pattern_).S(sid).T(2);
+        // Temporal reference.
+        RTC_DCHECK(DecodeTargetIsActive(sid, /*tid=*/0));
+        config.Reference(
+            BufferIndex(sid, /*tid=*/next_pattern_ == kDeltaT2A ? 0 : 1));
+        // Spatial reference unless this is the lowest active spatial layer.
+        if (spatial_dependency_buffer_id) {
+          config.Reference(*spatial_dependency_buffer_id);
+        }
+        // No frame reference top layer frame, so no need save it into a buffer.
+        if (sid < num_spatial_layers_ - 1) {
+          config.Update(BufferIndex(sid, /*tid=*/2));
+        }
+        spatial_dependency_buffer_id = BufferIndex(sid, /*tid=*/2);
+      }
+      next_pattern_ = next_pattern_ == kDeltaT2A ? kDeltaT1 : kDeltaT0;
       break;
   }
   return configs;

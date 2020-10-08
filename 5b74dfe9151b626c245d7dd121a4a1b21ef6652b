@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": false,
       "key": {
         "uuid": "7850b4d3_b2d15378",
         "filename": "/PATCHSET_LEVEL",
@@ -14,8 +15,58 @@
       "side": 1,
       "message": "Can you take another look? This is getting a bit complex and I wonder if things like SRD-\u003eSLD-\u003ecreateOffer-\u003eSLD are sufficiently covered...\n\nMaybe throwing in SRD is the better option.",
       "revId": "5b74dfe9151b626c245d7dd121a4a1b21ef6652b",
-      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
-      "unresolved": false
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "760392df_992c7d92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-08T12:47:54Z",
+      "side": 1,
+      "message": "I think this is good to go. Let\u0027s land it (I think it strictly makes life better).\n",
+      "revId": "5b74dfe9151b626c245d7dd121a4a1b21ef6652b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2ea775b_5f2fa921",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-08T12:47:54Z",
+      "side": 1,
+      "message": "msid-semantic and mid lines shouldn\u0027t matter to the outcome. Up to you to remove or leave in.",
+      "revId": "5b74dfe9151b626c245d7dd121a4a1b21ef6652b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ee1971_a20e701e",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-08T12:47:54Z",
+      "side": 1,
+      "message": "Should verify that answer has 1 media section, it\u0027s type unsupported, and it\u0027s stopped.",
+      "revId": "5b74dfe9151b626c245d7dd121a4a1b21ef6652b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

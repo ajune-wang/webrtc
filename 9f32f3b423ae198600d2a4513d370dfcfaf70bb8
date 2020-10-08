@@ -16,6 +16,24 @@
       "message": "This is still not rolled into Chromium yet. Do you know when will the roll happen? Can I manually trigger a roll?",
       "revId": "9f32f3b423ae198600d2a4513d370dfcfaf70bb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b81da5b_5b15f0d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-08T15:48:09Z",
+      "side": 1,
+      "message": "There is an issue with the LKGR finder, I will force a roll soon.",
+      "parentUuid": "7d9cffbe_1b32e0ba",
+      "revId": "9f32f3b423ae198600d2a4513d370dfcfaf70bb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -5,3 +5,8 @@ include_rules = [
   "+sdk/objc",
   "+third_party/libyuv",
 ]
+specific_include_rules = {
+  ".*_benchmark\.cc": [
+    "+benchmark",
+  ],
+}

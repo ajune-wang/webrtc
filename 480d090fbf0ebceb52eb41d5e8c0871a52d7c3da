@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "939362aa_52ea9456",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-10-09T12:58:04Z",
+      "side": 1,
+      "message": "-stefan -peter\nIn benchmarking Nv12 scale, I noticed that we are still missing optimized scaling for the common cases. This means the current implementation is faster than this replacement. I will pause this patch until the performance is improved.",
+      "revId": "480d090fbf0ebceb52eb41d5e8c0871a52d7c3da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -539,7 +539,7 @@ rtc_library("desktop_capture_generic") {
     deps += [ ":desktop_capture_differ_sse2" ]
   }
 
-  if (rtc_use_pipewire) {
+  if (rtc_use_pipewire && !is_chromecast) {
     sources += [
       "linux/base_capturer_pipewire.cc",
       "linux/base_capturer_pipewire.h",

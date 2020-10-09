@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "775f272a_2699ad28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-09T14:36:14Z",
+      "side": 1,
+      "message": "With test related refactoring this change grew a bit. Want me to split it?",
+      "revId": "136aca9bfa17c92adbe827505749c57cbee19ffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

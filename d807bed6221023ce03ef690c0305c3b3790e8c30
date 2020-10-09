@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de0e07b4_3a4d927a",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-09T14:36:14Z",
+      "side": 1,
+      "message": "your idea with last_pattern make this obsolete.",
+      "parentUuid": "37d644a9_2deadef3",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 7
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8d3f210_4afd5f81",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-10-09T09:52:46Z",
       "side": 1,
       "message": "Another edge-case:\n\n  NextFrameConfig, next\u003dkDeltaT0, S0 and T0, T1 is active.\n  NextFrameConfig, next\u003dkDeltaT1, S1 and T0, T1 is active.\n\nThen |configs| will be empty. Not sure if this is considered valid use of this class though.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 9
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50976277_73c18204",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-09T14:36:14Z",
+      "side": 1,
+      "message": "added a trap for cases like this one: restart the stream.\n(looks valid outcome for this particular case. and may be expensive, but safe for other odd transitions)\nand a unittest for this this scenario",
+      "parentUuid": "e8d3f210_4afd5f81",
       "range": {
         "startLine": 162,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "640764e6_991af7c6",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-09T14:36:14Z",
+      "side": 1,
+      "message": "that will cause to update buffer#9 for S2T2 frame (which vp9 encoder can\u0027t do),\nand cause unnecessary extra buffer usage for other structures.\n\nFor simplicity this update indeed ignore which layers are enabled, so it still might update buffers that are not used afterwards.\nIt is possible, but hard to catch all edge cases where active layers changes right after these frames are produced.",
+      "parentUuid": "7d718dc3_ac1315b2",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 70
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de82ed86_f7c83441",
@@ -93,6 +165,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6670e2b_d6bbb5dc",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-09T14:36:14Z",
+      "side": 1,
+      "message": "that would be bad.\nreorganised the code to handle this edge case better.\nand added a unittest for this scenario",
+      "parentUuid": "de82ed86_f7c83441",
+      "range": {
+        "startLine": 197,
+        "startChar": 29,
+        "endLine": 197,
+        "endChar": 72
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4247fc58_065466de",
@@ -106,6 +202,30 @@
       "writtenOn": "2020-10-09T09:52:46Z",
       "side": 1,
       "message": "WDYT about renaming this to |last_pattern_|, then on line 102 - 109 figure what the this_pattern should be?",
+      "range": {
+        "startLine": 64,
+        "startChar": 15,
+        "endLine": 64,
+        "endChar": 28
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34abab4d_15739198",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-09T14:36:14Z",
+      "side": 1,
+      "message": "this localises transition logic and makes it simpler. Done, thank you!",
+      "parentUuid": "4247fc58_065466de",
       "range": {
         "startLine": 64,
         "startChar": 15,

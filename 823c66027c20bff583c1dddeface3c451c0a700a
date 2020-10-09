@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cee6e3e_4f1177ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-09T09:05:05Z",
+      "side": 1,
+      "message": "Probably you need to revert https://webrtc-review.googlesource.com/c/src/+/187122 as well.\n\nWhat about https://webrtc-review.googlesource.com/c/src/+/187348?",
+      "revId": "823c66027c20bff583c1dddeface3c451c0a700a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

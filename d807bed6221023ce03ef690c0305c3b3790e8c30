@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37d644a9_2deadef3",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-09T09:52:46Z",
+      "side": 1,
+      "message": "Maybe always set |next_pattern_ \u003d kDeltaT2A;| and let the logic on line 102 - 109 skip the higher layers for you?\n\n(Also update line 182)",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 7
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d3f210_4afd5f81",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-09T09:52:46Z",
+      "side": 1,
+      "message": "Another edge-case:\n\n  NextFrameConfig, next\u003dkDeltaT0, S0 and T0, T1 is active.\n  NextFrameConfig, next\u003dkDeltaT1, S1 and T0, T1 is active.\n\nThen |configs| will be empty. Not sure if this is considered valid use of this class though.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 9
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d718dc3_ac1315b2",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-09T09:52:46Z",
+      "side": 1,
+      "message": "I feel like we are trying to do the correct thing, but we don\u0027t quite do it. Maybe skip this check all together and always update the buffer?\n\n(Compare a ScalabilityStructureFullSvc(1, 2) with a ScalabilityStructureFullSvc(3,3) where higher layers are disabled to get a (1, 2) structure anyway.)",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 70
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de82ed86_f7c83441",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-09T09:52:46Z",
+      "side": 1,
+      "message": "What if this happens:\n\n  NextFrameConfig, next\u003dkDeltaT0 , S0, S1 and T0, T1, T3 is active\n  NextFrameConfig, next\u003dkDeltaT2A, S0, S1 and T0, T1, T3 is active\n  NextFrameConfig, next\u003dkDeltaT1 , S0     and T0, T1, T3 is active\n  NextFrameConfig, next\u003dkDeltaT2B, S0, S1 and T0, T1, T3 is active\n\nWe would try to reference (S1, T1) buffer, but it was never encoded.",
+      "range": {
+        "startLine": 197,
+        "startChar": 29,
+        "endLine": 197,
+        "endChar": 72
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4247fc58_065466de",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-09T09:52:46Z",
+      "side": 1,
+      "message": "WDYT about renaming this to |last_pattern_|, then on line 102 - 109 figure what the this_pattern should be?",
+      "range": {
+        "startLine": 64,
+        "startChar": 15,
+        "endLine": 64,
+        "endChar": 28
+      },
+      "revId": "d807bed6221023ce03ef690c0305c3b3790e8c30",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

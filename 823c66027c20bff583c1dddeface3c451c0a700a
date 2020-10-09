@@ -33,6 +33,24 @@
       "message": "That is expected, as it depends on Chromium change that is waiting on webrtc pull So it can land in Chromium - see https://chromium-review.googlesource.com/c/chromium/src/+/1942327 ",
       "revId": "823c66027c20bff583c1dddeface3c451c0a700a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cf127d1_394cbf12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2020-10-09T09:16:35Z",
+      "side": 1,
+      "message": "Isn\u0027t the chromium change  supposed to depend on the webrtc change?\nEither way, we have to revert this so that we can roll into chromium.\nAfter that we can look into relanding.",
+      "parentUuid": "2b6a0fcc_e239738f",
+      "revId": "823c66027c20bff583c1dddeface3c451c0a700a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

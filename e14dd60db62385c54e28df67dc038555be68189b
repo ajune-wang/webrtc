@@ -22,6 +22,30 @@
       },
       "revId": "e14dd60db62385c54e28df67dc038555be68189b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b71848f_7d8f5c99",
+        "filename": "api/video_codecs/video_encoder_software_fallback_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-10-09T12:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "179ce10c_39731eba",
+      "range": {
+        "startLine": 366,
+        "startChar": 5,
+        "endLine": 369,
+        "endChar": 7
+      },
+      "revId": "e14dd60db62385c54e28df67dc038555be68189b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

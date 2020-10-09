@@ -33,6 +33,24 @@
       "message": "Lgtm but please consider if you should change the title to indicate that this is a merge",
       "revId": "a9ed5e8d98e16e9af5c76f8f5877873dbdc192f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04a710fc_cfa8bf69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-09T12:55:55Z",
+      "side": 1,
+      "message": "Thanks! Note that the description is automatically created by the CP functionality in gerrit and that a note on CP is added at the bottom). We could propose to change the CP tool in Gerrit.",
+      "parentUuid": "658b8de3_b527ace2",
+      "revId": "a9ed5e8d98e16e9af5c76f8f5877873dbdc192f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

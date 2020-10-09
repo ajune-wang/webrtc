@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deb09c43_90340b1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-09T12:22:36Z",
+      "side": 1,
+      "message": "Hi,\nCould you PTAL?\nAlessio",
+      "revId": "a9ed5e8d98e16e9af5c76f8f5877873dbdc192f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -10,11 +10,14 @@
 
 package org.webrtc;
 
+import static org.junit.Assert.fail;
+
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.filters.MediumTest;
 import android.support.test.filters.SmallTest;
+import java.util.concurrent.CountDownLatch;
 import org.chromium.base.test.BaseJUnit4ClassRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -118,6 +121,31 @@ public class Camera1CapturerUsingByteBufferTest {
   @MediumTest
   public void testSwitchVideoCapturerToSpecificCameraName() throws InterruptedException {
     fixtures.switchCamera(true /* specifyCameraName */);
+  }
+
+  // Test updating a session by enabling the flash
+  @Test
+  @MediumTest
+  public void testUpdateSession() throws InterruptedException {
+    final CountDownLatch sessionUpdated = new CountDownLatch(1);
+    fixtures.updateSession(sessionUpdated,
+        (CameraVideoCapturer.SessionUpdater<android.hardware.Camera.Parameters>)
+            cameraParameters -> {
+              // Turn the flash only if supported
+              if (cameraParameters.getFlashMode() != null) {
+                cameraParameters.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_TORCH);
+              }
+              sessionUpdated.countDown();
+            });
+  }
+
+  @Test
+  @MediumTest
+  public void testUpdateSessionAfterStop() throws InterruptedException {
+    final CountDownLatch sessionUpdated = new CountDownLatch(1);
+    fixtures.updateSessionAfterStop(sessionUpdated,
+        (CameraVideoCapturer.SessionUpdater<android.hardware.Camera.Parameters>)
+            cameraParameters -> { fail("Unexpected session update"); });
   }
 
   @Test

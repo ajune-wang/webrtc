@@ -152,31 +152,10 @@ class Camera2Session implements CameraSession {
       checkIsOnCameraThread();
       Logging.d(TAG, "Camera capture session configured.");
       captureSession = session;
-      try {
-        /*
-         * The viable options for video capture requests are:
-         * TEMPLATE_PREVIEW: High frame rate is given priority over the highest-quality
-         *   post-processing.
-         * TEMPLATE_RECORD: Stable frame rate is used, and post-processing is set for recording
-         *   quality.
-         */
-        final CaptureRequest.Builder captureRequestBuilder =
-            cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
-        // Set auto exposure fps range.
-        captureRequestBuilder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE,
-            new Range<Integer>(captureFormat.framerate.min / fpsUnitFactor,
-                captureFormat.framerate.max / fpsUnitFactor));
-        captureRequestBuilder.set(
-            CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON);
-        captureRequestBuilder.set(CaptureRequest.CONTROL_AE_LOCK, false);
-        chooseStabilizationMode(captureRequestBuilder);
-        chooseFocusMode(captureRequestBuilder);
+      boolean startCaptureSucceeded = setSessionRepeatingRequest(configureCaptureRequestBuilder());
 
-        captureRequestBuilder.addTarget(surface);
-        session.setRepeatingRequest(
-            captureRequestBuilder.build(), new CameraCaptureCallback(), cameraThreadHandler);
-      } catch (CameraAccessException e) {
-        reportError("Failed to start capture request. " + e);
+      if (!startCaptureSucceeded) {
+        reportError("Failed to start capture request.");
         return;
       }
 
@@ -209,53 +188,6 @@ class Camera2Session implements CameraSession {
       });
       Logging.d(TAG, "Camera device successfully started.");
       callback.onDone(Camera2Session.this);
-    }
-
-    // Prefers optical stabilization over software stabilization if available. Only enables one of
-    // the stabilization modes at a time because having both enabled can cause strange results.
-    private void chooseStabilizationMode(CaptureRequest.Builder captureRequestBuilder) {
-      final int[] availableOpticalStabilization = cameraCharacteristics.get(
-          CameraCharacteristics.LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION);
-      if (availableOpticalStabilization != null) {
-        for (int mode : availableOpticalStabilization) {
-          if (mode == CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE_ON) {
-            captureRequestBuilder.set(CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
-                CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE_ON);
-            captureRequestBuilder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE,
-                CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE_OFF);
-            Logging.d(TAG, "Using optical stabilization.");
-            return;
-          }
-        }
-      }
-      // If no optical mode is available, try software.
-      final int[] availableVideoStabilization = cameraCharacteristics.get(
-          CameraCharacteristics.CONTROL_AVAILABLE_VIDEO_STABILIZATION_MODES);
-      for (int mode : availableVideoStabilization) {
-        if (mode == CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE_ON) {
-          captureRequestBuilder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE,
-              CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE_ON);
-          captureRequestBuilder.set(CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
-              CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE_OFF);
-          Logging.d(TAG, "Using video stabilization.");
-          return;
-        }
-      }
-      Logging.d(TAG, "Stabilization not available.");
-    }
-
-    private void chooseFocusMode(CaptureRequest.Builder captureRequestBuilder) {
-      final int[] availableFocusModes =
-          cameraCharacteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES);
-      for (int mode : availableFocusModes) {
-        if (mode == CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_VIDEO) {
-          captureRequestBuilder.set(
-              CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_VIDEO);
-          Logging.d(TAG, "Using continuous video auto-focus.");
-          return;
-        }
-      }
-      Logging.d(TAG, "Auto-focus is not available.");
     }
   }
 
@@ -356,6 +288,27 @@ class Camera2Session implements CameraSession {
   }
 
   @Override
+  public <T> void update(CameraVideoCapturer.SessionUpdater<T> updater) {
+    Logging.d(TAG, "Update camera2 session");
+    if (state == SessionState.RUNNING) {
+      checkIsOnCameraThread();
+      CaptureRequest.Builder captureRequestBuilder = configureCaptureRequestBuilder();
+
+      if (captureRequestBuilder == null) {
+        reportError("Failed to create capture request builder for update");
+        return;
+      }
+      updater.apply((T) captureRequestBuilder);
+      boolean succeeded = setSessionRepeatingRequest(captureRequestBuilder);
+      if (!succeeded) {
+        reportError("Failed to set session repeating request");
+      }
+    } else {
+      Logging.d(TAG, "Attempted to update session while stopped");
+    }
+  }
+
+  @Override
   public void stop() {
     Logging.d(TAG, "Stop camera2 session on camera " + cameraId);
     checkIsOnCameraThread();
@@ -388,6 +341,115 @@ class Camera2Session implements CameraSession {
     }
 
     Logging.d(TAG, "Stop done");
+  }
+
+  /*
+   * Set the current capture session repeating request.
+   *
+   * This method enables use cases that require an update to the default CaptureRequest.Builder
+   * used to start the initial capture session. For example, a developer may need to turn
+   * the flash on.
+   *
+   * @param captureRequestBuilder the capture request builder that will be applied to the current
+   * capture session.
+   *
+   * @return true if the call to setRepeatingRequest succeeded with the provided capture request
+   * builder or false if the captureRequestBuilder is null or a CameraAccessException occurred.
+   */
+  private boolean setSessionRepeatingRequest(
+      @Nullable CaptureRequest.Builder captureRequestBuilder) {
+    if (captureRequestBuilder == null) {
+      Logging.e(TAG, "Cannot setSessionRepeatingRequest with null CaptureRequestBuilder");
+      return false;
+    }
+
+    try {
+      captureSession.setRepeatingRequest(
+          captureRequestBuilder.build(), new CameraCaptureCallback(), cameraThreadHandler);
+    } catch (CameraAccessException e) {
+      Logging.e(TAG, "Failed to setSessionRepeatingRequest: " + e);
+      return false;
+    }
+
+    return true;
+  }
+
+  /*
+   * Configures a CaptureRequest.Builder with optimal settings for capturing video frames.
+   *
+   * The viable options for video capture requests are:
+   * TEMPLATE_PREVIEW: High frame rate is given priority over the highest-quality post-processing.
+   * TEMPLATE_RECORD: Stable frame rate is used, and post-processing is set for recording quality.
+   *
+   * @return CaptureRequest.Builder or null if a CameraAccessException occurrs.
+   */
+  private @Nullable CaptureRequest.Builder configureCaptureRequestBuilder() {
+    CaptureRequest.Builder captureRequestBuilder = null;
+
+    try {
+      captureRequestBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
+      // Set auto exposure fps range.
+      captureRequestBuilder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE,
+          new Range<Integer>(captureFormat.framerate.min / fpsUnitFactor,
+              captureFormat.framerate.max / fpsUnitFactor));
+      captureRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON);
+      captureRequestBuilder.set(CaptureRequest.CONTROL_AE_LOCK, false);
+      chooseStabilizationMode(captureRequestBuilder);
+      chooseFocusMode(captureRequestBuilder);
+
+      captureRequestBuilder.addTarget(surface);
+    } catch (CameraAccessException e) {
+      Logging.e(TAG, "Failed to create CaptureRequestBuilder: " + e);
+    }
+
+    return captureRequestBuilder;
+  }
+
+  // Prefers optical stabilization over software stabilization if available. Only enables one of
+  // the stabilization modes at a time because having both enabled can cause strange results.
+  private void chooseStabilizationMode(CaptureRequest.Builder captureRequestBuilder) {
+    final int[] availableOpticalStabilization =
+        cameraCharacteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_OPTICAL_STABILIZATION);
+    if (availableOpticalStabilization != null) {
+      for (int mode : availableOpticalStabilization) {
+        if (mode == CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE_ON) {
+          captureRequestBuilder.set(CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
+              CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE_ON);
+          captureRequestBuilder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE,
+              CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE_OFF);
+          Logging.d(TAG, "Using optical stabilization.");
+          return;
+        }
+      }
+    }
+    // If no optical mode is available, try software.
+    final int[] availableVideoStabilization = cameraCharacteristics.get(
+        CameraCharacteristics.CONTROL_AVAILABLE_VIDEO_STABILIZATION_MODES);
+    for (int mode : availableVideoStabilization) {
+      if (mode == CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE_ON) {
+        captureRequestBuilder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE,
+            CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE_ON);
+        captureRequestBuilder.set(CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE,
+            CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE_OFF);
+        Logging.d(TAG, "Using video stabilization.");
+        return;
+      }
+    }
+    Logging.d(TAG, "Stabilization not available.");
+  }
+
+  private void chooseFocusMode(CaptureRequest.Builder captureRequestBuilder) {
+    final int[] availableFocusModes =
+        cameraCharacteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES);
+    for (int mode : availableFocusModes) {
+      if (mode == CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_VIDEO) {
+        captureRequestBuilder.set(
+            CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_VIDEO);
+        Logging.d(TAG, "Using continuous video auto-focus.");
+        return;
+      }
+    }
+    Logging.d(TAG, "Auto-focus is not available.");
   }
 
   private void reportError(String error) {

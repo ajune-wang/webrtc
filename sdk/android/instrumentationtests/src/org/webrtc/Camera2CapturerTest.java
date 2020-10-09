@@ -17,6 +17,7 @@ import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CaptureRequest;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -241,6 +242,28 @@ public class Camera2CapturerTest {
   @MediumTest
   public void testSwitchVideoCapturerToSpecificCameraName() throws InterruptedException {
     fixtures.switchCamera(true /* specifyCameraName */);
+  }
+
+  // Test updating a session by enabling the flash
+  @Test
+  @MediumTest
+  public void testUpdateSession() throws InterruptedException {
+    final CountDownLatch sessionUpdated = new CountDownLatch(1);
+    fixtures.updateSession(sessionUpdated,
+        (CameraVideoCapturer.SessionUpdater<CaptureRequest.Builder>) captureRequestBuilder -> {
+          captureRequestBuilder.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_TORCH);
+          sessionUpdated.countDown();
+        });
+  }
+
+  @Test
+  @MediumTest
+  public void testUpdateSessionAfterStop() throws InterruptedException {
+    final CountDownLatch sessionUpdated = new CountDownLatch(1);
+    fixtures.updateSessionAfterStop(sessionUpdated,
+        (CameraVideoCapturer.SessionUpdater<CaptureRequest.Builder>) captureRequestBuilder -> {
+          fail("Unexpected session update");
+        });
   }
 
   @Test

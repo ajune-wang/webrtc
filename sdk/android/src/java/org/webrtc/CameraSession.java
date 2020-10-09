@@ -34,6 +34,13 @@ interface CameraSession {
   }
 
   /**
+   * Update the current camera session.
+   *
+   * @see CameraVideoCapturer#updateSession
+   */
+  <T> void update(CameraVideoCapturer.SessionUpdater<T> updater);
+
+  /**
    * Stops the capture. Waits until no more calls to capture observer will be made.
    * If waitCameraStop is true, also waits for the camera to stop.
    */

@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import org.webrtc.CameraEnumerationAndroid.CaptureFormat;
 import org.webrtc.VideoFrame;
 
@@ -469,6 +470,41 @@ class CameraVideoCapturerTestFixtures {
 
   public void createBackFacingCapturerAndRender() throws InterruptedException {
     createCapturerAndRender(testObjectFactory.getNameOfBackFacingDevice());
+  }
+
+  public void updateSession(CountDownLatch sessionUpdated,
+      CameraVideoCapturer.SessionUpdater updater) throws InterruptedException {
+    final String cameraName = testObjectFactory.getNameOfBackFacingDevice();
+    final CapturerInstance capturerInstance = createCapturer(cameraName, false /* initialize */);
+    final VideoTrackWithRenderer videoTrackWithRenderer =
+        createVideoTrackWithRenderer(capturerInstance.capturer);
+    // Wait for the camera to start so we can update session
+    assertTrue(videoTrackWithRenderer.rendererCallbacks.waitForNextFrameToRender() > 0);
+
+    // Wait for session to be updated
+    capturerInstance.capturer.updateSession(updater);
+    assertTrue(sessionUpdated.await(3, TimeUnit.SECONDS));
+
+    // Ensure that frames are received.
+    assertTrue(videoTrackWithRenderer.rendererCallbacks.waitForNextFrameToRender() > 0);
+    disposeCapturer(capturerInstance);
+    disposeVideoTrackWithRenderer(videoTrackWithRenderer);
+  }
+
+  public void updateSessionAfterStop(CountDownLatch sessionUpdated,
+      CameraVideoCapturer.SessionUpdater updater) throws InterruptedException {
+    final CapturerInstance capturerInstance = createCapturer(false /* initialize */);
+    final VideoTrackWithRenderer videoTrackWithRenderer =
+        createVideoTrackWithRenderer(capturerInstance.capturer);
+    // Wait for the camera to start so we can update session
+    assertTrue(videoTrackWithRenderer.rendererCallbacks.waitForNextFrameToRender() > 0);
+
+    disposeCapturer(capturerInstance);
+    disposeVideoTrackWithRenderer(videoTrackWithRenderer);
+
+    // Should not trigger session update after stop
+    capturerInstance.capturer.updateSession(updater);
+    assertFalse(sessionUpdated.await(3, TimeUnit.SECONDS));
   }
 
   public void switchCamera() throws InterruptedException {

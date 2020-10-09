@@ -56,6 +56,18 @@ public interface CameraVideoCapturer extends VideoCapturer {
   }
 
   /**
+   * Camera session updater - this functional interface is used to update a running camera session.
+   * The callback will be invoked from the camera thread.
+   */
+  public interface SessionUpdater<T> {
+    // Invoked when the camera session is available to updated. For example, the camera session
+    // can be updated to enable flash. |cameraConfiguration| will be an instance of
+    // android.camera.Camera.Parameters when used with a Camera1Capturer or an instance of
+    // android.hardware.camera2.CaptureRequest.Builder when used with a Camera2Capturer.
+    void apply(T cameraConfiguration);
+  }
+
+  /**
    * Switch camera to the next valid camera id. This can only be called while the camera is running.
    * This function can be called from any thread.
    */
@@ -66,6 +78,36 @@ public interface CameraVideoCapturer extends VideoCapturer {
    * This function can be called from any thread.
    */
   void switchCamera(CameraSwitchHandler switchEventsHandler, String cameraName);
+
+  /**
+   * Update the current camera session. This can only be called while the camera is running. This
+   * function can be called from any thread. Reference the following usage examples:
+   *
+   * <p>Enable the flash with Camera2Capturer</p>
+   *
+   * <pre><code>
+   *     camera2Capturer.updateSession((CameraVideoCapturer.SessionUpdater<CaptureRequest.Builder>)
+   * captureRequestBuilder -> { captureRequestBuilder.set(CaptureRequest.FLASH_MODE,
+   * CaptureRequest.FLASH_MODE_TORCH);
+   *     })
+   * </code></pre>
+   *
+   * <p>Enable the flash with Camera1Capturer</p>
+   *
+   * <pre><code>
+   *     camera1Capturer.updateSession((CameraVideoCapturer.SessionUpdater<Camera.Parameters>)
+   * cameraParameters -> { if (cameraParameters.getFlashMode() != null) {
+   *         cameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+   *       }
+   *     })
+   * </code></pre>
+   *
+   * This function only supports passing a SessionUpdater<CameraRequest.Builder> with a
+   * Camera2Capturer instance or a SessionUpdater<Camera.Parameters> with a Camera1Capturer
+   * instance. A ClassCastException will be thrown from the camera thread if the caller does not
+   * pass the correct type.
+   */
+  <T> void updateSession(SessionUpdater<T> updater);
 
   /**
    * MediaRecorder add/remove handler - one of these functions are invoked with the result of

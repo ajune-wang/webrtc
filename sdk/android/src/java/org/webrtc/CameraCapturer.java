@@ -359,6 +359,24 @@ abstract class CameraCapturer implements CameraVideoCapturer {
   }
 
   @Override
+  public <T> void updateSession(final SessionUpdater<T> updater) {
+    Logging.d(TAG, "updateSession");
+    cameraThreadHandler.post(new Runnable() {
+      @Override
+      public void run() {
+        synchronized (stateLock) {
+          if (currentSession == null) {
+            eventsHandler.onCameraError("updateSession: camera is not running");
+          } else {
+            currentSession.update(updater);
+          }
+        }
+        Logging.d(TAG, "updateSession done");
+      }
+    });
+  }
+
+  @Override
   public boolean isScreencast() {
     return false;
   }

@@ -48,8 +48,6 @@ class Camera1Session implements CameraSession {
   private SessionState state;
   private boolean firstFrameReported;
 
-  // TODO(titovartem) make correct fix during webrtc:9175
-  @SuppressWarnings("ByteBufferBackingArray")
   public static void create(final CreateSessionCallback callback, final Events events,
       final boolean captureToTexture, final Context applicationContext,
       final SurfaceTextureHelper surfaceTextureHelper, final int cameraId, final int width,
@@ -96,11 +94,7 @@ class Camera1Session implements CameraSession {
     }
 
     if (!captureToTexture) {
-      final int frameSize = captureFormat.frameSize();
-      for (int i = 0; i < NUMBER_OF_CAPTURE_BUFFERS; ++i) {
-        final ByteBuffer buffer = ByteBuffer.allocateDirect(frameSize);
-        camera.addCallbackBuffer(buffer.array());
-      }
+      initializeCallbackBuffer(captureFormat, camera);
     }
 
     // Calculate orientation manually and send it as CVO insted.
@@ -108,6 +102,17 @@ class Camera1Session implements CameraSession {
 
     callback.onDone(new Camera1Session(events, captureToTexture, applicationContext,
         surfaceTextureHelper, cameraId, camera, info, captureFormat, constructionTimeNs));
+  }
+
+  // TODO(titovartem) make correct fix during webrtc:9175
+  @SuppressWarnings("ByteBufferBackingArray")
+  private static void initializeCallbackBuffer(
+      CaptureFormat captureFormat, android.hardware.Camera camera) {
+    final int frameSize = captureFormat.frameSize();
+    for (int i = 0; i < NUMBER_OF_CAPTURE_BUFFERS; ++i) {
+      final ByteBuffer buffer = ByteBuffer.allocateDirect(frameSize);
+      camera.addCallbackBuffer(buffer.array());
+    }
   }
 
   private static void updateCameraParameters(android.hardware.Camera camera,
@@ -174,6 +179,37 @@ class Camera1Session implements CameraSession {
     surfaceTextureHelper.setTextureSize(captureFormat.width, captureFormat.height);
 
     startCapturing();
+  }
+
+  @Override
+  public <T> void update(CameraVideoCapturer.SessionUpdater<T> updater) {
+    Logging.d(TAG, "Update camera1 session");
+    if (state == SessionState.RUNNING) {
+      checkIsOnCameraThread();
+      final android.hardware.Camera.Parameters parameters = camera.getParameters();
+
+      updater.apply((T) parameters);
+
+      // Stop preview to prevent camera freezes after updating parameters
+      camera.stopPreview();
+      if (captureToTexture) {
+        surfaceTextureHelper.stopListening();
+      } else {
+        camera.setPreviewCallbackWithBuffer(null);
+      }
+
+      camera.setParameters(parameters);
+
+      if (captureToTexture) {
+        listenForTextureFrames();
+      } else {
+        initializeCallbackBuffer(this.captureFormat, camera);
+        listenForBytebufferFrames();
+      }
+      camera.startPreview();
+    } else {
+      Logging.d(TAG, "Attempted to update session while stopped");
+    }
   }
 
   @Override

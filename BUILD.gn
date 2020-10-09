@@ -583,6 +583,7 @@ if (rtc_include_tests) {
   rtc_test("benchmarks") {
     testonly = true
     deps = [
+      "common_video:libyuv_benchmark",
       "rtc_base/synchronization:mutex_benchmark",
       "test:benchmark_main",
     ]

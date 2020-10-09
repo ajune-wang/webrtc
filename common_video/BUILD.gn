@@ -82,6 +82,21 @@ if (rtc_include_tests) {
     }
   }
 
+  rtc_library("libyuv_benchmark") {
+    testonly = true
+    sources = [ "libyuv/libyuv_benchmark.cc" ]
+    deps = [
+      ":common_video",
+      "//api:create_frame_generator",
+      "//api:frame_generator_api",
+      "//api/video:video_frame",
+      "//api/video:video_frame_nv12",
+      "//third_party/google_benchmark",
+      "//third_party/libyuv",
+    ]
+    absl_deps = [ "//third_party/abseil-cpp/absl/types:optional" ]
+  }
+
   rtc_test("common_video_unittests") {
     testonly = true
 

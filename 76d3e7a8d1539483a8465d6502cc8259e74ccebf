@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60760620_6d208409",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1380,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-10-09T14:50:02Z",
+      "side": 0,
+      "message": "Evan, this looks suspicious.\nStride for U/V planes should be exactly the same.",
+      "range": {
+        "startLine": 1380,
+        "startChar": 41,
+        "endLine": 1380,
+        "endChar": 79
+      },
+      "revId": "76d3e7a8d1539483a8465d6502cc8259e74ccebf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d79b159_96220c50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-09T08:14:30Z",
+      "side": 1,
+      "message": "Needs review by someone who knows offer/answer. I *think* it\u0027s a simple fix.\n",
+      "revId": "1cb4cddcc4b8ac5ed3a7c10f22cd2dd55a6cee02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

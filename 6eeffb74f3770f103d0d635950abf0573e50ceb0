@@ -16,6 +16,23 @@
       "message": "Amazing what gets done while listening to others\u0027 presentations...\n",
       "revId": "6eeffb74f3770f103d0d635950abf0573e50ceb0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a888309_0b28a91c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-09T15:51:06Z",
+      "side": 1,
+      "message": "Looks like we need some fix in Chromium before landing this but this is impressive! 😊",
+      "revId": "6eeffb74f3770f103d0d635950abf0573e50ceb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

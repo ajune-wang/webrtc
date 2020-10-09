@@ -16,6 +16,23 @@
       "message": "\"other\" is more consistent anyway",
       "revId": "fd76442eab89abe6e87a2c9a57d5b23534f83b28",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1617c761_514155bb",
+        "filename": "api/stats/rtc_stats_report.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-09T12:25:39Z",
+      "side": 1,
+      "message": "|victim| has become the victim of your change.",
+      "revId": "fd76442eab89abe6e87a2c9a57d5b23534f83b28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

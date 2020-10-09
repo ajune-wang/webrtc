@@ -51,6 +51,24 @@
       "parentUuid": "2b6a0fcc_e239738f",
       "revId": "823c66027c20bff583c1dddeface3c451c0a700a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "440cf49c_1c5aaa19",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-09T10:17:55Z",
+      "side": 1,
+      "message": "Chromium should build even with this change. There is an include error, it looks there is either a missing WEBRTC_USE_PIPEWIRE somewhere or build config misconfiguration. I will not get to a computer until Monday unfortunately so I won\u0027t be able to fix it now.",
+      "parentUuid": "6cf127d1_394cbf12",
+      "revId": "823c66027c20bff583c1dddeface3c451c0a700a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

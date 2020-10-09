@@ -56,6 +56,30 @@
       },
       "revId": "136aca9bfa17c92adbe827505749c57cbee19ffd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10c2a6cf_7cd343f6",
+        "filename": "modules/video_coding/codecs/av1/scalability_structure_full_svc.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-09T17:01:16Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "6ac4afa5_16cac0f1",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 62
+      },
+      "revId": "136aca9bfa17c92adbe827505749c57cbee19ffd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

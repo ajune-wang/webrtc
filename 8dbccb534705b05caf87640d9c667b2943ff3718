@@ -16,6 +16,23 @@
       "message": "Hi,\nCould you PTAL?\nAlessio",
       "revId": "8dbccb534705b05caf87640d9c667b2943ff3718",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac44f4f0_208c6641",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-09T12:28:37Z",
+      "side": 1,
+      "message": "lgtm.\nHowever, I typically prefer to change the CL title from\nyyy to Merge to M87: yyy",
+      "revId": "8dbccb534705b05caf87640d9c667b2943ff3718",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

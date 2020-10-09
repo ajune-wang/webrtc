@@ -462,7 +462,7 @@ JsepTransportController::CreateDtlsTransport(
       this, &JsepTransportController::OnTransportWritableState_n);
   dtls->SignalReceivingState.connect(
       this, &JsepTransportController::OnTransportReceivingState_n);
-  dtls->SignalDtlsHandshakeError.AddReceiver(
+  dtls->DtlsHandshakeErrorSignal.AddReceiver(
       [this](rtc::SSLHandshakeError error) { OnDtlsHandshakeError(error); });
   dtls->ice_transport()->SignalGatheringState.connect(
       this, &JsepTransportController::OnTransportGatheringState_n);

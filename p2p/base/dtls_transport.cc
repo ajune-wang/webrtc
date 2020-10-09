@@ -359,7 +359,7 @@ bool DtlsTransport::SetupDtls() {
   dtls_->SetMaxProtocolVersion(ssl_max_version_);
   dtls_->SetServerRole(*dtls_role_);
   dtls_->SignalEvent.connect(this, &DtlsTransport::OnDtlsEvent);
-  dtls_->SignalSSLHandshakeError.AddReceiver(
+  dtls_->SSLHandshakeErrorSignal.AddReceiver(
       [this](rtc::SSLHandshakeError e) { OnDtlsHandshakeError(e); });
   if (remote_fingerprint_value_.size() &&
       !dtls_->SetPeerCertificateDigest(
@@ -821,7 +821,8 @@ void DtlsTransport::set_dtls_state(DtlsTransportState state) {
 }
 
 void DtlsTransport::OnDtlsHandshakeError(rtc::SSLHandshakeError error) {
-  SignalDtlsHandshakeError.Send(error);
+  SignalDtlsHandshakeError(error);
+  DtlsHandshakeErrorSignal.Send(error);
 }
 
 void DtlsTransport::ConfigureHandshakeTimeout() {

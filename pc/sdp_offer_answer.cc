@@ -744,12 +744,14 @@ class CreateSessionDescriptionObserverOperationWrapper
     RTC_DCHECK(observer_);
   }
   ~CreateSessionDescriptionObserverOperationWrapper() override {
+#if RTC_DCHECK_IS_ON
     RTC_DCHECK(was_called_);
+#endif
   }
 
   void OnSuccess(SessionDescriptionInterface* desc) override {
+#if RTC_DCHECK_IS_ON
     RTC_DCHECK(!was_called_);
-#ifdef RTC_DCHECK_IS_ON
     was_called_ = true;
 #endif  // RTC_DCHECK_IS_ON
     // Completing the operation before invoking the observer allows the observer
@@ -759,8 +761,8 @@ class CreateSessionDescriptionObserverOperationWrapper
   }
 
   void OnFailure(RTCError error) override {
+#if RTC_DCHECK_IS_ON
     RTC_DCHECK(!was_called_);
-#ifdef RTC_DCHECK_IS_ON
     was_called_ = true;
 #endif  // RTC_DCHECK_IS_ON
     operation_complete_callback_();
@@ -768,7 +770,7 @@ class CreateSessionDescriptionObserverOperationWrapper
   }
 
  private:
-#ifdef RTC_DCHECK_IS_ON
+#if RTC_DCHECK_IS_ON
   bool was_called_ = false;
 #endif  // RTC_DCHECK_IS_ON
   rtc::scoped_refptr<CreateSessionDescriptionObserver> observer_;
@@ -1800,8 +1802,7 @@ void SdpOfferAnswerHandler::DoSetLocalDescription(
   }
 
   observer->OnSetLocalDescriptionComplete(RTCError::OK());
-  pc_->NoteUsageEvent(
-      PeerConnection::UsageEvent::SET_LOCAL_DESCRIPTION_SUCCEEDED);
+  pc_->NoteUsageEvent(UsageEvent::SET_LOCAL_DESCRIPTION_SUCCEEDED);
 
   // Check if negotiation is needed. We must do this after informing the
   // observer that SetLocalDescription() has completed to ensure negotiation is
@@ -2007,8 +2008,9 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
                  "Rollback not supported in Plan B"));
     return;
   }
-  if (desc->GetType() == SdpType::kOffer) {
-    // Report to UMA the format of the received offer.
+  if (desc->GetType() == SdpType::kOffer ||
+      desc->GetType() == SdpType::kAnswer) {
+    // Report to UMA the format of the received offer or answer.
     pc_->ReportSdpFormatReceived(*desc);
   }
 
@@ -2059,8 +2061,7 @@ void SdpOfferAnswerHandler::DoSetRemoteDescription(
   }
 
   observer->OnSetRemoteDescriptionComplete(RTCError::OK());
-  pc_->NoteUsageEvent(
-      PeerConnection::UsageEvent::SET_REMOTE_DESCRIPTION_SUCCEEDED);
+  pc_->NoteUsageEvent(UsageEvent::SET_REMOTE_DESCRIPTION_SUCCEEDED);
 
   // Check if negotiation is needed. We must do this after informing the
   // observer that SetRemoteDescription() has completed to ensure negotiation is
@@ -2159,8 +2160,7 @@ bool SdpOfferAnswerHandler::AddIceCandidate(
   if (ready) {
     bool result = UseCandidate(ice_candidate);
     if (result) {
-      pc_->NoteUsageEvent(
-          PeerConnection::UsageEvent::ADD_ICE_CANDIDATE_SUCCEEDED);
+      pc_->NoteUsageEvent(UsageEvent::ADD_ICE_CANDIDATE_SUCCEEDED);
       NoteAddIceCandidateResult(kAddIceCandidateSuccess);
     } else {
       NoteAddIceCandidateResult(kAddIceCandidateFailNotUsable);
@@ -2871,17 +2871,16 @@ RTCError SdpOfferAnswerHandler::UpdateTransceiversAndDataChannels(
         old_remote_content =
             &old_remote_description->description()->contents()[i];
       }
-      // In the case where an m-section has completed its rejection,
-      // and is not being reused, we do not expect a transceiver.
-      if (old_local_content && old_local_content->rejected &&
-          old_remote_content && old_remote_content->rejected &&
-          new_content.rejected) {
-        continue;
-      }
       auto transceiver_or_error =
           AssociateTransceiver(source, new_session.GetType(), i, new_content,
                                old_local_content, old_remote_content);
       if (!transceiver_or_error.ok()) {
+        // In the case where a transceiver is rejected locally, we don't
+        // expect to find a transceiver, but might find it in the case
+        // where state is still "stopping", not "stopped".
+        if (new_content.rejected) {
+          continue;
+        }
         return transceiver_or_error.MoveError();
       }
       auto transceiver = transceiver_or_error.MoveValue();
@@ -2919,6 +2918,7 @@ SdpOfferAnswerHandler::AssociateTransceiver(
     const ContentInfo* old_local_content,
     const ContentInfo* old_remote_content) {
   RTC_DCHECK(IsUnifiedPlan());
+#if RTC_DCHECK_IS_ON
   // If this is an offer then the m= section might be recycled. If the m=
   // section is being recycled (defined as: rejected in the current local or
   // remote description and not rejected in new description), the transceiver
@@ -2933,6 +2933,8 @@ SdpOfferAnswerHandler::AssociateTransceiver(
     // The transceiver should be disassociated in RemoveStoppedTransceivers()
     RTC_DCHECK(!old_transceiver);
   }
+#endif
+
   const MediaContentDescription* media_desc = content.media_description();
   auto transceiver = transceivers().FindByMid(content.name);
   if (source == cricket::CS_LOCAL) {
@@ -2943,8 +2945,9 @@ SdpOfferAnswerHandler::AssociateTransceiver(
       transceiver = transceivers().FindByMLineIndex(mline_index);
     }
     if (!transceiver) {
+      // This may happen normally when media sections are rejected.
       LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER,
-                           "Unknown transceiver");
+                           "Transceiver not found based on m-line index");
     }
   } else {
     RTC_DCHECK_EQ(source, cricket::CS_REMOTE);
@@ -2984,6 +2987,9 @@ SdpOfferAnswerHandler::AssociateTransceiver(
         transceivers().StableState(transceiver)->set_newly_created();
       }
     }
+
+    RTC_DCHECK(transceiver);
+
     // Check if the offer indicated simulcast but the answer rejected it.
     // This can happen when simulcast is not supported on the remote party.
     if (SimulcastIsRejected(old_local_content, *media_desc)) {
@@ -2996,12 +3002,13 @@ SdpOfferAnswerHandler::AssociateTransceiver(
       }
     }
   }
-  RTC_DCHECK(transceiver);
+
   if (transceiver->media_type() != media_desc->type()) {
     LOG_AND_RETURN_ERROR(
         RTCErrorType::INVALID_PARAMETER,
         "Transceiver type does not match media description type.");
   }
+
   if (media_desc->HasSimulcast()) {
     std::vector<SimulcastLayer> layers =
         source == cricket::CS_LOCAL
@@ -4225,18 +4232,15 @@ bool SdpOfferAnswerHandler::ReadyToUseRemoteCandidate(
 
 void SdpOfferAnswerHandler::ReportRemoteIceCandidateAdded(
     const cricket::Candidate& candidate) {
-  pc_->NoteUsageEvent(PeerConnection::UsageEvent::REMOTE_CANDIDATE_ADDED);
+  pc_->NoteUsageEvent(UsageEvent::REMOTE_CANDIDATE_ADDED);
   if (candidate.address().IsPrivateIP()) {
-    pc_->NoteUsageEvent(
-        PeerConnection::UsageEvent::REMOTE_PRIVATE_CANDIDATE_ADDED);
+    pc_->NoteUsageEvent(UsageEvent::REMOTE_PRIVATE_CANDIDATE_ADDED);
   }
   if (candidate.address().IsUnresolvedIP()) {
-    pc_->NoteUsageEvent(
-        PeerConnection::UsageEvent::REMOTE_MDNS_CANDIDATE_ADDED);
+    pc_->NoteUsageEvent(UsageEvent::REMOTE_MDNS_CANDIDATE_ADDED);
   }
   if (candidate.address().family() == AF_INET6) {
-    pc_->NoteUsageEvent(
-        PeerConnection::UsageEvent::REMOTE_IPV6_CANDIDATE_ADDED);
+    pc_->NoteUsageEvent(UsageEvent::REMOTE_IPV6_CANDIDATE_ADDED);
   }
 }
 

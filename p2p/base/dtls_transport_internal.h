@@ -116,7 +116,9 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   sigslot::signal2<DtlsTransportInternal*, DtlsTransportState> SignalDtlsState;
 
   // Emitted whenever the Dtls handshake failed on some transport channel.
-  webrtc::RoboCaller<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
+  // TODO(bugs.webrtc.org/11943): Remove sigslot and use one variable.
+  sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
+  webrtc::RoboCaller<rtc::SSLHandshakeError> DtlsHandshakeErrorSignal;
 
  protected:
   DtlsTransportInternal();

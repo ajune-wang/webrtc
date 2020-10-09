@@ -931,7 +931,8 @@ int OpenSSLStreamAdapter::ContinueSSL() {
       }
       RTC_DLOG(LS_VERBOSE) << " -- error " << code << ", " << err_code << ", "
                            << ERR_GET_REASON(err_code);
-      SignalSSLHandshakeError.Send(ssl_handshake_err);
+      SignalSSLHandshakeError(ssl_handshake_err);
+      SSLHandshakeErrorSignal.Send(ssl_handshake_err);
       return (ssl_error != 0) ? ssl_error : -1;
   }
 

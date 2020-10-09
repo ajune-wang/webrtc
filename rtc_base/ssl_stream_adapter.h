@@ -23,6 +23,7 @@
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_identity.h"
 #include "rtc_base/stream.h"
+#include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace rtc {
 
@@ -268,7 +269,9 @@ class SSLStreamAdapter : public StreamAdapterInterface {
   // authentication.
   bool GetClientAuthEnabled() const { return client_auth_enabled_; }
 
-  webrtc::RoboCaller<SSLHandshakeError> SignalSSLHandshakeError;
+  // TODO(bugs.webrtc.org/11943): Remove sigslot and use one variable.
+  sigslot::signal1<SSLHandshakeError> SignalSSLHandshakeError;
+  webrtc::RoboCaller<SSLHandshakeError> SSLHandshakeErrorSignal;
 
  private:
   // If true (default), the client is required to provide a certificate during

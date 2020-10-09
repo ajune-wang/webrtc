@@ -26,6 +26,7 @@
 #include "api/video/video_adaptation_reason.h"
 #include "api/video/video_bitrate_allocator_factory.h"
 #include "api/video/video_codec_constants.h"
+#include "api/video/video_layers_allocation.h"
 #include "api/video_codecs/video_encoder.h"
 #include "call/adaptation/resource_adaptation_processor.h"
 #include "call/adaptation/video_stream_adapter.h"
@@ -41,7 +42,6 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/synchronization/sequence_checker.h"
-#include "rtc_base/system/no_unique_address.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
@@ -275,7 +275,7 @@ class VideoStreamEncoder::DegradationPreferenceManager
     }
   }
 
-  RTC_NO_UNIQUE_ADDRESS SequenceChecker sequence_checker_;
+  SequenceChecker sequence_checker_;
   DegradationPreference degradation_preference_
       RTC_GUARDED_BY(&sequence_checker_);
   bool is_screenshare_ RTC_GUARDED_BY(&sequence_checker_);
@@ -325,7 +325,6 @@ VideoStreamEncoder::VideoStreamEncoder(
       animation_start_time_(Timestamp::PlusInfinity()),
       cap_resolution_due_to_video_content_(false),
       expect_resize_state_(ExpectResizeState::kNoResize),
-      bitrate_observer_(nullptr),
       fec_controller_override_(nullptr),
       force_disable_frame_dropper_(false),
       input_framerate_(kFrameRateAvergingWindowSizeMs, 1000),
@@ -419,21 +418,10 @@ void VideoStreamEncoder::Stop() {
       resource_adaptation_processor_.reset();
     }
     rate_allocator_ = nullptr;
-    bitrate_observer_ = nullptr;
     ReleaseEncoder();
     shutdown_event.Set();
   });
   shutdown_event.Wait(rtc::Event::kForever);
-}
-
-void VideoStreamEncoder::SetBitrateAllocationObserver(
-    VideoBitrateAllocationObserver* bitrate_observer) {
-  RTC_DCHECK_RUN_ON(main_queue_);
-  encoder_queue_.PostTask([this, bitrate_observer] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
-    RTC_DCHECK(!bitrate_observer_);
-    bitrate_observer_ = bitrate_observer;
-  });
 }
 
 void VideoStreamEncoder::SetFecControllerOverride(
@@ -1110,7 +1098,7 @@ void VideoStreamEncoder::SetEncoderRates(
     last_encoder_rate_settings_ = rate_settings;
   }
 
-  if (!encoder_ || !rate_control_changed) {
+  if (!encoder_) {
     return;
   }
 
@@ -1127,6 +1115,7 @@ void VideoStreamEncoder::SetEncoderRates(
     return;
   }
 
+  if (rate_control_changed) {
     encoder_->SetRates(rate_settings.rate_control);
 
     encoder_stats_observer_->OnBitrateAllocationUpdated(
@@ -1135,14 +1124,22 @@ void VideoStreamEncoder::SetEncoderRates(
         rate_settings.rate_control.bitrate,
         static_cast<uint32_t>(rate_settings.rate_control.framerate_fps + 0.5));
     stream_resource_manager_.SetEncoderRates(rate_settings.rate_control);
-    if (bitrate_observer_) {
-      bitrate_observer_->OnBitrateAllocationUpdated(
-          // Update allocation according to info from encoder. An encoder may
-          // choose to not use all layers due to for example HW.
-          UpdateAllocationFromEncoderInfo(
-              rate_settings.rate_control.target_bitrate,
-              encoder_->GetEncoderInfo()));
-    }
+  }
+  if ((settings_.allocation_cb_type ==
+       VideoStreamEncoderSettings::BitrateAllocationCallbackType::
+           kVideoBitrateAllocation) ||
+      (encoder_config_.content_type ==
+           VideoEncoderConfig::ContentType::kScreen &&
+       settings_.allocation_cb_type ==
+           VideoStreamEncoderSettings::BitrateAllocationCallbackType::
+               kVideoBitrateAllocationWhenScreenSharing)) {
+    sink_->OnBitrateAllocationUpdated(
+        // Update allocation according to info from encoder. An encoder may
+        // choose to not use all layers due to for example HW.
+        UpdateAllocationFromEncoderInfo(
+            rate_settings.rate_control.target_bitrate,
+            encoder_->GetEncoderInfo()));
+  }
 }
 
 void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
@@ -1315,10 +1312,19 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
           VideoFrameBuffer::Type::kNative &&
       !info.supports_native_handle) {
     // This module only supports software encoding.
-    rtc::scoped_refptr<I420BufferInterface> converted_buffer(
-        out_frame.video_frame_buffer()->ToI420());
-
-    if (!converted_buffer) {
+    rtc::scoped_refptr<VideoFrameBuffer> buffer =
+        out_frame.video_frame_buffer()->GetMappedFrameBuffer(
+            info.preferred_pixel_formats);
+    bool buffer_was_converted = false;
+    if (!buffer) {
+      buffer = out_frame.video_frame_buffer()->ToI420();
+      // TODO(https://crbug.com/webrtc/12021): Once GetI420 is pure virtual,
+      // this just true as an I420 buffer would return from
+      // GetMappedFrameBuffer.
+      buffer_was_converted =
+          (out_frame.video_frame_buffer()->GetI420() == nullptr);
+    }
+    if (!buffer) {
       RTC_LOG(LS_ERROR) << "Frame conversion failed, dropping frame.";
       return;
     }
@@ -1332,8 +1338,7 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
       update_rect =
           VideoFrame::UpdateRect{0, 0, out_frame.width(), out_frame.height()};
     }
-
-    out_frame.set_video_frame_buffer(converted_buffer);
+    out_frame.set_video_frame_buffer(buffer);
     out_frame.set_update_rect(update_rect);
   }
 

@@ -16,6 +16,23 @@
       "message": "Needs review by someone who knows offer/answer. I *think* it\u0027s a simple fix.\n",
       "revId": "1cb4cddcc4b8ac5ed3a7c10f22cd2dd55a6cee02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d535f30_ed02ecbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-09T08:46:59Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "1cb4cddcc4b8ac5ed3a7c10f22cd2dd55a6cee02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

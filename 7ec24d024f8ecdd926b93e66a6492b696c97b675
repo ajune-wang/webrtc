@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f450a939_52d70f58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-09T07:53:38Z",
+      "side": 1,
+      "message": "Tommi/Guido, I am not sure this is enough to fix the cast_shell_linux issue we see on https://chromium-review.googlesource.com/c/chromium/src/+/2461647 but it might just work. WDYT?",
+      "revId": "7ec24d024f8ecdd926b93e66a6492b696c97b675",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

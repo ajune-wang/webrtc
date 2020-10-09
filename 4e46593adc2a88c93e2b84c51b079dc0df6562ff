@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e323808_2d13d8b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6756
+      },
+      "writtenOn": "2020-10-09T15:21:43Z",
+      "side": 1,
+      "message": "LGTM. Don\u0027t have +1 access here it seems.",
+      "revId": "4e46593adc2a88c93e2b84c51b079dc0df6562ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -10,7 +10,6 @@
 #include "test/encoder_settings.h"
 
 #include <algorithm>
-#include <string>
 
 #include "api/scoped_refptr.h"
 #include "api/video_codecs/sdp_video_format.h"
@@ -34,6 +33,9 @@ std::vector<VideoStream> CreateVideoStreams(
     const webrtc::VideoEncoderConfig& encoder_config) {
   RTC_DCHECK(encoder_config.number_of_streams <=
              DefaultVideoStreamFactory::kMaxNumberOfStreams);
+  RTC_DCHECK_GT(encoder_config.number_of_streams, 0);
+  RTC_DCHECK_GE(encoder_config.simulcast_layers.size(),
+                encoder_config.number_of_streams);
 
   std::vector<VideoStream> stream_settings(encoder_config.number_of_streams);
 
@@ -54,13 +56,13 @@ std::vector<VideoStream> CreateVideoStreams(
     stream_settings[i].height =
         (i + 1) * height / encoder_config.number_of_streams;
     stream_settings[i].max_framerate = 30;
+    stream_settings[i].max_qp = 56;
     stream_settings[i].min_bitrate_bps =
         DefaultVideoStreamFactory::kDefaultMinBitratePerStream[i];
 
     int target_bitrate_bps = -1;
     int max_bitrate_bps = -1;
-    // Use configured values instead of default values if values has been
-    // configured.
+    // Use configured values instead of default values if set.
     if (i < encoder_config.simulcast_layers.size()) {
       const VideoStream& stream = encoder_config.simulcast_layers[i];
 
@@ -101,7 +103,6 @@ std::vector<VideoStream> CreateVideoStreams(
     RTC_DCHECK_NE(max_bitrate_bps, -1);
     stream_settings[i].target_bitrate_bps = target_bitrate_bps;
     stream_settings[i].max_bitrate_bps = max_bitrate_bps;
-    stream_settings[i].max_qp = 56;
 
     if (i < encoder_config.simulcast_layers.size()) {
       // Higher level controls are setting the active configuration for the

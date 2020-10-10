@@ -33,6 +33,59 @@
       "message": "So there is some weird behaviour left. The answer looks as follows if the offer contains RTP/SAVPF\nv\u003d0\no\u003d- 1435231928591669144 2 IN IP4 127.0.0.1\ns\u003d-\nt\u003d0 0\na\u003dmsid-semantic: WMS\nm\u003dbogus 0 RTP/SAVPF 0\nc\u003dIN IP4 0.0.0.0\na\u003drtcp:9 IN IP4 0.0.0.0\na\u003dice-ufrag:wbBO\na\u003dice-pwd:bSdbnmI2LXRhyo0aT4ubTvS+\na\u003dice-options:trickle\na\u003dmid:bogusmid\na\u003dsendrecv\nm\u003daudio/something 0 RTP/SAVPF 0\nc\u003dIN IP4 0.0.0.0\na\u003drtcp:9 IN IP4 0.0.0.0\na\u003dice-ufrag:9JhU\na\u003dice-pwd:WvsAFW876Url/orqPcZtrOuI\na\u003dice-options:trickle\na\u003dmid:somethingmid\na\u003dsendrecv\n\nIn particular the sendrecv i weird. Changing the protocol to something more bogus still leaves the a\u003dice which suggests there is an ice-transport allocated? That should not happen imo but might be a deeper bug.\n\nA subsequent offer after the successful SRD/SLD cycle still crashes so I need more tests:\nconst sdp \u003d \"v\u003d0\\r\\no\u003d- 1022996831727400149 3 IN IP4 127.0.0.1\\r\\ns\u003d-\\r\\nt\u003d0 0\\r\\nm\u003dbogus 9 QOS/SAVPF 0 8\\r\\nc\u003dIN IP4 0.0.0.0\\r\\na\u003dmid:bogusmid\\r\\nm\u003daudio/something 9 QOS/SAVPF 0 8\\r\\nc\u003dIN IP4 0.0.0.0\\r\\na\u003dmid:somethingmid\\r\\n\";\nconst pc \u003d new RTCPeerConnection();\nawait pc.setRemoteDescription({type: \u0027offer\u0027, sdp});\nawait pc.setLocalDescription();\n// await pc.createOffer(); // crashes",
       "revId": "b28dbbb0c82d56f579d45d6611b95f1317b19aee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e06d56_d102daa1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-10T07:17:08Z",
+      "side": 1,
+      "message": "doing RTC_LOG(LS_ERROR) \u003c\u003c \"DEBUG: \" \u003c\u003c sdp.sdp; usually works for me.",
+      "parentUuid": "2a69d13c_d23ca24e",
+      "revId": "b28dbbb0c82d56f579d45d6611b95f1317b19aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e43cebc_c2620c87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-10T07:17:08Z",
+      "side": 1,
+      "message": "Yse, stopped transceivers should have direction inactive (https://w3c.github.io/webrtc-pc/#dfn-stop-sending-and-receiving).",
+      "parentUuid": "fcca4ed7_7addbec3",
+      "revId": "b28dbbb0c82d56f579d45d6611b95f1317b19aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "965fdcdc_1d3b4663",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-10T07:17:08Z",
+      "side": 1,
+      "message": "it\u0027s now weekend. will have to look Monday.\n",
+      "revId": "b28dbbb0c82d56f579d45d6611b95f1317b19aee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

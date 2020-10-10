@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 
+#include <algorithm>
 #include <functional>
 #include <list>
 #include <map>
@@ -2775,6 +2776,50 @@ TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
 
   caller()->SetReceivedSdpMunger(&RemoveSsrcsAndKeepMsids);
   callee()->SetReceivedSdpMunger(&RemoveSsrcsAndKeepMsids);
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  ASSERT_EQ(2u, caller()->pc()->GetReceivers().size());
+  ASSERT_EQ(2u, callee()->pc()->GetReceivers().size());
+
+  // Expect video to be received in both directions on both tracks.
+  MediaExpectations media_expectations;
+  media_expectations.ExpectBidirectionalVideo();
+  EXPECT_TRUE(ExpectNewFrames(media_expectations));
+}
+
+// Used for the test below.
+void RemoveBundleGroupSsrcsAndMidExtension(cricket::SessionDescription* desc) {
+  RemoveSsrcsAndKeepMsids(desc);
+  desc->RemoveGroupByName("BUNDLE");
+  for (ContentInfo& content : desc->contents()) {
+    cricket::MediaContentDescription* media = content.media_description();
+    cricket::RtpHeaderExtensions extensions = media->rtp_header_extensions();
+    extensions.erase(std::remove_if(extensions.begin(), extensions.end(),
+                                    [](const RtpExtension& extension) {
+                                      return extension.uri ==
+                                             RtpExtension::kMidUri;
+                                    }),
+                     extensions.end());
+    media->set_rtp_header_extensions(extensions);
+  }
+}
+
+// Tests that video flows between multiple video tracks when BUNDLE is not used,
+// SSRCs are not signaled and the MID RTP header extension is not used. this
+// relies on demuxing by payload type, which normally doesn't work if you have
+// multiple media sections using the same payload type, but which should work as
+// long as the media sections aren't bundled.
+// Regression test for: http://crbug.com/webrtc/12023
+TEST_F(PeerConnectionIntegrationTestUnifiedPlan,
+       EndToEndCallWithTwoVideoTracksNoBundleNoSignaledSsrcAndNoMid) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddVideoTrack();
+  caller()->AddVideoTrack();
+  callee()->AddVideoTrack();
+  callee()->AddVideoTrack();
+  caller()->SetReceivedSdpMunger(&RemoveBundleGroupSsrcsAndMidExtension);
+  callee()->SetReceivedSdpMunger(&RemoveBundleGroupSsrcsAndMidExtension);
   caller()->CreateAndSetAndSignalOffer();
   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
   ASSERT_EQ(2u, caller()->pc()->GetReceivers().size());

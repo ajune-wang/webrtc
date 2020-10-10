@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65d5ccd3_12251c3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-10T01:15:37Z",
+      "side": 1,
+      "message": "Harald, could you take a look?\n\nThe background is: when receiving multiple video tracks, sometimes packets from the second track would arrive early (before the SDP with the second m\u003d section is received), causing the first channel/transceiver to create a \"default stream\" based on a matching payload type. Which prevents the second channel from creating a receive stream when the SDP is received, since one already exists. \n\nSo the solution was to disable payload based demuxing and get rid of any default streams when going from one video track to two. In other words, when you have multiple video tracks, you must demux by SSRC/MID/RID.\n\nBut this neglected the unbundled use case, where it\u0027s okay to demux by payload type alone with multiple video tracks, since they\u0027re using different transports.\n\nOne issue that remains unresolved is: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d12029\n\nI\u0027ll fix that later as well, but first I wanted to fix this issue with as small a code change is possible so it can be merged into M87.",
+      "revId": "9bff4986895d6edb63831c38aaac5b5ec1bfb421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff045f89_fdbeeee6",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-10T01:15:37Z",
+      "side": 1,
+      "message": "I noticed I wasn\u0027t checking the return type here. This should never fail though, since we are only modifying the payload types, which doesn\u0027t trigger an error: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/call/rtp_demuxer.cc;l\u003d198;drc\u003d0e22286ee95d2bd711f81d73f1178343fbacc890?q\u003drtp_demuxer.cc\n\nAnd if this was changed, we\u0027d get errors in more places than just here.",
+      "revId": "9bff4986895d6edb63831c38aaac5b5ec1bfb421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d41a3b18_3e6751a8",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-10T01:15:37Z",
+      "side": 1,
+      "message": "This is necessary in case bundling was offered by the local side, but rejected by the remote side, as SetRemoteContent (which will be called after this as part of the SetRemoteDescription procedure) doesn\u0027t add payload types, only local descriptions will add payload types.\n\nThis is exercised by the new integration test.",
+      "revId": "9bff4986895d6edb63831c38aaac5b5ec1bfb421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

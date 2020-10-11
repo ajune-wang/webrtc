@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec5a569_dcb0a9c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-11T13:04:33Z",
+      "side": 1,
+      "message": "This should allow fixing the chromium problem in the other CL.\n",
+      "revId": "32f757930e1622914a4c9aaf123185760a8ceb9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

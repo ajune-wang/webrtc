@@ -70,6 +70,46 @@
       "parentUuid": "cec4cf59_5d001d93",
       "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c217f31_71c1e19e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-10-12T14:31:22Z",
+      "side": 1,
+      "message": "The code looks good. But I would appreciate if Sami could test this with e.g. patched Duo groups.\nOr trigger the adaptation with debug tools, if possible. ",
+      "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb8af50_50345b44",
+        "filename": "sdk/android/src/jni/video_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-10-12T14:31:22Z",
+      "side": 1,
+      "message": "const\n\nI\u0027m uploading the Cl for the interface now.",
+      "range": {
+        "startLine": 50,
+        "startChar": 69,
+        "endLine": 50,
+        "endChar": 70
+      },
+      "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

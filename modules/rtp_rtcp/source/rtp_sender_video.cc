@@ -345,7 +345,7 @@ void RTPSenderVideo::AddRtpHeaderExtensions(
       // To avoid extra structure copy, temporary share ownership of the
       // video_structure with the dependency descriptor.
       if (video_header.frame_type == VideoFrameType::kVideoFrameKey &&
-          first_packet) {
+          video_header.generic->dependencies.empty() && first_packet) {
         descriptor.attached_structure =
             absl::WrapUnique(video_structure_.get());
       }

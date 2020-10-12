@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bade66ba_97766732",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-10-12T14:25:01Z",
+      "side": 1,
+      "message": "Thank your for the patch but the implementations in the SDK are meant as something to get started with / examples and not feature-complete classes. If you need to add more features, I suggest that you fork the implementation to your own app.\n\nIf you think your implementation is useful for other apps, you can always provide it as an additional library that can be shared across apps.",
+      "revId": "bf42540107ea3e8bf7917acbdf783c380d66c12e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

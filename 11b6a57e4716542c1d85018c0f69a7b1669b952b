@@ -52,6 +52,24 @@
       "parentUuid": "83e05db5_0b4051ae",
       "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "080298fa_3d6e87d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-10-12T14:19:28Z",
+      "side": 1,
+      "message": "Yes, in practice it can \"sample\" a few pixels depending on how the math works out.",
+      "parentUuid": "cec4cf59_5d001d93",
+      "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

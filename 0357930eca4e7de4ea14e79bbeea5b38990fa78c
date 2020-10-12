@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b51f7c16_dc3e0a8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-12T00:24:59Z",
+      "side": 1,
+      "message": "How do you handle the case where the first offer contains a single video track with PT 96, and a subsequent offer contains two video tracks with PT 96?\n\nThat was the case that caused the original patch to be landed.\n\n(haven\u0027t looked at the content of CL yet)\n",
+      "revId": "0357930eca4e7de4ea14e79bbeea5b38990fa78c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

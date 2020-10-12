@@ -16,6 +16,24 @@
       "message": "PTAL. I\u0027m not that familiar with the wiring of YuvConverter and toI420Handler, so not sure if we risk getting scaling artifacts if we let the java classes scale down more than a factor of 2. But this cl in itself shouldn\u0027t have much effect, since it looks like the method isn\u0027t called for kNative frames. But I hope we can move towards deleting the special handling of kNative in VideoStreamEncoder.\n\nThen, for software encoding of textures, we should be able to do scaling prior to I420 conversion (or rather, CropAndScale method call prior to ToI420 call, but scaling and conversion actually done together on the GPU). And avoid software scaling with libyuv.",
       "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83e05db5_0b4051ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-10-12T13:51:02Z",
+      "side": 1,
+      "message": "The default downscaling method in ToI420 is nearest neighbour. So it may cause artifacts when downscaling a lot. This CL looks good to me though.",
+      "parentUuid": "c5a6dad3_b5bf6449",
+      "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

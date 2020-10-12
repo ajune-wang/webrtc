@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dfbfc0d_ce990b23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-12T16:06:09Z",
+      "side": 1,
+      "message": "updated, PS5 shows some particularly gnarly assumptions such as the MediaProtocolType. This is a great exercise indeed :-)\n\nThe subsequent offer looks like this:\n\u003d0\no\u003d- 4634498237130326087 4 IN IP4 127.0.0.1\ns\u003d-\nt\u003d0 0\na\u003dmsid-semantic: WMS\nm\u003dbogus 0 QOS/SAVPF 0\nc\u003dIN IP4 0.0.0.0\na\u003dice-ufrag:wxsB\na\u003dice-pwd:NyPUK03zxwSCQR5IehmPy3YS\na\u003dice-options:trickle\na\u003dfingerprint:sha-256 FE:1F:84:5A:3F:F4:A9:72:79:FB:BE:D3:D9:4C:72:51:65:D6:D2:98:E1:84:9B:33:FE:93:8A:92:D8:70:41:FE\na\u003dsetup:actpass\na\u003dmid:bogusmid\nm\u003daudio/something 0 QOS/SAVPF 0\nc\u003dIN IP4 0.0.0.0\na\u003dice-ufrag:Yj8W\na\u003dice-pwd:WIDbsF6czZ8wZiu1DdQtxruy\na\u003dice-options:trickle\na\u003dfingerprint:sha-256 FE:1F:84:5A:3F:F4:A9:72:79:FB:BE:D3:D9:4C:72:51:65:D6:D2:98:E1:84:9B:33:FE:93:8A:92:D8:70:41:FE\na\u003dsetup:actpass\na\u003dmid:somethingmid\n\nMaybe I should simply not add a transport description (see media_session.cc) but then I suspect that this should be generalized not to do anything for rejected contents.",
+      "revId": "c9f75d89d8b255b55918c52eed1437cfefde3cd1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

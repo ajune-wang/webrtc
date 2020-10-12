@@ -22,6 +22,30 @@
       },
       "revId": "a1cb6866b585214ccca1cfac9a807c4da6b72a4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11ed8c3b_5635dae1",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2020-10-12T12:14:12Z",
+      "side": 1,
+      "message": "Yup, I fixed that. Just re-running the tests to confirm and will upload when they pass.",
+      "parentUuid": "df7e7e74_69901e95",
+      "range": {
+        "startLine": 1382,
+        "startChar": 75,
+        "endLine": 1382,
+        "endChar": 79
+      },
+      "revId": "a1cb6866b585214ccca1cfac9a807c4da6b72a4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

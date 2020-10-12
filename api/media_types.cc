@@ -26,6 +26,8 @@ std::string MediaTypeToString(MediaType type) {
       return kMediaTypeVideo;
     case MEDIA_TYPE_DATA:
       return kMediaTypeData;
+    case MEDIA_TYPE_UNSUPPORTED:
+      return "unsupported";
   }
   FATAL();
   // Not reachable; avoids compile warning.

@@ -34,6 +34,24 @@
       "parentUuid": "c5a6dad3_b5bf6449",
       "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cec4cf59_5d001d93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-12T14:07:03Z",
+      "side": 1,
+      "message": "Hmm. I would expect a simple use of YuvConverter with a scaling transformation matrix to sample the texture by interpolating linearly between nearest neighbors. Which should give reasonable results when scaling down by a small factor (say, 1-1.5). But not adequate for down-scaling by a larger factor.",
+      "parentUuid": "83e05db5_0b4051ae",
+      "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

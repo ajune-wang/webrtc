@@ -110,6 +110,30 @@
       },
       "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec7a326f_2794800b",
+        "filename": "sdk/android/src/jni/video_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-10-12T14:41:40Z",
+      "side": 1,
+      "message": "Sorry, it\u0027s complicated. Land away without const.",
+      "parentUuid": "cfb8af50_50345b44",
+      "range": {
+        "startLine": 50,
+        "startChar": 69,
+        "endLine": 50,
+        "endChar": 70
+      },
+      "revId": "11b6a57e4716542c1d85018c0f69a7b1669b952b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

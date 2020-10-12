@@ -33,6 +33,69 @@
       "message": "Ping \u0026 add hbos",
       "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19b41c2f_3426e796",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-12T21:54:43Z",
+      "side": 1,
+      "message": "Thanks for the CL!\n\nI found it maybe a bit confusing to call this _sent packet count, while they count received packets.",
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0501f4_7c631add",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-12T21:54:43Z",
+      "side": 1,
+      "message": "nack_packets",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 22
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f57204_fb29276e",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-12T21:54:43Z",
+      "side": 1,
+      "message": "sent or received?",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

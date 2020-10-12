@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c83eef13_6bf0de6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-12T10:07:46Z",
+      "side": 1,
+      "message": "This is same change which was already merged and reverted (https://webrtc-review.googlesource.com/c/src/+/160649). It also includes a change which was pushed later to prevent build error when is_linux\u003dtrue was used (https://webrtc-review.googlesource.com/c/src/+/187122).\n\nAdditionally, it should fix issue where this change prevented WebRTC to be rolled into Chromium. This was caused by including \"linux/xdg_desktop_portal_base.h\" in \"desktop_capturer_options.h\". The include had a dependency on \"#include \u003cgio/gio.h\u003e\" which was not found by Chromium target as it didn\u0027t use \"pkg_config(gio\"). This would of course break anyone including the new WebRTC version. I fixed it by moving the include into \"desktop_capturer_optionc.cc\" together with implementation of XdgDesktopPortal related methods.",
+      "revId": "e6968ac17a960899bcc169048a74a4f2ffcc346a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

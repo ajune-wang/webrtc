@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7b060c74_7585ed30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-12T00:25:15Z",
+      "side": 1,
+      "message": "It turns out I was able to fix the second issue as well without significant modifications (see patchset 2).\n\nThe fix is not perfect; it doesn\u0027t take into account that payload types may be asymmetric between the offer and answer, and thus payload types may be overlapping in one direction and not in the other. But at that point we\u0027re talking about a corner case of a corner case, which I really doubt would affect anyone.",
+      "parentUuid": "65d5ccd3_12251c3b",
+      "revId": "9bff4986895d6edb63831c38aaac5b5ec1bfb421",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ff045f89_fdbeeee6",
         "filename": "pc/channel.cc",
         "patchSetId": 1

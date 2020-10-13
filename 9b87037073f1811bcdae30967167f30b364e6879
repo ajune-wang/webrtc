@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62ffd370_002e72be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-13T16:06:34Z",
+      "side": 1,
+      "message": "Retrospective not-LGTM (sorry :-/)\n\nAllocation of a unique Id to each request should be possible to arrange directly in the DesktopCaptureOptions, and the start/stop request logic to be removed and instead placed in the ScreenCapturerPipewire.  All you seem to need for that is some way for WebRTC to maintain a process-global XdgDesktopPortal instance to route the calls through, though you could, if you prefer, require that callers maintain that, if WebRTC maintainers prefer that?",
+      "revId": "9b87037073f1811bcdae30967167f30b364e6879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c217fcf_7bee8e2c",
+        "filename": "modules/desktop_capture/desktop_capture_options.h",
+        "patchSetId": 33
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-13T16:06:34Z",
+      "side": 1,
+      "message": "I\u0027m not sure what you\u0027re trying to do here, but this doesn\u0027t look like it will do what you want.  DesktopCaptureOptions is scoped to a single capture operation, and specifies the options for that operation - you should think of it as a structure of arguments.\n\nThis change seems to actually want to retain a single _process-global_ instance of the XdgDesktopPortalBase, and to associate a request-Id with each DesktopCaptureOptions instance, I think?\n\nThat can be implemented much more simply with a process-global holding the XdgDesktopPortal, and then having an atomic-integer used to uniquely identify each DesktopCaptureOptions, i.e. to unique identify each request.",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 6
+      },
+      "revId": "9b87037073f1811bcdae30967167f30b364e6879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

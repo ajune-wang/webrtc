@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35f4a89c_0c78e92e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-13T00:08:18Z",
+      "side": 1,
+      "message": "According to spec https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-nackcount , nack_count is for sent packets.\n\nThe code is a bit convoluted, let me try to explain the flow:\n\n1. audio/channel_receive.cc\n\nint32_t ChannelReceive::OnReceivedPayloadData(..\n  // Here we get missing packets that are candidates for NACK\n  std::vector\u003cuint16_t\u003e nack_list \u003d audio_coding_-\u003eGetNackList(round_trip_time);\n  if (!nack_list.empty()) {\n    ...\n    ResendPackets(\u0026(nack_list[0]), static_cast\u003cint\u003e(nack_list.size()));\n  }\n...\nint ChannelReceive::ResendPackets(const uint16_t* sequence_numbers,\n                                  int length) {\n  // NACKs are actually sent by RTCP module\n  return _rtpRtcpModule-\u003eSendNACK(sequence_numbers, length);\n}\n..\n// field:\nstd::unique_ptr\u003cRtpRtcp\u003e _rtpRtcpModule;\n\n2.modules/rtp_rtcp/source/rtp_rtcp_impl.cc:\n\nint32_t ModuleRtpRtcpImpl::SendNACK(const uint16_t* nack_list,\n                                    const uint16_t size) {\n...\nreturn rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpNack, nack_length,\n                               \u0026nack_list[start_id]);\n...\n// rtcp_sender_ is created in constructor\n\n3. modules/rtp_rtcp/source/rtcp_sender.cc:\n\n// this is called for SendRTCP with type kRtcpNack\nstd::unique_ptr\u003crtcp::RtcpPacket\u003e RTCPSender::BuildNACK(...\n{\n    packet_type_counter_.nack_requests \u003d nack_stats_.requests();\n    packet_type_counter_.unique_nack_requests \u003d nack_stats_.unique_requests();\n    ...\n}\n...\nint32_t RTCPSender::SendCompoundRTCP(..\n{\n   ...\n    // here is where callback is called\n    if (packet_type_counter_observer_ !\u003d nullptr) {\n      packet_type_counter_observer_-\u003eRtcpPacketTypesCounterUpdated(\n          remote_ssrc_, packet_type_counter_);\n    }\n}\n\n\npacket_type_counter_observer_ is called from both send and receive RTCP classes but for sender it is the SSRC while for receiver it is SSRC.",
+      "parentUuid": "19b41c2f_3426e796",
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb0501f4_7c631add",
         "filename": "audio/channel_receive.h",
         "patchSetId": 4

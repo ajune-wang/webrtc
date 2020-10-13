@@ -82,6 +82,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59843f59_c96a79b4",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T16:24:40Z",
+      "side": 1,
+      "message": "yes, I think this name makes more sense. I think it goes through the transformer to avoid race with SendVideo call:\nSendVideo call is protected by RtpVideoSender lock when transformer is not used, and called on a different sequence and thus protected by DelegateTransformer\u0027s lock otherwise.\n\nNot sure how to make it nicer, but that seems like a different topic.",
+      "parentUuid": "b8578342_d2770461",
+      "range": {
+        "startLine": 273,
+        "startChar": 21,
+        "endLine": 273,
+        "endChar": 54
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14309b40_dd5c27fd",
@@ -176,6 +200,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86681d97_fa3368f2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T16:24:40Z",
+      "side": 1,
+      "message": "my idea was a bit larger.\nin particular I consider to have such function instead of the function IsBaseLayer And have more documentation about each condition. e.g. discaradbility check currently is cryptic.\n\nBut all that can be polished later.",
+      "parentUuid": "e5a386a1_b713ae18",
+      "range": {
+        "startLine": 415,
+        "startChar": 15,
+        "endLine": 420,
+        "endChar": 29
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fad4962_178ffc15",
@@ -213,6 +261,30 @@
       "side": 1,
       "message": "sgmt, better?",
       "parentUuid": "9fad4962_178ffc15",
+      "range": {
+        "startLine": 126,
+        "startChar": 74,
+        "endLine": 127,
+        "endChar": 10
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d4f6aa_0132fda0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T16:24:40Z",
+      "side": 1,
+      "message": "I think it is better (at least technically more correct).\nIt might be improved by describing what does it mean for the user\n(sends the updated allocation reliably), but I\u0027m not sure how to write it better.",
+      "parentUuid": "a200b3fc_398ec2cf",
       "range": {
         "startLine": 126,
         "startChar": 74,

@@ -16,6 +16,75 @@
       "message": "Please?",
       "revId": "b52501740767b2540a9c580d174eb3185cb8d937",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480f19c4_24e94841",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-13T12:20:37Z",
+      "side": 1,
+      "message": "fps_allocation[si].empty() still indicates that temporal layers are supported, but that a fixed fps fraction is not used\n\nI think the criteria to detect temporal not supported is (pseudo-code)\ntarget_bitrate.IsSpatialLayerUsed(si) \u0026\u0026 \nencoder_info.fps_allocation[si].size() \u003d\u003d {kFullAllocation} \u0026\u0026 \ntarget_bitrate.GetBitrate(si, ti) !\u003d target_bitrate.GetSpatialLayerSum(si)\n\ni.e. bitrate allocation has distribution across temporal layers, but encoder info is distributing 100% fps to a single layer.",
+      "range": {
+        "startLine": 229,
+        "startChar": 49,
+        "endLine": 229,
+        "endChar": 51
+      },
+      "revId": "b52501740767b2540a9c580d174eb3185cb8d937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "985dfe93_41bc2c80",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-13T12:20:37Z",
+      "side": 1,
+      "message": "Comment that we\u0027re recording the fps fraction for the top active layer.",
+      "range": {
+        "startLine": 246,
+        "startChar": 12,
+        "endLine": 246,
+        "endChar": 31
+      },
+      "revId": "b52501740767b2540a9c580d174eb3185cb8d937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25c3ebfe_977eeb02",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-13T12:20:37Z",
+      "side": 1,
+      "message": "perhaps use the named constant?\nnot sure if a safe cast is warranted?",
+      "range": {
+        "startLine": 256,
+        "startChar": 67,
+        "endLine": 256,
+        "endChar": 70
+      },
+      "revId": "b52501740767b2540a9c580d174eb3185cb8d937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

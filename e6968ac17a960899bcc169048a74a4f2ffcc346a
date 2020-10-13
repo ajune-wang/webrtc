@@ -33,6 +33,23 @@
       "message": "LGTM from a build system point of view. Thanks for embedding the forward fix CL into this one.\n\nI let the rest of the review to others but the change to avoid breaking cast_shell_linux LGTM as well.",
       "revId": "e6968ac17a960899bcc169048a74a4f2ffcc346a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08d64a87_00a26e44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-13T07:18:41Z",
+      "side": 1,
+      "message": "Hi,\n\nmay I ask you kindly to look into this as soon as possible? It was already approved before and hasn\u0027t change code-wise so it should be fairly simple to re-approve this. I would like this change to no longer block the Chromium request. Thank you so much.",
+      "revId": "e6968ac17a960899bcc169048a74a4f2ffcc346a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

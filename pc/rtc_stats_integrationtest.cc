@@ -850,6 +850,7 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(inbound_stream.total_audio_energy);
       verifier.TestMemberIsUndefined(inbound_stream.total_samples_duration);
       verifier.TestMemberIsNonNegative<int32_t>(inbound_stream.frames_received);
+      verifier.TestMemberIsUndefined(inbound_stream.packets_discarded);
     } else {
       verifier.TestMemberIsNonNegative<double>(inbound_stream.jitter);
       verifier.TestMemberIsNonNegative<double>(
@@ -873,9 +874,10 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsPositive<double>(
           inbound_stream.total_samples_duration);
       verifier.TestMemberIsUndefined(inbound_stream.frames_received);
+      verifier.TestMemberIsNonNegative<uint32_t>(
+          inbound_stream.packets_discarded);
     }
     verifier.TestMemberIsUndefined(inbound_stream.round_trip_time);
-    verifier.TestMemberIsUndefined(inbound_stream.packets_discarded);
     verifier.TestMemberIsUndefined(inbound_stream.packets_repaired);
     verifier.TestMemberIsUndefined(inbound_stream.burst_packets_lost);
     verifier.TestMemberIsUndefined(inbound_stream.burst_packets_discarded);

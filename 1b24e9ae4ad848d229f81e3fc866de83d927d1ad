@@ -16,6 +16,230 @@
       "message": "Please ?",
       "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ba3b06_c139f6d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "looks good,\ncomments are mostly about comments around the code.",
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3b7fc06_53c54d4a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "I do not see a lock when compare this function and SetVideoLayersAllocation.\nCan you please name these function to match their difference.\nor comment somewhere why they are called liked that.\n\n(I think there was a lock when SetVideoStructure was split into two, but it was removed since then)",
+      "range": {
+        "startLine": 273,
+        "startChar": 21,
+        "endLine": 273,
+        "endChar": 54
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14309b40_dd5c27fd",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "allocation_ \u003d std::move(allocation);\nlikely slightly better shows the intent.",
+      "range": {
+        "startLine": 276,
+        "startChar": 2,
+        "endLine": 276,
+        "endChar": 45
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68c4048b_f746e123",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "this check probably should be moved into own function and called something like\nHasGuaranteedDelivery. (or LikelyHasGuaranteedDelivery, i.e. LikelyWillBeRequestedForRestransmitionIfLost)\nThen there would be a good place to explain all this logic.\n\nnot for this change though.",
+      "range": {
+        "startLine": 415,
+        "startChar": 15,
+        "endLine": 420,
+        "endChar": 29
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fad4962_178ffc15",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "\"base layer\" here means different than the definition I\u0027m familiar with.\n(here it means temporal_id\u003d0. I\u0027m aware of diftintion where it mean spatial_id\u003d0 \u0026\u0026 temporal_id \u003d0)\n\nBecause there are different understand what this term mean, would prefer to avoid using it.\n\nbesides, actual logic is more complicated: there is also a check the frame is not discardable.",
+      "range": {
+        "startLine": 126,
+        "startChar": 74,
+        "endLine": 127,
+        "endChar": 10
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cdce758_6276d5d8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "nit: may be \"send\"\n(this class is called Sender)",
+      "range": {
+        "startLine": 195,
+        "startChar": 34,
+        "endLine": 195,
+        "endChar": 43
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5142234c_a8d879db",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "nit:\nThis order of the words sounds odd to me.\n\nmay be \nsend_allocation_\nor send_pending_allocation_\nor pending_send_allocation_",
+      "range": {
+        "startLine": 196,
+        "startChar": 7,
+        "endLine": 196,
+        "endChar": 31
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad9af03c_5327da36",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "push_back\n(the argument type matches the container\u0027s value type,\nnot the value type\u0027s constructor arguments)\n\n(same in all the other tests)",
+      "range": {
+        "startLine": 839,
+        "startChar": 42,
+        "endLine": 839,
+        "endChar": 54
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0f25bf1_3835b509",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "prefer to put value under test as the first argument, i.e.g\nEXPECT_EQ(sent_allocation.active_spatial_layers[0], layer).\n\nor actually.... this and previous expectation would be more natural as a single one:\nEXPECT_THAT(sent_allocation.active_spatial_layers, ElementsAre(layer));",
+      "range": {
+        "startLine": 855,
+        "startChar": 2,
+        "endLine": 855,
+        "endChar": 61
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d2d83f4_124241ff",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-13T09:49:39Z",
+      "side": 1,
+      "message": "or \nEXPECT_FALSE(transport_.last_sent_packet().HasExtension\u003cRtpVideoLayersAllocationExtension\u003e());\n(to better match test name)",
+      "range": {
+        "startLine": 927,
+        "startChar": 2,
+        "endLine": 929,
+        "endChar": 78
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

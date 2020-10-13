@@ -41,6 +41,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af66b52e_402c5c68",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-13T19:56:26Z",
+      "side": 1,
+      "message": "It\u0027s not really, but I can set something reasonable anyway.",
+      "parentUuid": "971a7a8b_b9d0289a",
+      "range": {
+        "startLine": 273,
+        "startChar": 15,
+        "endLine": 273,
+        "endChar": 28
+      },
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0037a59e_c50d4e62",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-10-13T15:21:30Z",
       "side": 1,
       "message": "For nonfake codecs, using a lower framerate sometimes makes sense just to save a bit on runtime cost.",
+      "range": {
+        "startLine": 296,
+        "startChar": 26,
+        "endLine": 296,
+        "endChar": 28
+      },
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eb167a9_1c6d1a0a",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-13T19:56:26Z",
+      "side": 1,
+      "message": "Moved to fake codec instead.",
+      "parentUuid": "0037a59e_c50d4e62",
       "range": {
         "startLine": 296,
         "startChar": 26,
@@ -87,6 +135,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad91f91c_f2a8971c",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-13T19:56:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "646e28c0_0dc2287b",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 53
+      },
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03b56983_9841a4e9",
@@ -100,6 +172,30 @@
       "writtenOn": "2020-10-13T15:21:30Z",
       "side": 1,
       "message": "I\u0027d recommend using a fixed high bandwidth rather than unlimited, just to keep the behavior more robust to potential changes in behavior in the simulation.",
+      "range": {
+        "startLine": 323,
+        "startChar": 19,
+        "endLine": 323,
+        "endChar": 43
+      },
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f31876a4_f9e08e7b",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-13T19:56:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03b56983_9841a4e9",
       "range": {
         "startLine": 323,
         "startChar": 19,

@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '144d0d0b5e7650ddc1a32098942e797f043fa703',
+  'chromium_revision': '1bcf9a08d9f39a91a37d025bb78c7877cfc525aa',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,9 +22,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@0853543ea2259eac9adf9f27d04a3bd1f59a5921',
+    'https://chromium.googlesource.com/chromium/src/base@2c823b9b15932b4b582a1b4d2aefb827e5b2af77',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@bc6556d77d0eebc6259da9c1053d95d96552ee87',
+    'https://chromium.googlesource.com/chromium/src/build@3f77c6ce5031ea8584468c9d491f54dfb40b5e07',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@4be464e050b3d05060471788f926b34c641db9fd',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -33,13 +33,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@7f9b7b5618b5fe6c851537c10de77a8833076654',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@84c3d0709c479e535af9d3ba9e5b3594f203af0e',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@55772ef87e1882befad2cecbf61264633f268882',
+    'https://chromium.googlesource.com/chromium/src/testing@e690f2c7983136753f69e73326eba016aa0386d5',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@8789111b32ada3c71aab96eff80e40ab4bcc025f',
+    'https://chromium.googlesource.com/chromium/src/third_party@ddf18169e958f1c5531299011a1442a9a07c4e10',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@5551706ed6dfd52113225185c0970dffa351cd8a',
+    'https://chromium.googlesource.com/chromium/src/tools@742bb90d06e6b9f77c474d116f030dc50c5a9bb8',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 

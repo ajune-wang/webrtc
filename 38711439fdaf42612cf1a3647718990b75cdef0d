@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5afc6b9_288d5b10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-13T23:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35f4a89c_0c78e92e",
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "896bc235_87578a94",
@@ -100,6 +118,24 @@
       "writtenOn": "2020-10-13T09:32:44Z",
       "side": 1,
       "message": "nit: If we\u0027re updating this comment, let\u0027s make it \"TODO(https://crbug.com/657856):\" rather than \"TODO(hbos)\". In-comment code should not track ownership of crbugs.",
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73c03b3f_c5580955",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-13T23:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "896bc235_87578a94",
       "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
@@ -134,6 +170,30 @@
       "writtenOn": "2020-10-12T21:54:43Z",
       "side": 1,
       "message": "nack_packets",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 22
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8911ffe3_0e4537d9",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-13T23:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb0501f4_7c631add",
       "range": {
         "startLine": 67,
         "startChar": 11,
@@ -181,6 +241,30 @@
       "side": 1,
       "message": "It\u0027s the \"total number of Negative ACKnowledgement (NACK) packets sent by this receiver. Calculated as defined in [RFC4585] section 6.2.1.\"\nWhich is https://tools.ietf.org/html/rfc4585#section-6.2.1\nI\u0027m not sure this says how to calculate them, but it talks about what a NACK is? Anyway it is the NACKs *sent* so the name sounds good to me.",
       "parentUuid": "e2f57204_fb29276e",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4595902_3142c2cf",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-13T23:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b87c7ca_d16d802f",
       "range": {
         "startLine": 45,
         "startChar": 13,

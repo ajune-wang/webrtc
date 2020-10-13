@@ -34,6 +34,24 @@
       "parentUuid": "bade66ba_97766732",
       "revId": "bf42540107ea3e8bf7917acbdf783c380d66c12e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03605e6f_19184a5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6276
+      },
+      "writtenOn": "2020-10-13T04:10:38Z",
+      "side": 1,
+      "message": "Additionally, these changes are not able to be provided with a separate library as access to the necessary objects is private. For example, the camera object and capture request objects are private which prevents a subclass from implementing this feature set outside the Webrtc library.",
+      "parentUuid": "1ea101a1_2d8e5d1a",
+      "revId": "bf42540107ea3e8bf7917acbdf783c380d66c12e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

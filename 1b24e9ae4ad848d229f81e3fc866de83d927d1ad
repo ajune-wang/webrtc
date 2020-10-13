@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8578342_d2770461",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "This match :SetVideoStructure and SetVideoStructureUnderLock.\nIf I understand this correctly, if frame_transformer_delegate_ is set- it may post things to be done async and then has its internal  lock. At the same time RtpVideoSender (interesting naming..) in Call has its own lock. So if frame_transformer_ delegate is set- two locks are taken. If not, only the lock in RtpVideoSender.\n\nDoes this naming make more sense?",
+      "parentUuid": "f3b7fc06_53c54d4a",
+      "range": {
+        "startLine": 273,
+        "startChar": 21,
+        "endLine": 273,
+        "endChar": 54
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14309b40_dd5c27fd",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 4
@@ -83,6 +107,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d9558823_62dd06fd",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14309b40_dd5c27fd",
+      "range": {
+        "startLine": 276,
+        "startChar": 2,
+        "endLine": 276,
+        "endChar": 45
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "68c4048b_f746e123",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 4
@@ -94,6 +142,30 @@
       "writtenOn": "2020-10-13T09:49:39Z",
       "side": 1,
       "message": "this check probably should be moved into own function and called something like\nHasGuaranteedDelivery. (or LikelyHasGuaranteedDelivery, i.e. LikelyWillBeRequestedForRestransmitionIfLost)\nThen there would be a good place to explain all this logic.\n\nnot for this change though.",
+      "range": {
+        "startLine": 415,
+        "startChar": 15,
+        "endLine": 420,
+        "endChar": 29
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5a386a1_b713ae18",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "I like it and moved it.",
+      "parentUuid": "68c4048b_f746e123",
       "range": {
         "startLine": 415,
         "startChar": 15,
@@ -129,6 +201,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a200b3fc_398ec2cf",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "sgmt, better?",
+      "parentUuid": "9fad4962_178ffc15",
+      "range": {
+        "startLine": 126,
+        "startChar": 74,
+        "endLine": 127,
+        "endChar": 10
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7cdce758_6276d5d8",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 4
@@ -140,6 +236,30 @@
       "writtenOn": "2020-10-13T09:49:39Z",
       "side": 1,
       "message": "nit: may be \"send\"\n(this class is called Sender)",
+      "range": {
+        "startLine": 195,
+        "startChar": 34,
+        "endLine": 195,
+        "endChar": 43
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ca6e2a_cf63f29e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "7cdce758_6276d5d8",
       "range": {
         "startLine": 195,
         "startChar": 34,
@@ -173,6 +293,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95db9849_459a5492",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "send_allocation_ s.g",
+      "parentUuid": "5142234c_a8d879db",
+      "range": {
+        "startLine": 196,
+        "startChar": 7,
+        "endLine": 196,
+        "endChar": 31
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad9af03c_5327da36",
@@ -186,6 +330,30 @@
       "writtenOn": "2020-10-13T09:49:39Z",
       "side": 1,
       "message": "push_back\n(the argument type matches the container\u0027s value type,\nnot the value type\u0027s constructor arguments)\n\n(same in all the other tests)",
+      "range": {
+        "startLine": 839,
+        "startChar": 42,
+        "endLine": 839,
+        "endChar": 54
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab026809_9247ce86",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad9af03c_5327da36",
       "range": {
         "startLine": 839,
         "startChar": 42,
@@ -219,6 +387,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc1dac4b_b6bc2bf7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0f25bf1_3835b509",
+      "range": {
+        "startLine": 855,
+        "startChar": 2,
+        "endLine": 855,
+        "endChar": 61
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d2d83f4_124241ff",
@@ -232,6 +424,30 @@
       "writtenOn": "2020-10-13T09:49:39Z",
       "side": 1,
       "message": "or \nEXPECT_FALSE(transport_.last_sent_packet().HasExtension\u003cRtpVideoLayersAllocationExtension\u003e());\n(to better match test name)",
+      "range": {
+        "startLine": 927,
+        "startChar": 2,
+        "endLine": 929,
+        "endChar": 78
+      },
+      "revId": "1b24e9ae4ad848d229f81e3fc866de83d927d1ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "accbfb3c_5f918243",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-13T14:50:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d2d83f4_124241ff",
       "range": {
         "startLine": 927,
         "startChar": 2,

@@ -50,6 +50,23 @@
       "message": "Hi guys, could you please help to run try try jobs here.",
       "revId": "8947bd6f162ce9d413f4d287024b2dfdc56fa84b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dbf387c_c0dc49d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10010
+      },
+      "writtenOn": "2020-10-13T22:21:20Z",
+      "side": 1,
+      "message": "Guys, could you please add this pr into commit queue?",
+      "revId": "8947bd6f162ce9d413f4d287024b2dfdc56fa84b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

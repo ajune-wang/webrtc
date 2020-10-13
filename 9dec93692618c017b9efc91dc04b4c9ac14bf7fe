@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630f83c0_de923728",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-13T23:41:04Z",
+      "side": 1,
+      "message": "Can someone commit for me?",
+      "revId": "9dec93692618c017b9efc91dc04b4c9ac14bf7fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

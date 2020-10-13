@@ -325,6 +325,7 @@ void SetInboundRTPStreamStatsFromVoiceReceiverInfo(
       voice_receiver_info.fec_packets_received;
   inbound_audio->fec_packets_discarded =
       voice_receiver_info.fec_packets_discarded;
+  inbound_audio->packets_discarded = voice_receiver_info.packets_discarded;
 }
 
 void SetInboundRTPStreamStatsFromVideoReceiverInfo(

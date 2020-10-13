@@ -1777,6 +1777,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Audio) {
   voice_media_info.receivers[0].local_stats[0].ssrc = 1;
   voice_media_info.receivers[0].packets_lost = -1;  // Signed per RFC3550
   voice_media_info.receivers[0].packets_rcvd = 2;
+  voice_media_info.receivers[0].packets_discarded = 515;
   voice_media_info.receivers[0].fec_packets_discarded = 5566;
   voice_media_info.receivers[0].fec_packets_received = 6677;
   voice_media_info.receivers[0].payload_bytes_rcvd = 3;
@@ -1826,6 +1827,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Audio) {
   expected_audio.transport_id = "RTCTransport_TransportName_1";
   expected_audio.codec_id = "RTCCodec_AudioMid_Inbound_42";
   expected_audio.packets_received = 2;
+  expected_audio.packets_discarded = 515;
   expected_audio.fec_packets_discarded = 5566;
   expected_audio.fec_packets_received = 6677;
   expected_audio.bytes_received = 3;

@@ -96,6 +96,7 @@ struct NetworkStatistics {
   uint64_t removedSamplesForAcceleration;
   uint64_t fecPacketsReceived;
   uint64_t fecPacketsDiscarded;
+  uint64_t packetsDiscarded;
   // Stats below DO NOT correspond directly to anything in the WebRTC stats
   // fraction (of original stream) of synthesized audio inserted through
   // expansion (in Q14)

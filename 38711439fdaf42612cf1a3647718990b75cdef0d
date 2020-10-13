@@ -70,6 +70,57 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8866f372_b75f9584",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-13T09:32:44Z",
+      "side": 1,
+      "message": "LGTM % nit",
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "896bc235_87578a94",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-13T09:32:44Z",
+      "side": 1,
+      "message": "nit: If we\u0027re updating this comment, let\u0027s make it \"TODO(https://crbug.com/657856):\" rather than \"TODO(hbos)\". In-comment code should not track ownership of crbugs.",
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a203a350_74cabce8",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-13T09:32:44Z",
+      "side": 1,
+      "message": "I\u0027m curious how the NACKs are sent, which transport, and do you need an outbound-rtp to carry the feedback or does this work in receiver stream scenarios?\n\nBut anyway, this CL just surfaces the result, so this is LGTM.",
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb0501f4_7c631add",
@@ -106,6 +157,30 @@
       "writtenOn": "2020-10-12T21:54:43Z",
       "side": 1,
       "message": "sent or received?",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b87c7ca_d16d802f",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-13T09:32:44Z",
+      "side": 1,
+      "message": "It\u0027s the \"total number of Negative ACKnowledgement (NACK) packets sent by this receiver. Calculated as defined in [RFC4585] section 6.2.1.\"\nWhich is https://tools.ietf.org/html/rfc4585#section-6.2.1\nI\u0027m not sure this says how to calculate them, but it talks about what a NACK is? Anyway it is the NACKs *sent* so the name sounds good to me.",
+      "parentUuid": "e2f57204_fb29276e",
       "range": {
         "startLine": 45,
         "startChar": 13,

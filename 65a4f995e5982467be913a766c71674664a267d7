@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94bb3dd7_56c6ffe2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-13T12:30:33Z",
+      "side": 1,
+      "message": "A few tests made assumptions that broke with this change, most trivially fixed.\n\nVideoSendStreamTest.SuspendBelowMinBitrate however seems to have been fundamentally pretty broken:\nThe new small first packet seem to cause an RTCP ReceiverReport to be generated slightly earlier,\nthis in turn causes the SendSideBandwidthEstimation::IsInStartPhase() to return false slightly\nearlier, and this prevents the higher REMB from properly ramping the BWE up again in time.\n\nRather than trying to fix that fragile and complicated test I replaced it with a Scenario-based one\ninstead.\nptal!",
+      "revId": "65a4f995e5982467be913a766c71674664a267d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

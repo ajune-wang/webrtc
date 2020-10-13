@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "088726ae_8ccc6550",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-10-13T15:21:30Z",
+      "side": 1,
+      "message": "Nice test, very well documented and readable!",
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "971a7a8b_b9d0289a",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-10-13T15:21:30Z",
+      "side": 1,
+      "message": "Optional: I recommend setting an explicit limit if it\u0027s relevant for the test.",
+      "range": {
+        "startLine": 273,
+        "startChar": 15,
+        "endLine": 273,
+        "endChar": 28
+      },
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0037a59e_c50d4e62",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-10-13T15:21:30Z",
+      "side": 1,
+      "message": "For nonfake codecs, using a lower framerate sometimes makes sense just to save a bit on runtime cost.",
+      "range": {
+        "startLine": 296,
+        "startChar": 26,
+        "endLine": 296,
+        "endChar": 28
+      },
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646e28c0_0dc2287b",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-10-13T15:21:30Z",
+      "side": 1,
+      "message": "Any reason why you can\u0027t use a fake codec? (It\u0027s faster and seems like it shouldn\u0027t matter for this test?)",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 53
+      },
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03b56983_9841a4e9",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2020-10-13T15:21:30Z",
+      "side": 1,
+      "message": "I\u0027d recommend using a fixed high bandwidth rather than unlimited, just to keep the behavior more robust to potential changes in behavior in the simulation.",
+      "range": {
+        "startLine": 323,
+        "startChar": 19,
+        "endLine": 323,
+        "endChar": 43
+      },
+      "revId": "4e0a3e66091b2c5090ee35b720ccc1585408043b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

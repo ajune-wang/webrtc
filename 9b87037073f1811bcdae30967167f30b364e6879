@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0753da2f_b0a9adc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-13T17:06:40Z",
+      "side": 1,
+      "message": "Can you help me a bit to implement this properly?\n\nMy idea behind is that Chromium keeps an instance of DesktopCapturerOptions to make XdgDesktopPortalBase persistent, then each call from Chromium is identified with a siteId so we can ask the XdgDesktopPortalBase instance later for the same PipeWire stream. This has been done because Chromium destroyes the DesktopCapturer used for the preview dialog and then creates another one. Without making XdgDesktopPortalBase persistent, we would make another portal call which in result presents another dialog to the user and that\u0027s what we want to avoid.\n\n1) It would be nice to have XdgDesktopPortalBase initialized globally in WebRTC, but I have no idea where this would be possible. If we let the caller to store it, we again end up with some global object on Chromium side, because the capturers are being created from two different places.\n\n2) We will still need to use siteId from Chromium to identify our calls, otherwise you can get a different content than you chose in case you initiate screen sharing from two tabs. If you don\u0027t consider this as a common use-case, we can then use some unique id which will be randomly generated and just use them in the order they were created.",
+      "parentUuid": "62ffd370_002e72be",
+      "revId": "9b87037073f1811bcdae30967167f30b364e6879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c217fcf_7bee8e2c",

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f494da36_408e3623",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-13T12:38:14Z",
+      "side": 1,
+      "message": "Kári: can you take a look at the sdk/objc changes please? That is the easy part :-)",
+      "revId": "e98dd0831418149b78e1b8bfa342019e934dbbe0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

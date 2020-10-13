@@ -16,6 +16,24 @@
       "message": "Thank your for the patch but the implementations in the SDK are meant as something to get started with / examples and not feature-complete classes. If you need to add more features, I suggest that you fork the implementation to your own app.\n\nIf you think your implementation is useful for other apps, you can always provide it as an additional library that can be shared across apps.",
       "revId": "bf42540107ea3e8bf7917acbdf783c380d66c12e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea101a1_2d8e5d1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6276
+      },
+      "writtenOn": "2020-10-13T04:07:02Z",
+      "side": 1,
+      "message": "Hello,\n\nThank you for the response. Is there anyway to appeal the decision to not accept a feature? I understand that these APIs are not feature complete, but this API enables  a common need which is to modify a camera session while capturing video. The most common use case I’ve heard from our customers is turning on the flashlight.\n\nForking WebRTC and applying updates with patches presents a maintenance burden for consumers of this project.\n\nPlease let me know if there is anyway to modify these changes to make them more likely to be accepted. Thanks!",
+      "parentUuid": "bade66ba_97766732",
+      "revId": "bf42540107ea3e8bf7917acbdf783c380d66c12e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -72,12 +72,17 @@ class DecisionLogic : public NetEqController {
 
   int TargetLevelMs() const override { return delay_manager_->TargetDelayMs(); }
 
+  // TODO(ivoc): Remove.
   absl::optional<int> PacketArrived(bool is_cng_or_dtmf,
                                     size_t packet_length_samples,
                                     bool should_update_stats,
                                     uint16_t main_sequence_number,
                                     uint32_t main_timestamp,
                                     int fs_hz) override;
+
+  absl::optional<int> PacketArrived(int fs_hz,
+                                    bool should_update_stats,
+                                    const PacketArrivedInfo& info) override;
 
   void RegisterEmptyPacket() override {}
 

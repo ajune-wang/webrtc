@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffce9684_a468b819",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2020-10-14T13:29:07Z",
+      "side": 1,
+      "message": "Hi Jakob,\n\nPTAL at this CL to refactor the PacketArrived function, and add an argument to indicate if the packet is a DTX packet.",
+      "revId": "9a3ff203045f6ad369ba551b15d29cad4e3361b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

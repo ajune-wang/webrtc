@@ -33,6 +33,40 @@
       "message": "Adding Karl as reviewer for api/",
       "revId": "45a6e76823c749d60f029a48322009bd6e030af7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa8d9c7e_65299ba0",
+        "filename": "api/neteq/neteq_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-14T14:04:12Z",
+      "side": 1,
+      "message": "You don\u0027t set all fields here, and they have no default values.",
+      "revId": "45a6e76823c749d60f029a48322009bd6e030af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4235aca_64358b0b",
+        "filename": "modules/audio_coding/neteq/decision_logic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-14T14:04:12Z",
+      "side": 1,
+      "message": "Why not remove it in this CL?",
+      "revId": "45a6e76823c749d60f029a48322009bd6e030af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44fc5d87_c27347c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-10-14T12:39:30Z",
+      "side": 1,
+      "message": "LGTM I made the same patch yesterday, was going to submit a CL today.. :)",
+      "revId": "59320102a131d8a3590d374da1e987d851a8510d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

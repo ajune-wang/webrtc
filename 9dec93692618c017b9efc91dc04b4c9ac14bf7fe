@@ -16,6 +16,24 @@
       "message": "Can someone commit for me?",
       "revId": "9dec93692618c017b9efc91dc04b4c9ac14bf7fe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83987ecf_f6e8ce93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-14T07:04:59Z",
+      "side": 1,
+      "message": "Sergey, I can help you to commit, but please allow me a minute to check one thing.",
+      "parentUuid": "630f83c0_de923728",
+      "revId": "9dec93692618c017b9efc91dc04b4c9ac14bf7fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

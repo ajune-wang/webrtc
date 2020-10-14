@@ -20,6 +20,7 @@
 #include "media/engine/simulcast_encoder_adapter.h"
 #include "modules/video_coding/utility/vp8_header_parser.h"
 #include "modules/video_coding/utility/vp9_uncompressed_header_parser.h"
+#include "test/explicit_key_value_config.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
 
@@ -456,7 +457,9 @@ TEST(VideoCodecTestLibvpx, DISABLED_MultiresVP8RdPerf) {
   PrintRdPerf(rd_stats);
 }
 
-TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerf) {
+TEST(VideoCodecTestLibvpx, SvcVP9RdPerf) {
+  ExplicitKeyValueConfig trials(
+      "WebRTC-VP9-PerLayerSpeed/active_constrained:0,non_base:8/");
   auto config = CreateConfig();
   config.filename = "FourPeople_1280x720_30";
   config.filepath = ResourcePath(config.filename, "yuv");

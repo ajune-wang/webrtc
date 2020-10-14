@@ -862,6 +862,7 @@ if (rtc_include_tests) {
       "../../media:rtc_simulcast_encoder_adapter",
       "../../media:rtc_vp9_profile",
       "../../rtc_base",
+      "../../test:explicit_key_value_config",
       "../../test:field_trial",
       "../../test:fileutils",
       "../../test:test_support",

@@ -111,7 +111,6 @@ class VP9EncoderImpl : public VP9Encoder {
   const VP9Profile profile_;
   bool inited_;
   int64_t timestamp_;
-  int cpu_speed_;
   uint32_t rc_max_intra_target_;
   vpx_codec_ctx_t* encoder_;
   vpx_codec_enc_cfg_t* config_;
@@ -191,9 +190,11 @@ class VP9EncoderImpl : public VP9Encoder {
       const WebRtcKeyValueConfig& trials);
   const bool external_ref_ctrl_;
 
-  const struct SpeedSettings {
-    bool enabled;
-    int layers[kMaxSpatialLayers];
+  struct SpeedSettings {
+    SpeedSettings FillFromCodecConfig(const VideoCodec& config);
+    int non_base = -1;
+    bool constrained = true;
+    int per_layer_speed[kMaxSpatialLayers];
   } per_layer_speed_;
   static SpeedSettings ParsePerLayerSpeed(const WebRtcKeyValueConfig& trials);
 

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b96db5e5_d546f5f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-10-14T08:58:29Z",
+      "side": 1,
+      "message": "Please review this merge of already approved CL.\n",
+      "revId": "b93d34b1a40ab938b6b5a4c07d4db3e4a9d50a5e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

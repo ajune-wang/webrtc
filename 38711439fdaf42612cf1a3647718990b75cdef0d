@@ -297,6 +297,30 @@
       },
       "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae30241d_71a452f6",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-14T16:07:12Z",
+      "side": 1,
+      "message": "I think that \"packets_nacked\" can be misinterpreted as number of packets that were not received and were negatively acknowledged (which is also a useful metric to add). But here I count the number of NACK packets, each NACK packet can have multiple sequence numbers.",
+      "parentUuid": "f2ea4e36_5047ee60",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

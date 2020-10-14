@@ -433,8 +433,9 @@ class RTC_EXPORT RTCInboundRTPStreamStats final : public RTCRTPStreamStats {
   RTCStatsMember<int32_t> frames_received;
   // TODO(hbos): Collect and populate this value. https://bugs.webrtc.org/7065
   RTCStatsMember<double> round_trip_time;
-  // TODO(hbos): Collect and populate this value. https://bugs.webrtc.org/7065
-  RTCStatsMember<uint32_t> packets_discarded;
+  // TODO(hbos): Collect and populate this value for both "audio" and "video",
+  // currently not collected for "video". https://bugs.webrtc.org/7065
+  RTCStatsMember<uint64_t> packets_discarded;
   // TODO(hbos): Collect and populate this value. https://bugs.webrtc.org/7065
   RTCStatsMember<uint32_t> packets_repaired;
   // TODO(hbos): Collect and populate this value. https://bugs.webrtc.org/7065

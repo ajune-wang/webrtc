@@ -449,6 +449,8 @@ struct MediaReceiverInfo {
   int64_t header_and_padding_bytes_rcvd = 0;
   int packets_rcvd = 0;
   int packets_lost = 0;
+  // https://w3c.github.io/webrtc-stats/#dom-rtcreceivedrtpstreamstats-packetsdiscarded
+  int64_t packets_discarded = 0;
   // The timestamp at which the last packet was received, i.e. the time of the
   // local clock when it was received - not the RTP timestamp of that packet.
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-lastpacketreceivedtimestamp

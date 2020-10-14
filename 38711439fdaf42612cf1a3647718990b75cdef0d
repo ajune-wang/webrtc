@@ -273,6 +273,30 @@
       },
       "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2ea4e36_5047ee60",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-14T07:28:05Z",
+      "side": 1,
+      "message": "Thanks for the explanation! Yes, with the spec, the meaning is clear. But I feel the variable name isn\u0027t super clear. Would it be better to call it packets_nacked (similar to packets_rcvd or packets_lost)?",
+      "parentUuid": "b4595902_3142c2cf",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

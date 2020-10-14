@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d039a78_eeceec7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-14T08:37:37Z",
+      "side": 1,
+      "message": "Thanks for cleaning up stats stuff. Only small comments",
+      "revId": "d69a3b32b296b523ffa42985af4b475c9f07f2e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a406c4b8_d3b973b5",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-14T08:37:37Z",
+      "side": 1,
+      "message": "I think I prefer if the outwards facing API that is the RTCStatsMember has the spec\u0027s precision of uint64_t, even if we haven\u0027t yet updated the rest of the stack to use the full precision. Can you make it an RTCStatsMember\u003cuint64_t\u003e? And add a comment that the metric is collected from a source with less precision.",
+      "revId": "d69a3b32b296b523ffa42985af4b475c9f07f2e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5977b0b_8741a7d2",
+        "filename": "pc/rtc_stats_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-14T08:37:37Z",
+      "side": 1,
+      "message": "In rtcstats_objects.h, there is a TODO above packets_discarded:\n// TODO(hbos): Collect and populate this value. https://bugs.webrtc.org/7065\n\nUpdate the comment to say that this is only collected for audio, but with a TODO that we should collect it for video as well.",
+      "revId": "d69a3b32b296b523ffa42985af4b475c9f07f2e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

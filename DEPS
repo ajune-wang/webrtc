@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '51f6153d8eee1341d719c28ce43fadb89c00aa9f',
+  'chromium_revision': '8c55b4a4caf574423bd2548b158043feed5cbdc8',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -37,9 +37,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@a28e6a733ed07ca30fe5a8a9c5ac868b81539ca1',
+    'https://chromium.googlesource.com/chromium/src/testing@a8c130799931af4a5e489446fab6b0e86dec771e',
   'src/third_party':
-    'https://chromium.googlesource.com/chromium/src/third_party@4c1a4a00be2f0a1f78579dbaa6c86ea18568b684',
+    'https://chromium.googlesource.com/chromium/src/third_party@c396ba17d92c27f77a7d246786731299f32e0ad6',
 
   'src/buildtools/linux64': {
     'packages': [
@@ -137,7 +137,7 @@ deps = {
   'src/third_party/colorama/src':
     'https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@aa45aa62c3c62a3eefc011ea3d6f038ec7bd58fd',
+    'https://chromium.googlesource.com/chromium/tools/depot_tools.git@6e970e597b25a3a74a560746711d1811133841d2',
   'src/third_party/ffmpeg':
     'https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@e61dd757a8c09139c03ffa2ef285d5678909370a',
   'src/third_party/findbugs': {
@@ -172,7 +172,7 @@ deps = {
   'src/third_party/googletest/src':
     'https://chromium.googlesource.com/external/github.com/google/googletest.git@4fe018038f87675c083d0cfb6a6b57c274fb1753',
   'src/third_party/icu': {
-    'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@aba3f0dfeeddc0c69730ec28ef423543b8a62693',
+    'url': 'https://chromium.googlesource.com/chromium/deps/icu.git@84fb34e2d110871c3414183b9f6c0745453b02ad',
   },
   'src/third_party/jdk': {
       'packages': [
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@9f0e96794cc62f586fd329753a3be1913d58c6a6',
+    'https://chromium.googlesource.com/chromium/src/tools@67daa0490ab215fc38b1d4ef713a5c75f855a353',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 

@@ -121,6 +121,16 @@ class SctpTransportMap {
     return it->second;
   }
 
+  bool Contains(cricket::SctpTransport* transport) const {
+    webrtc::MutexLock lock(&lock_);
+    for (const auto& kv : map_) {
+      if (kv.second == transport) {
+        return true;
+      }
+    }
+    return false;
+  }
+
  private:
   mutable webrtc::Mutex lock_;
 
@@ -393,16 +403,15 @@ class SctpTransport::UsrSctpWrapper {
                                  struct sctp_rcvinfo rcv,
                                  int flags,
                                  void* ulp_info) {
-    SctpTransport* transport = GetTransportFromSocket(sock);
-    if (!transport) {
+    SctpTransport* transport = static_cast<SctpTransport*>(ulp_info);
+    // NOTE: We can't call GetTransportFromSocket because it acquires a lock
+    // which might already be held by usrsctp.
+    if (!IsTransportAlive(transport)) {
       RTC_LOG(LS_ERROR)
           << "OnSctpInboundPacket: Failed to get transport for socket " << sock
           << "; possibly was already destroyed.";
       return 0;
     }
-    // Sanity check that both methods of getting the SctpTransport pointer
-    // yield the same result.
-    RTC_CHECK_EQ(transport, static_cast<SctpTransport*>(ulp_info));
     int result =
         transport->OnDataOrNotificationFromSctp(data, length, rcv, flags);
     free(data);
@@ -433,6 +442,16 @@ class SctpTransport::UsrSctpWrapper {
     usrsctp_freeladdrs(addrs);
 
     return transport;
+  }
+
+  // Returns true if the transport map is non-null and contains |transport|.
+  static bool IsTransportAlive(SctpTransport* transport) {
+    if (!g_transport_map_) {
+      RTC_LOG(LS_ERROR)
+          << "IsTransportAlive called after usrsctp uninitialized?";
+      return false;
+    }
+    return g_transport_map_->Contains(transport);
   }
 
   // TODO(crbug.com/webrtc/11899): This is a legacy callback signature, remove

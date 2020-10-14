@@ -393,6 +393,30 @@
       },
       "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "463c9c86_94ee6312",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-14T22:09:54Z",
+      "side": 1,
+      "message": "Yes, technically nack \"messages\" is more correct since multiple FB messages can be combined into a compound RTCP packet:\n\"RTCP FB messages are just another RTCP packet type (see Section 4).\n   Therefore, multiple FB messages MAY be combined in a single compound\n   RTCP packet and they MAY also be sent combined with other RTCP\n   packets.\"\n\nBut even in the existing code in rtcp_sender.cc, it\u0027s called nack_packets:\n++packet_type_counter_.nack_packets;\n\nStill let me rename the field.",
+      "parentUuid": "4d927897_9e5f8af2",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

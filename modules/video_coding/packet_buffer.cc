@@ -275,6 +275,7 @@ std::vector<std::unique_ptr<PacketBuffer::Packet>> PacketBuffer::FindFrames(
       bool has_h264_pps = false;
       bool has_h264_idr = false;
       bool is_h264_keyframe = false;
+      bool is_incomplete_frame = false;
       int idr_width = -1;
       int idr_height = -1;
       while (true) {
@@ -317,6 +318,7 @@ std::vector<std::unique_ptr<PacketBuffer::Packet>> PacketBuffer::FindFrames(
         if (tested_packets == buffer_.size())
           break;
 
+        const uint16_t current_index = start_index;
         start_index = start_index > 0 ? start_index - 1 : buffer_.size() - 1;
 
         // In the case of H264 we don't have a frame_begin bit (yes,
@@ -327,6 +329,13 @@ std::vector<std::unique_ptr<PacketBuffer::Packet>> PacketBuffer::FindFrames(
         // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=7106
         if (is_h264 && (buffer_[start_index] == nullptr ||
                         buffer_[start_index]->timestamp != frame_timestamp)) {
+          if (is_h264_keyframe && buffer_[start_index] == nullptr) {
+            if (buffer_[current_index] != nullptr &&
+                (!buffer_[current_index]->is_first_packet_in_frame() ||
+                 !missing_packets_.empty())) {
+              is_incomplete_frame = true;
+            }
+          }
           break;
         }
 
@@ -365,8 +374,9 @@ std::vector<std::unique_ptr<PacketBuffer::Packet>> PacketBuffer::FindFrames(
 
         // If this is not a keyframe, make sure there are no gaps in the packet
         // sequence numbers up until this point.
-        if (!is_h264_keyframe && missing_packets_.upper_bound(start_seq_num) !=
-                                     missing_packets_.begin()) {
+        if (is_incomplete_frame ||
+            (!is_h264_keyframe && missing_packets_.upper_bound(start_seq_num) !=
+                                      missing_packets_.begin())) {
           return found_frames;
         }
       }

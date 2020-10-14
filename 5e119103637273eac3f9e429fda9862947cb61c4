@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bbbb556_87389440",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:37:52Z",
+      "side": 1,
+      "message": "Thank you for contributing to WebRTC :)\n\nI don\u0027t understand how the bug trigger exactly, could you please add a unit test to packet_buffer_unittest.cc to show how an incomplete frame would be handed out?",
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c31e4730_354637fa",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:37:52Z",
+      "side": 1,
+      "message": "You can\u0027t rely on |is_first_packet_in_frame| to return the correct value for H264.",
+      "range": {
+        "startLine": 334,
+        "startChar": 42,
+        "endLine": 334,
+        "endChar": 66
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e805f4d0_6589e921",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:37:52Z",
+      "side": 1,
+      "message": "I feel like we are trying to duplicate logic here. We already track missing packets to avoid handing out incomplete H264 frames.",
+      "range": {
+        "startLine": 377,
+        "startChar": 12,
+        "endLine": 379,
+        "endChar": 64
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

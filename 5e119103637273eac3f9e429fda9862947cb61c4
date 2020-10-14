@@ -38,6 +38,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c28d25e_c0d0c1d6",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T15:15:34Z",
+      "side": 1,
+      "message": "Given that current_index is start_index before it was decremented, it means that we already used current_index to look into the buffer_, so this is always true right?",
+      "range": {
+        "startLine": 333,
+        "startChar": 16,
+        "endLine": 333,
+        "endChar": 49
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c31e4730_354637fa",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -85,6 +108,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e32ca155_01443fac",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T15:15:34Z",
+      "side": 1,
+      "message": "If it returns false then I think you can trust it to be false, but I\u0027m not sure. The problem is  that it might return true when it in fact should be false.",
+      "parentUuid": "20d793e0_4c2b5711",
+      "range": {
+        "startLine": 334,
+        "startChar": 42,
+        "endLine": 334,
+        "endChar": 66
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38a6107c_2d98c952",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T15:15:34Z",
+      "side": 1,
+      "message": "When receiving a keyframe we can\u0027t consider missing packets, RTP is not guaranteed delivery.\n\nWhat if 100 packets are lost, and we decide to restart the stream with an IDR, there will be a big gap and a lot of packets in missing_packets_.",
+      "range": {
+        "startLine": 335,
+        "startChar": 17,
+        "endLine": 335,
+        "endChar": 42
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e805f4d0_6589e921",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -120,6 +190,30 @@
       "side": 1,
       "message": "here we only judgment the p frames before, the incomplete key frames skiped.",
       "parentUuid": "e805f4d0_6589e921",
+      "range": {
+        "startLine": 377,
+        "startChar": 12,
+        "endLine": 379,
+        "endChar": 64
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b661ea_dd7a54da",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T15:15:34Z",
+      "side": 1,
+      "message": "Right, now I get it.",
+      "parentUuid": "91806acc_fe866ec1",
       "range": {
         "startLine": 377,
         "startChar": 12,

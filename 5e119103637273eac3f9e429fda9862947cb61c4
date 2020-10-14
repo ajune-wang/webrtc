@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4869ee2_5b16eadd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-14T12:51:35Z",
+      "side": 1,
+      "message": "Thanks for your reply:\nwhen the I frame use Multi Slice coding,packet mode is stap-a, for example there six slice 1,2,3,4,5,6 \nthe rtp packet may use 1,2 for first stap-a seq number 1000\n3,4 for second seq number 1001\n5,6 for third seq number 1002\nthus the I frame seq number is 1000   1002  1003\neach packet is stap-a\n\nwhen 1002 lost, 1003 is arrived, buffer_[1003]-\u003eis_first_packet_in_frame() \u003d true,buffer_[1003]-\u003eis_last_packet_in_frame() \u003d true also, buffer_[1002] \u003d\u003d nullptr,so it break,due to this is key frames,the incomplete would be handed out",
+      "parentUuid": "1bbbb556_87389440",
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c31e4730_354637fa",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20d793e0_4c2b5711",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-14T12:51:35Z",
+      "side": 1,
+      "message": "yes,you are right,buf if is_first_packet_in_frame is false,it must not be the begin of the packet,is right?",
+      "parentUuid": "c31e4730_354637fa",
+      "range": {
+        "startLine": 334,
+        "startChar": 42,
+        "endLine": 334,
+        "endChar": 66
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e805f4d0_6589e921",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -54,6 +96,30 @@
       "writtenOn": "2020-10-14T11:37:52Z",
       "side": 1,
       "message": "I feel like we are trying to duplicate logic here. We already track missing packets to avoid handing out incomplete H264 frames.",
+      "range": {
+        "startLine": 377,
+        "startChar": 12,
+        "endLine": 379,
+        "endChar": 64
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91806acc_fe866ec1",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-14T12:51:35Z",
+      "side": 1,
+      "message": "here we only judgment the p frames before, the incomplete key frames skiped.",
+      "parentUuid": "e805f4d0_6589e921",
       "range": {
         "startLine": 377,
         "startChar": 12,

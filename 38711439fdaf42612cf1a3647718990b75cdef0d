@@ -345,6 +345,30 @@
       },
       "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15435ddc_6c51b7e2",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 14284
+      },
+      "writtenOn": "2020-10-14T19:16:30Z",
+      "side": 1,
+      "message": "Added a comment. Another reason to have \"nack_packets_sent\" is it to be similar to fec counters above: \"fec_packets_received\" and \"fec_packets_discarded\"",
+      "parentUuid": "c1e0ce54_7d475ac2",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

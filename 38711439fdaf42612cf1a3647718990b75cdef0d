@@ -369,6 +369,30 @@
       },
       "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d927897_9e5f8af2",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-14T21:00:12Z",
+      "side": 1,
+      "message": "Okay, it turned out that my understanding was still wrong, even after reading the spec. So are we here counting \"generic NACK messages\" (https://tools.ietf.org/html/rfc4585#section-6.2.1)? Then it might be clearer to call it nack_massages_sent?",
+      "parentUuid": "15435ddc_6c51b7e2",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

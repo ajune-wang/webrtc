@@ -1794,6 +1794,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Audio) {
   voice_media_info.receivers[0].audio_level = 9.0;
   voice_media_info.receivers[0].total_output_energy = 10.0;
   voice_media_info.receivers[0].total_output_duration = 11.0;
+  voice_media_info.receivers[0].nack_packets_sent = 15;
 
   voice_media_info.receivers[0].last_packet_received_timestamp_ms =
       absl::nullopt;
@@ -1844,6 +1845,7 @@ TEST_F(RTCStatsCollectorTest, CollectRTCInboundRTPStreamStats_Audio) {
   expected_audio.audio_level = 9.0;
   expected_audio.total_audio_energy = 10.0;
   expected_audio.total_samples_duration = 11.0;
+  expected_audio.nack_count = 15;
 
   ASSERT_TRUE(report->Get(expected_audio.id()));
   EXPECT_EQ(

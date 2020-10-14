@@ -62,7 +62,7 @@ const double kTotalOutputEnergy = 0.25;
 const double kTotalOutputDuration = 0.5;
 const int64_t kPlayoutNtpTimestampMs = 5678;
 
-const CallReceiveStatistics kCallStats = {678, 234, -12, 567, 78, 890, 123};
+const CallReceiveStatistics kCallStats = {678, 234, -12, 567, 78, 890, 123, 8};
 const std::pair<int, SdpAudioFormat> kReceiveCodec = {
     123,
     {"codec_name_recv", 96000, 0}};
@@ -231,6 +231,7 @@ TEST(AudioReceiveStreamTest, GetStats) {
     EXPECT_EQ(
         kCallStats.jitterSamples / (kReceiveCodec.second.clockrate_hz / 1000),
         stats.jitter_ms);
+    EXPECT_EQ(kCallStats.nack_packets, stats.nack_packets_sent);
     EXPECT_EQ(kNetworkStats.currentBufferSize, stats.jitter_buffer_ms);
     EXPECT_EQ(kNetworkStats.preferredBufferSize,
               stats.jitter_buffer_preferred_ms);

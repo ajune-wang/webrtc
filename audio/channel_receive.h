@@ -64,6 +64,7 @@ struct CallReceiveStatistics {
   // local clock when it was received - not the RTP timestamp of that packet.
   // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-lastpacketreceivedtimestamp
   absl::optional<int64_t> last_packet_received_timestamp_ms;
+  uint32_t nack_packets;
 };
 
 namespace voe {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e910ee3_f262f262",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-14T15:37:04Z",
+      "side": 1,
+      "message": "As suggested in other change.\n\nI haven\u0027t put much thought in edge cases in structures that do not yet handle OnRatesUpdated\nsince those would need to be changed anyway.\nlooking how FullSvc structure handles it, it seems those edge cases are well hidden so that there is never need to return absl::nullopt",
+      "revId": "c37278444fd0ca0a0656ba271654ae4818fb0100",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

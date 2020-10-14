@@ -16,6 +16,144 @@
       "message": "Is it an acceptable way to inject file generic_frame_info for vp9?\nWould you want be to rethink test suit (rather than copy-past some tests)\n",
       "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae1f0641_84ae7c6c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:38:34Z",
+      "side": 1,
+      "message": "I don\u0027t see why this is necessary? Preparation for exotic encoding structures?",
+      "range": {
+        "startLine": 348,
+        "startChar": 10,
+        "endLine": 348,
+        "endChar": 52
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c46296_8a7cdddc",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:38:34Z",
+      "side": 1,
+      "message": "We should move the scalability logic outside of AV1. I would prefer if we started with that.",
+      "range": {
+        "startLine": 568,
+        "startChar": 0,
+        "endLine": 569,
+        "endChar": 43
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f361960_ae96761e",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:38:34Z",
+      "side": 1,
+      "message": "nit: |vp9_settings|, |settings| or something like that",
+      "range": {
+        "startLine": 223,
+        "startChar": 23,
+        "endLine": 223,
+        "endChar": 26
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "392d270d_7abcacea",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:38:34Z",
+      "side": 1,
+      "message": "Not important, but something I think would be more straight forward:\n\nStart with an \n  absl::optional\u003cstd::pair\u003cint,int\u003e\u003e scaling_factor;\n\nThen loop through all the layers-1 and check that scaling_factor is either empty (and then assign it), or that the scaling factor between these two layers are the same as scaling_factor.",
+      "range": {
+        "startLine": 241,
+        "startChar": 2,
+        "endLine": 241,
+        "endChar": 38
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b669242f_78ac7177",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1414,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:38:34Z",
+      "side": 1,
+      "message": "Not for this CL, but shouldn\u0027t we change\n  absl::optional\u003cGenericFrameInfo\u003e OnEncodeDone(LayerFrameConfig config)\n\nto\n  GenericFrameInfo OnEncodeDone(const LayerFrameConfig\u0026 config)\n\n(or something like that)",
+      "range": {
+        "startLine": 1414,
+        "startChar": 38,
+        "endLine": 1414,
+        "endChar": 52
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4beda2d_64724d54",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-14T11:38:34Z",
+      "side": 1,
+      "message": "Not having the generic_frame_info at this point is an error right?",
+      "range": {
+        "startLine": 1415,
+        "startChar": 24,
+        "endLine": 1415,
+        "endChar": 58
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

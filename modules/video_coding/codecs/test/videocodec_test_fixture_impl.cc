@@ -206,6 +206,7 @@ void VideoCodecTestFixtureImpl::Config::SetCodecSettings(
       codec_settings.VP9()->automaticResizeOn = spatial_resize_on;
       codec_settings.VP9()->numberOfSpatialLayers =
           static_cast<uint8_t>(num_spatial_layers);
+      codec_settings.VP9()->interLayerPred = InterLayerPredMode::kOnKeyPic;
       break;
     case kVideoCodecAV1:
       codec_settings.qpMax = 63;

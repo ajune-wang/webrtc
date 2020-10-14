@@ -233,7 +233,6 @@ VP9EncoderImpl::VP9EncoderImpl(const cricket::VideoCodec& codec,
           ParseSdpForVP9Profile(codec.params).value_or(VP9Profile::kProfile0)),
       inited_(false),
       timestamp_(0),
-      cpu_speed_(3),
       rc_max_intra_target_(0),
       encoder_(nullptr),
       config_(nullptr),
@@ -407,8 +406,6 @@ bool VP9EncoderImpl::SetSvcRates(
   first_active_layer_ = 0;
   bool seen_active_layer = false;
   bool expect_no_more_active_layers = false;
-  int highest_active_width = 0;
-  int highest_active_height = 0;
   for (int i = 0; i < num_spatial_layers_; ++i) {
     if (config_->ss_target_bitrate[i] > 0) {
       RTC_DCHECK(!expect_no_more_active_layers) << "Only middle layer is "
@@ -418,12 +415,6 @@ bool VP9EncoderImpl::SetSvcRates(
       }
       num_active_spatial_layers_ = i + 1;
       seen_active_layer = true;
-      highest_active_width =
-          (svc_params_.scaling_factor_num[i] * config_->g_w) /
-          svc_params_.scaling_factor_den[i];
-      highest_active_height =
-          (svc_params_.scaling_factor_num[i] * config_->g_h) /
-          svc_params_.scaling_factor_den[i];
     } else {
       expect_no_more_active_layers = seen_active_layer;
     }
@@ -439,7 +430,6 @@ bool VP9EncoderImpl::SetSvcRates(
   }
 
   current_bitrate_allocation_ = bitrate_allocation;
-  cpu_speed_ = GetCpuSpeed(highest_active_width, highest_active_height);
   config_changed_ = true;
   return true;
 }
@@ -610,8 +600,6 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   config_->g_threads =
       NumberOfThreads(config_->g_w, config_->g_h, settings.number_of_cores);
 
-  cpu_speed_ = GetCpuSpeed(config_->g_w, config_->g_h);
-
   is_flexible_mode_ = inst->VP9().flexibleMode;
 
   inter_layer_pred_ = inst->VP9().interLayerPred;
@@ -766,22 +754,22 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
   }
 
-  if (per_layer_speed_.enabled) {
-    for (int i = 0; i < num_spatial_layers_; ++i) {
-      if (codec_.spatialLayers[i].active) {
-        continue;
+  absl::optional<int> highest_speed;
+  SpeedSettings speed = per_layer_speed_.FillFromCodecConfig(*inst);
+  for (int i = num_spatial_layers_; i >= 0; --i) {
+    if (speed.per_layer_speed[i] != -1) {
+      if (speed.constrained) {
+        if (!highest_speed) {
+          highest_speed = speed.per_layer_speed[i];
+        } else {
+          speed.per_layer_speed[i] =
+              std::max(speed.per_layer_speed[i], *highest_speed);
+        }
       }
-
-      if (per_layer_speed_.layers[i] != -1) {
-        svc_params_.speed_per_layer[i] = per_layer_speed_.layers[i];
-      } else {
-        svc_params_.speed_per_layer[i] = GetCpuSpeed(
-            codec_.spatialLayers[i].width, codec_.spatialLayers[i].height);
-      }
+      svc_params_.speed_per_layer[i] = speed.per_layer_speed[i];
     }
   }
 
-  vpx_codec_control(encoder_, VP8E_SET_CPUUSED, cpu_speed_);
   vpx_codec_control(encoder_, VP8E_SET_MAX_INTRA_BITRATE_PCT,
                     rc_max_intra_target_);
   vpx_codec_control(encoder_, VP9E_SET_AQ_MODE,
@@ -793,6 +781,9 @@ int VP9EncoderImpl::InitAndSetControlSettings(const VideoCodec* inst) {
   if (is_svc_) {
     vpx_codec_control(encoder_, VP9E_SET_SVC, 1);
     vpx_codec_control(encoder_, VP9E_SET_SVC_PARAMETERS, &svc_params_);
+  } else {
+    vpx_codec_control(encoder_, VP8E_SET_CPUUSED,
+                      GetCpuSpeed(codec_.width, codec_.height));
   }
 
   if (num_spatial_layers_ > 1) {
@@ -987,6 +978,18 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     layer_id.temporal_layer_id_per_spatial[sl_idx] = layer_id.temporal_layer_id;
   }
 
+  if (is_svc_ && per_layer_speed_.non_base != -1) {
+    vpx_svc_extra_cfg_t temp_params = svc_params_;
+    for (int sl_idx = 0; sl_idx < num_spatial_layers_; ++sl_idx) {
+      if (layer_id.temporal_layer_id_per_spatial[sl_idx] > 0) {
+        temp_params.speed_per_layer[sl_idx] = per_layer_speed_.non_base;
+      }
+      // RTC_LOG(LS_WARNING) << "@Setting speed for sl" << sl_idx
+      //                     << " to " << temp_params.speed_per_layer[sl_idx];
+    }
+    vpx_codec_control(encoder_, VP9E_SET_SVC_PARAMETERS, &temp_params);
+  }
+
   if (layer_id.spatial_layer_id < first_active_layer_) {
     layer_id.spatial_layer_id = first_active_layer_;
   }
@@ -1003,7 +1006,6 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     if (vpx_codec_enc_config_set(encoder_, config_)) {
       return WEBRTC_VIDEO_CODEC_ERROR;
     }
-    vpx_codec_control(encoder_, VP8E_SET_CPUUSED, cpu_speed_);
     config_changed_ = false;
   }
 
@@ -1719,15 +1721,31 @@ VP9EncoderImpl::ParseQualityScalerConfig(const WebRtcKeyValueConfig& trials) {
 // static
 VP9EncoderImpl::SpeedSettings VP9EncoderImpl::ParsePerLayerSpeed(
     const WebRtcKeyValueConfig& trials) {
-  FieldTrialFlag enabled("enabled");
+  // Alternate speed based on temporal layer.
+  FieldTrialParameter<int> non_base("non_base", -1);
+  // Constrain speed: no higher than what the highest active resolution uses.
+  FieldTrialFlag constrained("active_constrained", true);
   FieldTrialParameter<int> speeds[kMaxSpatialLayers]{
       {"s0", -1}, {"s1", -1}, {"s2", -1}, {"s3", -1}, {"s4", -1}};
-  ParseFieldTrial(
-      {&enabled, &speeds[0], &speeds[1], &speeds[2], &speeds[3], &speeds[4]},
-      trials.Lookup("WebRTC-VP9-PerLayerSpeed"));
-  return SpeedSettings{enabled.Get(),
+  ParseFieldTrial({&non_base, &constrained, &speeds[0], &speeds[1], &speeds[2],
+                   &speeds[3], &speeds[4]},
+                  trials.Lookup("WebRTC-VP9-PerLayerSpeed"));
+  return SpeedSettings{non_base.Get(),
+                       constrained.Get(),
                        {speeds[0].Get(), speeds[1].Get(), speeds[2].Get(),
                         speeds[3].Get(), speeds[4].Get()}};
+}
+
+VP9EncoderImpl::SpeedSettings
+VP9EncoderImpl::SpeedSettings::FillFromCodecConfig(const VideoCodec& config) {
+  SpeedSettings settings = *this;
+  for (int i = 0; i < kMaxSpatialLayers; ++i) {
+    if (settings.per_layer_speed[i] == -1 && config.spatialLayers[i].active) {
+      settings.per_layer_speed[i] = GetCpuSpeed(config.spatialLayers[i].width,
+                                                config.spatialLayers[i].height);
+    }
+  }
+  return settings;
 }
 
 void VP9EncoderImpl::MaybeRewrapRawWithFormat(const vpx_img_fmt fmt) {

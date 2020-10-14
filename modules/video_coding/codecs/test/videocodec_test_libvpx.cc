@@ -20,6 +20,7 @@
 #include "media/engine/simulcast_encoder_adapter.h"
 #include "modules/video_coding/utility/vp8_header_parser.h"
 #include "modules/video_coding/utility/vp9_uncompressed_header_parser.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/testsupport/file_utils.h"
 
@@ -456,7 +457,20 @@ TEST(VideoCodecTestLibvpx, DISABLED_MultiresVP8RdPerf) {
   PrintRdPerf(rd_stats);
 }
 
-TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerf) {
+TEST(VideoCodecTestLibvpx, SvcVP9RdPerf) {
+  test::ScopedFieldTrials trials("WebRTC-VP9-PerLayerSpeed/"
+   /* Default: speed 7 on all layers */
+   // "active_constrained:1");
+
+   /* speed 5 on qvga, speed 7 on vga+hd */
+   // "active_constrained:0");
+
+   /* speed 5 on TL0, speed 8 on TL1+TL2, regardless of resolution. */
+   // "active_constrained:0,s0:5,s1:5,s2:5,non_base:8/");
+
+   /* speed 5 on all layers */
+   "active_constrained:0,s0:5,s1:5,s2:5/");
+
   auto config = CreateConfig();
   config.filename = "FourPeople_1280x720_30";
   config.filepath = ResourcePath(config.filename, "yuv");
@@ -468,8 +482,9 @@ TEST(VideoCodecTestLibvpx, DISABLED_SvcVP9RdPerf) {
   config.encoded_frame_checker = frame_checker.get();
   auto fixture = CreateVideoCodecTestFixture(config);
 
+  const size_t kBitratesKbps[] = {1500};
   std::map<size_t, std::vector<VideoStatistics>> rd_stats;
-  for (size_t bitrate_kbps : kBitrateRdPerfKbps) {
+  for (size_t bitrate_kbps : kBitratesKbps) {
     std::vector<RateProfile> rate_profiles = {{bitrate_kbps, 30, 0}};
 
     fixture->RunTest(rate_profiles, nullptr, nullptr, nullptr);

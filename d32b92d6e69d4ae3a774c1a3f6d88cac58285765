@@ -160,6 +160,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ccbfc25_9438ead1",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-15T16:51:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cbecc81_b60dc274",
+      "range": {
+        "startLine": 568,
+        "startChar": 0,
+        "endLine": 569,
+        "endChar": 43
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f361960_ae96761e",
@@ -362,6 +386,30 @@
       "side": 1,
       "message": "Given that OnEncodeDone will return a value I now think a CHECK might be unnecessary. Maybe a DCHECK-as-documentation, but I don\u0027t think that\u0027s necessary either?",
       "parentUuid": "2e2101bf_650fd603",
+      "range": {
+        "startLine": 1415,
+        "startChar": 24,
+        "endLine": 1415,
+        "endChar": 58
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd3cf3f_c0b7173d",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-15T16:51:36Z",
+      "side": 1,
+      "message": "with change of the OnEncodeDone value I also do not think any (D)CHECKing is needed here.",
+      "parentUuid": "51e84a3c_18e8dd45",
       "range": {
         "startLine": 1415,
         "startChar": 24,

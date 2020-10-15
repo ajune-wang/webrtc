@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f5b74a1_810c072b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T16:55:07Z",
+      "side": 1,
+      "message": "Another refactor. Picking reviewers more or less because you responded fast on the last CL :-)\n",
+      "revId": "65ebc4595267bcb26cc77827d95a24d9b77be314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

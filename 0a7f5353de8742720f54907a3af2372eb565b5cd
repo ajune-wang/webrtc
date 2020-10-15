@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4e03365_5f47717b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T13:03:19Z",
+      "side": 1,
+      "message": "Fixing a few things while watching a VC. Deeper stuff requires more thinking.\n",
+      "revId": "0a7f5353de8742720f54907a3af2372eb565b5cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       },
       "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d37885d_fd25e04e",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-15T13:19:15Z",
+      "side": 1,
+      "message": "That is opposite of my idea:\nI would like to deprecated spatialLayers together with number_of_spatial_layers and number_of_temporal_layers in favor of single scalability_mode member. (or a scalability_mode per simulcast stream?)\n\nDown the stack I need to convert VideoCodec back to scalability mode name, in particular to support scalability modes that currently can\u0027t be expressed with the VideoCodec struct (e.g. key svc with shift structures). Even KSvc vs FullSVc is not communicated in the spatialLayers (other than with VP9 specific settings)\n\nWhile configuring av1 encoder I know how to configure it using scalability_mode, but configuring it with various members of the VideoCodec is far from trivial.\n\nAs a intermediate solution I can modify SetScalabilityMode to not just set this member, but also to configure spatialLayer and other fields. Would that be better from your point of view?",
+      "parentUuid": "106ebbb3_cbb05549",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

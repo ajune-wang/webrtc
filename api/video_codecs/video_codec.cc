@@ -75,6 +75,19 @@ VideoCodec::VideoCodec()
       legacy_conference_mode(false),
       codec_specific_() {}
 
+absl::string_view VideoCodec::ScalabilityMode(int simulcast_index) const {
+  RTC_DCHECK_GE(simulcast_index, 0);
+  RTC_CHECK_LT(simulcast_index, ABSL_ARRAYSIZE(scalability_mode_));
+  return scalability_mode_[simulcast_index];
+}
+
+void VideoCodec::SetScalabilityMode(int simulcast_index,
+                                    absl::string_view scalability_mode) {
+  RTC_DCHECK_GE(simulcast_index, 0);
+  RTC_CHECK_LT(simulcast_index, ABSL_ARRAYSIZE(scalability_mode_));
+  scalability_mode_[simulcast_index] = std::string(scalability_mode);
+}
+
 VideoCodecVP8* VideoCodec::VP8() {
   RTC_DCHECK_EQ(codecType, kVideoCodecVP8);
   return &codec_specific_.VP8;

@@ -33,6 +33,24 @@
       "message": "Hang on, the video case is fully covered, I think we can rephrase this comment to make all different paths clearer. Like this:\n\n// NACK count is fully implemented in the video case (on both outbound-rtp and\n// inbound-rtp) but for the audio case it is only implemented for inbound-rtp.\n// TODO(crbug.com/657856): Also implement for audio outbound-rtp.",
       "revId": "02e50f75ac6a761910a17b374000cd806701b573",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "881f458c_ebf1d2d0",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2020-10-15T09:43:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b421acb5_7c894a3b",
+      "revId": "02e50f75ac6a761910a17b374000cd806701b573",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -465,6 +465,30 @@
       },
       "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "689f703c_4c7b0521",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-15T09:39:09Z",
+      "side": 1,
+      "message": "Since I\u0027m not 100% sure on the details with regards to messages versus packets, but \"packets\" being used both by our code base and the spec, I suggest sticking with \"packets\" for consistency until we are sure changing this is a good idea, but in that case we should change it in all places and not just here. So for this CL, I think I like \"packets\".\n\nConsidering the spec definition is \"total number of Negative ACKnowledgement (NACK) packets sent by this receiver\" I think the current variable name nack_packets_sent makes perfect sense, and now we have a spec link for further reading as well if anybody gets confused by this.\u0027\n\nSo LGTM as-is.",
+      "parentUuid": "8bd6c902_5a58f1d2",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "38711439fdaf42612cf1a3647718990b75cdef0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

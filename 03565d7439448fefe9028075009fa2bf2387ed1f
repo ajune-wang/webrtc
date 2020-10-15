@@ -94,6 +94,30 @@
       },
       "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b553d14c_09cc065a",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-15T16:24:55Z",
+      "side": 1,
+      "message": "I agree with Florent, scalability mode would be better at a higher abstraction level. At a lower level we need more flexibility than what that w3c standard can provide.\n\nIf this is how the libaom wrapper currently needs the signals, perhaps you can add it to a codec-specific section instead?\n\nI\u0027m fine with shoehorning the scalability mode somewhere in VideoCodec for now (regardless of if it\u0027s translated or not), but longer term the entire current VideoEncoder interface needs to die anyway and be replaced with a more low-level variant, so I wouldn\u0027t plan any larger refactoring of how SpatialLayers etc is used right now.",
+      "parentUuid": "c15440a8_a04f1846",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

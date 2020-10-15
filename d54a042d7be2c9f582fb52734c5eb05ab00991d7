@@ -52,6 +52,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92298d15_a3060837",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-15T20:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e845936c_085b139f",
+      "revId": "d54a042d7be2c9f582fb52734c5eb05ab00991d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18d31e44_64071893",
@@ -65,6 +83,24 @@
       "writtenOn": "2020-10-15T06:58:59Z",
       "side": 1,
       "message": "Which lock is it?\nIs this because we\u0027re holding the lock on a different thread, or is it because we hold the lock on this thread over a longer period of time? The first will clear itself, the second seems like a bug that will create further problems.",
+      "revId": "d54a042d7be2c9f582fb52734c5eb05ab00991d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "442dc6f5_19a99b34",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-15T20:59:26Z",
+      "side": 1,
+      "message": "It\u0027s SCTP_INP_WLOCK/SCTP_INP_RLOCK (which expand to the same mutex)\n\nAcquired here, before calling sctp_report_all_outbound, which will trigger the SCTP_SEND_FAILED_EVENT notification: https://source.chromium.org/chromium/chromium/src/+/master:third_party/usrsctp/usrsctplib/usrsctplib/netinet/sctp_input.c;l\u003d2057?q\u003dsctp_process_control\n\nAnd acquired again here, when retrieving the length of the address associated with the socket: https://source.chromium.org/chromium/chromium/src/+/master:third_party/usrsctp/usrsctplib/usrsctplib/netinet/sctp_usrreq.c;l\u003d2746;drc\u003df0b032cd66ff1c7ec17de90441a70832f6267842;bpv\u003d1;bpt\u003d1\n\nIt\u0027s two lock acquisitions on the same thread. Maybe that\u0027s not technically \"deadlock\"? If not what would be the appropriate term?\n\nI\u0027m not sure if this is considered a bug from usrsctp\u0027s perspective, but I reported one to find out: https://github.com/sctplab/usrsctp/issues/537",
+      "parentUuid": "18d31e44_64071893",
       "revId": "d54a042d7be2c9f582fb52734c5eb05ab00991d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

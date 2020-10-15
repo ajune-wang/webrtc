@@ -36,6 +36,7 @@
 #include "logging/rtc_event_log/rtc_event_log_unittest_helper.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor_config.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/random.h"
@@ -1241,5 +1242,52 @@ INSTANTIATE_TEST_SUITE_P(
                                          RtcEventLog::EncodingType::NewFormat),
                        /* Event count: */ ::testing::Values(1, 2, 10, 100),
                        /* Repeated fields: */ ::testing::Bool()));
+
+TEST(RtcEventLogEncoderTest, RtcEventLargeCompoundRtcpPacketIncoming) {
+  for (const auto encoding : {RtcEventLog::EncodingType::Legacy,
+                              RtcEventLog::EncodingType::NewFormat}) {
+    std::deque<std::unique_ptr<RtcEvent>> history;
+    std::unique_ptr<RtcEventLogEncoder> encoder;
+    switch (encoding) {
+      case RtcEventLog::EncodingType::Legacy:
+        encoder = std::make_unique<RtcEventLogEncoderLegacy>();
+        break;
+      case RtcEventLog::EncodingType::NewFormat:
+        encoder = std::make_unique<RtcEventLogEncoderNewFormat>();
+        break;
+    }
+
+    // Create a compound packet containing multiple Bye messages.
+    constexpr size_t kCapacity = 2148;
+    rtc::Buffer packet(kCapacity);
+    size_t index = 0;
+    for (int i = 0; i < 8; i++) {
+      rtcp::Bye bye;
+      std::string reason(255, 'a');  // Add some arbitrary data.
+      bye.SetReason(reason);
+      bye.SetSenderSsrc(0x12345678);
+      bool created =
+          bye.Create(packet.data(), &index, packet.capacity(), nullptr);
+      ASSERT_TRUE(created);
+    }
+
+    ASSERT_LE(index, packet.capacity());
+    packet.SetSize(index);
+    auto event = std::make_unique<RtcEventRtcpPacketIncoming>(packet);
+    history.push_back(event->Copy());
+    std::string encoded = encoder->EncodeBatch(history.begin(), history.end());
+
+    ParsedRtcEventLog parsed_log;
+    auto status = parsed_log.ParseString(encoded);
+    ASSERT_TRUE(status.ok()) << status.message();
+
+    const auto& incoming_rtcp_packets = parsed_log.incoming_rtcp_packets();
+    ASSERT_EQ(incoming_rtcp_packets.size(), 1u);
+    ASSERT_EQ(incoming_rtcp_packets[0].rtcp.raw_data.size(), packet.size());
+    ASSERT_EQ(memcmp(incoming_rtcp_packets[0].rtcp.raw_data.data(),
+                     packet.data(), packet.size()),
+              0);
+  }
+}
 
 }  // namespace webrtc

@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ddc6e7b_75583b0f",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-15T15:34:29Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "3781bec4_7ad05bd8",
+      "range": {
+        "startLine": 229,
+        "startChar": 49,
+        "endLine": 229,
+        "endChar": 51
+      },
+      "revId": "b52501740767b2540a9c580d174eb3185cb8d937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "985dfe93_41bc2c80",
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "Done, isnt a frame rate of more than 255 a bug?",
       "parentUuid": "25c3ebfe_977eeb02",
+      "range": {
+        "startLine": 256,
+        "startChar": 67,
+        "endLine": 256,
+        "endChar": 70
+      },
+      "revId": "b52501740767b2540a9c580d174eb3185cb8d937",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4f336bb_c6fa3c18",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-15T15:34:29Z",
+      "side": 1,
+      "message": "Yes \u003e 255 would be a bug.",
+      "parentUuid": "f0c709b4_e6aa3676",
       "range": {
         "startLine": 256,
         "startChar": 67,

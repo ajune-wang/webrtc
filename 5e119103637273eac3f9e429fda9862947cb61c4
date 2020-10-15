@@ -251,6 +251,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd663c81_39b2c870",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-15T13:48:05Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t quite understand.\n\nLets say we have small frames, so one RTP packet \u003d one frame.\n\nThe way I see it:\n\npacket 100: p frame\npacket 101: \u003clost\u003e\npacket 102: i frame\n\nnow !missing_packets_.empty() will evaluate to true, so now you say that the i frame in 102 is incomplete.",
+      "parentUuid": "a0eed848_a13e77c2",
+      "range": {
+        "startLine": 335,
+        "startChar": 17,
+        "endLine": 335,
+        "endChar": 42
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e805f4d0_6589e921",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3

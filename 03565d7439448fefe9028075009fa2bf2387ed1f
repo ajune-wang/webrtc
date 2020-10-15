@@ -46,6 +46,30 @@
       },
       "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "174d2f4c_090468b1",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5963
+      },
+      "writtenOn": "2020-10-15T14:39:48Z",
+      "side": 1,
+      "message": "I think that this change would also allow to make the implementation of the w3c svc API extension much more easier:\n\nhttps://bugs.chromium.org/p/chromium/issues/detail?id\u003d986069",
+      "parentUuid": "5d37885d_fd25e04e",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

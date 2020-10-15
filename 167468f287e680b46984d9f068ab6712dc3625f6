@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f27724_7413804f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T07:08:47Z",
+      "side": 1,
+      "message": "Nits only. Go for it.\n",
+      "revId": "167468f287e680b46984d9f068ab6712dc3625f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e640d85b_144ea431",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2809,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T07:08:47Z",
+      "side": 1,
+      "message": "Nit: Uppercase T after period.",
+      "revId": "167468f287e680b46984d9f068ab6712dc3625f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc07f466_7d676040",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2827,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T07:08:47Z",
+      "side": 1,
+      "message": "For completeness, should assert that caller-\u003epc()-\u003eGetSenders()[0]-\u003etransport !\u003d caller-\u003epc()-\u003eGetSenders()[1]-\u003etransport",
+      "revId": "167468f287e680b46984d9f068ab6712dc3625f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0301f43e_8fedd8f2",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T07:08:47Z",
+      "side": 1,
+      "message": "Here it would be good to assert that the two transports are equal, in symmetry with the test above.",
+      "revId": "167468f287e680b46984d9f068ab6712dc3625f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

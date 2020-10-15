@@ -197,6 +197,12 @@ rtc_library("peerconnection") {
     "track_media_info_map.h",
     "transceiver_list.cc",
     "transceiver_list.h",
+    "video_rtp_receiver.cc",
+    "video_rtp_receiver.h",
+    "video_rtp_track_source.cc",
+    "video_rtp_track_source.h",
+    "video_track.cc",
+    "video_track.h",
     "webrtc_sdp.cc",
     "webrtc_sdp.h",
     "webrtc_session_description_factory.cc",
@@ -215,11 +221,13 @@ rtc_library("peerconnection") {
     ":peer_connection_message_handler",
     ":remote_audio_source",
     ":rtc_pc_base",
+    ":rtp_object_manager",
     ":rtp_parameters_conversion",
     ":rtp_receiver",
     ":rtp_sender",
     ":rtp_transceiver",
     ":stats_collector_interface",
+    ":transceiver_list",
     ":usage_pattern",
     ":video_rtp_receiver",
     ":video_track",
@@ -348,6 +356,32 @@ rtc_library("rtp_transceiver") {
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
+}
+
+rtc_library("rtp_object_manager") {
+  sources = [
+    "rtp_object_manager.cc",
+    "rtp_object_manager.h",
+  ]
+  deps = [
+    ":audio_rtp_receiver",
+    ":rtp_receiver",
+    ":rtp_sender",
+    ":rtp_transceiver",
+    ":stats_collector_interface",
+    ":transceiver_list",
+    ":usage_pattern",
+    ":video_rtp_receiver",
+    "../api:libjingle_peerconnection_api",
+  ]
+}
+
+rtc_library("transceiver_list") {
+  sources = [
+    "transceiver_list.cc",
+    "transceiver_list.h",
+  ]
+  deps = [ ":rtp_transceiver" ]
 }
 
 rtc_library("rtp_receiver") {

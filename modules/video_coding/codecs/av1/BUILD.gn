@@ -100,6 +100,7 @@ rtc_library("libaom_av1_encoder") {
   poisonous = [ "software_video_codecs" ]
   public = [ "libaom_av1_encoder.h" ]
   deps = [
+    ":scalability_structures",
     ":scalable_video_controller",
     "../../../../api/video_codecs:video_codecs_api",
   ]

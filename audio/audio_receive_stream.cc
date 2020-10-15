@@ -198,6 +198,7 @@ webrtc::AudioReceiveStream::Stats AudioReceiveStream::GetStats(
       call_stats.last_packet_received_timestamp_ms;
   stats.codec_name = receive_codec->second.name;
   stats.codec_payload_type = receive_codec->first;
+  stats.nack_packets_sent = call_stats.nackPackets;
   int clockrate_khz = receive_codec->second.clockrate_hz / 1000;
   if (clockrate_khz > 0) {
     stats.jitter_ms = call_stats.jitterSamples / clockrate_khz;

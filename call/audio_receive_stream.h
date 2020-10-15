@@ -42,6 +42,8 @@ class AudioReceiveStream {
     uint64_t fec_packets_received = 0;
     uint64_t fec_packets_discarded = 0;
     uint32_t packets_lost = 0;
+    // https://w3c.github.io/webrtc-stats/#dom-rtcinboundrtpstreamstats-nackcount
+    uint32_t nack_packets_sent = 0;
     std::string codec_name;
     absl::optional<int> codec_payload_type;
     uint32_t jitter_ms = 0;

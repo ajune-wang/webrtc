@@ -783,7 +783,11 @@ class RTCStatsReportVerifier {
     } else {
       verifier->TestMemberIsUndefined(stream.fir_count);
       verifier->TestMemberIsUndefined(stream.pli_count);
-      verifier->TestMemberIsUndefined(stream.nack_count);
+      if (stream.type() == RTCOutboundRTPStreamStats::kType) {
+        verifier->TestMemberIsUndefined(stream.nack_count);
+      } else {
+        verifier->TestMemberIsNonNegative<uint32_t>(stream.nack_count);
+      }
     }
     verifier->TestMemberIsUndefined(stream.sli_count);
   }

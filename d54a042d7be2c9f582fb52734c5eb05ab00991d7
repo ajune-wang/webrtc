@@ -16,6 +16,57 @@
       "message": "PTAL; this is a regression introduced by https://webrtc-review.googlesource.com/c/src/+/184240, which I\u0027d like to merge to M86 for the next stable refresh if possible.\n\nIt\u0027s possible this could occur with other notifications, though SCTP_SEND_FAILED_EVENT is the one that alerted me to the issue.",
       "revId": "d54a042d7be2c9f582fb52734c5eb05ab00991d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd96947_7c54649e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T06:58:59Z",
+      "side": 1,
+      "message": "Looks good.\n\nNits:\n\nI\u0027m trying to cut down on the use of for loops over standard maps, so I\u0027m suggesting an alternative.\n\nDocumenting which lock causes the problem would be good.",
+      "revId": "d54a042d7be2c9f582fb52734c5eb05ab00991d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e845936c_085b139f",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T06:58:59Z",
+      "side": 1,
+      "message": "auto it \u003d std::find_if(std::begin(map_), std::end(map_), [](auto\u0026\u0026 p) { return p-\u003esecond \u003d\u003d transport; });\nreturn (it !\u003d std::end(map_));",
+      "revId": "d54a042d7be2c9f582fb52734c5eb05ab00991d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18d31e44_64071893",
+        "filename": "media/sctp/sctp_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-15T06:58:59Z",
+      "side": 1,
+      "message": "Which lock is it?\nIs this because we\u0027re holding the lock on a different thread, or is it because we hold the lock on this thread over a longer period of time? The first will clear itself, the second seems like a bug that will create further problems.",
+      "revId": "d54a042d7be2c9f582fb52734c5eb05ab00991d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

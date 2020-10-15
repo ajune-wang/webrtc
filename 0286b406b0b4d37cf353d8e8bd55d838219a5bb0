@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efba10a6_85462924",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-15T13:38:19Z",
+      "side": 1,
+      "message": "LGTM, you can decide whether you want to land the svc move CL first or after.",
+      "revId": "0286b406b0b4d37cf353d8e8bd55d838219a5bb0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

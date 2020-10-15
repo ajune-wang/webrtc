@@ -65,6 +65,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3179f351_7d9620bf",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-15T13:38:19Z",
+      "side": 1,
+      "message": "Ah, I see",
+      "parentUuid": "ed0dd578_549c4c36",
+      "range": {
+        "startLine": 348,
+        "startChar": 10,
+        "endLine": 348,
+        "endChar": 52
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23c46296_8a7cdddc",
@@ -102,6 +126,30 @@
       "side": 1,
       "message": "make sense.\nWhat would be appropriate place for it?\n/modules/video_coding/codecs/scalability_structures/\n/modules/video_coding/scalability_structures/\n/modules/video_coding/svc/",
       "parentUuid": "23c46296_8a7cdddc",
+      "range": {
+        "startLine": 568,
+        "startChar": 0,
+        "endLine": 569,
+        "endChar": 43
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cbecc81_b60dc274",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-15T13:38:19Z",
+      "side": 1,
+      "message": "/modules/video_coding/svc/ SGTM",
+      "parentUuid": "83597414_a41540f8",
       "range": {
         "startLine": 568,
         "startChar": 0,
@@ -290,6 +338,30 @@
       "side": 1,
       "message": "yep, no generic_frame_info at that point indicate there was some error.\nhere I try to recover/avoid DD in such a case. thought that might not be the right way to respond to an error. what would be better way? CHECK?",
       "parentUuid": "d4beda2d_64724d54",
+      "range": {
+        "startLine": 1415,
+        "startChar": 24,
+        "endLine": 1415,
+        "endChar": 58
+      },
+      "revId": "d32b92d6e69d4ae3a774c1a3f6d88cac58285765",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51e84a3c_18e8dd45",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-15T13:38:19Z",
+      "side": 1,
+      "message": "Given that OnEncodeDone will return a value I now think a CHECK might be unnecessary. Maybe a DCHECK-as-documentation, but I don\u0027t think that\u0027s necessary either?",
+      "parentUuid": "2e2101bf_650fd603",
       "range": {
         "startLine": 1415,
         "startChar": 24,

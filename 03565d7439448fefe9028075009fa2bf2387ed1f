@@ -70,6 +70,30 @@
       },
       "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c15440a8_a04f1846",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-10-15T15:09:39Z",
+      "side": 1,
+      "message": "The reason is that the VideoCodec structure is supposed to be the low level representation of the encoder\u0027s configuration, so the scalability mode should be expanded there.\n\nFor modes that can\u0027t currently be expressed with the current structure, we should just fix that and rework the VideoCodec struct.\n\nI don\u0027t think that having setScalabilityMode populate the spatialLayer struct is a good way to do this, though we need something similar elsewhere. There\u0027s already enough complexity in the codebase that we don\u0027t want 2 ways to populate this member.\n\nYes, it would make the implementation of the SVC spec easier for some part, but general maintenance of the WebRTC library would be more complex because of having 2 different ways to configure encoders (through spatialLayers and through this new member). Who takes precedence and when needs to be properly written and implemented in all codecs first.",
+      "parentUuid": "5d37885d_fd25e04e",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

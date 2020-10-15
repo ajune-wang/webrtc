@@ -46,6 +46,7 @@ class MediaStreamObserver;
 class PeerConnection;
 class VideoRtpReceiver;
 class RtcEventLog;
+class RtpObjectManager;
 class TransceiverList;
 
 // SdpOfferAnswerHandler is a component
@@ -495,13 +496,15 @@ class SdpOfferAnswerHandler {
   // ==================================================================
   // Access to pc_ variables
   cricket::ChannelManager* channel_manager() const;
-  TransceiverList& transceivers();
-  const TransceiverList& transceivers() const;
+  TransceiverList* transceivers();
+  const TransceiverList* transceivers() const;
   JsepTransportController* transport_controller();
   DataChannelController* data_channel_controller();
   const DataChannelController* data_channel_controller() const;
   cricket::PortAllocator* port_allocator();
   const cricket::PortAllocator* port_allocator() const;
+  RtpObjectManager* rtp_manager();
+  const RtpObjectManager* rtp_manager() const;
   // ===================================================================
 
   PeerConnection* const pc_;

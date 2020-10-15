@@ -48,7 +48,8 @@ class SuppressionGain {
       const AecState& aec_state,
       const std::vector<std::vector<std::vector<float>>>& render,
       float* high_bands_gain,
-      std::array<float, kFftLengthBy2Plus1>* low_band_gain);
+      std::array<float, kFftLengthBy2Plus1>* low_band_gain,
+      bool clock_drift);
 
   // Toggles the usage of the initial state.
   void SetInitialState(bool state);
@@ -76,7 +77,8 @@ class SuppressionGain {
           suppressor_input,
       rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> residual_echo,
       rtc::ArrayView<const std::array<float, kFftLengthBy2Plus1>> comfort_noise,
-      std::array<float, kFftLengthBy2Plus1>* gain);
+      std::array<float, kFftLengthBy2Plus1>* gain,
+      bool clock_drift);
 
   void GetMinGain(rtc::ArrayView<const float> weighted_residual_echo,
                   rtc::ArrayView<const float> last_nearend,

@@ -108,7 +108,7 @@ TEST(SuppressionGain, BasicGainComputation) {
                      subtractor.FilterImpulseResponses(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, output);
     suppression_gain.GetGain(E2, S2, R2, N2, analyzer, aec_state, x,
-                             &high_bands_gain, &g);
+                             &high_bands_gain, &g, false);
   }
   std::for_each(g.begin(), g.end(),
                 [](float a) { EXPECT_NEAR(1.f, a, 0.001); });
@@ -127,7 +127,7 @@ TEST(SuppressionGain, BasicGainComputation) {
                      subtractor.FilterImpulseResponses(),
                      *render_delay_buffer->GetRenderBuffer(), E2, Y2, output);
     suppression_gain.GetGain(E2, S2, R2, N2, analyzer, aec_state, x,
-                             &high_bands_gain, &g);
+                             &high_bands_gain, &g, false);
   }
   std::for_each(g.begin(), g.end(),
                 [](float a) { EXPECT_NEAR(1.f, a, 0.001); });
@@ -138,7 +138,7 @@ TEST(SuppressionGain, BasicGainComputation) {
 
   for (int k = 0; k < 10; ++k) {
     suppression_gain.GetGain(E2, S2, R2, N2, analyzer, aec_state, x,
-                             &high_bands_gain, &g);
+                             &high_bands_gain, &g, false);
   }
   std::for_each(g.begin(), g.end(),
                 [](float a) { EXPECT_NEAR(0.f, a, 0.001); });

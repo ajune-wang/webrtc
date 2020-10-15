@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6e2a232_fb9f2e9e",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-15T15:36:24Z",
+      "side": 1,
+      "message": "I share that opinion actually. In this case I think it\u0027s alright since it\u0027s a private utility method to this file only with a specialized purpose. What it does is make the code a bit more readable, so I think that this change is worth it.",
+      "parentUuid": "d8c76e92_5ce224e6",
+      "range": {
+        "startLine": 25,
+        "startChar": 30,
+        "endLine": 25,
+        "endChar": 73
+      },
+      "revId": "0a7f5353de8742720f54907a3af2372eb565b5cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0f3acd91_86826f11",
         "filename": "pc/connection_context.cc",
         "patchSetId": 1

@@ -180,6 +180,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4bab41e_763efc69",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-15T03:37:07Z",
+      "side": 1,
+      "message": "it be the same with the singleNalu mode,a multi slice can use lots of singleNalu packets,echo singleNalu packetes is_first_packet_in_frame() \u003d true,but is_last_packet \u003d rtp_packet.Marker",
+      "parentUuid": "0935c706_4e512307",
+      "range": {
+        "startLine": 334,
+        "startChar": 42,
+        "endLine": 334,
+        "endChar": 66
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38a6107c_2d98c952",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3

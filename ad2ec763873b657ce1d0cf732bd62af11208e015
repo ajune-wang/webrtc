@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5c2c589_a72d2b24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-15T11:01:02Z",
+      "side": 1,
+      "message": "ilya: chromium or anything with a public builder? Then I can take a look at what breaks",
+      "revId": "ad2ec763873b657ce1d0cf732bd62af11208e015",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -419,7 +419,8 @@ void EchoRemoverImpl::ProcessCapture(
   std::array<float, kFftLengthBy2Plus1> G;
   suppression_gain_.GetGain(nearend_spectrum, echo_spectrum, R2,
                             cng_.NoiseSpectrum(), render_signal_analyzer_,
-                            aec_state_, x, &high_bands_gain, &G);
+                            aec_state_, x, &high_bands_gain, &G,
+                            echo_path_variability.clock_drift);
 
   suppression_filter_.ApplyGain(comfort_noise, high_band_comfort_noise, G,
                                 high_bands_gain, Y_fft, y);

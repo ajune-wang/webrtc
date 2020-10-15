@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106ebbb3_cbb05549",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2020-10-15T13:00:19Z",
+      "side": 1,
+      "message": "We already have the spatialLayers struct above to represent the SVC configuration. It doesn\u0027t work with simulcast + scalability (for example to specify the temporal layers) but it would be better than having 2 possibly conflicting data members.\n\nI think the scalability_mode should live higher in the stack and be transformed into the right values for the VideoCodec struct.",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

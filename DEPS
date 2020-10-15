@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': '37c343f01f2bd12fd051532efd16475be8b84c0b',
+  'chromium_revision': '7b60fe6e30ccfa3d9b661abae36c1e305fe8a673',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -22,7 +22,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    'https://chromium.googlesource.com/chromium/src/base@70da1a5f4b5900ddf30a2b78c64c27a15c70fa93',
+    'https://chromium.googlesource.com/chromium/src/base@f5fadfc8113c7ebb9dcd32e032ec008e96184d1b',
   'src/build':
     'https://chromium.googlesource.com/chromium/src/build@d6e2fedeed3495d3e8cf9264cee21b6867491f43',
   'src/buildtools':
@@ -33,11 +33,11 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': 'https://chromium.googlesource.com/chromium/src/ios@6bed8ed7c4b8de8838a180371bf93c68d2a3359c',
+    'url': 'https://chromium.googlesource.com/chromium/src/ios@94d301e1129c7a4501330dbfc43bb36d7fad6179',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    'https://chromium.googlesource.com/chromium/src/testing@45241298d107c187506ddf765fb8d102ca258c99',
+    'https://chromium.googlesource.com/chromium/src/testing@a990bf47a4f7ecf0eb209c1dcca92124c33e568c',
   'src/third_party':
     'https://chromium.googlesource.com/chromium/src/third_party@23aab3c27de60878e6bfadfa70c09eaf40fee6a9',
 
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@4ae4a276e2668cc274295df233a30d1eb8e111a1',
+    'https://chromium.googlesource.com/chromium/src/tools@fe52ffe9636423b4b2cc0656449437e613810c93',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 

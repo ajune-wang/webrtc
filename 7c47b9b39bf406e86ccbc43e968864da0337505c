@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d08d6498_a26b5b02",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-15T19:31:08Z",
+      "side": 1,
+      "message": "TEST_P and read encoding as a param, thereby eliminating the loop?",
+      "range": {
+        "startLine": 1246,
+        "startChar": 0,
+        "endLine": 1246,
+        "endChar": 4
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a7b360_2f56282a",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-15T19:31:08Z",
+      "side": 1,
+      "message": "Could you move this closer to where it\u0027s first used?",
+      "range": {
+        "startLine": 1249,
+        "startChar": 4,
+        "endLine": 1249,
+        "endChar": 50
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9c53d0d_d943a954",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-15T19:31:08Z",
+      "side": 1,
+      "message": "The source of the values for the relationships between 2148 on the one hand, and 255 * 8, etc., are not immediately clear. I came up with one possible explanation while reading the test, that ended up being wrong as I continued reading. The name of the test did not help clarify, and there was no comment I could find to explain it to me.",
+      "range": {
+        "startLine": 1261,
+        "startChar": 33,
+        "endLine": 1261,
+        "endChar": 37
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e80e69c7_1346796f",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-15T19:31:08Z",
+      "side": 1,
+      "message": "Maybe move this inside of the loop to increase coverage? At the moment, you\u0027re only validating the final value.",
+      "range": {
+        "startLine": 1274,
+        "startChar": 4,
+        "endLine": 1274,
+        "endChar": 40
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f08f7ee2_3ac8a00f",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-15T19:31:08Z",
+      "side": 1,
+      "message": "nit: I\u0027d specify the type; it makes it easier to read.",
+      "range": {
+        "startLine": 1281,
+        "startChar": 4,
+        "endLine": 1281,
+        "endChar": 8
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6679632b_bea95a86",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-15T19:31:08Z",
+      "side": 1,
+      "message": "The way I understand ASSERT vs. EXPECT is:\n1. If you can avoid the test crashing by reading/writing past a valid point, dereferencing a nullptr, etc., it\u0027s OK to use ASSERT for that.\n2. Otherwise, ASSERT can be used to hint to the reader that something is a sanity-test of the test over its own logic.\n3. Otherwise, a check is performed as part of the focus of the test, and should use EXPECT to highlight that.",
+      "range": {
+        "startLine": 1285,
+        "startChar": 4,
+        "endLine": 1285,
+        "endChar": 13
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f4299b0_66d205b6",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1669,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-15T19:31:08Z",
+      "side": 1,
+      "message": "nit: If `packet` we a std::string*, you could assign. Admittedly, not really a change in performance, but I wonder what the reason was for choosing vector over string?",
+      "range": {
+        "startLine": 1667,
+        "startChar": 0,
+        "endLine": 1669,
+        "endChar": 45
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

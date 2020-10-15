@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70443b58_5aafd5a6",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-15T02:37:36Z",
+      "side": 1,
+      "message": "yes,this is always true,can remove this condition.",
+      "parentUuid": "2c28d25e_c0d0c1d6",
+      "range": {
+        "startLine": 333,
+        "startChar": 16,
+        "endLine": 333,
+        "endChar": 49
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c31e4730_354637fa",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -132,6 +156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0935c706_4e512307",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-15T02:37:36Z",
+      "side": 1,
+      "message": "I known that, fu-a mode if return true that means it begin of the packet, stap-a mode return true,it may should be false in fact. I use the !is_first_packet_in_frame() so that judgment it must not the begin of the packet,so it is a incomplete key frames,I think this is right,do you think so?",
+      "parentUuid": "e32ca155_01443fac",
+      "range": {
+        "startLine": 334,
+        "startChar": 42,
+        "endLine": 334,
+        "endChar": 66
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38a6107c_2d98c952",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -143,6 +191,30 @@
       "writtenOn": "2020-10-14T15:15:34Z",
       "side": 1,
       "message": "When receiving a keyframe we can\u0027t consider missing packets, RTP is not guaranteed delivery.\n\nWhat if 100 packets are lost, and we decide to restart the stream with an IDR, there will be a big gap and a lot of packets in missing_packets_.",
+      "range": {
+        "startLine": 335,
+        "startChar": 17,
+        "endLine": 335,
+        "endChar": 42
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0eed848_a13e77c2",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-15T02:37:36Z",
+      "side": 1,
+      "message": "this condition has two reasons:\n1. if it not received p frame packets before,it means that the first packet is key frame, thus buffer_[start_index] is nullptr,and if missing_packets_ is empty,it is a complete key frame.\n2. if it received p frame pakcets before,buffer_[start_index] is nullptr, missing_packet_ not be empty,it means that:\n2.1 this key frame is incomplete,it shoule set is_incomplete_frame \u003d true\n2.2 the p frame last seq number is lost(if not,buffer_[start_index]-\u003etimestamp !\u003d frame_timestamp should be true). this situation is inevitable,because we can\u0027t judment whether this lost packet is belong to the key frame in stap-a mode. so I think this key frame is incomplete,if it has a big gap,it may have no frames to handed out, do you have any idea?\n\nthus I use !missing_packets_.empty() to set is_incomplete_frame \u003d true,it has the same effect with missing_packets_.upper_bound(current_index) !\u003d missing_packets_.begin()",
+      "parentUuid": "38a6107c_2d98c952",
       "range": {
         "startLine": 335,
         "startChar": 17,
@@ -214,6 +286,30 @@
       "side": 1,
       "message": "Right, now I get it.",
       "parentUuid": "91806acc_fe866ec1",
+      "range": {
+        "startLine": 377,
+        "startChar": 12,
+        "endLine": 379,
+        "endChar": 64
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec48762_695bfe0c",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-15T02:37:36Z",
+      "side": 1,
+      "message": "thanks agree with me!",
+      "parentUuid": "d4b661ea_dd7a54da",
       "range": {
         "startLine": 377,
         "startChar": 12,

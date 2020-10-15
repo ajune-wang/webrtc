@@ -16,6 +16,46 @@
       "message": "Fixing a few things while watching a VC. Deeper stuff requires more thinking.\n",
       "revId": "0a7f5353de8742720f54907a3af2372eb565b5cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb98363_e98f6204",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-15T14:45:56Z",
+      "side": 1,
+      "message": "Nice.\n\nMy preference is pointers over reference for output parameters, but if you find references more readable, that\u0027s your choice.",
+      "revId": "0a7f5353de8742720f54907a3af2372eb565b5cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8c76e92_5ce224e6",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-15T14:45:56Z",
+      "side": 1,
+      "message": "My personal opinion is that I dislike reference output variables and would prefer to use them only if it\u0027s super clear from other context at the call site, that the function call is intended to modify the caller\u0027s value.\n\nBut since it\u0027s now allowed by style guide, I guess I just have to accept this (mis)feature of C++.",
+      "range": {
+        "startLine": 25,
+        "startChar": 30,
+        "endLine": 25,
+        "endChar": 73
+      },
+      "revId": "0a7f5353de8742720f54907a3af2372eb565b5cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

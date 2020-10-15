@@ -16,6 +16,24 @@
       "message": "ilya: chromium or anything with a public builder? Then I can take a look at what breaks",
       "revId": "ad2ec763873b657ce1d0cf732bd62af11208e015",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16eb6d42_c50a6554",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-10-15T11:02:43Z",
+      "side": 1,
+      "message": "No, it\u0027s not a public builder, unfortunately, We know how to fix it and we will fix that soon-ish and then reland your CL without any changes.",
+      "parentUuid": "a5c2c589_a72d2b24",
+      "revId": "ad2ec763873b657ce1d0cf732bd62af11208e015",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

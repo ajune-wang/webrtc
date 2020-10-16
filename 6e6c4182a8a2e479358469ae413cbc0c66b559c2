@@ -248,6 +248,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bba0545a_b67604e5",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T13:55:35Z",
+      "side": 1,
+      "message": "I\u0027ll go with RtpTransmissionManager - both Sender, Receiver and Transceiver can be said to have something to do with transmission..... better?",
+      "parentUuid": "77a6dcba_dd99aa61",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b2e2944_ed5a55b1",
@@ -357,6 +381,30 @@
       "side": 1,
       "message": "I would prefer if only one class needs to have any if (IsUnifiedPlan()) conditionals, essentially owning that distinction. So I\u0027m not entirely happy with the shape of the boundary between this class and the PC. But it\u0027s definitely an improvement to move the code out of PC, so I don\u0027t want to object to landing in this shape and refine later.",
       "parentUuid": "661e87f5_3eae7c04",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 56
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bffd3bf_a50aa662",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T13:55:35Z",
+      "side": 1,
+      "message": "So would I. Currently knowledge of the distinction is scattered between PeerConnection, SdpOfferAnswer and RtpTransmissionManager; I\u0027m happy that the flag is stored only in one place, at least.\n\nMore refactoring needed.",
+      "parentUuid": "835f7228_c7a7aa71",
       "range": {
         "startLine": 54,
         "startChar": 19,

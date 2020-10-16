@@ -34,6 +34,29 @@
       "parentUuid": "e40ac3d4_a45c8321",
       "revId": "cfbe58d6749d3c722c4d79c9f453f47626937089",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c89067d_fb86482b",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-16T15:17:43Z",
+      "side": 1,
+      "message": "So, this is the problematic part.\n\nI wonder if we can remove this. I have uploaded a patch set on top of this CL because I forgot to `git cl issue 0`, so I will revert it later.\n\nCQ is running so we can check.",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 41
+      },
+      "revId": "cfbe58d6749d3c722c4d79c9f453f47626937089",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

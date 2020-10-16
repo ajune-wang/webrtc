@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3a55428_3c72c6c0",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2809,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-16T01:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e640d85b_144ea431",
+      "revId": "167468f287e680b46984d9f068ab6712dc3625f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc07f466_7d676040",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce3215c3_e7d81a16",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2827,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-16T01:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc07f466_7d676040",
+      "revId": "167468f287e680b46984d9f068ab6712dc3625f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0301f43e_8fedd8f2",
@@ -65,6 +101,24 @@
       "writtenOn": "2020-10-15T07:08:47Z",
       "side": 1,
       "message": "Here it would be good to assert that the two transports are equal, in symmetry with the test above.",
+      "revId": "167468f287e680b46984d9f068ab6712dc3625f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0c4f26d_deb62c53",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-16T01:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0301f43e_8fedd8f2",
       "revId": "167468f287e680b46984d9f068ab6712dc3625f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

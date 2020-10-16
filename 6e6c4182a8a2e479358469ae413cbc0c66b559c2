@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab68921_5161e2f4",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T11:15:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f4d8959_70fdc0c8",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f65505a5_b5aa5293",
@@ -71,6 +95,30 @@
       "writtenOn": "2020-10-16T07:59:50Z",
       "side": 1,
       "message": "Please add comment briefly explaining purpose of this class.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bde8cc9a_ce3d2ea1",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T11:15:02Z",
+      "side": 1,
+      "message": "If I knew, I would.... it is moved from elsewhere, I\u0027m not sure what it does. But trying.",
+      "parentUuid": "f65505a5_b5aa5293",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4bed8950_4594b808",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T11:15:02Z",
+      "side": 1,
+      "message": "I was struggling with this name - RtpManager is wrong, because this class doesn\u0027t manage everything that is to do with RTP; RtpTransceiverManager is too specific; RtpTransceiverSenderReceiverManager is too long. So I landed on \"object\".\n\nThe class owns the transceiver list, which owns the transceivers, and the transceivers own the senders and receivers, so eventually, they\u0027re all owned here (except that a number of them are accessed via shared_refptr, so this class only holds the guaranteed-while-in-use reference to them).",
+      "parentUuid": "a91f14d2_e002af75",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b2e2944_ed5a55b1",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 4
@@ -117,6 +189,30 @@
       "writtenOn": "2020-10-16T07:59:50Z",
       "side": 1,
       "message": "I think it will make things clearer to delete this argument and corresponding method, and instead let the caller pass a flag is_unified_plan as an explicit argument to the methods that need it.",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 56
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c7e334_9c50859d",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T11:15:02Z",
+      "side": 1,
+      "message": "I had that in a previous version. Turns out that IsUnifiedPlan isn\u0027t const in the PeerConnection class, so the value can\u0027t be trusted.\n\nOne of my design goals was that this class should *not* depend on PeerConnection, but it needs access to PeerConnection variables. An alternative was to create a new object - call it VariablesInPeerConnectionThatNeedToBeObservableFromRtpObjectManager - and pass that, but that\u0027s exactly the same functionality as the function-passing approach.\n\nYMMV.",
+      "parentUuid": "3b2e2944_ed5a55b1",
       "range": {
         "startLine": 54,
         "startChar": 19,
@@ -152,6 +248,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4bc417b_8491a11c",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T11:15:02Z",
+      "side": 1,
+      "message": "Same problem as above.",
+      "parentUuid": "17cec8ae_47eb2ba5",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 74
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e92396a7_ef72318a",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 4
@@ -175,6 +295,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ea9b6d63_e0a40df6",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T11:15:02Z",
+      "side": 1,
+      "message": "These are moved methods, and weren\u0027t documented where they were. With some of them, I doubt their usefulness; with others, the function should be obvious.\n\nCan do a little more.",
+      "parentUuid": "e92396a7_ef72318a",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 14
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e17e864_a98d9c3d",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 4
@@ -186,6 +330,30 @@
       "writtenOn": "2020-10-16T07:59:50Z",
       "side": 1,
       "message": "Mysterious comment. Can you rephrase as a clear TODO item?",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 33
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be387ddf_9f5b72f8",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T11:15:02Z",
+      "side": 1,
+      "message": "Leftover from when it was true; I have it working now.",
+      "parentUuid": "9e17e864_a98d9c3d",
       "range": {
         "startLine": 202,
         "startChar": 2,

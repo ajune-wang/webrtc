@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d3cc972_0f3f998a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T11:15:02Z",
+      "side": 1,
+      "message": "it was quite fun trying out std::function() - rather neat syntax :-)\n\nNote - this API is the result of breaking up PeerConnection, it\u0027s not really well designed, it\u0027s what remained when the functions were moved according to where they belonged. Improvements can be made, but I\u0027d like to iterate on that.\n",
+      "revId": "bdfa8e69c005840ebb0417f5979ead972b58ec92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

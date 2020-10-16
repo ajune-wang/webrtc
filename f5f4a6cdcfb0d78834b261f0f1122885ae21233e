@@ -16,6 +16,41 @@
       "message": "The TSan bot is failing due to a legitimate race in usrsctp: https://github.com/sctplab/usrsctp/issues/537#issuecomment-709668445\n\nWould you prefer:\n* Suppressing the race \n* Landing this without the test\n* Just disabling the problematic notification altogether, since it\u0027s only used for logging: https://webrtc-review.googlesource.com/c/src/+/188502",
       "revId": "f5f4a6cdcfb0d78834b261f0f1122885ae21233e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e01b7630_2be1013e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T05:53:19Z",
+      "side": 1,
+      "message": "Pick your poison....\n",
+      "revId": "f5f4a6cdcfb0d78834b261f0f1122885ae21233e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "badadfd0_fbee5f81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T05:53:19Z",
+      "side": 1,
+      "message": "Disabling the notification seems like the cleanest workaround (make triggering the deadlock impossible). we should make sure we leave enough breadcrumbs to clean it up once fixed upstream.",
+      "parentUuid": "6613d8d3_7e5e921f",
+      "revId": "f5f4a6cdcfb0d78834b261f0f1122885ae21233e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

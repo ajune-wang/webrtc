@@ -16,6 +16,29 @@
       "message": "Following up on a suggestion made during an earlier code review.\n",
       "revId": "a9bb452101db91ee7931f98919aaa03f6a4f14af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "272accd8_2f104d0a",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T08:25:34Z",
+      "side": 1,
+      "message": "A somewhat different approach is to make the constructor private, and add a public static Create method returning a rtc::scoped_refptr\u003cConnectionContext\u003e\n\nThen move this logic, as well as the MaybeWrapThread and MaybeStartThread logic, to the Create function. If anything fails, return null, otherwise invoke the constructor and pass it everything it needs to successfully initialize itself. Constructor would basically just assign arguments to members.\n\nIs that doable? The main drawback with the current approach is that we end up with the Initialized() method, used to check if construction was successful.",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "a9bb452101db91ee7931f98919aaa03f6a4f14af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

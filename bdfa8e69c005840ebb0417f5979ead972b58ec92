@@ -16,6 +16,29 @@
       "message": "it was quite fun trying out std::function() - rather neat syntax :-)\n\nNote - this API is the result of breaking up PeerConnection, it\u0027s not really well designed, it\u0027s what remained when the functions were moved according to where they belonged. Improvements can be made, but I\u0027d like to iterate on that.\n",
       "revId": "bdfa8e69c005840ebb0417f5979ead972b58ec92",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a99d80_008a9617",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T12:26:38Z",
+      "side": 1,
+      "message": "That\u0027s not a particular transceiver, but we get *all* senders such that the sender is associated with *some* transceiver?",
+      "range": {
+        "startLine": 101,
+        "startChar": 59,
+        "endLine": 101,
+        "endChar": 72
+      },
+      "revId": "bdfa8e69c005840ebb0417f5979ead972b58ec92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

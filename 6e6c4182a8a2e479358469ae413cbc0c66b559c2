@@ -178,6 +178,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3cb84132_b93fc277",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T12:26:38Z",
+      "side": 1,
+      "message": "Maybe PeerConnectionRtpManager or PCRtpManager? Intended to say that it manages the RTP objects related to the PC api?\n\nAnd if the transceivers own the senders and receivers, I don\u0027t think RtpTransceiverManager is that wrong.",
+      "parentUuid": "4bed8950_4594b808",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b2e2944_ed5a55b1",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 4
@@ -213,6 +237,30 @@
       "side": 1,
       "message": "I had that in a previous version. Turns out that IsUnifiedPlan isn\u0027t const in the PeerConnection class, so the value can\u0027t be trusted.\n\nOne of my design goals was that this class should *not* depend on PeerConnection, but it needs access to PeerConnection variables. An alternative was to create a new object - call it VariablesInPeerConnectionThatNeedToBeObservableFromRtpObjectManager - and pass that, but that\u0027s exactly the same functionality as the function-passing approach.\n\nYMMV.",
       "parentUuid": "3b2e2944_ed5a55b1",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 56
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21443990_1a637582",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T12:26:38Z",
+      "side": 1,
+      "message": "What I mean, is passing the flag to individual methods, since we have ruled out making it a construction time const. E.g. (looking at the first use I see), instead of\n\nRTCErrorOr\u003crtc::scoped_refptr\u003cRtpSenderInterface\u003e\u003e RtpObjectManager::AddTrack(\n￼    rtc::scoped_refptr\u003cMediaStreamTrackInterface\u003e track,\n    const std::vector\u003cstd::string\u003e\u0026 stream_ids) {\n  RTC_DCHECK_RUN_ON(signaling_thread());\n  return (IsUnifiedPlan() ? AddTrackUnifiedPlan(track, stream_ids)\n                          : AddTrackPlanB(track, stream_ids));\n}\n\ndefine the method as\n\nRTCErrorOr\u003crtc::scoped_refptr\u003cRtpSenderInterface\u003e\u003e RtpObjectManager::AddTrack(\n￼    rtc::scoped_refptr\u003cMediaStreamTrackInterface\u003e track,\n    const std::vector\u003cstd::string\u003e\u0026 stream_ids, bool is_unified_plan) {\n  RTC_DCHECK_RUN_ON(signaling_thread());\n  return (is_unified_plan ? AddTrackUnifiedPlan(track, stream_ids)\n                          : AddTrackPlanB(track, stream_ids));\n}\n\nThat has the benefit that it is clear which methods behave differently for plan b and unified plan. And the callback is no longer needed.\n\nAlthough in this particular case, I think it might be even better to move the condition back to the caller. If we think it makes sense that ownership of the \"unified plan vs plan b\" state stays with PeerConnection, AddTrack could stay there too, and call one or the other of RtpObjectManager::AddTrack* methods to do the work. That moves the border between classes a bit, but I think it still makes sense.",
+      "parentUuid": "c0c7e334_9c50859d",
       "range": {
         "startLine": 54,
         "startChar": 19,
@@ -272,6 +320,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5780adf7_4e0cb4bd",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T12:26:38Z",
+      "side": 1,
+      "message": "I see. I\u0027m curious about when these references change? Do we have setter methods on PeerConnection to let the application change them anytime it likes?",
+      "parentUuid": "e4bc417b_8491a11c",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 74
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e92396a7_ef72318a",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 4
@@ -307,6 +379,30 @@
       "side": 1,
       "message": "These are moved methods, and weren\u0027t documented where they were. With some of them, I doubt their usefulness; with others, the function should be obvious.\n\nCan do a little more.",
       "parentUuid": "e92396a7_ef72318a",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 14
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "320e0435_4cf2007d",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T12:26:38Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "ea9b6d63_e0a40df6",
       "range": {
         "startLine": 80,
         "startChar": 2,
@@ -354,6 +450,54 @@
       "side": 1,
       "message": "Leftover from when it was true; I have it working now.",
       "parentUuid": "9e17e864_a98d9c3d",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 33
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9678a2fd_f0d15bcb",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T12:26:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "be387ddf_9f5b72f8",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 33
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "020e595c_fa11ca80",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T12:26:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "be387ddf_9f5b72f8",
       "range": {
         "startLine": 202,
         "startChar": 2,

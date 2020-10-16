@@ -36,6 +36,8 @@ class RtcEventLog;
 // objects. A reference to this object is passed to each PeerConnection. The
 // methods on this object are assumed not to change the state in any way that
 // interferes with the operation of other PeerConnections.
+
+// This class must be created and destroyed on the signaling thread.
 class ConnectionContext : public rtc::RefCountInterface {
  public:
   // This class is not copyable or movable.
@@ -45,7 +47,7 @@ class ConnectionContext : public rtc::RefCountInterface {
   // Functions called from PeerConnectionFactory
   void SetOptions(const PeerConnectionFactoryInterface::Options& options);
 
-  bool Initialize();
+  bool Initialized() { return initialized_; }
 
   // Functions called from PeerConnection and friends
   SctpTransportFactoryInterface* sctp_transport_factory() const {
@@ -122,6 +124,8 @@ class ConnectionContext : public rtc::RefCountInterface {
       RTC_GUARDED_BY(signaling_thread_);
   // Accessed both on signaling thread and worker thread.
   std::unique_ptr<WebRtcKeyValueConfig> const trials_;
+  // Whether initialization of the object was successful
+  bool initialized_ = false;
 };
 
 }  // namespace webrtc

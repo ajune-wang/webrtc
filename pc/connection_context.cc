@@ -90,6 +90,34 @@ ConnectionContext::ConnectionContext(
   signaling_thread_->AllowInvokesToThread(network_thread_);
   worker_thread_->AllowInvokesToThread(network_thread_);
   network_thread_->DisallowAllInvokes();
+
+  // The initialization must end up showing that we're running on the signaling
+  // thread.
+  RTC_DCHECK_RUN_ON(signaling_thread_);
+  rtc::InitRandom(rtc::Time32());
+
+  // If network_monitor_factory_ is non-null, it will be used to create a
+  // network monitor while on the network thread.
+  default_network_manager_.reset(
+      new rtc::BasicNetworkManager(network_monitor_factory_.get()));
+  if (!default_network_manager_) {
+    initialized_ = false;
+    return;
+  }
+
+  default_socket_factory_.reset(
+      new rtc::BasicPacketSocketFactory(network_thread()));
+  if (!default_socket_factory_) {
+    initialized_ = false;
+    return;
+  }
+
+  channel_manager_ = std::make_unique<cricket::ChannelManager>(
+      std::move(media_engine_), std::make_unique<cricket::RtpDataEngine>(),
+      worker_thread(), network_thread());
+
+  channel_manager_->SetVideoRtxEnabled(true);
+  initialized_ = channel_manager_->Init();
 }
 
 ConnectionContext::~ConnectionContext() {
@@ -109,32 +137,6 @@ void ConnectionContext::SetOptions(
     const PeerConnectionFactoryInterface::Options& options) {
   RTC_DCHECK_RUN_ON(signaling_thread_);
   options_ = options;
-}
-
-bool ConnectionContext::Initialize() {
-  RTC_DCHECK_RUN_ON(signaling_thread_);
-  rtc::InitRandom(rtc::Time32());
-
-  // If network_monitor_factory_ is non-null, it will be used to create a
-  // network monitor while on the network thread.
-  default_network_manager_.reset(
-      new rtc::BasicNetworkManager(network_monitor_factory_.get()));
-  if (!default_network_manager_) {
-    return false;
-  }
-
-  default_socket_factory_.reset(
-      new rtc::BasicPacketSocketFactory(network_thread()));
-  if (!default_socket_factory_) {
-    return false;
-  }
-
-  channel_manager_ = std::make_unique<cricket::ChannelManager>(
-      std::move(media_engine_), std::make_unique<cricket::RtpDataEngine>(),
-      worker_thread(), network_thread());
-
-  channel_manager_->SetVideoRtxEnabled(true);
-  return channel_manager_->Init();
 }
 
 cricket::ChannelManager* ConnectionContext::channel_manager() const {

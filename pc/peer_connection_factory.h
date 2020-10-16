@@ -47,7 +47,8 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
       const PeerConnectionInterface::RTCConfiguration& configuration,
       PeerConnectionDependencies dependencies) override;
 
-  bool Initialize();
+  // Returns true if the factory was successfully initialized.
+  bool Initialized() const { return context_->Initialized(); }
 
   RtpCapabilities GetRtpSenderCapabilities(
       cricket::MediaType kind) const override;

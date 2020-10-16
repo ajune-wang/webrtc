@@ -39,6 +39,30 @@
       },
       "revId": "a9bb452101db91ee7931f98919aaa03f6a4f14af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7282b8fd_b82190e7",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T09:19:13Z",
+      "side": 1,
+      "message": "The advantage of doing \"everything\" in the constructor is that it allows us to mark even more fields const (I didn\u0027t do that here, but it\u0027s obvious how to do it, unless there are ordering constraints I\u0027m not seeing). I like the idea of having a ready-to-use object when the constructor is finished.\n\nBoth approaches are doable. I can see arguments on either side, but I don\u0027t feel like the arguments are compelling for the Create function.",
+      "parentUuid": "272accd8_2f104d0a",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "a9bb452101db91ee7931f98919aaa03f6a4f14af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

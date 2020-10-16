@@ -16,6 +16,46 @@
       "message": "Rename done - RtpTransmissionManager is a *little* bit more informative, and not exactly wrong.\nPerhaps this can be landed before the weekend?\n",
       "revId": "34c6453c1397381384574b40628664d2563e7936",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "755b3a66_43f6f81a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T14:02:08Z",
+      "side": 1,
+      "message": "lgtm. But please wait for review from someone else who\u0027s actually familiar with the peer connection classes, before landing.",
+      "revId": "34c6453c1397381384574b40628664d2563e7936",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ece3d5ca_a3fae397",
+        "filename": "pc/rtp_transmission_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T14:02:08Z",
+      "side": 1,
+      "message": "Please clarify in the same way as previous comment.",
+      "range": {
+        "startLine": 107,
+        "startChar": 5,
+        "endLine": 107,
+        "endChar": 74
+      },
+      "revId": "34c6453c1397381384574b40628664d2563e7936",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

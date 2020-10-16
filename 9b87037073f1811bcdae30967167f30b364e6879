@@ -54,6 +54,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1898d179_3990f421",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-16T15:47:02Z",
+      "side": 1,
+      "message": "I think it was already reverted by Guido (see six comments earlier)",
+      "parentUuid": "42589c11_b45479ba",
+      "revId": "9b87037073f1811bcdae30967167f30b364e6879",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c217fcf_7bee8e2c",

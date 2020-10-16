@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc2abe7_10dd7840",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T12:40:11Z",
+      "side": 1,
+      "message": "Commentary ...\n",
+      "revId": "bdfa8e69c005840ebb0417f5979ead972b58ec92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4a99d80_008a9617",
@@ -31,6 +48,30 @@
       "writtenOn": "2020-10-16T12:26:38Z",
       "side": 1,
       "message": "That\u0027s not a particular transceiver, but we get *all* senders such that the sender is associated with *some* transceiver?",
+      "range": {
+        "startLine": 101,
+        "startChar": 59,
+        "endLine": 101,
+        "endChar": 72
+      },
+      "revId": "bdfa8e69c005840ebb0417f5979ead972b58ec92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5be8d844_639077f3",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T12:40:11Z",
+      "side": 1,
+      "message": "Yep, we don\u0027t get senders that have been detached from their transceivers (plan B) or where the transceiver is no longer in the list of transceivers (Unified Plan).",
+      "parentUuid": "e4a99d80_008a9617",
       "range": {
         "startLine": 101,
         "startChar": 59,

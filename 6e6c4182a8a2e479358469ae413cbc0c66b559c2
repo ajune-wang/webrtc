@@ -202,6 +202,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d69055d_db06fb19",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T12:40:11Z",
+      "side": 1,
+      "message": "I would like to not tie this to PeerConnection, despite it living in the pc directory. I dream of a PC-optional future :-)",
+      "parentUuid": "3cb84132_b93fc277",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b2e2944_ed5a55b1",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 4
@@ -273,6 +297,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "661e87f5_3eae7c04",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T12:40:11Z",
+      "side": 1,
+      "message": "That\u0027s a possible redesign. But it doesn\u0027t jibe well with the idea that this CL is about moving functions to where it belongs.\n\nI think that as long as the track manager (this class) has to care about Plan B vs Unified Plan, it should know which mode it is in. One of the (many) things I want to look at is to make sure Plan B vs Unified Plan can\u0027t change once the PeerConnection is taken into use. This requires tracing the source of changes; another project.",
+      "parentUuid": "21443990_1a637582",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 56
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17cec8ae_47eb2ba5",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 4
@@ -332,6 +380,30 @@
       "side": 1,
       "message": "I see. I\u0027m curious about when these references change? Do we have setter methods on PeerConnection to let the application change them anytime it likes?",
       "parentUuid": "e4bc417b_8491a11c",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 74
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cdce734_e0da147e",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-16T12:40:11Z",
+      "side": 1,
+      "message": "I am too. But since the change triggers are methods exposed on the public interface, even if we find all the occurences in the codebase, we don\u0027t know if they are changed elsewhere. I have on my TODO list to figure out which changes make sense and forbid those that don\u0027t. But not in this CL.",
+      "parentUuid": "5780adf7_4e0cb4bd",
       "range": {
         "startLine": 59,
         "startChar": 0,

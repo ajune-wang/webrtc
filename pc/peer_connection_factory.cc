@@ -51,16 +51,24 @@ namespace webrtc {
 rtc::scoped_refptr<PeerConnectionFactoryInterface>
 CreateModularPeerConnectionFactory(
     PeerConnectionFactoryDependencies dependencies) {
+  // The PeerConnectionFactory must be created on the signaling thread.
+  if (dependencies.signaling_thread &&
+      !dependencies.signaling_thread->IsCurrent()) {
+    return dependencies.signaling_thread
+        ->Invoke<rtc::scoped_refptr<PeerConnectionFactoryInterface>>(
+            RTC_FROM_HERE, [&dependencies] {
+              return CreateModularPeerConnectionFactory(
+                  std::move(dependencies));
+            });
+  }
+
   rtc::scoped_refptr<PeerConnectionFactory> pc_factory(
       new rtc::RefCountedObject<PeerConnectionFactory>(
           std::move(dependencies)));
-  // Call Initialize synchronously but make sure it is executed on
-  // |signaling_thread|.
-  MethodCall<PeerConnectionFactory, bool> call(
-      pc_factory.get(), &PeerConnectionFactory::Initialize);
-  bool result = call.Marshal(RTC_FROM_HERE, pc_factory->signaling_thread());
-
-  if (!result) {
+  // Verify that the invocation and the initialization ended up agreeing on the
+  // thread.
+  RTC_DCHECK_RUN_ON(pc_factory->signaling_thread());
+  if (!pc_factory->Initialized()) {
     return nullptr;
   }
   return PeerConnectionFactoryProxy::Create(pc_factory->signaling_thread(),
@@ -81,10 +89,6 @@ PeerConnectionFactory::PeerConnectionFactory(
 
 PeerConnectionFactory::~PeerConnectionFactory() {
   RTC_DCHECK_RUN_ON(signaling_thread());
-}
-
-bool PeerConnectionFactory::Initialize() {
-  return context_->Initialize();
 }
 
 void PeerConnectionFactory::SetOptions(const Options& options) {

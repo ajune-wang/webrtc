@@ -63,6 +63,30 @@
       },
       "revId": "a9bb452101db91ee7931f98919aaa03f6a4f14af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfc7419d_423d376f",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T09:30:24Z",
+      "side": 1,
+      "message": "I think the Create approach would also make it easy to const declare more or less all members, and it might make the optional thread wrapping logic a bit simpler if it\u0027s done prior to invoking the formal constructor.\n\nReplacing Initialize() with Initialized() is an improvement in that it allows you to make more things const, but it may still leave you with an object that is constructed but unusable, which isn\u0027t so nice.\n\nI don\u0027t have that strong an opinion, and I\u0027m not owner of any of this code. Let\u0027s see what other reviewers think.",
+      "parentUuid": "7282b8fd_b82190e7",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "a9bb452101db91ee7931f98919aaa03f6a4f14af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

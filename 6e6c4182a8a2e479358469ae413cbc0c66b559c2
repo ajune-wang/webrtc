@@ -16,6 +16,184 @@
       "message": "Adding hbos as reviewer for PeerConnection structural sanity.\n",
       "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c0badb5_b2be6552",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T07:59:50Z",
+      "side": 1,
+      "message": "Comments on first reading. Keep in mind that I\u0027m not really familiar with these interfaces.",
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f4d8959_70fdc0c8",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T07:59:50Z",
+      "side": 1,
+      "message": "Prefer real includes of forward declarations, when possible.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f65505a5_b5aa5293",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T07:59:50Z",
+      "side": 1,
+      "message": "Please add comment briefly explaining purpose of this class.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91f14d2_e002af75",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T07:59:50Z",
+      "side": 1,
+      "message": "I don\u0027t think including very generic terms like \"Object\" in a name adds clarity. Can it be just RtpManager or RtpTransceiverManager? With unified plan, will everything be transceivers?\n\nMaybe summarize when the manager creates and destroys the objects it manages? It looks like it doesn\u0027t actually own those objects, but maybe I\u0027m missing something?",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b2e2944_ed5a55b1",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T07:59:50Z",
+      "side": 1,
+      "message": "I think it will make things clearer to delete this argument and corresponding method, and instead let the caller pass a flag is_unified_plan as an explicit argument to the methods that need it.",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 56
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17cec8ae_47eb2ba5",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T07:59:50Z",
+      "side": 1,
+      "message": "Why do we need callbacks for these, instead of passing references to respective objects at construction? I think this pattern is a bit awkward. Depending on usage, you could consider instead passing explicit arguments to the methods that need them.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 74
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e92396a7_ef72318a",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T07:59:50Z",
+      "side": 1,
+      "message": "Please add brief comments on all methods (possibly with the exception of trivial accessor methods). In particular, it would be helpful to see which methods are specifically for PlanB support.",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 14
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e17e864_a98d9c3d",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T07:59:50Z",
+      "side": 1,
+      "message": "Mysterious comment. Can you rephrase as a clear TODO item?",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 33
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

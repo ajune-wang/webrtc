@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbf20dee_14cd1774",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-16T15:39:55Z",
+      "side": 1,
+      "message": "I reverted my change.\n\nSo to recap, removing this lines fixes my problem. Since WebRTC doesn\u0027t need this one I suggest to remove this and land the CL.",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 41
+      },
+      "revId": "2549e86624f1a020d935af80949b538b653937ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

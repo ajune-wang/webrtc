@@ -226,6 +226,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77a6dcba_dd99aa61",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T13:05:43Z",
+      "side": 1,
+      "message": "ORtcRtpManager ? ;-)\n\nAvoiding classed named FooObject and the like is one of my pet peeves. If you can come up with something both appropriate and specific, that\u0027s appreciated.",
+      "parentUuid": "6d69055d_db06fb19",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b2e2944_ed5a55b1",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 4
@@ -309,6 +333,30 @@
       "side": 1,
       "message": "That\u0027s a possible redesign. But it doesn\u0027t jibe well with the idea that this CL is about moving functions to where it belongs.\n\nI think that as long as the track manager (this class) has to care about Plan B vs Unified Plan, it should know which mode it is in. One of the (many) things I want to look at is to make sure Plan B vs Unified Plan can\u0027t change once the PeerConnection is taken into use. This requires tracing the source of changes; another project.",
       "parentUuid": "21443990_1a637582",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 56
+      },
+      "revId": "6e6c4182a8a2e479358469ae413cbc0c66b559c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "835f7228_c7a7aa71",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T13:05:43Z",
+      "side": 1,
+      "message": "I would prefer if only one class needs to have any if (IsUnifiedPlan()) conditionals, essentially owning that distinction. So I\u0027m not entirely happy with the shape of the boundary between this class and the PC. But it\u0027s definitely an improvement to move the code out of PC, so I don\u0027t want to object to landing in this shape and refine later.",
+      "parentUuid": "661e87f5_3eae7c04",
       "range": {
         "startLine": 54,
         "startChar": 19,

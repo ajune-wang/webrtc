@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dcf4d10a_caa4cf9f",
+        "filename": "pc/rtp_object_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T13:05:43Z",
+      "side": 1,
+      "message": "What\u0027s missing?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 12
+      },
+      "revId": "bdfa8e69c005840ebb0417f5979ead972b58ec92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e4a99d80_008a9617",
         "filename": "pc/rtp_object_manager.h",
         "patchSetId": 5
@@ -72,6 +95,30 @@
       "side": 1,
       "message": "Yep, we don\u0027t get senders that have been detached from their transceivers (plan B) or where the transceiver is no longer in the list of transceivers (Unified Plan).",
       "parentUuid": "e4a99d80_008a9617",
+      "range": {
+        "startLine": 101,
+        "startChar": 59,
+        "endLine": 101,
+        "endChar": 72
+      },
+      "revId": "bdfa8e69c005840ebb0417f5979ead972b58ec92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcbafec1_40f295ac",
+        "filename": "pc/rtp_object_manager.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-16T13:05:43Z",
+      "side": 1,
+      "message": "I see (except I don\u0027t grok the consequences of transceivers live but not on the manager\u0027s list).\n\nI think something like \"Return all senders currently associated with some registered transceiver\" would be slightly clearer.",
+      "parentUuid": "5be8d844_639077f3",
       "range": {
         "startLine": 101,
         "startChar": 59,

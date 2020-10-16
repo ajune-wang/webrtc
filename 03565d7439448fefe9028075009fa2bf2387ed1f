@@ -118,6 +118,30 @@
       },
       "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "427ce657_1bf9cfb6",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-16T15:54:19Z",
+      "side": 1,
+      "message": "I can change libaom wrapper to take signal differentely, but I don\u0027t want that signal to be be codec specific, to be in the codec-specific section.\n\nscalability_mode is not av1 specific (in particular I would like to reuse it for vp9 and vp8 wrappers too. sure vp8 and vp9 would not support all the modes).\n\nSame time I would prefer to make step towards that better VideoEncoder interface ,even if it is a very small step.\n\nDo you think that new VideoEncoder interface would pass scalability_mode together with other fields that adds flexibility webrtc-svc doesn\u0027t provide?\n\nIf not, then how you think different modes would be described? in particular what whould differentiate modes S3T3, L3T3, L3T3_KEY, L3T3_KEY_SHIFT (each has 3 spatial and 3 temporal layers) Would it help to move InterLayerPredMode and number of spatial/temporal layers from the codec specific sections?\n\nI\u0027m also not comfortable refactoring spatial layers or considering scalability_mode * simulcast scenario as these are the problems I do not really understand plans for.",
+      "parentUuid": "b553d14c_09cc065a",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

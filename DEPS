@@ -10,7 +10,7 @@ vars = {
   # chromium waterfalls. More info at: crbug.com/570091.
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
-  'chromium_revision': 'f16d83f8689cfa12393f824c9626a720b1c10aca',
+  'chromium_revision': '18c540d8aaf9cc4a4ee7061c399df529658ff9d0',
 
   # This can be overridden, e.g. with custom_vars, to download a nonstandard
   # Xcode version in build/mac_toolchain.py
@@ -24,7 +24,7 @@ deps = {
   'src/base':
     'https://chromium.googlesource.com/chromium/src/base@00b251fb7b4e77d781e07cd239ad1b04b61fa320',
   'src/build':
-    'https://chromium.googlesource.com/chromium/src/build@67889e6ca7dd8591347548c4f4d9045506bfe980',
+    'https://chromium.googlesource.com/chromium/src/build@2dd476157a03c368ced8983013c3fc5e3f4a90b6',
   'src/buildtools':
     'https://chromium.googlesource.com/chromium/src/buildtools@4be464e050b3d05060471788f926b34c641db9fd',
   # Gradle 6.6.1. Used for testing Android Studio project generation for WebRTC.
@@ -265,7 +265,7 @@ deps = {
     'condition': 'checkout_win',
   },
   'src/tools':
-    'https://chromium.googlesource.com/chromium/src/tools@a1a48b9a86d32114aa37b241abc9debc0fa6c9d5',
+    'https://chromium.googlesource.com/chromium/src/tools@5955173f86e46fc0c9217fac71c62306f6ba232a',
   'src/tools/swarming_client':
     'https://chromium.googlesource.com/infra/luci/client-py.git@d46ea7635f2911208268170512cb611412488fd8',
 

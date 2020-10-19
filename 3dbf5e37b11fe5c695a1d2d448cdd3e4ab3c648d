@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef399f4_4a51c90e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-19T10:48:04Z",
+      "side": 1,
+      "message": "I\u0027m still postponing expanding this structure to support more layer.",
+      "revId": "3dbf5e37b11fe5c695a1d2d448cdd3e4ab3c648d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

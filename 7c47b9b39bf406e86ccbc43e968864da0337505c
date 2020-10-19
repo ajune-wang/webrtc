@@ -192,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c08ada5_52ca45a2",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-10-19T18:12:39Z",
+      "side": 1,
+      "message": "Thanks for removing the capacity, which misled me into thinking it was pertinent to the test.\nnit: I\u0027d personally have been helped by knowing that (1) the length of the arbitrary contents as well as (2) the number of iterations, are also arbitrary. Please consider commenting.",
+      "parentUuid": "df057c6b_40d70e14",
+      "range": {
+        "startLine": 1261,
+        "startChar": 33,
+        "endLine": 1261,
+        "endChar": 37
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e80e69c7_1346796f",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -322,6 +346,30 @@
       "side": 1,
       "message": "In this case, I don\u0027t really need the status object. I could have written\nASSERT_TRUE(log.ParseString(s).ok());\nThe only reason for storing the status in a local variable, is to print a nicer error\nmessage (for something that should never happen). Since the status object isn\u0027t used or propagated anywhere else, and the semantics it quite natural for a status object, I don\u0027t expect it to be terribly important to the reader whether the type is an absl::Status or a ParsedRtcEventLog::ParseStatus or something else.\n\nSo, the explicit type means that almost half of the line is taken up by something that I view as unimportant. But I acknowledge that this may be a biased interpretation of the style guide. If you think the explicit type looks better, we\u0027ll go with that.",
       "parentUuid": "ee4c9e82_3677f178",
+      "range": {
+        "startLine": 1281,
+        "startChar": 4,
+        "endLine": 1281,
+        "endChar": 8
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "803996a9_084a362d",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2020-10-19T18:12:39Z",
+      "side": 1,
+      "message": "You make good arguments. I\u0027m not sure of the quality of my own argument, but here it is - that the specific type for `status` becomes immediately apparent upon reading the next line, only helps me if I read the next line before I break the reading flow to find out the type ParseString returns. (Admittedly, in the case of `status` the variable name gives a very strong hint.)",
+      "parentUuid": "a6bd5c3a_94872fba",
       "range": {
         "startLine": 1281,
         "startChar": 4,

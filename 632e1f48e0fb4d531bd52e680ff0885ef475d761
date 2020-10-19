@@ -83,6 +83,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "188befd0_60f59234",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-19T13:21:06Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "468201d8_a70c439a",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 1
+      },
+      "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "186588ec_c5683765",
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "that\u0027s a bug. I thought i\u0027d moved it to the right place, but it seems not. Fixed.\n\nAlso did make_unique.",
       "parentUuid": "186588ec_c5683765",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 53
+      },
+      "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f0ddddf_4da69203",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-19T13:21:06Z",
+      "side": 1,
+      "message": "Why do you need to move it at all, and not leave it at the old location just before\n\n  configuration_ \u003d configuration;\n\n?\n\nGenerally, it would be good to check that the order of assignments here matches the order the members are declared (like the compiler would enforce if it were done as part of the constructor\u0027s initializer list), since that determines the destruction order.",
+      "parentUuid": "5d58df1d_5077955e",
       "range": {
         "startLine": 564,
         "startChar": 0,

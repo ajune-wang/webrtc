@@ -22,6 +22,30 @@
       },
       "revId": "ed07de7ce8ee6fb82825d3d40378e3ab4f81ada1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea57d21a_7181d78f",
+        "filename": "modules/video_coding/svc/scalability_structure_s2t1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-19T13:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "495f672b_abe62960",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 15
+      },
+      "revId": "ed07de7ce8ee6fb82825d3d40378e3ab4f81ada1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

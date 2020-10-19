@@ -170,8 +170,8 @@ SocketAddress PhysicalSocket::GetLocalAddress() const {
   if (result >= 0) {
     SocketAddressFromSockAddrStorage(addr_storage, &address);
   } else {
-    RTC_LOG(LS_WARNING) << "GetLocalAddress: unable to get local addr, socket="
-                        << s_;
+    RTC_DLOG(LS_WARNING) << "GetLocalAddress: unable to get local addr, socket="
+                         << s_;
   }
   return address;
 }
@@ -185,7 +185,7 @@ SocketAddress PhysicalSocket::GetRemoteAddress() const {
   if (result >= 0) {
     SocketAddressFromSockAddrStorage(addr_storage, &address);
   } else {
-    RTC_LOG(LS_WARNING)
+    RTC_DLOG(LS_WARNING)
         << "GetRemoteAddress: unable to get remote addr, socket=" << s_;
   }
   return address;
@@ -246,7 +246,6 @@ int PhysicalSocket::Connect(const SocketAddress& addr) {
     return SOCKET_ERROR;
   }
   if (addr.IsUnresolvedIP()) {
-    RTC_LOG(LS_VERBOSE) << "Resolving addr in PhysicalSocket::Connect";
     resolver_ = new AsyncResolver();
     resolver_->SignalDone.connect(this, &PhysicalSocket::OnResolveResult);
     resolver_->Start(addr);

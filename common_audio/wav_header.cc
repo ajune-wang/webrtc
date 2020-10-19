@@ -395,15 +395,15 @@ bool ReadWavHeader(WavHeaderReader* readable,
   // "data" chunk before the "fmt " one. The code below fails if this is not the
   // case.
   if (!FindWaveChunk(&header.fmt.header, readable, "fmt ")) {
-    RTC_LOG(LS_ERROR) << "Cannot find 'fmt ' chunk.";
+    RTC_DLOG(LS_ERROR) << "Cannot find 'fmt ' chunk.";
     return false;
   }
   if (!ReadFmtChunkData(&header.fmt, readable)) {
-    RTC_LOG(LS_ERROR) << "Cannot read 'fmt ' chunk.";
+    RTC_DLOG(LS_ERROR) << "Cannot read 'fmt ' chunk.";
     return false;
   }
   if (!FindWaveChunk(&header.data.header, readable, "data")) {
-    RTC_LOG(LS_ERROR) << "Cannot find 'data' chunk.";
+    RTC_DLOG(LS_ERROR) << "Cannot find 'data' chunk.";
     return false;
   }
 

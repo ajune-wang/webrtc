@@ -18,7 +18,6 @@
 namespace webrtc {
 
 rtc::scoped_refptr<AudioDeviceModule> CreateAudioDeviceModule() {
-  RTC_LOG(INFO) << __FUNCTION__;
 #if defined(WEBRTC_IOS)
   return new rtc::RefCountedObject<ios_adm::AudioDeviceModuleIOS>();
 #else

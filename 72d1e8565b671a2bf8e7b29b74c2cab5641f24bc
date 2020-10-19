@@ -16,6 +16,40 @@
       "message": "Hmm....",
       "revId": "72d1e8565b671a2bf8e7b29b74c2cab5641f24bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78128272_9317eec8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-19T07:26:39Z",
+      "side": 1,
+      "message": "Could we somehow move the \"If this pointer is null, let\u0027s create a new \u0027owned\u0027 object\" logic into a Create() method? I like being able to take that out of the class implementation and have it be const to the extent we can and to \"hang\" the implicit dependencies on the Create method. Then with further steps, we could offer a way to not use that Create method, e.g. by adding a new Create method and deprecating the other one and when callers move to the new method, they can get rid of all all the dependencies that get pulled in only because of that if() check (which might never run and essentially just pull in dead code).",
+      "revId": "72d1e8565b671a2bf8e7b29b74c2cab5641f24bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0c9ef36_0b04680b",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-19T07:26:39Z",
+      "side": 1,
+      "message": "Is this perhaps an error case?\nI.e. that the function is being called while not on the signaling thread?\n\nWith these sort of refactoring steps, if we can weed out use of the code that forces unnecessary overhead on the implementation (like checking the thread, doing invokes to correct for it, adding locks etc), then I think we should do that. It results in simpler, more efficient and more easily maintainable code.\n\nHere, if there are bad callers that we know about and can modify, we could add a method, \"DEPRECATED_CreateModularPeerConnectionFactory\", change the bad callers to call that method (and perhaps add a TODO for someone to fix that code), then make the main API require the context to be correct, like you\u0027ve done below (line 70).",
+      "revId": "72d1e8565b671a2bf8e7b29b74c2cab5641f24bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

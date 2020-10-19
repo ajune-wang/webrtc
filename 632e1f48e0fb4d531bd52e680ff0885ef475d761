@@ -16,6 +16,70 @@
       "message": "PTAL - with a few tweaks \u0026 adding a \"close\" method to the RTP transmission manager, I was able to get rid of all the std::functions apart from OnNegotiationNeeded (and that one should stay).\n",
       "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61df7ff9_337f8913",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-19T12:25:25Z",
+      "side": 1,
+      "message": "That makes the RtpTransmissionManager interface simpler, but I\u0027m a bit confused about the initializatino order where it\u0027s constructed.",
+      "parentUuid": "9a96ee3d_8f64744a",
+      "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9b1f3ff_b533b9c1",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-19T12:25:25Z",
+      "side": 1,
+      "message": "Is this target useful on its own? Otherwise, could consider folding it into the above target.",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 1
+      },
+      "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "186588ec_c5683765",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-19T12:25:25Z",
+      "side": 1,
+      "message": "Why is this moved, and the old values passed to RtpTransmissionController above?\n\nAnd if you touch this code, consider changing to std::make_unique\u003cStatsCollector\u003e(...).",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 53
+      },
+      "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

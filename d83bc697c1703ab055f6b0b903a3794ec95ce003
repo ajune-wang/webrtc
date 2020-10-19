@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f574e9e_c3a7e656",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T16:07:48Z",
+      "side": 1,
+      "message": "Achieving a milestone: Removing the \"friend\" relationship between SdpOfferAnswerHandler and PeerConnection.\n\n(SdpOfferAnswer still knows too much about PeerConnection. Reducing the interface will be a topic for more, hopefully smaller, CLs.)\n",
+      "revId": "d83bc697c1703ab055f6b0b903a3794ec95ce003",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

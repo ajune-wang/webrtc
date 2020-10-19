@@ -59,6 +59,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "468201d8_a70c439a",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T12:53:39Z",
+      "side": 1,
+      "message": "I have been told that we are striving for a world where each .cc and .h file is in its own compile target. Folding it into another target would fly against this.",
+      "parentUuid": "f9b1f3ff_b533b9c1",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 392,
+        "endChar": 1
+      },
+      "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "186588ec_c5683765",
@@ -72,6 +96,30 @@
       "writtenOn": "2020-10-19T12:25:25Z",
       "side": 1,
       "message": "Why is this moved, and the old values passed to RtpTransmissionController above?\n\nAnd if you touch this code, consider changing to std::make_unique\u003cStatsCollector\u003e(...).",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 53
+      },
+      "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d58df1d_5077955e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T12:53:39Z",
+      "side": 1,
+      "message": "that\u0027s a bug. I thought i\u0027d moved it to the right place, but it seems not. Fixed.\n\nAlso did make_unique.",
+      "parentUuid": "186588ec_c5683765",
       "range": {
         "startLine": 564,
         "startChar": 0,

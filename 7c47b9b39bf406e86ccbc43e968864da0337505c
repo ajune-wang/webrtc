@@ -168,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df057c6b_40d70e14",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T17:07:51Z",
+      "side": 1,
+      "message": "PTAL",
+      "parentUuid": "1037cbea_52968dcc",
+      "range": {
+        "startLine": 1261,
+        "startChar": 33,
+        "endLine": 1261,
+        "endChar": 37
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e80e69c7_1346796f",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -274,6 +298,30 @@
       "side": 1,
       "message": "Are you saying s/auto/ParsedRtcEventLog::ParseStatus reduced readability? How so?",
       "parentUuid": "bd11eca9_0f006b2b",
+      "range": {
+        "startLine": 1281,
+        "startChar": 4,
+        "endLine": 1281,
+        "endChar": 8
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6bd5c3a_94872fba",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T17:07:51Z",
+      "side": 1,
+      "message": "In this case, I don\u0027t really need the status object. I could have written\nASSERT_TRUE(log.ParseString(s).ok());\nThe only reason for storing the status in a local variable, is to print a nicer error\nmessage (for something that should never happen). Since the status object isn\u0027t used or propagated anywhere else, and the semantics it quite natural for a status object, I don\u0027t expect it to be terribly important to the reader whether the type is an absl::Status or a ParsedRtcEventLog::ParseStatus or something else.\n\nSo, the explicit type means that almost half of the line is taken up by something that I view as unimportant. But I acknowledge that this may be a biased interpretation of the style guide. If you think the explicit type looks better, we\u0027ll go with that.",
+      "parentUuid": "ee4c9e82_3677f178",
       "range": {
         "startLine": 1281,
         "startChar": 4,

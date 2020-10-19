@@ -214,6 +214,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d05f426b_d31f0113",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T21:49:20Z",
+      "side": 1,
+      "message": "Let\u0027s work out some appropriate comment as a follow-up.",
+      "parentUuid": "1c08ada5_52ca45a2",
+      "range": {
+        "startLine": 1261,
+        "startChar": 33,
+        "endLine": 1261,
+        "endChar": 37
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e80e69c7_1346796f",

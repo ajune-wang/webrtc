@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a96ee3d_8f64744a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T12:08:42Z",
+      "side": 1,
+      "message": "PTAL - with a few tweaks \u0026 adding a \"close\" method to the RTP transmission manager, I was able to get rid of all the std::functions apart from OnNegotiationNeeded (and that one should stay).\n",
+      "revId": "632e1f48e0fb4d531bd52e680ff0885ef475d761",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

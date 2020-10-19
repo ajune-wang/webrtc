@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c6d6c64_d6839b30",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T13:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d08d6498_a26b5b02",
+      "range": {
+        "startLine": 1246,
+        "startChar": 0,
+        "endLine": 1246,
+        "endChar": 4
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55a7b360_2f56282a",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-10-15T19:31:08Z",
       "side": 1,
       "message": "Could you move this closer to where it\u0027s first used?",
+      "range": {
+        "startLine": 1249,
+        "startChar": 4,
+        "endLine": 1249,
+        "endChar": 50
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2afdb7ce_5f3e1293",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T13:02:55Z",
+      "side": 1,
+      "message": "Moved to fixture.",
+      "parentUuid": "55a7b360_2f56282a",
       "range": {
         "startLine": 1249,
         "startChar": 4,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36976bea_1641902a",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T13:02:55Z",
+      "side": 1,
+      "message": "There isn\u0027t a clear relationship. 8*256 bytes would be 2048 and then I added a bit extra for RTCP overhead and SSRCs etc. Do you think it would be worth computing the exact size?",
+      "parentUuid": "a9c53d0d_d943a954",
+      "range": {
+        "startLine": 1261,
+        "startChar": 33,
+        "endLine": 1261,
+        "endChar": 37
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e80e69c7_1346796f",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -83,6 +155,30 @@
       "writtenOn": "2020-10-15T19:31:08Z",
       "side": 1,
       "message": "Maybe move this inside of the loop to increase coverage? At the moment, you\u0027re only validating the final value.",
+      "range": {
+        "startLine": 1274,
+        "startChar": 4,
+        "endLine": 1274,
+        "endChar": 40
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54b95fad_cf7b9822",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T13:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e80e69c7_1346796f",
       "range": {
         "startLine": 1274,
         "startChar": 4,
@@ -118,6 +214,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd11eca9_0f006b2b",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T13:02:55Z",
+      "side": 1,
+      "message": "Changed, but not sure I agree about it being easier to read. PTAL.",
+      "parentUuid": "f08f7ee2_3ac8a00f",
+      "range": {
+        "startLine": 1281,
+        "startChar": 4,
+        "endLine": 1281,
+        "endChar": 8
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6679632b_bea95a86",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -129,6 +249,30 @@
       "writtenOn": "2020-10-15T19:31:08Z",
       "side": 1,
       "message": "The way I understand ASSERT vs. EXPECT is:\n1. If you can avoid the test crashing by reading/writing past a valid point, dereferencing a nullptr, etc., it\u0027s OK to use ASSERT for that.\n2. Otherwise, ASSERT can be used to hint to the reader that something is a sanity-test of the test over its own logic.\n3. Otherwise, a check is performed as part of the focus of the test, and should use EXPECT to highlight that.",
+      "range": {
+        "startLine": 1285,
+        "startChar": 4,
+        "endLine": 1285,
+        "endChar": 13
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d199bd7_451914a2",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T13:02:55Z",
+      "side": 1,
+      "message": "Yes. We are dereferencing the first element, so the assert on the length is needed. The last ASSERT can be changed to EXPECT though.",
+      "parentUuid": "6679632b_bea95a86",
       "range": {
         "startLine": 1285,
         "startChar": 4,
@@ -152,6 +296,30 @@
       "writtenOn": "2020-10-15T19:31:08Z",
       "side": 1,
       "message": "nit: If `packet` we a std::string*, you could assign. Admittedly, not really a change in performance, but I wonder what the reason was for choosing vector over string?",
+      "range": {
+        "startLine": 1667,
+        "startChar": 0,
+        "endLine": 1669,
+        "endChar": 45
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfa8d5c9_8d0e5ac3",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1669,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2020-10-19T13:02:55Z",
+      "side": 1,
+      "message": "RTCP is represented as a vector\u003cuint8_t\u003e elsewhere, whereas protobuf only uses std::string.",
+      "parentUuid": "3f4299b0_66d205b6",
       "range": {
         "startLine": 1667,
         "startChar": 0,

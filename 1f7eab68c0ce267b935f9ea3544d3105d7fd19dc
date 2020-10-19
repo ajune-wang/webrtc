@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f07ecc9d_80160229",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2020-10-19T14:50:21Z",
+      "side": 0,
+      "message": "Were these excluded on macOS for some good reason? Does AppRTCMobile/mac still build with these included?",
+      "range": {
+        "startLine": 580,
+        "startChar": 6,
+        "endLine": 580,
+        "endChar": 19
+      },
+      "revId": "1f7eab68c0ce267b935f9ea3544d3105d7fd19dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

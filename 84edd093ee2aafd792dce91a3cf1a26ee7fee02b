@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53e6de7f_625e69d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-19T13:38:33Z",
+      "side": 1,
+      "message": "LGTM % optional comment",
+      "revId": "84edd093ee2aafd792dce91a3cf1a26ee7fee02b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8ceb53d_0ef86279",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-19T13:38:33Z",
+      "side": 1,
+      "message": "Alternatively, you could pass in sdp_handler_ directly and invoke it\u0027s UpdateNegotiationNeeded() instead of using an std::function? No strong preference there, but one less redirection helps in code searches.",
+      "revId": "84edd093ee2aafd792dce91a3cf1a26ee7fee02b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

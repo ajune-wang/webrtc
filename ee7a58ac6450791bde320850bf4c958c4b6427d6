@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22f7f33b_9849fe8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T06:36:43Z",
+      "side": 1,
+      "message": "Applying the new version of the script didn\u0027t add more headers. Not sure why.\n",
+      "revId": "ee7a58ac6450791bde320850bf4c958c4b6427d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1308,44 +1308,8 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
   last_encode_info_ms_ = clock_->TimeInMilliseconds();
 
   VideoFrame out_frame(video_frame);
-  if (out_frame.video_frame_buffer()->type() ==
-          VideoFrameBuffer::Type::kNative &&
-      !info.supports_native_handle) {
-    // This module only supports software encoding.
-    rtc::scoped_refptr<VideoFrameBuffer> buffer =
-        out_frame.video_frame_buffer()->GetMappedFrameBuffer(
-            info.preferred_pixel_formats);
-    bool buffer_was_converted = false;
-    if (!buffer) {
-      buffer = out_frame.video_frame_buffer()->ToI420();
-      // TODO(https://crbug.com/webrtc/12021): Once GetI420 is pure virtual,
-      // this just true as an I420 buffer would return from
-      // GetMappedFrameBuffer.
-      buffer_was_converted =
-          (out_frame.video_frame_buffer()->GetI420() == nullptr);
-    }
-    if (!buffer) {
-      RTC_LOG(LS_ERROR) << "Frame conversion failed, dropping frame.";
-      return;
-    }
-
-    VideoFrame::UpdateRect update_rect = out_frame.update_rect();
-    if (!update_rect.IsEmpty() &&
-        out_frame.video_frame_buffer()->GetI420() == nullptr) {
-      // UpdatedRect is reset to full update if it's not empty, and buffer was
-      // converted, therefore we can't guarantee that pixels outside of
-      // UpdateRect didn't change comparing to the previous frame.
-      update_rect =
-          VideoFrame::UpdateRect{0, 0, out_frame.width(), out_frame.height()};
-    }
-    out_frame.set_video_frame_buffer(buffer);
-    out_frame.set_update_rect(update_rect);
-  }
-
   // Crop frame if needed.
-  if ((crop_width_ > 0 || crop_height_ > 0) &&
-      out_frame.video_frame_buffer()->type() !=
-          VideoFrameBuffer::Type::kNative) {
+  if (crop_width_ > 0 || crop_height_ > 0) {
     // If the frame can't be converted to I420, drop it.
     int cropped_width = video_frame.width() - crop_width_;
     int cropped_height = video_frame.height() - crop_height_;

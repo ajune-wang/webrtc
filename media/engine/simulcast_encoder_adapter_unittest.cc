@@ -228,7 +228,6 @@ class MockVideoEncoder : public VideoEncoder {
 
   EncoderInfo GetEncoderInfo() const override {
     EncoderInfo info;
-    info.supports_native_handle = supports_native_handle_;
     info.implementation_name = implementation_name_;
     info.scaling_settings = scaling_settings_;
     info.requested_resolution_alignment = requested_resolution_alignment_;
@@ -254,10 +253,6 @@ class MockVideoEncoder : public VideoEncoder {
     CodecSpecificInfo codec_specific_info;
     codec_specific_info.codecType = webrtc::kVideoCodecVP8;
     callback_->OnEncodedImage(image, &codec_specific_info);
-  }
-
-  void set_supports_native_handle(bool enabled) {
-    supports_native_handle_ = enabled;
   }
 
   void set_implementation_name(const std::string& name) {
@@ -312,7 +307,6 @@ class MockVideoEncoder : public VideoEncoder {
 
  private:
   MockVideoEncoderFactory* const factory_;
-  bool supports_native_handle_ = false;
   std::string implementation_name_ = "unknown";
   VideoEncoder::ScalingSettings scaling_settings_;
   int requested_resolution_alignment_ = 1;
@@ -825,22 +819,6 @@ TEST_F(TestSimulcastEncoderAdapterFake, ReinitDoesNotReorderFrameSimulcastIdx) {
   EXPECT_EQ(2, simulcast_index);
 }
 
-TEST_F(TestSimulcastEncoderAdapterFake, SupportsNativeHandleForSingleStreams) {
-  SimulcastTestFixtureImpl::DefaultSettings(
-      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
-      kVideoCodecVP8);
-  codec_.numberOfSimulcastStreams = 1;
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  adapter_->RegisterEncodeCompleteCallback(this);
-  ASSERT_EQ(1u, helper_->factory()->encoders().size());
-  helper_->factory()->encoders()[0]->set_supports_native_handle(true);
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  EXPECT_TRUE(adapter_->GetEncoderInfo().supports_native_handle);
-  helper_->factory()->encoders()[0]->set_supports_native_handle(false);
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  EXPECT_FALSE(adapter_->GetEncoderInfo().supports_native_handle);
-}
-
 TEST_F(TestSimulcastEncoderAdapterFake, SetRatesUnderMinBitrate) {
   SimulcastTestFixtureImpl::DefaultSettings(
       &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
@@ -916,27 +894,6 @@ TEST_F(TestSimulcastEncoderAdapterFake, RuntimeEncoderInfoUpdate) {
             adapter_->GetEncoderInfo().implementation_name);
 }
 
-TEST_F(TestSimulcastEncoderAdapterFake,
-       SupportsNativeHandleForMultipleStreams) {
-  SimulcastTestFixtureImpl::DefaultSettings(
-      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
-      kVideoCodecVP8);
-  codec_.numberOfSimulcastStreams = 3;
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  adapter_->RegisterEncodeCompleteCallback(this);
-  ASSERT_EQ(3u, helper_->factory()->encoders().size());
-  for (MockVideoEncoder* encoder : helper_->factory()->encoders())
-    encoder->set_supports_native_handle(true);
-  // As long as one encoder supports native handle, it's enabled.
-  helper_->factory()->encoders()[0]->set_supports_native_handle(false);
-  EXPECT_TRUE(adapter_->GetEncoderInfo().supports_native_handle);
-  // Once none do, then the adapter claims no support.
-  helper_->factory()->encoders()[1]->set_supports_native_handle(false);
-  helper_->factory()->encoders()[2]->set_supports_native_handle(false);
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  EXPECT_FALSE(adapter_->GetEncoderInfo().supports_native_handle);
-}
-
 // TODO(nisse): Reuse definition in webrtc/test/fake_texture_handle.h.
 class FakeNativeBufferI420 : public VideoFrameBuffer {
  public:
@@ -961,85 +918,6 @@ class FakeNativeBufferI420 : public VideoFrameBuffer {
   const int height_;
   const bool allow_to_i420_;
 };
-
-TEST_F(TestSimulcastEncoderAdapterFake,
-       NativeHandleForwardingForMultipleStreams) {
-  SimulcastTestFixtureImpl::DefaultSettings(
-      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
-      kVideoCodecVP8);
-  codec_.numberOfSimulcastStreams = 3;
-  // High start bitrate, so all streams are enabled.
-  codec_.startBitrate = 3000;
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  adapter_->RegisterEncodeCompleteCallback(this);
-  ASSERT_EQ(3u, helper_->factory()->encoders().size());
-  for (MockVideoEncoder* encoder : helper_->factory()->encoders())
-    encoder->set_supports_native_handle(true);
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  EXPECT_TRUE(adapter_->GetEncoderInfo().supports_native_handle);
-
-  rtc::scoped_refptr<VideoFrameBuffer> buffer(
-      new rtc::RefCountedObject<FakeNativeBufferI420>(1280, 720,
-                                                      /*allow_to_i420=*/false));
-  VideoFrame input_frame = VideoFrame::Builder()
-                               .set_video_frame_buffer(buffer)
-                               .set_timestamp_rtp(100)
-                               .set_timestamp_ms(1000)
-                               .set_rotation(kVideoRotation_180)
-                               .build();
-  // Expect calls with the given video frame verbatim, since it's a texture
-  // frame and can't otherwise be modified/resized.
-  for (MockVideoEncoder* encoder : helper_->factory()->encoders())
-    EXPECT_CALL(*encoder, Encode(::testing::Ref(input_frame), _)).Times(1);
-  std::vector<VideoFrameType> frame_types(3, VideoFrameType::kVideoFrameKey);
-  EXPECT_EQ(0, adapter_->Encode(input_frame, &frame_types));
-}
-
-TEST_F(TestSimulcastEncoderAdapterFake, NativeHandleForwardingOnlyIfSupported) {
-  SimulcastTestFixtureImpl::DefaultSettings(
-      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
-      kVideoCodecVP8);
-  codec_.numberOfSimulcastStreams = 3;
-  // High start bitrate, so all streams are enabled.
-  codec_.startBitrate = 3000;
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  adapter_->RegisterEncodeCompleteCallback(this);
-  ASSERT_EQ(3u, helper_->factory()->encoders().size());
-
-  // QVGA encoders has fallen back to software.
-  auto& encoders = helper_->factory()->encoders();
-  encoders[0]->set_supports_native_handle(false);
-  encoders[1]->set_supports_native_handle(true);
-  encoders[2]->set_supports_native_handle(true);
-
-  EXPECT_EQ(0, adapter_->InitEncode(&codec_, kSettings));
-  EXPECT_TRUE(adapter_->GetEncoderInfo().supports_native_handle);
-
-  rtc::scoped_refptr<VideoFrameBuffer> buffer(
-      new rtc::RefCountedObject<FakeNativeBufferI420>(1280, 720,
-                                                      /*allow_to_i420=*/true));
-  VideoFrame input_frame = VideoFrame::Builder()
-                               .set_video_frame_buffer(buffer)
-                               .set_timestamp_rtp(100)
-                               .set_timestamp_ms(1000)
-                               .set_rotation(kVideoRotation_180)
-                               .build();
-  // Expect calls with the given video frame verbatim, since it's a texture
-  // frame and can't otherwise be modified/resized, but only on the two
-  // streams supporting it...
-  EXPECT_CALL(*encoders[1], Encode(::testing::Ref(input_frame), _)).Times(1);
-  EXPECT_CALL(*encoders[2], Encode(::testing::Ref(input_frame), _)).Times(1);
-  // ...the lowest one gets a software buffer.
-  EXPECT_CALL(*encoders[0], Encode)
-      .WillOnce([&](const VideoFrame& frame,
-                    const std::vector<VideoFrameType>* frame_types) {
-        EXPECT_EQ(frame.video_frame_buffer()->type(),
-                  VideoFrameBuffer::Type::kI420);
-        return 0;
-      });
-  std::vector<VideoFrameType> frame_types(3, VideoFrameType::kVideoFrameKey);
-  EXPECT_EQ(0, adapter_->Encode(input_frame, &frame_types));
-}
 
 TEST_F(TestSimulcastEncoderAdapterFake, TestFailureReturnCodesFromEncodeCalls) {
   SimulcastTestFixtureImpl::DefaultSettings(

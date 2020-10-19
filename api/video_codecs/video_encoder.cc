@@ -95,7 +95,6 @@ VideoEncoder::EncoderInfo::EncoderInfo()
     : scaling_settings(VideoEncoder::ScalingSettings::kOff),
       requested_resolution_alignment(1),
       apply_alignment_to_all_simulcast_layers(false),
-      supports_native_handle(false),
       implementation_name("unknown"),
       has_trusted_rate_controller(false),
       is_hardware_accelerated(true),
@@ -127,7 +126,6 @@ std::string VideoEncoder::EncoderInfo::ToString() const {
   oss << ", requested_resolution_alignment = " << requested_resolution_alignment
       << ", apply_alignment_to_all_simulcast_layers = "
       << apply_alignment_to_all_simulcast_layers
-      << ", supports_native_handle = " << supports_native_handle
       << ", implementation_name = '" << implementation_name
       << "'"
          ", has_trusted_rate_controller = "
@@ -199,8 +197,7 @@ bool VideoEncoder::EncoderInfo::operator==(const EncoderInfo& rhs) const {
     return false;
   }
 
-  if (supports_native_handle != rhs.supports_native_handle ||
-      implementation_name != rhs.implementation_name ||
+  if (implementation_name != rhs.implementation_name ||
       has_trusted_rate_controller != rhs.has_trusted_rate_controller ||
       is_hardware_accelerated != rhs.is_hardware_accelerated ||
       has_internal_source != rhs.has_internal_source) {

@@ -183,10 +183,6 @@ class RTC_EXPORT VideoEncoder {
     // considerably, especially if |requested_resolution_alignment| is large.
     bool apply_alignment_to_all_simulcast_layers;
 
-    // If true, encoder supports working with a native handle (e.g. texture
-    // handle for hw codecs) rather than requiring a raw I420 buffer.
-    bool supports_native_handle;
-
     // The name of this particular encoder implementation, e.g. "libvpx".
     std::string implementation_name;
 
@@ -256,8 +252,8 @@ class RTC_EXPORT VideoEncoder {
     bool supports_simulcast;
 
     // The list of pixel formats preferred by the encoder. It is assumed that if
-    // the list is empty and supports_native_handle is false, then {I420} is the
-    // preferred pixel format. The order of the formats does not matter.
+    // the list is empty, then {I420} is the preferred pixel format. The order
+    // of the formats does not matter.
     absl::InlinedVector<VideoFrameBuffer::Type, kMaxPreferredPixelFormats>
         preferred_pixel_formats;
   };

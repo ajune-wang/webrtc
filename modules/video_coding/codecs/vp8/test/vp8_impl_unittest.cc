@@ -598,7 +598,6 @@ TEST(LibvpxVp8EncoderTest, GetEncoderInfoReturnsStaticInformation) {
 
   const auto info = encoder.GetEncoderInfo();
 
-  EXPECT_FALSE(info.supports_native_handle);
   EXPECT_FALSE(info.is_hardware_accelerated);
   EXPECT_FALSE(info.has_internal_source);
   EXPECT_TRUE(info.supports_simulcast);

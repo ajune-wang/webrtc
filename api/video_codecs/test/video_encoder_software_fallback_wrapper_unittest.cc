@@ -140,10 +140,9 @@ class VideoEncoderSoftwareFallbackWrapperTestBase : public ::testing::Test {
     void SetRates(const RateControlParameters& parameters) override {}
 
     EncoderInfo GetEncoderInfo() const override {
-      ++supports_native_handle_count_;
+      ++get_encoder_info_count_;
       EncoderInfo info;
       info.scaling_settings = ScalingSettings(kLowThreshold, kHighThreshold);
-      info.supports_native_handle = supports_native_handle_;
       info.implementation_name = implementation_name_;
       return info;
     }
@@ -154,8 +153,7 @@ class VideoEncoderSoftwareFallbackWrapperTestBase : public ::testing::Test {
     int encode_count_ = 0;
     EncodedImageCallback* encode_complete_callback_ = nullptr;
     int release_count_ = 0;
-    mutable int supports_native_handle_count_ = 0;
-    bool supports_native_handle_ = false;
+    mutable int get_encoder_info_count_ = 0;
     std::string implementation_name_ = "fake-encoder";
     absl::optional<VideoFrame> last_video_frame_;
   };
@@ -394,19 +392,7 @@ TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
 TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
        SupportsNativeHandleForwardedWithoutFallback) {
   fallback_wrapper_->GetEncoderInfo();
-  EXPECT_EQ(1, fake_encoder_->supports_native_handle_count_);
-}
-
-TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
-       SupportsNativeHandleNotForwardedDuringFallback) {
-  // Fake encoder signals support for native handle, default (libvpx) does not.
-  fake_encoder_->supports_native_handle_ = true;
-  EXPECT_TRUE(fallback_wrapper_->GetEncoderInfo().supports_native_handle);
-  UtilizeFallbackEncoder();
-  EXPECT_FALSE(fallback_wrapper_->GetEncoderInfo().supports_native_handle);
-  // Both times, both encoders are queried.
-  EXPECT_EQ(2, fake_encoder_->supports_native_handle_count_);
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK, fallback_wrapper_->Release());
+  EXPECT_EQ(1, fake_encoder_->get_encoder_info_count_);
 }
 
 TEST_F(VideoEncoderSoftwareFallbackWrapperTest, ReportsImplementationName) {
@@ -422,51 +408,6 @@ TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
        ReportsFallbackImplementationName) {
   UtilizeFallbackEncoder();
   CheckLastEncoderName(fake_sw_encoder_->implementation_name_.c_str());
-}
-
-TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
-       OnEncodeFallbackNativeFrameScaledIfFallbackDoesNotSupportNativeFrames) {
-  fake_encoder_->supports_native_handle_ = true;
-  fake_sw_encoder_->supports_native_handle_ = false;
-  InitEncode();
-  int width = codec_.width * 2;
-  int height = codec_.height * 2;
-  VideoFrame native_frame = test::FakeNativeBuffer::CreateFrame(
-      width, height, 0, 0, VideoRotation::kVideoRotation_0);
-  std::vector<VideoFrameType> types(1, VideoFrameType::kVideoFrameKey);
-  fake_encoder_->encode_return_code_ = WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
-
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            fallback_wrapper_->Encode(native_frame, &types));
-  EXPECT_EQ(1, fake_sw_encoder_->encode_count_);
-  ASSERT_TRUE(fake_sw_encoder_->last_video_frame_.has_value());
-  EXPECT_NE(VideoFrameBuffer::Type::kNative,
-            fake_sw_encoder_->last_video_frame_->video_frame_buffer()->type());
-  EXPECT_EQ(codec_.width, fake_sw_encoder_->last_video_frame_->width());
-  EXPECT_EQ(codec_.height, fake_sw_encoder_->last_video_frame_->height());
-}
-
-TEST_F(VideoEncoderSoftwareFallbackWrapperTest,
-       OnEncodeFallbackNativeFrameForwardedToFallbackIfItSupportsNativeFrames) {
-  fake_encoder_->supports_native_handle_ = true;
-  fake_sw_encoder_->supports_native_handle_ = true;
-  InitEncode();
-  int width = codec_.width * 2;
-  int height = codec_.height * 2;
-  VideoFrame native_frame = test::FakeNativeBuffer::CreateFrame(
-      width, height, 0, 0, VideoRotation::kVideoRotation_0);
-  std::vector<VideoFrameType> types(1, VideoFrameType::kVideoFrameKey);
-  fake_encoder_->encode_return_code_ = WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE;
-
-  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
-            fallback_wrapper_->Encode(native_frame, &types));
-  EXPECT_EQ(1, fake_sw_encoder_->encode_count_);
-  ASSERT_TRUE(fake_sw_encoder_->last_video_frame_.has_value());
-  EXPECT_EQ(VideoFrameBuffer::Type::kNative,
-            fake_sw_encoder_->last_video_frame_->video_frame_buffer()->type());
-  EXPECT_EQ(native_frame.width(), fake_sw_encoder_->last_video_frame_->width());
-  EXPECT_EQ(native_frame.height(),
-            fake_sw_encoder_->last_video_frame_->height());
 }
 
 namespace {

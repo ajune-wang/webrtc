@@ -102,8 +102,6 @@ int MultiplexEncoderAdapter::InitEncode(
   encoder_info_.implementation_name = "MultiplexEncoderAdapter (";
   encoder_info_.requested_resolution_alignment = 1;
   encoder_info_.apply_alignment_to_all_simulcast_layers = false;
-  // This needs to be false so that we can do the split in Encode().
-  encoder_info_.supports_native_handle = false;
 
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoEncoder> encoder =

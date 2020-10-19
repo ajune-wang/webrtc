@@ -416,16 +416,7 @@ int SimulcastEncoderAdapter::Encode(
     // sources) or the source image has a native handle, pass the image on
     // directly. Otherwise, we'll scale it to match what the encoder expects
     // (below).
-    // For texture frames, the underlying encoder is expected to be able to
-    // correctly sample/scale the source texture.
-    // TODO(perkj): ensure that works going forward, and figure out how this
-    // affects webrtc:5683.
-    if ((dst_width == src_width && dst_height == src_height) ||
-        (input_image.video_frame_buffer()->type() ==
-             VideoFrameBuffer::Type::kNative &&
-         streaminfos_[stream_idx]
-             .encoder->GetEncoderInfo()
-             .supports_native_handle)) {
+    if (dst_width == src_width && dst_height == src_height) {
       int ret = streaminfos_[stream_idx].encoder->Encode(input_image,
                                                          &stream_frame_types);
       if (ret != WEBRTC_VIDEO_CODEC_OK) {
@@ -645,7 +636,6 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
   encoder_info.implementation_name = "SimulcastEncoderAdapter";
   encoder_info.requested_resolution_alignment = 1;
   encoder_info.apply_alignment_to_all_simulcast_layers = false;
-  encoder_info.supports_native_handle = true;
   encoder_info.scaling_settings.thresholds = absl::nullopt;
   if (streaminfos_.empty()) {
     return encoder_info;
@@ -663,8 +653,6 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
       encoder_info.implementation_name += " (";
       encoder_info.implementation_name += encoder_impl_info.implementation_name;
 
-      encoder_info.supports_native_handle =
-          encoder_impl_info.supports_native_handle;
       encoder_info.has_trusted_rate_controller =
           encoder_impl_info.has_trusted_rate_controller;
       encoder_info.is_hardware_accelerated =
@@ -673,10 +661,6 @@ VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
     } else {
       encoder_info.implementation_name += ", ";
       encoder_info.implementation_name += encoder_impl_info.implementation_name;
-
-      // Native handle supported if any encoder supports it.
-      encoder_info.supports_native_handle |=
-          encoder_impl_info.supports_native_handle;
 
       // Trusted rate controller only if all encoders have it.
       encoder_info.has_trusted_rate_controller &=

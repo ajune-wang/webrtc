@@ -90,7 +90,6 @@ class ObjCVideoEncoder : public VideoEncoder {
 
   VideoEncoder::EncoderInfo GetEncoderInfo() const override {
     EncoderInfo info;
-    info.supports_native_handle = true;
     info.implementation_name = implementation_name_;
 
     RTC_OBJC_TYPE(RTCVideoEncoderQpThresholds) *qp_thresholds = [encoder_ scalingSettings];

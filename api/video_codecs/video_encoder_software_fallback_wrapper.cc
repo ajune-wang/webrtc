@@ -355,30 +355,7 @@ int32_t VideoEncoderSoftwareFallbackWrapper::EncodeWithMainEncoder(
   if (fallback_requested && InitFallbackEncoder(/*is_forced=*/false)) {
     // Start using the fallback with this frame.
     PrimeEncoder(current_encoder());
-    if (frame.video_frame_buffer()->type() == VideoFrameBuffer::Type::kNative &&
-        fallback_encoder_->GetEncoderInfo().supports_native_handle) {
-      return fallback_encoder_->Encode(frame, frame_types);
-    } else {
-      RTC_LOG(INFO) << "Fallback encoder does not support native handle - "
-                       "converting frame to I420";
-      rtc::scoped_refptr<I420BufferInterface> src_buffer =
-          frame.video_frame_buffer()->ToI420();
-      if (!src_buffer) {
-        RTC_LOG(LS_ERROR) << "Failed to convert from to I420";
-        return WEBRTC_VIDEO_CODEC_ENCODER_FAILURE;
-      }
-      rtc::scoped_refptr<VideoFrameBuffer> dst_buffer =
-          src_buffer->Scale(codec_settings_.width, codec_settings_.height);
-      if (!dst_buffer) {
-        RTC_LOG(LS_ERROR) << "Failed to scale video frame.";
-        return WEBRTC_VIDEO_CODEC_ENCODER_FAILURE;
-      }
-      VideoFrame scaled_frame = frame;
-      scaled_frame.set_video_frame_buffer(dst_buffer);
-      scaled_frame.set_update_rect(VideoFrame::UpdateRect{
-          0, 0, scaled_frame.width(), scaled_frame.height()});
-      return fallback_encoder_->Encode(scaled_frame, frame_types);
-    }
+    return fallback_encoder_->Encode(frame, frame_types);
   }
   // Fallback encoder failed too, return original error code.
   return ret;

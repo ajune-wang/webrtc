@@ -89,7 +89,6 @@ int32_t VideoEncoderWrapper::InitEncodeInternal(JNIEnv* jni) {
       jni, Java_VideoEncoder_initEncode(jni, encoder_, settings, callback));
   RTC_LOG(LS_INFO) << "initEncode: " << status;
 
-  encoder_info_.supports_native_handle = true;
   encoder_info_.implementation_name = GetImplementationName(jni);
   encoder_info_.scaling_settings = GetScalingSettingsInternal(jni);
   encoder_info_.is_hardware_accelerated = IsHardwareVideoEncoder(jni, encoder_);

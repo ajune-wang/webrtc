@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a23784e5_4285ba39",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1275,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-19T13:56:58Z",
+      "side": 1,
+      "message": "This is done in the ctor now, right? Why repeat?",
+      "range": {
+        "startLine": 1268,
+        "startChar": 0,
+        "endLine": 1275,
+        "endChar": 3
+      },
+      "revId": "a33817edbf91f582dc838baef32e82fca6d291f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

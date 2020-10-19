@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1037cbea_52968dcc",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-19T13:56:58Z",
+      "side": 1,
+      "message": "1. Maybe we could use round (decimal) numbers? Like a capacity of N*100, and N packets? When 100 is the size with the overhead, and instead of 255, you use whatever would bring the size up to 100?\n2. Seeing a capacity makes me expect tests that show that excessive size is handled correctly by both the encoder as well as the decoder. Assuming there is no longer a hard-cutoff value for excessive, maybe we shouldn\u0027t define a capacity, so as not to hint as much?",
+      "parentUuid": "36976bea_1641902a",
+      "range": {
+        "startLine": 1261,
+        "startChar": 33,
+        "endLine": 1261,
+        "endChar": 37
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e80e69c7_1346796f",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 1
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "Changed, but not sure I agree about it being easier to read. PTAL.",
       "parentUuid": "f08f7ee2_3ac8a00f",
+      "range": {
+        "startLine": 1281,
+        "startChar": 4,
+        "endLine": 1281,
+        "endChar": 8
+      },
+      "revId": "7c47b9b39bf406e86ccbc43e968864da0337505c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee4c9e82_3677f178",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 5677
+      },
+      "writtenOn": "2020-10-19T13:56:58Z",
+      "side": 1,
+      "message": "Are you saying s/auto/ParsedRtcEventLog::ParseStatus reduced readability? How so?",
+      "parentUuid": "bd11eca9_0f006b2b",
       "range": {
         "startLine": 1281,
         "startChar": 4,

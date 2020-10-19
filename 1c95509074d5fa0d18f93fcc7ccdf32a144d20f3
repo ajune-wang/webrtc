@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "335528b2_c784e46d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-19T08:01:10Z",
+      "side": 1,
+      "message": "Hi,\n\nthis is an improved version of https://webrtc-review.googlesource.com/c/src/+/187492 which was reverted. Changes are:\n1) The XdgDesktopPortal base is now a singleton and is not supposed to be stored on the browser side as before\n2) I made use of DesktopCapturer::GetSourceList() and DesktopCapturer::SelectSource() to let the browser select the same portal call to avoid additional portal dialog once user confirms the preview dialog on browser side\n\nThere is one thing I don\u0027t know how to solve. Given the XdgDesktopPortalBase is a singleton, it exists until the process where it was created is destroyed, but the destructor doesn\u0027t get called. I tried to use std::unique_ptr for this to make sure it gets destroyed when it goes out of scope, but it cannot be used this was and the compiler complains about missing exit-time and global destructors. Option is to destroy this object when there is no pending portal call and re-create it again with next capturer, but I\u0027m rather asking first before I implement it. Do you have any suggestion?",
+      "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

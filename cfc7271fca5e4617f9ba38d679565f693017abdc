@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7426905_4d559554",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-19T08:45:40Z",
+      "side": 1,
+      "message": "Please- this is so that https://webrtc-review.googlesource.com/c/src/+/188627 can be approved by sprang@ alone. ",
+      "revId": "cfc7271fca5e4617f9ba38d679565f693017abdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

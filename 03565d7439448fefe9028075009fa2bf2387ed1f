@@ -166,6 +166,30 @@
       },
       "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1b13a5c_d7515f89",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-19T09:31:26Z",
+      "side": 1,
+      "message": "\"logic to realize a scalability\" - I think I\u0027ve already started that - see modules/video_coding/svc/",
+      "parentUuid": "29ce160b_0e293a19",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

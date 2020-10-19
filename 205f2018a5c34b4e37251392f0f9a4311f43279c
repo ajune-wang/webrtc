@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bc0c937_1936b6a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T10:37:55Z",
+      "side": 1,
+      "message": "OK, I\u0027ll go for replacing the callbacks with delayed inits where possible.\n",
+      "revId": "205f2018a5c34b4e37251392f0f9a4311f43279c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e9d5324_f80f75ad",
@@ -14,6 +31,24 @@
       "writtenOn": "2020-10-19T08:24:35Z",
       "side": 1,
       "message": "All of these std::function\u0027s, except for \"on_negotiation_needed\", seem strange to have as callable getters. None of them can change on the fly. The need to get them after initialization only happens when you try to initialize RtpTransmissionManager before the PeerConnection::Initialize method. But I don\u0027t see a good reason to.\n\nIf you make PeerConnection have an std::unique_ptr\u003cRtpTransmissionManager\u003e instead and you construct it at time of the Initialize() call, all of these things can be be const members of RtpTransmissionManager instead of std::functions.\n\nAlternatively, if you want to construct first and initialize later, add an Initialize() method to the RtpTransmissionManager.\n\nBut having these getters abstracts away things unnecessarily.",
+      "revId": "205f2018a5c34b4e37251392f0f9a4311f43279c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e79f0ea_91bfe64e",
+        "filename": "pc/rtp_transmission_manager.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T10:37:55Z",
+      "side": 1,
+      "message": "std::unique_ptr and allocating in Initialize() will work. I\u0027ll do that.\n\n(Initialize() is on my hate list, btw. I also want to add an assert that it can only be called once - it simplifies a lot.)",
+      "parentUuid": "0e9d5324_f80f75ad",
       "revId": "205f2018a5c34b4e37251392f0f9a4311f43279c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

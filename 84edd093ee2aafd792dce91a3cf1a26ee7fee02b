@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bff7272_6dbc607c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T13:50:05Z",
+      "side": 1,
+      "message": "Thanks!\nTaking this to submit now.\n",
+      "revId": "84edd093ee2aafd792dce91a3cf1a26ee7fee02b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8ceb53d_0ef86279",
@@ -31,6 +48,24 @@
       "writtenOn": "2020-10-19T13:38:33Z",
       "side": 1,
       "message": "Alternatively, you could pass in sdp_handler_ directly and invoke it\u0027s UpdateNegotiationNeeded() instead of using an std::function? No strong preference there, but one less redirection helps in code searches.",
+      "revId": "84edd093ee2aafd792dce91a3cf1a26ee7fee02b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dac984f_1c7053d2",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-19T13:50:05Z",
+      "side": 1,
+      "message": "but that would create a dependency on sdp_handler_ from the new component, which goes against the levels of dependency I\u0027m trying to create here...",
+      "parentUuid": "e8ceb53d_0ef86279",
       "revId": "84edd093ee2aafd792dce91a3cf1a26ee7fee02b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

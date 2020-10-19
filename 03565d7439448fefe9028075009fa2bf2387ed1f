@@ -142,6 +142,30 @@
       },
       "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ce160b_0e293a19",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-19T09:07:48Z",
+      "side": 1,
+      "message": "Alright, I think this is workable approach for now - the work needed to put it somewhere else is probably not worth it at the moment.\n\nI understand that scalability mode isn\u0027t av1-specific. The vision for a future interface would see the current VideoEncoder being split into several parts where the logic to realize a scalability would essentially be a separate building block. So I hope we can re-use some of the current av1 code there. I doubt we can really get started with that in the very near future though.",
+      "parentUuid": "427ce657_1bf9cfb6",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 31
+      },
+      "revId": "03565d7439448fefe9028075009fa2bf2387ed1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

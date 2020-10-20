@@ -46,6 +46,30 @@
       },
       "revId": "1f7eab68c0ce267b935f9ea3544d3105d7fd19dc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c0f6d4_56ea0403",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2020-10-20T06:53:45Z",
+      "side": 0,
+      "message": "No idea. The class doesn\u0027t look like it\u0027s using any iOS-specific stuff, but I notice it\u0027s marked with API_AVAILABLE to be iOS-only, so a mac build should not be able to use it.",
+      "parentUuid": "9c8ea0c1_9d289deb",
+      "range": {
+        "startLine": 580,
+        "startChar": 6,
+        "endLine": 580,
+        "endChar": 19
+      },
+      "revId": "1f7eab68c0ce267b935f9ea3544d3105d7fd19dc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

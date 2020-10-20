@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b430f9cb_97665ceb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-20T09:56:07Z",
+      "side": 1,
+      "message": "Let\u0027s rewrite this to something along these lines:\n\nRemove usage of \"use_ios_simulator\".\n\nThis GN variable has been removed by https://chromium-review.googlesource.com/c/chromium/src/+/2476278, in favor of directly using \"target_environment\".\n\nBug: webrtc:12059",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "2833140718880b5bff9370e4f59f7eda3e5ab0f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

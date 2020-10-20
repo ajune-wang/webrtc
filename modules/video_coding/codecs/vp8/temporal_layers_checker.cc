@@ -29,6 +29,8 @@ TemporalLayersChecker::CreateTemporalLayersChecker(Vp8TemporalLayersType type,
       // Conference mode temporal layering for screen content in base stream.
       return std::make_unique<TemporalLayersChecker>(num_temporal_layers);
   }
+  RTC_NOTREACHED();
+  return nullptr;
 }
 
 TemporalLayersChecker::TemporalLayersChecker(int num_temporal_layers)

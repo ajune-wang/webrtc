@@ -120,6 +120,8 @@ const char* CodecTypeToPayloadString(VideoCodecType type) {
     case kVideoCodecGeneric:
       return kPayloadNameGeneric;
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 VideoCodecType PayloadStringToCodecType(const std::string& name) {

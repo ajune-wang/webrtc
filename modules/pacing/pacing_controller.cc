@@ -84,6 +84,8 @@ int GetPriorityForType(RtpPacketMediaType type) {
       // BWE high.
       return kFirstPriority + 4;
   }
+  RTC_NOTREACHED();
+  return 0;
 }
 
 }  // namespace

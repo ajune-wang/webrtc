@@ -1803,6 +1803,8 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForOffer(
     case RtpTransceiverDirection::kRecvOnly:
       return audio_recv_codecs_;
   }
+  RTC_NOTREACHED();
+  return audio_sendrecv_codecs_;
 }
 
 const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForAnswer(
@@ -1821,6 +1823,8 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForAnswer(
     case RtpTransceiverDirection::kRecvOnly:
       return audio_recv_codecs_;
   }
+  RTC_NOTREACHED();
+  return all_audio_codecs_;
 }
 
 const VideoCodecs& MediaSessionDescriptionFactory::GetVideoCodecsForOffer(
@@ -1836,6 +1840,8 @@ const VideoCodecs& MediaSessionDescriptionFactory::GetVideoCodecsForOffer(
     case RtpTransceiverDirection::kRecvOnly:
       return video_recv_codecs_;
   }
+  RTC_NOTREACHED();
+  return all_video_codecs_;
 }
 
 const VideoCodecs& MediaSessionDescriptionFactory::GetVideoCodecsForAnswer(
@@ -1854,6 +1860,8 @@ const VideoCodecs& MediaSessionDescriptionFactory::GetVideoCodecsForAnswer(
     case RtpTransceiverDirection::kRecvOnly:
       return video_recv_codecs_;
   }
+  RTC_NOTREACHED();
+  return video_recv_codecs_;
 }
 
 void MergeCodecsFromDescription(

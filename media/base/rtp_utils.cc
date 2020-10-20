@@ -323,6 +323,8 @@ absl::string_view RtpPacketTypeToString(RtpPacketType packet_type) {
     case RtpPacketType::kUnknown:
       return "Unknown";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 RtpPacketType InferRtpPacketType(rtc::ArrayView<const char> packet) {

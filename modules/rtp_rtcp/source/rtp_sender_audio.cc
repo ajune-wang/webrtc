@@ -46,6 +46,8 @@ const char* FrameTypeToString(AudioFrameType frame_type) {
     case AudioFrameType::kAudioFrameCN:
       return "audio_cn";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 #endif
 

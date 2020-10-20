@@ -114,6 +114,8 @@ GainControl::Mode Agc1ConfigModeToInterfaceMode(
     case Agc1Config::kFixedDigital:
       return GainControl::kFixedDigital;
   }
+  RTC_NOTREACHED();
+  return GainControl::kFixedDigital;
 }
 
 // Maximum lengths that frame of samples being passed from the render side to
@@ -1827,6 +1829,7 @@ void AudioProcessingImpl::InitializeNoiseSuppressor() {
               return NsConfig::SuppressionLevel::k21dB;
             default:
               RTC_NOTREACHED();
+              return NsConfig::SuppressionLevel::k6dB;
           }
         };
 

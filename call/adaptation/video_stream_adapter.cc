@@ -162,6 +162,8 @@ const char* Adaptation::StatusToString(Adaptation::Status status) {
     case Status::kRejectedByConstraint:
       return "kRejectedByConstraint";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 Adaptation::Adaptation(int validation_id,
@@ -381,6 +383,8 @@ VideoStreamAdapter::RestrictionsOrState VideoStreamAdapter::GetAdaptationUpStep(
     case DegradationPreference::DISABLED:
       return Adaptation::Status::kAdaptationDisabled;
   }
+  RTC_NOTREACHED();
+  return Adaptation::Status::kAdaptationDisabled;
 }
 
 Adaptation VideoStreamAdapter::GetAdaptationDown() {
@@ -460,6 +464,8 @@ VideoStreamAdapter::GetAdaptationDownStep(
     case DegradationPreference::DISABLED:
       return Adaptation::Status::kAdaptationDisabled;
   }
+  RTC_NOTREACHED();
+  return Adaptation::Status::kAdaptationDisabled;
 }
 
 VideoStreamAdapter::RestrictionsOrState VideoStreamAdapter::DecreaseResolution(
@@ -597,9 +603,9 @@ Adaptation VideoStreamAdapter::GetAdaptDownResolution() {
       return RestrictionsOrStateToAdaptation(
           GetAdaptDownResolutionStepForBalanced(input_state), input_state);
     }
-    default:
-      RTC_NOTREACHED();
   }
+  RTC_NOTREACHED();
+  return GetAdaptationDown();
 }
 
 VideoStreamAdapter::RestrictionsOrState

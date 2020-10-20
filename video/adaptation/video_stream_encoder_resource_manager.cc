@@ -55,6 +55,8 @@ std::string ToString(VideoAdaptationReason reason) {
     case VideoAdaptationReason::kCpu:
       return "cpu";
   }
+  RTC_NOTREACHED();
+  return "";
 }
 
 }  // namespace

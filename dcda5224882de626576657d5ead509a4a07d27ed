@@ -16,6 +16,24 @@
       "message": "lgtm, but might want to update description to indicate this is about test infra",
       "revId": "dcda5224882de626576657d5ead509a4a07d27ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63e631d9_ca92e57d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2020-10-20T14:03:06Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5fbfe830_6cc5fe36",
+      "revId": "dcda5224882de626576657d5ead509a4a07d27ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

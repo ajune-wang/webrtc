@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ae02fde_c0060557",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14589
+      },
+      "writtenOn": "2020-10-20T09:53:44Z",
+      "side": 1,
+      "message": "Found bug on Pixel3Xl and seems all next pixel models have the same issue.\nFixed it and tested on lots of devices.",
+      "revId": "2adcf1448a0308379db0edb5b648d922fbe09510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

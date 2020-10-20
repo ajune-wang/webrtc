@@ -16,6 +16,57 @@
       "message": "This was a change-storm, due to using the windows bots as my debuggger. Sorry about that.\nI think it works now.\n",
       "revId": "c7c24e93686e160d0fe16bd6bd1404bd6ef9d026",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "068f0114_32feda3e",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-20T15:03:28Z",
+      "side": 1,
+      "message": "nit: add //\n(just to keep the whole comment for the class as a single comment section)",
+      "revId": "c7c24e93686e160d0fe16bd6bd1404bd6ef9d026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb822328_242a2efb",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-20T15:03:28Z",
+      "side": 1,
+      "message": "nit: as a personal preference, I would agree with having this be a * rather than \u0026. Since it\u0027s selective on what gets moved etc, I think that it would be clearer at the call site to pass the parameter as a pointer.",
+      "revId": "c7c24e93686e160d0fe16bd6bd1404bd6ef9d026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dd9e675_600de548",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2020-10-20T15:03:28Z",
+      "side": 1,
+      "message": "nit: add //",
+      "revId": "c7c24e93686e160d0fe16bd6bd1404bd6ef9d026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

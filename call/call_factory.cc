@@ -95,7 +95,9 @@ Call* CallFactory::CreateCall(const Call::Config& config) {
         });
   }
 
-  return Call::Create(config, module_thread_);
+  auto call = Call::Create(config, module_thread_);
+  RTC_DCHECK(call);
+  return call;
 }
 
 std::unique_ptr<CallFactoryInterface> CreateCallFactory() {

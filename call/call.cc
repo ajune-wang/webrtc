@@ -474,13 +474,15 @@ Call* Call::Create(const Call::Config& config,
                    rtc::scoped_refptr<SharedModuleThread> call_thread,
                    std::unique_ptr<ProcessThread> pacer_thread) {
   RTC_DCHECK(config.task_queue_factory);
-  return new internal::Call(
+  auto call = new internal::Call(
       clock, config,
       std::make_unique<RtpTransportControllerSend>(
           clock, config.event_log, config.network_state_predictor_factory,
           config.network_controller_factory, config.bitrate_config,
           std::move(pacer_thread), config.task_queue_factory, config.trials),
       std::move(call_thread), config.task_queue_factory);
+  RTC_DCHECK(call);
+  return call;
 }
 
 class SharedModuleThread::Impl {

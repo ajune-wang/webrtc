@@ -18,6 +18,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25aa0a22_eae55c2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T16:04:00Z",
+      "side": 1,
+      "message": "Yes, TODOs are nice to have.\n",
+      "revId": "0619a153b37f40f00b948cb92609a561012c6374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efc5dcda_bb20e451",
@@ -79,6 +96,30 @@
       "side": 1,
       "message": "Agree with leaving it for later. But if you have a plan, you could phrase it as a TODO.",
       "parentUuid": "062f0095_12759d77",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 48
+      },
+      "revId": "0619a153b37f40f00b948cb92609a561012c6374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbea84c3_736d1263",
+        "filename": "pc/webrtc_session_description_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T16:04:00Z",
+      "side": 1,
+      "message": "Filed a bug and put it in a TODO.",
+      "parentUuid": "21bb011d_586b00f4",
       "range": {
         "startLine": 38,
         "startChar": 0,

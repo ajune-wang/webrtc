@@ -10,6 +10,7 @@
 #ifndef MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURE_OPTIONS_H_
 #define MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURE_OPTIONS_H_
 
+#include "absl/types/optional.h"
 #include "api/scoped_refptr.h"
 #include "rtc_base/system/rtc_export.h"
 
@@ -131,6 +132,9 @@ class RTC_EXPORT DesktopCaptureOptions {
 #if defined(WEBRTC_USE_PIPEWIRE)
   bool allow_pipewire() const { return allow_pipewire_; }
   void set_allow_pipewire(bool allow) { allow_pipewire_ = allow; }
+  // Used as an identificator associated with DBus calls to xdg-desktop-portal
+  int request_id() const { return request_id_; }
+  void set_request_id(int request_id) { request_id_ = request_id; }
 #endif
 
  private:
@@ -159,6 +163,7 @@ class RTC_EXPORT DesktopCaptureOptions {
   bool detect_updated_region_ = false;
 #if defined(WEBRTC_USE_PIPEWIRE)
   bool allow_pipewire_ = false;
+  int request_id_ = 0;
 #endif
 };
 

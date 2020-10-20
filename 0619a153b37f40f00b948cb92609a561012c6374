@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ff47463_e81ab340",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T09:50:27Z",
+      "side": 1,
+      "message": "Yes, circular dependencies should be fixed. But perhaps not now.\n",
+      "revId": "0619a153b37f40f00b948cb92609a561012c6374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efc5dcda_bb20e451",
@@ -14,6 +31,30 @@
       "writtenOn": "2020-10-20T08:35:46Z",
       "side": 1,
       "message": "Do you see any reasonable way to cut the cycle? If nothing else works, I guess introducing an interface class could do the trick, but that might be a bit clumsy.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 48
+      },
+      "revId": "0619a153b37f40f00b948cb92609a561012c6374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "062f0095_12759d77",
+        "filename": "pc/webrtc_session_description_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T09:50:27Z",
+      "side": 1,
+      "message": "Merging the two is another alternative. There are so many levels of factories, losing one wouldn\u0027t be a great loss.\n\nBut the methods it\u0027s accessing are the local and remote descriptions + the transport controller - those things might be reasonable to pull out into an interface for the SdpOfferAnswer class - or even make into a new object (SdpOfferAnswerState?) that both classes could reference.\n\nSuggest leaving that for a later CL.",
+      "parentUuid": "efc5dcda_bb20e451",
       "range": {
         "startLine": 38,
         "startChar": 0,

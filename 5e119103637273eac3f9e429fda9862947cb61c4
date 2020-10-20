@@ -346,6 +346,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9e540c6_245ca93f",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-20T13:12:25Z",
+      "side": 1,
+      "message": "If you rely on having no missing packets prior to the IDR you can never restart the stream.\n\nThe simplest way to explain this to me would be for you to implement a unittest that shows the problem. Then it would become clear if this change solves the problem or not.",
+      "parentUuid": "c58a8fdd_b3fa957c",
+      "range": {
+        "startLine": 335,
+        "startChar": 17,
+        "endLine": 335,
+        "endChar": 42
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e805f4d0_6589e921",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3

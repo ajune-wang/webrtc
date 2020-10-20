@@ -68,9 +68,17 @@ public interface VideoProcessor extends CapturerObserver {
       return null;
     }
 
+    int scaledWidth = parameters.scaleWidth;
+    int scaledHeight = parameters.scaleHeight;
+    if (frame.getRotation() == 270 || frame.getRotation() == 90) {
+      scaledHeight = scaledHeight / 16 * 16;
+    } else {
+      scaledWidth = scaledWidth / 16 * 16;
+    }
+
     final VideoFrame.Buffer adaptedBuffer =
         frame.getBuffer().cropAndScale(parameters.cropX, parameters.cropY, parameters.cropWidth,
-            parameters.cropHeight, parameters.scaleWidth, parameters.scaleHeight);
+            parameters.cropHeight, scaledWidth, scaledHeight);
     return new VideoFrame(adaptedBuffer, frame.getRotation(), parameters.timestampNs);
   }
 }

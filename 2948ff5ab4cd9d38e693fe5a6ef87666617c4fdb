@@ -22,6 +22,30 @@
       },
       "revId": "2948ff5ab4cd9d38e693fe5a6ef87666617c4fdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "014671a2_141060b3",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T11:21:25Z",
+      "side": 1,
+      "message": "It is. Didn\u0027t know same-level constructor forwarding worked - thanks!",
+      "parentUuid": "f0bdda55_b3b4538d",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 109,
+        "endChar": 56
+      },
+      "revId": "2948ff5ab4cd9d38e693fe5a6ef87666617c4fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

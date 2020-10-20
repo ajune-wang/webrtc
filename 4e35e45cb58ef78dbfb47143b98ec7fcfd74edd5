@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "00eed6ab_fe60d7be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T10:40:15Z",
+      "side": 1,
+      "message": "The first line should fit in 50 characters :-)\nBut done.",
+      "parentUuid": "486c499e_aa79eb0d",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "4e35e45cb58ef78dbfb47143b98ec7fcfd74edd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4037f8df_521432c6",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d24003d1_68cf7351",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T10:40:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b758e463_d3f6572a",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 45
+      },
+      "revId": "4e35e45cb58ef78dbfb47143b98ec7fcfd74edd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af3132d4_b1ebe41f",
@@ -94,6 +142,30 @@
       "writtenOn": "2020-10-20T09:50:06Z",
       "side": 1,
       "message": "Could you move this around as\n\nauto context \u003d ConnectionContext::Create(std::move(dependencies));\nif (!context)\n  return nullptr;\nreturn rtc::RefCountedObject\u003cPeerConnectionFactory\u003e(context);\n\ni.e., avoid creating the object in the failure case?",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "4e35e45cb58ef78dbfb47143b98ec7fcfd74edd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c516f62f_e03ac452",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T10:40:15Z",
+      "side": 1,
+      "message": "Hm. Given that the context creator gets the dependencies by reference, this is actually possible. Let\u0027s see.....\n\nYep, possible. But some ugliness introduced due to the need to support tests that subclass the factory class.",
+      "parentUuid": "af3132d4_b1ebe41f",
       "range": {
         "startLine": 86,
         "startChar": 0,

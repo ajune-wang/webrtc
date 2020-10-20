@@ -35,6 +35,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a9f4587_1239cbdf",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T15:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "068f0114_32feda3e",
+      "revId": "c7c24e93686e160d0fe16bd6bd1404bd6ef9d026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb822328_242a2efb",
@@ -52,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eb54a43_15e02382",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T15:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb822328_242a2efb",
+      "revId": "c7c24e93686e160d0fe16bd6bd1404bd6ef9d026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dd9e675_600de548",
@@ -65,6 +101,24 @@
       "writtenOn": "2020-10-20T15:03:28Z",
       "side": 1,
       "message": "nit: add //",
+      "revId": "c7c24e93686e160d0fe16bd6bd1404bd6ef9d026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe95171_7d1e7b5a",
+        "filename": "pc/peer_connection_factory.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T15:36:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8dd9e675_600de548",
       "revId": "c7c24e93686e160d0fe16bd6bd1404bd6ef9d026",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

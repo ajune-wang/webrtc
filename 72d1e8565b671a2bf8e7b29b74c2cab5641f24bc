@@ -50,6 +50,24 @@
       "message": "Is this perhaps an error case?\nI.e. that the function is being called while not on the signaling thread?\n\nWith these sort of refactoring steps, if we can weed out use of the code that forces unnecessary overhead on the implementation (like checking the thread, doing invokes to correct for it, adding locks etc), then I think we should do that. It results in simpler, more efficient and more easily maintainable code.\n\nHere, if there are bad callers that we know about and can modify, we could add a method, \"DEPRECATED_CreateModularPeerConnectionFactory\", change the bad callers to call that method (and perhaps add a TODO for someone to fix that code), then make the main API require the context to be correct, like you\u0027ve done below (line 70).",
       "revId": "72d1e8565b671a2bf8e7b29b74c2cab5641f24bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01ddd4f8_7a20b372",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T09:27:47Z",
+      "side": 1,
+      "message": "When I went through these cases, I found three cases:\n- The dependencies.signaling_thread is not set. Caller wants the current thread to be the signaling thread. (The current thread may or may not be wrapped in a Thread object).\n- The dependencies.signaling_thread is set, and it is the same as the current thread. Same as above.\n- The dependencies.signaling_thread is set, and is different from the current thread. We should jump to it ASAP (self-invoke).\n\nIt seems to me all 3 versions are reasonable things to have happen - the most naive users would call the create function without thinking about threads (first case, unwrapped), and things would work; users that desire tight control over threads, and have their own \"management\" thread, would end up in the third case; dealing with the second case is cheap enough to not be worth avoiding.\n\nNote that the function invokes itself in order to reach line 70.",
+      "parentUuid": "d0c9ef36_0b04680b",
+      "revId": "72d1e8565b671a2bf8e7b29b74c2cab5641f24bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

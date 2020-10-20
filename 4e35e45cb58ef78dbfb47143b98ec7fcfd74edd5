@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4037f8df_521432c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T09:27:47Z",
+      "side": 1,
+      "message": "Switched the whole thing around to using Create functions, and private / protected constructors.\n\nLet\u0027s see if this looks better.\n",
+      "revId": "4e35e45cb58ef78dbfb47143b98ec7fcfd74edd5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

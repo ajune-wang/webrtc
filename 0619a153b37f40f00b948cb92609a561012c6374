@@ -63,6 +63,30 @@
       },
       "revId": "0619a153b37f40f00b948cb92609a561012c6374",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21bb011d_586b00f4",
+        "filename": "pc/webrtc_session_description_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-20T09:52:56Z",
+      "side": 1,
+      "message": "Agree with leaving it for later. But if you have a plan, you could phrase it as a TODO.",
+      "parentUuid": "062f0095_12759d77",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 48
+      },
+      "revId": "0619a153b37f40f00b948cb92609a561012c6374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

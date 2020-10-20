@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5e7f6ddc_2fd3f86c",
+        "filename": "pc/connection_context.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T14:39:02Z",
+      "side": 1,
+      "message": "If it\u0027s not changed anywhere, sure. There are a lot of those.",
+      "parentUuid": "5569e0d2_6c1db550",
+      "revId": "4e7ef9903b17fa9ebf92ab3d800e375c3216e60b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "047203b2_2a9accd7",
         "filename": "pc/connection_context.h",
         "patchSetId": 8
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61e9fae4_e740bcf3",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T14:39:02Z",
+      "side": 1,
+      "message": "IWYU (the script) will detect those.",
+      "parentUuid": "047203b2_2a9accd7",
+      "revId": "4e7ef9903b17fa9ebf92ab3d800e375c3216e60b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf8997cd_06bb6e34",
         "filename": "pc/connection_context.h",
         "patchSetId": 8
@@ -48,6 +84,24 @@
       "writtenOn": "2020-10-20T14:23:02Z",
       "side": 1,
       "message": "missing \u0027const\u0027? or is it supposed to be \u0026\u0026?",
+      "revId": "4e7ef9903b17fa9ebf92ab3d800e375c3216e60b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91dd9e1f_fbf3bec6",
+        "filename": "pc/connection_context.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T14:39:02Z",
+      "side": 1,
+      "message": "Actually it may be better as \"*\". The way dependencies work now, the factory and the context each pick pieces out of dependencies with std::move(), and the whole structure is movable but not copyable (naturally) - so the constructor has to modify it in a way that is visible to the caller - thus, it\u0027s an in/out parameter.",
+      "parentUuid": "bf8997cd_06bb6e34",
       "revId": "4e7ef9903b17fa9ebf92ab3d800e375c3216e60b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

@@ -16,6 +16,24 @@
       "message": "I think this was the problem you ran into - previously the deps were being passed via std::move() but accepted by reference (whereas you probably wanted move semantics).",
       "revId": "134774a9ed9d143b0421ccc8fe33c76c623cfe87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce60bee1_cc913580",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T14:39:02Z",
+      "side": 1,
+      "message": "Yep, compilers were inconsistent in order of evaluation of arguments.",
+      "parentUuid": "b832d1da_21714035",
+      "revId": "134774a9ed9d143b0421ccc8fe33c76c623cfe87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

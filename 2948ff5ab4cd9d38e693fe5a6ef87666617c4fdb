@@ -46,6 +46,30 @@
       },
       "revId": "2948ff5ab4cd9d38e693fe5a6ef87666617c4fdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e071fc82_3040b50d",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-20T14:39:02Z",
+      "side": 1,
+      "message": "Note: the naive construct (:PeerConnectionFactory(ConnctionContext::Create(dependencies), std::move(dependencies)), since second argument was by-value, failed on Windows but succeeded on all other platforms. Seems that order of evaluation of parameters is not consistent between compilers, so one had Create() done first, and the other had the move done first. Solution: Let the constructor pass dependencies by reference.",
+      "parentUuid": "014671a2_141060b3",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 109,
+        "endChar": 56
+      },
+      "revId": "2948ff5ab4cd9d38e693fe5a6ef87666617c4fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "d3fc019fd2ebd20747ced3a059721e7760cc8988",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4deba54a_9319d398",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-20T13:19:45Z",
+      "side": 1,
+      "message": "just repurposing this test to cover KSvc structure and to match configuration of the \"DisableEnableBaseLayerTriggersKeyFrame\" test just above.\n \n (this test still pass for FullSVC structure, but until this patch it didn\u0027t pass for KSvc)",
+      "parentUuid": "6595b4ae_d8c42d79",
+      "range": {
+        "startLine": 672,
+        "startChar": 2,
+        "endLine": 672,
+        "endChar": 70
+      },
+      "revId": "d3fc019fd2ebd20747ced3a059721e7760cc8988",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

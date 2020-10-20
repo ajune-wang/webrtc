@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "52a96d86_527ab94a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-20T10:02:21Z",
+      "side": 1,
+      "message": "We need an empty line between CL desc and tags, the presubmit fails  because of that.\n\nJust add a new line before \"Bug:\".",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 17
+      },
+      "revId": "5f9bdaa51d4b9fe4679b1b6b4e682740ad1131e6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "900f2068_bd74b80f",

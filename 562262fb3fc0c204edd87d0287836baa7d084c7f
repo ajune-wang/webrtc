@@ -16,6 +16,24 @@
       "message": "I think the old implementation is better because it\u0027s easy for libwebrtc users to know that only the framework\u0027s public headers are used by AppRTCMobile.",
       "revId": "562262fb3fc0c204edd87d0287836baa7d084c7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4fb2bac_6d63f2c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-20T07:21:54Z",
+      "side": 1,
+      "message": "Agreed, but this is the easiest way to unblock your CL so I am planning to land and try if this is confirmed.\n\nMaybe it is possible to revisit later.",
+      "parentUuid": "59becf59_06aadf32",
+      "revId": "562262fb3fc0c204edd87d0287836baa7d084c7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

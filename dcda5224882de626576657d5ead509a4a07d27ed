@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fbfe830_6cc5fe36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-20T12:50:30Z",
+      "side": 1,
+      "message": "lgtm, but might want to update description to indicate this is about test infra",
+      "revId": "dcda5224882de626576657d5ead509a4a07d27ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

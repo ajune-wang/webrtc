@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc5dcda_bb20e451",
+        "filename": "pc/webrtc_session_description_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-20T08:35:46Z",
+      "side": 1,
+      "message": "Do you see any reasonable way to cut the cycle? If nothing else works, I guess introducing an interface class could do the trick, but that might be a bit clumsy.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 48
+      },
+      "revId": "0619a153b37f40f00b948cb92609a561012c6374",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

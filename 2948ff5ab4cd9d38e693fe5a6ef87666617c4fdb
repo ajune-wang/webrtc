@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0bdda55_b3b4538d",
+        "filename": "pc/peer_connection_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-20T11:11:28Z",
+      "side": 1,
+      "message": "Is this equivalent to \n\n  : PeerConnectionFactory(ConnectionContext::Create(dependencies), dependencies) {}\n\n?",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 109,
+        "endChar": 56
+      },
+      "revId": "2948ff5ab4cd9d38e693fe5a6ef87666617c4fdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

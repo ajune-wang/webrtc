@@ -16,6 +16,23 @@
       "message": "Found bug on Pixel3Xl and seems all next pixel models have the same issue.\nFixed it and tested on lots of devices.",
       "revId": "2adcf1448a0308379db0edb5b648d922fbe09510",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4226ac0_4e3ee9c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2020-10-20T12:48:20Z",
+      "side": 1,
+      "message": "If we need the size to be aligned by 16 somewhere, this is not the place to do it. Can you please provide more details on where the error is occurring? If you can provide a clean fix to some calculation in HW encoder, that would be great. Otherwise, I would like to keep any device specific workarounds to the app code.\n\nNormal 640x360 frames can be scaled down a lot (down to 80x45) before they are not divisible by 16. So I think the app has to be using some strange resolution if this is the problem. If using HW encoding, it is better to stick to standard 16:9 resolutions for compatibility.",
+      "revId": "2adcf1448a0308379db0edb5b648d922fbe09510",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

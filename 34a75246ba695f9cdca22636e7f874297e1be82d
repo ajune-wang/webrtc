@@ -16,6 +16,69 @@
       "message": "Hi Per,\nCould you PTAL?\nAlessio",
       "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "815a5680_3c53140e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-21T13:20:38Z",
+      "side": 1,
+      "message": "Awesome!!!\nI have some comments.\nPTAL",
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb8ebc4e_91c9d197",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-21T13:20:38Z",
+      "side": 1,
+      "message": "Since the purpose is to optimize the code, I would suggest not using the inner_product method. From my experience, the only thing that will happen is that it will inline a loop-implementation and no special optimization is done.\n\nHowever, with the current implementation the call to inner_product hides how the nested loop likes like (i is included in the call and end-iterators are used.\n\nMy suggestion is therefore to instead of using the inner_product write out the actual loops. That will make it more clear to see whether the loops are optimized fully.\n\nSame comment goes for the line 134.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff556f18_db1f26e0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-21T13:20:38Z",
+      "side": 1,
+      "message": "Why is this disabled? if this code is not meant to run as part of the test suite I\u0027d suggest removing it or keeping it separate for another usecase.\n\nI don\u0027t think keeping it makes sense since the optimizations are already done which means that the test after this is of no value (unless it would run as a perf-test to ensure that there are no regressions in the complexity)",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 52
+      },
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

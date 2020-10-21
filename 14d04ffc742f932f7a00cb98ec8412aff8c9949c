@@ -16,6 +16,98 @@
       "message": "(why does per wnt to know everything :-))",
       "revId": "14d04ffc742f932f7a00cb98ec8412aff8c9949c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bab902b6_674f96cc",
+        "filename": "docs/bug-reporting.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T13:31:42Z",
+      "side": 1,
+      "message": "I am not sure how this will be rendered in markdown, maybe we should just add the content between ()?",
+      "range": {
+        "startLine": 3,
+        "startChar": 49,
+        "endLine": 3,
+        "endChar": 51
+      },
+      "revId": "14d04ffc742f932f7a00cb98ec8412aff8c9949c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d13b1f04_629f6f8f",
+        "filename": "docs/bug-reporting.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T13:31:42Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 2
+      },
+      "revId": "14d04ffc742f932f7a00cb98ec8412aff8c9949c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8903dee4_150efa48",
+        "filename": "docs/bug-reporting.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T13:31:42Z",
+      "side": 1,
+      "message": "Maybe this should be a link to https://bugs.chromium.org/p/chromium/issues/entry? I am not sure the component is selectable by default.",
+      "range": {
+        "startLine": 22,
+        "startChar": 89,
+        "endLine": 22,
+        "endChar": 168
+      },
+      "revId": "14d04ffc742f932f7a00cb98ec8412aff8c9949c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d81f6bfb_dc9028cc",
+        "filename": "docs/bug-reporting.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T13:31:42Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 100,
+        "startChar": 31,
+        "endLine": 100,
+        "endChar": 110
+      },
+      "revId": "14d04ffc742f932f7a00cb98ec8412aff8c9949c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

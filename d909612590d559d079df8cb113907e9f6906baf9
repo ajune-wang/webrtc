@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b0b53f3_6e04da43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-21T11:21:28Z",
+      "side": 1,
+      "message": "Mention that the output is exactly as before, if you tested it?",
+      "revId": "d909612590d559d079df8cb113907e9f6906baf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edc5e0fc_5e754b2c",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
         "patchSetId": 4

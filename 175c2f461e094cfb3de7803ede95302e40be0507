@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71b6dc23_86d420e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-21T20:52:11Z",
+      "side": 1,
+      "message": "Now that I added a long segment of \"accessors to PC variables and functions that are only called from SdpOfferAnswerHandler\", I\u0027m trying to whittle it back down. It looks cleaner that way.\n",
+      "revId": "175c2f461e094cfb3de7803ede95302e40be0507",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

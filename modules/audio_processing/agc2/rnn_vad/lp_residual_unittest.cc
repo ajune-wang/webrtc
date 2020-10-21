@@ -10,9 +10,7 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/lp_residual.h"
 
-#include <algorithm>
 #include <array>
-#include <vector>
 
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
@@ -24,7 +22,6 @@ namespace webrtc {
 namespace rnn_vad {
 namespace test {
 
-// Checks that the LP residual can be computed on an empty frame.
 TEST(RnnVadTest, LpResidualOfEmptyFrame) {
   // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
   // FloatingPointExceptionObserver fpe_observer;
@@ -40,44 +37,44 @@ TEST(RnnVadTest, LpResidualOfEmptyFrame) {
   ComputeLpResidual(lpc_coeffs, empty_frame, lp_residual);
 }
 
-// Checks that the computed LP residual is bit-exact given test input data.
+// TODO(bugs.webrtc.org/9076): Remove when the issue is fixed.
 TEST(RnnVadTest, LpResidualPipelineBitExactness) {
-  // Input and expected output readers.
+  // Pitch buffer 24 kHz data reader.
   auto pitch_buf_24kHz_reader = CreatePitchBuffer24kHzReader();
+  const size_t num_frames = pitch_buf_24kHz_reader.second;
+  std::array<float, kBufSize24kHz> pitch_buf_data;
+  // Read ground-truth.
   auto lp_residual_reader = CreateLpResidualAndPitchPeriodGainReader();
-
-  // Buffers.
-  std::vector<float> pitch_buf_data(kBufSize24kHz);
+  ASSERT_EQ(num_frames, lp_residual_reader.second);
+  std::array<float, kBufSize24kHz> expected_lp_residual;
+  rtc::ArrayView<float, kBufSize24kHz> expected_lp_residual_view(
+      expected_lp_residual.data(), expected_lp_residual.size());
+  // Init pipeline.
   std::array<float, kNumLpcCoefficients> lpc_coeffs;
-  std::vector<float> computed_lp_residual(kBufSize24kHz);
-  std::vector<float> expected_lp_residual(kBufSize24kHz);
-
-  // Test length.
-  const size_t num_frames = std::min(pitch_buf_24kHz_reader.second,
-                                     static_cast<size_t>(300));  // Max 3 s.
-  ASSERT_GE(lp_residual_reader.second, num_frames);
-
+  rtc::ArrayView<float, kNumLpcCoefficients> lpc_coeffs_view(
+      lpc_coeffs.data(), kNumLpcCoefficients);
+  std::array<float, kBufSize24kHz> computed_lp_residual;
+  rtc::ArrayView<float, kBufSize24kHz> computed_lp_residual_view(
+      computed_lp_residual.data(), computed_lp_residual.size());
   {
     // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
     // FloatingPointExceptionObserver fpe_observer;
     for (size_t i = 0; i < num_frames; ++i) {
-      // Read input.
-      ASSERT_TRUE(pitch_buf_24kHz_reader.first->ReadChunk(pitch_buf_data));
-      // Read expected output (ignore pitch gain and period).
-      ASSERT_TRUE(lp_residual_reader.first->ReadChunk(expected_lp_residual));
-      float unused;
-      ASSERT_TRUE(lp_residual_reader.first->ReadValue(&unused));
-      ASSERT_TRUE(lp_residual_reader.first->ReadValue(&unused));
-
-      // Check every 200 ms.
-      if (i % 20 != 0) {
-        continue;
-      }
-
       SCOPED_TRACE(i);
-      ComputeAndPostProcessLpcCoefficients(pitch_buf_data, lpc_coeffs);
-      ComputeLpResidual(lpc_coeffs, pitch_buf_data, computed_lp_residual);
-      ExpectNearAbsolute(expected_lp_residual, computed_lp_residual, kFloatMin);
+      // Read input and expected output.
+      pitch_buf_24kHz_reader.first->ReadChunk(pitch_buf_data);
+      lp_residual_reader.first->ReadChunk(expected_lp_residual_view);
+      // Skip pitch gain and period.
+      float unused;
+      lp_residual_reader.first->ReadValue(&unused);
+      lp_residual_reader.first->ReadValue(&unused);
+      // Run pipeline.
+      ComputeAndPostProcessLpcCoefficients(pitch_buf_data, lpc_coeffs_view);
+      ComputeLpResidual(lpc_coeffs_view, pitch_buf_data,
+                        computed_lp_residual_view);
+      // Compare.
+      ExpectNearAbsolute(expected_lp_residual_view, computed_lp_residual_view,
+                         kFloatMin);
     }
   }
 }

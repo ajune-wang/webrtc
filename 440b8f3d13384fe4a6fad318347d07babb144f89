@@ -70,6 +70,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1079f3d7_884fdc92",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14590
+      },
+      "writtenOn": "2020-10-21T14:32:36Z",
+      "side": 1,
+      "message": "https://gcc.gnu.org/wiki/VerboseDiagnostics#enum_switch\n\n(Also https://gcc.gnu.org/bugzilla/show_bug.cgi?id\u003d87951)\nLooks like gcc guys are not going to \"fix\" it. \n\nTo be honest I don\u0027t mind if the patch is dropped - afterall, it\u0027s only a warning.",
+      "parentUuid": "9a9471c5_83802310",
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdbc9af1_a8901952",

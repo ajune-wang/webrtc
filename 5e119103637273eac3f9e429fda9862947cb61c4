@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb4df660_4902e799",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-21T11:31:52Z",
+      "side": 1,
+      "message": "it\u0027s right,I will do it,thank you",
+      "parentUuid": "069f87f3_b336c2b2",
+      "range": {
+        "startLine": 278,
+        "startChar": 11,
+        "endLine": 278,
+        "endChar": 30
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c28d25e_c0d0c1d6",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3
@@ -358,6 +382,30 @@
       "side": 1,
       "message": "If you rely on having no missing packets prior to the IDR you can never restart the stream.\n\nThe simplest way to explain this to me would be for you to implement a unittest that shows the problem. Then it would become clear if this change solves the problem or not.",
       "parentUuid": "c58a8fdd_b3fa957c",
+      "range": {
+        "startLine": 335,
+        "startChar": 17,
+        "endLine": 335,
+        "endChar": 42
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "252c9912_d2a214d9",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 14471
+      },
+      "writtenOn": "2020-10-21T11:31:52Z",
+      "side": 1,
+      "message": "I have add unittest in packet_buffer_unittest.cc\ndue to 102 is lost so the expact result.packets is empty,but I test that:\n\nd:\\webrtcpuher\\rtclivepusher\\packet_buffer_unittest.cc(802): error: Value of: result.packets\nExpected: is empty\n  Actual: { 00BF2B38, 00BEEF80, 00BF55E0 }, whose size is 3\n\nso the seq number 103,104,105 will be handle out,which it is incomplete key frames.\n\nafter my modify,the result is what we expected.\n\nwhen no decode in 3000ms,it request the key frames, I clear the missing packets so that it can restart the stream",
+      "parentUuid": "a9e540c6_245ca93f",
       "range": {
         "startLine": 335,
         "startChar": 17,

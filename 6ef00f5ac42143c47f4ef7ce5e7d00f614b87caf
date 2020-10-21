@@ -18,6 +18,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32b3cd30_10a43dc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-10-21T09:47:44Z",
+      "side": 1,
+      "message": "Thanks for the review! See response below.",
+      "parentUuid": "6536f616_0ee69574",
+      "revId": "6ef00f5ac42143c47f4ef7ce5e7d00f614b87caf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dc9985c_d62d0833",
@@ -31,6 +49,30 @@
       "writtenOn": "2020-10-21T08:10:12Z",
       "side": 1,
       "message": "I had missed this before.\nI think the implicit conversion from bool to int is a bit of a hack.\nIt works, but I think the code becomes harder to read (at least I needed to read the code several times to make sure it was not bug).\nWhat about instead changing this to\nconst int out \u003d any_coarse_filter_converged ? 1:0;\nThe cost will be the same, but it clearly signals that this is a deliberate index choice.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 48
+      },
+      "revId": "6ef00f5ac42143c47f4ef7ce5e7d00f614b87caf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7337e45_97817192",
+        "filename": "modules/audio_processing/aec3/transparent_mode.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-10-21T09:47:44Z",
+      "side": 1,
+      "message": "I added a static_cast to make the casting more explicit.",
+      "parentUuid": "2dc9985c_d62d0833",
       "range": {
         "startLine": 96,
         "startChar": 4,

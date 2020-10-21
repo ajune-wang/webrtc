@@ -18,6 +18,8 @@
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
 // #include "test/fpe_observer.h"
+#include "modules/audio_processing/test/performance_timer.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -80,6 +82,32 @@ TEST(RnnVadTest, LpResidualPipelineBitExactness) {
       ExpectNearAbsolute(expected_lp_residual, computed_lp_residual, kFloatMin);
     }
   }
+}
+
+TEST(RnnVadTest, DISABLED_ComputeLpResidualBenchmark) {
+  auto pitch_buf_24kHz_reader = CreatePitchBuffer24kHzReader();
+  std::vector<float> pitch_buf_data(kBufSize24kHz);
+  for (size_t i = 0; i < pitch_buf_24kHz_reader.second / 2; ++i) {
+    ASSERT_TRUE(pitch_buf_24kHz_reader.first->ReadChunk(pitch_buf_data));
+  }
+
+  std::array<float, kNumLpcCoefficients> lpc_coeffs;
+  ComputeAndPostProcessLpcCoefficients(pitch_buf_data, lpc_coeffs);
+
+  std::vector<float> computed_lp_residual(kBufSize24kHz);
+
+  int number_of_tests = 100;
+  ::webrtc::test::PerformanceTimer perf_timer(number_of_tests);
+  for (int i = 0; i < number_of_tests; ++i) {
+    perf_timer.StartTimer();
+    for (int j = 0; j < 1000; ++j) {
+      ComputeLpResidual(lpc_coeffs, pitch_buf_data, computed_lp_residual);
+    }
+    perf_timer.StopTimer();
+  }
+
+  RTC_LOG(LS_INFO) << "ComputeLpResidual " << perf_timer.GetDurationAverage()
+                   << " us +/-" << perf_timer.GetDurationStandardDeviation();
 }
 
 }  // namespace test

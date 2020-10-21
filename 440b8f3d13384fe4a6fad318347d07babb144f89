@@ -16,6 +16,69 @@
       "message": "mbonadei: since this is basically a compiler thing can you take a look please?\nThe style is used in a couple of other places so it makes sense to have this consistent.",
       "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa290a94_a75f161d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T13:19:57Z",
+      "side": 1,
+      "message": "Adding Karl for a comment.\n\nIn the meantime I am running presubmit.",
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdbc9af1_a8901952",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T13:19:57Z",
+      "side": 1,
+      "message": "Netgem S.A.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 6
+      },
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee6369b2_94c2257d",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T13:19:57Z",
+      "side": 1,
+      "message": "Adding kwiberg@ to decide which style we prefer here and in other places where we have switch (no default and return out of the switch or default with return).",
+      "range": {
+        "startLine": 607,
+        "startChar": 2,
+        "endLine": 608,
+        "endChar": 29
+      },
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

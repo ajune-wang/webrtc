@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee52a05b_f7e7d6ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T14:25:27Z",
+      "side": 1,
+      "message": "Good catch nisse@! It looks like it should be enabled by default: https://clang.llvm.org/docs/DiagnosticsReference.html#wreturn-type.\n\nnisse@, can you open a crbug.com with component Tools\u003eLLVM with this repro (and CC me)?",
+      "parentUuid": "9a9471c5_83802310",
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdbc9af1_a8901952",
         "filename": "AUTHORS",
         "patchSetId": 1

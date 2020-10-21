@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17693f04_262640a1",
+        "filename": "pc/webrtc_session_description_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2020-10-21T08:48:42Z",
+      "side": 1,
+      "message": "This todo is now obsolete. Is there something that we still want to stop depending on? Update the comment or remove it if it is no longer applicable.",
+      "revId": "fcc424d8e03b7b7b9aeca2653b0941d8961eda18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

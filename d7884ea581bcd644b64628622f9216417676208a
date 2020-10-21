@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "477e6182_d0152555",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-21T00:34:21Z",
+      "side": 1,
+      "message": "PTAL. See this comment if you\u0027re interested in the details of the bug: https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1138878#c8",
+      "revId": "d7884ea581bcd644b64628622f9216417676208a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

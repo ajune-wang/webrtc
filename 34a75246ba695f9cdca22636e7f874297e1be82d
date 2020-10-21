@@ -101,6 +101,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "402dd051_551ef6eb",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-21T19:40:42Z",
+      "side": 1,
+      "message": "|Can we write code that performs significantly better compared to std::inner_product?\nYes, we checked what these do about a year ago and these map to plain C++ loops which are then compiled. So just writing it in a C++ loop will work fine.\n\n|If I understand correctly, you\u0027re suggesting that we add our own |implementation of std::inner_product and the reason for that is the chance to |write sth faster than the std function.\n\nFrom what I\u0027ve seen, the std function does not add any customized optimizations, i.e., I strongly doubt that it is faster than a well-written C++ loop. If those loops are written in a clean manner, compilers are really good at optimizing them.\n\nMy main concerns here are that you are creating a double loop where the inner loop criterion is based on std::inner_product and it is very hard, at least for me, to see how the loop-criterions affect each other.\n\nI\u0027d definitely prefer to avoid the inner_product because I think it reduces readability.\n\nOne aspect that actually may improve the speed of the loop is that the iterators for x likely need to be reinitialized for each call, even though the size of x is never changed.",
+      "parentUuid": "854f3c7a_e8870df0",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff556f18_db1f26e0",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
         "patchSetId": 7

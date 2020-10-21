@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/audio_options.h"
 #include "api/candidate.h"
 #include "api/jsep.h"
 #include "api/jsep_ice_candidate.h"
@@ -36,6 +37,7 @@
 #include "api/set_remote_description_observer_interface.h"
 #include "api/transport/data_channel_transport_interface.h"
 #include "api/turn_customizer.h"
+#include "media/base/media_channel.h"
 #include "media/base/stream_params.h"
 #include "p2p/base/port_allocator.h"
 #include "pc/channel.h"
@@ -52,6 +54,7 @@
 #include "pc/rtp_receiver.h"
 #include "pc/rtp_sender.h"
 #include "pc/rtp_transceiver.h"
+#include "pc/rtp_transmission_manager.h"
 #include "pc/sctp_transport.h"
 #include "pc/session_description.h"
 #include "pc/stats_collector.h"
@@ -89,6 +92,12 @@ class SdpOfferAnswerHandler {
  public:
   explicit SdpOfferAnswerHandler(PeerConnection* pc);
   ~SdpOfferAnswerHandler();
+
+  // Called from PeerConnection's Initialize() function. Can only be called
+  // once. Modifies dependencies.
+  void Initialize(
+      const PeerConnectionInterface::RTCConfiguration& configuration,
+      PeerConnectionDependencies* dependencies);
 
   void SetSessionDescFactory(
       std::unique_ptr<WebRtcSessionDescriptionFactory> factory) {
@@ -538,6 +547,8 @@ class SdpOfferAnswerHandler {
   RtpTransmissionManager* rtp_manager();
   const RtpTransmissionManager* rtp_manager() const;
   // ===================================================================
+  const cricket::AudioOptions& audio_options() { return audio_options_; }
+  const cricket::VideoOptions& video_options() { return video_options_; }
 
   PeerConnection* const pc_;
 
@@ -615,6 +626,17 @@ class SdpOfferAnswerHandler {
   SessionError session_error_ RTC_GUARDED_BY(signaling_thread()) =
       SessionError::kNone;
   std::string session_error_desc_ RTC_GUARDED_BY(signaling_thread());
+
+  // Member variables for caching global options.
+  cricket::AudioOptions audio_options_ RTC_GUARDED_BY(signaling_thread());
+  cricket::VideoOptions video_options_ RTC_GUARDED_BY(signaling_thread());
+
+  // This object should be used to generate any SSRC that is not explicitly
+  // specified by the user (or by the remote party).
+  // The generator is not used directly, instead it is passed on to the
+  // channel manager and the session description factory.
+  rtc::UniqueRandomIdGenerator ssrc_generator_
+      RTC_GUARDED_BY(signaling_thread());
 
   rtc::WeakPtrFactory<SdpOfferAnswerHandler> weak_ptr_factory_
       RTC_GUARDED_BY(signaling_thread());

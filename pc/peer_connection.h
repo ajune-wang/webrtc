@@ -378,12 +378,10 @@ class PeerConnection : public PeerConnectionInternal,
   }
   cricket::PortAllocator* port_allocator() { return port_allocator_.get(); }
   Call* call_ptr() { return call_ptr_; }
-  rtc::UniqueRandomIdGenerator* ssrc_generator() { return &ssrc_generator_; }
-  const cricket::AudioOptions& audio_options() { return audio_options_; }
-  const cricket::VideoOptions& video_options() { return video_options_; }
   VideoBitrateAllocatorFactory* video_bitrate_allocator_factory() {
     return video_bitrate_allocator_factory_.get();
   }
+  ConnectionContext* context() { return context_.get(); }
 
   cricket::DataChannelType data_channel_type() const;
   void SetIceConnectionState(IceConnectionState new_state);
@@ -462,6 +460,11 @@ class PeerConnection : public PeerConnectionInternal,
       RTC_RUN_ON(network_thread());
   void TeardownDataChannelTransport_n() RTC_RUN_ON(network_thread());
   cricket::ChannelInterface* GetChannel(const std::string& content_name);
+
+  // Called when an RTCCertificate is generated or retrieved by
+  // WebRTCSessionDescriptionFactory. Should happen before setLocalDescription.
+  void OnCertificateReady(
+      const rtc::scoped_refptr<rtc::RTCCertificate>& certificate);
 
   // Functions made public for testing.
   void ReturnHistogramVeryQuicklyForTesting() {
@@ -553,11 +556,6 @@ class PeerConnection : public PeerConnectionInternal,
   cricket::IceConfig ParseIceConfig(
       const PeerConnectionInterface::RTCConfiguration& config) const;
 
-
-  // Called when an RTCCertificate is generated or retrieved by
-  // WebRTCSessionDescriptionFactory. Should happen before setLocalDescription.
-  void OnCertificateReady(
-      const rtc::scoped_refptr<rtc::RTCCertificate>& certificate);
 
   // Returns true and the TransportInfo of the given |content_name|
   // from |description|. Returns false if it's not available.
@@ -663,7 +661,6 @@ class PeerConnection : public PeerConnectionInternal,
   // is not injected. It should be required once chromium supplies it.
   std::unique_ptr<AsyncResolverFactory> async_resolver_factory_
       RTC_GUARDED_BY(signaling_thread());
-  std::unique_ptr<rtc::PacketSocketFactory> packet_socket_factory_;
   std::unique_ptr<cricket::PortAllocator>
       port_allocator_;  // TODO(bugs.webrtc.org/9987): Accessed on both
                         // signaling and network thread.
@@ -715,20 +712,9 @@ class PeerConnection : public PeerConnectionInternal,
 
   bool dtls_enabled_ RTC_GUARDED_BY(signaling_thread()) = false;
 
-  // Member variables for caching global options.
-  cricket::AudioOptions audio_options_ RTC_GUARDED_BY(signaling_thread());
-  cricket::VideoOptions video_options_ RTC_GUARDED_BY(signaling_thread());
-
   UsagePattern usage_pattern_ RTC_GUARDED_BY(signaling_thread());
   bool return_histogram_very_quickly_ RTC_GUARDED_BY(signaling_thread()) =
       false;
-
-  // This object should be used to generate any SSRC that is not explicitly
-  // specified by the user (or by the remote party).
-  // The generator is not used directly, instead it is passed on to the
-  // channel manager and the session description factory.
-  rtc::UniqueRandomIdGenerator ssrc_generator_
-      RTC_GUARDED_BY(signaling_thread());
 
   // A video bitrate allocator factory.
   // This can injected using the PeerConnectionDependencies,

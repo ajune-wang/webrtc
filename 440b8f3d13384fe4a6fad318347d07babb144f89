@@ -103,6 +103,30 @@
       },
       "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14ae17c2_67fadcce",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-21T13:35:11Z",
+      "side": 1,
+      "message": "Yes, I think this is a good thing (but I suspect we are not doing it in a lot of places).\n\nBut passing this to Karl.",
+      "parentUuid": "c29b094a_66d84084",
+      "range": {
+        "startLine": 607,
+        "startChar": 2,
+        "endLine": 608,
+        "endChar": 29
+      },
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

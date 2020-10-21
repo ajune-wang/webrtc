@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d46f23_da5fdab4",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-21T08:21:46Z",
+      "side": 0,
+      "message": "While I definitely think that this should be revisited, it is a fairly large thing to remove. This looks at frequencies down to 1.1 kHz while the former only looks at frequencies above 2 kHz.\n\nI\u0027m happy to remove it by default but I\u0027d suggest putting a parameter (default off) in the config for it, and adding a kill-switch for it.",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "d3ef499418a8081ec90c04ec670c079d5f3dcc98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

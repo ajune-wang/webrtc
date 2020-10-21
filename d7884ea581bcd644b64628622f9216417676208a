@@ -33,6 +33,24 @@
       "message": "Seems like it should be easy to add a test (init, grab a lock, call a function that queues on the lock, call finish, release lock, call init again).\n\nOtherwise LGTM.\n",
       "revId": "d7884ea581bcd644b64628622f9216417676208a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b12ad37a_08749ff0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5053
+      },
+      "writtenOn": "2020-10-21T20:55:14Z",
+      "side": 1,
+      "message": "Hmm... When you say \"grab a lock\"/\"call a function\" are you talking about usrsctp locks/functions? That would cause usrsctp_finish to deadlock rather than just fail, though. And if you mean acquire a WebRTC-owned lock from a callback like SignalDataReceived, that won\u0027t work because it\u0027s called asynchronously while not holding any SCTP reference counts.\n\nThe right way to test this would probably be to use a fake/mock usrsctp interface as you\u0027ve brought up before.",
+      "parentUuid": "f77f9a71_16c5caf1",
+      "revId": "d7884ea581bcd644b64628622f9216417676208a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

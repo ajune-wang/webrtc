@@ -79,6 +79,30 @@
       },
       "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c29b094a_66d84084",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 14590
+      },
+      "writtenOn": "2020-10-21T13:31:54Z",
+      "side": 1,
+      "message": "FYI: Removed the default here so the compiler could warn if a new element is added to the enum",
+      "parentUuid": "ee6369b2_94c2257d",
+      "range": {
+        "startLine": 607,
+        "startChar": 2,
+        "endLine": 608,
+        "endChar": 29
+      },
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

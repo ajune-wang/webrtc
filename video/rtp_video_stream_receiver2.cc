@@ -683,6 +683,10 @@ void RtpVideoStreamReceiver2::RequestKeyFrame() {
   // TODO(bugs.webrtc.org/10336): Allow the sender to ignore key frame requests
   // issued by anything other than the LossNotificationController if it (the
   // sender) is relying on LNTF alone.
+
+  // We can clear the old packet.
+  packet_buffer_.Clear();
+
   if (keyframe_request_sender_) {
     keyframe_request_sender_->RequestKeyFrame();
   } else {

@@ -40,8 +40,9 @@ TEST(RnnVadTest, LpResidualOfEmptyFrame) {
   ComputeLpResidual(lpc_coeffs, empty_frame, lp_residual);
 }
 
-// Checks that the computed LP residual is bit-exact given test input data.
-TEST(RnnVadTest, LpResidualPipelineBitExactness) {
+// Checks that the computed LP residual is within tolerance given test input
+// data.
+TEST(RnnVadTest, LpResidualWithinTolerance) {
   // Input and expected output readers.
   auto pitch_buf_24kHz_reader = CreatePitchBuffer24kHzReader();
   auto lp_residual_reader = CreateLpResidualAndPitchPeriodGainReader();
@@ -77,7 +78,7 @@ TEST(RnnVadTest, LpResidualPipelineBitExactness) {
       SCOPED_TRACE(i);
       ComputeAndPostProcessLpcCoefficients(pitch_buf_data, lpc_coeffs);
       ComputeLpResidual(lpc_coeffs, pitch_buf_data, computed_lp_residual);
-      ExpectNearAbsolute(expected_lp_residual, computed_lp_residual, kFloatMin);
+      ExpectNearAbsolute(expected_lp_residual, computed_lp_residual, 2e-3f);
     }
   }
 }

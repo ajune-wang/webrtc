@@ -16,6 +16,23 @@
       "message": "PTAL. See this comment if you\u0027re interested in the details of the bug: https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1138878#c8",
       "revId": "d7884ea581bcd644b64628622f9216417676208a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f77f9a71_16c5caf1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-21T06:16:58Z",
+      "side": 1,
+      "message": "Seems like it should be easy to add a test (init, grab a lock, call a function that queues on the lock, call finish, release lock, call init again).\n\nOtherwise LGTM.\n",
+      "revId": "d7884ea581bcd644b64628622f9216417676208a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

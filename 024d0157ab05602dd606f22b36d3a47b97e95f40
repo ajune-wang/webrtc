@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2df368c_ba1556a2",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4080,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-21T18:50:34Z",
+      "side": 0,
+      "message": "perkj@,\nWaitForEncodedFrame() already waits one frame interval, that should be enough?\nAlso it should have been AdvanceTime(TimeDelta::Seconds(1) / kDefaultFps) oterhwise?",
+      "range": {
+        "startLine": 4080,
+        "startChar": 4,
+        "endLine": 4080,
+        "endChar": 52
+      },
+      "revId": "024d0157ab05602dd606f22b36d3a47b97e95f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

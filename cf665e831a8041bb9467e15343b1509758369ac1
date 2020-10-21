@@ -58,6 +58,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "777bbf58_6ef02fbe",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-21T18:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9302b3b_b4b07cb3",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 25
+      },
+      "revId": "cf665e831a8041bb9467e15343b1509758369ac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f7ec002_a65ea82d",
@@ -81,6 +105,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b27cdef_a02e9840",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-21T18:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f7ec002_a65ea82d",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 62
+      },
+      "revId": "cf665e831a8041bb9467e15343b1509758369ac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5316ab16_47cf8034",
@@ -94,6 +142,30 @@
       "writtenOn": "2020-10-21T17:52:24Z",
       "side": 1,
       "message": "Looks quite magic. Is it 2x hysteresis factor maybe?",
+      "range": {
+        "startLine": 5599,
+        "startChar": 25,
+        "endLine": 5599,
+        "endChar": 29
+      },
+      "revId": "cf665e831a8041bb9467e15343b1509758369ac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b672d0b8_67bab7d4",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 5599,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-21T18:50:34Z",
+      "side": 1,
+      "message": "No, in this test we make the encoder overshoot in order to make sure the frame dropper detects that an drops frames to stop too large an overshoot.\nThe problem is that the encoder bitrate adjuster will try to lower the target bitrate we tell the encoder when it sees an overshoot and preempts the problems a bit.\nThere\u0027s some hysteresis in the adjuster and some other heuristics in the frame dropper so it\u0027s really not trivial to define where these numbers come from unfortunately.\nAdded comment to explain why we have such magic numbers here..",
+      "parentUuid": "5316ab16_47cf8034",
       "range": {
         "startLine": 5599,
         "startChar": 25,

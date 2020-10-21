@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1eca6219_ffa06a1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-21T18:50:34Z",
+      "side": 1,
+      "message": "+perkj@, your recent video layers allocation caused some conflicts here, ptal!",
+      "revId": "58de90f3460a5ddba88805e3b173b0721ded5606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e848fc6_f8f120db",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-21T18:50:34Z",
+      "side": 1,
+      "message": "+perkj@ the bitrate adjuster caused some issues here, rate_control_changed can true if the estimated encoder overshoot changes and so rate_control.bitrate has changed. But for OnVideoLayersAllocationUpdated we only care if rate_controler.target_bitrate has changed.\nptal at the workaround for this",
+      "range": {
+        "startLine": 1201,
+        "startChar": 0,
+        "endLine": 1209,
+        "endChar": 5
+      },
+      "revId": "58de90f3460a5ddba88805e3b173b0721ded5606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f2f02da_d34db2fb",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4066,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-21T18:50:34Z",
+      "side": 1,
+      "message": "perkj@ This should check target, right?",
+      "range": {
+        "startLine": 4066,
+        "startChar": 58,
+        "endLine": 4066,
+        "endChar": 72
+      },
+      "revId": "58de90f3460a5ddba88805e3b173b0721ded5606",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

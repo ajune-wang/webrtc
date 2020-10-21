@@ -198,6 +198,30 @@
       },
       "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd0eb221_2dd95266",
+        "filename": "call/adaptation/video_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-21T14:40:40Z",
+      "side": 1,
+      "message": "This looks like what\u0027s recommended by https://abseil.io/tips/147: no `default:` label so that the compiler will remind us if we don\u0027t handle all the enum cases, but still handle the case where none of the switch cases matched.\n\nHowever, RTC_NOTREACHED() is approximately equivalent to RTC_DCHECK(false), which does nothing in production builds; this is why a `return` is needed on the following line. I suspect a lot (most?) of the cases in this CL would be better written as `RTC_CHECK(false)`, with no return statement afterwards.\n\n(Related: https://crbug.com/webrtc/9065 calls for renaming RTC_NOTREACHED to RTC_DCHECK_NOTREACHED; this would allow us to add RTC_CHECK_NOTREACHED, which is what I would really recommend we use here.)",
+      "parentUuid": "14ae17c2_67fadcce",
+      "range": {
+        "startLine": 607,
+        "startChar": 2,
+        "endLine": 608,
+        "endChar": 29
+      },
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

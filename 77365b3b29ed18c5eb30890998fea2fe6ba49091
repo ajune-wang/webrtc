@@ -16,6 +16,52 @@
       "message": "Please?",
       "revId": "77365b3b29ed18c5eb30890998fea2fe6ba49091",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a59646b_23f13bed",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-21T11:24:26Z",
+      "side": 1,
+      "message": "*send_rtp_extensions_\n\nhttps://abseil.io/tips/181#fnref:1\n\"The value() method combines two actions: a test for validity followed by an access of the value. It should therefore be used only if both actions are intended\"",
+      "range": {
+        "startLine": 1314,
+        "startChar": 10,
+        "endLine": 1314,
+        "endChar": 38
+      },
+      "revId": "77365b3b29ed18c5eb30890998fea2fe6ba49091",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b883e15_c4ec8396",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-21T11:24:26Z",
+      "side": 1,
+      "message": "may be turn this into else if branch to show there are three cases here, not two:\n\n} else if (IsEnabled(call_-\u003etrials(), \"WebRTC-Target-Bitrate-Rtcp\")) {\n  config.encoder_settings.allocation_cb_type \u003d BitrateAllocationCallbackType::kVideoBitrateAllocation;\n} else {\n  config.encoder_settings.allocation_cb_type \u003d kVideoBitrateAllocationWhenScreenSharing;\n}\n\n\n\n(or add a small helper function\nwebrtc::VideoStreamEncoderSettings::\n                  BitrateAllocationCallbackType TargetBitrateMessageType() const {\n  if (send_extensions_ \u0026\u0026 ...) {\n    return webrtc::VideoStreamEncoderSettings::BitrateAllocationCallbackType::\n            kVideoLayersAllocation;\n  }\n  if (trial_) {\n    return kVideoBitrateAllocation;\n  }\n  return kVideoBitrateAllocationWhenScreenSharing;\n}\n\nto use here:\nconfig.encoder_settings.allocation_cb_type \u003d TargetBitrateMessageType();",
+      "range": {
+        "startLine": 1319,
+        "startChar": 2,
+        "endLine": 1319,
+        "endChar": 10
+      },
+      "revId": "77365b3b29ed18c5eb30890998fea2fe6ba49091",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

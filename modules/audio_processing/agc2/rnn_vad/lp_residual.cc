@@ -40,9 +40,12 @@ void DenoiseAutoCorrelation(
     rtc::ArrayView<float, kNumLpcCoefficients> auto_corr) {
   // Assume -40 dB white noise floor.
   auto_corr[0] *= 1.0001f;
-  for (size_t i = 1; i < kNumLpcCoefficients; ++i) {
-    auto_corr[i] -= auto_corr[i] * (0.008f * i) * (0.008f * i);
-  }
+  // Hard-coded values obtained as
+  // [np.float32((0.008*0.008*i*i)) for i in range(1,5)].
+  auto_corr[1] -= auto_corr[1] * 0.000064f;
+  auto_corr[2] -= auto_corr[2] * 0.000256f;
+  auto_corr[3] -= auto_corr[3] * 0.000576f;
+  auto_corr[4] -= auto_corr[4] * 0.001024f;
 }
 
 // Computes the initial inverse filter coefficients given the auto-correlation
@@ -114,19 +117,18 @@ void ComputeLpResidual(
     rtc::ArrayView<const float, kNumLpcCoefficients> lpc_coeffs,
     rtc::ArrayView<const float> x,
     rtc::ArrayView<float> y) {
-  RTC_DCHECK_LT(kNumLpcCoefficients, x.size());
+  RTC_DCHECK_GT(x.size(), kNumLpcCoefficients);
   RTC_DCHECK_EQ(x.size(), y.size());
-  std::array<float, kNumLpcCoefficients> input_chunk;
-  input_chunk.fill(0.f);
-  for (size_t i = 0; i < y.size(); ++i) {
-    const float sum = std::inner_product(input_chunk.begin(), input_chunk.end(),
-                                         lpc_coeffs.begin(), x[i]);
-    // Circular shift and add a new sample.
-    for (size_t j = kNumLpcCoefficients - 1; j > 0; --j)
-      input_chunk[j] = input_chunk[j - 1];
-    input_chunk[0] = x[i];
-    // Copy result.
-    y[i] = sum;
+  y[0] = x[0];
+  for (size_t i = 1; i < kNumLpcCoefficients; ++i) {
+    y[i] = std::inner_product(x.cbegin(), x.cbegin() + i,
+                              lpc_coeffs.crbegin() + kNumLpcCoefficients - i,
+                              x[i]);
+  }
+  const float* first = x.cbegin();
+  for (size_t i = kNumLpcCoefficients; i < y.size(); ++i, ++first) {
+    y[i] = std::inner_product(first, first + kNumLpcCoefficients,
+                              lpc_coeffs.crbegin(), x[i]);
   }
 }
 

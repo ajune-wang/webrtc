@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2370f7a_980e7c9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-21T14:50:26Z",
+      "side": 1,
+      "message": "Thanks Per!",
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb8ebc4e_91c9d197",
@@ -60,6 +77,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "854f3c7a_e8870df0",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-21T14:50:26Z",
+      "side": 1,
+      "message": "Thanks for the suggestion Per!\n\n\u003e Since the purpose is to optimize the code, I would suggest not using the inner_product method. From my experience, the only thing that will happen is that it will inline a loop-implementation and no special optimization is done.\n\nCan we write code that performs significantly better compared to std::inner_product?\n\nIf I understand correctly, you\u0027re suggesting that we add our own implementation of std::inner_product and the reason for that is the chance to write sth faster than the std function.\n\nI can benchmark that alternative, but in general I prefer to avoid expanding such a function because IMO using std::inner_product reads better and it\u0027s less error prone.\n\n\u003e \n\u003e However, with the current implementation the call to inner_product hides how the nested loop likes like (i is included in the call and end-iterators are used.\n\nNote that that was already the case: the code I changed has a for loop which calls std::inner_product plus a circular buffer shit op. Now we essentially have a for loop with std::inner_product only - so everything according to the CL description. So, the new impl doesn\u0027t hide anything that previously was not hidden.\n\n\u003e \n\u003e My suggestion is therefore to instead of using the inner_product write out the actual loops. That will make it more clear to see whether the loops are optimized fully.\n\nFor sure one good thing of having the actual loops is that we can better assess temporal/spatial locality to reduce cache miss.\n\n\u003e \n\u003e Same comment goes for the line 134.\n\nI\u0027ll benchmark the alternative you suggest, but feel free to reply in the meantime.",
+      "parentUuid": "cb8ebc4e_91c9d197",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff556f18_db1f26e0",
         "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
         "patchSetId": 7
@@ -71,6 +112,30 @@
       "writtenOn": "2020-10-21T13:20:38Z",
       "side": 1,
       "message": "Why is this disabled? if this code is not meant to run as part of the test suite I\u0027d suggest removing it or keeping it separate for another usecase.\n\nI don\u0027t think keeping it makes sense since the optimizations are already done which means that the test after this is of no value (unless it would run as a perf-test to ensure that there are no regressions in the complexity)",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 52
+      },
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddecf0bb_7070a877",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-21T14:50:26Z",
+      "side": 1,
+      "message": "Good point: no extra work is expected on this part, so I will remove the test in the next patchset.",
+      "parentUuid": "ff556f18_db1f26e0",
       "range": {
         "startLine": 87,
         "startChar": 17,

@@ -778,6 +778,26 @@ TEST_P(PacketBufferH264ParameterizedTest, FindFramesOnPadding) {
   EXPECT_THAT(packet_buffer_.InsertPadding(1), StartSeqNumsAre(2));
 }
 
+TEST_P(PacketBufferH264ParameterizedTest, IncompleteIDRFrames) {
+  uint32_t timestamp = 10000;
+  // The key frames is multi-slice encoding when use hardware acceleration in
+  // chrome, contained of one fu-a and two stap-a or two singleNalu.
+
+  // Fu-a mode.
+  InsertH264(100, kKeyFrame, kFirst, kNotLast, timestamp);
+  InsertH264(101, kKeyFrame, kNotFirst, kNotLast, timestamp);
+  // 102 packet is lost.
+  // InsertH264(102, kKeyFrame, kNotFirst, kNotLast, timestamp);
+  InsertH264(103, kKeyFrame, kNotFirst, kNotLast, timestamp);
+
+  // Stap-a mode.
+  InsertH264(104, kKeyFrame, kFirst, kNotLast, timestamp);
+
+  // Stap-a mode.
+  auto result = InsertH264(105, kKeyFrame, kFirst, kLast, timestamp);
+  EXPECT_THAT(result.packets, IsEmpty());
+}
+
 class PacketBufferH264XIsKeyframeTest : public PacketBufferH264Test {
  protected:
   const uint16_t kSeqNum = 5;

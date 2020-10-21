@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a9471c5_83802310",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-21T14:16:28Z",
+      "side": 1,
+      "message": "I\u0027m tempted to say it\u0027s a compiler bug; it makes the \"enumeration value ... not handled in switch [-Wswitch]\" warning a bit less useful, if the compiler\u0027s data flow analysis isn\u0027t willing to assume that run-time enum values are valid. Please consider filing a gcc bug report. Example program:\n\nenum class Foo { A, B, C };\n\nconst char *Lookup(Foo foo)\n{\n  switch (foo) {\n    case Foo::A: return \"a\";\n    case Foo::B: return \"b\";\n    case Foo::C: return \"c\";\n  }\n}\n\nI\u0027ve tried \n  g++ -Wall -c enum-warnings.cc # g++ (Debian 9.3.0-15) 9.3.0)\nand\n  g++-10 -Wall -c enum-warnings.cc # g++-10 (Debian 10.1.0-6) 10.1.0\n\nand I get the same warning you report. clang++ (I\u0027m testing with 9.0.1) doesn\u0027t warn. But if one of the case labels is deleted, both compilers warn both about an unhandled enum value and control reaching end of non-void function.\n\nIs there some easy way to add -Wno-return-type when building with gcc, until this is fixed?",
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdbc9af1_a8901952",

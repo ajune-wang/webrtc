@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e5d256b_fdcc0ff9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-22T07:45:55Z",
+      "side": 1,
+      "message": "Interesting discussion on that bug. It mentions the -fstrict-enums gcc option, but that doesn\u0027t seem to have any effect on warnings. Let\u0027s amend the example as this:\n\nenum class Foo { A, B, C };\n\nconst char *Lookup(Foo foo)\n{\n  switch (foo) {\n    case Foo::A: return \"a\";\n    case Foo::B: return \"b\";\n    case Foo::C: return \"c\";\n  }\n}\n\nFoo OutOfRange() {\n  return Foo(5);\n}\n\nNo matter if I use -fstrict-enums or not, I get a control flow warning on the Lookup function, and no warning on the OutOfRange function, because the latter is apparently perfectly valid C++ according to the standards.\n\nSo then the approach in this cl is likely right after all, and it\u0027s llvm that is a bit lax and doesn\u0027t warn for code that is clearly invalid in case the program constructs out-of-range enum values.",
+      "parentUuid": "4ef9014e_efdbe660",
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdbc9af1_a8901952",
         "filename": "AUTHORS",
         "patchSetId": 1

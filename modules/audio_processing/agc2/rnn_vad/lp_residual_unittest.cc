@@ -18,6 +18,8 @@
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
 // #include "test/fpe_observer.h"
+#include "modules/audio_processing/test/performance_timer.h"
+#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {

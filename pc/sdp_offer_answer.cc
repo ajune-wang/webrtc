@@ -36,6 +36,7 @@
 #include "p2p/base/transport_description.h"
 #include "p2p/base/transport_description_factory.h"
 #include "p2p/base/transport_info.h"
+#include "pc/connection_context.h"
 #include "pc/data_channel_utils.h"
 #include "pc/media_protocol_names.h"
 #include "pc/media_stream.h"
@@ -49,11 +50,13 @@
 #include "pc/simulcast_description.h"
 #include "pc/stats_collector.h"
 #include "pc/usage_pattern.h"
+#include "pc/webrtc_session_description_factory.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/ref_counted_object.h"
+#include "rtc_base/rtc_certificate.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/string_encode.h"
@@ -944,6 +947,53 @@ SdpOfferAnswerHandler::SdpOfferAnswerHandler(PeerConnection* pc)
 
 SdpOfferAnswerHandler::~SdpOfferAnswerHandler() {}
 
+void SdpOfferAnswerHandler::Initialize(
+    const PeerConnectionInterface::RTCConfiguration& configuration,
+    PeerConnectionDependencies* dependencies) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  video_options_.screencast_min_bitrate_kbps =
+      configuration.screencast_min_bitrate;
+  audio_options_.combined_audio_video_bwe =
+      configuration.combined_audio_video_bwe;
+
+  audio_options_.audio_jitter_buffer_max_packets =
+      configuration.audio_jitter_buffer_max_packets;
+
+  audio_options_.audio_jitter_buffer_fast_accelerate =
+      configuration.audio_jitter_buffer_fast_accelerate;
+
+  audio_options_.audio_jitter_buffer_min_delay_ms =
+      configuration.audio_jitter_buffer_min_delay_ms;
+
+  audio_options_.audio_jitter_buffer_enable_rtx_handling =
+      configuration.audio_jitter_buffer_enable_rtx_handling;
+
+  // Obtain a certificate from RTCConfiguration if any were provided (optional).
+  rtc::scoped_refptr<rtc::RTCCertificate> certificate;
+  if (!configuration.certificates.empty()) {
+    // TODO(hbos,torbjorng): Decide on certificate-selection strategy instead of
+    // just picking the first one. The decision should be made based on the DTLS
+    // handshake. The DTLS negotiations need to know about all certificates.
+    certificate = configuration.certificates[0];
+  }
+
+  webrtc_session_desc_factory_ =
+      std::make_unique<WebRtcSessionDescriptionFactory>(
+          signaling_thread(), channel_manager(), this, pc_->session_id(),
+          pc_->dtls_enabled(), std::move(dependencies->cert_generator),
+          certificate, &ssrc_generator_);
+  webrtc_session_desc_factory_->SignalCertificateReady.connect(
+      this, &SdpOfferAnswerHandler::OnCertificateReady);
+
+  if (pc_->context()->options().disable_encryption) {
+    webrtc_session_desc_factory_->SetSdesPolicy(cricket::SEC_DISABLED);
+  }
+
+  webrtc_session_desc_factory_->set_enable_encrypted_rtp_header_extensions(
+      pc_->GetCryptoOptions().srtp.enable_encrypted_rtp_header_extensions);
+  webrtc_session_desc_factory_->set_is_unified_plan(IsUnifiedPlan());
+}
+
 // ==================================================================
 // Access to pc_ variables
 cricket::ChannelManager* SdpOfferAnswerHandler::channel_manager() const {
@@ -985,6 +1035,11 @@ const RtpTransmissionManager* SdpOfferAnswerHandler::rtp_manager() const {
 }
 
 // ===================================================================
+
+void SdpOfferAnswerHandler::OnCertificateReady(
+    const rtc::scoped_refptr<rtc::RTCCertificate>& certificate) {
+  transport_controller()->SetLocalCertificate(certificate);
+}
 
 void SdpOfferAnswerHandler::PrepareForShutdown() {
   RTC_DCHECK_RUN_ON(signaling_thread());
@@ -2495,14 +2550,14 @@ bool SdpOfferAnswerHandler::AddStream(MediaStreamInterface* local_stream) {
 
   local_streams_->AddStream(local_stream);
   MediaStreamObserver* observer = new MediaStreamObserver(local_stream);
-  observer->SignalAudioTrackAdded.connect(pc_,
-                                          &PeerConnection::OnAudioTrackAdded);
+  observer->SignalAudioTrackAdded.connect(
+      this, &SdpOfferAnswerHandler::OnAudioTrackAdded);
   observer->SignalAudioTrackRemoved.connect(
-      pc_, &PeerConnection::OnAudioTrackRemoved);
-  observer->SignalVideoTrackAdded.connect(pc_,
-                                          &PeerConnection::OnVideoTrackAdded);
+      this, &SdpOfferAnswerHandler::OnAudioTrackRemoved);
+  observer->SignalVideoTrackAdded.connect(
+      this, &SdpOfferAnswerHandler::OnVideoTrackAdded);
   observer->SignalVideoTrackRemoved.connect(
-      pc_, &PeerConnection::OnVideoTrackRemoved);
+      this, &SdpOfferAnswerHandler::OnVideoTrackRemoved);
   stream_observers_.push_back(std::unique_ptr<MediaStreamObserver>(observer));
 
   for (const auto& track : local_stream->GetAudioTracks()) {
@@ -2543,6 +2598,42 @@ void SdpOfferAnswerHandler::RemoveStream(MediaStreamInterface* local_stream) {
   if (pc_->IsClosed()) {
     return;
   }
+  UpdateNegotiationNeeded();
+}
+
+void SdpOfferAnswerHandler::OnAudioTrackAdded(AudioTrackInterface* track,
+                                              MediaStreamInterface* stream) {
+  if (pc_->IsClosed()) {
+    return;
+  }
+  rtp_manager()->AddAudioTrack(track, stream);
+  UpdateNegotiationNeeded();
+}
+
+void SdpOfferAnswerHandler::OnAudioTrackRemoved(AudioTrackInterface* track,
+                                                MediaStreamInterface* stream) {
+  if (pc_->IsClosed()) {
+    return;
+  }
+  rtp_manager()->RemoveAudioTrack(track, stream);
+  UpdateNegotiationNeeded();
+}
+
+void SdpOfferAnswerHandler::OnVideoTrackAdded(VideoTrackInterface* track,
+                                              MediaStreamInterface* stream) {
+  if (pc_->IsClosed()) {
+    return;
+  }
+  rtp_manager()->AddVideoTrack(track, stream);
+  UpdateNegotiationNeeded();
+}
+
+void SdpOfferAnswerHandler::OnVideoTrackRemoved(VideoTrackInterface* track,
+                                                MediaStreamInterface* stream) {
+  if (pc_->IsClosed()) {
+    return;
+  }
+  rtp_manager()->RemoveVideoTrack(track, stream);
   UpdateNegotiationNeeded();
 }
 
@@ -4511,7 +4602,7 @@ cricket::VoiceChannel* SdpOfferAnswerHandler::CreateVoiceChannel(
     voice_channel = channel_manager()->CreateVoiceChannel(
         pc_->call_ptr(), pc_->configuration()->media_config, rtp_transport,
         signaling_thread(), mid, pc_->SrtpRequired(), pc_->GetCryptoOptions(),
-        pc_->ssrc_generator(), pc_->audio_options());
+        &ssrc_generator_, audio_options());
   }
   if (!voice_channel) {
     return nullptr;
@@ -4538,7 +4629,7 @@ cricket::VideoChannel* SdpOfferAnswerHandler::CreateVideoChannel(
     video_channel = channel_manager()->CreateVideoChannel(
         pc_->call_ptr(), pc_->configuration()->media_config, rtp_transport,
         signaling_thread(), mid, pc_->SrtpRequired(), pc_->GetCryptoOptions(),
-        pc_->ssrc_generator(), pc_->video_options(),
+        &ssrc_generator_, video_options(),
         pc_->video_bitrate_allocator_factory());
   }
   if (!video_channel) {
@@ -4575,7 +4666,7 @@ bool SdpOfferAnswerHandler::CreateDataChannel(const std::string& mid) {
             channel_manager()->CreateRtpDataChannel(
                 pc_->configuration()->media_config, rtp_transport,
                 signaling_thread(), mid, pc_->SrtpRequired(),
-                pc_->GetCryptoOptions(), pc_->ssrc_generator()));
+                pc_->GetCryptoOptions(), &ssrc_generator_));
       }
       if (!data_channel_controller()->rtp_data_channel()) {
         return false;

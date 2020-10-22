@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb6d8900_4df1931e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-22T10:00:12Z",
+      "side": 1,
+      "message": "Submitting this reland CL (authorship is maintained: https://webrtc-review.googlesource.com/q/author:daniel.l%2540hpcnt.com).",
+      "revId": "4aac734bbb02833de55769996d20b8fea2810c1f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

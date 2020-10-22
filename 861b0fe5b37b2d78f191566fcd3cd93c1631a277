@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cec2e33_41d6da13",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-22T09:35:21Z",
+      "side": 1,
+      "message": "prefer target_bitrate_changed \u003d false;",
+      "range": {
+        "startLine": 1164,
+        "startChar": 7,
+        "endLine": 1164,
+        "endChar": 37
+      },
+      "revId": "861b0fe5b37b2d78f191566fcd3cd93c1631a277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d41e2c8a_c9036bb2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-22T09:35:21Z",
+      "side": 1,
+      "message": "and check for target bitrate change.",
+      "range": {
+        "startLine": 1169,
+        "startChar": 6,
+        "endLine": 1169,
+        "endChar": 35
+      },
+      "revId": "861b0fe5b37b2d78f191566fcd3cd93c1631a277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b57a404_a990b5d8",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1201,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2020-10-22T09:35:21Z",
+      "side": 1,
+      "message": "if (target_bitrate_changed \u0026\u0026 settings_all.....",
+      "range": {
+        "startLine": 1201,
+        "startChar": 8,
+        "endLine": 1201,
+        "endChar": 17
+      },
+      "revId": "861b0fe5b37b2d78f191566fcd3cd93c1631a277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

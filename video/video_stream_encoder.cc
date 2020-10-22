@@ -1161,7 +1161,14 @@ void VideoStreamEncoder::SetEncoderRates(
   bool rate_control_changed =
       (!last_encoder_rate_settings_.has_value() ||
        last_encoder_rate_settings_->rate_control != rate_settings.rate_control);
+  bool only_adjusted_bitrate_changed = false;
   if (last_encoder_rate_settings_ != rate_settings) {
+    if (last_encoder_rate_settings_.has_value()) {
+      last_encoder_rate_settings_->rate_control.bitrate =
+          rate_settings.rate_control.bitrate;
+      only_adjusted_bitrate_changed =
+          last_encoder_rate_settings_ == rate_settings;
+    }
     last_encoder_rate_settings_ = rate_settings;
   }
 
@@ -1194,8 +1201,11 @@ void VideoStreamEncoder::SetEncoderRates(
     if (settings_.allocation_cb_type ==
         VideoStreamEncoderSettings::BitrateAllocationCallbackType::
             kVideoLayersAllocation) {
-      sink_->OnVideoLayersAllocationUpdated(CreateVideoLayersAllocation(
-          send_codec_, rate_settings.rate_control, encoder_->GetEncoderInfo()));
+      if (!only_adjusted_bitrate_changed) {
+        sink_->OnVideoLayersAllocationUpdated(
+            CreateVideoLayersAllocation(send_codec_, rate_settings.rate_control,
+                                        encoder_->GetEncoderInfo()));
+      }
     }
   }
   if ((settings_.allocation_cb_type ==

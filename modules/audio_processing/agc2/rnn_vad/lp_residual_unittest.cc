@@ -18,6 +18,9 @@
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
 // #include "test/fpe_observer.h"
+#include "modules/audio_processing/test/performance_timer.h"
+#include "rtc_base/logging.h"
+#include "rtc_base/numerics/safe_minmax.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -80,6 +83,45 @@ TEST(RnnVadTest, LpResidualPipelineBitExactness) {
       ExpectNearAbsolute(expected_lp_residual, computed_lp_residual, kFloatMin);
     }
   }
+}
+
+TEST(RnnVadTest, DISABLED_ComputeLpResidualBenchmark) {
+  // Prefetch test data.
+  auto pitch_buf_24kHz_reader = CreatePitchBuffer24kHzReader();
+  std::vector<std::array<float, kBufSize24kHz>> pitch_buffers(
+      pitch_buf_24kHz_reader.second);
+  for (auto& v : pitch_buffers) {
+    ASSERT_TRUE(pitch_buf_24kHz_reader.first->ReadChunk(v));
+  }
+
+  // Pre-compute LPC coefficients.
+  std::vector<std::array<float, kNumLpcCoefficients>> lpc_coeffs(
+      pitch_buffers.size());
+  for (int i = 0; rtc::SafeLt(i, lpc_coeffs.size()); ++i) {
+    ComputeAndPostProcessLpcCoefficients(pitch_buffers[i], lpc_coeffs[i]);
+  }
+
+  constexpr int kNumberOfTests = 1000;
+  constexpr int kInnerLoopLength = 50;
+  RTC_LOG(LS_INFO) << kNumberOfTests << " x " << kInnerLoopLength << " x "
+                   << pitch_buffers.size() << " tests";
+
+  // Output.
+  std::vector<float> lp_residual(kBufSize24kHz);
+
+  ::webrtc::test::PerformanceTimer perf_timer(kNumberOfTests);
+  for (int i = 0; i < kNumberOfTests; ++i) {
+    perf_timer.StartTimer();
+    for (int k = 0; k < kInnerLoopLength; ++k) {
+      for (int j = 0; rtc::SafeLt(j, pitch_buffers.size()); ++j) {
+        ComputeLpResidual(lpc_coeffs[i], pitch_buffers[i], lp_residual);
+      }
+    }
+    perf_timer.StopTimer();
+  }
+
+  RTC_LOG(LS_INFO) << "ComputeLpResidual " << perf_timer.GetDurationAverage()
+                   << " us +/-" << perf_timer.GetDurationStandardDeviation();
 }
 
 }  // namespace test

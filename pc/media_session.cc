@@ -2377,7 +2377,7 @@ bool MediaSessionDescriptionFactory::AddRtpDataContentForOffer(
     return false;
   }
 
-  data->set_bandwidth(kDataMaxBandwidth);
+  data->set_bandwidth(kRtpDataMaxBandwidth);
   SetMediaProtocol(secure_transport, data.get());
   desc->AddContent(media_description_options.mid, MediaProtocolType::kRtp,
                    media_description_options.stopped, std::move(data));
@@ -2768,13 +2768,13 @@ bool MediaSessionDescriptionFactory::AddDataContentForAnswer(
                   offer_content->rejected ||
                   !IsMediaProtocolSupported(MEDIA_TYPE_DATA,
                                             data_answer->protocol(), secure);
-  if (!AddTransportAnswer(media_description_options.mid,
-                          *(data_transport.get()), answer)) {
+  if (!rejected && !AddTransportAnswer(media_description_options.mid,
+                                       *(data_transport.get()), answer)) {
     return false;
   }
 
-  if (!rejected) {
-    data_answer->set_bandwidth(kDataMaxBandwidth);
+  if (!rejected && session_options.data_channel_type == DCT_RTP) {
+    data_answer->set_bandwidth(kRtpDataMaxBandwidth);
   } else {
     // RFC 3264
     // The answer MUST contain the same number of m-lines as the offer.

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32931ab4_e0d96996",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-22T12:35:12Z",
+      "side": 1,
+      "message": "Thanks!\n\nMirko, I think this is the semantics we want, but as you can see it comes with some binary size cost; I\u0027m pretty sure it\u0027s mostly from the file name etc. arguments that are passed inside RTC_CHECK. To fix that, we should probably define RTC_CHECK_NOTREACHED() that does basically RTC_CHECK(false) in debug mode, and compiles to a call to a non-returning zero-arg function in release mode (this should be just a few instructions: https://godbolt.org/z/zW8bYr).",
+      "revId": "93b64b95107f5051721026c70dd38b4592e533c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

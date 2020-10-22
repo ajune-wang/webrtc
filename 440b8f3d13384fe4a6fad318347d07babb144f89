@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c81bf8e_5424e650",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-22T07:59:27Z",
+      "side": 1,
+      "message": "\u003e Interesting discussion on that bug. It mentions the -fstrict-enums gcc option, but that doesn\u0027t seem to have any effect on warnings. Let\u0027s amend the example as this:\n\u003e \n\u003e enum class Foo { A, B, C };\n\u003e \n\u003e const char *Lookup(Foo foo)\n\u003e {\n\u003e   switch (foo) {\n\u003e     case Foo::A: return \"a\";\n\u003e     case Foo::B: return \"b\";\n\u003e     case Foo::C: return \"c\";\n\u003e   }\n\u003e }\n\u003e \n\u003e Foo OutOfRange() {\n\u003e   return Foo(5);\n\u003e }\n\u003e \n\u003e No matter if I use -fstrict-enums or not, I get a control flow warning on the Lookup function, and no warning on the OutOfRange function, because the latter is apparently perfectly valid C++ according to the standards.\n\u003e \n\u003e So then the approach in this cl is likely right after all, and it\u0027s llvm that is a bit lax and doesn\u0027t warn for code that is clearly invalid in case the program constructs out-of-range enum values.\n\nIn this case I would still open a crbug.com on Tools\u003eLLVM and ask them if this is something we can have in clang as well (maybe this is a regression). Because as I said, if we land this we might still regress with time since we almost only have clang on CI.",
+      "parentUuid": "8e5d256b_fdcc0ff9",
+      "revId": "440b8f3d13384fe4a6fad318347d07babb144f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bdbc9af1_a8901952",
         "filename": "AUTHORS",
         "patchSetId": 1

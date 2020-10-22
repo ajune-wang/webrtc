@@ -22,6 +22,30 @@
       },
       "revId": "61709a3233174618d5ab46e1ee5847e4b150c7ef",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1192a9a2_884bd210",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-10-22T12:44:43Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "b8da44b2_dd834e09",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "61709a3233174618d5ab46e1ee5847e4b150c7ef",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

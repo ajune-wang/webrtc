@@ -22,6 +22,30 @@
       },
       "revId": "d3ef499418a8081ec90c04ec670c079d5f3dcc98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71c786a4_da0443f6",
+        "filename": "modules/audio_processing/aec3/suppression_gain.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2020-10-22T12:44:43Z",
+      "side": 0,
+      "message": "There is now a config parameter and a kill-switch. When either is set the output will be bit-exact to before this change.",
+      "parentUuid": "96d46f23_da5fdab4",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 79
+      },
+      "revId": "d3ef499418a8081ec90c04ec670c079d5f3dcc98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

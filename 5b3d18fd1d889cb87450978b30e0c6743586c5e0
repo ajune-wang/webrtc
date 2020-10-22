@@ -16,6 +16,52 @@
       "message": "layer skipping for temporal shift structure has lot\u0027s of interesting edge cases.\nI\u0027ve dropped feature of avoiding key frame in some of the those edge cases to make logic simpler.\nAnd this is the simplest SHIFT structure...",
       "revId": "5b3d18fd1d889cb87450978b30e0c6743586c5e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "924a4c19_fd87906c",
+        "filename": "modules/video_coding/svc/scalability_structure_l2t2_key_shift.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-22T09:51:52Z",
+      "side": 1,
+      "message": "Is this something we test for other structures? Seems like it shouldn\u0027t happen?",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 3
+      },
+      "revId": "5b3d18fd1d889cb87450978b30e0c6743586c5e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e043b157_d5616a67",
+        "filename": "modules/video_coding/svc/scalability_structure_l2t2_key_shift.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-22T09:51:52Z",
+      "side": 1,
+      "message": "Not sure if it is possible for OnRatesUpdated to set active DTs like this:\n\n  NextFrameConfig kKey   , S0T0, S0T1, S1T0, S1T1 active\n  NextFrameConfig kDelta0, S0T0, S0T1, S1T0, S1T1 active\n  NextFrameConfig kDelta1, S0T0,     ,     , S1T1 active\n\nIf so, then we will return an empty vector on the last call.",
+      "range": {
+        "startLine": 89,
+        "startChar": 13,
+        "endLine": 89,
+        "endChar": 44
+      },
+      "revId": "5b3d18fd1d889cb87450978b30e0c6743586c5e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -34,6 +34,24 @@
       "parentUuid": "32931ab4_e0d96996",
       "revId": "93b64b95107f5051721026c70dd38b4592e533c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b8bc828_b5093ae1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-22T12:47:01Z",
+      "side": 1,
+      "message": "Likely yes---but let\u0027s see if we decide to build RTC_CHECK_UNREACHABLE() first, since that would be the one to use in that case.",
+      "parentUuid": "9fa40da0_5485de7d",
+      "revId": "93b64b95107f5051721026c70dd38b4592e533c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

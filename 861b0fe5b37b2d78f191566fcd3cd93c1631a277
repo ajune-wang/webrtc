@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a86ec757_674f3f5c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2020-10-22T09:53:20Z",
+      "side": 1,
+      "message": "But for the layer allocation we care about target bitrate and fps, right?\n\nIf we assume that\u0027s the only thing we will care about we can have an explicit flag for that. Shall I make that assumption?\n\nRight now I only made the decision that we _don\u0027t_ care about the adjusted bitrate but anything else potentially added should be counted.",
+      "parentUuid": "9cec2e33_41d6da13",
+      "range": {
+        "startLine": 1164,
+        "startChar": 7,
+        "endLine": 1164,
+        "endChar": 37
+      },
+      "revId": "861b0fe5b37b2d78f191566fcd3cd93c1631a277",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d41e2c8a_c9036bb2",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 8

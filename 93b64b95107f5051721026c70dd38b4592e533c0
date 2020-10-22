@@ -16,6 +16,24 @@
       "message": "Thanks!\n\nMirko, I think this is the semantics we want, but as you can see it comes with some binary size cost; I\u0027m pretty sure it\u0027s mostly from the file name etc. arguments that are passed inside RTC_CHECK. To fix that, we should probably define RTC_CHECK_NOTREACHED() that does basically RTC_CHECK(false) in debug mode, and compiles to a call to a non-returning zero-arg function in release mode (this should be just a few instructions: https://godbolt.org/z/zW8bYr).",
       "revId": "93b64b95107f5051721026c70dd38b4592e533c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fa40da0_5485de7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-22T12:42:58Z",
+      "side": 1,
+      "message": "FATAL is used in a few places like https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/api/media_types.cc;l\u003d30?q\u003dmedia_types.cc -- should those be updated as well?",
+      "parentUuid": "32931ab4_e0d96996",
+      "revId": "93b64b95107f5051721026c70dd38b4592e533c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

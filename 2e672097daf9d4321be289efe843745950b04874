@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "deb6adec_b4aa2cd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-22T12:44:48Z",
+      "side": 1,
+      "message": "Do I need to write a PSA about the name change? \nI also bet this breaks downstream projects :-)",
+      "revId": "2e672097daf9d4321be289efe843745950b04874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

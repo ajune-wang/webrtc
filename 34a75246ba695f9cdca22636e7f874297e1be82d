@@ -123,6 +123,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09b9daf8_46f0e630",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-22T14:34:29Z",
+      "side": 1,
+      "message": "Update: Per and I had an offline discussion and benchmarked a number of alternatives (see https://webrtc-review.googlesource.com/c/src/+/189964/8/modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc for the benchmark code). We found that std::inner_product performs nearly as an unrolled version in which the fact that `kNumLpcCoefficients \u003d 5` is used.\n\nWe agreed on using std::inner_product because the benchmark result is similar and because unrolling makes the code harder to maintain.\n\n@Per: feel free to reopen this discussion.",
+      "parentUuid": "402dd051_551ef6eb",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff556f18_db1f26e0",
@@ -160,6 +184,30 @@
       "side": 1,
       "message": "Good point: no extra work is expected on this part, so I will remove the test in the next patchset.",
       "parentUuid": "ff556f18_db1f26e0",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 52
+      },
+      "revId": "34a75246ba695f9cdca22636e7f874297e1be82d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6be6107_8e765af6",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-22T14:34:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddecf0bb_7070a877",
       "range": {
         "startLine": 87,
         "startChar": 17,

@@ -60,7 +60,7 @@ constexpr char kVp8ForcePartitionResilience[] =
 // QP is obtained from VP8-bitstream for HW, so the QP corresponds to the
 // bitstream range of [0, 127] and not the user-level range of [0,63].
 constexpr int kLowVp8QpThreshold = 29;
-constexpr int kHighVp8QpThreshold = 95;
+constexpr int kHighVp8QpThreshold = 96;
 
 constexpr int kTokenPartitions = VP8_ONE_TOKENPARTITION;
 constexpr uint32_t kVp832ByteAlign = 32u;

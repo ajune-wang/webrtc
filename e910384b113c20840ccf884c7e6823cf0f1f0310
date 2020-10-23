@@ -16,6 +16,23 @@
       "message": "It looks like I don\u0027t have permission to CQ this, I\u0027m assuming because I\u0027m using my Google account.  If this looks good, can you CQ it?  Thanks!",
       "revId": "e910384b113c20840ccf884c7e6823cf0f1f0310",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f83b6c1_5d5de25e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13849
+      },
+      "writtenOn": "2020-10-23T22:19:28Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "e910384b113c20840ccf884c7e6823cf0f1f0310",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

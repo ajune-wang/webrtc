@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08dd3b88_6698b8cf",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-23T12:31:14Z",
+      "side": 1,
+      "message": "I think it is somewhat controversial in C++ to not override all overloads for the same name together. And it there\u0027s some potential for real trouble, because resolution of method names in C++ (or at least one of the steps; I don\u0027t recall all the details) looks at name only, not the complete method signature.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 50
+      },
+      "revId": "e13db28e2cf379366c6217c1839597a81c426f36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ea84ce_80dd055d",
+        "filename": "pc/sdp_state_provider.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-23T12:31:14Z",
+      "side": 1,
+      "message": "Prefer \"provides\", for consistency with naming,",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "e13db28e2cf379366c6217c1839597a81c426f36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "947b262f_3bcdc748",
+        "filename": "pc/sdp_state_provider.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-23T12:31:14Z",
+      "side": 1,
+      "message": "These two look a bit out of place. I take it you need them here to break the cyclic dependency? Could they be handled outside of this interface?\n\nIt looks like the transport controller isn\u0027t owned by the SdpOfferAnswerHandler but by the PeerConnection, so maybe we could have some kind of direct link to it from WebRtcSessionDescriptionFactory, without the detour via SdpOfferAnswerHandler?\n\nWhile IceRestartPending looks like state currently owned by SdpOfferAnswerHandler. Is it that a part of the negotiation? I don\u0027t know these things, but from the name, it doesn\u0027t sound sdp-related.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 76
+      },
+      "revId": "e13db28e2cf379366c6217c1839597a81c426f36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

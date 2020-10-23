@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0423ae84_535be1e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-23T10:52:50Z",
+      "side": 1,
+      "message": "Nice!\nlgtm!",
+      "revId": "84c0484002c5daa700d86a880105ece4ab4bf9d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57487cf5_176f9084",
+        "filename": "modules/audio_processing/agc2/rnn_vad/lp_residual.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-23T10:52:50Z",
+      "side": 1,
+      "message": "Nit: I would set kNumLpcCoefficients to be an int and loop over int instead.",
+      "range": {
+        "startLine": 127,
+        "startChar": 7,
+        "endLine": 127,
+        "endChar": 13
+      },
+      "revId": "84c0484002c5daa700d86a880105ece4ab4bf9d9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3762eed8_baf713d6",
+        "filename": "modules/video_coding/svc/scalability_structure_l2t2_key_shift.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-23T17:07:16Z",
+      "side": 1,
+      "message": "there is already switch.... I can insert extra if conditions in there.",
+      "parentUuid": "b5dc3cee_04ac087e",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 37
+      },
+      "revId": "87179a576baed2f47b3af1c99ab01ea57496245e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e895dfb6_5e3b13e4",
         "filename": "modules/video_coding/svc/scalability_structure_l2t2_key_shift.h",
         "patchSetId": 5
@@ -54,6 +78,30 @@
       "writtenOn": "2020-10-23T10:28:30Z",
       "side": 1,
       "message": "I don\u0027t feel too strongly about it, but why don\u0027t we do the |last_pattern_| and then update to |current_pattern| on the next call to NextFrameConfig when we know which DTs are active?\n\nIt works fine as it is, just not consistent with other implementations, which is fine.",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 28
+      },
+      "revId": "87179a576baed2f47b3af1c99ab01ea57496245e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9acfc141_504488a6",
+        "filename": "modules/video_coding/svc/scalability_structure_l2t2_key_shift.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2020-10-23T17:07:16Z",
+      "side": 1,
+      "message": "I did consider it, but... unlike other structures I felt I can\u0027t \"cheat\" by telling previous pattern is \"T0\" when previous pattern is \"Key frame\" since those two looks different (even if next pattern after it suppose to be the same)\n\nso overall I would need 4 last_patterns_ : kNone, kKey, kDelta0, kDelta1 which seems would be less neat.\n\nMay be will rethink this choice when adding shift structures with more layers.",
+      "parentUuid": "e895dfb6_5e3b13e4",
       "range": {
         "startLine": 58,
         "startChar": 15,

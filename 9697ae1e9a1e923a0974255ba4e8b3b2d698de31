@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59bd7a2f_981d4266",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-23T14:26:12Z",
+      "side": 1,
+      "message": "Hi Jan,\n\nI\u0027m sorry, but I still don\u0027t understand how this CL relates to the goals described in the CL description. 😞\n\nIIUC the goal is to use the XDG desktop media picker, rather than showing the Chrome (or other WebRTC embedder) one and then the XDG one?\n\nIf that is correct then why do we need to have a single XdgDesktopPortal instance, with requests identified by Id?  Can\u0027t we just have the DesktopMediaPicker instance returned by the DesktopMediaPickerFactory::CreatePicker() call own an XdgDesktopPortal instance?  CreatePicker() can construct the XdgDesktopPortal and \"start\" the request, and then stop the request when the DesktopMediaPicker goes out of scope?\n",
+      "revId": "9697ae1e9a1e923a0974255ba4e8b3b2d698de31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d441fab_02dd6557",

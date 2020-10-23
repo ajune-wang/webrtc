@@ -16,6 +16,24 @@
       "message": "Hi,\n\nthis is an improved version of https://webrtc-review.googlesource.com/c/src/+/187492 which was reverted. Changes are:\n1) The XdgDesktopPortal base is now a singleton and is not supposed to be stored on the browser side as before\n2) I made use of DesktopCapturer::GetSourceList() and DesktopCapturer::SelectSource() to let the browser select the same portal call to avoid additional portal dialog once user confirms the preview dialog on browser side\n\nThere is one thing I don\u0027t know how to solve. Given the XdgDesktopPortalBase is a singleton, it exists until the process where it was created is destroyed, but the destructor doesn\u0027t get called. I tried to use std::unique_ptr for this to make sure it gets destroyed when it goes out of scope, but it cannot be used this was and the compiler complains about missing exit-time and global destructors. Option is to destroy this object when there is no pending portal call and re-create it again with next capturer, but I\u0027m rather asking first before I implement it. Do you have any suggestion?",
       "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bee25e9_f5f94123",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-23T14:26:12Z",
+      "side": 1,
+      "message": "\u003e Hi,\n\u003e \n\u003e this is an improved version of https://webrtc-review.googlesource.com/c/src/+/187492 which was reverted. Changes are:\n\u003e 1) The XdgDesktopPortal base is now a singleton and is not supposed to be stored on the browser side as before\n\u003e 2) I made use of DesktopCapturer::GetSourceList() and DesktopCapturer::SelectSource() to let the browser select the same portal call to avoid additional portal dialog once user confirms the preview dialog on browser side\n\nReviewing the diff from Patch-set #1 to Patch-set #3 I don\u0027t see those changes, just some \"cancelable\" changes?\n\n\u003e There is one thing I don\u0027t know how to solve. Given the XdgDesktopPortalBase is a singleton, it exists until the process where it was created is destroyed, but the destructor doesn\u0027t get called. I tried to use std::unique_ptr for this to make sure it gets destroyed when it goes out of scope, but it cannot be used this was and the compiler complains about missing exit-time and global destructors. Option is to destroy this object when there is no pending portal call and re-create it again with next capturer, but I\u0027m rather asking first before I implement it. Do you have any suggestion?\n\nIn Chromium we generally allow singletons to leak, since there isn\u0027t any point doing teardown work when the process itself is about to exit. e.g. a common pattern in Chromium is:\n\n  Thing* GetThingInstance() {\n    static base::NoDestructor\u003cThing\u003e instance;\n    return instance.get();\n  }\n\nusing the NoDestructor\u003c\u003e template we have there.  I\u0027m not sure what the equivalent pattern would be in WebRTC though.",
+      "parentUuid": "335528b2_c784e46d",
+      "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

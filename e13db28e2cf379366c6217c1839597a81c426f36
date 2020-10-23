@@ -24,6 +24,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bc121c7_cfb749c3",
+        "filename": "pc/sdp_offer_answer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-23T13:33:25Z",
+      "side": 1,
+      "message": "Solved by not exposing the transport_controller. Two birds killed by one stone!",
+      "parentUuid": "08dd3b88_6698b8cf",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 50
+      },
+      "revId": "e13db28e2cf379366c6217c1839597a81c426f36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92ea84ce_80dd055d",
@@ -47,6 +71,30 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "244ac037_5cf85697",
+        "filename": "pc/sdp_state_provider.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-23T13:33:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92ea84ce_80dd055d",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "e13db28e2cf379366c6217c1839597a81c426f36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "947b262f_3bcdc748",
@@ -60,6 +108,30 @@
       "writtenOn": "2020-10-23T12:31:14Z",
       "side": 1,
       "message": "These two look a bit out of place. I take it you need them here to break the cyclic dependency? Could they be handled outside of this interface?\n\nIt looks like the transport controller isn\u0027t owned by the SdpOfferAnswerHandler but by the PeerConnection, so maybe we could have some kind of direct link to it from WebRtcSessionDescriptionFactory, without the detour via SdpOfferAnswerHandler?\n\nWhile IceRestartPending looks like state currently owned by SdpOfferAnswerHandler. Is it that a part of the negotiation? I don\u0027t know these things, but from the name, it doesn\u0027t sound sdp-related.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 76
+      },
+      "revId": "e13db28e2cf379366c6217c1839597a81c426f36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f19bf8b6_f36f8764",
+        "filename": "pc/sdp_state_provider.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-23T13:33:25Z",
+      "side": 1,
+      "message": "You can tell this is refactoring ... creating an offer/answer requires three pieces of information:\n\n- Presently negotiated descriptions\n- Whether any of the transports should indicate an ICE restart (this is different for offer\n  and for answer)\n- What the current DTLS role of the transport is\n\nIt seems less a violation of the Law of Demeter to expose the three pieces of info on the SdpStateProvider interface and leave the fact that two of them are fetched from the transport controller as an implementation detail of SdpOfferAnswer. Changing.",
+      "parentUuid": "947b262f_3bcdc748",
       "range": {
         "startLine": 44,
         "startChar": 0,

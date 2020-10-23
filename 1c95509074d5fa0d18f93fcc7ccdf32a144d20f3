@@ -34,6 +34,24 @@
       "parentUuid": "335528b2_c784e46d",
       "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9d9e35b_9db7b7a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-23T15:31:17Z",
+      "side": 1,
+      "message": "You will not see difference between the change you reviewed before and this one, because the one before was merged and reverted and I had to create a new one.\n\nWebRTC doesn\u0027t seem to have base::NoDestructor. Is there a similar alternative?",
+      "parentUuid": "2bee25e9_f5f94123",
+      "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

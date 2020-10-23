@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da170bdf_29b6cc7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-23T09:03:48Z",
+      "side": 1,
+      "message": "Hi,\n\nmay I friendly ask you to look into this? You shouldn\u0027t need to re-review 99% of the code as it hasn\u0027t change since this was merged two times already. I just changed the way we keep XdgDesktopPortalBase alive, which is explained in the comment above and I raised a question there to which I don\u0027t know the answer yet.",
+      "revId": "9697ae1e9a1e923a0974255ba4e8b3b2d698de31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

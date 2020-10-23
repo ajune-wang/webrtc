@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ada15d8_5d924f41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-23T10:49:09Z",
+      "side": 1,
+      "message": "nisse: since you pointed out in the previous CL that this dependency cycle was a Bad Thing, you get the honor to review its breaking :-)\n",
+      "revId": "560b0a7d662022ce3a9048091e350e08b0944a85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -56,6 +56,30 @@
       },
       "revId": "560b0a7d662022ce3a9048091e350e08b0944a85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0bbb9c1_67b1f229",
+        "filename": "pc/sdp_state_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-23T12:08:59Z",
+      "side": 1,
+      "message": "SdpStateProvider is fine. Changing.",
+      "parentUuid": "326de25e_da6a4c78",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "560b0a7d662022ce3a9048091e350e08b0944a85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

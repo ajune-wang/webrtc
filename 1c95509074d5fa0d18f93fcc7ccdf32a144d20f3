@@ -52,6 +52,24 @@
       "parentUuid": "2bee25e9_f5f94123",
       "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "314f0691_3be3ec97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5064
+      },
+      "writtenOn": "2020-10-23T15:35:38Z",
+      "side": 1,
+      "message": "Oh, if you\u0027re re-landing a patch-set with modifications you can upload the original patch, so that that is patch-set #1 in the new CL, and then upload the changes as later patch-sets, so that reviewers can just compare the later patches tp patch-set #1 to see what the new changes were.\n\n(Reading your updated CL description)\n\nOK, so we need to re-use the same XDG-desktop-portal connection between the picker and the capture, otherwise the capture will trigger the picker to be shown again, because that\u0027s how XDG does things. If we instead start the capture using the same XDG channel and request-Id then it knows not to show the picker again.",
+      "parentUuid": "2bee25e9_f5f94123",
+      "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "mfoltz: Can you provide some input on how Chromium would like to handle this in your desktop_capture code?\n\n",
       "revId": "a5685075bdea023492090bec83a6064b71b20b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2493b102_185a816f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-23T15:50:59Z",
+      "side": 1,
+      "message": "We actually had a long (very long) discussion about this with Mark, we went through many iterations, where the very first one was actually about skipping the Chromium dialog and that\u0027s why the change description didn\u0027t match. This should be the version approved by Mark as we were basically not allowed any UI changes on Chromium side and the only minor change we did was slight modification of the \"Window tab\" in the preview dialog to behave like \"Screen tab\".",
+      "parentUuid": "d99f0b89_24aebf78",
+      "revId": "a5685075bdea023492090bec83a6064b71b20b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

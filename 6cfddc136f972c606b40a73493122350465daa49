@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "702f12c4_8a086dbc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-23T10:25:40Z",
+      "side": 1,
+      "message": "Downstream tests are now fixed. Please lgtm again :)",
+      "revId": "6cfddc136f972c606b40a73493122350465daa49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,46 @@
       "message": "Hi,\n\nmay I friendly ask you to look into this? You shouldn\u0027t need to re-review 99% of the code as it hasn\u0027t change since this was merged two times already. I just changed the way we keep XdgDesktopPortalBase alive, which is explained in the comment above and I raised a question there to which I don\u0027t know the answer yet.",
       "revId": "9697ae1e9a1e923a0974255ba4e8b3b2d698de31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fedacf3_b52a071e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-23T09:40:34Z",
+      "side": 1,
+      "message": "From a build config point of view I have one comment (see below).\n\nI think the review should come from wez@ according to comments on: https://webrtc-review.googlesource.com/c/src/+/160649.",
+      "revId": "9697ae1e9a1e923a0974255ba4e8b3b2d698de31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d441fab_02dd6557",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-23T09:40:34Z",
+      "side": 1,
+      "message": "I forgot if we need a \"\u0026\u0026 !is_chromecast\" here (see https://webrtc-review.googlesource.com/c/src/+/187348), or if this new version of the CL takes that into account in another way.\n\nAside from that, from a build system point of view this seems fine since lines 79 and 148 are taking into account previous forward fixes.",
+      "range": {
+        "startLine": 544,
+        "startChar": 22,
+        "endLine": 544,
+        "endChar": 23
+      },
+      "revId": "9697ae1e9a1e923a0974255ba4e8b3b2d698de31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

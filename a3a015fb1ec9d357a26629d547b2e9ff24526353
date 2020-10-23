@@ -16,6 +16,23 @@
       "message": "Thanks for the review! Good comments!\nI have addressed your comments. The biggest changes are a config parameter and a kill-switch.",
       "revId": "a3a015fb1ec9d357a26629d547b2e9ff24526353",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac126dac_63dd1a8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2020-10-23T10:51:27Z",
+      "side": 1,
+      "message": "Thanks for the CL!\nlgtm",
+      "revId": "a3a015fb1ec9d357a26629d547b2e9ff24526353",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

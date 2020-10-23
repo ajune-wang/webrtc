@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bac680e1_1ac65afa",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-23T13:13:11Z",
+      "side": 1,
+      "message": "It seems a bit strange to me to have a unit of frames here, since the playout delay extension signals time in ms.\n\nIt would seem more natural with a max_render_delay_ms, or maybe even better with a timestamp with latest render time. Would be good to know how it interacts with the other frame timestamps, timestamp_us() and render_time_ms() below, I\u0027m not really familiar with how they are used on the receive side.\n\nMore abstractly, timestamps make sense as frame metadata, but a configured maximum delay isn\u0027t quite a per-frame property, is it?",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "fa0b877ad5098eee73767e01c92b4b984a926101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75b59c71_693ae509",
+        "filename": "modules/video_coding/generic_decoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-23T13:13:11Z",
+      "side": 1,
+      "message": "nit: Put the _ last on new member variables.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 75
+      },
+      "revId": "fa0b877ad5098eee73767e01c92b4b984a926101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

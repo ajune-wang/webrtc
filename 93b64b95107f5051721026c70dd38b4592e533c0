@@ -52,6 +52,24 @@
       "parentUuid": "9fa40da0_5485de7d",
       "revId": "93b64b95107f5051721026c70dd38b4592e533c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b65aadd4_4853fd71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-23T14:26:27Z",
+      "side": 1,
+      "message": "Fabien, please allow for some delay here while Mirko and I talk to some people about the new macro. We expect to have a decision early next week.",
+      "parentUuid": "8b8bc828_b5093ae1",
+      "revId": "93b64b95107f5051721026c70dd38b4592e533c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

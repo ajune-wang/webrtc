@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eb768f0_94b2bfa5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-23T08:25:28Z",
+      "side": 1,
+      "message": "Yes! Go Nisse!",
+      "revId": "6a9d75b23ec93407430c097fbb70dcf2418c5f41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

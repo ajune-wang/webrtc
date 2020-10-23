@@ -16,6 +16,46 @@
       "message": "nisse: since you pointed out in the previous CL that this dependency cycle was a Bad Thing, you get the honor to review its breaking :-)\n",
       "revId": "560b0a7d662022ce3a9048091e350e08b0944a85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72f3d409_4e386ca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-23T11:59:43Z",
+      "side": 1,
+      "message": "Code lgtm. Naming is tricky, as always.",
+      "revId": "560b0a7d662022ce3a9048091e350e08b0944a85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "326de25e_da6a4c78",
+        "filename": "pc/sdp_state_info.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-23T11:59:43Z",
+      "side": 1,
+      "message": "For consistency, either name the file _interface.h, or drop Interface from the class name.\n\nAlso, my associations for name with Info in it is a more concrete class/struct. So maybe SdpStateProvider is a better name?",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "560b0a7d662022ce3a9048091e350e08b0944a85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

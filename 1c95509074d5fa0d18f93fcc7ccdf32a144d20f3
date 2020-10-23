@@ -70,6 +70,24 @@
       "parentUuid": "2bee25e9_f5f94123",
       "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b81d9124_2f77fe0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8046
+      },
+      "writtenOn": "2020-10-23T15:53:00Z",
+      "side": 1,
+      "message": "Yes. that\u0027s the idea. It\u0027s not the picker on Chromium side which will be shown again, but the picker on xdg-desktop-portal side.",
+      "parentUuid": "314f0691_3be3ec97",
+      "revId": "1c95509074d5fa0d18f93fcc7ccdf32a144d20f3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

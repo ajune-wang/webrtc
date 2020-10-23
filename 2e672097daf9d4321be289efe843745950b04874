@@ -16,6 +16,23 @@
       "message": "Do I need to write a PSA about the name change? \nI also bet this breaks downstream projects :-)",
       "revId": "2e672097daf9d4321be289efe843745950b04874",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a7970cb_d5067040",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7755
+      },
+      "writtenOn": "2020-10-23T16:14:23Z",
+      "side": 1,
+      "message": "(this would be easier if Harald was a root owner :-))",
+      "revId": "2e672097daf9d4321be289efe843745950b04874",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

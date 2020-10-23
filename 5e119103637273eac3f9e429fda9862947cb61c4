@@ -418,6 +418,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a9613e53_a97cfdee",
+        "filename": "modules/video_coding/packet_buffer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-23T11:05:57Z",
+      "side": 1,
+      "message": "These changes brake H264 in a fundamental way, for example this test won\u0027t pass:\n\n  TEST_P(PacketBufferH264ParameterizedTest, IncompleteIDRFramesRestart) {\n    uint32_t timestamp \u003d 10000;\n    InsertH264(100, kKeyFrame, kFirst, kLast, timestamp);\n    InsertH264(101, kDeltaFrame, kFirst, kLast, timestamp+1);\n    // 102 is lost\n    auto result \u003d InsertH264(103, kKeyFrame, kFirst, kLast, timestamp+3);\n    EXPECT_THAT(result.packets, SizeIs(1));\n  }\n\nIf you are interested in just making sure WebRTC won\u0027t hand out incomplete frames you can use the non-standardized H264 fmtp parameter \"sps-pps-idr-in-keyframe\" to force the received to only consider a keyframe complete if it is directly preceded by an SPS and PPS NALU.",
+      "parentUuid": "252c9912_d2a214d9",
+      "range": {
+        "startLine": 335,
+        "startChar": 17,
+        "endLine": 335,
+        "endChar": 42
+      },
+      "revId": "5e119103637273eac3f9e429fda9862947cb61c4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e805f4d0_6589e921",
         "filename": "modules/video_coding/packet_buffer.cc",
         "patchSetId": 3

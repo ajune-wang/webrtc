@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d94a8885_4f10acc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-23T10:28:30Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "87179a576baed2f47b3af1c99ab01ea57496245e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5dc3cee_04ac087e",
+        "filename": "modules/video_coding/svc/scalability_structure_l2t2_key_shift.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-23T10:28:30Z",
+      "side": 1,
+      "message": "WDYT about, on line 82:\n\n  FramePattern current_pattern \u003d next_pattern_;\n\nAnd then here:\n\n  if (current_pattern \u003d\u003d kDelta1 \u0026\u0026 DecodeTargetIsActive(/*sid\u003d*/0, /*tid\u003d*/0)) {\n    ...\n  } else if (current_pattern \u003d\u003d kDelta0 \u0026\u0026 DecodeTargetIsActive(/*sid\u003d*/1, /*tid\u003d*/0)) {\n    ...\n  } else {\n    ...\n  }",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 37
+      },
+      "revId": "87179a576baed2f47b3af1c99ab01ea57496245e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e895dfb6_5e3b13e4",
+        "filename": "modules/video_coding/svc/scalability_structure_l2t2_key_shift.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2020-10-23T10:28:30Z",
+      "side": 1,
+      "message": "I don\u0027t feel too strongly about it, but why don\u0027t we do the |last_pattern_| and then update to |current_pattern| on the next call to NextFrameConfig when we know which DTs are active?\n\nIt works fine as it is, just not consistent with other implementations, which is fine.",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 28
+      },
+      "revId": "87179a576baed2f47b3af1c99ab01ea57496245e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86e9b8a3_74d3b976",
+        "filename": "modules/video_coding/timestamp_map.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2020-10-23T13:47:10Z",
+      "side": 1,
+      "message": "Please add a comment here, that the list never contains capacity_ elements, as in |VCMTimestampMap::Add| the oldest element is removed if we reach |next_add_idx_ \u003d\u003d next_pop_idx_| state.",
+      "range": {
+        "startLine": 65,
+        "startChar": 23,
+        "endLine": 65,
+        "endChar": 25
+      },
+      "revId": "1d90cb70cb4505a4b46a912c1b0434a01520e443",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

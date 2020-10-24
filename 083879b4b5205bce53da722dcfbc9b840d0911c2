@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bb3c8ca_b85b4b42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-24T11:40:17Z",
+      "side": 1,
+      "message": "I think Mirko landed the rename already, so this probably doesn\u0027t even build. Triggering bots to see if I\u0027m right...",
+      "revId": "083879b4b5205bce53da722dcfbc9b840d0911c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

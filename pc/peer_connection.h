@@ -118,11 +118,10 @@ class PeerConnection : public PeerConnectionInternal,
                        public JsepTransportController::Observer,
                        public sigslot::has_slots<> {
  public:
-  explicit PeerConnection(rtc::scoped_refptr<ConnectionContext> context,
-                          std::unique_ptr<RtcEventLog> event_log,
-                          std::unique_ptr<Call> call);
-
-  bool Initialize(
+  static rtc::scoped_refptr<PeerConnection> Create(
+      rtc::scoped_refptr<ConnectionContext> context,
+      std::unique_ptr<RtcEventLog> event_log,
+      std::unique_ptr<Call> call,
       const PeerConnectionInterface::RTCConfiguration& configuration,
       PeerConnectionDependencies dependencies);
 
@@ -396,7 +395,7 @@ class PeerConnection : public PeerConnectionInternal,
   // sufficient time has passed.
   bool IsUnifiedPlan() const {
     RTC_DCHECK_RUN_ON(signaling_thread());
-    return configuration_.sdp_semantics == SdpSemantics::kUnifiedPlan;
+    return is_unified_plan_;
   }
   bool ValidateBundleSettings(const cricket::SessionDescription* desc);
 
@@ -454,6 +453,18 @@ class PeerConnection : public PeerConnectionInternal,
   void RequestUsagePatternReportForTesting();
 
  protected:
+  // Available for rtc::scoped_refptr creation
+  explicit PeerConnection(rtc::scoped_refptr<ConnectionContext> context,
+                          bool is_unified_plan,
+                          std::unique_ptr<RtcEventLog> event_log,
+                          std::unique_ptr<Call> call);
+
+  // Available for tests that subclass PeerConnection and need to interpose
+  // actions between the constructor and the initialization
+  bool Initialize(
+      const PeerConnectionInterface::RTCConfiguration& configuration,
+      PeerConnectionDependencies dependencies);
+
   ~PeerConnection() override;
 
  private:
@@ -527,16 +538,6 @@ class PeerConnection : public PeerConnectionInternal,
   // This function should only be called from the worker thread.
   void StopRtcEventLog_w();
 
-  // Ensures the configuration doesn't have any parameters with invalid values,
-  // or values that conflict with other parameters.
-  //
-  // Returns RTCError::OK() if there are no issues.
-  RTCError ValidateConfiguration(const RTCConfiguration& config) const;
-
-  cricket::IceConfig ParseIceConfig(
-      const PeerConnectionInterface::RTCConfiguration& config) const;
-
-
   // Returns true and the TransportInfo of the given |content_name|
   // from |description|. Returns false if it's not available.
   static bool GetTransportDescription(
@@ -550,12 +551,6 @@ class PeerConnection : public PeerConnectionInternal,
   bool GetLocalCandidateMediaIndex(const std::string& content_name,
                                    int* sdp_mline_index)
       RTC_RUN_ON(signaling_thread());
-
-  bool HasRtcpMuxEnabled(const cricket::ContentInfo* content);
-
-  // Verifies a=setup attribute as per RFC 5763.
-  bool ValidateDtlsSetupAttribute(const cricket::SessionDescription* desc,
-                                  SdpType type);
 
   // JsepTransportController signal handlers.
   void OnTransportControllerConnectionState(cricket::IceConnectionState state)
@@ -608,15 +603,11 @@ class PeerConnection : public PeerConnectionInternal,
                      int64_t packet_time_us)>
   InitializeRtcpCallback();
 
-  // Storing the factory as a scoped reference pointer ensures that the memory
-  // in the PeerConnectionFactoryImpl remains available as long as the
-  // PeerConnection is running. It is passed to PeerConnection as a raw pointer.
-  // However, since the reference counting is done in the
-  // PeerConnectionFactoryInterface all instances created using the raw pointer
-  // will refer to the same reference count.
   const rtc::scoped_refptr<ConnectionContext> context_;
   PeerConnectionObserver* observer_ RTC_GUARDED_BY(signaling_thread()) =
       nullptr;
+
+  const bool is_unified_plan_;
 
   // The EventLog needs to outlive |call_| (and any other object that uses it).
   std::unique_ptr<RtcEventLog> event_log_ RTC_GUARDED_BY(worker_thread());

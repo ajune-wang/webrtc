@@ -20,6 +20,7 @@
 #include "logging/rtc_event_log/events/rtc_event_dtls_writable_state.h"
 #include "p2p/base/packet_transport_internal.h"
 #include "rtc_base/buffer.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/dscp.h"
 #include "rtc_base/logging.h"
@@ -358,8 +359,8 @@ bool DtlsTransport::SetupDtls() {
   dtls_->SetMaxProtocolVersion(ssl_max_version_);
   dtls_->SetServerRole(*dtls_role_);
   dtls_->SignalEvent.connect(this, &DtlsTransport::OnDtlsEvent);
-  dtls_->SignalSSLHandshakeError.connect(this,
-                                         &DtlsTransport::OnDtlsHandshakeError);
+  dtls_->SSLHandshakeErrorSignal.AddReceiver(
+      [this](rtc::SSLHandshakeError e) { OnDtlsHandshakeError(e); });
   if (remote_fingerprint_value_.size() &&
       !dtls_->SetPeerCertificateDigest(
           remote_fingerprint_algorithm_,
@@ -821,6 +822,7 @@ void DtlsTransport::set_dtls_state(DtlsTransportState state) {
 
 void DtlsTransport::OnDtlsHandshakeError(rtc::SSLHandshakeError error) {
   SignalDtlsHandshakeError(error);
+  DtlsHandshakeErrorSignal.Send(error);
 }
 
 void DtlsTransport::ConfigureHandshakeTimeout() {

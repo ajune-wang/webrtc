@@ -26,6 +26,7 @@
 #include <utility>
 #include <vector>
 
+#include "rtc_base/callback_list.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -931,6 +932,7 @@ int OpenSSLStreamAdapter::ContinueSSL() {
       RTC_DLOG(LS_VERBOSE) << " -- error " << code << ", " << err_code << ", "
                            << ERR_GET_REASON(err_code);
       SignalSSLHandshakeError(ssl_handshake_err);
+      SSLHandshakeErrorSignal.Send(ssl_handshake_err);
       return (ssl_error != 0) ? ssl_error : -1;
   }
 

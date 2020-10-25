@@ -22,6 +22,7 @@
 #include "api/scoped_refptr.h"
 #include "p2p/base/ice_transport_internal.h"
 #include "p2p/base/packet_transport_internal.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_fingerprint.h"
@@ -115,7 +116,9 @@ class DtlsTransportInternal : public rtc::PacketTransportInternal {
   sigslot::signal2<DtlsTransportInternal*, DtlsTransportState> SignalDtlsState;
 
   // Emitted whenever the Dtls handshake failed on some transport channel.
+  // TODO(bugs.webrtc.org/11943): Remove sigslot and use one variable.
   sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;
+  webrtc::CallbackList<rtc::SSLHandshakeError> DtlsHandshakeErrorSignal;
 
  protected:
   DtlsTransportInternal();

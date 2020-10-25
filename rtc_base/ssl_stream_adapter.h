@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "rtc_base/callback_list.h"
 #include "rtc_base/deprecation.h"
 #include "rtc_base/ssl_certificate.h"
 #include "rtc_base/ssl_identity.h"
@@ -268,7 +269,9 @@ class SSLStreamAdapter : public StreamAdapterInterface {
   // authentication.
   bool GetClientAuthEnabled() const { return client_auth_enabled_; }
 
+  // TODO(bugs.webrtc.org/11943): Remove sigslot and use one variable.
   sigslot::signal1<SSLHandshakeError> SignalSSLHandshakeError;
+  webrtc::CallbackList<SSLHandshakeError> SSLHandshakeErrorSignal;
 
  private:
   // If true (default), the client is required to provide a certificate during

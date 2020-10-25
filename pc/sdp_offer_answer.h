@@ -565,6 +565,8 @@ class SdpOfferAnswerHandler : public sigslot::has_slots<> {
   const cricket::VideoOptions& video_options() { return video_options_; }
 
   PeerConnection* const pc_;
+  // TODO(https://bugs.webrtc.org/12079): Make const once initialization permits
+  bool is_unified_plan_;
 
   std::unique_ptr<WebRtcSessionDescriptionFactory> webrtc_session_desc_factory_
       RTC_GUARDED_BY(signaling_thread());

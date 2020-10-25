@@ -952,6 +952,11 @@ void SdpOfferAnswerHandler::Initialize(
     const PeerConnectionInterface::RTCConfiguration& configuration,
     PeerConnectionDependencies* dependencies) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  // At this time, IsUnifiedPlan's value is known.
+  // TODO(https://bugs.webrtc.org/12079): Move to constructor when
+  // IsUnifiedPlan is known at that time.
+  is_unified_plan_ = pc_->IsUnifiedPlan();
+
   video_options_.screencast_min_bitrate_kbps =
       configuration.screencast_min_bitrate;
   audio_options_.combined_audio_video_bwe =
@@ -2735,7 +2740,8 @@ RTCError SdpOfferAnswerHandler::Rollback(SdpType desc_type) {
 }
 
 bool SdpOfferAnswerHandler::IsUnifiedPlan() const {
-  return pc_->IsUnifiedPlan();
+  RTC_DCHECK(pc_->IsUnifiedPlan() == is_unified_plan_);
+  return is_unified_plan_;
 }
 
 void SdpOfferAnswerHandler::OnOperationsChainEmpty() {

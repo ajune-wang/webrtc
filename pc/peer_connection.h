@@ -118,11 +118,10 @@ class PeerConnection : public PeerConnectionInternal,
                        public JsepTransportController::Observer,
                        public sigslot::has_slots<> {
  public:
-  explicit PeerConnection(rtc::scoped_refptr<ConnectionContext> context,
-                          std::unique_ptr<RtcEventLog> event_log,
-                          std::unique_ptr<Call> call);
-
-  bool Initialize(
+  static rtc::scoped_refptr<PeerConnection> Create(
+      rtc::scoped_refptr<ConnectionContext> context,
+      std::unique_ptr<RtcEventLog> event_log,
+      std::unique_ptr<Call> call,
       const PeerConnectionInterface::RTCConfiguration& configuration,
       PeerConnectionDependencies dependencies);
 
@@ -454,6 +453,17 @@ class PeerConnection : public PeerConnectionInternal,
   void RequestUsagePatternReportForTesting();
 
  protected:
+  // Available for rtc::scoped_refptr creation
+  explicit PeerConnection(rtc::scoped_refptr<ConnectionContext> context,
+                          std::unique_ptr<RtcEventLog> event_log,
+                          std::unique_ptr<Call> call);
+
+  // Available for tests that subclass PeerConnection and need to interpose
+  // actions between the constructor and the initialization
+  bool Initialize(
+      const PeerConnectionInterface::RTCConfiguration& configuration,
+      PeerConnectionDependencies dependencies);
+
   ~PeerConnection() override;
 
  private:

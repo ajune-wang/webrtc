@@ -263,6 +263,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     std::string turn_logging_id;
     bool enable_implicit_rollback;
     absl::optional<bool> allow_codec_switching;
+    absl::optional<int> report_usage_pattern_delay_ms;
   };
   static_assert(sizeof(stuff_being_tested_for_equality) == sizeof(*this),
                 "Did you add something to RTCConfiguration and forget to "
@@ -322,12 +323,28 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          offer_extmap_allow_mixed == o.offer_extmap_allow_mixed &&
          turn_logging_id == o.turn_logging_id &&
          enable_implicit_rollback == o.enable_implicit_rollback &&
-         allow_codec_switching == o.allow_codec_switching;
+         allow_codec_switching == o.allow_codec_switching &&
+         report_usage_pattern_delay_ms == o.report_usage_pattern_delay_ms;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
     const PeerConnectionInterface::RTCConfiguration& o) const {
   return !(*this == o);
+}
+
+rtc::scoped_refptr<PeerConnection> PeerConnection::Create(
+    rtc::scoped_refptr<ConnectionContext> context,
+    std::unique_ptr<RtcEventLog> event_log,
+    std::unique_ptr<Call> call,
+    const PeerConnectionInterface::RTCConfiguration& configuration,
+    PeerConnectionDependencies dependencies) {
+  rtc::scoped_refptr<PeerConnection> pc(
+      new rtc::RefCountedObject<PeerConnection>(context, std::move(event_log),
+                                                std::move(call)));
+  if (!pc->Initialize(configuration, std::move(dependencies))) {
+    return nullptr;
+  }
+  return pc;
 }
 
 PeerConnection::PeerConnection(rtc::scoped_refptr<ConnectionContext> context,
@@ -571,11 +588,11 @@ bool PeerConnection::Initialize(
         RtpTransceiverProxyWithInternal<RtpTransceiver>::Create(
             signaling_thread(), new RtpTransceiver(cricket::MEDIA_TYPE_VIDEO)));
   }
-  int delay_ms =
-      return_histogram_very_quickly_ ? 0 : REPORT_USAGE_PATTERN_DELAY_MS;
-
   sdp_handler_.Initialize(configuration, &dependencies);
 
+  int delay_ms = !!configuration.report_usage_pattern_delay_ms
+                     ? *configuration.report_usage_pattern_delay_ms
+                     : REPORT_USAGE_PATTERN_DELAY_MS;
   message_handler_.RequestUsagePatternReport(
       [this]() {
         RTC_DCHECK_RUN_ON(signaling_thread());

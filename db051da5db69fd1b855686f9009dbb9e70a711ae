@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59af892b_7615b766",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-25T21:14:18Z",
+      "side": 1,
+      "message": "This seems like it makes code easier to figure out.\n",
+      "revId": "db051da5db69fd1b855686f9009dbb9e70a711ae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

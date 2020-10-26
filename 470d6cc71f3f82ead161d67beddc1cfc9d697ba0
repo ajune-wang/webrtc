@@ -87,6 +87,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed1b91b_a8d65f87",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T14:27:38Z",
+      "side": 1,
+      "message": "This is a very recent and very large style guide change, so I expect it upsets many reviewers\u0027 gut feelings.",
+      "parentUuid": "c8289529_17737db0",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6407b008_6f170993",
@@ -118,6 +136,24 @@
       "side": 1,
       "message": "Seems to work for std::unique_ptr\u003cX\u003e - it was the case of X* where placing the const first didn\u0027t do what was expected of it. Will move.",
       "parentUuid": "6407b008_6f170993",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37c27619_8c5c3f3d",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2020-10-26T14:27:38Z",
+      "side": 1,
+      "message": "Yes, to make an immutable raw pointer you must say `int* const foo;`. But `const std::unique_ptr\u003cint\u003e foo;` works just fine.",
+      "parentUuid": "c31798ac_48485b50",
       "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

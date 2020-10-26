@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6327f490_abf2044f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T12:55:25Z",
+      "side": 1,
+      "message": "Yours for const-declaring all the constant variables.\n(some of the others are modified in the destructor, so can\u0027t be const)\n",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

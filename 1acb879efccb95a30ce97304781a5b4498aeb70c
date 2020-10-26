@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49f8ab0f_ca0d2558",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 13719
+      },
+      "writtenOn": "2020-10-26T11:53:51Z",
+      "side": 1,
+      "message": "Left this from this CL and handle it in a separate smaller CL as hta@ recommended.",
+      "revId": "1acb879efccb95a30ce97304781a5b4498aeb70c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "message": "Left this from this CL and handle it in a separate smaller CL as hta@ recommended.",
       "revId": "1acb879efccb95a30ce97304781a5b4498aeb70c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9ecb01b_7917ce64",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-26T13:18:43Z",
+      "side": 1,
+      "message": "Did you talked about the threading issues? If yes, let\u0027s add a comment as well on this CL so we know why this is not migrated.\n\nLet\u0027s wait for the design review but I think it is good to handle this in parallel on another CL and avoid to wait too much because we want to decommission SigSlot to avoid to have 2 things to maintain in this class.",
+      "parentUuid": "49f8ab0f_ca0d2558",
+      "revId": "1acb879efccb95a30ce97304781a5b4498aeb70c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

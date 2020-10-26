@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d58b36f5_4453f47b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-26T16:30:33Z",
+      "side": 1,
+      "message": "Hi, is this a reasonable way to get stats for ssltcp usage?\n\nIdeally, I\u0027d like to also have stats for usage in local description (if that makes sense at all?), as well as stats for actual usage on the network of these candidates, i.e., somewhere on the code paths reaching the class AsyncSSLSocket, https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/rtc_base/socket_adapters.h;l\u003d68",
+      "revId": "18148ce89aeb10dc5625426e20c277a2d3ad6460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

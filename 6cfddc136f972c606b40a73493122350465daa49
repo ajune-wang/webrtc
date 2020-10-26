@@ -16,6 +16,23 @@
       "message": "Downstream tests are now fixed. Please lgtm again :)",
       "revId": "6cfddc136f972c606b40a73493122350465daa49",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34b1c32b_e99a0f04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-26T10:04:59Z",
+      "side": 1,
+      "message": "Friendly ping stefan@ :)",
+      "revId": "6cfddc136f972c606b40a73493122350465daa49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

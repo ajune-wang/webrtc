@@ -33,6 +33,41 @@
       "message": "Can we measure the improvement for this? Do we have a benchmark for AGC2 so that we can compare the changes?\n\nNot sure how much we will save by manually unrolling the loop, maximum 12 multiplications? How often is this function called?",
       "revId": "0fcb67c3f7a9ba575e678f97bbf4e513a2b1e129",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84db9a11_9efa0599",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-26T08:59:31Z",
+      "side": 1,
+      "message": "\u003e Can we measure the improvement for this? Do we have a benchmark for AGC2 so that we can compare the changes?\n\nMeasuring the isolated improvement is doable, but for such a small change I wouldn\u0027t bother writing a benchmark for that specific function (namely, `DenoiseAutoCorrelation()`).\n\nWe also have a benchmark for AGC2, but it\u0027s hard to obtain a measurable difference by looking at the whole cost of AGC2 (the advantage is below the noise in the measurement).\n\nMy view is that the unrolled version is clearly simpler, hence it\u0027s the right thing to do. The comment I added clarifies how the constants have been computed, so the unrolled version is not less readable than the current one.\n\nNote that this change is part of a sequence of small changes. By analyzing all of them, I could measure an AGC2 improvement of its real time factor (about +20x). \n\n\u003e \n\u003e Not sure how much we will save by manually unrolling the loop, maximum 12 multiplications? How often is this function called?\n\nIt\u0027s called once every 10 ms.",
+      "parentUuid": "242b6a20_442befe9",
+      "revId": "0fcb67c3f7a9ba575e678f97bbf4e513a2b1e129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32fbdb3a_32e2bd42",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2020-10-26T08:59:31Z",
+      "side": 1,
+      "message": "Thanks for your questions Jakob!\nFeel free to reopen if there\u0027s more to discuss.",
+      "revId": "0fcb67c3f7a9ba575e678f97bbf4e513a2b1e129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

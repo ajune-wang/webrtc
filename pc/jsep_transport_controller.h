@@ -200,28 +200,27 @@ class JsepTransportController : public sigslot::has_slots<> {
   // Else => connecting
   CallbackList<cricket::IceConnectionState> SignalIceConnectionState;
 
-  sigslot::signal1<PeerConnectionInterface::PeerConnectionState>
+  CallbackList<PeerConnectionInterface::PeerConnectionState>
       SignalConnectionState;
 
-  sigslot::signal1<PeerConnectionInterface::IceConnectionState>
+  CallbackList<PeerConnectionInterface::IceConnectionState>
       SignalStandardizedIceConnectionState;
 
   // If all transports done gathering => complete,
   // Else if any are gathering => gathering,
   // Else => new
-  sigslot::signal1<cricket::IceGatheringState> SignalIceGatheringState;
+  CallbackList<cricket::IceGatheringState> SignalIceGatheringState;
 
-  // (mid, candidates)
-  sigslot::signal2<const std::string&, const std::vector<cricket::Candidate>&>
+  // [mid, candidates]
+  CallbackList<const std::string&, const std::vector<cricket::Candidate>&>
       SignalIceCandidatesGathered;
 
-  sigslot::signal1<const cricket::IceCandidateErrorEvent&>
-      SignalIceCandidateError;
+  CallbackList<const cricket::IceCandidateErrorEvent&> SignalIceCandidateError;
 
-  sigslot::signal1<const std::vector<cricket::Candidate>&>
+  CallbackList<const std::vector<cricket::Candidate>&>
       SignalIceCandidatesRemoved;
 
-  sigslot::signal1<const cricket::CandidatePairChangeEvent&>
+  CallbackList<const cricket::CandidatePairChangeEvent&>
       SignalIceCandidatePairChanged;
 
   sigslot::signal1<rtc::SSLHandshakeError> SignalDtlsHandshakeError;

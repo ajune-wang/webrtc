@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "742effc0_e479df97",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-26T13:14:48Z",
+      "side": 1,
+      "message": "\u003e \u003e To postpone decision making, maybe it would be even better to attach the number of decodable frames in the decode buffer?\n\u003e \n\u003e Yes, that\u0027s also an option but it would require a hard decision on the threshold to use before dropping frames. If we find a good configuration that always \"work\" that\u0027s worth considering. \n\nTo me it seems like the logic will be divided into two places: Webrtc, translating size of pre-decode buffer to max_composition_delay_in_frames, and chrome rendering that uses this value together with it\u0027s size of the post-decode buffering and some threshold values to control frame drop logic.\n\nWouldn\u0027t it be easier to tune and experiment with all the logic in one place?\n\n\u003e There\u0027s an implicit dropping of frames for max playout delay \u003d 0 as described above.\n\nI\u0027m afraid I don\u0027t get the details here. In this case, are all frames still passed on to the application, but the application drops them? Or are they discarded somewhere in webrtc?",
+      "parentUuid": "ade659b4_5a61b246",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "fa0b877ad5098eee73767e01c92b4b984a926101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b59c71_693ae509",
         "filename": "modules/video_coding/generic_decoder.h",
         "patchSetId": 3

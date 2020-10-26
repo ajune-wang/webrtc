@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d05a02e7_c4d0e94c",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-26T14:23:06Z",
+      "side": 1,
+      "message": "\u003e An alternative would be to add 2 fields to VideoFrame: |max_playout_delay| and |number_of_frames_in_predecode_buffer|. I open for this as well, but was thinking that |max_composition_delay| fits better into VideoFrame than |number_of_frames_in_predecode_buffer|.\n\u003e WDYT?\n\nI guess |number_of_frames_in_predecode_buffer| is good enough to get started with experiments.\n\nFor alternatives, it would make some sense to me to provide |max_playout_delay| to the application via some other path, populate render_time_ms / timestamp_us with something that\u0027s useful for render scheduling, and add a flag to VideoFrame to say that the decode buffer is empty, or in other words, that at the moment, no later decodable frame has been received. Which means that the frame is a poor candidate for the frame dropping logic. Which all sounds like some non-obvious design work.\n\n\u003e The frames are dropped by the application. At the moment, frames are dropped randomly based on when they are submitted to the compositor in relation to the rendering intervals which are unknown to WebRTC.\n\nOk, I have to guess a little. So assume the application uses 33 ms render interval (30 fps), then at time t \u003d 33*n ms, it renders the most recently received frame from webrtc (which might be the same as the previous one, if no new one has been seen).\n\nI can understand that gives a crappy result in case frames are arriving at 30 fps on average, but with some inevitable jitter. A buffer of just one or two frames before the renderer could help a lot.",
+      "parentUuid": "14fdbfc4_c0accb3b",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "fa0b877ad5098eee73767e01c92b4b984a926101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b59c71_693ae509",
         "filename": "modules/video_coding/generic_decoder.h",
         "patchSetId": 3

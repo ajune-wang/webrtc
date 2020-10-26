@@ -59,7 +59,11 @@ enum class UsageEvent : int {
   // pair where the prflx candidate has the same base as a host candidate of
   // the remote peer.
   DIRECT_CONNECTION_SELECTED = 0x40000,
-  MAX_VALUE = 0x80000,
+  // A remote candidate using the deprecated SSLTCP protocol is added, either
+  // via AddIceCandidate or from the remote description.
+  REMOTE_SSLTCP_CANDIDATE_ADDED = 0x80000,
+
+  MAX_VALUE = 0x100000,
 };
 
 class UsagePattern {

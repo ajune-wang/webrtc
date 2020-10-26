@@ -57,6 +57,7 @@
 #include "rtc_base/helpers.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/net_helpers.h"
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/socket_address.h"
@@ -4533,6 +4534,9 @@ void SdpOfferAnswerHandler::ReportRemoteIceCandidateAdded(
   }
   if (candidate.address().family() == AF_INET6) {
     pc_->NoteUsageEvent(UsageEvent::REMOTE_IPV6_CANDIDATE_ADDED);
+  }
+  if (candidate.protocol() == cricket::SSLTCP_PROTOCOL_NAME) {
+    pc_->NoteUsageEvent(UsageEvent::REMOTE_SSLTCP_CANDIDATE_ADDED);
   }
 }
 

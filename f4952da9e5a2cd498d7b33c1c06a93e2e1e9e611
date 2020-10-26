@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "81fc808c_f5633cdc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T08:56:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fef5280_6a4a3757",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "f4952da9e5a2cd498d7b33c1c06a93e2e1e9e611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b0b48688_cc8dfe88",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -71,6 +95,30 @@
       "writtenOn": "2020-10-26T08:20:06Z",
       "side": 1,
       "message": "Looks unrelated?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 18
+      },
+      "revId": "f4952da9e5a2cd498d7b33c1c06a93e2e1e9e611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89e96c33_5c77c426",
+        "filename": "pc/sdp_offer_answer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T08:56:05Z",
+      "side": 1,
+      "message": "I have stopped worrying about includes and just run IWYU.\nIn this case it claims I need it for \"move\".",
+      "parentUuid": "deb026c8_8e33aadd",
       "range": {
         "startLine": 18,
         "startChar": 0,

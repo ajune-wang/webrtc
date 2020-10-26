@@ -35,6 +35,23 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a695b0df_ea03140f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T14:18:14Z",
+      "side": 1,
+      "message": "Thanks!\nFixed.\n",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a399314f_28b93231",
@@ -52,6 +69,24 @@
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8289529_17737db0",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T14:18:14Z",
+      "side": 1,
+      "message": "We had this discussion when I created ConnectionContext, and the reviewers at that juncture preferred a pointer to a mutable reference.\n\nhttps://webrtc-review.googlesource.com/c/src/+/188120\n\nBut the style guide seems to be clearly in favor of references. So I\u0027ll switch.",
+      "parentUuid": "a399314f_28b93231",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6407b008_6f170993",
@@ -65,6 +100,24 @@
       "writtenOn": "2020-10-26T13:55:25Z",
       "side": 1,
       "message": "Note: You have the option of putting the `const` first instead; this is more common in this codebase, and occurs at least once in this class (on line 611).",
+      "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c31798ac_48485b50",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2020-10-26T14:18:14Z",
+      "side": 1,
+      "message": "Seems to work for std::unique_ptr\u003cX\u003e - it was the case of X* where placing the const first didn\u0027t do what was expected of it. Will move.",
+      "parentUuid": "6407b008_6f170993",
       "revId": "470d6cc71f3f82ead161d67beddc1cfc9d697ba0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }

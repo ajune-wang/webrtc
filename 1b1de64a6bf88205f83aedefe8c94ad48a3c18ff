@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adf2c343_e342a0d0",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2020-10-26T08:29:32Z",
+      "side": 1,
+      "message": "Lahiru is trying to repro now, but I think this was the problem.\n\nLooks like Chromium or the failing blink_tests were not calling this on the correct thread.",
+      "range": {
+        "startLine": 571,
+        "startChar": 8,
+        "endLine": 571,
+        "endChar": 46
+      },
+      "revId": "1b1de64a6bf88205f83aedefe8c94ad48a3c18ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    }
+  ]
+}

@@ -68,6 +68,24 @@
       "message": "Thanks for your questions Jakob!\nFeel free to reopen if there\u0027s more to discuss.",
       "revId": "0fcb67c3f7a9ba575e678f97bbf4e513a2b1e129",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78bca325_7d001b58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2020-10-26T09:07:01Z",
+      "side": 1,
+      "message": "Cool, thanks! Great that we are able to measure the improvements in total, I agree that the readability impact is not very high :)",
+      "parentUuid": "84db9a11_9efa0599",
+      "revId": "0fcb67c3f7a9ba575e678f97bbf4e513a2b1e129",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
     }
   ]
 }

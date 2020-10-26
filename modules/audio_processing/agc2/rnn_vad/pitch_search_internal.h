@@ -14,6 +14,7 @@
 #include <stddef.h>
 
 #include <array>
+#include <utility>
 
 #include "api/array_view.h"
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
@@ -52,17 +53,16 @@ void ComputeSlidingFrameSquareEnergies(
 // Given the auto-correlation coefficients stored according to
 // ComputePitchAutoCorrelation() (i.e., using inverted lags), returns the best
 // and the second best pitch periods.
-std::array<size_t, 2> FindBestPitchPeriods(
-    rtc::ArrayView<const float> auto_corr,
-    rtc::ArrayView<const float> pitch_buf,
-    size_t max_pitch_period);
+std::pair<int, int> FindBestPitchPeriods(rtc::ArrayView<const float> auto_corr,
+                                         rtc::ArrayView<const float> pitch_buf,
+                                         int max_pitch_period);
 
 // Refines the pitch period estimation given the pitch buffer |pitch_buf| and
 // the initial pitch period estimation |inv_lags|. Returns an inverted lag at
 // 48 kHz.
-size_t RefinePitchPeriod48kHz(
-    rtc::ArrayView<const float, kBufSize24kHz> pitch_buf,
-    rtc::ArrayView<const size_t, 2> inv_lags);
+int RefinePitchPeriod48kHz(rtc::ArrayView<const float, kBufSize24kHz> pitch_buf,
+                           int best_inv_lag,
+                           int second_best_inv_lag);
 
 // Refines the pitch period estimation and compute the pitch gain. Returns the
 // refined pitch estimation data at 48 kHz.

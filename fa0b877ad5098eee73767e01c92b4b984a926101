@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f1bf6b7_df4ca5f6",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-10-26T12:12:13Z",
+      "side": 1,
+      "message": "\u003e What we\u0027re trying to achieve is to postpone the decision of dropping a frame or not to as late as possible.\n\nI\u0027m a bit puzzled why there\u0027s any need to buffer frames both before and after decoder, but I guess one reason is that the pre-decode buffer can\u0027t drop any frames (except in special cases like next frame being a key frame).\n\n\u003e I\u0027ll investigate what the consequences would be of refactoring to a |max_render_delay_ms|, for now I would like to keep counting number of frames to enable wider experimentation with this strategy which has shown positive results in local experiments.\n\nThe reason I asked is that (1) ms is a better defined unit, and (2) it would be nice if the relation to render_time_ms was clear (I don\u0027t know if and how the latter is used).\n\n\u003e I agree that it\u0027s not a per-frame property in a conventional way. However, it\u0027s a per-frame property in the sense that it provides information about how relevant this frame is in a low-latency context. If there are several frames in the decode queue, we would set |max_composition_delay_in_frames| to a lower number and indicate to the compositor that this frame might be dropped because there are several newer frames coming soon.\n\nTo postpone decision making, maybe it would be even better to attach the number of decodable frames in the decode buffer? \n\nAnother question: Is there any logic in elsewhere in webrtc to discard frames after decoding? I take it frame dropping with max_delay \u003d 0 happens somewhere in webrtc?",
+      "parentUuid": "fb380a07_ddce56d3",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 0
+      },
+      "revId": "fa0b877ad5098eee73767e01c92b4b984a926101",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "75b59c71_693ae509",
         "filename": "modules/video_coding/generic_decoder.h",
         "patchSetId": 3
